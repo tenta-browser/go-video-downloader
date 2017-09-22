@@ -40,17 +40,7 @@ if err != nil {
 Supported sites
 ===============
 
- * Bild: [www.bild.de](http://www.bild.de/video/clip/apple-ipad-air/das-koennen-die-neuen-ipads-38184146.bild.html)
- * Criterion: [www.criterion.com](http://www.criterion.com/films/184-le-samourai)
- * EchoMsk: [www.echo.msk.ru](http://www.echo.msk.ru/sounds/1464134.html)
- * FiveTV: [5-tv.ru](http://5-tv.ru/news/96814/)
- * Hark: [www.hark.com](http://www.hark.com/clips/mmbzyhkgny-obama-beyond-the-afghan-theater-we-only-target-al-qaeda-on-may-23-2013)
- * HentaiStigma: [hentai.animestigma.com](http://hentai.animestigma.com/inyouchuu-etsu-bonus/)
- * Keek: [www.keek.com](https://www.keek.com/keek/NODfbab)
- * Morningstar: [www.morningstar.com](http://www.morningstar.com/cover/videocenter.aspx?id=615869)
- * Slutload: [www.slutload.com](http://www.slutload.com/video/virginie-baisee-en-cam/TD73btpBqSxc/)
- * WDRMobile: [mobile-ondemand.wdr.de](http://mobile-ondemand.wdr.de/CMS2010/mdb/ondemand/weltweit/fsk0/42/421735/421735_4283021.mp4)
- * XNXX: [www.xnxx.com](http://www.xnxx.com/video-55awb78/skyrim_test_video)
+[List of supported sites](SUPPORTEDSITES.md)
 
 License
 =======

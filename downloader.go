@@ -55,6 +55,7 @@ type VideoData struct {
 	URL      string
 	Title    string
 	Filename string
+	AgeLimit int
 }
 
 // Check verifies if url contains a downloadable video; returns nil if not
@@ -103,5 +104,6 @@ func Extract(checkResult *CheckResult, connector *Connector) (*VideoData, error)
 		URL:      res.URL,
 		Title:    res.Title,
 		Filename: res.Filename,
+		AgeLimit: res.AgeLimit,
 	}, nil
 }

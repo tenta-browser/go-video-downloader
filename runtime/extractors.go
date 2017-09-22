@@ -38,6 +38,7 @@ type VideoResult struct {
 	URL      string
 	Title    string
 	Filename string
+	AgeLimit int
 }
 
 // Context represents extraction context data
@@ -108,14 +109,34 @@ func RunExtractor(url string, extrFunc func(string) map[string]interface{}) (res
 		}
 	}
 
+	getInt := func(field string, required bool, def int) int {
+		if val, ok := resDict[field]; ok {
+			switch ival := val.(type) {
+			case int:
+				return ival
+			case OptInt:
+				return ival.Get()
+			default:
+				panic(newExtractorError(fmt.Sprintf("Non-int %v found in the result dict", field)))
+			}
+		} else {
+			if required {
+				panic(newExtractorError(fmt.Sprintf("No %v found in the result dict", field)))
+			} else {
+				return def
+			}
+		}
+	}
+
 	resType := getStr("_type", false, "video")
 	resTypeVideo := resType == "video"
 
 	res = &VideoResult{
-		Type:  resType,
-		ID:    getStr("id", resTypeVideo, ""),
-		URL:   getStr("url", resTypeVideo, ""),
-		Title: getStr("title", resTypeVideo, ""),
+		Type:     resType,
+		ID:       getStr("id", resTypeVideo, ""),
+		URL:      getStr("url", resTypeVideo, ""),
+		Title:    getStr("title", resTypeVideo, ""),
+		AgeLimit: getInt("age_limit", false, 0),
 	}
 
 	var ext string
