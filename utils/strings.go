@@ -1,6 +1,28 @@
+/**
+ * Go Video Downloader
+ *
+ *    Copyright 2017 Tenta, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For any questions, please contact developer@tenta.io
+ *
+ * strings.go: String/text handling utilities
+ */
+
 package utils
 
-// IndexRune returns the index of the first appearence of r in s.
+// IndexRune returns the index of the first appearance of r in s.
 func IndexRune(s string, r rune) int {
 	sr := ([]rune)(s)
 	l := len(sr)
@@ -12,7 +34,7 @@ func IndexRune(s string, r rune) int {
 	return -1
 }
 
-// LastIndexRune returns the index of the last appearence of r in s.
+// LastIndexRune returns the index of the last appearance of r in s.
 func LastIndexRune(s string, r rune) int {
 	sr := ([]rune)(s)
 	l := len(sr)
@@ -24,13 +46,13 @@ func LastIndexRune(s string, r rune) int {
 	return -1
 }
 
-// Ellipsize shortens s to maxl length including ellipsis as a prefix.
-func Ellipsize(s string, maxl int, ellipsis string) string {
+// Ellipsize shortens s to maxlen length including ellipsis as a prefix.
+func Ellipsize(s string, maxlen int, ellipsis string) string {
 	l, el := len(s), len(ellipsis)
-	if l <= maxl {
+	if l <= maxlen {
 		return s
 	}
-	return s[:(maxl-el)] + ellipsis
+	return s[:(maxlen-el)] + ellipsis
 }
 
 // Reverse reverses runewise a string.

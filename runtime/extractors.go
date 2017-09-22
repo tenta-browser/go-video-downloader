@@ -1,3 +1,26 @@
+/**
+ * Go Video Downloader
+ *
+ *    Copyright 2017 Tenta, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For any questions, please contact developer@tenta.io
+ *
+ * extractors.go: Structures and interfaces defining extractors,
+ *                capable of extracting video data from a specific domain
+ */
+
 package runtime
 
 import (
@@ -49,10 +72,10 @@ func newExtractorError(errorMsg string) error {
 }
 
 // RunExtractor runs an extractor, handles errors, gathers/normalizes results
-func RunExtractor(url string, extrfunc func(string) map[string]interface{}) (res *VideoResult, err error) {
+func RunExtractor(url string, extrFunc func(string) map[string]interface{}) (res *VideoResult, err error) {
 	defer func() {
 		// TODO this is a quick-n-dirty exception-like error handling
-		// Maybe in the faaar future transpile functions to return error codes
+		// Maybe in the far future transpile functions to return error codes
 		if r := recover(); r != nil {
 			if e, ok := r.(*extractorError); ok {
 				// if it's a extractor error 'catch' it and return it
@@ -63,7 +86,7 @@ func RunExtractor(url string, extrfunc func(string) map[string]interface{}) (res
 		}
 	}()
 
-	resDict := extrfunc(url)
+	resDict := extrFunc(url)
 	utils.Log("Result dict: %+v", resDict)
 
 	getStr := func(field string, required bool, def string) string {
