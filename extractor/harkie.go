@@ -68,6 +68,7 @@ func (self *HarkIE) _real_extract(url string) map[string]interface{} {
 		`thumbnail`:   rnt.DictGet(data, `image_original`, nil),
 		`duration`:    rnt.DictGet(data, `duration`, nil)}
 }
+
 func (self *HarkIE) Extract(url string) (*rnt.VideoResult, error) {
 	return rnt.RunExtractor(url, self._real_extract)
 }

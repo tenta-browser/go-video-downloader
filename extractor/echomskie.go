@@ -74,6 +74,7 @@ func (self *EchoMskIE) _real_extract(url string) map[string]interface{} {
 		`url`:   audio_url,
 		`title`: title}
 }
+
 func (self *EchoMskIE) Extract(url string) (*rnt.VideoResult, error) {
 	return rnt.RunExtractor(url, self._real_extract)
 }

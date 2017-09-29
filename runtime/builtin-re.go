@@ -193,3 +193,16 @@ func ReMatchGroupMulti(matcher matcher.Matcher, groups []interface{}) []OptStrin
 	}
 	return values
 }
+
+// ReMatchGroups implements python/match.groups
+func ReMatchGroups(matcher matcher.Matcher, def OptString) []OptString {
+	groups := make([]OptString, matcher.Groups())
+	for idx := 1; idx <= len(groups); idx++ {
+		if matcher.GroupPresentByIdx(idx) {
+			groups[idx-1] = AsOptString(matcher.GroupByIdx(idx))
+		} else {
+			groups[idx-1] = def
+		}
+	}
+	return groups
+}

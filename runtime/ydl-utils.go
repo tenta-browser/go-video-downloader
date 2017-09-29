@@ -26,6 +26,7 @@ package runtime
 import (
 	"fmt"
 	htmlLib "html"
+	urlLib "net/url"
 	"strconv"
 	"strings"
 	"unicode"
@@ -221,7 +222,7 @@ func IntOrNone(val interface{}, scale int, def OptInt, invScale int) OptInt {
 	case float64:
 		return AsOptInt(int(v) * invScale / scale)
 	case string:
-		if iv, err := strconv.Atoi(v); err != nil {
+		if iv, err := strconv.Atoi(v); err == nil {
 			return AsOptInt(iv * invScale / scale)
 		}
 		return def
@@ -250,4 +251,48 @@ func UtilDictGet(dict map[string]interface{}, key interface{}, def interface{}, 
 		return val
 	}
 	return def
+}
+
+// UnifiedStrDate implements utils.py/unified_strdate
+func UnifiedStrDate(dateStr OptString, dayFirst bool) OptString {
+	// TODO implement me
+	return OptString{}
+}
+
+// ParseDuration implements utils.py/parse_duration
+func ParseDuration(s OptString) OptString {
+	// TODO implement me
+	return OptString{}
+}
+
+// DetermineProtocol implements utils.py/determine_protocol
+func DetermineProtocol(infoDict map[string]interface{}) string {
+	if protocol := GetStringField(infoDict, "protocol", false, ""); protocol != "" {
+		return protocol
+	}
+
+	url := GetStringField(infoDict, "url", true, "")
+
+	if strings.HasPrefix(url, "rtmp") {
+		return "rtmp"
+	} else if strings.HasPrefix(url, "mms") {
+		return "mms"
+	} else if strings.HasPrefix(url, "rtsp") {
+		return "rtsp"
+	}
+
+	ext := DetermineExt(AsOptString(url), "unknown_video")
+
+	if ext == "m3u8" {
+		return "m3u8"
+	} else if ext == "f4m" {
+		return "f4m"
+	}
+
+	purl, err := urlLib.Parse(url)
+	if err != nil {
+		panic(newExtractorError("Invalid URL: " + url))
+	}
+
+	return purl.Scheme
 }

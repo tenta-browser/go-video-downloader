@@ -72,6 +72,7 @@ func (self *XNXXIE) _real_extract(url string) map[string]interface{} {
 		`thumbnail`: video_thumbnail,
 		`age_limit`: 18}
 }
+
 func (self *XNXXIE) Extract(url string) (*rnt.VideoResult, error) {
 	return rnt.RunExtractor(url, self._real_extract)
 }

@@ -71,6 +71,7 @@ func (self *KeekIE) _real_extract(url string) map[string]interface{} {
 		`uploader`:    rnt.SearchRegex(self, `data-username=(["\'])(?P<uploader>.+?)\1`, webpage, `uploader`, rnt.NoDefault, false, 0, `uploader`),
 		`uploader_id`: rnt.SearchRegex(self, `data-user-id=(["\'])(?P<uploader_id>.+?)\1`, webpage, `uploader id`, rnt.NoDefault, false, 0, `uploader_id`)}
 }
+
 func (self *KeekIE) Extract(url string) (*rnt.VideoResult, error) {
 	return rnt.RunExtractor(url, self._real_extract)
 }

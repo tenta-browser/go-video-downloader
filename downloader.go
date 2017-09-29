@@ -48,6 +48,7 @@ type CheckResult struct {
 type Connector struct {
 	Client    *http.Client
 	UserAgent string
+	Cookie    string
 }
 
 // VideoData holds the final result of the extraction
@@ -90,8 +91,11 @@ func Check(url string) *CheckResult {
 func Extract(checkResult *CheckResult, connector *Connector) (*VideoData, error) {
 	factory := extractor.GetFactories()[checkResult.extractorKey]
 	extractor := factory(&runtime.Context{
-		Client:    connector.Client,
-		UserAgent: connector.UserAgent,
+		Client: connector.Client,
+		Headers: map[string]string{
+			"User-Agent": connector.UserAgent,
+			"Cookie":     connector.Cookie,
+		},
 	})
 	res, err := extractor.Extract(checkResult.url)
 	if err != nil {

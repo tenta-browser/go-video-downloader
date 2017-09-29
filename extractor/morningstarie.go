@@ -36,7 +36,7 @@ func NewMorningstarIE(ctx *rnt.Context) rnt.InfoExtractor {
 	ret := &MorningstarIE{}
 	ret.Context = ctx
 	ret.IE_DESC = `morningstar.com`
-	ret._VALID_URL = `https?://(?:www\.)?morningstar\.com/[cC]over/video[cC]enter\.aspx\?id=(?P<id>[0-9]+)`
+	ret._VALID_URL = `https?://(?:(?:www|news)\.)morningstar\.com/[cC]over/video[cC]enter\.aspx\?id=(?P<id>[0-9]+)`
 	return ret
 }
 
@@ -74,6 +74,7 @@ func (self *MorningstarIE) _real_extract(url string) map[string]interface{} {
 		`thumbnail`:   thumbnail,
 		`description`: description}
 }
+
 func (self *MorningstarIE) Extract(url string) (*rnt.VideoResult, error) {
 	return rnt.RunExtractor(url, self._real_extract)
 }

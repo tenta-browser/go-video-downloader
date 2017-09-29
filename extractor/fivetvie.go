@@ -91,6 +91,7 @@ func (self *FiveTVIE) _real_extract(url string) map[string]interface{} {
 		`thumbnail`:   rnt.OgSearchThumbnail(self, webpage, nil),
 		`duration`:    duration}
 }
+
 func (self *FiveTVIE) Extract(url string) (*rnt.VideoResult, error) {
 	return rnt.RunExtractor(url, self._real_extract)
 }

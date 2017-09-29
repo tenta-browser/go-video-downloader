@@ -70,6 +70,7 @@ func (self *BildIE) _real_extract(url string) map[string]interface{} {
 		`thumbnail`:   rnt.DictGet(video_data, `poster`, nil),
 		`duration`:    rnt.IntOrNone(rnt.DictGet(video_data, `durationSec`, nil), 1, rnt.OptInt{}, 1)}
 }
+
 func (self *BildIE) Extract(url string) (*rnt.VideoResult, error) {
 	return rnt.RunExtractor(url, self._real_extract)
 }

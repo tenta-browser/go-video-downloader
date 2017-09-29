@@ -28,6 +28,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"sort"
 
 	"github.com/tenta-browser/go-pcre-matcher"
 	"github.com/tenta-browser/go-video-downloader/utils"
@@ -48,21 +49,37 @@ func DownloadWebpage(ie InfoExtractor, url, videoID string, note, errNote OptStr
 	fatal bool, tries int, timeout int, encoding OptString, data OptString,
 	headers, query map[string]interface{}) string {
 
-	utils.Log("Downloading webpage for %s [%s]", videoID, url)
+	utils.Log("[%s] %s (%s)", videoID, note.GetOrDef("Downloading webpage"), url)
+
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		panic(newExtractorError(err.Error()))
 	}
-	req.Header.Set("User-Agent", ie.Ctx().UserAgent)
+
+	for headerName, headerVal := range ie.Ctx().Headers {
+		if len(headerVal) > 0 {
+			req.Header.Set(headerName, headerVal)
+		}
+	}
+	for headerName := range headers {
+		req.Header.Set(headerName, GetStringField(headers, headerName, true, ""))
+	}
+
 	res, err := ie.Ctx().Client.Do(req)
 	if err != nil {
 		panic(newExtractorError(err.Error()))
 	}
+	defer res.Body.Close()
+	if res.StatusCode != 200 {
+		panic(newExtractorError(fmt.Sprintf("Unable to download webpage: HTTP Error %d: %s",
+			res.StatusCode, res.Status)))
+	}
+
 	ret, err := ioutil.ReadAll(res.Body)
-	res.Body.Close()
 	if err != nil {
 		panic(newExtractorError(err.Error()))
 	}
+
 	return string(ret)
 }
 
@@ -216,6 +233,22 @@ func ParseJSON(ie InfoExtractor, jsonString string, videoID string, transformSou
 	return result
 }
 
+// ParseJSONList implements common.py/_parse_json (returning lists)
+func ParseJSONList(ie InfoExtractor, jsonString string, videoID string, transformSource int, fatal bool) []interface{} {
+	// TODO handle transformSource constants
+	var result []interface{}
+	if err := json.Unmarshal([]byte(jsonString), &result); err != nil {
+		errMsg := fmt.Sprintf("%v: Failed to parse JSON", videoID)
+		if fatal {
+			panic(newExtractorError(errMsg))
+		} else {
+			utils.Log(errMsg)
+			return nil
+		}
+	}
+	return result
+}
+
 // DownloadJSON implements common.py/_download_json
 func DownloadJSON(ie InfoExtractor, url, videoID string, note, errNote OptString,
 	transformSource int, fatal bool, encoding OptString, data OptString,
@@ -226,6 +259,18 @@ func DownloadJSON(ie InfoExtractor, url, videoID string, note, errNote OptString
 	// TODO some fatal handling
 
 	return ParseJSON(ie, jsonString, videoID, transformSource, fatal)
+}
+
+// DownloadJSONList implements common.py/_download_json (returning lists)
+func DownloadJSONList(ie InfoExtractor, url, videoID string, note, errNote OptString,
+	transformSource int, fatal bool, encoding OptString, data OptString,
+	headers, query map[string]interface{}) []interface{} {
+
+	jsonString := DownloadWebpage(ie, url, videoID, note, errNote, fatal, 1, 5, encoding, data, headers, query)
+
+	// TODO some fatal handling
+
+	return ParseJSONList(ie, jsonString, videoID, transformSource, fatal)
 }
 
 // URLResult implements common.py/url_result
@@ -242,4 +287,143 @@ func URLResult(ie InfoExtractor, url string, ieKey, videoID, videoTitle OptStrin
 		result["title"] = videoTitle.Get()
 	}
 	return result
+}
+
+// SortFormats implements common.py/_sort_formats
+func SortFormats(ie InfoExtractor, formats []interface{}) {
+	if len(formats) == 0 {
+		panic(newExtractorError("No video formats found"))
+	}
+
+	fs := make([]map[string]interface{}, len(formats))
+	for idx, format := range formats {
+		f, ok := format.(map[string]interface{})
+		if !ok {
+			panic(newExtractorError("Format is not a dict"))
+		}
+		fs[idx] = f
+
+		if _, ok := f["tbr"]; !ok {
+			if abr, ok := f["abr"]; ok {
+				if vbr, ok := f["vbr"]; ok {
+					f["tbr"] = CastToInt(abr) + CastToInt(vbr)
+				}
+			}
+		}
+
+		if ext, ok := f["ext"]; !ok || ext == "" {
+			if url, ok := f["url"]; ok {
+				f["ext"] = DetermineExt(CastToOptString(url), "unknown_video")
+			}
+		}
+
+		var preference float64
+		if _preference, ok := f["preference"]; !ok {
+			preference = 0
+			if f["ext"] == "f4f" || f["ext"] == "f4m" {
+				preference -= 0.5
+			}
+		} else {
+			preference = CastToFloat(_preference)
+		}
+
+		protocol := DetermineProtocol(f)
+		if protocol == "http" || protocol == "https" {
+			f["proto_preference"] = 0.0
+		} else if protocol == "rtsp" {
+			f["proto_preference"] = -0.5
+		} else {
+			f["proto_preference"] = -0.1
+		}
+
+		if f["vcodec"] == "none" {
+			preference -= 50
+			order := []string{"webm", "opus", "ogg", "mp3", "aac", "m4a"}
+			f["ext_preference"] = 0
+			f["audio_ext_preference"] = -1
+			for idx, ext := range order {
+				if f["ext"] == ext {
+					f["audio_ext_preference"] = idx
+				}
+			}
+		} else {
+			if f["acodec"] == "none" {
+				preference -= 40
+			}
+			order := []string{"webm", "mp4", "flv"}
+			f["audio_ext_preference"] = 0
+			f["ext_preference"] = -1
+			for idx, ext := range order {
+				if f["ext"] == ext {
+					f["ext_preference"] = idx
+				}
+			}
+		}
+
+		f["preference"] = preference
+	}
+
+	sortFields := []struct {
+		key string
+		def interface{}
+	}{
+		{"preference", -1.0},
+		{"languagePreference", -1},
+		{"quality", -1},
+		{"tbr", -1},
+		{"filesize", -1},
+		{"vbr", -1},
+		{"height", -1},
+		{"width", -1},
+		{"protoPreference", -1.0},
+		{"extPreference", -1},
+		{"abr", -1},
+		{"audioExtPreference", -1},
+		{"fps", -1},
+		{"filesizeApprox", -1},
+		{"sourcePreference", -1},
+		{"formatID", ""},
+	}
+
+	sort.Slice(formats, func(i, j int) bool {
+		for _, sortField := range sortFields {
+			key := sortField.key
+			switch def := sortField.def.(type) {
+			case int:
+				ival := GetIntField(fs[i], key, false, def)
+				jval := GetIntField(fs[j], key, false, def)
+				if ival < jval {
+					return true
+				} else if ival > jval {
+					return false
+				}
+			case float64:
+				ival := GetFloatField(fs[i], key, false, def)
+				jval := GetFloatField(fs[j], key, false, def)
+				if ival < jval {
+					return true
+				} else if ival > jval {
+					return false
+				}
+			case string:
+				ival := GetStringField(fs[i], key, false, def)
+				jval := GetStringField(fs[j], key, false, def)
+				if ival < jval {
+					return true
+				} else if ival > jval {
+					return false
+				}
+			}
+		}
+		return false
+	})
+}
+
+// RTASearch implements common.py/_rta_search
+func RTASearch(ie InfoExtractor, html string) int {
+	matcher := ReSearch(Re, `(?ix)<meta\s+name="rating"\s+content="RTA-5042-1996-1400-1577-RTA"`, html, 0)
+	if matcher != nil {
+		return 18
+	}
+	return 0
 }

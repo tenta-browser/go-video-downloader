@@ -43,8 +43,8 @@ type VideoResult struct {
 
 // Context represents extraction context data
 type Context struct {
-	Client    *http.Client
-	UserAgent string
+	Client  *http.Client
+	Headers map[string]string
 }
 
 // InfoExtractor represent the common interface of all extractors
@@ -90,53 +90,29 @@ func RunExtractor(url string, extrFunc func(string) map[string]interface{}) (res
 	resDict := extrFunc(url)
 	utils.Log("Result dict: %+v", resDict)
 
-	getStr := func(field string, required bool, def string) string {
-		if val, ok := resDict[field]; ok {
-			switch sval := val.(type) {
-			case string:
-				return sval
-			case OptString:
-				return sval.Get()
-			default:
-				panic(newExtractorError(fmt.Sprintf("Non-string %v found in the result dict", field)))
-			}
-		} else {
-			if required {
-				panic(newExtractorError(fmt.Sprintf("No %v found in the result dict", field)))
-			} else {
-				return def
-			}
-		}
-	}
-
-	getInt := func(field string, required bool, def int) int {
-		if val, ok := resDict[field]; ok {
-			switch ival := val.(type) {
-			case int:
-				return ival
-			case OptInt:
-				return ival.Get()
-			default:
-				panic(newExtractorError(fmt.Sprintf("Non-int %v found in the result dict", field)))
-			}
-		} else {
-			if required {
-				panic(newExtractorError(fmt.Sprintf("No %v found in the result dict", field)))
-			} else {
-				return def
-			}
-		}
-	}
-
-	resType := getStr("_type", false, "video")
+	resType := GetStringField(resDict, "_type", false, "video")
 	resTypeVideo := resType == "video"
 
 	res = &VideoResult{
 		Type:     resType,
-		ID:       getStr("id", resTypeVideo, ""),
-		URL:      getStr("url", resTypeVideo, ""),
-		Title:    getStr("title", resTypeVideo, ""),
-		AgeLimit: getInt("age_limit", false, 0),
+		ID:       GetStringField(resDict, "id", resTypeVideo, ""),
+		Title:    GetStringField(resDict, "title", resTypeVideo, ""),
+		AgeLimit: GetIntField(resDict, "age_limit", false, 0),
+	}
+
+	if resTypeVideo {
+		if formats, ok := resDict["formats"]; ok {
+			if _formats, ok := formats.([]interface{}); ok {
+				if format, ok := _formats[len(_formats)-1].(map[string]interface{}); ok {
+					res.URL = GetStringField(format, "url", true, "")
+				}
+			}
+			if res.URL == "" {
+				panic(newExtractorError("Failed to extract URL from formats"))
+			}
+		} else {
+			res.URL = GetStringField(resDict, "url", true, "")
+		}
 	}
 
 	var ext string

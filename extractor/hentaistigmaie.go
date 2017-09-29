@@ -70,6 +70,7 @@ func (self *HentaiStigmaIE) _real_extract(url string) map[string]interface{} {
 		`title`:     title,
 		`age_limit`: 18}
 }
+
 func (self *HentaiStigmaIE) Extract(url string) (*rnt.VideoResult, error) {
 	return rnt.RunExtractor(url, self._real_extract)
 }

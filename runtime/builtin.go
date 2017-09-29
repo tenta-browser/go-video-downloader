@@ -65,19 +65,6 @@ func DictGet(dict map[string]interface{}, key string, def interface{}) interface
 
 // StrFormat implements Python 2's formatting (% operator)
 func StrFormat(format string, args ...interface{}) string {
-	// make sure we don't pass funky formatting specs blindly to fmt.Sprintf
-	// because it'll produce strange output; it's better to panic & correct
-	re := regexp.MustCompile("%.*?[a-zA-Z%]")
-	for _, fmtspec := range re.FindAllString(format, -1) {
-		switch fmtspec {
-		case "%%":
-		case "%s":
-		case "%d":
-			continue
-		default:
-			panic("Unknown formatter spec: " + fmtspec)
-		}
-	}
 	// prepare args for formatting
 	nargs := make([]interface{}, len(args))
 	for argIdx, arg := range args {
@@ -90,6 +77,26 @@ func StrFormat(format string, args ...interface{}) string {
 			nargs[argIdx] = arg
 		}
 	}
+
+	// make sure we don't pass funky formatting specs blindly to fmt.Sprintf
+	// because it'll produce strange output; it's better to panic & correct
+	re := regexp.MustCompile("%.*?[a-zA-Z%]")
+	argIdx := 0
+	for _, fmtspec := range re.FindAllString(format, -1) {
+		switch fmtspec {
+		case "%%":
+		case "%s":
+			// Python is much more lax than Go when pairing format types to arg types
+			// so we must make sure that only strings are passed for %s
+			nargs[argIdx] = fmt.Sprintf("%v", nargs[argIdx])
+			argIdx++
+		case "%d":
+			argIdx++
+		default:
+			panic("Unknown formatter spec: " + fmtspec)
+		}
+	}
+
 	return fmt.Sprintf(format, nargs...)
 }
 
@@ -141,4 +148,20 @@ func StrRSplit(str, sep string, max int) []string {
 		res[i] = utils.Reverse(s)
 	}
 	return res
+}
+
+// StrToBytes implements python/str.encode
+func StrToBytes(str, encoding string) []byte {
+	if encoding != "utf-8" {
+		panic(newExtractorError("Unknown encoding: " + encoding))
+	}
+	return []byte(str)
+}
+
+// BytesToStr implements python/bytes.decode
+func BytesToStr(bytes []byte, encoding string) string {
+	if encoding != "utf-8" {
+		panic(newExtractorError("Unknown encoding: " + encoding))
+	}
+	return string(bytes)
 }

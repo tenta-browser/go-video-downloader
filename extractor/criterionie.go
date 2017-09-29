@@ -71,6 +71,7 @@ func (self *CriterionIE) _real_extract(url string) map[string]interface{} {
 		`description`: description,
 		`thumbnail`:   thumbnail}
 }
+
 func (self *CriterionIE) Extract(url string) (*rnt.VideoResult, error) {
 	return rnt.RunExtractor(url, self._real_extract)
 }

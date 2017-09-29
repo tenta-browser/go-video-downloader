@@ -72,6 +72,7 @@ func (self *WDRMobileIE) _real_extract(url string) map[string]interface{} {
 		`url`:          url,
 		`http_headers`: map[string]interface{}{`User-Agent`: `mobile`}}
 }
+
 func (self *WDRMobileIE) Extract(url string) (*rnt.VideoResult, error) {
 	return rnt.RunExtractor(url, self._real_extract)
 }
