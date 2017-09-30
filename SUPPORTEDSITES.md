@@ -3,7 +3,7 @@ Supported sites
 
  * ATTTechChannel: `techchannel.att.com`
  * AnySex _(adult)_: `anysex.com`
- * Bang: `www.bang.com`
+ * Bang _(adult)_: `www.bang.com`
  * Bild: `www.bild.de`
  * Criterion: `www.criterion.com`
  * EchoMsk: `www.echo.msk.ru`

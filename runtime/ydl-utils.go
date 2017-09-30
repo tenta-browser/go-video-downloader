@@ -103,7 +103,7 @@ func DetermineExt(url OptString, defaultExt string) string {
 	guess = guess[:pos]
 	guess = guess[utils.LastIndexRune(guess, '.')+1:]
 
-	if matcher := ReMatch(Re, "^[A-Za-z0-9]+$", guess, 0); matcher != nil {
+	if match := ReMatch(Re, "^[A-Za-z0-9]+$", guess, 0); match != nil {
 		return guess
 	}
 

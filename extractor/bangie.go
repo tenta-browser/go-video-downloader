@@ -87,10 +87,12 @@ func (self *BangIE) _real_extract(url string) map[string]interface{} {
 			`url`:      ((rnt.URLJoin(rnt.UP, links_url, rnt.CastToOptString(rnt.UnsafeSubscript(link, `Url`))) + `?apiKey=`) + api_key.Get())})
 	}
 	rnt.SortFormats(self, formats)
+	age_limit := rnt.RTASearch(self, webpage)
 	return map[string]interface{}{`id`: video_id,
 		`title`:       title,
 		`description`: description,
-		`formats`:     formats}
+		`formats`:     formats,
+		`age_limit`:   age_limit}
 }
 
 func (self *BangIE) Extract(url string) (*rnt.VideoResult, error) {

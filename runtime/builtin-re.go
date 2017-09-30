@@ -101,28 +101,28 @@ func reMustCompile(pattern string, flags int) matcher.Regexp {
 }
 
 // ReSearch implements python/re.search
-func ReSearch(re int, pattern, str string, flags int) matcher.Matcher {
+func ReSearch(re int, pattern, str string, flags int) matcher.Match {
 	return reMustCompile(pattern, flags).Search(str)
 }
 
 // ReMatch implements python/re.match
-func ReMatch(re int, pattern, str string, flags int) matcher.Matcher {
+func ReMatch(re int, pattern, str string, flags int) matcher.Match {
 	return ReSearch(re, fmt.Sprintf("^(?:%s)", pattern), str, flags)
 }
 
 // ReFindAllOne implements python/re.findall returning a list matches (groupcount <= 1)
 func ReFindAllOne(re int, pattern, str string, flags int) []string {
-	matcher := ReSearch(re, pattern, str, flags)
+	match := ReSearch(re, pattern, str, flags)
 	res := []string{}
-	if matcher != nil {
-		groupCount := matcher.Groups()
+	if match != nil {
+		groupCount := match.Groups()
 		for {
 			if groupCount <= 1 {
-				res = append(res, matcher.GroupByIdx(groupCount))
+				res = append(res, match.GroupByIdx(groupCount))
 			} else {
 				panic(newExtractorError("Multiple groups found when zero or one were expected"))
 			}
-			if !matcher.Next() {
+			if !match.Next() {
 				break
 			}
 		}
@@ -132,21 +132,21 @@ func ReFindAllOne(re int, pattern, str string, flags int) []string {
 
 // ReFindAllMulti implements python/re.findall returning a list of group-tuples (groupcount >= 2)
 func ReFindAllMulti(re int, pattern, str string, flags int) [][]string {
-	matcher := ReSearch(re, pattern, str, flags)
+	match := ReSearch(re, pattern, str, flags)
 	res := [][]string{}
-	if matcher != nil {
-		groupCount := matcher.Groups()
+	if match != nil {
+		groupCount := match.Groups()
 		for {
 			if groupCount <= 1 {
 				panic(newExtractorError("Zero or one group found when multiple were expected"))
 			} else {
 				groups := []string{}
 				for i := 1; i <= groupCount; i++ {
-					groups = append(groups, matcher.GroupByIdx(i))
+					groups = append(groups, match.GroupByIdx(i))
 				}
 				res = append(res, groups)
 			}
-			if !matcher.Next() {
+			if !match.Next() {
 				break
 			}
 		}
@@ -163,43 +163,43 @@ func ReSub(re int, pattern, repl, subject string, count, flags int) string {
 }
 
 // ReMatchGroupNone implements python/match.group with 0 args
-func ReMatchGroupNone(matcher matcher.Matcher) OptString {
-	return ReMatchGroupOne(matcher, 0)
+func ReMatchGroupNone(match matcher.Match) OptString {
+	return ReMatchGroupOne(match, 0)
 }
 
 // ReMatchGroupOne implements python/match.group with 1 arg
-func ReMatchGroupOne(matcher matcher.Matcher, group interface{}) OptString {
+func ReMatchGroupOne(match matcher.Match, group interface{}) OptString {
 	switch grp := group.(type) {
 	case int:
-		if !matcher.GroupPresentByIdx(grp) {
+		if !match.GroupPresentByIdx(grp) {
 			return OptString{}
 		}
-		return AsOptString(matcher.GroupByIdx(grp))
+		return AsOptString(match.GroupByIdx(grp))
 	case string:
-		if !matcher.GroupPresentByName(grp) {
+		if !match.GroupPresentByName(grp) {
 			return OptString{}
 		}
-		return AsOptString(matcher.GroupByName(grp))
+		return AsOptString(match.GroupByName(grp))
 	default:
 		panic(fmt.Sprintf("Group has invalid type: %T", grp))
 	}
 }
 
 // ReMatchGroupMulti implements python/match.group with >=2 args
-func ReMatchGroupMulti(matcher matcher.Matcher, groups []interface{}) []OptString {
+func ReMatchGroupMulti(match matcher.Match, groups []interface{}) []OptString {
 	values := make([]OptString, len(groups))
 	for idx, group := range groups {
-		values[idx] = ReMatchGroupOne(matcher, group)
+		values[idx] = ReMatchGroupOne(match, group)
 	}
 	return values
 }
 
 // ReMatchGroups implements python/match.groups
-func ReMatchGroups(matcher matcher.Matcher, def OptString) []OptString {
-	groups := make([]OptString, matcher.Groups())
+func ReMatchGroups(match matcher.Match, def OptString) []OptString {
+	groups := make([]OptString, match.Groups())
 	for idx := 1; idx <= len(groups); idx++ {
-		if matcher.GroupPresentByIdx(idx) {
-			groups[idx-1] = AsOptString(matcher.GroupByIdx(idx))
+		if match.GroupPresentByIdx(idx) {
+			groups[idx-1] = AsOptString(match.GroupByIdx(idx))
 		} else {
 			groups[idx-1] = def
 		}

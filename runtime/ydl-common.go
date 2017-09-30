@@ -36,11 +36,11 @@ import (
 
 // MatchID implements common.py/_match_id
 func MatchID(ie InfoExtractor, url string) string {
-	matcher := ReMatch(Re, ie.ValidUrl(), url, 0)
-	if matcher == nil || !matcher.GroupPresentByName("id") {
+	match := ReMatch(Re, ie.ValidUrl(), url, 0)
+	if match == nil || !match.GroupPresentByName("id") {
 		panic(newExtractorError("Failed to match id"))
 	}
-	return matcher.GroupByName("id")
+	return match.GroupByName("id")
 }
 
 // DownloadWebpage implements common.py/_download_webpage
@@ -92,26 +92,26 @@ func SearchRegex(ie InfoExtractor, pattern interface{}, str, name string,
 		patterns = []string{pattern.(string)}
 	}
 
-	var matcher matcher.Matcher
+	var match matcher.Match
 	for _, pattern := range patterns {
-		if matcher = ReSearch(Re, pattern, str, flags); matcher != nil {
+		if match = ReSearch(Re, pattern, str, flags); match != nil {
 			break
 		}
 	}
 
-	if matcher != nil {
+	if match != nil {
 		if group == nil {
 			// return first group that is present in the match
-			for i := 1; i <= matcher.Groups(); i++ {
-				if matcher.GroupPresentByIdx(i) {
-					return AsOptString(matcher.GroupByIdx(i))
+			for i := 1; i <= match.Groups(); i++ {
+				if match.GroupPresentByIdx(i) {
+					return AsOptString(match.GroupByIdx(i))
 				}
 			}
 			// this should not be
 			return AsOptString("")
 		}
 		// return the group requested by index/name or None if it isn't present
-		return ReMatchGroupOne(matcher, group)
+		return ReMatchGroupOne(match, group)
 	} else if !isNoDefault(def) {
 		if def == nil {
 			return OptString{}
@@ -421,8 +421,8 @@ func SortFormats(ie InfoExtractor, formats []interface{}) {
 
 // RTASearch implements common.py/_rta_search
 func RTASearch(ie InfoExtractor, html string) int {
-	matcher := ReSearch(Re, `(?ix)<meta\s+name="rating"\s+content="RTA-5042-1996-1400-1577-RTA"`, html, 0)
-	if matcher != nil {
+	match := ReSearch(Re, `(?ix)<meta\s+name="rating"\s+content="RTA-5042-1996-1400-1577-RTA"`, html, 0)
+	if match != nil {
 		return 18
 	}
 	return 0
