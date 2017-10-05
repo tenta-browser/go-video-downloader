@@ -29,6 +29,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"sort"
+	"strings"
 
 	"github.com/tenta-browser/go-pcre-matcher"
 	"github.com/tenta-browser/go-video-downloader/utils"
@@ -426,4 +427,25 @@ func RTASearch(ie InfoExtractor, html string) int {
 		return 18
 	}
 	return 0
+}
+
+var ratingTable = map[string]int{
+	"safe for kids": 0,
+	"general":       8,
+	"14 years":      14,
+	"mature":        17,
+	"restricted":    19,
+}
+
+// MediaRatingSearch implements common.py/_media_rating_search
+func MediaRatingSearch(ie InfoExtractor, html string) OptInt {
+	rating := HTMLSearchMeta(ie, "rating", html, OptString{}, false, NoDefault, 0)
+	if !rating.IsSet() {
+		return OptInt{}
+	}
+	age, ok := ratingTable[strings.ToLower(rating.Get())]
+	if !ok {
+		return OptInt{}
+	}
+	return AsOptInt(age)
 }

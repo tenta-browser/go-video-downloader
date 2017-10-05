@@ -14,6 +14,7 @@ Supported sites
  * Keek: `www.keek.com`
  * Morningstar: `www.morningstar.com`
  * Slutload _(adult)_: `www.slutload.com`
+ * VideosZ _(adult)_: `www.videosz.com`
  * WDRMobile: `mobile-ondemand.wdr.de`
  * XHamster _(adult)_: `xhamster.com`
  * XNXX _(adult)_: `www.xnxx.com`

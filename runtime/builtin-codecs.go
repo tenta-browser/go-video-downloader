@@ -30,28 +30,49 @@ import (
 // Codecs is dummy
 const Codecs = 0
 
-var b64 = base64.StdEncoding
+// Base64StdEncode implements python/base64.b64encode
+func Base64StdEncode(codecs int, bytes []byte) []byte {
+	return base64Encode(base64.StdEncoding, bytes)
+}
 
-// Base64Encode implements python/base64.b64encode
-func Base64Encode(codecs int, bytes []byte) []byte {
-	result := make([]byte, b64.EncodedLen(len(bytes)))
-	b64.Encode(result, bytes)
+// Base64StdDecodeBytes implements python/base64.b64decode(bytes)
+func Base64StdDecodeBytes(codecs int, bytes []byte) []byte {
+	return base64DecodeBytes(base64.StdEncoding, bytes)
+}
+
+// Base64StdDecodeString implements python/base64.b64decode(str)
+func Base64StdDecodeString(codecs int, str string) []byte {
+	return base64DecodeBytes(base64.StdEncoding, []byte(str))
+}
+
+// Base64UrlEncode implements python/base64.urlsafe_b64encode
+func Base64UrlEncode(codecs int, bytes []byte) []byte {
+	return base64Encode(base64.URLEncoding, bytes)
+}
+
+// Base64UrlDecodeBytes implements python/base64.urlsafe_b64decode(bytes)
+func Base64UrlDecodeBytes(codecs int, bytes []byte) []byte {
+	return base64DecodeBytes(base64.URLEncoding, bytes)
+}
+
+// Base64UrlDecodeString implements python/base64.urlsafe_b64decode(str)
+func Base64UrlDecodeString(codecs int, str string) []byte {
+	return base64DecodeBytes(base64.URLEncoding, []byte(str))
+}
+
+func base64Encode(enc *base64.Encoding, bytes []byte) []byte {
+	result := make([]byte, enc.EncodedLen(len(bytes)))
+	enc.Encode(result, bytes)
 	return result
 }
 
-// Base64DecodeBytes implements python/base64.b64decode(bytes)
-func Base64DecodeBytes(codecs int, bytes []byte) []byte {
-	result := make([]byte, b64.DecodedLen(len(bytes)))
-	n, err := b64.Decode(result, bytes)
+func base64DecodeBytes(enc *base64.Encoding, bytes []byte) []byte {
+	result := make([]byte, enc.DecodedLen(len(bytes)))
+	n, err := enc.Decode(result, bytes)
 	if err != nil {
 		panic(newExtractorError("Invalid base64 input"))
 	}
 	return result[:n]
-}
-
-// Base64DecodeString implements python/base64.b64decode(str)
-func Base64DecodeString(codecs int, str string) []byte {
-	return Base64DecodeBytes(codecs, []byte(str))
 }
 
 // HexEncode implements python/binascii.hexlify

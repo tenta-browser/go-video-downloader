@@ -43,13 +43,13 @@ var cleanHTMLRe1, cleanHTMLRe2, cleanHTMLRe3 matcher.Regexp
 func CleanHTML(html OptString) OptString {
 	// these expressions must be compiled lazily, since the regexp engine isn't set at init time
 	if cleanHTMLRe1 == nil {
-		cleanHTMLRe1 = reMustCompile(`\s*<\s*br\s*/?\s*>\s*`, 0)
+		cleanHTMLRe1 = ReMustCompile(`\s*<\s*br\s*/?\s*>\s*`, 0)
 	}
 	if cleanHTMLRe2 == nil {
-		cleanHTMLRe2 = reMustCompile(`<\s*/\s*p\s*>\s*<\s*p[^>]*>`, 0)
+		cleanHTMLRe2 = ReMustCompile(`<\s*/\s*p\s*>\s*<\s*p[^>]*>`, 0)
 	}
 	if cleanHTMLRe3 == nil {
-		cleanHTMLRe3 = reMustCompile(`<.*?>`, 0)
+		cleanHTMLRe3 = ReMustCompile(`<.*?>`, 0)
 	}
 	if !html.IsSet() {
 		return html

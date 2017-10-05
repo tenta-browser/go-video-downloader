@@ -66,6 +66,7 @@ func (self *XHamsterIE) Tests() []map[string]interface{} {
 }
 
 func (self *XHamsterIE) _real_extract(url string) map[string]interface{} {
+	url = rnt.ReSub(rnt.Re, `^(https?://(?:.+?\.)?)m\.`, `\1`, url, 0, 0)
 	mobj := rnt.ReMatch(rnt.Re, (self)._VALID_URL, url, 0)
 	video_id := func() rnt.OptString {
 		if (rnt.ReMatchGroupOne(mobj, `id`)).IsSet() && (rnt.ReMatchGroupOne(mobj, `id`).Get()) != "" {

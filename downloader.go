@@ -63,11 +63,7 @@ type VideoData struct {
 func Check(url string) *CheckResult {
 	// if the master regexp isn't compiled, compile it
 	if masterRegexpComp == nil {
-		var err error
-		masterRegexpComp, err = matcher.ReEngine.Compile(masterRegexp, 0)
-		if err != nil {
-			panic(err.Error())
-		}
+		masterRegexpComp = runtime.ReMustCompile(masterRegexp, 0)
 	}
 	// check if something matches the url
 	matcher := masterRegexpComp.Search(url)

@@ -56,9 +56,70 @@ func translatePyFlags(pyFlags int) (int, error) {
 }
 
 // translatePyPattern removes Python-specific stuff from the pattern
+// - escape {...} when it's not a valid quantifier
+// - convert (?P=group) -> \k<group>
+// - convert (?P<group>pattern) -> (?<group>pattern)
 func translatePyPattern(pattern string) string {
-	pattern = strings.Replace(pattern, "(?P<", "(?<", -1) // named group syntax: (?<name>pattern)
-	return pattern
+	ln := len(pattern)
+	buf := make([]byte, 0, ln)
+	inCharClass := false
+	for i := 0; i < ln; i++ {
+		if pattern[i] == '\\' {
+			i++
+			if i == ln {
+				panic(newExtractorError("Pattern ends with backslash"))
+			} else {
+				buf = append(buf, '\\', pattern[i])
+			}
+			continue
+		} else if pattern[i] == '[' {
+			inCharClass = true
+		} else if pattern[i] == ']' {
+			inCharClass = false
+		} else if !inCharClass {
+			if pattern[i] == '{' {
+				si := i
+				i++
+				buf2 := make([]byte, 0, 4)
+				for ; i < ln && pattern[i] >= '0' && pattern[i] <= '9'; i++ {
+					buf2 = append(buf2, pattern[i])
+				}
+				if i < ln && pattern[i] == ',' {
+					buf2 = append(buf2, pattern[i])
+					i++
+				}
+				for ; i < ln && pattern[i] >= '0' && pattern[i] <= '9'; i++ {
+					buf2 = append(buf2, pattern[i])
+				}
+				if len(buf2) > 0 && i < ln && pattern[i] == '}' {
+					buf = append(buf, '{')
+					buf = append(buf, buf2...)
+					buf = append(buf, '}')
+				} else {
+					i = si
+					buf = append(buf, "\\{"...)
+				}
+				continue
+			} else if pattern[i] == '}' {
+				buf = append(buf, "\\}"...)
+				continue
+			} else if strings.HasPrefix(pattern[i:], "(?P<") {
+				buf = append(buf, "(?<"...)
+				i += len("(?P<") - 1
+				continue
+			} else if strings.HasPrefix(pattern[i:], "(?P=") {
+				buf = append(buf, "\\k<"...)
+				i += len("(?P=")
+				for ; i < ln && pattern[i] != ')'; i++ {
+					buf = append(buf, pattern[i])
+				}
+				buf = append(buf, '>')
+				continue
+			}
+		}
+		buf = append(buf, pattern[i])
+	}
+	return string(buf)
 }
 
 // translatePyReplacement converts Python-specific parts of the replacement string
@@ -66,7 +127,8 @@ func translatePyReplacement(repl string) string {
 	ln := len(repl)
 	buf := make([]byte, 0, ln)
 	for i := 0; i < ln; i++ {
-		if repl[i] == '\\' {
+		switch repl[i] {
+		case '\\':
 			i++
 			if i == ln {
 				panic(newExtractorError("Replacement string ends with backslash"))
@@ -78,16 +140,17 @@ func translatePyReplacement(repl string) string {
 			} else {
 				panic(newExtractorError(fmt.Sprintf("Unknown char escaped: '%c'", repl[i])))
 			}
-		} else if repl[i] == '$' {
+		case '$':
 			buf = append(buf, "\\$"...)
-		} else {
+		default:
 			buf = append(buf, repl[i])
 		}
 	}
 	return string(buf)
 }
 
-func reMustCompile(pattern string, flags int) matcher.Regexp {
+// ReMustCompile prepares and compiles a pattern
+func ReMustCompile(pattern string, flags int) matcher.Regexp {
 	flags, err := translatePyFlags(flags)
 	if err != nil {
 		panic(newExtractorError(err.Error()))
@@ -102,7 +165,7 @@ func reMustCompile(pattern string, flags int) matcher.Regexp {
 
 // ReSearch implements python/re.search
 func ReSearch(re int, pattern, str string, flags int) matcher.Match {
-	return reMustCompile(pattern, flags).Search(str)
+	return ReMustCompile(pattern, flags).Search(str)
 }
 
 // ReMatch implements python/re.match
@@ -159,7 +222,7 @@ func ReSub(re int, pattern, repl, subject string, count, flags int) string {
 	if count != 0 {
 		panic(newExtractorError("Non-zero count at ReSub")) // TODO
 	}
-	return reMustCompile(pattern, flags).Replace(subject, translatePyReplacement(repl))
+	return ReMustCompile(pattern, flags).Replace(subject, translatePyReplacement(repl))
 }
 
 // ReMatchGroupNone implements python/match.group with 0 args

@@ -34,7 +34,7 @@ type BangIE struct {
 func NewBangIE(ctx *rnt.Context) rnt.InfoExtractor {
 	ret := &BangIE{}
 	ret.Context = ctx
-	ret._VALID_URL = `https?://(?:www\.)?bang\.com/video/(?P<id>[0-9a-zA-Z]+)`
+	ret._VALID_URL = `https?://(?:www\.)?bang\.com/video/(?P<id>[0-9a-zA-Z_-]+)`
 	return ret
 }
 
@@ -70,7 +70,7 @@ func (self *BangIE) _real_extract(url string) map[string]interface{} {
 	mainjs := rnt.DownloadWebpage(self, mainjs_url.Get(), video_id, rnt.AsOptString(`Downloading main.js`), rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
 	elasticsearch_url := rnt.SearchRegex(self, `"elasticsearch.url"\s*:\s*"([^"]+)"`, mainjs, `Elasticsearch url`, rnt.NoDefault, true, 0, nil)
 	elasticsearch_auth := rnt.SearchRegex(self, `"elasticsearch.auth"\s*:\s*"([^"]+)"`, mainjs, `Elasticsearch auth`, rnt.NoDefault, true, 0, nil)
-	video_id_hex := rnt.BytesToStr(rnt.HexEncode(rnt.Codecs, rnt.Base64DecodeString(rnt.Codecs, video_id)), `utf-8`)
+	video_id_hex := rnt.BytesToStr(rnt.HexEncode(rnt.Codecs, rnt.Base64UrlDecodeString(rnt.Codecs, video_id)), `utf-8`)
 	metadata_url := rnt.URLJoin(rnt.UP, elasticsearch_url.Get(), rnt.AsOptString(rnt.StrFormat(`/videos/video/%s`, video_id_hex)))
 	metadata := rnt.DownloadJSON(self, metadata_url, video_id, rnt.AsOptString(`Downloading JSON metadata`), rnt.AsOptString(`Unable to download JSON metadata`), 0, true, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{`Authorization`: (`Basic ` + elasticsearch_auth.Get())}, map[string]interface{}{})
 	metadata_source := (metadata)[`_source`]
