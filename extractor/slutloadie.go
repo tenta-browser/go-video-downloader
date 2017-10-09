@@ -59,6 +59,7 @@ func (self *SlutloadIE) Tests() []map[string]interface{} {
 }
 
 func (self *SlutloadIE) _real_extract(url string) map[string]interface{} {
+	url = rnt.ReSub(rnt.Re, `^(https?://)mobile\.`, `\1`, url, 0, 0)
 	video_id := rnt.MatchID(self, url)
 	webpage := rnt.DownloadWebpage(self, url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
 	video_title := rnt.StrStrip(rnt.HTMLSearchRegex(self, `<h1><strong>([^<]+)</strong>`, webpage, `title`, rnt.NoDefault, true, 0, nil).Get(), ``)
