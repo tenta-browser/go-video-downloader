@@ -31,6 +31,8 @@ import (
 	"strings"
 	"unicode"
 
+	"github.com/tenta-browser/go-pcre-matcher/replacer"
+
 	"github.com/tenta-browser/go-pcre-matcher"
 	"github.com/tenta-browser/go-video-downloader/utils"
 	"golang.org/x/text/transform"
@@ -103,7 +105,7 @@ func DetermineExt(url OptString, defaultExt string) string {
 	guess = guess[:pos]
 	guess = guess[utils.LastIndexRune(guess, '.')+1:]
 
-	if match := ReMatch(Re, "^[A-Za-z0-9]+$", guess, 0); match != nil {
+	if match := ReMatch("^[A-Za-z0-9]+$", guess, 0); match != nil {
 		return guess
 	}
 
@@ -231,6 +233,19 @@ func IntOrNone(val interface{}, scale int, def OptInt, invScale int) OptInt {
 	}
 }
 
+// StrToInt implements utils.py/str_to_int
+func StrToInt(s OptString) OptInt {
+	if !s.IsSet() {
+		return OptInt{}
+	}
+	ss := ReSub(`[,\.\+]`, "", s.Get(), 0, 0)
+	i, err := strconv.Atoi(ss)
+	if err != nil {
+		panic(newExtractorError(fmt.Sprintf("Failed to convert to int: '%s'", s.Get())))
+	}
+	return AsOptInt(i)
+}
+
 // UtilDictGet implements utils.py/dict_get
 func UtilDictGet(dict map[string]interface{}, key interface{}, def interface{}, skipFalseValues bool) interface{} {
 	keys, ok := key.([]string)
@@ -295,4 +310,86 @@ func DetermineProtocol(infoDict map[string]interface{}) string {
 	}
 
 	return purl.Scheme
+}
+
+// RemoveQuotes implements utils.py/remove_quotes
+func RemoveQuotes(s OptString) OptString {
+	if !s.IsSet() {
+		return s
+	}
+	ss := s.Get()
+	if len(ss) < 2 {
+		return s
+	}
+	for _, quote := range []byte{'\'', '"'} {
+		if ss[0] == quote && ss[len(ss)-1] == quote {
+			return AsOptString(ss[1 : len(ss)-1])
+		}
+	}
+	return s
+}
+
+// JsToJSON implements utils.py/js_to_json
+func JsToJSON(code string) string {
+	commentRe := `/\*(?:(?!\*/).)*?\*/|//[^\n]*`
+	skipRe := fmt.Sprintf(`\s*(?:%s)?\s*`, commentRe)
+	integerTable := []struct {
+		regex string
+		base  int
+	}{
+		{fmt.Sprintf(`(?s)^(0[xX][0-9a-fA-F]+)%s:?$`, skipRe), 16},
+		{fmt.Sprintf(`(?s)^(0+[0-7]+)%s:?$`, skipRe), 8},
+	}
+
+	fixKv := func(m matcher.Match) string {
+		v := m.GroupByIdx(0)
+		if v == "true" || v == "false" || v == "null" {
+			return v
+		} else if strings.HasPrefix(v, "/*") || strings.HasPrefix(v, "//") || v == "," {
+			return ""
+		}
+
+		if v[0] == '\'' || v[0] == '"' {
+			v = ReMustCompile(`(?s)\\.|"`, 0).ReplaceFunc(v[1:len(v)-1], replacer.NewReplacer(func(m matcher.Match) string {
+				m0 := m.GroupByIdx(0)
+				switch m0 {
+				case "\"":
+					return "\\\""
+				case "\\'":
+					return "'"
+				case "\\\n":
+					return ""
+				case "\\x":
+					return "\\u0"
+				default:
+					return m0
+				}
+			}))
+		}
+
+		for _, rb := range integerTable {
+			im := ReMatch(rb.regex, v, 0)
+			if im != nil {
+				i64, err := strconv.ParseInt(im.GroupByIdx(1), rb.base, 0)
+				if err != nil {
+					panic(newExtractorError("Int conversion failed: " + err.Error()))
+				}
+				if strings.HasSuffix(v, ":") {
+					return fmt.Sprintf(`"%d"`, i64)
+				}
+				return string(i64)
+			}
+		}
+
+		return fmt.Sprintf(`"%s"`, v)
+	}
+
+	return ReMustCompile(fmt.Sprintf(`(?sx)
+		"(?:[^"\\]*(?:\\\\|\\['"nurtbfx/\n]))*[^"\\]*"|
+		'(?:[^'\\]*(?:\\\\|\\['"nurtbfx/\n]))*[^'\\]*'|
+		%[1]s|,(?=%[2]s[\]}}])|
+		[a-zA-Z_][.a-zA-Z_0-9]*|
+		\b(?:0[xX][0-9a-fA-F]+|0+[0-7]+)(?:%[2]s:)?|
+		[0-9]+(?=%[2]s:)`,
+		commentRe, skipRe), 0).ReplaceFunc(code, replacer.NewReplacer(fixKv))
 }

@@ -27,40 +27,27 @@ import (
 )
 
 type HarkIE struct {
-	*rnt.Context
-	_VALID_URL string
+	*rnt.CommonIE
 }
 
-func NewHarkIE(ctx *rnt.Context) rnt.InfoExtractor {
+func NewHarkIE() rnt.InfoExtractor {
 	ret := &HarkIE{}
-	ret.Context = ctx
-	ret._VALID_URL = `https?://(?:www\.)?hark\.com/clips/(?P<id>.+?)-.+`
+	ret.CommonIE = rnt.NewCommonIE()
+	ret.VALIDURL = `https?://(?:www\.)?hark\.com/clips/(?P<id>.+?)-.+`
 	return ret
-}
-
-func (self *HarkIE) Ctx() *rnt.Context {
-	return self.Context
 }
 
 func (self *HarkIE) Key() string {
 	return "Hark"
 }
 
-func (self *HarkIE) ValidUrl() string {
-	return self._VALID_URL
-}
-
 func (self *HarkIE) Name() string {
 	return `Hark extractor`
 }
 
-func (self *HarkIE) Tests() []map[string]interface{} {
-	return []map[string]interface{}{}
-}
-
 func (self *HarkIE) _real_extract(url string) map[string]interface{} {
-	video_id := rnt.MatchID(self, url)
-	data := rnt.DownloadJSON(self, rnt.StrFormat(`http://www.hark.com/clips/%s.json`, video_id), video_id, rnt.AsOptString(`Downloading JSON metadata`), rnt.AsOptString(`Unable to download JSON metadata`), 0, true, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
+	video_id := (self).MatchID(url)
+	data := (self).DownloadJSON(rnt.StrFormat(`http://www.hark.com/clips/%s.json`, video_id), video_id, rnt.AsOptString(`Downloading JSON metadata`), rnt.AsOptString(`Unable to download JSON metadata`), nil, true, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
 	return map[string]interface{}{`id`: video_id,
 		`url`:         (data)[`url`],
 		`title`:       (data)[`name`],

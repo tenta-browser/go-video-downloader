@@ -27,51 +27,38 @@ import (
 )
 
 type HistoricFilmsIE struct {
-	*rnt.Context
-	_VALID_URL string
+	*rnt.CommonIE
 }
 
-func NewHistoricFilmsIE(ctx *rnt.Context) rnt.InfoExtractor {
+func NewHistoricFilmsIE() rnt.InfoExtractor {
 	ret := &HistoricFilmsIE{}
-	ret.Context = ctx
-	ret._VALID_URL = `https?://(?:www\.)?historicfilms\.com/(?:tapes/|play)(?P<id>\d+)`
+	ret.CommonIE = rnt.NewCommonIE()
+	ret.VALIDURL = `https?://(?:www\.)?historicfilms\.com/(?:tapes/|play)(?P<id>\d+)`
 	return ret
-}
-
-func (self *HistoricFilmsIE) Ctx() *rnt.Context {
-	return self.Context
 }
 
 func (self *HistoricFilmsIE) Key() string {
 	return "HistoricFilms"
 }
 
-func (self *HistoricFilmsIE) ValidUrl() string {
-	return self._VALID_URL
-}
-
 func (self *HistoricFilmsIE) Name() string {
 	return `HistoricFilms extractor`
 }
 
-func (self *HistoricFilmsIE) Tests() []map[string]interface{} {
-	return []map[string]interface{}{}
-}
-
 func (self *HistoricFilmsIE) _real_extract(url string) map[string]interface{} {
-	video_id := rnt.MatchID(self, url)
-	webpage := rnt.DownloadWebpage(self, url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	tape_id := rnt.SearchRegex(self, []string{`class="tapeId"[^>]*>([^<]+)<`, `tapeId\s*:\s*"([^"]+)"`}, webpage, `tape id`, rnt.NoDefault, true, 0, nil)
-	title := rnt.OgSearchTitle(self, webpage, rnt.NoDefault, true)
-	description := rnt.OgSearchDescription(self, webpage, rnt.NoDefault)
+	video_id := (self).MatchID(url)
+	webpage := (self).DownloadWebpage(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
+	tape_id := (self).SearchRegex([]string{`class="tapeId"[^>]*>([^<]+)<`, `tapeId\s*:\s*"([^"]+)"`}, webpage, `tape id`, rnt.NoDefault, true, 0, nil)
+	title := (self).OgSearchTitle(webpage, rnt.NoDefault, true)
+	description := (self).OgSearchDescription(webpage, rnt.NoDefault)
 	thumbnail := func() rnt.OptString {
-		if (rnt.HTMLSearchMeta(self, `thumbnailUrl`, webpage, rnt.AsOptString(`thumbnails`), false, rnt.NoDefault, 0)).IsSet() && (rnt.HTMLSearchMeta(self, `thumbnailUrl`, webpage, rnt.AsOptString(`thumbnails`), false, rnt.NoDefault, 0).Get()) != "" {
-			return rnt.HTMLSearchMeta(self, `thumbnailUrl`, webpage, rnt.AsOptString(`thumbnails`), false, rnt.NoDefault, 0)
+		if ((self).HTMLSearchMeta(`thumbnailUrl`, webpage, rnt.AsOptString(`thumbnails`), false, rnt.NoDefault, 0)).IsSet() && ((self).HTMLSearchMeta(`thumbnailUrl`, webpage, rnt.AsOptString(`thumbnails`), false, rnt.NoDefault, 0).Get()) != "" {
+			return (self).HTMLSearchMeta(`thumbnailUrl`, webpage, rnt.AsOptString(`thumbnails`), false, rnt.NoDefault, 0)
 		} else {
-			return rnt.OgSearchThumbnail(self, webpage, rnt.NoDefault)
+			return (self).OgSearchThumbnail(webpage, rnt.NoDefault)
 		}
 	}()
-	duration := rnt.ParseDuration(rnt.HTMLSearchMeta(self, `duration`, webpage, rnt.AsOptString(`duration`), false, rnt.NoDefault, 0))
+	duration := rnt.ParseDuration((self).HTMLSearchMeta(`duration`, webpage, rnt.AsOptString(`duration`), false, rnt.NoDefault, 0))
 	video_url := rnt.StrFormat(`http://www.historicfilms.com/video/%s_%s_web.mov`, tape_id, video_id)
 	return map[string]interface{}{`id`: video_id,
 		`url`:         video_url,

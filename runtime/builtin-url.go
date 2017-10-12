@@ -25,11 +25,8 @@ package runtime
 import "net/url"
 import "fmt"
 
-// UP is dummy
-const UP = 0
-
 // URLParse impements python/urllib.parse.urlparse
-func URLParse(up int, urlString OptString) *url.URL {
+func URLParse(urlString OptString) *url.URL {
 	_urlString := urlString.GetOrDef("")
 	url, err := url.Parse(urlString.GetOrDef(""))
 	if err != nil {
@@ -39,7 +36,7 @@ func URLParse(up int, urlString OptString) *url.URL {
 }
 
 // URLJoin implements python/urllib.parse.urljoin
-func URLJoin(up int, base string, urlString OptString) string {
+func URLJoin(base string, urlString OptString) string {
 	baseURL, err := url.Parse(base)
 	if err != nil {
 		panic(newExtractorError("Failed to parse: " + base))

@@ -31,6 +31,11 @@ import (
 	"github.com/tenta-browser/go-video-downloader/utils"
 )
 
+const (
+	// OperatorConcat represents python/operator.concat
+	OperatorConcat = 1
+)
+
 // ToInt converts val to int (like Python's int())
 func ToInt(val interface{}) int {
 	// TODO impl
@@ -61,6 +66,12 @@ func DictGet(dict map[string]interface{}, key string, def interface{}) interface
 		return val
 	}
 	return def
+}
+
+// DictContains checks if a key is present in a dictionary
+func DictContains(dict map[string]interface{}, key string) bool {
+	_, found := dict[key]
+	return found
 }
 
 // StrFormat implements Python 2's formatting (% operator)
@@ -150,6 +161,11 @@ func StrRSplit(str, sep string, max int) []string {
 	return res
 }
 
+// StrContains implements python/(needle in haystack)
+func StrContains(haystack, needle string) bool {
+	return strings.Contains(haystack, needle)
+}
+
 // StrToBytes implements python/str.encode
 func StrToBytes(str, encoding string) []byte {
 	if encoding != "utf-8" {
@@ -164,4 +180,16 @@ func BytesToStr(bytes []byte, encoding string) string {
 		panic(newExtractorError("Unknown encoding: " + encoding))
 	}
 	return string(bytes)
+}
+
+// FuncReduce implements functools.reduce
+func FuncReduce(op int, l []interface{}) interface{} {
+	if op == OperatorConcat {
+		result := ""
+		for _, el := range l {
+			result += CastToString(el)
+		}
+		return result
+	}
+	panic(newExtractorError("Unknown operator: " + string(op)))
 }

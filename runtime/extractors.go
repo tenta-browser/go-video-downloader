@@ -49,16 +49,16 @@ type Context struct {
 
 // InfoExtractor represent the common interface of all extractors
 type InfoExtractor interface {
-	Ctx() *Context
+	SetContext(context *Context)
 	Key() string
-	ValidUrl() string
+	ValidURL() string
 	Name() string
 	Extract(url string) (*VideoResult, error)
 	Tests() []map[string]interface{}
 }
 
 // InfoExtractorFactory produces instances of InfoExtractors
-type InfoExtractorFactory = func(ctx *Context) InfoExtractor
+type InfoExtractorFactory = func() InfoExtractor
 
 type extractorError struct {
 	msg string

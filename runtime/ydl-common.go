@@ -35,9 +35,40 @@ import (
 	"github.com/tenta-browser/go-video-downloader/utils"
 )
 
+// CommonIE represents the common extractor base
+type CommonIE struct {
+	context  *Context
+	VALIDURL string
+	TESTS    []map[string]interface{}
+	TEST     map[string]interface{}
+}
+
+// NewCommonIE constructs a new common extractor base
+func NewCommonIE() *CommonIE {
+	return &CommonIE{}
+}
+
+// SetContext sets the runtime extractor context
+func (ie *CommonIE) SetContext(context *Context) {
+	ie.context = context
+}
+
+// ValidURL returns the regexp matching URLs supported by this extractor
+func (ie *CommonIE) ValidURL() string {
+	return ie.VALIDURL
+}
+
+// Tests returns the test cases for this extractor
+func (ie *CommonIE) Tests() []map[string]interface{} {
+	if len(ie.TEST) > 0 {
+		return []map[string]interface{}{ie.TEST}
+	}
+	return ie.TESTS
+}
+
 // MatchID implements common.py/_match_id
-func MatchID(ie InfoExtractor, url string) string {
-	match := ReMatch(Re, ie.ValidUrl(), url, 0)
+func (ie *CommonIE) MatchID(url string) string {
+	match := ReMatch(ie.VALIDURL, url, 0)
 	if match == nil || !match.GroupPresentByName("id") {
 		panic(newExtractorError("Failed to match id"))
 	}
@@ -46,7 +77,7 @@ func MatchID(ie InfoExtractor, url string) string {
 
 // DownloadWebpage implements common.py/_download_webpage
 // TODO handle all the params!
-func DownloadWebpage(ie InfoExtractor, url, videoID string, note, errNote OptString,
+func (ie *CommonIE) DownloadWebpage(url, videoID string, note, errNote OptString,
 	fatal bool, tries int, timeout int, encoding OptString, data OptString,
 	headers, query map[string]interface{}) string {
 
@@ -57,7 +88,7 @@ func DownloadWebpage(ie InfoExtractor, url, videoID string, note, errNote OptStr
 		panic(newExtractorError(err.Error()))
 	}
 
-	for headerName, headerVal := range ie.Ctx().Headers {
+	for headerName, headerVal := range ie.context.Headers {
 		if len(headerVal) > 0 {
 			req.Header.Set(headerName, headerVal)
 		}
@@ -66,7 +97,7 @@ func DownloadWebpage(ie InfoExtractor, url, videoID string, note, errNote OptStr
 		req.Header.Set(headerName, GetStringField(headers, headerName, true, ""))
 	}
 
-	res, err := ie.Ctx().Client.Do(req)
+	res, err := ie.context.Client.Do(req)
 	if err != nil {
 		panic(newExtractorError(err.Error()))
 	}
@@ -85,7 +116,7 @@ func DownloadWebpage(ie InfoExtractor, url, videoID string, note, errNote OptStr
 }
 
 // SearchRegex implements common.py/_search_regex
-func SearchRegex(ie InfoExtractor, pattern interface{}, str, name string,
+func (ie *CommonIE) SearchRegex(pattern interface{}, str, name string,
 	def interface{}, fatal bool, flags int, group interface{}) OptString {
 
 	patterns, ok := pattern.([]string)
@@ -95,7 +126,7 @@ func SearchRegex(ie InfoExtractor, pattern interface{}, str, name string,
 
 	var match matcher.Match
 	for _, pattern := range patterns {
-		if match = ReSearch(Re, pattern, str, flags); match != nil {
+		if match = ReSearch(pattern, str, flags); match != nil {
 			break
 		}
 	}
@@ -127,16 +158,16 @@ func SearchRegex(ie InfoExtractor, pattern interface{}, str, name string,
 }
 
 // HTMLSearchRegex implements common.py/_html_search_regex
-func HTMLSearchRegex(ie InfoExtractor, pattern interface{}, body, name string,
+func (ie *CommonIE) HTMLSearchRegex(pattern interface{}, body, name string,
 	def interface{}, fatal bool, flags int, group interface{}) OptString {
 
-	res := SearchRegex(ie, pattern, body, name, def, fatal, flags, group)
+	res := ie.SearchRegex(pattern, body, name, def, fatal, flags, group)
 
 	return CleanHTML(res)
 }
 
 // HTMLSearchMeta implements common.py/_html_search_meta
-func HTMLSearchMeta(ie InfoExtractor, name interface{}, html string, displayName OptString,
+func (ie *CommonIE) HTMLSearchMeta(name interface{}, html string, displayName OptString,
 	fatal bool, def interface{}, flags int) OptString {
 
 	names, ok := name.([]string)
@@ -151,7 +182,7 @@ func HTMLSearchMeta(ie InfoExtractor, name interface{}, html string, displayName
 		patterns[i] = metaRegex(name)
 	}
 
-	return HTMLSearchRegex(ie, patterns, html, _displayName, def, fatal, flags, "content")
+	return ie.HTMLSearchRegex(patterns, html, _displayName, def, fatal, flags, "content")
 }
 
 func metaRegex(prop string) string {
@@ -171,7 +202,7 @@ func ogRegexes(prop string) []string {
 }
 
 // OgSearchProperty implements common.py/_og_search_property
-func OgSearchProperty(ie InfoExtractor, prop interface{}, html string, name OptString, def interface{}, fatal bool) OptString {
+func (ie *CommonIE) OgSearchProperty(prop interface{}, html string, name OptString, def interface{}, fatal bool) OptString {
 	props, ok := prop.([]string)
 	if !ok {
 		props = []string{prop.(string)}
@@ -184,43 +215,45 @@ func OgSearchProperty(ie InfoExtractor, prop interface{}, html string, name OptS
 		regexes = append(regexes, ogRegexes(prop)...)
 	}
 
-	escaped := SearchRegex(ie, regexes, html, _name, def, fatal, ReFlagDotAll, nil)
+	escaped := ie.SearchRegex(regexes, html, _name, def, fatal, ReFlagDotAll, nil)
 
 	return UnescapeHTML(escaped)
 }
 
 // OgSearchThumbnail implements common.py/_og_search_thumbnail
-func OgSearchThumbnail(ie InfoExtractor, html string, def interface{}) OptString {
-	return OgSearchProperty(ie, "image", html, AsOptString("thumbnail URL"), def, false)
+func (ie *CommonIE) OgSearchThumbnail(html string, def interface{}) OptString {
+	return ie.OgSearchProperty("image", html, AsOptString("thumbnail URL"), def, false)
 }
 
 // OgSearchDescription implements common.py/_og_search_description
-func OgSearchDescription(ie InfoExtractor, html string, def interface{}) OptString {
-	return OgSearchProperty(ie, "description", html, OptString{}, def, false)
+func (ie *CommonIE) OgSearchDescription(html string, def interface{}) OptString {
+	return ie.OgSearchProperty("description", html, OptString{}, def, false)
 }
 
 // OgSearchTitle implements common.py/_og_search_title
-func OgSearchTitle(ie InfoExtractor, html string, def interface{}, fatal bool) OptString {
-	return OgSearchProperty(ie, "title", html, OptString{}, def, fatal)
+func (ie *CommonIE) OgSearchTitle(html string, def interface{}, fatal bool) OptString {
+	return ie.OgSearchProperty("title", html, OptString{}, def, fatal)
 }
 
 // OgSearchVideoURL implements common.py/_og_search_video_url
-func OgSearchVideoURL(ie InfoExtractor, html string, name string, secure bool, def interface{}) OptString {
+func (ie *CommonIE) OgSearchVideoURL(html string, name string, secure bool, def interface{}) OptString {
 	regexes := append(ogRegexes("video"), ogRegexes("video:url")...)
 	if secure {
 		regexes = append(ogRegexes("video:secure_url"), regexes...)
 	}
-	return HTMLSearchRegex(ie, regexes, html, name, def, true, 0, nil)
+	return ie.HTMLSearchRegex(regexes, html, name, def, true, 0, nil)
 }
 
 // OgSearchURL implements common.py/_og_search_url
-func OgSearchURL(ie InfoExtractor, html string) OptString {
-	return OgSearchProperty(ie, "url", html, OptString{}, NoDefault, true)
+func (ie *CommonIE) OgSearchURL(html string) OptString {
+	return ie.OgSearchProperty("url", html, OptString{}, NoDefault, true)
 }
 
 // ParseJSON implements common.py/_parse_json
-func ParseJSON(ie InfoExtractor, jsonString string, videoID string, transformSource int, fatal bool) map[string]interface{} {
-	// TODO handle transformSource constants
+func (ie *CommonIE) ParseJSON(jsonString string, videoID string, transformSource func(string) string, fatal bool) map[string]interface{} {
+	if transformSource != nil {
+		jsonString = transformSource(jsonString)
+	}
 	var result map[string]interface{}
 	if err := json.Unmarshal([]byte(jsonString), &result); err != nil {
 		errMsg := fmt.Sprintf("%v: Failed to parse JSON", videoID)
@@ -235,8 +268,10 @@ func ParseJSON(ie InfoExtractor, jsonString string, videoID string, transformSou
 }
 
 // ParseJSONList implements common.py/_parse_json (returning lists)
-func ParseJSONList(ie InfoExtractor, jsonString string, videoID string, transformSource int, fatal bool) []interface{} {
-	// TODO handle transformSource constants
+func (ie *CommonIE) ParseJSONList(jsonString string, videoID string, transformSource func(string) string, fatal bool) []interface{} {
+	if transformSource != nil {
+		jsonString = transformSource(jsonString)
+	}
 	var result []interface{}
 	if err := json.Unmarshal([]byte(jsonString), &result); err != nil {
 		errMsg := fmt.Sprintf("%v: Failed to parse JSON", videoID)
@@ -251,31 +286,31 @@ func ParseJSONList(ie InfoExtractor, jsonString string, videoID string, transfor
 }
 
 // DownloadJSON implements common.py/_download_json
-func DownloadJSON(ie InfoExtractor, url, videoID string, note, errNote OptString,
-	transformSource int, fatal bool, encoding OptString, data OptString,
+func (ie *CommonIE) DownloadJSON(url, videoID string, note, errNote OptString,
+	transformSource func(string) string, fatal bool, encoding OptString, data OptString,
 	headers, query map[string]interface{}) map[string]interface{} {
 
-	jsonString := DownloadWebpage(ie, url, videoID, note, errNote, fatal, 1, 5, encoding, data, headers, query)
+	jsonString := ie.DownloadWebpage(url, videoID, note, errNote, fatal, 1, 5, encoding, data, headers, query)
 
 	// TODO some fatal handling
 
-	return ParseJSON(ie, jsonString, videoID, transformSource, fatal)
+	return ie.ParseJSON(jsonString, videoID, transformSource, fatal)
 }
 
 // DownloadJSONList implements common.py/_download_json (returning lists)
-func DownloadJSONList(ie InfoExtractor, url, videoID string, note, errNote OptString,
-	transformSource int, fatal bool, encoding OptString, data OptString,
+func (ie *CommonIE) DownloadJSONList(url, videoID string, note, errNote OptString,
+	transformSource func(string) string, fatal bool, encoding OptString, data OptString,
 	headers, query map[string]interface{}) []interface{} {
 
-	jsonString := DownloadWebpage(ie, url, videoID, note, errNote, fatal, 1, 5, encoding, data, headers, query)
+	jsonString := ie.DownloadWebpage(url, videoID, note, errNote, fatal, 1, 5, encoding, data, headers, query)
 
 	// TODO some fatal handling
 
-	return ParseJSONList(ie, jsonString, videoID, transformSource, fatal)
+	return ie.ParseJSONList(jsonString, videoID, transformSource, fatal)
 }
 
 // URLResult implements common.py/url_result
-func URLResult(ie InfoExtractor, url string, ieKey, videoID, videoTitle OptString) map[string]interface{} {
+func (ie *CommonIE) URLResult(url string, ieKey, videoID, videoTitle OptString) map[string]interface{} {
 	result := map[string]interface{}{
 		"_type": "url",
 		"url":   url,
@@ -291,7 +326,7 @@ func URLResult(ie InfoExtractor, url string, ieKey, videoID, videoTitle OptStrin
 }
 
 // SortFormats implements common.py/_sort_formats
-func SortFormats(ie InfoExtractor, formats []interface{}) {
+func (ie *CommonIE) SortFormats(formats []interface{}) {
 	if len(formats) == 0 {
 		panic(newExtractorError("No video formats found"))
 	}
@@ -421,8 +456,8 @@ func SortFormats(ie InfoExtractor, formats []interface{}) {
 }
 
 // RTASearch implements common.py/_rta_search
-func RTASearch(ie InfoExtractor, html string) int {
-	match := ReSearch(Re, `(?ix)<meta\s+name="rating"\s+content="RTA-5042-1996-1400-1577-RTA"`, html, 0)
+func (ie *CommonIE) RTASearch(html string) int {
+	match := ReSearch(`(?ix)<meta\s+name="rating"\s+content="RTA-5042-1996-1400-1577-RTA"`, html, 0)
 	if match != nil {
 		return 18
 	}
@@ -438,8 +473,8 @@ var ratingTable = map[string]int{
 }
 
 // MediaRatingSearch implements common.py/_media_rating_search
-func MediaRatingSearch(ie InfoExtractor, html string) OptInt {
-	rating := HTMLSearchMeta(ie, "rating", html, OptString{}, false, NoDefault, 0)
+func (ie *CommonIE) MediaRatingSearch(html string) OptInt {
+	rating := ie.HTMLSearchMeta("rating", html, OptString{}, false, NoDefault, 0)
 	if !rating.IsSet() {
 		return OptInt{}
 	}

@@ -12,7 +12,9 @@ Supported sites
  * HentaiStigma _(adult)_: `hentai.animestigma.com`
  * HistoricFilms: `www.historicfilms.com`
  * Keek: `www.keek.com`
+ * MacGameStore: `www.macgamestore.com`
  * Morningstar: `www.morningstar.com`
+ * PornHub _(adult)_: `www.pornhub.com`
  * Slutload _(adult)_: `www.slutload.com`
  * VideosZ _(adult)_: `www.videosz.com`
  * WDRMobile: `mobile-ondemand.wdr.de`

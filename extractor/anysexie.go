@@ -27,48 +27,35 @@ import (
 )
 
 type AnySexIE struct {
-	*rnt.Context
-	_VALID_URL string
+	*rnt.CommonIE
 }
 
-func NewAnySexIE(ctx *rnt.Context) rnt.InfoExtractor {
+func NewAnySexIE() rnt.InfoExtractor {
 	ret := &AnySexIE{}
-	ret.Context = ctx
-	ret._VALID_URL = `https?://(?:www\.)?anysex\.com/(?P<id>\d+)`
+	ret.CommonIE = rnt.NewCommonIE()
+	ret.VALIDURL = `https?://(?:www\.)?anysex\.com/(?P<id>\d+)`
 	return ret
-}
-
-func (self *AnySexIE) Ctx() *rnt.Context {
-	return self.Context
 }
 
 func (self *AnySexIE) Key() string {
 	return "AnySex"
 }
 
-func (self *AnySexIE) ValidUrl() string {
-	return self._VALID_URL
-}
-
 func (self *AnySexIE) Name() string {
 	return `AnySex extractor`
 }
 
-func (self *AnySexIE) Tests() []map[string]interface{} {
-	return []map[string]interface{}{}
-}
-
 func (self *AnySexIE) _real_extract(url string) map[string]interface{} {
-	mobj := rnt.ReMatch(rnt.Re, (self)._VALID_URL, url, 0)
+	mobj := rnt.ReMatch((self).VALIDURL, url, 0)
 	video_id := rnt.ReMatchGroupOne(mobj, `id`)
-	webpage := rnt.DownloadWebpage(self, url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	video_url := rnt.HTMLSearchRegex(self, `video_url\s*:\s*'([^']+)'`, webpage, `video URL`, rnt.NoDefault, true, 0, nil)
-	title := rnt.HTMLSearchRegex(self, `<title>(.*?)</title>`, webpage, `title`, rnt.NoDefault, true, 0, nil)
-	description := rnt.HTMLSearchRegex(self, `<div class="description"[^>]*>([^<]+)</div>`, webpage, `description`, rnt.NoDefault, false, 0, nil)
-	thumbnail := rnt.HTMLSearchRegex(self, `preview_url\s*:\s*\'(.*?)\'`, webpage, `thumbnail`, rnt.NoDefault, false, 0, nil)
-	categories := rnt.ReFindAllOne(rnt.Re, `<a href="http://anysex\.com/categories/[^"]+" title="[^"]*">([^<]+)</a>`, webpage, 0)
-	duration := rnt.ParseDuration(rnt.SearchRegex(self, `<b>Duration:</b> (?:<q itemprop="duration">)?(\d+:\d+)`, webpage, `duration`, rnt.NoDefault, false, 0, nil))
-	view_count := rnt.IntOrNone(rnt.HTMLSearchRegex(self, `<b>Views:</b> (\d+)`, webpage, `view count`, rnt.NoDefault, false, 0, nil), 1, rnt.OptInt{}, 1)
+	webpage := (self).DownloadWebpage(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
+	video_url := (self).HTMLSearchRegex(`video_url\s*:\s*'([^']+)'`, webpage, `video URL`, rnt.NoDefault, true, 0, nil)
+	title := (self).HTMLSearchRegex(`<title>(.*?)</title>`, webpage, `title`, rnt.NoDefault, true, 0, nil)
+	description := (self).HTMLSearchRegex(`<div class="description"[^>]*>([^<]+)</div>`, webpage, `description`, rnt.NoDefault, false, 0, nil)
+	thumbnail := (self).HTMLSearchRegex(`preview_url\s*:\s*\'(.*?)\'`, webpage, `thumbnail`, rnt.NoDefault, false, 0, nil)
+	categories := rnt.ReFindAllOne(`<a href="http://anysex\.com/categories/[^"]+" title="[^"]*">([^<]+)</a>`, webpage, 0)
+	duration := rnt.ParseDuration((self).SearchRegex(`<b>Duration:</b> (?:<q itemprop="duration">)?(\d+:\d+)`, webpage, `duration`, rnt.NoDefault, false, 0, nil))
+	view_count := rnt.IntOrNone((self).HTMLSearchRegex(`<b>Views:</b> (\d+)`, webpage, `view count`, rnt.NoDefault, false, 0, nil), 1, rnt.OptInt{}, 1)
 	return map[string]interface{}{`id`: video_id,
 		`url`:         video_url,
 		`ext`:         `mp4`,

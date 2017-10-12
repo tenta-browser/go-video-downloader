@@ -29,9 +29,6 @@ import (
 	"github.com/tenta-browser/go-pcre-matcher"
 )
 
-// Re is dummy
-const Re = 0
-
 // Python regexp flags
 const (
 	ReFlagDotAll = 16
@@ -164,18 +161,18 @@ func ReMustCompile(pattern string, flags int) matcher.Regexp {
 }
 
 // ReSearch implements python/re.search
-func ReSearch(re int, pattern, str string, flags int) matcher.Match {
+func ReSearch(pattern, str string, flags int) matcher.Match {
 	return ReMustCompile(pattern, flags).Search(str)
 }
 
 // ReMatch implements python/re.match
-func ReMatch(re int, pattern, str string, flags int) matcher.Match {
-	return ReSearch(re, fmt.Sprintf("^(?:%s)", pattern), str, flags)
+func ReMatch(pattern, str string, flags int) matcher.Match {
+	return ReSearch(fmt.Sprintf("^(?:%s)", pattern), str, flags)
 }
 
 // ReFindAllOne implements python/re.findall returning a list matches (groupcount <= 1)
-func ReFindAllOne(re int, pattern, str string, flags int) []string {
-	match := ReSearch(re, pattern, str, flags)
+func ReFindAllOne(pattern, str string, flags int) []string {
+	match := ReSearch(pattern, str, flags)
 	res := []string{}
 	if match != nil {
 		groupCount := match.Groups()
@@ -194,8 +191,8 @@ func ReFindAllOne(re int, pattern, str string, flags int) []string {
 }
 
 // ReFindAllMulti implements python/re.findall returning a list of group-tuples (groupcount >= 2)
-func ReFindAllMulti(re int, pattern, str string, flags int) [][]string {
-	match := ReSearch(re, pattern, str, flags)
+func ReFindAllMulti(pattern, str string, flags int) [][]string {
+	match := ReSearch(pattern, str, flags)
 	res := [][]string{}
 	if match != nil {
 		groupCount := match.Groups()
@@ -218,7 +215,7 @@ func ReFindAllMulti(re int, pattern, str string, flags int) [][]string {
 }
 
 // ReSub implements python/re.sub
-func ReSub(re int, pattern, repl, subject string, count, flags int) string {
+func ReSub(pattern, repl, subject string, count, flags int) string {
 	if count != 0 {
 		panic(newExtractorError("Non-zero count at ReSub")) // TODO
 	}

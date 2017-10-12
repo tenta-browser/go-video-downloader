@@ -86,7 +86,8 @@ func Check(url string) *CheckResult {
 // Extract extracts video info based on the results of a successful Check()
 func Extract(checkResult *CheckResult, connector *Connector) (*VideoData, error) {
 	factory := extractor.GetFactories()[checkResult.extractorKey]
-	extractor := factory(&runtime.Context{
+	extractor := factory()
+	extractor.SetContext(&runtime.Context{
 		Client: connector.Client,
 		Headers: map[string]string{
 			"User-Agent": connector.UserAgent,

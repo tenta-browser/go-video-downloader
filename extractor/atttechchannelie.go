@@ -27,46 +27,33 @@ import (
 )
 
 type ATTTechChannelIE struct {
-	*rnt.Context
-	_VALID_URL string
+	*rnt.CommonIE
 }
 
-func NewATTTechChannelIE(ctx *rnt.Context) rnt.InfoExtractor {
+func NewATTTechChannelIE() rnt.InfoExtractor {
 	ret := &ATTTechChannelIE{}
-	ret.Context = ctx
-	ret._VALID_URL = `https?://techchannel\.att\.com/play-video\.cfm/([^/]+/)*(?P<id>.+)`
+	ret.CommonIE = rnt.NewCommonIE()
+	ret.VALIDURL = `https?://techchannel\.att\.com/play-video\.cfm/([^/]+/)*(?P<id>.+)`
 	return ret
-}
-
-func (self *ATTTechChannelIE) Ctx() *rnt.Context {
-	return self.Context
 }
 
 func (self *ATTTechChannelIE) Key() string {
 	return "ATTTechChannel"
 }
 
-func (self *ATTTechChannelIE) ValidUrl() string {
-	return self._VALID_URL
-}
-
 func (self *ATTTechChannelIE) Name() string {
 	return `ATTTechChannel extractor`
 }
 
-func (self *ATTTechChannelIE) Tests() []map[string]interface{} {
-	return []map[string]interface{}{}
-}
-
 func (self *ATTTechChannelIE) _real_extract(url string) map[string]interface{} {
-	display_id := rnt.MatchID(self, url)
-	webpage := rnt.DownloadWebpage(self, url, display_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	video_url := rnt.SearchRegex(self, `url\s*:\s*'(rtmp://[^']+)'`, webpage, `video URL`, rnt.NoDefault, true, 0, nil)
-	video_id := rnt.SearchRegex(self, `mediaid\s*=\s*(\d+)`, webpage, `video id`, rnt.NoDefault, false, 0, nil)
-	title := rnt.OgSearchTitle(self, webpage, rnt.NoDefault, true)
-	description := rnt.OgSearchDescription(self, webpage, rnt.NoDefault)
-	thumbnail := rnt.OgSearchThumbnail(self, webpage, rnt.NoDefault)
-	upload_date := rnt.UnifiedStrDate(rnt.SearchRegex(self, `[Rr]elease\s+date:\s*(\d{1,2}/\d{1,2}/\d{4})`, webpage, `upload date`, rnt.NoDefault, false, 0, nil), false)
+	display_id := (self).MatchID(url)
+	webpage := (self).DownloadWebpage(url, display_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
+	video_url := (self).SearchRegex(`url\s*:\s*'(rtmp://[^']+)'`, webpage, `video URL`, rnt.NoDefault, true, 0, nil)
+	video_id := (self).SearchRegex(`mediaid\s*=\s*(\d+)`, webpage, `video id`, rnt.NoDefault, false, 0, nil)
+	title := (self).OgSearchTitle(webpage, rnt.NoDefault, true)
+	description := (self).OgSearchDescription(webpage, rnt.NoDefault)
+	thumbnail := (self).OgSearchThumbnail(webpage, rnt.NoDefault)
+	upload_date := rnt.UnifiedStrDate((self).SearchRegex(`[Rr]elease\s+date:\s*(\d{1,2}/\d{1,2}/\d{4})`, webpage, `upload date`, rnt.NoDefault, false, 0, nil), false)
 	return map[string]interface{}{`id`: video_id,
 		`display_id`:  display_id,
 		`url`:         video_url,

@@ -27,44 +27,31 @@ import (
 )
 
 type SlutloadIE struct {
-	*rnt.Context
-	_VALID_URL string
+	*rnt.CommonIE
 }
 
-func NewSlutloadIE(ctx *rnt.Context) rnt.InfoExtractor {
+func NewSlutloadIE() rnt.InfoExtractor {
 	ret := &SlutloadIE{}
-	ret.Context = ctx
-	ret._VALID_URL = `^https?://(?:\w+\.)?slutload\.com/video/[^/]+/(?P<id>[^/]+)/?$`
+	ret.CommonIE = rnt.NewCommonIE()
+	ret.VALIDURL = `^https?://(?:\w+\.)?slutload\.com/video/[^/]+/(?P<id>[^/]+)/?$`
 	return ret
-}
-
-func (self *SlutloadIE) Ctx() *rnt.Context {
-	return self.Context
 }
 
 func (self *SlutloadIE) Key() string {
 	return "Slutload"
 }
 
-func (self *SlutloadIE) ValidUrl() string {
-	return self._VALID_URL
-}
-
 func (self *SlutloadIE) Name() string {
 	return `Slutload extractor`
 }
 
-func (self *SlutloadIE) Tests() []map[string]interface{} {
-	return []map[string]interface{}{}
-}
-
 func (self *SlutloadIE) _real_extract(url string) map[string]interface{} {
-	url = rnt.ReSub(rnt.Re, `^(https?://)mobile\.`, `\1`, url, 0, 0)
-	video_id := rnt.MatchID(self, url)
-	webpage := rnt.DownloadWebpage(self, url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	video_title := rnt.StrStrip(rnt.HTMLSearchRegex(self, `<h1><strong>([^<]+)</strong>`, webpage, `title`, rnt.NoDefault, true, 0, nil).Get(), ``)
-	video_url := rnt.HTMLSearchRegex(self, `(?s)<div id="vidPlayer"\s+data-url="([^"]+)"`, webpage, `video URL`, rnt.NoDefault, true, 0, nil)
-	thumbnail := rnt.HTMLSearchRegex(self, `(?s)<div id="vidPlayer"\s+.*?previewer-file="([^"]+)"`, webpage, `thumbnail`, rnt.NoDefault, false, 0, nil)
+	url = rnt.ReSub(`^(https?://)mobile\.`, `\1`, url, 0, 0)
+	video_id := (self).MatchID(url)
+	webpage := (self).DownloadWebpage(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
+	video_title := rnt.StrStrip((self).HTMLSearchRegex(`<h1><strong>([^<]+)</strong>`, webpage, `title`, rnt.NoDefault, true, 0, nil).Get(), ``)
+	video_url := (self).HTMLSearchRegex(`(?s)<div id="vidPlayer"\s+data-url="([^"]+)"`, webpage, `video URL`, rnt.NoDefault, true, 0, nil)
+	thumbnail := (self).HTMLSearchRegex(`(?s)<div id="vidPlayer"\s+.*?previewer-file="([^"]+)"`, webpage, `thumbnail`, rnt.NoDefault, false, 0, nil)
 	return map[string]interface{}{`id`: video_id,
 		`url`:       video_url,
 		`title`:     video_title,

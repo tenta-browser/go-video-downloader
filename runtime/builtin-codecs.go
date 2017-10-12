@@ -27,36 +27,33 @@ import (
 	"encoding/hex"
 )
 
-// Codecs is dummy
-const Codecs = 0
-
 // Base64StdEncode implements python/base64.b64encode
-func Base64StdEncode(codecs int, bytes []byte) []byte {
+func Base64StdEncode(bytes []byte) []byte {
 	return base64Encode(base64.StdEncoding, bytes)
 }
 
 // Base64StdDecodeBytes implements python/base64.b64decode(bytes)
-func Base64StdDecodeBytes(codecs int, bytes []byte) []byte {
+func Base64StdDecodeBytes(bytes []byte) []byte {
 	return base64DecodeBytes(base64.StdEncoding, bytes)
 }
 
 // Base64StdDecodeString implements python/base64.b64decode(str)
-func Base64StdDecodeString(codecs int, str string) []byte {
+func Base64StdDecodeString(str string) []byte {
 	return base64DecodeBytes(base64.StdEncoding, []byte(str))
 }
 
 // Base64UrlEncode implements python/base64.urlsafe_b64encode
-func Base64UrlEncode(codecs int, bytes []byte) []byte {
+func Base64UrlEncode(bytes []byte) []byte {
 	return base64Encode(base64.URLEncoding, bytes)
 }
 
 // Base64UrlDecodeBytes implements python/base64.urlsafe_b64decode(bytes)
-func Base64UrlDecodeBytes(codecs int, bytes []byte) []byte {
+func Base64UrlDecodeBytes(bytes []byte) []byte {
 	return base64DecodeBytes(base64.URLEncoding, bytes)
 }
 
 // Base64UrlDecodeString implements python/base64.urlsafe_b64decode(str)
-func Base64UrlDecodeString(codecs int, str string) []byte {
+func Base64UrlDecodeString(str string) []byte {
 	return base64DecodeBytes(base64.URLEncoding, []byte(str))
 }
 
@@ -76,14 +73,14 @@ func base64DecodeBytes(enc *base64.Encoding, bytes []byte) []byte {
 }
 
 // HexEncode implements python/binascii.hexlify
-func HexEncode(codecs int, bytes []byte) []byte {
+func HexEncode(bytes []byte) []byte {
 	result := make([]byte, hex.EncodedLen(len(bytes)))
 	hex.Encode(result, bytes)
 	return result
 }
 
 // HexDecode implements python/binascii.unhexlify
-func HexDecode(codecs int, bytes []byte) []byte {
+func HexDecode(bytes []byte) []byte {
 	result := make([]byte, hex.DecodedLen(len(bytes)))
 	_, err := hex.Decode(result, bytes)
 	if err != nil {

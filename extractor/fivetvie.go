@@ -27,14 +27,13 @@ import (
 )
 
 type FiveTVIE struct {
-	*rnt.Context
-	_VALID_URL string
+	*rnt.CommonIE
 }
 
-func NewFiveTVIE(ctx *rnt.Context) rnt.InfoExtractor {
+func NewFiveTVIE() rnt.InfoExtractor {
 	ret := &FiveTVIE{}
-	ret.Context = ctx
-	ret._VALID_URL = `(?x)
+	ret.CommonIE = rnt.NewCommonIE()
+	ret.VALIDURL = `(?x)
                     http://
                         (?:www\.)?5-tv\.ru/
                         (?:
@@ -45,28 +44,16 @@ func NewFiveTVIE(ctx *rnt.Context) rnt.InfoExtractor {
 	return ret
 }
 
-func (self *FiveTVIE) Ctx() *rnt.Context {
-	return self.Context
-}
-
 func (self *FiveTVIE) Key() string {
 	return "FiveTV"
-}
-
-func (self *FiveTVIE) ValidUrl() string {
-	return self._VALID_URL
 }
 
 func (self *FiveTVIE) Name() string {
 	return `FiveTV extractor`
 }
 
-func (self *FiveTVIE) Tests() []map[string]interface{} {
-	return []map[string]interface{}{}
-}
-
 func (self *FiveTVIE) _real_extract(url string) map[string]interface{} {
-	mobj := rnt.ReMatch(rnt.Re, (self)._VALID_URL, url, 0)
+	mobj := rnt.ReMatch((self).VALIDURL, url, 0)
 	video_id := func() rnt.OptString {
 		if (rnt.ReMatchGroupOne(mobj, `id`)).IsSet() && (rnt.ReMatchGroupOne(mobj, `id`).Get()) != "" {
 			return rnt.ReMatchGroupOne(mobj, `id`)
@@ -74,21 +61,21 @@ func (self *FiveTVIE) _real_extract(url string) map[string]interface{} {
 			return rnt.ReMatchGroupOne(mobj, `path`)
 		}
 	}()
-	webpage := rnt.DownloadWebpage(self, url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	video_url := rnt.SearchRegex(self, []string{`<div[^>]+?class="flowplayer[^>]+?data-href="([^"]+)"`, `<a[^>]+?href="([^"]+)"[^>]+?class="videoplayer"`}, webpage, `video url`, rnt.NoDefault, true, 0, nil)
+	webpage := (self).DownloadWebpage(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
+	video_url := (self).SearchRegex([]string{`<div[^>]+?class="flowplayer[^>]+?data-href="([^"]+)"`, `<a[^>]+?href="([^"]+)"[^>]+?class="videoplayer"`}, webpage, `video url`, rnt.NoDefault, true, 0, nil)
 	title := func() rnt.OptString {
-		if (rnt.OgSearchTitle(self, webpage, nil, true)).IsSet() && (rnt.OgSearchTitle(self, webpage, nil, true).Get()) != "" {
-			return rnt.OgSearchTitle(self, webpage, nil, true)
+		if ((self).OgSearchTitle(webpage, nil, true)).IsSet() && ((self).OgSearchTitle(webpage, nil, true).Get()) != "" {
+			return (self).OgSearchTitle(webpage, nil, true)
 		} else {
-			return rnt.SearchRegex(self, `<title>([^<]+)</title>`, webpage, `title`, rnt.NoDefault, true, 0, nil)
+			return (self).SearchRegex(`<title>([^<]+)</title>`, webpage, `title`, rnt.NoDefault, true, 0, nil)
 		}
 	}()
-	duration := rnt.IntOrNone(rnt.OgSearchProperty(self, `video:duration`, webpage, rnt.AsOptString(`duration`), nil, true), 1, rnt.OptInt{}, 1)
+	duration := rnt.IntOrNone((self).OgSearchProperty(`video:duration`, webpage, rnt.AsOptString(`duration`), nil, true), 1, rnt.OptInt{}, 1)
 	return map[string]interface{}{`id`: video_id,
 		`url`:         video_url,
 		`title`:       title,
-		`description`: rnt.OgSearchDescription(self, webpage, nil),
-		`thumbnail`:   rnt.OgSearchThumbnail(self, webpage, nil),
+		`description`: (self).OgSearchDescription(webpage, nil),
+		`thumbnail`:   (self).OgSearchThumbnail(webpage, nil),
 		`duration`:    duration}
 }
 
