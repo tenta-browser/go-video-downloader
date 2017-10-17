@@ -34,8 +34,8 @@ type MorningstarIE struct {
 func NewMorningstarIE() rnt.InfoExtractor {
 	ret := &MorningstarIE{}
 	ret.CommonIE = rnt.NewCommonIE()
-	ret.IE_DESC = `morningstar.com`
-	ret.VALIDURL = `https?://(?:(?:www|news)\.)morningstar\.com/[cC]over/video[cC]enter\.aspx\?id=(?P<id>[0-9]+)`
+	ret.IE_DESC = "morningstar.com"
+	ret.VALIDURL = "https?://(?:(?:www|news)\\.)morningstar\\.com/[cC]over/video[cC]enter\\.aspx\\?id=(?P<id>[0-9]+)"
 	return ret
 }
 
@@ -44,22 +44,22 @@ func (self *MorningstarIE) Key() string {
 }
 
 func (self *MorningstarIE) Name() string {
-	return `Morningstar extractor` + " (" + self.IE_DESC + ")"
+	return "Morningstar extractor" + " (" + self.IE_DESC + ")"
 }
 
 func (self *MorningstarIE) _real_extract(url string) map[string]interface{} {
 	mobj := rnt.ReMatch((self).VALIDURL, url, 0)
-	video_id := rnt.ReMatchGroupOne(mobj, `id`)
-	webpage := (self).DownloadWebpage(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	title := (self).HTMLSearchRegex(`<h1 id="titleLink">(.*?)</h1>`, webpage, `title`, rnt.NoDefault, true, 0, nil)
-	video_url := (self).HTMLSearchRegex(`<input type="hidden" id="hidVideoUrl" value="([^"]+)"`, webpage, `video URL`, rnt.NoDefault, true, 0, nil)
-	thumbnail := (self).HTMLSearchRegex(`<input type="hidden" id="hidSnapshot" value="([^"]+)"`, webpage, `thumbnail`, rnt.NoDefault, false, 0, nil)
-	description := (self).HTMLSearchRegex(`<div id="mstarDeck".*?>(.*?)</div>`, webpage, `description`, rnt.NoDefault, false, 0, nil)
-	return map[string]interface{}{`id`: video_id,
-		`title`:       title,
-		`url`:         video_url,
-		`thumbnail`:   thumbnail,
-		`description`: description}
+	video_id := rnt.ReMatchGroupOne(mobj, "id")
+	webpage := (self).DownloadWebpageURL(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
+	title := (self).HTMLSearchRegexOne("<h1 id=\"titleLink\">(.*?)</h1>", webpage, "title", rnt.NoDefault, true, 0, nil)
+	video_url := (self).HTMLSearchRegexOne("<input type=\"hidden\" id=\"hidVideoUrl\" value=\"([^\"]+)\"", webpage, "video URL", rnt.NoDefault, true, 0, nil)
+	thumbnail := (self).HTMLSearchRegexOne("<input type=\"hidden\" id=\"hidSnapshot\" value=\"([^\"]+)\"", webpage, "thumbnail", rnt.NoDefault, false, 0, nil)
+	description := (self).HTMLSearchRegexOne("<div id=\"mstarDeck\".*?>(.*?)</div>", webpage, "description", rnt.NoDefault, false, 0, nil)
+	return map[string]interface{}{"id": video_id,
+		"title":       title,
+		"url":         video_url,
+		"thumbnail":   thumbnail,
+		"description": description}
 }
 
 func (self *MorningstarIE) Extract(url string) (*rnt.VideoResult, error) {
@@ -67,5 +67,5 @@ func (self *MorningstarIE) Extract(url string) (*rnt.VideoResult, error) {
 }
 
 func init() {
-	registerFactory(`Morningstar`, NewMorningstarIE)
+	registerFactory("Morningstar", NewMorningstarIE)
 }

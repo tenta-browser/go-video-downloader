@@ -33,7 +33,7 @@ type XNXXIE struct {
 func NewXNXXIE() rnt.InfoExtractor {
 	ret := &XNXXIE{}
 	ret.CommonIE = rnt.NewCommonIE()
-	ret.VALIDURL = `https?://(?:video|www)\.xnxx\.com/video-?(?P<id>[0-9a-z]+)/`
+	ret.VALIDURL = "https?://(?:video|www)\\.xnxx\\.com/video-?(?P<id>[0-9a-z]+)/"
 	return ret
 }
 
@@ -42,22 +42,22 @@ func (self *XNXXIE) Key() string {
 }
 
 func (self *XNXXIE) Name() string {
-	return `XNXX extractor`
+	return "XNXX extractor"
 }
 
 func (self *XNXXIE) _real_extract(url string) map[string]interface{} {
 	video_id := (self).MatchID(url)
-	webpage := (self).DownloadWebpage(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	video_url := (self).SearchRegex(`flv_url=(.*?)&amp;`, webpage, `video URL`, rnt.NoDefault, true, 0, nil)
+	webpage := (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
+	video_url := (self).SearchRegexOne("flv_url=(.*?)&amp;", webpage, "video URL", rnt.NoDefault, true, 0, nil)
 	video_url = rnt.AsOptString(rnt.ParseUnquote(video_url.Get()))
-	video_title := (self).HTMLSearchRegex(`<title>(.*?)\s+-\s+XNXX.COM`, webpage, `title`, rnt.NoDefault, true, 0, nil)
-	video_thumbnail := (self).SearchRegex(`url_bigthumb=(.*?)&amp;`, webpage, `thumbnail`, rnt.NoDefault, false, 0, nil)
-	return map[string]interface{}{`id`: video_id,
-		`url`:       video_url,
-		`title`:     video_title,
-		`ext`:       `flv`,
-		`thumbnail`: video_thumbnail,
-		`age_limit`: 18}
+	video_title := (self).HTMLSearchRegexOne("<title>(.*?)\\s+-\\s+XNXX.COM", webpage, "title", rnt.NoDefault, true, 0, nil)
+	video_thumbnail := (self).SearchRegexOne("url_bigthumb=(.*?)&amp;", webpage, "thumbnail", rnt.NoDefault, false, 0, nil)
+	return map[string]interface{}{"id": video_id,
+		"url":       video_url,
+		"title":     video_title,
+		"ext":       "flv",
+		"thumbnail": video_thumbnail,
+		"age_limit": 18}
 }
 
 func (self *XNXXIE) Extract(url string) (*rnt.VideoResult, error) {
@@ -65,5 +65,5 @@ func (self *XNXXIE) Extract(url string) (*rnt.VideoResult, error) {
 }
 
 func init() {
-	registerFactory(`XNXX`, NewXNXXIE)
+	registerFactory("XNXX", NewXNXXIE)
 }

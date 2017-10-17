@@ -34,8 +34,8 @@ type KeekIE struct {
 func NewKeekIE() rnt.InfoExtractor {
 	ret := &KeekIE{}
 	ret.CommonIE = rnt.NewCommonIE()
-	ret.VALIDURL = `https?://(?:www\.)?keek\.com/keek/(?P<id>\w+)`
-	ret.IE_NAME = `keek`
+	ret.VALIDURL = "https?://(?:www\\.)?keek\\.com/keek/(?P<id>\\w+)"
+	ret.IE_NAME = "keek"
 	return ret
 }
 
@@ -49,14 +49,14 @@ func (self *KeekIE) Name() string {
 
 func (self *KeekIE) _real_extract(url string) map[string]interface{} {
 	video_id := (self).MatchID(url)
-	webpage := (self).DownloadWebpage(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	return map[string]interface{}{`id`: video_id,
-		`url`:         (self).OgSearchVideoURL(webpage, `video url`, true, rnt.NoDefault),
-		`ext`:         `mp4`,
-		`title`:       rnt.StrStrip((self).OgSearchDescription(webpage, rnt.NoDefault).Get(), ``),
-		`thumbnail`:   (self).OgSearchThumbnail(webpage, rnt.NoDefault),
-		`uploader`:    (self).SearchRegex(`data-username=(["\'])(?P<uploader>.+?)\1`, webpage, `uploader`, rnt.NoDefault, false, 0, `uploader`),
-		`uploader_id`: (self).SearchRegex(`data-user-id=(["\'])(?P<uploader_id>.+?)\1`, webpage, `uploader id`, rnt.NoDefault, false, 0, `uploader_id`)}
+	webpage := (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
+	return map[string]interface{}{"id": video_id,
+		"url":         (self).OgSearchVideoURL(webpage, "video url", true, rnt.NoDefault),
+		"ext":         "mp4",
+		"title":       rnt.StrStrip((self).OgSearchDescription(webpage, rnt.NoDefault).Get(), ""),
+		"thumbnail":   (self).OgSearchThumbnail(webpage, rnt.NoDefault),
+		"uploader":    (self).SearchRegexOne("data-username=([\"\\'])(?P<uploader>.+?)\\1", webpage, "uploader", rnt.NoDefault, false, 0, "uploader"),
+		"uploader_id": (self).SearchRegexOne("data-user-id=([\"\\'])(?P<uploader_id>.+?)\\1", webpage, "uploader id", rnt.NoDefault, false, 0, "uploader_id")}
 }
 
 func (self *KeekIE) Extract(url string) (*rnt.VideoResult, error) {
@@ -64,5 +64,5 @@ func (self *KeekIE) Extract(url string) (*rnt.VideoResult, error) {
 }
 
 func init() {
-	registerFactory(`Keek`, NewKeekIE)
+	registerFactory("Keek", NewKeekIE)
 }

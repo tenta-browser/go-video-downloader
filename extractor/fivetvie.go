@@ -33,14 +33,7 @@ type FiveTVIE struct {
 func NewFiveTVIE() rnt.InfoExtractor {
 	ret := &FiveTVIE{}
 	ret.CommonIE = rnt.NewCommonIE()
-	ret.VALIDURL = `(?x)
-                    http://
-                        (?:www\.)?5-tv\.ru/
-                        (?:
-                            (?:[^/]+/)+(?P<id>\d+)|
-                            (?P<path>[^/?#]+)(?:[/?#])?
-                        )
-                    `
+	ret.VALIDURL = "(?x)\n                    http://\n                        (?:www\\.)?5-tv\\.ru/\n                        (?:\n                            (?:[^/]+/)+(?P<id>\\d+)|\n                            (?P<path>[^/?#]+)(?:[/?#])?\n                        )\n                    "
 	return ret
 }
 
@@ -49,34 +42,34 @@ func (self *FiveTVIE) Key() string {
 }
 
 func (self *FiveTVIE) Name() string {
-	return `FiveTV extractor`
+	return "FiveTV extractor"
 }
 
 func (self *FiveTVIE) _real_extract(url string) map[string]interface{} {
 	mobj := rnt.ReMatch((self).VALIDURL, url, 0)
 	video_id := func() rnt.OptString {
-		if (rnt.ReMatchGroupOne(mobj, `id`)).IsSet() && (rnt.ReMatchGroupOne(mobj, `id`).Get()) != "" {
-			return rnt.ReMatchGroupOne(mobj, `id`)
+		if (rnt.ReMatchGroupOne(mobj, "id")).IsSet() && (rnt.ReMatchGroupOne(mobj, "id").Get()) != "" {
+			return rnt.ReMatchGroupOne(mobj, "id")
 		} else {
-			return rnt.ReMatchGroupOne(mobj, `path`)
+			return rnt.ReMatchGroupOne(mobj, "path")
 		}
 	}()
-	webpage := (self).DownloadWebpage(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	video_url := (self).SearchRegex([]string{`<div[^>]+?class="flowplayer[^>]+?data-href="([^"]+)"`, `<a[^>]+?href="([^"]+)"[^>]+?class="videoplayer"`}, webpage, `video url`, rnt.NoDefault, true, 0, nil)
+	webpage := (self).DownloadWebpageURL(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
+	video_url := (self).SearchRegexMulti([]string{"<div[^>]+?class=\"flowplayer[^>]+?data-href=\"([^\"]+)\"", "<a[^>]+?href=\"([^\"]+)\"[^>]+?class=\"videoplayer\""}, webpage, "video url", rnt.NoDefault, true, 0, nil)
 	title := func() rnt.OptString {
 		if ((self).OgSearchTitle(webpage, nil, true)).IsSet() && ((self).OgSearchTitle(webpage, nil, true).Get()) != "" {
 			return (self).OgSearchTitle(webpage, nil, true)
 		} else {
-			return (self).SearchRegex(`<title>([^<]+)</title>`, webpage, `title`, rnt.NoDefault, true, 0, nil)
+			return (self).SearchRegexOne("<title>([^<]+)</title>", webpage, "title", rnt.NoDefault, true, 0, nil)
 		}
 	}()
-	duration := rnt.IntOrNone((self).OgSearchProperty(`video:duration`, webpage, rnt.AsOptString(`duration`), nil, true), 1, rnt.OptInt{}, 1)
-	return map[string]interface{}{`id`: video_id,
-		`url`:         video_url,
-		`title`:       title,
-		`description`: (self).OgSearchDescription(webpage, nil),
-		`thumbnail`:   (self).OgSearchThumbnail(webpage, nil),
-		`duration`:    duration}
+	duration := rnt.IntOrNone((self).OgSearchPropertyOne("video:duration", webpage, rnt.AsOptString("duration"), nil, true), 1, rnt.OptInt{}, 1)
+	return map[string]interface{}{"id": video_id,
+		"url":         video_url,
+		"title":       title,
+		"description": (self).OgSearchDescription(webpage, nil),
+		"thumbnail":   (self).OgSearchThumbnail(webpage, nil),
+		"duration":    duration}
 }
 
 func (self *FiveTVIE) Extract(url string) (*rnt.VideoResult, error) {
@@ -84,5 +77,5 @@ func (self *FiveTVIE) Extract(url string) (*rnt.VideoResult, error) {
 }
 
 func init() {
-	registerFactory(`FiveTV`, NewFiveTVIE)
+	registerFactory("FiveTV", NewFiveTVIE)
 }

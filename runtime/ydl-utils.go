@@ -26,6 +26,7 @@ package runtime
 import (
 	"fmt"
 	htmlLib "html"
+	"net/http"
 	urlLib "net/url"
 	"strconv"
 	"strings"
@@ -392,4 +393,26 @@ func JsToJSON(code string) string {
 		\b(?:0[xX][0-9a-fA-F]+|0+[0-7]+)(?:%[2]s:)?|
 		[0-9]+(?=%[2]s:)`,
 		commentRe, skipRe), 0).ReplaceFunc(code, replacer.NewReplacer(fixKv))
+}
+
+// sanitizeURL implements utils.py/sanitize_url
+func sanitizeURL(url string) string {
+	if strings.HasPrefix(url, "//") {
+		return "http:" + url
+	}
+	return url
+}
+
+// SanitizedRequest implements utils.py/sanitized_Request
+func SanitizedRequest(url string) *http.Request {
+	req, err := http.NewRequest("GET", sanitizeURL(url), nil)
+	if err != nil {
+		panic(newExtractorError(err.Error()))
+	}
+	return req
+}
+
+// RequestAddHeader implements python/Request.add_header
+func RequestAddHeader(req *http.Request, key, val string) {
+	req.Header.Set(key, val)
 }

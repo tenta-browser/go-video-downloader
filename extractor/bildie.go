@@ -34,8 +34,8 @@ type BildIE struct {
 func NewBildIE() rnt.InfoExtractor {
 	ret := &BildIE{}
 	ret.CommonIE = rnt.NewCommonIE()
-	ret.VALIDURL = `https?://(?:www\.)?bild\.de/(?:[^/]+/)+(?P<display_id>[^/]+)-(?P<id>\d+)(?:,auto=true)?\.bild\.html`
-	ret.IE_DESC = `Bild.de`
+	ret.VALIDURL = "https?://(?:www\\.)?bild\\.de/(?:[^/]+/)+(?P<display_id>[^/]+)-(?P<id>\\d+)(?:,auto=true)?\\.bild\\.html"
+	ret.IE_DESC = "Bild.de"
 	return ret
 }
 
@@ -44,18 +44,18 @@ func (self *BildIE) Key() string {
 }
 
 func (self *BildIE) Name() string {
-	return `Bild extractor` + " (" + self.IE_DESC + ")"
+	return "Bild extractor" + " (" + self.IE_DESC + ")"
 }
 
 func (self *BildIE) _real_extract(url string) map[string]interface{} {
 	video_id := (self).MatchID(url)
-	video_data := (self).DownloadJSON(((rnt.StrSplit(url, `.bild.html`, -(1)))[0] + `,view=json.bild.html`), video_id, rnt.AsOptString(`Downloading JSON metadata`), rnt.AsOptString(`Unable to download JSON metadata`), nil, true, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	return map[string]interface{}{`id`: video_id,
-		`title`:       rnt.StrStrip(rnt.UnescapeHTML(rnt.CastToOptString((video_data)[`title`])).Get(), ``),
-		`description`: rnt.UnescapeHTML(rnt.CastToOptString(rnt.DictGet(video_data, `description`, nil))),
-		`url`:         rnt.UnsafeSubscript(rnt.UnsafeSubscript(rnt.UnsafeSubscript(rnt.UnsafeSubscript((video_data)[`clipList`], 0), `srces`), 0), `src`),
-		`thumbnail`:   rnt.DictGet(video_data, `poster`, nil),
-		`duration`:    rnt.IntOrNone(rnt.DictGet(video_data, `durationSec`, nil), 1, rnt.OptInt{}, 1)}
+	video_data := (self).DownloadJSON(((rnt.StrSplit(url, ".bild.html", -(1)))[0] + ",view=json.bild.html"), video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
+	return map[string]interface{}{"id": video_id,
+		"title":       rnt.StrStrip(rnt.UnescapeHTML(rnt.CastToOptString((video_data)["title"])).Get(), ""),
+		"description": rnt.UnescapeHTML(rnt.CastToOptString(rnt.DictGet(video_data, "description", nil))),
+		"url":         rnt.UnsafeSubscript(rnt.UnsafeSubscript(rnt.UnsafeSubscript(rnt.UnsafeSubscript((video_data)["clipList"], 0), "srces"), 0), "src"),
+		"thumbnail":   rnt.DictGet(video_data, "poster", nil),
+		"duration":    rnt.IntOrNone(rnt.DictGet(video_data, "durationSec", nil), 1, rnt.OptInt{}, 1)}
 }
 
 func (self *BildIE) Extract(url string) (*rnt.VideoResult, error) {
@@ -63,5 +63,5 @@ func (self *BildIE) Extract(url string) (*rnt.VideoResult, error) {
 }
 
 func init() {
-	registerFactory(`Bild`, NewBildIE)
+	registerFactory("Bild", NewBildIE)
 }

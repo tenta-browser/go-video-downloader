@@ -33,7 +33,7 @@ type HarkIE struct {
 func NewHarkIE() rnt.InfoExtractor {
 	ret := &HarkIE{}
 	ret.CommonIE = rnt.NewCommonIE()
-	ret.VALIDURL = `https?://(?:www\.)?hark\.com/clips/(?P<id>.+?)-.+`
+	ret.VALIDURL = "https?://(?:www\\.)?hark\\.com/clips/(?P<id>.+?)-.+"
 	return ret
 }
 
@@ -42,18 +42,18 @@ func (self *HarkIE) Key() string {
 }
 
 func (self *HarkIE) Name() string {
-	return `Hark extractor`
+	return "Hark extractor"
 }
 
 func (self *HarkIE) _real_extract(url string) map[string]interface{} {
 	video_id := (self).MatchID(url)
-	data := (self).DownloadJSON(rnt.StrFormat(`http://www.hark.com/clips/%s.json`, video_id), video_id, rnt.AsOptString(`Downloading JSON metadata`), rnt.AsOptString(`Unable to download JSON metadata`), nil, true, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	return map[string]interface{}{`id`: video_id,
-		`url`:         (data)[`url`],
-		`title`:       (data)[`name`],
-		`description`: rnt.DictGet(data, `description`, nil),
-		`thumbnail`:   rnt.DictGet(data, `image_original`, nil),
-		`duration`:    rnt.DictGet(data, `duration`, nil)}
+	data := (self).DownloadJSON(rnt.StrFormat("http://www.hark.com/clips/%s.json", video_id), video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
+	return map[string]interface{}{"id": video_id,
+		"url":         (data)["url"],
+		"title":       (data)["name"],
+		"description": rnt.DictGet(data, "description", nil),
+		"thumbnail":   rnt.DictGet(data, "image_original", nil),
+		"duration":    rnt.DictGet(data, "duration", nil)}
 }
 
 func (self *HarkIE) Extract(url string) (*rnt.VideoResult, error) {
@@ -61,5 +61,5 @@ func (self *HarkIE) Extract(url string) (*rnt.VideoResult, error) {
 }
 
 func init() {
-	registerFactory(`Hark`, NewHarkIE)
+	registerFactory("Hark", NewHarkIE)
 }

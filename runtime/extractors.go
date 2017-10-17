@@ -102,10 +102,16 @@ func RunExtractor(url string, extrFunc func(string) map[string]interface{}) (res
 
 	if resTypeVideo {
 		if formats, ok := resDict["formats"]; ok {
-			if _formats, ok := formats.([]interface{}); ok {
-				if format, ok := _formats[len(_formats)-1].(map[string]interface{}); ok {
-					res.URL = GetStringField(format, "url", true, "")
+			var format map[string]interface{}
+			if _formats, ok := formats.([]map[string]interface{}); ok {
+				format = _formats[len(_formats)-1]
+			} else if _formats, ok := formats.([]interface{}); ok {
+				if _format, ok := _formats[len(_formats)-1].(map[string]interface{}); ok {
+					format = _format
 				}
+			}
+			if format != nil {
+				res.URL = GetStringField(format, "url", true, "")
 			}
 			if res.URL == "" {
 				panic(newExtractorError("Failed to extract URL from formats"))

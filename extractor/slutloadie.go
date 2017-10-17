@@ -33,7 +33,7 @@ type SlutloadIE struct {
 func NewSlutloadIE() rnt.InfoExtractor {
 	ret := &SlutloadIE{}
 	ret.CommonIE = rnt.NewCommonIE()
-	ret.VALIDURL = `^https?://(?:\w+\.)?slutload\.com/video/[^/]+/(?P<id>[^/]+)/?$`
+	ret.VALIDURL = "^https?://(?:\\w+\\.)?slutload\\.com/video/[^/]+/(?P<id>[^/]+)/?$"
 	return ret
 }
 
@@ -42,21 +42,21 @@ func (self *SlutloadIE) Key() string {
 }
 
 func (self *SlutloadIE) Name() string {
-	return `Slutload extractor`
+	return "Slutload extractor"
 }
 
 func (self *SlutloadIE) _real_extract(url string) map[string]interface{} {
-	url = rnt.ReSub(`^(https?://)mobile\.`, `\1`, url, 0, 0)
+	url = rnt.ReSub("^(https?://)mobile\\.", "\\1", url, 0, 0)
 	video_id := (self).MatchID(url)
-	webpage := (self).DownloadWebpage(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	video_title := rnt.StrStrip((self).HTMLSearchRegex(`<h1><strong>([^<]+)</strong>`, webpage, `title`, rnt.NoDefault, true, 0, nil).Get(), ``)
-	video_url := (self).HTMLSearchRegex(`(?s)<div id="vidPlayer"\s+data-url="([^"]+)"`, webpage, `video URL`, rnt.NoDefault, true, 0, nil)
-	thumbnail := (self).HTMLSearchRegex(`(?s)<div id="vidPlayer"\s+.*?previewer-file="([^"]+)"`, webpage, `thumbnail`, rnt.NoDefault, false, 0, nil)
-	return map[string]interface{}{`id`: video_id,
-		`url`:       video_url,
-		`title`:     video_title,
-		`thumbnail`: thumbnail,
-		`age_limit`: 18}
+	webpage := (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
+	video_title := rnt.StrStrip((self).HTMLSearchRegexOne("<h1><strong>([^<]+)</strong>", webpage, "title", rnt.NoDefault, true, 0, nil).Get(), "")
+	video_url := (self).HTMLSearchRegexOne("(?s)<div id=\"vidPlayer\"\\s+data-url=\"([^\"]+)\"", webpage, "video URL", rnt.NoDefault, true, 0, nil)
+	thumbnail := (self).HTMLSearchRegexOne("(?s)<div id=\"vidPlayer\"\\s+.*?previewer-file=\"([^\"]+)\"", webpage, "thumbnail", rnt.NoDefault, false, 0, nil)
+	return map[string]interface{}{"id": video_id,
+		"url":       video_url,
+		"title":     video_title,
+		"thumbnail": thumbnail,
+		"age_limit": 18}
 }
 
 func (self *SlutloadIE) Extract(url string) (*rnt.VideoResult, error) {
@@ -64,5 +64,5 @@ func (self *SlutloadIE) Extract(url string) (*rnt.VideoResult, error) {
 }
 
 func init() {
-	registerFactory(`Slutload`, NewSlutloadIE)
+	registerFactory("Slutload", NewSlutloadIE)
 }

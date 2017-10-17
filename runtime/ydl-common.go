@@ -75,21 +75,26 @@ func (ie *CommonIE) MatchID(url string) string {
 	return match.GroupByName("id")
 }
 
-// DownloadWebpage implements common.py/_download_webpage
-// TODO handle all the params!
-func (ie *CommonIE) DownloadWebpage(url, videoID string, note, errNote OptString,
+// DownloadWebpageURL implements common.py/_download_webpage (for urls)
+func (ie *CommonIE) DownloadWebpageURL(url, videoID string, note, errNote OptString,
 	fatal bool, tries int, timeout int, encoding OptString, data OptString,
 	headers, query map[string]interface{}) string {
 
-	utils.Log("[%s] %s (%s)", videoID, note.GetOrDef("Downloading webpage"), url)
+	return ie.DownloadWebpageRequest(SanitizedRequest(url), videoID, note, errNote,
+		fatal, tries, timeout, encoding, data, headers, query)
+}
 
-	req, err := http.NewRequest("GET", url, nil)
-	if err != nil {
-		panic(newExtractorError(err.Error()))
-	}
+// DownloadWebpageRequest implements common.py/_download_webpage (for requests)
+// TODO handle all the params!
+func (ie *CommonIE) DownloadWebpageRequest(req *http.Request, videoID string, note, errNote OptString,
+	fatal bool, tries int, timeout int, encoding OptString, data OptString,
+	headers, query map[string]interface{}) string {
 
+	utils.Log("[%s] %s (%s)", videoID, note.GetOrDef("Downloading webpage"), req.URL)
+
+	// priority of headers: context < request < args
 	for headerName, headerVal := range ie.context.Headers {
-		if len(headerVal) > 0 {
+		if len(headerVal) > 0 && len(req.Header.Get(headerVal)) == 0 {
 			req.Header.Set(headerName, headerVal)
 		}
 	}
@@ -115,14 +120,16 @@ func (ie *CommonIE) DownloadWebpage(url, videoID string, note, errNote OptString
 	return string(ret)
 }
 
-// SearchRegex implements common.py/_search_regex
-func (ie *CommonIE) SearchRegex(pattern interface{}, str, name string,
+// SearchRegexOne implements common.py/_search_regex (for single pattern)
+func (ie *CommonIE) SearchRegexOne(pattern string, str, name string,
 	def interface{}, fatal bool, flags int, group interface{}) OptString {
 
-	patterns, ok := pattern.([]string)
-	if !ok {
-		patterns = []string{pattern.(string)}
-	}
+	return ie.SearchRegexMulti([]string{pattern}, str, name, def, fatal, flags, group)
+}
+
+// SearchRegexMulti implements common.py/_search_regex (for multiple patterns)
+func (ie *CommonIE) SearchRegexMulti(patterns []string, str, name string,
+	def interface{}, fatal bool, flags int, group interface{}) OptString {
 
 	var match matcher.Match
 	for _, pattern := range patterns {
@@ -157,23 +164,32 @@ func (ie *CommonIE) SearchRegex(pattern interface{}, str, name string,
 	}
 }
 
-// HTMLSearchRegex implements common.py/_html_search_regex
-func (ie *CommonIE) HTMLSearchRegex(pattern interface{}, body, name string,
+// HTMLSearchRegexOne implements common.py/_html_search_regex (for single pattern)
+func (ie *CommonIE) HTMLSearchRegexOne(pattern string, body, name string,
 	def interface{}, fatal bool, flags int, group interface{}) OptString {
 
-	res := ie.SearchRegex(pattern, body, name, def, fatal, flags, group)
+	return ie.HTMLSearchRegexMulti([]string{pattern}, body, name, def, fatal, flags, group)
+}
+
+// HTMLSearchRegexMulti implements common.py/_html_search_regex (for multiple patterns)
+func (ie *CommonIE) HTMLSearchRegexMulti(patterns []string, body, name string,
+	def interface{}, fatal bool, flags int, group interface{}) OptString {
+
+	res := ie.SearchRegexMulti(patterns, body, name, def, fatal, flags, group)
 
 	return CleanHTML(res)
 }
 
-// HTMLSearchMeta implements common.py/_html_search_meta
-func (ie *CommonIE) HTMLSearchMeta(name interface{}, html string, displayName OptString,
+// HTMLSearchMetaOne implements common.py/_html_search_meta (for single name)
+func (ie *CommonIE) HTMLSearchMetaOne(name string, html string, displayName OptString,
 	fatal bool, def interface{}, flags int) OptString {
 
-	names, ok := name.([]string)
-	if !ok {
-		names = []string{name.(string)}
-	}
+	return ie.HTMLSearchMetaMulti([]string{name}, html, displayName, fatal, def, flags)
+}
+
+// HTMLSearchMetaMulti implements common.py/_html_search_meta (for multiple names)
+func (ie *CommonIE) HTMLSearchMetaMulti(names []string, html string, displayName OptString,
+	fatal bool, def interface{}, flags int) OptString {
 
 	_displayName := displayName.GetOrDef(names[0])
 
@@ -182,7 +198,7 @@ func (ie *CommonIE) HTMLSearchMeta(name interface{}, html string, displayName Op
 		patterns[i] = metaRegex(name)
 	}
 
-	return ie.HTMLSearchRegex(patterns, html, _displayName, def, fatal, flags, "content")
+	return ie.HTMLSearchRegexMulti(patterns, html, _displayName, def, fatal, flags, "content")
 }
 
 func metaRegex(prop string) string {
@@ -201,13 +217,13 @@ func ogRegexes(prop string) []string {
 	}
 }
 
-// OgSearchProperty implements common.py/_og_search_property
-func (ie *CommonIE) OgSearchProperty(prop interface{}, html string, name OptString, def interface{}, fatal bool) OptString {
-	props, ok := prop.([]string)
-	if !ok {
-		props = []string{prop.(string)}
-	}
+// OgSearchPropertyOne implements common.py/_og_search_property (for single property)
+func (ie *CommonIE) OgSearchPropertyOne(prop string, html string, name OptString, def interface{}, fatal bool) OptString {
+	return ie.OgSearchPropertyMulti([]string{prop}, html, name, def, fatal)
+}
 
+// OgSearchPropertyMulti implements common.py/_og_search_property (for multiple properties)
+func (ie *CommonIE) OgSearchPropertyMulti(props []string, html string, name OptString, def interface{}, fatal bool) OptString {
 	_name := name.GetOrDef(fmt.Sprintf("OpenGraph %s", props[0]))
 
 	regexes := []string{}
@@ -215,24 +231,24 @@ func (ie *CommonIE) OgSearchProperty(prop interface{}, html string, name OptStri
 		regexes = append(regexes, ogRegexes(prop)...)
 	}
 
-	escaped := ie.SearchRegex(regexes, html, _name, def, fatal, ReFlagDotAll, nil)
+	escaped := ie.SearchRegexMulti(regexes, html, _name, def, fatal, ReFlagDotAll, nil)
 
 	return UnescapeHTML(escaped)
 }
 
 // OgSearchThumbnail implements common.py/_og_search_thumbnail
 func (ie *CommonIE) OgSearchThumbnail(html string, def interface{}) OptString {
-	return ie.OgSearchProperty("image", html, AsOptString("thumbnail URL"), def, false)
+	return ie.OgSearchPropertyOne("image", html, AsOptString("thumbnail URL"), def, false)
 }
 
 // OgSearchDescription implements common.py/_og_search_description
 func (ie *CommonIE) OgSearchDescription(html string, def interface{}) OptString {
-	return ie.OgSearchProperty("description", html, OptString{}, def, false)
+	return ie.OgSearchPropertyOne("description", html, OptString{}, def, false)
 }
 
 // OgSearchTitle implements common.py/_og_search_title
 func (ie *CommonIE) OgSearchTitle(html string, def interface{}, fatal bool) OptString {
-	return ie.OgSearchProperty("title", html, OptString{}, def, fatal)
+	return ie.OgSearchPropertyOne("title", html, OptString{}, def, fatal)
 }
 
 // OgSearchVideoURL implements common.py/_og_search_video_url
@@ -241,12 +257,12 @@ func (ie *CommonIE) OgSearchVideoURL(html string, name string, secure bool, def 
 	if secure {
 		regexes = append(ogRegexes("video:secure_url"), regexes...)
 	}
-	return ie.HTMLSearchRegex(regexes, html, name, def, true, 0, nil)
+	return ie.HTMLSearchRegexMulti(regexes, html, name, def, true, 0, nil)
 }
 
 // OgSearchURL implements common.py/_og_search_url
 func (ie *CommonIE) OgSearchURL(html string) OptString {
-	return ie.OgSearchProperty("url", html, OptString{}, NoDefault, true)
+	return ie.OgSearchPropertyOne("url", html, OptString{}, NoDefault, true)
 }
 
 // ParseJSON implements common.py/_parse_json
@@ -290,7 +306,7 @@ func (ie *CommonIE) DownloadJSON(url, videoID string, note, errNote OptString,
 	transformSource func(string) string, fatal bool, encoding OptString, data OptString,
 	headers, query map[string]interface{}) map[string]interface{} {
 
-	jsonString := ie.DownloadWebpage(url, videoID, note, errNote, fatal, 1, 5, encoding, data, headers, query)
+	jsonString := ie.DownloadWebpageURL(url, videoID, note, errNote, fatal, 1, 5, encoding, data, headers, query)
 
 	// TODO some fatal handling
 
@@ -302,7 +318,7 @@ func (ie *CommonIE) DownloadJSONList(url, videoID string, note, errNote OptStrin
 	transformSource func(string) string, fatal bool, encoding OptString, data OptString,
 	headers, query map[string]interface{}) []interface{} {
 
-	jsonString := ie.DownloadWebpage(url, videoID, note, errNote, fatal, 1, 5, encoding, data, headers, query)
+	jsonString := ie.DownloadWebpageURL(url, videoID, note, errNote, fatal, 1, 5, encoding, data, headers, query)
 
 	// TODO some fatal handling
 
@@ -455,6 +471,24 @@ func (ie *CommonIE) SortFormats(formats []interface{}) {
 	})
 }
 
+// RemoveDuplicateFormats implements common.py/_remove_duplicate_formats
+func (ie *CommonIE) RemoveDuplicateFormats(formats []interface{}) []interface{} {
+	formatURLs := map[string]struct{}{}
+	uniqueFormats := make([]interface{}, 0, len(formats))
+	for _, _format := range formats {
+		format, ok := _format.(map[string]interface{})
+		if !ok {
+			panic(newExtractorError("Format is not a dict"))
+		}
+		url := GetStringField(format, "url", true, "")
+		if _, found := formatURLs[url]; !found {
+			formatURLs[url] = struct{}{}
+			uniqueFormats = append(uniqueFormats, _format)
+		}
+	}
+	return uniqueFormats
+}
+
 // RTASearch implements common.py/_rta_search
 func (ie *CommonIE) RTASearch(html string) int {
 	match := ReSearch(`(?ix)<meta\s+name="rating"\s+content="RTA-5042-1996-1400-1577-RTA"`, html, 0)
@@ -474,7 +508,7 @@ var ratingTable = map[string]int{
 
 // MediaRatingSearch implements common.py/_media_rating_search
 func (ie *CommonIE) MediaRatingSearch(html string) OptInt {
-	rating := ie.HTMLSearchMeta("rating", html, OptString{}, false, NoDefault, 0)
+	rating := ie.HTMLSearchMetaOne("rating", html, OptString{}, false, NoDefault, 0)
 	if !rating.IsSet() {
 		return OptInt{}
 	}

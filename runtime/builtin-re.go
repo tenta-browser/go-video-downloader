@@ -56,6 +56,7 @@ func translatePyFlags(pyFlags int) (int, error) {
 // - escape {...} when it's not a valid quantifier
 // - convert (?P=group) -> \k<group>
 // - convert (?P<group>pattern) -> (?<group>pattern)
+// - escape # in character classes, so that it doesn't get treated as comment in verbose mode
 func translatePyPattern(pattern string) string {
 	ln := len(pattern)
 	buf := make([]byte, 0, ln)
@@ -73,6 +74,9 @@ func translatePyPattern(pattern string) string {
 			inCharClass = true
 		} else if pattern[i] == ']' {
 			inCharClass = false
+		} else if pattern[i] == '#' && inCharClass {
+			buf = append(buf, "\\#"...)
+			continue
 		} else if !inCharClass {
 			if pattern[i] == '{' {
 				si := i

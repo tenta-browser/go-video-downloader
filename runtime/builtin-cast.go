@@ -44,7 +44,7 @@ func CastToString(val interface{}) string {
 	case OptString:
 		return v.Get()
 	default:
-		panic(NewCastError(val, "str"))
+		panic(NewCastError(val, "string"))
 	}
 }
 
@@ -54,7 +54,7 @@ func CastToFloat(val interface{}) float64 {
 	case float64:
 		return v
 	default:
-		panic(NewCastError(val, "float"))
+		panic(NewCastError(val, "float64"))
 	}
 }
 

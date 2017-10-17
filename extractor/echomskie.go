@@ -33,7 +33,7 @@ type EchoMskIE struct {
 func NewEchoMskIE() rnt.InfoExtractor {
 	ret := &EchoMskIE{}
 	ret.CommonIE = rnt.NewCommonIE()
-	ret.VALIDURL = `https?://(?:www\.)?echo\.msk\.ru/sounds/(?P<id>\d+)`
+	ret.VALIDURL = "https?://(?:www\\.)?echo\\.msk\\.ru/sounds/(?P<id>\\d+)"
 	return ret
 }
 
@@ -42,24 +42,24 @@ func (self *EchoMskIE) Key() string {
 }
 
 func (self *EchoMskIE) Name() string {
-	return `EchoMsk extractor`
+	return "EchoMsk extractor"
 }
 
 func (self *EchoMskIE) _real_extract(url string) map[string]interface{} {
 	video_id := (self).MatchID(url)
-	webpage := (self).DownloadWebpage(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	audio_url := (self).SearchRegex(`<a rel="mp3" href="([^"]+)">`, webpage, `audio URL`, rnt.NoDefault, true, 0, nil)
-	title := (self).HTMLSearchRegex(`<a href="/programs/[^"]+" target="_blank">([^<]+)</a>`, webpage, `title`, rnt.NoDefault, true, 0, nil)
-	air_date := (self).HTMLSearchRegex(`(?s)<div class="date">(.+?)</div>`, webpage, `date`, nil, false, 0, nil)
+	webpage := (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
+	audio_url := (self).SearchRegexOne("<a rel=\"mp3\" href=\"([^\"]+)\">", webpage, "audio URL", rnt.NoDefault, true, 0, nil)
+	title := (self).HTMLSearchRegexOne("<a href=\"/programs/[^\"]+\" target=\"_blank\">([^<]+)</a>", webpage, "title", rnt.NoDefault, true, 0, nil)
+	air_date := (self).HTMLSearchRegexOne("(?s)<div class=\"date\">(.+?)</div>", webpage, "date", nil, false, 0, nil)
 	if (air_date).IsSet() && (air_date.Get()) != "" {
-		air_date = rnt.AsOptString(rnt.ReSub(`(\s)\1+`, `\1`, air_date.Get(), 0, 0))
+		air_date = rnt.AsOptString(rnt.ReSub("(\\s)\\1+", "\\1", air_date.Get(), 0, 0))
 		if (air_date).IsSet() && (air_date.Get()) != "" {
-			title = rnt.AsOptString(rnt.StrFormat(`%s - %s`, title, air_date))
+			title = rnt.AsOptString(rnt.StrFormat("%s - %s", title, air_date))
 		}
 	}
-	return map[string]interface{}{`id`: video_id,
-		`url`:   audio_url,
-		`title`: title}
+	return map[string]interface{}{"id": video_id,
+		"url":   audio_url,
+		"title": title}
 }
 
 func (self *EchoMskIE) Extract(url string) (*rnt.VideoResult, error) {
@@ -67,5 +67,5 @@ func (self *EchoMskIE) Extract(url string) (*rnt.VideoResult, error) {
 }
 
 func init() {
-	registerFactory(`EchoMsk`, NewEchoMskIE)
+	registerFactory("EchoMsk", NewEchoMskIE)
 }
