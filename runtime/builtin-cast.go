@@ -23,6 +23,7 @@
 package runtime
 
 import "fmt"
+import "reflect"
 
 // CastToInt casts to int, handles boxing, panics with extractorError
 func CastToInt(val interface{}) int {
@@ -53,6 +54,8 @@ func CastToFloat(val interface{}) float64 {
 	switch v := val.(type) {
 	case float64:
 		return v
+	case OptFloat:
+		return v.Get()
 	default:
 		panic(NewCastError(val, "float64"))
 	}
@@ -86,13 +89,32 @@ func CastToOptString(val interface{}) OptString {
 	}
 }
 
+// CastToOptFloat casts to OptFloat, handles boxing, panics with extractorError
+func CastToOptFloat(val interface{}) OptFloat {
+	switch v := val.(type) {
+	case nil:
+		return OptFloat{}
+	case float64:
+		return AsOptFloat(v)
+	case OptFloat:
+		return v
+	default:
+		panic(NewCastError(val, "OptFloat"))
+	}
+}
+
+// IsList checks if val is a list (slice)
+func IsList(val interface{}) bool {
+	return reflect.TypeOf(val).Kind() == reflect.Slice
+}
+
 // NewCastError creates extractorError's for failed casts
 func NewCastError(val interface{}, destType string) error {
 	return newExtractorError(fmt.Sprintf("Cannot cast %T to %s", val, destType))
 }
 
 // GetIntField tries to get an int typed value from dict, handles boxing, panics with extractorError
-func GetIntField(dict map[string]interface{}, field string, required bool, def int) int {
+func GetIntField(dict SDict, field string, required bool, def int) int {
 	if val, ok := dict[field]; ok {
 		return CastToInt(val)
 	} else if required {
@@ -103,7 +125,7 @@ func GetIntField(dict map[string]interface{}, field string, required bool, def i
 }
 
 // GetStringField tries to get a string typed value from dict, handles boxing, panics with extractorError
-func GetStringField(dict map[string]interface{}, field string, required bool, def string) string {
+func GetStringField(dict SDict, field string, required bool, def string) string {
 	if val, ok := dict[field]; ok {
 		return CastToString(val)
 	} else if required {
@@ -114,7 +136,7 @@ func GetStringField(dict map[string]interface{}, field string, required bool, de
 }
 
 // GetFloatField tries to get a float typed value from dict, handles boxing, panics with extractorError
-func GetFloatField(dict map[string]interface{}, field string, required bool, def float64) float64 {
+func GetFloatField(dict SDict, field string, required bool, def float64) float64 {
 	if val, ok := dict[field]; ok {
 		return CastToFloat(val)
 	} else if required {

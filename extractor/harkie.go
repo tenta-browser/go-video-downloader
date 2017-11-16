@@ -28,13 +28,21 @@ import (
 
 type HarkIE struct {
 	*rnt.CommonIE
+	IE_NAME string
 }
 
 func NewHarkIE() rnt.InfoExtractor {
-	ret := &HarkIE{}
-	ret.CommonIE = rnt.NewCommonIE()
-	ret.VALIDURL = "https?://(?:www\\.)?hark\\.com/clips/(?P<id>.+?)-.+"
-	return ret
+	var (
+		IE_NAME    string
+		_VALID_URL string
+	)
+	self := &HarkIE{}
+	self.CommonIE = rnt.NewCommonIE()
+	IE_NAME = "Hark"
+	_VALID_URL = "https?://(?:www\\.)?hark\\.com/clips/(?P<id>.+?)-.+"
+	self.IE_NAME = IE_NAME
+	self.VALIDURL = _VALID_URL
+	return self
 }
 
 func (self *HarkIE) Key() string {
@@ -42,22 +50,28 @@ func (self *HarkIE) Key() string {
 }
 
 func (self *HarkIE) Name() string {
-	return "Hark extractor"
+	return self.IE_NAME
 }
 
-func (self *HarkIE) _real_extract(url string) map[string]interface{} {
-	video_id := (self).MatchID(url)
-	data := (self).DownloadJSON(rnt.StrFormat("http://www.hark.com/clips/%s.json", video_id), video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	return map[string]interface{}{"id": video_id,
-		"url":         (data)["url"],
-		"title":       (data)["name"],
-		"description": rnt.DictGet(data, "description", nil),
-		"thumbnail":   rnt.DictGet(data, "image_original", nil),
-		"duration":    rnt.DictGet(data, "duration", nil)}
+func (self *HarkIE) _real_extract(url string) rnt.SDict {
+	var (
+		data     interface{}
+		video_id string
+	)
+	video_id = (self).MatchID(url)
+	data = (self).DownloadJSON(rnt.StrFormat2("http://www.hark.com/clips/%s.json", video_id), video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	return rnt.SDict{
+		"id":          video_id,
+		"url":         rnt.UnsafeSubscript(data, "url"),
+		"title":       rnt.UnsafeSubscript(data, "name"),
+		"description": rnt.DictGet(τ_cast_α_to_d(data), "description", nil),
+		"thumbnail":   rnt.DictGet(τ_cast_α_to_d(data), "image_original", nil),
+		"duration":    rnt.DictGet(τ_cast_α_to_d(data), "duration", nil),
+	}
 }
 
-func (self *HarkIE) Extract(url string) (*rnt.VideoResult, error) {
-	return rnt.RunExtractor(url, self._real_extract)
+func (self *HarkIE) Extract(url string) (rnt.ExtractorResult, error) {
+	return rnt.RunExtractor(url, self.Context, self._real_extract)
 }
 
 func init() {

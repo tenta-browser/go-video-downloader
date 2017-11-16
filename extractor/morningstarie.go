@@ -29,14 +29,24 @@ import (
 type MorningstarIE struct {
 	*rnt.CommonIE
 	IE_DESC string
+	IE_NAME string
 }
 
 func NewMorningstarIE() rnt.InfoExtractor {
-	ret := &MorningstarIE{}
-	ret.CommonIE = rnt.NewCommonIE()
-	ret.IE_DESC = "morningstar.com"
-	ret.VALIDURL = "https?://(?:(?:www|news)\\.)morningstar\\.com/[cC]over/video[cC]enter\\.aspx\\?id=(?P<id>[0-9]+)"
-	return ret
+	var (
+		IE_DESC    string
+		IE_NAME    string
+		_VALID_URL string
+	)
+	self := &MorningstarIE{}
+	self.CommonIE = rnt.NewCommonIE()
+	IE_NAME = "Morningstar"
+	IE_DESC = "morningstar.com"
+	_VALID_URL = "https?://(?:(?:www|news)\\.)morningstar\\.com/[cC]over/video[cC]enter\\.aspx\\?id=(?P<id>[0-9]+)"
+	self.IE_DESC = IE_DESC
+	self.IE_NAME = IE_NAME
+	self.VALIDURL = _VALID_URL
+	return self
 }
 
 func (self *MorningstarIE) Key() string {
@@ -44,26 +54,37 @@ func (self *MorningstarIE) Key() string {
 }
 
 func (self *MorningstarIE) Name() string {
-	return "Morningstar extractor" + " (" + self.IE_DESC + ")"
+	return self.IE_NAME
 }
 
-func (self *MorningstarIE) _real_extract(url string) map[string]interface{} {
-	mobj := rnt.ReMatch((self).VALIDURL, url, 0)
-	video_id := rnt.ReMatchGroupOne(mobj, "id")
-	webpage := (self).DownloadWebpageURL(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	title := (self).HTMLSearchRegexOne("<h1 id=\"titleLink\">(.*?)</h1>", webpage, "title", rnt.NoDefault, true, 0, nil)
-	video_url := (self).HTMLSearchRegexOne("<input type=\"hidden\" id=\"hidVideoUrl\" value=\"([^\"]+)\"", webpage, "video URL", rnt.NoDefault, true, 0, nil)
-	thumbnail := (self).HTMLSearchRegexOne("<input type=\"hidden\" id=\"hidSnapshot\" value=\"([^\"]+)\"", webpage, "thumbnail", rnt.NoDefault, false, 0, nil)
-	description := (self).HTMLSearchRegexOne("<div id=\"mstarDeck\".*?>(.*?)</div>", webpage, "description", rnt.NoDefault, false, 0, nil)
-	return map[string]interface{}{"id": video_id,
+func (self *MorningstarIE) _real_extract(url string) rnt.SDict {
+	var (
+		description rnt.OptString
+		mobj        rnt.Match
+		thumbnail   rnt.OptString
+		title       rnt.OptString
+		video_id    rnt.OptString
+		video_url   rnt.OptString
+		webpage     string
+	)
+	mobj = rnt.ReMatch((self).VALIDURL, url, 0)
+	video_id = rnt.ReMatchGroupOne(mobj, "id")
+	webpage = (self).DownloadWebpageURL(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	title = (self).HTMLSearchRegexOne("<h1 id=\"titleLink\">(.*?)</h1>", webpage, "title", rnt.NoDefault, true, 0, nil)
+	video_url = (self).HTMLSearchRegexOne("<input type=\"hidden\" id=\"hidVideoUrl\" value=\"([^\"]+)\"", webpage, "video URL", rnt.NoDefault, true, 0, nil)
+	thumbnail = (self).HTMLSearchRegexOne("<input type=\"hidden\" id=\"hidSnapshot\" value=\"([^\"]+)\"", webpage, "thumbnail", rnt.NoDefault, false, 0, nil)
+	description = (self).HTMLSearchRegexOne("<div id=\"mstarDeck\".*?>(.*?)</div>", webpage, "description", rnt.NoDefault, false, 0, nil)
+	return rnt.SDict{
+		"id":          video_id,
 		"title":       title,
 		"url":         video_url,
 		"thumbnail":   thumbnail,
-		"description": description}
+		"description": description,
+	}
 }
 
-func (self *MorningstarIE) Extract(url string) (*rnt.VideoResult, error) {
-	return rnt.RunExtractor(url, self._real_extract)
+func (self *MorningstarIE) Extract(url string) (rnt.ExtractorResult, error) {
+	return rnt.RunExtractor(url, self.Context, self._real_extract)
 }
 
 func init() {

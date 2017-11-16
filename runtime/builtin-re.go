@@ -34,6 +34,13 @@ const (
 	ReFlagDotAll = 16
 )
 
+type (
+	// Regexp is the regexp type exposed to extractors
+	Regexp = matcher.Regexp
+	// Match is the match type exposed to extractors
+	Match = matcher.Match
+)
+
 // translatePyFlags converts a Python regexp flagset to our engine's flagset
 func translatePyFlags(pyFlags int) (int, error) {
 	flags := 0
@@ -54,6 +61,7 @@ func translatePyFlags(pyFlags int) (int, error) {
 
 // translatePyPattern removes Python-specific stuff from the pattern
 // - escape {...} when it's not a valid quantifier
+// - convert {,...} qualifiers to {0,...} since PCRE does not like the former
 // - convert (?P=group) -> \k<group>
 // - convert (?P<group>pattern) -> (?<group>pattern)
 // - escape # in character classes, so that it doesn't get treated as comment in verbose mode
@@ -94,6 +102,9 @@ func translatePyPattern(pattern string) string {
 				}
 				if len(buf2) > 0 && i < ln && pattern[i] == '}' {
 					buf = append(buf, '{')
+					if buf2[0] == ',' {
+						buf = append(buf, '0')
+					}
 					buf = append(buf, buf2...)
 					buf = append(buf, '}')
 				} else {
@@ -151,7 +162,7 @@ func translatePyReplacement(repl string) string {
 }
 
 // ReMustCompile prepares and compiles a pattern
-func ReMustCompile(pattern string, flags int) matcher.Regexp {
+func ReMustCompile(pattern string, flags int) Regexp {
 	flags, err := translatePyFlags(flags)
 	if err != nil {
 		panic(newExtractorError(err.Error()))
@@ -165,12 +176,12 @@ func ReMustCompile(pattern string, flags int) matcher.Regexp {
 }
 
 // ReSearch implements python/re.search
-func ReSearch(pattern, str string, flags int) matcher.Match {
+func ReSearch(pattern, str string, flags int) Match {
 	return ReMustCompile(pattern, flags).Search(str)
 }
 
 // ReMatch implements python/re.match
-func ReMatch(pattern, str string, flags int) matcher.Match {
+func ReMatch(pattern, str string, flags int) Match {
 	return ReSearch(fmt.Sprintf("^(?:%s)", pattern), str, flags)
 }
 
@@ -218,6 +229,21 @@ func ReFindAllMulti(pattern, str string, flags int) [][]string {
 	return res
 }
 
+// ReFindIter implements python/re.finditer
+func ReFindIter(pattern, str string, flags int) []Match {
+	match := ReSearch(pattern, str, flags)
+	res := []Match{}
+	if match != nil {
+		for {
+			res = append(res, match)
+			if !match.Next() {
+				break
+			}
+		}
+	}
+	return res
+}
+
 // ReSub implements python/re.sub
 func ReSub(pattern, repl, subject string, count, flags int) string {
 	if count != 0 {
@@ -227,12 +253,12 @@ func ReSub(pattern, repl, subject string, count, flags int) string {
 }
 
 // ReMatchGroupNone implements python/match.group with 0 args
-func ReMatchGroupNone(match matcher.Match) OptString {
+func ReMatchGroupNone(match Match) OptString {
 	return ReMatchGroupOne(match, 0)
 }
 
 // ReMatchGroupOne implements python/match.group with 1 arg
-func ReMatchGroupOne(match matcher.Match, group interface{}) OptString {
+func ReMatchGroupOne(match Match, group interface{}) OptString {
 	switch grp := group.(type) {
 	case int:
 		if !match.GroupPresentByIdx(grp) {
@@ -250,7 +276,7 @@ func ReMatchGroupOne(match matcher.Match, group interface{}) OptString {
 }
 
 // ReMatchGroupMulti implements python/match.group with >=2 args
-func ReMatchGroupMulti(match matcher.Match, groups []interface{}) []OptString {
+func ReMatchGroupMulti(match Match, groups []interface{}) []OptString {
 	values := make([]OptString, len(groups))
 	for idx, group := range groups {
 		values[idx] = ReMatchGroupOne(match, group)
@@ -259,7 +285,7 @@ func ReMatchGroupMulti(match matcher.Match, groups []interface{}) []OptString {
 }
 
 // ReMatchGroups implements python/match.groups
-func ReMatchGroups(match matcher.Match, def OptString) []OptString {
+func ReMatchGroups(match Match, def OptString) []OptString {
 	groups := make([]OptString, match.Groups())
 	for idx := 1; idx <= len(groups); idx++ {
 		if match.GroupPresentByIdx(idx) {

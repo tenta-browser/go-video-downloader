@@ -28,13 +28,21 @@ import (
 
 type StitcherIE struct {
 	*rnt.CommonIE
+	IE_NAME string
 }
 
 func NewStitcherIE() rnt.InfoExtractor {
-	ret := &StitcherIE{}
-	ret.CommonIE = rnt.NewCommonIE()
-	ret.VALIDURL = "https?://(?:www\\.)?stitcher\\.com/podcast/(?:[^/]+/)+e/(?:(?P<display_id>[^/#?&]+?)-)?(?P<id>\\d+)(?:[/#?&]|$)"
-	return ret
+	var (
+		IE_NAME    string
+		_VALID_URL string
+	)
+	self := &StitcherIE{}
+	self.CommonIE = rnt.NewCommonIE()
+	IE_NAME = "Stitcher"
+	_VALID_URL = "https?://(?:www\\.)?stitcher\\.com/podcast/(?:[^/]+/)+e/(?:(?P<display_id>[^/#?&]+?)-)?(?P<id>\\d+)(?:[/#?&]|$)"
+	self.IE_NAME = IE_NAME
+	self.VALIDURL = _VALID_URL
+	return self
 }
 
 func (self *StitcherIE) Key() string {
@@ -42,41 +50,48 @@ func (self *StitcherIE) Key() string {
 }
 
 func (self *StitcherIE) Name() string {
-	return "Stitcher extractor"
+	return self.IE_NAME
 }
 
-func (self *StitcherIE) _real_extract(url string) map[string]interface{} {
-	mobj := rnt.ReMatch((self).VALIDURL, url, 0)
-	audio_id := rnt.ReMatchGroupOne(mobj, "id")
-	display_id := func() rnt.OptString {
-		if (rnt.ReMatchGroupOne(mobj, "display_id")).IsSet() && (rnt.ReMatchGroupOne(mobj, "display_id").Get()) != "" {
+func (self *StitcherIE) _real_extract(url string) rnt.SDict {
+	var (
+		audio_id    rnt.OptString
+		description rnt.OptString
+		display_id  rnt.OptString
+		duration    rnt.OptInt
+		episode     interface{}
+		formats     []rnt.SDict
+		mobj        rnt.Match
+		thumbnail   interface{}
+		title       rnt.OptString
+		webpage     string
+	)
+	mobj = rnt.ReMatch((self).VALIDURL, url, 0)
+	audio_id = rnt.ReMatchGroupOne(mobj, "id")
+	display_id = func() rnt.OptString {
+		if τ_isTruthy_Os(rnt.ReMatchGroupOne(mobj, "display_id")) {
 			return rnt.ReMatchGroupOne(mobj, "display_id")
 		} else {
 			return audio_id
 		}
 	}()
-	webpage := (self).DownloadWebpageURL(url, display_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	episode := rnt.UnsafeSubscript(((self).ParseJSON(rnt.JsToJSON((self).SearchRegexOne("(?s)var\\s+stitcher(?:Config)?\\s*=\\s*({.+?});\\n", webpage, "episode config", rnt.NoDefault, true, 0, nil).Get()), display_id.Get(), nil, true))["config"], "episode")
-	title := rnt.UnescapeHTML(rnt.CastToOptString(rnt.UnsafeSubscript(episode, "title")))
-	formats := func() []map[string]interface{} {
-		τmp2 := []map[string]interface{}{}
-		for _, τmp1 := range func() []string {
-			τmp1 := struct {
-				_0 string
-			}{_0: "episodeURL"}
-			return []string{τmp1._0}
-		}() {
-			episode_key := τmp1
-			if !(rnt.IsTruthy(rnt.DictGet(func(val interface{}) map[string]interface{} {
-				res, ok := val.(map[string]interface{})
-				if !ok {
-					panic(rnt.NewCastError(val, `map[string]interface{}`))
-				}
-				return res
-			}(episode), episode_key, nil))) {
+	webpage = (self).DownloadWebpageURL(url, display_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	episode = rnt.UnsafeSubscript(rnt.UnsafeSubscript((self).ParseJSON(rnt.JsToJSON((self).SearchRegexOne("(?s)var\\s+stitcher(?:Config)?\\s*=\\s*({.+?});\\n", webpage, "episode config", rnt.NoDefault, true, 0, nil).Get()), display_id.Get(), nil, true), "config"), "episode")
+	title = rnt.UnescapeHTML(rnt.CastToOptString(rnt.UnsafeSubscript(episode, "title")))
+	formats = func() []rnt.SDict {
+		τresult := []rnt.SDict{}
+		for _, τel := range τ_conv_Tsω_to_Ls(τ_Tsω{
+			Φ0: "episodeURL",
+		}) {
+			var (
+				episode_key string
+			)
+			episode_key = τel
+			if !(rnt.IsTruthy(rnt.DictGet(τ_cast_α_to_d(episode), episode_key, nil))) {
 				continue
 			}
-			τmp2 = append(τmp2, map[string]interface{}{"url": rnt.UnsafeSubscript(episode, episode_key),
+			τresult = append(τresult, rnt.SDict{
+				"url": rnt.UnsafeSubscript(episode, episode_key),
 				"ext": func() string {
 					if (rnt.DetermineExt(rnt.CastToOptString(rnt.UnsafeSubscript(episode, episode_key)), "unknown_video")) != "" {
 						return rnt.DetermineExt(rnt.CastToOptString(rnt.UnsafeSubscript(episode, episode_key)), "unknown_video")
@@ -84,36 +99,27 @@ func (self *StitcherIE) _real_extract(url string) map[string]interface{} {
 						return "mp3"
 					}
 				}(),
-				"vcodec": "none"})
+				"vcodec": "none",
+			})
 		}
-		return τmp2
+		return τresult
 	}()
-	description := (self).SearchRegexOne("Episode Info:\\s*</span>([^<]+)<", webpage, "description", rnt.NoDefault, false, 0, nil)
-	duration := rnt.IntOrNone(rnt.DictGet(func(val interface{}) map[string]interface{} {
-		res, ok := val.(map[string]interface{})
-		if !ok {
-			panic(rnt.NewCastError(val, `map[string]interface{}`))
-		}
-		return res
-	}(episode), "duration", nil), 1, rnt.OptInt{}, 1)
-	thumbnail := rnt.DictGet(func(val interface{}) map[string]interface{} {
-		res, ok := val.(map[string]interface{})
-		if !ok {
-			panic(rnt.NewCastError(val, `map[string]interface{}`))
-		}
-		return res
-	}(episode), "episodeImage", nil)
-	return map[string]interface{}{"id": audio_id,
+	description = (self).SearchRegexOne("Episode Info:\\s*</span>([^<]+)<", webpage, "description", rnt.NoDefault, false, 0, nil)
+	duration = rnt.IntOrNone(rnt.DictGet(τ_cast_α_to_d(episode), "duration", nil), 1, rnt.OptInt{}, 1)
+	thumbnail = rnt.DictGet(τ_cast_α_to_d(episode), "episodeImage", nil)
+	return rnt.SDict{
+		"id":          audio_id,
 		"display_id":  display_id,
 		"title":       title,
 		"description": description,
 		"duration":    duration,
 		"thumbnail":   thumbnail,
-		"formats":     formats}
+		"formats":     formats,
+	}
 }
 
-func (self *StitcherIE) Extract(url string) (*rnt.VideoResult, error) {
-	return rnt.RunExtractor(url, self._real_extract)
+func (self *StitcherIE) Extract(url string) (rnt.ExtractorResult, error) {
+	return rnt.RunExtractor(url, self.Context, self._real_extract)
 }
 
 func init() {

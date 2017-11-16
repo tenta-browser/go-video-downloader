@@ -1,0 +1,92 @@
+/**
+ * Go Video Downloader
+ *
+ *    Copyright 2017 Tenta, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For any questions, please contact developer@tenta.io
+ *
+ * ndtvie.go: Automatically transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/ndtv.py
+ */
+
+package extractor
+
+import (
+	rnt "github.com/tenta-browser/go-video-downloader/runtime"
+)
+
+type NDTVIE struct {
+	*rnt.CommonIE
+	IE_NAME string
+}
+
+func NewNDTVIE() rnt.InfoExtractor {
+	var (
+		IE_NAME    string
+		_VALID_URL string
+	)
+	self := &NDTVIE{}
+	self.CommonIE = rnt.NewCommonIE()
+	IE_NAME = "NDTV"
+	_VALID_URL = "https?://(?:www\\.)?ndtv\\.com/video/(?:[^/]+/)+[^/?^&]+-(?P<id>\\d+)"
+	self.IE_NAME = IE_NAME
+	self.VALIDURL = _VALID_URL
+	return self
+}
+
+func (self *NDTVIE) Key() string {
+	return "NDTV"
+}
+
+func (self *NDTVIE) Name() string {
+	return self.IE_NAME
+}
+
+func (self *NDTVIE) _real_extract(url string) rnt.SDict {
+	var (
+		description rnt.OptString
+		duration    rnt.OptInt
+		filename    rnt.OptString
+		title       rnt.OptString
+		upload_date rnt.OptString
+		video_id    string
+		video_url   string
+		webpage     string
+	)
+	video_id = (self).MatchID(url)
+	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	title = rnt.RemoveEnd((self).OgSearchTitle(webpage, rnt.NoDefault, true), " - NDTV")
+	filename = (self).SearchRegexOne("__filename='([^']+)'", webpage, "video filename", rnt.NoDefault, true, 0, nil)
+	video_url = rnt.StrFormat2("http://bitcast-b.bitgravity.com/ndtvod/23372/ndtv/%s", filename)
+	duration = rnt.IntOrNone((self).SearchRegexOne("__duration='([^']+)'", webpage, "duration", rnt.NoDefault, false, 0, nil), 1, rnt.OptInt{}, 1)
+	upload_date = rnt.UnifiedStrDate((self).HTMLSearchMetaOne("publish-date", webpage, rnt.AsOptString("upload date"), false, rnt.NoDefault, 0), true)
+	description = rnt.RemoveEnd((self).OgSearchDescription(webpage, rnt.NoDefault), " (Read more)")
+	return rnt.SDict{
+		"id":          video_id,
+		"url":         video_url,
+		"title":       title,
+		"description": description,
+		"thumbnail":   (self).OgSearchThumbnail(webpage, rnt.NoDefault),
+		"duration":    duration,
+		"upload_date": upload_date,
+	}
+}
+
+func (self *NDTVIE) Extract(url string) (rnt.ExtractorResult, error) {
+	return rnt.RunExtractor(url, self.Context, self._real_extract)
+}
+
+func init() {
+	registerFactory("NDTV", NewNDTVIE)
+}

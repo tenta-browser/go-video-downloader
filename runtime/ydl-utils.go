@@ -24,8 +24,10 @@
 package runtime
 
 import (
+	"bytes"
 	"fmt"
 	htmlLib "html"
+	"io/ioutil"
 	"net/http"
 	urlLib "net/url"
 	"strconv"
@@ -34,13 +36,19 @@ import (
 
 	"github.com/tenta-browser/go-pcre-matcher/replacer"
 
-	"github.com/tenta-browser/go-pcre-matcher"
 	"github.com/tenta-browser/go-video-downloader/utils"
 	"golang.org/x/text/transform"
 	"golang.org/x/text/unicode/norm"
 )
 
-var cleanHTMLRe1, cleanHTMLRe2, cleanHTMLRe3 matcher.Regexp
+type (
+	// Request is the request type exposed to extractors
+	Request = *http.Request
+	// Response is the response type exposed to extractors
+	Response = *http.Response
+)
+
+var cleanHTMLRe1, cleanHTMLRe2, cleanHTMLRe3 Regexp
 
 // CleanHTML implements utils.py/clean_html
 func CleanHTML(html OptString) OptString {
@@ -204,34 +212,14 @@ func PyExtractorError(msg string, expected bool, videoID OptString) error {
 
 // IntOrNone implements utils.py/int_or_none
 func IntOrNone(val interface{}, scale int, def OptInt, invScale int) OptInt {
-	if val == nil || val == "" {
+	if val == nil || val == "" || IsNone(val) {
 		return def
-	} else if oint, ok := val.(OptInt); ok {
-		if !oint.IsSet() {
-			return def
-		}
-		val = oint.Get()
-	} else if ostr, ok := val.(OptString); ok {
-		if !ostr.IsSet() {
-			return def
-		}
-		val = ostr.Get()
 	}
-	switch v := val.(type) {
-	case int:
-		return AsOptInt(v * invScale / scale)
-	case float32:
-		return AsOptInt(int(v) * invScale / scale)
-	case float64:
-		return AsOptInt(int(v) * invScale / scale)
-	case string:
-		if iv, err := strconv.Atoi(v); err == nil {
-			return AsOptInt(iv * invScale / scale)
-		}
+	i, err := convertToInt(val)
+	if err != nil {
 		return def
-	default:
-		panic(newExtractorError(fmt.Sprintf("Cannot convert to int: %T", v)))
 	}
+	return AsOptInt(i * invScale / scale)
 }
 
 // StrToInt implements utils.py/str_to_int
@@ -247,8 +235,20 @@ func StrToInt(s OptString) OptInt {
 	return AsOptInt(i)
 }
 
+// FloatOrNone implements utils.py/float_or_none
+func FloatOrNone(val interface{}, scale, invScale int, def OptFloat) OptFloat {
+	if IsNone(val) {
+		return def
+	}
+	f, err := convertToFloat(val)
+	if err != nil {
+		return def
+	}
+	return AsOptFloat(f * float64(invScale) / float64(scale))
+}
+
 // UtilDictGet implements utils.py/dict_get
-func UtilDictGet(dict map[string]interface{}, key interface{}, def interface{}, skipFalseValues bool) interface{} {
+func UtilDictGet(dict SDict, key interface{}, def interface{}, skipFalseValues bool) interface{} {
 	keys, ok := key.([]string)
 	if !ok {
 		keys = []string{key.(string)}
@@ -281,8 +281,14 @@ func ParseDuration(s OptString) OptString {
 	return OptString{}
 }
 
+// ParseISO8601 implements utils.py/parse_iso8601
+func ParseISO8601(dateStr OptString, delimiter string) OptInt {
+	// TODO implement me
+	return OptInt{}
+}
+
 // DetermineProtocol implements utils.py/determine_protocol
-func DetermineProtocol(infoDict map[string]interface{}) string {
+func DetermineProtocol(infoDict SDict) string {
 	if protocol := GetStringField(infoDict, "protocol", false, ""); protocol != "" {
 		return protocol
 	}
@@ -311,6 +317,30 @@ func DetermineProtocol(infoDict map[string]interface{}) string {
 	}
 
 	return purl.Scheme
+}
+
+// RemoveStart implements utils.py/remove_start
+func RemoveStart(s OptString, start string) OptString {
+	if !s.IsSet() {
+		return s
+	}
+	ss := s.Get()
+	if !strings.HasPrefix(ss, start) {
+		return s
+	}
+	return AsOptString(ss[len(start):])
+}
+
+// RemoveEnd implements utils.py/remove_end
+func RemoveEnd(s OptString, end string) OptString {
+	if !s.IsSet() {
+		return s
+	}
+	ss := s.Get()
+	if !strings.HasSuffix(ss, end) {
+		return s
+	}
+	return AsOptString(ss[:len(ss)-len(end)])
 }
 
 // RemoveQuotes implements utils.py/remove_quotes
@@ -342,7 +372,7 @@ func JsToJSON(code string) string {
 		{fmt.Sprintf(`(?s)^(0+[0-7]+)%s:?$`, skipRe), 8},
 	}
 
-	fixKv := func(m matcher.Match) string {
+	fixKv := func(m Match) string {
 		v := m.GroupByIdx(0)
 		if v == "true" || v == "false" || v == "null" {
 			return v
@@ -351,7 +381,7 @@ func JsToJSON(code string) string {
 		}
 
 		if v[0] == '\'' || v[0] == '"' {
-			v = ReMustCompile(`(?s)\\.|"`, 0).ReplaceFunc(v[1:len(v)-1], replacer.NewReplacer(func(m matcher.Match) string {
+			v = ReMustCompile(`(?s)\\.|"`, 0).ReplaceFunc(v[1:len(v)-1], replacer.NewReplacer(func(m Match) string {
 				m0 := m.GroupByIdx(0)
 				switch m0 {
 				case "\"":
@@ -361,7 +391,7 @@ func JsToJSON(code string) string {
 				case "\\\n":
 					return ""
 				case "\\x":
-					return "\\u0"
+					return "\\\\x" // no need to convert to \u, Go likes \x
 				default:
 					return m0
 				}
@@ -378,7 +408,7 @@ func JsToJSON(code string) string {
 				if strings.HasSuffix(v, ":") {
 					return fmt.Sprintf(`"%d"`, i64)
 				}
-				return string(i64)
+				return fmt.Sprintf(`%d`, i64)
 			}
 		}
 
@@ -395,24 +425,232 @@ func JsToJSON(code string) string {
 		commentRe, skipRe), 0).ReplaceFunc(code, replacer.NewReplacer(fixKv))
 }
 
-// sanitizeURL implements utils.py/sanitize_url
-func sanitizeURL(url string) string {
-	if strings.HasPrefix(url, "//") {
-		return "http:" + url
-	}
-	return url
+// StdHeaders implements utils.py/std_headers
+var StdHeaders = SDict{
+	"User-Agent":      "Mozilla/5.0 (X11; Linux x86_64; rv:10.0) Gecko/20150101 Firefox/47.0 (Chrome)",
+	"Accept-Charset":  "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+	"Accept":          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+	"Accept-Encoding": "gzip, deflate",
+	"Accept-Language": "en-us,en;q=0.5",
 }
 
 // SanitizedRequest implements utils.py/sanitized_Request
-func SanitizedRequest(url string) *http.Request {
-	req, err := http.NewRequest("GET", sanitizeURL(url), nil)
+func SanitizedRequest(url string, data []byte, headers SDict) Request {
+	req, err := http.NewRequest("GET", utils.SanitizeURL(url), nil)
 	if err != nil {
 		panic(newExtractorError(err.Error()))
 	}
+	updateRequest(req, data, headers, nil)
 	return req
 }
 
+func updateRequest(req Request, data []byte, headers, query SDict) {
+	// apply headers
+	for headerName := range headers {
+		RequestAddHeader(req, headerName, ConvertToString(DictGet(headers, headerName, nil)))
+	}
+
+	// apply body data
+	if data != nil {
+		req.Body = ioutil.NopCloser(bytes.NewBuffer(data))
+		req.ContentLength = int64(len(data))
+	}
+
+	// apply query parameters
+	q := req.URL.Query()
+	for queryKey := range query {
+		q.Set(queryKey, ConvertToString(DictGet(query, queryKey, nil)))
+	}
+	req.URL.RawQuery = q.Encode()
+}
+
 // RequestAddHeader implements python/Request.add_header
-func RequestAddHeader(req *http.Request, key, val string) {
+func RequestAddHeader(req Request, key, val string) {
 	req.Header.Set(key, val)
+}
+
+// ResponseGetURL implements python/Response.geturl
+func ResponseGetURL(res Response) string {
+	return res.Request.URL.String()
+}
+
+// parseM3U8Attributes implements utils.py/parse_m3u8_attributes
+func parseM3U8Attributes(attrib string) map[string]string {
+	info := make(map[string]string)
+	for _, kv := range ReFindAllMulti(`(?P<key>[A-Z0-9-]+)=(?P<val>"[^"]+"|[^",]+)(?:,|$)`, attrib, 0) {
+		key := kv[0]
+		val := kv[1]
+		if val[0] == '"' {
+			val = val[1 : len(val)-1]
+		}
+		info[key] = val
+	}
+	return info
+}
+
+// parseCodecs implements utils.py/parse_codecs
+func parseCodecs(codecsStr string) map[string]OptString {
+	if codecsStr == "" {
+		return make(map[string]OptString)
+	}
+	splitedCodecs := []string{}
+	for _, str := range strings.Split(strings.Trim(strings.TrimSpace(codecsStr), ","), ",") {
+		str = strings.TrimSpace(str)
+		if str != "" {
+			splitedCodecs = append(splitedCodecs, str)
+		}
+	}
+	vcodec := OptString{}
+	acodec := OptString{}
+	for _, fullCodec := range splitedCodecs {
+		codec := strings.Split(fullCodec, ".")[0]
+		if utils.StrIn(codec, "avc1", "avc2", "avc3", "avc4", "vp9", "vp8", "hev1", "hev2", "h263", "h264", "mp4v") {
+			if vcodec.GetOrDef("") == "" {
+				vcodec = AsOptString(fullCodec)
+			}
+		} else if utils.StrIn(codec, "mp4a", "opus", "vorbis", "mp3", "aac", "ac-3", "ec-3", "eac3", "dtsc", "dtse", "dtsh", "dtsl") {
+			if acodec.GetOrDef("") == "" {
+				acodec = AsOptString(fullCodec)
+			}
+		} else {
+			if utils.Debug {
+				utils.Log("WARNING: Unknown codec %s", fullCodec)
+			}
+		}
+	}
+	if vcodec.GetOrDef("") == "" && acodec.GetOrDef("") == "" {
+		if len(splitedCodecs) == 2 {
+			return map[string]OptString{
+				"vcodec": vcodec,
+				"acodec": acodec,
+			}
+		} else if len(splitedCodecs) == 1 {
+			return map[string]OptString{
+				"vcodec": AsOptString("none"),
+				"acodec": vcodec,
+			}
+		}
+	} else {
+		_or := func(ostr OptString, def string) OptString {
+			if ostr.GetOrDef("") == "" {
+				return AsOptString(def)
+
+			}
+			return ostr
+		}
+		return map[string]OptString{
+			"vcodec": _or(vcodec, "none"),
+			"acodec": _or(acodec, "none"),
+		}
+	}
+	return make(map[string]OptString)
+}
+
+// Qualities implements utils.py/qualities
+func Qualities(qualityIDs []string) func(string) int {
+	return func(qID string) int {
+		for qIdx, _qID := range qualityIDs {
+			if _qID == qID {
+				return qIdx
+			}
+		}
+		return -1
+	}
+}
+
+// FindXPathAttr implements utils.py/find_xpath_attr
+func FindXPathAttr(node XMLElement, xpath string, key string, val OptString) XMLElement {
+	if utils.Debug {
+		if ReMatch("^[a-zA-Z_-]+$", key, 0) == nil {
+			panic(newExtractorError("Invalid attribute: " + key))
+		}
+	}
+	if val.IsSet() {
+		xpath = xpath + fmt.Sprintf("[@%s='%s']", key, val.Get())
+	} else {
+		xpath = xpath + fmt.Sprintf("[@%s]", key)
+	}
+	return XMLFind(node, xpath)
+}
+
+// XPathElementOne implements utils.py/xpath_element (for a single xpath)
+func XPathElementOne(node XMLElement, xpath string, name OptString, fatal bool, def interface{}) XMLElement {
+	return XPathElementMulti(node, []string{xpath}, name, fatal, def)
+}
+
+// XPathElementMulti implements utils.py/xpath_element (for multiple xpaths)
+func XPathElementMulti(node XMLElement, xpaths []string, name OptString, fatal bool, def interface{}) XMLElement {
+	var n XMLElement
+	for _, xpath := range xpaths {
+		n = XMLFind(node, xpath)
+		if n != nil {
+			break
+		}
+	}
+	if n == nil {
+		if !isNoDefault(def) {
+			return def.(XMLElement)
+		} else if fatal {
+			_name := name.GetOrDef(fmt.Sprintf("%v", xpaths))
+			panic(newExtractorError(fmt.Sprintf("Could not find XML element %s", _name)))
+		} else {
+			return nil
+		}
+	}
+	return n
+}
+
+// XPathTextOne implements utils.py/xpath_text (for a single xpath)
+func XPathTextOne(node XMLElement, xpath string, name OptString, fatal bool, def interface{}) OptString {
+	return XPathTextMulti(node, []string{xpath}, name, fatal, def)
+}
+
+// XPathTextMulti implements utils.py/xpath_element (for multiple xpaths)
+func XPathTextMulti(node XMLElement, xpaths []string, name OptString, fatal bool, def interface{}) OptString {
+	var _def interface{}
+	if isNoDefault(def) {
+		_def = def
+	} else {
+		_def = NewEmptyXMLElement()
+	}
+	n := XPathElementMulti(node, xpaths, name, fatal, _def)
+	if n == nil || n == _def {
+		if n == nil {
+			return OptString{}
+		}
+		return AsOptString(def.(string))
+	}
+	if n.Text == "" {
+		if !isNoDefault(def) {
+			if def == nil {
+				return OptString{}
+			}
+			return AsOptString(def.(string))
+		} else if fatal {
+			_name := name.GetOrDef(fmt.Sprintf("%v", xpaths))
+			panic(newExtractorError(fmt.Sprintf("Could not find XML element %s", _name)))
+		} else {
+			return OptString{}
+		}
+	}
+	return AsOptString(n.Text)
+}
+
+// XPathAttr implements utils.py/xpath_attr
+func XPathAttr(node XMLElement, xpath, key string, name OptString, fatal bool, def interface{}) OptString {
+	n := FindXPathAttr(node, xpath, key, OptString{})
+	if n == nil {
+		if !isNoDefault(def) {
+			if def == nil {
+				return OptString{}
+			}
+			return AsOptString(def.(string))
+		} else if fatal {
+			_name := name.GetOrDef(fmt.Sprintf("%s[@%s]", xpath, key))
+			panic(newExtractorError(fmt.Sprintf("Could not find XML attribute %s", _name)))
+		} else {
+			return OptString{}
+		}
+	}
+	return AsOptString(n.Attributes[key].(string))
 }

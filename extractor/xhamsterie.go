@@ -28,13 +28,21 @@ import (
 
 type XHamsterIE struct {
 	*rnt.CommonIE
+	IE_NAME string
 }
 
 func NewXHamsterIE() rnt.InfoExtractor {
-	ret := &XHamsterIE{}
-	ret.CommonIE = rnt.NewCommonIE()
-	ret.VALIDURL = "(?x)\n                    https?://\n                        (?:.+?\\.)?xhamster\\.com/\n                        (?:\n                            movies/(?P<id>\\d+)/(?P<display_id>[^/]*)\\.html|\n                            videos/(?P<display_id_2>[^/]*)-(?P<id_2>\\d+)\n                        )\n                    "
-	return ret
+	var (
+		IE_NAME    string
+		_VALID_URL string
+	)
+	self := &XHamsterIE{}
+	self.CommonIE = rnt.NewCommonIE()
+	IE_NAME = "XHamster"
+	_VALID_URL = "(?x)\n                    https?://\n                        (?:.+?\\.)?xhamster\\.com/\n                        (?:\n                            movies/(?P<id>\\d+)/(?P<display_id>[^/]*)\\.html|\n                            videos/(?P<display_id_2>[^/]*)-(?P<id_2>\\d+)\n                        )\n                    "
+	self.IE_NAME = IE_NAME
+	self.VALIDURL = _VALID_URL
+	return self
 }
 
 func (self *XHamsterIE) Key() string {
@@ -42,144 +50,151 @@ func (self *XHamsterIE) Key() string {
 }
 
 func (self *XHamsterIE) Name() string {
-	return "XHamster extractor"
+	return self.IE_NAME
 }
 
-func (self *XHamsterIE) _real_extract(url string) map[string]interface{} {
+func (self *XHamsterIE) _real_extract(url string) rnt.SDict {
+	var (
+		age_limit       int
+		categories      []rnt.OptString
+		categories_html rnt.OptString
+		comment_count   interface{}
+		description     rnt.OptString
+		dislike_count   rnt.OptString
+		display_id      rnt.OptString
+		duration        rnt.OptString
+		error           rnt.OptString
+		format_id       string
+		format_url      interface{}
+		format_urls     map[interface{}]struct{}
+		formats         []interface{}
+		like_count      rnt.OptString
+		mobj            rnt.Match
+		sources         interface{}
+		thumbnail       rnt.OptString
+		title           rnt.OptString
+		upload_date     rnt.OptString
+		uploader        rnt.OptString
+		video_id        rnt.OptString
+		video_url       rnt.OptString
+		view_count      rnt.OptInt
+		webpage         string
+		τmp1            τ_Tsαω
+		τmp2            τ_TOsOsω
+	)
 	url = rnt.ReSub("^(https?://(?:.+?\\.)?)m\\.", "\\1", url, 0, 0)
-	mobj := rnt.ReMatch((self).VALIDURL, url, 0)
-	video_id := func() rnt.OptString {
-		if (rnt.ReMatchGroupOne(mobj, "id")).IsSet() && (rnt.ReMatchGroupOne(mobj, "id").Get()) != "" {
+	mobj = rnt.ReMatch((self).VALIDURL, url, 0)
+	video_id = func() rnt.OptString {
+		if τ_isTruthy_Os(rnt.ReMatchGroupOne(mobj, "id")) {
 			return rnt.ReMatchGroupOne(mobj, "id")
 		} else {
 			return rnt.ReMatchGroupOne(mobj, "id_2")
 		}
 	}()
-	display_id := func() rnt.OptString {
-		if (rnt.ReMatchGroupOne(mobj, "display_id")).IsSet() && (rnt.ReMatchGroupOne(mobj, "display_id").Get()) != "" {
+	display_id = func() rnt.OptString {
+		if τ_isTruthy_Os(rnt.ReMatchGroupOne(mobj, "display_id")) {
 			return rnt.ReMatchGroupOne(mobj, "display_id")
 		} else {
 			return rnt.ReMatchGroupOne(mobj, "display_id_2")
 		}
 	}()
-	webpage := (self).DownloadWebpageURL(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	error := (self).HTMLSearchRegexOne("<div[^>]+id=[\"\\']videoClosed[\"\\'][^>]*>(.+?)</div>", webpage, "error", nil, true, 0, nil)
-	if (error).IsSet() && (error.Get()) != "" {
+	webpage = (self).DownloadWebpageURL(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	error = (self).HTMLSearchRegexOne("<div[^>]+id=[\"\\']videoClosed[\"\\'][^>]*>(.+?)</div>", webpage, "error", nil, true, 0, nil)
+	if τ_isTruthy_Os(error) {
 		panic(rnt.PyExtractorError(error.Get(), true, rnt.OptString{}))
 	}
-	title := (self).HTMLSearchRegexMulti([]string{"<h1[^>]*>([^<]+)</h1>", "<meta[^>]+itemprop=\".*?caption.*?\"[^>]+content=\"(.+?)\"", "<title[^>]*>(.+?)(?:,\\s*[^,]*?\\s*Porn\\s*[^,]*?:\\s*xHamster[^<]*| - xHamster\\.com)</title>"}, webpage, "title", rnt.NoDefault, true, 0, nil)
-	formats := []interface{}{}
-	format_urls := func() map[interface{}]struct{} {
-		τmp1 := map[interface{}]struct{}{}
-		for _, τmp2 := range []interface{}{} {
-			τmp1[τmp2] = struct{}{}
-		}
-		return τmp1
-	}()
-	sources := (self).ParseJSON((self).SearchRegexOne("sources\\s*:\\s*({.+?})\\s*,?\\s*\\n", webpage, "sources", "{}", true, 0, nil).Get(), video_id.Get(), nil, false)
-	for τmp1, τmp2 := range sources {
-		τmp3 := struct {
-			_0 string
-			_1 interface{}
-		}{_0: τmp1,
-			_1: τmp2}
-		format_id := (τmp3)._0
-		format_url := (τmp3)._1
-		if !(func() bool {
-			_, ok := (format_url).(string)
-			return ok
-		}()) {
+	title = (self).HTMLSearchRegexMulti([]string{"<h1[^>]*>([^<]+)</h1>", "<meta[^>]+itemprop=\".*?caption.*?\"[^>]+content=\"(.+?)\"", "<title[^>]*>(.+?)(?:,\\s*[^,]*?\\s*Porn\\s*[^,]*?:\\s*xHamster[^<]*| - xHamster\\.com)</title>"}, webpage, "title", rnt.NoDefault, true, 0, nil)
+	formats = []interface{}{}
+	format_urls = τ_constr_Sα_from_Lα([]interface{}{})
+	sources = (self).ParseJSON((self).SearchRegexOne("sources\\s*:\\s*({.+?})\\s*,?\\s*\\n", webpage, "sources", "{}", true, 0, nil).Get(), video_id.Get(), nil, false)
+	for _, τel := range rnt.DictItems(τ_cast_α_to_d(sources)) {
+		τmp1 = τel
+		format_id = (τmp1).Φ0
+		format_url = (τmp1).Φ1
+		if !(τ_isinstance_s(format_url)) {
 			continue
 		}
-		if func() bool {
-			τmp4 := format_url
-			for τmp5 := range format_urls {
-				if τmp5 == τmp4 {
-					return true
-				}
-			}
-			return false
-		}() {
+		if τ_search_α_in_Sα(format_url, format_urls) {
 			continue
 		}
 		format_urls[format_url] = struct{}{}
-		formats = append(formats, map[string]interface{}{"format_id": format_id,
-			"url":    format_url,
-			"height": rnt.IntOrNone((self).SearchRegexOne("^(\\d+)[pP]", format_id, "height", nil, true, 0, nil), 1, rnt.OptInt{}, 1)})
+		formats = append(formats, rnt.SDict{
+			"format_id": format_id,
+			"url":       format_url,
+			"height":    rnt.IntOrNone((self).SearchRegexOne("^(\\d+)[pP]", format_id, "height", nil, true, 0, nil), 1, rnt.OptInt{}, 1),
+		})
 	}
-	video_url := (self).SearchRegexMulti([]string{"file\\s*:\\s*(?P<q>[\"'])(?P<mp4>.+?)(?P=q)", "<a\\s+href=(?P<q>[\"'])(?P<mp4>.+?)(?P=q)\\s+class=[\"']mp4Thumb", "<video[^>]+file=(?P<q>[\"'])(?P<mp4>.+?)(?P=q)[^>]*>"}, webpage, "video url", nil, true, 0, "mp4")
-	if (video_url).IsSet() && (video_url.Get()) != "" && func() bool {
-		τmp1 := video_url
-		for τmp2 := range format_urls {
-			if τmp2 == τmp1 {
-				return false
-			}
+	video_url = (self).SearchRegexMulti([]string{"file\\s*:\\s*(?P<q>[\"'])(?P<mp4>.+?)(?P=q)", "<a\\s+href=(?P<q>[\"'])(?P<mp4>.+?)(?P=q)\\s+class=[\"']mp4Thumb", "<video[^>]+file=(?P<q>[\"'])(?P<mp4>.+?)(?P=q)[^>]*>"}, webpage, "video url", nil, true, 0, "mp4")
+	if rnt.IsTruthy(func() interface{} {
+		if !(τ_isTruthy_Os(video_url)) {
+			return video_url
+		} else {
+			return τ_search_s_notin_Sα(video_url.Get(), format_urls)
 		}
-		return true
-	}() {
-		formats = append(formats, map[string]interface{}{"url": video_url})
+	}()) {
+		formats = append(formats, rnt.SDict{
+			"url": video_url,
+		})
 	}
-	(self).SortFormats(formats)
+	formats = τ_conv_Ld_to_Lα((self).SortFormats(τ_conv_Lα_to_Ld(formats)))
 	mobj = rnt.ReSearch("<span>Description: </span>([^<]+)", webpage, 0)
-	description := func() rnt.OptString {
+	description = func() rnt.OptString {
 		if mobj != nil {
 			return rnt.ReMatchGroupOne(mobj, 1)
 		} else {
 			return rnt.OptString{}
 		}
 	}()
-	upload_date := rnt.UnifiedStrDate((self).SearchRegexOne("hint=[\"\\'](\\d{4}-\\d{2}-\\d{2}) \\d{2}:\\d{2}:\\d{2} [A-Z]{3,4}", webpage, "upload date", rnt.NoDefault, false, 0, nil), true)
-	uploader := (self).HTMLSearchRegexOne("<span[^>]+itemprop=[\"\\']author[^>]+><a[^>]+><span[^>]+>([^<]+)", webpage, "uploader", "anonymous", true, 0, nil)
-	thumbnail := (self).SearchRegexMulti([]string{"thumb\\s*:\\s*(?P<q>[\"'])(?P<thumbnail>.+?)(?P=q)", "<video[^>]+poster=(?P<q>[\"'])(?P<thumbnail>.+?)(?P=q)[^>]*>"}, webpage, "thumbnail", rnt.NoDefault, false, 0, "thumbnail")
-	duration := rnt.ParseDuration((self).SearchRegexMulti([]string{"<[^<]+\\bitemprop=[\"\\']duration[\"\\'][^<]+\\bcontent=[\"\\'](.+?)[\"\\']", "Runtime:\\s*</span>\\s*([\\d:]+)"}, webpage, "duration", rnt.NoDefault, false, 0, nil))
-	view_count := rnt.IntOrNone((self).SearchRegexOne("content=[\"\\']User(?:View|Play)s:(\\d+)", webpage, "view count", rnt.NoDefault, false, 0, nil), 1, rnt.OptInt{}, 1)
+	upload_date = rnt.UnifiedStrDate((self).SearchRegexOne("hint=[\"\\'](\\d{4}-\\d{2}-\\d{2}) \\d{2}:\\d{2}:\\d{2} [A-Z]{3,4}", webpage, "upload date", rnt.NoDefault, false, 0, nil), true)
+	uploader = (self).HTMLSearchRegexOne("<span[^>]+itemprop=[\"\\']author[^>]+><a[^>]+><span[^>]+>([^<]+)", webpage, "uploader", "anonymous", true, 0, nil)
+	thumbnail = (self).SearchRegexMulti([]string{"thumb\\s*:\\s*(?P<q>[\"'])(?P<thumbnail>.+?)(?P=q)", "<video[^>]+poster=(?P<q>[\"'])(?P<thumbnail>.+?)(?P=q)[^>]*>"}, webpage, "thumbnail", rnt.NoDefault, false, 0, "thumbnail")
+	duration = rnt.ParseDuration((self).SearchRegexMulti([]string{"<[^<]+\\bitemprop=[\"\\']duration[\"\\'][^<]+\\bcontent=[\"\\'](.+?)[\"\\']", "Runtime:\\s*</span>\\s*([\\d:]+)"}, webpage, "duration", rnt.NoDefault, false, 0, nil))
+	view_count = rnt.IntOrNone((self).SearchRegexOne("content=[\"\\']User(?:View|Play)s:(\\d+)", webpage, "view count", rnt.NoDefault, false, 0, nil), 1, rnt.OptInt{}, 1)
 	mobj = rnt.ReSearch("hint=[\\'\"](?P<likecount>\\d+) Likes / (?P<dislikecount>\\d+) Dislikes", webpage, 0)
-	τmp1 := func() struct {
-		_0 rnt.OptString
-		_1 rnt.OptString
-	} {
+	τmp2 = func() τ_TOsOsω {
 		if mobj != nil {
-			return struct {
-				_0 rnt.OptString
-				_1 rnt.OptString
-			}{_0: rnt.ReMatchGroupOne(mobj, "likecount"),
-				_1: rnt.ReMatchGroupOne(mobj, "dislikecount")}
+			return τ_TOsOsω{
+				Φ0: rnt.ReMatchGroupOne(mobj, "likecount"),
+				Φ1: rnt.ReMatchGroupOne(mobj, "dislikecount"),
+			}
 		} else {
-			return struct {
-				_0 rnt.OptString
-				_1 rnt.OptString
-			}{_0: rnt.OptString{},
-				_1: rnt.OptString{}}
+			return τ_conv_T00ω_to_TOsOsω(τ_T00ω{
+				Φ0: nil,
+				Φ1: nil,
+			})
 		}
 	}()
-	like_count := (τmp1)._0
-	dislike_count := (τmp1)._1
+	like_count = (τmp2).Φ0
+	dislike_count = (τmp2).Φ1
 	mobj = rnt.ReSearch("</label>Comments \\((?P<commentcount>\\d+)\\)</div>", webpage, 0)
-	comment_count := func() interface{} {
+	comment_count = func() interface{} {
 		if mobj != nil {
 			return rnt.ReMatchGroupOne(mobj, "commentcount")
 		} else {
 			return 0
 		}
 	}()
-	age_limit := (self).RTASearch(webpage)
-	categories_html := (self).SearchRegexOne("(?s)<table.+?(<span>Categories:.+?)</table>", webpage, "categories", nil, true, 0, nil)
-	categories := func() []rnt.OptString {
-		if (categories_html).IsSet() && (categories_html.Get()) != "" {
+	age_limit = (self).RTASearch(webpage)
+	categories_html = (self).SearchRegexOne("(?s)<table.+?(<span>Categories:.+?)</table>", webpage, "categories", nil, true, 0, nil)
+	categories = func() []rnt.OptString {
+		if τ_isTruthy_Os(categories_html) {
 			return func() []rnt.OptString {
-				τmp3 := []rnt.OptString{}
-				for _, τmp2 := range rnt.ReFindAllOne("<a[^>]+>(.+?)</a>", categories_html.Get(), 0) {
-					category := τmp2
-
-					τmp3 = append(τmp3, rnt.CleanHTML(rnt.AsOptString(category)))
+				τresult := []rnt.OptString{}
+				for _, τel := range rnt.ReFindAllOne("<a[^>]+>(.+?)</a>", categories_html.Get(), 0) {
+					var (
+						category string
+					)
+					category = τel
+					τresult = append(τresult, rnt.CleanHTML(rnt.AsOptString(category)))
 				}
-				return τmp3
+				return τresult
 			}()
 		} else {
 			return nil
 		}
 	}()
-	return map[string]interface{}{"id": video_id,
+	return rnt.SDict{
+		"id":            video_id,
 		"display_id":    display_id,
 		"title":         title,
 		"description":   description,
@@ -193,11 +208,12 @@ func (self *XHamsterIE) _real_extract(url string) map[string]interface{} {
 		"comment_count": rnt.IntOrNone(comment_count, 1, rnt.OptInt{}, 1),
 		"age_limit":     age_limit,
 		"categories":    categories,
-		"formats":       formats}
+		"formats":       formats,
+	}
 }
 
-func (self *XHamsterIE) Extract(url string) (*rnt.VideoResult, error) {
-	return rnt.RunExtractor(url, self._real_extract)
+func (self *XHamsterIE) Extract(url string) (rnt.ExtractorResult, error) {
+	return rnt.RunExtractor(url, self.Context, self._real_extract)
 }
 
 func init() {

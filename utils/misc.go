@@ -22,16 +22,30 @@
 
 package utils
 
-import "fmt"
+import (
+	"fmt"
+	"reflect"
+	"strings"
+)
 
 // Debug mode permits logging
-const Debug = false
+var Debug = false
 
 // Log logs a message from a running extractor
 func Log(msg string, args ...interface{}) {
 	if Debug {
 		fmt.Printf(msg+"\n", args...)
 	}
+}
+
+// StrIn returns whether needle can be found in haystack
+func StrIn(needle string, haystack ...string) bool {
+	for _, hay := range haystack {
+		if needle == hay {
+			return true
+		}
+	}
+	return false
 }
 
 // MakeSet creates a map from the specified keys;
@@ -42,4 +56,49 @@ func MakeSet(values []string) map[string]struct{} {
 		res[value] = struct{}{}
 	}
 	return res
+}
+
+// FixJSONFloats converts the integral float values to ints in the unmarshalled JSON structure
+func FixJSONFloats(val interface{}) interface{} {
+	var fixVal func(val reflect.Value) (bool, reflect.Value)
+	fixVal = func(val reflect.Value) (bool, reflect.Value) {
+		if val.IsValid() {
+			switch val.Type().Kind() {
+			case reflect.Float64:
+				f := val.Float()
+				i := int(f)
+				if f == float64(i) {
+					return true, reflect.ValueOf(i)
+				}
+			case reflect.Slice:
+				len := val.Len()
+				for i := 0; i < len; i++ {
+					el := val.Index(i)
+					if changed, newElVal := fixVal(el.Elem()); changed {
+						el.Set(newElVal)
+					}
+				}
+			case reflect.Map:
+				for _, key := range val.MapKeys() {
+					if changed, newElVal := fixVal(val.MapIndex(key).Elem()); changed {
+						val.SetMapIndex(key, newElVal)
+					}
+				}
+			}
+		}
+		return false, val
+	}
+	_, newVal := fixVal(reflect.ValueOf(val))
+	if !newVal.IsValid() {
+		return nil
+	}
+	return newVal.Interface()
+}
+
+// SanitizeURL implements utils.py/sanitize_url
+func SanitizeURL(url string) string {
+	if strings.HasPrefix(url, "//") {
+		return "http:" + url
+	}
+	return url
 }

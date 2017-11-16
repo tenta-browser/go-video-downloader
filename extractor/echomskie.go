@@ -28,13 +28,21 @@ import (
 
 type EchoMskIE struct {
 	*rnt.CommonIE
+	IE_NAME string
 }
 
 func NewEchoMskIE() rnt.InfoExtractor {
-	ret := &EchoMskIE{}
-	ret.CommonIE = rnt.NewCommonIE()
-	ret.VALIDURL = "https?://(?:www\\.)?echo\\.msk\\.ru/sounds/(?P<id>\\d+)"
-	return ret
+	var (
+		IE_NAME    string
+		_VALID_URL string
+	)
+	self := &EchoMskIE{}
+	self.CommonIE = rnt.NewCommonIE()
+	IE_NAME = "EchoMsk"
+	_VALID_URL = "https?://(?:www\\.)?echo\\.msk\\.ru/sounds/(?P<id>\\d+)"
+	self.IE_NAME = IE_NAME
+	self.VALIDURL = _VALID_URL
+	return self
 }
 
 func (self *EchoMskIE) Key() string {
@@ -42,28 +50,37 @@ func (self *EchoMskIE) Key() string {
 }
 
 func (self *EchoMskIE) Name() string {
-	return "EchoMsk extractor"
+	return self.IE_NAME
 }
 
-func (self *EchoMskIE) _real_extract(url string) map[string]interface{} {
-	video_id := (self).MatchID(url)
-	webpage := (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	audio_url := (self).SearchRegexOne("<a rel=\"mp3\" href=\"([^\"]+)\">", webpage, "audio URL", rnt.NoDefault, true, 0, nil)
-	title := (self).HTMLSearchRegexOne("<a href=\"/programs/[^\"]+\" target=\"_blank\">([^<]+)</a>", webpage, "title", rnt.NoDefault, true, 0, nil)
-	air_date := (self).HTMLSearchRegexOne("(?s)<div class=\"date\">(.+?)</div>", webpage, "date", nil, false, 0, nil)
-	if (air_date).IsSet() && (air_date.Get()) != "" {
+func (self *EchoMskIE) _real_extract(url string) rnt.SDict {
+	var (
+		air_date  rnt.OptString
+		audio_url rnt.OptString
+		title     rnt.OptString
+		video_id  string
+		webpage   string
+	)
+	video_id = (self).MatchID(url)
+	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	audio_url = (self).SearchRegexOne("<a rel=\"mp3\" href=\"([^\"]+)\">", webpage, "audio URL", rnt.NoDefault, true, 0, nil)
+	title = (self).HTMLSearchRegexOne("<a href=\"/programs/[^\"]+\" target=\"_blank\">([^<]+)</a>", webpage, "title", rnt.NoDefault, true, 0, nil)
+	air_date = (self).HTMLSearchRegexOne("(?s)<div class=\"date\">(.+?)</div>", webpage, "date", nil, false, 0, nil)
+	if τ_isTruthy_Os(air_date) {
 		air_date = rnt.AsOptString(rnt.ReSub("(\\s)\\1+", "\\1", air_date.Get(), 0, 0))
-		if (air_date).IsSet() && (air_date.Get()) != "" {
-			title = rnt.AsOptString(rnt.StrFormat("%s - %s", title, air_date))
+		if τ_isTruthy_Os(air_date) {
+			title = rnt.AsOptString(rnt.StrFormat2("%s - %s", title, air_date))
 		}
 	}
-	return map[string]interface{}{"id": video_id,
+	return rnt.SDict{
+		"id":    video_id,
 		"url":   audio_url,
-		"title": title}
+		"title": title,
+	}
 }
 
-func (self *EchoMskIE) Extract(url string) (*rnt.VideoResult, error) {
-	return rnt.RunExtractor(url, self._real_extract)
+func (self *EchoMskIE) Extract(url string) (rnt.ExtractorResult, error) {
+	return rnt.RunExtractor(url, self.Context, self._real_extract)
 }
 
 func init() {

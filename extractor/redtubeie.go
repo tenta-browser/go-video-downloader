@@ -28,13 +28,21 @@ import (
 
 type RedTubeIE struct {
 	*rnt.CommonIE
+	IE_NAME string
 }
 
 func NewRedTubeIE() rnt.InfoExtractor {
-	ret := &RedTubeIE{}
-	ret.CommonIE = rnt.NewCommonIE()
-	ret.VALIDURL = "https?://(?:(?:www\\.)?redtube\\.com/|embed\\.redtube\\.com/\\?.*?\\bid=)(?P<id>[0-9]+)"
-	return ret
+	var (
+		IE_NAME    string
+		_VALID_URL string
+	)
+	self := &RedTubeIE{}
+	self.CommonIE = rnt.NewCommonIE()
+	IE_NAME = "RedTube"
+	_VALID_URL = "https?://(?:(?:www\\.)?redtube\\.com/|embed\\.redtube\\.com/\\?.*?\\bid=)(?P<id>[0-9]+)"
+	self.IE_NAME = IE_NAME
+	self.VALIDURL = _VALID_URL
+	return self
 }
 
 func (self *RedTubeIE) Key() string {
@@ -42,101 +50,105 @@ func (self *RedTubeIE) Key() string {
 }
 
 func (self *RedTubeIE) Name() string {
-	return "RedTube extractor"
+	return self.IE_NAME
 }
 
-func (self *RedTubeIE) _extract_urls(webpage string) []string {
-	return rnt.ReFindAllOne("<iframe[^>]+?src=[\"\\'](?P<url>(?:https?:)?//embed\\.redtube\\.com/\\?.*?\\bid=\\d+)", webpage, 0)
-}
-
-func (self *RedTubeIE) _real_extract(url string) map[string]interface{} {
-	video_id := (self).MatchID(url)
-	webpage := (self).DownloadWebpageURL(rnt.StrFormat("http://www.redtube.com/%s", video_id), video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	if func() bool {
-		for _, τmp2 := range func() []bool {
-			τmp3 := []bool{}
-			for _, τmp2 := range []string{"video-deleted-info", ">This video has been removed"} {
-				s := τmp2
-
-				τmp3 = append(τmp3, rnt.StrContains(webpage, s))
-			}
-			return τmp3
-		}() {
-			τmp1 := τmp2
-			if τmp1 {
-				return true
-			}
+func (self *RedTubeIE) _real_extract(url string) rnt.SDict {
+	var (
+		age_limit   int
+		duration    rnt.OptInt
+		format_id   interface{}
+		format_url  interface{}
+		formats     []interface{}
+		media       interface{}
+		medias      interface{}
+		sources     interface{}
+		thumbnail   rnt.OptString
+		title       rnt.OptString
+		upload_date rnt.OptString
+		video_id    string
+		video_url   rnt.OptString
+		view_count  rnt.OptInt
+		webpage     string
+		τmp1        τ_Tsαω
+	)
+	video_id = (self).MatchID(url)
+	webpage = (self).DownloadWebpageURL(rnt.StrFormat2("http://www.redtube.com/%s", video_id), video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	if τ_any_Lb(func() []bool {
+		τresult := []bool{}
+		for _, τel := range []string{"video-deleted-info", ">This video has been removed"} {
+			var (
+				s string
+			)
+			s = τel
+			τresult = append(τresult, rnt.StrContains(webpage, s))
 		}
-		return false
-	}() {
-		panic(rnt.PyExtractorError(rnt.StrFormat("Video %s has been removed", video_id), true, rnt.OptString{}))
+		return τresult
+	}()) {
+		panic(rnt.PyExtractorError(rnt.StrFormat2("Video %s has been removed", video_id), true, rnt.OptString{}))
 	}
-	title := (self).HTMLSearchRegexMulti(func() []string {
-		τmp1 := struct {
-			_0 string
-			_1 string
-		}{_0: "<h1 class=\"videoTitle[^\"]*\">(?P<title>.+?)</h1>",
-			_1: "videoTitle\\s*:\\s*([\"\\'])(?P<title>)\\1"}
-		return []string{τmp1._0, τmp1._1}
-	}(), webpage, "title", rnt.NoDefault, true, 0, "title")
-	formats := []interface{}{}
-	sources := (self).ParseJSON((self).SearchRegexOne("sources\\s*:\\s*({.+?})", webpage, "source", "{}", true, 0, nil).Get(), video_id, nil, false)
-	if len(sources) > 0 && true {
-		for τmp1, τmp2 := range sources {
-			τmp3 := struct {
-				_0 string
-				_1 interface{}
-			}{_0: τmp1,
-				_1: τmp2}
-			format_id := (τmp3)._0
-			format_url := (τmp3)._1
+	title = (self).HTMLSearchRegexMulti(τ_conv_Tssω_to_Ls(τ_Tssω{
+		Φ0: "<h1 class=\"videoTitle[^\"]*\">(?P<title>.+?)</h1>",
+		Φ1: "videoTitle\\s*:\\s*([\"\\'])(?P<title>)\\1",
+	}), webpage, "title", rnt.NoDefault, true, 0, "title")
+	formats = []interface{}{}
+	sources = (self).ParseJSON((self).SearchRegexOne("sources\\s*:\\s*({.+?})", webpage, "source", "{}", true, 0, nil).Get(), video_id, nil, false)
+	if rnt.IsTruthy(func() interface{} {
+		if !(rnt.IsTruthy(sources)) {
+			return sources
+		} else {
+			return τ_isinstance_d(sources)
+		}
+	}()) {
+		for _, τel := range rnt.DictItems(τ_cast_α_to_d(sources)) {
+			τmp1 = τel
+			format_id = (τmp1).Φ0
+			format_url = (τmp1).Φ1
 			if rnt.IsTruthy(format_url) {
-				formats = append(formats, map[string]interface{}{"url": format_url,
+				formats = append(formats, rnt.SDict{
+					"url":       format_url,
 					"format_id": format_id,
-					"height":    rnt.IntOrNone(format_id, 1, rnt.OptInt{}, 1)})
+					"height":    rnt.IntOrNone(format_id, 1, rnt.OptInt{}, 1),
+				})
 			}
 		}
 	}
-	medias := (self).ParseJSONList((self).SearchRegexOne("mediaDefinition\\s*:\\s*(\\[.+?\\])", webpage, "media definitions", "{}", true, 0, nil).Get(), video_id, nil, false)
-	if len(medias) > 0 && true {
-		for _, τmp1 := range medias {
-			media := τmp1
-			format_url := rnt.DictGet(func(val interface{}) map[string]interface{} {
-				res, ok := val.(map[string]interface{})
-				if !ok {
-					panic(rnt.NewCastError(val, `map[string]interface{}`))
-				}
-				return res
-			}(media), "videoUrl", nil)
-			if !(rnt.IsTruthy(format_url)) || !(func() bool {
-				_, ok := (format_url).(string)
-				return ok
-			}()) {
+	medias = (self).ParseJSON((self).SearchRegexOne("mediaDefinition\\s*:\\s*(\\[.+?\\])", webpage, "media definitions", "{}", true, 0, nil).Get(), video_id, nil, false)
+	if rnt.IsTruthy(func() interface{} {
+		if !(rnt.IsTruthy(medias)) {
+			return medias
+		} else {
+			return rnt.IsList(medias)
+		}
+	}()) {
+		for _, τel := range τ_cast_α_to_Lα(medias) {
+			media = τel
+			format_url = rnt.DictGet(τ_cast_α_to_d(media), "videoUrl", nil)
+			if !(rnt.IsTruthy(format_url)) || !(τ_isinstance_s(format_url)) {
 				continue
 			}
-			format_id := rnt.DictGet(func(val interface{}) map[string]interface{} {
-				res, ok := val.(map[string]interface{})
-				if !ok {
-					panic(rnt.NewCastError(val, `map[string]interface{}`))
-				}
-				return res
-			}(media), "quality", nil)
-			formats = append(formats, map[string]interface{}{"url": format_url,
+			format_id = rnt.DictGet(τ_cast_α_to_d(media), "quality", nil)
+			formats = append(formats, rnt.SDict{
+				"url":       format_url,
 				"format_id": format_id,
-				"height":    rnt.IntOrNone(format_id, 1, rnt.OptInt{}, 1)})
+				"height":    rnt.IntOrNone(format_id, 1, rnt.OptInt{}, 1),
+			})
 		}
 	}
 	if !(len(formats) > 0) {
-		video_url := (self).HTMLSearchRegexOne("<source src=\"(.+?)\" type=\"video/mp4\">", webpage, "video URL", rnt.NoDefault, true, 0, nil)
-		formats = append(formats, map[string]interface{}{"url": video_url})
+		video_url = (self).HTMLSearchRegexOne("<source src=\"(.+?)\" type=\"video/mp4\">", webpage, "video URL", rnt.NoDefault, true, 0, nil)
+		formats = append(formats, rnt.SDict{
+			"url": video_url,
+		})
 	}
-	(self).SortFormats(formats)
-	thumbnail := (self).OgSearchThumbnail(webpage, rnt.NoDefault)
-	upload_date := rnt.UnifiedStrDate((self).SearchRegexOne("<span[^>]+class=\"added-time\"[^>]*>ADDED ([^<]+)<", webpage, "upload date", rnt.NoDefault, false, 0, nil), true)
-	duration := rnt.IntOrNone((self).SearchRegexOne("videoDuration\\s*:\\s*(\\d+)", webpage, "duration", nil, true, 0, nil), 1, rnt.OptInt{}, 1)
-	view_count := rnt.StrToInt((self).SearchRegexOne("<span[^>]*>VIEWS</span></td>\\s*<td>([\\d,.]+)", webpage, "view count", rnt.NoDefault, false, 0, nil))
-	age_limit := 18
-	return map[string]interface{}{"id": video_id,
+	formats = τ_conv_Ld_to_Lα((self).SortFormats(τ_conv_Lα_to_Ld(formats)))
+	thumbnail = (self).OgSearchThumbnail(webpage, rnt.NoDefault)
+	upload_date = rnt.UnifiedStrDate((self).SearchRegexOne("<span[^>]+class=\"added-time\"[^>]*>ADDED ([^<]+)<", webpage, "upload date", rnt.NoDefault, false, 0, nil), true)
+	duration = rnt.IntOrNone((self).SearchRegexOne("videoDuration\\s*:\\s*(\\d+)", webpage, "duration", nil, true, 0, nil), 1, rnt.OptInt{}, 1)
+	view_count = rnt.StrToInt((self).SearchRegexOne("<span[^>]*>VIEWS</span></td>\\s*<td>([\\d,.]+)", webpage, "view count", rnt.NoDefault, false, 0, nil))
+	age_limit = 18
+	return rnt.SDict{
+		"id":          video_id,
 		"ext":         "mp4",
 		"title":       title,
 		"thumbnail":   thumbnail,
@@ -144,11 +156,12 @@ func (self *RedTubeIE) _real_extract(url string) map[string]interface{} {
 		"duration":    duration,
 		"view_count":  view_count,
 		"age_limit":   age_limit,
-		"formats":     formats}
+		"formats":     formats,
+	}
 }
 
-func (self *RedTubeIE) Extract(url string) (*rnt.VideoResult, error) {
-	return rnt.RunExtractor(url, self._real_extract)
+func (self *RedTubeIE) Extract(url string) (rnt.ExtractorResult, error) {
+	return rnt.RunExtractor(url, self.Context, self._real_extract)
 }
 
 func init() {

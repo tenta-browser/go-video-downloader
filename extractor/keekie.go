@@ -32,11 +32,18 @@ type KeekIE struct {
 }
 
 func NewKeekIE() rnt.InfoExtractor {
-	ret := &KeekIE{}
-	ret.CommonIE = rnt.NewCommonIE()
-	ret.VALIDURL = "https?://(?:www\\.)?keek\\.com/keek/(?P<id>\\w+)"
-	ret.IE_NAME = "keek"
-	return ret
+	var (
+		IE_NAME    string
+		_VALID_URL string
+	)
+	self := &KeekIE{}
+	self.CommonIE = rnt.NewCommonIE()
+	IE_NAME = "Keek"
+	_VALID_URL = "https?://(?:www\\.)?keek\\.com/keek/(?P<id>\\w+)"
+	IE_NAME = "keek"
+	self.IE_NAME = IE_NAME
+	self.VALIDURL = _VALID_URL
+	return self
 }
 
 func (self *KeekIE) Key() string {
@@ -47,20 +54,26 @@ func (self *KeekIE) Name() string {
 	return self.IE_NAME
 }
 
-func (self *KeekIE) _real_extract(url string) map[string]interface{} {
-	video_id := (self).MatchID(url)
-	webpage := (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	return map[string]interface{}{"id": video_id,
+func (self *KeekIE) _real_extract(url string) rnt.SDict {
+	var (
+		video_id string
+		webpage  string
+	)
+	video_id = (self).MatchID(url)
+	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	return rnt.SDict{
+		"id":          video_id,
 		"url":         (self).OgSearchVideoURL(webpage, "video url", true, rnt.NoDefault),
 		"ext":         "mp4",
 		"title":       rnt.StrStrip((self).OgSearchDescription(webpage, rnt.NoDefault).Get(), ""),
 		"thumbnail":   (self).OgSearchThumbnail(webpage, rnt.NoDefault),
 		"uploader":    (self).SearchRegexOne("data-username=([\"\\'])(?P<uploader>.+?)\\1", webpage, "uploader", rnt.NoDefault, false, 0, "uploader"),
-		"uploader_id": (self).SearchRegexOne("data-user-id=([\"\\'])(?P<uploader_id>.+?)\\1", webpage, "uploader id", rnt.NoDefault, false, 0, "uploader_id")}
+		"uploader_id": (self).SearchRegexOne("data-user-id=([\"\\'])(?P<uploader_id>.+?)\\1", webpage, "uploader id", rnt.NoDefault, false, 0, "uploader_id"),
+	}
 }
 
-func (self *KeekIE) Extract(url string) (*rnt.VideoResult, error) {
-	return rnt.RunExtractor(url, self._real_extract)
+func (self *KeekIE) Extract(url string) (rnt.ExtractorResult, error) {
+	return rnt.RunExtractor(url, self.Context, self._real_extract)
 }
 
 func init() {

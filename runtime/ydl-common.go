@@ -24,23 +24,29 @@
 package runtime
 
 import (
-	"encoding/json"
+	"compress/zlib"
 	"fmt"
 	"io/ioutil"
-	"net/http"
 	"sort"
 	"strings"
+	"time"
 
 	"github.com/tenta-browser/go-pcre-matcher"
 	"github.com/tenta-browser/go-video-downloader/utils"
 )
 
+var (
+	// SleepBeforeRequest is the duration to sleep before doing an HTTP request
+	// The tester sets this to avoid being banned from sites for doing requests too frequently
+	SleepBeforeRequest time.Duration
+)
+
 // CommonIE represents the common extractor base
 type CommonIE struct {
-	context  *Context
+	Context  *Context
 	VALIDURL string
-	TESTS    []map[string]interface{}
-	TEST     map[string]interface{}
+	TESTS    []SDict
+	TEST     SDict
 }
 
 // NewCommonIE constructs a new common extractor base
@@ -50,7 +56,7 @@ func NewCommonIE() *CommonIE {
 
 // SetContext sets the runtime extractor context
 func (ie *CommonIE) SetContext(context *Context) {
-	ie.context = context
+	ie.Context = context
 }
 
 // ValidURL returns the regexp matching URLs supported by this extractor
@@ -59,11 +65,15 @@ func (ie *CommonIE) ValidURL() string {
 }
 
 // Tests returns the test cases for this extractor
-func (ie *CommonIE) Tests() []map[string]interface{} {
+func (ie *CommonIE) Tests() []SDict {
 	if len(ie.TEST) > 0 {
-		return []map[string]interface{}{ie.TEST}
+		return []SDict{ie.TEST}
 	}
 	return ie.TESTS
+}
+
+func (ie *CommonIE) log(msg string, args ...interface{}) {
+	utils.Log("[%s] %s", ie.Context.ExtractorKey, fmt.Sprintf(msg, args...))
 }
 
 // MatchID implements common.py/_match_id
@@ -77,47 +87,136 @@ func (ie *CommonIE) MatchID(url string) string {
 
 // DownloadWebpageURL implements common.py/_download_webpage (for urls)
 func (ie *CommonIE) DownloadWebpageURL(url, videoID string, note, errNote OptString,
-	fatal bool, tries int, timeout int, encoding OptString, data OptString,
-	headers, query map[string]interface{}) string {
+	fatal bool, tries int, timeout int, encoding OptString, data []byte,
+	headers, query SDict) string {
 
-	return ie.DownloadWebpageRequest(SanitizedRequest(url), videoID, note, errNote,
+	return ie.DownloadWebpageRequest(SanitizedRequest(url, nil, nil), videoID, note, errNote,
 		fatal, tries, timeout, encoding, data, headers, query)
 }
 
 // DownloadWebpageRequest implements common.py/_download_webpage (for requests)
-// TODO handle all the params!
-func (ie *CommonIE) DownloadWebpageRequest(req *http.Request, videoID string, note, errNote OptString,
-	fatal bool, tries int, timeout int, encoding OptString, data OptString,
-	headers, query map[string]interface{}) string {
+// TODO handle all the params: tries, timeout
+func (ie *CommonIE) DownloadWebpageRequest(req Request, videoID string, note, errNote OptString,
+	fatal bool, tries int, timeout int, encoding OptString, data []byte,
+	headers, query SDict) string {
 
-	utils.Log("[%s] %s (%s)", videoID, note.GetOrDef("Downloading webpage"), req.URL)
+	return ie.DownloadWebpageHandleRequest(req, videoID, note, errNote, fatal, encoding, data, headers, query).Φ0
+}
 
-	// priority of headers: context < request < args
-	for headerName, headerVal := range ie.context.Headers {
-		if len(headerVal) > 0 && len(req.Header.Get(headerVal)) == 0 {
-			req.Header.Set(headerName, headerVal)
-		}
-	}
-	for headerName := range headers {
-		req.Header.Set(headerName, GetStringField(headers, headerName, true, ""))
-	}
+// DownloadWebpageHandleResponse is tuple returned by the DownloadWebpageHandle* functions
+// consistng of the resulting content and the HTTP response object
+type DownloadWebpageHandleResponse = struct {
+	Φ0 string
+	Φ1 Response
+}
 
-	res, err := ie.context.Client.Do(req)
+// DownloadWebpageHandleURL implements common.py/_download_webpage_handle (for urls)
+func (ie *CommonIE) DownloadWebpageHandleURL(url, videoID string, note, errNote OptString,
+	fatal bool, encoding OptString, data []byte, headers, query SDict) DownloadWebpageHandleResponse {
+
+	return ie.DownloadWebpageHandleRequest(SanitizedRequest(url, nil, nil), videoID, note, errNote,
+		fatal, encoding, data, headers, query)
+}
+
+// DownloadWebpageHandleRequest implements common.py/_download_webpage_handle (for requests)
+// TODO handle all the params: fatal
+func (ie *CommonIE) DownloadWebpageHandleRequest(req Request, videoID string, note, errNote OptString,
+	fatal bool, encoding OptString, data []byte, headers, query SDict) DownloadWebpageHandleResponse {
+
+	res, err := ie.requestWebpage(req, false, videoID, note, errNote, data, headers, query)
 	if err != nil {
 		panic(newExtractorError(err.Error()))
 	}
 	defer res.Body.Close()
-	if res.StatusCode != 200 {
-		panic(newExtractorError(fmt.Sprintf("Unable to download webpage: HTTP Error %d: %s",
-			res.StatusCode, res.Status)))
+
+	// TODO workaround for https://github.com/golang/go/issues/18779
+	// remove this in Go 1.10
+	reader := res.Body
+	if res.Header.Get("Content-Encoding") == "deflate" {
+		readerZ, errZ := zlib.NewReader(res.Body)
+		defer readerZ.Close()
+		if errZ == nil {
+			reader = readerZ
+		}
 	}
 
-	ret, err := ioutil.ReadAll(res.Body)
+	ret, err := ioutil.ReadAll(reader)
 	if err != nil {
 		panic(newExtractorError(err.Error()))
 	}
 
-	return string(ret)
+	retstr := BytesToStr(ret, encoding.GetOrDef("utf-8"))
+
+	return DownloadWebpageHandleResponse{retstr, res}
+}
+
+// RequestWebpageURL implements common.py/_request_webpage (for urls)
+func (ie *CommonIE) RequestWebpageURL(url, videoID string, note, errNote OptString,
+	fatal bool, data []byte, headers, query SDict) Response {
+
+	return ie.RequestWebpageRequest(SanitizedRequest(url, nil, nil), videoID, note, errNote,
+		fatal, data, headers, query)
+}
+
+// RequestWebpageRequest implements common.py/_request_webpage (for requests)
+func (ie *CommonIE) RequestWebpageRequest(req Request, videoID string, note, errNote OptString,
+	fatal bool, data []byte, headers, query SDict) Response {
+
+	res, err := ie.requestWebpage(req, true, videoID, note, errNote, data, headers, query)
+	if err != nil {
+		panic(newExtractorError(err.Error()))
+	}
+
+	return res
+}
+
+func (ie *CommonIE) requestWebpage(req Request, closeBody bool, videoID string, note, errNote OptString,
+	data []byte, headers, query SDict) (Response, error) {
+
+	if utils.Debug {
+		ie.log("%s: %s (%s)", videoID, note.GetOrDef("Downloading webpage"), req.URL)
+	}
+
+	if SleepBeforeRequest > 0 {
+		time.Sleep(SleepBeforeRequest)
+	}
+
+	// apply headers, priority: StdHeaders < context < request < args
+	baseHeaders := make(map[string]string)
+	for headerName, headerVal := range StdHeaders {
+		baseHeaders[headerName] = headerVal.(string)
+	}
+	for headerName, headerVal := range ie.Context.Headers {
+		baseHeaders[headerName] = headerVal
+	}
+	for headerName, headerVal := range baseHeaders {
+		_, found := req.Header[headerName]
+		if !found {
+			RequestAddHeader(req, headerName, headerVal)
+		}
+	}
+
+	// apply data, headers, query args
+	updateRequest(req, data, headers, query)
+
+	// remove 'Accept-Encoding' header, let the HTTP client set its default
+	req.Header.Del("Accept-Encoding")
+
+	res, err := ie.Context.Client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode != 200 {
+		res.Body.Close()
+		return nil, fmt.Errorf("Unable to download webpage: HTTP Error %d: %s", res.StatusCode, res.Status)
+	}
+
+	if closeBody {
+		res.Body.Close()
+	}
+
+	return res, nil
 }
 
 // SearchRegexOne implements common.py/_search_regex (for single pattern)
@@ -131,7 +230,7 @@ func (ie *CommonIE) SearchRegexOne(pattern string, str, name string,
 func (ie *CommonIE) SearchRegexMulti(patterns []string, str, name string,
 	def interface{}, fatal bool, flags int, group interface{}) OptString {
 
-	var match matcher.Match
+	var match Match
 	for _, pattern := range patterns {
 		if match = ReSearch(pattern, str, flags); match != nil {
 			break
@@ -159,7 +258,9 @@ func (ie *CommonIE) SearchRegexMulti(patterns []string, str, name string,
 	} else if fatal {
 		panic(newExtractorError(fmt.Sprintf("Unable to extract %v", name)))
 	} else {
-		utils.Log("Unable to extract %v", name)
+		if utils.Debug {
+			ie.log("WARNING: Unable to extract %v", name)
+		}
 		return OptString{}
 	}
 }
@@ -266,45 +367,29 @@ func (ie *CommonIE) OgSearchURL(html string) OptString {
 }
 
 // ParseJSON implements common.py/_parse_json
-func (ie *CommonIE) ParseJSON(jsonString string, videoID string, transformSource func(string) string, fatal bool) map[string]interface{} {
+func (ie *CommonIE) ParseJSON(jsonString string, videoID string, transformSource func(string) string, fatal bool) interface{} {
 	if transformSource != nil {
 		jsonString = transformSource(jsonString)
 	}
-	var result map[string]interface{}
-	if err := json.Unmarshal([]byte(jsonString), &result); err != nil {
-		errMsg := fmt.Sprintf("%v: Failed to parse JSON", videoID)
+	result, err := jsonLoads(jsonString)
+	if err != nil {
+		errMsg := fmt.Sprintf("[%v] Failed to parse JSON", videoID)
 		if fatal {
 			panic(newExtractorError(errMsg))
 		} else {
-			utils.Log(errMsg)
+			if utils.Debug {
+				ie.log(errMsg)
+			}
 			return nil
 		}
 	}
-	return result
-}
-
-// ParseJSONList implements common.py/_parse_json (returning lists)
-func (ie *CommonIE) ParseJSONList(jsonString string, videoID string, transformSource func(string) string, fatal bool) []interface{} {
-	if transformSource != nil {
-		jsonString = transformSource(jsonString)
-	}
-	var result []interface{}
-	if err := json.Unmarshal([]byte(jsonString), &result); err != nil {
-		errMsg := fmt.Sprintf("%v: Failed to parse JSON", videoID)
-		if fatal {
-			panic(newExtractorError(errMsg))
-		} else {
-			utils.Log(errMsg)
-			return nil
-		}
-	}
-	return result
+	return utils.FixJSONFloats(result)
 }
 
 // DownloadJSON implements common.py/_download_json
 func (ie *CommonIE) DownloadJSON(url, videoID string, note, errNote OptString,
-	transformSource func(string) string, fatal bool, encoding OptString, data OptString,
-	headers, query map[string]interface{}) map[string]interface{} {
+	transformSource func(string) string, fatal bool, encoding OptString, data []byte,
+	headers, query SDict) interface{} {
 
 	jsonString := ie.DownloadWebpageURL(url, videoID, note, errNote, fatal, 1, 5, encoding, data, headers, query)
 
@@ -313,24 +398,44 @@ func (ie *CommonIE) DownloadJSON(url, videoID string, note, errNote OptString,
 	return ie.ParseJSON(jsonString, videoID, transformSource, fatal)
 }
 
-// DownloadJSONList implements common.py/_download_json (returning lists)
-func (ie *CommonIE) DownloadJSONList(url, videoID string, note, errNote OptString,
-	transformSource func(string) string, fatal bool, encoding OptString, data OptString,
-	headers, query map[string]interface{}) []interface{} {
+// ParseXML implements common.py/_parse_xml
+func (ie *CommonIE) ParseXML(xmlString string, videoID string, transformSource func(string) string, fatal bool) XMLElement {
+	if transformSource != nil {
+		xmlString = transformSource(xmlString)
+	}
+	root, err := XMLParse(xmlString)
+	if err != nil {
+		errMsg := fmt.Sprintf("[%v] Failed to parse XML", videoID)
+		if fatal {
+			panic(newExtractorError(errMsg))
+		} else {
+			if utils.Debug {
+				ie.log(errMsg)
+			}
+			return nil
+		}
+	}
+	return root
+}
 
-	jsonString := ie.DownloadWebpageURL(url, videoID, note, errNote, fatal, 1, 5, encoding, data, headers, query)
+// DownloadXML implements common.py/_download_xml
+func (ie *CommonIE) DownloadXML(url, videoID string, note, errNote OptString,
+	transformSource func(string) string, fatal bool, encoding OptString, data []byte,
+	headers, query SDict) XMLElement {
+
+	xmlString := ie.DownloadWebpageURL(url, videoID, note, errNote, fatal, 1, 5, encoding, data, headers, query)
 
 	// TODO some fatal handling
 
-	return ie.ParseJSONList(jsonString, videoID, transformSource, fatal)
+	return ie.ParseXML(xmlString, videoID, transformSource, fatal)
 }
 
 // URLResult implements common.py/url_result
-func (ie *CommonIE) URLResult(url string, ieKey, videoID, videoTitle OptString) map[string]interface{} {
-	result := map[string]interface{}{
-		"_type": "url",
-		"url":   url,
-		"ieKey": ieKey,
+func (ie *CommonIE) URLResult(url string, ieKey, videoID, videoTitle OptString) SDict {
+	result := SDict{
+		"_type":  "url",
+		"url":    url,
+		"ie_key": ieKey,
 	}
 	if videoID.IsSet() {
 		result["id"] = videoID.Get()
@@ -342,25 +447,23 @@ func (ie *CommonIE) URLResult(url string, ieKey, videoID, videoTitle OptString) 
 }
 
 // SortFormats implements common.py/_sort_formats
-func (ie *CommonIE) SortFormats(formats []interface{}) {
+func (ie *CommonIE) SortFormats(formats []SDict) []SDict {
 	if len(formats) == 0 {
 		panic(newExtractorError("No video formats found"))
 	}
 
-	fs := make([]map[string]interface{}, len(formats))
-	for idx, format := range formats {
-		f, ok := format.(map[string]interface{})
-		if !ok {
-			panic(newExtractorError("Format is not a dict"))
-		}
+	fs := make([]SDict, len(formats))
+	for idx, f := range formats {
 		fs[idx] = f
 
 		if _, ok := f["tbr"]; !ok {
 			if abr, ok := f["abr"]; ok {
 				if vbr, ok := f["vbr"]; ok {
-					f["tbr"] = CastToInt(abr) + CastToInt(vbr)
+					f["tbr"] = ConvertToFloat(abr) + ConvertToFloat(vbr)
 				}
 			}
+		} else {
+			f["tbr"] = ConvertToFloat(f["tbr"])
 		}
 
 		if ext, ok := f["ext"]; !ok || ext == "" {
@@ -376,7 +479,7 @@ func (ie *CommonIE) SortFormats(formats []interface{}) {
 				preference -= 0.5
 			}
 		} else {
-			preference = CastToFloat(_preference)
+			preference = ConvertToFloat(_preference)
 		}
 
 		protocol := DetermineProtocol(f)
@@ -422,7 +525,7 @@ func (ie *CommonIE) SortFormats(formats []interface{}) {
 		{"preference", -1.0},
 		{"languagePreference", -1},
 		{"quality", -1},
-		{"tbr", -1},
+		{"tbr", -1.0},
 		{"filesize", -1},
 		{"vbr", -1},
 		{"height", -1},
@@ -469,21 +572,35 @@ func (ie *CommonIE) SortFormats(formats []interface{}) {
 		}
 		return false
 	})
+
+	return formats
+}
+
+// CheckFormats implements common.py/_check_formats
+func (ie *CommonIE) CheckFormats(formats []SDict, videoID string) []SDict {
+	newFormats := make([]SDict, 0, len(formats))
+	for _, format := range formats {
+		isValid := ie.IsValidURL(
+			GetStringField(format, "url", true, ""),
+			videoID,
+			fmt.Sprintf("%s video format", GetStringField(format, "format_id", false, "video")),
+			nil)
+		if isValid {
+			newFormats = append(newFormats, format)
+		}
+	}
+	return newFormats
 }
 
 // RemoveDuplicateFormats implements common.py/_remove_duplicate_formats
-func (ie *CommonIE) RemoveDuplicateFormats(formats []interface{}) []interface{} {
+func (ie *CommonIE) RemoveDuplicateFormats(formats []SDict) []SDict {
 	formatURLs := map[string]struct{}{}
-	uniqueFormats := make([]interface{}, 0, len(formats))
-	for _, _format := range formats {
-		format, ok := _format.(map[string]interface{})
-		if !ok {
-			panic(newExtractorError("Format is not a dict"))
-		}
+	uniqueFormats := make([]SDict, 0, len(formats))
+	for _, format := range formats {
 		url := GetStringField(format, "url", true, "")
 		if _, found := formatURLs[url]; !found {
 			formatURLs[url] = struct{}{}
-			uniqueFormats = append(uniqueFormats, _format)
+			uniqueFormats = append(uniqueFormats, format)
 		}
 	}
 	return uniqueFormats
@@ -517,4 +634,221 @@ func (ie *CommonIE) MediaRatingSearch(html string) OptInt {
 		return OptInt{}
 	}
 	return AsOptInt(age)
+}
+
+// ExtractM3U8Formats implements common.py/_extract_m3u8_formats
+func (ie *CommonIE) ExtractM3U8Formats(m3u8URL, videoID string, ext, entryProtocol OptString, preference OptFloat,
+	m3u8ID, note, errnote OptString, fatal bool, live bool) []SDict {
+
+	res := ie.DownloadWebpageHandleURL(m3u8URL, videoID,
+		AsOptString(note.GetOrDef("Downloading m3u8 information")),
+		AsOptString(errnote.GetOrDef("Failed to download m3u8 information")),
+		fatal, OptString{}, nil, nil, nil)
+
+	m3u8Doc := res.Φ0
+	m3u8URL = ResponseGetURL(res.Φ1)
+
+	return ie.ParseM3U8Formats(m3u8Doc, m3u8URL, ext, entryProtocol, preference, m3u8ID, live)
+}
+
+// ParseM3U8Formats implements common.py/_parse_m3u8_formats
+func (ie *CommonIE) ParseM3U8Formats(m3u8Doc, m3u8URL string, ext, entryProtocol OptString, preference OptFloat,
+	m3u8ID OptString, live bool) []SDict {
+
+	if strings.Contains(m3u8Doc, "#EXT-X-FAXS-CM:") {
+		return []SDict{}
+	}
+
+	formats := []SDict{}
+
+	formatURL := func(u string) string {
+		if ReMatch("^https?://", u, 0) != nil {
+			return u
+		}
+		return URLJoin(m3u8URL, AsOptString(u))
+	}
+
+	if strings.Contains(m3u8Doc, "#EXT-X-TARGETDURATION") {
+		return []SDict{{
+			"url":        m3u8URL,
+			"format_id":  m3u8ID,
+			"ext":        ext,
+			"protocol":   entryProtocol,
+			"preference": preference,
+		}}
+	}
+
+	groups := make(map[string][]map[string]string)
+	lastStreamInf := make(map[string]string)
+
+	extractMedia := func(xMediaLine string) {
+		media := parseM3U8Attributes(xMediaLine)
+		mediaType := media["TYPE"]
+		groupID := media["GROUP-ID"]
+		name := media["NAME"]
+		if mediaType == "" || groupID == "" || name == "" {
+			return
+		}
+		groups[groupID] = append(groups[groupID], media)
+		if !utils.StrIn(mediaType, "VIDEO", "AUDIO") {
+			return
+		}
+		mediaURL := media["URI"]
+		if mediaURL != "" {
+			formatID := []string{}
+			if m3u8ID.GetOrDef("") != "" {
+				formatID = append(formatID, m3u8ID.Get())
+			}
+			if groupID != "" {
+				formatID = append(formatID, groupID)
+			}
+			if name != "" {
+				formatID = append(formatID, name)
+			}
+			f := SDict{
+				"format_id":    strings.Join(formatID, "-"),
+				"url":          formatURL(mediaURL),
+				"manifest_url": m3u8URL,
+				"language":     media["LANGUAGE"],
+				"ext":          ext,
+				"protocol":     entryProtocol,
+				"preference":   preference,
+			}
+			if mediaType == "AUDIO" {
+				f["vcodec"] = "none"
+			}
+			formats = append(formats, f)
+		}
+	}
+
+	buildStreamName := func() string {
+		streamName := lastStreamInf["NAME"]
+		if streamName != "" {
+			return streamName
+		}
+		streamGroupID := lastStreamInf["VIDEO"]
+		if streamGroupID == "" {
+			return ""
+		}
+		streamGroup := groups[streamGroupID]
+		if len(streamGroup) == 0 {
+			return streamGroupID
+		}
+		rendition := streamGroup[0]
+		if renditionName := rendition["NAME"]; renditionName != "" {
+			return renditionName
+		}
+		return streamGroupID
+	}
+
+	for _, line := range strings.Split(m3u8Doc, "\n") {
+		if strings.HasPrefix(line, "#EXT-X-STREAM-INF:") {
+			lastStreamInf = parseM3U8Attributes(line)
+		} else if strings.HasPrefix(line, "#EXT-X-MEDIA:") {
+			extractMedia(line)
+		} else if strings.HasPrefix(line, "#") || strings.TrimSpace(line) == "" {
+			continue
+		} else {
+			var tbr OptFloat
+			{
+				averageBandwidth := lastStreamInf["AVERAGE-BANDWIDTH"]
+				bandwidth := lastStreamInf["BANDWIDTH"]
+				if averageBandwidth != "" {
+					tbr = FloatOrNone(averageBandwidth, 1000, 1, OptFloat{})
+				} else {
+					tbr = FloatOrNone(bandwidth, 1000, 1, OptFloat{})
+				}
+			}
+			formatID := []string{}
+			if m3u8ID.GetOrDef("") != "" {
+				formatID = append(formatID, m3u8ID.Get())
+			}
+			streamName := buildStreamName()
+			if !live {
+				if streamName != "" {
+					formatID = append(formatID, streamName)
+				} else if tbr.GetOrDef(0) != 0 {
+					formatID = append(formatID, fmt.Sprintf("%v", int(tbr.Get())))
+				} else {
+					formatID = append(formatID, fmt.Sprintf("%v", len(formats)))
+				}
+			}
+			manifestURL := formatURL(strings.TrimSpace(line))
+			f := SDict{
+				"format_id":    strings.Join(formatID, "-"),
+				"url":          manifestURL,
+				"manifest_url": m3u8URL,
+				"tbr":          tbr,
+				"ext":          ext,
+				"fps":          FloatOrNone(lastStreamInf["FRAME-RATE"], 1, 1, OptFloat{}),
+				"protocol":     entryProtocol,
+				"preference":   preference,
+			}
+			resolution := lastStreamInf["RESOLUTION"]
+			if resolution != "" {
+				mobj := ReSearch(`(?P<width>\d+)[xX](?P<height>\d+)`, resolution, 0)
+				if mobj != nil {
+					f["width"] = ConvertToInt(mobj.GroupByName("width"))
+					f["height"] = ConvertToInt(mobj.GroupByName("height"))
+				}
+			}
+			mobj := ReSearch(`audio.*?(?:%3D|=)(\d+)(?:-video.*?(?:%3D|=)(\d+))?`, GetStringField(f, "url", true, ""), 0)
+			if mobj != nil {
+				abr := FloatOrNone(mobj.GroupByIdx(1), 1000, 1, OptFloat{})
+				vbr := FloatOrNone(mobj.GroupByIdx(2), 1000, 1, OptFloat{})
+				f["abr"] = abr
+				f["vbr"] = vbr
+			}
+			codecs := parseCodecs(lastStreamInf["CODECS"])
+			for key, val := range codecs {
+				f[key] = val
+			}
+			audioGroupID := lastStreamInf["AUDIO"]
+			if audioGroupID != "" && len(codecs) > 0 && f["vcodec"] != "none" {
+				audioGroup := groups[audioGroupID]
+				if len(audioGroup) > 0 && audioGroup[0]["URI"] != "" {
+					f["acodec"] = "none"
+				}
+			}
+			formats = append(formats, f)
+			lastStreamInf = make(map[string]string)
+		}
+	}
+
+	return formats
+}
+
+// HTTPScheme implements common.py/http_scheme
+func (ie *CommonIE) HTTPScheme() string {
+	return "https:"
+}
+
+// ProtoRelativeURL implements common.py/_proto_relative_url
+func (ie *CommonIE) ProtoRelativeURL(url, scheme OptString) OptString {
+	if !url.IsSet() {
+		return url
+	}
+	_url := url.Get()
+	if strings.HasPrefix(_url, "//") {
+		_scheme := scheme.GetOrDef(ie.HTTPScheme())
+		return AsOptString(_scheme + _url)
+	}
+	return url
+}
+
+// IsValidURL implements common.py/_is_valid_url
+func (ie *CommonIE) IsValidURL(url, videoID, item string, headers SDict) bool {
+	url = ie.ProtoRelativeURL(AsOptString(url), AsOptString("http:")).Get()
+	if !strings.HasPrefix(url, "http://") && !strings.HasPrefix(url, "https://") {
+		return true
+	}
+	_, err := ie.requestWebpage(SanitizedRequest(url, nil, nil), true, videoID,
+		AsOptString(fmt.Sprintf("Checking %s URL", item)), OptString{}, nil, headers, nil)
+	if err != nil {
+		if utils.Debug {
+			ie.log("%s: %s URL is invalid, skipping", videoID, item)
+		}
+		return false
+	}
+	return true
 }

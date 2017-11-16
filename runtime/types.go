@@ -22,6 +22,12 @@
 
 package runtime
 
+import (
+	"fmt"
+	"reflect"
+	"strings"
+)
+
 // OptString represents an optional string
 type OptString struct {
 	string
@@ -92,6 +98,58 @@ func (obj *OptInt) Set(value int) {
 // IsSet returns whether the optional object has a value
 func (obj OptInt) IsSet() bool {
 	return obj.set
+}
+
+// OptFloat represents an optional float
+type OptFloat struct {
+	float64
+	set bool
+}
+
+// AsOptFloat converts a float to an optional float
+func AsOptFloat(value float64) OptFloat {
+	return OptFloat{value, true}
+}
+
+// Get returns the value of the optional object
+func (obj OptFloat) Get() float64 {
+	return obj.float64
+}
+
+// GetOrDef returns the value of the optional object is it's available
+// or the default value otherwise
+func (obj OptFloat) GetOrDef(def float64) float64 {
+	if !obj.IsSet() {
+		return def
+	}
+	return obj.float64
+}
+
+// Set sets the value of the optional object
+func (obj *OptFloat) Set(value float64) {
+	obj.float64 = value
+	obj.set = true
+}
+
+// IsSet returns whether the optional object has a value
+func (obj OptFloat) IsSet() bool {
+	return obj.set
+}
+
+// SDict represents the dictionaries used by Python code
+type SDict = map[string]interface{}
+
+// IsTuple checks whether rval is a tuple
+func IsTuple(rval reflect.Value) bool {
+	return rval.Kind() == reflect.Struct && strings.HasPrefix(rval.Type().Name(), "τ_")
+}
+
+// GetTupleField returns the idx-th field of the reflected tuple rval
+func GetTupleField(rval reflect.Value, idx int) interface{} {
+	if idx >= rval.NumField() {
+		panic(newExtractorError(fmt.Sprintf("Tuple index %d out of bounds on %s", idx, rval.Type().Name())))
+	}
+	return rval.Field(idx).Interface()
 }
 
 type noDefaultType struct{}

@@ -32,11 +32,18 @@ type WDRMobileIE struct {
 }
 
 func NewWDRMobileIE() rnt.InfoExtractor {
-	ret := &WDRMobileIE{}
-	ret.CommonIE = rnt.NewCommonIE()
-	ret.VALIDURL = "(?x)\n        https?://mobile-ondemand\\.wdr\\.de/\n        .*?/fsk(?P<age_limit>[0-9]+)\n        /[0-9]+/[0-9]+/\n        (?P<id>[0-9]+)_(?P<title>[0-9]+)"
-	ret.IE_NAME = "wdr:mobile"
-	return ret
+	var (
+		IE_NAME    string
+		_VALID_URL string
+	)
+	self := &WDRMobileIE{}
+	self.CommonIE = rnt.NewCommonIE()
+	IE_NAME = "WDRMobile"
+	_VALID_URL = "(?x)\n        https?://mobile-ondemand\\.wdr\\.de/\n        .*?/fsk(?P<age_limit>[0-9]+)\n        /[0-9]+/[0-9]+/\n        (?P<id>[0-9]+)_(?P<title>[0-9]+)"
+	IE_NAME = "wdr:mobile"
+	self.IE_NAME = IE_NAME
+	self.VALIDURL = _VALID_URL
+	return self
 }
 
 func (self *WDRMobileIE) Key() string {
@@ -47,17 +54,24 @@ func (self *WDRMobileIE) Name() string {
 	return self.IE_NAME
 }
 
-func (self *WDRMobileIE) _real_extract(url string) map[string]interface{} {
-	mobj := rnt.ReMatch((self).VALIDURL, url, 0)
-	return map[string]interface{}{"id": rnt.ReMatchGroupOne(mobj, "id"),
-		"title":        rnt.ReMatchGroupOne(mobj, "title"),
-		"age_limit":    rnt.ConvertToInt(rnt.ReMatchGroupOne(mobj, "age_limit")),
-		"url":          url,
-		"http_headers": map[string]interface{}{"User-Agent": "mobile"}}
+func (self *WDRMobileIE) _real_extract(url string) rnt.SDict {
+	var (
+		mobj rnt.Match
+	)
+	mobj = rnt.ReMatch((self).VALIDURL, url, 0)
+	return rnt.SDict{
+		"id":        rnt.ReMatchGroupOne(mobj, "id"),
+		"title":     rnt.ReMatchGroupOne(mobj, "title"),
+		"age_limit": rnt.ConvertToInt(rnt.ReMatchGroupOne(mobj, "age_limit")),
+		"url":       url,
+		"http_headers": rnt.SDict{
+			"User-Agent": "mobile",
+		},
+	}
 }
 
-func (self *WDRMobileIE) Extract(url string) (*rnt.VideoResult, error) {
-	return rnt.RunExtractor(url, self._real_extract)
+func (self *WDRMobileIE) Extract(url string) (rnt.ExtractorResult, error) {
+	return rnt.RunExtractor(url, self.Context, self._real_extract)
 }
 
 func init() {

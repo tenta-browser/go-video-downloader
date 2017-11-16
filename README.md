@@ -27,6 +27,7 @@ if checkResult == nil {
 connector := &downloader.Connector{
     Client:    &http.Client{},
     UserAgent: "Mozilla/5.0 (X11; Linux x86_64)..",
+    Cookie:    "SESSIONID=12345",
 }
 
 videoData, err := downloader.Extract(checkResult, connector)
@@ -34,7 +35,7 @@ if err != nil {
     // failed to extract video data
 }
 
-// success
+// success, videoData holds download URL, suggested file name, video title, etc.
 ```
 
 Supported sites

@@ -28,13 +28,21 @@ import (
 
 type RadioJavanIE struct {
 	*rnt.CommonIE
+	IE_NAME string
 }
 
 func NewRadioJavanIE() rnt.InfoExtractor {
-	ret := &RadioJavanIE{}
-	ret.CommonIE = rnt.NewCommonIE()
-	ret.VALIDURL = "https?://(?:www\\.)?radiojavan\\.com/videos/video/(?P<id>[^/]+)/?"
-	return ret
+	var (
+		IE_NAME    string
+		_VALID_URL string
+	)
+	self := &RadioJavanIE{}
+	self.CommonIE = rnt.NewCommonIE()
+	IE_NAME = "RadioJavan"
+	_VALID_URL = "https?://(?:www\\.)?radiojavan\\.com/videos/video/(?P<id>[^/]+)/?"
+	self.IE_NAME = IE_NAME
+	self.VALIDURL = _VALID_URL
+	return self
 }
 
 func (self *RadioJavanIE) Key() string {
@@ -42,50 +50,63 @@ func (self *RadioJavanIE) Key() string {
 }
 
 func (self *RadioJavanIE) Name() string {
-	return "RadioJavan extractor"
+	return self.IE_NAME
 }
 
-func (self *RadioJavanIE) _real_extract(url string) map[string]interface{} {
-	video_id := (self).MatchID(url)
-	webpage := (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
-	formats := func() []map[string]interface{} {
-		τmp3 := []map[string]interface{}{}
-		for _, τmp1 := range rnt.ReFindAllMulti("RJ\\.video(\\d+)p\\s*=\\s*'/?([^']+)'", webpage, 0) {
-			τmp2 := τmp1
-			height := (τmp2)[0]
-			video_path := (τmp2)[1]
-
-			τmp3 = append(τmp3, map[string]interface{}{"url": rnt.StrFormat("https://media.rdjavan.com/media/music_video/%s", video_path),
-				"format_id": rnt.StrFormat("%sp", height),
-				"height":    rnt.ConvertToInt(height)})
+func (self *RadioJavanIE) _real_extract(url string) rnt.SDict {
+	var (
+		dislike_count rnt.OptInt
+		formats       []rnt.SDict
+		like_count    rnt.OptInt
+		thumbnail     rnt.OptString
+		title         rnt.OptString
+		upload_date   rnt.OptString
+		video_id      string
+		view_count    rnt.OptInt
+		webpage       string
+	)
+	video_id = (self).MatchID(url)
+	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	formats = func() []rnt.SDict {
+		τresult := []rnt.SDict{}
+		for _, τel := range rnt.ReFindAllMulti("RJ\\.video(\\d+)p\\s*=\\s*'/?([^']+)'", webpage, 0) {
+			var (
+				height     string
+				video_path string
+				τmp1       []string
+			)
+			τmp1 = τel
+			height = (τmp1)[0]
+			video_path = (τmp1)[1]
+			τresult = append(τresult, rnt.SDict{
+				"url":       rnt.StrFormat2("https://media.rdjavan.com/media/music_video/%s", video_path),
+				"format_id": rnt.StrFormat2("%sp", height),
+				"height":    rnt.ConvertToInt(height),
+			})
 		}
-		return τmp3
+		return τresult
 	}()
-	(self).SortFormats(func() []interface{} {
-		τmp2 := []interface{}{}
-		for _, τmp1 := range formats {
-			τmp2 = append(τmp2, τmp1)
-		}
-		return τmp2
-	}())
-	title := (self).OgSearchTitle(webpage, rnt.NoDefault, true)
-	thumbnail := (self).OgSearchThumbnail(webpage, rnt.NoDefault)
-	upload_date := rnt.UnifiedStrDate((self).SearchRegexOne("class=\"date_added\">Date added: ([^<]+)<", webpage, "upload date", rnt.NoDefault, false, 0, nil), true)
-	view_count := rnt.StrToInt((self).SearchRegexOne("class=\"views\">Plays: ([\\d,]+)", webpage, "view count", rnt.NoDefault, false, 0, nil))
-	like_count := rnt.StrToInt((self).SearchRegexOne("class=\"rating\">([\\d,]+) likes", webpage, "like count", rnt.NoDefault, false, 0, nil))
-	dislike_count := rnt.StrToInt((self).SearchRegexOne("class=\"rating\">([\\d,]+) dislikes", webpage, "dislike count", rnt.NoDefault, false, 0, nil))
-	return map[string]interface{}{"id": video_id,
+	formats = (self).SortFormats(formats)
+	title = (self).OgSearchTitle(webpage, rnt.NoDefault, true)
+	thumbnail = (self).OgSearchThumbnail(webpage, rnt.NoDefault)
+	upload_date = rnt.UnifiedStrDate((self).SearchRegexOne("class=\"date_added\">Date added: ([^<]+)<", webpage, "upload date", rnt.NoDefault, false, 0, nil), true)
+	view_count = rnt.StrToInt((self).SearchRegexOne("class=\"views\">Plays: ([\\d,]+)", webpage, "view count", rnt.NoDefault, false, 0, nil))
+	like_count = rnt.StrToInt((self).SearchRegexOne("class=\"rating\">([\\d,]+) likes", webpage, "like count", rnt.NoDefault, false, 0, nil))
+	dislike_count = rnt.StrToInt((self).SearchRegexOne("class=\"rating\">([\\d,]+) dislikes", webpage, "dislike count", rnt.NoDefault, false, 0, nil))
+	return rnt.SDict{
+		"id":            video_id,
 		"title":         title,
 		"thumbnail":     thumbnail,
 		"upload_date":   upload_date,
 		"view_count":    view_count,
 		"like_count":    like_count,
 		"dislike_count": dislike_count,
-		"formats":       formats}
+		"formats":       formats,
+	}
 }
 
-func (self *RadioJavanIE) Extract(url string) (*rnt.VideoResult, error) {
-	return rnt.RunExtractor(url, self._real_extract)
+func (self *RadioJavanIE) Extract(url string) (rnt.ExtractorResult, error) {
+	return rnt.RunExtractor(url, self.Context, self._real_extract)
 }
 
 func init() {

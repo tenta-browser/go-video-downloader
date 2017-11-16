@@ -24,33 +24,38 @@ package runtime
 
 import (
 	"fmt"
-	"regexp"
+	"strconv"
 	"strings"
 	"unicode"
 
 	"github.com/tenta-browser/go-video-downloader/utils"
 )
 
-// StrFormat implements Python 2's formatting (% operator)
-func StrFormat(format string, args ...interface{}) string {
-	// prepare args for formatting
-	nargs := make([]interface{}, len(args))
-	for argIdx, arg := range args {
-		switch argVal := arg.(type) {
-		case OptString:
-			nargs[argIdx] = argVal.GetOrDef("")
-		case OptInt:
-			nargs[argIdx] = argVal.GetOrDef(0)
-		default:
-			nargs[argIdx] = arg
+// StrSlice implements Python slicing for strings
+func StrSlice(str string, low, high, step OptInt) string {
+	rstr := []rune(str)
+	rres := []rune{}
+	lo, up, st := InitSliceArgs(len(str), low, high, step)
+	if st > 0 {
+		for i := lo; i < up; i += st {
+			rres = append(rres, rstr[i])
+		}
+	} else {
+		for i := up; i > lo; i += st {
+			rres = append(rres, rstr[i])
 		}
 	}
+	return string(rres)
+}
+
+// StrFormat2 implements Python 2's formatting (% operator)
+func StrFormat2(format string, args ...interface{}) string {
+	nargs := unboxStrFormatArgs(args)
 
 	// make sure we don't pass funky formatting specs blindly to fmt.Sprintf
 	// because it'll produce strange output; it's better to panic & correct
-	re := regexp.MustCompile("%.*?[a-zA-Z%]")
 	argIdx := 0
-	for _, fmtspec := range re.FindAllString(format, -1) {
+	for _, fmtspec := range ReFindAllOne("%.*?[a-zA-Z%]", format, 0) {
 		switch fmtspec {
 		case "%%":
 		case "%s":
@@ -66,6 +71,64 @@ func StrFormat(format string, args ...interface{}) string {
 	}
 
 	return fmt.Sprintf(format, nargs...)
+}
+
+// StrFormat3 implements python/str.format (Python 3 style formatting)
+func StrFormat3(format string, args ...interface{}) string {
+	nargs := unboxStrFormatArgs(args)
+
+	// make sure we don't pass funky formatting specs blindly to fmt.Sprintf
+	// because it'll produce strange output; it's better to panic & correct
+	ln := len(format)
+	buf := make([]byte, 0, ln)
+	for i := 0; i < ln; i++ {
+		if format[i] == '{' {
+			i++
+			if i == ln || format[i] != '{' {
+				fmtspec := make([]byte, 0, 2)
+				for ; i < ln && format[i] != '}'; i++ {
+					fmtspec = append(fmtspec, format[i])
+				}
+				if i == ln {
+					panic("Unterminated format spec")
+				}
+				if len(fmtspec) == 0 {
+					buf = append(buf, "%v"...)
+				} else if fmtidx, err := strconv.Atoi(string(fmtspec)); err == nil {
+					buf = append(buf, "%["...)
+					buf = append(buf, strconv.Itoa(fmtidx+1)...) // Python indexes from 0, Go from 1
+					buf = append(buf, "]v"...)
+				} else {
+					panic("Unsupported formatter: " + string(fmtspec))
+				}
+				continue
+			}
+		} else if format[i] == '}' {
+			i++
+			if i == ln || format[i] != '}' {
+				panic("Unstarted format spec")
+			}
+		}
+		buf = append(buf, format[i])
+	}
+
+	format = string(buf)
+	return fmt.Sprintf(format, nargs...)
+}
+
+func unboxStrFormatArgs(args []interface{}) []interface{} {
+	nargs := make([]interface{}, len(args))
+	for argIdx, arg := range args {
+		switch argVal := arg.(type) {
+		case OptString:
+			nargs[argIdx] = argVal.GetOrDef("")
+		case OptInt:
+			nargs[argIdx] = argVal.GetOrDef(0)
+		default:
+			nargs[argIdx] = arg
+		}
+	}
+	return nargs
 }
 
 // StrStrip implements python/str.strip
@@ -125,10 +188,17 @@ func StrContains(haystack, needle string) bool {
 
 // StrToBytes implements python/str.encode
 func StrToBytes(str, encoding string) []byte {
-	if encoding != "utf-8" {
-		panic(newExtractorError("Unknown encoding: " + encoding))
+	if encoding == "ascii" {
+		for _, r := range str {
+			if r >= 128 {
+				panic(newExtractorError(fmt.Sprintf("Invalid ascii char: %d", r)))
+			}
+		}
+		return []byte(str)
+	} else if encoding == "utf-8" {
+		return []byte(str)
 	}
-	return []byte(str)
+	panic(newExtractorError("Unknown encoding: " + encoding))
 }
 
 // StrIsDigit implements python/str.isdigit
@@ -154,10 +224,35 @@ func StrReplace(str, old, new string, count int) string {
 	return strings.Replace(str, old, new, count)
 }
 
+// StrLower implements python/str.lower
+func StrLower(str string) string {
+	return strings.ToLower(str)
+}
+
+// StrUpper implements python/str.upper
+func StrUpper(str string) string {
+	return strings.ToUpper(str)
+}
+
+// StrStartswith implements python/str.startswith
+func StrStartswith(str, prefix string, start, end OptInt) bool {
+	return strings.HasPrefix(StrSlice(str, start, end, OptInt{}), prefix)
+}
+
+// StrEndswith implements python/str.endswith
+func StrEndswith(str, suffix string, start, end OptInt) bool {
+	return strings.HasSuffix(StrSlice(str, start, end, OptInt{}), suffix)
+}
+
+// StrJoin implements python/str.join
+func StrJoin(str string, parts []string) string {
+	return strings.Join(parts, str)
+}
+
 // BytesToStr implements python/bytes.decode
 func BytesToStr(bytes []byte, encoding string) string {
-	if encoding != "utf-8" {
-		panic(newExtractorError("Unknown encoding: " + encoding))
+	if encoding == "ascii" || encoding == "utf-8" {
+		return string(bytes)
 	}
-	return string(bytes)
+	panic(newExtractorError("Unknown encoding: " + encoding))
 }

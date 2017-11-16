@@ -28,17 +28,26 @@ import (
 
 type MacGameStoreIE struct {
 	*rnt.CommonIE
-	IE_NAME string
 	IE_DESC string
+	IE_NAME string
 }
 
 func NewMacGameStoreIE() rnt.InfoExtractor {
-	ret := &MacGameStoreIE{}
-	ret.CommonIE = rnt.NewCommonIE()
-	ret.IE_NAME = "macgamestore"
-	ret.IE_DESC = "MacGameStore trailers"
-	ret.VALIDURL = "https?://(?:www\\.)?macgamestore\\.com/mediaviewer\\.php\\?trailer=(?P<id>\\d+)"
-	return ret
+	var (
+		IE_DESC    string
+		IE_NAME    string
+		_VALID_URL string
+	)
+	self := &MacGameStoreIE{}
+	self.CommonIE = rnt.NewCommonIE()
+	IE_NAME = "MacGameStore"
+	IE_NAME = "macgamestore"
+	IE_DESC = "MacGameStore trailers"
+	_VALID_URL = "https?://(?:www\\.)?macgamestore\\.com/mediaviewer\\.php\\?trailer=(?P<id>\\d+)"
+	self.IE_DESC = IE_DESC
+	self.IE_NAME = IE_NAME
+	self.VALIDURL = _VALID_URL
+	return self
 }
 
 func (self *MacGameStoreIE) Key() string {
@@ -46,24 +55,32 @@ func (self *MacGameStoreIE) Key() string {
 }
 
 func (self *MacGameStoreIE) Name() string {
-	return self.IE_NAME + " (" + self.IE_DESC + ")"
+	return self.IE_NAME
 }
 
-func (self *MacGameStoreIE) _real_extract(url string) map[string]interface{} {
-	video_id := (self).MatchID(url)
-	webpage := (self).DownloadWebpageURL(url, video_id, rnt.AsOptString("Downloading trailer page"), rnt.OptString{}, true, 1, 5, rnt.OptString{}, rnt.OptString{}, map[string]interface{}{}, map[string]interface{}{})
+func (self *MacGameStoreIE) _real_extract(url string) rnt.SDict {
+	var (
+		video_id    string
+		video_title rnt.OptString
+		video_url   rnt.OptString
+		webpage     string
+	)
+	video_id = (self).MatchID(url)
+	webpage = (self).DownloadWebpageURL(url, video_id, rnt.AsOptString("Downloading trailer page"), rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
 	if rnt.StrContains(webpage, ">Missing Media<") {
-		panic(rnt.PyExtractorError(rnt.StrFormat("Trailer %s does not exist", video_id), true, rnt.OptString{}))
+		panic(rnt.PyExtractorError(rnt.StrFormat2("Trailer %s does not exist", video_id), true, rnt.OptString{}))
 	}
-	video_title := (self).HTMLSearchRegexOne("<title>MacGameStore: (.*?) Trailer</title>", webpage, "title", rnt.NoDefault, true, 0, nil)
-	video_url := (self).HTMLSearchRegexOne("(?s)<div\\s+id=\"video-player\".*?href=\"([^\"]+)\"\\s*>", webpage, "video URL", rnt.NoDefault, true, 0, nil)
-	return map[string]interface{}{"id": video_id,
+	video_title = (self).HTMLSearchRegexOne("<title>MacGameStore: (.*?) Trailer</title>", webpage, "title", rnt.NoDefault, true, 0, nil)
+	video_url = (self).HTMLSearchRegexOne("(?s)<div\\s+id=\"video-player\".*?href=\"([^\"]+)\"\\s*>", webpage, "video URL", rnt.NoDefault, true, 0, nil)
+	return rnt.SDict{
+		"id":    video_id,
 		"url":   video_url,
-		"title": video_title}
+		"title": video_title,
+	}
 }
 
-func (self *MacGameStoreIE) Extract(url string) (*rnt.VideoResult, error) {
-	return rnt.RunExtractor(url, self._real_extract)
+func (self *MacGameStoreIE) Extract(url string) (rnt.ExtractorResult, error) {
+	return rnt.RunExtractor(url, self.Context, self._real_extract)
 }
 
 func init() {

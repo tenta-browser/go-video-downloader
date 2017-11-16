@@ -23,13 +23,16 @@
 package downloader
 
 import (
-	"errors"
+	"fmt"
 	"net/http"
 
 	"github.com/tenta-browser/go-pcre-matcher"
 	"github.com/tenta-browser/go-video-downloader/extractor"
 	"github.com/tenta-browser/go-video-downloader/runtime"
 )
+
+// GenDate is date when this downloader was generated
+const GenDate = "20171116-1737"
 
 var (
 	masterRegexp     string
@@ -85,26 +88,70 @@ func Check(url string) *CheckResult {
 
 // Extract extracts video info based on the results of a successful Check()
 func Extract(checkResult *CheckResult, connector *Connector) (*VideoData, error) {
-	factory := extractor.GetFactories()[checkResult.extractorKey]
+	return extractInternal(checkResult.url, checkResult.extractorKey, connector, nil)
+}
+
+func extractInternal(url string, extractorKey string, connector *Connector,
+	referrer runtime.ExtractorResult) (*VideoData, error) {
+
+	// create extractor corresponding to extractorKey
+	factory := extractor.GetFactories()[extractorKey]
+	if factory == nil {
+		return nil, fmt.Errorf("Unsupported extractor: %s", extractorKey)
+	}
 	extractor := factory()
-	extractor.SetContext(&runtime.Context{
-		Client: connector.Client,
-		Headers: map[string]string{
-			"User-Agent": connector.UserAgent,
-			"Cookie":     connector.Cookie,
-		},
-	})
-	res, err := extractor.Extract(checkResult.url)
+
+	// create fresh context and inject it into the extractor
+	ctx := newContextFromConnector(connector)
+	ctx.ExtractorKey = extractorKey
+	extractor.SetContext(ctx)
+
+	// run extractor
+	res, err := extractor.Extract(url)
 	if err != nil {
 		return nil, err
 	}
-	if res.Type != "video" {
-		return nil, errors.New("Unsupported result type: " + res.Type)
+
+	switch res := res.(type) {
+	case *runtime.VideoResult:
+		return &VideoData{
+			URL:      res.URL,
+			Title:    res.Title,
+			Filename: res.Filename,
+			AgeLimit: res.AgeLimit,
+		}, nil
+	case *runtime.URLResult:
+		if res.ExtractorKey == "" {
+			// no extractorKey was provided by the extractor,
+			// have to do a check based on the URL
+			checkResult := Check(res.URL)
+			if checkResult == nil {
+				return nil, fmt.Errorf("Check failed for: %s", res.URL)
+			}
+			res.ExtractorKey = checkResult.extractorKey
+		}
+		return extractInternal(res.URL, res.ExtractorKey, connector, res)
+	default:
+		panic(fmt.Sprintf("Unhandled ExtractorType: %T", res))
 	}
-	return &VideoData{
-		URL:      res.URL,
-		Title:    res.Title,
-		Filename: res.Filename,
-		AgeLimit: res.AgeLimit,
-	}, nil
+}
+
+func newContextFromConnector(connector *Connector) *runtime.Context {
+	headers := make(map[string]string)
+	if connector.UserAgent != "" {
+		headers["User-Agent"] = connector.UserAgent
+	}
+	if connector.Cookie != "" {
+		headers["Cookie"] = connector.Cookie
+	}
+	var client *http.Client
+	if connector.Client != nil {
+		client = connector.Client
+	} else {
+		client = &http.Client{}
+	}
+	return &runtime.Context{
+		Client:  client,
+		Headers: headers,
+	}
 }

@@ -29,22 +29,35 @@ import (
 
 // ConvertToInt implements python/int()
 func ConvertToInt(val interface{}) int {
-	atoi := func(s string) int {
-		i, err := strconv.Atoi(s)
-		if err != nil {
-			panic(newExtractorError(fmt.Sprintf("Failed to convert to int: '%s'", s)))
-		}
-		return i
+	i, err := convertToInt(val)
+	if err != nil {
+		panic(newExtractorError(fmt.Sprintf("Failed to convert to int: '%v'", val)))
 	}
+	return i
+}
+
+func convertToInt(val interface{}) (int, error) {
 	switch v := val.(type) {
 	case int:
-		return v
+		return v, nil
 	case OptInt:
-		return v.Get()
+		return v.Get(), nil
 	case string:
-		return atoi(v)
+		i, err := strconv.Atoi(v)
+		if err != nil {
+			return 0, err
+		}
+		return i, nil
 	case OptString:
-		return atoi(v.Get())
+		i, err := strconv.Atoi(v.Get())
+		if err != nil {
+			return 0, err
+		}
+		return i, nil
+	case float64:
+		return int(v), nil
+	case OptFloat:
+		return int(v.Get()), nil
 	default:
 		panic(newConvertError(val, "int"))
 	}
@@ -52,17 +65,61 @@ func ConvertToInt(val interface{}) int {
 
 // ConvertToString implements python/str()
 func ConvertToString(val interface{}) string {
+	itoa := strconv.Itoa
+	ftoa := func(f float64) string {
+		return fmt.Sprintf("%v", f)
+	}
 	switch v := val.(type) {
 	case int:
-		return string(v)
+		return itoa(v)
 	case OptInt:
-		return string(v.Get())
+		return itoa(v.Get())
 	case string:
 		return v
 	case OptString:
 		return v.Get()
+	case float64:
+		return ftoa(v)
+	case OptFloat:
+		return ftoa(v.Get())
 	default:
 		panic(newConvertError(val, "string"))
+	}
+}
+
+// ConvertToFloat implements python/float()
+func ConvertToFloat(val interface{}) float64 {
+	f, err := convertToFloat(val)
+	if err != nil {
+		panic(newExtractorError(fmt.Sprintf("Failed to convert to float: '%v'", val)))
+	}
+	return f
+}
+
+func convertToFloat(val interface{}) (float64, error) {
+	switch v := val.(type) {
+	case int:
+		return float64(v), nil
+	case OptInt:
+		return float64(v.Get()), nil
+	case string:
+		f, err := strconv.ParseFloat(v, 64)
+		if err != nil {
+			return 0, err
+		}
+		return f, nil
+	case OptString:
+		f, err := strconv.ParseFloat(v.Get(), 64)
+		if err != nil {
+			return 0, err
+		}
+		return f, nil
+	case float64:
+		return v, nil
+	case OptFloat:
+		return v.Get(), nil
+	default:
+		panic(newConvertError(val, "float"))
 	}
 }
 
