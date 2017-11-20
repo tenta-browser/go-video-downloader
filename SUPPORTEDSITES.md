@@ -83,7 +83,6 @@ Supported sites
  * UstudioEmbed: `app.ustudio.com`
  * VideosZ _(adult)_: `www.videosz.com`
  * WDRMobile: `mobile-ondemand.wdr.de`
- * Wistia: ``
  * XHamster _(adult)_: `xhamster.com`
  * XNXX _(adult)_: `www.xnxx.com`
  * XTube _(adult)_: `www.xtube.com`
