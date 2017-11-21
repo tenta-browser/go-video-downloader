@@ -173,6 +173,10 @@ func RunExtractor(url string, ctx *Context, extrFunc func(string) SDict) (res Ex
 
 		url = utils.SanitizeURL(url)
 
+		if ext == "" {
+			ext = DetermineExt(AsOptString(url), "unknown_video")
+		}
+
 		filename := fmt.Sprintf("%s-%s.%s",
 			utils.Ellipsize(SanitizeFilename(title, true, false), 100, ".."),
 			SanitizeFilename(id, true, true),
