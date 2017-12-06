@@ -136,10 +136,10 @@ func (self *PornHubIE) _real_extract(url string) rnt.SDict {
 	video_url = (js_vars)["mediastring"]
 	title = (self).SearchRegexOne("<h1>([^>]+)</h1>", tv_webpage, "title", nil, true, 0, nil)
 	title = func() rnt.OptString {
-		if τ_isTruthy_Os(title) {
-			return title
-		} else if τ_isTruthy_Os((self).HTMLSearchMetaOne("twitter:title", webpage, rnt.OptString{}, false, nil, 0)) {
-			return (self).HTMLSearchMetaOne("twitter:title", webpage, rnt.OptString{}, false, nil, 0)
+		if v := (title); τ_isTruthy_Os(v) {
+			return v
+		} else if v := ((self).HTMLSearchMetaOne("twitter:title", webpage, rnt.OptString{}, false, nil, 0)); τ_isTruthy_Os(v) {
+			return v
 		} else {
 			return (self).SearchRegexMulti(τ_conv_Tsssω_to_Ls(τ_Tsssω{
 				Φ0: "<h1[^>]+class=[\"\\']title[\"\\'][^>]*>(?P<title>[^<]+)",

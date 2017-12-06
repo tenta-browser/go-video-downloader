@@ -94,8 +94,8 @@ func (self *RedTubeIE) _real_extract(url string) rnt.SDict {
 	formats = []interface{}{}
 	sources = (self).ParseJSON((self).SearchRegexOne("sources\\s*:\\s*({.+?})", webpage, "source", "{}", true, 0, nil).Get(), video_id, nil, false)
 	if rnt.IsTruthy(func() interface{} {
-		if !(rnt.IsTruthy(sources)) {
-			return sources
+		if v := (sources); !(rnt.IsTruthy(v)) {
+			return v
 		} else {
 			return τ_isinstance_d(sources)
 		}
@@ -115,8 +115,8 @@ func (self *RedTubeIE) _real_extract(url string) rnt.SDict {
 	}
 	medias = (self).ParseJSON((self).SearchRegexOne("mediaDefinition\\s*:\\s*(\\[.+?\\])", webpage, "media definitions", "{}", true, 0, nil).Get(), video_id, nil, false)
 	if rnt.IsTruthy(func() interface{} {
-		if !(rnt.IsTruthy(medias)) {
-			return medias
+		if v := (medias); !(rnt.IsTruthy(v)) {
+			return v
 		} else {
 			return rnt.IsList(medias)
 		}

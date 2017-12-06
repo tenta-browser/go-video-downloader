@@ -75,8 +75,8 @@ func (self *PornHdIE) _real_extract(url string) rnt.SDict {
 	video_id = rnt.ReMatchGroupOne(mobj, "id")
 	display_id = rnt.ReMatchGroupOne(mobj, "display_id")
 	webpage = (self).DownloadWebpageURL(url, func() rnt.OptString {
-		if τ_isTruthy_Os(display_id) {
-			return display_id
+		if v := (display_id); τ_isTruthy_Os(v) {
+			return v
 		} else {
 			return video_id
 		}

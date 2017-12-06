@@ -92,8 +92,8 @@ func (self *PinkbikeIE) _real_extract(url string) rnt.SDict {
 	formats = τ_conv_Ld_to_Lα((self).SortFormats(τ_conv_Lα_to_Ld(formats)))
 	title = rnt.RemoveEnd((self).OgSearchTitle(webpage, rnt.NoDefault, true), " Video - Pinkbike")
 	description = func() rnt.OptString {
-		if τ_isTruthy_Os((self).HTMLSearchRegexOne("(?s)id=\"media-description\"[^>]*>(.+?)<", webpage, "description", nil, true, 0, nil)) {
-			return (self).HTMLSearchRegexOne("(?s)id=\"media-description\"[^>]*>(.+?)<", webpage, "description", nil, true, 0, nil)
+		if v := ((self).HTMLSearchRegexOne("(?s)id=\"media-description\"[^>]*>(.+?)<", webpage, "description", nil, true, 0, nil)); τ_isTruthy_Os(v) {
+			return v
 		} else {
 			return rnt.RemoveStart((self).OgSearchDescription(webpage, rnt.NoDefault), (title.Get() + ". "))
 		}

@@ -55,6 +55,7 @@ func (self *SlutloadIE) Name() string {
 
 func (self *SlutloadIE) _real_extract(url string) rnt.SDict {
 	var (
+		desktop_url string
 		thumbnail   rnt.OptString
 		video_id    string
 		video_title string
@@ -63,7 +64,8 @@ func (self *SlutloadIE) _real_extract(url string) rnt.SDict {
 	)
 	url = rnt.ReSub("^(https?://)mobile\\.", "\\1", url, 0, 0)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	desktop_url = rnt.ReSub("^(https?://)mobile\\.", "\\1", url, 0, 0)
+	webpage = (self).DownloadWebpageURL(desktop_url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
 	video_title = rnt.StrStrip((self).HTMLSearchRegexOne("<h1><strong>([^<]+)</strong>", webpage, "title", rnt.NoDefault, true, 0, nil).Get(), "")
 	video_url = (self).HTMLSearchRegexOne("(?s)<div id=\"vidPlayer\"\\s+data-url=\"([^\"]+)\"", webpage, "video URL", rnt.NoDefault, true, 0, nil)
 	thumbnail = (self).HTMLSearchRegexOne("(?s)<div id=\"vidPlayer\"\\s+.*?previewer-file=\"([^\"]+)\"", webpage, "thumbnail", rnt.NoDefault, false, 0, nil)

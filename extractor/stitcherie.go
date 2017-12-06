@@ -69,8 +69,8 @@ func (self *StitcherIE) _real_extract(url string) rnt.SDict {
 	mobj = rnt.ReMatch((self).VALIDURL, url, 0)
 	audio_id = rnt.ReMatchGroupOne(mobj, "id")
 	display_id = func() rnt.OptString {
-		if τ_isTruthy_Os(rnt.ReMatchGroupOne(mobj, "display_id")) {
-			return rnt.ReMatchGroupOne(mobj, "display_id")
+		if v := (rnt.ReMatchGroupOne(mobj, "display_id")); τ_isTruthy_Os(v) {
+			return v
 		} else {
 			return audio_id
 		}
@@ -93,8 +93,8 @@ func (self *StitcherIE) _real_extract(url string) rnt.SDict {
 			τresult = append(τresult, rnt.SDict{
 				"url": rnt.UnsafeSubscript(episode, episode_key),
 				"ext": func() string {
-					if (rnt.DetermineExt(rnt.CastToOptString(rnt.UnsafeSubscript(episode, episode_key)), "unknown_video")) != "" {
-						return rnt.DetermineExt(rnt.CastToOptString(rnt.UnsafeSubscript(episode, episode_key)), "unknown_video")
+					if v := (rnt.DetermineExt(rnt.CastToOptString(rnt.UnsafeSubscript(episode, episode_key)), "unknown_video")); (v) != "" {
+						return v
 					} else {
 						return "mp3"
 					}

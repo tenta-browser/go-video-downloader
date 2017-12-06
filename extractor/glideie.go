@@ -68,22 +68,22 @@ func (self *GlideIE) _real_extract(url string) rnt.SDict {
 	video_id = (self).MatchID(url)
 	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
 	title = func() rnt.OptString {
-		if τ_isTruthy_Os((self).HTMLSearchRegexOne("<title>(.+?)</title>", webpage, "title", nil, true, 0, nil)) {
-			return (self).HTMLSearchRegexOne("<title>(.+?)</title>", webpage, "title", nil, true, 0, nil)
+		if v := ((self).HTMLSearchRegexOne("<title>(.+?)</title>", webpage, "title", nil, true, 0, nil)); τ_isTruthy_Os(v) {
+			return v
 		} else {
 			return (self).OgSearchTitle(webpage, rnt.NoDefault, true)
 		}
 	}()
 	video_url = func() rnt.OptString {
-		if τ_isTruthy_Os((self).ProtoRelativeURL((self).SearchRegexOne("<source[^>]+src=([\"\\'])(?P<url>.+?)\\1", webpage, "video URL", nil, true, 0, "url"), rnt.OptString{})) {
-			return (self).ProtoRelativeURL((self).SearchRegexOne("<source[^>]+src=([\"\\'])(?P<url>.+?)\\1", webpage, "video URL", nil, true, 0, "url"), rnt.OptString{})
+		if v := ((self).ProtoRelativeURL((self).SearchRegexOne("<source[^>]+src=([\"\\'])(?P<url>.+?)\\1", webpage, "video URL", nil, true, 0, "url"), rnt.OptString{})); τ_isTruthy_Os(v) {
+			return v
 		} else {
 			return (self).OgSearchVideoURL(webpage, "video url", true, rnt.NoDefault)
 		}
 	}()
 	thumbnail = func() rnt.OptString {
-		if τ_isTruthy_Os((self).ProtoRelativeURL((self).SearchRegexOne("<img[^>]+id=[\"\\']video-thumbnail[\"\\'][^>]+src=([\"\\'])(?P<url>.+?)\\1", webpage, "thumbnail url", nil, true, 0, "url"), rnt.OptString{})) {
-			return (self).ProtoRelativeURL((self).SearchRegexOne("<img[^>]+id=[\"\\']video-thumbnail[\"\\'][^>]+src=([\"\\'])(?P<url>.+?)\\1", webpage, "thumbnail url", nil, true, 0, "url"), rnt.OptString{})
+		if v := ((self).ProtoRelativeURL((self).SearchRegexOne("<img[^>]+id=[\"\\']video-thumbnail[\"\\'][^>]+src=([\"\\'])(?P<url>.+?)\\1", webpage, "thumbnail url", nil, true, 0, "url"), rnt.OptString{})); τ_isTruthy_Os(v) {
+			return v
 		} else {
 			return (self).OgSearchThumbnail(webpage, rnt.NoDefault)
 		}

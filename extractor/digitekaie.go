@@ -72,8 +72,8 @@ func (self *DigitekaIE) _real_extract(url string) rnt.SDict {
 	mobj = rnt.ReMatch((self).VALIDURL, url, 0)
 	video_id = rnt.ReMatchGroupOne(mobj, "id")
 	video_type = func() rnt.OptString {
-		if τ_isTruthy_Os(rnt.ReMatchGroupOne(mobj, "embed_type")) {
-			return rnt.ReMatchGroupOne(mobj, "embed_type")
+		if v := (rnt.ReMatchGroupOne(mobj, "embed_type")); τ_isTruthy_Os(v) {
+			return v
 		} else {
 			return rnt.ReMatchGroupOne(mobj, "site_type")
 		}

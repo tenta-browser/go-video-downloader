@@ -42,6 +42,16 @@ type τ_TOssω struct {
 	Φ1 string
 }
 
+type τ_TTssωTssωω struct {
+	Φ0 τ_Tssω
+	Φ1 τ_Tssω
+}
+
+type τ_TiTssωω struct {
+	Φ0 int
+	Φ1 τ_Tssω
+}
+
 type τ_Tisω struct {
 	Φ0 int
 	Φ1 string
@@ -150,6 +160,14 @@ func τ_constr_Sα_from_Lα(iter []interface{}) map[interface{}]struct{} {
 	return set
 }
 
+func τ_conv_LOs_to_Lα(src []rnt.OptString) []interface{} {
+	dest := []interface{}{}
+	for _, element := range src {
+		dest = append(dest, element)
+	}
+	return dest
+}
+
 func τ_conv_Ld_to_Lα(src []rnt.SDict) []interface{} {
 	dest := []interface{}{}
 	for _, element := range src {
@@ -205,6 +223,10 @@ func τ_conv_T00ω_to_TOsOsω(src τ_T00ω) τ_TOsOsω {
 	}
 }
 
+func τ_conv_TTssωTssωω_to_LTssω(tuple τ_TTssωTssωω) []τ_Tssω {
+	return []τ_Tssω{tuple.Φ0, tuple.Φ1}
+}
+
 func τ_conv_Tssssω_to_Ls(tuple τ_Tssssω) []string {
 	return []string{tuple.Φ0, tuple.Φ1, tuple.Φ2, tuple.Φ3}
 }
@@ -219,6 +241,14 @@ func τ_conv_Tssω_to_Ls(tuple τ_Tssω) []string {
 
 func τ_conv_Tsω_to_Ls(tuple τ_Tsω) []string {
 	return []string{tuple.Φ0}
+}
+
+func τ_enumerate_LTssω(list []τ_Tssω, start int) []τ_TiTssωω {
+	enum := []τ_TiTssωω{}
+	for idx, el := range list {
+		enum = append(enum, τ_TiTssωω{idx + start, el})
+	}
+	return enum
 }
 
 func τ_enumerate_Lα(list []interface{}, start int) []τ_Tiαω {
@@ -332,6 +362,10 @@ func τ_sink_LOs(nothing interface{}) []rnt.OptString {
 }
 
 func τ_sink_Ls(nothing interface{}) []string {
+	return nil
+}
+
+func τ_sink_Lα(nothing interface{}) []interface{} {
 	return nil
 }
 

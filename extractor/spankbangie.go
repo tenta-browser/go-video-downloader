@@ -67,6 +67,9 @@ func (self *SpankBangIE) _real_extract(url string) rnt.SDict {
 	)
 	video_id = (self).MatchID(url)
 	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	if rnt.ReSearch("<[^>]+\\bid=[\"\\']video_removed", webpage, 0) != nil {
+		panic(rnt.PyExtractorError(rnt.StrFormat2("Video %s is not available", video_id), true, rnt.OptString{}))
+	}
 	stream_key = (self).HTMLSearchRegexOne("var\\s+stream_key\\s*=\\s*['\"](.+?)['\"]", webpage, "stream key", rnt.NoDefault, true, 0, nil)
 	formats = func() []rnt.SDict {
 		τresult := []rnt.SDict{}

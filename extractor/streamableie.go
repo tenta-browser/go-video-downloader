@@ -71,8 +71,8 @@ func (self *StreamableIE) _real_extract(url string) rnt.SDict {
 		panic(rnt.PyExtractorError("This video is currently unavailable. It may still be uploading or processing.", true, rnt.OptString{}))
 	}
 	title = func() interface{} {
-		if rnt.IsTruthy(rnt.DictGet(τ_cast_α_to_d(video), "reddit_title", nil)) {
-			return rnt.DictGet(τ_cast_α_to_d(video), "reddit_title", nil)
+		if v := (rnt.DictGet(τ_cast_α_to_d(video), "reddit_title", nil)); rnt.IsTruthy(v) {
+			return v
 		} else {
 			return rnt.UnsafeSubscript(video, "title")
 		}

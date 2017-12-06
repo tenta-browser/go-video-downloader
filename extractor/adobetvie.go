@@ -84,10 +84,10 @@ func (self *AdobeTVIE) _real_extract(url string) rnt.SDict {
 			τresult = append(τresult, rnt.SDict{
 				"url": rnt.UnsafeSubscript(source, "url"),
 				"format_id": func() interface{} {
-					if rnt.IsTruthy(rnt.DictGet(τ_cast_α_to_d(source), "quality_level", nil)) {
-						return rnt.DictGet(τ_cast_α_to_d(source), "quality_level", nil)
-					} else if ((rnt.StrSplit(τ_index_Ls(rnt.StrSplit(rnt.CastToString(rnt.UnsafeSubscript(source, "url")), "-", -(1)), -(1)), ".", -(1)))[0]) != "" {
-						return (rnt.StrSplit(τ_index_Ls(rnt.StrSplit(rnt.CastToString(rnt.UnsafeSubscript(source, "url")), "-", -(1)), -(1)), ".", -(1)))[0]
+					if v := (rnt.DictGet(τ_cast_α_to_d(source), "quality_level", nil)); rnt.IsTruthy(v) {
+						return v
+					} else if v := ((rnt.StrSplit(τ_index_Ls(rnt.StrSplit(rnt.CastToString(rnt.UnsafeSubscript(source, "url")), "-", -(1)), -(1)), ".", -(1)))[0]); (v) != "" {
+						return v
 					} else {
 						return nil
 					}

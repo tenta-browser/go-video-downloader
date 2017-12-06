@@ -77,8 +77,8 @@ func (self *RockstarGamesIE) _real_extract(url string) rnt.SDict {
 		}
 		resolution = rnt.DictGet(τ_cast_α_to_d(video), "resolution", nil)
 		height = rnt.IntOrNone((self).SearchRegexOne("^(\\d+)[pP]$", rnt.CastToString(func() interface{} {
-			if rnt.IsTruthy(resolution) {
-				return resolution
+			if v := (resolution); rnt.IsTruthy(v) {
+				return v
 			} else {
 				return ""
 			}

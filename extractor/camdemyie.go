@@ -85,8 +85,8 @@ func (self *CamdemyIE) _real_extract(url string) rnt.SDict {
 	upload_date = rnt.UnifiedStrDate((self).SearchRegexOne(">published on ([^<]+)<", webpage, "upload date", nil, true, 0, nil), true)
 	view_count = rnt.StrToInt((self).SearchRegexOne("role=[\"\\']viewCnt[\"\\'][^>]*>([\\d,.]+) views", webpage, "view count", nil, true, 0, nil))
 	description = func() rnt.OptString {
-		if τ_isTruthy_Os((self).HTMLSearchMetaOne("description", webpage, rnt.OptString{}, false, nil, 0)) {
-			return (self).HTMLSearchMetaOne("description", webpage, rnt.OptString{}, false, nil, 0)
+		if v := ((self).HTMLSearchMetaOne("description", webpage, rnt.OptString{}, false, nil, 0)); τ_isTruthy_Os(v) {
+			return v
 		} else {
 			return rnt.CleanHTML(rnt.CastToOptString(rnt.DictGet(τ_cast_α_to_d(oembed_obj), "description", nil)))
 		}

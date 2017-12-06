@@ -39,7 +39,7 @@ func NewXVideosIE() rnt.InfoExtractor {
 	self := &XVideosIE{}
 	self.CommonIE = rnt.NewCommonIE()
 	IE_NAME = "XVideos"
-	_VALID_URL = "https?://(?:www\\.)?xvideos\\.com/video(?P<id>[0-9]+)(?:.*)"
+	_VALID_URL = "(?x)\n                    https?://\n                        (?:\n                            (?:www\\.)?xvideos\\.com/video|\n                            flashservice\\.xvideos\\.com/embedframe/|\n                            static-hw\\.xvideos\\.com/swf/xv-player\\.swf\\?.*?\\bid_video=\n                        )\n                        (?P<id>[0-9]+)\n                    "
 	self.IE_NAME = IE_NAME
 	self.VALIDURL = _VALID_URL
 	return self
@@ -55,31 +55,40 @@ func (self *XVideosIE) Name() string {
 
 func (self *XVideosIE) _real_extract(url string) rnt.SDict {
 	var (
-		_               string
-		format_id       string
-		format_url      string
-		formats         []interface{}
-		kind            string
-		mobj            rnt.Match
-		video_duration  interface{}
-		video_id        string
-		video_thumbnail rnt.OptString
-		video_title     rnt.OptString
-		video_url       string
-		webpage         string
-		τmp1            []string
+		_          string
+		duration   interface{}
+		format_id  string
+		format_url string
+		formats    []interface{}
+		kind       string
+		mobj       rnt.Match
+		thumbnail  rnt.OptString
+		title      rnt.OptString
+		video_id   string
+		video_url  string
+		webpage    string
+		τmp1       []string
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(rnt.StrFormat2("http://www.xvideos.com/video%s/", video_id), video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
 	mobj = rnt.ReSearch("<h1 class=\"inlineError\">(.+?)</h1>", webpage, 0)
 	if mobj != nil {
 		panic(rnt.PyExtractorError(rnt.StrFormat2("%s said: %s", (self).IE_NAME, rnt.CleanHTML(rnt.ReMatchGroupOne(mobj, 1))), true, rnt.OptString{}))
 	}
-	video_title = (self).HTMLSearchRegexOne("<title>(.*?)\\s+-\\s+XVID", webpage, "title", rnt.NoDefault, true, 0, nil)
-	video_thumbnail = (self).SearchRegexOne("url_bigthumb=(.+?)&amp", webpage, "thumbnail", rnt.NoDefault, false, 0, nil)
-	video_duration = func() interface{} {
-		if τ_isTruthy_Oi(rnt.IntOrNone((self).OgSearchPropertyOne("duration", webpage, rnt.OptString{}, nil, true), 1, rnt.OptInt{}, 1)) {
-			return rnt.IntOrNone((self).OgSearchPropertyOne("duration", webpage, rnt.OptString{}, nil, true), 1, rnt.OptInt{}, 1)
+	title = func() rnt.OptString {
+		if v := ((self).HTMLSearchRegexMulti(τ_conv_Tssω_to_Ls(τ_Tssω{
+			Φ0: "<title>(?P<title>.+?)\\s+-\\s+XVID",
+			Φ1: "setVideoTitle\\s*\\(\\s*([\"\\'])(?P<title>(?:(?!\\1).)+)\\1",
+		}), webpage, "title", nil, true, 0, "title")); τ_isTruthy_Os(v) {
+			return v
+		} else {
+			return (self).OgSearchTitle(webpage, rnt.NoDefault, true)
+		}
+	}()
+	thumbnail = (self).SearchRegexOne("url_bigthumb=(.+?)&amp", webpage, "thumbnail", rnt.NoDefault, false, 0, nil)
+	duration = func() interface{} {
+		if v := (rnt.IntOrNone((self).OgSearchPropertyOne("duration", webpage, rnt.OptString{}, nil, true), 1, rnt.OptInt{}, 1)); τ_isTruthy_Oi(v) {
+			return v
 		} else {
 			return rnt.ParseDuration((self).SearchRegexOne("<span[^>]+class=[\"\\']duration[\"\\'][^>]*>.*?(\\d[^<]+)", webpage, "duration", rnt.NoDefault, false, 0, nil))
 		}
@@ -123,9 +132,9 @@ func (self *XVideosIE) _real_extract(url string) rnt.SDict {
 	return rnt.SDict{
 		"id":        video_id,
 		"formats":   formats,
-		"title":     video_title,
-		"duration":  video_duration,
-		"thumbnail": video_thumbnail,
+		"title":     title,
+		"duration":  duration,
+		"thumbnail": thumbnail,
 		"age_limit": 18,
 	}
 }

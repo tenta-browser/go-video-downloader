@@ -39,7 +39,7 @@ func NewXTubeIE() rnt.InfoExtractor {
 	self := &XTubeIE{}
 	self.CommonIE = rnt.NewCommonIE()
 	IE_NAME = "XTube"
-	_VALID_URL = "(?x)\n                        (?:\n                            xtube:|\n                            https?://(?:www\\.)?xtube\\.com/(?:watch\\.php\\?.*\\bv=|video-watch/(?P<display_id>[^/]+)-)\n                        )\n                        (?P<id>[^/?&#]+)\n                    "
+	_VALID_URL = "(?x)\n                        (?:\n                            xtube:|\n                            https?://(?:www\\.)?xtube\\.com/(?:watch\\.php\\?.*\\bv=|video-watch/(?:embedded/)?(?P<display_id>[^/]+)-)\n                        )\n                        (?P<id>[^/?&#]+)\n                    "
 	self.IE_NAME = IE_NAME
 	self.VALIDURL = _VALID_URL
 	return self

@@ -105,12 +105,45 @@ func CastToOptFloat(val interface{}) OptFloat {
 
 // IsList checks if val is a list (slice)
 func IsList(val interface{}) bool {
-	return reflect.TypeOf(val).Kind() == reflect.Slice
+	return isListType(reflect.TypeOf(val))
+}
+
+// IsSet checks if val is a set (map with struct{} values)
+func IsSet(val interface{}) bool {
+	return isSetType(reflect.TypeOf(val))
+}
+
+func isListType(t reflect.Type) bool {
+	return t.Kind() == reflect.Slice
+}
+
+func isSetType(t reflect.Type) bool {
+	return t.Kind() == reflect.Map &&
+		t.Elem().Kind() == reflect.Struct &&
+		t.Elem().NumField() == 0
+}
+
+// IsInstance checks if val is of the type represented by typeFunc where
+// typeFunc is one of the implemenentations of Python's list(), int(), str(), etc.
+// This way the real type is indicated by the return type of typeFunc.
+func IsInstance(val interface{}, typeFunc interface{}) bool {
+	tTypeFunc := reflect.TypeOf(typeFunc)
+	if tTypeFunc.Kind() != reflect.Func || tTypeFunc.NumIn() != 1 || tTypeFunc.NumOut() != 1 {
+		panic(newExtractorError(fmt.Sprintf("Invalid type function: %v", typeFunc)))
+	}
+	iType := tTypeFunc.Out(0)
+	if isListType(iType) {
+		return IsList(val)
+	} else if isSetType(iType) {
+		return IsSet(val)
+	} else {
+		return reflect.TypeOf(val).AssignableTo(iType)
+	}
 }
 
 // NewCastError creates extractorError's for failed casts
 func NewCastError(val interface{}, destType string) error {
-	return newExtractorError(fmt.Sprintf("Cannot cast %T to %s", val, destType))
+	return newKindedExtractorError("cast", fmt.Sprintf("Cannot cast %T to %s", val, destType))
 }
 
 // GetIntField tries to get an int typed value from dict, handles boxing, panics with extractorError

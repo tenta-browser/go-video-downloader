@@ -82,8 +82,8 @@ func (self *PlayFMIE) _real_extract(url string) rnt.SDict {
 	}
 	audio_url = rnt.UnsafeSubscript(recordings, "audio")
 	video_id = rnt.AsOptString(rnt.ConvertToString(func() interface{} {
-		if rnt.IsTruthy(rnt.DictGet(τ_cast_α_to_d(recordings), "id", nil)) {
-			return rnt.DictGet(τ_cast_α_to_d(recordings), "id", nil)
+		if v := (rnt.DictGet(τ_cast_α_to_d(recordings), "id", nil)); rnt.IsTruthy(v) {
+			return v
 		} else {
 			return video_id
 		}

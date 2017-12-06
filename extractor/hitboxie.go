@@ -83,8 +83,8 @@ func (self *HitboxIE) _extract_metadata(url string, video_id string) rnt.SDict {
 	title = rnt.DictGet(τ_cast_α_to_d(video_meta), "media_status", nil)
 	alt_title = rnt.DictGet(τ_cast_α_to_d(video_meta), "media_title", nil)
 	description = rnt.CleanHTML(rnt.CastToOptString(func() interface{} {
-		if rnt.IsTruthy(rnt.DictGet(τ_cast_α_to_d(video_meta), "media_description", nil)) {
-			return rnt.DictGet(τ_cast_α_to_d(video_meta), "media_description", nil)
+		if v := (rnt.DictGet(τ_cast_α_to_d(video_meta), "media_description", nil)); rnt.IsTruthy(v) {
+			return v
 		} else {
 			return rnt.DictGet(τ_cast_α_to_d(video_meta), "media_description_md", nil)
 		}

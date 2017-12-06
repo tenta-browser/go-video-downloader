@@ -95,7 +95,8 @@ type InfoExtractor interface {
 type InfoExtractorFactory = func() InfoExtractor
 
 type extractorError struct {
-	msg string
+	kind string
+	msg  string
 }
 
 func (ee *extractorError) Error() string {
@@ -103,7 +104,11 @@ func (ee *extractorError) Error() string {
 }
 
 func newExtractorError(errorMsg string) error {
-	return &extractorError{errorMsg}
+	return &extractorError{"", errorMsg}
+}
+
+func newKindedExtractorError(errorKind, errorMsg string) error {
+	return &extractorError{errorKind, errorMsg}
 }
 
 // RunExtractor runs an extractor, handles errors, gathers/normalizes results

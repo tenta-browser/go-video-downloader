@@ -77,8 +77,8 @@ func (self *KrasViewIE) _real_extract(url string) rnt.SDict {
 	title = (self).OgSearchTitle(webpage, rnt.NoDefault, true)
 	description = (self).OgSearchDescription(webpage, nil)
 	thumbnail = func() interface{} {
-		if rnt.IsTruthy(rnt.DictGet(τ_cast_α_to_d(flashvars), "image", nil)) {
-			return rnt.DictGet(τ_cast_α_to_d(flashvars), "image", nil)
+		if v := (rnt.DictGet(τ_cast_α_to_d(flashvars), "image", nil)); rnt.IsTruthy(v) {
+			return v
 		} else {
 			return (self).OgSearchThumbnail(webpage, rnt.NoDefault)
 		}

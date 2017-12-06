@@ -32,10 +32,6 @@ const (
 	OperatorConcat = 1
 )
 
-// SpecialFunc is used as a replacement for functions which should not be called directly,
-// because they are handled specially by the transpiler
-type SpecialFunc string
-
 // InitSliceArgs prepares the supplied (optional) slice arguments so that they can be used
 // in for loops directly to calculate the resulting slice:
 //  - ascending:  for i := low; i < high; i += step { .. }
@@ -96,20 +92,20 @@ func UnsafeSubscript(val interface{}, idx interface{}) interface{} {
 		}
 		rres := rval.Index(idx)
 		if !rres.IsValid() {
-			panic(newExtractorError(fmt.Sprintf("Index out of bounds: %v", idx)))
+			panic(newKindedExtractorError("subscript", fmt.Sprintf("Index out of bounds: %v", idx)))
 		}
 		return rres.Interface()
 	case reflect.Map:
 		rres := rval.MapIndex(reflect.ValueOf(idx))
 		if !rres.IsValid() {
-			panic(newExtractorError(fmt.Sprintf("Key error: %v", idx)))
+			panic(newKindedExtractorError("subscript", fmt.Sprintf("Key error: %v", idx)))
 		}
 		return rres.Interface()
 	default:
 		if IsTuple(rval) {
 			return GetTupleField(rval, idx.(int))
 		}
-		panic(newExtractorError(fmt.Sprintf("Unable to subscript %T", val)))
+		panic(newKindedExtractorError("subscript", fmt.Sprintf("Unable to subscript %T", val)))
 	}
 }
 

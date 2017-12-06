@@ -64,8 +64,8 @@ func (self *FiveTVIE) _real_extract(url string) rnt.SDict {
 	)
 	mobj = rnt.ReMatch((self).VALIDURL, url, 0)
 	video_id = func() rnt.OptString {
-		if τ_isTruthy_Os(rnt.ReMatchGroupOne(mobj, "id")) {
-			return rnt.ReMatchGroupOne(mobj, "id")
+		if v := (rnt.ReMatchGroupOne(mobj, "id")); τ_isTruthy_Os(v) {
+			return v
 		} else {
 			return rnt.ReMatchGroupOne(mobj, "path")
 		}
@@ -73,8 +73,8 @@ func (self *FiveTVIE) _real_extract(url string) rnt.SDict {
 	webpage = (self).DownloadWebpageURL(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
 	video_url = (self).SearchRegexMulti([]string{"<div[^>]+?class=\"flowplayer[^>]+?data-href=\"([^\"]+)\"", "<a[^>]+?href=\"([^\"]+)\"[^>]+?class=\"videoplayer\""}, webpage, "video url", rnt.NoDefault, true, 0, nil)
 	title = func() rnt.OptString {
-		if τ_isTruthy_Os((self).OgSearchTitle(webpage, nil, true)) {
-			return (self).OgSearchTitle(webpage, nil, true)
+		if v := ((self).OgSearchTitle(webpage, nil, true)); τ_isTruthy_Os(v) {
+			return v
 		} else {
 			return (self).SearchRegexOne("<title>([^<]+)</title>", webpage, "title", rnt.NoDefault, true, 0, nil)
 		}

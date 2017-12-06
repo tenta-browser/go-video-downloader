@@ -29,6 +29,7 @@ import (
 	htmlLib "html"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	urlLib "net/url"
 	"strconv"
 	"strings"
@@ -269,6 +270,35 @@ func UtilDictGet(dict SDict, key interface{}, def interface{}, skipFalseValues b
 	return def
 }
 
+// TryGetOne implements utils.py/try_get_one (for one getter)
+func TryGetOne(src interface{}, getter func(idx interface{}) interface{}, expectedType interface{}) interface{} {
+	return TryGetMulti(src, []func(idx interface{}) interface{}{getter}, expectedType)
+}
+
+// TryGetMulti implements utils.py/try_get_one (for multiple getters)
+func TryGetMulti(src interface{}, getters []func(idx interface{}) interface{}, expectedType interface{}) interface{} {
+	for _, getter := range getters {
+		getterRunner := func() (val interface{}, ok bool) {
+			defer func() {
+				// poor mans imitation of "except (AttributeError, KeyError, TypeError, IndexError)"
+				if r := recover(); r != nil {
+					if e, ok := r.(*extractorError); ok && utils.StrIn(e.kind, "cast", "convert", "subscript") {
+						val, ok = nil, false
+					} else {
+						panic(r)
+					}
+				}
+			}()
+			return getter(src), true
+		}
+		v, ok := getterRunner()
+		if ok && (expectedType == nil || IsInstance(v, expectedType)) {
+			return v
+		}
+	}
+	return nil
+}
+
 // UnifiedStrDate implements utils.py/unified_strdate
 func UnifiedStrDate(dateStr OptString, dayFirst bool) OptString {
 	// TODO implement me
@@ -457,11 +487,35 @@ func updateRequest(req Request, data []byte, headers, query SDict) {
 	}
 
 	// apply query parameters
-	q := req.URL.Query()
-	for queryKey := range query {
-		q.Set(queryKey, ConvertToString(DictGet(query, queryKey, nil)))
+	// Note: even if there are no new parameters to add, check if the existing
+	// parameters are properly encoded, if not, rebuild the query;
+	// Todo: We could just simply rebuild it every time, but rebuilding changes the order
+	// of keys and some sites break. The ideal solution would escape existing keys and
+	// add new ones without changing the order.
+	{
+		q := req.URL.Query()
+		needsReencoding := false
+	loop:
+		for queryKey, queryVals := range q {
+			if queryKey != url.QueryEscape(queryKey) {
+				needsReencoding = true
+				break
+			}
+			for _, queryVal := range queryVals {
+				if queryVal != url.QueryEscape(queryVal) {
+					needsReencoding = true
+					break loop
+				}
+			}
+		}
+		for queryKey := range query {
+			q.Set(queryKey, ConvertToString(DictGet(query, queryKey, nil)))
+			needsReencoding = true
+		}
+		if needsReencoding {
+			req.URL.RawQuery = q.Encode()
+		}
 	}
-	req.URL.RawQuery = q.Encode()
 }
 
 // RequestAddHeader implements python/Request.add_header
@@ -504,7 +558,7 @@ func parseCodecs(codecsStr string) map[string]OptString {
 	acodec := OptString{}
 	for _, fullCodec := range splitedCodecs {
 		codec := strings.Split(fullCodec, ".")[0]
-		if utils.StrIn(codec, "avc1", "avc2", "avc3", "avc4", "vp9", "vp8", "hev1", "hev2", "h263", "h264", "mp4v") {
+		if utils.StrIn(codec, "avc1", "avc2", "avc3", "avc4", "vp9", "vp8", "hev1", "hev2", "h263", "h264", "mp4v", "hvc1") {
 			if vcodec.GetOrDef("") == "" {
 				vcodec = AsOptString(fullCodec)
 			}
@@ -556,6 +610,28 @@ func Qualities(qualityIDs []string) func(string) int {
 		}
 		return -1
 	}
+}
+
+// UtilURLJoin implements utils.py/urljoin
+func UtilURLJoin(base interface{}, path interface{}) OptString {
+	var paths, bases string
+	var ok bool
+	if pathb, ok := path.([]byte); ok {
+		path = BytesToStr(pathb, "utf-8")
+	}
+	if paths, ok = path.(string); !ok || paths == "" {
+		return OptString{}
+	}
+	if ReMatch("^(?:https?:)?//", paths, 0) != nil {
+		return AsOptString(paths)
+	}
+	if baseb, ok := base.([]byte); ok {
+		base = BytesToStr(baseb, "utf-8")
+	}
+	if bases, ok = base.(string); !ok || ReMatch("^(?:https?:)?//", bases, 0) == nil {
+		return OptString{}
+	}
+	return AsOptString(URLJoin(bases, AsOptString(paths)))
 }
 
 // FindXPathAttr implements utils.py/find_xpath_attr

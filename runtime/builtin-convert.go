@@ -123,6 +123,24 @@ func convertToFloat(val interface{}) (float64, error) {
 	}
 }
 
+// ConvertToList implements python/list()
+func ConvertToList(val interface{}) []interface{} {
+	// handled specially by the transpiler
+	panic(newConvertError(val, "list"))
+}
+
+// ConvertToDict implements python/dict()
+func ConvertToDict(val interface{}) SDict {
+	// handled specially by the transpiler
+	panic(newConvertError(val, "dict"))
+}
+
+// ConvertToSet implements python/set()
+func ConvertToSet(val interface{}) map[string]struct{} {
+	// handled specially by the transpiler
+	panic(newConvertError(val, "set"))
+}
+
 func newConvertError(val interface{}, destType string) error {
-	return newExtractorError(fmt.Sprintf("Cannot convert %T to %s", val, destType))
+	return newKindedExtractorError("convert", fmt.Sprintf("Cannot convert %T to %s", val, destType))
 }

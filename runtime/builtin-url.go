@@ -48,3 +48,21 @@ func URLJoin(base string, urlString OptString) string {
 	}
 	return resultURL.String()
 }
+
+// ParseUnquote implements python/urllib.parse.unquote
+func ParseUnquote(str string) string {
+	ret, err := url.PathUnescape(str)
+	if err != nil {
+		panic(newExtractorError(err.Error()))
+	}
+	return ret
+}
+
+// ParseUnquotePlus implements python/urllib.parse.unquote_plus
+func ParseUnquotePlus(str string) string {
+	ret, err := url.QueryUnescape(str)
+	if err != nil {
+		panic(newExtractorError(err.Error()))
+	}
+	return ret
+}

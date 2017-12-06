@@ -75,10 +75,10 @@ func (self *AudioBoomIE) _real_extract(url string) rnt.SDict {
 	if rnt.IsTruthy(clip_store) {
 		clips = rnt.DictGet(τ_cast_α_to_d(clip_store), "clips", nil)
 		if rnt.IsTruthy(func() interface{} {
-			if !(rnt.IsTruthy(clips)) {
-				return clips
-			} else if !(rnt.IsList(clips)) {
-				return rnt.IsList(clips)
+			if v := (clips); !(rnt.IsTruthy(v)) {
+				return v
+			} else if v := (rnt.IsList(clips)); !(v) {
+				return v
 			} else {
 				return τ_isinstance_d(rnt.UnsafeSubscript(clips, 0))
 			}
@@ -93,43 +93,43 @@ func (self *AudioBoomIE) _real_extract(url string) rnt.SDict {
 		return nil
 	}
 	audio_url = func() interface{} {
-		if rnt.IsTruthy(from_clip("clipURLPriorToLoading")) {
-			return from_clip("clipURLPriorToLoading")
+		if v := (from_clip("clipURLPriorToLoading")); rnt.IsTruthy(v) {
+			return v
 		} else {
 			return (self).OgSearchPropertyOne("audio", webpage, rnt.AsOptString("audio url"), rnt.NoDefault, true)
 		}
 	}()
 	title = func() interface{} {
-		if rnt.IsTruthy(from_clip("title")) {
-			return from_clip("title")
+		if v := (from_clip("title")); rnt.IsTruthy(v) {
+			return v
 		} else {
 			return (self).OgSearchTitle(webpage, rnt.NoDefault, true)
 		}
 	}()
 	description = func() interface{} {
-		if rnt.IsTruthy(from_clip("description")) {
-			return from_clip("description")
+		if v := (from_clip("description")); rnt.IsTruthy(v) {
+			return v
 		} else {
 			return (self).OgSearchDescription(webpage, rnt.NoDefault)
 		}
 	}()
 	duration = rnt.FloatOrNone(func() interface{} {
-		if rnt.IsTruthy(from_clip("duration")) {
-			return from_clip("duration")
+		if v := (from_clip("duration")); rnt.IsTruthy(v) {
+			return v
 		} else {
 			return (self).HTMLSearchMetaOne("weibo:audio:duration", webpage, rnt.OptString{}, false, rnt.NoDefault, 0)
 		}
 	}(), 1, 1, rnt.OptFloat{})
 	uploader = func() interface{} {
-		if rnt.IsTruthy(from_clip("author")) {
-			return from_clip("author")
+		if v := (from_clip("author")); rnt.IsTruthy(v) {
+			return v
 		} else {
 			return (self).OgSearchPropertyOne("audio:artist", webpage, rnt.AsOptString("uploader"), rnt.NoDefault, false)
 		}
 	}()
 	uploader_url = func() interface{} {
-		if rnt.IsTruthy(from_clip("author_url")) {
-			return from_clip("author_url")
+		if v := (from_clip("author_url")); rnt.IsTruthy(v) {
+			return v
 		} else {
 			return (self).HTMLSearchMetaOne("audioboo:channel", webpage, rnt.AsOptString("uploader url"), false, rnt.NoDefault, 0)
 		}

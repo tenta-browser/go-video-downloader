@@ -94,8 +94,8 @@ func (self *MailRuIE) _real_extract(url string) rnt.SDict {
 	page_config = (self).ParseJSON((self).SearchRegexOne("(?s)<script[^>]+class=\"sp-video__page-config\"[^>]*>(.+?)</script>", webpage, "page config", "{}", true, 0, nil).Get(), video_id.Get(), nil, false)
 	if rnt.IsTruthy(page_config) {
 		meta_url = func() interface{} {
-			if rnt.IsTruthy(rnt.DictGet(τ_cast_α_to_d(page_config), "metaUrl", nil)) {
-				return rnt.DictGet(τ_cast_α_to_d(page_config), "metaUrl", nil)
+			if v := (rnt.DictGet(τ_cast_α_to_d(page_config), "metaUrl", nil)); rnt.IsTruthy(v) {
+				return v
 			} else {
 				return rnt.DictGet(τ_cast_α_to_d(rnt.DictGet(τ_cast_α_to_d(page_config), "video", rnt.SDict{})), "metaUrl", nil)
 			}
@@ -134,15 +134,15 @@ func (self *MailRuIE) _real_extract(url string) rnt.SDict {
 	author = rnt.DictGet(τ_cast_α_to_d(video_data), "author", nil)
 	uploader = rnt.DictGet(τ_cast_α_to_d(author), "name", nil)
 	uploader_id = func() interface{} {
-		if rnt.IsTruthy(rnt.DictGet(τ_cast_α_to_d(author), "id", nil)) {
-			return rnt.DictGet(τ_cast_α_to_d(author), "id", nil)
+		if v := (rnt.DictGet(τ_cast_α_to_d(author), "id", nil)); rnt.IsTruthy(v) {
+			return v
 		} else {
 			return rnt.DictGet(τ_cast_α_to_d(author), "email", nil)
 		}
 	}()
 	view_count = rnt.IntOrNone(func() interface{} {
-		if rnt.IsTruthy(rnt.DictGet(τ_cast_α_to_d(video_data), "viewsCount", nil)) {
-			return rnt.DictGet(τ_cast_α_to_d(video_data), "viewsCount", nil)
+		if v := (rnt.DictGet(τ_cast_α_to_d(video_data), "viewsCount", nil)); rnt.IsTruthy(v) {
+			return v
 		} else {
 			return rnt.DictGet(τ_cast_α_to_d(video_data), "views_count", nil)
 		}
@@ -151,8 +151,8 @@ func (self *MailRuIE) _real_extract(url string) rnt.SDict {
 	item_id = rnt.DictGet(τ_cast_α_to_d(meta_data), "itemId", nil)
 	content_id = func() rnt.OptString {
 		if rnt.IsTruthy(func() interface{} {
-			if !(rnt.IsTruthy(acc_id)) {
-				return acc_id
+			if v := (acc_id); !(rnt.IsTruthy(v)) {
+				return v
 			} else {
 				return item_id
 			}

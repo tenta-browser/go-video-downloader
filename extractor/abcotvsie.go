@@ -75,8 +75,8 @@ func (self *ABCOTVSIE) _real_extract(url string) rnt.SDict {
 	mobj = rnt.ReMatch((self).VALIDURL, url, 0)
 	video_id = rnt.ReMatchGroupOne(mobj, "id")
 	display_id = func() rnt.OptString {
-		if τ_isTruthy_Os(rnt.ReMatchGroupOne(mobj, "display_id")) {
-			return rnt.ReMatchGroupOne(mobj, "display_id")
+		if v := (rnt.ReMatchGroupOne(mobj, "display_id")); τ_isTruthy_Os(v) {
+			return v
 		} else {
 			return video_id
 		}

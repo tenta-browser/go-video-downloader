@@ -534,7 +534,7 @@ func (ie *CommonIE) SortFormats(formats []SDict) []SDict {
 		{"extPreference", -1},
 		{"abr", -1},
 		{"audioExtPreference", -1},
-		{"fps", -1},
+		{"fps", -1.0},
 		{"filesizeApprox", -1},
 		{"sourcePreference", -1},
 		{"formatID", ""},
@@ -655,7 +655,11 @@ func (ie *CommonIE) ExtractM3U8Formats(m3u8URL, videoID string, ext, entryProtoc
 func (ie *CommonIE) ParseM3U8Formats(m3u8Doc, m3u8URL string, ext, entryProtocol OptString, preference OptFloat,
 	m3u8ID OptString, live bool) []SDict {
 
-	if strings.Contains(m3u8Doc, "#EXT-X-FAXS-CM:") {
+	if strings.Contains(m3u8Doc, "#EXT-X-FAXS-CM:") { // Adobe Flash Access
+		return []SDict{}
+	}
+
+	if ReSearch(`#EXT-X-SESSION-KEY:.*?URI="skd://`, m3u8Doc, 0) != nil { // Apple FairPlay
 		return []SDict{}
 	}
 

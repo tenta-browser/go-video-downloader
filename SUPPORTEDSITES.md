@@ -25,6 +25,7 @@ Supported sites
  * Dumpert: `www.dumpert.nl`
  * EbaumsWorld: `www.ebaumsworld.com`
  * EchoMsk: `www.echo.msk.ru`
+ * Fczenit: `fc-zenit.ru`
  * FiveTV: `5-tv.ru`
  * Glide: `share.glide.me`
  * GodTube: `www.godtube.com`
@@ -32,21 +33,22 @@ Supported sites
  * HellPorno _(adult)_: `hellporno.com`
  * HentaiStigma _(adult)_: `hentai.animestigma.com`
  * HistoricFilms: `www.historicfilms.com`
+ * HitRecord: `hitrecord.org`
  * Hitbox: `www.hitbox.tv`
  * Huajiao: `www.huajiao.com`
  * Ir90Tv: `90tv.ir`
+ * Joj: `media.joj.sk`
  * Keek: `www.keek.com`
  * KrasView: `krasview.ru`
  * LRT: `www.lrt.lt`
  * Lemonde: `www.lemonde.fr`
- * MacGameStore: `www.macgamestore.com`
+ * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * MailRu: `my.mail.ru`
- * ManyVids: `www.manyvids.com`
  * Megaphone: `player.megaphone.fm`
  * Mojvideo: `www.mojvideo.com`
  * Morningstar: `www.morningstar.com`
  * MovingImage: `movingimage.nls.uk`
- * NDTV: `www.ndtv.com`
+ * NDTV: `khabar.ndtv.com`
  * NTVRu: `www.ntv.ru`
  * NextMedia: `hk.apple.nextmedia.com`
  * NextMediaActionNews: `hk.dv.nextmedia.com`
@@ -64,6 +66,7 @@ Supported sites
  * Sapo: `videos.sapo.pt`
  * Sexu _(adult)_: `sexu.com`
  * Slutload _(adult)_: `www.slutload.com`
+ * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
  * Spankwire _(adult)_: `www.spankwire.com`
  * Stitcher: `www.stitcher.com`
@@ -78,15 +81,19 @@ Supported sites
  * TinyPic: `tinypic.com`
  * Tumblr: `tatianamaslanydaily.tumblr.com`
  * TwentyFourVideo _(adult)_: `www.24video.tube`
+ * TwentyMinuten: `www.20min.ch`
  * TwitchClips: `clips.twitch.tv`
  * Unistra: `utv.unistra.fr`
  * UstudioEmbed: `app.ustudio.com`
  * VideosZ _(adult)_: `www.videosz.com`
+ * Vporn _(adult)_: `www.vporn.com`
  * WDRMobile: `mobile-ondemand.wdr.de`
  * XHamster _(adult)_: `xhamster.com`
+ * XHamsterEmbed _(adult)_: `xhamster.com`
  * XNXX _(adult)_: `www.xnxx.com`
  * XTube _(adult)_: `www.xtube.com`
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
  * YinYueTai: `v.yinyuetai.com`
  * YouPorn _(adult)_: `www.youporn.com`
+ * YourUpload: `yourupload.com`

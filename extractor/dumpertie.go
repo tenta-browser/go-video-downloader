@@ -102,22 +102,22 @@ func (self *DumpertIE) _real_extract(url string) rnt.SDict {
 	}()
 	formats = (self).SortFormats(formats)
 	title = func() rnt.OptString {
-		if τ_isTruthy_Os((self).HTMLSearchMetaOne("title", webpage, rnt.OptString{}, false, rnt.NoDefault, 0)) {
-			return (self).HTMLSearchMetaOne("title", webpage, rnt.OptString{}, false, rnt.NoDefault, 0)
+		if v := ((self).HTMLSearchMetaOne("title", webpage, rnt.OptString{}, false, rnt.NoDefault, 0)); τ_isTruthy_Os(v) {
+			return v
 		} else {
 			return (self).OgSearchTitle(webpage, rnt.NoDefault, true)
 		}
 	}()
 	description = func() rnt.OptString {
-		if τ_isTruthy_Os((self).HTMLSearchMetaOne("description", webpage, rnt.OptString{}, false, rnt.NoDefault, 0)) {
-			return (self).HTMLSearchMetaOne("description", webpage, rnt.OptString{}, false, rnt.NoDefault, 0)
+		if v := ((self).HTMLSearchMetaOne("description", webpage, rnt.OptString{}, false, rnt.NoDefault, 0)); τ_isTruthy_Os(v) {
+			return v
 		} else {
 			return (self).OgSearchDescription(webpage, rnt.NoDefault)
 		}
 	}()
 	thumbnail = func() interface{} {
-		if rnt.IsTruthy(rnt.DictGet(τ_cast_α_to_d(files), "still", nil)) {
-			return rnt.DictGet(τ_cast_α_to_d(files), "still", nil)
+		if v := (rnt.DictGet(τ_cast_α_to_d(files), "still", nil)); rnt.IsTruthy(v) {
+			return v
 		} else {
 			return (self).OgSearchThumbnail(webpage, rnt.NoDefault)
 		}

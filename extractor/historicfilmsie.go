@@ -70,8 +70,8 @@ func (self *HistoricFilmsIE) _real_extract(url string) rnt.SDict {
 	title = (self).OgSearchTitle(webpage, rnt.NoDefault, true)
 	description = (self).OgSearchDescription(webpage, rnt.NoDefault)
 	thumbnail = func() rnt.OptString {
-		if τ_isTruthy_Os((self).HTMLSearchMetaOne("thumbnailUrl", webpage, rnt.AsOptString("thumbnails"), false, rnt.NoDefault, 0)) {
-			return (self).HTMLSearchMetaOne("thumbnailUrl", webpage, rnt.AsOptString("thumbnails"), false, rnt.NoDefault, 0)
+		if v := ((self).HTMLSearchMetaOne("thumbnailUrl", webpage, rnt.AsOptString("thumbnails"), false, rnt.NoDefault, 0)); τ_isTruthy_Os(v) {
+			return v
 		} else {
 			return (self).OgSearchThumbnail(webpage, rnt.NoDefault)
 		}

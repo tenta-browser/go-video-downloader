@@ -66,8 +66,10 @@ func (self *TwitchClipsIE) _real_extract(url string) rnt.SDict {
 	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
 	clip = (self).ParseJSON((self).SearchRegexOne("(?s)clipInfo\\s*=\\s*({.+?});", webpage, "clip info", rnt.NoDefault, true, 0, nil).Get(), video_id, rnt.JsToJSON, true)
 	title = func() interface{} {
-		if rnt.IsTruthy(rnt.DictGet(τ_cast_α_to_d(clip), "channel_title", nil)) {
-			return rnt.DictGet(τ_cast_α_to_d(clip), "channel_title", nil)
+		if v := (rnt.DictGet(τ_cast_α_to_d(clip), "title", nil)); rnt.IsTruthy(v) {
+			return v
+		} else if v := (rnt.DictGet(τ_cast_α_to_d(clip), "channel_title", nil)); rnt.IsTruthy(v) {
+			return v
 		} else {
 			return (self).OgSearchTitle(webpage, rnt.NoDefault, true)
 		}
@@ -101,8 +103,8 @@ func (self *TwitchClipsIE) _real_extract(url string) rnt.SDict {
 		"title":     title,
 		"thumbnail": (self).OgSearchThumbnail(webpage, rnt.NoDefault),
 		"creator": func() interface{} {
-			if rnt.IsTruthy(rnt.DictGet(τ_cast_α_to_d(clip), "broadcaster_display_name", nil)) {
-				return rnt.DictGet(τ_cast_α_to_d(clip), "broadcaster_display_name", nil)
+			if v := (rnt.DictGet(τ_cast_α_to_d(clip), "broadcaster_display_name", nil)); rnt.IsTruthy(v) {
+				return v
 			} else {
 				return rnt.DictGet(τ_cast_α_to_d(clip), "broadcaster_login", nil)
 			}

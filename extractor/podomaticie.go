@@ -71,8 +71,8 @@ func (self *PodomaticIE) _real_extract(url string) rnt.SDict {
 	mobj = rnt.ReMatch((self).VALIDURL, url, 0)
 	video_id = rnt.ReMatchGroupOne(mobj, "id")
 	channel = func() rnt.OptString {
-		if τ_isTruthy_Os(rnt.ReMatchGroupOne(mobj, "channel")) {
-			return rnt.ReMatchGroupOne(mobj, "channel")
+		if v := (rnt.ReMatchGroupOne(mobj, "channel")); τ_isTruthy_Os(v) {
+			return v
 		} else {
 			return rnt.ReMatchGroupOne(mobj, "channel_2")
 		}

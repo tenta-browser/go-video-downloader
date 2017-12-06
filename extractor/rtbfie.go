@@ -135,16 +135,16 @@ func (self *RTBFIE) _real_extract(url string) rnt.SDict {
 		"formats": formats,
 		"title":   rnt.UnsafeSubscript(data, "title"),
 		"description": func() interface{} {
-			if rnt.IsTruthy(rnt.DictGet(τ_cast_α_to_d(data), "description", nil)) {
-				return rnt.DictGet(τ_cast_α_to_d(data), "description", nil)
+			if v := (rnt.DictGet(τ_cast_α_to_d(data), "description", nil)); rnt.IsTruthy(v) {
+				return v
 			} else {
 				return rnt.DictGet(τ_cast_α_to_d(data), "subtitle", nil)
 			}
 		}(),
 		"thumbnails": thumbnails,
 		"duration": func() interface{} {
-			if rnt.IsTruthy(rnt.DictGet(τ_cast_α_to_d(data), "duration", nil)) {
-				return rnt.DictGet(τ_cast_α_to_d(data), "duration", nil)
+			if v := (rnt.DictGet(τ_cast_α_to_d(data), "duration", nil)); rnt.IsTruthy(v) {
+				return v
 			} else {
 				return rnt.DictGet(τ_cast_α_to_d(data), "realDuration", nil)
 			}

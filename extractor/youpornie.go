@@ -96,10 +96,10 @@ func (self *YouPornIE) _real_extract(url string) rnt.SDict {
 	rnt.RequestAddHeader(request, "Cookie", "age_verified=1")
 	webpage = (self).DownloadWebpageRequest(request, display_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
 	title = func() rnt.OptString {
-		if τ_isTruthy_Os((self).SearchRegexMulti([]string{"(?:video_titles|videoTitle)\\s*[:=]\\s*([\"\\'])(?P<title>(?:(?!\\1).)+)\\1", "<h1[^>]+class=[\"\\']heading\\d?[\"\\'][^>]*>(?P<title>[^<]+)<"}, webpage, "title", nil, true, 0, "title")) {
-			return (self).SearchRegexMulti([]string{"(?:video_titles|videoTitle)\\s*[:=]\\s*([\"\\'])(?P<title>(?:(?!\\1).)+)\\1", "<h1[^>]+class=[\"\\']heading\\d?[\"\\'][^>]*>(?P<title>[^<]+)<"}, webpage, "title", nil, true, 0, "title")
-		} else if τ_isTruthy_Os((self).OgSearchTitle(webpage, nil, true)) {
-			return (self).OgSearchTitle(webpage, nil, true)
+		if v := ((self).SearchRegexMulti([]string{"(?:video_titles|videoTitle)\\s*[:=]\\s*([\"\\'])(?P<title>(?:(?!\\1).)+)\\1", "<h1[^>]+class=[\"\\']heading\\d?[\"\\'][^>]*>(?P<title>[^<]+)<"}, webpage, "title", nil, true, 0, "title")); τ_isTruthy_Os(v) {
+			return v
+		} else if v := ((self).OgSearchTitle(webpage, nil, true)); τ_isTruthy_Os(v) {
+			return v
 		} else {
 			return (self).HTMLSearchMetaOne("title", webpage, rnt.OptString{}, true, rnt.NoDefault, 0)
 		}
@@ -114,8 +114,8 @@ func (self *YouPornIE) _real_extract(url string) rnt.SDict {
 			}
 			video_url = rnt.DictGet(τ_cast_α_to_d(definition), "videoUrl", nil)
 			if rnt.IsTruthy(func() interface{} {
-				if !(τ_isinstance_s(video_url)) {
-					return τ_isinstance_s(video_url)
+				if v := (τ_isinstance_s(video_url)); !(v) {
+					return v
 				} else {
 					return video_url
 				}
