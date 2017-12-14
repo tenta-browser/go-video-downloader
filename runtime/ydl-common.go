@@ -73,7 +73,9 @@ func (ie *CommonIE) Tests() []SDict {
 }
 
 func (ie *CommonIE) log(msg string, args ...interface{}) {
-	utils.Log("[%s] %s", ie.Context.ExtractorKey, fmt.Sprintf(msg, args...))
+	if utils.LogLevel >= utils.StdLogLevel {
+		utils.Log("[%s] %s", ie.Context.ExtractorKey, fmt.Sprintf(msg, args...))
+	}
 }
 
 // MatchID implements common.py/_match_id
@@ -173,9 +175,7 @@ func (ie *CommonIE) RequestWebpageRequest(req Request, videoID string, note, err
 func (ie *CommonIE) requestWebpage(req Request, closeBody bool, videoID string, note, errNote OptString,
 	data []byte, headers, query SDict) (Response, error) {
 
-	if utils.Debug {
-		ie.log("%s: %s (%s)", videoID, note.GetOrDef("Downloading webpage"), req.URL)
-	}
+	ie.log("%s: %s (%s)", videoID, note.GetOrDef("Downloading webpage"), req.URL)
 
 	if SleepBeforeRequest > 0 {
 		time.Sleep(SleepBeforeRequest)
@@ -258,9 +258,7 @@ func (ie *CommonIE) SearchRegexMulti(patterns []string, str, name string,
 	} else if fatal {
 		panic(newExtractorError(fmt.Sprintf("Unable to extract %v", name)))
 	} else {
-		if utils.Debug {
-			ie.log("WARNING: Unable to extract %v", name)
-		}
+		ie.log("WARNING: Unable to extract %v", name)
 		return OptString{}
 	}
 }
@@ -377,9 +375,7 @@ func (ie *CommonIE) ParseJSON(jsonString string, videoID string, transformSource
 		if fatal {
 			panic(newExtractorError(errMsg))
 		} else {
-			if utils.Debug {
-				ie.log(errMsg)
-			}
+			ie.log(errMsg)
 			return nil
 		}
 	}
@@ -409,9 +405,7 @@ func (ie *CommonIE) ParseXML(xmlString string, videoID string, transformSource f
 		if fatal {
 			panic(newExtractorError(errMsg))
 		} else {
-			if utils.Debug {
-				ie.log(errMsg)
-			}
+			ie.log(errMsg)
 			return nil
 		}
 	}
@@ -849,9 +843,7 @@ func (ie *CommonIE) IsValidURL(url, videoID, item string, headers SDict) bool {
 	_, err := ie.requestWebpage(SanitizedRequest(url, nil, nil), true, videoID,
 		AsOptString(fmt.Sprintf("Checking %s URL", item)), OptString{}, nil, headers, nil)
 	if err != nil {
-		if utils.Debug {
-			ie.log("%s: %s URL is invalid, skipping", videoID, item)
-		}
+		ie.log("%s: %s URL is invalid, skipping", videoID, item)
 		return false
 	}
 	return true

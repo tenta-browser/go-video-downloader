@@ -38,11 +38,11 @@ Supported sites
  * Huajiao: `www.huajiao.com`
  * Ir90Tv: `90tv.ir`
  * Joj: `media.joj.sk`
- * Keek: `www.keek.com`
  * KrasView: `krasview.ru`
  * LRT: `www.lrt.lt`
  * Lemonde: `www.lemonde.fr`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
+ * MacGameStore: `www.macgamestore.com`
  * MailRu: `my.mail.ru`
  * Megaphone: `player.megaphone.fm`
  * Mojvideo: `www.mojvideo.com`
@@ -71,6 +71,7 @@ Supported sites
  * Spankwire _(adult)_: `www.spankwire.com`
  * Stitcher: `www.stitcher.com`
  * Streamable: `streamable.com`
+ * StretchInternet: `portal.stretchinternet.com`
  * SunPorno _(adult)_: `www.sunporno.com`
  * TVC: `www.tvc.ru`
  * TVCArticle: `www.tvc.ru`
@@ -80,7 +81,6 @@ Supported sites
  * ThisAmericanLife: `www.thisamericanlife.org`
  * TinyPic: `tinypic.com`
  * Tumblr: `tatianamaslanydaily.tumblr.com`
- * TwentyFourVideo _(adult)_: `www.24video.tube`
  * TwentyMinuten: `www.20min.ch`
  * TwitchClips: `clips.twitch.tv`
  * Unistra: `utv.unistra.fr`

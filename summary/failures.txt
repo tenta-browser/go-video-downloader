@@ -6,13 +6,12 @@ AppleDaily                     Unable to extract video url
 BIQLE                          Unable to extract embed url
 BTArticle                      Unable to extract video id
 BTVestlendingen                Unsupported extractor: VGTV
-BYUtv                          Unable to download webpage: HTTP Error 410: 410 Gone
-BYUtvEvent                     Unable to download webpage: HTTP Error 410: 410 Gone
+BYUtv                          Unsupported extractor: Ooyala
 BellMedia                      Unable to download webpage: HTTP Error 404: 404 Not Found
 BleacherReport                 Check failed for: ooyala:t2ZHVudTrYhBYj_TQfIi-VTci1Bq-NTR
 CSNNE                          Unsupported extractor: ThePlatform
 CamWithHer                     Unable to extract video id
-CarambaTV                      [191910501] Failed to parse JSON
+CarambaTV                      Unable to download webpage: HTTP Error 404: 404 Not Found
 ComCarCoff                     Unable to extract full data json
 ComedyCentralShortname         Check failed for: http://www.cc.com/shows/the-daily-show-with-trevor-noah/full-episodes
 DBTV                           Unsupported extractor: BrightcoveNew
@@ -34,10 +33,11 @@ HetKlokhuis                    Unsupported extractor: NPO
 Howcast                        Unable to extract ooyala embed code
 Indavideo                      Unable to extract embed url
 Jpopsuki                       Get http://www.jpopsuki.tv/video/ayumi-hamasaki---evolution/00be659d23b0b40508169cdee4545771: dial tcp 213.239.204.251:80: getsockopt: no route to host
-Kamcord                        Get https://www.kamcord.com/v/hNYRduDgWb4: dial tcp 75.126.104.254:443: getsockopt: connection refused
+Kamcord                        Get https://www.kamcord.com/v/hNYRduDgWb4: dial tcp 75.126.101.254:443: getsockopt: connection refused
 Karaoketv                      Get https://www.karaoketv.co.il/: stopped after 10 redirects
+Keek                           Get https://www.keek.com/keek/NODfbab: x509: certificate is valid for *.gridserver.com, gridserver.com, not www.keek.com
 KhanAcademy                    Check failed for: http://www.youtube.com/watch?v=FlIG3TvQCBQ&feature=youtube_gdata_player
-KontrTube                      Get http://www.kontrtube.ru/videos/2678/nad-olimpiyskoy-derevney-v-sochi-podnyat-rossiyskiy-flag/: dial tcp: lookup www.kontrtube.ru on 95.77.94.88:53: server misbehaving
+KontrTube                      Unable to extract video URL
 Ku6                            Unable to download webpage: HTTP Error 404: 404 Not Found
 LCI                            Unsupported extractor: Wat
 Learnr                         Unable to extract youtube id
@@ -45,9 +45,8 @@ LocalNews8                     Unable to extract partner id
 M6                             Unsupported extractor: SixPlay
 MIT                            Unable to extract embed url
 MTV81                          Check failed for: http://media.mtvnservices.com/embed/mgid:uma:video:mtv81.com:1105285
-MacGameStore                   Get https://www.macgamestore.com/mediaviewer.php?trailer=2450: x509: certificate signed by unknown authority
 MakerTV                        Unable to download webpage: HTTP Error 400: 400 Bad Request
-MakersChannel                  Get http://makerschannel.com/en/zoomin/community-highlights?video_id=849: dial tcp: lookup makerschannel.com on 78.96.7.88:53: no such host
+MakersChannel                  Unable to download webpage: HTTP Error 404: 404 Not Found
 ManyVids                       Unable to extract title
 MelonVOD                       No suitable format found
 Motorsport                     Check failed for: https://youtube.com/watch?v=2-T3WuR-KMM
@@ -56,7 +55,6 @@ MyVidster                      Unable to extract real video url
 NBCSportsVPlayer               Unsupported extractor: ThePlatform
 NPORadioFragment               Unable to extract title
 NRKSkole                       Check failed for: nrk:6021
-NowTV                          Get https://api.nowtv.de/v3/movies/bauer-sucht-frau/die-neuen-bauern-und-eine-hochzeit?fields=id%2Ctitle%2Cfree%2Cgeoblocked%2CarticleLong%2CarticleShort%2CbroadcastStartDate%2CseoUrl%2Cduration%2Cfiles%2Cformat.defaultImage169Format%2Cformat.defaultImage169Logo: dial tcp: lookup api.nowtv.de on 78.96.7.88:53: no such host
 OdaTV                          Unable to extract video url
 ParliamentLiveUK               Unsupported extractor: Kaltura
 Patreon                        Unable to extract playlist JSON
@@ -73,8 +71,7 @@ SRGSSRPlay                     Unsupported extractor: SRGSSR
 SchoolTV                       Unsupported extractor: NPO
 Servus                         No suitable format found
 SlidesLive                     Unsupported extractor: Youtube
-SonyLIV                        Unsupported extractor: BrightcoveNew
-Sport5                         Get http://sport5-metadata-rr-d.nsacdn.com/vod/vod/s5-Y59xx1-GUh2/HDS/metadata.xml: dial tcp: lookup sport5-metadata-rr-d.nsacdn.com on 78.96.7.88:53: no such host
+Sport5                         Unable to download webpage: HTTP Error 404: 404 Not Found
 SportBoxEmbed                  No suitable format found
 SztvHu                         Unable to extract video title
 TDSLifeway                     Unsupported extractor: BrightcoveNew
@@ -89,6 +86,7 @@ TheScene                       Unsupported extractor: CondeNast
 TheStar                        Unsupported extractor: BrightcoveNew
 ThisOldHouse                   Unsupported extractor: JWPlatform
 TrailerAddict                  Unable to extract video id
+TwentyFourVideo                Unable to download webpage: HTTP Error 404: 404 Not Found
 Twitter                        Unsupported extractor: TwitterCard
 TwitterAmplify                 No suitable format found
 UKTVPlay                       Unsupported extractor: BrightcoveNew
@@ -100,6 +98,6 @@ Walla                          Unable to download webpage: HTTP Error 404: 404 N
 WashingtonPostArticle          Unsupported result type: playlist
 WeiqiTV                        Unable to extract info json str
 Wrzuta                         [aq4hIZWrkBu] Failed to parse JSON
-XBef                           Get http://fvplayer.com/b/aHR0cCUzYSUyZiUyZmNkbmhkMm5ldy5ueGd4LmNvbSUyZnZpZGVvcyUyZjYwMTUubXA0JjUxMTkmNTExOSUyZjEuanBnJjEw: dial tcp 192.96.205.240:80: getsockopt: no route to host
+XBef                           Get http://fvplayer.com/b/aHR0cCUzYSUyZiUyZmNkbmhkMW5ldy5ueGd4LmNvbSUyZnZpZGVvcyUyZjYwMTUubXA0JjUxMTkmNTExOSUyZjEuanBnJjEw: dial tcp 192.96.205.240:80: getsockopt: no route to host
 YoutubeTruncatedID             Incomplete YouTube ID N_708QY7Ob. URL https://www.youtube.com/watch?v=N_708QY7Ob looks truncated.
 YoutubeTruncatedURL            Did you forget to quote the URL? Remember that & is a meta character in most shells, so you want to put the URL in quotes, like  youtube-dl "https://www.youtube.com/watch?feature=foo&v=BaW_jenozKc"  or simply  youtube-dl BaW_jenozKc  .

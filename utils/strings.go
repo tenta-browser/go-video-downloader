@@ -72,3 +72,13 @@ func ReverseStrSlice(l []string) {
 		l[i], l[ni] = l[ni], l[i]
 	}
 }
+
+// StrIn returns whether needle can be found in haystack
+func StrIn(needle string, haystack ...string) bool {
+	for _, hay := range haystack {
+		if needle == hay {
+			return true
+		}
+	}
+	return false
+}

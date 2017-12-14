@@ -464,9 +464,17 @@ var StdHeaders = SDict{
 	"Accept-Language": "en-us,en;q=0.5",
 }
 
+// SanitizeURL implements utils.py/sanitize_url
+func SanitizeURL(url string) string {
+	if strings.HasPrefix(url, "//") {
+		return "http:" + url
+	}
+	return url
+}
+
 // SanitizedRequest implements utils.py/sanitized_Request
 func SanitizedRequest(url string, data []byte, headers SDict) Request {
-	req, err := http.NewRequest("GET", utils.SanitizeURL(url), nil)
+	req, err := http.NewRequest("GET", SanitizeURL(url), nil)
 	if err != nil {
 		panic(newExtractorError(err.Error()))
 	}
@@ -567,9 +575,7 @@ func parseCodecs(codecsStr string) map[string]OptString {
 				acodec = AsOptString(fullCodec)
 			}
 		} else {
-			if utils.Debug {
-				utils.Log("WARNING: Unknown codec %s", fullCodec)
-			}
+			utils.Log("WARNING: Unknown codec %s", fullCodec)
 		}
 	}
 	if vcodec.GetOrDef("") == "" && acodec.GetOrDef("") == "" {
@@ -636,7 +642,7 @@ func UtilURLJoin(base interface{}, path interface{}) OptString {
 
 // FindXPathAttr implements utils.py/find_xpath_attr
 func FindXPathAttr(node XMLElement, xpath string, key string, val OptString) XMLElement {
-	if utils.Debug {
+	if utils.LogLevel >= utils.StdLogLevel {
 		if ReMatch("^[a-zA-Z_-]+$", key, 0) == nil {
 			panic(newExtractorError("Invalid attribute: " + key))
 		}

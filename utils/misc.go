@@ -23,30 +23,8 @@
 package utils
 
 import (
-	"fmt"
 	"reflect"
-	"strings"
 )
-
-// Debug mode permits logging
-var Debug = false
-
-// Log logs a message from a running extractor
-func Log(msg string, args ...interface{}) {
-	if Debug {
-		fmt.Printf(msg+"\n", args...)
-	}
-}
-
-// StrIn returns whether needle can be found in haystack
-func StrIn(needle string, haystack ...string) bool {
-	for _, hay := range haystack {
-		if needle == hay {
-			return true
-		}
-	}
-	return false
-}
 
 // MakeSet creates a map from the specified keys;
 // the values are irrelevant, this just wants to simulate a set
@@ -93,12 +71,4 @@ func FixJSONFloats(val interface{}) interface{} {
 		return nil
 	}
 	return newVal.Interface()
-}
-
-// SanitizeURL implements utils.py/sanitize_url
-func SanitizeURL(url string) string {
-	if strings.HasPrefix(url, "//") {
-		return "http:" + url
-	}
-	return url
 }

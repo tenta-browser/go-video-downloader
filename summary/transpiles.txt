@@ -13,7 +13,6 @@ AudioBoomIE
 BIQLEIE
 BTArticleIE
 BTVestlendingenIE
-BYUtvEventIE
 BYUtvIE
 BambuserIE
 BangIE
@@ -109,7 +108,6 @@ NTVRuIE
 NextMediaActionNewsIE
 NextMediaIE
 NineCNineMediaIE
-NowTVIE
 OdaTVIE
 ParliamentLiveUKIE
 PatreonIE
@@ -140,7 +138,6 @@ ServusIE
 SexuIE
 SlidesLiveIE
 SlutloadIE
-SonyLIVIE
 SoundgasmIE
 SpankBangIE
 SpankwireIE
@@ -148,6 +145,7 @@ Sport5IE
 SportBoxEmbedIE
 StitcherIE
 StreamableIE
+StretchInternetIE
 SunPornoIE
 SztvHuIE
 TDSLifewayIE

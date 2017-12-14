@@ -120,9 +120,7 @@ func RunExtractor(url string, ctx *Context, extrFunc func(string) SDict) (res Ex
 			if e, ok := r.(*extractorError); ok {
 				// if it's a extractor error 'catch' it and return it
 				res, err = nil, e
-				if utils.Debug {
-					utils.Log("Panic: %v", string(debug.Stack()))
-				}
+				utils.LogV("Panic: %v", string(debug.Stack()))
 			} else {
 				panic(r) // otherwise re-panic the recovered panic
 			}
@@ -176,7 +174,7 @@ func RunExtractor(url string, ctx *Context, extrFunc func(string) SDict) (res Ex
 			url = GetStringField(resDict, "url", true, "")
 		}
 
-		url = utils.SanitizeURL(url)
+		url = SanitizeURL(url)
 
 		if ext == "" {
 			ext = DetermineExt(AsOptString(url), "unknown_video")
@@ -198,7 +196,7 @@ func RunExtractor(url string, ctx *Context, extrFunc func(string) SDict) (res Ex
 	} else if resType == "url" || resType == "url_transparent" {
 		return &URLResult{
 			extractorResult: eres,
-			URL:             utils.SanitizeURL(GetStringField(resDict, "url", true, "")),
+			URL:             SanitizeURL(GetStringField(resDict, "url", true, "")),
 			ExtractorKey:    GetStringField(resDict, "ie_key", false, ""),
 		}, nil
 	} else {
@@ -227,9 +225,7 @@ func selectFormat(formats interface{}) (SDict, error) {
 		formatID := strings.ToUpper(GetStringField(format, "format_id", false, ""))
 		if strings.Contains(formatID, "HLS") {
 			// TODO we don't support HLS downloading yet
-			if utils.Debug {
-				utils.Log("WARNING: Skipping format: %v", formatID)
-			}
+			utils.Log("WARNING: Skipping format: %v", formatID)
 			continue
 		}
 		// we found a good format
