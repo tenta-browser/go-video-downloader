@@ -43,7 +43,7 @@ func NewMailRuIE() rnt.InfoExtractor {
 	IE_NAME = "MailRu"
 	IE_NAME = "mailru"
 	IE_DESC = "Видео@Mail.Ru"
-	_VALID_URL = "https?://(?:(?:www|m)\\.)?my\\.mail\\.ru/(?:video/.*#video=/?(?P<idv1>(?:[^/]+/){3}\\d+)|(?:(?P<idv2prefix>(?:[^/]+/){2})video/(?P<idv2suffix>[^/]+/\\d+))\\.html)"
+	_VALID_URL = "(?x)\n                    https?://\n                        (?:(?:www|m)\\.)?my\\.mail\\.ru/\n                        (?:\n                            video/.*\\#video=/?(?P<idv1>(?:[^/]+/){3}\\d+)|\n                            (?:(?P<idv2prefix>(?:[^/]+/){2})video/(?P<idv2suffix>[^/]+/\\d+))\\.html|\n                            (?:video/embed|\\+/video/meta)/(?P<metaid>\\d+)\n                        )\n                    "
 	self.IE_DESC = IE_DESC
 	self.IE_NAME = IE_NAME
 	self.VALIDURL = _VALID_URL
@@ -70,6 +70,7 @@ func (self *MailRuIE) _real_extract(url string) rnt.SDict {
 		height      rnt.OptInt
 		item_id     interface{}
 		meta_data   interface{}
+		meta_id     rnt.OptString
 		meta_url    interface{}
 		mobj        rnt.Match
 		page_config interface{}
@@ -85,24 +86,38 @@ func (self *MailRuIE) _real_extract(url string) rnt.SDict {
 		webpage     string
 	)
 	mobj = rnt.ReMatch((self).VALIDURL, url, 0)
-	video_id = rnt.ReMatchGroupOne(mobj, "idv1")
-	if !(τ_isTruthy_Os(video_id)) {
-		video_id = rnt.AsOptString((rnt.ReMatchGroupOne(mobj, "idv2prefix").Get() + rnt.ReMatchGroupOne(mobj, "idv2suffix").Get()))
+	meta_id = rnt.ReMatchGroupOne(mobj, "metaid")
+	video_id = rnt.OptString{}
+	if τ_isTruthy_Os(meta_id) {
+		meta_url = rnt.StrFormat2("https://my.mail.ru/+/video/meta/%s", meta_id)
+	} else {
+		video_id = rnt.ReMatchGroupOne(mobj, "idv1")
+		if !(τ_isTruthy_Os(video_id)) {
+			video_id = rnt.AsOptString((rnt.ReMatchGroupOne(mobj, "idv2prefix").Get() + rnt.ReMatchGroupOne(mobj, "idv2suffix").Get()))
+		}
+		webpage = (self).DownloadWebpageURL(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+		page_config = (self).ParseJSON((self).SearchRegexOne("(?s)<script[^>]+class=\"sp-video__page-config\"[^>]*>(.+?)</script>", webpage, "page config", "{}", true, 0, nil).Get(), video_id.Get(), nil, false)
+		if rnt.IsTruthy(page_config) {
+			meta_url = func() interface{} {
+				if v := (rnt.DictGet(τ_cast_α_to_d(page_config), "metaUrl", nil)); rnt.IsTruthy(v) {
+					return v
+				} else {
+					return rnt.DictGet(τ_cast_α_to_d(rnt.DictGet(τ_cast_α_to_d(page_config), "video", rnt.SDict{})), "metaUrl", nil)
+				}
+			}()
+		} else {
+			meta_url = nil
+		}
 	}
-	webpage = (self).DownloadWebpageURL(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
 	video_data = nil
-	page_config = (self).ParseJSON((self).SearchRegexOne("(?s)<script[^>]+class=\"sp-video__page-config\"[^>]*>(.+?)</script>", webpage, "page config", "{}", true, 0, nil).Get(), video_id.Get(), nil, false)
-	if rnt.IsTruthy(page_config) {
-		meta_url = func() interface{} {
-			if v := (rnt.DictGet(τ_cast_α_to_d(page_config), "metaUrl", nil)); rnt.IsTruthy(v) {
+	if rnt.IsTruthy(meta_url) {
+		video_data = (self).DownloadJSON(rnt.CastToString(meta_url), func() rnt.OptString {
+			if v := (video_id); τ_isTruthy_Os(v) {
 				return v
 			} else {
-				return rnt.DictGet(τ_cast_α_to_d(rnt.DictGet(τ_cast_α_to_d(page_config), "video", rnt.SDict{})), "metaUrl", nil)
+				return meta_id
 			}
-		}()
-		if rnt.IsTruthy(meta_url) {
-			video_data = (self).DownloadJSON(rnt.CastToString(meta_url), video_id.Get(), rnt.AsOptString("Downloading video meta JSON"), rnt.AsOptString("Unable to download JSON metadata"), nil, false, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
-		}
+		}().Get(), rnt.AsOptString("Downloading video meta JSON"), rnt.AsOptString("Unable to download JSON metadata"), nil, !(τ_isTruthy_Os(video_id)), rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
 	}
 	if !(rnt.IsTruthy(video_data)) {
 		video_data = (self).DownloadJSON(rnt.StrFormat2("http://api.video.mail.ru/videos/%s.json?new=1", video_id), video_id.Get(), rnt.AsOptString("Downloading video JSON"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})

@@ -3,13 +3,11 @@ Supported sites
 
  * ABCOTVS: `abc7news.com`
  * ABCOTVSClips: `clips.abcotvs.com`
- * ACast: `www.acast.com`
  * ATTTechChannel: `techchannel.att.com`
  * AdobeTV: `tv.adobe.com`
  * AnySex _(adult)_: `anysex.com`
  * AudioBoom: `audioboom.com`
  * Bambuser: `bambuser.com`
- * Bang _(adult)_: `www.bang.com`
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * Camdemy: `www.camdemy.com`
@@ -27,7 +25,6 @@ Supported sites
  * EchoMsk: `www.echo.msk.ru`
  * Fczenit: `fc-zenit.ru`
  * FiveTV: `5-tv.ru`
- * Glide: `share.glide.me`
  * GodTube: `www.godtube.com`
  * Hark: `www.hark.com`
  * HellPorno _(adult)_: `hellporno.com`
@@ -62,7 +59,6 @@ Supported sites
  * RadioJavan: `www.radiojavan.com`
  * RedTube _(adult)_: `www.redtube.com`
  * RockstarGames: `www.rockstargames.com`
- * Rozhlas: `prehravac.rozhlas.cz`
  * Sapo: `videos.sapo.pt`
  * Sexu _(adult)_: `sexu.com`
  * Slutload _(adult)_: `www.slutload.com`
@@ -86,7 +82,6 @@ Supported sites
  * Unistra: `utv.unistra.fr`
  * UstudioEmbed: `app.ustudio.com`
  * VideosZ _(adult)_: `www.videosz.com`
- * Vporn _(adult)_: `www.vporn.com`
  * WDRMobile: `mobile-ondemand.wdr.de`
  * XHamster _(adult)_: `xhamster.com`
  * XHamsterEmbed _(adult)_: `xhamster.com`

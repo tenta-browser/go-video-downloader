@@ -1,3 +1,4 @@
+ACast                          [-where-are-you-taipei-101-taiwan] Failed to parse JSON
 ATVAt                          Unable to download webpage: HTTP Error 404: 404 Not Found
 AcademicEarthCourse            Unsupported result type: playlist
 AlJazeera                      Unsupported extractor: BrightcoveNew
@@ -7,6 +8,7 @@ BIQLE                          Unable to extract embed url
 BTArticle                      Unable to extract video id
 BTVestlendingen                Unsupported extractor: VGTV
 BYUtv                          Unsupported extractor: Ooyala
+Bang                           LOGIN_REQUIRED
 BellMedia                      Unable to download webpage: HTTP Error 404: 404 Not Found
 BleacherReport                 Check failed for: ooyala:t2ZHVudTrYhBYj_TQfIi-VTci1Bq-NTR
 CSNNE                          Unsupported extractor: ThePlatform
@@ -23,11 +25,12 @@ Engadget                       Check failed for: aol-video:518153925
 ExpoTV                         Unable to download webpage: HTTP Error 404: 404 Not Found
 FiveMin                        Check failed for: aol-video:518013791
 Formula1                       Unsupported extractor: Ooyala
-Freespeech                     Unsupported extractor: Youtube
+Freespeech                     Unable to download webpage: HTTP Error 404: 404 Not Found
 GPUTechConf                    Unsupported extractor: DigitallySpeaking
-GameInformer                   Unsupported extractor: BrightcoveNew
+GameInformer                   Unable to extract brightcove id
 Gazeta                         Unsupported extractor: EaglePlatform
 GenerationWhat                 Unsupported extractor: Youtube
+Glide                          Unable to download webpage: HTTP Error 404: 404 Not Found
 Helsinki                       Unable to extract player code
 HetKlokhuis                    Unsupported extractor: NPO
 Howcast                        Unable to extract ooyala embed code
@@ -59,13 +62,14 @@ OdaTV                          Unable to extract video url
 ParliamentLiveUK               Unsupported extractor: Kaltura
 Patreon                        Unable to extract playlist JSON
 People                         Unsupported extractor: BrightcoveNew
-RUHD                           Unable to extract video url
+RUHD                           Unable to download webpage: HTTP Error 521: 521 Origin Down
 RadioBremen                    Unable to download webpage: HTTP Error 404: 404 Not Found
 RadioCanadaAudioVideo          Check failed for: radiocanada:medianet:7527184
 RadioFrance                    Unable to download webpage: HTTP Error 404: 404 Not Found
 Reuters                        Unable to extract video data
 RingTV                         Unable to extract real video ID
 Ro220                          Unable to extract url
+Rozhlas                        Unable to extract OpenGraph title
 RulePorn                       Unable to extract video id
 SRGSSRPlay                     Unsupported extractor: SRGSSR
 SchoolTV                       Unsupported extractor: NPO
@@ -86,18 +90,19 @@ TheScene                       Unsupported extractor: CondeNast
 TheStar                        Unsupported extractor: BrightcoveNew
 ThisOldHouse                   Unsupported extractor: JWPlatform
 TrailerAddict                  Unable to extract video id
-TwentyFourVideo                Unable to download webpage: HTTP Error 404: 404 Not Found
+TwentyFourVideo                Unable to extract OpenGraph title
 Twitter                        Unsupported extractor: TwitterCard
 TwitterAmplify                 No suitable format found
 UKTVPlay                       Unsupported extractor: BrightcoveNew
 Vidbit                         Unable to extract video URL
 VideofyMe                      Unable to download webpage: HTTP Error 404: 404 Not Found
 VoiceRepublic                  Unable to extract player
-Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.211:80: i/o timeout
+Vporn                          Unable to download webpage: HTTP Error 500: 500 Internal Server Error
+Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.179:80: i/o timeout
 Walla                          Unable to download webpage: HTTP Error 404: 404 Not Found
 WashingtonPostArticle          Unsupported result type: playlist
 WeiqiTV                        Unable to extract info json str
 Wrzuta                         [aq4hIZWrkBu] Failed to parse JSON
-XBef                           Get http://fvplayer.com/b/aHR0cCUzYSUyZiUyZmNkbmhkMW5ldy5ueGd4LmNvbSUyZnZpZGVvcyUyZjYwMTUubXA0JjUxMTkmNTExOSUyZjEuanBnJjEw: dial tcp 192.96.205.240:80: getsockopt: no route to host
+XBef                           Get http://fvplayer.com/b/aHR0cCUzYSUyZiUyZmNkbmhkMm5ldy5ueGd4LmNvbSUyZnZpZGVvcyUyZjYwMTUubXA0JjUxMTkmNTExOSUyZjEuanBnJjEw: dial tcp 192.96.205.240:80: getsockopt: no route to host
 YoutubeTruncatedID             Incomplete YouTube ID N_708QY7Ob. URL https://www.youtube.com/watch?v=N_708QY7Ob looks truncated.
 YoutubeTruncatedURL            Did you forget to quote the URL? Remember that & is a meta character in most shells, so you want to put the URL in quotes, like  youtube-dl "https://www.youtube.com/watch?feature=foo&v=BaW_jenozKc"  or simply  youtube-dl BaW_jenozKc  .
