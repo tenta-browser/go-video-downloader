@@ -45,7 +45,7 @@ Supported sites
  * Mojvideo: `www.mojvideo.com`
  * Morningstar: `www.morningstar.com`
  * MovingImage: `movingimage.nls.uk`
- * NDTV: `khabar.ndtv.com`
+ * NDTV: `www.ndtv.com`
  * NTVRu: `www.ntv.ru`
  * NextMedia: `hk.apple.nextmedia.com`
  * NextMediaActionNews: `hk.dv.nextmedia.com`
@@ -59,6 +59,7 @@ Supported sites
  * RadioJavan: `www.radiojavan.com`
  * RedTube _(adult)_: `www.redtube.com`
  * RockstarGames: `www.rockstargames.com`
+ * Rozhlas: `prehravac.rozhlas.cz`
  * Sapo: `videos.sapo.pt`
  * Sexu _(adult)_: `sexu.com`
  * Slutload _(adult)_: `www.slutload.com`
@@ -67,7 +68,6 @@ Supported sites
  * Spankwire _(adult)_: `www.spankwire.com`
  * Stitcher: `www.stitcher.com`
  * Streamable: `streamable.com`
- * StretchInternet: `portal.stretchinternet.com`
  * SunPorno _(adult)_: `www.sunporno.com`
  * TVC: `www.tvc.ru`
  * TVCArticle: `www.tvc.ru`
@@ -82,6 +82,7 @@ Supported sites
  * Unistra: `utv.unistra.fr`
  * UstudioEmbed: `app.ustudio.com`
  * VideosZ _(adult)_: `www.videosz.com`
+ * Vporn _(adult)_: `www.vporn.com`
  * WDRMobile: `mobile-ondemand.wdr.de`
  * XHamster _(adult)_: `xhamster.com`
  * XHamsterEmbed _(adult)_: `xhamster.com`

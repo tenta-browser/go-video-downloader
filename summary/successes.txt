@@ -42,7 +42,7 @@ Megaphone                      safe  https://player.megaphone.fm/GLT9749789991?"
 Mojvideo                       safe  http://www.mojvideo.com/video-v-avtu-pred-mano-rdecelaska-alfi-nipic/3d1ed4497707730b2906
 Morningstar                    safe  http://www.morningstar.com/cover/videocenter.aspx?id=615869
 MovingImage                    safe  http://movingimage.nls.uk/film/3561
-NDTV                           safe  https://khabar.ndtv.com/video/show/prime-time/prime-time-ill-system-and-poor-education-468818
+NDTV                           safe  https://www.ndtv.com/video/news/news/delhi-s-air-quality-status-report-after-diwali-is-very-poor-470372
 NTVRu                          safe  http://www.ntv.ru/novosti/863142/
 NextMedia                      safe  http://hk.apple.nextmedia.com/realtime/news/20141108/53109199
 NextMediaActionNews            safe  http://hk.dv.nextmedia.com/actionnews/hit/20150121/19009428/20061460
@@ -56,6 +56,7 @@ RTBF                           safe  https://www.rtbf.be/video/detail_les-diable
 RadioJavan                     safe  http://www.radiojavan.com/videos/video/chaartaar-ashoobam
 RedTube                        adult http://www.redtube.com/66418
 RockstarGames                  safe  https://www.rockstargames.com/videos/video/11544/
+Rozhlas                        safe  http://prehravac.rozhlas.cz/audio/3421320
 Sapo                           safe  http://videos.sapo.pt/UBz95kOtiWYUMTA5Ghfi
 Sexu                           adult http://sexu.com/961791/
 Slutload                       adult http://www.slutload.com/video/virginie-baisee-en-cam/TD73btpBqSxc/
@@ -64,7 +65,6 @@ SpankBang                      adult http://spankbang.com/3vvn/video/fantasy+sol
 Spankwire                      adult http://www.spankwire.com/Buckcherry-s-X-Rated-Music-Video-Crazy-Bitch/video103545/
 Stitcher                       safe  http://www.stitcher.com/podcast/the-talking-machines/e/40789481?autoplay=true
 Streamable                     safe  https://streamable.com/dnd1
-StretchInternet                safe  https://portal.stretchinternet.com/umary/portal.htm?eventId=313900&streamType=video
 SunPorno                       adult http://www.sunporno.com/videos/807778/
 TVC                            safe  http://www.tvc.ru/video/iframe/id/74622/isPlay/false/id_stat/channel/?acc_video_id=/channel/brand/id/17/show/episodes/episode_id/39702
 TVCArticle                     safe  http://www.tvc.ru/channel/brand/id/29/show/episodes/episode_id/39702/
@@ -79,6 +79,7 @@ TwitchClips                    safe  https://clips.twitch.tv/ea/AggressiveCobraP
 Unistra                        safe  http://utv.unistra.fr/video.php?id_video=154
 UstudioEmbed                   safe  http://app.ustudio.com/embed/DeN7VdYRDKhP/Uw7G1kMCe65T
 VideosZ                        adult http://www.videosz.com/us/scene/91296_i-want-to-be-a-dream-girl-66
+Vporn                          adult http://www.vporn.com/female/hana-shower/523564/
 WDRMobile                      safe  http://mobile-ondemand.wdr.de/CMS2010/mdb/ondemand/weltweit/fsk0/42/421735/421735_4283021.mp4
 Wistia                         safe  wistia:807fafadvk
 XHamster                       adult http://xhamster.com/movies/1509445/femaleagent_shy_beauty_takes_the_bait.html

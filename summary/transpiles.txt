@@ -46,6 +46,7 @@ EmbedlyIE
 EngadgetIE
 ExpoTVIE
 FczenitIE
+FilmwebIE
 FiveMinIE
 FiveTVIE
 Formula1IE
