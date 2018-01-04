@@ -23,6 +23,7 @@
 package utils
 
 import (
+	"net/http"
 	"reflect"
 )
 
@@ -71,4 +72,12 @@ func FixJSONFloats(val interface{}) interface{} {
 		return nil
 	}
 	return newVal.Interface()
+}
+
+// ParseCookieString parses cookie objects from a raw cookie string
+func ParseCookieString(cookies string) []*http.Cookie {
+	header := http.Header{}
+	header.Add("Cookie", cookies)
+	request := http.Request{Header: header}
+	return request.Cookies()
 }

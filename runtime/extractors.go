@@ -73,12 +73,19 @@ type URLResult struct {
 	ExtractorKey string
 }
 
+// Credentials used for authentication on sites that need it
+type Credentials struct {
+	Username string
+	Password string
+}
+
 // Context represents extraction context data
 type Context struct {
 	ExtractorKey string          // Key of the current extractor
 	Referrer     ExtractorResult // Result of the extraction that initiated this extraction
 	Client       *http.Client
 	Headers      map[string]string
+	Credentials  *Credentials
 }
 
 // InfoExtractor represent the common interface of all extractors

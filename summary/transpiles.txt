@@ -1,6 +1,5 @@
 ABCOTVSClipsIE
 ABCOTVSIE
-ACastIE
 ATTTechChannelIE
 ATVAtIE
 AcademicEarthCourseIE
@@ -174,6 +173,7 @@ TwentyMinutenIE
 TwitchClipsIE
 TwitterAmplifyIE
 TwitterIE
+UFCTVIE
 UKTVPlayIE
 UnistraIE
 UstudioEmbedIE

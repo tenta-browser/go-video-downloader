@@ -474,7 +474,7 @@ func SanitizeURL(url string) string {
 
 // SanitizedRequest implements utils.py/sanitized_Request
 func SanitizedRequest(url string, data []byte, headers SDict) Request {
-	req, err := http.NewRequest("GET", SanitizeURL(url), nil)
+	req, err := http.NewRequest("", SanitizeURL(url), nil)
 	if err != nil {
 		panic(newExtractorError(err.Error()))
 	}
@@ -489,7 +489,10 @@ func updateRequest(req Request, data []byte, headers, query SDict) {
 	}
 
 	// apply body data
-	if data != nil {
+	if len(data) > 0 {
+		if req.Method == "" || req.Method == "GET" {
+			req.Method = "POST"
+		}
 		req.Body = ioutil.NopCloser(bytes.NewBuffer(data))
 		req.ContentLength = int64(len(data))
 	}

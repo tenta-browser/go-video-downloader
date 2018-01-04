@@ -106,7 +106,7 @@ func (ie *CommonIE) DownloadWebpageRequest(req Request, videoID string, note, er
 }
 
 // DownloadWebpageHandleResponse is tuple returned by the DownloadWebpageHandle* functions
-// consistng of the resulting content and the HTTP response object
+// consisting of the resulting content and the HTTP response object
 type DownloadWebpageHandleResponse = struct {
 	Φ0 string
 	Φ1 Response
@@ -217,6 +217,28 @@ func (ie *CommonIE) requestWebpage(req Request, closeBody bool, videoID string, 
 	}
 
 	return res, nil
+}
+
+// GetLoginInfoResult is tuple returned by the GetLoginInfo function
+// consisting of a username and a password
+type GetLoginInfoResult = struct {
+	Φ0 OptString
+	Φ1 OptString
+}
+
+// GetLoginInfo implements common.py/_get_login_info
+func (ie *CommonIE) GetLoginInfo() GetLoginInfoResult {
+	credentials := ie.Context.Credentials
+	if credentials == nil {
+		return GetLoginInfoResult{
+			OptString{},
+			OptString{},
+		}
+	}
+	return GetLoginInfoResult{
+		AsOptString(credentials.Username),
+		AsOptString(credentials.Password),
+	}
 }
 
 // SearchRegexOne implements common.py/_search_regex (for single pattern)

@@ -25,14 +25,19 @@ package downloader
 import (
 	"fmt"
 	"net/http"
+	"net/http/cookiejar"
+	neturl "net/url"
+
+	"github.com/tenta-browser/go-video-downloader/utils"
 
 	"github.com/tenta-browser/go-pcre-matcher"
 	"github.com/tenta-browser/go-video-downloader/extractor"
 	"github.com/tenta-browser/go-video-downloader/runtime"
+	"golang.org/x/net/publicsuffix"
 )
 
 // GenDate is date when this downloader was generated
-const GenDate = "20171228-1137"
+const GenDate = "20180104-0842"
 
 var (
 	masterRegexp     string
@@ -52,6 +57,8 @@ type Connector struct {
 	Client    *http.Client
 	UserAgent string
 	Cookie    string
+	Username  string
+	Password  string
 }
 
 // VideoData holds the final result of the extraction
@@ -102,7 +109,10 @@ func extractInternal(url string, extractorKey string, connector *Connector,
 	extractor := factory()
 
 	// create fresh context and inject it into the extractor
-	ctx := newContextFromConnector(connector)
+	ctx, err := newContext(url, connector)
+	if err != nil {
+		return nil, err
+	}
 	ctx.ExtractorKey = extractorKey
 	extractor.SetContext(ctx)
 
@@ -136,13 +146,10 @@ func extractInternal(url string, extractorKey string, connector *Connector,
 	}
 }
 
-func newContextFromConnector(connector *Connector) *runtime.Context {
+func newContext(url string, connector *Connector) (*runtime.Context, error) {
 	headers := make(map[string]string)
 	if connector.UserAgent != "" {
 		headers["User-Agent"] = connector.UserAgent
-	}
-	if connector.Cookie != "" {
-		headers["Cookie"] = connector.Cookie
 	}
 	var client *http.Client
 	if connector.Client != nil {
@@ -150,8 +157,39 @@ func newContextFromConnector(connector *Connector) *runtime.Context {
 	} else {
 		client = &http.Client{}
 	}
-	return &runtime.Context{
-		Client:  client,
-		Headers: headers,
+	if client.Jar == nil {
+		jar, err := newCookieJar(url, connector.Cookie)
+		if err != nil {
+			return nil, err
+		}
+		client.Jar = jar
 	}
+	var credentials *runtime.Credentials
+	if connector.Username != "" {
+		credentials = &runtime.Credentials{
+			Username: connector.Username,
+			Password: connector.Password,
+		}
+	}
+	return &runtime.Context{
+		Client:      client,
+		Headers:     headers,
+		Credentials: credentials,
+	}, nil
+}
+
+func newCookieJar(url string, initialCookies string) (*cookiejar.Jar, error) {
+	jar, err := cookiejar.New(&cookiejar.Options{
+		PublicSuffixList: publicsuffix.List,
+	})
+	if err != nil {
+		return nil, err
+	}
+	u, err := neturl.Parse(url)
+	if err != nil {
+		return nil, err
+	}
+	u.Path = "" // Note: we set the simple cookies on the empty path
+	jar.SetCookies(u, utils.ParseCookieString(initialCookies))
+	return jar, nil
 }

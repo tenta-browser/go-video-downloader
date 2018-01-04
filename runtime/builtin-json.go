@@ -38,3 +38,35 @@ func jsonLoads(s string) (interface{}, error) {
 	err := json.Unmarshal([]byte(s), &res)
 	return res, err
 }
+
+// JSONDumps implements python/json.dumps
+func JSONDumps(obj interface{}) string {
+	res, err := jsonDumps(obj)
+	if err != nil {
+		panic(newExtractorError("Failed to dump JSON: " + err.Error()))
+	}
+	return res
+}
+
+func jsonDumps(obj interface{}) (string, error) {
+	bytes, err := json.Marshal(obj)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
+
+// MarshalJSON provides json marshalling for optional types
+func (ostr OptString) MarshalJSON() ([]byte, error) {
+	return json.Marshal(ostr.GetOrDef(""))
+}
+
+// MarshalJSON provides json marshalling for optional types
+func (oint OptInt) MarshalJSON() ([]byte, error) {
+	return json.Marshal(oint.GetOrDef(0))
+}
+
+// MarshalJSON provides json marshalling for optional types
+func (ofloat OptFloat) MarshalJSON() ([]byte, error) {
+	return json.Marshal(ofloat.GetOrDef(0))
+}

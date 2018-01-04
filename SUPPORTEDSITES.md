@@ -8,6 +8,7 @@ Supported sites
  * AnySex _(adult)_: `anysex.com`
  * AudioBoom: `audioboom.com`
  * Bambuser: `bambuser.com`
+ * Bang _(adult)_: `www.bang.com`
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * Camdemy: `www.camdemy.com`
@@ -28,7 +29,6 @@ Supported sites
  * GodTube: `www.godtube.com`
  * Hark: `www.hark.com`
  * HellPorno _(adult)_: `hellporno.com`
- * HentaiStigma _(adult)_: `hentai.animestigma.com`
  * HistoricFilms: `www.historicfilms.com`
  * HitRecord: `hitrecord.org`
  * Hitbox: `www.hitbox.tv`
@@ -45,7 +45,7 @@ Supported sites
  * Mojvideo: `www.mojvideo.com`
  * Morningstar: `www.morningstar.com`
  * MovingImage: `movingimage.nls.uk`
- * NDTV: `www.ndtv.com`
+ * NDTV: `khabar.ndtv.com`
  * NTVRu: `www.ntv.ru`
  * NextMedia: `hk.apple.nextmedia.com`
  * NextMediaActionNews: `hk.dv.nextmedia.com`
