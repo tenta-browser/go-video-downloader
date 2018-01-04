@@ -11,7 +11,7 @@ BellMedia                      parse 9c9media:ctv_web:706966: first path segment
 BleacherReport                 Check failed for: ooyala:t2ZHVudTrYhBYj_TQfIi-VTci1Bq-NTR
 CSNNE                          Unsupported extractor: ThePlatform
 CamWithHer                     Unable to extract video id
-CarambaTV                      [191910501] Failed to parse JSON
+CarambaTV                      Unable to download webpage: HTTP Error 404: 404 Not Found
 ComCarCoff                     Unable to extract full data json
 ComedyCentralShortname         parse :tds: missing protocol scheme
 DBTV                           Unsupported extractor: BrightcoveNew
@@ -98,10 +98,11 @@ UKTVPlay                       Unsupported extractor: BrightcoveNew
 Vidbit                         Unable to extract video URL
 VideofyMe                      Unable to download webpage: HTTP Error 404: 404 Not Found
 VoiceRepublic                  Unable to extract player
-Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.213:80: i/o timeout
+Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.214:80: i/o timeout
 Walla                          Unable to download webpage: HTTP Error 404: 404 Not Found
 WashingtonPostArticle          Unsupported result type: playlist
 WeiqiTV                        Unable to extract info json str
+Wistia                         Error while getting the playlist
 Wrzuta                         [aq4hIZWrkBu] Failed to parse JSON
 XBef                           Get http://fvplayer.com/b/aHR0cCUzYSUyZiUyZmNkbmhkMW5ldy5ueGd4LmNvbSUyZnZpZGVvcyUyZjYwMTUubXA0JjUxMTkmNTExOSUyZjEuanBnJjEw: dial tcp 192.96.205.240:80: getsockopt: no route to host
 YoutubeTruncatedID             Incomplete YouTube ID N_708QY7Ob. URL https://www.youtube.com/watch?v=N_708QY7Ob looks truncated.

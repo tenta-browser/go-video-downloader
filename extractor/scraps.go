@@ -335,15 +335,6 @@ func τ_search_s_notin_Sα(needle string, haystack map[interface{}]struct{}) boo
 	return true
 }
 
-func τ_search_α_in_Ls(needle interface{}, haystack []string) bool {
-	for _, haystackEl := range haystack {
-		if haystackEl == needle {
-			return true
-		}
-	}
-	return false
-}
-
 func τ_search_α_in_Sα(needle interface{}, haystack map[interface{}]struct{}) bool {
 	for haystackEl := range haystack {
 		if haystackEl == needle {
