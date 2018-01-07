@@ -31,7 +31,6 @@ Gazeta                         Unsupported extractor: EaglePlatform
 GenerationWhat                 Unsupported extractor: Youtube
 Glide                          Unable to download webpage: HTTP Error 404: 404 Not Found
 Helsinki                       Unable to extract player code
-HentaiStigma                   Unable to download webpage: HTTP Error 502: 502 Bad Gateway
 HetKlokhuis                    Unsupported extractor: NPO
 Howcast                        Unable to extract ooyala embed code
 Indavideo                      Unable to extract embed url
@@ -98,7 +97,7 @@ UKTVPlay                       Unsupported extractor: BrightcoveNew
 Vidbit                         Unable to extract video URL
 VideofyMe                      Unable to download webpage: HTTP Error 404: 404 Not Found
 VoiceRepublic                  Unable to extract player
-Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.214:80: i/o timeout
+Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.178:80: i/o timeout
 Walla                          Unable to download webpage: HTTP Error 404: 404 Not Found
 WashingtonPostArticle          Unsupported result type: playlist
 WeiqiTV                        Unable to extract info json str

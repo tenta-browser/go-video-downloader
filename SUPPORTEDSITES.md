@@ -29,6 +29,7 @@ Supported sites
  * GodTube: `www.godtube.com`
  * Hark: `www.hark.com`
  * HellPorno _(adult)_: `hellporno.com`
+ * HentaiStigma _(adult)_: `hentai.animestigma.com`
  * HistoricFilms: `www.historicfilms.com`
  * HitRecord: `hitrecord.org`
  * Hitbox: `www.hitbox.tv`
