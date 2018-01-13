@@ -85,6 +85,7 @@ Supported sites
  * VideosZ _(adult)_: `www.videosz.com`
  * Vporn _(adult)_: `www.vporn.com`
  * WDRMobile: `mobile-ondemand.wdr.de`
+ * WeiboMobile: `m.weibo.cn`
  * XHamster _(adult)_: `xhamster.com`
  * XHamsterEmbed _(adult)_: `xhamster.com`
  * XNXX _(adult)_: `www.xnxx.com`

@@ -11,12 +11,13 @@ BellMedia                      parse 9c9media:ctv_web:706966: first path segment
 BleacherReport                 Check failed for: ooyala:t2ZHVudTrYhBYj_TQfIi-VTci1Bq-NTR
 CSNNE                          Unsupported extractor: ThePlatform
 CamWithHer                     Unable to extract video id
-CarambaTV                      Unable to download webpage: HTTP Error 404: 404 Not Found
+CarambaTV                      [191910501] Failed to parse JSON
 ComCarCoff                     Unable to extract full data json
 ComedyCentralShortname         parse :tds: missing protocol scheme
 DBTV                           Unsupported extractor: BrightcoveNew
 DaumClip                       [52554690] Failed to parse JSON
 DefenseGouvFr                  Unable to extract ID
+Digg                           Unsupported extractor: JWPlatform
 EHow                           Unable to extract video URL
 Embedly                        Check failed for: https://www.youtube.com/watch?v=SU4fj_aEMVw&list=UUGLim4T2loE5rwCMdpCIPVg
 Engadget                       Check failed for: aol-video:518153925
@@ -39,7 +40,7 @@ Kamcord                        Get https://www.kamcord.com/v/hNYRduDgWb4: dial t
 Karaoketv                      Unable to extract API play URL
 Keek                           Get https://www.keek.com/keek/NODfbab: x509: certificate is valid for *.gridserver.com, gridserver.com, not www.keek.com
 KhanAcademy                    Check failed for: http://www.youtube.com/watch?v=FlIG3TvQCBQ&feature=youtube_gdata_player
-KontrTube                      Unable to extract video URL
+KontrTube                      Unable to download webpage: HTTP Error 404: 404 Not Found
 Ku6                            Unable to download webpage: HTTP Error 404: 404 Not Found
 LCI                            Unsupported extractor: Wat
 Learnr                         Unable to extract youtube id
@@ -74,7 +75,7 @@ SchoolTV                       Unsupported extractor: NPO
 Servus                         No suitable format found
 SlidesLive                     Unsupported extractor: Youtube
 Sport5                         Unable to download webpage: HTTP Error 404: 404 Not Found
-SportBoxEmbed                  No suitable format found
+SportBoxEmbed                  Unable to extract wjplayer settings
 StretchInternet                Unable to download webpage: HTTP Error 404: 404 Not Found
 SztvHu                         Unable to extract video title
 TDSLifeway                     Unsupported extractor: BrightcoveNew
