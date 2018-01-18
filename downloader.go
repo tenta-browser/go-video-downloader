@@ -37,7 +37,7 @@ import (
 )
 
 // GenDate is date when this downloader was generated
-const GenDate = "20180113-1237"
+const GenDate = "20180118-1237"
 
 var (
 	masterRegexp     string

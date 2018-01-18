@@ -7,11 +7,12 @@ BIQLE                          Unable to extract embed url
 BTArticle                      Unable to extract video id
 BTVestlendingen                Unsupported extractor: VGTV
 BYUtv                          Unsupported extractor: Ooyala
+Bambuser                       bambuser returned error: This broadcast was removed by user.
 BellMedia                      parse 9c9media:ctv_web:706966: first path segment in URL cannot contain colon
 BleacherReport                 Check failed for: ooyala:t2ZHVudTrYhBYj_TQfIi-VTci1Bq-NTR
 CSNNE                          Unsupported extractor: ThePlatform
 CamWithHer                     Unable to extract video id
-CarambaTV                      [191910501] Failed to parse JSON
+CarambaTV                      Unable to download webpage: HTTP Error 403: 403 Forbidden
 ComCarCoff                     Unable to extract full data json
 ComedyCentralShortname         parse :tds: missing protocol scheme
 DBTV                           Unsupported extractor: BrightcoveNew
@@ -36,11 +37,10 @@ HetKlokhuis                    Unsupported extractor: NPO
 Howcast                        Unable to extract ooyala embed code
 Indavideo                      Unable to extract embed url
 Jpopsuki                       Get http://www.jpopsuki.tv/video/ayumi-hamasaki---evolution/00be659d23b0b40508169cdee4545771: dial tcp 213.239.204.251:80: getsockopt: no route to host
-Kamcord                        Get https://www.kamcord.com/v/hNYRduDgWb4: dial tcp 75.126.101.254:443: getsockopt: connection refused
 Karaoketv                      Unable to extract API play URL
 Keek                           Get https://www.keek.com/keek/NODfbab: x509: certificate is valid for *.gridserver.com, gridserver.com, not www.keek.com
 KhanAcademy                    Check failed for: http://www.youtube.com/watch?v=FlIG3TvQCBQ&feature=youtube_gdata_player
-KontrTube                      Unable to download webpage: HTTP Error 404: 404 Not Found
+KontrTube                      Unable to extract video URL
 Ku6                            Unable to download webpage: HTTP Error 404: 404 Not Found
 LCI                            Unsupported extractor: Wat
 Learnr                         Unable to extract youtube id
@@ -98,7 +98,7 @@ UKTVPlay                       Unsupported extractor: BrightcoveNew
 Vidbit                         Unable to extract video URL
 VideofyMe                      Unable to download webpage: HTTP Error 404: 404 Not Found
 VoiceRepublic                  Unable to extract player
-Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.178:80: i/o timeout
+Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.179:80: i/o timeout
 Walla                          Unable to download webpage: HTTP Error 404: 404 Not Found
 WashingtonPostArticle          Unsupported result type: playlist
 WeiqiTV                        Unable to extract info json str

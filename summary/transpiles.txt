@@ -71,7 +71,6 @@ IndavideoIE
 Ir90TvIE
 JojIE
 JpopsukiIE
-KamcordIE
 KaraoketvIE
 KeekIE
 KhanAcademyIE

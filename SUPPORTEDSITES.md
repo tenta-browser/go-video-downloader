@@ -7,7 +7,6 @@ Supported sites
  * AdobeTV: `tv.adobe.com`
  * AnySex _(adult)_: `anysex.com`
  * AudioBoom: `audioboom.com`
- * Bambuser: `bambuser.com`
  * Bang _(adult)_: `www.bang.com`
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
