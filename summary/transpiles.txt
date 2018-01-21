@@ -126,7 +126,6 @@ RadioFranceIE
 RadioJavanIE
 RedTubeIE
 ReutersIE
-RingTVIE
 Ro220IE
 RockstarGamesIE
 RozhlasIE
