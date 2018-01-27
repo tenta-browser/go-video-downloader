@@ -16,7 +16,6 @@ BYUtvIE
 BambuserIE
 BangIE
 BellMediaIE
-BigflixIE
 BildIE
 BleacherReportIE
 CSNNEIE
@@ -24,7 +23,6 @@ CamWithHerIE
 CamdemyIE
 Canalc2IE
 CarambaTVIE
-ChirbitIE
 ClubicIE
 ClypIE
 ComCarCoffIE
@@ -38,7 +36,6 @@ DiggIE
 DigitekaIE
 DotsubIE
 DrTuberIE
-DumpertIE
 EHowIE
 EbaumsWorldIE
 EchoMskIE

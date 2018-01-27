@@ -62,15 +62,21 @@ func (self *TeacherTubeIE) _real_extract(url string) rnt.SDict {
 	var (
 		TITLE_SUFFIX string
 		description  rnt.OptString
+		error        rnt.OptString
 		formats      []rnt.SDict
 		media_urls   []string
 		quality      func(string) int
+		thumbnail    rnt.OptString
 		title        rnt.OptString
 		video_id     string
 		webpage      string
 	)
 	video_id = (self).MatchID(url)
 	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	error = (self).SearchRegexOne("<div\\b[^>]+\\bclass=[\"\\']msgBox error[^>]+>([^<]+)", webpage, "error", nil, true, 0, nil)
+	if τ_isTruthy_Os(error) {
+		panic(rnt.PyExtractorError(rnt.StrFormat2("%s said: %s", (self).IE_NAME, error), true, rnt.OptString{}))
+	}
 	title = (self).HTMLSearchMetaOne("title", webpage, rnt.AsOptString("title"), true, rnt.NoDefault, 0)
 	TITLE_SUFFIX = " - TeacherTube"
 	if rnt.StrEndswith(title.Get(), TITLE_SUFFIX, rnt.OptInt{}, rnt.OptInt{}) {
@@ -99,12 +105,19 @@ func (self *TeacherTubeIE) _real_extract(url string) rnt.SDict {
 		return τresult
 	}()
 	formats = (self).SortFormats(formats)
+	thumbnail = func() rnt.OptString {
+		if v := ((self).OgSearchThumbnail(webpage, nil)); τ_isTruthy_Os(v) {
+			return v
+		} else {
+			return (self).HTMLSearchMetaOne("thumbnail", webpage, rnt.OptString{}, false, rnt.NoDefault, 0)
+		}
+	}()
 	return rnt.SDict{
 		"id":          video_id,
 		"title":       title,
-		"thumbnail":   (self).HTMLSearchRegexOne("\\'image\\'\\s*:\\s*[\"\\']([^\"\\']+)[\"\\']", webpage, "thumbnail", rnt.NoDefault, true, 0, nil),
-		"formats":     formats,
 		"description": description,
+		"thumbnail":   thumbnail,
+		"formats":     formats,
 	}
 }
 

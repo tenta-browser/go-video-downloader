@@ -8,11 +8,9 @@ Supported sites
  * AnySex _(adult)_: `anysex.com`
  * AudioBoom: `audioboom.com`
  * Bang _(adult)_: `www.bang.com`
- * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * Camdemy: `www.camdemy.com`
  * Canalc2: `www.canalc2.tv`
- * Chirbit: `chirb.it`
  * Clubic: `www.clubic.com`
  * Clyp: `clyp.it`
  * Criterion: `www.criterion.com`
@@ -20,7 +18,6 @@ Supported sites
  * Digiteka: `www.ultimedia.com`
  * Dotsub: `dotsub.com`
  * DrTuber _(adult)_: `www.drtuber.com`
- * Dumpert: `www.dumpert.nl`
  * EbaumsWorld: `www.ebaumsworld.com`
  * EchoMsk: `www.echo.msk.ru`
  * Fczenit: `fc-zenit.ru`

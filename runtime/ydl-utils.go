@@ -449,7 +449,7 @@ func JsToJSON(code string) string {
 		"(?:[^"\\]*(?:\\\\|\\['"nurtbfx/\n]))*[^"\\]*"|
 		'(?:[^'\\]*(?:\\\\|\\['"nurtbfx/\n]))*[^'\\]*'|
 		%[1]s|,(?=%[2]s[\]}}])|
-		[a-zA-Z_][.a-zA-Z_0-9]*|
+		(?:(?<![0-9])[eE]|[a-df-zA-DF-Z_])[.a-zA-Z_0-9]*|
 		\b(?:0[xX][0-9a-fA-F]+|0+[0-7]+)(?:%[2]s:)?|
 		[0-9]+(?=%[2]s:)`,
 		commentRe, skipRe), 0).ReplaceFunc(code, replacer.NewReplacer(fixKv))
