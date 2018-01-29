@@ -99,6 +99,15 @@ type τ_Tαsω struct {
 	Φ1 string
 }
 
+func τ_all_Lb(list []bool) bool {
+	for _, el := range list {
+		if el {
+			return false
+		}
+	}
+	return true
+}
+
 func τ_any_Lb(list []bool) bool {
 	for _, el := range list {
 		if el {

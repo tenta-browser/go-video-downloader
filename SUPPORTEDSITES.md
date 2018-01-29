@@ -8,9 +8,11 @@ Supported sites
  * AnySex _(adult)_: `anysex.com`
  * AudioBoom: `audioboom.com`
  * Bang _(adult)_: `www.bang.com`
+ * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * Camdemy: `www.camdemy.com`
  * Canalc2: `www.canalc2.tv`
+ * Chirbit: `chirb.it`
  * Clubic: `www.clubic.com`
  * Clyp: `clyp.it`
  * Criterion: `www.criterion.com`
