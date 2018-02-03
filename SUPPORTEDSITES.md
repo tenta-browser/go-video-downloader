@@ -20,14 +20,13 @@ Supported sites
  * Digiteka: `www.ultimedia.com`
  * Dotsub: `dotsub.com`
  * DrTuber _(adult)_: `www.drtuber.com`
+ * Dumpert: `www.dumpert.nl`
  * EbaumsWorld: `www.ebaumsworld.com`
  * EchoMsk: `www.echo.msk.ru`
  * Fczenit: `fc-zenit.ru`
  * FiveTV: `5-tv.ru`
  * GodTube: `www.godtube.com`
  * Hark: `www.hark.com`
- * HellPorno _(adult)_: `hellporno.com`
- * HentaiStigma _(adult)_: `hentai.animestigma.com`
  * HistoricFilms: `www.historicfilms.com`
  * HitRecord: `hitrecord.org`
  * Hitbox: `www.hitbox.tv`

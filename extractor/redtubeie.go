@@ -87,10 +87,16 @@ func (self *RedTubeIE) _real_extract(url string) rnt.SDict {
 	}()) {
 		panic(rnt.PyExtractorError(rnt.StrFormat2("Video %s has been removed", video_id), true, rnt.OptString{}))
 	}
-	title = (self).HTMLSearchRegexMulti(τ_conv_Tssω_to_Ls(τ_Tssω{
-		Φ0: "<h1 class=\"videoTitle[^\"]*\">(?P<title>.+?)</h1>",
-		Φ1: "videoTitle\\s*:\\s*([\"\\'])(?P<title>)\\1",
-	}), webpage, "title", rnt.NoDefault, true, 0, "title")
+	title = func() rnt.OptString {
+		if v := ((self).HTMLSearchRegexMulti(τ_conv_Tssω_to_Ls(τ_Tssω{
+			Φ0: "<h(\\d)[^>]+class=\"(?:video_title_text|videoTitle)[^\"]*\">(?P<title>(?:(?!\\1).)+)</h\\1>",
+			Φ1: "(?:videoTitle|title)\\s*:\\s*([\"\\'])(?P<title>(?:(?!\\1).)+)\\1",
+		}), webpage, "title", nil, true, 0, "title")); τ_isTruthy_Os(v) {
+			return v
+		} else {
+			return (self).OgSearchTitle(webpage, rnt.NoDefault, true)
+		}
+	}()
 	formats = []interface{}{}
 	sources = (self).ParseJSON((self).SearchRegexOne("sources\\s*:\\s*({.+?})", webpage, "source", "{}", true, 0, nil).Get(), video_id, nil, false)
 	if rnt.IsTruthy(func() interface{} {
@@ -143,9 +149,12 @@ func (self *RedTubeIE) _real_extract(url string) rnt.SDict {
 	}
 	formats = τ_conv_Ld_to_Lα((self).SortFormats(τ_conv_Lα_to_Ld(formats)))
 	thumbnail = (self).OgSearchThumbnail(webpage, rnt.NoDefault)
-	upload_date = rnt.UnifiedStrDate((self).SearchRegexOne("<span[^>]+class=\"added-time\"[^>]*>ADDED ([^<]+)<", webpage, "upload date", rnt.NoDefault, false, 0, nil), true)
+	upload_date = rnt.UnifiedStrDate((self).SearchRegexOne("<span[^>]+>ADDED ([^<]+)<", webpage, "upload date", rnt.NoDefault, false, 0, nil), true)
 	duration = rnt.IntOrNone((self).SearchRegexOne("videoDuration\\s*:\\s*(\\d+)", webpage, "duration", nil, true, 0, nil), 1, rnt.OptInt{}, 1)
-	view_count = rnt.StrToInt((self).SearchRegexOne("<span[^>]*>VIEWS</span></td>\\s*<td>([\\d,.]+)", webpage, "view count", rnt.NoDefault, false, 0, nil))
+	view_count = rnt.StrToInt((self).SearchRegexMulti(τ_conv_Tssω_to_Ls(τ_Tssω{
+		Φ0: "<div[^>]*>Views</div>\\s*<div[^>]*>\\s*([\\d,.]+)",
+		Φ1: "<span[^>]*>VIEWS</span>\\s*</td>\\s*<td>\\s*([\\d,.]+)",
+	}), webpage, "view count", rnt.NoDefault, false, 0, nil))
 	age_limit = 18
 	return rnt.SDict{
 		"id":          video_id,

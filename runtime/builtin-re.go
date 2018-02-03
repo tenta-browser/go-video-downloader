@@ -27,6 +27,7 @@ import (
 	"strings"
 
 	"github.com/tenta-browser/go-pcre-matcher"
+	"github.com/tenta-browser/go-pcre-matcher/replacer"
 )
 
 // Python regexp flags
@@ -244,12 +245,20 @@ func ReFindIter(pattern, str string, flags int) []Match {
 	return res
 }
 
-// ReSub implements python/re.sub
+// ReSub implements python/re.sub (for string repl)
 func ReSub(pattern, repl, subject string, count, flags int) string {
 	if count != 0 {
 		panic(newExtractorError("Non-zero count at ReSub")) // TODO
 	}
 	return ReMustCompile(pattern, flags).Replace(subject, translatePyReplacement(repl))
+}
+
+// ReSubFunc implements python/re.sub (for func repl)
+func ReSubFunc(pattern string, repl func(Match) string, subject string, count, flags int) string {
+	if count != 0 {
+		panic(newExtractorError("Non-zero count at ReSubFunc")) // TODO
+	}
+	return ReMustCompile(pattern, flags).ReplaceFunc(subject, replacer.NewReplacer(repl))
 }
 
 // ReMatchGroupNone implements python/match.group with 0 args

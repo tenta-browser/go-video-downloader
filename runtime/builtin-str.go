@@ -73,6 +73,32 @@ func StrFormat2(format string, args ...interface{}) string {
 	return fmt.Sprintf(format, nargs...)
 }
 
+// StrFormat2Named implements Python 2's formatting (% operator) with named parameters
+func StrFormat2Named(format string, argsd SDict) string {
+	args := []interface{}{}
+
+	// match %% and %(name) tokens
+	pattern := `%(?:%|\([^)]+\))`
+
+	repl := func(m Match) string {
+		s := m.GroupByIdx(0)
+		if s == "%%" {
+			return s
+		}
+		name := s[2 : len(s)-1] // s: %(name)
+		arg, found := argsd[name]
+		if !found {
+			panic(newExtractorError("No value supplied for named parameter: " + name))
+		}
+		args = append(args, arg)
+		return "%"
+	}
+
+	// convert named parameters to positional
+	format = ReSubFunc(pattern, repl, format, 0, 0)
+	return StrFormat2(format, args...)
+}
+
 // StrFormat3 implements python/str.format (Python 3 style formatting)
 func StrFormat3(format string, args ...interface{}) string {
 	nargs := unboxStrFormatArgs(args)

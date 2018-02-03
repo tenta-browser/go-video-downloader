@@ -129,6 +129,7 @@ ReutersIE
 Ro220IE
 RockstarGamesIE
 RozhlasIE
+RtlNlIE
 RulePornIE
 SRGSSRPlayIE
 SapoIE
@@ -199,5 +200,6 @@ XXXYMoviesIE
 YinYueTaiIE
 YouPornIE
 YourUploadIE
+YoutubePlaceholderIE
 YoutubeTruncatedIDIE
 YoutubeTruncatedURLIE

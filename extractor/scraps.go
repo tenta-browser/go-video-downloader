@@ -372,6 +372,10 @@ func τ_sink_Os(nothing interface{}) rnt.OptString {
 	return rnt.OptString{}
 }
 
+func τ_sink_d(nothing interface{}) rnt.SDict {
+	return nil
+}
+
 func τ_sink_ζbytesω(nothing interface{}) []byte {
 	return nil
 }
