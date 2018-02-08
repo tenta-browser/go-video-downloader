@@ -26,7 +26,6 @@ Supported sites
  * Fczenit: `fc-zenit.ru`
  * FiveTV: `5-tv.ru`
  * GodTube: `www.godtube.com`
- * Hark: `www.hark.com`
  * HentaiStigma _(adult)_: `hentai.animestigma.com`
  * HistoricFilms: `www.historicfilms.com`
  * HitRecord: `hitrecord.org`
@@ -49,6 +48,7 @@ Supported sites
  * NextMedia: `hk.apple.nextmedia.com`
  * NextMediaActionNews: `hk.dv.nextmedia.com`
  * Piksel: `player.piksel.com`
+ * Pinkbike: `es.pinkbike.org`
  * PlayFM: `www.play.fm`
  * Podomatic: `scienceteachingtips.podomatic.com`
  * PornHd _(adult)_: `www.pornhd.com`

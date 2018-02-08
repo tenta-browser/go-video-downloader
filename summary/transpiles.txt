@@ -52,7 +52,6 @@ FiveTVIE
 Formula1IE
 FreespeechIE
 GPUTechConfIE
-GameInformerIE
 GazetaIE
 GenerationWhatIE
 GlideIE
