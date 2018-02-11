@@ -31,7 +31,6 @@ GPUTechConf                    Unsupported extractor: DigitallySpeaking
 Gazeta                         Unsupported extractor: EaglePlatform
 GenerationWhat                 Unsupported extractor: Youtube
 Glide                          Unable to download webpage: HTTP Error 404: 404 Not Found
-Hark                           Get http://www.hark.com/clips/mmbzyhkgny.json: EOF
 HellPorno                      Unable to extract flashvars
 Helsinki                       Unable to extract player code
 HetKlokhuis                    Unsupported extractor: NPO
@@ -88,10 +87,10 @@ TV3                            Unable to extract brightcove id
 TVP                            Unsupported extractor: TVPEmbed
 Telewebion                     Unable to download webpage: HTTP Error 502: 502 Bad Gateway
 TheScene                       Unsupported extractor: CondeNast
-TheStar                        Unsupported extractor: BrightcoveNew
+TheStar                        Unable to extract brightcove id
 ThisOldHouse                   Unsupported extractor: JWPlatform
 TrailerAddict                  Unable to extract video id
-TwentyFourVideo                Unable to download webpage: HTTP Error 404: 404 Not Found
+TwentyFourVideo                Unable to extract OpenGraph title
 Twitter                        Unsupported extractor: TwitterCard
 TwitterAmplify                 No suitable format found
 UFCTV                          Unable to download webpage: HTTP Error 404: 404 Not Found
@@ -99,7 +98,7 @@ UKTVPlay                       Unsupported extractor: BrightcoveNew
 Vidbit                         Unable to extract video URL
 VideofyMe                      Unable to download webpage: HTTP Error 404: 404 Not Found
 VoiceRepublic                  Unable to extract player
-Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.179:80: i/o timeout
+Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.214:80: i/o timeout
 Walla                          Unable to download webpage: HTTP Error 404: 404 Not Found
 WashingtonPostArticle          Unsupported result type: playlist
 WeiqiTV                        Unable to extract info json str

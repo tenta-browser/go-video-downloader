@@ -26,6 +26,7 @@ Supported sites
  * Fczenit: `fc-zenit.ru`
  * FiveTV: `5-tv.ru`
  * GodTube: `www.godtube.com`
+ * Hark: `www.hark.com`
  * HentaiStigma _(adult)_: `hentai.animestigma.com`
  * HistoricFilms: `www.historicfilms.com`
  * HitRecord: `hitrecord.org`
