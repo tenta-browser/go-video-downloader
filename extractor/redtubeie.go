@@ -150,7 +150,13 @@ func (self *RedTubeIE) _real_extract(url string) rnt.SDict {
 	formats = τ_conv_Ld_to_Lα((self).SortFormats(τ_conv_Lα_to_Ld(formats)))
 	thumbnail = (self).OgSearchThumbnail(webpage, rnt.NoDefault)
 	upload_date = rnt.UnifiedStrDate((self).SearchRegexOne("<span[^>]+>ADDED ([^<]+)<", webpage, "upload date", rnt.NoDefault, false, 0, nil), true)
-	duration = rnt.IntOrNone((self).SearchRegexOne("videoDuration\\s*:\\s*(\\d+)", webpage, "duration", nil, true, 0, nil), 1, rnt.OptInt{}, 1)
+	duration = rnt.IntOrNone(func() rnt.OptString {
+		if v := ((self).OgSearchPropertyOne("video:duration", webpage, rnt.OptString{}, nil, true)); τ_isTruthy_Os(v) {
+			return v
+		} else {
+			return (self).SearchRegexOne("videoDuration\\s*:\\s*(\\d+)", webpage, "duration", nil, true, 0, nil)
+		}
+	}(), 1, rnt.OptInt{}, 1)
 	view_count = rnt.StrToInt((self).SearchRegexMulti(τ_conv_Tssω_to_Ls(τ_Tssω{
 		Φ0: "<div[^>]*>Views</div>\\s*<div[^>]*>\\s*([\\d,.]+)",
 		Φ1: "<span[^>]*>VIEWS</span>\\s*</td>\\s*<td>\\s*([\\d,.]+)",

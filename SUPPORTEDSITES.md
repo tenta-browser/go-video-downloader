@@ -19,7 +19,6 @@ Supported sites
  * CrooksAndLiars: `embed.crooksandliars.com`
  * Digiteka: `www.ultimedia.com`
  * Dotsub: `dotsub.com`
- * DrTuber _(adult)_: `www.drtuber.com`
  * Dumpert: `www.dumpert.nl`
  * EbaumsWorld: `www.ebaumsworld.com`
  * EchoMsk: `www.echo.msk.ru`
