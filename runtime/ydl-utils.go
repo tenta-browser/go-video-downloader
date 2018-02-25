@@ -457,7 +457,7 @@ func JsToJSON(code string) string {
 
 // StdHeaders implements utils.py/std_headers
 var StdHeaders = SDict{
-	"User-Agent":      "Mozilla/5.0 (X11; Linux x86_64; rv:10.0) Gecko/20150101 Firefox/47.0 (Chrome)",
+	"User-Agent":      "Mozilla/5.0 (X11; Linux x86_64; rv:59.0) Gecko/20100101 Firefox/59.0 (Chrome)",
 	"Accept-Charset":  "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
 	"Accept":          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 	"Accept-Encoding": "gzip, deflate",
@@ -468,6 +468,18 @@ var StdHeaders = SDict{
 func SanitizeURL(url string) string {
 	if strings.HasPrefix(url, "//") {
 		return "http:" + url
+	}
+	commonTypos := []struct {
+		mistake, fixup string
+	}{
+		{`^httpss://`, `https://`},
+		{`^rmtp([es]?)://`, `rtmp\1://`},
+	}
+	for _, commonTypo := range commonTypos {
+		fixedURL := ReSub(commonTypo.mistake, commonTypo.fixup, url, 0, 0)
+		if url != fixedURL {
+			return fixedURL
+		}
 	}
 	return url
 }
