@@ -59,10 +59,8 @@ Supported sites
  * RockstarGames: `www.rockstargames.com`
  * Rozhlas: `prehravac.rozhlas.cz`
  * Sapo: `videos.sapo.pt`
- * Sexu _(adult)_: `sexu.com`
  * Slutload _(adult)_: `www.slutload.com`
  * Soundgasm: `soundgasm.net`
- * SpankBang _(adult)_: `spankbang.com`
  * Spankwire _(adult)_: `www.spankwire.com`
  * Stitcher: `www.stitcher.com`
  * Streamable: `streamable.com`
@@ -82,6 +80,7 @@ Supported sites
  * VideosZ _(adult)_: `www.videosz.com`
  * Vporn _(adult)_: `www.vporn.com`
  * WDRMobile: `mobile-ondemand.wdr.de`
+ * WeiboMobile: `m.weibo.cn`
  * XHamster _(adult)_: `xhamster.com`
  * XHamsterEmbed _(adult)_: `xhamster.com`
  * XNXX _(adult)_: `www.xnxx.com`

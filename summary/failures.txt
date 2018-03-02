@@ -7,7 +7,7 @@ BIQLE                          Unable to extract embed url
 BTArticle                      Unable to extract video id
 BTVestlendingen                Unsupported extractor: VGTV
 BYUtv                          Unsupported extractor: Ooyala
-Bambuser                       bambuser returned error: This broadcast was removed by user.
+Bambuser                       Unable to download webpage: HTTP Error 404: 404 Not Found
 BellMedia                      parse 9c9media:ctv_web:706966: first path segment in URL cannot contain colon
 BleacherReport                 Check failed for: ooyala:t2ZHVudTrYhBYj_TQfIi-VTci1Bq-NTR
 CSNNE                          Unsupported extractor: ThePlatform
@@ -63,7 +63,7 @@ OdaTV                          Unable to extract video url
 ParliamentLiveUK               Unsupported extractor: Kaltura
 Patreon                        Unable to extract playlist JSON
 People                         Unsupported extractor: BrightcoveNew
-RUHD                           Unable to extract video url
+RUHD                           Unable to download webpage: HTTP Error 521: 521 Origin Down
 RadioBremen                    Unable to download webpage: HTTP Error 404: 404 Not Found
 RadioCanadaAudioVideo          Check failed for: radiocanada:medianet:7527184
 RadioFrance                    Unable to download webpage: HTTP Error 404: 404 Not Found
@@ -74,6 +74,7 @@ RulePorn                       Unable to extract video id
 SRGSSRPlay                     Unsupported extractor: SRGSSR
 SchoolTV                       Unsupported extractor: NPO
 Servus                         No suitable format found
+Sexu                           Unable to extract jwvideo
 SlidesLive                     Unsupported extractor: Youtube
 Sport5                         Get http://sport5-metadata-rr-d.nsacdn.com/vod/vod/s5-Y59xx1-GUh2/HDS/metadata.xml: EOF
 SportBoxEmbed                  Unable to extract wjplayer settings
@@ -91,7 +92,7 @@ TheScene                       Unsupported extractor: CondeNast
 TheStar                        Unable to extract brightcove id
 ThisOldHouse                   Unsupported extractor: JWPlatform
 TrailerAddict                  Unable to extract video id
-TwentyFourVideo                Unable to download webpage: HTTP Error 404: 404 Not Found
+TwentyFourVideo                Unable to extract OpenGraph title
 Twitter                        Unsupported extractor: TwitterCard
 TwitterAmplify                 No suitable format found
 UFCTV                          Unable to download webpage: HTTP Error 404: 404 Not Found
@@ -99,10 +100,9 @@ UKTVPlay                       Unsupported extractor: BrightcoveNew
 Vidbit                         Unable to extract video URL
 VideofyMe                      Unable to download webpage: HTTP Error 404: 404 Not Found
 VoiceRepublic                  Unable to extract player
-Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.213:80: i/o timeout
+Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.178:80: i/o timeout
 Walla                          Unable to download webpage: HTTP Error 404: 404 Not Found
 WashingtonPostArticle          Unsupported result type: playlist
-WeiboMobile                    Unable to download webpage: HTTP Error 400: 400
 WeiqiTV                        Unable to extract info json str
 Wistia                         Error while getting the playlist
 Wrzuta                         [aq4hIZWrkBu] Failed to parse JSON
