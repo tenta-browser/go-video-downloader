@@ -311,6 +311,37 @@ func ParseDuration(s OptString) OptString {
 	return OptString{}
 }
 
+// ParseResolution implements utils.py/parse_resolution
+func ParseResolution(s OptString) SDict {
+	if !s.IsSet() {
+		return SDict{}
+	}
+
+	mobj := ReSearch(`\b(?P<w>\d+)\s*[xX×]\s*(?P<h>\d+)\b`, s.Get(), 0)
+	if mobj != nil {
+		return SDict{
+			"width":  ConvertToInt(ReMatchGroupOne(mobj, "w")),
+			"height": ConvertToInt(ReMatchGroupOne(mobj, "h")),
+		}
+	}
+
+	mobj = ReSearch(`\b(\d+)[pPiI]\b`, s.Get(), 0)
+	if mobj != nil {
+		return SDict{
+			"height": ConvertToInt(ReMatchGroupOne(mobj, 1)),
+		}
+	}
+
+	mobj = ReSearch(`\b([48])[kK]\b`, s.Get(), 0)
+	if mobj != nil {
+		return SDict{
+			"height": ConvertToInt(ReMatchGroupOne(mobj, 1)) * 540,
+		}
+	}
+
+	return SDict{}
+}
+
 // ParseISO8601 implements utils.py/parse_iso8601
 func ParseISO8601(dateStr OptString, delimiter string) OptInt {
 	// TODO implement me

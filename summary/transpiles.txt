@@ -19,6 +19,7 @@ BellMediaIE
 BigflixIE
 BildIE
 BleacherReportIE
+CJSWIE
 CSNNEIE
 CamWithHerIE
 CamdemyIE
@@ -116,7 +117,6 @@ PinkbikeIE
 PlayFMIE
 PodomaticIE
 PornHdIE
-PornHubIE
 RTBFIE
 RUHDIE
 RadioBremenIE
@@ -138,6 +138,7 @@ SexuIE
 SlidesLiveIE
 SlutloadIE
 SoundgasmIE
+SpankBangIE
 SpankwireIE
 Sport5IE
 SportBoxEmbedIE
@@ -178,6 +179,7 @@ UstudioEmbedIE
 VidbitIE
 VideofyMeIE
 VideosZIE
+VidioIE
 VoiceRepublicIE
 VpornIE
 VubeIE

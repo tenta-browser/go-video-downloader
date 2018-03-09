@@ -210,6 +210,15 @@ func DictItems(dict SDict) []struct {
 // IsTruthy tells whether the supplied interface value holds a truthy value
 // (non-empty string/list, True boolean, >0 int, etc.)
 func IsTruthy(val interface{}) bool {
+	// check sequence types
+	rval := reflect.ValueOf(val)
+	switch rval.Kind() {
+	case reflect.Slice: // handle List, Bytes
+		return rval.Len() > 0
+	case reflect.Map: // handle SDict, Set
+		return rval.Len() > 0
+	}
+	// check the rest of the types
 	switch v := val.(type) {
 	case OptInt:
 		return v.IsSet() && IsTruthy(v.Get())

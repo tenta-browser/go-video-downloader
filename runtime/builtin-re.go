@@ -42,6 +42,11 @@ type (
 	Match = matcher.Match
 )
 
+// MatchIterator is an iterator over all matches of a search
+type MatchIterator interface {
+	Next() (Match, bool)
+}
+
 // translatePyFlags converts a Python regexp flagset to our engine's flagset
 func translatePyFlags(pyFlags int) (int, error) {
 	flags := 0
@@ -230,19 +235,27 @@ func ReFindAllMulti(pattern, str string, flags int) [][]string {
 	return res
 }
 
-// ReFindIter implements python/re.finditer
-func ReFindIter(pattern, str string, flags int) []Match {
-	match := ReSearch(pattern, str, flags)
-	res := []Match{}
-	if match != nil {
-		for {
-			res = append(res, match)
-			if !match.Next() {
-				break
-			}
+type matchIteratorProto struct {
+	match Match
+	dirty bool
+}
+
+func (mip *matchIteratorProto) Next() (Match, bool) {
+	if !mip.dirty {
+		mip.dirty = true
+	} else if mip.match != nil {
+		// if this is not the first invocation, pull the next match
+		if !mip.match.Next() {
+			mip.match = nil
 		}
 	}
-	return res
+	return mip.match, mip.match != nil
+}
+
+// ReFindIter implements python/re.finditer
+func ReFindIter(pattern, str string, flags int) MatchIterator {
+	match := ReSearch(pattern, str, flags)
+	return &matchIteratorProto{match: match}
 }
 
 // ReSub implements python/re.sub (for string repl)
@@ -282,6 +295,19 @@ func ReMatchGroupOne(match Match, group interface{}) OptString {
 	default:
 		panic(fmt.Sprintf("Group has invalid type: %T", grp))
 	}
+}
+
+// ReMatchGroupTwoResult is a tuple returned by the ReMatchGroupTwo function
+// consisting of the optional values of the requested two groups
+type ReMatchGroupTwoResult = struct {
+	Φ0 OptString
+	Φ1 OptString
+}
+
+// ReMatchGroupTwo implements python/match.group with 2 args
+func ReMatchGroupTwo(match Match, group1, group2 interface{}) ReMatchGroupTwoResult {
+	values := ReMatchGroupMulti(match, []interface{}{group1, group2})
+	return ReMatchGroupTwoResult{values[0], values[1]}
 }
 
 // ReMatchGroupMulti implements python/match.group with >=2 args

@@ -52,7 +52,6 @@ Supported sites
  * PlayFM: `www.play.fm`
  * Podomatic: `scienceteachingtips.podomatic.com`
  * PornHd _(adult)_: `www.pornhd.com`
- * PornHub _(adult)_: `www.pornhub.com`
  * RTBF: `www.rtbf.be`
  * RadioJavan: `www.radiojavan.com`
  * RedTube _(adult)_: `www.redtube.com`
@@ -61,6 +60,7 @@ Supported sites
  * Sapo: `videos.sapo.pt`
  * Slutload _(adult)_: `www.slutload.com`
  * Soundgasm: `soundgasm.net`
+ * SpankBang _(adult)_: `spankbang.com`
  * Spankwire _(adult)_: `www.spankwire.com`
  * Stitcher: `www.stitcher.com`
  * Streamable: `streamable.com`
@@ -78,12 +78,12 @@ Supported sites
  * Unistra: `utv.unistra.fr`
  * UstudioEmbed: `app.ustudio.com`
  * VideosZ _(adult)_: `www.videosz.com`
+ * Vidio: `www.vidio.com`
  * Vporn _(adult)_: `www.vporn.com`
  * WDRMobile: `mobile-ondemand.wdr.de`
  * WeiboMobile: `m.weibo.cn`
  * XHamster _(adult)_: `xhamster.com`
  * XHamsterEmbed _(adult)_: `xhamster.com`
- * XNXX _(adult)_: `www.xnxx.com`
  * XTube _(adult)_: `www.xtube.com`
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
