@@ -675,6 +675,8 @@ func (ie *CommonIE) ParseM3U8Formats(m3u8Doc, m3u8URL string, ext, entryProtocol
 
 	// TODO handle int/float casting properly
 	switch pref := preference.(type) {
+	case nil:
+		preference = OptFloat{}
 	case int:
 		preference = AsOptFloat(float64(pref))
 	case OptInt:

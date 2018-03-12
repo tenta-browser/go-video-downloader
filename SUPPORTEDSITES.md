@@ -1,6 +1,8 @@
 Supported sites
 ===============
 
+ * ABCOTVS: `abc7news.com`
+ * ABCOTVSClips: `clips.abcotvs.com`
  * ATTTechChannel: `techchannel.att.com`
  * AdobeTV: `tv.adobe.com`
  * AnySex _(adult)_: `anysex.com`
@@ -28,8 +30,10 @@ Supported sites
  * HistoricFilms: `www.historicfilms.com`
  * HitRecord: `hitrecord.org`
  * Hitbox: `www.hitbox.tv`
+ * Huajiao: `www.huajiao.com`
  * Ir90Tv: `90tv.ir`
  * Joj: `media.joj.sk`
+ * LRT: `www.lrt.lt`
  * Lemonde: `www.lemonde.fr`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * MacGameStore: `www.macgamestore.com`
@@ -37,10 +41,12 @@ Supported sites
  * Megaphone: `player.megaphone.fm`
  * Mojvideo: `www.mojvideo.com`
  * Morningstar: `www.morningstar.com`
+ * MovingImage: `movingimage.nls.uk`
  * NDTV: `khabar.ndtv.com`
  * NTVRu: `www.ntv.ru`
  * NextMedia: `hk.apple.nextmedia.com`
  * NextMediaActionNews: `hk.dv.nextmedia.com`
+ * Piksel: `player.piksel.com`
  * Pinkbike: `es.pinkbike.org`
  * PlayFM: `www.play.fm`
  * Podomatic: `scienceteachingtips.podomatic.com`
@@ -72,6 +78,7 @@ Supported sites
  * Unistra: `utv.unistra.fr`
  * UstudioEmbed: `app.ustudio.com`
  * VideosZ _(adult)_: `www.videosz.com`
+ * Vidio: `www.vidio.com`
  * Vporn _(adult)_: `www.vporn.com`
  * WDRMobile: `mobile-ondemand.wdr.de`
  * WeiboMobile: `m.weibo.cn`
@@ -79,6 +86,7 @@ Supported sites
  * XHamsterEmbed _(adult)_: `xhamster.com`
  * XNXX _(adult)_: `www.xnxx.com`
  * XTube _(adult)_: `www.xtube.com`
+ * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
  * YinYueTai: `v.yinyuetai.com`
  * YouPorn _(adult)_: `www.youporn.com`

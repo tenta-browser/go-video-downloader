@@ -1,3 +1,5 @@
+ABCOTVS                        safe  http://abc7news.com/entertainment/east-bay-museum-celebrates-vintage-synthesizers/472581/
+ABCOTVSClips                   safe  https://clips.abcotvs.com/kabc/video/214814
 ATTTechChannel                 safe  http://techchannel.att.com/play-video.cfm/2014/1/27/ATT-Archives-The-UNIX-System-Making-Computers-Easier-to-Use
 AdobeTV                        safe  http://tv.adobe.com/watch/the-complete-picture-with-julieanne-kost/quick-tip-how-to-draw-a-circle-around-an-object-in-photoshop/
 AnySex                         adult http://anysex.com/156592/
@@ -25,8 +27,10 @@ HentaiStigma                   adult http://hentai.animestigma.com/inyouchuu-ets
 HistoricFilms                  safe  http://www.historicfilms.com/tapes/4728
 HitRecord                      safe  https://hitrecord.org/records/2954362
 Hitbox                         safe  http://www.hitbox.tv/video/203213
+Huajiao                        safe  http://www.huajiao.com/l/38941232
 Ir90Tv                         safe  http://90tv.ir/video/95719/%D8%B4%D8%A7%DB%8C%D8%B9%D8%A7%D8%AA-%D9%86%D9%82%D9%84-%D9%88-%D8%A7%D9%86%D8%AA%D9%82%D8%A7%D9%84%D8%A7%D8%AA-%D9%85%D9%87%D9%85-%D9%81%D9%88%D8%AA%D8%A8%D8%A7%D9%84-%D8%A7%D8%B1%D9%88%D9%BE%D8%A7-940218
 Joj                            safe  https://media.joj.sk/embed/a388ec4c-6019-4a4a-9312-b1bee194e932
+LRT                            safe  http://www.lrt.lt/mediateka/irasas/54391/
 Lemonde                        safe  http://www.lemonde.fr/police-justice/video/2016/01/19/comprendre-l-affaire-bygmalion-en-cinq-minutes_4849702_1653578.html
 LoveHomePorn                   adult http://lovehomeporn.com/video/48483/stunning-busty-brunette-girlfriend-sucking-and-riding-a-big-dick#menu
 MacGameStore                   safe  http://www.macgamestore.com/mediaviewer.php?trailer=2450
@@ -34,10 +38,12 @@ MailRu                         safe  http://my.mail.ru/corp/hitech/video/news_hi
 Megaphone                      safe  https://player.megaphone.fm/GLT9749789991?"
 Mojvideo                       safe  http://www.mojvideo.com/video-v-avtu-pred-mano-rdecelaska-alfi-nipic/3d1ed4497707730b2906
 Morningstar                    safe  http://www.morningstar.com/cover/videocenter.aspx?id=615869
+MovingImage                    safe  http://movingimage.nls.uk/film/3561
 NDTV                           safe  https://khabar.ndtv.com/video/show/prime-time/prime-time-ill-system-and-poor-education-468818
 NTVRu                          safe  http://www.ntv.ru/novosti/863142/
 NextMedia                      safe  http://hk.apple.nextmedia.com/realtime/news/20141108/53109199
 NextMediaActionNews            safe  http://hk.dv.nextmedia.com/actionnews/hit/20150121/19009428/20061460
+Piksel                         safe  https://player.piksel.com/v/v80kqp41
 Pinkbike                       safe  http://es.pinkbike.org/i/kvid/kvid-y5.swf?id=406629
 PlayFM                         safe  https://www.play.fm/dan-drastic/sven-tasnadi-leipzig-electronic-music-batofar-paris-fr-2014-07-12
 Podomatic                      safe  http://scienceteachingtips.podomatic.com/entry/2009-01-02T16_03_35-08_00
@@ -69,6 +75,7 @@ TwitchClips                    safe  https://clips.twitch.tv/ea/AggressiveCobraP
 Unistra                        safe  http://utv.unistra.fr/video.php?id_video=154
 UstudioEmbed                   safe  http://app.ustudio.com/embed/DeN7VdYRDKhP/Uw7G1kMCe65T
 VideosZ                        adult http://www.videosz.com/us/scene/91296_i-want-to-be-a-dream-girl-66
+Vidio                          safe  http://www.vidio.com/watch/165683-dj_ambred-booyah-live-2015
 Vporn                          adult http://www.vporn.com/female/hana-shower/523564/
 WDRMobile                      safe  http://mobile-ondemand.wdr.de/CMS2010/mdb/ondemand/weltweit/fsk0/42/421735/421735_4283021.mp4
 WeiboMobile                    safe  https://m.weibo.cn/status/4189191225395228?wm=3333_2001&sourcetype=weixin&featurecode=newtitle&from=singlemessage&isappinstalled=0
@@ -76,6 +83,7 @@ XHamster                       adult http://xhamster.com/movies/1509445/femaleag
 XHamsterEmbed                  adult http://xhamster.com/xembed.php?video=3328539
 XNXX                           adult http://www.xnxx.com/video-55awb78/skyrim_test_video
 XTube                          adult http://www.xtube.com/watch.php?v=kVTUy_G222_
+XVideos                        adult http://www.xvideos.com/video4588838/biker_takes_his_girl
 XXXYMovies                     adult http://xxxymovies.com/videos/138669/ecstatic-orgasm-sofcore/
 YinYueTai                      safe  http://v.yinyuetai.com/video/2322376
 YouPorn                        adult http://www.youporn.com/watch/505835/sex-ed-is-it-safe-to-masturbate-daily/

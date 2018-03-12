@@ -308,6 +308,24 @@ func τ_multiply_L0_by_i(list []interface{}, factor int) []interface{} {
 	return result
 }
 
+func τ_search_s_in_Ls(needle string, haystack []string) bool {
+	for _, haystackEl := range haystack {
+		if haystackEl == needle {
+			return true
+		}
+	}
+	return false
+}
+
+func τ_search_s_notin_Ls(needle string, haystack []string) bool {
+	for _, haystackEl := range haystack {
+		if haystackEl == needle {
+			return false
+		}
+	}
+	return true
+}
+
 func τ_search_s_notin_Sα(needle string, haystack map[interface{}]struct{}) bool {
 	for haystackEl := range haystack {
 		if haystackEl == needle {
