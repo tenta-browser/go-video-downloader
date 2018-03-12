@@ -1,7 +1,9 @@
+ABCOTVS                        Crash: Preference should be int or float
+ABCOTVSClips                   Crash: Preference should be int or float
 ATVAt                          Unable to download webpage: HTTP Error 404: 404 Not Found
 AcademicEarthCourse            Unsupported result type: playlist
 AlJazeera                      Unsupported extractor: BrightcoveNew
-AliExpressLive                 No suitable format found
+AliExpressLive                 Crash: Preference should be int or float
 AppleDaily                     Unable to extract video url
 BIQLE                          Unable to extract embed url
 BTArticle                      Unable to extract video id
@@ -13,7 +15,7 @@ BleacherReport                 Check failed for: ooyala:t2ZHVudTrYhBYj_TQfIi-VTc
 CJSW                           Unable to extract audio url
 CSNNE                          Unsupported extractor: ThePlatform
 CamWithHer                     Unable to extract video id
-CarambaTV                      [191910501] Failed to parse JSON
+CarambaTV                      Unable to download webpage: HTTP Error 404: 404 Not Found
 ComCarCoff                     Unable to extract full data json
 ComedyCentralShortname         parse :tds: missing protocol scheme
 DBTV                           Unsupported extractor: BrightcoveNew
@@ -37,15 +39,19 @@ HellPorno                      Unable to extract flashvars
 Helsinki                       Unable to extract player code
 HetKlokhuis                    Unsupported extractor: NPO
 Howcast                        Unable to extract ooyala embed code
+Huajiao                        Crash: Preference should be int or float
 Indavideo                      Unable to extract embed url
 Jpopsuki                       Get http://www.jpopsuki.tv/video/ayumi-hamasaki---evolution/00be659d23b0b40508169cdee4545771: dial tcp 213.239.204.251:80: getsockopt: no route to host
 Karaoketv                      Unable to extract API play URL
 Keek                           Get https://www.keek.com/keek/NODfbab: x509: certificate is valid for *.gridserver.com, gridserver.com, not www.keek.com
 KhanAcademy                    Check failed for: http://www.youtube.com/watch?v=FlIG3TvQCBQ&feature=youtube_gdata_player
 KontrTube                      Unable to extract video URL
+KrasView                       Unable to extract flashvars
 Ku6                            Unable to download webpage: HTTP Error 404: 404 Not Found
 LCI                            Unsupported extractor: Wat
+LRT                            Crash: Preference should be int or float
 Learnr                         Unable to extract youtube id
+LineTV                         Unable to extract player parameters
 LocalNews8                     Unable to extract partner id
 M6                             Unsupported extractor: SixPlay
 MIT                            Unable to extract embed url
@@ -53,17 +59,21 @@ MTV81                          Check failed for: http://media.mtvnservices.com/e
 MakerTV                        Unable to download webpage: HTTP Error 400: 400 Bad Request
 MakersChannel                  Unable to download webpage: HTTP Error 404: 404 Not Found
 ManyVids                       Unable to extract title
-MelonVOD                       No suitable format found
+MelonVOD                       Crash: Preference should be int or float
 Motorsport                     YOUTUBE_PLACEHOLDER
 Moviezine                      Unable to download webpage: HTTP Error 404: 404 Not Found
+MovingImage                    Crash: Preference should be int or float
 MyVidster                      Unable to extract real video url
 NBCSportsVPlayer               Unsupported extractor: ThePlatform
 NPORadioFragment               Unable to extract title
 NRKSkole                       Check failed for: nrk:6021
+NTVDe                          Unable to download webpage: HTTP Error 404: 404 Not Found
+Nuvid                          Unable to extract 1310741
 OdaTV                          Unable to extract video url
 ParliamentLiveUK               Unsupported extractor: Kaltura
 Patreon                        Unable to extract playlist JSON
 People                         Unsupported extractor: BrightcoveNew
+Piksel                         Unable to extract app token
 RUHD                           Unable to download webpage: HTTP Error 521: 521 Origin Down
 RadioBremen                    Unable to download webpage: HTTP Error 404: 404 Not Found
 RadioCanadaAudioVideo          Check failed for: radiocanada:medianet:7527184
@@ -74,7 +84,7 @@ RtlNl                          Crash: reflect: slice index out of range
 RulePorn                       Unable to extract video id
 SRGSSRPlay                     Unsupported extractor: SRGSSR
 SchoolTV                       Unsupported extractor: NPO
-Servus                         No suitable format found
+Servus                         Crash: Preference should be int or float
 Sexu                           Unable to extract jwvideo
 SlidesLive                     Unsupported extractor: Youtube
 Sport5                         Get http://sport5-metadata-rr-d.nsacdn.com/vod/vod/s5-Y59xx1-GUh2/HDS/metadata.xml: EOF
@@ -93,13 +103,14 @@ TheScene                       Unsupported extractor: CondeNast
 TheStar                        Unable to extract brightcove id
 ThisOldHouse                   Unsupported extractor: JWPlatform
 TrailerAddict                  Unable to extract video id
-TwentyFourVideo                Unable to extract OpenGraph title
+TwentyFourVideo                Unable to download webpage: HTTP Error 404: 404 Not Found
 Twitter                        Unsupported extractor: TwitterCard
 TwitterAmplify                 No suitable format found
 UFCTV                          Unable to download webpage: HTTP Error 404: 404 Not Found
 UKTVPlay                       Unsupported extractor: BrightcoveNew
 Vidbit                         Unable to extract video URL
 VideofyMe                      Unable to download webpage: HTTP Error 404: 404 Not Found
+Vidio                          Crash: Preference should be int or float
 VoiceRepublic                  Unable to extract player
 Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.211:80: i/o timeout
 Walla                          Unable to download webpage: HTTP Error 404: 404 Not Found
@@ -108,6 +119,6 @@ WeiqiTV                        Unable to extract info json str
 Wistia                         Error while getting the playlist
 Wrzuta                         [aq4hIZWrkBu] Failed to parse JSON
 XBef                           Get http://fvplayer.com/b/aHR0cCUzYSUyZiUyZmNkbmhkMm5ldy5ueGd4LmNvbSUyZnZpZGVvcyUyZjYwMTUubXA0JjUxMTkmNTExOSUyZjEuanBnJjEw: dial tcp 192.96.205.240:80: getsockopt: no route to host
-XNXX                           Unable to extract video URL
+XVideos                        Crash: Preference should be int or float
 YoutubeTruncatedID             Incomplete YouTube ID N_708QY7Ob. URL https://www.youtube.com/watch?v=N_708QY7Ob looks truncated.
 YoutubeTruncatedURL            Did you forget to quote the URL? Remember that & is a meta character in most shells, so you want to put the URL in quotes, like  youtube-dl "https://www.youtube.com/watch?feature=foo&v=BaW_jenozKc"  or simply  youtube-dl BaW_jenozKc  .

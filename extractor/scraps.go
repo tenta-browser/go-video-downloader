@@ -69,6 +69,12 @@ type τ_Tssssω struct {
 	Φ3 string
 }
 
+type τ_Tsssω struct {
+	Φ0 string
+	Φ1 string
+	Φ2 string
+}
+
 type τ_Tssω struct {
 	Φ0 string
 	Φ1 string
@@ -225,6 +231,10 @@ func τ_conv_Tssssω_to_Ls(tuple τ_Tssssω) []string {
 	return []string{tuple.Φ0, tuple.Φ1, tuple.Φ2, tuple.Φ3}
 }
 
+func τ_conv_Tsssω_to_Ls(tuple τ_Tsssω) []string {
+	return []string{tuple.Φ0, tuple.Φ1, tuple.Φ2}
+}
+
 func τ_conv_Tssω_to_Ls(tuple τ_Tssω) []string {
 	return []string{tuple.Φ0, tuple.Φ1}
 }
@@ -282,30 +292,20 @@ func τ_map_Fssω_over_Ls(fn func(string) string, list []string) []string {
 	return result
 }
 
+func τ_map_Fsαω_over_Ls(fn func(string) interface{}, list []string) []interface{} {
+	result := []interface{}{}
+	for _, el := range list {
+		result = append(result, fn(el))
+	}
+	return result
+}
+
 func τ_multiply_L0_by_i(list []interface{}, factor int) []interface{} {
 	result := []interface{}{}
 	for idx := 0; idx < factor; idx++ {
 		result = append(result, list...)
 	}
 	return result
-}
-
-func τ_search_s_in_Ls(needle string, haystack []string) bool {
-	for _, haystackEl := range haystack {
-		if haystackEl == needle {
-			return true
-		}
-	}
-	return false
-}
-
-func τ_search_s_notin_Ls(needle string, haystack []string) bool {
-	for _, haystackEl := range haystack {
-		if haystackEl == needle {
-			return false
-		}
-	}
-	return true
 }
 
 func τ_search_s_notin_Sα(needle string, haystack map[interface{}]struct{}) bool {
@@ -331,6 +331,10 @@ func τ_sink_Fssω(nothing interface{}) func(string) string {
 }
 
 func τ_sink_LOs(nothing interface{}) []rnt.OptString {
+	return nil
+}
+
+func τ_sink_Ls(nothing interface{}) []string {
 	return nil
 }
 

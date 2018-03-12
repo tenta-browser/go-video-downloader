@@ -81,6 +81,7 @@ LCIIE
 LRTIE
 LearnrIE
 LemondeIE
+LineTVIE
 LivestreamShortenerIE
 LocalNews8IE
 LoveHomePornIE
@@ -104,10 +105,12 @@ NBCSportsVPlayerIE
 NDTVIE
 NPORadioFragmentIE
 NRKSkoleIE
+NTVDeIE
 NTVRuIE
 NextMediaActionNewsIE
 NextMediaIE
 NineCNineMediaIE
+NuvidIE
 OdaTVIE
 ParliamentLiveUKIE
 PatreonIE
@@ -117,6 +120,7 @@ PinkbikeIE
 PlayFMIE
 PodomaticIE
 PornHdIE
+PornHubIE
 RTBFIE
 RUHDIE
 RadioBremenIE

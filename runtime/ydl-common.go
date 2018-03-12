@@ -27,6 +27,8 @@ import (
 	"compress/zlib"
 	"fmt"
 	"io/ioutil"
+	"net/http"
+	"net/url"
 	"sort"
 	"strings"
 	"time"
@@ -653,7 +655,7 @@ func (ie *CommonIE) MediaRatingSearch(html string) OptInt {
 }
 
 // ExtractM3U8Formats implements common.py/_extract_m3u8_formats
-func (ie *CommonIE) ExtractM3U8Formats(m3u8URL, videoID string, ext, entryProtocol OptString, preference OptFloat,
+func (ie *CommonIE) ExtractM3U8Formats(m3u8URL, videoID string, ext, entryProtocol OptString, preference interface{},
 	m3u8ID, note, errnote OptString, fatal bool, live bool) []SDict {
 
 	res := ie.DownloadWebpageHandleURL(m3u8URL, videoID,
@@ -668,8 +670,26 @@ func (ie *CommonIE) ExtractM3U8Formats(m3u8URL, videoID string, ext, entryProtoc
 }
 
 // ParseM3U8Formats implements common.py/_parse_m3u8_formats
-func (ie *CommonIE) ParseM3U8Formats(m3u8Doc, m3u8URL string, ext, entryProtocol OptString, preference OptFloat,
+func (ie *CommonIE) ParseM3U8Formats(m3u8Doc, m3u8URL string, ext, entryProtocol OptString, preference interface{},
 	m3u8ID OptString, live bool) []SDict {
+
+	// TODO handle int/float casting properly
+	switch pref := preference.(type) {
+	case int:
+		preference = AsOptFloat(float64(pref))
+	case OptInt:
+		if pref.IsSet() {
+			preference = AsOptFloat(float64(pref.Get()))
+		} else {
+			preference = OptFloat{}
+		}
+	case float64:
+		preference = AsOptFloat(pref)
+	case OptFloat:
+		// great!
+	default:
+		panic("Preference should be int or float")
+	}
 
 	if strings.Contains(m3u8Doc, "#EXT-X-FAXS-CM:") { // Adobe Flash Access
 		return []SDict{}
@@ -869,4 +889,22 @@ func (ie *CommonIE) IsValidURL(url, videoID, item string, headers SDict) bool {
 		return false
 	}
 	return true
+}
+
+// SetCookie implements common.py/_set_cookie
+func (ie *CommonIE) SetCookie(domain, name, value string) {
+	// create artificial source URL from domain
+	u := &url.URL{
+		Scheme: "http",
+		Host:   domain,
+	}
+
+	// create cookie
+	c := &http.Cookie{
+		Name:   name,
+		Value:  value,
+		Domain: domain,
+	}
+
+	ie.Context.Client.Jar.SetCookies(u, []*http.Cookie{c})
 }
