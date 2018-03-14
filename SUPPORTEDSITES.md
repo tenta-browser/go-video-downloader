@@ -11,7 +11,6 @@ Supported sites
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * Camdemy: `www.camdemy.com`
- * Canalc2: `www.canalc2.tv`
  * Chirbit: `chirb.it`
  * Clubic: `www.clubic.com`
  * Clyp: `clyp.it`
@@ -33,6 +32,7 @@ Supported sites
  * Huajiao: `www.huajiao.com`
  * Ir90Tv: `90tv.ir`
  * Joj: `media.joj.sk`
+ * KrasView: `krasview.ru`
  * LRT: `www.lrt.lt`
  * Lemonde: `www.lemonde.fr`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
