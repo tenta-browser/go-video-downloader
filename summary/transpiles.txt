@@ -23,7 +23,6 @@ CJSWIE
 CSNNEIE
 CamWithHerIE
 CamdemyIE
-Canalc2IE
 CarambaTVIE
 ChirbitIE
 ClubicIE

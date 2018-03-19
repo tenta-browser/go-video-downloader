@@ -13,8 +13,7 @@ BleacherReport                 Check failed for: ooyala:t2ZHVudTrYhBYj_TQfIi-VTc
 CJSW                           Unable to extract audio url
 CSNNE                          Unsupported extractor: ThePlatform
 CamWithHer                     Unable to extract video id
-Canalc2                        No video formats found
-CarambaTV                      Unable to download webpage: HTTP Error 404: 404 Not Found
+CarambaTV                      [191910501] Failed to parse JSON
 ComCarCoff                     Unable to extract full data json
 ComedyCentralShortname         parse :tds: missing protocol scheme
 DBTV                           Unsupported extractor: BrightcoveNew
@@ -26,6 +25,7 @@ EHow                           Unable to extract video URL
 Embedly                        Check failed for: https://www.youtube.com/watch?v=SU4fj_aEMVw&list=UUGLim4T2loE5rwCMdpCIPVg
 Engadget                       Check failed for: aol-video:518153925
 ExpoTV                         Unable to download webpage: HTTP Error 404: 404 Not Found
+Fczenit                        Unable to subscript <nil>
 Filmweb                        Unsupported extractor: TwentyThreeVideo
 FiveMin                        Check failed for: aol-video:518013791
 Formula1                       Unsupported extractor: Ooyala
@@ -105,8 +105,8 @@ UKTVPlay                       Unsupported extractor: BrightcoveNew
 Vidbit                         Unable to extract video URL
 VideofyMe                      Unable to download webpage: HTTP Error 404: 404 Not Found
 VoiceRepublic                  Unable to extract player
-Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.179:80: i/o timeout
-Walla                          Get http://video2.walla.co.il/?w=null%2Fnull%2F2642630%2F%40%40%2Fvideo%2Fflv_pl: read tcp 74.206.165.158:54802->192.118.82.188:80: read: connection reset by peer
+Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.211:80: i/o timeout
+Walla                          Get http://video2.walla.co.il/?w=null%2Fnull%2F2642630%2F%40%40%2Fvideo%2Fflv_pl: read tcp 74.206.165.158:39258->192.118.82.188:80: read: connection reset by peer
 WashingtonPostArticle          Unsupported result type: playlist
 WeiqiTV                        Unable to extract info json str
 Wistia                         Error while getting the playlist
