@@ -13,7 +13,7 @@ BleacherReport                 Check failed for: ooyala:t2ZHVudTrYhBYj_TQfIi-VTc
 CJSW                           Unable to extract audio url
 CSNNE                          Unsupported extractor: ThePlatform
 CamWithHer                     Unable to extract video id
-CarambaTV                      [191910501] Failed to parse JSON
+CarambaTV                      Unable to download webpage: HTTP Error 404: 404 Not Found
 ComCarCoff                     Unable to extract full data json
 ComedyCentralShortname         parse :tds: missing protocol scheme
 DBTV                           Unsupported extractor: BrightcoveNew
@@ -21,11 +21,10 @@ DaumClip                       [52554690] Failed to parse JSON
 DefenseGouvFr                  Unable to extract ID
 Digg                           Unsupported extractor: JWPlatform
 DrTuber                        Unable to extract title
-EHow                           Unable to extract video URL
+EHow                           Unable to download webpage: HTTP Error 503: 503 Service Unavailable
 Embedly                        Check failed for: https://www.youtube.com/watch?v=SU4fj_aEMVw&list=UUGLim4T2loE5rwCMdpCIPVg
 Engadget                       Check failed for: aol-video:518153925
 ExpoTV                         Unable to download webpage: HTTP Error 404: 404 Not Found
-Fczenit                        Unable to subscript <nil>
 Filmweb                        Unsupported extractor: TwentyThreeVideo
 FiveMin                        Check failed for: aol-video:518013791
 Formula1                       Unsupported extractor: Ooyala
@@ -47,6 +46,7 @@ KontrTube                      Unable to extract video URL
 Ku6                            Unable to download webpage: HTTP Error 404: 404 Not Found
 LCI                            Unsupported extractor: Wat
 Learnr                         Unable to extract youtube id
+Lenta                          Unsupported extractor: EaglePlatform
 LineTV                         Unable to extract player parameters
 LocalNews8                     Unable to extract partner id
 M6                             Unsupported extractor: SixPlay
@@ -62,13 +62,13 @@ MyVidster                      Unable to extract real video url
 NBCSportsVPlayer               Unsupported extractor: ThePlatform
 NPORadioFragment               Unable to extract title
 NRKSkole                       Check failed for: nrk:6021
-NTVDe                          Unable to download webpage: HTTP Error 404: 404 Not Found
+NTVDe                          Cannot cast int to OptString
 Nuvid                          Unable to extract 1310741
 OdaTV                          Unable to extract video url
 ParliamentLiveUK               Unsupported extractor: Kaltura
 Patreon                        Unable to extract playlist JSON
 People                         Unsupported extractor: BrightcoveNew
-RUHD                           Unable to download webpage: HTTP Error 521: 521 Origin Down
+RUHD                           Unable to download webpage: HTTP Error 522: 522 Origin Connection Time-out
 RadioBremen                    Unable to download webpage: HTTP Error 404: 404 Not Found
 RadioCanadaAudioVideo          Check failed for: radiocanada:medianet:7527184
 RadioFrance                    Unable to download webpage: HTTP Error 404: 404 Not Found
@@ -81,7 +81,7 @@ SchoolTV                       Unsupported extractor: NPO
 Servus                         No suitable format found
 Sexu                           Unable to extract jwvideo
 SlidesLive                     Unsupported extractor: Youtube
-Sport5                         Get http://sport5-metadata-rr-d.nsacdn.com/vod/vod/s5-Y59xx1-GUh2/HDS/metadata.xml: EOF
+Sport5                         Unable to download webpage: HTTP Error 404: 404 Not Found
 SportBoxEmbed                  Unable to extract wjplayer settings
 StretchInternet                Unable to download webpage: HTTP Error 404: 404 Not Found
 SztvHu                         Unable to extract video title
@@ -97,7 +97,7 @@ TheScene                       Unsupported extractor: CondeNast
 TheStar                        Unable to extract brightcove id
 ThisOldHouse                   Unsupported extractor: JWPlatform
 TrailerAddict                  Unable to extract video id
-TwentyFourVideo                Unable to extract OpenGraph title
+TwentyFourVideo                Unable to download webpage: HTTP Error 404: 404 Not Found
 Twitter                        Unsupported extractor: TwitterCard
 TwitterAmplify                 No suitable format found
 UFCTV                          Unable to download webpage: HTTP Error 404: 404 Not Found
@@ -105,8 +105,8 @@ UKTVPlay                       Unsupported extractor: BrightcoveNew
 Vidbit                         Unable to extract video URL
 VideofyMe                      Unable to download webpage: HTTP Error 404: 404 Not Found
 VoiceRepublic                  Unable to extract player
-Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.211:80: i/o timeout
-Walla                          Get http://video2.walla.co.il/?w=null%2Fnull%2F2642630%2F%40%40%2Fvideo%2Fflv_pl: read tcp 74.206.165.158:39258->192.118.82.188:80: read: connection reset by peer
+Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.212:80: i/o timeout
+Walla                          Get http://video2.walla.co.il/?w=null%2Fnull%2F2642630%2F%40%40%2Fvideo%2Fflv_pl: read tcp 74.206.165.158:53374->192.118.82.188:80: read: connection reset by peer
 WashingtonPostArticle          Unsupported result type: playlist
 WeiqiTV                        Unable to extract info json str
 Wistia                         Error while getting the playlist

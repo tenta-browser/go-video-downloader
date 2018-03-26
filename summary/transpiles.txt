@@ -80,6 +80,7 @@ LCIIE
 LRTIE
 LearnrIE
 LemondeIE
+LentaIE
 LineTVIE
 LivestreamShortenerIE
 LocalNews8IE

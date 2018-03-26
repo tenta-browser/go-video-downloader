@@ -441,11 +441,30 @@ func (ie *CommonIE) DownloadXML(url, videoID string, note, errNote OptString,
 	transformSource func(string) string, fatal bool, encoding OptString, data []byte,
 	headers, query SDict) XMLElement {
 
-	xmlString := ie.DownloadWebpageURL(url, videoID, note, errNote, fatal, 1, 5, encoding, data, headers, query)
+	// TODO handle return False
+	res := ie.DownloadXMLHandle(url, videoID, note, errNote, transformSource, fatal, encoding, data, headers, query)
+	return res.Φ0
+}
 
-	// TODO some fatal handling
+// DownloadXMLHandleResponse is tuple returned by the DownloadXMLHandle* functions
+// consisting of the resulting XML tree and the HTTP response object
+type DownloadXMLHandleResponse = struct {
+	Φ0 XMLElement
+	Φ1 Response
+}
 
-	return ie.ParseXML(xmlString, videoID, transformSource, fatal)
+// DownloadXMLHandle implements common.py/_download_xml_handle
+func (ie *CommonIE) DownloadXMLHandle(url, videoID string, note, errNote OptString,
+	transformSource func(string) string, fatal bool, encoding OptString, data []byte,
+	headers, query SDict) DownloadXMLHandleResponse {
+
+	// TODO handle return False
+	res := ie.DownloadWebpageHandleURL(url, videoID, note, errNote, fatal, encoding, data, headers, query)
+
+	xmlString := res.Φ0
+	urlh := res.Φ1
+
+	return DownloadXMLHandleResponse{ie.ParseXML(xmlString, videoID, transformSource, fatal), urlh}
 }
 
 // URLResult implements common.py/url_result

@@ -21,6 +21,7 @@ Supported sites
  * Dumpert: `www.dumpert.nl`
  * EbaumsWorld: `www.ebaumsworld.com`
  * EchoMsk: `www.echo.msk.ru`
+ * Fczenit: `fc-zenit.ru`
  * FiveTV: `5-tv.ru`
  * GodTube: `www.godtube.com`
  * Hark: `www.hark.com`
