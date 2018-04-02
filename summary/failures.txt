@@ -97,8 +97,8 @@ TheScene                       Unsupported extractor: CondeNast
 TheStar                        Unable to extract brightcove id
 ThisOldHouse                   Unsupported extractor: JWPlatform
 TrailerAddict                  Unable to extract video id
-TwentyFourVideo                Unable to extract OpenGraph title
-Twitter                        Unable to extract OpenGraph title
+TwentyFourVideo                Unable to download webpage: HTTP Error 404: 404 Not Found
+Twitter                        Unsupported extractor: TwitterCard
 TwitterAmplify                 No suitable format found
 UFCTV                          Unable to download webpage: HTTP Error 404: 404 Not Found
 UKTVPlay                       Unsupported extractor: BrightcoveNew
@@ -106,11 +106,12 @@ Vidbit                         Unable to extract video URL
 VideofyMe                      Unable to download webpage: HTTP Error 404: 404 Not Found
 VoiceRepublic                  Unable to extract player
 Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.214:80: i/o timeout
-Walla                          Get http://video2.walla.co.il/?w=null%2Fnull%2F2642630%2F%40%40%2Fvideo%2Fflv_pl: read tcp 74.206.165.158:54972->192.118.82.188:80: read: connection reset by peer
+Walla                          Get http://video2.walla.co.il/?w=null%2Fnull%2F2642630%2F%40%40%2Fvideo%2Fflv_pl: read tcp 74.206.165.158:46330->192.118.82.188:80: read: connection reset by peer
 WashingtonPostArticle          Unsupported result type: playlist
 WeiqiTV                        Unable to extract info json str
 Wistia                         Error while getting the playlist
 Wrzuta                         [aq4hIZWrkBu] Failed to parse JSON
-XBef                           Get http://fvplayer.com/b/aHR0cCUzYSUyZiUyZmNkbmhkMm5ldy5ueGd4LmNvbSUyZnZpZGVvcyUyZjYwMTUubXA0JjUxMTkmNTExOSUyZjEuanBnJjEw: dial tcp 192.96.205.240:80: getsockopt: no route to host
+XBef                           Get http://fvplayer.com/b/aHR0cCUzYSUyZiUyZmNkbmhkMW5ldy5ueGd4LmNvbSUyZnZpZGVvcyUyZjYwMTUubXA0JjUxMTkmNTExOSUyZjEuanBnJjEw: dial tcp 192.96.205.240:80: getsockopt: no route to host
+YinYueTai                      Unable to download webpage: HTTP Error 404: 404 Not Found
 YoutubeTruncatedID             Incomplete YouTube ID N_708QY7Ob. URL https://www.youtube.com/watch?v=N_708QY7Ob looks truncated.
 YoutubeTruncatedURL            Did you forget to quote the URL? Remember that & is a meta character in most shells, so you want to put the URL in quotes, like  youtube-dl "https://www.youtube.com/watch?feature=foo&v=BaW_jenozKc"  or simply  youtube-dl BaW_jenozKc  .

@@ -88,6 +88,5 @@ Supported sites
  * XTube _(adult)_: `www.xtube.com`
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
- * YinYueTai: `v.yinyuetai.com`
  * YouPorn _(adult)_: `www.youporn.com`
  * YourUpload: `yourupload.com`

@@ -85,7 +85,10 @@ func (self *XVideosIE) _real_extract(url string) rnt.SDict {
 			return (self).OgSearchTitle(webpage, rnt.NoDefault, true)
 		}
 	}()
-	thumbnail = (self).SearchRegexOne("url_bigthumb=(.+?)&amp", webpage, "thumbnail", rnt.NoDefault, false, 0, nil)
+	thumbnail = (self).SearchRegexMulti(τ_conv_Tssω_to_Ls(τ_Tssω{
+		Φ0: "setThumbUrl\\(\\s*([\"\\'])(?P<thumbnail>(?:(?!\\1).)+)\\1",
+		Φ1: "url_bigthumb=(?P<thumbnail>.+?)&amp",
+	}), webpage, "thumbnail", rnt.NoDefault, false, 0, "thumbnail")
 	duration = func() interface{} {
 		if v := (rnt.IntOrNone((self).OgSearchPropertyOne("duration", webpage, rnt.OptString{}, nil, true), 1, rnt.OptInt{}, 1)); τ_isTruthy_Oi(v) {
 			return v
