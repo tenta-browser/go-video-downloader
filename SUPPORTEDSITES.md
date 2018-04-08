@@ -18,6 +18,7 @@ Supported sites
  * CrooksAndLiars: `embed.crooksandliars.com`
  * Digiteka: `www.ultimedia.com`
  * Dotsub: `dotsub.com`
+ * DrTuber _(adult)_: `www.drtuber.com`
  * Dumpert: `www.dumpert.nl`
  * EbaumsWorld: `www.ebaumsworld.com`
  * EchoMsk: `www.echo.msk.ru`
@@ -35,7 +36,6 @@ Supported sites
  * KrasView: `krasview.ru`
  * LRT: `www.lrt.lt`
  * Lemonde: `www.lemonde.fr`
- * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * MacGameStore: `www.macgamestore.com`
  * MailRu: `my.mail.ru`
  * Megaphone: `player.megaphone.fm`
@@ -88,5 +88,6 @@ Supported sites
  * XTube _(adult)_: `www.xtube.com`
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
+ * YinYueTai: `v.yinyuetai.com`
  * YouPorn _(adult)_: `www.youporn.com`
  * YourUpload: `yourupload.com`

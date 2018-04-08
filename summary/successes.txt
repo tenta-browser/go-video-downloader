@@ -15,6 +15,7 @@ Criterion                      safe  http://www.criterion.com/films/184-le-samou
 CrooksAndLiars                 safe  https://embed.crooksandliars.com/embed/8RUoRhRi
 Digiteka                       safe  https://www.ultimedia.com/default/index/videogeneric/id/s8uk0r
 Dotsub                         safe  https://dotsub.com/view/9c63db2a-fa95-4838-8e6e-13deafe47f09
+DrTuber                        adult http://www.drtuber.com/video/1740434/hot-perky-blonde-naked-golf
 Dumpert                        safe  http://www.dumpert.nl/mediabase/6646981/951bc60f/
 EbaumsWorld                    safe  http://www.ebaumsworld.com/videos/a-giant-python-opens-the-door/83367677/
 EchoMsk                        safe  http://www.echo.msk.ru/sounds/1464134.html
@@ -32,7 +33,6 @@ Joj                            safe  https://media.joj.sk/embed/a388ec4c-6019-4a
 KrasView                       safe  http://krasview.ru/video/512228
 LRT                            safe  http://www.lrt.lt/mediateka/irasas/54391/
 Lemonde                        safe  http://www.lemonde.fr/police-justice/video/2016/01/19/comprendre-l-affaire-bygmalion-en-cinq-minutes_4849702_1653578.html
-LoveHomePorn                   adult http://lovehomeporn.com/video/48483/stunning-busty-brunette-girlfriend-sucking-and-riding-a-big-dick#menu
 MacGameStore                   safe  http://www.macgamestore.com/mediaviewer.php?trailer=2450
 MailRu                         safe  http://my.mail.ru/corp/hitech/video/news_hi-tech_mail_ru/1263.html
 Megaphone                      safe  https://player.megaphone.fm/GLT9749789991?"
@@ -85,5 +85,6 @@ XNXX                           adult http://www.xnxx.com/video-55awb78/skyrim_te
 XTube                          adult http://www.xtube.com/watch.php?v=kVTUy_G222_
 XVideos                        adult http://www.xvideos.com/video4588838/biker_takes_his_girl
 XXXYMovies                     adult http://xxxymovies.com/videos/138669/ecstatic-orgasm-sofcore/
+YinYueTai                      safe  http://v.yinyuetai.com/video/2322376
 YouPorn                        adult http://www.youporn.com/watch/505835/sex-ed-is-it-safe-to-masturbate-daily/
 YourUpload                     safe  http://yourupload.com/watch/14i14h

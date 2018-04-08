@@ -42,11 +42,6 @@ type τ_TOssω struct {
 	Φ1 string
 }
 
-type τ_TTssωTssωω struct {
-	Φ0 τ_Tssω
-	Φ1 τ_Tssω
-}
-
 type τ_TiTssωω struct {
 	Φ0 int
 	Φ1 τ_Tssω
@@ -60,6 +55,14 @@ type τ_Tisω struct {
 type τ_Tiαω struct {
 	Φ0 int
 	Φ1 interface{}
+}
+
+type τ_Tsssssω struct {
+	Φ0 string
+	Φ1 string
+	Φ2 string
+	Φ3 string
+	Φ4 string
 }
 
 type τ_Tssssω struct {
@@ -223,8 +226,8 @@ func τ_conv_T00ω_to_TOsOsω(src τ_T00ω) τ_TOsOsω {
 	}
 }
 
-func τ_conv_TTssωTssωω_to_LTssω(tuple τ_TTssωTssωω) []τ_Tssω {
-	return []τ_Tssω{tuple.Φ0, tuple.Φ1}
+func τ_conv_Tsssssω_to_Ls(tuple τ_Tsssssω) []string {
+	return []string{tuple.Φ0, tuple.Φ1, tuple.Φ2, tuple.Φ3, tuple.Φ4}
 }
 
 func τ_conv_Tssssω_to_Ls(tuple τ_Tssssω) []string {
