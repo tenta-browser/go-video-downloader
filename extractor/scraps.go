@@ -42,6 +42,11 @@ type τ_TOssω struct {
 	Φ1 string
 }
 
+type τ_TTssωTssωω struct {
+	Φ0 τ_Tssω
+	Φ1 τ_Tssω
+}
+
 type τ_TiTssωω struct {
 	Φ0 int
 	Φ1 τ_Tssω
@@ -224,6 +229,10 @@ func τ_conv_T00ω_to_TOsOsω(src τ_T00ω) τ_TOsOsω {
 		Φ0: τ_sink_Os(src.Φ0),
 		Φ1: τ_sink_Os(src.Φ1),
 	}
+}
+
+func τ_conv_TTssωTssωω_to_LTssω(tuple τ_TTssωTssωω) []τ_Tssω {
+	return []τ_Tssω{tuple.Φ0, tuple.Φ1}
 }
 
 func τ_conv_Tsssssω_to_Ls(tuple τ_Tsssssω) []string {

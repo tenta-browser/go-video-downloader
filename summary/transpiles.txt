@@ -115,6 +115,7 @@ OdaTVIE
 ParliamentLiveUKIE
 PatreonIE
 PeopleIE
+PicartoVodIE
 PikselIE
 PinkbikeIE
 PlayFMIE

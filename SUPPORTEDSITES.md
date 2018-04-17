@@ -35,7 +35,7 @@ Supported sites
  * Joj: `media.joj.sk`
  * KrasView: `krasview.ru`
  * LRT: `www.lrt.lt`
- * Lemonde: `www.lemonde.fr`
+ * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * MacGameStore: `www.macgamestore.com`
  * MailRu: `my.mail.ru`
  * Megaphone: `player.megaphone.fm`

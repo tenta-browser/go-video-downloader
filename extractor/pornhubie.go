@@ -42,7 +42,7 @@ func NewPornHubIE() rnt.InfoExtractor {
 	self.CommonIE = rnt.NewCommonIE()
 	IE_NAME = "PornHub"
 	IE_DESC = "PornHub and Thumbzilla"
-	_VALID_URL = "(?x)\n                    https?://\n                        (?:\n                            (?:[a-z]+\\.)?pornhub\\.com/(?:(?:view_video\\.php|video/show)\\?viewkey=|embed/)|\n                            (?:www\\.)?thumbzilla\\.com/video/\n                        )\n                        (?P<id>[\\da-z]+)\n                    "
+	_VALID_URL = "(?x)\n                    https?://\n                        (?:\n                            (?:[^/]+\\.)?pornhub\\.com/(?:(?:view_video\\.php|video/show)\\?viewkey=|embed/)|\n                            (?:www\\.)?thumbzilla\\.com/video/\n                        )\n                        (?P<id>[\\da-z]+)\n                    "
 	self.IE_DESC = IE_DESC
 	self.IE_NAME = IE_NAME
 	self.VALIDURL = _VALID_URL
