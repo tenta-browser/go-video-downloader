@@ -122,6 +122,7 @@ PlayFMIE
 PodomaticIE
 PornHdIE
 PornHubIE
+RENTVIE
 RTBFIE
 RUHDIE
 RadioBremenIE

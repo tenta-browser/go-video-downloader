@@ -13,7 +13,7 @@ BleacherReport                 Check failed for: ooyala:t2ZHVudTrYhBYj_TQfIi-VTc
 CJSW                           Unable to extract audio url
 CSNNE                          Unsupported extractor: ThePlatform
 CamWithHer                     Unable to extract video id
-CarambaTV                      Unable to download webpage: HTTP Error 404: 404 Not Found
+CarambaTV                      [191910501] Failed to parse JSON
 ComCarCoff                     Unable to extract full data json
 ComedyCentralShortname         parse :tds: missing protocol scheme
 DBTV                           Unsupported extractor: BrightcoveNew
@@ -45,7 +45,6 @@ KontrTube                      Unable to extract video URL
 Ku6                            Unable to download webpage: HTTP Error 404: 404 Not Found
 LCI                            Unsupported extractor: Wat
 Learnr                         Unable to extract youtube id
-Lemonde                        Unable to download webpage: HTTP Error 404: 404 Not Found
 Lenta                          Unsupported extractor: EaglePlatform
 LineTV                         Unable to extract player parameters
 LocalNews8                     Unable to extract partner id
@@ -98,7 +97,7 @@ TheScene                       Unsupported extractor: CondeNast
 TheStar                        Unable to extract brightcove id
 ThisOldHouse                   Unsupported extractor: JWPlatform
 TrailerAddict                  Unable to extract video id
-TwentyFourVideo                Unable to download webpage: HTTP Error 404: 404 Not Found
+TwentyFourVideo                Unable to extract OpenGraph title
 Twitter                        Unsupported extractor: TwitterCard
 TwitterAmplify                 No suitable format found
 UFCTV                          Unable to download webpage: HTTP Error 404: 404 Not Found
@@ -106,10 +105,11 @@ UKTVPlay                       Unsupported extractor: BrightcoveNew
 Vidbit                         Unable to extract video URL
 VideofyMe                      Unable to download webpage: HTTP Error 404: 404 Not Found
 VoiceRepublic                  Unable to extract player
-Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.213:80: i/o timeout
-Walla                          Get http://video2.walla.co.il/?w=null%2Fnull%2F2642630%2F%40%40%2Fvideo%2Fflv_pl: read tcp 74.206.165.158:36384->192.118.82.188:80: read: connection reset by peer
+Vporn                          Unable to download webpage: HTTP Error 404: 404 Not Found
+Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.179:80: i/o timeout
+Walla                          Get http://video2.walla.co.il/?w=null%2Fnull%2F2642630%2F%40%40%2Fvideo%2Fflv_pl: read tcp 74.206.165.158:35526->192.118.82.188:80: read: connection reset by peer
 WashingtonPostArticle          Unsupported result type: playlist
-WeiqiTV                        Unable to extract info json str
+WeiqiTV                        Get http://www.weiqitv.com/index/video_play?videoId=53c744f09874f0e76a8b46f3: dial tcp 123.59.61.26:80: i/o timeout
 Wistia                         Error while getting the playlist
 Wrzuta                         [aq4hIZWrkBu] Failed to parse JSON
 XBef                           Get http://fvplayer.com/b/aHR0cCUzYSUyZiUyZmNkbmhkMW5ldy5ueGd4LmNvbSUyZnZpZGVvcyUyZjYwMTUubXA0JjUxMTkmNTExOSUyZjEuanBnJjEw: dial tcp 192.96.205.240:80: getsockopt: no route to host

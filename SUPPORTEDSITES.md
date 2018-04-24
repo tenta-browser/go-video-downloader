@@ -35,6 +35,7 @@ Supported sites
  * Joj: `media.joj.sk`
  * KrasView: `krasview.ru`
  * LRT: `www.lrt.lt`
+ * Lemonde: `www.lemonde.fr`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * MacGameStore: `www.macgamestore.com`
  * MailRu: `my.mail.ru`
@@ -52,6 +53,7 @@ Supported sites
  * Podomatic: `scienceteachingtips.podomatic.com`
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
+ * RENTV: `ren.tv`
  * RTBF: `www.rtbf.be`
  * RadioJavan: `www.radiojavan.com`
  * RedTube _(adult)_: `www.redtube.com`
@@ -79,7 +81,6 @@ Supported sites
  * UstudioEmbed: `app.ustudio.com`
  * VideosZ _(adult)_: `www.videosz.com`
  * Vidio: `www.vidio.com`
- * Vporn _(adult)_: `www.vporn.com`
  * WDRMobile: `mobile-ondemand.wdr.de`
  * WeiboMobile: `m.weibo.cn`
  * XHamster _(adult)_: `xhamster.com`
