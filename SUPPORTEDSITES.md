@@ -30,7 +30,6 @@ Supported sites
  * HistoricFilms: `www.historicfilms.com`
  * HitRecord: `hitrecord.org`
  * Hitbox: `www.hitbox.tv`
- * Huajiao: `www.huajiao.com`
  * Ir90Tv: `90tv.ir`
  * Joj: `media.joj.sk`
  * KrasView: `krasview.ru`
@@ -41,7 +40,6 @@ Supported sites
  * MailRu: `my.mail.ru`
  * Megaphone: `player.megaphone.fm`
  * Mojvideo: `www.mojvideo.com`
- * Morningstar: `www.morningstar.com`
  * MovingImage: `movingimage.nls.uk`
  * NDTV: `khabar.ndtv.com`
  * NTVRu: `www.ntv.ru`
