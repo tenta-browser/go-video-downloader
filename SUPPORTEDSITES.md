@@ -14,7 +14,6 @@ Supported sites
  * Chirbit: `chirb.it`
  * Clubic: `www.clubic.com`
  * Clyp: `clyp.it`
- * Criterion: `www.criterion.com`
  * CrooksAndLiars: `embed.crooksandliars.com`
  * Digiteka: `www.ultimedia.com`
  * Dotsub: `dotsub.com`

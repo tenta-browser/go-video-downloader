@@ -13,9 +13,10 @@ BleacherReport                 Check failed for: ooyala:t2ZHVudTrYhBYj_TQfIi-VTc
 CJSW                           Unable to extract audio url
 CSNNE                          Unsupported extractor: ThePlatform
 CamWithHer                     Unable to extract video id
-CarambaTV                      [191910501] Failed to parse JSON
+CarambaTV                      Unable to download webpage: HTTP Error 404: 404 Not Found
 ComCarCoff                     Unable to extract full data json
 ComedyCentralShortname         parse :tds: missing protocol scheme
+Criterion                      Unable to extract video url
 DBTV                           Unsupported extractor: BrightcoveNew
 DaumClip                       [52554690] Failed to parse JSON
 DefenseGouvFr                  Unable to extract ID
@@ -99,7 +100,7 @@ TheScene                       Unsupported extractor: CondeNast
 TheStar                        Unable to extract brightcove id
 ThisOldHouse                   Unsupported extractor: JWPlatform
 TrailerAddict                  Unable to extract video id
-TwentyFourVideo                Unable to extract OpenGraph title
+TwentyFourVideo                Unable to download webpage: HTTP Error 404: 404 Not Found
 Twitter                        Unsupported extractor: TwitterCard
 TwitterAmplify                 No suitable format found
 UFCTV                          Unable to download webpage: HTTP Error 404: 404 Not Found
@@ -108,8 +109,8 @@ Vidbit                         Unable to extract video URL
 VideofyMe                      Unable to download webpage: HTTP Error 404: 404 Not Found
 VoiceRepublic                  Unable to extract player
 Vporn                          Unable to download webpage: HTTP Error 404: 404 Not Found
-Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.211:80: i/o timeout
-Walla                          Get http://video2.walla.co.il/?w=null%2Fnull%2F2642630%2F%40%40%2Fvideo%2Fflv_pl: read tcp 74.206.165.158:50428->192.118.82.188:80: read: connection reset by peer
+Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.214:80: i/o timeout
+Walla                          Get http://video2.walla.co.il/?w=null%2Fnull%2F2642630%2F%40%40%2Fvideo%2Fflv_pl: read tcp 74.206.165.158:57208->192.118.82.188:80: read: connection reset by peer
 WashingtonPostArticle          Unsupported result type: playlist
 WeiqiTV                        Unable to extract info json str
 Wistia                         Error while getting the playlist
