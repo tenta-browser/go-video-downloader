@@ -166,6 +166,7 @@ TassIE
 TeacherTubeIE
 TeleMBIE
 TelewebionIE
+TentaIE
 TheSceneIE
 TheStarIE
 ThisAmericanLifeIE
@@ -175,7 +176,6 @@ TrailerAddictIE
 TumblrIE
 TwentyFourVideoIE
 TwentyMinutenIE
-TwitchClipsIE
 TwitterAmplifyIE
 TwitterIE
 UFCTVIE

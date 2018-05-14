@@ -69,11 +69,11 @@ Supported sites
  * Tass: `tass.ru`
  * TeacherTube: `www.teachertube.com`
  * TeleMB: `www.telemb.be`
+ * Tenta: `tenta.com`
  * ThisAmericanLife: `www.thisamericanlife.org`
  * TinyPic: `tinypic.com`
  * Tumblr: `tatianamaslanydaily.tumblr.com`
  * TwentyMinuten: `www.20min.ch`
- * TwitchClips: `clips.twitch.tv`
  * Unistra: `utv.unistra.fr`
  * UstudioEmbed: `app.ustudio.com`
  * VideosZ _(adult)_: `www.videosz.com`
