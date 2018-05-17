@@ -91,7 +91,6 @@ MTV81IE
 MacGameStoreIE
 MailRuIE
 MakerTVIE
-MakersChannelIE
 ManyVidsIE
 MegaphoneIE
 MelonVODIE
@@ -100,6 +99,7 @@ MorningstarIE
 MotorsportIE
 MoviezineIE
 MovingImageIE
+MyChannelsIE
 MyVidsterIE
 NBCSportsVPlayerIE
 NDTVIE
