@@ -71,7 +71,6 @@ Supported sites
  * TeleMB: `www.telemb.be`
  * Tenta: `tenta.com`
  * ThisAmericanLife: `www.thisamericanlife.org`
- * TinyPic: `tinypic.com`
  * Tumblr: `tatianamaslanydaily.tumblr.com`
  * TwentyMinuten: `www.20min.ch`
  * Unistra: `utv.unistra.fr`

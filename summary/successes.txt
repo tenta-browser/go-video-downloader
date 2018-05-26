@@ -68,7 +68,6 @@ TeacherTube                    safe  http://www.teachertube.com/viewVideo.php?vi
 TeleMB                         safe  http://www.telemb.be/mons-cook-with-danielle-des-cours-de-cuisine-en-anglais-_d_13466.html
 Tenta                          safe  https://tenta.com/how-to-download-videos
 ThisAmericanLife               safe  http://www.thisamericanlife.org/radio-archives/episode/487/harper-high-school-part-one
-TinyPic                        safe  http://tinypic.com/player.php?v=6xw7tc%3E&s=5#.UtqZmbRFCM8
 Tumblr                         safe  http://tatianamaslanydaily.tumblr.com/post/54196191430/orphan-black-dvd-extra-behind-the-scenes
 TwentyMinuten                  safe  http://www.20min.ch/videotv/?vid=469148&cid=2
 Unistra                        safe  http://utv.unistra.fr/video.php?id_video=154
