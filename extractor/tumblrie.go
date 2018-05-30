@@ -28,19 +28,27 @@ import (
 
 type TumblrIE struct {
 	*rnt.CommonIE
-	IE_NAME string
+	IE_NAME        string
+	_LOGIN_URL     string
+	_NETRC_MACHINE string
 }
 
 func NewTumblrIE() rnt.InfoExtractor {
 	var (
-		IE_NAME    string
-		_VALID_URL string
+		IE_NAME        string
+		_LOGIN_URL     string
+		_NETRC_MACHINE string
+		_VALID_URL     string
 	)
 	self := &TumblrIE{}
 	self.CommonIE = rnt.NewCommonIE()
 	IE_NAME = "Tumblr"
 	_VALID_URL = "https?://(?P<blog_name>[^/?#&]+)\\.tumblr\\.com/(?:post|video)/(?P<id>[0-9]+)(?:$|[/?#])"
+	_NETRC_MACHINE = "tumblr"
+	_LOGIN_URL = "https://www.tumblr.com/login"
 	self.IE_NAME = IE_NAME
+	self._LOGIN_URL = _LOGIN_URL
+	self._NETRC_MACHINE = _NETRC_MACHINE
 	self.VALIDURL = _VALID_URL
 	return self
 }
@@ -55,21 +63,22 @@ func (self *TumblrIE) Name() string {
 
 func (self *TumblrIE) _real_extract(url string) rnt.SDict {
 	var (
-		blog        rnt.OptString
-		duration    rnt.OptInt
-		formats     []rnt.SDict
-		hd_url      interface{}
-		iframe      string
-		iframe_url  rnt.OptString
-		m_url       rnt.Match
-		options     interface{}
-		sd_url      rnt.OptString
-		sources     []interface{}
-		urlh        rnt.Response
-		video_id    rnt.OptString
-		video_title rnt.OptString
-		webpage     string
-		τmp1        τ_TsζResponseωω
+		blog         rnt.OptString
+		duration     rnt.OptInt
+		formats      []rnt.SDict
+		hd_url       interface{}
+		iframe       string
+		iframe_url   rnt.OptString
+		m_url        rnt.Match
+		options      interface{}
+		redirect_url string
+		sd_url       rnt.OptString
+		sources      []interface{}
+		urlh         rnt.Response
+		video_id     rnt.OptString
+		video_title  rnt.OptString
+		webpage      string
+		τmp1         τ_TsζResponseωω
 	)
 	m_url = rnt.ReMatch((self).VALIDURL, url, 0)
 	video_id = rnt.ReMatchGroupOne(m_url, "id")
@@ -78,9 +87,13 @@ func (self *TumblrIE) _real_extract(url string) rnt.SDict {
 	τmp1 = (self).DownloadWebpageHandleURL(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
 	webpage = (τmp1).Φ0
 	urlh = (τmp1).Φ1
+	redirect_url = rnt.ConvertToString(rnt.ResponseGetURL(urlh))
+	if (rnt.StrContains(redirect_url, "tumblr.com/safe-mode") || rnt.StrStartswith(redirect_url, "/safe-mode", rnt.OptInt{}, rnt.OptInt{})) {
+		panic(rnt.PyExtractorError("This Tumblr may contain sensitive media. Disable safe mode in your account settings at https://www.tumblr.com/settings/account#safe_mode", true, rnt.OptString{}))
+	}
 	iframe_url = (self).SearchRegexOne("src=\\'(https?://www\\.tumblr\\.com/video/[^\\']+)\\'", webpage, "iframe url", nil, true, 0, nil)
 	if !iframe_url.IsSet() {
-		return (self).URLResult(rnt.ResponseGetURL(urlh), rnt.AsOptString("Generic"), rnt.OptString{}, rnt.OptString{})
+		return (self).URLResult(redirect_url, rnt.AsOptString("Generic"), rnt.OptString{}, rnt.OptString{})
 	}
 	iframe = (self).DownloadWebpageURL(iframe_url.Get(), video_id.Get(), rnt.AsOptString("Downloading iframe page"), rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
 	duration = rnt.OptInt{}

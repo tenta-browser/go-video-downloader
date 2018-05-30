@@ -1,5 +1,6 @@
 ABCOTVSClipsIE
 ABCOTVSIE
+APAIE
 ATTTechChannelIE
 ATVAtIE
 AcademicEarthCourseIE
@@ -108,7 +109,6 @@ NTVDeIE
 NTVRuIE
 NextMediaActionNewsIE
 NextMediaIE
-NineCNineMediaIE
 NuvidIE
 OdaTVIE
 ParliamentLiveUKIE

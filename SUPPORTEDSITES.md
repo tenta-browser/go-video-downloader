@@ -31,7 +31,6 @@ Supported sites
  * Hitbox: `www.hitbox.tv`
  * Ir90Tv: `90tv.ir`
  * Joj: `media.joj.sk`
- * KrasView: `krasview.ru`
  * LRT: `www.lrt.lt`
  * Lemonde: `www.lemonde.fr`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
@@ -71,6 +70,7 @@ Supported sites
  * TeleMB: `www.telemb.be`
  * Tenta: `tenta.com`
  * ThisAmericanLife: `www.thisamericanlife.org`
+ * TinyPic: `tinypic.com`
  * Tumblr: `tatianamaslanydaily.tumblr.com`
  * TwentyMinuten: `www.20min.ch`
  * Unistra: `utv.unistra.fr`
