@@ -14,14 +14,14 @@ BleacherReport                 Check failed for: ooyala:t2ZHVudTrYhBYj_TQfIi-VTc
 CJSW                           Unable to extract audio url
 CSNNE                          Unsupported extractor: ThePlatform
 CamWithHer                     Unable to extract video id
-CarambaTV                      Unable to download webpage: HTTP Error 403: 403 Forbidden
+CarambaTV                      Unable to download webpage: HTTP Error 404: 404 Not Found
 ComCarCoff                     Unable to extract full data json
 ComedyCentralShortname         parse :tds: missing protocol scheme
 Criterion                      Unable to extract video url
 DBTV                           Unsupported extractor: BrightcoveNew
 DaumClip                       [52554690] Failed to parse JSON
 DefenseGouvFr                  Unable to extract ID
-Digg                           Unsupported extractor: JWPlatform
+Digg                           Unable to download webpage: HTTP Error 500: 500 Internal Server Error
 EHow                           Unable to extract video URL
 Embedly                        Check failed for: https://www.youtube.com/watch?v=SU4fj_aEMVw&list=UUGLim4T2loE5rwCMdpCIPVg
 Engadget                       Check failed for: aol-video:518153925
@@ -52,7 +52,7 @@ Lenta                          Unsupported extractor: EaglePlatform
 LineTV                         Unable to extract player parameters
 LocalNews8                     Unable to extract partner id
 M6                             Unsupported extractor: SixPlay
-MIT                            Check failed for: https://accounts.google.com/ServiceLogin?hl=en&amp;continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Fapp%3Ddesktop%26action_handle_signin%3Dtrue%26hl%3Den%26next%3D%252Fsignin_passive%26feature%3Dpassive&amp;passive=true&amp;service=youtube&amp;uilel=3
+MIT                            Unable to extract embed url
 MTV81                          Check failed for: http://media.mtvnservices.com/embed/mgid:uma:video:mtv81.com:1105285
 MakerTV                        Unable to download webpage: HTTP Error 400: 400 Bad Request
 ManyVids                       Unable to extract title
@@ -110,7 +110,7 @@ Vidbit                         Unable to extract video URL
 VideofyMe                      Unable to download webpage: HTTP Error 404: 404 Not Found
 VoiceRepublic                  Unable to extract player
 Vporn                          Unable to download webpage: HTTP Error 404: 404 Not Found
-Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.214:80: i/o timeout
+Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.211:80: i/o timeout
 Walla                          Get http://video2.walla.co.il/?w=null%2Fnull%2F2642630%2F%40%40%2Fvideo%2Fflv_pl: dial tcp 192.118.82.188:80: i/o timeout
 WashingtonPostArticle          Unsupported result type: playlist
 WeiqiTV                        Unable to extract info json str
