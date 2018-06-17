@@ -50,7 +50,6 @@ Supported sites
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * RENTV: `ren.tv`
- * RTBF: `www.rtbf.be`
  * RadioJavan: `www.radiojavan.com`
  * RedTube _(adult)_: `www.redtube.com`
  * RockstarGames: `www.rockstargames.com`

@@ -122,7 +122,6 @@ PodomaticIE
 PornHdIE
 PornHubIE
 RENTVIE
-RTBFIE
 RUHDIE
 RadioBremenIE
 RadioCanadaAudioVideoIE
