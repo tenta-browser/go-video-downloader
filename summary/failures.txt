@@ -14,7 +14,7 @@ BleacherReport                 Check failed for: ooyala:t2ZHVudTrYhBYj_TQfIi-VTc
 CJSW                           Unable to extract audio url
 CSNNE                          Unsupported extractor: ThePlatform
 CamWithHer                     Unable to extract video id
-CarambaTV                      Unable to download webpage: HTTP Error 404: 404 Not Found
+CarambaTV                      Unable to download webpage: HTTP Error 403: 403 Forbidden
 ComCarCoff                     Unable to extract full data json
 ComedyCentralShortname         parse :tds: missing protocol scheme
 Criterion                      Unable to extract video url
@@ -44,7 +44,6 @@ Karaoketv                      Unable to extract API play URL
 Keek                           Get https://www.keek.com/keek/NODfbab: x509: certificate is valid for *.gridserver.com, gridserver.com, not www.keek.com
 KhanAcademy                    Check failed for: http://www.youtube.com/watch?v=FlIG3TvQCBQ&feature=youtube_gdata_player
 KontrTube                      Unable to extract video URL
-KrasView                       Get http://krasview.ru/video/512228: dial tcp 5.159.96.200:80: i/o timeout
 Ku6                            Unable to download webpage: HTTP Error 404: 404 Not Found
 LCI                            Unable to extract wat id
 Learnr                         Unable to extract youtube id
@@ -52,7 +51,7 @@ Lenta                          Unsupported extractor: EaglePlatform
 LineTV                         Unable to extract player parameters
 LocalNews8                     Unable to extract partner id
 M6                             Unsupported extractor: SixPlay
-MIT                            Check failed for: https://accounts.google.com/ServiceLogin?uilel=3&amp;passive=true&amp;service=youtube&amp;continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26next%3D%252Fsignin_passive%26app%3Ddesktop%26feature%3Dpassive%26hl%3Den&amp;hl=en
+MIT                            Check failed for: https://accounts.google.com/ServiceLogin?passive=true&amp;continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Fapp%3Ddesktop%26feature%3Dpassive%26next%3D%252Fsignin_passive%26hl%3Den%26action_handle_signin%3Dtrue&amp;hl=en&amp;uilel=3&amp;service=youtube
 MTV81                          Unable to extract mgid
 MakerTV                        Unable to download webpage: HTTP Error 400: 400 Bad Request
 ManyVids                       Unable to extract title
@@ -110,7 +109,7 @@ Vidbit                         Unable to extract video URL
 VideofyMe                      Unable to download webpage: HTTP Error 404: 404 Not Found
 VoiceRepublic                  Unable to extract player
 Vporn                          Unable to download webpage: HTTP Error 404: 404 Not Found
-Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.212:80: i/o timeout
+Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.214:80: i/o timeout
 Walla                          Get http://video2.walla.co.il/?w=null%2Fnull%2F2642630%2F%40%40%2Fvideo%2Fflv_pl: dial tcp 192.118.82.188:80: i/o timeout
 WashingtonPostArticle          Unsupported result type: playlist
 WeiqiTV                        Unable to extract info json str

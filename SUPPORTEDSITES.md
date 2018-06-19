@@ -31,6 +31,7 @@ Supported sites
  * Hitbox: `www.hitbox.tv`
  * Ir90Tv: `90tv.ir`
  * Joj: `media.joj.sk`
+ * KrasView: `krasview.ru`
  * LRT: `www.lrt.lt`
  * Lemonde: `www.lemonde.fr`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
