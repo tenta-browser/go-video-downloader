@@ -73,7 +73,6 @@ Supported sites
  * TinyPic: `tinypic.com`
  * Tumblr: `tatianamaslanydaily.tumblr.com`
  * TwentyMinuten: `www.20min.ch`
- * Unistra: `utv.unistra.fr`
  * UstudioEmbed: `app.ustudio.com`
  * VideosZ _(adult)_: `www.videosz.com`
  * Vidio: `www.vidio.com`

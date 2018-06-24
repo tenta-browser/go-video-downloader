@@ -39,7 +39,7 @@ func NewJojIE() rnt.InfoExtractor {
 	self := &JojIE{}
 	self.CommonIE = rnt.NewCommonIE()
 	IE_NAME = "Joj"
-	_VALID_URL = "(?x)\n                    (?:\n                        joj:|\n                        https?://media\\.joj\\.sk/embed/\n                    )\n                    (?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})\n                "
+	_VALID_URL = "(?x)\n                    (?:\n                        joj:|\n                        https?://media\\.joj\\.sk/embed/\n                    )\n                    (?P<id>[^/?#^]+)\n                "
 	self.IE_NAME = IE_NAME
 	self.VALIDURL = _VALID_URL
 	return self
