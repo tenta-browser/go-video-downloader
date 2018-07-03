@@ -1,3 +1,4 @@
+ABCOTVSClips                   Get https://clips.abcotvs.com/vogo/video/getByIds?ids=214814: dial tcp 68.71.208.125:443: connect: connection refused
 APA                            Unsupported extractor: JWPlatform
 ATVAt                          Unable to download webpage: HTTP Error 404: 404 Not Found
 AcademicEarthCourse            Unsupported result type: playlist
@@ -14,7 +15,7 @@ BleacherReport                 Check failed for: ooyala:t2ZHVudTrYhBYj_TQfIi-VTc
 CJSW                           Unable to extract audio url
 CSNNE                          Unsupported extractor: ThePlatform
 CamWithHer                     Unable to extract video id
-CarambaTV                      Unable to download webpage: HTTP Error 403: 403 Forbidden
+CarambaTV                      Unable to download webpage: HTTP Error 404: 404 Not Found
 ComCarCoff                     Unable to extract full data json
 ComedyCentralShortname         parse :tds: missing protocol scheme
 Criterion                      Unable to extract video url
@@ -51,7 +52,7 @@ Lenta                          Unsupported extractor: EaglePlatform
 LineTV                         Unable to extract player parameters
 LocalNews8                     Unable to extract partner id
 M6                             Unsupported extractor: SixPlay
-MIT                            Check failed for: https://accounts.google.com/ServiceLogin?uilel=3&amp;service=youtube&amp;passive=true&amp;continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26feature%3Dpassive%26next%3D%252Fsignin_passive%26hl%3Den&amp;hl=en
+MIT                            Check failed for: https://accounts.google.com/ServiceLogin?hl=en&amp;uilel=3&amp;service=youtube&amp;passive=true&amp;continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Fhl%3Den%26feature%3Dpassive%26app%3Ddesktop%26next%3D%252Fsignin_passive%26action_handle_signin%3Dtrue
 MTV81                          Unable to extract mgid
 MakerTV                        Unable to download webpage: HTTP Error 400: 400 Bad Request
 ManyVids                       Unable to extract title
@@ -84,6 +85,7 @@ SchoolTV                       Unsupported extractor: NPO
 Servus                         No suitable format found
 Sexu                           Unable to extract jwvideo
 SlidesLive                     Unsupported extractor: Youtube
+Slutload                       Unable to extract video URL
 Sport5                         Unable to download webpage: HTTP Error 404: 404 Not Found
 SportBoxEmbed                  Unable to extract wjplayer settings
 StretchInternet                Unable to download webpage: HTTP Error 404: 404 Not Found
@@ -105,17 +107,16 @@ Twitter                        Unsupported extractor: TwitterCard
 TwitterAmplify                 No suitable format found
 UFCTV                          Unable to download webpage: HTTP Error 404: 404 Not Found
 UKTVPlay                       Unsupported extractor: BrightcoveNew
-Unistra                        Get http://utv.unistra.fr/video.php?id_video=154: dial tcp 130.79.201.62:80: i/o timeout
 Vidbit                         Unable to extract video URL
 VideofyMe                      Unable to download webpage: HTTP Error 404: 404 Not Found
 VoiceRepublic                  Unable to extract player
 Vporn                          Unable to download webpage: HTTP Error 404: 404 Not Found
-Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.178:80: i/o timeout
+Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.211:80: i/o timeout
 Walla                          Get http://video2.walla.co.il/?w=null%2Fnull%2F2642630%2F%40%40%2Fvideo%2Fflv_pl: dial tcp 192.118.82.188:80: i/o timeout
 WashingtonPostArticle          Unsupported result type: playlist
-WeiqiTV                        Get http://www.weiqitv.com/index/video_play?videoId=53c744f09874f0e76a8b46f3: dial tcp 123.59.61.26:80: i/o timeout
+WeiqiTV                        Unable to extract info json str
 Wistia                         Error while getting the playlist
 Wrzuta                         [aq4hIZWrkBu] Failed to parse JSON
-XBef                           Get http://fvplayer.com/b/aHR0cCUzYSUyZiUyZmNkbmhkMW5ldy5ueGd4LmNvbSUyZnZpZGVvcyUyZjYwMTUubXA0JjUxMTkmNTExOSUyZjEuanBnJjEw: dial tcp 192.96.205.240:80: connect: no route to host
+XBef                           Get http://fvplayer.com/b/aHR0cCUzYSUyZiUyZmNkbmhkMm5ldy5ueGd4LmNvbSUyZnZpZGVvcyUyZjYwMTUubXA0JjUxMTkmNTExOSUyZjEuanBnJjEw: dial tcp 192.96.205.240:80: connect: no route to host
 YoutubeTruncatedID             Incomplete YouTube ID N_708QY7Ob. URL https://www.youtube.com/watch?v=N_708QY7Ob looks truncated.
 YoutubeTruncatedURL            Did you forget to quote the URL? Remember that & is a meta character in most shells, so you want to put the URL in quotes, like  youtube-dl "https://www.youtube.com/watch?feature=foo&v=BaW_jenozKc"  or simply  youtube-dl BaW_jenozKc  .

@@ -1,5 +1,4 @@
 ABCOTVS                        safe  http://abc7news.com/entertainment/east-bay-museum-celebrates-vintage-synthesizers/472581/
-ABCOTVSClips                   safe  https://clips.abcotvs.com/kabc/video/214814
 ATTTechChannel                 safe  http://techchannel.att.com/play-video.cfm/2014/1/27/ATT-Archives-The-UNIX-System-Making-Computers-Easier-to-Use
 AdobeTV                        safe  http://tv.adobe.com/watch/the-complete-picture-with-julieanne-kost/quick-tip-how-to-draw-a-circle-around-an-object-in-photoshop/
 AnySex                         adult http://anysex.com/156592/
@@ -53,7 +52,6 @@ RedTube                        adult http://www.redtube.com/66418
 RockstarGames                  safe  https://www.rockstargames.com/videos/video/11544/
 Rozhlas                        safe  http://prehravac.rozhlas.cz/audio/3421320
 Sapo                           safe  http://videos.sapo.pt/UBz95kOtiWYUMTA5Ghfi
-Slutload                       adult http://www.slutload.com/video/virginie-baisee-en-cam/TD73btpBqSxc/
 Soundgasm                      safe  http://soundgasm.net/u/ytdl/Piano-sample
 SpankBang                      adult http://spankbang.com/3vvn/video/fantasy+solo
 Spankwire                      adult http://www.spankwire.com/Buckcherry-s-X-Rated-Music-Video-Crazy-Bitch/video103545/
@@ -70,6 +68,7 @@ ThisAmericanLife               safe  http://www.thisamericanlife.org/radio-archi
 TinyPic                        safe  http://tinypic.com/player.php?v=6xw7tc%3E&s=5#.UtqZmbRFCM8
 Tumblr                         safe  http://tatianamaslanydaily.tumblr.com/post/54196191430/orphan-black-dvd-extra-behind-the-scenes
 TwentyMinuten                  safe  http://www.20min.ch/videotv/?vid=469148&cid=2
+Unistra                        safe  http://utv.unistra.fr/video.php?id_video=154
 UstudioEmbed                   safe  http://app.ustudio.com/embed/DeN7VdYRDKhP/Uw7G1kMCe65T
 VideosZ                        adult http://www.videosz.com/us/scene/91296_i-want-to-be-a-dream-girl-66
 Vidio                          safe  http://www.vidio.com/watch/165683-dj_ambred-booyah-live-2015

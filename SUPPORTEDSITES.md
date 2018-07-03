@@ -2,7 +2,6 @@ Supported sites
 ===============
 
  * ABCOTVS: `abc7news.com`
- * ABCOTVSClips: `clips.abcotvs.com`
  * ATTTechChannel: `techchannel.att.com`
  * AdobeTV: `tv.adobe.com`
  * AnySex _(adult)_: `anysex.com`
@@ -56,7 +55,6 @@ Supported sites
  * RockstarGames: `www.rockstargames.com`
  * Rozhlas: `prehravac.rozhlas.cz`
  * Sapo: `videos.sapo.pt`
- * Slutload _(adult)_: `www.slutload.com`
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
  * Spankwire _(adult)_: `www.spankwire.com`
@@ -73,6 +71,7 @@ Supported sites
  * TinyPic: `tinypic.com`
  * Tumblr: `tatianamaslanydaily.tumblr.com`
  * TwentyMinuten: `www.20min.ch`
+ * Unistra: `utv.unistra.fr`
  * UstudioEmbed: `app.ustudio.com`
  * VideosZ _(adult)_: `www.videosz.com`
  * Vidio: `www.vidio.com`
