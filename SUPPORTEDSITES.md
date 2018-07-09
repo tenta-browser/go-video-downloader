@@ -11,7 +11,6 @@ Supported sites
  * Bild: `www.bild.de`
  * Camdemy: `www.camdemy.com`
  * Chirbit: `chirb.it`
- * Clubic: `www.clubic.com`
  * Clyp: `clyp.it`
  * CrooksAndLiars: `embed.crooksandliars.com`
  * Digiteka: `www.ultimedia.com`
@@ -66,7 +65,6 @@ Supported sites
  * Tass: `tass.ru`
  * TeacherTube: `www.teachertube.com`
  * TeleMB: `www.telemb.be`
- * Tenta: `tenta.com`
  * ThisAmericanLife: `www.thisamericanlife.org`
  * TinyPic: `tinypic.com`
  * Tumblr: `tatianamaslanydaily.tumblr.com`
