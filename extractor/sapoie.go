@@ -79,7 +79,7 @@ func (self *SapoIE) _real_extract(url string) rnt.SDict {
 	)
 	mobj = rnt.ReMatch((self).VALIDURL, url, 0)
 	video_id = rnt.ReMatchGroupOne(mobj, "id")
-	item = rnt.XMLFind((self).DownloadXML(rnt.StrFormat2("http://rd3.videos.sapo.pt/%s/rss2", video_id), video_id.Get(), rnt.AsOptString("Downloading XML"), rnt.AsOptString("Unable to download XML"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}), "./channel/item")
+	item = rnt.XMLFind((self).DownloadXML(rnt.StrFormat2("http://rd3.videos.sapo.pt/%s/rss2", video_id), video_id.Get(), rnt.AsOptString("Downloading XML"), rnt.AsOptString("Unable to download XML"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil), "./channel/item")
 	title = (rnt.XMLFind(item, "./title")).Text
 	description = (rnt.XMLFind(item, "./{http://videos.sapo.pt/mrss/}synopse")).Text
 	thumbnail = rnt.XMLGetAttribute(rnt.XMLFind(item, "./{http://search.yahoo.com/mrss/}content"), "url", rnt.OptString{})

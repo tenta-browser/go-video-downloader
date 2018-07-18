@@ -71,7 +71,7 @@ func (self *MegaphoneIE) _real_extract(url string) rnt.SDict {
 		webpage      string
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	title = (self).OgSearchPropertyOne("audio:title", webpage, rnt.OptString{}, rnt.NoDefault, true)
 	author = (self).OgSearchPropertyOne("audio:artist", webpage, rnt.OptString{}, rnt.NoDefault, true)
 	thumbnail = (self).OgSearchThumbnail(webpage, rnt.NoDefault)

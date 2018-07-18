@@ -71,7 +71,7 @@ func (self *KrasViewIE) _real_extract(url string) rnt.SDict {
 		width       rnt.OptInt
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	flashvars = rnt.JSONLoads(rnt.JsToJSON((self).SearchRegexOne("video_Init\\(({.+?})", webpage, "flashvars", rnt.NoDefault, true, 0, nil).Get()))
 	video_url = rnt.UnsafeSubscript(flashvars, "url")
 	title = (self).OgSearchTitle(webpage, rnt.NoDefault, true)

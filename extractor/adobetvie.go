@@ -73,7 +73,7 @@ func (self *AdobeTVIE) _real_extract(url string) rnt.SDict {
 	if !(τ_isTruthy_Os(language)) {
 		language = rnt.AsOptString("en")
 	}
-	video_data = rnt.UnsafeSubscript(rnt.UnsafeSubscript((self).DownloadJSON(((self)._API_BASE_URL+rnt.StrFormat2("episode/get/?language=%s&show_urlname=%s&urlname=%s&disclosure=standard", language, show_urlname, urlname)), urlname.Get(), rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}), "data"), 0)
+	video_data = rnt.UnsafeSubscript(rnt.UnsafeSubscript((self).DownloadJSON(((self)._API_BASE_URL+rnt.StrFormat2("episode/get/?language=%s&show_urlname=%s&urlname=%s&disclosure=standard", language, show_urlname, urlname)), urlname.Get(), rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil), "data"), 0)
 	formats = func() []rnt.SDict {
 		τresult := []rnt.SDict{}
 		for _, τel := range τ_cast_α_to_Lα(rnt.UnsafeSubscript(video_data, "videos")) {

@@ -17,7 +17,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * ir90tvie.go: Automatically transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/ir90tv.py
+ * slutloadie.go: Automatically transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/slutload.py
  */
 
 package extractor
@@ -26,59 +26,59 @@ import (
 	rnt "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
-type Ir90TvIE struct {
+type SlutloadIE struct {
 	*rnt.CommonIE
 	IE_NAME string
 }
 
-func NewIr90TvIE() rnt.InfoExtractor {
+func NewSlutloadIE() rnt.InfoExtractor {
 	var (
 		IE_NAME    string
 		_VALID_URL string
 	)
-	self := &Ir90TvIE{}
+	self := &SlutloadIE{}
 	self.CommonIE = rnt.NewCommonIE()
-	IE_NAME = "Ir90Tv"
-	_VALID_URL = "https?://(?:www\\.)?90tv\\.ir/video/(?P<id>[0-9]+)/.*"
+	IE_NAME = "Slutload"
+	_VALID_URL = "^https?://(?:www\\.)?slutload\\.com/video/[^/]+/(?P<id>[^/]+)/?$"
 	self.IE_NAME = IE_NAME
 	self.VALIDURL = _VALID_URL
 	return self
 }
 
-func (self *Ir90TvIE) Key() string {
-	return "Ir90Tv"
+func (self *SlutloadIE) Key() string {
+	return "Slutload"
 }
 
-func (self *Ir90TvIE) Name() string {
+func (self *SlutloadIE) Name() string {
 	return self.IE_NAME
 }
 
-func (self *Ir90TvIE) _real_extract(url string) rnt.SDict {
+func (self *SlutloadIE) _real_extract(url string) rnt.SDict {
 	var (
-		thumbnail rnt.OptString
-		title     rnt.OptString
-		video_id  string
-		video_url rnt.OptString
-		webpage   string
+		thumbnail   rnt.OptString
+		video_id    string
+		video_title string
+		video_url   rnt.OptString
+		webpage     string
 	)
 	video_id = (self).MatchID(url)
 	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
-	title = rnt.RemoveStart((self).HTMLSearchRegexOne("<title>([^<]+)</title>", webpage, "title", rnt.NoDefault, true, 0, nil), "90tv.ir :: ")
-	video_url = (self).SearchRegexOne("<source[^>]+src=\"([^\"]+)\"", webpage, "video url", rnt.NoDefault, true, 0, nil)
-	thumbnail = (self).SearchRegexOne("poster=\"([^\"]+)\"", webpage, "thumbnail url", rnt.NoDefault, false, 0, nil)
+	video_title = rnt.StrStrip((self).HTMLSearchRegexOne("<h1><strong>([^<]+)</strong>", webpage, "title", rnt.NoDefault, true, 0, nil).Get(), "")
+	video_url = (self).HTMLSearchRegexOne("(?s)<video id=[\"\\']desktop-player[\"\\'].+?<source src=[\"\\']([^\"\\']+)[\"\\']", webpage, "video URL", rnt.NoDefault, true, 0, nil)
+	thumbnail = (self).HTMLSearchRegexOne("(?s)<video id=[\"\\']desktop-player[\"\\'].+?poster=[\"\\']([^\"\\']+)[\"\\']", webpage, "thumbnail, fatal=False", rnt.NoDefault, true, 0, nil)
 	return rnt.SDict{
-		"url":       video_url,
 		"id":        video_id,
-		"title":     title,
-		"video_url": video_url,
+		"url":       video_url,
+		"title":     video_title,
 		"thumbnail": thumbnail,
+		"age_limit": 18,
 	}
 }
 
-func (self *Ir90TvIE) Extract(url string) (rnt.ExtractorResult, error) {
+func (self *SlutloadIE) Extract(url string) (rnt.ExtractorResult, error) {
 	return rnt.RunExtractor(url, self.Context, self._real_extract)
 }
 
 func init() {
-	registerFactory("Ir90Tv", NewIr90TvIE)
+	registerFactory("Slutload", NewSlutloadIE)
 }

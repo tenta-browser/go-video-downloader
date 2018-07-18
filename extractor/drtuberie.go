@@ -82,13 +82,13 @@ func (self *DrTuberIE) _real_extract(url string) rnt.SDict {
 			return video_id
 		}
 	}()
-	webpage = (self).DownloadWebpageURL(rnt.StrFormat2("http://www.drtuber.com/video/%s", video_id), display_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(rnt.StrFormat2("http://www.drtuber.com/video/%s", video_id), display_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	video_data = (self).DownloadJSON("http://www.drtuber.com/player_config_json/", video_id.Get(), rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{
 		"vid":       video_id,
 		"embed":     0,
 		"aid":       0,
 		"domain_id": 0,
-	})
+	}, nil)
 	formats = []interface{}{}
 	for _, τel := range rnt.DictItems(τ_cast_α_to_d(rnt.UnsafeSubscript(video_data, "files"))) {
 		τmp1 = τel

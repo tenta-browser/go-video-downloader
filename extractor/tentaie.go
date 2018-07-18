@@ -17,7 +17,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * echomskie.go: Automatically transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/echomsk.py
+ * tentaie.go: Automatically transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/tenta.py
  */
 
 package extractor
@@ -26,63 +26,56 @@ import (
 	rnt "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
-type EchoMskIE struct {
+type TentaIE struct {
 	*rnt.CommonIE
 	IE_NAME string
 }
 
-func NewEchoMskIE() rnt.InfoExtractor {
+func NewTentaIE() rnt.InfoExtractor {
 	var (
 		IE_NAME    string
 		_VALID_URL string
 	)
-	self := &EchoMskIE{}
+	self := &TentaIE{}
 	self.CommonIE = rnt.NewCommonIE()
-	IE_NAME = "EchoMsk"
-	_VALID_URL = "https?://(?:www\\.)?echo\\.msk\\.ru/sounds/(?P<id>\\d+)"
+	IE_NAME = "Tenta"
+	_VALID_URL = "https?://(?:www\\.)?tenta\\.com/how-to-download-videos"
 	self.IE_NAME = IE_NAME
 	self.VALIDURL = _VALID_URL
 	return self
 }
 
-func (self *EchoMskIE) Key() string {
-	return "EchoMsk"
+func (self *TentaIE) Key() string {
+	return "Tenta"
 }
 
-func (self *EchoMskIE) Name() string {
+func (self *TentaIE) Name() string {
 	return self.IE_NAME
 }
 
-func (self *EchoMskIE) _real_extract(url string) rnt.SDict {
+func (self *TentaIE) _real_extract(url string) rnt.SDict {
 	var (
-		air_date  rnt.OptString
-		audio_url rnt.OptString
 		title     rnt.OptString
 		video_id  string
+		video_url rnt.OptString
 		webpage   string
 	)
-	video_id = (self).MatchID(url)
+	video_id = "howto"
 	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
-	audio_url = (self).SearchRegexOne("<a rel=\"mp3\" href=\"([^\"]+)\">", webpage, "audio URL", rnt.NoDefault, true, 0, nil)
-	title = (self).HTMLSearchRegexOne("<a href=\"/programs/[^\"]+\" target=\"_blank\">([^<]+)</a>", webpage, "title", rnt.NoDefault, true, 0, nil)
-	air_date = (self).HTMLSearchRegexOne("(?s)<div class=\"date\">(.+?)</div>", webpage, "date", nil, false, 0, nil)
-	if τ_isTruthy_Os(air_date) {
-		air_date = rnt.AsOptString(rnt.ReSub("(\\s)\\1+", "\\1", air_date.Get(), 0, 0))
-		if τ_isTruthy_Os(air_date) {
-			title = rnt.AsOptString(rnt.StrFormat2("%s - %s", title, air_date))
-		}
-	}
+	title = (self).OgSearchTitle(webpage, nil, true)
+	video_url = (self).SearchRegexOne("<source[^>]+src=[\"\\'](.+?)[\"\\'][^>]+type=[\"\\']video/mp4[\"\\'][^>]*/>", webpage, "video_url", rnt.NoDefault, true, 0, nil)
+	video_url = rnt.AsOptString(rnt.URLJoin(url, video_url))
 	return rnt.SDict{
 		"id":    video_id,
-		"url":   audio_url,
 		"title": title,
+		"url":   video_url,
 	}
 }
 
-func (self *EchoMskIE) Extract(url string) (rnt.ExtractorResult, error) {
+func (self *TentaIE) Extract(url string) (rnt.ExtractorResult, error) {
 	return rnt.RunExtractor(url, self.Context, self._real_extract)
 }
 
 func init() {
-	registerFactory("EchoMsk", NewEchoMskIE)
+	registerFactory("Tenta", NewTentaIE)
 }

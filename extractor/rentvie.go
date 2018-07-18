@@ -65,7 +65,7 @@ func (self *RENTVIE) _real_extract(url string) rnt.SDict {
 		webpage  string
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(("http://ren.tv/player/" + video_id), video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(("http://ren.tv/player/" + video_id), video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	config = (self).ParseJSON((self).SearchRegexOne("config\\s*=\\s*({.+})\\s*;", webpage, "config", rnt.NoDefault, true, 0, nil).Get(), video_id, nil, true)
 	title = rnt.UnsafeSubscript(config, "title")
 	formats = []interface{}{}

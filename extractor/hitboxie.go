@@ -72,7 +72,7 @@ func (self *HitboxIE) _extract_metadata(url string, video_id string) rnt.SDict {
 		views       rnt.OptInt
 	)
 	thumb_base = "https://edge.sf.hitbox.tv"
-	metadata = (self).DownloadJSON(rnt.StrFormat2("%s/%s", url, video_id), video_id, rnt.AsOptString("Downloading metadata JSON"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	metadata = (self).DownloadJSON(rnt.StrFormat2("%s/%s", url, video_id), video_id, rnt.AsOptString("Downloading metadata JSON"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	date = "media_live_since"
 	media_type = "livestream"
 	if (rnt.DictGet(τ_cast_α_to_d(metadata), "media_type", nil)) == ("video") {
@@ -130,7 +130,7 @@ func (self *HitboxIE) _real_extract(url string) rnt.SDict {
 		video_url     interface{}
 	)
 	video_id = (self).MatchID(url)
-	player_config = (self).DownloadJSON(rnt.StrFormat2("https://www.smashcast.tv/api/player/config/video/%s", video_id), video_id, rnt.AsOptString("Downloading video JSON"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	player_config = (self).DownloadJSON(rnt.StrFormat2("https://www.smashcast.tv/api/player/config/video/%s", video_id), video_id, rnt.AsOptString("Downloading video JSON"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	formats = []interface{}{}
 	for _, τel := range τ_cast_α_to_Lα(rnt.UnsafeSubscript(rnt.UnsafeSubscript(player_config, "clip"), "bitrates")) {
 		video = τel

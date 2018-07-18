@@ -76,7 +76,7 @@ func (self *BangIE) _login(video_id string) interface{} {
 		"_password":    password,
 		"_remember_me": false,
 	}), "utf-8")
-	res = (self).DownloadJSON((self)._LOGIN_URL, video_id, rnt.AsOptString("Logging in"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, login_data, rnt.SDict{}, rnt.SDict{})
+	res = (self).DownloadJSON((self)._LOGIN_URL, video_id, rnt.AsOptString("Logging in"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, login_data, rnt.SDict{}, rnt.SDict{}, nil)
 	if !(rnt.IsTruthy(rnt.DictGet(τ_cast_α_to_d(res), "success", nil))) {
 		panic(rnt.PyExtractorError("Invalid credentials", true, rnt.OptString{}))
 	}
@@ -107,32 +107,32 @@ func (self *BangIE) _real_extract(url string) rnt.SDict {
 		webpage            string
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	get_api_key = func() rnt.OptString {
 		return (self).SearchRegexOne("apiKey\\s*:\\s*[\"\\']([^\"\\']+)[\"\\']", webpage, "api_key", nil, true, 0, nil)
 	}
 	api_key = get_api_key()
 	if !(τ_isTruthy_Os(api_key)) {
 		(self)._login(video_id)
-		webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+		webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 		api_key = get_api_key()
 	}
 	mainjs_url = (self).SearchRegexOne("<script[^>]+?src=[\"\\'](?P<mainjs_url>/assets/js/main.[a-z0-9]+.js)", webpage, "main.js url", rnt.NoDefault, true, 0, nil)
 	mainjs_url = rnt.AsOptString(rnt.URLJoin(url, mainjs_url))
-	mainjs = (self).DownloadWebpageURL(mainjs_url.Get(), video_id, rnt.AsOptString("Downloading main.js"), rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	mainjs = (self).DownloadWebpageURL(mainjs_url.Get(), video_id, rnt.AsOptString("Downloading main.js"), rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	elasticsearch_url = (self).SearchRegexOne("\"elasticsearch.url\"\\s*:\\s*\"([^\"]+)\"", mainjs, "Elasticsearch url", rnt.NoDefault, true, 0, nil)
 	elasticsearch_auth = (self).SearchRegexOne("\"elasticsearch.auth\"\\s*:\\s*\"([^\"]+)\"", mainjs, "Elasticsearch auth", rnt.NoDefault, true, 0, nil)
 	video_id_hex = rnt.BytesToStr(rnt.HexEncode(rnt.Base64UrlDecodeString(video_id)), "utf-8")
 	metadata_url = rnt.URLJoin(elasticsearch_url.Get(), rnt.AsOptString(rnt.StrFormat2("/videos/video/%s", video_id_hex)))
 	metadata = (self).DownloadJSON(metadata_url, video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{
 		"Authorization": ("Basic " + elasticsearch_auth.Get()),
-	}, rnt.SDict{})
+	}, rnt.SDict{}, nil)
 	metadata_source = rnt.UnsafeSubscript(metadata, "_source")
 	identifier = rnt.UnsafeSubscript(metadata_source, "identifier")
 	title = rnt.UnsafeSubscript(metadata_source, "name")
 	description = rnt.UnsafeSubscript(metadata_source, "description")
 	links_url = rnt.StrFormat2("https://links.bang.com/video/%s", identifier)
-	links = (self).DownloadJSON(links_url, video_id, rnt.AsOptString("Downloading links"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	links = (self).DownloadJSON(links_url, video_id, rnt.AsOptString("Downloading links"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	formats = []interface{}{}
 	for _, τel := range τ_cast_α_to_Lα(links) {
 		link = τel

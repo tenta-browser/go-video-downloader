@@ -77,7 +77,7 @@ func (self *NTVRuIE) _real_extract(url string) rnt.SDict {
 		webpage     string
 	)
 	video_id = rnt.AsOptString((self).MatchID(url))
-	webpage = (self).DownloadWebpageURL(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	video_url = (self).OgSearchPropertyMulti(τ_conv_Tssω_to_Ls(τ_Tssω{
 		Φ0: "video",
 		Φ1: "video:iframe",
@@ -88,7 +88,7 @@ func (self *NTVRuIE) _real_extract(url string) rnt.SDict {
 	if !(τ_isTruthy_Os(video_id)) {
 		video_id = (self).HTMLSearchRegexMulti((self)._VIDEO_ID_REGEXES, webpage, "video id", rnt.NoDefault, true, 0, nil)
 	}
-	player = (self).DownloadXML(rnt.StrFormat2("http://www.ntv.ru/vi%s/", video_id), video_id.Get(), rnt.AsOptString("Downloading video XML"), rnt.AsOptString("Unable to download XML"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	player = (self).DownloadXML(rnt.StrFormat2("http://www.ntv.ru/vi%s/", video_id), video_id.Get(), rnt.AsOptString("Downloading video XML"), rnt.AsOptString("Unable to download XML"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	title = rnt.CleanHTML(rnt.XPathTextOne(player, "./data/title", rnt.AsOptString("title"), true, rnt.NoDefault))
 	description = rnt.CleanHTML(rnt.XPathTextOne(player, "./data/description", rnt.AsOptString("description"), false, rnt.NoDefault))
 	video = rnt.XMLFind(player, "./data/video")
@@ -96,7 +96,7 @@ func (self *NTVRuIE) _real_extract(url string) rnt.SDict {
 	thumbnail = rnt.XPathTextOne(video, "./splash", rnt.AsOptString("thumbnail"), false, rnt.NoDefault)
 	duration = rnt.IntOrNone(rnt.XPathTextOne(video, "./totaltime", rnt.AsOptString("duration"), false, rnt.NoDefault), 1, rnt.OptInt{}, 1)
 	view_count = rnt.IntOrNone(rnt.XPathTextOne(video, "./views", rnt.AsOptString("view count"), false, rnt.NoDefault), 1, rnt.OptInt{}, 1)
-	token = (self).DownloadWebpageURL("http://stat.ntv.ru/services/access/token", video_id.Get(), rnt.AsOptString("Downloading access token"), rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	token = (self).DownloadWebpageURL("http://stat.ntv.ru/services/access/token", video_id.Get(), rnt.AsOptString("Downloading access token"), rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	formats = []interface{}{}
 	for _, τel := range []string{"", "hi", "webm"} {
 		format_id = τel

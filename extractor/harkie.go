@@ -59,7 +59,7 @@ func (self *HarkIE) _real_extract(url string) rnt.SDict {
 		video_id string
 	)
 	video_id = (self).MatchID(url)
-	data = (self).DownloadJSON(rnt.StrFormat2("http://www.hark.com/clips/%s.json", video_id), video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	data = (self).DownloadJSON(rnt.StrFormat2("http://www.hark.com/clips/%s.json", video_id), video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	return rnt.SDict{
 		"id":          video_id,
 		"url":         rnt.UnsafeSubscript(data, "url"),

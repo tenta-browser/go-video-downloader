@@ -85,7 +85,7 @@ func (self *XTubeIE) _real_extract(url string) rnt.SDict {
 	}
 	webpage = (self).DownloadWebpageURL(rnt.StrFormat2(url_pattern, video_id), display_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{
 		"Cookie": "age_verified=1; cookiesAccepted=1",
-	}, rnt.SDict{})
+	}, rnt.SDict{}, nil)
 	sources = (self).ParseJSON((self).SearchRegexOne("([\"\\'])?sources\\1?\\s*:\\s*(?P<sources>{.+?}),", webpage, "sources", rnt.NoDefault, true, 0, "sources").Get(), video_id.Get(), rnt.JsToJSON, true)
 	formats = []interface{}{}
 	for _, τel := range rnt.DictItems(τ_cast_α_to_d(sources)) {

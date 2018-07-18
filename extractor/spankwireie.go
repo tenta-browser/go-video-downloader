@@ -84,7 +84,7 @@ func (self *SpankwireIE) _real_extract(url string) rnt.SDict {
 	video_id = rnt.ReMatchGroupOne(mobj, "id")
 	req = rnt.SanitizedRequest(("http://www." + rnt.ReMatchGroupOne(mobj, "url").Get()), nil, rnt.SDict{})
 	rnt.RequestAddHeader(req, "Cookie", "age_verified=1")
-	webpage = (self).DownloadWebpageRequest(req, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageRequest(req, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	title = (self).HTMLSearchRegexOne("<h1>([^<]+)", webpage, "title", rnt.NoDefault, true, 0, nil)
 	description = (self).HTMLSearchRegexOne("(?s)<div\\s+id=\"descriptionContent\">(.+?)</div>", webpage, "description", rnt.NoDefault, false, 0, nil)
 	thumbnail = (self).HTMLSearchRegexOne("playerData\\.screenShot\\s*=\\s*[\"\\']([^\"\\']+)[\"\\']", webpage, "thumbnail", rnt.NoDefault, false, 0, nil)

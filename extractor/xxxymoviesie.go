@@ -72,7 +72,7 @@ func (self *XXXYMoviesIE) _real_extract(url string) rnt.SDict {
 	mobj = rnt.ReMatch((self).VALIDURL, url, 0)
 	video_id = rnt.ReMatchGroupOne(mobj, "id")
 	display_id = rnt.ReMatchGroupOne(mobj, "display_id")
-	webpage = (self).DownloadWebpageURL(url, display_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(url, display_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	video_url = (self).SearchRegexOne("video_url\\s*:\\s*'([^']+)'", webpage, "video URL", rnt.NoDefault, true, 0, nil)
 	title = (self).HTMLSearchRegexMulti([]string{"<div[^>]+\\bclass=\"block_header\"[^>]*>\\s*<h1>([^<]+)<", "<title>(.*?)\\s*-\\s*(?:XXXYMovies\\.com|XXX\\s+Movies)</title>"}, webpage, "title", rnt.NoDefault, true, 0, nil)
 	thumbnail = (self).SearchRegexOne("preview_url\\s*:\\s*'([^']+)'", webpage, "thumbnail", rnt.NoDefault, false, 0, nil)

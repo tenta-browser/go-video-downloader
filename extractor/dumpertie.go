@@ -74,7 +74,7 @@ func (self *DumpertIE) _real_extract(url string) rnt.SDict {
 	url = rnt.StrFormat2("%s://www.dumpert.nl/mediabase/%s", protocol, video_id)
 	req = rnt.SanitizedRequest(url, nil, rnt.SDict{})
 	rnt.RequestAddHeader(req, "Cookie", "nsfw=1; cpc=10")
-	webpage = (self).DownloadWebpageRequest(req, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageRequest(req, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	files_base64 = (self).SearchRegexOne("data-files=\"([^\"]+)\"", webpage, "data files", rnt.NoDefault, true, 0, nil)
 	files = (self).ParseJSON(rnt.BytesToStr(rnt.Base64StdDecodeString(files_base64.Get()), "utf-8"), video_id.Get(), nil, true)
 	quality = rnt.Qualities([]string{"flv", "mobile", "tablet", "720p"})

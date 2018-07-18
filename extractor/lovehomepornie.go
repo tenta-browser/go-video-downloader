@@ -67,7 +67,7 @@ func (self *LoveHomePornIE) _extract_nuevo(config_url string, video_id rnt.OptSt
 	)
 	config = (self).DownloadXML(config_url, video_id.Get(), rnt.AsOptString("Downloading XML"), rnt.AsOptString("Unable to download XML"), func(s string) string {
 		return rnt.StrStrip(s, "")
-	}, true, rnt.OptString{}, nil, headers, rnt.SDict{})
+	}, true, rnt.OptString{}, nil, headers, rnt.SDict{}, nil)
 	title = rnt.StrStrip(rnt.XPathTextOne(config, "./title", rnt.AsOptString("title"), true, rnt.NoDefault).Get(), "")
 	video_id = rnt.XPathTextOne(config, "./mediaid", rnt.OptString{}, false, video_id)
 	thumbnail = rnt.XPathTextMulti(config, []string{"./image", "./thumb"}, rnt.OptString{}, false, rnt.NoDefault)

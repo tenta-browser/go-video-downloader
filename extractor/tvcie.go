@@ -63,7 +63,7 @@ func (self *TVCIE) _real_extract(url string) rnt.SDict {
 		video_url interface{}
 	)
 	video_id = (self).MatchID(url)
-	video = (self).DownloadJSON(rnt.StrFormat2("http://www.tvc.ru/video/json/id/%s", video_id), video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	video = (self).DownloadJSON(rnt.StrFormat2("http://www.tvc.ru/video/json/id/%s", video_id), video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	formats = []interface{}{}
 	for _, τel := range τ_cast_α_to_Lα(rnt.DictGet(τ_cast_α_to_d(rnt.DictGet(τ_cast_α_to_d(video), "path", rnt.SDict{})), "quality", []interface{}{})) {
 		info = τel

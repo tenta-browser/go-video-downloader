@@ -78,7 +78,7 @@ func (self *PodomaticIE) _real_extract(url string) rnt.SDict {
 		}
 	}()
 	json_url = rnt.StrFormat2(("%s://%s.podomatic.com/entry/embed_params/%s" + "?permalink=true&rtmp=0"), rnt.ReMatchGroupOne(mobj, "proto"), channel, video_id)
-	data_json = (self).DownloadWebpageURL(json_url, video_id.Get(), rnt.AsOptString("Downloading video info"), rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	data_json = (self).DownloadWebpageURL(json_url, video_id.Get(), rnt.AsOptString("Downloading video info"), rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	data = rnt.JSONLoads(data_json)
 	video_url = rnt.UnsafeSubscript(data, "downloadLink")
 	if !(rnt.IsTruthy(video_url)) {

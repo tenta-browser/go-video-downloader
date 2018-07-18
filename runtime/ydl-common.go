@@ -29,6 +29,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"reflect"
 	"sort"
 	"strings"
 	"time"
@@ -92,19 +93,19 @@ func (ie *CommonIE) MatchID(url string) string {
 // DownloadWebpageURL implements common.py/_download_webpage (for urls)
 func (ie *CommonIE) DownloadWebpageURL(url, videoID string, note, errNote OptString,
 	fatal bool, tries int, timeout int, encoding OptString, data []byte,
-	headers, query SDict) string {
+	headers, query SDict, expectedStatus interface{}) string {
 
 	return ie.DownloadWebpageRequest(SanitizedRequest(url, nil, nil), videoID, note, errNote,
-		fatal, tries, timeout, encoding, data, headers, query)
+		fatal, tries, timeout, encoding, data, headers, query, expectedStatus)
 }
 
 // DownloadWebpageRequest implements common.py/_download_webpage (for requests)
 // TODO handle all the params: tries, timeout
 func (ie *CommonIE) DownloadWebpageRequest(req Request, videoID string, note, errNote OptString,
 	fatal bool, tries int, timeout int, encoding OptString, data []byte,
-	headers, query SDict) string {
+	headers, query SDict, expectedStatus interface{}) string {
 
-	return ie.DownloadWebpageHandleRequest(req, videoID, note, errNote, fatal, encoding, data, headers, query).Φ0
+	return ie.DownloadWebpageHandleRequest(req, videoID, note, errNote, fatal, encoding, data, headers, query, expectedStatus).Φ0
 }
 
 // DownloadWebpageHandleResponse is tuple returned by the DownloadWebpageHandle* functions
@@ -116,18 +117,18 @@ type DownloadWebpageHandleResponse = struct {
 
 // DownloadWebpageHandleURL implements common.py/_download_webpage_handle (for urls)
 func (ie *CommonIE) DownloadWebpageHandleURL(url, videoID string, note, errNote OptString,
-	fatal bool, encoding OptString, data []byte, headers, query SDict) DownloadWebpageHandleResponse {
+	fatal bool, encoding OptString, data []byte, headers, query SDict, expectedStatus interface{}) DownloadWebpageHandleResponse {
 
 	return ie.DownloadWebpageHandleRequest(SanitizedRequest(url, nil, nil), videoID, note, errNote,
-		fatal, encoding, data, headers, query)
+		fatal, encoding, data, headers, query, expectedStatus)
 }
 
 // DownloadWebpageHandleRequest implements common.py/_download_webpage_handle (for requests)
 // TODO handle all the params: fatal
 func (ie *CommonIE) DownloadWebpageHandleRequest(req Request, videoID string, note, errNote OptString,
-	fatal bool, encoding OptString, data []byte, headers, query SDict) DownloadWebpageHandleResponse {
+	fatal bool, encoding OptString, data []byte, headers, query SDict, expectedStatus interface{}) DownloadWebpageHandleResponse {
 
-	res, err := ie.requestWebpage(req, false, videoID, note, errNote, data, headers, query)
+	res, err := ie.requestWebpage(req, false, videoID, note, errNote, data, headers, query, expectedStatus)
 	if err != nil {
 		panic(newExtractorError(err.Error()))
 	}
@@ -156,17 +157,17 @@ func (ie *CommonIE) DownloadWebpageHandleRequest(req Request, videoID string, no
 
 // RequestWebpageURL implements common.py/_request_webpage (for urls)
 func (ie *CommonIE) RequestWebpageURL(url, videoID string, note, errNote OptString,
-	fatal bool, data []byte, headers, query SDict) Response {
+	fatal bool, data []byte, headers, query SDict, expectedStatus interface{}) Response {
 
 	return ie.RequestWebpageRequest(SanitizedRequest(url, nil, nil), videoID, note, errNote,
-		fatal, data, headers, query)
+		fatal, data, headers, query, expectedStatus)
 }
 
 // RequestWebpageRequest implements common.py/_request_webpage (for requests)
 func (ie *CommonIE) RequestWebpageRequest(req Request, videoID string, note, errNote OptString,
-	fatal bool, data []byte, headers, query SDict) Response {
+	fatal bool, data []byte, headers, query SDict, expectedStatus interface{}) Response {
 
-	res, err := ie.requestWebpage(req, true, videoID, note, errNote, data, headers, query)
+	res, err := ie.requestWebpage(req, true, videoID, note, errNote, data, headers, query, expectedStatus)
 	if err != nil {
 		panic(newExtractorError(err.Error()))
 	}
@@ -175,7 +176,7 @@ func (ie *CommonIE) RequestWebpageRequest(req Request, videoID string, note, err
 }
 
 func (ie *CommonIE) requestWebpage(req Request, closeBody bool, videoID string, note, errNote OptString,
-	data []byte, headers, query SDict) (Response, error) {
+	data []byte, headers, query SDict, expectedStatus interface{}) (Response, error) {
 
 	ie.log("%s: %s (%s)", videoID, note.GetOrDef("Downloading webpage"), req.URL)
 
@@ -209,7 +210,7 @@ func (ie *CommonIE) requestWebpage(req Request, closeBody bool, videoID string, 
 		return nil, err
 	}
 
-	if res.StatusCode != 200 {
+	if res.StatusCode != 200 && !canAcceptStatusCode(res.StatusCode, expectedStatus) {
 		res.Body.Close()
 		return nil, fmt.Errorf("Unable to download webpage: HTTP Error %d: %s", res.StatusCode, res.Status)
 	}
@@ -219,6 +220,34 @@ func (ie *CommonIE) requestWebpage(req Request, closeBody bool, videoID string, 
 	}
 
 	return res, nil
+}
+
+// canAcceptStatusCode implements common.py/__can_accept_status_code
+func canAcceptStatusCode(actual int, expected interface{}) bool {
+	if expected == nil {
+		return false
+	}
+	switch rexpected := reflect.ValueOf(expected); rexpected.Kind() {
+	case reflect.Slice:
+		// find actual in expected list
+		for idx := 0; idx < rexpected.Len(); idx++ {
+			if CastToInt(rexpected.Index(idx).Interface()) == actual {
+				return true
+			}
+		}
+		return false
+	default:
+		// find actual in expected tuple
+		if IsTuple(rexpected) {
+			for idx := 0; idx < rexpected.NumField(); idx++ {
+				if CastToInt(rexpected.Field(idx).Interface()) == actual {
+					return true
+				}
+			}
+			return false
+		}
+		panic(newExtractorError(fmt.Sprintf("Invalid type passed to CanAcceptStatusCode: %T", expected)))
+	}
 }
 
 // GetLoginInfoResult is tuple returned by the GetLoginInfo function
@@ -409,9 +438,9 @@ func (ie *CommonIE) ParseJSON(jsonString string, videoID string, transformSource
 // DownloadJSON implements common.py/_download_json
 func (ie *CommonIE) DownloadJSON(url, videoID string, note, errNote OptString,
 	transformSource func(string) string, fatal bool, encoding OptString, data []byte,
-	headers, query SDict) interface{} {
+	headers, query SDict, expectedStatus interface{}) interface{} {
 
-	jsonString := ie.DownloadWebpageURL(url, videoID, note, errNote, fatal, 1, 5, encoding, data, headers, query)
+	jsonString := ie.DownloadWebpageURL(url, videoID, note, errNote, fatal, 1, 5, encoding, data, headers, query, expectedStatus)
 
 	// TODO some fatal handling
 
@@ -439,10 +468,10 @@ func (ie *CommonIE) ParseXML(xmlString string, videoID string, transformSource f
 // DownloadXML implements common.py/_download_xml
 func (ie *CommonIE) DownloadXML(url, videoID string, note, errNote OptString,
 	transformSource func(string) string, fatal bool, encoding OptString, data []byte,
-	headers, query SDict) XMLElement {
+	headers, query SDict, expectedStatus interface{}) XMLElement {
 
 	// TODO handle return False
-	res := ie.DownloadXMLHandle(url, videoID, note, errNote, transformSource, fatal, encoding, data, headers, query)
+	res := ie.DownloadXMLHandle(url, videoID, note, errNote, transformSource, fatal, encoding, data, headers, query, expectedStatus)
 	return res.Φ0
 }
 
@@ -456,10 +485,10 @@ type DownloadXMLHandleResponse = struct {
 // DownloadXMLHandle implements common.py/_download_xml_handle
 func (ie *CommonIE) DownloadXMLHandle(url, videoID string, note, errNote OptString,
 	transformSource func(string) string, fatal bool, encoding OptString, data []byte,
-	headers, query SDict) DownloadXMLHandleResponse {
+	headers, query SDict, expectedStatus interface{}) DownloadXMLHandleResponse {
 
 	// TODO handle return False
-	res := ie.DownloadWebpageHandleURL(url, videoID, note, errNote, fatal, encoding, data, headers, query)
+	res := ie.DownloadWebpageHandleURL(url, videoID, note, errNote, fatal, encoding, data, headers, query, expectedStatus)
 
 	xmlString := res.Φ0
 	urlh := res.Φ1
@@ -680,7 +709,7 @@ func (ie *CommonIE) ExtractM3U8Formats(m3u8URL, videoID string, ext, entryProtoc
 	res := ie.DownloadWebpageHandleURL(m3u8URL, videoID,
 		AsOptString(note.GetOrDef("Downloading m3u8 information")),
 		AsOptString(errnote.GetOrDef("Failed to download m3u8 information")),
-		fatal, OptString{}, nil, nil, nil)
+		fatal, OptString{}, nil, nil, nil, nil)
 
 	m3u8Doc := res.Φ0
 	m3u8URL = ResponseGetURL(res.Φ1)
@@ -904,7 +933,7 @@ func (ie *CommonIE) IsValidURL(url, videoID, item string, headers SDict) bool {
 		return true
 	}
 	_, err := ie.requestWebpage(SanitizedRequest(url, nil, nil), true, videoID,
-		AsOptString(fmt.Sprintf("Checking %s URL", item)), OptString{}, nil, headers, nil)
+		AsOptString(fmt.Sprintf("Checking %s URL", item)), OptString{}, nil, headers, nil, nil)
 	if err != nil {
 		ie.log("%s: %s URL is invalid, skipping", videoID, item)
 		return false
@@ -928,4 +957,10 @@ func (ie *CommonIE) SetCookie(domain, name, value string) {
 	}
 
 	ie.Context.Client.Jar.SetCookies(u, []*http.Cookie{c})
+}
+
+// LiveTitle implements common.py/_live_title
+func (ie *CommonIE) LiveTitle(name string) string {
+	nowStr := time.Now().Format("2006-01-02 15:04")
+	return name + " " + nowStr
 }

@@ -63,10 +63,10 @@ func (self *HentaiStigmaIE) _real_extract(url string) rnt.SDict {
 		wrap_webpage string
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	title = (self).HTMLSearchRegexOne("<h2[^>]+class=\"posttitle\"[^>]*><a[^>]*>([^<]+)</a>", webpage, "title", rnt.NoDefault, true, 0, nil)
 	wrap_url = (self).HTMLSearchRegexOne("<iframe[^>]+src=\"([^\"]+mp4)\"", webpage, "wrapper url", rnt.NoDefault, true, 0, nil)
-	wrap_webpage = (self).DownloadWebpageURL(wrap_url.Get(), video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	wrap_webpage = (self).DownloadWebpageURL(wrap_url.Get(), video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	video_url = (self).HTMLSearchRegexOne("file\\s*:\\s*\"([^\"]+)\"", wrap_webpage, "video url", rnt.NoDefault, true, 0, nil)
 	return rnt.SDict{
 		"id":        video_id,

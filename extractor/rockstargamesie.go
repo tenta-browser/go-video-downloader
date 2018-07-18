@@ -67,7 +67,7 @@ func (self *RockstarGamesIE) _real_extract(url string) rnt.SDict {
 	video = rnt.UnsafeSubscript((self).DownloadJSON("https://www.rockstargames.com/videoplayer/videos/get-video.json", video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{
 		"id":     video_id,
 		"locale": "en_us",
-	}), "video")
+	}, nil), "video")
 	title = rnt.UnsafeSubscript(video, "title")
 	formats = []interface{}{}
 	for _, τel := range τ_cast_α_to_Lα(rnt.UnsafeSubscript(rnt.UnsafeSubscript(video, "files_processed"), "video/mp4")) {

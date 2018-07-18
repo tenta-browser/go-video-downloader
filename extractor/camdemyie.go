@@ -70,16 +70,16 @@ func (self *CamdemyIE) _real_extract(url string) rnt.SDict {
 		webpage       string
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	src_from = (self).HTMLSearchRegexOne("class=['\\\"]srcFrom['\\\"][^>]*>Sources?(?:\\s+from)?\\s*:\\s*<a[^>]+(?:href|title)=(['\\\"])(?P<url>(?:(?!\\1).)+)\\1", webpage, "external source", nil, true, 0, "url")
 	if τ_isTruthy_Os(src_from) {
 		return (self).URLResult(src_from.Get(), rnt.OptString{}, rnt.OptString{}, rnt.OptString{})
 	}
-	oembed_obj = (self).DownloadJSON(("http://www.camdemy.com/oembed/?format=json&url=" + url), video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	oembed_obj = (self).DownloadJSON(("http://www.camdemy.com/oembed/?format=json&url=" + url), video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	title = rnt.UnsafeSubscript(oembed_obj, "title")
 	thumb_url = rnt.UnsafeSubscript(oembed_obj, "thumbnail_url")
 	video_folder = rnt.URLJoin(rnt.CastToString(thumb_url), rnt.AsOptString("video/"))
-	file_list_doc = (self).DownloadXML(rnt.URLJoin(video_folder, rnt.AsOptString("fileList.xml")), video_id, rnt.AsOptString("Downloading filelist XML"), rnt.AsOptString("Unable to download XML"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	file_list_doc = (self).DownloadXML(rnt.URLJoin(video_folder, rnt.AsOptString("fileList.xml")), video_id, rnt.AsOptString("Downloading filelist XML"), rnt.AsOptString("Unable to download XML"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	file_name = (rnt.XMLFind(file_list_doc, "./video/item/fileName")).Text
 	video_url = rnt.URLJoin(video_folder, rnt.AsOptString(file_name))
 	upload_date = rnt.UnifiedStrDate((self).SearchRegexOne(">published on ([^<]+)<", webpage, "upload date", nil, true, 0, nil), true)

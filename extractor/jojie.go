@@ -70,7 +70,7 @@ func (self *JojIE) _real_extract(url string) rnt.SDict {
 		webpage    string
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(rnt.StrFormat2("https://media.joj.sk/embed/%s", video_id), video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(rnt.StrFormat2("https://media.joj.sk/embed/%s", video_id), video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	title = func() rnt.OptString {
 		if v := ((self).SearchRegexMulti(τ_conv_Tssω_to_Ls(τ_Tssω{
 			Φ0: "videoTitle\\s*:\\s*([\"\\'])(?P<title>(?:(?!\\1).)+)\\1",
@@ -109,7 +109,7 @@ func (self *JojIE) _real_extract(url string) rnt.SDict {
 		}
 	}
 	if !(len(formats) > 0) {
-		playlist = (self).DownloadXML(rnt.StrFormat2("https://media.joj.sk/services/Video.php?clip=%s", video_id), video_id, rnt.AsOptString("Downloading XML"), rnt.AsOptString("Unable to download XML"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+		playlist = (self).DownloadXML(rnt.StrFormat2("https://media.joj.sk/services/Video.php?clip=%s", video_id), video_id, rnt.AsOptString("Downloading XML"), rnt.AsOptString("Unable to download XML"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 		for _, τel := range rnt.XMLFindAll(playlist, "./files/file") {
 			file_el = τel
 			path = rnt.XMLGetAttribute(file_el, "path", rnt.OptString{})

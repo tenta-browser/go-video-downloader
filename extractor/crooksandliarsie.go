@@ -62,7 +62,7 @@ func (self *CrooksAndLiarsIE) _real_extract(url string) rnt.SDict {
 		webpage  string
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(rnt.StrFormat2("http://embed.crooksandliars.com/embed/%s", video_id), video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(rnt.StrFormat2("http://embed.crooksandliars.com/embed/%s", video_id), video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	manifest = (self).ParseJSON((self).SearchRegexOne("var\\s+manifest\\s*=\\s*({.+?})\\n", webpage, "manifest JSON", rnt.NoDefault, true, 0, nil).Get(), video_id, nil, true)
 	quality = rnt.Qualities(τ_conv_Tssssω_to_Ls(τ_Tssssω{
 		Φ0: "webm_low",

@@ -71,7 +71,7 @@ func (self *LRTIE) _real_extract(url string) rnt.SDict {
 		τmp1        []string
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	title = rnt.RemoveEnd((self).OgSearchTitle(webpage, rnt.NoDefault, true), " - LRT")
 	formats = []interface{}{}
 	for _, τel := range rnt.ReFindAllMulti("file\\s*:\\s*([\"\\'])(?P<url>(?:(?!\\1).)+)\\1", webpage, 0) {

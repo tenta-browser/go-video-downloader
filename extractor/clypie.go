@@ -68,7 +68,7 @@ func (self *ClypIE) _real_extract(url string) rnt.SDict {
 		title       interface{}
 	)
 	audio_id = (self).MatchID(url)
-	metadata = (self).DownloadJSON(rnt.StrFormat2("https://api.clyp.it/%s", audio_id), audio_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	metadata = (self).DownloadJSON(rnt.StrFormat2("https://api.clyp.it/%s", audio_id), audio_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	formats = []interface{}{}
 	for _, τel := range τ_conv_Tssω_to_Ls(τ_Tssω{
 		Φ0: "",

@@ -189,6 +189,24 @@ func DictUpdate(dict SDict, other SDict) {
 	}
 }
 
+// DictKeys implements python/dict.keys
+func DictKeys(dict SDict) []string {
+	keys := []string{}
+	for key := range dict {
+		keys = append(keys, key)
+	}
+	return keys
+}
+
+// DictValues implements python/dict.values
+func DictValues(dict SDict) []interface{} {
+	values := []interface{}{}
+	for _, value := range dict {
+		values = append(values, value)
+	}
+	return values
+}
+
 // DictItems implements python/dict.items
 func DictItems(dict SDict) []struct {
 	Φ0 string

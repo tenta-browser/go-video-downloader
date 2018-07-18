@@ -125,9 +125,9 @@ func (self *NextMediaActionNewsIE) _real_extract(url string) rnt.SDict {
 		news_id         string
 	)
 	news_id = (self).MatchID(url)
-	actionnews_page = (self).DownloadWebpageURL(url, news_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	actionnews_page = (self).DownloadWebpageURL(url, news_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	article_url = (self).OgSearchURL(actionnews_page)
-	article_page = (self).DownloadWebpageURL(article_url.Get(), news_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	article_page = (self).DownloadWebpageURL(article_url.Get(), news_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	return (self)._extract_from_nextmedia_page(news_id, url, article_page)
 }
 

@@ -74,7 +74,7 @@ func (self *VidioIE) _real_extract(url string) rnt.SDict {
 	τmp1 = rnt.ReMatchGroupTwo(mobj, "id", "display_id")
 	video_id = (τmp1).Φ0
 	display_id = (τmp1).Φ1
-	webpage = (self).DownloadWebpageURL(url, display_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(url, display_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	title = (self).OgSearchTitle(webpage, rnt.NoDefault, true)
 	τmp2 = τ_multiply_L0_by_i([]interface{}{nil}, 3)
 	m3u8_url = (τmp2)[0]

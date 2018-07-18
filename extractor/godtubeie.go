@@ -68,13 +68,13 @@ func (self *GodTubeIE) _real_extract(url string) rnt.SDict {
 	)
 	mobj = rnt.ReMatch((self).VALIDURL, url, 0)
 	video_id = rnt.ReMatchGroupOne(mobj, "id")
-	config = (self).DownloadXML(rnt.StrFormat2("http://www.godtube.com/resource/mediaplayer/%s.xml", rnt.StrLower(video_id.Get())), video_id.Get(), rnt.AsOptString("Downloading player config XML"), rnt.AsOptString("Unable to download XML"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	config = (self).DownloadXML(rnt.StrFormat2("http://www.godtube.com/resource/mediaplayer/%s.xml", rnt.StrLower(video_id.Get())), video_id.Get(), rnt.AsOptString("Downloading player config XML"), rnt.AsOptString("Unable to download XML"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	video_url = (rnt.XMLFind(config, "file")).Text
 	uploader = (rnt.XMLFind(config, "author")).Text
 	timestamp = rnt.ParseISO8601(rnt.AsOptString((rnt.XMLFind(config, "date")).Text), "T")
 	duration = rnt.ParseDuration(rnt.AsOptString((rnt.XMLFind(config, "duration")).Text))
 	thumbnail = (rnt.XMLFind(config, "image")).Text
-	media = (self).DownloadXML(rnt.StrFormat2("http://www.godtube.com/media/xml/?v=%s", video_id), video_id.Get(), rnt.AsOptString("Downloading media XML"), rnt.AsOptString("Unable to download XML"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	media = (self).DownloadXML(rnt.StrFormat2("http://www.godtube.com/media/xml/?v=%s", video_id), video_id.Get(), rnt.AsOptString("Downloading media XML"), rnt.AsOptString("Unable to download XML"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	title = (rnt.XMLFind(media, "title")).Text
 	return rnt.SDict{
 		"id":        video_id,

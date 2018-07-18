@@ -64,11 +64,11 @@ func (self *FczenitIE) _real_extract(url string) rnt.SDict {
 		webpage  string
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	msi_id = (self).SearchRegexOne("(?s)config\\s*=\\s*{.+?video_id\\s*:\\s*'([^']+)'", webpage, "msi id", rnt.NoDefault, true, 0, nil)
 	msi_data = rnt.UnsafeSubscript((self).DownloadJSON("http://player.fc-zenit.ru/msi/video", msi_id.Get(), rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{
 		"video": msi_id,
-	}), "data")
+	}, nil), "data")
 	title = rnt.UnsafeSubscript(msi_data, "name")
 	formats = func() []rnt.SDict {
 		τresult := []rnt.SDict{}

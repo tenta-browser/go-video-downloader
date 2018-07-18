@@ -95,7 +95,7 @@ func (self *MailRuIE) _real_extract(url string) rnt.SDict {
 		if !(τ_isTruthy_Os(video_id)) {
 			video_id = rnt.AsOptString((rnt.ReMatchGroupOne(mobj, "idv2prefix").Get() + rnt.ReMatchGroupOne(mobj, "idv2suffix").Get()))
 		}
-		webpage = (self).DownloadWebpageURL(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+		webpage = (self).DownloadWebpageURL(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 		page_config = (self).ParseJSON((self).SearchRegexOne("(?s)<script[^>]+class=\"sp-video__page-config\"[^>]*>(.+?)</script>", webpage, "page config", "{}", true, 0, nil).Get(), video_id.Get(), nil, false)
 		if rnt.IsTruthy(page_config) {
 			meta_url = func() interface{} {
@@ -117,10 +117,10 @@ func (self *MailRuIE) _real_extract(url string) rnt.SDict {
 			} else {
 				return meta_id
 			}
-		}().Get(), rnt.AsOptString("Downloading video meta JSON"), rnt.AsOptString("Unable to download JSON metadata"), nil, !(τ_isTruthy_Os(video_id)), rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+		}().Get(), rnt.AsOptString("Downloading video meta JSON"), rnt.AsOptString("Unable to download JSON metadata"), nil, !(τ_isTruthy_Os(video_id)), rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	}
 	if !(rnt.IsTruthy(video_data)) {
-		video_data = (self).DownloadJSON(rnt.StrFormat2("http://api.video.mail.ru/videos/%s.json?new=1", video_id), video_id.Get(), rnt.AsOptString("Downloading video JSON"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+		video_data = (self).DownloadJSON(rnt.StrFormat2("http://api.video.mail.ru/videos/%s.json?new=1", video_id), video_id.Get(), rnt.AsOptString("Downloading video JSON"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	}
 	formats = []interface{}{}
 	for _, τel := range τ_cast_α_to_Lα(rnt.UnsafeSubscript(video_data, "videos")) {

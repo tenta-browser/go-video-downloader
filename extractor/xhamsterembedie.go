@@ -61,7 +61,7 @@ func (self *XHamsterEmbedIE) _real_extract(url string) rnt.SDict {
 		webpage   string
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	video_url = (self).SearchRegexOne(rnt.StrFormat3("href=\"(https?://xhamster\\.com/(?:movies/{0}/[^\"]*\\.html|videos/[^/]*-{0})[^\"]*)\"", video_id), webpage, "xhamster url", nil, true, 0, nil)
 	if !(rnt.IsTruthy(video_url)) {
 		vars = (self).ParseJSON((self).SearchRegexOne("vars\\s*:\\s*({.+?})\\s*,\\s*\\n", webpage, "vars", rnt.NoDefault, true, 0, nil).Get(), video_id, nil, true)

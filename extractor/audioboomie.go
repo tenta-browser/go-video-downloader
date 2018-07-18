@@ -69,7 +69,7 @@ func (self *AudioBoomIE) _real_extract(url string) rnt.SDict {
 		webpage      string
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	clip = nil
 	clip_store = (self).ParseJSON((self).SearchRegexOne(rnt.StrFormat2("data-new-clip-store=([\"\\'])(?P<json>{.*?\"clipId\"\\s*:\\s*%s.*?})\\1", video_id), webpage, "clip store", "{}", true, 0, "json").Get(), video_id, nil, false)
 	if rnt.IsTruthy(clip_store) {

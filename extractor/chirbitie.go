@@ -66,7 +66,7 @@ func (self *ChirbitIE) _real_extract(url string) rnt.SDict {
 		webpage     string
 	)
 	audio_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(rnt.StrFormat2("http://chirb.it/%s", audio_id), audio_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(rnt.StrFormat2("http://chirb.it/%s", audio_id), audio_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	data_fd = (self).SearchRegexOne("data-fd=([\"\\'])(?P<url>(?:(?!\\1).)+)\\1", webpage, "data fd", rnt.NoDefault, true, 0, "url")
 	audio_url = rnt.BytesToStr(rnt.Base64StdDecodeString(rnt.StrSlice(data_fd.Get(), rnt.OptInt{}, rnt.OptInt{}, rnt.AsOptInt(-(1)))), "utf-8")
 	title = (self).SearchRegexOne("class=[\"\\']chirbit-title[\"\\'][^>]*>([^<]+)", webpage, "title", rnt.NoDefault, true, 0, nil)

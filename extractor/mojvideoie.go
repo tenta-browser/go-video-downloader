@@ -68,7 +68,7 @@ func (self *MojvideoIE) _real_extract(url string) rnt.SDict {
 	mobj = rnt.ReMatch((self).VALIDURL, url, 0)
 	video_id = rnt.ReMatchGroupOne(mobj, "id")
 	display_id = rnt.ReMatchGroupOne(mobj, "display_id")
-	playerapi = (self).DownloadWebpageURL(rnt.StrFormat2("http://www.mojvideo.com/playerapi.php?v=%s&t=1", video_id), display_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	playerapi = (self).DownloadWebpageURL(rnt.StrFormat2("http://www.mojvideo.com/playerapi.php?v=%s&t=1", video_id), display_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	if rnt.StrContains(playerapi, "<error>true</error>") {
 		error_desc = (self).HTMLSearchRegexOne("<errordesc>([^<]*)</errordesc>", playerapi, "error description", rnt.NoDefault, false, 0, nil)
 		panic(rnt.PyExtractorError(rnt.StrFormat2("%s said: %s", (self).IE_NAME, error_desc), true, rnt.OptString{}))

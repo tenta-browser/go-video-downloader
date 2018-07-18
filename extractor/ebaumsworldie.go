@@ -60,7 +60,7 @@ func (self *EbaumsWorldIE) _real_extract(url string) rnt.SDict {
 		video_url string
 	)
 	video_id = (self).MatchID(url)
-	config = (self).DownloadXML(rnt.StrFormat2("http://www.ebaumsworld.com/video/player/%s", video_id), video_id, rnt.AsOptString("Downloading XML"), rnt.AsOptString("Unable to download XML"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	config = (self).DownloadXML(rnt.StrFormat2("http://www.ebaumsworld.com/video/player/%s", video_id), video_id, rnt.AsOptString("Downloading XML"), rnt.AsOptString("Unable to download XML"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	video_url = (rnt.XMLFind(config, "file")).Text
 	return rnt.SDict{
 		"id":          video_id,

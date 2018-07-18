@@ -63,7 +63,7 @@ func (self *BildIE) _real_extract(url string) rnt.SDict {
 		video_id   string
 	)
 	video_id = (self).MatchID(url)
-	video_data = (self).DownloadJSON(((rnt.StrSplit(url, ".bild.html", -(1)))[0] + ",view=json.bild.html"), video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	video_data = (self).DownloadJSON(((rnt.StrSplit(url, ".bild.html", -(1)))[0] + ",view=json.bild.html"), video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	return rnt.SDict{
 		"id":          video_id,
 		"title":       rnt.StrStrip(rnt.UnescapeHTML(rnt.CastToOptString(rnt.UnsafeSubscript(video_data, "title"))).Get(), ""),

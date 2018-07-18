@@ -102,7 +102,7 @@ var knownExtensions = utils.MakeSet([]string{
 
 // DetermineExt implements utils.py/determine_ext
 func DetermineExt(url OptString, defaultExt string) string {
-	if !url.IsSet() {
+	if !url.IsSet() || utils.IndexRune(url.Get(), '.') < 0 {
 		return defaultExt
 	}
 

@@ -53,7 +53,7 @@ Lenta                          Unsupported extractor: EaglePlatform
 LineTV                         Unable to extract player parameters
 LocalNews8                     Unable to extract partner id
 M6                             Unsupported extractor: SixPlay
-MIT                            Check failed for: https://accounts.google.com/ServiceLogin?passive=true&amp;continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26feature%3Dpassive%26next%3D%252Fsignin_passive%26hl%3Den&amp;service=youtube&amp;uilel=3&amp;hl=en
+MIT                            Check failed for: https://accounts.google.com/ServiceLogin?uilel=3&amp;service=youtube&amp;passive=true&amp;hl=en&amp;continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26feature%3Dpassive%26app%3Ddesktop%26hl%3Den%26next%3D%252Fsignin_passive
 MTV81                          Unable to extract mgid
 MakerTV                        Unable to download webpage: HTTP Error 400: 400 Bad Request
 ManyVids                       Unable to extract title
@@ -64,15 +64,19 @@ Moviezine                      Unable to download webpage: HTTP Error 404: 404 N
 MyChannels                     Unable to extract video data
 MyVidster                      Unable to extract real video url
 NBCSportsVPlayer               Unsupported extractor: ThePlatform
+NPORadio                       Unable to extract title
 NPORadioFragment               Unable to extract title
 NRKSkole                       Check failed for: nrk:6021
 NTVDe                          Cannot cast int to OptString
 Nuvid                          Unable to extract 1310741
 OdaTV                          Unable to extract video url
+OktoberfestTV                  Unable to extract title
 ParliamentLiveUK               Unsupported extractor: Kaltura
 Patreon                        Unable to extract playlist JSON
 People                         Unsupported extractor: BrightcoveNew
+Periscope                      Unable to download webpage: HTTP Error 410: 410 Gone
 PicartoVod                     No suitable format found
+PornoVoisines                  Unable to download webpage: HTTP Error 404: 404 NOT FOUND
 RUHD                           Unable to download webpage: HTTP Error 522: 522 Origin Connection Time-out
 RadioBremen                    Unable to download webpage: HTTP Error 404: 404 Not Found
 RadioCanadaAudioVideo          Check failed for: radiocanada:medianet:7527184
@@ -86,7 +90,6 @@ SchoolTV                       Unsupported extractor: NPO
 Servus                         No suitable format found
 Sexu                           Unable to extract jwvideo
 SlidesLive                     Unsupported extractor: Youtube
-Slutload                       Unable to extract video URL
 Sport5                         Unable to download webpage: HTTP Error 404: 404 Not Found
 SportBoxEmbed                  Unable to extract wjplayer settings
 StretchInternet                Unable to download webpage: HTTP Error 404: 404 Not Found
@@ -98,8 +101,9 @@ TMZArticle                     Unsupported extractor: Kaltura
 TOnline                        [79166266] Failed to parse JSON
 TV3                            Unable to extract brightcove id
 TVP                            Unsupported extractor: TVPEmbed
+TeleQuebecLive                 No suitable format found
 Telewebion                     Unable to download webpage: HTTP Error 502: 502 Bad Gateway
-Tenta                          Unable to download webpage: HTTP Error 523: 523 
+TheIntercept                   Unable to extract initialStoreTree
 TheScene                       Unsupported extractor: CondeNast
 TheStar                        Unable to extract brightcove id
 ThisOldHouse                   Unsupported extractor: JWPlatform
@@ -113,7 +117,8 @@ Vidbit                         Unable to extract video URL
 VideofyMe                      Unable to download webpage: HTTP Error 404: 404 Not Found
 VoiceRepublic                  Unable to extract player
 Vporn                          Unable to download webpage: HTTP Error 404: 404 Not Found
-Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.211:80: i/o timeout
+Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.214:80: i/o timeout
+VyboryMos                      [13636] Failed to parse JSON
 Walla                          Get http://video2.walla.co.il/?w=null%2Fnull%2F2642630%2F%40%40%2Fvideo%2Fflv_pl: dial tcp 192.118.82.188:80: i/o timeout
 WashingtonPostArticle          Unsupported result type: playlist
 WeiqiTV                        Unable to extract info json str

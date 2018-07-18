@@ -74,7 +74,7 @@ func (self *SpankBangIE) _real_extract(url string) rnt.SDict {
 	video_id = (self).MatchID(url)
 	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{
 		"Cookie": "country=US",
-	}, rnt.SDict{})
+	}, rnt.SDict{}, nil)
 	if rnt.ReSearch("<[^>]+\\bid=[\"\\']video_removed", webpage, 0) != nil {
 		panic(rnt.PyExtractorError(rnt.StrFormat2("Video %s is not available", video_id), true, rnt.OptString{}))
 	}

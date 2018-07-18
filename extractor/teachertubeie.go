@@ -72,7 +72,7 @@ func (self *TeacherTubeIE) _real_extract(url string) rnt.SDict {
 		webpage      string
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	error = (self).SearchRegexOne("<div\\b[^>]+\\bclass=[\"\\']msgBox error[^>]+>([^<]+)", webpage, "error", nil, true, 0, nil)
 	if τ_isTruthy_Os(error) {
 		panic(rnt.PyExtractorError(rnt.StrFormat2("%s said: %s", (self).IE_NAME, error), true, rnt.OptString{}))

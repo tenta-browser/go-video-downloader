@@ -84,7 +84,7 @@ func (self *TumblrIE) _real_extract(url string) rnt.SDict {
 	video_id = rnt.ReMatchGroupOne(m_url, "id")
 	blog = rnt.ReMatchGroupOne(m_url, "blog_name")
 	url = rnt.StrFormat2("http://%s.tumblr.com/post/%s/", blog, video_id)
-	τmp1 = (self).DownloadWebpageHandleURL(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	τmp1 = (self).DownloadWebpageHandleURL(url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	webpage = (τmp1).Φ0
 	urlh = (τmp1).Φ1
 	redirect_url = rnt.ConvertToString(rnt.ResponseGetURL(urlh))
@@ -95,7 +95,7 @@ func (self *TumblrIE) _real_extract(url string) rnt.SDict {
 	if !iframe_url.IsSet() {
 		return (self).URLResult(redirect_url, rnt.AsOptString("Generic"), rnt.OptString{}, rnt.OptString{})
 	}
-	iframe = (self).DownloadWebpageURL(iframe_url.Get(), video_id.Get(), rnt.AsOptString("Downloading iframe page"), rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	iframe = (self).DownloadWebpageURL(iframe_url.Get(), video_id.Get(), rnt.AsOptString("Downloading iframe page"), rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	duration = rnt.OptInt{}
 	sources = []interface{}{}
 	sd_url = (self).SearchRegexOne("<source[^>]+src=([\"\\'])(?P<url>.+?)\\1", iframe, "sd video url", nil, true, 0, "url")

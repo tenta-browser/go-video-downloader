@@ -65,7 +65,7 @@ func (self *MovingImageIE) _real_extract(url string) rnt.SDict {
 		webpage      string
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	formats = (self).ExtractM3U8Formats((self).HTMLSearchRegexOne("file\\s*:\\s*\"([^\"]+)\"", webpage, "m3u8 manifest URL", rnt.NoDefault, true, 0, nil).Get(), video_id, rnt.AsOptString("mp4"), rnt.AsOptString("m3u8_native"), nil, rnt.OptString{}, rnt.OptString{}, rnt.OptString{}, true, false)
 	search_field = func(field_name string, fatal bool) rnt.OptString {
 		return (self).SearchRegexOne(rnt.StrFormat2("<span\\s+class=\"field_title\">%s:</span>\\s*<span\\s+class=\"field_content\">([^<]+)</span>", field_name), webpage, "title", rnt.NoDefault, fatal, 0, nil)

@@ -121,7 +121,7 @@ func (self *NextMediaIE) _real_extract(url string) rnt.SDict {
 		page    string
 	)
 	news_id = (self).MatchID(url)
-	page = (self).DownloadWebpageURL(url, news_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	page = (self).DownloadWebpageURL(url, news_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	return (self)._extract_from_nextmedia_page(news_id, url, page)
 }
 

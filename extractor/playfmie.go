@@ -75,7 +75,7 @@ func (self *PlayFMIE) _real_extract(url string) rnt.SDict {
 	mobj = rnt.ReMatch((self).VALIDURL, url, 0)
 	video_id = rnt.ReMatchGroupOne(mobj, "id")
 	slug = rnt.ReMatchGroupOne(mobj, "slug")
-	recordings = (self).DownloadJSON(rnt.StrFormat2("http://v2api.play.fm/recordings/slug/%s", slug), video_id.Get(), rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	recordings = (self).DownloadJSON(rnt.StrFormat2("http://v2api.play.fm/recordings/slug/%s", slug), video_id.Get(), rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	error = rnt.DictGet(τ_cast_α_to_d(recordings), "error", nil)
 	if τ_isinstance_d(error) {
 		panic(rnt.PyExtractorError(rnt.StrFormat2("%s returned error: %s", (self).IE_NAME, rnt.DictGet(τ_cast_α_to_d(error), "message", nil)), true, rnt.OptString{}))

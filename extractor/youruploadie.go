@@ -64,7 +64,7 @@ func (self *YourUploadIE) _real_extract(url string) rnt.SDict {
 	)
 	video_id = (self).MatchID(url)
 	embed_url = rnt.StrFormat2("http://www.yourupload.com/embed/%s", video_id)
-	webpage = (self).DownloadWebpageURL(embed_url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(embed_url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	title = (self).OgSearchTitle(webpage, rnt.NoDefault, true)
 	video_url = rnt.UtilURLJoin(embed_url, (self).OgSearchVideoURL(webpage, "video url", true, rnt.NoDefault))
 	thumbnail = (self).OgSearchThumbnail(webpage, nil)

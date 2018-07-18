@@ -102,6 +102,16 @@ type τ_Tsω struct {
 	Φ0 string
 }
 
+type τ_Tα0ω struct {
+	Φ0 interface{}
+	Φ1 interface{}
+}
+
+type τ_TαOiω struct {
+	Φ0 interface{}
+	Φ1 rnt.OptInt
+}
+
 type τ_Tαsω struct {
 	Φ0 interface{}
 	Φ1 string
@@ -354,6 +364,15 @@ func τ_search_α_in_Sα(needle interface{}, haystack map[interface{}]struct{}) 
 		}
 	}
 	return false
+}
+
+func τ_search_α_notin_Sα(needle interface{}, haystack map[interface{}]struct{}) bool {
+	for haystackEl := range haystack {
+		if haystackEl == needle {
+			return false
+		}
+	}
+	return true
 }
 
 func τ_sink_Fssω(nothing interface{}) func(string) string {

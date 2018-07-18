@@ -75,7 +75,7 @@ func (self *StitcherIE) _real_extract(url string) rnt.SDict {
 			return audio_id
 		}
 	}()
-	webpage = (self).DownloadWebpageURL(url, display_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(url, display_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	episode = rnt.UnsafeSubscript(rnt.UnsafeSubscript((self).ParseJSON(rnt.JsToJSON((self).SearchRegexOne("(?s)var\\s+stitcher(?:Config)?\\s*=\\s*({.+?});\\n", webpage, "episode config", rnt.NoDefault, true, 0, nil).Get()), display_id.Get(), nil, true), "config"), "episode")
 	title = rnt.UnescapeHTML(rnt.CastToOptString(rnt.UnsafeSubscript(episode, "title")))
 	formats = func() []rnt.SDict {

@@ -73,7 +73,7 @@ func (self *TinyPicIE) _real_extract(url string) rnt.SDict {
 	)
 	mobj = rnt.ReMatch((self).VALIDURL, url, 0)
 	video_id = rnt.ReMatchGroupOne(mobj, "id")
-	webpage = (self).DownloadWebpageURL(url, video_id.Get(), rnt.AsOptString("Downloading page"), rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(url, video_id.Get(), rnt.AsOptString("Downloading page"), rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	mobj = rnt.ReSearch("(?m)fo\\.addVariable\\(\"file\",\\s\"(?P<fileid>[\\da-z]+)\"\\);\\n\\s+fo\\.addVariable\\(\"s\",\\s\"(?P<serverid>\\d+)\"\\);", webpage, 0)
 	if mobj == nil {
 		panic(rnt.PyExtractorError(rnt.StrFormat2("Video %s does not exist", video_id), true, rnt.OptString{}))

@@ -66,7 +66,7 @@ func (self *MacGameStoreIE) _real_extract(url string) rnt.SDict {
 		webpage     string
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(url, video_id, rnt.AsOptString("Downloading trailer page"), rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(url, video_id, rnt.AsOptString("Downloading trailer page"), rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	if rnt.StrContains(webpage, ">Missing Media<") {
 		panic(rnt.PyExtractorError(rnt.StrFormat2("Trailer %s does not exist", video_id), true, rnt.OptString{}))
 	}

@@ -65,7 +65,7 @@ func (self *YinYueTaiIE) _real_extract(url string) rnt.SDict {
 		video_id string
 	)
 	video_id = (self).MatchID(url)
-	info = rnt.UnsafeSubscript(rnt.UnsafeSubscript((self).DownloadJSON(rnt.StrFormat2("http://ext.yinyuetai.com/main/get-h-mv-info?json=true&videoId=%s", video_id), video_id, rnt.AsOptString("Downloading mv info"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}), "videoInfo"), "coreVideoInfo")
+	info = rnt.UnsafeSubscript(rnt.UnsafeSubscript((self).DownloadJSON(rnt.StrFormat2("http://ext.yinyuetai.com/main/get-h-mv-info?json=true&videoId=%s", video_id), video_id, rnt.AsOptString("Downloading mv info"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil), "videoInfo"), "coreVideoInfo")
 	if rnt.IsTruthy(rnt.UnsafeSubscript(info, "error")) {
 		panic(rnt.PyExtractorError(rnt.CastToString(rnt.UnsafeSubscript(info, "errorMsg")), true, rnt.OptString{}))
 	}

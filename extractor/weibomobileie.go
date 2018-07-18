@@ -64,7 +64,7 @@ func (self *WeiboMobileIE) _real_extract(url string) rnt.SDict {
 		weibo_info  interface{}
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(url, video_id, rnt.AsOptString("visit the page"), rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(url, video_id, rnt.AsOptString("visit the page"), rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	weibo_info = (self).ParseJSON((self).SearchRegexOne("var\\s+\\$render_data\\s*=\\s*\\[({.*})\\]\\[0\\]\\s*\\|\\|\\s*{};", webpage, "js_code", rnt.NoDefault, true, rnt.ReFlagDotAll, nil).Get(), video_id, rnt.JsToJSON, true)
 	status_data = rnt.DictGet(τ_cast_α_to_d(weibo_info), "status", rnt.SDict{})
 	page_info = rnt.DictGet(τ_cast_α_to_d(status_data), "page_info", nil)

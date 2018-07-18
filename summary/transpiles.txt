@@ -87,6 +87,7 @@ LocalNews8IE
 LoveHomePornIE
 M6IE
 MITIE
+MLBIE
 MTV81IE
 MacGameStoreIE
 MailRuIE
@@ -103,7 +104,9 @@ MyChannelsIE
 MyVidsterIE
 NBCSportsVPlayerIE
 NDTVIE
+NHLIE
 NPORadioFragmentIE
+NPORadioIE
 NRKSkoleIE
 NTVDeIE
 NTVRuIE
@@ -111,9 +114,11 @@ NextMediaActionNewsIE
 NextMediaIE
 NuvidIE
 OdaTVIE
+OktoberfestTVIE
 ParliamentLiveUKIE
 PatreonIE
 PeopleIE
+PeriscopeIE
 PicartoVodIE
 PikselIE
 PinkbikeIE
@@ -121,10 +126,12 @@ PlayFMIE
 PodomaticIE
 PornHdIE
 PornHubIE
+PornoVoisinesIE
 RENTVIE
 RUHDIE
 RadioBremenIE
 RadioCanadaAudioVideoIE
+RadioDeIE
 RadioFranceIE
 RadioJavanIE
 RedTubeIE
@@ -139,8 +146,10 @@ SapoIE
 SchoolTVIE
 ServusIE
 SexuIE
+SkylineWebcamsIE
 SlidesLiveIE
 SlutloadIE
+SlutloadMobileIE
 SoundgasmIE
 SpankBangIE
 SpankwireIE
@@ -163,8 +172,10 @@ TVPIE
 TassIE
 TeacherTubeIE
 TeleMBIE
+TeleQuebecLiveIE
 TelewebionIE
 TentaIE
+TheInterceptIE
 TheSceneIE
 TheStarIE
 ThisAmericanLifeIE
@@ -187,6 +198,7 @@ VidioIE
 VoiceRepublicIE
 VpornIE
 VubeIE
+VyboryMosIE
 WDRMobileIE
 WallaIE
 WashingtonPostArticleIE

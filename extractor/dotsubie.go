@@ -63,10 +63,10 @@ func (self *DotsubIE) _real_extract(url string) rnt.SDict {
 		webpage    string
 	)
 	video_id = (self).MatchID(url)
-	info = (self).DownloadJSON(rnt.StrFormat2("https://dotsub.com/api/media/%s/metadata", video_id), video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	info = (self).DownloadJSON(rnt.StrFormat2("https://dotsub.com/api/media/%s/metadata", video_id), video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	video_url = rnt.DictGet(τ_cast_α_to_d(info), "mediaURI", nil)
 	if !(rnt.IsTruthy(video_url)) {
-		webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+		webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 		video_url = (self).SearchRegexMulti([]string{"<source[^>]+src=\"([^\"]+)\"", "\"file\"\\s*:\\s*\\'([^\\']+)"}, webpage, "video url", nil, true, 0, nil)
 		info_dict = rnt.SDict{
 			"id":  video_id,

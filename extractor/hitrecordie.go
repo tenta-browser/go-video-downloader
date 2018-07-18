@@ -63,7 +63,7 @@ func (self *HitRecordIE) _real_extract(url string) rnt.SDict {
 		video_url interface{}
 	)
 	video_id = (self).MatchID(url)
-	video = (self).DownloadJSON(rnt.StrFormat2("https://hitrecord.org/api/web/records/%s", video_id), video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	video = (self).DownloadJSON(rnt.StrFormat2("https://hitrecord.org/api/web/records/%s", video_id), video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	title = rnt.UnsafeSubscript(video, "title")
 	video_url = rnt.UnsafeSubscript(rnt.UnsafeSubscript(video, "source_url"), "mp4_url")
 	tags = nil

@@ -33,12 +33,14 @@ Supported sites
  * LRT: `www.lrt.lt`
  * Lemonde: `www.lemonde.fr`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
+ * MLB: `www.mlb.com`
  * MacGameStore: `www.macgamestore.com`
  * MailRu: `my.mail.ru`
  * Megaphone: `player.megaphone.fm`
  * Mojvideo: `www.mojvideo.com`
  * MovingImage: `movingimage.nls.uk`
- * NDTV: `khabar.ndtv.com`
+ * NDTV: `movies.ndtv.com`
+ * NHL: `www.nhl.com`
  * NTVRu: `www.ntv.ru`
  * NextMedia: `hk.apple.nextmedia.com`
  * NextMediaActionNews: `hk.dv.nextmedia.com`
@@ -49,11 +51,15 @@ Supported sites
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * RENTV: `ren.tv`
+ * RadioDe: `ndr2.radio.de`
  * RadioJavan: `www.radiojavan.com`
  * RedTube _(adult)_: `www.redtube.com`
  * RockstarGames: `www.rockstargames.com`
  * Rozhlas: `prehravac.rozhlas.cz`
  * Sapo: `videos.sapo.pt`
+ * SkylineWebcams: `www.skylinewebcams.com`
+ * Slutload _(adult)_: `www.slutload.com`
+ * SlutloadMobile _(adult)_: `mobile.slutload.com`
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
  * Spankwire _(adult)_: `www.spankwire.com`
@@ -65,6 +71,7 @@ Supported sites
  * Tass: `tass.ru`
  * TeacherTube: `www.teachertube.com`
  * TeleMB: `www.telemb.be`
+ * Tenta: `tenta.com`
  * ThisAmericanLife: `www.thisamericanlife.org`
  * TinyPic: `tinypic.com`
  * Tumblr: `tatianamaslanydaily.tumblr.com`

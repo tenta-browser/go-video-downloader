@@ -67,7 +67,7 @@ func (self *TwentyMinutenIE) _real_extract(url string) rnt.SDict {
 		video_id      string
 	)
 	video_id = (self).MatchID(url)
-	video = rnt.UnsafeSubscript((self).DownloadJSON(rnt.StrFormat2("http://api.20min.ch/video/%s/show", video_id), video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}), "content")
+	video = rnt.UnsafeSubscript((self).DownloadJSON(rnt.StrFormat2("http://api.20min.ch/video/%s/show", video_id), video_id, rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil), "content")
 	title = rnt.UnsafeSubscript(video, "title")
 	formats = func() []rnt.SDict {
 		τresult := []rnt.SDict{}

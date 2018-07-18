@@ -112,7 +112,7 @@ func (self *XHamsterIE) _real_extract(url string) rnt.SDict {
 		}
 	}()
 	desktop_url = rnt.ReSub("^(https?://(?:.+?\\.)?)m\\.", "\\1", url, 0, 0)
-	webpage = (self).DownloadWebpageURL(desktop_url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(desktop_url, video_id.Get(), rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	error = (self).HTMLSearchRegexOne("<div[^>]+id=[\"\\']videoClosed[\"\\'][^>]*>(.+?)</div>", webpage, "error", nil, true, 0, nil)
 	if τ_isTruthy_Os(error) {
 		panic(rnt.PyExtractorError(error.Get(), true, rnt.OptString{}))

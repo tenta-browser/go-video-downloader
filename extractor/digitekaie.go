@@ -81,7 +81,7 @@ func (self *DigitekaIE) _real_extract(url string) rnt.SDict {
 	if (video_type.Get()) == ("music") {
 		video_type = rnt.AsOptString("musique")
 	}
-	deliver_info = (self).DownloadJSON(rnt.StrFormat2("http://www.ultimedia.com/deliver/video?video=%s&topic=%s", video_id, video_type), video_id.Get(), rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	deliver_info = (self).DownloadJSON(rnt.StrFormat2("http://www.ultimedia.com/deliver/video?video=%s&topic=%s", video_id, video_type), video_id.Get(), rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	yt_id = rnt.DictGet(τ_cast_α_to_d(deliver_info), "yt_id", nil)
 	if rnt.IsTruthy(yt_id) {
 		return (self).URLResult(rnt.CastToString(yt_id), rnt.AsOptString("Youtube"), rnt.OptString{}, rnt.OptString{})

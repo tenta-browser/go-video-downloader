@@ -75,7 +75,7 @@ func (self *UstudioEmbedIE) _real_extract(url string) rnt.SDict {
 	τmp1 = rnt.ReMatchGroups(rnt.ReMatch((self).VALIDURL, url, 0), rnt.OptString{})
 	uploader_id = (τmp1)[0]
 	video_id = (τmp1)[1]
-	video_data = rnt.UnsafeSubscript(rnt.UnsafeSubscript((self).DownloadJSON(rnt.StrFormat2("http://app.ustudio.com/embed/%s/%s/config.json", uploader_id, video_id), video_id.Get(), rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}), "videos"), 0)
+	video_data = rnt.UnsafeSubscript(rnt.UnsafeSubscript((self).DownloadJSON(rnt.StrFormat2("http://app.ustudio.com/embed/%s/%s/config.json", uploader_id, video_id), video_id.Get(), rnt.AsOptString("Downloading JSON metadata"), rnt.AsOptString("Unable to download JSON metadata"), nil, true, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil), "videos"), 0)
 	title = rnt.UnsafeSubscript(video_data, "name")
 	formats = []interface{}{}
 	for _, τel := range rnt.DictItems(τ_cast_α_to_d(rnt.DictGet(τ_cast_α_to_d(video_data), "transcodes", rnt.SDict{}))) {

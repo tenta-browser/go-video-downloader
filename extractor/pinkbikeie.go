@@ -75,7 +75,7 @@ func (self *PinkbikeIE) _real_extract(url string) rnt.SDict {
 		τmp1          []string
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(rnt.StrFormat2("http://www.pinkbike.com/video/%s", video_id), video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{})
+	webpage = (self).DownloadWebpageURL(rnt.StrFormat2("http://www.pinkbike.com/video/%s", video_id), video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
 	formats = []interface{}{}
 	for _, τel := range rnt.ReFindAllMulti("data-quality=((?:\\\\)?[\"\\'])(.+?)\\1[^>]+src=\\1(.+?)\\1", webpage, 0) {
 		τmp1 = τel
