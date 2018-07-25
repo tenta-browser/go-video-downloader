@@ -1,6 +1,5 @@
 ABCOTVSClipsIE
 ABCOTVSIE
-APAIE
 ATTTechChannelIE
 ATVAtIE
 AcademicEarthCourseIE
@@ -127,14 +126,12 @@ PodomaticIE
 PornHdIE
 PornHubIE
 PornoVoisinesIE
-RENTVIE
 RUHDIE
 RadioBremenIE
 RadioCanadaAudioVideoIE
 RadioDeIE
 RadioFranceIE
 RadioJavanIE
-RedTubeIE
 ReutersIE
 Ro220IE
 RockstarGamesIE
@@ -149,7 +146,6 @@ SexuIE
 SkylineWebcamsIE
 SlidesLiveIE
 SlutloadIE
-SlutloadMobileIE
 SoundgasmIE
 SpankBangIE
 SpankwireIE
@@ -208,13 +204,11 @@ WistiaIE
 WrzutaIE
 XBefIE
 XHamsterEmbedIE
-XHamsterIE
 XNXXIE
 XTubeIE
 XVideosIE
 XXXYMoviesIE
 YinYueTaiIE
-YouPornIE
 YourUploadIE
 YoutubePlaceholderIE
 YoutubeTruncatedIDIE

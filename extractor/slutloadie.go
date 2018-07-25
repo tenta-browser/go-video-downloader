@@ -39,7 +39,7 @@ func NewSlutloadIE() rnt.InfoExtractor {
 	self := &SlutloadIE{}
 	self.CommonIE = rnt.NewCommonIE()
 	IE_NAME = "Slutload"
-	_VALID_URL = "^https?://(?:www\\.)?slutload\\.com/video/[^/]+/(?P<id>[^/]+)/?$"
+	_VALID_URL = "https?://(?:\\w+\\.)?slutload\\.com/(?:video/[^/]+|embed_player|watch)/(?P<id>[^/]+)"
 	self.IE_NAME = IE_NAME
 	self.VALIDURL = _VALID_URL
 	return self
@@ -55,24 +55,31 @@ func (self *SlutloadIE) Name() string {
 
 func (self *SlutloadIE) _real_extract(url string) rnt.SDict {
 	var (
-		thumbnail   rnt.OptString
-		video_id    string
-		video_title string
-		video_url   rnt.OptString
-		webpage     string
+		embed_page string
+		extract    func(string) rnt.OptString
+		title      rnt.OptString
+		video_id   string
+		video_url  rnt.OptString
 	)
 	video_id = (self).MatchID(url)
-	webpage = (self).DownloadWebpageURL(url, video_id, rnt.OptString{}, rnt.OptString{}, true, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
-	video_title = rnt.StrStrip((self).HTMLSearchRegexOne("<h1><strong>([^<]+)</strong>", webpage, "title", rnt.NoDefault, true, 0, nil).Get(), "")
-	video_url = (self).HTMLSearchRegexOne("(?s)<video id=[\"\\']desktop-player[\"\\'].+?<source src=[\"\\']([^\"\\']+)[\"\\']", webpage, "video URL", rnt.NoDefault, true, 0, nil)
-	thumbnail = (self).HTMLSearchRegexOne("(?s)<video id=[\"\\']desktop-player[\"\\'].+?poster=[\"\\']([^\"\\']+)[\"\\']", webpage, "thumbnail, fatal=False", rnt.NoDefault, true, 0, nil)
-	return rnt.SDict{
-		"id":        video_id,
-		"url":       video_url,
-		"title":     video_title,
-		"thumbnail": thumbnail,
-		"age_limit": 18,
+	embed_page = (self).DownloadWebpageURL(rnt.StrFormat2("http://www.slutload.com/embed_player/%s", video_id), video_id, rnt.AsOptString("Downloading embed page"), rnt.OptString{}, false, 1, 5, rnt.OptString{}, nil, rnt.SDict{}, rnt.SDict{}, nil)
+	if (embed_page) != "" {
+		extract = func(what string) rnt.OptString {
+			return (self).HTMLSearchRegexOne(rnt.StrFormat2("data-video-%s=([\"\\'])(?P<url>(?:(?!\\1).)+)\\1", what), embed_page, rnt.StrFormat2("video %s", what), nil, true, 0, "url")
+		}
+		video_url = extract("url")
+		if τ_isTruthy_Os(video_url) {
+			title = (self).HTMLSearchRegexOne("<title>([^<]+)", embed_page, "title", video_id, true, 0, nil)
+			return rnt.SDict{
+				"id":        video_id,
+				"url":       video_url,
+				"title":     title,
+				"thumbnail": extract("preview"),
+				"age_limit": 18,
+			}
+		}
 	}
+	return rnt.SDict{}
 }
 
 func (self *SlutloadIE) Extract(url string) (rnt.ExtractorResult, error) {

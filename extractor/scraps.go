@@ -27,11 +27,6 @@ import (
 	"reflect"
 )
 
-type τ_T00ω struct {
-	Φ0 interface{}
-	Φ1 interface{}
-}
-
 type τ_TOsOsω struct {
 	Φ0 rnt.OptString
 	Φ1 rnt.OptString
@@ -126,15 +121,6 @@ func τ_all_Lb(list []bool) bool {
 	return true
 }
 
-func τ_any_Lb(list []bool) bool {
-	for _, el := range list {
-		if el {
-			return true
-		}
-	}
-	return false
-}
-
 func τ_cast_α_to_Lα(any interface{}) []interface{} {
 	anyv := reflect.ValueOf(any)
 	len := anyv.Len()
@@ -154,14 +140,6 @@ func τ_cast_α_to_d(val interface{}) rnt.SDict {
 	return res
 }
 
-func τ_constr_SOs_from_LOs(iter []rnt.OptString) map[rnt.OptString]struct{} {
-	set := map[rnt.OptString]struct{}{}
-	for _, element := range iter {
-		set[element] = struct{}{}
-	}
-	return set
-}
-
 func τ_constr_Ss_from_Ls(iter []string) map[string]struct{} {
 	set := map[string]struct{}{}
 	for _, element := range iter {
@@ -176,14 +154,6 @@ func τ_constr_Sα_from_Lα(iter []interface{}) map[interface{}]struct{} {
 		set[element] = struct{}{}
 	}
 	return set
-}
-
-func τ_conv_LOs_to_Lα(src []rnt.OptString) []interface{} {
-	dest := []interface{}{}
-	for _, element := range src {
-		dest = append(dest, element)
-	}
-	return dest
 }
 
 func τ_conv_Ld_to_Lα(src []rnt.SDict) []interface{} {
@@ -218,27 +188,12 @@ func τ_conv_Lα_to_Ld(src []interface{}) []rnt.SDict {
 	return dest
 }
 
-func τ_conv_SOs_to_LOs(set map[rnt.OptString]struct{}) []rnt.OptString {
-	list := []rnt.OptString{}
-	for element := range set {
-		list = append(list, element)
-	}
-	return list
-}
-
 func τ_conv_Ss_to_Ls(set map[string]struct{}) []string {
 	list := []string{}
 	for element := range set {
 		list = append(list, element)
 	}
 	return list
-}
-
-func τ_conv_T00ω_to_TOsOsω(src τ_T00ω) τ_TOsOsω {
-	return τ_TOsOsω{
-		Φ0: τ_sink_Os(src.Φ0),
-		Φ1: τ_sink_Os(src.Φ1),
-	}
 }
 
 func τ_conv_TTssωTssωω_to_LTssω(tuple τ_TTssωTssωω) []τ_Tssω {
@@ -348,15 +303,6 @@ func τ_search_s_notin_Ls(needle string, haystack []string) bool {
 	return true
 }
 
-func τ_search_s_notin_Sα(needle string, haystack map[interface{}]struct{}) bool {
-	for haystackEl := range haystack {
-		if haystackEl == needle {
-			return false
-		}
-	}
-	return true
-}
-
 func τ_search_α_in_Sα(needle interface{}, haystack map[interface{}]struct{}) bool {
 	for haystackEl := range haystack {
 		if haystackEl == needle {
@@ -376,10 +322,6 @@ func τ_search_α_notin_Sα(needle interface{}, haystack map[interface{}]struct{
 }
 
 func τ_sink_Fssω(nothing interface{}) func(string) string {
-	return nil
-}
-
-func τ_sink_LOs(nothing interface{}) []rnt.OptString {
 	return nil
 }
 
