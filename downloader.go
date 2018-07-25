@@ -37,7 +37,7 @@ import (
 )
 
 // GenDate is date when this downloader was generated
-const GenDate = "20180725-0325"
+const GenDate = "20180725-0821"
 
 var (
 	masterRegexp     string
@@ -189,18 +189,20 @@ func newCookieJar(url string, initialCookies string) (*cookiejar.Jar, error) {
 	if err != nil {
 		return nil, err
 	}
-	// we set the simple cookies on the empty path
-	u.Path = ""
-	// we set the simple cookies on tld+1 domain
-	dom, err := publicsuffix.EffectiveTLDPlusOne(u.Hostname())
-	if err != nil {
-		return nil, err
-	}
 	cookies := utils.ParseCookieString(initialCookies)
-	for _, cookie := range cookies {
-		cookie.Domain = dom
+	if len(cookies) > 0 {
+		// we set the simple cookies on the empty path
+		u.Path = ""
+		// we set the simple cookies on tld+1 domain
+		dom, err := publicsuffix.EffectiveTLDPlusOne(u.Hostname())
+		if err != nil {
+			return nil, err
+		}
+		for _, cookie := range cookies {
+			cookie.Domain = dom
+		}
+		// actually set the cookies
+		jar.SetCookies(u, cookies)
 	}
-	// actually set the cookies
-	jar.SetCookies(u, cookies)
 	return jar, nil
 }

@@ -47,8 +47,10 @@ PlayFM                         safe  https://www.play.fm/dan-drastic/sven-tasnad
 Podomatic                      safe  http://scienceteachingtips.podomatic.com/entry/2009-01-02T16_03_35-08_00
 PornHd                         adult http://www.pornhd.com/videos/9864/selfie-restroom-masturbation-fun-with-chubby-cutie-hd-porn-video
 PornHub                        adult http://www.pornhub.com/view_video.php?viewkey=648719015
+RENTV                          safe  http://ren.tv/video/epizod/118577
 RadioDe                        safe  http://ndr2.radio.de/
 RadioJavan                     safe  http://www.radiojavan.com/videos/video/chaartaar-ashoobam
+RedTube                        adult http://www.redtube.com/66418
 RockstarGames                  safe  https://www.rockstargames.com/videos/video/11544/
 Rozhlas                        safe  http://prehravac.rozhlas.cz/audio/3421320
 Sapo                           safe  http://videos.sapo.pt/UBz95kOtiWYUMTA5Ghfi
@@ -76,9 +78,13 @@ VideosZ                        adult http://www.videosz.com/us/scene/91296_i-wan
 Vidio                          safe  http://www.vidio.com/watch/165683-dj_ambred-booyah-live-2015
 WDRMobile                      safe  http://mobile-ondemand.wdr.de/CMS2010/mdb/ondemand/weltweit/fsk0/42/421735/421735_4283021.mp4
 WeiboMobile                    safe  https://m.weibo.cn/status/4189191225395228?wm=3333_2001&sourcetype=weixin&featurecode=newtitle&from=singlemessage&isappinstalled=0
+Wistia                         safe  wistia:807fafadvk
+XHamster                       adult http://xhamster.com/movies/1509445/femaleagent_shy_beauty_takes_the_bait.html
+XHamsterEmbed                  adult http://xhamster.com/xembed.php?video=3328539
 XNXX                           adult http://www.xnxx.com/video-55awb78/skyrim_test_video
 XTube                          adult http://www.xtube.com/watch.php?v=kVTUy_G222_
 XVideos                        adult http://www.xvideos.com/video4588838/biker_takes_his_girl
 XXXYMovies                     adult http://xxxymovies.com/videos/138669/ecstatic-orgasm-sofcore/
-YinYueTai                      safe  http://v.yinyuetai.com/video/h5/2322376
+YinYueTai                      safe  http://v.yinyuetai.com/video/2322376
+YouPorn                        adult http://www.youporn.com/watch/505835/sex-ed-is-it-safe-to-masturbate-daily/
 YourUpload                     safe  http://yourupload.com/watch/14i14h

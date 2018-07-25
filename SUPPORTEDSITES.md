@@ -50,8 +50,10 @@ Supported sites
  * Podomatic: `scienceteachingtips.podomatic.com`
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
+ * RENTV: `ren.tv`
  * RadioDe: `ndr2.radio.de`
  * RadioJavan: `www.radiojavan.com`
+ * RedTube _(adult)_: `www.redtube.com`
  * RockstarGames: `www.rockstargames.com`
  * Rozhlas: `prehravac.rozhlas.cz`
  * Sapo: `videos.sapo.pt`
@@ -79,9 +81,12 @@ Supported sites
  * Vidio: `www.vidio.com`
  * WDRMobile: `mobile-ondemand.wdr.de`
  * WeiboMobile: `m.weibo.cn`
+ * XHamster _(adult)_: `xhamster.com`
+ * XHamsterEmbed _(adult)_: `xhamster.com`
  * XNXX _(adult)_: `www.xnxx.com`
  * XTube _(adult)_: `www.xtube.com`
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
  * YinYueTai: `v.yinyuetai.com`
+ * YouPorn _(adult)_: `www.youporn.com`
  * YourUpload: `yourupload.com`

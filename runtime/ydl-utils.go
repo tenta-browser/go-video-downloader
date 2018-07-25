@@ -203,6 +203,18 @@ func StripOrNone(s OptString) OptString {
 	return AsOptString(StrStrip(s.Get(), ""))
 }
 
+// URLOrNone implements utils.py/url_or_none
+func URLOrNone(url OptString) OptString {
+	if !url.IsSet() || url.Get() == "" {
+		return OptString{}
+	}
+	_url := StrStrip(url.Get(), "")
+	if ReMatch(`^(?:[a-zA-Z][\da-zA-Z.+-]*:)?//`, _url, 0) == nil {
+		return OptString{}
+	}
+	return AsOptString(_url)
+}
+
 // PyExtractorError implements utils.py/ExtractorError
 func PyExtractorError(msg string, expected bool, videoID OptString) error {
 	if videoID.IsSet() {
