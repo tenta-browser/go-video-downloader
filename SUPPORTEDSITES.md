@@ -20,11 +20,10 @@ Supported sites
  * EbaumsWorld: `www.ebaumsworld.com`
  * EchoMsk: `www.echo.msk.ru`
  * Fczenit: `fc-zenit.ru`
- * FiveTV: `5-tv.ru`
+ * FiveTV: `www.5-tv.ru`
  * GodTube: `www.godtube.com`
  * Hark: `www.hark.com`
  * HentaiStigma _(adult)_: `hentai.animestigma.com`
- * HistoricFilms: `www.historicfilms.com`
  * HitRecord: `hitrecord.org`
  * Hitbox: `www.hitbox.tv`
  * Ir90Tv: `90tv.ir`
@@ -49,7 +48,6 @@ Supported sites
  * PlayFM: `www.play.fm`
  * Podomatic: `scienceteachingtips.podomatic.com`
  * PornHd _(adult)_: `www.pornhd.com`
- * PornHub _(adult)_: `www.pornhub.com`
  * RENTV: `ren.tv`
  * RadioDe: `ndr2.radio.de`
  * RadioJavan: `www.radiojavan.com`

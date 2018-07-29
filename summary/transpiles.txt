@@ -125,7 +125,6 @@ PinkbikeIE
 PlayFMIE
 PodomaticIE
 PornHdIE
-PornHubIE
 PornoVoisinesIE
 RENTVIE
 RUHDIE
