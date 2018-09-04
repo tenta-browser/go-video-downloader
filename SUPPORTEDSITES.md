@@ -9,9 +9,9 @@ Supported sites
  * Bang _(adult)_: `www.bang.com`
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
+ * BitChute: `www.bitchute.com`
  * Camdemy: `www.camdemy.com`
  * Chirbit: `chirb.it`
- * Clyp: `clyp.it`
  * CrooksAndLiars: `embed.crooksandliars.com`
  * Digiteka: `www.ultimedia.com`
  * Dotsub: `dotsub.com`
@@ -24,12 +24,12 @@ Supported sites
  * GodTube: `www.godtube.com`
  * Hark: `www.hark.com`
  * HentaiStigma _(adult)_: `hentai.animestigma.com`
+ * HistoricFilms: `www.historicfilms.com`
  * HitRecord: `hitrecord.org`
  * Hitbox: `www.hitbox.tv`
  * Ir90Tv: `90tv.ir`
  * Joj: `media.joj.sk`
  * KrasView: `krasview.ru`
- * LRT: `www.lrt.lt`
  * Lemonde: `www.lemonde.fr`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * MLB: `www.mlb.com`
@@ -41,7 +41,6 @@ Supported sites
  * NDTV: `movies.ndtv.com`
  * NHL: `www.nhl.com`
  * NTVRu: `www.ntv.ru`
- * NextMedia: `hk.apple.nextmedia.com`
  * NextMediaActionNews: `hk.dv.nextmedia.com`
  * Piksel: `player.piksel.com`
  * Pinkbike: `es.pinkbike.org`
@@ -50,7 +49,6 @@ Supported sites
  * PornHd _(adult)_: `www.pornhd.com`
  * RENTV: `ren.tv`
  * RadioDe: `ndr2.radio.de`
- * RadioJavan: `www.radiojavan.com`
  * RedTube _(adult)_: `www.redtube.com`
  * RockstarGames: `www.rockstargames.com`
  * Rozhlas: `prehravac.rozhlas.cz`
@@ -65,7 +63,6 @@ Supported sites
  * SunPorno _(adult)_: `www.sunporno.com`
  * TVC: `www.tvc.ru`
  * TVCArticle: `www.tvc.ru`
- * Tass: `tass.ru`
  * TeacherTube: `www.teachertube.com`
  * TeleMB: `www.telemb.be`
  * Tenta: `tenta.com`
@@ -87,4 +84,5 @@ Supported sites
  * XXXYMovies _(adult)_: `xxxymovies.com`
  * YinYueTai: `v.yinyuetai.com`
  * YouPorn _(adult)_: `www.youporn.com`
+ * YourPorn: `yourporn.sexy`
  * YourUpload: `yourupload.com`

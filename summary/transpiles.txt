@@ -19,6 +19,7 @@ BangIE
 BellMediaIE
 BigflixIE
 BildIE
+BitChuteIE
 BleacherReportIE
 CJSWIE
 CSNNEIE
@@ -27,7 +28,6 @@ CamdemyIE
 CarambaTVIE
 ChirbitIE
 ClubicIE
-ClypIE
 ComCarCoffIE
 ComedyCentralShortnameIE
 CriterionIE
@@ -73,6 +73,7 @@ JpopsukiIE
 KaraoketvIE
 KeekIE
 KhanAcademyIE
+KinoPoiskIE
 KontrTubeIE
 KrasViewIE
 Ku6IE
@@ -132,7 +133,6 @@ RadioBremenIE
 RadioCanadaAudioVideoIE
 RadioDeIE
 RadioFranceIE
-RadioJavanIE
 RedTubeIE
 ReutersIE
 Ro220IE
@@ -213,6 +213,7 @@ XVideosIE
 XXXYMoviesIE
 YinYueTaiIE
 YouPornIE
+YourPornIE
 YourUploadIE
 YoutubePlaceholderIE
 YoutubeTruncatedIDIE
