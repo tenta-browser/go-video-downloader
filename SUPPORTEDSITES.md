@@ -11,7 +11,6 @@ Supported sites
  * Bild: `www.bild.de`
  * BitChute: `www.bitchute.com`
  * Camdemy: `www.camdemy.com`
- * Chirbit: `chirb.it`
  * CrooksAndLiars: `embed.crooksandliars.com`
  * Digiteka: `www.ultimedia.com`
  * Dotsub: `dotsub.com`
@@ -30,6 +29,7 @@ Supported sites
  * Ir90Tv: `90tv.ir`
  * Joj: `media.joj.sk`
  * KrasView: `krasview.ru`
+ * LRT: `www.lrt.lt`
  * Lemonde: `www.lemonde.fr`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * MLB: `www.mlb.com`
@@ -53,7 +53,6 @@ Supported sites
  * RockstarGames: `www.rockstargames.com`
  * Rozhlas: `prehravac.rozhlas.cz`
  * Sapo: `videos.sapo.pt`
- * SkylineWebcams: `www.skylinewebcams.com`
  * Slutload _(adult)_: `www.slutload.com`
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`

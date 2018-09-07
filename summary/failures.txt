@@ -16,6 +16,7 @@ CJSW                           Unable to extract audio url
 CSNNE                          Unsupported extractor: ThePlatform
 CamWithHer                     Unable to extract video id
 CarambaTV                      Unable to download webpage: HTTP Error 404: 404 Not Found
+Chirbit                        Get http://chirb.it/be2abG: dial tcp 209.195.2.12:80: i/o timeout
 Clubic                         Unable to download webpage: HTTP Error 404: 404 Not Found
 ComCarCoff                     Unable to extract full data json
 ComedyCentralShortname         parse :tds: missing protocol scheme
@@ -49,13 +50,12 @@ KinoPoisk                      Key error: playlistEntity
 KontrTube                      Unable to extract video URL
 Ku6                            Unable to download webpage: HTTP Error 404: 404 Not Found
 LCI                            Unsupported extractor: Wat
-LRT                            Unable to download webpage: HTTP Error 404: 404 Not Found
-Learnr                         Unable to download webpage: HTTP Error 404: 404 Not Found
+Learnr                         Unable to extract youtube id
 Lenta                          Unsupported extractor: Generic
 LineTV                         Unable to extract player parameters
 LocalNews8                     Unable to extract partner id
 M6                             Unsupported extractor: SixPlay
-MIT                            Check failed for: https://accounts.google.com/ServiceLogin?uilel=3&amp;hl=en&amp;passive=true&amp;service=youtube&amp;continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Ffeature%3Dpassive%26hl%3Den%26next%3D%252Fsignin_passive%26action_handle_signin%3Dtrue%26app%3Ddesktop
+MIT                            Check failed for: https://accounts.google.com/ServiceLogin?uilel=3&amp;passive=true&amp;service=youtube&amp;continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26next%3D%252Fsignin_passive%26feature%3Dpassive%26app%3Ddesktop%26hl%3Den&amp;hl=en
 MTV81                          Unable to extract mgid
 MakerTV                        Unable to download webpage: HTTP Error 400: 400 Bad Request
 ManyVids                       Unable to extract title
@@ -92,6 +92,7 @@ SRGSSRPlay                     Unsupported extractor: SRGSSR
 SchoolTV                       Unsupported extractor: NPO
 Servus                         No suitable format found
 Sexu                           Unable to extract jwvideo
+SkylineWebcams                 Unable to extract stream url
 SlidesLive                     Unsupported extractor: Youtube
 Sport5                         Unable to download webpage: HTTP Error 404: 404 Not Found
 SportBoxEmbed                  Unable to extract wjplayer settings
@@ -121,12 +122,12 @@ Vidbit                         Unable to extract video URL
 VideofyMe                      Unable to download webpage: HTTP Error 404: 404 Not Found
 VoiceRepublic                  Unable to extract player
 Vporn                          Vporn said: This video has been deleted due to Copyright Infringement or by the account owner!
-Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.212:80: i/o timeout
+Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.213:80: i/o timeout
 VyboryMos                      [13636] Failed to parse JSON
 Walla                          Get http://video2.walla.co.il/?w=null%2Fnull%2F2642630%2F%40%40%2Fvideo%2Fflv_pl: dial tcp 192.118.82.188:80: i/o timeout
 WashingtonPostArticle          Unsupported result type: playlist
 WeiqiTV                        Unable to extract info json str
 Wrzuta                         [aq4hIZWrkBu] Failed to parse JSON
-XBef                           Get http://fvplayer.com/b/aHR0cCUzYSUyZiUyZmNkbmhkMm5ldy5ueGd4LmNvbSUyZnZpZGVvcyUyZjYwMTUubXA0JjUxMTkmNTExOSUyZjEuanBnJjEw: dial tcp 192.96.205.240:80: connect: no route to host
+XBef                           Get http://fvplayer.com/b/aHR0cCUzYSUyZiUyZmNkbmhkMW5ldy5ueGd4LmNvbSUyZnZpZGVvcyUyZjYwMTUubXA0JjUxMTkmNTExOSUyZjEuanBnJjEw: dial tcp 192.96.205.240:80: connect: no route to host
 YoutubeTruncatedID             Incomplete YouTube ID N_708QY7Ob. URL https://www.youtube.com/watch?v=N_708QY7Ob looks truncated.
 YoutubeTruncatedURL            Did you forget to quote the URL? Remember that & is a meta character in most shells, so you want to put the URL in quotes, like  youtube-dl "https://www.youtube.com/watch?feature=foo&v=BaW_jenozKc"  or simply  youtube-dl BaW_jenozKc  .
