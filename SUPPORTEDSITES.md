@@ -11,6 +11,7 @@ Supported sites
  * Bild: `www.bild.de`
  * BitChute: `www.bitchute.com`
  * Camdemy: `www.camdemy.com`
+ * Chirbit: `chirb.it`
  * CrooksAndLiars: `embed.crooksandliars.com`
  * Digiteka: `www.ultimedia.com`
  * Dotsub: `dotsub.com`
@@ -53,6 +54,7 @@ Supported sites
  * RockstarGames: `www.rockstargames.com`
  * Rozhlas: `prehravac.rozhlas.cz`
  * Sapo: `videos.sapo.pt`
+ * SkylineWebcams: `www.skylinewebcams.com`
  * Slutload _(adult)_: `www.slutload.com`
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
