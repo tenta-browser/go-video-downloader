@@ -15,7 +15,7 @@ BleacherReport                 Check failed for: ooyala:t2ZHVudTrYhBYj_TQfIi-VTc
 CJSW                           Unable to extract audio url
 CSNNE                          Unsupported extractor: ThePlatform
 CamWithHer                     Unable to extract video id
-CarambaTV                      Unable to download webpage: HTTP Error 404: 404 Not Found
+CarambaTV                      [191910501] Failed to parse JSON
 Clubic                         Unable to download webpage: HTTP Error 404: 404 Not Found
 ComCarCoff                     Unable to extract full data json
 ComedyCentralShortname         parse :tds: missing protocol scheme
@@ -36,6 +36,7 @@ GPUTechConf                    Unsupported extractor: DigitallySpeaking
 Gazeta                         Unsupported extractor: EaglePlatform
 GenerationWhat                 Unsupported extractor: Youtube
 Glide                          Unable to download webpage: HTTP Error 404: 404 Not Found
+Hark                           Get http://www.hark.com/clips/mmbzyhkgny.json: dial tcp 54.188.92.199:80: i/o timeout
 HellPorno                      Unable to extract flashvars
 Helsinki                       Unable to extract player code
 HetKlokhuis                    Unsupported extractor: NPO
@@ -54,7 +55,7 @@ Lenta                          Unsupported extractor: Generic
 LineTV                         Unable to extract player parameters
 LocalNews8                     Unable to extract partner id
 M6                             Unsupported extractor: SixPlay
-MIT                            Check failed for: https://accounts.google.com/ServiceLogin?service=youtube&amp;continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Ffeature%3Dpassive%26hl%3Den%26action_handle_signin%3Dtrue%26next%3D%252Fsignin_passive%26app%3Ddesktop&amp;hl=en&amp;passive=true&amp;uilel=3
+MIT                            Check failed for: https://accounts.google.com/ServiceLogin?hl=en&amp;service=youtube&amp;uilel=3&amp;continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Fhl%3Den%26next%3D%252Fsignin_passive%26feature%3Dpassive%26app%3Ddesktop%26action_handle_signin%3Dtrue&amp;passive=true
 MTV81                          Unable to extract mgid
 MakerTV                        Unable to download webpage: HTTP Error 400: 400 Bad Request
 ManyVids                       Unable to extract title
@@ -92,6 +93,7 @@ SchoolTV                       Unsupported extractor: NPO
 Servus                         No suitable format found
 Sexu                           Unable to extract jwvideo
 SlidesLive                     Unsupported extractor: Youtube
+Slutload                       Unable to download webpage: HTTP Error 503: 503 Service Unavailable
 Sport5                         Unable to download webpage: HTTP Error 404: 404 Not Found
 SportBoxEmbed                  Unable to extract wjplayer settings
 StretchInternet                Unable to download webpage: HTTP Error 404: 404 Not Found
@@ -120,8 +122,8 @@ Vidbit                         Unable to extract video URL
 VideofyMe                      Unable to download webpage: HTTP Error 404: 404 Not Found
 VoiceRepublic                  Unable to extract player
 Vporn                          Vporn said: This video has been deleted due to Copyright Infringement or by the account owner!
-Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.212:80: i/o timeout
-VyboryMos                      Get http://vybory.mos.ru/account/channels?station_id=13636: dial tcp 188.254.12.185:80: i/o timeout
+Vube                           Get http://vube.com/t-api/v1/video/Y8NUZ69Tf7: dial tcp 216.127.49.214:80: i/o timeout
+VyboryMos                      [13636] Failed to parse JSON
 Walla                          Get http://video2.walla.co.il/?w=null%2Fnull%2F2642630%2F%40%40%2Fvideo%2Fflv_pl: dial tcp 192.118.82.188:80: i/o timeout
 WashingtonPostArticle          Unsupported result type: playlist
 WeiqiTV                        Unable to extract info json str

@@ -22,7 +22,6 @@ Supported sites
  * Fczenit: `fc-zenit.ru`
  * FiveTV: `www.5-tv.ru`
  * GodTube: `www.godtube.com`
- * Hark: `www.hark.com`
  * HentaiStigma _(adult)_: `hentai.animestigma.com`
  * HistoricFilms: `www.historicfilms.com`
  * HitRecord: `hitrecord.org`
@@ -55,7 +54,6 @@ Supported sites
  * Rozhlas: `prehravac.rozhlas.cz`
  * Sapo: `videos.sapo.pt`
  * SkylineWebcams: `www.skylinewebcams.com`
- * Slutload _(adult)_: `www.slutload.com`
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
  * Spankwire _(adult)_: `www.spankwire.com`
