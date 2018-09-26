@@ -54,6 +54,7 @@ Supported sites
  * Rozhlas: `prehravac.rozhlas.cz`
  * Sapo: `videos.sapo.pt`
  * SkylineWebcams: `www.skylinewebcams.com`
+ * Slutload _(adult)_: `www.slutload.com`
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
  * Spankwire _(adult)_: `www.spankwire.com`
