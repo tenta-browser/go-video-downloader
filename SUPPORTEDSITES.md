@@ -16,7 +16,6 @@ Supported sites
  * Digiteka: `www.ultimedia.com`
  * Dotsub: `dotsub.com`
  * DrTuber _(adult)_: `www.drtuber.com`
- * Dumpert: `www.dumpert.nl`
  * EbaumsWorld: `www.ebaumsworld.com`
  * EchoMsk: `www.echo.msk.ru`
  * Fczenit: `fc-zenit.ru`
@@ -64,14 +63,12 @@ Supported sites
  * TVC: `www.tvc.ru`
  * TVCArticle: `www.tvc.ru`
  * TeacherTube: `www.teachertube.com`
- * TeleMB: `www.telemb.be`
  * Tenta: `tenta.com`
  * ThisAmericanLife: `www.thisamericanlife.org`
  * TinyPic: `tinypic.com`
  * Tumblr: `tatianamaslanydaily.tumblr.com`
  * TwentyMinuten: `www.20min.ch`
  * Unistra: `utv.unistra.fr`
- * UstudioEmbed: `app.ustudio.com`
  * VideosZ _(adult)_: `www.videosz.com`
  * Vidio: `www.vidio.com`
  * WDRMobile: `mobile-ondemand.wdr.de`
@@ -84,5 +81,4 @@ Supported sites
  * XXXYMovies _(adult)_: `xxxymovies.com`
  * YinYueTai: `v.yinyuetai.com`
  * YouPorn _(adult)_: `www.youporn.com`
- * YourPorn: `yourporn.sexy`
  * YourUpload: `yourupload.com`
