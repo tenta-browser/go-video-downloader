@@ -29,7 +29,6 @@ Supported sites
  * Joj: `media.joj.sk`
  * KrasView: `krasview.ru`
  * LRT: `www.lrt.lt`
- * Lemonde: `www.lemonde.fr`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * MLB: `www.mlb.com`
  * MacGameStore: `www.macgamestore.com`
@@ -41,6 +40,7 @@ Supported sites
  * NHL: `www.nhl.com`
  * NTVRu: `www.ntv.ru`
  * NextMediaActionNews: `hk.dv.nextmedia.com`
+ * Patreon: `www.patreon.com`
  * Piksel: `player.piksel.com`
  * Pinkbike: `es.pinkbike.org`
  * PlayFM: `www.play.fm`
@@ -68,7 +68,9 @@ Supported sites
  * TinyPic: `tinypic.com`
  * Tumblr: `tatianamaslanydaily.tumblr.com`
  * TwentyMinuten: `www.20min.ch`
+ * TwitterAmplify: `amp.twimg.com`
  * Unistra: `utv.unistra.fr`
+ * UstudioEmbed: `app.ustudio.com`
  * VideosZ _(adult)_: `www.videosz.com`
  * Vidio: `www.vidio.com`
  * WDRMobile: `mobile-ondemand.wdr.de`
@@ -81,4 +83,5 @@ Supported sites
  * XXXYMovies _(adult)_: `xxxymovies.com`
  * YinYueTai: `v.yinyuetai.com`
  * YouPorn _(adult)_: `www.youporn.com`
+ * YourPorn: `yourporn.sexy`
  * YourUpload: `yourupload.com`

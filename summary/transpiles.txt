@@ -152,7 +152,6 @@ SoundgasmIE
 SpankBangIE
 SpankwireIE
 Sport5IE
-SportBoxEmbedIE
 StitcherIE
 StreamableIE
 StretchInternetIE
@@ -163,7 +162,6 @@ TF1IE
 TMZArticleIE
 TMZIE
 TOnlineIE
-TV3IE
 TVCArticleIE
 TVCIE
 TVPIE

@@ -32,6 +32,11 @@ type τ_T00ω struct {
 	Φ1 interface{}
 }
 
+type τ_TOiOiω struct {
+	Φ0 rnt.OptInt
+	Φ1 rnt.OptInt
+}
+
 type τ_TOsOsω struct {
 	Φ0 rnt.OptString
 	Φ1 rnt.OptString
