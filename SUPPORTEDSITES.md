@@ -56,7 +56,6 @@ Supported sites
  * Slutload _(adult)_: `www.slutload.com`
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
- * Spankwire _(adult)_: `www.spankwire.com`
  * Stitcher: `www.stitcher.com`
  * Streamable: `streamable.com`
  * SunPorno _(adult)_: `www.sunporno.com`

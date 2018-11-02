@@ -57,11 +57,6 @@ type τ_TiTssωω struct {
 	Φ1 τ_Tssω
 }
 
-type τ_Tisω struct {
-	Φ0 int
-	Φ1 string
-}
-
 type τ_Tiαω struct {
 	Φ0 int
 	Φ1 interface{}
@@ -291,14 +286,6 @@ func τ_isinstance_s(value interface{}) bool {
 	return ok
 }
 
-func τ_map_Fssω_over_Ls(fn func(string) string, list []string) []string {
-	result := []string{}
-	for _, el := range list {
-		result = append(result, fn(el))
-	}
-	return result
-}
-
 func τ_multiply_L0_by_i(list []interface{}, factor int) []interface{} {
 	result := []interface{}{}
 	for idx := 0; idx < factor; idx++ {
@@ -382,13 +369,4 @@ func τ_sink_d(nothing interface{}) rnt.SDict {
 
 func τ_sink_ζbytesω(nothing interface{}) []byte {
 	return nil
-}
-
-func τ_zip_i_s(list1 []int, list2 []string) []τ_Tisω {
-	result := []τ_Tisω{}
-	len := rnt.Min(len(list1), len(list2))
-	for i := 0; i < len; i++ {
-		result = append(result, τ_Tisω{list1[i], list2[i]})
-	}
-	return result
 }

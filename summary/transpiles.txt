@@ -181,6 +181,7 @@ TrailerAddictIE
 TumblrIE
 TwentyFourVideoIE
 TwentyMinutenIE
+TwitCastingIE
 TwitterAmplifyIE
 TwitterIE
 UFCTVIE
