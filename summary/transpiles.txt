@@ -27,6 +27,7 @@ CamWithHerIE
 CamdemyIE
 CarambaTVIE
 ChirbitIE
+CliphunterIE
 ClubicIE
 ComCarCoffIE
 ComedyCentralShortnameIE

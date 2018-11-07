@@ -4,7 +4,6 @@ Supported sites
  * ABCOTVS: `abc7news.com`
  * ATTTechChannel: `techchannel.att.com`
  * AdobeTV: `tv.adobe.com`
- * AnySex _(adult)_: `anysex.com`
  * AudioBoom: `audioboom.com`
  * Bang _(adult)_: `www.bang.com`
  * Bigflix: `www.bigflix.com`
