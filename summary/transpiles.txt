@@ -218,3 +218,4 @@ YourUploadIE
 YoutubePlaceholderIE
 YoutubeTruncatedIDIE
 YoutubeTruncatedURLIE
+ZypeIE
