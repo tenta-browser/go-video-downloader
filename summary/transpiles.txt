@@ -52,6 +52,7 @@ FilmwebIE
 FiveMinIE
 FiveTVIE
 Formula1IE
+FoxSportsIE
 FreespeechIE
 GPUTechConfIE
 GazetaIE

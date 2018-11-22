@@ -5,7 +5,6 @@ Supported sites
  * ATTTechChannel: `techchannel.att.com`
  * AdobeTV: `tv.adobe.com`
  * AudioBoom: `audioboom.com`
- * Bang _(adult)_: `www.bang.com`
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BitChute: `www.bitchute.com`
@@ -78,7 +77,6 @@ Supported sites
  * XNXX _(adult)_: `www.xnxx.com`
  * XTube _(adult)_: `www.xtube.com`
  * XVideos _(adult)_: `www.xvideos.com`
- * XXXYMovies _(adult)_: `xxxymovies.com`
  * YinYueTai: `v.yinyuetai.com`
  * YouPorn _(adult)_: `www.youporn.com`
  * YourPorn: `yourporn.sexy`

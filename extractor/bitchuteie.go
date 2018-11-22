@@ -68,7 +68,7 @@ func (self *BitChuteIE) _real_extract(url string) rnt.SDict {
 		"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.57 Safari/537.36",
 	}, rnt.SDict{}, nil)
 	title = func() rnt.OptString {
-		if v := ((self).SearchRegexMulti(τ_conv_Tssω_to_Ls(τ_Tssω{
+		if v := ((self).HTMLSearchRegexMulti(τ_conv_Tssω_to_Ls(τ_Tssω{
 			Φ0: "<[^>]+\\bid=[\"\\']video-title[^>]+>([^<]+)",
 			Φ1: "<title>([^<]+)",
 		}), webpage, "title", nil, true, 0, nil)); τ_isTruthy_Os(v) {
