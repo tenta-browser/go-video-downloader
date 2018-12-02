@@ -43,7 +43,7 @@ func NewWistiaIE() rnt.InfoExtractor {
 	self := &WistiaIE{}
 	self.CommonIE = rnt.NewCommonIE()
 	IE_NAME = "Wistia"
-	_VALID_URL = "(?:wistia:|https?://(?:fast\\.)?wistia\\.net/embed/iframe/)(?P<id>[a-z0-9]+)"
+	_VALID_URL = "(?:wistia:|https?://(?:fast\\.)?wistia\\.(?:net|com)/embed/iframe/)(?P<id>[a-z0-9]+)"
 	_API_URL = "http://fast.wistia.com/embed/medias/%s.json"
 	_IFRAME_URL = "http://fast.wistia.net/embed/iframe/%s"
 	self.IE_NAME = IE_NAME

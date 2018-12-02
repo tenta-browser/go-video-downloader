@@ -81,7 +81,7 @@ func (self *JojIE) _real_extract(url string) rnt.SDict {
 			return (self).OgSearchTitle(webpage, rnt.NoDefault, true)
 		}
 	}()
-	bitrates = (self).ParseJSON((self).SearchRegexOne("(?s)bitrates\\s*=\\s*({.+?});", webpage, "bitrates", "{}", true, 0, nil).Get(), video_id, rnt.JsToJSON, false)
+	bitrates = (self).ParseJSON((self).SearchRegexOne("(?s)(?:src|bitrates)\\s*=\\s*({.+?});", webpage, "bitrates", "{}", true, 0, nil).Get(), video_id, rnt.JsToJSON, false)
 	formats = []interface{}{}
 	for _, τel := range τ_cast_α_to_Lα(func() interface{} {
 		if v := (rnt.TryGetOne(bitrates, func(x interface{}) interface{} {
