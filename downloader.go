@@ -1,7 +1,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2017 Tenta, LLC
+ *    Copyright 2018 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,25 +23,21 @@
 package downloader
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
-	"net/http/cookiejar"
-	neturl "net/url"
-
-	"github.com/tenta-browser/go-video-downloader/utils"
 
 	"github.com/tenta-browser/go-pcre-matcher"
-	"github.com/tenta-browser/go-video-downloader/extractor"
-	"github.com/tenta-browser/go-video-downloader/runtime"
-	"golang.org/x/net/publicsuffix"
+	"github.com/tenta-browser/go-video-downloader/lib"
+	"github.com/tenta-browser/go-video-downloader/lib/re"
+
+	netlib "github.com/tenta-browser/go-video-downloader/lib/net"
+	rnt "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
-// GenDate is date when this downloader was generated
-const GenDate = "20181202-1248"
-
 var (
-	masterRegexp     string
-	masterRegexpComp matcher.Regexp
+	masterRegexps     []string
+	masterRegexpComps []matcher.Regexp
 )
 
 // CheckResult holds all the info obtained by verifying if an URL contains
@@ -70,139 +66,156 @@ type VideoData struct {
 }
 
 // Check verifies if url contains a downloadable video; returns nil if not
-func Check(url string) *CheckResult {
-	// if the master regexp isn't compiled, compile it
-	if masterRegexpComp == nil {
-		masterRegexpComp = runtime.ReMustCompile(masterRegexp, 0)
+func Check(url string) (res *CheckResult, err error) {
+	defer func() {
+		err = handlePanic(recover())
+	}()
+	// make sure transpiled modules are inited
+	rnt.InitModules()
+	// if the master regexp aren't compiled, compile them
+	if masterRegexpComps == nil {
+		if err := compileMasterRegexps(); err != nil {
+			return nil, err
+		}
 	}
 	// check if something matches the url
-	matcher := masterRegexpComp.Search(url)
-	if matcher == nil {
-		return nil
+	var match matcher.Match
+	for _, masterRegexpComp := range masterRegexpComps {
+		match = masterRegexpComp.Search(url)
+		if match != nil {
+			break
+		}
+	}
+	if match == nil {
+		return nil, nil
 	}
 	// something matched the url, now we have to find it :|
-	for extractorKey := range extractor.GetFactories() {
-		if matcher.GroupPresentByName("extr_" + extractorKey) {
+	for extractorKey := range lib.Extractors {
+		if match.GroupPresentByName(extractorKey) {
 			return &CheckResult{
 				url:          url,
 				extractorKey: extractorKey,
-			}
+			}, nil
 		}
 	}
 	// master regexp and the extractors are not in sync
-	panic("Url was matched but no extractor found: " + url)
+	return nil, fmt.Errorf("Url was matched but no extractor found: %s", url)
+}
+
+func compileMasterRegexps() error {
+	masterRegexpComps = make([]matcher.Regexp, len(masterRegexps))
+	for idx, masterRegexp := range masterRegexps {
+		var masterRegexpComp matcher.Regexp
+		var err error
+		if masterRegexpComp, err = re.CompileInternal(masterRegexp, 0); err != nil {
+			return fmt.Errorf("compiling regexp %d: %s", idx, err.Error())
+		}
+		masterRegexpComps[idx] = masterRegexpComp
+	}
+	return nil
 }
 
 // Extract extracts video info based on the results of a successful Check()
-func Extract(checkResult *CheckResult, connector *Connector) (*VideoData, error) {
-	return extractInternal(checkResult.url, checkResult.extractorKey, connector, nil)
-}
-
-func extractInternal(url string, extractorKey string, connector *Connector,
-	referrer runtime.ExtractorResult) (*VideoData, error) {
-
-	// create extractor corresponding to extractorKey
-	factory := extractor.GetFactories()[extractorKey]
-	if factory == nil {
-		return nil, fmt.Errorf("Unsupported extractor: %s", extractorKey)
-	}
-	extractor := factory()
-
-	// create fresh context and inject it into the extractor
-	ctx, err := newContext(url, connector)
-	if err != nil {
-		return nil, err
-	}
-	ctx.ExtractorKey = extractorKey
-	extractor.SetContext(ctx)
-
-	// run extractor
-	res, err := extractor.Extract(url)
-	if err != nil {
-		return nil, err
-	}
-
-	switch res := res.(type) {
-	case *runtime.VideoResult:
-		return &VideoData{
-			URL:      res.URL,
-			Title:    res.Title,
-			Filename: res.Filename,
-			AgeLimit: res.AgeLimit,
-		}, nil
-	case *runtime.URLResult:
-		if res.ExtractorKey == "" {
-			// no extractorKey was provided by the extractor,
-			// have to do a check based on the URL
-			checkResult := Check(res.URL)
-			if checkResult == nil {
-				return nil, fmt.Errorf("Check failed for: %s", res.URL)
-			}
-			res.ExtractorKey = checkResult.extractorKey
-		}
-		return extractInternal(res.URL, res.ExtractorKey, connector, res)
-	default:
-		panic(fmt.Sprintf("Unhandled ExtractorType: %T", res))
-	}
-}
-
-func newContext(url string, connector *Connector) (*runtime.Context, error) {
-	headers := make(map[string]string)
-	if connector.UserAgent != "" {
-		headers["User-Agent"] = connector.UserAgent
-	}
+func Extract(checkResult *CheckResult, connector *Connector) (resData *VideoData, err error) {
+	defer func() {
+		err = handlePanic(recover())
+	}()
+	rnt.InitModules()
+	connectorDict := rnt.NewDict()
 	var client *http.Client
-	if connector.Client != nil {
+	if connector != nil {
 		client = connector.Client
-	} else {
-		client = &http.Client{}
 	}
-	if client.Jar == nil {
-		jar, err := newCookieJar(url, connector.Cookie)
+	if client == nil {
+		client = new(http.Client)
+	}
+	jar := client.Jar
+	if jar == nil {
+		jar, err = netlib.NewJar()
 		if err != nil {
 			return nil, err
 		}
 		client.Jar = jar
 	}
-	var credentials *runtime.Credentials
-	if connector.Username != "" {
-		credentials = &runtime.Credentials{
-			Username: connector.Username,
-			Password: connector.Password,
+	if connector != nil && connector.Cookie != "" {
+		netlib.SetCookies(jar, checkResult.url, connector.Cookie)
+	}
+	connectorDict.SetItem(rnt.NewStr("client"), rnt.NewNative(client))
+	connectorDict.SetItem(rnt.NewStr("jar"), rnt.NewNative(jar))
+	if connector != nil {
+		if connector.UserAgent != "" {
+			headersDict := rnt.NewDict()
+			headersDict.SetItem(rnt.NewStr("User-Agent"), rnt.NewStr(connector.UserAgent))
+			connectorDict.SetItem(rnt.NewStr("headers"), headersDict)
+		}
+		if connector.Username != "" {
+			connectorDict.SetItem(rnt.NewStr("username"), rnt.NewStr(connector.Username))
+		}
+		if connector.Password != "" {
+			connectorDict.SetItem(rnt.NewStr("password"), rnt.NewStr(connector.Password))
 		}
 	}
-	return &runtime.Context{
-		Client:      client,
-		Headers:     headers,
-		Credentials: credentials,
-	}, nil
+	res := rnt.Cal(lib.ExtractorRunner,
+		rnt.NewStr(checkResult.extractorKey),
+		rnt.NewStr(checkResult.url),
+		connectorDict,
+	)
+	if !res.IsInstance(rnt.DictType) {
+		panic(rnt.RaiseType(lib.ExtractorErrorType, fmt.Sprintf(
+			"result is not a dict, but %s", res.Type().Name())))
+	}
+	resDict := res.(rnt.Dict)
+	resData = &VideoData{
+		URL:      resStringField(resDict, "url", true, ""),
+		Title:    resStringField(resDict, "title", true, ""),
+		Filename: resStringField(resDict, "_filename", false, "unknown.video"),
+		AgeLimit: resIntField(resDict, "age_limit", false, 0),
+	}
+	return resData, nil
 }
 
-func newCookieJar(url string, initialCookies string) (*cookiejar.Jar, error) {
-	jar, err := cookiejar.New(&cookiejar.Options{
-		PublicSuffixList: publicsuffix.List,
-	})
-	if err != nil {
-		return nil, err
+func handlePanic(r interface{}) error {
+	if r == nil {
+		return nil
 	}
-	u, err := neturl.Parse(url)
-	if err != nil {
-		return nil, err
+	var msg string
+	if e, ok := r.(rnt.BaseException); ok {
+		msg = e.String()
+	} else {
+		msg = fmt.Sprintf("Crash: %v", r)
 	}
-	cookies := utils.ParseCookieString(initialCookies)
-	if len(cookies) > 0 {
-		// we set the simple cookies on the empty path
-		u.Path = ""
-		// we set the simple cookies on tld+1 domain
-		dom, err := publicsuffix.EffectiveTLDPlusOne(u.Hostname())
-		if err != nil {
-			return nil, err
-		}
-		for _, cookie := range cookies {
-			cookie.Domain = dom
-		}
-		// actually set the cookies
-		jar.SetCookies(u, cookies)
+	return errors.New(msg)
+}
+
+func resStringField(resDict rnt.Dict, name string, required bool, def string) string {
+	val := resField(resDict, name, required)
+	if val == nil {
+		return def
 	}
-	return jar, nil
+	if !val.IsInstance(rnt.StrType) {
+		panic(rnt.RaiseType(lib.ExtractorErrorType, fmt.Sprintf(
+			"result field '%s' should be a string, but it is a %s", name, val.Type().Name())))
+	}
+	return val.(rnt.Str).Value()
+}
+
+func resIntField(resDict rnt.Dict, name string, required bool, def int) int {
+	val := resField(resDict, name, required)
+	if val == nil {
+		return def
+	}
+	if !val.IsInstance(rnt.IntType) {
+		panic(rnt.RaiseType(lib.ExtractorErrorType, fmt.Sprintf(
+			"result field '%s' should be an int, but it is a %s", name, val.Type().Name())))
+	}
+	return val.(rnt.Int).Value()
+}
+
+func resField(resDict rnt.Dict, name string, required bool) rnt.Object {
+	val := resDict.GetItem(rnt.NewStr(name))
+	if val == nil && required {
+		panic(rnt.RaiseType(lib.ExtractorErrorType, fmt.Sprintf(
+			"result dict is missing '%s'", name)))
+	}
+	return val
 }

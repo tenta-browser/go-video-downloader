@@ -1,77 +1,232 @@
 Supported sites
 ===============
 
- * ABCOTVS: `abc7news.com`
- * ATTTechChannel: `techchannel.att.com`
+ * AbcNewsVideo: `abcnews.go.com`
  * AdobeTV: `tv.adobe.com`
+ * AdobeTVVideo: `video.tv.adobe.com`
+ * AlJazeera: `www.aljazeera.com`
+ * Aol: `on.aol.com`
+ * Allocine: `www.allocine.fr`
+ * Aparat: `www.aparat.com`
+ * AppleConnect: `itunes.apple.com`
+ * ARD: `www.daserste.de`
+ * ARDMediathek: `www.ardmediathek.de`
+ * AudiMedia: `www.audi-mediacenter.com`
  * AudioBoom: `audioboom.com`
+ * Audiomack: `www.audiomack.com`
+ * Bandcamp: `youtube-dl.bandcamp.com`
+ * BandcampWeekly: `bandcamp.com`
+ * Beatport: `beatport.com`
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BitChute: `www.bitchute.com`
+ * BleacherReportCMS: `bleacherreport.com`
+ * Bpb: `www.bpb.de`
+ * Break: `www.break.com`
+ * BrightcoveNew: `players.brightcove.net`
+ * BusinessInsider: `uk.businessinsider.com`
  * Camdemy: `www.camdemy.com`
+ * Canalc2: `www.canalc2.tv`
+ * CCC: `media.ccc.de`
+ * CharlieRose: `charlierose.com`
  * Chirbit: `chirb.it`
- * CrooksAndLiars: `embed.crooksandliars.com`
- * Digiteka: `www.ultimedia.com`
+ * Cinchcast: `player.cinchcast.com`
+ * Clippit: `www.clippituser.tv`
+ * Clipsyndicate: `www.clipsyndicate.com`
+ * Clyp: `clyp.it`
+ * CNN: `edition.cnn.com`
+ * CNNBlogs: `reliablesources.blogs.cnn.com`
+ * CNNArticle: `www.cnn.com`
+ * Coub: `coub.com`
+ * Cracked: `www.cracked.com`
+ * CtsNews: `news.cts.com.tw`
+ * CuriosityStream: `app.curiositystream.com`
+ * DailyMail: `www.dailymail.co.uk`
+ * Dailymotion: `www.dailymotion.com`
+ * Digg: `digg.com`
  * Dotsub: `dotsub.com`
- * DrTuber _(adult)_: `www.drtuber.com`
+ * DRTV: `www.dr.dk`
+ * DVTV: `video.aktualne.cz`
+ * DiscoveryNetworksDe: `www.tlc.de`
+ * Disney: `video.disney.com`
+ * DigitallySpeaking: `evt.dispeak.com`
+ * DW: `www.dw.com`
  * EbaumsWorld: `www.ebaumsworld.com`
  * EchoMsk: `www.echo.msk.ru`
- * Fczenit: `fc-zenit.ru`
- * FiveTV: `www.5-tv.ru`
+ * ElPais: `blogs.elpais.com`
+ * Engadget: `www.engadget.com`
+ * Europa: `ec.europa.eu`
+ * ExtremeTube _(adult)_: `www.extremetube.com`
+ * FacebookPluginsVideo: `www.facebook.com`
+ * Faz: `www.faz.net`
+ * FiveMin: `pshared.5min.com`
+ * Flickr: `www.flickr.com`
+ * Formula1: `www.formula1.com`
+ * FoxNews: `video.foxnews.com`
+ * FoxNewsArticle: `www.foxnews.com`
+ * FranceCulture: `www.franceculture.fr`
+ * Freesound: `www.freesound.org`
+ * GameSpot: `www.gamespot.com`
+ * Gaskrank: `www.gaskrank.tv`
+ * GDCVault: `www.gdcvault.com`
+ * Gfycat: `gfycat.com`
  * GodTube: `www.godtube.com`
+ * Golem: `video.golem.de`
+ * GPUTechConf: `on-demand.gputechconf.com`
  * HentaiStigma _(adult)_: `hentai.animestigma.com`
  * HistoricFilms: `www.historicfilms.com`
  * HitRecord: `hitrecord.org`
- * Hitbox: `www.hitbox.tv`
+ * HornBunny _(adult)_: `hornbunny.com`
+ * HowStuffWorks: `www.stufftoblowyourmind.com`
+ * IGN: `www.ign.com`
+ * PCMag: `www.pcmag.com`
+ * Imdb: `www.imdb.com`
+ * Imgur: `i.imgur.com`
+ * Ina: `www.ina.fr`
+ * InfoQ: `www.infoq.com`
+ * Instagram: `instagram.com`
  * Ir90Tv: `90tv.ir`
+ * Ivideon: `www.ivideon.com`
+ * Izlesene: `www.izlesene.com`
+ * Jamendo: `www.jamendo.com`
+ * JeuxVideo: `www.jeuxvideo.com`
  * Joj: `media.joj.sk`
+ * JWPlatform: `content.jwplatform.com`
+ * KeezMovies _(adult)_: `www.keezmovies.com`
+ * KickStarter: `www.kickstarter.com`
  * KrasView: `krasview.ru`
- * LRT: `www.lrt.lt`
+ * LibraryOfCongress: `loc.gov`
+ * LimelightMedia: `link.videoplatform.limelight.com`
+ * Livestream: `new.livestream.com`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
- * MLB: `www.mlb.com`
  * MacGameStore: `www.macgamestore.com`
- * MailRu: `my.mail.ru`
+ * MassengeschmackTV: `massengeschmack.tv`
+ * MDR: `www.mdr.de`
  * Megaphone: `player.megaphone.fm`
+ * MicrosoftVirtualAcademy: `mva.microsoft.com`
+ * MLB: `www.mlb.com`
+ * Mofosex _(adult)_: `www.mofosex.com`
  * Mojvideo: `www.mojvideo.com`
- * MovingImage: `movingimage.nls.uk`
- * NDTV: `movies.ndtv.com`
- * NHL: `www.nhl.com`
- * NTVRu: `www.ntv.ru`
+ * Myvi: `myvi.ru`
+ * NBA: `www.nba.com`
+ * NDR: `www.ndr.de`
+ * NJoyEmbed: `www.n-joy.de`
+ * Netzkino: `www.netzkino.de`
+ * Newgrounds: `www.newgrounds.com`
  * NextMediaActionNews: `hk.dv.nextmedia.com`
+ * NextTV: `www.nexttv.com.tw`
+ * NHL: `www.nhl.com`
+ * NovaEmbed: `media.cms.nova.cz`
+ * Nowness: `www.nowness.com`
+ * NTVRu: `www.ntv.ru`
+ * Odnoklassniki: `ok.ru`
+ * PacktPub: `www.packtpub.com`
+ * PandoraTV: `jp.channel.pandora.tv`
  * Patreon: `www.patreon.com`
- * Piksel: `player.piksel.com`
- * Pinkbike: `es.pinkbike.org`
+ * PearVideo: `www.pearvideo.com`
+ * People: `www.people.com`
+ * Photobucket: `media.photobucket.com`
  * PlayFM: `www.play.fm`
+ * PlaysTV: `plays.tv`
  * Podomatic: `scienceteachingtips.podomatic.com`
+ * Pokemon: `www.pokemon.com`
+ * Porn91 _(adult)_: `91porn.com`
+ * PornCom _(adult)_: `www.porn.com`
+ * PornFlip _(adult)_: `www.pornflip.com`
  * PornHd _(adult)_: `www.pornhd.com`
- * RENTV: `ren.tv`
+ * PornHub _(adult)_: `www.pornhub.com`
+ * Pornotube _(adult)_: `www.pornotube.com`
+ * PuhuTV: `puhutv.com`
+ * PressTV: `www.presstv.ir`
+ * R7Article: `tv.r7.com`
  * RadioDe: `ndr2.radio.de`
+ * RadioJavan: `www.radiojavan.com`
+ * Rai: `www.raisport.rai.it`
+ * RayWenderlich: `www.raywenderlich.com`
+ * RBMARadio: `www.rbmaradio.com`
  * RedTube _(adult)_: `www.redtube.com`
+ * RENTV: `ren.tv`
+ * ReverbNation: `www.reverbnation.com`
  * RockstarGames: `www.rockstargames.com`
  * Rozhlas: `prehravac.rozhlas.cz`
+ * RTS: `www.rts.ch`
+ * RTVS: `www.rtvs.sk`
+ * RUTV: `player.rutv.ru`
  * Sapo: `videos.sapo.pt`
- * SkylineWebcams: `www.skylinewebcams.com`
+ * SeznamZpravy: `www.seznamzpravy.cz`
+ * Vivo: `vivo.sx`
+ * SkySports: `www.skysports.com`
+ * Slideshare: `www.slideshare.net`
  * Slutload _(adult)_: `www.slutload.com`
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
  * Stitcher: `www.stitcher.com`
+ * SportDeutschland: `sportdeutschland.tv`
+ * StanfordOpenClassroom: `openclassroom.stanford.edu`
  * Streamable: `streamable.com`
  * SunPorno _(adult)_: `www.sunporno.com`
+ * SWRMediathek: `swrmediathek.de`
+ * Tagesschau: `www.tagesschau.de`
+ * TastyTrade: `www.tastytrade.com`
+ * TDSLifeway: `tds.lifeway.com`
+ * TeacherTube: `www.teachertube.com`
+ * TED: `www.ted.com`
+ * Tele13: `www.t13.cl`
+ * Tenta: `tenta.com`
+ * ThisOldHouse: `www.thisoldhouse.com`
+ * TikTok: `m.tiktok.com`
+ * TinyPic: `tinypic.com`
+ * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
+ * TNAFlix _(adult)_: `www.tnaflix.com`
+ * EMPFlix _(adult)_: `www.empflix.com`
+ * MovieFap _(adult)_: `www.moviefap.com`
+ * Toypics _(adult)_: `videos.toypics.net`
+ * Trilulilu: `www.trilulilu.ro`
+ * Tube8 _(adult)_: `www.tube8.com`
+ * Tumblr: `tatianamaslanydaily.tumblr.com`
+ * TuneInClip: `tunein.com`
+ * TuneInStation: `tunein.com`
+ * TuneInProgram: `tunein.com`
+ * TuneInShortener: `tun.in`
+ * TVANouvelles: `www.tvanouvelles.ca`
  * TVC: `www.tvc.ru`
  * TVCArticle: `www.tvc.ru`
- * TeacherTube: `www.teachertube.com`
- * Tenta: `tenta.com`
- * ThisAmericanLife: `www.thisamericanlife.org`
- * TinyPic: `tinypic.com`
- * Tumblr: `tatianamaslanydaily.tumblr.com`
+ * TVN24: `www.tvn24.pl`
+ * TVNoe: `www.tvnoe.cz`
+ * TVP: `vod.tvp.pl`
+ * TVPlayHome _(adult)_: `tvplay.tv3.lt`
  * TwentyMinuten: `www.20min.ch`
+ * TwitchClips: `clips.twitch.tv`
  * TwitterAmplify: `amp.twimg.com`
+ * UDNEmbed: `video.udn.com`
+ * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
+ * UOL: `player.mais.uol.com.br`
+ * Upskill: `upskillcourses.com`
+ * USAToday: `www.usatoday.com`
  * UstudioEmbed: `app.ustudio.com`
+ * Vbox7: `vbox7.com`
+ * Veoh: `www.veoh.com`
+ * Vevo: `www.vevo.com`
+ * VGTV: `www.vgtv.no`
+ * Viddler: `www.viddler.com`
+ * VideoPress: `videopress.com`
  * VideosZ _(adult)_: `www.videosz.com`
- * Vidio: `www.vidio.com`
+ * VidLii: `www.vidlii.com`
+ * Vimeo: `vimeo.com`
+ * VimeoOndemand: `vimeo.com`
+ * VimeoReview: `vimeo.com`
+ * Vimple: `vimple.ru`
+ * Vine: `vine.co`
+ * Viqeo: `cdn.viqeo.tv`
+ * VK: `vk.com`
+ * VLive: `www.vlive.tv`
+ * Vzaar: `vzaar.com`
+ * WashingtonPost: `www.washingtonpost.com`
  * WDRMobile: `mobile-ondemand.wdr.de`
  * WeiboMobile: `m.weibo.cn`
+ * WorldStarHipHop: `www.worldstarhiphop.com`
+ * XFileShare: `gorillavid.in`
  * XHamster _(adult)_: `xhamster.com`
  * XHamsterEmbed _(adult)_: `xhamster.com`
  * XNXX _(adult)_: `www.xnxx.com`
@@ -79,6 +234,7 @@ Supported sites
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
  * YinYueTai: `v.yinyuetai.com`
+ * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`
  * YourPorn: `yourporn.sexy`
  * YourUpload: `yourupload.com`
