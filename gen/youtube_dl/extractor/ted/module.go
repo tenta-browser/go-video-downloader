@@ -53,14 +53,15 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		TEDIE = λ.Cal(λ.TypeType, λ.NewStr("TEDIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				TEDIE_IE_NAME         λ.Object
-				TEDIE__NATIVE_FORMATS λ.Object
-				TEDIE__TESTS          λ.Object
-				TEDIE__VALID_URL      λ.Object
-				TEDIE__extract_info   λ.Object
-				TEDIE__get_subtitles  λ.Object
-				TEDIE__real_extract   λ.Object
-				TEDIE__talk_info      λ.Object
+				TEDIE_IE_NAME               λ.Object
+				TEDIE__NATIVE_FORMATS       λ.Object
+				TEDIE__TESTS                λ.Object
+				TEDIE__VALID_URL            λ.Object
+				TEDIE__extract_info         λ.Object
+				TEDIE__get_subtitles        λ.Object
+				TEDIE__playlist_videos_info λ.Object
+				TEDIE__real_extract         λ.Object
+				TEDIE__talk_info            λ.Object
 			)
 			TEDIE_IE_NAME = λ.NewStr("ted")
 			TEDIE__VALID_URL = λ.NewStr("(?x)\n        (?P<proto>https?://)\n        (?P<type>www|embed(?:-ssl)?)(?P<urlmain>\\.ted\\.com/\n        (\n            (?P<type_playlist>playlists(?:/\\d+)?) # We have a playlist\n            |\n            ((?P<type_talk>talks)) # We have a simple talk\n            |\n            (?P<type_watch>watch)/[^/]+/[^/]+\n        )\n        (/lang/(.*?))? # The url may contain the language\n        /(?P<name>[\\w-]+) # Here goes the name and then \".html\"\n        .*)$\n        ")
@@ -213,6 +214,85 @@ func init() {
 						}
 					}
 					return λ.None
+				})
+			TEDIE__playlist_videos_info = λ.NewFunction("_playlist_videos_info",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+					{Name: "name"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒinfo             λ.Object
+						ϒname             = λargs[2]
+						ϒplaylist_entries λ.Object
+						ϒplaylist_info    λ.Object
+						ϒself             = λargs[0]
+						ϒurl              = λargs[1]
+						ϒwebpage          λ.Object
+					)
+					λ.NewStr("Returns the videos of the playlist")
+					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒname, λ.NewStr("Downloading playlist webpage"))
+					ϒinfo = λ.Cal(λ.GetAttr(ϒself, "_extract_info", nil), ϒwebpage)
+					ϒplaylist_info = func() λ.Object {
+						if λv := λ.Cal(ϒtry_get, ϒinfo, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("__INITIAL_DATA__")), λ.NewStr("playlist"))
+							}), λ.DictType); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.GetItem(ϒinfo, λ.NewStr("playlist"))
+						}
+					}()
+					ϒplaylist_entries = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+						nil,
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								var (
+									ϒtalk λ.Object
+									τmp0  λ.Object
+									τmp1  λ.Object
+								)
+								τmp0 = λ.Cal(λ.BuiltinIter, func() λ.Object {
+									if λv := λ.Cal(ϒtry_get, ϒinfo, λ.NewFunction("<lambda>",
+										[]λ.Param{
+											{Name: "x"},
+										},
+										0, false, false,
+										func(λargs []λ.Object) λ.Object {
+											var (
+												ϒx = λargs[0]
+											)
+											return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("__INITIAL_DATA__")), λ.NewStr("talks"))
+										}), λ.DictType); λ.IsTrue(λv) {
+										return λv
+									} else {
+										return λ.GetItem(ϒinfo, λ.NewStr("talks"))
+									}
+								}())
+								for {
+									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+										break
+									}
+									ϒtalk = τmp1
+									λgen.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Add(λ.NewStr("http://www.ted.com/talks/"), λ.GetItem(ϒtalk, λ.NewStr("slug"))), λ.Cal(λ.GetAttr(ϒself, "ie_key", nil))))
+								}
+								return λ.None
+							})
+						})))
+					return λ.Call(λ.GetAttr(ϒself, "playlist_result", nil), λ.NewArgs(ϒplaylist_entries), λ.KWArgs{
+						{Name: "playlist_id", Value: λ.Cal(ϒcompat_str, λ.GetItem(ϒplaylist_info, λ.NewStr("id")))},
+						{Name: "playlist_title", Value: λ.GetItem(ϒplaylist_info, λ.NewStr("title"))},
+					})
 				})
 			TEDIE__talk_info = λ.NewFunction("_talk_info",
 				[]λ.Param{
@@ -657,14 +737,15 @@ func init() {
 					return ϒsub_lang_list
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):         TEDIE_IE_NAME,
-				λ.NewStr("_NATIVE_FORMATS"): TEDIE__NATIVE_FORMATS,
-				λ.NewStr("_TESTS"):          TEDIE__TESTS,
-				λ.NewStr("_VALID_URL"):      TEDIE__VALID_URL,
-				λ.NewStr("_extract_info"):   TEDIE__extract_info,
-				λ.NewStr("_get_subtitles"):  TEDIE__get_subtitles,
-				λ.NewStr("_real_extract"):   TEDIE__real_extract,
-				λ.NewStr("_talk_info"):      TEDIE__talk_info,
+				λ.NewStr("IE_NAME"):               TEDIE_IE_NAME,
+				λ.NewStr("_NATIVE_FORMATS"):       TEDIE__NATIVE_FORMATS,
+				λ.NewStr("_TESTS"):                TEDIE__TESTS,
+				λ.NewStr("_VALID_URL"):            TEDIE__VALID_URL,
+				λ.NewStr("_extract_info"):         TEDIE__extract_info,
+				λ.NewStr("_get_subtitles"):        TEDIE__get_subtitles,
+				λ.NewStr("_playlist_videos_info"): TEDIE__playlist_videos_info,
+				λ.NewStr("_real_extract"):         TEDIE__real_extract,
+				λ.NewStr("_talk_info"):            TEDIE__talk_info,
 			})
 		}())
 	})

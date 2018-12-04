@@ -34,26 +34,47 @@ import (
 )
 
 var (
-	ExtractorError λ.Object
-	InfoExtractor  λ.Object
-	VevoBaseIE     λ.Object
-	VevoIE         λ.Object
-	VevoPlaylistIE λ.Object
-	ϒcompat_str    λ.Object
-	ϒint_or_none   λ.Object
-	ϒparse_iso8601 λ.Object
+	ExtractorError    λ.Object
+	InfoExtractor     λ.Object
+	VevoBaseIE        λ.Object
+	VevoIE            λ.Object
+	VevoPlaylistIE    λ.Object
+	ϒcompat_HTTPError λ.Object
+	ϒcompat_str       λ.Object
+	ϒint_or_none      λ.Object
+	ϒparse_iso8601    λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_str = Ωcompat.ϒcompat_str
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		VevoBaseIE = λ.Cal(λ.TypeType, λ.NewStr("VevoBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
-
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			var (
+				VevoBaseIE__extract_json λ.Object
+			)
+			VevoBaseIE__extract_json = λ.NewFunction("_extract_json",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "webpage"},
+					{Name: "video_id"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself     = λargs[0]
+						ϒvideo_id = λargs[2]
+						ϒwebpage  = λargs[1]
+					)
+					return λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("window\\.__INITIAL_STORE__\\s*=\\s*({.+?});\\s*</script>"), ϒwebpage, λ.NewStr("initial store")), ϒvideo_id)
+				})
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_extract_json"): VevoBaseIE__extract_json,
+			})
 		}())
 		VevoIE = λ.Cal(λ.TypeType, λ.NewStr("VevoIE"), λ.NewTuple(VevoBaseIE), func() λ.Dict {
 			var (
@@ -261,7 +282,7 @@ func init() {
 							nil,
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 								ϒe := λex
-								if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None)) {
+								if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError)) {
 									ϒerrors = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "read", nil)), "decode", nil)), λ.None), λ.NewStr("errors"))
 									ϒerror_message = λ.Cal(λ.GetAttr(λ.NewStr(", "), "join", nil), λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 										nil,

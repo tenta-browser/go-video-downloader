@@ -141,7 +141,6 @@ Supported sites
  * Pokemon: `www.pokemon.com`
  * Porn91 _(adult)_: `91porn.com`
  * PornCom _(adult)_: `www.porn.com`
- * PornFlip _(adult)_: `www.pornflip.com`
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
@@ -209,7 +208,6 @@ Supported sites
  * TwentyMinuten: `www.20min.ch`
  * TwitchClips: `clips.twitch.tv`
  * TwitterAmplify: `amp.twimg.com`
- * UDNEmbed: `video.udn.com`
  * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
  * UOL: `player.mais.uol.com.br`
@@ -220,8 +218,8 @@ Supported sites
  * Vbox7: `vbox7.com`
  * VeeHD: `veehd.com`
  * Veoh: `www.veoh.com`
- * Vesti: `hitech.vesti.ru`
- * Vevo: `www.vevo.com`
+ * Vesti: `www.vesti.ru`
+ * Vevo _(adult)_: `www.vevo.com`
  * VGTV: `www.vgtv.no`
  * Viddler: `www.viddler.com`
  * VideoPress: `videopress.com`
@@ -235,12 +233,12 @@ Supported sites
  * Viqeo: `cdn.viqeo.tv`
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
+ * VuClip: `m.vuclip.com`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
  * Wat: `www.wat.tv`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
- * XFileShare: `gorillavid.in`
  * XHamster _(adult)_: `xhamster.com`
  * XHamsterEmbed _(adult)_: `xhamster.com`
  * XiamiSong: `www.xiami.com`

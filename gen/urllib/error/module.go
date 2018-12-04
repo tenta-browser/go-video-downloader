@@ -76,6 +76,7 @@ func init() {
 				HTTPError___init__ λ.Object
 				HTTPError___repr__ λ.Object
 				HTTPError___str__  λ.Object
+				HTTPError_read     λ.Object
 			)
 			HTTPError___init__ = λ.NewFunction("__init__",
 				[]λ.Param{
@@ -131,10 +132,22 @@ func init() {
 						λ.GetAttr(ϒself, "msg", nil),
 					))
 				})
+			HTTPError_read = λ.NewFunction("read",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself = λargs[0]
+					)
+					return λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "fp", nil), "read", nil))
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("__init__"): HTTPError___init__,
 				λ.NewStr("__repr__"): HTTPError___repr__,
 				λ.NewStr("__str__"):  HTTPError___str__,
+				λ.NewStr("read"):     HTTPError_read,
 			})
 		}())
 	})

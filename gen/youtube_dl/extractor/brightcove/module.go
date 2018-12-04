@@ -42,6 +42,7 @@ var (
 	ExtractorError                λ.Object
 	InfoExtractor                 λ.Object
 	ϒclean_html                   λ.Object
+	ϒcompat_HTTPError             λ.Object
 	ϒcompat_etree_fromstring      λ.Object
 	ϒcompat_parse_qs              λ.Object
 	ϒcompat_str                   λ.Object
@@ -70,6 +71,7 @@ func init() {
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ϒcompat_xml_parse_error = Ωcompat.ϒcompat_xml_parse_error
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
 		ϒextract_attributes = Ωutils.ϒextract_attributes
@@ -94,6 +96,7 @@ func init() {
 				BrightcoveLegacyIE__extract_brightcove_url  λ.Object
 				BrightcoveLegacyIE__extract_brightcove_urls λ.Object
 				BrightcoveLegacyIE__extract_video_info      λ.Object
+				BrightcoveLegacyIE__get_playlist_info       λ.Object
 				BrightcoveLegacyIE__get_video_info          λ.Object
 				BrightcoveLegacyIE__real_extract            λ.Object
 			)
@@ -490,6 +493,62 @@ func init() {
 					λ.SetItem(ϒvideo_info, λ.NewStr("_youtubedl_adServerURL"), λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("adServerURL")))
 					return λ.Cal(λ.GetAttr(ϒself, "_extract_video_info", nil), ϒvideo_info)
 				})
+			BrightcoveLegacyIE__get_playlist_info = λ.NewFunction("_get_playlist_info",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "player_key"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒinfo_url      λ.Object
+						ϒjson_data     λ.Object
+						ϒplayer_key    = λargs[1]
+						ϒplaylist_dto  λ.Object
+						ϒplaylist_info λ.Object
+						ϒself          = λargs[0]
+						ϒvideos        λ.Object
+					)
+					ϒinfo_url = λ.Mod(λ.NewStr("http://c.brightcove.com/services/json/experience/runtime/?command=get_programming_for_experience&playerKey=%s"), ϒplayer_key)
+					ϒplaylist_info = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒinfo_url, ϒplayer_key, λ.NewStr("Downloading playlist information"))
+					ϒjson_data = λ.Cal(Ωjson.ϒloads, ϒplaylist_info)
+					if λ.IsTrue(λ.NewBool(λ.Contains(ϒjson_data, λ.NewStr("videoList")))) {
+						ϒplaylist_info = λ.GetItem(ϒjson_data, λ.NewStr("videoList"))
+						ϒplaylist_dto = λ.GetItem(ϒplaylist_info, λ.NewStr("mediaCollectionDTO"))
+					} else {
+						if λ.IsTrue(λ.NewBool(λ.Contains(ϒjson_data, λ.NewStr("playlistTabs")))) {
+							ϒplaylist_info = λ.GetItem(ϒjson_data, λ.NewStr("playlistTabs"))
+							ϒplaylist_dto = λ.GetItem(λ.GetItem(λ.GetItem(ϒplaylist_info, λ.NewStr("lineupListDTO")), λ.NewStr("playlistDTOs")), λ.NewInt(0))
+						} else {
+							panic(λ.Raise(λ.Cal(ExtractorError, λ.NewStr("Empty playlist"))))
+						}
+					}
+					ϒvideos = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+						nil,
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								var (
+									ϒvideo_info λ.Object
+									τmp0        λ.Object
+									τmp1        λ.Object
+								)
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒplaylist_dto, λ.NewStr("videoDTOs")))
+								for {
+									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+										break
+									}
+									ϒvideo_info = τmp1
+									λgen.Yield(λ.Cal(λ.GetAttr(ϒself, "_extract_video_info", nil), ϒvideo_info))
+								}
+								return λ.None
+							})
+						})))
+					return λ.Call(λ.GetAttr(ϒself, "playlist_result", nil), λ.NewArgs(ϒvideos), λ.KWArgs{
+						{Name: "playlist_id", Value: λ.Mod(λ.NewStr("%s"), λ.GetItem(ϒplaylist_info, λ.NewStr("id")))},
+						{Name: "playlist_title", Value: λ.GetItem(ϒplaylist_dto, λ.NewStr("displayName"))},
+					})
+				})
 			BrightcoveLegacyIE__extract_video_info = λ.NewFunction("_extract_video_info",
 				[]λ.Param{
 					{Name: "self"},
@@ -681,6 +740,7 @@ func init() {
 				λ.NewStr("_extract_brightcove_url"):  BrightcoveLegacyIE__extract_brightcove_url,
 				λ.NewStr("_extract_brightcove_urls"): BrightcoveLegacyIE__extract_brightcove_urls,
 				λ.NewStr("_extract_video_info"):      BrightcoveLegacyIE__extract_video_info,
+				λ.NewStr("_get_playlist_info"):       BrightcoveLegacyIE__get_playlist_info,
 				λ.NewStr("_get_video_info"):          BrightcoveLegacyIE__get_video_info,
 				λ.NewStr("_real_extract"):            BrightcoveLegacyIE__real_extract,
 			})
@@ -1268,7 +1328,7 @@ func init() {
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 								ϒe := λex
 								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
+									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
 										return λv
 									} else {
 										return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.NewInt(403))

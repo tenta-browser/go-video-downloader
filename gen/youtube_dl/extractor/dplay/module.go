@@ -36,6 +36,7 @@ var (
 	DPlayItIE          λ.Object
 	ExtractorError     λ.Object
 	InfoExtractor      λ.Object
+	ϒcompat_HTTPError  λ.Object
 	ϒcompat_str        λ.Object
 	ϒdetermine_ext     λ.Object
 	ϒfloat_or_none     λ.Object
@@ -51,6 +52,7 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError

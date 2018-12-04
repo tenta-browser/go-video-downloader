@@ -49,6 +49,7 @@ func init() {
 			var (
 				IGNIE_IE_NAME           λ.Object
 				IGNIE__API_URL_TEMPLATE λ.Object
+				IGNIE__EMBED_RE         λ.Object
 				IGNIE__TESTS            λ.Object
 				IGNIE__VALID_URL        λ.Object
 				IGNIE__find_video_id    λ.Object
@@ -59,6 +60,7 @@ func init() {
 			IGNIE__VALID_URL = λ.NewStr("https?://.+?\\.ign\\.com/(?:[^/]+/)?(?P<type>videos|show_videos|articles|feature|(?:[^/]+/\\d+/video))(/.+)?/(?P<name_or_id>.+)")
 			IGNIE_IE_NAME = λ.NewStr("ign.com")
 			IGNIE__API_URL_TEMPLATE = λ.NewStr("http://apis.ign.com/video/v3/videos/%s")
+			IGNIE__EMBED_RE = λ.NewStr("<iframe[^>]+?[\"\\']((?:https?:)?//.+?\\.ign\\.com.+?/embed.+?)[\"\\']")
 			IGNIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://www.ign.com/videos/2013/06/05/the-last-of-us-review"),
@@ -340,6 +342,7 @@ func init() {
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):           IGNIE_IE_NAME,
 				λ.NewStr("_API_URL_TEMPLATE"): IGNIE__API_URL_TEMPLATE,
+				λ.NewStr("_EMBED_RE"):         IGNIE__EMBED_RE,
 				λ.NewStr("_TESTS"):            IGNIE__TESTS,
 				λ.NewStr("_VALID_URL"):        IGNIE__VALID_URL,
 				λ.NewStr("_find_video_id"):    IGNIE__find_video_id,
@@ -359,11 +362,13 @@ func init() {
 		PCMagIE = λ.Cal(λ.TypeType, λ.NewStr("PCMagIE"), λ.NewTuple(IGNIE), func() λ.Dict {
 			var (
 				PCMagIE_IE_NAME    λ.Object
+				PCMagIE__EMBED_RE  λ.Object
 				PCMagIE__TESTS     λ.Object
 				PCMagIE__VALID_URL λ.Object
 			)
 			PCMagIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?pcmag\\.com/(?P<type>videos|article2)(/.+)?/(?P<name_or_id>.+)")
 			PCMagIE_IE_NAME = λ.NewStr("pcmag")
+			PCMagIE__EMBED_RE = λ.NewStr("iframe\\.setAttribute\\(\"src\",\\s*__util.objToUrlString\\(\"http://widgets\\.ign\\.com/video/embed/content\\.html?[^\"]*url=([^\"]+)[\"&]")
 			PCMagIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://www.pcmag.com/videos/2015/01/06/010615-whats-new-now-is-gogo-snooping-on-your-data"),
@@ -394,6 +399,7 @@ func init() {
 			)
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):    PCMagIE_IE_NAME,
+				λ.NewStr("_EMBED_RE"):  PCMagIE__EMBED_RE,
 				λ.NewStr("_TESTS"):     PCMagIE__TESTS,
 				λ.NewStr("_VALID_URL"): PCMagIE__VALID_URL,
 			})

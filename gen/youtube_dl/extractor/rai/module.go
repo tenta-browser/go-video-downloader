@@ -83,6 +83,7 @@ func init() {
 				RaiBaseIE__GEO_COUNTRIES         λ.Object
 				RaiBaseIE__UUID_RE               λ.Object
 				RaiBaseIE__extract_relinker_info λ.Object
+				RaiBaseIE__extract_subtitles     λ.Object
 			)
 			RaiBaseIE__UUID_RE = λ.NewStr("[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12}")
 			RaiBaseIE__GEO_COUNTRIES = λ.NewList(λ.NewStr("IT"))
@@ -291,11 +292,53 @@ func init() {
 							})
 						})))
 				})
+			RaiBaseIE__extract_subtitles = λ.NewFunction("_extract_subtitles",
+				[]λ.Param{
+					{Name: "url"},
+					{Name: "subtitle_url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						SRT_EXT       λ.Object
+						STL_EXT       λ.Object
+						ϒsrt_url      λ.Object
+						ϒsubtitle_url = λargs[1]
+						ϒsubtitles    λ.Object
+						ϒurl          = λargs[0]
+					)
+					ϒsubtitles = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+					if λ.IsTrue(func() λ.Object {
+						if λv := ϒsubtitle_url; !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Cal(λ.BuiltinIsInstance, ϒsubtitle_url, ϒcompat_str)
+						}
+					}()) {
+						ϒsubtitle_url = λ.Cal(ϒurljoin, ϒurl, ϒsubtitle_url)
+						STL_EXT = λ.NewStr(".stl")
+						SRT_EXT = λ.NewStr(".srt")
+						λ.SetItem(ϒsubtitles, λ.NewStr("it"), λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("ext"): λ.NewStr("stl"),
+							λ.NewStr("url"): ϒsubtitle_url,
+						})))
+						if λ.IsTrue(λ.Cal(λ.GetAttr(ϒsubtitle_url, "endswith", nil), STL_EXT)) {
+							ϒsrt_url = λ.Add(λ.GetItem(ϒsubtitle_url, λ.NewSlice(λ.None, λ.Neg(λ.Cal(λ.BuiltinLen, STL_EXT)), λ.None)), SRT_EXT)
+							λ.Cal(λ.GetAttr(λ.GetItem(ϒsubtitles, λ.NewStr("it")), "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("ext"): λ.NewStr("srt"),
+								λ.NewStr("url"): ϒsrt_url,
+							}))
+						}
+					}
+					return ϒsubtitles
+				})
+			RaiBaseIE__extract_subtitles = λ.Cal(λ.StaticMethodType, RaiBaseIE__extract_subtitles)
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_GEO_BYPASS"):            RaiBaseIE__GEO_BYPASS,
 				λ.NewStr("_GEO_COUNTRIES"):         RaiBaseIE__GEO_COUNTRIES,
 				λ.NewStr("_UUID_RE"):               RaiBaseIE__UUID_RE,
 				λ.NewStr("_extract_relinker_info"): RaiBaseIE__extract_relinker_info,
+				λ.NewStr("_extract_subtitles"):     RaiBaseIE__extract_subtitles,
 			})
 		}())
 		RaiPlayIE = λ.Cal(λ.TypeType, λ.NewStr("RaiPlayIE"), λ.NewTuple(RaiBaseIE), func() λ.Dict {

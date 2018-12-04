@@ -39,6 +39,7 @@ var (
 	PornHubPlaylistBaseIE λ.Object
 	PornHubPlaylistIE     λ.Object
 	PornHubUserVideosIE   λ.Object
+	ϒcompat_HTTPError     λ.Object
 	ϒcompat_str           λ.Object
 	ϒint_or_none          λ.Object
 	ϒjs_to_json           λ.Object
@@ -50,6 +51,7 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none

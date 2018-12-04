@@ -34,18 +34,19 @@ import (
 )
 
 var (
-	AdobePassIE      λ.Object
-	ExtractorError   λ.Object
-	InfoExtractor    λ.Object
-	ViceArticleIE    λ.Object
-	ViceIE           λ.Object
-	ViceShowIE       λ.Object
-	YoutubeIE        λ.Object
-	ϒcompat_str      λ.Object
-	ϒint_or_none     λ.Object
-	ϒparse_age_limit λ.Object
-	ϒstr_or_none     λ.Object
-	ϒtry_get         λ.Object
+	AdobePassIE       λ.Object
+	ExtractorError    λ.Object
+	InfoExtractor     λ.Object
+	ViceArticleIE     λ.Object
+	ViceIE            λ.Object
+	ViceShowIE        λ.Object
+	YoutubeIE         λ.Object
+	ϒcompat_HTTPError λ.Object
+	ϒcompat_str       λ.Object
+	ϒint_or_none      λ.Object
+	ϒparse_age_limit  λ.Object
+	ϒstr_or_none      λ.Object
+	ϒtry_get          λ.Object
 )
 
 func init() {
@@ -53,6 +54,7 @@ func init() {
 		AdobePassIE = Ωadobepass.AdobePassIE
 		YoutubeIE = Ωyoutube.YoutubeIE
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none

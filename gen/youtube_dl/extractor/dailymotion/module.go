@@ -40,6 +40,7 @@ var (
 	DailymotionUserIE            λ.Object
 	ExtractorError               λ.Object
 	InfoExtractor                λ.Object
+	OnDemandPagedList            λ.Object
 	ϒdetermine_ext               λ.Object
 	ϒerror_to_compat_str         λ.Object
 	ϒint_or_none                 λ.Object
@@ -62,6 +63,7 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
+		OnDemandPagedList = Ωutils.OnDemandPagedList
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		ϒstr_to_int = Ωutils.ϒstr_to_int

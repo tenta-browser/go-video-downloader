@@ -212,6 +212,7 @@ func init() {
 				InfoExtractor_http_scheme                  λ.Object
 				InfoExtractor_ie_key                       λ.Object
 				InfoExtractor_initialize                   λ.Object
+				InfoExtractor_playlist_result              λ.Object
 				InfoExtractor_report_download_webpage      λ.Object
 				InfoExtractor_report_extraction            λ.Object
 				InfoExtractor_report_warning               λ.Object
@@ -1499,6 +1500,39 @@ func init() {
 					return ϒvideo_info
 				})
 			InfoExtractor_url_result = λ.Cal(λ.StaticMethodType, InfoExtractor_url_result)
+			InfoExtractor_playlist_result = λ.NewFunction("playlist_result",
+				[]λ.Param{
+					{Name: "entries"},
+					{Name: "playlist_id", Def: λ.None},
+					{Name: "playlist_title", Def: λ.None},
+					{Name: "playlist_description", Def: λ.None},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒentries              = λargs[0]
+						ϒplaylist_description = λargs[3]
+						ϒplaylist_id          = λargs[1]
+						ϒplaylist_title       = λargs[2]
+						ϒvideo_info           λ.Object
+					)
+					λ.NewStr("Returns a playlist")
+					ϒvideo_info = λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("_type"):   λ.NewStr("playlist"),
+						λ.NewStr("entries"): ϒentries,
+					})
+					if λ.IsTrue(ϒplaylist_id) {
+						λ.SetItem(ϒvideo_info, λ.NewStr("id"), ϒplaylist_id)
+					}
+					if λ.IsTrue(ϒplaylist_title) {
+						λ.SetItem(ϒvideo_info, λ.NewStr("title"), ϒplaylist_title)
+					}
+					if λ.IsTrue(ϒplaylist_description) {
+						λ.SetItem(ϒvideo_info, λ.NewStr("description"), ϒplaylist_description)
+					}
+					return ϒvideo_info
+				})
+			InfoExtractor_playlist_result = λ.Cal(λ.StaticMethodType, InfoExtractor_playlist_result)
 			InfoExtractor__search_regex = λ.NewFunction("_search_regex",
 				[]λ.Param{
 					{Name: "self"},
@@ -5935,6 +5969,7 @@ func init() {
 				λ.NewStr("http_scheme"):                  InfoExtractor_http_scheme,
 				λ.NewStr("ie_key"):                       InfoExtractor_ie_key,
 				λ.NewStr("initialize"):                   InfoExtractor_initialize,
+				λ.NewStr("playlist_result"):              InfoExtractor_playlist_result,
 				λ.NewStr("report_download_webpage"):      InfoExtractor_report_download_webpage,
 				λ.NewStr("report_extraction"):            InfoExtractor_report_extraction,
 				λ.NewStr("report_warning"):               InfoExtractor_report_warning,

@@ -25,23 +25,26 @@
 package eagleplatform
 
 import (
+	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	EaglePlatformIE λ.Object
-	ExtractorError  λ.Object
-	InfoExtractor   λ.Object
-	ϒint_or_none    λ.Object
-	ϒunsmuggle_url  λ.Object
-	ϒurl_or_none    λ.Object
+	EaglePlatformIE   λ.Object
+	ExtractorError    λ.Object
+	InfoExtractor     λ.Object
+	ϒcompat_HTTPError λ.Object
+	ϒint_or_none      λ.Object
+	ϒunsmuggle_url    λ.Object
+	ϒurl_or_none      λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒunsmuggle_url = Ωutils.ϒunsmuggle_url

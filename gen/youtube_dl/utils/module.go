@@ -53,6 +53,7 @@ var (
 	KNOWN_EXTENSIONS                  λ.Object
 	MaxDownloadsReached               λ.Object
 	NO_DEFAULT                        λ.Object
+	OnDemandPagedList                 λ.Object
 	PagedList                         λ.Object
 	PostProcessingError               λ.Object
 	RegexNotFoundError                λ.Object
@@ -129,6 +130,7 @@ var (
 	ϒunsmuggle_url                    λ.Object
 	ϒupdate_Request                   λ.Object
 	ϒupdate_url_query                 λ.Object
+	ϒuppercase_escape                 λ.Object
 	ϒurl_basename                     λ.Object
 	ϒurl_or_none                      λ.Object
 	ϒurlencode_postdata               λ.Object
@@ -2013,6 +2015,33 @@ func init() {
 
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 		}())
+		OnDemandPagedList = λ.Cal(λ.TypeType, λ.NewStr("OnDemandPagedList"), λ.NewTuple(PagedList), func() λ.Dict {
+
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+		}())
+		ϒuppercase_escape = λ.NewFunction("uppercase_escape",
+			[]λ.Param{
+				{Name: "s"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒs              = λargs[0]
+					ϒunicode_escape λ.Object
+				)
+				ϒunicode_escape = λ.Cal(λ.GetAttr(λ.None, "getdecoder", nil), λ.NewStr("unicode_escape"))
+				return λ.Cal(Ωre.ϒsub, λ.NewStr("\\\\U[0-9a-fA-F]{8}"), λ.NewFunction("<lambda>",
+					[]λ.Param{
+						{Name: "m"},
+					},
+					0, false, false,
+					func(λargs []λ.Object) λ.Object {
+						var (
+							ϒm = λargs[0]
+						)
+						return λ.GetItem(λ.Cal(ϒunicode_escape, λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewInt(0))), λ.NewInt(0))
+					}), ϒs)
+			})
 		ϒurlencode_postdata = λ.NewFunction("urlencode_postdata",
 			nil,
 			0, true, true,

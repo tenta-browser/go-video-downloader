@@ -40,6 +40,7 @@ var (
 	PacktPubCourseIE   λ.Object
 	PacktPubIE         λ.Object
 	ϒclean_html        λ.Object
+	ϒcompat_HTTPError  λ.Object
 	ϒcompat_str        λ.Object
 	ϒremove_end        λ.Object
 	ϒstrip_or_none     λ.Object
@@ -51,6 +52,7 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_str = Ωcompat.ϒcompat_str
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒclean_html = Ωutils.ϒclean_html
 		ExtractorError = Ωutils.ExtractorError
 		ϒremove_end = Ωutils.ϒremove_end
@@ -123,7 +125,7 @@ func init() {
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 								ϒe := λex
 								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
+									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
 										return λv
 									} else {
 										return λ.NewBool(λ.Contains(λ.NewTuple(

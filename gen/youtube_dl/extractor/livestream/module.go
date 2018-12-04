@@ -25,6 +25,7 @@
 package livestream
 
 import (
+	Ωitertools "github.com/tenta-browser/go-video-downloader/gen/itertools"
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωparse "github.com/tenta-browser/go-video-downloader/gen/urllib/parse"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
@@ -69,6 +70,7 @@ func init() {
 				LivestreamIE__API_URL_TEMPLATE   λ.Object
 				LivestreamIE__TESTS              λ.Object
 				LivestreamIE__VALID_URL          λ.Object
+				LivestreamIE__extract_event      λ.Object
 				LivestreamIE__extract_video_info λ.Object
 				LivestreamIE__parse_smil_formats λ.Object
 				LivestreamIE__real_extract       λ.Object
@@ -327,6 +329,102 @@ func init() {
 						λ.NewStr("comments"):      ϒcomments,
 					})
 				})
+			LivestreamIE__extract_event = λ.NewFunction("_extract_event",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "event_data"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒaccount_id    λ.Object
+						ϒentries       λ.Object
+						ϒevent_data    = λargs[1]
+						ϒevent_id      λ.Object
+						ϒfeed_root_url λ.Object
+						ϒi             λ.Object
+						ϒinfo_url      λ.Object
+						ϒlast_video    λ.Object
+						ϒself          = λargs[0]
+						ϒstream_info   λ.Object
+						ϒv             λ.Object
+						ϒv_id          λ.Object
+						ϒvideos_info   λ.Object
+						τmp0           λ.Object
+						τmp1           λ.Object
+						τmp2           λ.Object
+						τmp3           λ.Object
+					)
+					ϒevent_id = λ.Cal(ϒcompat_str, λ.GetItem(ϒevent_data, λ.NewStr("id")))
+					ϒaccount_id = λ.Cal(ϒcompat_str, λ.GetItem(ϒevent_data, λ.NewStr("owner_account_id")))
+					ϒfeed_root_url = λ.Add(λ.Mod(λ.GetAttr(ϒself, "_API_URL_TEMPLATE", nil), λ.NewTuple(
+						ϒaccount_id,
+						ϒevent_id,
+					)), λ.NewStr("/feed.json"))
+					ϒstream_info = λ.Cal(λ.GetAttr(ϒevent_data, "get", nil), λ.NewStr("stream_info"))
+					if λ.IsTrue(ϒstream_info) {
+						return λ.Cal(λ.GetAttr(ϒself, "_extract_stream_info", nil), ϒstream_info)
+					}
+					ϒlast_video = λ.None
+					ϒentries = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωitertools.ϒcount, λ.NewInt(1)))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒi = τmp1
+						if λ.IsTrue(λ.NewBool(ϒlast_video == λ.None)) {
+							ϒinfo_url = ϒfeed_root_url
+						} else {
+							ϒinfo_url = λ.Call(λ.GetAttr(λ.NewStr("{root}?&id={id}&newer=-1&type=video"), "format", nil), nil, λ.KWArgs{
+								{Name: "root", Value: ϒfeed_root_url},
+								{Name: "id", Value: ϒlast_video},
+							})
+						}
+						ϒvideos_info = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), ϒinfo_url, ϒevent_id, λ.Cal(λ.GetAttr(λ.NewStr("Downloading page {0}"), "format", nil), ϒi)), λ.NewStr("data"))
+						ϒvideos_info = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+							nil,
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+									var (
+										ϒv   λ.Object
+										τmp0 λ.Object
+										τmp1 λ.Object
+									)
+									τmp0 = λ.Cal(λ.BuiltinIter, ϒvideos_info)
+									for {
+										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+											break
+										}
+										ϒv = τmp1
+										if λ.IsTrue(λ.Eq(λ.GetItem(ϒv, λ.NewStr("type")), λ.NewStr("video"))) {
+											λgen.Yield(λ.GetItem(ϒv, λ.NewStr("data")))
+										}
+									}
+									return λ.None
+								})
+							})))
+						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideos_info))) {
+							break
+						}
+						τmp2 = λ.Cal(λ.BuiltinIter, ϒvideos_info)
+						for {
+							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+								break
+							}
+							ϒv = τmp3
+							ϒv_id = λ.Cal(ϒcompat_str, λ.GetItem(ϒv, λ.NewStr("id")))
+							λ.Cal(λ.GetAttr(ϒentries, "append", nil), λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://livestream.com/accounts/%s/events/%s/videos/%s"), λ.NewTuple(
+								ϒaccount_id,
+								ϒevent_id,
+								ϒv_id,
+							)), λ.NewStr("Livestream"), ϒv_id, λ.Cal(λ.GetAttr(ϒv, "get", nil), λ.NewStr("caption"))))
+						}
+						ϒlast_video = λ.GetItem(λ.GetItem(ϒvideos_info, λ.Neg(λ.NewInt(1))), λ.NewStr("id"))
+					}
+					return λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), ϒentries, ϒevent_id, λ.GetItem(ϒevent_data, λ.NewStr("full_name")))
+				})
 			LivestreamIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -379,6 +477,7 @@ func init() {
 				λ.NewStr("_API_URL_TEMPLATE"):   LivestreamIE__API_URL_TEMPLATE,
 				λ.NewStr("_TESTS"):              LivestreamIE__TESTS,
 				λ.NewStr("_VALID_URL"):          LivestreamIE__VALID_URL,
+				λ.NewStr("_extract_event"):      LivestreamIE__extract_event,
 				λ.NewStr("_extract_video_info"): LivestreamIE__extract_video_info,
 				λ.NewStr("_parse_smil_formats"): LivestreamIE__parse_smil_formats,
 				λ.NewStr("_real_extract"):       LivestreamIE__real_extract,

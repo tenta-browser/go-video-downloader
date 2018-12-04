@@ -156,7 +156,6 @@ import (
 	Ωpokemon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pokemon"
 	Ωporn91 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/porn91"
 	Ωporncom "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/porncom"
-	Ωpornflip "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornflip"
 	Ωpornhd "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhd"
 	Ωpornhub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhub"
 	Ωpornotube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornotube"
@@ -217,7 +216,6 @@ import (
 	Ωtwentymin "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twentymin"
 	Ωtwitch "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twitch"
 	Ωtwitter "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twitter"
-	Ωudn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/udn"
 	Ωunistra "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/unistra"
 	Ωuol "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/uol"
 	Ωupskill "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/upskill"
@@ -240,12 +238,12 @@ import (
 	Ωviqeo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/viqeo"
 	Ωvk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vk"
 	Ωvlive "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vlive"
+	Ωvuclip "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vuclip"
 	Ωvzaar "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vzaar"
 	Ωwashingtonpost "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/washingtonpost"
 	Ωwat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/wat"
 	Ωweibo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/weibo"
 	Ωworldstarhiphop "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/worldstarhiphop"
-	Ωxfileshare "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xfileshare"
 	Ωxhamster "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xhamster"
 	Ωxiami "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xiami"
 	Ωxnxx "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xnxx"
@@ -406,7 +404,6 @@ var (
 	PokemonIE                 λ.Object
 	Porn91IE                  λ.Object
 	PornComIE                 λ.Object
-	PornFlipIE                λ.Object
 	PornHdIE                  λ.Object
 	PornHubIE                 λ.Object
 	PornotubeIE               λ.Object
@@ -471,7 +468,6 @@ var (
 	TwentyMinutenIE           λ.Object
 	TwitchClipsIE             λ.Object
 	TwitterAmplifyIE          λ.Object
-	UDNEmbedIE                λ.Object
 	UOLIE                     λ.Object
 	USATodayIE                λ.Object
 	UnistraIE                 λ.Object
@@ -497,12 +493,12 @@ var (
 	VineIE                    λ.Object
 	ViqeoIE                   λ.Object
 	VivoIE                    λ.Object
+	VuClipIE                  λ.Object
 	VzaarIE                   λ.Object
 	WashingtonPostIE          λ.Object
 	WatIE                     λ.Object
 	WeiboMobileIE             λ.Object
 	WorldStarHipHopIE         λ.Object
-	XFileShareIE              λ.Object
 	XHamsterEmbedIE           λ.Object
 	XHamsterIE                λ.Object
 	XNXXIE                    λ.Object
@@ -662,7 +658,6 @@ func init() {
 		PokemonIE = Ωpokemon.PokemonIE
 		Porn91IE = Ωporn91.Porn91IE
 		PornComIE = Ωporncom.PornComIE
-		PornFlipIE = Ωpornflip.PornFlipIE
 		PornHdIE = Ωpornhd.PornHdIE
 		PornHubIE = Ωpornhub.PornHubIE
 		PornotubeIE = Ωpornotube.PornotubeIE
@@ -730,7 +725,6 @@ func init() {
 		TwentyMinutenIE = Ωtwentymin.TwentyMinutenIE
 		TwitchClipsIE = Ωtwitch.TwitchClipsIE
 		TwitterAmplifyIE = Ωtwitter.TwitterAmplifyIE
-		UDNEmbedIE = Ωudn.UDNEmbedIE
 		DigitekaIE = Ωdigiteka.DigitekaIE
 		UnistraIE = Ωunistra.UnistraIE
 		UOLIE = Ωuol.UOLIE
@@ -756,12 +750,12 @@ func init() {
 		ViqeoIE = Ωviqeo.ViqeoIE
 		VKIE = Ωvk.VKIE
 		VLiveIE = Ωvlive.VLiveIE
+		VuClipIE = Ωvuclip.VuClipIE
 		VzaarIE = Ωvzaar.VzaarIE
 		WashingtonPostIE = Ωwashingtonpost.WashingtonPostIE
 		WatIE = Ωwat.WatIE
 		WeiboMobileIE = Ωweibo.WeiboMobileIE
 		WorldStarHipHopIE = Ωworldstarhiphop.WorldStarHipHopIE
-		XFileShareIE = Ωxfileshare.XFileShareIE
 		XHamsterIE = Ωxhamster.XHamsterIE
 		XHamsterEmbedIE = Ωxhamster.XHamsterEmbedIE
 		XiamiSongIE = Ωxiami.XiamiSongIE
@@ -917,7 +911,6 @@ func init() {
 			PokemonIE,
 			Porn91IE,
 			PornComIE,
-			PornFlipIE,
 			PornHdIE,
 			PornHubIE,
 			PornotubeIE,
@@ -985,7 +978,6 @@ func init() {
 			TwentyMinutenIE,
 			TwitchClipsIE,
 			TwitterAmplifyIE,
-			UDNEmbedIE,
 			DigitekaIE,
 			UnistraIE,
 			UOLIE,
@@ -1011,12 +1003,12 @@ func init() {
 			ViqeoIE,
 			VKIE,
 			VLiveIE,
+			VuClipIE,
 			VzaarIE,
 			WashingtonPostIE,
 			WatIE,
 			WeiboMobileIE,
 			WorldStarHipHopIE,
-			XFileShareIE,
 			XHamsterIE,
 			XHamsterEmbedIE,
 			XiamiSongIE,

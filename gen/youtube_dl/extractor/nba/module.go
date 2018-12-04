@@ -34,6 +34,7 @@ import (
 
 var (
 	NBAIE                          λ.Object
+	OnDemandPagedList              λ.Object
 	TurnerBaseIE                   λ.Object
 	ϒcompat_urllib_parse_urlencode λ.Object
 	ϒremove_start                  λ.Object
@@ -43,12 +44,14 @@ func init() {
 	λ.InitModule(func() {
 		TurnerBaseIE = Ωturner.TurnerBaseIE
 		ϒcompat_urllib_parse_urlencode = Ωcompat.ϒcompat_urllib_parse_urlencode
+		OnDemandPagedList = Ωutils.OnDemandPagedList
 		ϒremove_start = Ωutils.ϒremove_start
 		NBAIE = λ.Cal(λ.TypeType, λ.NewStr("NBAIE"), λ.NewTuple(TurnerBaseIE), func() λ.Dict {
 			var (
-				NBAIE__TESTS        λ.Object
-				NBAIE__VALID_URL    λ.Object
-				NBAIE__real_extract λ.Object
+				NBAIE__TESTS            λ.Object
+				NBAIE__VALID_URL        λ.Object
+				NBAIE__extract_playlist λ.Object
+				NBAIE__real_extract     λ.Object
 			)
 			NBAIE__VALID_URL = λ.NewStr("https?://(?:watch\\.|www\\.)?nba\\.com/(?P<path>(?:[^/]+/)+(?P<id>[^?]*?))/?(?:/index\\.html)?(?:\\?.*)?$")
 			NBAIE__TESTS = λ.NewList(
@@ -129,6 +132,43 @@ func init() {
 					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("Unable to download f4m manifest")),
 				}),
 			)
+			NBAIE__extract_playlist = λ.NewFunction("_extract_playlist",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "orig_path"},
+					{Name: "video_id"},
+					{Name: "webpage"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒentries        λ.Object
+						ϒorig_path      = λargs[1]
+						ϒplaylist_title λ.Object
+						ϒself           = λargs[0]
+						ϒteam           λ.Object
+						ϒvideo_id       = λargs[2]
+						ϒvideo_path     λ.Object
+						ϒvideo_url      λ.Object
+						ϒwebpage        = λargs[3]
+					)
+					ϒteam = λ.GetItem(λ.Cal(λ.GetAttr(ϒorig_path, "split", nil), λ.NewStr("/")), λ.NewInt(0))
+					if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("noplaylist"))) {
+						λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.NewStr("Downloading just video because of --no-playlist"))
+						ϒvideo_path = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("nbaVideoCore\\.firstVideo\\s*=\\s*\\'([^\\']+)\\';"), ϒwebpage, λ.NewStr("video path"))
+						ϒvideo_url = λ.Mod(λ.NewStr("http://www.nba.com/%s/video/%s"), λ.NewTuple(
+							ϒteam,
+							ϒvideo_path,
+						))
+						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒvideo_url)
+					}
+					λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.NewStr("Downloading playlist - add --no-playlist to just download video"))
+					ϒplaylist_title = λ.Call(λ.GetAttr(ϒself, "_og_search_title", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
+						{Name: "fatal", Value: λ.False},
+					})
+					ϒentries = λ.Cal(OnDemandPagedList, λ.Cal(λ.GetAttr(λ.None, "partial", nil), λ.GetAttr(ϒself, "_fetch_page", nil), ϒteam, ϒvideo_id), λ.GetAttr(ϒself, "_PAGE_SIZE", nil))
+					return λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), ϒentries, ϒteam, ϒplaylist_title)
+				})
 			NBAIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -172,9 +212,10 @@ func init() {
 					}))
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        NBAIE__TESTS,
-				λ.NewStr("_VALID_URL"):    NBAIE__VALID_URL,
-				λ.NewStr("_real_extract"): NBAIE__real_extract,
+				λ.NewStr("_TESTS"):            NBAIE__TESTS,
+				λ.NewStr("_VALID_URL"):        NBAIE__VALID_URL,
+				λ.NewStr("_extract_playlist"): NBAIE__extract_playlist,
+				λ.NewStr("_real_extract"):     NBAIE__real_extract,
 			})
 		}())
 	})
