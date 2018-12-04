@@ -43,6 +43,7 @@ import (
 
 var (
 	DEFAULT_OUTTMPL        λ.Object
+	DownloadError          λ.Object
 	ExtractorError         λ.Object
 	FFmpegPostProcessor    λ.Object
 	GeoRestrictedError     λ.Object
@@ -86,6 +87,7 @@ func init() {
 		DEFAULT_OUTTMPL = Ωutils.DEFAULT_OUTTMPL
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒdetermine_protocol = Ωutils.ϒdetermine_protocol
+		DownloadError = Ωutils.DownloadError
 		ϒerror_to_compat_str = Ωutils.ϒerror_to_compat_str
 		ϒexpand_path = Ωutils.ϒexpand_path
 		ExtractorError = Ωutils.ExtractorError
@@ -133,10 +135,12 @@ func init() {
 				YoutubeDL_process_info                λ.Object
 				YoutubeDL_process_subtitles           λ.Object
 				YoutubeDL_process_video_result        λ.Object
+				YoutubeDL_report_error                λ.Object
 				YoutubeDL_report_warning              λ.Object
 				YoutubeDL_to_screen                   λ.Object
 				YoutubeDL_to_stderr                   λ.Object
 				YoutubeDL_to_stdout                   λ.Object
+				YoutubeDL_trouble                     λ.Object
 			)
 			λ.NewStr("YoutubeDL class.\n\n    YoutubeDL objects are the ones responsible of downloading the\n    actual video file and writing it to disk if the user has requested\n    it, among some other tasks. In most cases there should be one per\n    program. As, given a video URL, the downloader doesn't know how to\n    extract all the needed information, task that InfoExtractors do, it\n    has to pass the URL to one of them.\n\n    For this, YoutubeDL objects have a method that allows\n    InfoExtractors to be registered in a given order. When it is passed\n    a URL, the YoutubeDL object handles it to the first InfoExtractor it\n    finds that reports being able to handle it. The InfoExtractor extracts\n    all the information about the video or videos the URL refers to, and\n    YoutubeDL process the extracted information, possibly using a File\n    Downloader to download the video.\n\n    YoutubeDL objects accept a lot of parameters. In order not to saturate\n    the object constructor with arguments, it receives a dictionary of\n    options instead. These options are available through the params\n    attribute for the InfoExtractors to use. The YoutubeDL also\n    registers itself as the downloader in charge for the InfoExtractors\n    that are added to it, so this is a \"mutual registration\".\n\n    Available options:\n\n    username:          Username for authentication purposes.\n    password:          Password for authentication purposes.\n    videopassword:     Password for accessing a video.\n    ap_mso:            Adobe Pass multiple-system operator identifier.\n    ap_username:       Multiple-system operator account username.\n    ap_password:       Multiple-system operator account password.\n    usenetrc:          Use netrc for authentication instead.\n    verbose:           Print additional info to stdout.\n    quiet:             Do not print messages to stdout.\n    no_warnings:       Do not print out anything for warnings.\n    forceurl:          Force printing final URL.\n    forcetitle:        Force printing title.\n    forceid:           Force printing ID.\n    forcethumbnail:    Force printing thumbnail URL.\n    forcedescription:  Force printing description.\n    forcefilename:     Force printing final filename.\n    forceduration:     Force printing duration.\n    forcejson:         Force printing info_dict as JSON.\n    dump_single_json:  Force printing the info_dict of the whole playlist\n                       (or video) as a single JSON line.\n    simulate:          Do not download the video files.\n    format:            Video format code. See options.py for more information.\n    outtmpl:           Template for output names.\n    restrictfilenames: Do not allow \"&\" and spaces in file names\n    ignoreerrors:      Do not stop on download errors.\n    force_generic_extractor: Force downloader to use the generic extractor\n    nooverwrites:      Prevent overwriting files.\n    playliststart:     Playlist item to start at.\n    playlistend:       Playlist item to end at.\n    playlist_items:    Specific indices of playlist to download.\n    playlistreverse:   Download playlist items in reverse order.\n    playlistrandom:    Download playlist items in random order.\n    matchtitle:        Download only matching titles.\n    rejecttitle:       Reject downloads for matching titles.\n    logger:            Log messages to a logging.Logger instance.\n    logtostderr:       Log messages to stderr instead of stdout.\n    writedescription:  Write the video description to a .description file\n    writeinfojson:     Write the video description to a .info.json file\n    writeannotations:  Write the video annotations to a .annotations.xml file\n    writethumbnail:    Write the thumbnail image to a file\n    write_all_thumbnails:  Write all thumbnail formats to files\n    writesubtitles:    Write the video subtitles to a file\n    writeautomaticsub: Write the automatically generated subtitles to a file\n    allsubtitles:      Downloads all the subtitles of the video\n                       (requires writesubtitles or writeautomaticsub)\n    listsubtitles:     Lists all available subtitles for the video\n    subtitlesformat:   The format code for subtitles\n    subtitleslangs:    List of languages of the subtitles to download\n    keepvideo:         Keep the video file after post-processing\n    daterange:         A DateRange object, download only if the upload_date is in the range.\n    skip_download:     Skip the actual download of the video file\n    cachedir:          Location of the cache files in the filesystem.\n                       False to disable filesystem cache.\n    noplaylist:        Download single video instead of a playlist if in doubt.\n    age_limit:         An integer representing the user's age in years.\n                       Unsuitable videos for the given age are skipped.\n    min_views:         An integer representing the minimum view count the video\n                       must have in order to not be skipped.\n                       Videos without view count information are always\n                       downloaded. None for no limit.\n    max_views:         An integer representing the maximum view count.\n                       Videos that are more popular than that are not\n                       downloaded.\n                       Videos without view count information are always\n                       downloaded. None for no limit.\n    download_archive:  File name of a file where all downloads are recorded.\n                       Videos already present in the file are not downloaded\n                       again.\n    cookiefile:        File name where cookies should be read from and dumped to.\n    nocheckcertificate:Do not verify SSL certificates\n    prefer_insecure:   Use HTTP instead of HTTPS to retrieve information.\n                       At the moment, this is only supported by YouTube.\n    proxy:             URL of the proxy server to use\n    geo_verification_proxy:  URL of the proxy to use for IP address verification\n                       on geo-restricted sites.\n    socket_timeout:    Time to wait for unresponsive hosts, in seconds\n    bidi_workaround:   Work around buggy terminals without bidirectional text\n                       support, using fridibi\n    debug_printtraffic:Print out sent and received HTTP traffic\n    include_ads:       Download ads as well\n    default_search:    Prepend this string if an input url is not valid.\n                       'auto' for elaborate guessing\n    encoding:          Use this encoding instead of the system-specified.\n    extract_flat:      Do not resolve URLs, return the immediate result.\n                       Pass in 'in_playlist' to only show this behavior for\n                       playlist items.\n    postprocessors:    A list of dictionaries, each with an entry\n                       * key:  The name of the postprocessor. See\n                               youtube_dl/postprocessor/__init__.py for a list.\n                       as well as any further keyword arguments for the\n                       postprocessor.\n    progress_hooks:    A list of functions that get called on download\n                       progress, with a dictionary with the entries\n                       * status: One of \"downloading\", \"error\", or \"finished\".\n                                 Check this first and ignore unknown values.\n\n                       If status is one of \"downloading\", or \"finished\", the\n                       following properties may also be present:\n                       * filename: The final filename (always present)\n                       * tmpfilename: The filename we're currently writing to\n                       * downloaded_bytes: Bytes on disk\n                       * total_bytes: Size of the whole file, None if unknown\n                       * total_bytes_estimate: Guess of the eventual file size,\n                                               None if unavailable.\n                       * elapsed: The number of seconds since download started.\n                       * eta: The estimated time in seconds, None if unknown\n                       * speed: The download speed in bytes/second, None if\n                                unknown\n                       * fragment_index: The counter of the currently\n                                         downloaded video fragment.\n                       * fragment_count: The number of fragments (= individual\n                                         files that will be merged)\n\n                       Progress hooks are guaranteed to be called at least once\n                       (with status \"finished\") if the download is successful.\n    merge_output_format: Extension to use when merging formats.\n    fixup:             Automatically correct known faults of the file.\n                       One of:\n                       - \"never\": do nothing\n                       - \"warn\": only emit a warning\n                       - \"detect_or_warn\": check whether we can do anything\n                                           about it, warn otherwise (default)\n    source_address:    Client-side IP address to bind to.\n    call_home:         Boolean, true iff we are allowed to contact the\n                       youtube-dl servers for debugging.\n    sleep_interval:    Number of seconds to sleep before each download when\n                       used alone or a lower bound of a range for randomized\n                       sleep before each download (minimum possible number\n                       of seconds to sleep) when used along with\n                       max_sleep_interval.\n    max_sleep_interval:Upper bound of a range for randomized sleep before each\n                       download (maximum possible number of seconds to sleep).\n                       Must only be used along with sleep_interval.\n                       Actual sleep time will be a random float from range\n                       [sleep_interval; max_sleep_interval].\n    listformats:       Print an overview of available video formats and exit.\n    list_thumbnails:   Print a table of all thumbnails and exit.\n    match_filter:      A function that gets called with the info_dict of\n                       every video.\n                       If it returns a message, the video is ignored.\n                       If it returns None, the video is downloaded.\n                       match_filter_func in utils.py is one example for this.\n    no_color:          Do not emit color codes in output.\n    geo_bypass:        Bypass geographic restriction via faking X-Forwarded-For\n                       HTTP header\n    geo_bypass_country:\n                       Two-letter ISO 3166-2 country code that will be used for\n                       explicit geographic restriction bypassing via faking\n                       X-Forwarded-For HTTP header\n    geo_bypass_ip_block:\n                       IP range in CIDR notation that will be used similarly to\n                       geo_bypass_country\n\n    The following options determine which downloader is picked:\n    external_downloader: Executable of the external downloader to call.\n                       None or unset for standard (built-in) downloader.\n    hls_prefer_native: Use the native HLS downloader instead of ffmpeg/avconv\n                       if True, otherwise use ffmpeg/avconv if False, otherwise\n                       use downloader suggested by extractor if None.\n\n    The following parameters are not used by YoutubeDL itself, they are used by\n    the downloader (see youtube_dl/downloader/common.py):\n    nopart, updatetime, buffersize, ratelimit, min_filesize, max_filesize, test,\n    noresizebuffer, retries, continuedl, noprogress, consoletitle,\n    xattr_set_filesize, external_downloader_args, hls_use_mpegts,\n    http_chunk_size.\n\n    The following options are used by the post processors:\n    prefer_ffmpeg:     If False, use avconv instead of ffmpeg if both are available,\n                       otherwise prefer ffmpeg.\n    postprocessor_args: A list of additional command-line arguments for the\n                        postprocessor.\n\n    The following options are used by the Youtube extractor:\n    youtube_include_dash_manifest: If True (default), DASH manifests and related\n                        data will be downloaded and processed by extractor.\n                        You can reduce network I/O by disabling it if you don't\n                        care about DASH.\n    ")
 			YoutubeDL__NUMERIC_FIELDS = λ.Cal(λ.SetType, λ.NewTuple(
@@ -369,6 +373,68 @@ func init() {
 					}
 					return λ.None
 				})
+			YoutubeDL_trouble = λ.NewFunction("trouble",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "message", Def: λ.None},
+					{Name: "tb", Def: λ.None},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒexc_info λ.Object
+						ϒmessage  = λargs[1]
+						ϒself     = λargs[0]
+						ϒtb       = λargs[2]
+						ϒtb_data  λ.Object
+						τmp0      λ.Object
+					)
+					λ.NewStr("Determine action to take when a download problem appears.\n\n        Depending on if the downloader has been configured to ignore\n        download errors or not, this method may throw an exception or\n        not when errors are found, after printing the message.\n\n        tb, if given, is additional traceback information.\n        ")
+					if λ.IsTrue(λ.NewBool(ϒmessage != λ.None)) {
+						λ.Cal(λ.GetAttr(ϒself, "to_stderr", nil), ϒmessage)
+					}
+					if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("verbose"))) {
+						if λ.IsTrue(λ.NewBool(ϒtb == λ.None)) {
+							if λ.IsTrue(λ.GetItem(λ.Cal(Ωsys.ϒexc_info), λ.NewInt(0))) {
+								ϒtb = λ.NewStr("")
+								if λ.IsTrue(func() λ.Object {
+									if λv := λ.Cal(λ.BuiltinHasAttr, λ.GetItem(λ.Cal(Ωsys.ϒexc_info), λ.NewInt(1)), λ.NewStr("exc_info")); !λ.IsTrue(λv) {
+										return λv
+									} else {
+										return λ.GetItem(λ.GetAttr(λ.GetItem(λ.Cal(Ωsys.ϒexc_info), λ.NewInt(1)), "exc_info", nil), λ.NewInt(0))
+									}
+								}()) {
+									τmp0 = λ.IAdd(ϒtb, λ.Cal(λ.GetAttr(λ.NewStr(""), "join", nil), λ.Cal(λ.GetAttr(λ.None, "format_exception", nil), λ.Unpack(λ.AsStarred(λ.GetAttr(λ.GetItem(λ.Cal(Ωsys.ϒexc_info), λ.NewInt(1)), "exc_info", nil)))...)))
+									ϒtb = τmp0
+								}
+								τmp0 = λ.IAdd(ϒtb, λ.Cal(λ.None, λ.Cal(λ.GetAttr(λ.None, "format_exc", nil))))
+								ϒtb = τmp0
+							} else {
+								ϒtb_data = λ.Cal(λ.GetAttr(λ.None, "format_list", nil), λ.Cal(λ.GetAttr(λ.None, "extract_stack", nil)))
+								ϒtb = λ.Cal(λ.GetAttr(λ.NewStr(""), "join", nil), ϒtb_data)
+							}
+						}
+						λ.Cal(λ.GetAttr(ϒself, "to_stderr", nil), ϒtb)
+					}
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("ignoreerrors"), λ.False)))) {
+						if λ.IsTrue(func() λ.Object {
+							if λv := λ.GetItem(λ.Cal(Ωsys.ϒexc_info), λ.NewInt(0)); !λ.IsTrue(λv) {
+								return λv
+							} else if λv := λ.Cal(λ.BuiltinHasAttr, λ.GetItem(λ.Cal(Ωsys.ϒexc_info), λ.NewInt(1)), λ.NewStr("exc_info")); !λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.GetItem(λ.GetAttr(λ.GetItem(λ.Cal(Ωsys.ϒexc_info), λ.NewInt(1)), "exc_info", nil), λ.NewInt(0))
+							}
+						}()) {
+							ϒexc_info = λ.GetAttr(λ.GetItem(λ.Cal(Ωsys.ϒexc_info), λ.NewInt(1)), "exc_info", nil)
+						} else {
+							ϒexc_info = λ.Cal(Ωsys.ϒexc_info)
+						}
+						panic(λ.Raise(λ.Cal(DownloadError, ϒmessage, ϒexc_info)))
+					}
+					λ.SetAttr(ϒself, "_download_retcode", λ.NewInt(1))
+					return λ.None
+				})
 			YoutubeDL_report_warning = λ.NewFunction("report_warning",
 				[]λ.Param{
 					{Name: "self"},
@@ -408,6 +474,42 @@ func init() {
 						))
 						λ.Cal(λ.GetAttr(ϒself, "to_stderr", nil), ϒwarning_message)
 					}
+					return λ.None
+				})
+			YoutubeDL_report_error = λ.NewFunction("report_error",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "message"},
+					{Name: "tb", Def: λ.None},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒ_msg_header   λ.Object
+						ϒerror_message λ.Object
+						ϒmessage       = λargs[1]
+						ϒself          = λargs[0]
+						ϒtb            = λargs[2]
+					)
+					λ.NewStr("\n        Do the same as trouble, but prefixes the message with 'ERROR:', colored\n        in red if stderr is a tty file.\n        ")
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("no_color")))); !λ.IsTrue(λv) {
+							return λv
+						} else if λv := λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_err_file", nil), "isatty", nil)); !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Ne(λ.None, λ.NewStr("nt"))
+						}
+					}()) {
+						ϒ_msg_header = λ.NewStr("[0;31mERROR:[0m")
+					} else {
+						ϒ_msg_header = λ.NewStr("ERROR:")
+					}
+					ϒerror_message = λ.Mod(λ.NewStr("%s %s"), λ.NewTuple(
+						ϒ_msg_header,
+						ϒmessage,
+					))
+					λ.Cal(λ.GetAttr(ϒself, "trouble", nil), ϒerror_message, ϒtb)
 					return λ.None
 				})
 			YoutubeDL_prepare_filename = λ.NewFunction("prepare_filename",
@@ -2869,10 +2971,12 @@ func init() {
 				λ.NewStr("process_info"):                YoutubeDL_process_info,
 				λ.NewStr("process_subtitles"):           YoutubeDL_process_subtitles,
 				λ.NewStr("process_video_result"):        YoutubeDL_process_video_result,
+				λ.NewStr("report_error"):                YoutubeDL_report_error,
 				λ.NewStr("report_warning"):              YoutubeDL_report_warning,
 				λ.NewStr("to_screen"):                   YoutubeDL_to_screen,
 				λ.NewStr("to_stderr"):                   YoutubeDL_to_stderr,
 				λ.NewStr("to_stdout"):                   YoutubeDL_to_stdout,
+				λ.NewStr("trouble"):                     YoutubeDL_trouble,
 			})
 		}())
 	})

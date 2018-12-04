@@ -2,15 +2,14 @@ Supported sites
 ===============
 
  * AbcNewsVideo: `abcnews.go.com`
+ * ACast: `www.acast.com`
  * AdobeTV: `tv.adobe.com`
  * AdobeTVVideo: `video.tv.adobe.com`
- * AlJazeera: `www.aljazeera.com`
  * Aol: `on.aol.com`
  * Allocine: `www.allocine.fr`
  * Aparat: `www.aparat.com`
  * AppleConnect: `itunes.apple.com`
  * ARD: `www.daserste.de`
- * ARDMediathek: `www.ardmediathek.de`
  * AudiMedia: `www.audi-mediacenter.com`
  * AudioBoom: `audioboom.com`
  * Audiomack: `www.audiomack.com`
@@ -22,10 +21,12 @@ Supported sites
  * BitChute: `www.bitchute.com`
  * BleacherReportCMS: `bleacherreport.com`
  * Bpb: `www.bpb.de`
- * Break: `www.break.com`
+ * BR: `www.br.de`
+ * BrightcoveLegacy: `c.brightcove.com`
  * BrightcoveNew: `players.brightcove.net`
  * BusinessInsider: `uk.businessinsider.com`
  * Camdemy: `www.camdemy.com`
+ * Canalplus: `www.piwiplus.fr`
  * Canalc2: `www.canalc2.tv`
  * CCC: `media.ccc.de`
  * CharlieRose: `charlierose.com`
@@ -39,6 +40,7 @@ Supported sites
  * CNNArticle: `www.cnn.com`
  * Coub: `coub.com`
  * Cracked: `www.cracked.com`
+ * CSpan: `www.c-span.org`
  * CtsNews: `news.cts.com.tw`
  * CuriosityStream: `app.curiositystream.com`
  * DailyMail: `www.dailymail.co.uk`
@@ -57,9 +59,11 @@ Supported sites
  * Engadget: `www.engadget.com`
  * Europa: `ec.europa.eu`
  * ExtremeTube _(adult)_: `www.extremetube.com`
+ * Facebook: `www.facebook.com`
  * FacebookPluginsVideo: `www.facebook.com`
  * Faz: `www.faz.net`
  * FiveMin: `pshared.5min.com`
+ * FiveTV: `www.5-tv.ru`
  * Flickr: `www.flickr.com`
  * Formula1: `www.formula1.com`
  * FoxNews: `video.foxnews.com`
@@ -101,8 +105,9 @@ Supported sites
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * MacGameStore: `www.macgamestore.com`
  * MassengeschmackTV: `massengeschmack.tv`
- * MDR: `www.mdr.de`
  * Megaphone: `player.megaphone.fm`
+ * Metacafe: `www.metacafe.com`
+ * Metacritic: `www.metacritic.com`
  * MicrosoftVirtualAcademy: `mva.microsoft.com`
  * MLB: `www.mlb.com`
  * Mofosex _(adult)_: `www.mofosex.com`
@@ -110,7 +115,9 @@ Supported sites
  * Myvi: `myvi.ru`
  * NBA: `www.nba.com`
  * NDR: `www.ndr.de`
+ * NDREmbed: `www.ndr.de`
  * NJoyEmbed: `www.n-joy.de`
+ * NDTV: `movies.ndtv.com`
  * Netzkino: `www.netzkino.de`
  * Newgrounds: `www.newgrounds.com`
  * NextMediaActionNews: `hk.dv.nextmedia.com`
@@ -120,6 +127,7 @@ Supported sites
  * Nowness: `www.nowness.com`
  * NTVRu: `www.ntv.ru`
  * Odnoklassniki: `ok.ru`
+ * Ooyala: `player.ooyala.com`
  * PacktPub: `www.packtpub.com`
  * PandoraTV: `jp.channel.pandora.tv`
  * Patreon: `www.patreon.com`
@@ -128,6 +136,7 @@ Supported sites
  * Photobucket: `media.photobucket.com`
  * PlayFM: `www.play.fm`
  * PlaysTV: `plays.tv`
+ * Playvid _(adult)_: `www.playvid.com`
  * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
  * Porn91 _(adult)_: `91porn.com`
@@ -138,7 +147,6 @@ Supported sites
  * Pornotube _(adult)_: `www.pornotube.com`
  * PuhuTV: `puhutv.com`
  * PressTV: `www.presstv.ir`
- * R7Article: `tv.r7.com`
  * RadioDe: `ndr2.radio.de`
  * RadioJavan: `www.radiojavan.com`
  * Rai: `www.raisport.rai.it`
@@ -153,6 +161,8 @@ Supported sites
  * RTVS: `www.rtvs.sk`
  * RUTV: `player.rutv.ru`
  * Sapo: `videos.sapo.pt`
+ * Screencast: `www.screencast.com`
+ * SenateISVP: `www.senate.gov`
  * SeznamZpravy: `www.seznamzpravy.cz`
  * Vivo: `vivo.sx`
  * SkySports: `www.skysports.com`
@@ -162,6 +172,7 @@ Supported sites
  * SpankBang _(adult)_: `spankbang.com`
  * Stitcher: `www.stitcher.com`
  * SportDeutschland: `sportdeutschland.tv`
+ * SRGSSRPlay: `www.rts.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
  * Streamable: `streamable.com`
  * SunPorno _(adult)_: `www.sunporno.com`
@@ -205,8 +216,11 @@ Supported sites
  * Upskill: `upskillcourses.com`
  * USAToday: `www.usatoday.com`
  * UstudioEmbed: `app.ustudio.com`
+ * Varzesh3: `video.varzesh3.com`
  * Vbox7: `vbox7.com`
+ * VeeHD: `veehd.com`
  * Veoh: `www.veoh.com`
+ * Vesti: `hitech.vesti.ru`
  * Vevo: `www.vevo.com`
  * VGTV: `www.vgtv.no`
  * Viddler: `www.viddler.com`
@@ -223,12 +237,13 @@ Supported sites
  * VLive: `www.vlive.tv`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
- * WDRMobile: `mobile-ondemand.wdr.de`
+ * Wat: `www.wat.tv`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * XFileShare: `gorillavid.in`
  * XHamster _(adult)_: `xhamster.com`
  * XHamsterEmbed _(adult)_: `xhamster.com`
+ * XiamiSong: `www.xiami.com`
  * XNXX _(adult)_: `www.xnxx.com`
  * XTube _(adult)_: `www.xtube.com`
  * XVideos _(adult)_: `www.xvideos.com`

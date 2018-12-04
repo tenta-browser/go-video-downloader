@@ -442,12 +442,114 @@ func init() {
 		NDREmbedIE = λ.Cal(λ.TypeType, λ.NewStr("NDREmbedIE"), λ.NewTuple(NDREmbedBaseIE), func() λ.Dict {
 			var (
 				NDREmbedIE_IE_NAME    λ.Object
+				NDREmbedIE__TESTS     λ.Object
 				NDREmbedIE__VALID_URL λ.Object
 			)
 			NDREmbedIE_IE_NAME = λ.NewStr("ndr:embed")
 			NDREmbedIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?ndr\\.de/(?:[^/]+/)*(?P<id>[\\da-z]+)-(?:player|externalPlayer)\\.html")
+			NDREmbedIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.ndr.de/fernsehen/sendungen/ndr_aktuell/ndraktuell28488-player.html"),
+					λ.NewStr("md5"): λ.NewStr("8b9306142fe65bbdefb5ce24edb6b0a9"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("ndraktuell28488"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Norddeutschland begrüßt Flüchtlinge"),
+						λ.NewStr("is_live"):     λ.False,
+						λ.NewStr("uploader"):    λ.NewStr("ndrtv"),
+						λ.NewStr("upload_date"): λ.NewStr("20150907"),
+						λ.NewStr("duration"):    λ.NewInt(132),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.ndr.de/ndr2/events/soundcheck/soundcheck3366-player.html"),
+					λ.NewStr("md5"): λ.NewStr("002085c44bae38802d94ae5802a36e78"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("soundcheck3366"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Ella Henderson braucht Vergleiche nicht zu scheuen"),
+						λ.NewStr("is_live"):     λ.False,
+						λ.NewStr("uploader"):    λ.NewStr("ndr2"),
+						λ.NewStr("upload_date"): λ.NewStr("20150912"),
+						λ.NewStr("duration"):    λ.NewInt(3554),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.ndr.de/info/audio51535-player.html"),
+					λ.NewStr("md5"): λ.NewStr("bb3cd38e24fbcc866d13b50ca59307b8"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("audio51535"),
+						λ.NewStr("ext"):         λ.NewStr("mp3"),
+						λ.NewStr("title"):       λ.NewStr("La Valette entgeht der Hinrichtung"),
+						λ.NewStr("is_live"):     λ.False,
+						λ.NewStr("uploader"):    λ.NewStr("ndrinfo"),
+						λ.NewStr("upload_date"): λ.NewStr("20140729"),
+						λ.NewStr("duration"):    λ.NewInt(884),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.ndr.de/fernsehen/sendungen/visite/visite11010-externalPlayer.html"),
+					λ.NewStr("md5"): λ.NewStr("ae57f80511c1e1f2fd0d0d3d31aeae7c"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("visite11010"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Visite - die ganze Sendung"),
+						λ.NewStr("is_live"):     λ.False,
+						λ.NewStr("uploader"):    λ.NewStr("ndrtv"),
+						λ.NewStr("upload_date"): λ.NewStr("20150902"),
+						λ.NewStr("duration"):    λ.NewInt(3525),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.ndr.de/fernsehen/livestream/livestream217-externalPlayer.html"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("livestream217"),
+						λ.NewStr("ext"):         λ.NewStr("flv"),
+						λ.NewStr("title"):       λ.NewStr("re:^NDR Fernsehen Niedersachsen \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$"),
+						λ.NewStr("is_live"):     λ.True,
+						λ.NewStr("upload_date"): λ.NewStr("20150910"),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://www.ndr.de/ndrkultur/audio255020-player.html"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://www.ndr.de/fernsehen/sendungen/nordtour/nordtour7124-player.html"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://www.ndr.de/kultur/film/videos/videoimport10424-player.html"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://www.ndr.de/fernsehen/sendungen/hamburg_journal/hamj43006-player.html"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://www.ndr.de/fernsehen/sendungen/weltbilder/weltbilder4518-player.html"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://www.ndr.de/fernsehen/doku952-player.html"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):    NDREmbedIE_IE_NAME,
+				λ.NewStr("_TESTS"):     NDREmbedIE__TESTS,
 				λ.NewStr("_VALID_URL"): NDREmbedIE__VALID_URL,
 			})
 		}())

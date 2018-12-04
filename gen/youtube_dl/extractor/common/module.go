@@ -155,6 +155,7 @@ func init() {
 				InfoExtractor__download_xml_handle         λ.Object
 				InfoExtractor__downloader                  λ.Object
 				InfoExtractor__extract_f4m_formats         λ.Object
+				InfoExtractor__extract_ism_formats         λ.Object
 				InfoExtractor__extract_m3u8_formats        λ.Object
 				InfoExtractor__extract_mpd_formats         λ.Object
 				InfoExtractor__extract_smil_formats        λ.Object
@@ -184,6 +185,7 @@ func init() {
 				InfoExtractor__og_search_video_url         λ.Object
 				InfoExtractor__parse_f4m_formats           λ.Object
 				InfoExtractor__parse_html5_media_entries   λ.Object
+				InfoExtractor__parse_ism_formats           λ.Object
 				InfoExtractor__parse_json                  λ.Object
 				InfoExtractor__parse_jwplayer_data         λ.Object
 				InfoExtractor__parse_jwplayer_formats      λ.Object
@@ -4739,6 +4741,309 @@ func init() {
 					}
 					return ϒformats
 				})
+			InfoExtractor__extract_ism_formats = λ.NewFunction("_extract_ism_formats",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "ism_url"},
+					{Name: "video_id"},
+					{Name: "ism_id", Def: λ.None},
+					{Name: "note", Def: λ.None},
+					{Name: "errnote", Def: λ.None},
+					{Name: "fatal", Def: λ.True},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒerrnote  = λargs[5]
+						ϒfatal    = λargs[6]
+						ϒism_doc  λ.Object
+						ϒism_id   = λargs[3]
+						ϒism_url  = λargs[1]
+						ϒnote     = λargs[4]
+						ϒres      λ.Object
+						ϒself     = λargs[0]
+						ϒurlh     λ.Object
+						ϒvideo_id = λargs[2]
+						τmp0      λ.Object
+					)
+					ϒres = λ.Call(λ.GetAttr(ϒself, "_download_xml_handle", nil), λ.NewArgs(
+						ϒism_url,
+						ϒvideo_id,
+					), λ.KWArgs{
+						{Name: "note", Value: func() λ.Object {
+							if λv := ϒnote; λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.NewStr("Downloading ISM manifest")
+							}
+						}()},
+						{Name: "errnote", Value: func() λ.Object {
+							if λv := ϒerrnote; λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.NewStr("Failed to download ISM manifest")
+							}
+						}()},
+						{Name: "fatal", Value: ϒfatal},
+					})
+					if λ.IsTrue(λ.NewBool(ϒres == λ.False)) {
+						return λ.NewList()
+					}
+					τmp0 = ϒres
+					ϒism_doc = λ.GetItem(τmp0, λ.NewInt(0))
+					ϒurlh = λ.GetItem(τmp0, λ.NewInt(1))
+					return λ.Cal(λ.GetAttr(ϒself, "_parse_ism_formats", nil), ϒism_doc, λ.Cal(λ.GetAttr(ϒurlh, "geturl", nil)), ϒism_id)
+				})
+			InfoExtractor__parse_ism_formats = λ.NewFunction("_parse_ism_formats",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "ism_doc"},
+					{Name: "ism_url"},
+					{Name: "ism_id", Def: λ.None},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒduration              λ.Object
+						ϒformat_id             λ.Object
+						ϒformats               λ.Object
+						ϒfourcc                λ.Object
+						ϒfragment_ctx          λ.Object
+						ϒfragment_repeat       λ.Object
+						ϒfragments             λ.Object
+						ϒheight                λ.Object
+						ϒism_doc               = λargs[1]
+						ϒism_id                = λargs[3]
+						ϒism_url               = λargs[2]
+						ϒnext_fragment_time    λ.Object
+						ϒsampling_rate         λ.Object
+						ϒself                  = λargs[0]
+						ϒstream                λ.Object
+						ϒstream_fragment       λ.Object
+						ϒstream_fragment_index λ.Object
+						ϒstream_fragments      λ.Object
+						ϒstream_name           λ.Object
+						ϒstream_timescale      λ.Object
+						ϒstream_type           λ.Object
+						ϒtbr                   λ.Object
+						ϒtimescale             λ.Object
+						ϒtrack                 λ.Object
+						ϒtrack_url_pattern     λ.Object
+						ϒurl_pattern           λ.Object
+						ϒwidth                 λ.Object
+						τmp0                   λ.Object
+						τmp1                   λ.Object
+						τmp2                   λ.Object
+						τmp3                   λ.Object
+						τmp4                   λ.Object
+						τmp5                   λ.Object
+						τmp6                   λ.Object
+						τmp7                   λ.Object
+						τmp8                   λ.Object
+					)
+					λ.NewStr("\n        Parse formats from ISM manifest.\n        References:\n         1. [MS-SSTR]: Smooth Streaming Protocol,\n            https://msdn.microsoft.com/en-us/library/ff469518.aspx\n        ")
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.Eq(λ.Cal(λ.GetAttr(ϒism_doc, "get", nil), λ.NewStr("IsLive")), λ.NewStr("TRUE")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewBool(λ.Cal(λ.GetAttr(ϒism_doc, "find", nil), λ.NewStr("Protection")) != λ.None)
+						}
+					}()) {
+						return λ.NewList()
+					}
+					ϒduration = λ.Cal(λ.IntType, λ.GetItem(λ.GetAttr(ϒism_doc, "attrib", nil), λ.NewStr("Duration")))
+					ϒtimescale = func() λ.Object {
+						if λv := λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒism_doc, "get", nil), λ.NewStr("TimeScale"))); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewInt(10000000)
+						}
+					}()
+					ϒformats = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒism_doc, "findall", nil), λ.NewStr("StreamIndex")))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒstream = τmp1
+						ϒstream_type = λ.Cal(λ.GetAttr(ϒstream, "get", nil), λ.NewStr("Type"))
+						if λ.IsTrue(λ.NewBool(!λ.Contains(λ.NewTuple(
+							λ.NewStr("video"),
+							λ.NewStr("audio"),
+						), ϒstream_type))) {
+							continue
+						}
+						ϒurl_pattern = λ.GetItem(λ.GetAttr(ϒstream, "attrib", nil), λ.NewStr("Url"))
+						ϒstream_timescale = func() λ.Object {
+							if λv := λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒstream, "get", nil), λ.NewStr("TimeScale"))); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return ϒtimescale
+							}
+						}()
+						ϒstream_name = λ.Cal(λ.GetAttr(ϒstream, "get", nil), λ.NewStr("Name"))
+						τmp2 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒstream, "findall", nil), λ.NewStr("QualityLevel")))
+						for {
+							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+								break
+							}
+							ϒtrack = τmp3
+							ϒfourcc = λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("FourCC"), func() λ.Object {
+								if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("AudioTag")), λ.NewStr("255"))) {
+									return λ.NewStr("AACL")
+								} else {
+									return λ.None
+								}
+							}())
+							if λ.IsTrue(λ.NewBool(!λ.Contains(λ.NewTuple(
+								λ.NewStr("H264"),
+								λ.NewStr("AVC1"),
+								λ.NewStr("AACL"),
+							), ϒfourcc))) {
+								λ.Cal(λ.GetAttr(ϒself, "report_warning", nil), λ.Mod(λ.NewStr("%s is not a supported codec"), ϒfourcc))
+								continue
+							}
+							ϒtbr = λ.FloorDiv(λ.Cal(λ.IntType, λ.GetItem(λ.GetAttr(ϒtrack, "attrib", nil), λ.NewStr("Bitrate"))), λ.NewInt(1000))
+							ϒwidth = λ.Cal(ϒint_or_none, func() λ.Object {
+								if λv := λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("MaxWidth")); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("Width"))
+								}
+							}())
+							ϒheight = λ.Cal(ϒint_or_none, func() λ.Object {
+								if λv := λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("MaxHeight")); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("Height"))
+								}
+							}())
+							ϒsampling_rate = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("SamplingRate")))
+							ϒtrack_url_pattern = λ.Cal(Ωre.ϒsub, λ.NewStr("{[Bb]itrate}"), λ.GetItem(λ.GetAttr(ϒtrack, "attrib", nil), λ.NewStr("Bitrate")), ϒurl_pattern)
+							ϒtrack_url_pattern = λ.Cal(Ωparse.ϒurljoin, ϒism_url, ϒtrack_url_pattern)
+							ϒfragments = λ.NewList()
+							ϒfragment_ctx = λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("time"): λ.NewInt(0),
+							})
+							ϒstream_fragments = λ.Cal(λ.GetAttr(ϒstream, "findall", nil), λ.NewStr("c"))
+							τmp4 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.EnumerateIteratorType, ϒstream_fragments))
+							for {
+								if τmp5 = λ.NextDefault(τmp4, λ.AfterLast); τmp5 == λ.AfterLast {
+									break
+								}
+								τmp6 = τmp5
+								ϒstream_fragment_index = λ.GetItem(τmp6, λ.NewInt(0))
+								ϒstream_fragment = λ.GetItem(τmp6, λ.NewInt(1))
+								λ.SetItem(ϒfragment_ctx, λ.NewStr("time"), func() λ.Object {
+									if λv := λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒstream_fragment, "get", nil), λ.NewStr("t"))); λ.IsTrue(λv) {
+										return λv
+									} else {
+										return λ.GetItem(ϒfragment_ctx, λ.NewStr("time"))
+									}
+								}())
+								ϒfragment_repeat = func() λ.Object {
+									if λv := λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒstream_fragment, "get", nil), λ.NewStr("r"))); λ.IsTrue(λv) {
+										return λv
+									} else {
+										return λ.NewInt(1)
+									}
+								}()
+								λ.SetItem(ϒfragment_ctx, λ.NewStr("duration"), λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒstream_fragment, "get", nil), λ.NewStr("d"))))
+								if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.GetItem(ϒfragment_ctx, λ.NewStr("duration"))))) {
+									τmp6, τmp7 = func() (λexit λ.Object, λret λ.Object) {
+										defer λ.CatchMulti(
+											nil,
+											&λ.Catcher{λ.IndexErrorType, func(λex λ.BaseException) {
+												ϒnext_fragment_time = ϒduration
+											}},
+										)
+										ϒnext_fragment_time = λ.Cal(λ.IntType, λ.GetItem(λ.GetAttr(λ.GetItem(ϒstream_fragment, λ.Add(ϒstream_fragment_index, λ.NewInt(1))), "attrib", nil), λ.NewStr("t")))
+										return λ.BlockExitNormally, nil
+									}()
+									λ.SetItem(ϒfragment_ctx, λ.NewStr("duration"), λ.TrueDiv(λ.Sub(ϒnext_fragment_time, λ.GetItem(ϒfragment_ctx, λ.NewStr("time"))), ϒfragment_repeat))
+								}
+								τmp7 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.RangeType, ϒfragment_repeat))
+								for {
+									if τmp6 = λ.NextDefault(τmp7, λ.AfterLast); τmp6 == λ.AfterLast {
+										break
+									}
+									_ = τmp6
+									λ.Cal(λ.GetAttr(ϒfragments, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λ.NewStr("url"):      λ.Cal(Ωre.ϒsub, λ.NewStr("{start[ _]time}"), λ.Cal(ϒcompat_str, λ.GetItem(ϒfragment_ctx, λ.NewStr("time"))), ϒtrack_url_pattern),
+										λ.NewStr("duration"): λ.TrueDiv(λ.GetItem(ϒfragment_ctx, λ.NewStr("duration")), ϒstream_timescale),
+									}))
+									τmp8 = λ.IAdd(λ.GetItem(ϒfragment_ctx, λ.NewStr("time")), λ.GetItem(ϒfragment_ctx, λ.NewStr("duration")))
+									λ.SetItem(ϒfragment_ctx, λ.NewStr("time"), τmp8)
+								}
+							}
+							ϒformat_id = λ.NewList()
+							if λ.IsTrue(ϒism_id) {
+								λ.Cal(λ.GetAttr(ϒformat_id, "append", nil), ϒism_id)
+							}
+							if λ.IsTrue(ϒstream_name) {
+								λ.Cal(λ.GetAttr(ϒformat_id, "append", nil), ϒstream_name)
+							}
+							λ.Cal(λ.GetAttr(ϒformat_id, "append", nil), λ.Cal(ϒcompat_str, ϒtbr))
+							λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("format_id"):    λ.Cal(λ.GetAttr(λ.NewStr("-"), "join", nil), ϒformat_id),
+								λ.NewStr("url"):          ϒism_url,
+								λ.NewStr("manifest_url"): ϒism_url,
+								λ.NewStr("ext"): func() λ.Object {
+									if λ.IsTrue(λ.Eq(ϒstream_type, λ.NewStr("video"))) {
+										return λ.NewStr("ismv")
+									} else {
+										return λ.NewStr("isma")
+									}
+								}(),
+								λ.NewStr("width"):  ϒwidth,
+								λ.NewStr("height"): ϒheight,
+								λ.NewStr("tbr"):    ϒtbr,
+								λ.NewStr("asr"):    ϒsampling_rate,
+								λ.NewStr("vcodec"): func() λ.Object {
+									if λ.IsTrue(λ.Eq(ϒstream_type, λ.NewStr("audio"))) {
+										return λ.NewStr("none")
+									} else {
+										return ϒfourcc
+									}
+								}(),
+								λ.NewStr("acodec"): func() λ.Object {
+									if λ.IsTrue(λ.Eq(ϒstream_type, λ.NewStr("video"))) {
+										return λ.NewStr("none")
+									} else {
+										return ϒfourcc
+									}
+								}(),
+								λ.NewStr("protocol"):  λ.NewStr("ism"),
+								λ.NewStr("fragments"): ϒfragments,
+								λ.NewStr("_download_params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λ.NewStr("duration"):  ϒduration,
+									λ.NewStr("timescale"): ϒstream_timescale,
+									λ.NewStr("width"): func() λ.Object {
+										if λv := ϒwidth; λ.IsTrue(λv) {
+											return λv
+										} else {
+											return λ.NewInt(0)
+										}
+									}(),
+									λ.NewStr("height"): func() λ.Object {
+										if λv := ϒheight; λ.IsTrue(λv) {
+											return λv
+										} else {
+											return λ.NewInt(0)
+										}
+									}(),
+									λ.NewStr("fourcc"):                ϒfourcc,
+									λ.NewStr("codec_private_data"):    λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("CodecPrivateData")),
+									λ.NewStr("sampling_rate"):         ϒsampling_rate,
+									λ.NewStr("channels"):              λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("Channels"), λ.NewInt(2))),
+									λ.NewStr("bits_per_sample"):       λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("BitsPerSample"), λ.NewInt(16))),
+									λ.NewStr("nal_unit_length_field"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("NALUnitLengthField"), λ.NewInt(4))),
+								}),
+							}))
+						}
+					}
+					return ϒformats
+				})
 			InfoExtractor__parse_html5_media_entries = λ.NewFunction("_parse_html5_media_entries",
 				[]λ.Param{
 					{Name: "self"},
@@ -5573,6 +5878,7 @@ func init() {
 				λ.NewStr("_download_xml_handle"):         InfoExtractor__download_xml_handle,
 				λ.NewStr("_downloader"):                  InfoExtractor__downloader,
 				λ.NewStr("_extract_f4m_formats"):         InfoExtractor__extract_f4m_formats,
+				λ.NewStr("_extract_ism_formats"):         InfoExtractor__extract_ism_formats,
 				λ.NewStr("_extract_m3u8_formats"):        InfoExtractor__extract_m3u8_formats,
 				λ.NewStr("_extract_mpd_formats"):         InfoExtractor__extract_mpd_formats,
 				λ.NewStr("_extract_smil_formats"):        InfoExtractor__extract_smil_formats,
@@ -5602,6 +5908,7 @@ func init() {
 				λ.NewStr("_og_search_video_url"):         InfoExtractor__og_search_video_url,
 				λ.NewStr("_parse_f4m_formats"):           InfoExtractor__parse_f4m_formats,
 				λ.NewStr("_parse_html5_media_entries"):   InfoExtractor__parse_html5_media_entries,
+				λ.NewStr("_parse_ism_formats"):           InfoExtractor__parse_ism_formats,
 				λ.NewStr("_parse_json"):                  InfoExtractor__parse_json,
 				λ.NewStr("_parse_jwplayer_data"):         InfoExtractor__parse_jwplayer_data,
 				λ.NewStr("_parse_jwplayer_formats"):      InfoExtractor__parse_jwplayer_formats,

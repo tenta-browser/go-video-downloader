@@ -42,6 +42,7 @@ var (
 	DATE_FORMATS_DAY_FIRST            λ.Object
 	DATE_FORMATS_MONTH_FIRST          λ.Object
 	DEFAULT_OUTTMPL                   λ.Object
+	DownloadError                     λ.Object
 	ENGLISH_MONTH_NAMES               λ.Object
 	ExtractorError                    λ.Object
 	GeoRestrictedError                λ.Object
@@ -128,7 +129,6 @@ var (
 	ϒunsmuggle_url                    λ.Object
 	ϒupdate_Request                   λ.Object
 	ϒupdate_url_query                 λ.Object
-	ϒuppercase_escape                 λ.Object
 	ϒurl_basename                     λ.Object
 	ϒurl_or_none                      λ.Object
 	ϒurlencode_postdata               λ.Object
@@ -1173,7 +1173,8 @@ func init() {
 		}())
 		ExtractorError = λ.Cal(λ.TypeType, λ.NewStr("ExtractorError"), λ.NewTuple(YoutubeDLError), func() λ.Dict {
 			var (
-				ExtractorError___init__ λ.Object
+				ExtractorError___init__         λ.Object
+				ExtractorError_format_traceback λ.Object
 			)
 			λ.NewStr("Error during info extraction.")
 			ExtractorError___init__ = λ.NewFunction("__init__",
@@ -1222,8 +1223,23 @@ func init() {
 					λ.SetAttr(ϒself, "video_id", ϒvideo_id)
 					return λ.None
 				})
+			ExtractorError_format_traceback = λ.NewFunction("format_traceback",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself = λargs[0]
+					)
+					if λ.IsTrue(λ.NewBool(λ.GetAttr(ϒself, "traceback", nil) == λ.None)) {
+						return λ.None
+					}
+					return λ.Cal(λ.GetAttr(λ.NewStr(""), "join", nil), λ.Cal(λ.GetAttr(λ.None, "format_tb", nil), λ.GetAttr(ϒself, "traceback", nil)))
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"): ExtractorError___init__,
+				λ.NewStr("__init__"):         ExtractorError___init__,
+				λ.NewStr("format_traceback"): ExtractorError_format_traceback,
 			})
 		}())
 		RegexNotFoundError = λ.Cal(λ.TypeType, λ.NewStr("RegexNotFoundError"), λ.NewTuple(ExtractorError), func() λ.Dict {
@@ -1234,6 +1250,33 @@ func init() {
 		GeoRestrictedError = λ.Cal(λ.TypeType, λ.NewStr("GeoRestrictedError"), λ.NewTuple(ExtractorError), func() λ.Dict {
 			λ.NewStr("Geographic restriction Error exception.\n\n    This exception may be thrown when a video is not available from your\n    geographic location due to geographic restrictions imposed by a website.\n    ")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+		}())
+		DownloadError = λ.Cal(λ.TypeType, λ.NewStr("DownloadError"), λ.NewTuple(YoutubeDLError), func() λ.Dict {
+			var (
+				DownloadError___init__ λ.Object
+			)
+			λ.NewStr("Download Error exception.\n\n    This exception may be thrown by FileDownloader objects if they are not\n    configured to continue on errors. They will contain the appropriate\n    error message.\n    ")
+			DownloadError___init__ = λ.NewFunction("__init__",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "msg"},
+					{Name: "exc_info", Def: λ.None},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒexc_info = λargs[2]
+						ϒmsg      = λargs[1]
+						ϒself     = λargs[0]
+					)
+					λ.NewStr(" exc_info, if given, is the original exception that caused the trouble (as returned by sys.exc_info()). ")
+					λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, DownloadError, ϒself), "__init__", nil), ϒmsg)
+					λ.SetAttr(ϒself, "exc_info", ϒexc_info)
+					return λ.None
+				})
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("__init__"): DownloadError___init__,
+			})
 		}())
 		PostProcessingError = λ.Cal(λ.TypeType, λ.NewStr("PostProcessingError"), λ.NewTuple(YoutubeDLError), func() λ.Dict {
 			λ.NewStr("Post Processing exception.\n\n    This exception may be raised by PostProcessor's .run() method to\n    indicate an error in the postprocessing task.\n    ")
@@ -1970,29 +2013,6 @@ func init() {
 
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 		}())
-		ϒuppercase_escape = λ.NewFunction("uppercase_escape",
-			[]λ.Param{
-				{Name: "s"},
-			},
-			0, false, false,
-			func(λargs []λ.Object) λ.Object {
-				var (
-					ϒs              = λargs[0]
-					ϒunicode_escape λ.Object
-				)
-				ϒunicode_escape = λ.Cal(λ.GetAttr(λ.None, "getdecoder", nil), λ.NewStr("unicode_escape"))
-				return λ.Cal(Ωre.ϒsub, λ.NewStr("\\\\U[0-9a-fA-F]{8}"), λ.NewFunction("<lambda>",
-					[]λ.Param{
-						{Name: "m"},
-					},
-					0, false, false,
-					func(λargs []λ.Object) λ.Object {
-						var (
-							ϒm = λargs[0]
-						)
-						return λ.GetItem(λ.Cal(ϒunicode_escape, λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewInt(0))), λ.NewInt(0))
-					}), ϒs)
-			})
 		ϒurlencode_postdata = λ.NewFunction("urlencode_postdata",
 			nil,
 			0, true, true,

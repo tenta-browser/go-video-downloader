@@ -310,10 +310,47 @@ func init() {
 		}())
 		OoyalaIE = λ.Cal(λ.TypeType, λ.NewStr("OoyalaIE"), λ.NewTuple(OoyalaBaseIE), func() λ.Dict {
 			var (
+				OoyalaIE__TESTS        λ.Object
 				OoyalaIE__VALID_URL    λ.Object
 				OoyalaIE__real_extract λ.Object
 			)
 			OoyalaIE__VALID_URL = λ.NewStr("(?:ooyala:|https?://.+?\\.ooyala\\.com/.*?(?:embedCode|ec)=)(?P<id>.+?)(&|$)")
+			OoyalaIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://player.ooyala.com/player.js?embedCode=pxczE2YjpfHfn1f3M-ykG_AmJRRn0PD8"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("pxczE2YjpfHfn1f3M-ykG_AmJRRn0PD8"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Explaining Data Recovery from Hard Drives and SSDs"),
+						λ.NewStr("description"): λ.NewStr("How badly damaged does a drive have to be to defeat Russell and his crew? Apparently, smashed to bits."),
+						λ.NewStr("duration"):    λ.NewFloat(853.386),
+					}),
+					λ.NewStr("skip"): λ.NewStr("Ooyala said: movie expired"),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://player.ooyala.com/player.js?embedCode=x1b3lqZDq9y_7kMyC2Op5qo-p077tXD0"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):       λ.NewStr("x1b3lqZDq9y_7kMyC2Op5qo-p077tXD0"),
+						λ.NewStr("ext"):      λ.NewStr("mp4"),
+						λ.NewStr("title"):    λ.NewStr("Simulation Overview - Levels of Simulation"),
+						λ.NewStr("duration"): λ.NewFloat(194.948),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://player.ooyala.com/player.js?embedCode=FiOG81ZTrvckcchQxmalf4aQj590qTEx"),
+					λ.NewStr("md5"): λ.NewStr("a84001441b35ea492bc03736e59e7935"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):       λ.NewStr("FiOG81ZTrvckcchQxmalf4aQj590qTEx"),
+						λ.NewStr("ext"):      λ.NewStr("mp4"),
+						λ.NewStr("title"):    λ.NewStr("Divide Tool Path.mp4"),
+						λ.NewStr("duration"): λ.NewFloat(204.405),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://player.ooyala.com/player.js?embedCode=w2bnZtYjE6axZ_dw1Cd0hQtXd_ige2Is"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
 			OoyalaIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -346,6 +383,7 @@ func init() {
 					return λ.Cal(λ.GetAttr(ϒself, "_extract", nil), ϒcontent_tree_url, ϒembed_code, ϒdomain, ϒsupportedformats, ϒembed_token)
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_TESTS"):        OoyalaIE__TESTS,
 				λ.NewStr("_VALID_URL"):    OoyalaIE__VALID_URL,
 				λ.NewStr("_real_extract"): OoyalaIE__real_extract,
 			})

@@ -88,7 +88,6 @@ var (
 	ϒunescapeHTML                     λ.Object
 	ϒunified_strdate                  λ.Object
 	ϒunsmuggle_url                    λ.Object
-	ϒuppercase_escape                 λ.Object
 	ϒurlencode_postdata               λ.Object
 )
 
@@ -124,7 +123,6 @@ func init() {
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		ϒunsmuggle_url = Ωutils.ϒunsmuggle_url
-		ϒuppercase_escape = Ωutils.ϒuppercase_escape
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		YoutubeBaseInfoExtractor = λ.Cal(λ.TypeType, λ.NewStr("YoutubeBaseInfoExtractor"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
@@ -673,16 +671,17 @@ func init() {
 		}())
 		YoutubeIE = λ.Cal(λ.TypeType, λ.NewStr("YoutubeIE"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {
 			var (
-				YoutubeIE_IE_NAME              λ.Object
-				YoutubeIE__GEO_BYPASS          λ.Object
-				YoutubeIE__NEXT_URL_RE         λ.Object
-				YoutubeIE__VALID_URL           λ.Object
-				YoutubeIE___init__             λ.Object
-				YoutubeIE__extract_url         λ.Object
-				YoutubeIE__extract_urls        λ.Object
-				YoutubeIE__get_ytplayer_config λ.Object
-				YoutubeIE__real_extract        λ.Object
-				YoutubeIE_extract_id           λ.Object
+				YoutubeIE_IE_NAME                            λ.Object
+				YoutubeIE__GEO_BYPASS                        λ.Object
+				YoutubeIE__NEXT_URL_RE                       λ.Object
+				YoutubeIE__VALID_URL                         λ.Object
+				YoutubeIE___init__                           λ.Object
+				YoutubeIE__extract_url                       λ.Object
+				YoutubeIE__extract_urls                      λ.Object
+				YoutubeIE__get_ytplayer_config               λ.Object
+				YoutubeIE__real_extract                      λ.Object
+				YoutubeIE_extract_id                         λ.Object
+				YoutubeIE_report_video_info_webpage_download λ.Object
 			)
 			YoutubeIE__VALID_URL = λ.Mod(λ.NewStr("(?x)^\n                     (\n                         (?:https?://|//)                                    # http(s):// or protocol-independent URL\n                         (?:(?:(?:(?:\\w+\\.)?[yY][oO][uU][tT][uU][bB][eE](?:-nocookie)?\\.com/|\n                            (?:www\\.)?deturl\\.com/www\\.youtube\\.com/|\n                            (?:www\\.)?pwnyoutube\\.com/|\n                            (?:www\\.)?hooktube\\.com/|\n                            (?:www\\.)?yourepeat\\.com/|\n                            tube\\.majestyc\\.net/|\n                            (?:www\\.)?invidio\\.us/|\n                            youtube\\.googleapis\\.com/)                        # the various hostnames, with wildcard subdomains\n                         (?:.*?\\#/)?                                          # handle anchor (#/) redirect urls\n                         (?:                                                  # the various things that can precede the ID:\n                             (?:(?:v|embed|e)/(?!videoseries))                # v/ or embed/ or e/\n                             |(?:                                             # or the v= param in all its forms\n                                 (?:(?:watch|movie)(?:_popup)?(?:\\.php)?/?)?  # preceding watch(_popup|.php) or nothing (like /?v=xxxx)\n                                 (?:\\?|\\#!?)                                  # the params delimiter ? or # or #!\n                                 (?:.*?[&;])??                                # any other preceding param (like /?s=tuff&v=xxxx or ?s=tuff&amp;v=V36LpHqtcDY)\n                                 v=\n                             )\n                         ))\n                         |(?:\n                            youtu\\.be|                                        # just youtu.be/xxxx\n                            vid\\.plus|                                        # or vid.plus/xxxx\n                            zwearz\\.com/watch|                                # or zwearz.com/watch/xxxx\n                         )/\n                         |(?:www\\.)?cleanvideosearch\\.com/media/action/yt/watch\\?videoId=\n                         )\n                     )?                                                       # all until now is optional -> you can pass the naked ID\n                     ([0-9A-Za-z_-]{11})                                      # here is it! the YouTube video ID\n                     (?!.*?\\blist=\n                        (?:\n                            %(playlist_id)s|                                  # combined list/video URLs are handled by the playlist IE\n                            WL                                                # WL are handled by the watch later IE\n                        )\n                     )\n                     (?(1).+)?                                                # if we found the ID, everything can follow\n                     $"), λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("playlist_id"): λ.GetAttr(YoutubeBaseInfoExtractor, "_PLAYLIST_ID_RE", nil),
@@ -705,6 +704,21 @@ func init() {
 						{Name: "", Value: ϒkwargs},
 					})
 					λ.SetAttr(ϒself, "_player_cache", λ.NewDictWithTable(map[λ.Object]λ.Object{}))
+					return λ.None
+				})
+			YoutubeIE_report_video_info_webpage_download = λ.NewFunction("report_video_info_webpage_download",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "video_id"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself     = λargs[0]
+						ϒvideo_id = λargs[1]
+					)
+					λ.NewStr("Report attempt to download video info webpage.")
+					λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("%s: Downloading video info webpage"), ϒvideo_id))
 					return λ.None
 				})
 			YoutubeIE__get_ytplayer_config = λ.NewFunction("_get_ytplayer_config",
@@ -735,7 +749,7 @@ func init() {
 					})
 					if λ.IsTrue(ϒconfig) {
 						return λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
-							λ.Cal(ϒuppercase_escape, ϒconfig),
+							λ.Cal(λ.None, ϒconfig),
 							ϒvideo_id,
 						), λ.KWArgs{
 							{Name: "fatal", Value: λ.False},
@@ -2194,16 +2208,17 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):              YoutubeIE_IE_NAME,
-				λ.NewStr("_GEO_BYPASS"):          YoutubeIE__GEO_BYPASS,
-				λ.NewStr("_NEXT_URL_RE"):         YoutubeIE__NEXT_URL_RE,
-				λ.NewStr("_VALID_URL"):           YoutubeIE__VALID_URL,
-				λ.NewStr("__init__"):             YoutubeIE___init__,
-				λ.NewStr("_extract_url"):         YoutubeIE__extract_url,
-				λ.NewStr("_extract_urls"):        YoutubeIE__extract_urls,
-				λ.NewStr("_get_ytplayer_config"): YoutubeIE__get_ytplayer_config,
-				λ.NewStr("_real_extract"):        YoutubeIE__real_extract,
-				λ.NewStr("extract_id"):           YoutubeIE_extract_id,
+				λ.NewStr("IE_NAME"):                            YoutubeIE_IE_NAME,
+				λ.NewStr("_GEO_BYPASS"):                        YoutubeIE__GEO_BYPASS,
+				λ.NewStr("_NEXT_URL_RE"):                       YoutubeIE__NEXT_URL_RE,
+				λ.NewStr("_VALID_URL"):                         YoutubeIE__VALID_URL,
+				λ.NewStr("__init__"):                           YoutubeIE___init__,
+				λ.NewStr("_extract_url"):                       YoutubeIE__extract_url,
+				λ.NewStr("_extract_urls"):                      YoutubeIE__extract_urls,
+				λ.NewStr("_get_ytplayer_config"):               YoutubeIE__get_ytplayer_config,
+				λ.NewStr("_real_extract"):                      YoutubeIE__real_extract,
+				λ.NewStr("extract_id"):                         YoutubeIE_extract_id,
+				λ.NewStr("report_video_info_webpage_download"): YoutubeIE_report_video_info_webpage_download,
 			})
 		}())
 		YoutubePlaylistIE = λ.Cal(λ.TypeType, λ.NewStr("YoutubePlaylistIE"), λ.NewTuple(YoutubePlaylistBaseInfoExtractor), func() λ.Dict {

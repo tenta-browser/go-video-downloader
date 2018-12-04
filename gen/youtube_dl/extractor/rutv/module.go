@@ -47,6 +47,7 @@ func init() {
 			var (
 				RUTVIE__TESTS        λ.Object
 				RUTVIE__VALID_URL    λ.Object
+				RUTVIE__extract_url  λ.Object
 				RUTVIE__real_extract λ.Object
 			)
 			RUTVIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:test)?player\\.(?:rutv\\.ru|vgtrk\\.com)/\n                        (?P<path>\n                            flash\\d+v/container\\.swf\\?id=|\n                            iframe/(?P<type>swf|video|live)/id/|\n                            index/iframe/cast_id/\n                        )\n                        (?P<id>\\d+)\n                    ")
@@ -130,6 +131,30 @@ func init() {
 					λ.NewStr("only_matching"): λ.True,
 				}),
 			)
+			RUTVIE__extract_url = λ.NewFunction("_extract_url",
+				[]λ.Param{
+					{Name: "cls"},
+					{Name: "webpage"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcls     = λargs[0]
+						ϒmobj    λ.Object
+						ϒwebpage = λargs[1]
+					)
+					_ = ϒcls
+					ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("<iframe[^>]+?src=([\"\\'])(?P<url>https?://(?:test)?player\\.(?:rutv\\.ru|vgtrk\\.com)/(?:iframe/(?:swf|video|live)/id|index/iframe/cast_id)/.+?)\\1"), ϒwebpage)
+					if λ.IsTrue(ϒmobj) {
+						return λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("url"))
+					}
+					ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("<meta[^>]+?property=([\"\\'])og:video\\1[^>]+?content=([\"\\'])(?P<url>https?://(?:test)?player\\.(?:rutv\\.ru|vgtrk\\.com)/flash\\d+v/container\\.swf\\?id=.+?\\2)"), ϒwebpage)
+					if λ.IsTrue(ϒmobj) {
+						return λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("url"))
+					}
+					return λ.None
+				})
+			RUTVIE__extract_url = λ.Cal(λ.ClassMethodType, RUTVIE__extract_url)
 			RUTVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -313,6 +338,7 @@ func init() {
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_TESTS"):        RUTVIE__TESTS,
 				λ.NewStr("_VALID_URL"):    RUTVIE__VALID_URL,
+				λ.NewStr("_extract_url"):  RUTVIE__extract_url,
 				λ.NewStr("_real_extract"): RUTVIE__real_extract,
 			})
 		}())
