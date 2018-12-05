@@ -18,13 +18,17 @@ Usage
 ```go
 matcher.ReEngine = matcherpcre.NewEngine() // select matcher engine
 
-checkResult, err := downloader.Check("https://example.com/video")
-if err == nil {
-    // internal error occurred while matching the specified URL
+// The downloader has to be initialized once, before usage.
+// This is a slow, computationally intensive step.
+if downloader.Init() != nil {
+    // failed to initialize downloader
     return
 }
-if checkResult == nil {
-    // no suitable extractors found for the specified URL
+
+// Check is a quick method to verify if an URL holds a downloadable video.
+found, err := downloader.Check("https://example.com/video")
+if err == nil {
+    // internal error occurred while matching the specified URL
     return
 }
 
@@ -34,7 +38,7 @@ connector := &downloader.Connector{
     Cookie:    "SESSIONID=12345",
 }
 
-videoData, err := downloader.Extract(checkResult, connector)
+videoData, err := downloader.Extract("https://example.com/video", connector)
 if err != nil {
     // failed to extract video data
 }
@@ -51,7 +55,7 @@ Notices
 =======
 
 We rely on excellent open source libraries. 
-For a complete list of our dependencies and required notification, please take a look at (NOTICES.md).
+For a complete list of our dependencies and required notification, please take a look at [NOTICES](NOTICES.md).
 
 License
 =======

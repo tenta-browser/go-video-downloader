@@ -40,13 +40,6 @@ var (
 	masterRegexpComps []matcher.Regexp
 )
 
-// CheckResult holds all the info obtained by verifying if an URL contains
-// a downloadable video (extractorKey for now)
-type CheckResult struct {
-	url          string
-	extractorKey string
-}
-
 // Connector holds settings/callbacks related to establishing connections,
 // downloading content, etc.
 type Connector struct {
@@ -65,62 +58,38 @@ type VideoData struct {
 	AgeLimit int
 }
 
-// Check verifies if url contains a downloadable video; returns nil if not
-func Check(url string) (res *CheckResult, err error) {
+// Init initializes the downloader:
+// runs transpiled module initialization and compiles the master regexps
+func Init() (err error) {
 	defer func() {
 		err = handlePanic(recover())
 	}()
-	// make sure transpiled modules are inited
 	rnt.InitModules()
-	// if the master regexp aren't compiled, compile them
-	if masterRegexpComps == nil {
-		if err := compileMasterRegexps(); err != nil {
-			return nil, err
-		}
-	}
-	// check if something matches the url
-	var match matcher.Match
-	for _, masterRegexpComp := range masterRegexpComps {
-		match = masterRegexpComp.Search(url)
-		if match != nil {
-			break
-		}
-	}
-	if match == nil {
-		return nil, nil
-	}
-	// something matched the url, now we have to find it :|
-	for extractorKey := range lib.Extractors {
-		if match.GroupPresentByName(extractorKey) {
-			return &CheckResult{
-				url:          url,
-				extractorKey: extractorKey,
-			}, nil
-		}
-	}
-	// master regexp and the extractors are not in sync
-	return nil, fmt.Errorf("Url was matched but no extractor found: %s", url)
-}
-
-func compileMasterRegexps() error {
-	masterRegexpComps = make([]matcher.Regexp, len(masterRegexps))
-	for idx, masterRegexp := range masterRegexps {
-		var masterRegexpComp matcher.Regexp
-		var err error
-		if masterRegexpComp, err = re.CompileInternal(masterRegexp, 0); err != nil {
-			return fmt.Errorf("compiling regexp %d: %s", idx, err.Error())
-		}
-		masterRegexpComps[idx] = masterRegexpComp
+	if err := compileMasterRegexps(); err != nil {
+		return err
 	}
 	return nil
 }
 
-// Extract extracts video info based on the results of a successful Check()
-func Extract(checkResult *CheckResult, connector *Connector) (resData *VideoData, err error) {
+// Check verifies if url contains a downloadable video
+func Check(url string) (found bool, err error) {
 	defer func() {
 		err = handlePanic(recover())
 	}()
-	rnt.InitModules()
+	// check if something matches the url
+	for _, masterRegexpComp := range masterRegexpComps {
+		if masterRegexpComp.Search(url) != nil {
+			return true, nil
+		}
+	}
+	return false, nil
+}
+
+// Extract extracts video info from the page at url
+func Extract(url string, connector *Connector) (resData *VideoData, err error) {
+	defer func() {
+		err = handlePanic(recover())
+	}()
 	connectorDict := rnt.NewDict()
 	var client *http.Client
 	if connector != nil {
@@ -138,7 +107,7 @@ func Extract(checkResult *CheckResult, connector *Connector) (resData *VideoData
 		client.Jar = jar
 	}
 	if connector != nil && connector.Cookie != "" {
-		netlib.SetCookies(jar, checkResult.url, connector.Cookie)
+		netlib.SetCookies(jar, url, connector.Cookie)
 	}
 	connectorDict.SetItem(rnt.NewStr("client"), rnt.NewNative(client))
 	connectorDict.SetItem(rnt.NewStr("jar"), rnt.NewNative(jar))
@@ -156,8 +125,7 @@ func Extract(checkResult *CheckResult, connector *Connector) (resData *VideoData
 		}
 	}
 	res := rnt.Cal(lib.ExtractorRunner,
-		rnt.NewStr(checkResult.extractorKey),
-		rnt.NewStr(checkResult.url),
+		rnt.NewStr(url),
 		connectorDict,
 	)
 	if !res.IsInstance(rnt.DictType) {
@@ -185,6 +153,23 @@ func handlePanic(r interface{}) error {
 		msg = fmt.Sprintf("Crash: %v", r)
 	}
 	return errors.New(msg)
+}
+
+func compileMasterRegexps() error {
+	if masterRegexpComps != nil {
+		// already compiled
+		return nil
+	}
+	masterRegexpComps = make([]matcher.Regexp, len(masterRegexps))
+	for idx, masterRegexp := range masterRegexps {
+		var masterRegexpComp matcher.Regexp
+		var err error
+		if masterRegexpComp, err = re.CompileInternal(masterRegexp, 0); err != nil {
+			return fmt.Errorf("compiling regexp %d: %s", idx, err.Error())
+		}
+		masterRegexpComps[idx] = masterRegexpComp
+	}
+	return nil
 }
 
 func resStringField(resDict rnt.Dict, name string, required bool, def string) string {

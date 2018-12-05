@@ -255,18 +255,15 @@ func init() {
 		}())
 		ϒrun_extractor = λ.NewFunction("run_extractor",
 			[]λ.Param{
-				{Name: "key"},
 				{Name: "url"},
 				{Name: "connector"},
 			},
 			0, false, false,
 			func(λargs []λ.Object) λ.Object {
 				var (
-					ϒconnector = λargs[2]
-					ϒkey       = λargs[0]
-					ϒurl       = λargs[1]
+					ϒconnector = λargs[1]
+					ϒurl       = λargs[0]
 				)
-				_ = ϒkey
 				return λ.Call(λ.GetAttr(λ.Cal(SimpleYoutubeDL, ϒconnector), "extract_info", nil), λ.NewArgs(ϒurl), λ.KWArgs{
 					{Name: "download", Value: λ.False},
 				})

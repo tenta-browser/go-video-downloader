@@ -10,6 +10,7 @@ Supported sites
  * Aparat: `www.aparat.com`
  * AppleConnect: `itunes.apple.com`
  * ARD: `www.daserste.de`
+ * ARDMediathek: `www.ardmediathek.de`
  * AudiMedia: `www.audi-mediacenter.com`
  * AudioBoom: `audioboom.com`
  * Audiomack: `www.audiomack.com`
@@ -208,6 +209,7 @@ Supported sites
  * TwentyMinuten: `www.20min.ch`
  * TwitchClips: `clips.twitch.tv`
  * TwitterAmplify: `amp.twimg.com`
+ * UDNEmbed: `video.udn.com`
  * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
  * UOL: `player.mais.uol.com.br`
@@ -246,8 +248,6 @@ Supported sites
  * XTube _(adult)_: `www.xtube.com`
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
- * YinYueTai: `v.yinyuetai.com`
- * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`
  * YourPorn: `yourporn.sexy`
  * YourUpload: `yourupload.com`

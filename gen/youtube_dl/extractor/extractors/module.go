@@ -216,6 +216,7 @@ import (
 	Ωtwentymin "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twentymin"
 	Ωtwitch "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twitch"
 	Ωtwitter "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twitter"
+	Ωudn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/udn"
 	Ωunistra "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/unistra"
 	Ωuol "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/uol"
 	Ωupskill "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/upskill"
@@ -250,8 +251,6 @@ import (
 	Ωxtube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xtube"
 	Ωxvideos "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xvideos"
 	Ωxxxymovies "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xxxymovies"
-	Ωyinyuetai "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yinyuetai"
-	Ωyoujizz "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youjizz"
 	Ωyouporn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youporn"
 	Ωyourporn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yourporn"
 	Ωyourupload "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yourupload"
@@ -262,6 +261,7 @@ import (
 var (
 	ACastIE                   λ.Object
 	ARDIE                     λ.Object
+	ARDMediathekIE            λ.Object
 	AbcNewsVideoIE            λ.Object
 	AdobeTVIE                 λ.Object
 	AdobeTVVideoIE            λ.Object
@@ -468,6 +468,7 @@ var (
 	TwentyMinutenIE           λ.Object
 	TwitchClipsIE             λ.Object
 	TwitterAmplifyIE          λ.Object
+	UDNEmbedIE                λ.Object
 	UOLIE                     λ.Object
 	USATodayIE                λ.Object
 	UnistraIE                 λ.Object
@@ -506,8 +507,6 @@ var (
 	XVideosIE                 λ.Object
 	XXXYMoviesIE              λ.Object
 	XiamiSongIE               λ.Object
-	YinYueTaiIE               λ.Object
-	YouJizzIE                 λ.Object
 	YouPornIE                 λ.Object
 	YourPornIE                λ.Object
 	YourUploadIE              λ.Object
@@ -526,6 +525,7 @@ func init() {
 		AparatIE = Ωaparat.AparatIE
 		AppleConnectIE = Ωappleconnect.AppleConnectIE
 		ARDIE = Ωard.ARDIE
+		ARDMediathekIE = Ωard.ARDMediathekIE
 		AudiMediaIE = Ωaudimedia.AudiMediaIE
 		AudioBoomIE = Ωaudioboom.AudioBoomIE
 		AudiomackIE = Ωaudiomack.AudiomackIE
@@ -725,6 +725,7 @@ func init() {
 		TwentyMinutenIE = Ωtwentymin.TwentyMinutenIE
 		TwitchClipsIE = Ωtwitch.TwitchClipsIE
 		TwitterAmplifyIE = Ωtwitter.TwitterAmplifyIE
+		UDNEmbedIE = Ωudn.UDNEmbedIE
 		DigitekaIE = Ωdigiteka.DigitekaIE
 		UnistraIE = Ωunistra.UnistraIE
 		UOLIE = Ωuol.UOLIE
@@ -763,8 +764,6 @@ func init() {
 		XTubeIE = Ωxtube.XTubeIE
 		XVideosIE = Ωxvideos.XVideosIE
 		XXXYMoviesIE = Ωxxxymovies.XXXYMoviesIE
-		YinYueTaiIE = Ωyinyuetai.YinYueTaiIE
-		YouJizzIE = Ωyoujizz.YouJizzIE
 		YouPornIE = Ωyouporn.YouPornIE
 		YourPornIE = Ωyourporn.YourPornIE
 		YourUploadIE = Ωyourupload.YourUploadIE
@@ -779,6 +778,7 @@ func init() {
 			AparatIE,
 			AppleConnectIE,
 			ARDIE,
+			ARDMediathekIE,
 			AudiMediaIE,
 			AudioBoomIE,
 			AudiomackIE,
@@ -978,6 +978,7 @@ func init() {
 			TwentyMinutenIE,
 			TwitchClipsIE,
 			TwitterAmplifyIE,
+			UDNEmbedIE,
 			DigitekaIE,
 			UnistraIE,
 			UOLIE,
@@ -1016,8 +1017,6 @@ func init() {
 			XTubeIE,
 			XVideosIE,
 			XXXYMoviesIE,
-			YinYueTaiIE,
-			YouJizzIE,
 			YouPornIE,
 			YourPornIE,
 			YourUploadIE,
