@@ -259,7 +259,7 @@ func init() {
 								ϒplatform = λargs[0]
 							)
 							λ.Cal(λ.GetAttr(ϒself, "_set_cookie", nil), ϒhost, λ.NewStr("platform"), ϒplatform)
-							return λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.NewStr("http://www.%s/view_video.php?viewkey=%s"), λ.NewTuple(
+							return λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.NewStr("https://www.%s/view_video.php?viewkey=%s"), λ.NewTuple(
 								ϒhost,
 								ϒvideo_id,
 							)), ϒvideo_id, λ.Mod(λ.NewStr("Downloading %s webpage"), ϒplatform))
