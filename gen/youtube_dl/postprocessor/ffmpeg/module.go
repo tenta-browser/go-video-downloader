@@ -25,26 +25,11 @@
 package ffmpeg
 
 import (
-	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/postprocessor/common"
-	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
-)
-
-var (
-	FFmpegPostProcessor λ.Object
-	ISO639Utils         λ.Object
-	PostProcessingError λ.Object
-	PostProcessor       λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
-		PostProcessor = Ωcommon.PostProcessor
-		PostProcessingError = Ωutils.PostProcessingError
-		ISO639Utils = Ωutils.ISO639Utils
-		FFmpegPostProcessor = λ.Cal(λ.TypeType, λ.NewStr("FFmpegPostProcessor"), λ.NewTuple(PostProcessor), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
-		}())
 	})
 }

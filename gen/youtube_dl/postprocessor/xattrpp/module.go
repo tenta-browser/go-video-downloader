@@ -25,16 +25,11 @@
 package xattrpp
 
 import (
-	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/postprocessor/common"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
-)
-
-var (
-	PostProcessor λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
-		PostProcessor = Ωcommon.PostProcessor
+
 	})
 }

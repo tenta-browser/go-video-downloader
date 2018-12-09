@@ -25,38 +25,11 @@
 package openload
 
 import (
-	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
-	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
-	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
-)
-
-var (
-	ExtractorError     λ.Object
-	InfoExtractor      λ.Object
-	OpenloadIE         λ.Object
-	ϒcompat_kwargs     λ.Object
-	ϒdetermine_ext     λ.Object
-	ϒget_element_by_id λ.Object
-	ϒstd_headers       λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
-		InfoExtractor = Ωcommon.InfoExtractor
-		ϒcompat_kwargs = Ωcompat.ϒcompat_kwargs
-		ϒdetermine_ext = Ωutils.ϒdetermine_ext
-		ExtractorError = Ωutils.ExtractorError
-		ϒget_element_by_id = Ωutils.ϒget_element_by_id
-		ϒstd_headers = Ωutils.ϒstd_headers
-		OpenloadIE = λ.Cal(λ.TypeType, λ.NewStr("OpenloadIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
-			var (
-				OpenloadIE__VALID_URL λ.Object
-			)
-			OpenloadIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?P<host>\n                            (?:www\\.)?\n                            (?:\n                                openload\\.(?:co|io|link)|\n                                oload\\.(?:tv|stream|site|xyz|win|download|cloud|cc|icu|fun)\n                            )\n                        )/\n                        (?:f|embed)/\n                        (?P<id>[a-zA-Z0-9-_]+)\n                    ")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): OpenloadIE__VALID_URL,
-			})
-		}())
+
 	})
 }

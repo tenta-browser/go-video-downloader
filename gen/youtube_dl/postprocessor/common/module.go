@@ -25,21 +25,11 @@
 package common
 
 import (
-	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
-)
-
-var (
-	PostProcessingError λ.Object
-	PostProcessor       λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
-		PostProcessingError = Ωutils.PostProcessingError
-		PostProcessor = λ.Cal(λ.TypeType, λ.NewStr("PostProcessor"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
-			λ.NewStr("Post Processor class.\n\n    PostProcessor objects can be added to downloaders with their\n    add_post_processor() method. When the downloader has finished a\n    successful download, it will take its internal chain of PostProcessors\n    and start calling the run() method on each one of them, first with\n    an initial argument and then with the returned value of the previous\n    PostProcessor.\n\n    The chain will be stopped if one of them ever returns None or the end\n    of the chain is reached.\n\n    PostProcessor objects follow a \"mutual registration\" process similar\n    to InfoExtractor objects.\n\n    Optionally PostProcessor can use a list of additional command-line arguments\n    with self._configuration_args.\n    ")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
-		}())
+
 	})
 }

@@ -28,31 +28,8 @@ import (
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
-var (
-	ϒexc_info     λ.Object
-	ϒplatform     λ.Object
-	ϒversion_info λ.Object
-)
-
 func init() {
 	λ.InitModule(func() {
-		ϒversion_info = λ.NewTuple(
-			λ.NewInt(3),
-			λ.NewInt(7),
-			λ.NewInt(0),
-			λ.NewStr("final"),
-			λ.NewInt(0),
-		)
-		ϒplatform = λ.NewStr("linux")
-		ϒexc_info = λ.NewFunction("exc_info",
-			nil,
-			0, false, false,
-			func(λargs []λ.Object) λ.Object {
-				return λ.NewTuple(
-					λ.None,
-					λ.None,
-					λ.None,
-				)
-			})
+
 	})
 }

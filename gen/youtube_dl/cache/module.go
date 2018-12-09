@@ -25,16 +25,11 @@
 package cache
 
 import (
-	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
-)
-
-var (
-	ϒexpand_path λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
-		ϒexpand_path = Ωutils.ϒexpand_path
+
 	})
 }

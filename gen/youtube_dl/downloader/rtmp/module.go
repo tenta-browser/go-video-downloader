@@ -25,19 +25,11 @@
 package rtmp
 
 import (
-	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
-	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/downloader/common"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
-)
-
-var (
-	FileDownloader λ.Object
-	ϒcompat_str    λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
-		FileDownloader = Ωcommon.FileDownloader
-		ϒcompat_str = Ωcompat.ϒcompat_str
+
 	})
 }

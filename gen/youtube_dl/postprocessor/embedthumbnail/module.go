@@ -25,19 +25,11 @@
 package embedthumbnail
 
 import (
-	Ωffmpeg "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/postprocessor/ffmpeg"
-	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
-)
-
-var (
-	FFmpegPostProcessor λ.Object
-	PostProcessingError λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
-		FFmpegPostProcessor = Ωffmpeg.FFmpegPostProcessor
-		PostProcessingError = Ωutils.PostProcessingError
+
 	})
 }
