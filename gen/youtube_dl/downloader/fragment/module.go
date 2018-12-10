@@ -28,8 +28,15 @@ import (
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
+var (
+	FragmentFD λ.Object
+)
+
 func init() {
 	λ.InitModule(func() {
+		FragmentFD = λ.Cal(λ.TypeType, λ.NewStr("FragmentFD"), λ.NewTuple(), func() λ.Dict {
 
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+		}())
 	})
 }

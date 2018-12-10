@@ -25,27 +25,52 @@
 package extractor
 
 import (
+	Ωextractors "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/extractors"
 	Ωlib "github.com/tenta-browser/go-video-downloader/lib"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	RegisterExtractor λ.Object
-	τmp0              λ.Object
-	τmp1              λ.Object
+	RegisterExtractor      λ.Object
+	ϒextractorDict         λ.Object
+	ϒgen_extractor_classes λ.Object
+	ϒget_info_extractor    λ.Object
+	ϒkey                   λ.Object
+	ϒklass                 λ.Object
+	τmp0                   λ.Object
+	τmp1                   λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		RegisterExtractor = Ωlib.RegisterExtractor
-		τmp0 = λ.Cal(λ.BuiltinIter, λ.None)
+		ϒextractorDict = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+		τmp0 = λ.Cal(λ.BuiltinIter, Ωextractors.ϒ__ALL__)
 		for {
 			if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 				break
 			}
-
-			λ.Cal(RegisterExtractor, λ.None, λ.None)
-			λ.SetItem(λ.None, λ.None, λ.None)
+			ϒklass = τmp1
+			ϒkey = λ.Cal(λ.GetAttr(ϒklass, "ie_key", nil))
+			λ.Cal(RegisterExtractor, ϒkey, ϒklass)
+			λ.SetItem(ϒextractorDict, ϒkey, ϒklass)
 		}
+		ϒgen_extractor_classes = λ.NewFunction("gen_extractor_classes",
+			nil,
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				return Ωextractors.ϒ__ALL__
+			})
+		ϒget_info_extractor = λ.NewFunction("get_info_extractor",
+			[]λ.Param{
+				{Name: "ie_name"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒie_name = λargs[0]
+				)
+				return λ.Cal(λ.GetAttr(ϒextractorDict, "get", nil), ϒie_name)
+			})
 	})
 }

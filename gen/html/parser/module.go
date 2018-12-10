@@ -32,11 +32,64 @@ import (
 var (
 	HTMLParse      λ.Object
 	HTMLParseError λ.Object
+	HTMLParser     λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		HTMLParse = Ωencoding.HTMLParse
 		HTMLParseError = Ωencoding.HTMLParseErrorType
+		HTMLParser = λ.Cal(λ.TypeType, λ.NewStr("HTMLParser"), λ.NewTuple(), func() λ.Dict {
+			var (
+				HTMLParser___init__ λ.Object
+				HTMLParser_close    λ.Object
+				HTMLParser_feed     λ.Object
+			)
+			HTMLParser___init__ = λ.NewFunction("__init__",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself = λargs[0]
+					)
+					_ = ϒself
+					// pass
+					return λ.None
+				})
+			HTMLParser_feed = λ.NewFunction("feed",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "s"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒs    = λargs[1]
+						ϒself = λargs[0]
+					)
+					λ.Cal(HTMLParse, ϒs, λ.GetAttr(ϒself, "handle_starttag", nil))
+					return λ.None
+				})
+			HTMLParser_close = λ.NewFunction("close",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself = λargs[0]
+					)
+					_ = ϒself
+					// pass
+					return λ.None
+				})
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("__init__"): HTMLParser___init__,
+				λ.NewStr("close"):    HTMLParser_close,
+				λ.NewStr("feed"):     HTMLParser_feed,
+			})
+		}())
 	})
 }

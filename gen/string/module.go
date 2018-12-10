@@ -28,8 +28,28 @@ import (
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
+var (
+	ϒascii_letters   λ.Object
+	ϒascii_lowercase λ.Object
+	ϒascii_uppercase λ.Object
+	ϒdigits          λ.Object
+	ϒletters         λ.Object
+	ϒlowercase       λ.Object
+	ϒpunctuation     λ.Object
+	ϒuppercase       λ.Object
+	ϒwhitespace      λ.Object
+)
+
 func init() {
 	λ.InitModule(func() {
-
+		ϒwhitespace = λ.NewStr(" \t\n\r")
+		ϒlowercase = λ.NewStr("abcdefghijklmnopqrstuvwxyz")
+		ϒuppercase = λ.NewStr("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+		ϒletters = λ.Add(ϒlowercase, ϒuppercase)
+		ϒascii_lowercase = ϒlowercase
+		ϒascii_uppercase = ϒuppercase
+		ϒascii_letters = λ.Add(ϒascii_lowercase, ϒascii_uppercase)
+		ϒdigits = λ.NewStr("0123456789")
+		ϒpunctuation = λ.NewStr("!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~")
 	})
 }

@@ -25,11 +25,16 @@
 package postprocessor
 
 import (
+	Ωffmpeg "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/postprocessor/ffmpeg"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
+)
+
+var (
+	FFmpegPostProcessor λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
-
+		FFmpegPostProcessor = Ωffmpeg.FFmpegPostProcessor
 	})
 }

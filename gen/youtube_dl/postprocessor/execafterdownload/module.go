@@ -25,11 +25,19 @@
 package execafterdownload
 
 import (
+	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/postprocessor/common"
+	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
+)
+
+var (
+	PostProcessingError λ.Object
+	PostProcessor       λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
-
+		PostProcessor = Ωcommon.PostProcessor
+		PostProcessingError = Ωutils.PostProcessingError
 	})
 }
