@@ -61,24 +61,8 @@ func init() {
 				ACastIE__real_extract λ.Object
 			)
 			ACastIE_IE_NAME = λ.NewStr("acast")
-			ACastIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?acast\\.com/(?P<channel>[^/]+)/(?P<id>[^/#?]+)")
+			ACastIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            (?:(?:embed|www)\\.)?acast\\.com/|\n                            play\\.acast\\.com/s/\n                        )\n                        (?P<channel>[^/]+)/(?P<id>[^/#?]+)\n                    ")
 			ACastIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.acast.com/condenasttraveler/-where-are-you-taipei-101-taiwan"),
-					λ.NewStr("md5"): λ.NewStr("ada3de5a1e3a2a381327d749854788bb"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("57de3baa-4bb0-487e-9418-2692c1277a34"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("title"):       λ.NewStr("\"Where Are You?\": Taipei 101, Taiwan"),
-						λ.NewStr("description"): λ.NewStr("md5:a0b4ef3634e63866b542e5b1199a1a0e"),
-						λ.NewStr("timestamp"):   λ.NewInt(1196172000),
-						λ.NewStr("upload_date"): λ.NewStr("20071127"),
-						λ.NewStr("duration"):    λ.NewInt(211),
-						λ.NewStr("creator"):     λ.NewStr("Concierge"),
-						λ.NewStr("series"):      λ.NewStr("Condé Nast Traveler Podcast"),
-						λ.NewStr("episode"):     λ.NewStr("\"Where Are You?\": Taipei 101, Taiwan"),
-					}),
-				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("https://www.acast.com/sparpodcast/2.raggarmordet-rosterurdetforflutna"),
 					λ.NewStr("md5"): λ.NewStr("a02393c74f3bdb1801c3ec2695577ce0"),
@@ -94,6 +78,14 @@ func init() {
 						λ.NewStr("series"):      λ.NewStr("Spår"),
 						λ.NewStr("episode"):     λ.NewStr("2. Raggarmordet - Röster ur det förflutna"),
 					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://embed.acast.com/adambuxton/ep.12-adam-joeschristmaspodcast2015"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://play.acast.com/s/rattegangspodden/s04e09-styckmordet-i-helenelund-del-22"),
+					λ.NewStr("only_matching"): λ.True,
 				}),
 			)
 			ACastIE__real_extract = λ.NewFunction("_real_extract",

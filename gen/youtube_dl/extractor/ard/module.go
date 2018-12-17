@@ -43,7 +43,10 @@ var (
 	ϒint_or_none             λ.Object
 	ϒparse_duration          λ.Object
 	ϒqualities               λ.Object
+	ϒstr_or_none             λ.Object
+	ϒtry_get                 λ.Object
 	ϒunified_strdate         λ.Object
+	ϒunified_timestamp       λ.Object
 	ϒupdate_url_query        λ.Object
 	ϒurl_or_none             λ.Object
 	ϒxpath_text              λ.Object
@@ -54,13 +57,16 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
-		ϒqualities = Ωutils.ϒqualities
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_duration = Ωutils.ϒparse_duration
+		ϒqualities = Ωutils.ϒqualities
+		ϒstr_or_none = Ωutils.ϒstr_or_none
+		ϒtry_get = Ωutils.ϒtry_get
 		ϒunified_strdate = Ωutils.ϒunified_strdate
-		ϒxpath_text = Ωutils.ϒxpath_text
+		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		ϒurl_or_none = Ωutils.ϒurl_or_none
+		ϒxpath_text = Ωutils.ϒxpath_text
 		ϒcompat_etree_fromstring = Ωcompat.ϒcompat_etree_fromstring
 		ARDMediathekIE = λ.Cal(λ.TypeType, λ.NewStr("ARDMediathekIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
@@ -70,6 +76,7 @@ func init() {
 				ARDMediathekIE__extract_formats    λ.Object
 				ARDMediathekIE__extract_media_info λ.Object
 				ARDMediathekIE__real_extract       λ.Object
+				ARDMediathekIE_suitable            λ.Object
 			)
 			ARDMediathekIE_IE_NAME = λ.NewStr("ARD:mediathek")
 			ARDMediathekIE__VALID_URL = λ.NewStr("^https?://(?:(?:(?:www|classic)\\.)?ardmediathek\\.de|mediathek\\.(?:daserste|rbb-online)\\.de|one\\.ard\\.de)/(?:.*/)(?P<video_id>[0-9]+|[^0-9][^/\\?]+)[^/\\?]*(?:\\?.*)?")
@@ -108,6 +115,26 @@ func init() {
 					λ.NewStr("only_matching"): λ.True,
 				}),
 			)
+			ARDMediathekIE_suitable = λ.NewFunction("suitable",
+				[]λ.Param{
+					{Name: "cls"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcls = λargs[0]
+						ϒurl = λargs[1]
+					)
+					return func() λ.Object {
+						if λ.IsTrue(λ.Cal(λ.GetAttr(ARDBetaMediathekIE, "suitable", nil), ϒurl)) {
+							return λ.False
+						} else {
+							return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, ARDMediathekIE, ϒcls), "suitable", nil), ϒurl)
+						}
+					}()
+				})
+			ARDMediathekIE_suitable = λ.Cal(λ.ClassMethodType, ARDMediathekIE_suitable)
 			ARDMediathekIE__extract_media_info = λ.NewFunction("_extract_media_info",
 				[]λ.Param{
 					{Name: "self"},
@@ -482,6 +509,7 @@ func init() {
 				λ.NewStr("_extract_formats"):    ARDMediathekIE__extract_formats,
 				λ.NewStr("_extract_media_info"): ARDMediathekIE__extract_media_info,
 				λ.NewStr("_real_extract"):       ARDMediathekIE__real_extract,
+				λ.NewStr("suitable"):            ARDMediathekIE_suitable,
 			})
 		}())
 		ARDIE = λ.Cal(λ.TypeType, λ.NewStr("ARDIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
@@ -585,7 +613,7 @@ func init() {
 			var (
 				ARDBetaMediathekIE__VALID_URL λ.Object
 			)
-			ARDBetaMediathekIE__VALID_URL = λ.NewStr("https://beta\\.ardmediathek\\.de/[a-z]+/player/(?P<video_id>[a-zA-Z0-9]+)/(?P<display_id>[^/?#]+)")
+			ARDBetaMediathekIE__VALID_URL = λ.NewStr("https://(?:beta|www)\\.ardmediathek\\.de/[^/]+/(?:player|live)/(?P<video_id>[a-zA-Z0-9]+)(?:/(?P<display_id>[^/?#]+))?")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): ARDBetaMediathekIE__VALID_URL,
 			})

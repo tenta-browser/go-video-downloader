@@ -8,7 +8,6 @@ Supported sites
  * Aol: `on.aol.com`
  * Allocine: `www.allocine.fr`
  * Aparat: `www.aparat.com`
- * AppleConnect: `itunes.apple.com`
  * ARD: `www.daserste.de`
  * ARDMediathek: `www.ardmediathek.de`
  * AudiMedia: `www.audi-mediacenter.com`

@@ -31,7 +31,6 @@ import (
 	Ωallocine "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/allocine"
 	Ωaol "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/aol"
 	Ωaparat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/aparat"
-	Ωappleconnect "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/appleconnect"
 	Ωard "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ard"
 	Ωaudimedia "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/audimedia"
 	Ωaudioboom "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/audioboom"
@@ -268,7 +267,6 @@ var (
 	AllocineIE                λ.Object
 	AolIE                     λ.Object
 	AparatIE                  λ.Object
-	AppleConnectIE            λ.Object
 	AudiMediaIE               λ.Object
 	AudioBoomIE               λ.Object
 	AudiomackIE               λ.Object
@@ -524,7 +522,6 @@ func init() {
 		AolIE = Ωaol.AolIE
 		AllocineIE = Ωallocine.AllocineIE
 		AparatIE = Ωaparat.AparatIE
-		AppleConnectIE = Ωappleconnect.AppleConnectIE
 		ARDIE = Ωard.ARDIE
 		ARDMediathekIE = Ωard.ARDMediathekIE
 		AudiMediaIE = Ωaudimedia.AudiMediaIE
@@ -778,7 +775,6 @@ func init() {
 			AolIE,
 			AllocineIE,
 			AparatIE,
-			AppleConnectIE,
 			ARDIE,
 			ARDMediathekIE,
 			AudiMediaIE,

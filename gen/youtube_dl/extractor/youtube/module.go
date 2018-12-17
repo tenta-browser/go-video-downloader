@@ -90,6 +90,7 @@ var (
 	ϒunified_strdate                  λ.Object
 	ϒunsmuggle_url                    λ.Object
 	ϒuppercase_escape                 λ.Object
+	ϒurl_or_none                      λ.Object
 	ϒurlencode_postdata               λ.Object
 )
 
@@ -126,6 +127,7 @@ func init() {
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		ϒunsmuggle_url = Ωutils.ϒunsmuggle_url
 		ϒuppercase_escape = Ωutils.ϒuppercase_escape
+		ϒurl_or_none = Ωutils.ϒurl_or_none
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		YoutubeBaseInfoExtractor = λ.Cal(λ.TypeType, λ.NewStr("YoutubeBaseInfoExtractor"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
@@ -1589,47 +1591,70 @@ func init() {
 							ϒvideo_description = λ.NewStr("")
 						}
 					}
-					if λ.IsTrue(func() λ.Object {
-						if λv := λ.NewBool(λ.Contains(ϒvideo_info, λ.NewStr("multifeed_metadata_list"))); !λ.IsTrue(λv) {
-							return λv
-						} else {
-							return λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒsmuggled_data, "get", nil), λ.NewStr("force_singlefeed"), λ.False)))
-						}
-					}()) {
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒsmuggled_data, "get", nil), λ.NewStr("force_singlefeed"), λ.False)))) {
 						if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("noplaylist"))))) {
-							ϒentries = λ.NewList()
-							ϒfeed_ids = λ.NewList()
-							ϒmultifeed_metadata_list = λ.GetItem(λ.GetItem(ϒvideo_info, λ.NewStr("multifeed_metadata_list")), λ.NewInt(0))
-							τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒmultifeed_metadata_list, "split", nil), λ.NewStr(",")))
-							for {
-								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-									break
+							ϒmultifeed_metadata_list = func() λ.Object {
+								if λv := λ.Cal(ϒtry_get, ϒplayer_response, λ.NewFunction("<lambda>",
+									[]λ.Param{
+										{Name: "x"},
+									},
+									0, false, false,
+									func(λargs []λ.Object) λ.Object {
+										var (
+											ϒx = λargs[0]
+										)
+										return λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.NewStr("multicamera")), λ.NewStr("playerLegacyMulticameraRenderer")), λ.NewStr("metadataList"))
+									}), ϒcompat_str); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.Cal(ϒtry_get, ϒvideo_info, λ.NewFunction("<lambda>",
+										[]λ.Param{
+											{Name: "x"},
+										},
+										0, false, false,
+										func(λargs []λ.Object) λ.Object {
+											var (
+												ϒx = λargs[0]
+											)
+											return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("multifeed_metadata_list")), λ.NewInt(0))
+										}), ϒcompat_str)
 								}
-								ϒfeed = τmp1
-								ϒfeed_data = λ.Cal(ϒcompat_parse_qs, λ.Cal(ϒcompat_urllib_parse_unquote_plus, ϒfeed))
-								λ.Cal(λ.GetAttr(ϒentries, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("_type"):  λ.NewStr("url_transparent"),
-									λ.NewStr("ie_key"): λ.NewStr("Youtube"),
-									λ.NewStr("url"): λ.Cal(ϒsmuggle_url, λ.Mod(λ.NewStr("%s://www.youtube.com/watch?v=%s"), λ.NewTuple(
-										ϒproto,
-										λ.GetItem(λ.GetItem(ϒfeed_data, λ.NewStr("id")), λ.NewInt(0)),
-									)), λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("force_singlefeed"): λ.True,
-									})),
-									λ.NewStr("title"): λ.Mod(λ.NewStr("%s (%s)"), λ.NewTuple(
-										ϒvideo_title,
-										λ.GetItem(λ.GetItem(ϒfeed_data, λ.NewStr("title")), λ.NewInt(0)),
-									)),
-								}))
-								λ.Cal(λ.GetAttr(ϒfeed_ids, "append", nil), λ.GetItem(λ.GetItem(ϒfeed_data, λ.NewStr("id")), λ.NewInt(0)))
+							}()
+							if λ.IsTrue(ϒmultifeed_metadata_list) {
+								ϒentries = λ.NewList()
+								ϒfeed_ids = λ.NewList()
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒmultifeed_metadata_list, "split", nil), λ.NewStr(",")))
+								for {
+									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+										break
+									}
+									ϒfeed = τmp1
+									ϒfeed_data = λ.Cal(ϒcompat_parse_qs, λ.Cal(ϒcompat_urllib_parse_unquote_plus, ϒfeed))
+									λ.Cal(λ.GetAttr(ϒentries, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λ.NewStr("_type"):  λ.NewStr("url_transparent"),
+										λ.NewStr("ie_key"): λ.NewStr("Youtube"),
+										λ.NewStr("url"): λ.Cal(ϒsmuggle_url, λ.Mod(λ.NewStr("%s://www.youtube.com/watch?v=%s"), λ.NewTuple(
+											ϒproto,
+											λ.GetItem(λ.GetItem(ϒfeed_data, λ.NewStr("id")), λ.NewInt(0)),
+										)), λ.NewDictWithTable(map[λ.Object]λ.Object{
+											λ.NewStr("force_singlefeed"): λ.True,
+										})),
+										λ.NewStr("title"): λ.Mod(λ.NewStr("%s (%s)"), λ.NewTuple(
+											ϒvideo_title,
+											λ.GetItem(λ.GetItem(ϒfeed_data, λ.NewStr("title")), λ.NewInt(0)),
+										)),
+									}))
+									λ.Cal(λ.GetAttr(ϒfeed_ids, "append", nil), λ.GetItem(λ.GetItem(ϒfeed_data, λ.NewStr("id")), λ.NewInt(0)))
+								}
+								λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("Downloading multifeed video (%s) - add --no-playlist to just download video %s"), λ.NewTuple(
+									λ.Cal(λ.GetAttr(λ.NewStr(", "), "join", nil), ϒfeed_ids),
+									ϒvideo_id,
+								)))
+								return λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), ϒentries, ϒvideo_id, ϒvideo_title, ϒvideo_description)
 							}
-							λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("Downloading multifeed video (%s) - add --no-playlist to just download video %s"), λ.NewTuple(
-								λ.Cal(λ.GetAttr(λ.NewStr(", "), "join", nil), ϒfeed_ids),
-								ϒvideo_id,
-							)))
-							return λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), ϒentries, ϒvideo_id, ϒvideo_title, ϒvideo_description)
+						} else {
+							λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("Downloading just video %s because of --no-playlist"), ϒvideo_id))
 						}
-						λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("Downloading just video %s because of --no-playlist"), ϒvideo_id))
 					}
 					if λ.IsTrue(λ.NewBool(ϒview_count == λ.None)) {
 						ϒview_count = λ.Cal(ϒextract_view_count, ϒvideo_info)
@@ -2322,7 +2347,7 @@ func init() {
 						}
 					}
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					λ.Cal(λ.GetAttr(ϒself, "mark_watched", nil), ϒvideo_id, ϒvideo_info)
+					λ.Cal(λ.GetAttr(ϒself, "mark_watched", nil), ϒvideo_id, ϒvideo_info, ϒplayer_response)
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):           ϒvideo_id,
 						λ.NewStr("uploader"):     ϒvideo_uploader,
