@@ -37,9 +37,9 @@ import (
 	Ωaudiomack "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/audiomack"
 	Ωbandcamp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bandcamp"
 	Ωbeatport "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/beatport"
+	Ωbeeg "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/beeg"
 	Ωbigflix "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bigflix"
 	Ωbild "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bild"
-	Ωbitchute "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bitchute"
 	Ωbleacherreport "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bleacherreport"
 	Ωbpb "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bpb"
 	Ωbr "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/br"
@@ -93,7 +93,6 @@ import (
 	Ωgodtube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/godtube"
 	Ωgolem "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/golem"
 	Ωgputechconf "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/gputechconf"
-	Ωhentaistigma "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/hentaistigma"
 	Ωhistoricfilms "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/historicfilms"
 	Ωhitrecord "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/hitrecord"
 	Ωhornbunny "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/hornbunny"
@@ -222,7 +221,6 @@ import (
 	Ωvarzesh3 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/varzesh3"
 	Ωvbox7 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vbox7"
 	Ωveehd "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/veehd"
-	Ωveoh "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/veoh"
 	Ωvesti "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vesti"
 	Ωvevo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vevo"
 	Ωvgtv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vgtv"
@@ -243,7 +241,6 @@ import (
 	Ωweibo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/weibo"
 	Ωworldstarhiphop "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/worldstarhiphop"
 	Ωxhamster "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xhamster"
-	Ωxiami "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xiami"
 	Ωxnxx "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xnxx"
 	Ωxtube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xtube"
 	Ωxvideos "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xvideos"
@@ -274,9 +271,9 @@ var (
 	BandcampIE                λ.Object
 	BandcampWeeklyIE          λ.Object
 	BeatportIE                λ.Object
+	BeegIE                    λ.Object
 	BigflixIE                 λ.Object
 	BildIE                    λ.Object
-	BitChuteIE                λ.Object
 	BleacherReportCMSIE       λ.Object
 	BpbIE                     λ.Object
 	BrightcoveLegacyIE        λ.Object
@@ -335,7 +332,6 @@ var (
 	GfycatIE                  λ.Object
 	GodTubeIE                 λ.Object
 	GolemIE                   λ.Object
-	HentaiStigmaIE            λ.Object
 	HistoricFilmsIE           λ.Object
 	HitRecordIE               λ.Object
 	HornBunnyIE               λ.Object
@@ -477,7 +473,6 @@ var (
 	Varzesh3IE                λ.Object
 	Vbox7IE                   λ.Object
 	VeeHDIE                   λ.Object
-	VeohIE                    λ.Object
 	VestiIE                   λ.Object
 	VevoIE                    λ.Object
 	VidLiiIE                  λ.Object
@@ -503,7 +498,6 @@ var (
 	XTubeIE                   λ.Object
 	XVideosIE                 λ.Object
 	XXXYMoviesIE              λ.Object
-	XiamiSongIE               λ.Object
 	YinYueTaiIE               λ.Object
 	YouJizzIE                 λ.Object
 	YouPornIE                 λ.Object
@@ -529,10 +523,10 @@ func init() {
 		AudiomackIE = Ωaudiomack.AudiomackIE
 		BandcampIE = Ωbandcamp.BandcampIE
 		BandcampWeeklyIE = Ωbandcamp.BandcampWeeklyIE
+		BeegIE = Ωbeeg.BeegIE
 		BeatportIE = Ωbeatport.BeatportIE
 		BigflixIE = Ωbigflix.BigflixIE
 		BildIE = Ωbild.BildIE
-		BitChuteIE = Ωbitchute.BitChuteIE
 		BleacherReportCMSIE = Ωbleacherreport.BleacherReportCMSIE
 		BpbIE = Ωbpb.BpbIE
 		BRIE = Ωbr.BRIE
@@ -590,7 +584,6 @@ func init() {
 		GodTubeIE = Ωgodtube.GodTubeIE
 		GolemIE = Ωgolem.GolemIE
 		GPUTechConfIE = Ωgputechconf.GPUTechConfIE
-		HentaiStigmaIE = Ωhentaistigma.HentaiStigmaIE
 		HistoricFilmsIE = Ωhistoricfilms.HistoricFilmsIE
 		HitRecordIE = Ωhitrecord.HitRecordIE
 		HornBunnyIE = Ωhornbunny.HornBunnyIE
@@ -732,7 +725,6 @@ func init() {
 		Varzesh3IE = Ωvarzesh3.Varzesh3IE
 		Vbox7IE = Ωvbox7.Vbox7IE
 		VeeHDIE = Ωveehd.VeeHDIE
-		VeohIE = Ωveoh.VeohIE
 		VestiIE = Ωvesti.VestiIE
 		VevoIE = Ωvevo.VevoIE
 		VGTVIE = Ωvgtv.VGTVIE
@@ -756,7 +748,6 @@ func init() {
 		WorldStarHipHopIE = Ωworldstarhiphop.WorldStarHipHopIE
 		XHamsterIE = Ωxhamster.XHamsterIE
 		XHamsterEmbedIE = Ωxhamster.XHamsterEmbedIE
-		XiamiSongIE = Ωxiami.XiamiSongIE
 		XNXXIE = Ωxnxx.XNXXIE
 		XTubeIE = Ωxtube.XTubeIE
 		XVideosIE = Ωxvideos.XVideosIE
@@ -782,10 +773,10 @@ func init() {
 			AudiomackIE,
 			BandcampIE,
 			BandcampWeeklyIE,
+			BeegIE,
 			BeatportIE,
 			BigflixIE,
 			BildIE,
-			BitChuteIE,
 			BleacherReportCMSIE,
 			BpbIE,
 			BRIE,
@@ -843,7 +834,6 @@ func init() {
 			GodTubeIE,
 			GolemIE,
 			GPUTechConfIE,
-			HentaiStigmaIE,
 			HistoricFilmsIE,
 			HitRecordIE,
 			HornBunnyIE,
@@ -985,7 +975,6 @@ func init() {
 			Varzesh3IE,
 			Vbox7IE,
 			VeeHDIE,
-			VeohIE,
 			VestiIE,
 			VevoIE,
 			VGTVIE,
@@ -1009,7 +998,6 @@ func init() {
 			WorldStarHipHopIE,
 			XHamsterIE,
 			XHamsterEmbedIE,
-			XiamiSongIE,
 			XNXXIE,
 			XTubeIE,
 			XVideosIE,

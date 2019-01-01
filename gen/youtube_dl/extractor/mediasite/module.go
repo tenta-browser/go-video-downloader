@@ -59,7 +59,7 @@ func init() {
 			var (
 				MediasiteIE__VALID_URL λ.Object
 			)
-			MediasiteIE__VALID_URL = λ.NewStr("(?xi)https?://[^/]+/Mediasite/Play/(?P<id>[0-9a-f]{32,34})(?P<query>\\?[^#]+|)")
+			MediasiteIE__VALID_URL = λ.NewStr("(?xi)https?://[^/]+/Mediasite/(?:Play|Showcase/(?:default|livebroadcast)/Presentation)/(?P<id>[0-9a-f]{32,34})(?P<query>\\?[^#]+|)")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): MediasiteIE__VALID_URL,
 			})

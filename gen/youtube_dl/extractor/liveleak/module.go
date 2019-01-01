@@ -54,7 +54,7 @@ func init() {
 			var (
 				LiveLeakEmbedIE__VALID_URL λ.Object
 			)
-			LiveLeakEmbedIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?liveleak\\.com/ll_embed\\?.*?\\b(?P<kind>[if])=(?P<id>[\\w_]+)")
+			LiveLeakEmbedIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?liveleak\\.com/ll_embed\\?.*?\\b(?P<kind>[ift])=(?P<id>[\\w_]+)")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): LiveLeakEmbedIE__VALID_URL,
 			})

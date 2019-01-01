@@ -15,10 +15,10 @@ Supported sites
  * Audiomack: `www.audiomack.com`
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
+ * Beeg _(adult)_: `beeg.com`
  * Beatport: `beatport.com`
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
- * BitChute: `www.bitchute.com`
  * BleacherReportCMS: `bleacherreport.com`
  * Bpb: `www.bpb.de`
  * BR: `www.br.de`
@@ -76,7 +76,6 @@ Supported sites
  * GodTube: `www.godtube.com`
  * Golem: `video.golem.de`
  * GPUTechConf: `on-demand.gputechconf.com`
- * HentaiStigma _(adult)_: `hentai.animestigma.com`
  * HistoricFilms: `www.historicfilms.com`
  * HitRecord: `hitrecord.org`
  * HornBunny _(adult)_: `hornbunny.com`
@@ -217,7 +216,6 @@ Supported sites
  * Varzesh3: `video.varzesh3.com`
  * Vbox7: `vbox7.com`
  * VeeHD: `veehd.com`
- * Veoh: `www.veoh.com`
  * Vesti: `www.vesti.ru`
  * Vevo _(adult)_: `www.vevo.com`
  * VGTV: `www.vgtv.no`
@@ -241,7 +239,6 @@ Supported sites
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * XHamster _(adult)_: `xhamster.com`
  * XHamsterEmbed _(adult)_: `xhamster.com`
- * XiamiSong: `www.xiami.com`
  * XNXX _(adult)_: `www.xnxx.com`
  * XTube _(adult)_: `www.xtube.com`
  * XVideos _(adult)_: `www.xvideos.com`
