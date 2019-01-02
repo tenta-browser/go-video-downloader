@@ -221,11 +221,7 @@ func init() {
 					)
 					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, λ.Cal(ϒurl_basename, ϒurl))
 					ϒcnn_url = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("data-url=\"(.+?)\""), ϒwebpage, λ.NewStr("cnn url"))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):  λ.NewStr("url"),
-						λ.NewStr("url"):    ϒcnn_url,
-						λ.NewStr("ie_key"): λ.Cal(λ.GetAttr(CNNIE, "ie_key", nil)),
-					})
+					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒcnn_url, λ.Cal(λ.GetAttr(CNNIE, "ie_key", nil)))
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_TEST"):         CNNBlogsIE__TEST,
@@ -268,11 +264,7 @@ func init() {
 					)
 					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, λ.Cal(ϒurl_basename, ϒurl))
 					ϒcnn_url = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("video:\\s*'([^']+)'"), ϒwebpage, λ.NewStr("cnn url"))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):  λ.NewStr("url"),
-						λ.NewStr("url"):    λ.Add(λ.NewStr("http://cnn.com/video/?/video/"), ϒcnn_url),
-						λ.NewStr("ie_key"): λ.Cal(λ.GetAttr(CNNIE, "ie_key", nil)),
-					})
+					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Add(λ.NewStr("http://cnn.com/video/?/video/"), ϒcnn_url), λ.Cal(λ.GetAttr(CNNIE, "ie_key", nil)))
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_TEST"):         CNNArticleIE__TEST,

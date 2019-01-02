@@ -112,11 +112,7 @@ func init() {
 						panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.NewStr("Invalid url %s"), ϒurl))))
 					}
 					if λ.IsTrue(λ.Cal(λ.GetAttr(SoundcloudIE, "suitable", nil), λ.GetItem(ϒapi_response, λ.NewStr("url")))) {
-						return λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("_type"):  λ.NewStr("url"),
-							λ.NewStr("url"):    λ.GetItem(ϒapi_response, λ.NewStr("url")),
-							λ.NewStr("ie_key"): λ.NewStr("Soundcloud"),
-						})
+						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.GetItem(ϒapi_response, λ.NewStr("url")), λ.Cal(λ.GetAttr(SoundcloudIE, "ie_key", nil)))
 					}
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):       λ.Cal(ϒcompat_str, λ.Cal(λ.GetAttr(ϒapi_response, "get", nil), λ.NewStr("id"), ϒalbum_url_tag)),

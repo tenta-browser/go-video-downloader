@@ -442,16 +442,13 @@ func init() {
 							if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒservice, "lower", nil)), λ.NewStr("youtube"))) {
 								ϒext_url = λ.Cal(λ.GetAttr(ϒexternal, "get", nil), λ.NewStr("code"))
 							}
-							return λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("_type"): λ.NewStr("url"),
-								λ.NewStr("url"): func() λ.Object {
-									if λv := ϒext_url; λ.IsTrue(λv) {
-										return λv
-									} else {
-										return λ.GetItem(ϒexternal, λ.NewStr("uri"))
-									}
-								}(),
-							})
+							return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), func() λ.Object {
+								if λv := ϒext_url; λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.GetItem(ϒexternal, λ.NewStr("uri"))
+								}
+							}())
 						}
 					}
 					ϒresources_ = func() λ.Object {

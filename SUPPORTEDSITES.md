@@ -19,6 +19,7 @@ Supported sites
  * Beatport: `beatport.com`
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
+ * BitChute: `www.bitchute.com`
  * BleacherReportCMS: `bleacherreport.com`
  * Bpb: `www.bpb.de`
  * BR: `www.br.de`
@@ -103,6 +104,7 @@ Supported sites
  * Livestream: `new.livestream.com`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * MacGameStore: `www.macgamestore.com`
+ * ManyVids: `www.manyvids.com`
  * MassengeschmackTV: `massengeschmack.tv`
  * Megaphone: `player.megaphone.fm`
  * Metacafe: `www.metacafe.com`
@@ -120,7 +122,6 @@ Supported sites
  * Netzkino: `www.netzkino.de`
  * Newgrounds: `www.newgrounds.com`
  * NextMediaActionNews: `hk.dv.nextmedia.com`
- * NextTV: `www.nexttv.com.tw`
  * NHL: `www.nhl.com`
  * NovaEmbed: `media.cms.nova.cz`
  * Nowness: `www.nowness.com`
@@ -141,7 +142,6 @@ Supported sites
  * Porn91 _(adult)_: `91porn.com`
  * PornCom _(adult)_: `www.porn.com`
  * PornHd _(adult)_: `www.pornhd.com`
- * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
  * PuhuTV: `puhutv.com`
  * PressTV: `www.presstv.ir`
@@ -184,7 +184,6 @@ Supported sites
  * Tenta: `tenta.com`
  * ThisOldHouse: `www.thisoldhouse.com`
  * TikTok: `m.tiktok.com`
- * TinyPic: `tinypic.com`
  * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
  * TNAFlix _(adult)_: `www.tnaflix.com`
  * EMPFlix _(adult)_: `www.empflix.com`
@@ -246,5 +245,5 @@ Supported sites
  * YinYueTai: `v.yinyuetai.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`
- * YourPorn: `yourporn.sexy`
+ * YourPorn _(adult)_: `yourporn.sexy`
  * YourUpload: `yourupload.com`

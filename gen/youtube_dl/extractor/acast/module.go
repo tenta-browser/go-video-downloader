@@ -182,7 +182,7 @@ func init() {
 				ACastChannelIE__VALID_URL λ.Object
 				ACastChannelIE_suitable   λ.Object
 			)
-			ACastChannelIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?acast\\.com/(?P<id>[^/#?]+)")
+			ACastChannelIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            (?:www\\.)?acast\\.com/|\n                            play\\.acast\\.com/s/\n                        )\n                        (?P<id>[^/#?]+)\n                    ")
 			ACastChannelIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},

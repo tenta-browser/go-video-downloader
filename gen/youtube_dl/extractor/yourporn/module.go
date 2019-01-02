@@ -55,6 +55,7 @@ func init() {
 					λ.NewStr("ext"):       λ.NewStr("mp4"),
 					λ.NewStr("title"):     λ.NewStr("md5:c9f43630bd968267672651ba905a7d35"),
 					λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg$"),
+					λ.NewStr("age_limit"): λ.NewInt(18),
 				}),
 			})
 			YourPornIE__real_extract = λ.NewFunction("_real_extract",
@@ -81,7 +82,7 @@ func init() {
 						λ.NewStr("data info"),
 					), λ.KWArgs{
 						{Name: "group", Value: λ.NewStr("data")},
-					}), ϒvideo_id), ϒvideo_id)), "replace", nil), λ.NewStr("/cdn/"), λ.NewStr("/cdn2/"))
+					}), ϒvideo_id), ϒvideo_id)), "replace", nil), λ.NewStr("/cdn/"), λ.NewStr("/cdn3/"))
 					ϒtitle = λ.Cal(λ.GetAttr(func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
 							λ.NewStr("<[^>]+\\bclass=[\"\\']PostEditTA[^>]+>([^<]+)"),
@@ -101,6 +102,7 @@ func init() {
 						λ.NewStr("url"):       ϒvideo_url,
 						λ.NewStr("title"):     ϒtitle,
 						λ.NewStr("thumbnail"): ϒthumbnail,
+						λ.NewStr("age_limit"): λ.NewInt(18),
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{

@@ -40,6 +40,7 @@ import (
 	Ωbeeg "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/beeg"
 	Ωbigflix "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bigflix"
 	Ωbild "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bild"
+	Ωbitchute "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bitchute"
 	Ωbleacherreport "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bleacherreport"
 	Ωbpb "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bpb"
 	Ωbr "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/br"
@@ -118,6 +119,7 @@ import (
 	Ωlivestream "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/livestream"
 	Ωlovehomeporn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/lovehomeporn"
 	Ωmacgamestore "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/macgamestore"
+	Ωmanyvids "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/manyvids"
 	Ωmassengeschmacktv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/massengeschmacktv"
 	Ωmegaphone "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/megaphone"
 	Ωmetacafe "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/metacafe"
@@ -154,7 +156,6 @@ import (
 	Ωporn91 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/porn91"
 	Ωporncom "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/porncom"
 	Ωpornhd "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhd"
-	Ωpornhub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhub"
 	Ωpornotube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornotube"
 	Ωpresstv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/presstv"
 	Ωpuhutv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/puhutv"
@@ -197,7 +198,6 @@ import (
 	Ωtenta "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tenta"
 	Ωthisoldhouse "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/thisoldhouse"
 	Ωtiktok "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tiktok"
-	Ωtinypic "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tinypic"
 	Ωtnaflix "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tnaflix"
 	Ωtoypics "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/toypics"
 	Ωtrilulilu "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/trilulilu"
@@ -274,6 +274,7 @@ var (
 	BeegIE                    λ.Object
 	BigflixIE                 λ.Object
 	BildIE                    λ.Object
+	BitChuteIE                λ.Object
 	BleacherReportCMSIE       λ.Object
 	BpbIE                     λ.Object
 	BrightcoveLegacyIE        λ.Object
@@ -359,6 +360,7 @@ var (
 	LoveHomePornIE            λ.Object
 	MLBIE                     λ.Object
 	MacGameStoreIE            λ.Object
+	ManyVidsIE                λ.Object
 	MassengeschmackTVIE       λ.Object
 	MegaphoneIE               λ.Object
 	MetacafeIE                λ.Object
@@ -378,7 +380,6 @@ var (
 	NetzkinoIE                λ.Object
 	NewgroundsIE              λ.Object
 	NextMediaActionNewsIE     λ.Object
-	NextTVIE                  λ.Object
 	NexxIE                    λ.Object
 	NovaEmbedIE               λ.Object
 	NownessIE                 λ.Object
@@ -399,7 +400,6 @@ var (
 	Porn91IE                  λ.Object
 	PornComIE                 λ.Object
 	PornHdIE                  λ.Object
-	PornHubIE                 λ.Object
 	PornotubeIE               λ.Object
 	PressTVIE                 λ.Object
 	PuhuTVIE                  λ.Object
@@ -450,7 +450,6 @@ var (
 	TentaIE                   λ.Object
 	ThisOldHouseIE            λ.Object
 	TikTokIE                  λ.Object
-	TinyPicIE                 λ.Object
 	ToypicsIE                 λ.Object
 	TriluliluIE               λ.Object
 	Tube8IE                   λ.Object
@@ -527,6 +526,7 @@ func init() {
 		BeatportIE = Ωbeatport.BeatportIE
 		BigflixIE = Ωbigflix.BigflixIE
 		BildIE = Ωbild.BildIE
+		BitChuteIE = Ωbitchute.BitChuteIE
 		BleacherReportCMSIE = Ωbleacherreport.BleacherReportCMSIE
 		BpbIE = Ωbpb.BpbIE
 		BRIE = Ωbr.BRIE
@@ -611,6 +611,7 @@ func init() {
 		LivestreamIE = Ωlivestream.LivestreamIE
 		LoveHomePornIE = Ωlovehomeporn.LoveHomePornIE
 		MacGameStoreIE = Ωmacgamestore.MacGameStoreIE
+		ManyVidsIE = Ωmanyvids.ManyVidsIE
 		MassengeschmackTVIE = Ωmassengeschmacktv.MassengeschmackTVIE
 		MegaphoneIE = Ωmegaphone.MegaphoneIE
 		MetacafeIE = Ωmetacafe.MetacafeIE
@@ -628,7 +629,6 @@ func init() {
 		NetzkinoIE = Ωnetzkino.NetzkinoIE
 		NewgroundsIE = Ωnewgrounds.NewgroundsIE
 		NextMediaActionNewsIE = Ωnextmedia.NextMediaActionNewsIE
-		NextTVIE = Ωnextmedia.NextTVIE
 		NexxIE = Ωnexx.NexxIE
 		NHLIE = Ωnhl.NHLIE
 		NovaEmbedIE = Ωnova.NovaEmbedIE
@@ -650,7 +650,6 @@ func init() {
 		Porn91IE = Ωporn91.Porn91IE
 		PornComIE = Ωporncom.PornComIE
 		PornHdIE = Ωpornhd.PornHdIE
-		PornHubIE = Ωpornhub.PornHubIE
 		PornotubeIE = Ωpornotube.PornotubeIE
 		PuhuTVIE = Ωpuhutv.PuhuTVIE
 		PressTVIE = Ωpresstv.PressTVIE
@@ -693,7 +692,6 @@ func init() {
 		TentaIE = Ωtenta.TentaIE
 		ThisOldHouseIE = Ωthisoldhouse.ThisOldHouseIE
 		TikTokIE = Ωtiktok.TikTokIE
-		TinyPicIE = Ωtinypic.TinyPicIE
 		TNAFlixNetworkEmbedIE = Ωtnaflix.TNAFlixNetworkEmbedIE
 		TNAFlixIE = Ωtnaflix.TNAFlixIE
 		EMPFlixIE = Ωtnaflix.EMPFlixIE
@@ -777,6 +775,7 @@ func init() {
 			BeatportIE,
 			BigflixIE,
 			BildIE,
+			BitChuteIE,
 			BleacherReportCMSIE,
 			BpbIE,
 			BRIE,
@@ -861,6 +860,7 @@ func init() {
 			LivestreamIE,
 			LoveHomePornIE,
 			MacGameStoreIE,
+			ManyVidsIE,
 			MassengeschmackTVIE,
 			MegaphoneIE,
 			MetacafeIE,
@@ -878,7 +878,6 @@ func init() {
 			NetzkinoIE,
 			NewgroundsIE,
 			NextMediaActionNewsIE,
-			NextTVIE,
 			NexxIE,
 			NHLIE,
 			NovaEmbedIE,
@@ -900,7 +899,6 @@ func init() {
 			Porn91IE,
 			PornComIE,
 			PornHdIE,
-			PornHubIE,
 			PornotubeIE,
 			PuhuTVIE,
 			PressTVIE,
@@ -943,7 +941,6 @@ func init() {
 			TentaIE,
 			ThisOldHouseIE,
 			TikTokIE,
-			TinyPicIE,
 			TNAFlixNetworkEmbedIE,
 			TNAFlixIE,
 			EMPFlixIE,
