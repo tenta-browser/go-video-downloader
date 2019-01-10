@@ -1864,8 +1864,34 @@ func init() {
 								λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒdct)
 							}
 						} else {
-							if λ.IsTrue(λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("hlsvp"))) {
-								ϒmanifest_url = λ.GetItem(λ.GetItem(ϒvideo_info, λ.NewStr("hlsvp")), λ.NewInt(0))
+							ϒmanifest_url = func() λ.Object {
+								if λv := λ.Cal(ϒurl_or_none, λ.Cal(ϒtry_get, ϒplayer_response, λ.NewFunction("<lambda>",
+									[]λ.Param{
+										{Name: "x"},
+									},
+									0, false, false,
+									func(λargs []λ.Object) λ.Object {
+										var (
+											ϒx = λargs[0]
+										)
+										return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("streamingData")), λ.NewStr("hlsManifestUrl"))
+									}), ϒcompat_str)); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.Cal(ϒurl_or_none, λ.Cal(ϒtry_get, ϒvideo_info, λ.NewFunction("<lambda>",
+										[]λ.Param{
+											{Name: "x"},
+										},
+										0, false, false,
+										func(λargs []λ.Object) λ.Object {
+											var (
+												ϒx = λargs[0]
+											)
+											return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("hlsvp")), λ.NewInt(0))
+										}), ϒcompat_str))
+								}
+							}()
+							if λ.IsTrue(ϒmanifest_url) {
 								ϒformats = λ.NewList()
 								ϒm3u8_formats = λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
 									ϒmanifest_url,
@@ -1909,7 +1935,7 @@ func init() {
 										{Name: "expected", Value: λ.True},
 									})))
 								}
-								panic(λ.Raise(λ.Cal(ExtractorError, λ.NewStr("no conn, hlsvp or url_encoded_fmt_stream_map information found in video info"))))
+								panic(λ.Raise(λ.Cal(ExtractorError, λ.NewStr("no conn, hlsvp, hlsManifestUrl or url_encoded_fmt_stream_map information found in video info"))))
 							}
 						}
 					}

@@ -99,6 +99,7 @@ Supported sites
  * KeezMovies _(adult)_: `www.keezmovies.com`
  * KickStarter: `www.kickstarter.com`
  * KrasView: `krasview.ru`
+ * LCI: `www.lci.fr`
  * LibraryOfCongress: `loc.gov`
  * LimelightMedia: `link.videoplatform.limelight.com`
  * Livestream: `new.livestream.com`
@@ -122,12 +123,14 @@ Supported sites
  * Netzkino: `www.netzkino.de`
  * Newgrounds: `www.newgrounds.com`
  * NextMediaActionNews: `hk.dv.nextmedia.com`
+ * NextTV: `www.nexttv.com.tw`
  * NHL: `www.nhl.com`
  * NovaEmbed: `media.cms.nova.cz`
  * Nowness: `www.nowness.com`
  * NTVRu: `www.ntv.ru`
  * Odnoklassniki: `ok.ru`
  * Ooyala: `player.ooyala.com`
+ * OutsideTV: `www.outsidetv.com`
  * PacktPub: `www.packtpub.com`
  * PandoraTV: `jp.channel.pandora.tv`
  * Patreon: `www.patreon.com`
@@ -142,6 +145,7 @@ Supported sites
  * Porn91 _(adult)_: `91porn.com`
  * PornCom _(adult)_: `www.porn.com`
  * PornHd _(adult)_: `www.pornhd.com`
+ * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
  * PuhuTV: `puhutv.com`
  * PressTV: `www.presstv.ir`
@@ -169,7 +173,6 @@ Supported sites
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
  * Stitcher: `www.stitcher.com`
- * SportDeutschland: `sportdeutschland.tv`
  * SRGSSRPlay: `www.rts.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
  * Streamable: `streamable.com`
@@ -184,6 +187,7 @@ Supported sites
  * Tenta: `tenta.com`
  * ThisOldHouse: `www.thisoldhouse.com`
  * TikTok: `m.tiktok.com`
+ * TinyPic: `tinypic.com`
  * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
  * TNAFlix _(adult)_: `www.tnaflix.com`
  * EMPFlix _(adult)_: `www.empflix.com`
@@ -200,7 +204,6 @@ Supported sites
  * TVC: `www.tvc.ru`
  * TVCArticle: `www.tvc.ru`
  * TVN24: `www.tvn24.pl`
- * TVNoe: `www.tvnoe.cz`
  * TVP: `vod.tvp.pl`
  * TVPlayHome _(adult)_: `tvplay.tv3.lt`
  * TwentyMinuten: `www.20min.ch`
@@ -215,6 +218,7 @@ Supported sites
  * Varzesh3: `video.varzesh3.com`
  * Vbox7: `vbox7.com`
  * VeeHD: `veehd.com`
+ * Veoh: `www.veoh.com`
  * Vesti: `www.vesti.ru`
  * Vevo _(adult)_: `www.vevo.com`
  * VGTV: `www.vgtv.no`

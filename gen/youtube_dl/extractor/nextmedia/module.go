@@ -257,11 +257,69 @@ func init() {
 		}())
 		NextTVIE = λ.Cal(λ.TypeType, λ.NewStr("NextTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				NextTVIE__VALID_URL λ.Object
+				NextTVIE__TEST         λ.Object
+				NextTVIE__VALID_URL    λ.Object
+				NextTVIE__real_extract λ.Object
 			)
 			NextTVIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?nexttv\\.com\\.tw/(?:[^/]+/)+(?P<id>\\d+)")
+			NextTVIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("url"): λ.NewStr("http://www.nexttv.com.tw/news/realtime/politics/11779671"),
+				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("id"):          λ.NewStr("11779671"),
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("title"):       λ.NewStr("「超收稅」近4千億！　藍議員籲發消費券"),
+					λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
+					λ.NewStr("timestamp"):   λ.NewInt(1484825400),
+					λ.NewStr("upload_date"): λ.NewStr("20170119"),
+					λ.NewStr("view_count"):  λ.IntType,
+				}),
+			})
+			NextTVIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒdata       λ.Object
+						ϒdate_str   λ.Object
+						ϒself       = λargs[0]
+						ϒtimestamp  λ.Object
+						ϒtitle      λ.Object
+						ϒurl        = λargs[1]
+						ϒvideo_id   λ.Object
+						ϒvideo_url  λ.Object
+						ϒview_count λ.Object
+						ϒwebpage    λ.Object
+					)
+					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<h1[^>]*>([^<]+)</h1>"), ϒwebpage, λ.NewStr("title"))
+					ϒdata = λ.Cal(λ.GetAttr(ϒself, "_hidden_inputs", nil), ϒwebpage)
+					ϒvideo_url = λ.GetItem(ϒdata, λ.NewStr("ntt-vod-src-detailview"))
+					ϒdate_str = λ.Cal(ϒget_element_by_class, λ.NewStr("date"), ϒwebpage)
+					ϒtimestamp = func() λ.Object {
+						if λ.IsTrue(ϒdate_str) {
+							return λ.Cal(ϒunified_timestamp, λ.Add(ϒdate_str, λ.NewStr("+0800")))
+						} else {
+							return λ.None
+						}
+					}()
+					ϒview_count = λ.Cal(ϒint_or_none, λ.Cal(ϒremove_start, λ.Cal(ϒclean_html, λ.Cal(ϒget_element_by_class, λ.NewStr("click"), ϒwebpage)), λ.NewStr("點閱：")))
+					return λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):         ϒvideo_id,
+						λ.NewStr("title"):      ϒtitle,
+						λ.NewStr("url"):        ϒvideo_url,
+						λ.NewStr("thumbnail"):  λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("ntt-vod-img-src")),
+						λ.NewStr("timestamp"):  ϒtimestamp,
+						λ.NewStr("view_count"): ϒview_count,
+					})
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): NextTVIE__VALID_URL,
+				λ.NewStr("_TEST"):         NextTVIE__TEST,
+				λ.NewStr("_VALID_URL"):    NextTVIE__VALID_URL,
+				λ.NewStr("_real_extract"): NextTVIE__real_extract,
 			})
 		}())
 	})

@@ -160,7 +160,6 @@ func init() {
 				InfoExtractor__extract_mpd_formats         λ.Object
 				InfoExtractor__extract_smil_formats        λ.Object
 				InfoExtractor__family_friendly_search      λ.Object
-				InfoExtractor__find_jwplayer_data          λ.Object
 				InfoExtractor__float                       λ.Object
 				InfoExtractor__get_login_info              λ.Object
 				InfoExtractor__get_netrc_login_info        λ.Object
@@ -2159,6 +2158,7 @@ func init() {
 					var (
 						INTERACTION_TYPE_MAP           λ.Object
 						ϒe                             λ.Object
+						ϒepisode_name                  λ.Object
 						ϒexpected_type                 = λargs[4]
 						ϒextract_interaction_statistic λ.Object
 						ϒextract_video_object          λ.Object
@@ -2320,11 +2320,21 @@ func init() {
 								λ.NewStr("TVEpisode"),
 								λ.NewStr("Episode"),
 							), ϒitem_type))) {
+								ϒepisode_name = λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("name")))
 								λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("episode"):        λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("name"))),
+									λ.NewStr("episode"):        ϒepisode_name,
 									λ.NewStr("episode_number"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("episodeNumber"))),
 									λ.NewStr("description"):    λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("description"))),
 								}))
+								if λ.IsTrue(func() λ.Object {
+									if λv := λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("title")))); !λ.IsTrue(λv) {
+										return λv
+									} else {
+										return ϒepisode_name
+									}
+								}()) {
+									λ.SetItem(ϒinfo, λ.NewStr("title"), ϒepisode_name)
+								}
 								ϒpart_of_season = λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("partOfSeason"))
 								if λ.IsTrue(func() λ.Object {
 									if λv := λ.Cal(λ.BuiltinIsInstance, ϒpart_of_season, λ.DictType); !λ.IsTrue(λv) {
@@ -2360,19 +2370,28 @@ func init() {
 									λ.SetItem(ϒinfo, λ.NewStr("series"), λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒpart_of_series, "get", nil), λ.NewStr("name"))))
 								}
 							} else {
-								if λ.IsTrue(λ.NewBool(λ.Contains(λ.NewTuple(
-									λ.NewStr("Article"),
-									λ.NewStr("NewsArticle"),
-								), ϒitem_type))) {
+								if λ.IsTrue(λ.Eq(ϒitem_type, λ.NewStr("Movie"))) {
 									λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("timestamp"):   λ.Cal(ϒparse_iso8601, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("datePublished"))),
-										λ.NewStr("title"):       λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("headline"))),
-										λ.NewStr("description"): λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("articleBody"))),
+										λ.NewStr("title"):       λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("name"))),
+										λ.NewStr("description"): λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("description"))),
+										λ.NewStr("duration"):    λ.Cal(ϒparse_duration, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("duration"))),
+										λ.NewStr("timestamp"):   λ.Cal(ϒunified_timestamp, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("dateCreated"))),
 									}))
 								} else {
-									if λ.IsTrue(λ.Eq(ϒitem_type, λ.NewStr("VideoObject"))) {
-										λ.Cal(ϒextract_video_object, ϒe)
-										continue
+									if λ.IsTrue(λ.NewBool(λ.Contains(λ.NewTuple(
+										λ.NewStr("Article"),
+										λ.NewStr("NewsArticle"),
+									), ϒitem_type))) {
+										λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+											λ.NewStr("timestamp"):   λ.Cal(ϒparse_iso8601, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("datePublished"))),
+											λ.NewStr("title"):       λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("headline"))),
+											λ.NewStr("description"): λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("articleBody"))),
+										}))
+									} else {
+										if λ.IsTrue(λ.Eq(ϒitem_type, λ.NewStr("VideoObject"))) {
+											λ.Cal(ϒextract_video_object, ϒe)
+											continue
+										}
 									}
 								}
 							}
@@ -5368,51 +5387,6 @@ func init() {
 					}
 					return ϒentries
 				})
-			InfoExtractor__find_jwplayer_data = λ.NewFunction("_find_jwplayer_data",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "webpage"},
-					{Name: "video_id", Def: λ.None},
-					{Name: "transform_source", Def: ϒjs_to_json},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒjwplayer_data    λ.Object
-						ϒmobj             λ.Object
-						ϒself             = λargs[0]
-						ϒtransform_source = λargs[3]
-						ϒvideo_id         = λargs[2]
-						ϒwebpage          = λargs[1]
-						τmp0              λ.Object
-						τmp1              λ.Object
-					)
-					ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("(?s)jwplayer\\((?P<quote>[\\'\"])[^\\'\" ]+(?P=quote)\\)(?!</script>).*?\\.setup\\s*\\((?P<options>[^)]+)\\)"), ϒwebpage)
-					if λ.IsTrue(ϒmobj) {
-						τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
-							defer λ.CatchMulti(
-								func() {
-									if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒjwplayer_data, λ.DictType)) {
-										λexit, λret = λ.BlockExitReturn, ϒjwplayer_data
-										return
-									}
-								},
-								&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
-									// pass
-								}},
-							)
-							ϒjwplayer_data = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("options"))), λ.KWArgs{
-								{Name: "video_id", Value: ϒvideo_id},
-								{Name: "transform_source", Value: ϒtransform_source},
-							})
-							return λ.BlockExitNormally, nil
-						}()
-						if τmp0 == λ.BlockExitReturn {
-							return τmp1
-						}
-					}
-					return λ.None
-				})
 			InfoExtractor__parse_jwplayer_data = λ.NewFunction("_parse_jwplayer_data",
 				[]λ.Param{
 					{Name: "self"},
@@ -5917,7 +5891,6 @@ func init() {
 				λ.NewStr("_extract_mpd_formats"):         InfoExtractor__extract_mpd_formats,
 				λ.NewStr("_extract_smil_formats"):        InfoExtractor__extract_smil_formats,
 				λ.NewStr("_family_friendly_search"):      InfoExtractor__family_friendly_search,
-				λ.NewStr("_find_jwplayer_data"):          InfoExtractor__find_jwplayer_data,
 				λ.NewStr("_float"):                       InfoExtractor__float,
 				λ.NewStr("_get_login_info"):              InfoExtractor__get_login_info,
 				λ.NewStr("_get_netrc_login_info"):        InfoExtractor__get_netrc_login_info,

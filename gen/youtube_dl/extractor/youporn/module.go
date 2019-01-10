@@ -151,15 +151,11 @@ func init() {
 					λ.Cal(λ.GetAttr(ϒrequest, "add_header", nil), λ.NewStr("Cookie"), λ.NewStr("age_verified=1"))
 					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒrequest, ϒdisplay_id)
 					ϒtitle = func() λ.Object {
-						if λv := λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewList(
-								λ.NewStr("(?:video_titles|videoTitle)\\s*[:=]\\s*([\"\\'])(?P<title>(?:(?!\\1).)+)\\1"),
-								λ.NewStr("<h1[^>]+class=[\"\\']heading\\d?[\"\\'][^>]*>(?P<title>[^<]+)<"),
-							),
+						if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
+							λ.NewStr("(?s)<div[^>]+class=[\"\\']watchVideoTitle[^>]+>(.+?)</div>"),
 							ϒwebpage,
 							λ.NewStr("title"),
 						), λ.KWArgs{
-							{Name: "group", Value: λ.NewStr("title")},
 							{Name: "default", Value: λ.None},
 						}); λ.IsTrue(λv) {
 							return λv
@@ -300,9 +296,21 @@ func init() {
 						λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)
 					}
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					ϒdescription = λ.Call(λ.GetAttr(ϒself, "_og_search_description", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
-						{Name: "default", Value: λ.None},
-					})
+					ϒdescription = func() λ.Object {
+						if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
+							λ.NewStr("(?s)<div[^>]+\\bid=[\"\\']description[\"\\'][^>]*>(.+?)</div>"),
+							ϒwebpage,
+							λ.NewStr("description"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						}); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Call(λ.GetAttr(ϒself, "_og_search_description", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
+								{Name: "default", Value: λ.None},
+							})
+						}
+					}()
 					ϒthumbnail = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
 						λ.NewStr("(?:imageurl\\s*=|poster\\s*:)\\s*([\"\\'])(?P<thumbnail>.+?)\\1"),
 						ϒwebpage,
