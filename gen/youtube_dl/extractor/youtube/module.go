@@ -873,6 +873,7 @@ func init() {
 						ϒ_extract_filesize           λ.Object
 						ϒa_format                    λ.Object
 						ϒadd_dash_mpd                λ.Object
+						ϒadd_dash_mpd_pr             λ.Object
 						ϒage_gate                    λ.Object
 						ϒargs                        λ.Object
 						ϒartist                      λ.Object
@@ -960,6 +961,7 @@ func init() {
 						ϒsmuggled_data               λ.Object
 						ϒspec                        λ.Object
 						ϒstart_time                  λ.Object
+						ϒstream_type                 λ.Object
 						ϒstreaming_formats           λ.Object
 						ϒstretched_m                 λ.Object
 						ϒsts                         λ.Object
@@ -1090,6 +1092,38 @@ func init() {
 								}
 							}()) {
 								λ.Cal(λ.GetAttr(ϒdash_mpds, "append", nil), λ.GetItem(ϒdash_mpd, λ.NewInt(0)))
+							}
+							return λ.None
+						})
+					ϒadd_dash_mpd_pr = λ.NewFunction("add_dash_mpd_pr",
+						[]λ.Param{
+							{Name: "pl_response"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒdash_mpd    λ.Object
+								ϒpl_response = λargs[0]
+							)
+							ϒdash_mpd = λ.Cal(ϒurl_or_none, λ.Cal(ϒtry_get, ϒpl_response, λ.NewFunction("<lambda>",
+								[]λ.Param{
+									{Name: "x"},
+								},
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									var (
+										ϒx = λargs[0]
+									)
+									return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("streamingData")), λ.NewStr("dashManifestUrl"))
+								}), ϒcompat_str))
+							if λ.IsTrue(func() λ.Object {
+								if λv := ϒdash_mpd; !λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.NewBool(!λ.Contains(ϒdash_mpds, ϒdash_mpd))
+								}
+							}()) {
+								λ.Cal(λ.GetAttr(ϒdash_mpds, "append", nil), ϒdash_mpd)
 							}
 							return λ.None
 						})
@@ -1233,6 +1267,7 @@ func init() {
 								return λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("youtube_include_dash_manifest"), λ.True)
 							}
 						}()) {
+							λ.Cal(ϒadd_dash_mpd_pr, ϒplayer_response)
 							λ.Cal(λ.GetAttr(ϒself, "report_video_info_webpage_download", nil), ϒvideo_id)
 							τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
 								λ.NewStr("info"),
@@ -1276,6 +1311,7 @@ func init() {
 									ϒpl_response = λ.GetItem(λ.Cal(λ.GetAttr(ϒget_video_info, "get", nil), λ.NewStr("player_response"), λ.NewList(λ.None)), λ.NewInt(0))
 									if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒpl_response, λ.DictType)) {
 										ϒplayer_response = ϒpl_response
+										λ.Cal(ϒadd_dash_mpd_pr, ϒplayer_response)
 									}
 								}
 								λ.Cal(ϒadd_dash_mpd, ϒget_video_info)
@@ -1663,6 +1699,20 @@ func init() {
 										return λ.NewBool(!λ.Contains(ϒurl_data, λ.NewStr("url")))
 									}
 								}()) {
+									continue
+								}
+								ϒstream_type = λ.Cal(ϒint_or_none, λ.Cal(ϒtry_get, ϒurl_data, λ.NewFunction("<lambda>",
+									[]λ.Param{
+										{Name: "x"},
+									},
+									0, false, false,
+									func(λargs []λ.Object) λ.Object {
+										var (
+											ϒx = λargs[0]
+										)
+										return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("stream_type")), λ.NewInt(0))
+									})))
+								if λ.IsTrue(λ.Eq(ϒstream_type, λ.NewInt(3))) {
 									continue
 								}
 								ϒformat_id = λ.GetItem(λ.GetItem(ϒurl_data, λ.NewStr("itag")), λ.NewInt(0))

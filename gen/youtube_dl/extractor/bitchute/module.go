@@ -161,6 +161,7 @@ func init() {
 								return λ.None
 							})
 						})))
+					λ.Cal(λ.GetAttr(ϒself, "_check_formats", nil), ϒformats, ϒvideo_id)
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
 					ϒdescription = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 						λ.NewStr("(?s)<div\\b[^>]+\\bclass=[\"\\']full hidden[^>]+>(.+?)</div>"),

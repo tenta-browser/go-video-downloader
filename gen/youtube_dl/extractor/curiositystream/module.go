@@ -51,13 +51,12 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		CuriosityStreamBaseIE = λ.Cal(λ.TypeType, λ.NewStr("CuriosityStreamBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				CuriosityStreamBaseIE__API_BASE_URL       λ.Object
-				CuriosityStreamBaseIE__NETRC_MACHINE      λ.Object
-				CuriosityStreamBaseIE__auth_token         λ.Object
-				CuriosityStreamBaseIE__call_api           λ.Object
-				CuriosityStreamBaseIE__extract_media_info λ.Object
-				CuriosityStreamBaseIE__handle_errors      λ.Object
-				CuriosityStreamBaseIE__real_initialize    λ.Object
+				CuriosityStreamBaseIE__API_BASE_URL    λ.Object
+				CuriosityStreamBaseIE__NETRC_MACHINE   λ.Object
+				CuriosityStreamBaseIE__auth_token      λ.Object
+				CuriosityStreamBaseIE__call_api        λ.Object
+				CuriosityStreamBaseIE__handle_errors   λ.Object
+				CuriosityStreamBaseIE__real_initialize λ.Object
 			)
 			CuriosityStreamBaseIE__NETRC_MACHINE = λ.NewStr("curiositystream")
 			CuriosityStreamBaseIE__auth_token = λ.None
@@ -148,10 +147,38 @@ func init() {
 					λ.SetAttr(ϒself, "_auth_token", λ.GetItem(λ.GetItem(ϒresult, λ.NewStr("message")), λ.NewStr("auth_token")))
 					return λ.None
 				})
-			CuriosityStreamBaseIE__extract_media_info = λ.NewFunction("_extract_media_info",
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_API_BASE_URL"):    CuriosityStreamBaseIE__API_BASE_URL,
+				λ.NewStr("_NETRC_MACHINE"):   CuriosityStreamBaseIE__NETRC_MACHINE,
+				λ.NewStr("_auth_token"):      CuriosityStreamBaseIE__auth_token,
+				λ.NewStr("_call_api"):        CuriosityStreamBaseIE__call_api,
+				λ.NewStr("_handle_errors"):   CuriosityStreamBaseIE__handle_errors,
+				λ.NewStr("_real_initialize"): CuriosityStreamBaseIE__real_initialize,
+			})
+		}())
+		CuriosityStreamIE = λ.Cal(λ.TypeType, λ.NewStr("CuriosityStreamIE"), λ.NewTuple(CuriosityStreamBaseIE), func() λ.Dict {
+			var (
+				CuriosityStreamIE_IE_NAME       λ.Object
+				CuriosityStreamIE__TEST         λ.Object
+				CuriosityStreamIE__VALID_URL    λ.Object
+				CuriosityStreamIE__real_extract λ.Object
+			)
+			CuriosityStreamIE_IE_NAME = λ.NewStr("curiositystream")
+			CuriosityStreamIE__VALID_URL = λ.NewStr("https?://(?:app\\.)?curiositystream\\.com/video/(?P<id>\\d+)")
+			CuriosityStreamIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("url"): λ.NewStr("https://app.curiositystream.com/video/2"),
+				λ.NewStr("md5"): λ.NewStr("262bb2f257ff301115f1973540de8983"),
+				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("id"):          λ.NewStr("2"),
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("title"):       λ.NewStr("How Did You Develop The Internet?"),
+					λ.NewStr("description"): λ.NewStr("Vint Cerf, Google's Chief Internet Evangelist, describes how he and Bob Kahn created the internet."),
+				}),
+			})
+			CuriosityStreamIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
-					{Name: "media"},
+					{Name: "url"},
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
@@ -166,19 +193,21 @@ func init() {
 						ϒformats        λ.Object
 						ϒlang           λ.Object
 						ϒm3u8_url       λ.Object
-						ϒmedia          = λargs[1]
+						ϒmedia          λ.Object
 						ϒrtmp           λ.Object
 						ϒself           = λargs[0]
 						ϒsub_url        λ.Object
 						ϒsubtitles      λ.Object
 						ϒtitle          λ.Object
+						ϒurl            = λargs[1]
 						ϒvideo_id       λ.Object
 						τmp0            λ.Object
 						τmp1            λ.Object
 						τmp2            λ.Object
 						τmp3            λ.Object
 					)
-					ϒvideo_id = λ.Cal(ϒcompat_str, λ.GetItem(ϒmedia, λ.NewStr("id")))
+					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒmedia = λ.Cal(λ.GetAttr(ϒself, "_call_api", nil), λ.Add(λ.NewStr("media/"), ϒvideo_id), ϒvideo_id)
 					ϒtitle = λ.GetItem(ϒmedia, λ.NewStr("title"))
 					ϒformats = λ.NewList()
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("encodings"), λ.NewList()))
@@ -296,52 +325,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_API_BASE_URL"):       CuriosityStreamBaseIE__API_BASE_URL,
-				λ.NewStr("_NETRC_MACHINE"):      CuriosityStreamBaseIE__NETRC_MACHINE,
-				λ.NewStr("_auth_token"):         CuriosityStreamBaseIE__auth_token,
-				λ.NewStr("_call_api"):           CuriosityStreamBaseIE__call_api,
-				λ.NewStr("_extract_media_info"): CuriosityStreamBaseIE__extract_media_info,
-				λ.NewStr("_handle_errors"):      CuriosityStreamBaseIE__handle_errors,
-				λ.NewStr("_real_initialize"):    CuriosityStreamBaseIE__real_initialize,
-			})
-		}())
-		CuriosityStreamIE = λ.Cal(λ.TypeType, λ.NewStr("CuriosityStreamIE"), λ.NewTuple(CuriosityStreamBaseIE), func() λ.Dict {
-			var (
-				CuriosityStreamIE_IE_NAME       λ.Object
-				CuriosityStreamIE__TEST         λ.Object
-				CuriosityStreamIE__VALID_URL    λ.Object
-				CuriosityStreamIE__real_extract λ.Object
-			)
-			CuriosityStreamIE_IE_NAME = λ.NewStr("curiositystream")
-			CuriosityStreamIE__VALID_URL = λ.NewStr("https?://app\\.curiositystream\\.com/video/(?P<id>\\d+)")
-			CuriosityStreamIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://app.curiositystream.com/video/2"),
-				λ.NewStr("md5"): λ.NewStr("262bb2f257ff301115f1973540de8983"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("2"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("How Did You Develop The Internet?"),
-					λ.NewStr("description"): λ.NewStr("Vint Cerf, Google's Chief Internet Evangelist, describes how he and Bob Kahn created the internet."),
-				}),
-			})
-			CuriosityStreamIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒmedia    λ.Object
-						ϒself     = λargs[0]
-						ϒurl      = λargs[1]
-						ϒvideo_id λ.Object
-					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒmedia = λ.Cal(λ.GetAttr(ϒself, "_call_api", nil), λ.Add(λ.NewStr("media/"), ϒvideo_id), ϒvideo_id)
-					return λ.Cal(λ.GetAttr(ϒself, "_extract_media_info", nil), ϒmedia)
-				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       CuriosityStreamIE_IE_NAME,
 				λ.NewStr("_TEST"):         CuriosityStreamIE__TEST,
 				λ.NewStr("_VALID_URL"):    CuriosityStreamIE__VALID_URL,
@@ -352,7 +335,7 @@ func init() {
 			var (
 				CuriosityStreamCollectionIE__VALID_URL λ.Object
 			)
-			CuriosityStreamCollectionIE__VALID_URL = λ.NewStr("https?://app\\.curiositystream\\.com/collection/(?P<id>\\d+)")
+			CuriosityStreamCollectionIE__VALID_URL = λ.NewStr("https?://(?:app\\.)?curiositystream\\.com/(?:collection|series)/(?P<id>\\d+)")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): CuriosityStreamCollectionIE__VALID_URL,
 			})

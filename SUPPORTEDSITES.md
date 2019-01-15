@@ -145,7 +145,6 @@ Supported sites
  * Porn91 _(adult)_: `91porn.com`
  * PornCom _(adult)_: `www.porn.com`
  * PornHd _(adult)_: `www.pornhd.com`
- * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
  * PuhuTV: `puhutv.com`
  * PressTV: `www.presstv.ir`
@@ -169,7 +168,6 @@ Supported sites
  * Vivo: `vivo.sx`
  * SkySports: `www.skysports.com`
  * Slideshare: `www.slideshare.net`
- * Slutload _(adult)_: `www.slutload.com`
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
  * Stitcher: `www.stitcher.com`
@@ -188,10 +186,6 @@ Supported sites
  * ThisOldHouse: `www.thisoldhouse.com`
  * TikTok: `m.tiktok.com`
  * TinyPic: `tinypic.com`
- * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
- * TNAFlix _(adult)_: `www.tnaflix.com`
- * EMPFlix _(adult)_: `www.empflix.com`
- * MovieFap _(adult)_: `www.moviefap.com`
  * Toypics _(adult)_: `videos.toypics.net`
  * Trilulilu: `www.trilulilu.ro`
  * Tube8 _(adult)_: `www.tube8.com`
@@ -204,7 +198,6 @@ Supported sites
  * TVC: `www.tvc.ru`
  * TVCArticle: `www.tvc.ru`
  * TVN24: `www.tvn24.pl`
- * TVP: `vod.tvp.pl`
  * TVPlayHome _(adult)_: `tvplay.tv3.lt`
  * TwentyMinuten: `www.20min.ch`
  * TwitchClips: `clips.twitch.tv`
