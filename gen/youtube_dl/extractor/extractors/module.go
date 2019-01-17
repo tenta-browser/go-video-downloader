@@ -129,6 +129,7 @@ import (
 	Ωmlb "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mlb"
 	Ωmofosex "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mofosex"
 	Ωmojvideo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mojvideo"
+	Ωmyspace "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/myspace"
 	Ωmyvi "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/myvi"
 	Ωnba "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nba"
 	Ωndr "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ndr"
@@ -181,6 +182,7 @@ import (
 	Ωshared "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/shared"
 	Ωskysports "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/skysports"
 	Ωslideshare "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/slideshare"
+	Ωslutload "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/slutload"
 	Ωsoundgasm "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/soundgasm"
 	Ωspankbang "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/spankbang"
 	Ωsrgssr "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/srgssr"
@@ -207,7 +209,7 @@ import (
 	Ωtvanouvelles "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvanouvelles"
 	Ωtvc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvc"
 	Ωtvn24 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvn24"
-	Ωtvplay "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvplay"
+	Ωtvp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvp"
 	Ωtwentymin "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twentymin"
 	Ωtwitch "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twitch"
 	Ωtwitter "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twitter"
@@ -229,7 +231,6 @@ import (
 	Ωvidlii "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vidlii"
 	Ωvimeo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vimeo"
 	Ωvimple "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vimple"
-	Ωvine "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vine"
 	Ωviqeo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/viqeo"
 	Ωvk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vk"
 	Ωvlive "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vlive"
@@ -367,6 +368,7 @@ var (
 	MicrosoftVirtualAcademyIE λ.Object
 	MofosexIE                 λ.Object
 	MojvideoIE                λ.Object
+	MySpaceIE                 λ.Object
 	MyviIE                    λ.Object
 	NBAIE                     λ.Object
 	NDREmbedIE                λ.Object
@@ -424,6 +426,7 @@ var (
 	SeznamZpravyIE            λ.Object
 	SkySportsIE               λ.Object
 	SlideshareIE              λ.Object
+	SlutloadIE                λ.Object
 	SoundgasmIE               λ.Object
 	SpankBangIE               λ.Object
 	StanfordOpenClassroomIE   λ.Object
@@ -436,7 +439,7 @@ var (
 	TVCArticleIE              λ.Object
 	TVCIE                     λ.Object
 	TVN24IE                   λ.Object
-	TVPlayHomeIE              λ.Object
+	TVPIE                     λ.Object
 	TagesschauIE              λ.Object
 	TastyTradeIE              λ.Object
 	TeacherTubeIE             λ.Object
@@ -478,7 +481,6 @@ var (
 	VimeoOndemandIE           λ.Object
 	VimeoReviewIE             λ.Object
 	VimpleIE                  λ.Object
-	VineIE                    λ.Object
 	ViqeoIE                   λ.Object
 	VivoIE                    λ.Object
 	VuClipIE                  λ.Object
@@ -617,6 +619,7 @@ func init() {
 		MLBIE = Ωmlb.MLBIE
 		MofosexIE = Ωmofosex.MofosexIE
 		MojvideoIE = Ωmojvideo.MojvideoIE
+		MySpaceIE = Ωmyspace.MySpaceIE
 		MyviIE = Ωmyvi.MyviIE
 		NBAIE = Ωnba.NBAIE
 		NDRIE = Ωndr.NDRIE
@@ -672,6 +675,7 @@ func init() {
 		VivoIE = Ωshared.VivoIE
 		SkySportsIE = Ωskysports.SkySportsIE
 		SlideshareIE = Ωslideshare.SlideshareIE
+		SlutloadIE = Ωslutload.SlutloadIE
 		SoundgasmIE = Ωsoundgasm.SoundgasmIE
 		SpankBangIE = Ωspankbang.SpankBangIE
 		StitcherIE = Ωstitcher.StitcherIE
@@ -702,7 +706,7 @@ func init() {
 		TVCIE = Ωtvc.TVCIE
 		TVCArticleIE = Ωtvc.TVCArticleIE
 		TVN24IE = Ωtvn24.TVN24IE
-		TVPlayHomeIE = Ωtvplay.TVPlayHomeIE
+		TVPIE = Ωtvp.TVPIE
 		TwentyMinutenIE = Ωtwentymin.TwentyMinutenIE
 		TwitchClipsIE = Ωtwitch.TwitchClipsIE
 		TwitterAmplifyIE = Ωtwitter.TwitterAmplifyIE
@@ -727,7 +731,6 @@ func init() {
 		VimeoOndemandIE = Ωvimeo.VimeoOndemandIE
 		VimeoReviewIE = Ωvimeo.VimeoReviewIE
 		VimpleIE = Ωvimple.VimpleIE
-		VineIE = Ωvine.VineIE
 		ViqeoIE = Ωviqeo.ViqeoIE
 		VKIE = Ωvk.VKIE
 		VLiveIE = Ωvlive.VLiveIE
@@ -863,6 +866,7 @@ func init() {
 			MLBIE,
 			MofosexIE,
 			MojvideoIE,
+			MySpaceIE,
 			MyviIE,
 			NBAIE,
 			NDRIE,
@@ -918,6 +922,7 @@ func init() {
 			VivoIE,
 			SkySportsIE,
 			SlideshareIE,
+			SlutloadIE,
 			SoundgasmIE,
 			SpankBangIE,
 			StitcherIE,
@@ -948,7 +953,7 @@ func init() {
 			TVCIE,
 			TVCArticleIE,
 			TVN24IE,
-			TVPlayHomeIE,
+			TVPIE,
 			TwentyMinutenIE,
 			TwitchClipsIE,
 			TwitterAmplifyIE,
@@ -973,7 +978,6 @@ func init() {
 			VimeoOndemandIE,
 			VimeoReviewIE,
 			VimpleIE,
-			VineIE,
 			ViqeoIE,
 			VKIE,
 			VLiveIE,

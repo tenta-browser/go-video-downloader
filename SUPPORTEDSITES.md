@@ -114,6 +114,7 @@ Supported sites
  * MLB: `www.mlb.com`
  * Mofosex _(adult)_: `www.mofosex.com`
  * Mojvideo: `www.mojvideo.com`
+ * MySpace: `myspace.com`
  * Myvi: `myvi.ru`
  * NBA: `www.nba.com`
  * NDR: `www.ndr.de`
@@ -168,6 +169,7 @@ Supported sites
  * Vivo: `vivo.sx`
  * SkySports: `www.skysports.com`
  * Slideshare: `www.slideshare.net`
+ * Slutload _(adult)_: `www.slutload.com`
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
  * Stitcher: `www.stitcher.com`
@@ -198,7 +200,7 @@ Supported sites
  * TVC: `www.tvc.ru`
  * TVCArticle: `www.tvc.ru`
  * TVN24: `www.tvn24.pl`
- * TVPlayHome _(adult)_: `tvplay.tv3.lt`
+ * TVP: `vod.tvp.pl`
  * TwentyMinuten: `www.20min.ch`
  * TwitchClips: `clips.twitch.tv`
  * TwitterAmplify: `amp.twimg.com`
@@ -223,7 +225,6 @@ Supported sites
  * VimeoOndemand: `vimeo.com`
  * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
- * Vine: `vine.co`
  * Viqeo: `cdn.viqeo.tv`
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
