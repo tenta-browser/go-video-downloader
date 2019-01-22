@@ -1753,7 +1753,7 @@ func init() {
 				}()) {
 					return λ.None
 				}
-				if λ.IsTrue(λ.Cal(Ωre.ϒmatch, λ.NewStr("^(?:https?:)?//"), ϒpath)) {
+				if λ.IsTrue(λ.Cal(Ωre.ϒmatch, λ.NewStr("^(?:[a-zA-Z][a-zA-Z0-9+-.]*:)?//"), ϒpath)) {
 					return ϒpath
 				}
 				if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒbase, λ.BytesType)) {

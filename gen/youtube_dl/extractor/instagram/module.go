@@ -36,6 +36,8 @@ var (
 	ExtractorError            λ.Object
 	InfoExtractor             λ.Object
 	InstagramIE               λ.Object
+	InstagramPlaylistIE       λ.Object
+	InstagramTagIE            λ.Object
 	InstagramUserIE           λ.Object
 	ϒcompat_HTTPError         λ.Object
 	ϒcompat_str               λ.Object
@@ -481,13 +483,26 @@ func init() {
 				λ.NewStr("_real_extract"): InstagramIE__real_extract,
 			})
 		}())
-		InstagramUserIE = λ.Cal(λ.TypeType, λ.NewStr("InstagramUserIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		InstagramPlaylistIE = λ.Cal(λ.TypeType, λ.NewStr("InstagramPlaylistIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+		}())
+		InstagramUserIE = λ.Cal(λ.TypeType, λ.NewStr("InstagramUserIE"), λ.NewTuple(InstagramPlaylistIE), func() λ.Dict {
 			var (
 				InstagramUserIE__VALID_URL λ.Object
 			)
 			InstagramUserIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?instagram\\.com/(?P<id>[^/]{2,})/?(?:$|[?#])")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): InstagramUserIE__VALID_URL,
+			})
+		}())
+		InstagramTagIE = λ.Cal(λ.TypeType, λ.NewStr("InstagramTagIE"), λ.NewTuple(InstagramPlaylistIE), func() λ.Dict {
+			var (
+				InstagramTagIE__VALID_URL λ.Object
+			)
+			InstagramTagIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?instagram\\.com/explore/tags/(?P<id>[^/]+)")
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_VALID_URL"): InstagramTagIE__VALID_URL,
 			})
 		}())
 	})

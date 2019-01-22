@@ -3542,111 +3542,117 @@ func init() {
 							break
 						}
 						ϒline = τmp1
+						if λ.IsTrue(λ.Cal(λ.GetAttr(ϒline, "startswith", nil), λ.NewStr("#EXT-X-MEDIA:"))) {
+							λ.Cal(ϒextract_media, ϒline)
+						}
+					}
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒm3u8_doc, "splitlines", nil)))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒline = τmp1
 						if λ.IsTrue(λ.Cal(λ.GetAttr(ϒline, "startswith", nil), λ.NewStr("#EXT-X-STREAM-INF:"))) {
 							ϒlast_stream_inf = λ.Cal(ϒparse_m3u8_attributes, ϒline)
 						} else {
-							if λ.IsTrue(λ.Cal(λ.GetAttr(ϒline, "startswith", nil), λ.NewStr("#EXT-X-MEDIA:"))) {
-								λ.Cal(ϒextract_media, ϒline)
+							if λ.IsTrue(func() λ.Object {
+								if λv := λ.Cal(λ.GetAttr(ϒline, "startswith", nil), λ.NewStr("#")); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒline, "strip", nil))))
+								}
+							}()) {
+								continue
 							} else {
-								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.GetAttr(ϒline, "startswith", nil), λ.NewStr("#")); λ.IsTrue(λv) {
+								ϒtbr = λ.Call(ϒfloat_or_none, λ.NewArgs(func() λ.Object {
+									if λv := λ.Cal(λ.GetAttr(ϒlast_stream_inf, "get", nil), λ.NewStr("AVERAGE-BANDWIDTH")); λ.IsTrue(λv) {
 										return λv
 									} else {
-										return λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒline, "strip", nil))))
+										return λ.Cal(λ.GetAttr(ϒlast_stream_inf, "get", nil), λ.NewStr("BANDWIDTH"))
+									}
+								}()), λ.KWArgs{
+									{Name: "scale", Value: λ.NewInt(1000)},
+								})
+								ϒformat_id = λ.NewList()
+								if λ.IsTrue(ϒm3u8_id) {
+									λ.Cal(λ.GetAttr(ϒformat_id, "append", nil), ϒm3u8_id)
+								}
+								ϒstream_name = λ.Cal(ϒbuild_stream_name)
+								if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒlive))) {
+									λ.Cal(λ.GetAttr(ϒformat_id, "append", nil), func() λ.Object {
+										if λ.IsTrue(ϒstream_name) {
+											return ϒstream_name
+										} else {
+											return λ.Mod(λ.NewStr("%d"), func() λ.Object {
+												if λ.IsTrue(ϒtbr) {
+													return ϒtbr
+												} else {
+													return λ.Cal(λ.BuiltinLen, ϒformats)
+												}
+											}())
+										}
+									}())
+								}
+								ϒmanifest_url = λ.Cal(ϒformat_url, λ.Cal(λ.GetAttr(ϒline, "strip", nil)))
+								ϒf = λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λ.NewStr("format_id"):    λ.Cal(λ.GetAttr(λ.NewStr("-"), "join", nil), ϒformat_id),
+									λ.NewStr("url"):          ϒmanifest_url,
+									λ.NewStr("manifest_url"): ϒm3u8_url,
+									λ.NewStr("tbr"):          ϒtbr,
+									λ.NewStr("ext"):          ϒext,
+									λ.NewStr("fps"):          λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒlast_stream_inf, "get", nil), λ.NewStr("FRAME-RATE"))),
+									λ.NewStr("protocol"):     ϒentry_protocol,
+									λ.NewStr("preference"):   ϒpreference,
+								})
+								ϒresolution = λ.Cal(λ.GetAttr(ϒlast_stream_inf, "get", nil), λ.NewStr("RESOLUTION"))
+								if λ.IsTrue(ϒresolution) {
+									ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("(?P<width>\\d+)[xX](?P<height>\\d+)"), ϒresolution)
+									if λ.IsTrue(ϒmobj) {
+										λ.SetItem(ϒf, λ.NewStr("width"), λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("width"))))
+										λ.SetItem(ϒf, λ.NewStr("height"), λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("height"))))
+									}
+								}
+								ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("audio.*?(?:%3D|=)(\\d+)(?:-video.*?(?:%3D|=)(\\d+))?"), λ.GetItem(ϒf, λ.NewStr("url")))
+								if λ.IsTrue(ϒmobj) {
+									τmp2 = λ.Cal(λ.GetAttr(ϒmobj, "groups", nil))
+									ϒabr = λ.GetItem(τmp2, λ.NewInt(0))
+									ϒvbr = λ.GetItem(τmp2, λ.NewInt(1))
+									τmp2 = λ.NewTuple(
+										λ.Cal(ϒfloat_or_none, ϒabr, λ.NewInt(1000)),
+										λ.Cal(ϒfloat_or_none, ϒvbr, λ.NewInt(1000)),
+									)
+									ϒabr = λ.GetItem(τmp2, λ.NewInt(0))
+									ϒvbr = λ.GetItem(τmp2, λ.NewInt(1))
+									λ.Cal(λ.GetAttr(ϒf, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λ.NewStr("vbr"): ϒvbr,
+										λ.NewStr("abr"): ϒabr,
+									}))
+								}
+								ϒcodecs = λ.Cal(ϒparse_codecs, λ.Cal(λ.GetAttr(ϒlast_stream_inf, "get", nil), λ.NewStr("CODECS")))
+								λ.Cal(λ.GetAttr(ϒf, "update", nil), ϒcodecs)
+								ϒaudio_group_id = λ.Cal(λ.GetAttr(ϒlast_stream_inf, "get", nil), λ.NewStr("AUDIO"))
+								if λ.IsTrue(func() λ.Object {
+									if λv := ϒaudio_group_id; !λ.IsTrue(λv) {
+										return λv
+									} else if λv := ϒcodecs; !λ.IsTrue(λv) {
+										return λv
+									} else {
+										return λ.Ne(λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("vcodec")), λ.NewStr("none"))
 									}
 								}()) {
-									continue
-								} else {
-									ϒtbr = λ.Call(ϒfloat_or_none, λ.NewArgs(func() λ.Object {
-										if λv := λ.Cal(λ.GetAttr(ϒlast_stream_inf, "get", nil), λ.NewStr("AVERAGE-BANDWIDTH")); λ.IsTrue(λv) {
-											return λv
-										} else {
-											return λ.Cal(λ.GetAttr(ϒlast_stream_inf, "get", nil), λ.NewStr("BANDWIDTH"))
-										}
-									}()), λ.KWArgs{
-										{Name: "scale", Value: λ.NewInt(1000)},
-									})
-									ϒformat_id = λ.NewList()
-									if λ.IsTrue(ϒm3u8_id) {
-										λ.Cal(λ.GetAttr(ϒformat_id, "append", nil), ϒm3u8_id)
-									}
-									ϒstream_name = λ.Cal(ϒbuild_stream_name)
-									if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒlive))) {
-										λ.Cal(λ.GetAttr(ϒformat_id, "append", nil), func() λ.Object {
-											if λ.IsTrue(ϒstream_name) {
-												return ϒstream_name
-											} else {
-												return λ.Mod(λ.NewStr("%d"), func() λ.Object {
-													if λ.IsTrue(ϒtbr) {
-														return ϒtbr
-													} else {
-														return λ.Cal(λ.BuiltinLen, ϒformats)
-													}
-												}())
-											}
-										}())
-									}
-									ϒmanifest_url = λ.Cal(ϒformat_url, λ.Cal(λ.GetAttr(ϒline, "strip", nil)))
-									ϒf = λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("format_id"):    λ.Cal(λ.GetAttr(λ.NewStr("-"), "join", nil), ϒformat_id),
-										λ.NewStr("url"):          ϒmanifest_url,
-										λ.NewStr("manifest_url"): ϒm3u8_url,
-										λ.NewStr("tbr"):          ϒtbr,
-										λ.NewStr("ext"):          ϒext,
-										λ.NewStr("fps"):          λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒlast_stream_inf, "get", nil), λ.NewStr("FRAME-RATE"))),
-										λ.NewStr("protocol"):     ϒentry_protocol,
-										λ.NewStr("preference"):   ϒpreference,
-									})
-									ϒresolution = λ.Cal(λ.GetAttr(ϒlast_stream_inf, "get", nil), λ.NewStr("RESOLUTION"))
-									if λ.IsTrue(ϒresolution) {
-										ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("(?P<width>\\d+)[xX](?P<height>\\d+)"), ϒresolution)
-										if λ.IsTrue(ϒmobj) {
-											λ.SetItem(ϒf, λ.NewStr("width"), λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("width"))))
-											λ.SetItem(ϒf, λ.NewStr("height"), λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("height"))))
-										}
-									}
-									ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("audio.*?(?:%3D|=)(\\d+)(?:-video.*?(?:%3D|=)(\\d+))?"), λ.GetItem(ϒf, λ.NewStr("url")))
-									if λ.IsTrue(ϒmobj) {
-										τmp2 = λ.Cal(λ.GetAttr(ϒmobj, "groups", nil))
-										ϒabr = λ.GetItem(τmp2, λ.NewInt(0))
-										ϒvbr = λ.GetItem(τmp2, λ.NewInt(1))
-										τmp2 = λ.NewTuple(
-											λ.Cal(ϒfloat_or_none, ϒabr, λ.NewInt(1000)),
-											λ.Cal(ϒfloat_or_none, ϒvbr, λ.NewInt(1000)),
-										)
-										ϒabr = λ.GetItem(τmp2, λ.NewInt(0))
-										ϒvbr = λ.GetItem(τmp2, λ.NewInt(1))
-										λ.Cal(λ.GetAttr(ϒf, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-											λ.NewStr("vbr"): ϒvbr,
-											λ.NewStr("abr"): ϒabr,
-										}))
-									}
-									ϒcodecs = λ.Cal(ϒparse_codecs, λ.Cal(λ.GetAttr(ϒlast_stream_inf, "get", nil), λ.NewStr("CODECS")))
-									λ.Cal(λ.GetAttr(ϒf, "update", nil), ϒcodecs)
-									ϒaudio_group_id = λ.Cal(λ.GetAttr(ϒlast_stream_inf, "get", nil), λ.NewStr("AUDIO"))
+									ϒaudio_group = λ.Cal(λ.GetAttr(ϒgroups, "get", nil), ϒaudio_group_id)
 									if λ.IsTrue(func() λ.Object {
-										if λv := ϒaudio_group_id; !λ.IsTrue(λv) {
-											return λv
-										} else if λv := ϒcodecs; !λ.IsTrue(λv) {
+										if λv := ϒaudio_group; !λ.IsTrue(λv) {
 											return λv
 										} else {
-											return λ.Ne(λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("vcodec")), λ.NewStr("none"))
+											return λ.Cal(λ.GetAttr(λ.GetItem(ϒaudio_group, λ.NewInt(0)), "get", nil), λ.NewStr("URI"))
 										}
 									}()) {
-										ϒaudio_group = λ.Cal(λ.GetAttr(ϒgroups, "get", nil), ϒaudio_group_id)
-										if λ.IsTrue(func() λ.Object {
-											if λv := ϒaudio_group; !λ.IsTrue(λv) {
-												return λv
-											} else {
-												return λ.Cal(λ.GetAttr(λ.GetItem(ϒaudio_group, λ.NewInt(0)), "get", nil), λ.NewStr("URI"))
-											}
-										}()) {
-											λ.SetItem(ϒf, λ.NewStr("acodec"), λ.NewStr("none"))
-										}
+										λ.SetItem(ϒf, λ.NewStr("acodec"), λ.NewStr("none"))
 									}
-									λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)
-									ϒlast_stream_inf = λ.NewDictWithTable(map[λ.Object]λ.Object{})
 								}
+								λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)
+								ϒlast_stream_inf = λ.NewDictWithTable(map[λ.Object]λ.Object{})
 							}
 						}
 					}
@@ -5515,7 +5521,7 @@ func init() {
 								}
 							}()),
 							λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("description")),
-							λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("image"))),
+							λ.NewStr("thumbnail"):   λ.Cal(ϒurljoin, ϒbase_url, λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("image")))),
 							λ.NewStr("timestamp"):   λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("pubdate"))),
 							λ.NewStr("duration"): λ.Cal(ϒfloat_or_none, func() λ.Object {
 								if λv := λ.Cal(λ.GetAttr(ϒjwplayer_data, "get", nil), λ.NewStr("duration")); λ.IsTrue(λv) {
@@ -5597,14 +5603,14 @@ func init() {
 						if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒsource, λ.DictType)))) {
 							continue
 						}
-						ϒsource_url = λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Cal(λ.GetAttr(ϒsource, "get", nil), λ.NewStr("file")))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒsource_url))) {
-							continue
-						}
-						if λ.IsTrue(ϒbase_url) {
-							ϒsource_url = λ.Cal(Ωparse.ϒurljoin, ϒbase_url, ϒsource_url)
-						}
-						if λ.IsTrue(λ.NewBool(λ.Contains(ϒurls, ϒsource_url))) {
+						ϒsource_url = λ.Cal(ϒurljoin, ϒbase_url, λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Cal(λ.GetAttr(ϒsource, "get", nil), λ.NewStr("file"))))
+						if λ.IsTrue(func() λ.Object {
+							if λv := λ.NewBool(!λ.IsTrue(ϒsource_url)); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.NewBool(λ.Contains(ϒurls, ϒsource_url))
+							}
+						}()) {
 							continue
 						}
 						λ.Cal(λ.GetAttr(ϒurls, "append", nil), ϒsource_url)

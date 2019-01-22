@@ -158,6 +158,10 @@ func init() {
 					λ.NewStr("url"):           λ.NewStr("https://m.ok.ru/dk?st.cmd=movieLayer&st.discId=863789452017&st.retLoc=friend&st.rtu=%2Fdk%3Fst.cmd%3DfriendMovies%26st.mode%3Down%26st.mrkId%3D%257B%2522uploadedMovieMarker%2522%253A%257B%2522marker%2522%253A%25221519410114503%2522%252C%2522hasMore%2522%253Atrue%257D%252C%2522sharedMovieMarker%2522%253A%257B%2522marker%2522%253Anull%252C%2522hasMore%2522%253Afalse%257D%257D%26st.friendId%3D561722190321%26st.frwd%3Don%26_prevCmd%3DfriendMovies%26tkn%3D7257&st.discType=MOVIE&st.mvId=863789452017&_prevCmd=friendMovies&tkn=3648#lst#"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://ok.ru/video/954886983203"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
 			)
 			OdnoklassnikiIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -183,6 +187,7 @@ func init() {
 						ϒm3u8_url      λ.Object
 						ϒmetadata      λ.Object
 						ϒmovie         λ.Object
+						ϒpayment_info  λ.Object
 						ϒplayer        λ.Object
 						ϒprovider      λ.Object
 						ϒquality       λ.Object
@@ -390,6 +395,14 @@ func init() {
 							λ.NewStr("format_id"): λ.NewStr("rtmp"),
 							λ.NewStr("ext"):       λ.NewStr("flv"),
 						}))
+					}
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
+						ϒpayment_info = λ.Cal(λ.GetAttr(ϒmetadata, "get", nil), λ.NewStr("paymentInfo"))
+						if λ.IsTrue(ϒpayment_info) {
+							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("This video is paid, subscribe to download it")), λ.KWArgs{
+								{Name: "expected", Value: λ.True},
+							})))
+						}
 					}
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
 					λ.SetItem(ϒinfo, λ.NewStr("formats"), ϒformats)

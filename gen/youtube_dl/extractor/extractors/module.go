@@ -159,6 +159,7 @@ import (
 	Ωporn91 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/porn91"
 	Ωporncom "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/porncom"
 	Ωpornhd "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhd"
+	Ωpornhub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhub"
 	Ωpornotube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornotube"
 	Ωpresstv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/presstv"
 	Ωpuhutv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/puhutv"
@@ -179,7 +180,6 @@ import (
 	Ωscreencast "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/screencast"
 	Ωsenateisvp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/senateisvp"
 	Ωseznamzpravy "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/seznamzpravy"
-	Ωshared "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/shared"
 	Ωskysports "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/skysports"
 	Ωslideshare "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/slideshare"
 	Ωslutload "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/slutload"
@@ -201,6 +201,7 @@ import (
 	Ωthisoldhouse "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/thisoldhouse"
 	Ωtiktok "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tiktok"
 	Ωtinypic "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tinypic"
+	Ωtnaflix "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tnaflix"
 	Ωtoypics "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/toypics"
 	Ωtrilulilu "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/trilulilu"
 	Ωtube8 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tube8"
@@ -210,6 +211,7 @@ import (
 	Ωtvc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvc"
 	Ωtvn24 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvn24"
 	Ωtvp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvp"
+	Ωtvplay "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvplay"
 	Ωtwentymin "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twentymin"
 	Ωtwitch "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twitch"
 	Ωtwitter "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twitter"
@@ -308,6 +310,7 @@ var (
 	DiscoveryNetworksDeIE     λ.Object
 	DisneyIE                  λ.Object
 	DotsubIE                  λ.Object
+	EMPFlixIE                 λ.Object
 	EbaumsWorldIE             λ.Object
 	EchoMskIE                 λ.Object
 	ElPaisIE                  λ.Object
@@ -368,6 +371,7 @@ var (
 	MicrosoftVirtualAcademyIE λ.Object
 	MofosexIE                 λ.Object
 	MojvideoIE                λ.Object
+	MovieFapIE                λ.Object
 	MySpaceIE                 λ.Object
 	MyviIE                    λ.Object
 	NBAIE                     λ.Object
@@ -402,6 +406,7 @@ var (
 	Porn91IE                  λ.Object
 	PornComIE                 λ.Object
 	PornHdIE                  λ.Object
+	PornHubIE                 λ.Object
 	PornotubeIE               λ.Object
 	PressTVIE                 λ.Object
 	PuhuTVIE                  λ.Object
@@ -435,11 +440,14 @@ var (
 	SunPornoIE                λ.Object
 	TDSLifewayIE              λ.Object
 	TEDIE                     λ.Object
+	TNAFlixIE                 λ.Object
+	TNAFlixNetworkEmbedIE     λ.Object
 	TVANouvellesIE            λ.Object
 	TVCArticleIE              λ.Object
 	TVCIE                     λ.Object
 	TVN24IE                   λ.Object
 	TVPIE                     λ.Object
+	TVPlayHomeIE              λ.Object
 	TagesschauIE              λ.Object
 	TastyTradeIE              λ.Object
 	TeacherTubeIE             λ.Object
@@ -482,7 +490,6 @@ var (
 	VimeoReviewIE             λ.Object
 	VimpleIE                  λ.Object
 	ViqeoIE                   λ.Object
-	VivoIE                    λ.Object
 	VuClipIE                  λ.Object
 	VzaarIE                   λ.Object
 	WashingtonPostIE          λ.Object
@@ -652,6 +659,7 @@ func init() {
 		Porn91IE = Ωporn91.Porn91IE
 		PornComIE = Ωporncom.PornComIE
 		PornHdIE = Ωpornhd.PornHdIE
+		PornHubIE = Ωpornhub.PornHubIE
 		PornotubeIE = Ωpornotube.PornotubeIE
 		PuhuTVIE = Ωpuhutv.PuhuTVIE
 		PressTVIE = Ωpresstv.PressTVIE
@@ -672,7 +680,6 @@ func init() {
 		ScreencastIE = Ωscreencast.ScreencastIE
 		SenateISVPIE = Ωsenateisvp.SenateISVPIE
 		SeznamZpravyIE = Ωseznamzpravy.SeznamZpravyIE
-		VivoIE = Ωshared.VivoIE
 		SkySportsIE = Ωskysports.SkySportsIE
 		SlideshareIE = Ωslideshare.SlideshareIE
 		SlutloadIE = Ωslutload.SlutloadIE
@@ -694,6 +701,10 @@ func init() {
 		ThisOldHouseIE = Ωthisoldhouse.ThisOldHouseIE
 		TikTokIE = Ωtiktok.TikTokIE
 		TinyPicIE = Ωtinypic.TinyPicIE
+		TNAFlixNetworkEmbedIE = Ωtnaflix.TNAFlixNetworkEmbedIE
+		TNAFlixIE = Ωtnaflix.TNAFlixIE
+		EMPFlixIE = Ωtnaflix.EMPFlixIE
+		MovieFapIE = Ωtnaflix.MovieFapIE
 		ToypicsIE = Ωtoypics.ToypicsIE
 		TriluliluIE = Ωtrilulilu.TriluliluIE
 		Tube8IE = Ωtube8.Tube8IE
@@ -707,6 +718,7 @@ func init() {
 		TVCArticleIE = Ωtvc.TVCArticleIE
 		TVN24IE = Ωtvn24.TVN24IE
 		TVPIE = Ωtvp.TVPIE
+		TVPlayHomeIE = Ωtvplay.TVPlayHomeIE
 		TwentyMinutenIE = Ωtwentymin.TwentyMinutenIE
 		TwitchClipsIE = Ωtwitch.TwitchClipsIE
 		TwitterAmplifyIE = Ωtwitter.TwitterAmplifyIE
@@ -899,6 +911,7 @@ func init() {
 			Porn91IE,
 			PornComIE,
 			PornHdIE,
+			PornHubIE,
 			PornotubeIE,
 			PuhuTVIE,
 			PressTVIE,
@@ -919,7 +932,6 @@ func init() {
 			ScreencastIE,
 			SenateISVPIE,
 			SeznamZpravyIE,
-			VivoIE,
 			SkySportsIE,
 			SlideshareIE,
 			SlutloadIE,
@@ -941,6 +953,10 @@ func init() {
 			ThisOldHouseIE,
 			TikTokIE,
 			TinyPicIE,
+			TNAFlixNetworkEmbedIE,
+			TNAFlixIE,
+			EMPFlixIE,
+			MovieFapIE,
 			ToypicsIE,
 			TriluliluIE,
 			Tube8IE,
@@ -954,6 +970,7 @@ func init() {
 			TVCArticleIE,
 			TVN24IE,
 			TVPIE,
+			TVPlayHomeIE,
 			TwentyMinutenIE,
 			TwitchClipsIE,
 			TwitterAmplifyIE,

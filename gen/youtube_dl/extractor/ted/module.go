@@ -581,6 +581,9 @@ func init() {
 								λ.NewStr("format_id"): λ.Cal(λ.GetAttr(λ.GetItem(ϒm3u8_format, λ.NewStr("format_id")), "replace", nil), λ.NewStr("hls"), λ.NewStr("http")),
 								λ.NewStr("protocol"):  λ.NewStr("http"),
 							}))
+							if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("acodec")), λ.NewStr("none"))) {
+								λ.DelItem(ϒf, λ.NewStr("acodec"))
+							}
 							λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)
 						}
 					}
