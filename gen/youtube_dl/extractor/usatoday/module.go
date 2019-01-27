@@ -38,39 +38,55 @@ var (
 	ϒcompat_str               λ.Object
 	ϒget_element_by_attribute λ.Object
 	ϒparse_duration           λ.Object
+	ϒtry_get                  λ.Object
 	ϒupdate_url_query         λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ExtractorError = Ωutils.ExtractorError
 		ϒget_element_by_attribute = Ωutils.ϒget_element_by_attribute
 		ϒparse_duration = Ωutils.ϒparse_duration
+		ϒtry_get = Ωutils.ϒtry_get
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
-		ExtractorError = Ωutils.ExtractorError
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		USATodayIE = λ.Cal(λ.TypeType, λ.NewStr("USATodayIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				USATodayIE_BRIGHTCOVE_URL_TEMPLATE λ.Object
-				USATodayIE__TEST                   λ.Object
+				USATodayIE__TESTS                  λ.Object
 				USATodayIE__VALID_URL              λ.Object
 				USATodayIE__real_extract           λ.Object
 			)
 			USATodayIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?usatoday\\.com/(?:[^/]+/)*(?P<id>[^?/#]+)")
-			USATodayIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.usatoday.com/media/cinematic/video/81729424/us-france-warn-syrian-regime-ahead-of-new-peace-talks/"),
-				λ.NewStr("md5"): λ.NewStr("4d40974481fa3475f8bccfd20c5361f8"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("81729424"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("US, France warn Syrian regime ahead of new peace talks"),
-					λ.NewStr("timestamp"):   λ.NewInt(1457891045),
-					λ.NewStr("description"): λ.NewStr("md5:7e50464fdf2126b0f533748d3c78d58f"),
-					λ.NewStr("uploader_id"): λ.NewStr("29906170001"),
-					λ.NewStr("upload_date"): λ.NewStr("20160313"),
+			USATodayIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.usatoday.com/media/cinematic/video/81729424/us-france-warn-syrian-regime-ahead-of-new-peace-talks/"),
+					λ.NewStr("md5"): λ.NewStr("033587d2529dc3411a1ab3644c3b8827"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("4799374959001"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("US, France warn Syrian regime ahead of new peace talks"),
+						λ.NewStr("timestamp"):   λ.NewInt(1457891045),
+						λ.NewStr("description"): λ.NewStr("md5:7e50464fdf2126b0f533748d3c78d58f"),
+						λ.NewStr("uploader_id"): λ.NewStr("29906170001"),
+						λ.NewStr("upload_date"): λ.NewStr("20160313"),
+					}),
 				}),
-			})
-			USATodayIE_BRIGHTCOVE_URL_TEMPLATE = λ.NewStr("http://players.brightcove.net/29906170001/38a9eecc-bdd8-42a3-ba14-95397e48b3f8_default/index.html?videoId=%s")
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://www.usatoday.com/story/tech/science/2018/08/21/yellowstone-supervolcano-eruption-stop-worrying-its-blow/973633002/"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("5824495846001"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Yellowstone more likely to crack rather than explode"),
+						λ.NewStr("timestamp"):   λ.NewInt(1534790612),
+						λ.NewStr("description"): λ.NewStr("md5:3715e7927639a4f16b474e9391687c62"),
+						λ.NewStr("uploader_id"): λ.NewStr("28911775001"),
+						λ.NewStr("upload_date"): λ.NewStr("20180820"),
+					}),
+				}),
+			)
+			USATodayIE_BRIGHTCOVE_URL_TEMPLATE = λ.NewStr("http://players.brightcove.net/%s/default_default/index.html?videoId=%s")
 			USATodayIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -80,6 +96,7 @@ func init() {
 				func(λargs []λ.Object) λ.Object {
 					var (
 						ϒdisplay_id    λ.Object
+						ϒitem          λ.Object
 						ϒself          = λargs[0]
 						ϒui_video_data λ.Object
 						ϒurl           = λargs[1]
@@ -97,9 +114,35 @@ func init() {
 						})))
 					}
 					ϒvideo_data = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), ϒui_video_data, ϒdisplay_id)
+					ϒitem = func() λ.Object {
+						if λv := λ.Cal(ϒtry_get, ϒvideo_data, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("asset_metadata")), λ.NewStr("items"))
+							}), λ.DictType); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+						}
+					}()
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):       λ.NewStr("url_transparent"),
-						λ.NewStr("url"):         λ.Mod(λ.GetAttr(ϒself, "BRIGHTCOVE_URL_TEMPLATE", nil), λ.GetItem(ϒvideo_data, λ.NewStr("brightcove_id"))),
+						λ.NewStr("_type"): λ.NewStr("url_transparent"),
+						λ.NewStr("url"): λ.Mod(λ.GetAttr(ϒself, "BRIGHTCOVE_URL_TEMPLATE", nil), λ.NewTuple(
+							λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("brightcoveaccount"), λ.NewStr("29906170001")),
+							func() λ.Object {
+								if λv := λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("brightcoveid")); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.GetItem(ϒvideo_data, λ.NewStr("brightcove_id"))
+								}
+							}(),
+						)),
 						λ.NewStr("id"):          λ.Cal(ϒcompat_str, λ.GetItem(ϒvideo_data, λ.NewStr("id"))),
 						λ.NewStr("title"):       λ.GetItem(ϒvideo_data, λ.NewStr("title")),
 						λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("thumbnail")),
@@ -110,7 +153,7 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("BRIGHTCOVE_URL_TEMPLATE"): USATodayIE_BRIGHTCOVE_URL_TEMPLATE,
-				λ.NewStr("_TEST"):                   USATodayIE__TEST,
+				λ.NewStr("_TESTS"):                  USATodayIE__TESTS,
 				λ.NewStr("_VALID_URL"):              USATodayIE__VALID_URL,
 				λ.NewStr("_real_extract"):           USATodayIE__real_extract,
 			})

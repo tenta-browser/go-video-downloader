@@ -70,7 +70,6 @@ import (
 	Ωdisney "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/disney"
 	Ωdispeak "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dispeak"
 	Ωdotsub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dotsub"
-	Ωdrtv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/drtv"
 	Ωdw "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dw"
 	Ωebaumsworld "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ebaumsworld"
 	Ωechomsk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/echomsk"
@@ -159,6 +158,7 @@ import (
 	Ωporn91 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/porn91"
 	Ωporncom "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/porncom"
 	Ωpornhd "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhd"
+	Ωpornhub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhub"
 	Ωpornotube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornotube"
 	Ωpresstv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/presstv"
 	Ωpuhutv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/puhutv"
@@ -300,7 +300,6 @@ var (
 	CrackedIE                 λ.Object
 	CtsNewsIE                 λ.Object
 	CuriosityStreamIE         λ.Object
-	DRTVIE                    λ.Object
 	DWIE                      λ.Object
 	DailyMailIE               λ.Object
 	DailymotionIE             λ.Object
@@ -406,6 +405,7 @@ var (
 	Porn91IE                  λ.Object
 	PornComIE                 λ.Object
 	PornHdIE                  λ.Object
+	PornHubIE                 λ.Object
 	PornotubeIE               λ.Object
 	PressTVIE                 λ.Object
 	PuhuTVIE                  λ.Object
@@ -560,7 +560,6 @@ func init() {
 		DailymotionIE = Ωdailymotion.DailymotionIE
 		DiggIE = Ωdigg.DiggIE
 		DotsubIE = Ωdotsub.DotsubIE
-		DRTVIE = Ωdrtv.DRTVIE
 		DiscoveryNetworksDeIE = Ωdiscoverynetworks.DiscoveryNetworksDeIE
 		DisneyIE = Ωdisney.DisneyIE
 		DigitallySpeakingIE = Ωdispeak.DigitallySpeakingIE
@@ -659,6 +658,7 @@ func init() {
 		Porn91IE = Ωporn91.Porn91IE
 		PornComIE = Ωporncom.PornComIE
 		PornHdIE = Ωpornhd.PornHdIE
+		PornHubIE = Ωpornhub.PornHubIE
 		PornotubeIE = Ωpornotube.PornotubeIE
 		PuhuTVIE = Ωpuhutv.PuhuTVIE
 		PressTVIE = Ωpresstv.PressTVIE
@@ -812,7 +812,6 @@ func init() {
 			DailymotionIE,
 			DiggIE,
 			DotsubIE,
-			DRTVIE,
 			DiscoveryNetworksDeIE,
 			DisneyIE,
 			DigitallySpeakingIE,
@@ -911,6 +910,7 @@ func init() {
 			Porn91IE,
 			PornComIE,
 			PornHdIE,
+			PornHubIE,
 			PornotubeIE,
 			PuhuTVIE,
 			PressTVIE,

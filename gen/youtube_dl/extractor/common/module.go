@@ -2347,7 +2347,10 @@ func init() {
 										), λ.Cal(λ.GetAttr(ϒpart_of_season, "get", nil), λ.NewStr("@type"))))
 									}
 								}()) {
-									λ.SetItem(ϒinfo, λ.NewStr("season_number"), λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒpart_of_season, "get", nil), λ.NewStr("seasonNumber"))))
+									λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λ.NewStr("season"):        λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒpart_of_season, "get", nil), λ.NewStr("name"))),
+										λ.NewStr("season_number"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒpart_of_season, "get", nil), λ.NewStr("seasonNumber"))),
+									}))
 								}
 								ϒpart_of_series = func() λ.Object {
 									if λv := λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("partOfSeries")); λ.IsTrue(λv) {

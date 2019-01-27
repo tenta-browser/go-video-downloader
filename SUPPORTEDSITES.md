@@ -48,7 +48,6 @@ Supported sites
  * Dailymotion: `www.dailymotion.com`
  * Digg: `digg.com`
  * Dotsub: `dotsub.com`
- * DRTV: `www.dr.dk`
  * DiscoveryNetworksDe: `www.tlc.de`
  * Disney: `video.disney.com`
  * DigitallySpeaking: `evt.dispeak.com`
@@ -146,6 +145,7 @@ Supported sites
  * Porn91 _(adult)_: `91porn.com`
  * PornCom _(adult)_: `www.porn.com`
  * PornHd _(adult)_: `www.pornhd.com`
+ * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
  * PuhuTV: `puhutv.com`
  * PressTV: `www.presstv.ir`
