@@ -80,7 +80,6 @@ import (
 	Ωfacebook "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/facebook"
 	Ωfaz "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/faz"
 	Ωfivemin "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/fivemin"
-	Ωfivetv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/fivetv"
 	Ωflickr "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/flickr"
 	Ωformula1 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/formula1"
 	Ωfoxnews "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/foxnews"
@@ -157,10 +156,8 @@ import (
 	Ωpokemon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pokemon"
 	Ωporn91 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/porn91"
 	Ωporncom "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/porncom"
-	Ωpornhd "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhd"
 	Ωpornhub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhub"
 	Ωpornotube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornotube"
-	Ωpresstv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/presstv"
 	Ωpuhutv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/puhutv"
 	Ωradiode "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/radiode"
 	Ωradiojavan "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/radiojavan"
@@ -320,7 +317,6 @@ var (
 	FacebookPluginsVideoIE    λ.Object
 	FazIE                     λ.Object
 	FiveMinIE                 λ.Object
-	FiveTVIE                  λ.Object
 	FlickrIE                  λ.Object
 	Formula1IE                λ.Object
 	FoxNewsArticleIE          λ.Object
@@ -404,10 +400,8 @@ var (
 	PokemonIE                 λ.Object
 	Porn91IE                  λ.Object
 	PornComIE                 λ.Object
-	PornHdIE                  λ.Object
 	PornHubIE                 λ.Object
 	PornotubeIE               λ.Object
-	PressTVIE                 λ.Object
 	PuhuTVIE                  λ.Object
 	RBMARadioIE               λ.Object
 	RENTVIE                   λ.Object
@@ -574,7 +568,6 @@ func init() {
 		FacebookPluginsVideoIE = Ωfacebook.FacebookPluginsVideoIE
 		FazIE = Ωfaz.FazIE
 		FiveMinIE = Ωfivemin.FiveMinIE
-		FiveTVIE = Ωfivetv.FiveTVIE
 		FlickrIE = Ωflickr.FlickrIE
 		Formula1IE = Ωformula1.Formula1IE
 		FoxNewsIE = Ωfoxnews.FoxNewsIE
@@ -657,11 +650,9 @@ func init() {
 		PokemonIE = Ωpokemon.PokemonIE
 		Porn91IE = Ωporn91.Porn91IE
 		PornComIE = Ωporncom.PornComIE
-		PornHdIE = Ωpornhd.PornHdIE
 		PornHubIE = Ωpornhub.PornHubIE
 		PornotubeIE = Ωpornotube.PornotubeIE
 		PuhuTVIE = Ωpuhutv.PuhuTVIE
-		PressTVIE = Ωpresstv.PressTVIE
 		RadioDeIE = Ωradiode.RadioDeIE
 		RadioJavanIE = Ωradiojavan.RadioJavanIE
 		RaiIE = Ωrai.RaiIE
@@ -826,7 +817,6 @@ func init() {
 			FacebookPluginsVideoIE,
 			FazIE,
 			FiveMinIE,
-			FiveTVIE,
 			FlickrIE,
 			Formula1IE,
 			FoxNewsIE,
@@ -909,11 +899,9 @@ func init() {
 			PokemonIE,
 			Porn91IE,
 			PornComIE,
-			PornHdIE,
 			PornHubIE,
 			PornotubeIE,
 			PuhuTVIE,
-			PressTVIE,
 			RadioDeIE,
 			RadioJavanIE,
 			RaiIE,

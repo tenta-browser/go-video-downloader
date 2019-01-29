@@ -31,14 +31,16 @@ import (
 )
 
 var (
-	InfoExtractor λ.Object
-	YourPornIE    λ.Object
-	ϒurljoin      λ.Object
+	InfoExtractor   λ.Object
+	YourPornIE      λ.Object
+	ϒparse_duration λ.Object
+	ϒurljoin        λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒurljoin = Ωutils.ϒurljoin
 		YourPornIE = λ.Cal(λ.TypeType, λ.NewStr("YourPornIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
@@ -55,7 +57,11 @@ func init() {
 					λ.NewStr("ext"):       λ.NewStr("mp4"),
 					λ.NewStr("title"):     λ.NewStr("md5:c9f43630bd968267672651ba905a7d35"),
 					λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg$"),
+					λ.NewStr("duration"):  λ.NewInt(165),
 					λ.NewStr("age_limit"): λ.NewInt(18),
+				}),
+				λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("skip_download"): λ.True,
 				}),
 			})
 			YourPornIE__real_extract = λ.NewFunction("_real_extract",
@@ -66,6 +72,7 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
+						ϒduration  λ.Object
 						ϒself      = λargs[0]
 						ϒthumbnail λ.Object
 						ϒtitle     λ.Object
@@ -82,7 +89,7 @@ func init() {
 						λ.NewStr("data info"),
 					), λ.KWArgs{
 						{Name: "group", Value: λ.NewStr("data")},
-					}), ϒvideo_id), ϒvideo_id)), "replace", nil), λ.NewStr("/cdn/"), λ.NewStr("/cdn3/"))
+					}), ϒvideo_id), ϒvideo_id)), "replace", nil), λ.NewStr("/cdn/"), λ.NewStr("/cdn4/"))
 					ϒtitle = λ.Cal(λ.GetAttr(func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
 							λ.NewStr("<[^>]+\\bclass=[\"\\']PostEditTA[^>]+>([^<]+)"),
@@ -97,11 +104,19 @@ func init() {
 						}
 					}(), "strip", nil))
 					ϒthumbnail = λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage)
+					ϒduration = λ.Cal(ϒparse_duration, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+						λ.NewStr("duration\\s*:\\s*<[^>]+>([\\d:]+)"),
+						ϒwebpage,
+						λ.NewStr("duration"),
+					), λ.KWArgs{
+						{Name: "default", Value: λ.None},
+					}))
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):        ϒvideo_id,
 						λ.NewStr("url"):       ϒvideo_url,
 						λ.NewStr("title"):     ϒtitle,
 						λ.NewStr("thumbnail"): ϒthumbnail,
+						λ.NewStr("duration"):  ϒduration,
 						λ.NewStr("age_limit"): λ.NewInt(18),
 					})
 				})

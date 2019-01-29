@@ -62,7 +62,6 @@ Supported sites
  * FacebookPluginsVideo: `www.facebook.com`
  * Faz: `www.faz.net`
  * FiveMin: `pshared.5min.com`
- * FiveTV: `www.5-tv.ru`
  * Flickr: `www.flickr.com`
  * Formula1: `www.formula1.com`
  * FoxNews: `video.foxnews.com`
@@ -144,11 +143,9 @@ Supported sites
  * Pokemon: `www.pokemon.com`
  * Porn91 _(adult)_: `91porn.com`
  * PornCom _(adult)_: `www.porn.com`
- * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
  * PuhuTV: `puhutv.com`
- * PressTV: `www.presstv.ir`
  * RadioDe: `ndr2.radio.de`
  * RadioJavan: `www.radiojavan.com`
  * Rai: `www.raisport.rai.it`
