@@ -31,16 +31,20 @@ import (
 )
 
 var (
-	DrTuberIE     λ.Object
-	InfoExtractor λ.Object
-	NO_DEFAULT    λ.Object
-	ϒstr_to_int   λ.Object
+	DrTuberIE       λ.Object
+	InfoExtractor   λ.Object
+	NO_DEFAULT      λ.Object
+	ϒint_or_none    λ.Object
+	ϒparse_duration λ.Object
+	ϒstr_to_int     λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒint_or_none = Ωutils.ϒint_or_none
 		NO_DEFAULT = Ωutils.NO_DEFAULT
+		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		DrTuberIE = λ.Cal(λ.TypeType, λ.NewStr("DrTuberIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (

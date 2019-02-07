@@ -48,6 +48,7 @@ var (
 	ϒint_or_none                   λ.Object
 	ϒunified_strdate               λ.Object
 	ϒupdate_url_query              λ.Object
+	ϒurl_or_none                   λ.Object
 )
 
 func init() {
@@ -60,12 +61,13 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
+		ϒurl_or_none = Ωutils.ϒurl_or_none
 		SoundcloudIE = λ.Cal(λ.TypeType, λ.NewStr("SoundcloudIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SoundcloudIE__VALID_URL λ.Object
 			)
 			λ.NewStr("Information extractor for soundcloud.com\n       To access the media, the uid of the song and a stream token\n       must be extracted from the page source and the script must make\n       a request to media.soundcloud.com/crossdomain.xml. Then\n       the media can be grabbed by requesting from an url composed\n       of the stream token and uid\n     ")
-			SoundcloudIE__VALID_URL = λ.NewStr("(?x)^(?:https?://)?\n                    (?:(?:(?:www\\.|m\\.)?soundcloud\\.com/\n                            (?!stations/track)\n                            (?P<uploader>[\\w\\d-]+)/\n                            (?!(?:tracks|sets(?:/.+?)?|reposts|likes|spotlight)/?(?:$|[?#]))\n                            (?P<title>[\\w\\d-]+)/?\n                            (?P<token>[^?]+?)?(?:[?].*)?$)\n                       |(?:api\\.soundcloud\\.com/tracks/(?P<track_id>\\d+)\n                          (?:/?\\?secret_token=(?P<secret_token>[^&]+))?)\n                       |(?P<player>(?:w|player|p.)\\.soundcloud\\.com/player/?.*?url=.*)\n                    )\n                    ")
+			SoundcloudIE__VALID_URL = λ.NewStr("(?x)^(?:https?://)?\n                    (?:(?:(?:www\\.|m\\.)?soundcloud\\.com/\n                            (?!stations/track)\n                            (?P<uploader>[\\w\\d-]+)/\n                            (?!(?:tracks|albums|sets(?:/.+?)?|reposts|likes|spotlight)/?(?:$|[?#]))\n                            (?P<title>[\\w\\d-]+)/?\n                            (?P<token>[^?]+?)?(?:[?].*)?$)\n                       |(?:api\\.soundcloud\\.com/tracks/(?P<track_id>\\d+)\n                          (?:/?\\?secret_token=(?P<secret_token>[^&]+))?)\n                       |(?P<player>(?:w|player|p.)\\.soundcloud\\.com/player/?.*?url=.*)\n                    )\n                    ")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): SoundcloudIE__VALID_URL,
 			})
@@ -85,13 +87,10 @@ func init() {
 		}())
 		SoundcloudPagedPlaylistBaseIE = λ.Cal(λ.TypeType, λ.NewStr("SoundcloudPagedPlaylistBaseIE"), λ.NewTuple(SoundcloudPlaylistBaseIE), func() λ.Dict {
 			var (
-				SoundcloudPagedPlaylistBaseIE__API_BASE    λ.Object
 				SoundcloudPagedPlaylistBaseIE__API_V2_BASE λ.Object
 			)
-			SoundcloudPagedPlaylistBaseIE__API_BASE = λ.NewStr("https://api.soundcloud.com")
 			SoundcloudPagedPlaylistBaseIE__API_V2_BASE = λ.NewStr("https://api-v2.soundcloud.com")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_API_BASE"):    SoundcloudPagedPlaylistBaseIE__API_BASE,
 				λ.NewStr("_API_V2_BASE"): SoundcloudPagedPlaylistBaseIE__API_V2_BASE,
 			})
 		}())
@@ -99,7 +98,7 @@ func init() {
 			var (
 				SoundcloudUserIE__VALID_URL λ.Object
 			)
-			SoundcloudUserIE__VALID_URL = λ.NewStr("(?x)\n                        https?://\n                            (?:(?:www|m)\\.)?soundcloud\\.com/\n                            (?P<user>[^/]+)\n                            (?:/\n                                (?P<rsrc>tracks|sets|reposts|likes|spotlight)\n                            )?\n                            /?(?:[?#].*)?$\n                    ")
+			SoundcloudUserIE__VALID_URL = λ.NewStr("(?x)\n                        https?://\n                            (?:(?:www|m)\\.)?soundcloud\\.com/\n                            (?P<user>[^/]+)\n                            (?:/\n                                (?P<rsrc>tracks|albums|sets|reposts|likes|spotlight)\n                            )?\n                            /?(?:[?#].*)?$\n                    ")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): SoundcloudUserIE__VALID_URL,
 			})

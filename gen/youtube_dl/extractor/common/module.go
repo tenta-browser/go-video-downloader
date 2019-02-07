@@ -180,7 +180,6 @@ func init() {
 				InfoExtractor__og_search_property          λ.Object
 				InfoExtractor__og_search_thumbnail         λ.Object
 				InfoExtractor__og_search_title             λ.Object
-				InfoExtractor__og_search_url               λ.Object
 				InfoExtractor__og_search_video_url         λ.Object
 				InfoExtractor__parse_f4m_formats           λ.Object
 				InfoExtractor__parse_html5_media_entries   λ.Object
@@ -1775,7 +1774,7 @@ func init() {
 						ϒtemplate    λ.Object
 					)
 					ϒcontent_re = λ.NewStr("content=(?:\"([^\"]+?)\"|\\'([^\\']+?)\\'|\\s*([^\\s\"\\'=<>`]+?))")
-					ϒproperty_re = λ.Mod(λ.NewStr("(?:name|property)=(?:\\'og:%(prop)s\\'|\"og:%(prop)s\"|\\s*og:%(prop)s\\b)"), λ.NewDictWithTable(map[λ.Object]λ.Object{
+					ϒproperty_re = λ.Mod(λ.NewStr("(?:name|property)=(?:\\'og[:-]%(prop)s\\'|\"og[:-]%(prop)s\"|\\s*og[:-]%(prop)s\\b)"), λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("prop"): λ.Cal(Ωre.ϒescape, ϒprop),
 					}))
 					ϒtemplate = λ.NewStr("<meta[^>]+?%s[^>]+?%s")
@@ -1940,25 +1939,6 @@ func init() {
 						ϒregexes,
 						ϒhtml,
 						ϒname,
-					), λ.KWArgs{
-						{Name: "", Value: ϒkargs},
-					})
-				})
-			InfoExtractor__og_search_url = λ.NewFunction("_og_search_url",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "html"},
-				},
-				0, false, true,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒhtml  = λargs[1]
-						ϒkargs = λargs[2]
-						ϒself  = λargs[0]
-					)
-					return λ.Call(λ.GetAttr(ϒself, "_og_search_property", nil), λ.NewArgs(
-						λ.NewStr("url"),
-						ϒhtml,
 					), λ.KWArgs{
 						{Name: "", Value: ϒkargs},
 					})
@@ -5920,7 +5900,6 @@ func init() {
 				λ.NewStr("_og_search_property"):          InfoExtractor__og_search_property,
 				λ.NewStr("_og_search_thumbnail"):         InfoExtractor__og_search_thumbnail,
 				λ.NewStr("_og_search_title"):             InfoExtractor__og_search_title,
-				λ.NewStr("_og_search_url"):               InfoExtractor__og_search_url,
 				λ.NewStr("_og_search_video_url"):         InfoExtractor__og_search_video_url,
 				λ.NewStr("_parse_f4m_formats"):           InfoExtractor__parse_f4m_formats,
 				λ.NewStr("_parse_html5_media_entries"):   InfoExtractor__parse_html5_media_entries,

@@ -73,6 +73,7 @@ var (
 	ϒsanitize_url          λ.Object
 	ϒsanitized_Request     λ.Object
 	ϒstd_headers           λ.Object
+	ϒstr_or_none           λ.Object
 	ϒurl_basename          λ.Object
 )
 
@@ -104,6 +105,7 @@ func init() {
 		ϒsanitize_url = Ωutils.ϒsanitize_url
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		ϒstd_headers = Ωutils.ϒstd_headers
+		ϒstr_or_none = Ωutils.ϒstr_or_none
 		UnavailableVideoError = Ωutils.UnavailableVideoError
 		ϒurl_basename = Ωutils.ϒurl_basename
 		ϒget_info_extractor = Ωextractor.ϒget_info_extractor

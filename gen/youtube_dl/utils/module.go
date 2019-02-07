@@ -273,7 +273,7 @@ func init() {
 			λ.NewStr("%m/%d/%y"),
 			λ.NewStr("%m/%d/%Y %H:%M:%S"),
 		))
-		JSON_LD_RE = λ.NewStr("(?is)<script[^>]+type=([\"\\'])application/ld\\+json\\1[^>]*>(?P<json_ld>.+?)</script>")
+		JSON_LD_RE = λ.NewStr("(?is)<script[^>]+type=([\"\\']?)application/ld\\+json\\1[^>]*>(?P<json_ld>.+?)</script>")
 		ϒpreferredencoding = λ.NewFunction("preferredencoding",
 			nil,
 			0, false, false,

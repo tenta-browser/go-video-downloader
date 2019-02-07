@@ -33,7 +33,6 @@ import (
 	Ωaparat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/aparat"
 	Ωard "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ard"
 	Ωaudimedia "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/audimedia"
-	Ωaudioboom "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/audioboom"
 	Ωaudiomack "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/audiomack"
 	Ωbandcamp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bandcamp"
 	Ωbeatport "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/beatport"
@@ -105,7 +104,6 @@ import (
 	Ωir90tv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ir90tv"
 	Ωivideon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ivideon"
 	Ωizlesene "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/izlesene"
-	Ωjamendo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/jamendo"
 	Ωjeuxvideo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/jeuxvideo"
 	Ωjoj "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/joj"
 	Ωjwplatform "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/jwplatform"
@@ -134,7 +132,6 @@ import (
 	Ωndtv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ndtv"
 	Ωnetzkino "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/netzkino"
 	Ωnewgrounds "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/newgrounds"
-	Ωnextmedia "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nextmedia"
 	Ωnexx "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nexx"
 	Ωnhl "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nhl"
 	Ωnova "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nova"
@@ -156,6 +153,7 @@ import (
 	Ωpokemon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pokemon"
 	Ωporn91 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/porn91"
 	Ωporncom "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/porncom"
+	Ωpornhd "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhd"
 	Ωpornhub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhub"
 	Ωpornotube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornotube"
 	Ωpuhutv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/puhutv"
@@ -219,7 +217,6 @@ import (
 	Ωvarzesh3 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/varzesh3"
 	Ωvbox7 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vbox7"
 	Ωveehd "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/veehd"
-	Ωveoh "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/veoh"
 	Ωvesti "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vesti"
 	Ωvevo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vevo"
 	Ωvgtv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vgtv"
@@ -264,7 +261,6 @@ var (
 	AolIE                     λ.Object
 	AparatIE                  λ.Object
 	AudiMediaIE               λ.Object
-	AudioBoomIE               λ.Object
 	AudiomackIE               λ.Object
 	BRIE                      λ.Object
 	BandcampIE                λ.Object
@@ -345,7 +341,6 @@ var (
 	IvideonIE                 λ.Object
 	IzleseneIE                λ.Object
 	JWPlatformIE              λ.Object
-	JamendoIE                 λ.Object
 	JeuxVideoIE               λ.Object
 	JojIE                     λ.Object
 	KeezMoviesIE              λ.Object
@@ -378,8 +373,6 @@ var (
 	NTVRuIE                   λ.Object
 	NetzkinoIE                λ.Object
 	NewgroundsIE              λ.Object
-	NextMediaActionNewsIE     λ.Object
-	NextTVIE                  λ.Object
 	NexxIE                    λ.Object
 	NovaEmbedIE               λ.Object
 	NownessIE                 λ.Object
@@ -400,6 +393,7 @@ var (
 	PokemonIE                 λ.Object
 	Porn91IE                  λ.Object
 	PornComIE                 λ.Object
+	PornHdIE                  λ.Object
 	PornHubIE                 λ.Object
 	PornotubeIE               λ.Object
 	PuhuTVIE                  λ.Object
@@ -471,7 +465,6 @@ var (
 	Varzesh3IE                λ.Object
 	Vbox7IE                   λ.Object
 	VeeHDIE                   λ.Object
-	VeohIE                    λ.Object
 	VestiIE                   λ.Object
 	VevoIE                    λ.Object
 	VidLiiIE                  λ.Object
@@ -517,7 +510,6 @@ func init() {
 		ARDIE = Ωard.ARDIE
 		ARDMediathekIE = Ωard.ARDMediathekIE
 		AudiMediaIE = Ωaudimedia.AudiMediaIE
-		AudioBoomIE = Ωaudioboom.AudioBoomIE
 		AudiomackIE = Ωaudiomack.AudiomackIE
 		BandcampIE = Ωbandcamp.BandcampIE
 		BandcampWeeklyIE = Ωbandcamp.BandcampWeeklyIE
@@ -596,7 +588,6 @@ func init() {
 		Ir90TvIE = Ωir90tv.Ir90TvIE
 		IvideonIE = Ωivideon.IvideonIE
 		IzleseneIE = Ωizlesene.IzleseneIE
-		JamendoIE = Ωjamendo.JamendoIE
 		JeuxVideoIE = Ωjeuxvideo.JeuxVideoIE
 		JojIE = Ωjoj.JojIE
 		JWPlatformIE = Ωjwplatform.JWPlatformIE
@@ -627,8 +618,6 @@ func init() {
 		NDTVIE = Ωndtv.NDTVIE
 		NetzkinoIE = Ωnetzkino.NetzkinoIE
 		NewgroundsIE = Ωnewgrounds.NewgroundsIE
-		NextMediaActionNewsIE = Ωnextmedia.NextMediaActionNewsIE
-		NextTVIE = Ωnextmedia.NextTVIE
 		NexxIE = Ωnexx.NexxIE
 		NHLIE = Ωnhl.NHLIE
 		NovaEmbedIE = Ωnova.NovaEmbedIE
@@ -650,6 +639,7 @@ func init() {
 		PokemonIE = Ωpokemon.PokemonIE
 		Porn91IE = Ωporn91.Porn91IE
 		PornComIE = Ωporncom.PornComIE
+		PornHdIE = Ωpornhd.PornHdIE
 		PornHubIE = Ωpornhub.PornHubIE
 		PornotubeIE = Ωpornotube.PornotubeIE
 		PuhuTVIE = Ωpuhutv.PuhuTVIE
@@ -721,7 +711,6 @@ func init() {
 		Varzesh3IE = Ωvarzesh3.Varzesh3IE
 		Vbox7IE = Ωvbox7.Vbox7IE
 		VeeHDIE = Ωveehd.VeeHDIE
-		VeohIE = Ωveoh.VeohIE
 		VestiIE = Ωvesti.VestiIE
 		VevoIE = Ωvevo.VevoIE
 		VGTVIE = Ωvgtv.VGTVIE
@@ -766,7 +755,6 @@ func init() {
 			ARDIE,
 			ARDMediathekIE,
 			AudiMediaIE,
-			AudioBoomIE,
 			AudiomackIE,
 			BandcampIE,
 			BandcampWeeklyIE,
@@ -845,7 +833,6 @@ func init() {
 			Ir90TvIE,
 			IvideonIE,
 			IzleseneIE,
-			JamendoIE,
 			JeuxVideoIE,
 			JojIE,
 			JWPlatformIE,
@@ -876,8 +863,6 @@ func init() {
 			NDTVIE,
 			NetzkinoIE,
 			NewgroundsIE,
-			NextMediaActionNewsIE,
-			NextTVIE,
 			NexxIE,
 			NHLIE,
 			NovaEmbedIE,
@@ -899,6 +884,7 @@ func init() {
 			PokemonIE,
 			Porn91IE,
 			PornComIE,
+			PornHdIE,
 			PornHubIE,
 			PornotubeIE,
 			PuhuTVIE,
@@ -970,7 +956,6 @@ func init() {
 			Varzesh3IE,
 			Vbox7IE,
 			VeeHDIE,
-			VeohIE,
 			VestiIE,
 			VevoIE,
 			VGTVIE,

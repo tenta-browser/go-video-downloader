@@ -32,18 +32,21 @@ import (
 )
 
 var (
-	ExtractorError    λ.Object
-	InfoExtractor     λ.Object
-	SpankBangIE       λ.Object
-	ϒparse_duration   λ.Object
-	ϒparse_resolution λ.Object
-	ϒstr_to_int       λ.Object
+	ExtractorError      λ.Object
+	InfoExtractor       λ.Object
+	SpankBangIE         λ.Object
+	SpankBangPlaylistIE λ.Object
+	ϒorderedSet         λ.Object
+	ϒparse_duration     λ.Object
+	ϒparse_resolution   λ.Object
+	ϒstr_to_int         λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ExtractorError = Ωutils.ExtractorError
+		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒparse_resolution = Ωutils.ϒparse_resolution
 		ϒstr_to_int = Ωutils.ϒstr_to_int
@@ -53,7 +56,7 @@ func init() {
 				SpankBangIE__VALID_URL    λ.Object
 				SpankBangIE__real_extract λ.Object
 			)
-			SpankBangIE__VALID_URL = λ.NewStr("https?://(?:(?:www|m|[a-z]{2})\\.)?spankbang\\.com/(?P<id>[\\da-z]+)/video")
+			SpankBangIE__VALID_URL = λ.NewStr("https?://(?:[^/]+\\.)?spankbang\\.com/(?P<id>[\\da-z]+)/(?:video|play|embed)\\b")
 			SpankBangIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://spankbang.com/3vvn/video/fantasy+solo"),
@@ -82,6 +85,18 @@ func init() {
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"):           λ.NewStr("https://spankbang.com/1vwqx/video/jade+kush+solo+4k"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://m.spankbang.com/3vvn/play/fantasy+solo/480p/"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://m.spankbang.com/3vvn/play"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://spankbang.com/2y3td/embed/"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
 			)
@@ -115,7 +130,7 @@ func init() {
 					)
 					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
 					ϒwebpage = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
-						ϒurl,
+						λ.Cal(λ.GetAttr(ϒurl, "replace", nil), λ.Mod(λ.NewStr("/%s/embed"), ϒvideo_id), λ.Mod(λ.NewStr("/%s/video"), ϒvideo_id)),
 						ϒvideo_id,
 					), λ.KWArgs{
 						{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -192,6 +207,15 @@ func init() {
 				λ.NewStr("_TESTS"):        SpankBangIE__TESTS,
 				λ.NewStr("_VALID_URL"):    SpankBangIE__VALID_URL,
 				λ.NewStr("_real_extract"): SpankBangIE__real_extract,
+			})
+		}())
+		SpankBangPlaylistIE = λ.Cal(λ.TypeType, λ.NewStr("SpankBangPlaylistIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+			var (
+				SpankBangPlaylistIE__VALID_URL λ.Object
+			)
+			SpankBangPlaylistIE__VALID_URL = λ.NewStr("https?://(?:[^/]+\\.)?spankbang\\.com/(?P<id>[\\da-z]+)/playlist/[^/]+")
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_VALID_URL"): SpankBangPlaylistIE__VALID_URL,
 			})
 		}())
 	})

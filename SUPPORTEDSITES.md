@@ -11,7 +11,6 @@ Supported sites
  * ARD: `www.daserste.de`
  * ARDMediathek: `www.ardmediathek.de`
  * AudiMedia: `www.audi-mediacenter.com`
- * AudioBoom: `audioboom.com`
  * Audiomack: `www.audiomack.com`
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
@@ -90,7 +89,6 @@ Supported sites
  * Ir90Tv: `90tv.ir`
  * Ivideon: `www.ivideon.com`
  * Izlesene: `www.izlesene.com`
- * Jamendo: `www.jamendo.com`
  * JeuxVideo: `www.jeuxvideo.com`
  * Joj: `media.joj.sk`
  * JWPlatform: `content.jwplatform.com`
@@ -121,8 +119,6 @@ Supported sites
  * NDTV: `movies.ndtv.com`
  * Netzkino: `www.netzkino.de`
  * Newgrounds: `www.newgrounds.com`
- * NextMediaActionNews: `hk.dv.nextmedia.com`
- * NextTV: `www.nexttv.com.tw`
  * NHL: `www.nhl.com`
  * NovaEmbed: `media.cms.nova.cz`
  * Nowness: `www.nowness.com`
@@ -143,6 +139,7 @@ Supported sites
  * Pokemon: `www.pokemon.com`
  * Porn91 _(adult)_: `91porn.com`
  * PornCom _(adult)_: `www.porn.com`
+ * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
  * PuhuTV: `puhutv.com`
@@ -214,7 +211,6 @@ Supported sites
  * Varzesh3: `video.varzesh3.com`
  * Vbox7: `vbox7.com`
  * VeeHD: `veehd.com`
- * Veoh: `www.veoh.com`
  * Vesti: `www.vesti.ru`
  * Vevo _(adult)_: `www.vevo.com`
  * VGTV: `www.vgtv.no`

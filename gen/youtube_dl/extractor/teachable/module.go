@@ -63,13 +63,14 @@ func init() {
 			)
 			TeachableBaseIE__URL_PREFIX = λ.NewStr("teachable:")
 			TeachableBaseIE__SITES = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("upskillcourses.com"):     λ.NewStr("upskill"),
-				λ.NewStr("academy.gns3.com"):       λ.NewStr("gns3"),
-				λ.NewStr("academyhacker.com"):      λ.NewStr("academyhacker"),
-				λ.NewStr("stackskills.com"):        λ.NewStr("stackskills"),
-				λ.NewStr("market.saleshacker.com"): λ.NewStr("saleshacker"),
-				λ.NewStr("learnability.org"):       λ.NewStr("learnability"),
-				λ.NewStr("edurila.com"):            λ.NewStr("edurila"),
+				λ.NewStr("upskillcourses.com"):      λ.NewStr("upskill"),
+				λ.NewStr("academy.gns3.com"):        λ.NewStr("gns3"),
+				λ.NewStr("academyhacker.com"):       λ.NewStr("academyhacker"),
+				λ.NewStr("stackskills.com"):         λ.NewStr("stackskills"),
+				λ.NewStr("market.saleshacker.com"):  λ.NewStr("saleshacker"),
+				λ.NewStr("learnability.org"):        λ.NewStr("learnability"),
+				λ.NewStr("edurila.com"):             λ.NewStr("edurila"),
+				λ.NewStr("courses.workitdaily.com"): λ.NewStr("workitdaily"),
 			})
 			TeachableBaseIE__VALID_URL_SUB_TUPLE = λ.NewTuple(
 				TeachableBaseIE__URL_PREFIX,

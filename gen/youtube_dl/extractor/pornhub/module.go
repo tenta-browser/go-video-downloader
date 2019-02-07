@@ -44,7 +44,6 @@ var (
 	ϒcompat_HTTPError     λ.Object
 	ϒcompat_str           λ.Object
 	ϒint_or_none          λ.Object
-	ϒjs_to_json           λ.Object
 	ϒorderedSet           λ.Object
 	ϒstr_to_int           λ.Object
 	ϒurl_or_none          λ.Object
@@ -57,7 +56,6 @@ func init() {
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		ϒurl_or_none = Ωutils.ϒurl_or_none
@@ -294,13 +292,13 @@ func init() {
 					var (
 						ϒassignments       λ.Object
 						ϒassn              λ.Object
-						ϒcategories        λ.Object
 						ϒcomment_count     λ.Object
 						ϒdefinition        λ.Object
 						ϒdislike_count     λ.Object
 						ϒdl_webpage        λ.Object
 						ϒduration          λ.Object
 						ϒerror_msg         λ.Object
+						ϒextract_list      λ.Object
 						ϒflashvars         λ.Object
 						ϒformats           λ.Object
 						ϒheight            λ.Object
@@ -309,12 +307,10 @@ func init() {
 						ϒlike_count        λ.Object
 						ϒmedia_definitions λ.Object
 						ϒmobj              λ.Object
-						ϒpage_params       λ.Object
 						ϒparse_js_value    λ.Object
 						ϒself              = λargs[0]
 						ϒsubtitle_url      λ.Object
 						ϒsubtitles         λ.Object
-						ϒtags              λ.Object
 						ϒtbr               λ.Object
 						ϒthumbnail         λ.Object
 						ϒtitle             λ.Object
@@ -573,27 +569,28 @@ func init() {
 					ϒlike_count = λ.Cal(λ.GetAttr(ϒself, "_extract_count", nil), λ.NewStr("<span class=\"votesUp\">([\\d,\\.]+)</span>"), ϒwebpage, λ.NewStr("like"))
 					ϒdislike_count = λ.Cal(λ.GetAttr(ϒself, "_extract_count", nil), λ.NewStr("<span class=\"votesDown\">([\\d,\\.]+)</span>"), ϒwebpage, λ.NewStr("dislike"))
 					ϒcomment_count = λ.Cal(λ.GetAttr(ϒself, "_extract_count", nil), λ.NewStr("All Comments\\s*<span>\\(([\\d,.]+)\\)"), ϒwebpage, λ.NewStr("comment"))
-					ϒpage_params = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
-						λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("page_params\\.zoneDetails\\[([\\'\"])[^\\'\"]+\\1\\]\\s*=\\s*(?P<data>{[^}]+})"),
-							ϒwebpage,
-							λ.NewStr("page parameters"),
-						), λ.KWArgs{
-							{Name: "group", Value: λ.NewStr("data")},
-							{Name: "default", Value: λ.NewStr("{}")},
-						}),
-						ϒvideo_id,
-					), λ.KWArgs{
-						{Name: "transform_source", Value: ϒjs_to_json},
-						{Name: "fatal", Value: λ.False},
-					})
-					τmp0 = λ.None
-					ϒtags = τmp0
-					ϒcategories = τmp0
-					if λ.IsTrue(ϒpage_params) {
-						ϒtags = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒpage_params, "get", nil), λ.NewStr("tags"), λ.NewStr("")), "split", nil), λ.NewStr(","))
-						ϒcategories = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒpage_params, "get", nil), λ.NewStr("categories"), λ.NewStr("")), "split", nil), λ.NewStr(","))
-					}
+					ϒextract_list = λ.NewFunction("extract_list",
+						[]λ.Param{
+							{Name: "meta_key"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒdiv      λ.Object
+								ϒmeta_key = λargs[0]
+							)
+							ϒdiv = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+								λ.Mod(λ.NewStr("(?s)<div[^>]+\\bclass=[\"\\'].*?\\b%sWrapper[^>]*>(.+?)</div>"), ϒmeta_key),
+								ϒwebpage,
+								ϒmeta_key,
+							), λ.KWArgs{
+								{Name: "default", Value: λ.None},
+							})
+							if λ.IsTrue(ϒdiv) {
+								return λ.Cal(Ωre.ϒfindall, λ.NewStr("<a[^>]+\\bhref=[^>]+>([^<]+)"), ϒdiv)
+							}
+							return λ.None
+						})
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):            ϒvideo_id,
 						λ.NewStr("uploader"):      ϒvideo_uploader,
@@ -607,8 +604,8 @@ func init() {
 						λ.NewStr("comment_count"): ϒcomment_count,
 						λ.NewStr("formats"):       ϒformats,
 						λ.NewStr("age_limit"):     λ.NewInt(18),
-						λ.NewStr("tags"):          ϒtags,
-						λ.NewStr("categories"):    ϒcategories,
+						λ.NewStr("tags"):          λ.Cal(ϒextract_list, λ.NewStr("tags")),
+						λ.NewStr("categories"):    λ.Cal(ϒextract_list, λ.NewStr("categories")),
 						λ.NewStr("subtitles"):     ϒsubtitles,
 					})
 				})
