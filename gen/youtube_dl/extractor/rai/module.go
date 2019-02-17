@@ -375,7 +375,7 @@ func init() {
 				RaiIE__extract_from_content_id λ.Object
 				RaiIE__real_extract            λ.Object
 			)
-			RaiIE__VALID_URL = λ.Mod(λ.NewStr("https?://[^/]+\\.(?:rai\\.(?:it|tv)|rainews\\.it)/dl/.+?-(?P<id>%s)(?:-.+?)?\\.html"), λ.GetAttr(RaiBaseIE, "_UUID_RE", nil))
+			RaiIE__VALID_URL = λ.Mod(λ.NewStr("https?://[^/]+\\.(?:rai\\.(?:it|tv)|rainews\\.it)/.+?-(?P<id>%s)(?:-.+?)?\\.html"), λ.GetAttr(RaiBaseIE, "_UUID_RE", nil))
 			RaiIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://www.raisport.rai.it/dl/raiSport/media/rassegna-stampa-04a9f4bd-b563-40cf-82a6-aad3529cb4a9.html"),
@@ -460,6 +460,10 @@ func init() {
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"):           λ.NewStr("http://www.rai.it/dl/RaiTV/programmi/media/ContentItem-b63a4089-ac28-48cf-bca5-9f5b5bc46df5.html"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://www.rainews.it/tgr/marche/notiziari/video/2019/02/ContentItem-6ba945a2-889c-4a80-bdeb-8489c70a8db9.html"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
 			)

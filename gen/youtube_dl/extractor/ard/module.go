@@ -514,99 +514,11 @@ func init() {
 		}())
 		ARDIE = λ.Cal(λ.TypeType, λ.NewStr("ARDIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ARDIE__TESTS        λ.Object
-				ARDIE__VALID_URL    λ.Object
-				ARDIE__real_extract λ.Object
+				ARDIE__VALID_URL λ.Object
 			)
 			ARDIE__VALID_URL = λ.NewStr("(?P<mainurl>https?://(www\\.)?daserste\\.de/[^?#]+/videos/(?P<display_id>[^/?#]+)-(?P<id>[0-9]+))\\.html")
-			ARDIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.daserste.de/information/talk/maischberger/videos/das-groko-drama-zerlegen-sich-die-volksparteien-video-102.html"),
-					λ.NewStr("md5"): λ.NewStr("8e4ec85f31be7c7fc08a26cdbc5a1f49"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("display_id"):  λ.NewStr("das-groko-drama-zerlegen-sich-die-volksparteien-video"),
-						λ.NewStr("id"):          λ.NewStr("102"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("duration"):    λ.NewFloat(4435.0),
-						λ.NewStr("title"):       λ.NewStr("Das GroKo-Drama: Zerlegen sich die Volksparteien?"),
-						λ.NewStr("upload_date"): λ.NewStr("20180214"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.daserste.de/information/reportage-dokumentation/dokus/videos/die-story-im-ersten-mission-unter-falscher-flagge-100.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
-			ARDIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒa           λ.Object
-						ϒdisplay_id  λ.Object
-						ϒdoc         λ.Object
-						ϒf           λ.Object
-						ϒformats     λ.Object
-						ϒmobj        λ.Object
-						ϒplayer_url  λ.Object
-						ϒself        = λargs[0]
-						ϒthumbnail   λ.Object
-						ϒupload_date λ.Object
-						ϒurl         = λargs[1]
-						ϒvideo_node  λ.Object
-						τmp0         λ.Object
-						τmp1         λ.Object
-					)
-					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("display_id"))
-					ϒplayer_url = λ.Add(λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("mainurl")), λ.NewStr("~playerXml.xml"))
-					ϒdoc = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), ϒplayer_url, ϒdisplay_id)
-					ϒvideo_node = λ.Cal(λ.GetAttr(ϒdoc, "find", nil), λ.NewStr("./video"))
-					ϒupload_date = λ.Cal(ϒunified_strdate, λ.Cal(ϒxpath_text, ϒvideo_node, λ.NewStr("./broadcastDate")))
-					ϒthumbnail = λ.Cal(ϒxpath_text, ϒvideo_node, λ.NewStr(".//teaserImage//variant/url"))
-					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒvideo_node, "findall", nil), λ.NewStr(".//asset")))
-					for {
-						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-							break
-						}
-						ϒa = τmp1
-						ϒf = λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("format_id"): λ.GetItem(λ.GetAttr(ϒa, "attrib", nil), λ.NewStr("type")),
-							λ.NewStr("width"):     λ.Cal(ϒint_or_none, λ.GetAttr(λ.Cal(λ.GetAttr(ϒa, "find", nil), λ.NewStr("./frameWidth")), "text", nil)),
-							λ.NewStr("height"):    λ.Cal(ϒint_or_none, λ.GetAttr(λ.Cal(λ.GetAttr(ϒa, "find", nil), λ.NewStr("./frameHeight")), "text", nil)),
-							λ.NewStr("vbr"):       λ.Cal(ϒint_or_none, λ.GetAttr(λ.Cal(λ.GetAttr(ϒa, "find", nil), λ.NewStr("./bitrateVideo")), "text", nil)),
-							λ.NewStr("abr"):       λ.Cal(ϒint_or_none, λ.GetAttr(λ.Cal(λ.GetAttr(ϒa, "find", nil), λ.NewStr("./bitrateAudio")), "text", nil)),
-							λ.NewStr("vcodec"):    λ.GetAttr(λ.Cal(λ.GetAttr(ϒa, "find", nil), λ.NewStr("./codecVideo")), "text", nil),
-							λ.NewStr("tbr"):       λ.Cal(ϒint_or_none, λ.GetAttr(λ.Cal(λ.GetAttr(ϒa, "find", nil), λ.NewStr("./totalBitrate")), "text", nil)),
-						})
-						if λ.IsTrue(λ.GetAttr(λ.Cal(λ.GetAttr(ϒa, "find", nil), λ.NewStr("./serverPrefix")), "text", nil)) {
-							λ.SetItem(ϒf, λ.NewStr("url"), λ.GetAttr(λ.Cal(λ.GetAttr(ϒa, "find", nil), λ.NewStr("./serverPrefix")), "text", nil))
-							λ.SetItem(ϒf, λ.NewStr("playpath"), λ.GetAttr(λ.Cal(λ.GetAttr(ϒa, "find", nil), λ.NewStr("./fileName")), "text", nil))
-						} else {
-							λ.SetItem(ϒf, λ.NewStr("url"), λ.GetAttr(λ.Cal(λ.GetAttr(ϒa, "find", nil), λ.NewStr("./fileName")), "text", nil))
-						}
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)
-					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id")),
-						λ.NewStr("formats"):     ϒformats,
-						λ.NewStr("display_id"):  ϒdisplay_id,
-						λ.NewStr("title"):       λ.GetAttr(λ.Cal(λ.GetAttr(ϒvideo_node, "find", nil), λ.NewStr("./title")), "text", nil),
-						λ.NewStr("duration"):    λ.Cal(ϒparse_duration, λ.GetAttr(λ.Cal(λ.GetAttr(ϒvideo_node, "find", nil), λ.NewStr("./duration")), "text", nil)),
-						λ.NewStr("upload_date"): ϒupload_date,
-						λ.NewStr("thumbnail"):   ϒthumbnail,
-					})
-				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        ARDIE__TESTS,
-				λ.NewStr("_VALID_URL"):    ARDIE__VALID_URL,
-				λ.NewStr("_real_extract"): ARDIE__real_extract,
+				λ.NewStr("_VALID_URL"): ARDIE__VALID_URL,
 			})
 		}())
 		ARDBetaMediathekIE = λ.Cal(λ.TypeType, λ.NewStr("ARDBetaMediathekIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

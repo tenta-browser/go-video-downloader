@@ -46,7 +46,8 @@ var (
 	ϒcompat_str                    λ.Object
 	ϒcompat_urllib_parse_urlencode λ.Object
 	ϒint_or_none                   λ.Object
-	ϒunified_strdate               λ.Object
+	ϒtry_get                       λ.Object
+	ϒunified_timestamp             λ.Object
 	ϒupdate_url_query              λ.Object
 	ϒurl_or_none                   λ.Object
 )
@@ -59,7 +60,8 @@ func init() {
 		ϒcompat_urllib_parse_urlencode = Ωcompat.ϒcompat_urllib_parse_urlencode
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ϒunified_strdate = Ωutils.ϒunified_strdate
+		ϒtry_get = Ωutils.ϒtry_get
+		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		SoundcloudIE = λ.Cal(λ.TypeType, λ.NewStr("SoundcloudIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

@@ -73,6 +73,10 @@ func init() {
 					λ.NewStr("url"):           λ.NewStr("https://i.imgur.com/crGpqCV.mp4"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://i.imgur.com/jxBXAMC.gifv"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
 			)
 			ImgurIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -176,7 +180,9 @@ func init() {
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):      ϒvideo_id,
 						λ.NewStr("formats"): ϒformats,
-						λ.NewStr("title"):   λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage),
+						λ.NewStr("title"): λ.Call(λ.GetAttr(ϒself, "_og_search_title", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
+							{Name: "default", Value: ϒvideo_id},
+						}),
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{

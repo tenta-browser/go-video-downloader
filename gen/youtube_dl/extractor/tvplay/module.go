@@ -378,14 +378,8 @@ func init() {
 					)
 					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
 					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒvideo_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("data-asset-id\\s*=\\s*[\"\\'](\\d{5,7})\\b"),
-						ϒwebpage,
-						λ.NewStr("video id"),
-					), λ.KWArgs{
-						{Name: "default", Value: λ.None},
-					})
-					if λ.IsTrue(ϒvideo_id) {
+					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("data-asset-id\\s*=\\s*[\"\\'](\\d{5,})\\b"), ϒwebpage, λ.NewStr("video id"))
+					if λ.IsTrue(λ.Lt(λ.Cal(λ.BuiltinLen, ϒvideo_id), λ.NewInt(8))) {
 						return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(λ.Mod(λ.NewStr("mtg:%s"), ϒvideo_id)), λ.KWArgs{
 							{Name: "ie", Value: λ.Cal(λ.GetAttr(TVPlayIE, "ie_key", nil))},
 							{Name: "video_id", Value: ϒvideo_id},
@@ -493,7 +487,10 @@ func init() {
 						{Name: "default", Value: λ.None},
 					}))
 					ϒepisode = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("([\"\\'])(?P<value>(?:(?!\\1).)+)\\1"),
+						λ.NewTuple(
+							λ.NewStr("\\bepisode\\s*:\\s*([\"\\'])(?P<value>(?:(?!\\1).)+)\\1"),
+							λ.NewStr("data-subtitle\\s*=\\s*([\"\\'])(?P<value>(?:(?!\\1).)+)\\1"),
+						),
 						ϒwebpage,
 						λ.NewStr("episode"),
 					), λ.KWArgs{

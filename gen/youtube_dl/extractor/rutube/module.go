@@ -97,7 +97,7 @@ func init() {
 				λ.NewStr("suitable"):   RutubeIE_suitable,
 			})
 		}())
-		RutubeEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("RutubeEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		RutubeEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("RutubeEmbedIE"), λ.NewTuple(RutubeBaseIE), func() λ.Dict {
 			var (
 				RutubeEmbedIE__VALID_URL λ.Object
 			)

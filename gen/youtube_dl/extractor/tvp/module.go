@@ -35,19 +35,21 @@ var (
 	InfoExtractor             λ.Object
 	TVPEmbedIE                λ.Object
 	TVPIE                     λ.Object
-	TVPSeriesIE               λ.Object
+	TVPWebsiteIE              λ.Object
 	ϒclean_html               λ.Object
 	ϒdetermine_ext            λ.Object
 	ϒget_element_by_attribute λ.Object
+	ϒorderedSet               λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒclean_html = Ωutils.ϒclean_html
-		ϒget_element_by_attribute = Ωutils.ϒget_element_by_attribute
+		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
+		ϒget_element_by_attribute = Ωutils.ϒget_element_by_attribute
+		ϒorderedSet = Ωutils.ϒorderedSet
 		TVPIE = λ.Cal(λ.TypeType, λ.NewStr("TVPIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TVPIE_IE_NAME       λ.Object
@@ -60,12 +62,12 @@ func init() {
 			TVPIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("https://vod.tvp.pl/video/czas-honoru,i-seria-odc-13,194536"),
-					λ.NewStr("md5"): λ.NewStr("8aa518c15e5cc32dfe8db400dc921fbb"),
+					λ.NewStr("md5"): λ.NewStr("a21eb0aa862f25414430f15fdfb9e76c"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):          λ.NewStr("194536"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Czas honoru, I seria – odc. 13"),
-						λ.NewStr("description"): λ.NewStr("md5:381afa5bca72655fe94b05cfe82bf53d"),
+						λ.NewStr("title"):       λ.NewStr("Czas honoru, odc. 13 – Władek"),
+						λ.NewStr("description"): λ.NewStr("md5:437f48b93558370b031740546b696e24"),
 					}),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -87,6 +89,7 @@ func init() {
 						λ.NewStr("title"):       λ.NewStr("Wiadomości, 28.09.2017, 19:30"),
 						λ.NewStr("description"): λ.NewStr("Wydanie główne codziennego serwisu informacyjnego."),
 					}),
+					λ.NewStr("skip"): λ.NewStr("HTTP Error 404: Not Found"),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"):           λ.NewStr("http://vod.tvp.pl/seriale/obyczajowe/na-sygnale/sezon-2-27-/odc-39/17834272"),
@@ -143,11 +146,24 @@ func init() {
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("_type"): λ.NewStr("url_transparent"),
 						λ.NewStr("url"):   λ.Add(λ.NewStr("tvp:"), ϒvideo_id),
-						λ.NewStr("description"): λ.Call(λ.GetAttr(ϒself, "_og_search_description", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
+						λ.NewStr("description"): func() λ.Object {
+							if λv := λ.Call(λ.GetAttr(ϒself, "_og_search_description", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
+								{Name: "default", Value: λ.None},
+							}); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
+									λ.NewStr("description"),
+									ϒwebpage,
+								), λ.KWArgs{
+									{Name: "default", Value: λ.None},
+								})
+							}
+						}(),
+						λ.NewStr("thumbnail"): λ.Call(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}),
-						λ.NewStr("thumbnail"): λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage),
-						λ.NewStr("ie_key"):    λ.NewStr("TVPEmbed"),
+						λ.NewStr("ie_key"): λ.NewStr("TVPEmbed"),
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -160,11 +176,37 @@ func init() {
 		TVPEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("TVPEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TVPEmbedIE_IE_NAME       λ.Object
+				TVPEmbedIE__TESTS        λ.Object
 				TVPEmbedIE__VALID_URL    λ.Object
 				TVPEmbedIE__real_extract λ.Object
 			)
 			TVPEmbedIE_IE_NAME = λ.NewStr("tvp:embed")
 			TVPEmbedIE__VALID_URL = λ.NewStr("(?:tvp:|https?://[^/]+\\.tvp\\.(?:pl|info)/sess/tvplayer\\.php\\?.*?object_id=)(?P<id>\\d+)")
+			TVPEmbedIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("tvp:194536"),
+					λ.NewStr("md5"): λ.NewStr("a21eb0aa862f25414430f15fdfb9e76c"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):    λ.NewStr("194536"),
+						λ.NewStr("ext"):   λ.NewStr("mp4"),
+						λ.NewStr("title"): λ.NewStr("Czas honoru, odc. 13 – Władek"),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.tvp.pl/sess/tvplayer.php?object_id=22670268"),
+					λ.NewStr("md5"): λ.NewStr("8c9cd59d16edabf39331f93bf8a766c7"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):    λ.NewStr("22670268"),
+						λ.NewStr("ext"):   λ.NewStr("mp4"),
+						λ.NewStr("title"): λ.NewStr("Panorama, 07.12.2015, 15:40"),
+					}),
+					λ.NewStr("skip"): λ.NewStr("Transmisja została zakończona lub materiał niedostępny"),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("tvp:22670268"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
 			TVPEmbedIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -173,7 +215,7 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒerror_massage  λ.Object
+						ϒerror          λ.Object
 						ϒf              λ.Object
 						ϒformats        λ.Object
 						ϒhttp_url       λ.Object
@@ -195,11 +237,23 @@ func init() {
 					)
 					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
 					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.NewStr("http://www.tvp.pl/sess/tvplayer.php?object_id=%s"), ϒvideo_id), ϒvideo_id)
-					ϒerror_massage = λ.Cal(ϒget_element_by_attribute, λ.NewStr("class"), λ.NewStr("msg error"), ϒwebpage)
-					if λ.IsTrue(ϒerror_massage) {
+					ϒerror = func() λ.Object {
+						if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
+							λ.NewStr("(?s)<p[^>]+\\bclass=[\"\\']notAvailable__text[\"\\'][^>]*>(.+?)</p>"),
+							ϒwebpage,
+							λ.NewStr("error"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						}); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Cal(ϒclean_html, λ.Cal(ϒget_element_by_attribute, λ.NewStr("class"), λ.NewStr("msg error"), ϒwebpage))
+						}
+					}()
+					if λ.IsTrue(ϒerror) {
 						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("%s said: %s"), λ.NewTuple(
 							λ.GetAttr(ϒself, "IE_NAME", nil),
-							λ.Cal(ϒclean_html, ϒerror_massage),
+							λ.Cal(ϒclean_html, ϒerror),
 						))), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
@@ -333,17 +387,18 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       TVPEmbedIE_IE_NAME,
+				λ.NewStr("_TESTS"):        TVPEmbedIE__TESTS,
 				λ.NewStr("_VALID_URL"):    TVPEmbedIE__VALID_URL,
 				λ.NewStr("_real_extract"): TVPEmbedIE__real_extract,
 			})
 		}())
-		TVPSeriesIE = λ.Cal(λ.TypeType, λ.NewStr("TVPSeriesIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TVPWebsiteIE = λ.Cal(λ.TypeType, λ.NewStr("TVPWebsiteIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				TVPSeriesIE__VALID_URL λ.Object
+				TVPWebsiteIE__VALID_URL λ.Object
 			)
-			TVPSeriesIE__VALID_URL = λ.NewStr("https?://vod\\.tvp\\.pl/(?:[^/]+/){2}(?P<id>[^/]+)/?$")
+			TVPWebsiteIE__VALID_URL = λ.NewStr("https?://vod\\.tvp\\.pl/website/(?P<display_id>[^,]+),(?P<id>\\d+)")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): TVPSeriesIE__VALID_URL,
+				λ.NewStr("_VALID_URL"): TVPWebsiteIE__VALID_URL,
 			})
 		}())
 	})

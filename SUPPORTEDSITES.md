@@ -8,7 +8,6 @@ Supported sites
  * Aol: `on.aol.com`
  * Allocine: `www.allocine.fr`
  * Aparat: `www.aparat.com`
- * ARD: `www.daserste.de`
  * ARDMediathek: `www.ardmediathek.de`
  * AudiMedia: `www.audi-mediacenter.com`
  * Audiomack: `www.audiomack.com`
@@ -89,13 +88,13 @@ Supported sites
  * Ir90Tv: `90tv.ir`
  * Ivideon: `www.ivideon.com`
  * Izlesene: `www.izlesene.com`
+ * Jamendo: `www.jamendo.com`
  * JeuxVideo: `www.jeuxvideo.com`
  * Joj: `media.joj.sk`
  * JWPlatform: `content.jwplatform.com`
  * KeezMovies _(adult)_: `www.keezmovies.com`
  * KickStarter: `www.kickstarter.com`
  * KrasView: `krasview.ru`
- * LCI: `www.lci.fr`
  * LibraryOfCongress: `loc.gov`
  * LimelightMedia: `link.videoplatform.limelight.com`
  * Livestream: `new.livestream.com`
@@ -119,6 +118,7 @@ Supported sites
  * NDTV: `movies.ndtv.com`
  * Netzkino: `www.netzkino.de`
  * Newgrounds: `www.newgrounds.com`
+ * NextTV: `www.nexttv.com.tw`
  * NHL: `www.nhl.com`
  * NovaEmbed: `media.cms.nova.cz`
  * Nowness: `www.nowness.com`
@@ -135,7 +135,6 @@ Supported sites
  * PlayFM: `www.play.fm`
  * PlaysTV: `plays.tv`
  * Playvid _(adult)_: `www.playvid.com`
- * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
  * Porn91 _(adult)_: `91porn.com`
  * PornCom _(adult)_: `www.porn.com`
@@ -193,6 +192,7 @@ Supported sites
  * TuneInStation: `tunein.com`
  * TuneInProgram: `tunein.com`
  * TuneInShortener: `tun.in`
+ * TunePk: `tune.pk`
  * TVANouvelles: `www.tvanouvelles.ca`
  * TVC: `www.tvc.ru`
  * TVCArticle: `www.tvc.ru`
@@ -220,7 +220,6 @@ Supported sites
  * VidLii: `www.vidlii.com`
  * Vimeo: `vimeo.com`
  * VimeoOndemand: `vimeo.com`
- * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
  * Vine: `vine.co`
  * Viqeo: `cdn.viqeo.tv`
