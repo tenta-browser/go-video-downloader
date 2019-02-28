@@ -361,43 +361,10 @@ func init() {
 		}())
 		PCMagIE = λ.Cal(λ.TypeType, λ.NewStr("PCMagIE"), λ.NewTuple(IGNIE), func() λ.Dict {
 			var (
-				PCMagIE_IE_NAME    λ.Object
-				PCMagIE__TESTS     λ.Object
 				PCMagIE__VALID_URL λ.Object
 			)
 			PCMagIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?pcmag\\.com/(?P<type>videos|article2)(/.+)?/(?P<name_or_id>.+)")
-			PCMagIE_IE_NAME = λ.NewStr("pcmag")
-			PCMagIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.pcmag.com/videos/2015/01/06/010615-whats-new-now-is-gogo-snooping-on-your-data"),
-					λ.NewStr("md5"): λ.NewStr("212d6154fd0361a2781075f1febbe9ad"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("ee10d774b508c9b8ec07e763b9125b91"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("010615_What's New Now: Is GoGo Snooping on Your Data?"),
-						λ.NewStr("description"): λ.NewStr("md5:a7071ae64d2f68cc821c729d4ded6bb3"),
-						λ.NewStr("timestamp"):   λ.NewInt(1420571160),
-						λ.NewStr("upload_date"): λ.NewStr("20150106"),
-						λ.NewStr("uploader_id"): λ.NewStr("cozzipix@gmail.com"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.pcmag.com/article2/0,2817,2470156,00.asp"),
-					λ.NewStr("md5"): λ.NewStr("94130c1ca07ba0adb6088350681f16c1"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("042e560ba94823d43afcb12ddf7142ca"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("HTC's Weird New Re Camera - What's New Now"),
-						λ.NewStr("description"): λ.NewStr("md5:53433c45df96d2ea5d0fda18be2ca908"),
-						λ.NewStr("timestamp"):   λ.NewInt(1412953920),
-						λ.NewStr("upload_date"): λ.NewStr("20141010"),
-						λ.NewStr("uploader_id"): λ.NewStr("chris_snyder@pcmag.com"),
-					}),
-				}),
-			)
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):    PCMagIE_IE_NAME,
-				λ.NewStr("_TESTS"):     PCMagIE__TESTS,
 				λ.NewStr("_VALID_URL"): PCMagIE__VALID_URL,
 			})
 		}())

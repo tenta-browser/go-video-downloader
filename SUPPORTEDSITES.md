@@ -78,7 +78,6 @@ Supported sites
  * HornBunny _(adult)_: `hornbunny.com`
  * HowStuffWorks: `www.stufftoblowyourmind.com`
  * IGN: `www.ign.com`
- * PCMag: `www.pcmag.com`
  * Imdb: `www.imdb.com`
  * Imgur: `i.imgur.com`
  * ImgurGallery: `imgur.com`
@@ -95,6 +94,7 @@ Supported sites
  * KeezMovies _(adult)_: `www.keezmovies.com`
  * KickStarter: `www.kickstarter.com`
  * KrasView: `krasview.ru`
+ * LCI: `www.lci.fr`
  * LibraryOfCongress: `loc.gov`
  * LimelightMedia: `link.videoplatform.limelight.com`
  * Livestream: `new.livestream.com`
@@ -103,7 +103,6 @@ Supported sites
  * ManyVids: `www.manyvids.com`
  * MassengeschmackTV: `massengeschmack.tv`
  * Megaphone: `player.megaphone.fm`
- * Metacafe: `www.metacafe.com`
  * Metacritic: `www.metacritic.com`
  * MicrosoftVirtualAcademy: `mva.microsoft.com`
  * MLB: `www.mlb.com`
@@ -135,6 +134,7 @@ Supported sites
  * PlayFM: `www.play.fm`
  * PlaysTV: `plays.tv`
  * Playvid _(adult)_: `www.playvid.com`
+ * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
  * Porn91 _(adult)_: `91porn.com`
  * PornCom _(adult)_: `www.porn.com`
@@ -142,6 +142,7 @@ Supported sites
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
  * PuhuTV: `puhutv.com`
+ * PressTV: `www.presstv.ir`
  * RadioDe: `ndr2.radio.de`
  * RadioJavan: `www.radiojavan.com`
  * Rai: `www.raisport.rai.it`
@@ -163,7 +164,6 @@ Supported sites
  * Slideshare: `www.slideshare.net`
  * Slutload _(adult)_: `www.slutload.com`
  * Soundgasm: `soundgasm.net`
- * SpankBang _(adult)_: `spankbang.com`
  * Stitcher: `www.stitcher.com`
  * SRGSSRPlay: `www.rts.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
@@ -188,10 +188,6 @@ Supported sites
  * Trilulilu: `www.trilulilu.ro`
  * Tube8 _(adult)_: `www.tube8.com`
  * Tumblr: `tatianamaslanydaily.tumblr.com`
- * TuneInClip: `tunein.com`
- * TuneInStation: `tunein.com`
- * TuneInProgram: `tunein.com`
- * TuneInShortener: `tun.in`
  * TunePk: `tune.pk`
  * TVANouvelles: `www.tvanouvelles.ca`
  * TVC: `www.tvc.ru`

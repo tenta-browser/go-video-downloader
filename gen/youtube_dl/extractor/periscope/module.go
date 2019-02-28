@@ -35,6 +35,7 @@ var (
 	PeriscopeBaseIE λ.Object
 	PeriscopeIE     λ.Object
 	PeriscopeUserIE λ.Object
+	ϒint_or_none    λ.Object
 	ϒparse_iso8601  λ.Object
 	ϒunescapeHTML   λ.Object
 )
@@ -42,6 +43,7 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		PeriscopeBaseIE = λ.Cal(λ.TypeType, λ.NewStr("PeriscopeBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
