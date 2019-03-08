@@ -749,7 +749,7 @@ func init() {
 							ϒwebpage,
 							λ.NewStr("uploader"),
 						), λ.KWArgs{
-							{Name: "fatal", Value: λ.False},
+							{Name: "default", Value: λ.None},
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {

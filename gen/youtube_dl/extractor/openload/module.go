@@ -53,7 +53,7 @@ func init() {
 			var (
 				OpenloadIE__VALID_URL λ.Object
 			)
-			OpenloadIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?P<host>\n                            (?:www\\.)?\n                            (?:\n                                openload\\.(?:co|io|link|pw)|\n                                oload\\.(?:tv|stream|site|xyz|win|download|cloud|cc|icu|fun|club|info|pw|live)\n                            )\n                        )/\n                        (?:f|embed)/\n                        (?P<id>[a-zA-Z0-9-_]+)\n                    ")
+			OpenloadIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?P<host>\n                            (?:www\\.)?\n                            (?:\n                                openload\\.(?:co|io|link|pw)|\n                                oload\\.(?:tv|stream|site|xyz|win|download|cloud|cc|icu|fun|club|info|pw|live|space)\n                            )\n                        )/\n                        (?:f|embed)/\n                        (?P<id>[a-zA-Z0-9-_]+)\n                    ")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): OpenloadIE__VALID_URL,
 			})

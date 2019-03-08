@@ -201,7 +201,15 @@ func init() {
 						}()) {
 							continue
 						}
-						if λ.IsTrue(λ.Eq(ϒext, λ.NewStr("m3u8"))) {
+						if λ.IsTrue(func() λ.Object {
+							if λv := λ.Eq(ϒext, λ.NewStr("m3u8")); λ.IsTrue(λv) {
+								return λv
+							} else if λv := λ.NewBool(λ.Contains(ϒmedia_url, λ.NewStr("format=m3u8"))); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Eq(ϒplatform, λ.NewStr("mon"))
+							}
+						}()) {
 							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
 								ϒmedia_url,
 								ϒvideo_id,
@@ -212,7 +220,13 @@ func init() {
 								{Name: "fatal", Value: λ.False},
 							}))
 						} else {
-							if λ.IsTrue(λ.Eq(ϒext, λ.NewStr("f4m"))) {
+							if λ.IsTrue(func() λ.Object {
+								if λv := λ.Eq(ϒext, λ.NewStr("f4m")); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.Eq(ϒplatform, λ.NewStr("flash"))
+								}
+							}()) {
 								ϒmanifest_url = λ.Cal(ϒupdate_url_query, λ.Cal(λ.GetAttr(ϒmedia_url, "replace", nil), λ.NewStr("manifest#live_hds.f4m"), λ.NewStr("manifest.f4m")), λ.NewDictWithTable(map[λ.Object]λ.Object{
 									λ.NewStr("hdcore"): λ.NewStr("3.7.0"),
 									λ.NewStr("plugin"): λ.NewStr("aasp-3.7.0.39.44"),

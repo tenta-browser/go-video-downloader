@@ -53,7 +53,6 @@ var (
 	KNOWN_EXTENSIONS                  λ.Object
 	MaxDownloadsReached               λ.Object
 	NO_DEFAULT                        λ.Object
-	OnDemandPagedList                 λ.Object
 	PagedList                         λ.Object
 	PostProcessingError               λ.Object
 	RegexNotFoundError                λ.Object
@@ -2012,10 +2011,6 @@ func init() {
 				return ϒduration
 			})
 		PagedList = λ.Cal(λ.TypeType, λ.NewStr("PagedList"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
-
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
-		}())
-		OnDemandPagedList = λ.Cal(λ.TypeType, λ.NewStr("OnDemandPagedList"), λ.NewTuple(PagedList), func() λ.Dict {
 
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 		}())

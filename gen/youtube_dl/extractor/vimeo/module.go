@@ -966,40 +966,38 @@ func init() {
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
 					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
 					ϒorig_url = ϒurl
-					if λ.IsTrue(func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("pro")); λ.IsTrue(λv) {
-							return λv
-						} else {
-							return λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("player"))
-						}
-					}()) {
-						ϒurl = λ.Add(λ.NewStr("https://player.vimeo.com/video/"), ϒvideo_id)
+					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("pro"))) {
+						ϒurl = λ.Cal(λ.GetAttr(ϒself, "_extract_url", nil), ϒurl, λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id))
 					} else {
-						if λ.IsTrue(λ.Cal(λ.BuiltinAny, λ.Cal(λ.NewFunction("<generator>",
-							nil,
-							0, false, false,
-							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
-									var (
-										ϒp   λ.Object
-										τmp0 λ.Object
-										τmp1 λ.Object
-									)
-									τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-										λ.NewStr("play_redirect_hls"),
-										λ.NewStr("moogaloop.swf"),
-									))
-									for {
-										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-											break
+						if λ.IsTrue(λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("player"))) {
+							ϒurl = λ.Add(λ.NewStr("https://player.vimeo.com/video/"), ϒvideo_id)
+						} else {
+							if λ.IsTrue(λ.Cal(λ.BuiltinAny, λ.Cal(λ.NewFunction("<generator>",
+								nil,
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+										var (
+											ϒp   λ.Object
+											τmp0 λ.Object
+											τmp1 λ.Object
+										)
+										τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+											λ.NewStr("play_redirect_hls"),
+											λ.NewStr("moogaloop.swf"),
+										))
+										for {
+											if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+												break
+											}
+											ϒp = τmp1
+											λgen.Yield(λ.NewBool(λ.Contains(ϒurl, ϒp)))
 										}
-										ϒp = τmp1
-										λgen.Yield(λ.NewBool(λ.Contains(ϒurl, ϒp)))
-									}
-									return λ.None
-								})
-							})))) {
-							ϒurl = λ.Add(λ.NewStr("https://vimeo.com/"), ϒvideo_id)
+										return λ.None
+									})
+								})))) {
+								ϒurl = λ.Add(λ.NewStr("https://vimeo.com/"), ϒvideo_id)
+							}
 						}
 					}
 					ϒrequest = λ.Call(ϒsanitized_Request, λ.NewArgs(ϒurl), λ.KWArgs{

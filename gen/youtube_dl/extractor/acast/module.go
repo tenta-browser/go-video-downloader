@@ -36,7 +36,6 @@ var (
 	ACastChannelIE     λ.Object
 	ACastIE            λ.Object
 	InfoExtractor      λ.Object
-	OnDemandPagedList  λ.Object
 	ϒcompat_str        λ.Object
 	ϒfloat_or_none     λ.Object
 	ϒint_or_none       λ.Object
@@ -52,7 +51,6 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
-		OnDemandPagedList = Ωutils.OnDemandPagedList
 		ACastIE = λ.Cal(λ.TypeType, λ.NewStr("ACastIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ACastIE_IE_NAME       λ.Object
