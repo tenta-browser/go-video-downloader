@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * cnn/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/cnn.py
+ * cnn/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/cnn.py
  */
 
 package cnn
@@ -188,20 +188,88 @@ func init() {
 		}())
 		CNNBlogsIE = λ.Cal(λ.TypeType, λ.NewStr("CNNBlogsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				CNNBlogsIE__VALID_URL λ.Object
+				CNNBlogsIE__TEST         λ.Object
+				CNNBlogsIE__VALID_URL    λ.Object
+				CNNBlogsIE__real_extract λ.Object
 			)
 			CNNBlogsIE__VALID_URL = λ.NewStr("https?://[^\\.]+\\.blogs\\.cnn\\.com/.+")
+			CNNBlogsIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("url"): λ.NewStr("http://reliablesources.blogs.cnn.com/2014/02/09/criminalizing-journalism/"),
+				λ.NewStr("md5"): λ.NewStr("3e56f97b0b6ffb4b79f4ea0749551084"),
+				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("id"):          λ.NewStr("bestoftv/2014/02/09/criminalizing-journalism.cnn"),
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("title"):       λ.NewStr("Criminalizing journalism?"),
+					λ.NewStr("description"): λ.NewStr("Glenn Greenwald responds to comments made this week on Capitol Hill that journalists could be criminal accessories."),
+					λ.NewStr("upload_date"): λ.NewStr("20140209"),
+				}),
+				λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("Failed to download m3u8 information")),
+				λ.NewStr("add_ie"):            λ.NewList(λ.NewStr("CNN")),
+			})
+			CNNBlogsIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcnn_url λ.Object
+						ϒself    = λargs[0]
+						ϒurl     = λargs[1]
+						ϒwebpage λ.Object
+					)
+					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, λ.Cal(ϒurl_basename, ϒurl))
+					ϒcnn_url = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("data-url=\"(.+?)\""), ϒwebpage, λ.NewStr("cnn url"))
+					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒcnn_url, λ.Cal(λ.GetAttr(CNNIE, "ie_key", nil)))
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): CNNBlogsIE__VALID_URL,
+				λ.NewStr("_TEST"):         CNNBlogsIE__TEST,
+				λ.NewStr("_VALID_URL"):    CNNBlogsIE__VALID_URL,
+				λ.NewStr("_real_extract"): CNNBlogsIE__real_extract,
 			})
 		}())
 		CNNArticleIE = λ.Cal(λ.TypeType, λ.NewStr("CNNArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				CNNArticleIE__VALID_URL λ.Object
+				CNNArticleIE__TEST         λ.Object
+				CNNArticleIE__VALID_URL    λ.Object
+				CNNArticleIE__real_extract λ.Object
 			)
 			CNNArticleIE__VALID_URL = λ.NewStr("https?://(?:(?:edition|www)\\.)?cnn\\.com/(?!videos?/)")
+			CNNArticleIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("url"): λ.NewStr("http://www.cnn.com/2014/12/21/politics/obama-north-koreas-hack-not-war-but-cyber-vandalism/"),
+				λ.NewStr("md5"): λ.NewStr("689034c2a3d9c6dc4aa72d65a81efd01"),
+				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("id"):          λ.NewStr("bestoftv/2014/12/21/ip-north-korea-obama.cnn"),
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("title"):       λ.NewStr("Obama: Cyberattack not an act of war"),
+					λ.NewStr("description"): λ.NewStr("md5:0a802a40d2376f60e6b04c8d5bcebc4b"),
+					λ.NewStr("upload_date"): λ.NewStr("20141221"),
+				}),
+				λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("Failed to download m3u8 information")),
+				λ.NewStr("add_ie"):            λ.NewList(λ.NewStr("CNN")),
+			})
+			CNNArticleIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcnn_url λ.Object
+						ϒself    = λargs[0]
+						ϒurl     = λargs[1]
+						ϒwebpage λ.Object
+					)
+					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, λ.Cal(ϒurl_basename, ϒurl))
+					ϒcnn_url = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("video:\\s*'([^']+)'"), ϒwebpage, λ.NewStr("cnn url"))
+					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Add(λ.NewStr("http://cnn.com/video/?/video/"), ϒcnn_url), λ.Cal(λ.GetAttr(CNNIE, "ie_key", nil)))
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): CNNArticleIE__VALID_URL,
+				λ.NewStr("_TEST"):         CNNArticleIE__TEST,
+				λ.NewStr("_VALID_URL"):    CNNArticleIE__VALID_URL,
+				λ.NewStr("_real_extract"): CNNArticleIE__real_extract,
 			})
 		}())
 	})

@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * tele13/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/tele13.py
+ * tele13/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/tele13.py
  */
 
 package tele13

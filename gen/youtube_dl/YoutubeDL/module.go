@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * YoutubeDL/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/YoutubeDL.py
+ * YoutubeDL/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/YoutubeDL.py
  */
 
 package YoutubeDL
@@ -545,7 +545,7 @@ func init() {
 						defer λ.CatchMulti(
 							nil,
 							&λ.Catcher{λ.ValueErrorType, func(λex λ.BaseException) {
-								ϒerr := λex
+								var ϒerr λ.Object = λex
 								λ.Cal(λ.GetAttr(ϒself, "report_error", nil), λ.Add(λ.Add(λ.Add(λ.Add(λ.NewStr("Error in output template: "), λ.Cal(λ.StrType, ϒerr)), λ.NewStr(" (encoding: ")), λ.Cal(λ.BuiltinRepr, λ.Cal(ϒpreferredencoding))), λ.NewStr(")")))
 								λexit, λret = λ.BlockExitReturn, λ.None
 								return
@@ -810,7 +810,7 @@ func init() {
 							defer λ.CatchMulti(
 								nil,
 								&λ.Catcher{GeoRestrictedError, func(λex λ.BaseException) {
-									ϒe := λex
+									var ϒe λ.Object = λex
 									ϒmsg = λ.GetAttr(ϒe, "msg", nil)
 									if λ.IsTrue(λ.GetAttr(ϒe, "countries", nil)) {
 										τmp4 = λ.IAdd(ϒmsg, λ.Mod(λ.NewStr("\nThis video is available in %s."), λ.Cal(λ.GetAttr(λ.NewStr(", "), "join", nil), λ.Cal(λ.MapIteratorType, λ.GetAttr(λ.None, "short2full", nil), λ.GetAttr(ϒe, "countries", nil)))))
@@ -823,7 +823,7 @@ func init() {
 									return
 								}},
 								&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
-									ϒe := λex
+									var ϒe λ.Object = λex
 									λ.Cal(λ.GetAttr(ϒself, "report_error", nil), λ.Cal(ϒcompat_str, ϒe), λ.Cal(λ.GetAttr(ϒe, "format_traceback", nil)))
 									λexit = λ.BlockExitBreak
 									return
@@ -832,7 +832,7 @@ func init() {
 									panic(λ.Raise(λex))
 								}},
 								&λ.Catcher{λ.ExceptionType, func(λex λ.BaseException) {
-									ϒe := λex
+									var ϒe λ.Object = λex
 									if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("ignoreerrors"), λ.False)) {
 										λ.Call(λ.GetAttr(ϒself, "report_error", nil), λ.NewArgs(λ.Cal(ϒerror_to_compat_str, ϒe)), λ.KWArgs{
 											{Name: "tb", Value: λ.Cal(λ.None, λ.Cal(λ.GetAttr(λ.None, "format_exc", nil)))},
@@ -2288,7 +2288,7 @@ func init() {
 										λ.OSErrorType,
 										λ.OSErrorType,
 									), func(λex λ.BaseException) {
-										ϒerr := λex
+										var ϒerr λ.Object = λex
 										λ.Cal(λ.GetAttr(ϒself, "report_error", nil), λ.Add(λ.NewStr("unable to create directory "), λ.Cal(ϒerror_to_compat_str, ϒerr)))
 										λexit, λret = λ.BlockExitReturn, λ.False
 										return
@@ -2510,7 +2510,7 @@ func init() {
 												λ.OSErrorType,
 												λ.ValueErrorType,
 											), func(λex λ.BaseException) {
-												ϒerr := λex
+												var ϒerr λ.Object = λex
 												λ.Cal(λ.GetAttr(ϒself, "report_warning", nil), λ.Mod(λ.NewStr("Unable to download subtitle for \"%s\": %s"), λ.NewTuple(
 													ϒsub_lang,
 													λ.Cal(ϒerror_to_compat_str, ϒerr),
@@ -2590,7 +2590,7 @@ func init() {
 									λ.GetAttr(ϒcompat_http_client, "HTTPException", nil),
 									Ωsocket.ϒerror,
 								), func(λex λ.BaseException) {
-									ϒerr := λex
+									var ϒerr λ.Object = λex
 									λ.Cal(λ.GetAttr(ϒself, "report_error", nil), λ.Mod(λ.NewStr("unable to download video data: %s"), λ.Cal(ϒerror_to_compat_str, ϒerr)))
 									λexit, λret = λ.BlockExitReturn, λ.None
 									return
@@ -2599,11 +2599,11 @@ func init() {
 									λ.OSErrorType,
 									λ.OSErrorType,
 								), func(λex λ.BaseException) {
-									ϒerr := λex
+									var ϒerr λ.Object = λex
 									panic(λ.Raise(λ.Cal(UnavailableVideoError, ϒerr)))
 								}},
 								&λ.Catcher{λ.NewTuple(λ.None), func(λex λ.BaseException) {
-									ϒerr := λex
+									var ϒerr λ.Object = λex
 									λ.Cal(λ.GetAttr(ϒself, "report_error", nil), λ.Mod(λ.NewStr("content too short (expected %s bytes and served %s)"), λ.NewTuple(
 										λ.GetAttr(ϒerr, "expected", nil),
 										λ.GetAttr(ϒerr, "downloaded", nil),
@@ -2897,7 +2897,7 @@ func init() {
 								defer λ.CatchMulti(
 									nil,
 									&λ.Catcher{PostProcessingError, func(λex λ.BaseException) {
-										ϒerr := λex
+										var ϒerr λ.Object = λex
 										λ.Cal(λ.GetAttr(ϒself, "report_error", nil), λ.Mod(λ.NewStr("postprocessing: %s"), λ.Cal(λ.StrType, ϒerr)))
 										λexit, λret = λ.BlockExitReturn, λ.None
 										return

@@ -19,13 +19,14 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * common/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/common.py
+ * common/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/common.py
  */
 
 package common
 
 import (
 	Ωcookiejar "github.com/tenta-browser/go-video-downloader/gen/http/cookiejar"
+	Ωcookies "github.com/tenta-browser/go-video-downloader/gen/http/cookies"
 	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
 	Ωrandom "github.com/tenta-browser/go-video-downloader/gen/random"
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
@@ -35,6 +36,7 @@ import (
 	Ωparse "github.com/tenta-browser/go-video-downloader/gen/urllib/parse"
 	Ωrequest "github.com/tenta-browser/go-video-downloader/gen/urllib/request"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
+	Ωf4m "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/downloader/f4m"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
@@ -51,6 +53,7 @@ var (
 	ϒbase_url                      λ.Object
 	ϒbug_reports_message           λ.Object
 	ϒclean_html                    λ.Object
+	ϒcompat_etree_Element          λ.Object
 	ϒcompat_etree_fromstring       λ.Object
 	ϒcompat_http_client            λ.Object
 	ϒcompat_str                    λ.Object
@@ -64,6 +67,7 @@ var (
 	ϒextract_attributes            λ.Object
 	ϒfix_xml_ampersands            λ.Object
 	ϒfloat_or_none                 λ.Object
+	ϒget_base_url                  λ.Object
 	ϒint_or_none                   λ.Object
 	ϒjs_to_json                    λ.Object
 	ϒmimetype2ext                  λ.Object
@@ -72,6 +76,7 @@ var (
 	ϒparse_duration                λ.Object
 	ϒparse_iso8601                 λ.Object
 	ϒparse_m3u8_attributes         λ.Object
+	ϒremove_encrypted_media        λ.Object
 	ϒsanitize_filename             λ.Object
 	ϒsanitized_Request             λ.Object
 	ϒunescapeHTML                  λ.Object
@@ -88,12 +93,15 @@ var (
 
 func init() {
 	λ.InitModule(func() {
+		ϒcompat_etree_Element = Ωcompat.ϒcompat_etree_Element
 		ϒcompat_etree_fromstring = Ωcompat.ϒcompat_etree_fromstring
 		ϒcompat_http_client = Ωcompat.ϒcompat_http_client
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒcompat_urllib_parse_unquote = Ωcompat.ϒcompat_urllib_parse_unquote
 		ϒcompat_urllib_parse_urlencode = Ωcompat.ϒcompat_urllib_parse_urlencode
 		ϒcompat_xml_parse_error = Ωcompat.ϒcompat_xml_parse_error
+		ϒget_base_url = Ωf4m.ϒget_base_url
+		ϒremove_encrypted_media = Ωf4m.ϒremove_encrypted_media
 		NO_DEFAULT = Ωutils.NO_DEFAULT
 		ϒbase_url = Ωutils.ϒbase_url
 		ϒbug_reports_message = Ωutils.ϒbug_reports_message
@@ -156,6 +164,7 @@ func init() {
 				InfoExtractor__extract_smil_formats        λ.Object
 				InfoExtractor__family_friendly_search      λ.Object
 				InfoExtractor__float                       λ.Object
+				InfoExtractor__get_cookies                 λ.Object
 				InfoExtractor__get_login_info              λ.Object
 				InfoExtractor__get_netrc_login_info        λ.Object
 				InfoExtractor__guess_encoding_from_content λ.Object
@@ -415,7 +424,7 @@ func init() {
 								panic(λ.Raise(λex))
 							}},
 							&λ.Catcher{λ.GetAttr(ϒcompat_http_client, "IncompleteRead", nil), func(λex λ.BaseException) {
-								ϒe := λex
+								var ϒe λ.Object = λex
 								panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("A network error has occurred.")), λ.KWArgs{
 									{Name: "cause", Value: ϒe},
 									{Name: "expected", Value: λ.True},
@@ -425,7 +434,7 @@ func init() {
 								λ.KeyErrorType,
 								λ.StopIterationType,
 							), func(λex λ.BaseException) {
-								ϒe := λex
+								var ϒe λ.Object = λex
 								panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("An extractor error has occurred.")), λ.KWArgs{
 									{Name: "cause", Value: ϒe},
 								})))
@@ -441,7 +450,7 @@ func init() {
 								defer λ.CatchMulti(
 									nil,
 									&λ.Catcher{GeoRestrictedError, func(λex λ.BaseException) {
-										ϒe := λex
+										var ϒe λ.Object = λex
 										if λ.IsTrue(λ.Cal(λ.GetAttr(ϒself, "__maybe_fake_ip_and_retry", nil), λ.GetAttr(ϒe, "countries", nil))) {
 											λexit = λ.BlockExitContinue
 											return
@@ -643,7 +652,7 @@ func init() {
 								λ.GetAttr(ϒcompat_http_client, "HTTPException", nil),
 								Ωsocket.ϒerror,
 							), func(λex λ.BaseException) {
-								ϒerr := λex
+								var ϒerr λ.Object = λex
 								if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒerr, Ωerror.HTTPError)) {
 									if λ.IsTrue(λ.Cal(λ.GetAttr(ϒself, "__can_accept_status_code", nil), ϒerr, ϒexpected_status)) {
 										λ.SetAttr(λ.GetAttr(ϒerr, "fp", nil), "_error", ϒerr)
@@ -1014,7 +1023,7 @@ func init() {
 							defer λ.CatchMulti(
 								nil,
 								&λ.Catcher{λ.GetAttr(ϒcompat_http_client, "IncompleteRead", nil), func(λex λ.BaseException) {
-									ϒe := λex
+									var ϒe λ.Object = λex
 									τmp2 = λ.IAdd(ϒtry_count, λ.NewInt(1))
 									ϒtry_count = τmp2
 									if λ.IsTrue(λ.Ge(ϒtry_count, ϒtries)) {
@@ -1198,7 +1207,7 @@ func init() {
 						defer λ.CatchMulti(
 							nil,
 							&λ.Catcher{ϒcompat_xml_parse_error, func(λex λ.BaseException) {
-								ϒve := λex
+								var ϒve λ.Object = λex
 								ϒerrmsg = λ.Mod(λ.NewStr("%s: Failed to parse XML "), ϒvideo_id)
 								if λ.IsTrue(ϒfatal) {
 									panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(ϒerrmsg), λ.KWArgs{
@@ -1366,7 +1375,7 @@ func init() {
 						defer λ.CatchMulti(
 							nil,
 							&λ.Catcher{λ.ValueErrorType, func(λex λ.BaseException) {
-								ϒve := λex
+								var ϒve λ.Object = λex
 								ϒerrmsg = λ.Mod(λ.NewStr("%s: Failed to parse JSON "), ϒvideo_id)
 								if λ.IsTrue(ϒfatal) {
 									panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(ϒerrmsg), λ.KWArgs{
@@ -1697,7 +1706,7 @@ func init() {
 									λ.OSErrorType,
 									λ.GetAttr(λ.None, "NetrcParseError", nil),
 								), func(λex λ.BaseException) {
-									ϒerr := λex
+									var ϒerr λ.Object = λex
 									λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "report_warning", nil), λ.Mod(λ.NewStr("parsing .netrc: %s"), λ.Cal(ϒerror_to_compat_str, ϒerr)))
 								}},
 							)
@@ -2876,7 +2885,7 @@ func init() {
 						defer λ.CatchMulti(
 							nil,
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
-								ϒe := λex
+								var ϒe λ.Object = λex
 								if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), Ωerror.URLError)) {
 									λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("%s: %s URL is invalid, skipping"), λ.NewTuple(
 										ϒvideo_id,
@@ -3064,7 +3073,7 @@ func init() {
 						τmp2                         λ.Object
 					)
 					if λ.IsTrue(func() λ.Object {
-						if λv := λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒmanifest, λ.None))); !λ.IsTrue(λv) {
+						if λv := λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒmanifest, ϒcompat_etree_Element))); !λ.IsTrue(λv) {
 							return λv
 						} else {
 							return λ.NewBool(!λ.IsTrue(ϒfatal))
@@ -3092,11 +3101,11 @@ func init() {
 						ϒmanifest_version = λ.NewStr("2.0")
 						ϒmedia_nodes = λ.Cal(λ.GetAttr(ϒmanifest, "findall", nil), λ.NewStr("{http://ns.adobe.com/f4m/2.0}media"))
 					}
-					ϒmedia_nodes = λ.Cal(λ.None, ϒmedia_nodes)
+					ϒmedia_nodes = λ.Cal(ϒremove_encrypted_media, ϒmedia_nodes)
 					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒmedia_nodes))) {
 						return ϒformats
 					}
-					ϒmanifest_base_url = λ.Cal(λ.None, ϒmanifest)
+					ϒmanifest_base_url = λ.Cal(ϒget_base_url, ϒmanifest)
 					ϒbootstrap_info = λ.Call(ϒxpath_element, λ.NewArgs(
 						ϒmanifest,
 						λ.NewList(
@@ -5848,6 +5857,23 @@ func init() {
 					λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "cookiejar", nil), "set_cookie", nil), ϒcookie)
 					return λ.None
 				})
+			InfoExtractor__get_cookies = λ.NewFunction("_get_cookies",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒreq  λ.Object
+						ϒself = λargs[0]
+						ϒurl  = λargs[1]
+					)
+					λ.NewStr(" Return a compat_cookies.SimpleCookie with the cookies for the url ")
+					ϒreq = λ.Cal(ϒsanitized_Request, ϒurl)
+					λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "cookiejar", nil), "add_cookie_header", nil), ϒreq)
+					return λ.Cal(Ωcookies.SimpleCookie, λ.Cal(λ.GetAttr(ϒreq, "get_header", nil), λ.NewStr("Cookie")))
+				})
 			InfoExtractor_geo_verification_headers = λ.NewFunction("geo_verification_headers",
 				[]λ.Param{
 					{Name: "self"},
@@ -5891,6 +5917,7 @@ func init() {
 				λ.NewStr("_extract_smil_formats"):        InfoExtractor__extract_smil_formats,
 				λ.NewStr("_family_friendly_search"):      InfoExtractor__family_friendly_search,
 				λ.NewStr("_float"):                       InfoExtractor__float,
+				λ.NewStr("_get_cookies"):                 InfoExtractor__get_cookies,
 				λ.NewStr("_get_login_info"):              InfoExtractor__get_login_info,
 				λ.NewStr("_get_netrc_login_info"):        InfoExtractor__get_netrc_login_info,
 				λ.NewStr("_guess_encoding_from_content"): InfoExtractor__guess_encoding_from_content,

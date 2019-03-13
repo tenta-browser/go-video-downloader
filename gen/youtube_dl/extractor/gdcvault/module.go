@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * gdcvault/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/gdcvault.py
+ * gdcvault/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/gdcvault.py
  */
 
 package gdcvault
@@ -33,6 +33,7 @@ import (
 
 var (
 	GDCVaultIE          λ.Object
+	HEADRequest         λ.Object
 	InfoExtractor       λ.Object
 	ϒsanitized_Request  λ.Object
 	ϒurlencode_postdata λ.Object
@@ -41,6 +42,7 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		HEADRequest = Ωutils.HEADRequest
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		GDCVaultIE = λ.Cal(λ.TypeType, λ.NewStr("GDCVaultIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
@@ -168,7 +170,7 @@ func init() {
 					if λ.IsTrue(ϒdirect_url) {
 						ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<td><strong>Session Name</strong></td>\\s*<td>(.*?)</td>"), ϒstart_page, λ.NewStr("title"))
 						ϒvideo_url = λ.Add(λ.NewStr("http://www.gdcvault.com"), ϒdirect_url)
-						ϒhead = λ.Cal(λ.GetAttr(ϒself, "_request_webpage", nil), λ.Cal(λ.None, ϒvideo_url), ϒvideo_id)
+						ϒhead = λ.Cal(λ.GetAttr(ϒself, "_request_webpage", nil), λ.Cal(HEADRequest, ϒvideo_url), ϒvideo_id)
 						ϒvideo_url = λ.Cal(λ.GetAttr(ϒhead, "geturl", nil))
 						return λ.NewDictWithTable(map[λ.Object]λ.Object{
 							λ.NewStr("id"):         ϒvideo_id,

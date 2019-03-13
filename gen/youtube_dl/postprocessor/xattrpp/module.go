@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * xattrpp/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/postprocessor/xattrpp.py
+ * xattrpp/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/postprocessor/xattrpp.py
  */
 
 package xattrpp

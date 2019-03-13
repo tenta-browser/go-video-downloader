@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * vevo/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/vevo.py
+ * vevo/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/vevo.py
  */
 
 package vevo
@@ -281,7 +281,7 @@ func init() {
 						defer λ.CatchMulti(
 							nil,
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
-								ϒe := λex
+								var ϒe λ.Object = λex
 								if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError)) {
 									ϒerrors = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "read", nil)), "decode", nil)), λ.None), λ.NewStr("errors"))
 									ϒerror_message = λ.Cal(λ.GetAttr(λ.NewStr(", "), "join", nil), λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",

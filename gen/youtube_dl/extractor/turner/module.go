@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * turner/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/turner.py
+ * turner/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/turner.py
  */
 
 package turner
@@ -64,8 +64,23 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		TurnerBaseIE = λ.Cal(λ.TypeType, λ.NewStr("TurnerBaseIE"), λ.NewTuple(AdobePassIE), func() λ.Dict {
 			var (
-				TurnerBaseIE__extract_cvp_info λ.Object
+				TurnerBaseIE__extract_cvp_info  λ.Object
+				TurnerBaseIE__extract_timestamp λ.Object
 			)
+			TurnerBaseIE__extract_timestamp = λ.NewFunction("_extract_timestamp",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "video_data"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself       = λargs[0]
+						ϒvideo_data = λargs[1]
+					)
+					_ = ϒself
+					return λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_attr, ϒvideo_data, λ.NewStr("dateCreated"), λ.NewStr("uts")))
+				})
 			TurnerBaseIE__extract_cvp_info = λ.NewFunction("_extract_cvp_info",
 				[]λ.Param{
 					{Name: "self"},
@@ -358,7 +373,8 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_extract_cvp_info"): TurnerBaseIE__extract_cvp_info,
+				λ.NewStr("_extract_cvp_info"):  TurnerBaseIE__extract_cvp_info,
+				λ.NewStr("_extract_timestamp"): TurnerBaseIE__extract_timestamp,
 			})
 		}())
 	})

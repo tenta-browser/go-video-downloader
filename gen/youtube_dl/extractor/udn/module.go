@@ -19,12 +19,14 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * udn/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/udn.py
+ * udn/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/udn.py
  */
 
 package udn
 
 import (
+	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
+	Ωparse "github.com/tenta-browser/go-video-downloader/gen/urllib/parse"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
@@ -47,13 +49,162 @@ func init() {
 		UDNEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("UDNEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				UDNEmbedIE__PROTOCOL_RELATIVE_VALID_URL λ.Object
+				UDNEmbedIE__TESTS                       λ.Object
 				UDNEmbedIE__VALID_URL                   λ.Object
+				UDNEmbedIE__real_extract                λ.Object
 			)
 			UDNEmbedIE__PROTOCOL_RELATIVE_VALID_URL = λ.NewStr("//video\\.udn\\.com/(?:embed|play)/news/(?P<id>\\d+)")
 			UDNEmbedIE__VALID_URL = λ.Add(λ.NewStr("https?:"), UDNEmbedIE__PROTOCOL_RELATIVE_VALID_URL)
+			UDNEmbedIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://video.udn.com/embed/news/300040"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):        λ.NewStr("300040"),
+						λ.NewStr("ext"):       λ.NewStr("mp4"),
+						λ.NewStr("title"):     λ.NewStr("生物老師男變女 全校挺\"做自己\""),
+						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg$"),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("Failed to parse JSON Expecting value")),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://video.udn.com/embed/news/300040"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://video.udn.com/play/news/303776"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
+			UDNEmbedIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒa_format          λ.Object
+						ϒapi_url           λ.Object
+						ϒext               λ.Object
+						ϒformats           λ.Object
+						ϒmobj              λ.Object
+						ϒoptions           λ.Object
+						ϒoptions_str       λ.Object
+						ϒpage              λ.Object
+						ϒposter            λ.Object
+						ϒself              = λargs[0]
+						ϒtitle             λ.Object
+						ϒtrans_options_str λ.Object
+						ϒurl               = λargs[1]
+						ϒvideo_id          λ.Object
+						ϒvideo_type        λ.Object
+						ϒvideo_url         λ.Object
+						ϒvideo_urls        λ.Object
+						τmp0               λ.Object
+						τmp1               λ.Object
+						τmp2               λ.Object
+					)
+					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒoptions_str = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("var\\s+options\\s*=\\s*([^;]+);"), ϒpage, λ.NewStr("options"))
+					ϒtrans_options_str = λ.Cal(ϒjs_to_json, ϒoptions_str)
+					ϒoptions = func() λ.Object {
+						if λv := λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
+							ϒtrans_options_str,
+							λ.NewStr("options"),
+						), λ.KWArgs{
+							{Name: "fatal", Value: λ.False},
+						}); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+						}
+					}()
+					if λ.IsTrue(ϒoptions) {
+						ϒvideo_urls = λ.GetItem(ϒoptions, λ.NewStr("video"))
+						ϒtitle = λ.GetItem(ϒoptions, λ.NewStr("title"))
+						ϒposter = λ.Cal(λ.GetAttr(ϒoptions, "get", nil), λ.NewStr("poster"))
+					} else {
+						ϒvideo_urls = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("\"video\"\\s*:\\s*({.+?})\\s*,"), ϒtrans_options_str, λ.NewStr("video urls")), λ.NewStr("video urls"))
+						ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("title\\s*:\\s*'(.+?)'\\s*,"), ϒoptions_str, λ.NewStr("title"))
+						ϒposter = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
+							λ.NewStr("poster\\s*:\\s*'(.+?)'\\s*,"),
+							ϒoptions_str,
+							λ.NewStr("poster"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						})
+					}
+					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒvideo_urls, "get", nil), λ.NewStr("youtube"))) {
+						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Cal(λ.GetAttr(ϒvideo_urls, "get", nil), λ.NewStr("youtube")), λ.NewStr("Youtube"))
+					}
+					ϒformats = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒvideo_urls, "items", nil)))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						τmp2 = τmp1
+						ϒvideo_type = λ.GetItem(τmp2, λ.NewInt(0))
+						ϒapi_url = λ.GetItem(τmp2, λ.NewInt(1))
+						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒapi_url))) {
+							continue
+						}
+						ϒvideo_url = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
+							λ.Cal(Ωparse.ϒurljoin, ϒurl, ϒapi_url),
+							ϒvideo_id,
+						), λ.KWArgs{
+							{Name: "note", Value: λ.Mod(λ.NewStr("retrieve url for %s video"), ϒvideo_type)},
+						})
+						ϒext = λ.Cal(ϒdetermine_ext, ϒvideo_url)
+						if λ.IsTrue(λ.Eq(ϒext, λ.NewStr("m3u8"))) {
+							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+								ϒvideo_url,
+								ϒvideo_id,
+							), λ.KWArgs{
+								{Name: "ext", Value: λ.NewStr("mp4")},
+								{Name: "m3u8_id", Value: λ.NewStr("hls")},
+							}))
+						} else {
+							if λ.IsTrue(λ.Eq(ϒext, λ.NewStr("f4m"))) {
+								λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_f4m_formats", nil), λ.NewArgs(
+									ϒvideo_url,
+									ϒvideo_id,
+								), λ.KWArgs{
+									{Name: "f4m_id", Value: λ.NewStr("hds")},
+								}))
+							} else {
+								ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("_(?P<height>\\d+)p_(?P<tbr>\\d+)\\.mp4"), ϒvideo_url)
+								ϒa_format = λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λ.NewStr("url"):       ϒvideo_url,
+									λ.NewStr("format_id"): λ.Add(λ.NewStr("http-"), ϒvideo_type),
+								})
+								if λ.IsTrue(ϒmobj) {
+									λ.Cal(λ.GetAttr(ϒa_format, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λ.NewStr("height"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("height"))),
+										λ.NewStr("tbr"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("tbr"))),
+									}))
+								}
+								λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒa_format)
+							}
+						}
+					}
+					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					return λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):        ϒvideo_id,
+						λ.NewStr("formats"):   ϒformats,
+						λ.NewStr("title"):     ϒtitle,
+						λ.NewStr("thumbnail"): ϒposter,
+					})
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_PROTOCOL_RELATIVE_VALID_URL"): UDNEmbedIE__PROTOCOL_RELATIVE_VALID_URL,
+				λ.NewStr("_TESTS"):                       UDNEmbedIE__TESTS,
 				λ.NewStr("_VALID_URL"):                   UDNEmbedIE__VALID_URL,
+				λ.NewStr("_real_extract"):                UDNEmbedIE__real_extract,
 			})
 		}())
 	})

@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * vbox7/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/vbox7.py
+ * vbox7/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/vbox7.py
  */
 
 package vbox7

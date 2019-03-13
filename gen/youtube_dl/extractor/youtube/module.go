@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * youtube/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/youtube.py
+ * youtube/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/youtube.py
  */
 
 package youtube
@@ -1532,7 +1532,7 @@ func init() {
 							return λ.NewBool(!λ.Contains(ϒvideo_info, λ.NewStr("author")))
 						}
 					}()) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("\"rental\" videos not supported. See https://github.com/rg3/youtube-dl/issues/359 for more information.")), λ.KWArgs{
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("\"rental\" videos not supported. See https://github.com/ytdl-org/youtube-dl/issues/359 for more information.")), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
@@ -1583,7 +1583,7 @@ func init() {
 						}()) {
 							ϒencoded_url_map = λ.Add(λ.Add(λ.GetItem(λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("url_encoded_fmt_stream_map"), λ.NewList(λ.NewStr(""))), λ.NewInt(0)), λ.NewStr(",")), λ.GetItem(λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("adaptive_fmts"), λ.NewList(λ.NewStr(""))), λ.NewInt(0)))
 							if λ.IsTrue(λ.NewBool(λ.Contains(ϒencoded_url_map, λ.NewStr("rtmpe%3Dyes")))) {
-								panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("rtmpe downloads are not supported, see https://github.com/rg3/youtube-dl/issues/343 for more information.")), λ.KWArgs{
+								panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("rtmpe downloads are not supported, see https://github.com/ytdl-org/youtube-dl/issues/343 for more information.")), λ.KWArgs{
 									{Name: "expected", Value: λ.True},
 								})))
 							}
@@ -2203,7 +2203,7 @@ func init() {
 										ExtractorError,
 										λ.KeyErrorType,
 									), func(λex λ.BaseException) {
-										ϒe := λex
+										var ϒe λ.Object = λex
 										λ.Cal(λ.GetAttr(ϒself, "report_warning", nil), λ.Mod(λ.NewStr("Skipping DASH manifest: %r"), ϒe), ϒvideo_id)
 									}},
 								)

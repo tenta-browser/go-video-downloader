@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * porn91/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/porn91.py
+ * porn91/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/porn91.py
  */
 
 package porn91

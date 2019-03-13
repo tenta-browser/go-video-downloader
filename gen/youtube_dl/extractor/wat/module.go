@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * wat/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/wat.py
+ * wat/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/wat.py
  */
 
 package wat
@@ -34,6 +34,7 @@ import (
 
 var (
 	ExtractorError   λ.Object
+	HEADRequest      λ.Object
 	InfoExtractor    λ.Object
 	WatIE            λ.Object
 	ϒcompat_str      λ.Object
@@ -47,6 +48,7 @@ func init() {
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ExtractorError = Ωutils.ExtractorError
 		ϒunified_strdate = Ωutils.ϒunified_strdate
+		HEADRequest = Ωutils.HEADRequest
 		ϒint_or_none = Ωutils.ϒint_or_none
 		WatIE = λ.Cal(λ.TypeType, λ.NewStr("WatIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
@@ -248,7 +250,7 @@ func init() {
 							)
 							ϒreq_url = λ.Mod(λ.NewStr("http://www.wat.tv/get/%s"), λ.Mod(ϒpath_template, ϒvideo_id))
 							ϒhead = λ.Call(λ.GetAttr(ϒself, "_request_webpage", nil), λ.NewArgs(
-								λ.Cal(λ.None, ϒreq_url),
+								λ.Cal(HEADRequest, ϒreq_url),
 								ϒvideo_id,
 								λ.Mod(λ.NewStr("Extracting %s url"), ϒurl_type),
 							), λ.KWArgs{

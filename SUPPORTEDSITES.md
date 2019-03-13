@@ -1,13 +1,14 @@
 Supported sites
 ===============
 
+ * AbcNewsVideo: `abcnews.go.com`
  * ACast: `www.acast.com`
- * AdobeTV: `tv.adobe.com`
  * AdobeTVVideo: `video.tv.adobe.com`
  * Aol: `on.aol.com`
  * Allocine: `www.allocine.fr`
  * Aparat: `www.aparat.com`
  * ARDMediathek: `www.ardmediathek.de`
+ * AudiMedia: `www.audi-mediacenter.com`
  * Audiomack: `www.audiomack.com`
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
@@ -16,8 +17,10 @@ Supported sites
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BitChute: `www.bitchute.com`
+ * BIQLE: `biqle.org`
  * BleacherReportCMS: `bleacherreport.com`
  * Bpb: `www.bpb.de`
+ * BR: `www.br.de`
  * BrightcoveLegacy: `c.brightcove.com`
  * BrightcoveNew: `players.brightcove.net`
  * BusinessInsider: `uk.businessinsider.com`
@@ -31,7 +34,9 @@ Supported sites
  * Clippit: `www.clippituser.tv`
  * Clipsyndicate: `www.clipsyndicate.com`
  * Clyp: `clyp.it`
- * CNN: `money.cnn.com`
+ * CNN: `edition.cnn.com`
+ * CNNBlogs: `reliablesources.blogs.cnn.com`
+ * CNNArticle: `www.cnn.com`
  * Coub: `coub.com`
  * Cracked: `www.cracked.com`
  * CSpan: `www.c-span.org`
@@ -39,7 +44,6 @@ Supported sites
  * CuriosityStream: `app.curiositystream.com`
  * DailyMail: `www.dailymail.co.uk`
  * Dailymotion: `www.dailymotion.com`
- * Digg: `digg.com`
  * Dotsub: `dotsub.com`
  * DiscoveryNetworksDe: `www.tlc.de`
  * Disney: `video.disney.com`
@@ -52,9 +56,12 @@ Supported sites
  * Europa: `ec.europa.eu`
  * ExtremeTube _(adult)_: `www.extremetube.com`
  * Facebook: `www.facebook.com`
- * FacebookPluginsVideo: `www.facebook.com`
  * Faz: `www.faz.net`
  * FiveMin: `pshared.5min.com`
+ * Flickr: `www.flickr.com`
+ * Formula1: `www.formula1.com`
+ * FoxNews: `video.foxnews.com`
+ * FoxNewsArticle: `www.foxnews.com`
  * FranceCulture: `www.franceculture.fr`
  * Freesound: `www.freesound.org`
  * GameSpot: `www.gamespot.com`
@@ -68,12 +75,13 @@ Supported sites
  * HitRecord: `hitrecord.org`
  * HornBunny _(adult)_: `hornbunny.com`
  * HowStuffWorks: `www.stufftoblowyourmind.com`
+ * Hypem: `hypem.com`
+ * IGN: `www.ign.com`
  * Imdb: `www.imdb.com`
  * Imgur: `i.imgur.com`
  * ImgurGallery: `imgur.com`
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
- * Instagram: `instagram.com`
  * Ir90Tv: `90tv.ir`
  * Ivideon: `www.ivideon.com`
  * Izlesene: `www.izlesene.com`
@@ -101,6 +109,7 @@ Supported sites
  * Mojvideo: `www.mojvideo.com`
  * MySpace: `myspace.com`
  * Myvi: `myvi.ru`
+ * NBA: `www.nba.com`
  * NDR: `www.ndr.de`
  * NDREmbed: `www.ndr.de`
  * NJoyEmbed: `www.n-joy.de`
@@ -135,7 +144,7 @@ Supported sites
  * PressTV: `www.presstv.ir`
  * RadioDe: `ndr2.radio.de`
  * RadioJavan: `www.radiojavan.com`
- * Rai: `www.raisport.rai.it`
+ * Rai: `www.rai.tv`
  * RayWenderlich: `www.raywenderlich.com`
  * RBMARadio: `www.rbmaradio.com`
  * RedTube _(adult)_: `www.redtube.com`
@@ -150,10 +159,13 @@ Supported sites
  * Screencast: `www.screencast.com`
  * SenateISVP: `www.senate.gov`
  * SeznamZpravy: `www.seznamzpravy.cz`
+ * SkySports: `www.skysports.com`
  * Slideshare: `www.slideshare.net`
  * Slutload _(adult)_: `www.slutload.com`
  * Soundgasm: `soundgasm.net`
+ * SpankBang _(adult)_: `spankbang.com`
  * Stitcher: `www.stitcher.com`
+ * SRGSSRPlay: `www.rts.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
  * Streamable: `streamable.com`
  * SunPorno _(adult)_: `www.sunporno.com`
@@ -165,6 +177,7 @@ Supported sites
  * TED: `www.ted.com`
  * Tele13: `www.t13.cl`
  * Tenta: `tenta.com`
+ * TFO: `www.tfo.org`
  * ThisOldHouse: `www.thisoldhouse.com`
  * TikTok: `m.tiktok.com`
  * TinyPic: `tinypic.com`
@@ -186,6 +199,7 @@ Supported sites
  * TwentyMinuten: `www.20min.ch`
  * TwitchClips: `clips.twitch.tv`
  * TwitterAmplify: `amp.twimg.com`
+ * UDNEmbed: `video.udn.com`
  * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
  * UOL: `player.mais.uol.com.br`
@@ -194,14 +208,16 @@ Supported sites
  * Varzesh3: `video.varzesh3.com`
  * Vbox7: `vbox7.com`
  * VeeHD: `veehd.com`
+ * Veoh: `www.veoh.com`
  * Vesti: `www.vesti.ru`
  * Vevo _(adult)_: `www.vevo.com`
- * Viddler: `www.viddler.com`
+ * VGTV: `www.vgtv.no`
  * VideoPress: `videopress.com`
  * VideosZ _(adult)_: `www.videosz.com`
  * VidLii: `www.vidlii.com`
  * Vimeo: `vimeo.com`
  * VimeoOndemand: `vimeo.com`
+ * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
  * Vine: `vine.co`
  * Viqeo: `cdn.viqeo.tv`

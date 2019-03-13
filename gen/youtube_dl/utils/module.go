@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * utils/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/utils.py
+ * utils/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/utils.py
  */
 
 package utils
@@ -47,12 +47,14 @@ var (
 	ExtractorError                    λ.Object
 	GeoRestrictedError                λ.Object
 	GeoUtils                          λ.Object
+	HEADRequest                       λ.Object
 	HTMLAttributeParser               λ.Object
 	ISO639Utils                       λ.Object
 	JSON_LD_RE                        λ.Object
 	KNOWN_EXTENSIONS                  λ.Object
 	MaxDownloadsReached               λ.Object
 	NO_DEFAULT                        λ.Object
+	OnDemandPagedList                 λ.Object
 	PagedList                         λ.Object
 	PostProcessingError               λ.Object
 	RegexNotFoundError                λ.Object
@@ -1769,6 +1771,26 @@ func init() {
 				}
 				return λ.Cal(Ωparse.ϒurljoin, ϒbase, ϒpath)
 			})
+		HEADRequest = λ.Cal(λ.TypeType, λ.NewStr("HEADRequest"), λ.NewTuple(Ωrequest.Request), func() λ.Dict {
+			var (
+				HEADRequest_get_method λ.Object
+			)
+			HEADRequest_get_method = λ.NewFunction("get_method",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself = λargs[0]
+					)
+					_ = ϒself
+					return λ.NewStr("HEAD")
+				})
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("get_method"): HEADRequest_get_method,
+			})
+		}())
 		ϒint_or_none = λ.NewFunction("int_or_none",
 			[]λ.Param{
 				{Name: "v"},
@@ -2014,6 +2036,10 @@ func init() {
 
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 		}())
+		OnDemandPagedList = λ.Cal(λ.TypeType, λ.NewStr("OnDemandPagedList"), λ.NewTuple(PagedList), func() λ.Dict {
+
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+		}())
 		ϒuppercase_escape = λ.NewFunction("uppercase_escape",
 			[]λ.Param{
 				{Name: "s"},
@@ -2113,7 +2139,7 @@ func init() {
 				}(), ϒquery)
 				ϒreq_get_method = λ.Cal(λ.GetAttr(ϒreq, "get_method", nil))
 				if λ.IsTrue(λ.Eq(ϒreq_get_method, λ.NewStr("HEAD"))) {
-					ϒreq_type = λ.None
+					ϒreq_type = HEADRequest
 				} else {
 					if λ.IsTrue(λ.Eq(ϒreq_get_method, λ.NewStr("PUT"))) {
 						ϒreq_type = λ.None

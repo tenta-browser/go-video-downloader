@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * generic/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/generic.py
+ * generic/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/generic.py
  */
 
 package generic
@@ -127,6 +127,7 @@ var (
 	FacebookIE                   λ.Object
 	FoxNewsIE                    λ.Object
 	GoogleDriveIE                λ.Object
+	HEADRequest                  λ.Object
 	IndavideoEmbedIE             λ.Object
 	InfoExtractor                λ.Object
 	InstagramIE                  λ.Object
@@ -218,6 +219,7 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
+		HEADRequest = Ωutils.HEADRequest
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		KNOWN_EXTENSIONS = Ωutils.KNOWN_EXTENSIONS
 		ϒmerge_dicts = Ωutils.ϒmerge_dicts

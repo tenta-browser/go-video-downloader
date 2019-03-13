@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * livestream/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/livestream.py
+ * livestream/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/livestream.py
  */
 
 package livestream

@@ -101,7 +101,7 @@ var SetCookie = rnt.NewSimpleFunction("SetCookie",
 		return rnt.None
 	})
 
-// GetCookieHeader returns to Cookie request header value for url.
+// GetCookieHeader returns the Cookie request header value for url.
 var GetCookieHeader = rnt.NewSimpleFunction("GetCookieHeader",
 	[]string{"jar", "url"},
 	func(args []rnt.Object) rnt.Object {
@@ -118,4 +118,17 @@ var GetCookieHeader = rnt.NewSimpleFunction("GetCookieHeader",
 		}
 		sort.Strings(cs)
 		return rnt.NewStr(strings.Join(cs, "; "))
+	})
+
+// ParseCookieString parses cookies and returns a name-value map of them.
+var ParseCookieString = rnt.NewSimpleFunction("ParseCookieString",
+	[]string{"cs"},
+	func(args []rnt.Object) rnt.Object {
+		cs := args[0].(rnt.Str).Value()
+		cookies := parseCookieString(cs)
+		res := make(map[rnt.Object]rnt.Object)
+		for _, cookie := range cookies {
+			res[rnt.NewStr(cookie.Name)] = rnt.NewStr(cookie.Value)
+		}
+		return rnt.NewDictWithTable(res)
 	})

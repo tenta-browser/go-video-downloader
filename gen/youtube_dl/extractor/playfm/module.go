@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * playfm/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/playfm.py
+ * playfm/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/playfm.py
  */
 
 package playfm

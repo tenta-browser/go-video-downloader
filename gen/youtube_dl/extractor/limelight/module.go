@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * limelight/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/limelight.py
+ * limelight/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/limelight.py
  */
 
 package limelight
@@ -100,7 +100,7 @@ func init() {
 						defer λ.CatchMulti(
 							nil,
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
-								ϒe := λex
+								var ϒe λ.Object = λex
 								if λ.IsTrue(func() λ.Object {
 									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
 										return λv

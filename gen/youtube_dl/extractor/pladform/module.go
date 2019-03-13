@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * pladform/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/pladform.py
+ * pladform/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/pladform.py
  */
 
 package pladform

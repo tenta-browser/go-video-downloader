@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * beeg/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/beeg.py
+ * beeg/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/beeg.py
  */
 
 package beeg
@@ -47,26 +47,36 @@ func init() {
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		BeegIE = λ.Cal(λ.TypeType, λ.NewStr("BeegIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				BeegIE__TEST         λ.Object
+				BeegIE__TESTS        λ.Object
 				BeegIE__VALID_URL    λ.Object
 				BeegIE__real_extract λ.Object
 			)
-			BeegIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?beeg\\.com/(?P<id>\\d+)")
-			BeegIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://beeg.com/5416503"),
-				λ.NewStr("md5"): λ.NewStr("a1a1b1a8bc70a89e49ccfd113aed0820"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("5416503"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Sultry Striptease"),
-					λ.NewStr("description"): λ.NewStr("md5:d22219c09da287c14bed3d6c37ce4bc2"),
-					λ.NewStr("timestamp"):   λ.NewInt(1391813355),
-					λ.NewStr("upload_date"): λ.NewStr("20140207"),
-					λ.NewStr("duration"):    λ.NewInt(383),
-					λ.NewStr("tags"):        λ.ListType,
-					λ.NewStr("age_limit"):   λ.NewInt(18),
+			BeegIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?beeg\\.(?:com|porn(?:/video)?)/(?P<id>\\d+)")
+			BeegIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://beeg.com/5416503"),
+					λ.NewStr("md5"): λ.NewStr("a1a1b1a8bc70a89e49ccfd113aed0820"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("5416503"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Sultry Striptease"),
+						λ.NewStr("description"): λ.NewStr("md5:d22219c09da287c14bed3d6c37ce4bc2"),
+						λ.NewStr("timestamp"):   λ.NewInt(1391813355),
+						λ.NewStr("upload_date"): λ.NewStr("20140207"),
+						λ.NewStr("duration"):    λ.NewInt(383),
+						λ.NewStr("tags"):        λ.ListType,
+						λ.NewStr("age_limit"):   λ.NewInt(18),
+					}),
 				}),
-			})
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://beeg.porn/video/5416503"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://beeg.porn/5416503"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
 			BeegIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -212,7 +222,7 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         BeegIE__TEST,
+				λ.NewStr("_TESTS"):        BeegIE__TESTS,
 				λ.NewStr("_VALID_URL"):    BeegIE__VALID_URL,
 				λ.NewStr("_real_extract"): BeegIE__real_extract,
 			})

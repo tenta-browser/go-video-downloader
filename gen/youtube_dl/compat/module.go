@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * compat/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/compat.py
+ * compat/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/compat.py
  */
 
 package compat
@@ -41,6 +41,7 @@ var (
 	ϒcompat_b64decode                 λ.Object
 	ϒcompat_basestring                λ.Object
 	ϒcompat_chr                       λ.Object
+	ϒcompat_etree_Element             λ.Object
 	ϒcompat_etree_fromstring          λ.Object
 	ϒcompat_html_entities_html5       λ.Object
 	ϒcompat_http_client               λ.Object
@@ -58,6 +59,7 @@ var (
 
 func init() {
 	λ.InitModule(func() {
+		ϒcompat_etree_Element = ΩElementTree.Element
 		ϒcompat_HTMLParser = Ωparser.HTMLParser
 		ϒcompat_HTMLParseError = Ωparser.HTMLParseError
 		ϒcompat_str = λ.StrType

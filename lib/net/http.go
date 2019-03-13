@@ -67,6 +67,10 @@ var Execute = rnt.NewSimpleFunction("Execute",
 			if len(data) > 0 {
 				req.Body = ioutil.NopCloser(bytes.NewBuffer(data))
 				req.ContentLength = int64(len(data))
+				// when no content type is set, default to urlencoded, to mimic what Python does
+				if req.Header.Get("Content-Type") == "" {
+					req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+				}
 			}
 		}
 

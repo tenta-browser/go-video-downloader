@@ -19,7 +19,7 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * ir90tv/module.go: transpiled from https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/ir90tv.py
+ * ir90tv/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/ir90tv.py
  */
 
 package ir90tv

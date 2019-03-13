@@ -3,7 +3,7 @@ Go Video Downloader
 
 [![GoDoc](https://godoc.org/github.com/tenta-browser/go-video-downloader?status.svg)](https://godoc.org/github.com/tenta-browser/go-video-downloader)
 
-Extracts video info and download URL from various sites using extractors transpiled from [rg3/youtube-dl](https://github.com/rg3/youtube-dl).
+Extracts video info and download URL from various sites using extractors transpiled from [ytdl-org/youtube-dl](https://github.com/ytdl-org/youtube-dl).
 
 Contact: developer@tenta.io
 
