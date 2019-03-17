@@ -102,6 +102,7 @@ var (
 	ϒmimetype2ext                     λ.Object
 	ϒorderedSet                       λ.Object
 	ϒparse_age_limit                  λ.Object
+	ϒparse_bitrate                    λ.Object
 	ϒparse_codecs                     λ.Object
 	ϒparse_count                      λ.Object
 	ϒparse_duration                   λ.Object
@@ -1644,6 +1645,25 @@ func init() {
 					})
 				}
 				return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			})
+		ϒparse_bitrate = λ.NewFunction("parse_bitrate",
+			[]λ.Param{
+				{Name: "s"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒmobj λ.Object
+					ϒs    = λargs[0]
+				)
+				if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒs, ϒcompat_str)))) {
+					return λ.None
+				}
+				ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("\\b(\\d+)\\s*kbps"), ϒs)
+				if λ.IsTrue(ϒmobj) {
+					return λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewInt(1)))
+				}
+				return λ.None
 			})
 		ϒfix_xml_ampersands = λ.NewFunction("fix_xml_ampersands",
 			[]λ.Param{

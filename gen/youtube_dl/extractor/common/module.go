@@ -63,6 +63,7 @@ var (
 	ϒcompiled_regex_type           λ.Object
 	ϒdetermine_ext                 λ.Object
 	ϒdetermine_protocol            λ.Object
+	ϒdict_get                      λ.Object
 	ϒerror_to_compat_str           λ.Object
 	ϒextract_attributes            λ.Object
 	ϒfix_xml_ampersands            λ.Object
@@ -72,13 +73,16 @@ var (
 	ϒjs_to_json                    λ.Object
 	ϒmimetype2ext                  λ.Object
 	ϒorderedSet                    λ.Object
+	ϒparse_bitrate                 λ.Object
 	ϒparse_codecs                  λ.Object
 	ϒparse_duration                λ.Object
 	ϒparse_iso8601                 λ.Object
 	ϒparse_m3u8_attributes         λ.Object
+	ϒparse_resolution              λ.Object
 	ϒremove_encrypted_media        λ.Object
 	ϒsanitize_filename             λ.Object
 	ϒsanitized_Request             λ.Object
+	ϒstr_or_none                   λ.Object
 	ϒunescapeHTML                  λ.Object
 	ϒunified_strdate               λ.Object
 	ϒunified_timestamp             λ.Object
@@ -109,6 +113,7 @@ func init() {
 		ϒcompiled_regex_type = Ωutils.ϒcompiled_regex_type
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒdetermine_protocol = Ωutils.ϒdetermine_protocol
+		ϒdict_get = Ωutils.ϒdict_get
 		ϒerror_to_compat_str = Ωutils.ϒerror_to_compat_str
 		ExtractorError = Ωutils.ExtractorError
 		ϒextract_attributes = Ωutils.ϒextract_attributes
@@ -121,13 +126,16 @@ func init() {
 		JSON_LD_RE = Ωutils.JSON_LD_RE
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
 		ϒorderedSet = Ωutils.ϒorderedSet
+		ϒparse_bitrate = Ωutils.ϒparse_bitrate
 		ϒparse_codecs = Ωutils.ϒparse_codecs
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒparse_m3u8_attributes = Ωutils.ϒparse_m3u8_attributes
+		ϒparse_resolution = Ωutils.ϒparse_resolution
 		RegexNotFoundError = Ωutils.RegexNotFoundError
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		ϒsanitize_filename = Ωutils.ϒsanitize_filename
+		ϒstr_or_none = Ωutils.ϒstr_or_none
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
@@ -224,7 +232,7 @@ func init() {
 				InfoExtractor_url_result                   λ.Object
 				InfoExtractor_working                      λ.Object
 			)
-			λ.NewStr("Information Extractor class.\n\n    Information extractors are the classes that, given a URL, extract\n    information about the video (or videos) the URL refers to. This\n    information includes the real video URL, the video title, author and\n    others. The information is stored in a dictionary which is then\n    passed to the YoutubeDL. The YoutubeDL processes this\n    information possibly downloading the video to the file system, among\n    other possible outcomes.\n\n    The type field determines the type of the result.\n    By far the most common value (and the default if _type is missing) is\n    \"video\", which indicates a single video.\n\n    For a video, the dictionaries must include the following fields:\n\n    id:             Video identifier.\n    title:          Video title, unescaped.\n\n    Additionally, it must contain either a formats entry or a url one:\n\n    formats:        A list of dictionaries for each format available, ordered\n                    from worst to best quality.\n\n                    Potential fields:\n                    * url        The mandatory URL representing the media:\n                                   for plain file media - HTTP URL of this file,\n                                   for RTMP - RTMP URL,\n                                   for HLS - URL of the M3U8 media playlist,\n                                   for HDS - URL of the F4M manifest,\n                                   for DASH - URL of the MPD manifest or\n                                              base URL representing the media\n                                              if MPD manifest is parsed from\n                                              a string,\n                                   for MSS - URL of the ISM manifest.\n                    * manifest_url\n                                 The URL of the manifest file in case of\n                                 fragmented media:\n                                   for HLS - URL of the M3U8 master playlist,\n                                   for HDS - URL of the F4M manifest,\n                                   for DASH - URL of the MPD manifest,\n                                   for MSS - URL of the ISM manifest.\n                    * ext        Will be calculated from URL if missing\n                    * format     A human-readable description of the format\n                                 (\"mp4 container with h264/opus\").\n                                 Calculated from the format_id, width, height.\n                                 and format_note fields if missing.\n                    * format_id  A short description of the format\n                                 (\"mp4_h264_opus\" or \"19\").\n                                Technically optional, but strongly recommended.\n                    * format_note Additional info about the format\n                                 (\"3D\" or \"DASH video\")\n                    * width      Width of the video, if known\n                    * height     Height of the video, if known\n                    * resolution Textual description of width and height\n                    * tbr        Average bitrate of audio and video in KBit/s\n                    * abr        Average audio bitrate in KBit/s\n                    * acodec     Name of the audio codec in use\n                    * asr        Audio sampling rate in Hertz\n                    * vbr        Average video bitrate in KBit/s\n                    * fps        Frame rate\n                    * vcodec     Name of the video codec in use\n                    * container  Name of the container format\n                    * filesize   The number of bytes, if known in advance\n                    * filesize_approx  An estimate for the number of bytes\n                    * player_url SWF Player URL (used for rtmpdump).\n                    * protocol   The protocol that will be used for the actual\n                                 download, lower-case.\n                                 \"http\", \"https\", \"rtsp\", \"rtmp\", \"rtmpe\",\n                                 \"m3u8\", \"m3u8_native\" or \"http_dash_segments\".\n                    * fragment_base_url\n                                 Base URL for fragments. Each fragment's path\n                                 value (if present) will be relative to\n                                 this URL.\n                    * fragments  A list of fragments of a fragmented media.\n                                 Each fragment entry must contain either an url\n                                 or a path. If an url is present it should be\n                                 considered by a client. Otherwise both path and\n                                 fragment_base_url must be present. Here is\n                                 the list of all potential fields:\n                                 * \"url\" - fragment's URL\n                                 * \"path\" - fragment's path relative to\n                                            fragment_base_url\n                                 * \"duration\" (optional, int or float)\n                                 * \"filesize\" (optional, int)\n                    * preference Order number of this format. If this field is\n                                 present and not None, the formats get sorted\n                                 by this field, regardless of all other values.\n                                 -1 for default (order by other properties),\n                                 -2 or smaller for less than default.\n                                 < -1000 to hide the format (if there is\n                                    another one which is strictly better)\n                    * language   Language code, e.g. \"de\" or \"en-US\".\n                    * language_preference  Is this in the language mentioned in\n                                 the URL?\n                                 10 if it's what the URL is about,\n                                 -1 for default (don't know),\n                                 -10 otherwise, other values reserved for now.\n                    * quality    Order number of the video quality of this\n                                 format, irrespective of the file format.\n                                 -1 for default (order by other properties),\n                                 -2 or smaller for less than default.\n                    * source_preference  Order number for this video source\n                                  (quality takes higher priority)\n                                 -1 for default (order by other properties),\n                                 -2 or smaller for less than default.\n                    * http_headers  A dictionary of additional HTTP headers\n                                 to add to the request.\n                    * stretched_ratio  If given and not 1, indicates that the\n                                 video's pixels are not square.\n                                 width : height ratio as float.\n                    * no_resume  The server does not support resuming the\n                                 (HTTP or RTMP) download. Boolean.\n                    * downloader_options  A dictionary of downloader options as\n                                 described in FileDownloader\n\n    url:            Final video URL.\n    ext:            Video filename extension.\n    format:         The video format, defaults to ext (used for --get-format)\n    player_url:     SWF Player URL (used for rtmpdump).\n\n    The following fields are optional:\n\n    alt_title:      A secondary title of the video.\n    display_id      An alternative identifier for the video, not necessarily\n                    unique, but available before title. Typically, id is\n                    something like \"4234987\", title \"Dancing naked mole rats\",\n                    and display_id \"dancing-naked-mole-rats\"\n    thumbnails:     A list of dictionaries, with the following entries:\n                        * \"id\" (optional, string) - Thumbnail format ID\n                        * \"url\"\n                        * \"preference\" (optional, int) - quality of the image\n                        * \"width\" (optional, int)\n                        * \"height\" (optional, int)\n                        * \"resolution\" (optional, string \"{width}x{height\"},\n                                        deprecated)\n                        * \"filesize\" (optional, int)\n    thumbnail:      Full URL to a video thumbnail image.\n    description:    Full video description.\n    uploader:       Full name of the video uploader.\n    license:        License name the video is licensed under.\n    creator:        The creator of the video.\n    release_date:   The date (YYYYMMDD) when the video was released.\n    timestamp:      UNIX timestamp of the moment the video became available.\n    upload_date:    Video upload date (YYYYMMDD).\n                    If not explicitly set, calculated from timestamp.\n    uploader_id:    Nickname or id of the video uploader.\n    uploader_url:   Full URL to a personal webpage of the video uploader.\n    channel:        Full name of the channel the video is uploaded on.\n                    Note that channel fields may or may not repeat uploader\n                    fields. This depends on a particular extractor.\n    channel_id:     Id of the channel.\n    channel_url:    Full URL to a channel webpage.\n    location:       Physical location where the video was filmed.\n    subtitles:      The available subtitles as a dictionary in the format\n                    {tag: subformats}. \"tag\" is usually a language code, and\n                    \"subformats\" is a list sorted from lower to higher\n                    preference, each element is a dictionary with the \"ext\"\n                    entry and one of:\n                        * \"data\": The subtitles file contents\n                        * \"url\": A URL pointing to the subtitles file\n                    \"ext\" will be calculated from URL if missing\n    automatic_captions: Like 'subtitles', used by the YoutubeIE for\n                    automatically generated captions\n    duration:       Length of the video in seconds, as an integer or float.\n    view_count:     How many users have watched the video on the platform.\n    like_count:     Number of positive ratings of the video\n    dislike_count:  Number of negative ratings of the video\n    repost_count:   Number of reposts of the video\n    average_rating: Average rating give by users, the scale used depends on the webpage\n    comment_count:  Number of comments on the video\n    comments:       A list of comments, each with one or more of the following\n                    properties (all but one of text or html optional):\n                        * \"author\" - human-readable name of the comment author\n                        * \"author_id\" - user ID of the comment author\n                        * \"id\" - Comment ID\n                        * \"html\" - Comment as HTML\n                        * \"text\" - Plain text of the comment\n                        * \"timestamp\" - UNIX timestamp of comment\n                        * \"parent\" - ID of the comment this one is replying to.\n                                     Set to \"root\" to indicate that this is a\n                                     comment to the original video.\n    age_limit:      Age restriction for the video, as an integer (years)\n    webpage_url:    The URL to the video webpage, if given to youtube-dl it\n                    should allow to get the same result again. (It will be set\n                    by YoutubeDL if it's missing)\n    categories:     A list of categories that the video falls in, for example\n                    [\"Sports\", \"Berlin\"]\n    tags:           A list of tags assigned to the video, e.g. [\"sweden\", \"pop music\"]\n    is_live:        True, False, or None (=unknown). Whether this video is a\n                    live stream that goes on instead of a fixed-length video.\n    start_time:     Time in seconds where the reproduction should start, as\n                    specified in the URL.\n    end_time:       Time in seconds where the reproduction should end, as\n                    specified in the URL.\n    chapters:       A list of dictionaries, with the following entries:\n                        * \"start_time\" - The start time of the chapter in seconds\n                        * \"end_time\" - The end time of the chapter in seconds\n                        * \"title\" (optional, string)\n\n    The following fields should only be used when the video belongs to some logical\n    chapter or section:\n\n    chapter:        Name or title of the chapter the video belongs to.\n    chapter_number: Number of the chapter the video belongs to, as an integer.\n    chapter_id:     Id of the chapter the video belongs to, as a unicode string.\n\n    The following fields should only be used when the video is an episode of some\n    series, programme or podcast:\n\n    series:         Title of the series or programme the video episode belongs to.\n    season:         Title of the season the video episode belongs to.\n    season_number:  Number of the season the video episode belongs to, as an integer.\n    season_id:      Id of the season the video episode belongs to, as a unicode string.\n    episode:        Title of the video episode. Unlike mandatory video title field,\n                    this field should denote the exact title of the video episode\n                    without any kind of decoration.\n    episode_number: Number of the video episode within a season, as an integer.\n    episode_id:     Id of the video episode, as a unicode string.\n\n    The following fields should only be used when the media is a track or a part of\n    a music album:\n\n    track:          Title of the track.\n    track_number:   Number of the track within an album or a disc, as an integer.\n    track_id:       Id of the track (useful in case of custom indexing, e.g. 6.iii),\n                    as a unicode string.\n    artist:         Artist(s) of the track.\n    genre:          Genre(s) of the track.\n    album:          Title of the album the track belongs to.\n    album_type:     Type of the album (e.g. \"Demo\", \"Full-length\", \"Split\", \"Compilation\", etc).\n    album_artist:   List of all artists appeared on the album (e.g.\n                    \"Ash Borer / Fell Voices\" or \"Various Artists\", useful for splits\n                    and compilations).\n    disc_number:    Number of the disc or other physical medium the track belongs to,\n                    as an integer.\n    release_year:   Year (YYYY) when the album was released.\n\n    Unless mentioned otherwise, the fields should be Unicode strings.\n\n    Unless mentioned otherwise, None is equivalent to absence of information.\n\n\n    _type \"playlist\" indicates multiple videos.\n    There must be a key \"entries\", which is a list, an iterable, or a PagedList\n    object, each element of which is a valid dictionary by this specification.\n\n    Additionally, playlists can have \"id\", \"title\", \"description\", \"uploader\",\n    \"uploader_id\", \"uploader_url\" attributes with the same semantics as videos\n    (see above).\n\n\n    _type \"multi_video\" indicates that there are multiple videos that\n    form a single show, for examples multiple acts of an opera or TV episode.\n    It must have an entries key like a playlist and contain all the keys\n    required for a video at the same time.\n\n\n    _type \"url\" indicates that the video must be extracted from another\n    location, possibly by a different extractor. Its only required key is:\n    \"url\" - the next URL to extract.\n    The key \"ie_key\" can be set to the class name (minus the trailing \"IE\",\n    e.g. \"Youtube\") if the extractor class is known in advance.\n    Additionally, the dictionary may have any properties of the resolved entity\n    known in advance, for example \"title\" if the title of the referred video is\n    known ahead of time.\n\n\n    _type \"url_transparent\" entities have the same specification as \"url\", but\n    indicate that the given additional information is more precise than the one\n    associated with the resolved URL.\n    This is useful when a site employs a video service that hosts the video and\n    its technical metadata, but that video service does not embed a useful\n    title, description etc.\n\n\n    Subclasses of this one should re-define the _real_initialize() and\n    _real_extract() methods and define a _VALID_URL regexp.\n    Probably, they should also be added to the list of extractors.\n\n    _GEO_BYPASS attribute may be set to False in order to disable\n    geo restriction bypass mechanisms for a particular extractor.\n    Though it won't disable explicit geo restriction bypass based on\n    country code provided with geo_bypass_country.\n\n    _GEO_COUNTRIES attribute may contain a list of presumably geo unrestricted\n    countries for this extractor. One of these countries will be used by\n    geo restriction bypass mechanism right away in order to bypass\n    geo restriction, of course, if the mechanism is not disabled.\n\n    _GEO_IP_BLOCKS attribute may contain a list of presumably geo unrestricted\n    IP blocks in CIDR notation for this extractor. One of these IP blocks\n    will be used by geo restriction bypass mechanism similarly\n    to _GEO_COUNTRIES.\n\n    Finally, the _WORKING attribute should be set to False for broken IEs\n    in order to warn the users and skip the tests.\n    ")
+			λ.NewStr("Information Extractor class.\n\n    Information extractors are the classes that, given a URL, extract\n    information about the video (or videos) the URL refers to. This\n    information includes the real video URL, the video title, author and\n    others. The information is stored in a dictionary which is then\n    passed to the YoutubeDL. The YoutubeDL processes this\n    information possibly downloading the video to the file system, among\n    other possible outcomes.\n\n    The type field determines the type of the result.\n    By far the most common value (and the default if _type is missing) is\n    \"video\", which indicates a single video.\n\n    For a video, the dictionaries must include the following fields:\n\n    id:             Video identifier.\n    title:          Video title, unescaped.\n\n    Additionally, it must contain either a formats entry or a url one:\n\n    formats:        A list of dictionaries for each format available, ordered\n                    from worst to best quality.\n\n                    Potential fields:\n                    * url        The mandatory URL representing the media:\n                                   for plain file media - HTTP URL of this file,\n                                   for RTMP - RTMP URL,\n                                   for HLS - URL of the M3U8 media playlist,\n                                   for HDS - URL of the F4M manifest,\n                                   for DASH\n                                     - HTTP URL to plain file media (in case of\n                                       unfragmented media)\n                                     - URL of the MPD manifest or base URL\n                                       representing the media if MPD manifest\n                                       is parsed froma string (in case of\n                                       fragmented media)\n                                   for MSS - URL of the ISM manifest.\n                    * manifest_url\n                                 The URL of the manifest file in case of\n                                 fragmented media:\n                                   for HLS - URL of the M3U8 master playlist,\n                                   for HDS - URL of the F4M manifest,\n                                   for DASH - URL of the MPD manifest,\n                                   for MSS - URL of the ISM manifest.\n                    * ext        Will be calculated from URL if missing\n                    * format     A human-readable description of the format\n                                 (\"mp4 container with h264/opus\").\n                                 Calculated from the format_id, width, height.\n                                 and format_note fields if missing.\n                    * format_id  A short description of the format\n                                 (\"mp4_h264_opus\" or \"19\").\n                                Technically optional, but strongly recommended.\n                    * format_note Additional info about the format\n                                 (\"3D\" or \"DASH video\")\n                    * width      Width of the video, if known\n                    * height     Height of the video, if known\n                    * resolution Textual description of width and height\n                    * tbr        Average bitrate of audio and video in KBit/s\n                    * abr        Average audio bitrate in KBit/s\n                    * acodec     Name of the audio codec in use\n                    * asr        Audio sampling rate in Hertz\n                    * vbr        Average video bitrate in KBit/s\n                    * fps        Frame rate\n                    * vcodec     Name of the video codec in use\n                    * container  Name of the container format\n                    * filesize   The number of bytes, if known in advance\n                    * filesize_approx  An estimate for the number of bytes\n                    * player_url SWF Player URL (used for rtmpdump).\n                    * protocol   The protocol that will be used for the actual\n                                 download, lower-case.\n                                 \"http\", \"https\", \"rtsp\", \"rtmp\", \"rtmpe\",\n                                 \"m3u8\", \"m3u8_native\" or \"http_dash_segments\".\n                    * fragment_base_url\n                                 Base URL for fragments. Each fragment's path\n                                 value (if present) will be relative to\n                                 this URL.\n                    * fragments  A list of fragments of a fragmented media.\n                                 Each fragment entry must contain either an url\n                                 or a path. If an url is present it should be\n                                 considered by a client. Otherwise both path and\n                                 fragment_base_url must be present. Here is\n                                 the list of all potential fields:\n                                 * \"url\" - fragment's URL\n                                 * \"path\" - fragment's path relative to\n                                            fragment_base_url\n                                 * \"duration\" (optional, int or float)\n                                 * \"filesize\" (optional, int)\n                    * preference Order number of this format. If this field is\n                                 present and not None, the formats get sorted\n                                 by this field, regardless of all other values.\n                                 -1 for default (order by other properties),\n                                 -2 or smaller for less than default.\n                                 < -1000 to hide the format (if there is\n                                    another one which is strictly better)\n                    * language   Language code, e.g. \"de\" or \"en-US\".\n                    * language_preference  Is this in the language mentioned in\n                                 the URL?\n                                 10 if it's what the URL is about,\n                                 -1 for default (don't know),\n                                 -10 otherwise, other values reserved for now.\n                    * quality    Order number of the video quality of this\n                                 format, irrespective of the file format.\n                                 -1 for default (order by other properties),\n                                 -2 or smaller for less than default.\n                    * source_preference  Order number for this video source\n                                  (quality takes higher priority)\n                                 -1 for default (order by other properties),\n                                 -2 or smaller for less than default.\n                    * http_headers  A dictionary of additional HTTP headers\n                                 to add to the request.\n                    * stretched_ratio  If given and not 1, indicates that the\n                                 video's pixels are not square.\n                                 width : height ratio as float.\n                    * no_resume  The server does not support resuming the\n                                 (HTTP or RTMP) download. Boolean.\n                    * downloader_options  A dictionary of downloader options as\n                                 described in FileDownloader\n\n    url:            Final video URL.\n    ext:            Video filename extension.\n    format:         The video format, defaults to ext (used for --get-format)\n    player_url:     SWF Player URL (used for rtmpdump).\n\n    The following fields are optional:\n\n    alt_title:      A secondary title of the video.\n    display_id      An alternative identifier for the video, not necessarily\n                    unique, but available before title. Typically, id is\n                    something like \"4234987\", title \"Dancing naked mole rats\",\n                    and display_id \"dancing-naked-mole-rats\"\n    thumbnails:     A list of dictionaries, with the following entries:\n                        * \"id\" (optional, string) - Thumbnail format ID\n                        * \"url\"\n                        * \"preference\" (optional, int) - quality of the image\n                        * \"width\" (optional, int)\n                        * \"height\" (optional, int)\n                        * \"resolution\" (optional, string \"{width}x{height\"},\n                                        deprecated)\n                        * \"filesize\" (optional, int)\n    thumbnail:      Full URL to a video thumbnail image.\n    description:    Full video description.\n    uploader:       Full name of the video uploader.\n    license:        License name the video is licensed under.\n    creator:        The creator of the video.\n    release_date:   The date (YYYYMMDD) when the video was released.\n    timestamp:      UNIX timestamp of the moment the video became available.\n    upload_date:    Video upload date (YYYYMMDD).\n                    If not explicitly set, calculated from timestamp.\n    uploader_id:    Nickname or id of the video uploader.\n    uploader_url:   Full URL to a personal webpage of the video uploader.\n    channel:        Full name of the channel the video is uploaded on.\n                    Note that channel fields may or may not repeat uploader\n                    fields. This depends on a particular extractor.\n    channel_id:     Id of the channel.\n    channel_url:    Full URL to a channel webpage.\n    location:       Physical location where the video was filmed.\n    subtitles:      The available subtitles as a dictionary in the format\n                    {tag: subformats}. \"tag\" is usually a language code, and\n                    \"subformats\" is a list sorted from lower to higher\n                    preference, each element is a dictionary with the \"ext\"\n                    entry and one of:\n                        * \"data\": The subtitles file contents\n                        * \"url\": A URL pointing to the subtitles file\n                    \"ext\" will be calculated from URL if missing\n    automatic_captions: Like 'subtitles', used by the YoutubeIE for\n                    automatically generated captions\n    duration:       Length of the video in seconds, as an integer or float.\n    view_count:     How many users have watched the video on the platform.\n    like_count:     Number of positive ratings of the video\n    dislike_count:  Number of negative ratings of the video\n    repost_count:   Number of reposts of the video\n    average_rating: Average rating give by users, the scale used depends on the webpage\n    comment_count:  Number of comments on the video\n    comments:       A list of comments, each with one or more of the following\n                    properties (all but one of text or html optional):\n                        * \"author\" - human-readable name of the comment author\n                        * \"author_id\" - user ID of the comment author\n                        * \"id\" - Comment ID\n                        * \"html\" - Comment as HTML\n                        * \"text\" - Plain text of the comment\n                        * \"timestamp\" - UNIX timestamp of comment\n                        * \"parent\" - ID of the comment this one is replying to.\n                                     Set to \"root\" to indicate that this is a\n                                     comment to the original video.\n    age_limit:      Age restriction for the video, as an integer (years)\n    webpage_url:    The URL to the video webpage, if given to youtube-dl it\n                    should allow to get the same result again. (It will be set\n                    by YoutubeDL if it's missing)\n    categories:     A list of categories that the video falls in, for example\n                    [\"Sports\", \"Berlin\"]\n    tags:           A list of tags assigned to the video, e.g. [\"sweden\", \"pop music\"]\n    is_live:        True, False, or None (=unknown). Whether this video is a\n                    live stream that goes on instead of a fixed-length video.\n    start_time:     Time in seconds where the reproduction should start, as\n                    specified in the URL.\n    end_time:       Time in seconds where the reproduction should end, as\n                    specified in the URL.\n    chapters:       A list of dictionaries, with the following entries:\n                        * \"start_time\" - The start time of the chapter in seconds\n                        * \"end_time\" - The end time of the chapter in seconds\n                        * \"title\" (optional, string)\n\n    The following fields should only be used when the video belongs to some logical\n    chapter or section:\n\n    chapter:        Name or title of the chapter the video belongs to.\n    chapter_number: Number of the chapter the video belongs to, as an integer.\n    chapter_id:     Id of the chapter the video belongs to, as a unicode string.\n\n    The following fields should only be used when the video is an episode of some\n    series, programme or podcast:\n\n    series:         Title of the series or programme the video episode belongs to.\n    season:         Title of the season the video episode belongs to.\n    season_number:  Number of the season the video episode belongs to, as an integer.\n    season_id:      Id of the season the video episode belongs to, as a unicode string.\n    episode:        Title of the video episode. Unlike mandatory video title field,\n                    this field should denote the exact title of the video episode\n                    without any kind of decoration.\n    episode_number: Number of the video episode within a season, as an integer.\n    episode_id:     Id of the video episode, as a unicode string.\n\n    The following fields should only be used when the media is a track or a part of\n    a music album:\n\n    track:          Title of the track.\n    track_number:   Number of the track within an album or a disc, as an integer.\n    track_id:       Id of the track (useful in case of custom indexing, e.g. 6.iii),\n                    as a unicode string.\n    artist:         Artist(s) of the track.\n    genre:          Genre(s) of the track.\n    album:          Title of the album the track belongs to.\n    album_type:     Type of the album (e.g. \"Demo\", \"Full-length\", \"Split\", \"Compilation\", etc).\n    album_artist:   List of all artists appeared on the album (e.g.\n                    \"Ash Borer / Fell Voices\" or \"Various Artists\", useful for splits\n                    and compilations).\n    disc_number:    Number of the disc or other physical medium the track belongs to,\n                    as an integer.\n    release_year:   Year (YYYY) when the album was released.\n\n    Unless mentioned otherwise, the fields should be Unicode strings.\n\n    Unless mentioned otherwise, None is equivalent to absence of information.\n\n\n    _type \"playlist\" indicates multiple videos.\n    There must be a key \"entries\", which is a list, an iterable, or a PagedList\n    object, each element of which is a valid dictionary by this specification.\n\n    Additionally, playlists can have \"id\", \"title\", \"description\", \"uploader\",\n    \"uploader_id\", \"uploader_url\" attributes with the same semantics as videos\n    (see above).\n\n\n    _type \"multi_video\" indicates that there are multiple videos that\n    form a single show, for examples multiple acts of an opera or TV episode.\n    It must have an entries key like a playlist and contain all the keys\n    required for a video at the same time.\n\n\n    _type \"url\" indicates that the video must be extracted from another\n    location, possibly by a different extractor. Its only required key is:\n    \"url\" - the next URL to extract.\n    The key \"ie_key\" can be set to the class name (minus the trailing \"IE\",\n    e.g. \"Youtube\") if the extractor class is known in advance.\n    Additionally, the dictionary may have any properties of the resolved entity\n    known in advance, for example \"title\" if the title of the referred video is\n    known ahead of time.\n\n\n    _type \"url_transparent\" entities have the same specification as \"url\", but\n    indicate that the given additional information is more precise than the one\n    associated with the resolved URL.\n    This is useful when a site employs a video service that hosts the video and\n    its technical metadata, but that video service does not embed a useful\n    title, description etc.\n\n\n    Subclasses of this one should re-define the _real_initialize() and\n    _real_extract() methods and define a _VALID_URL regexp.\n    Probably, they should also be added to the list of extractors.\n\n    _GEO_BYPASS attribute may be set to False in order to disable\n    geo restriction bypass mechanisms for a particular extractor.\n    Though it won't disable explicit geo restriction bypass based on\n    country code provided with geo_bypass_country.\n\n    _GEO_COUNTRIES attribute may contain a list of presumably geo unrestricted\n    countries for this extractor. One of these countries will be used by\n    geo restriction bypass mechanism right away in order to bypass\n    geo restriction, of course, if the mechanism is not disabled.\n\n    _GEO_IP_BLOCKS attribute may contain a list of presumably geo unrestricted\n    IP blocks in CIDR notation for this extractor. One of these IP blocks\n    will be used by geo restriction bypass mechanism similarly\n    to _GEO_COUNTRIES.\n\n    Finally, the _WORKING attribute should be set to False for broken IEs\n    in order to warn the users and skip the tests.\n    ")
 			InfoExtractor__ready = λ.False
 			InfoExtractor__downloader = λ.None
 			InfoExtractor__x_forwarded_for_ip = λ.None
@@ -4490,13 +4498,6 @@ func init() {
 													return ϒrepresentation_id
 												}
 											}(),
-											λ.NewStr("url"): func() λ.Object {
-												if λv := ϒmpd_url; λ.IsTrue(λv) {
-													return λv
-												} else {
-													return ϒbase_url
-												}
-											}(),
 											λ.NewStr("manifest_url"): ϒmpd_url,
 											λ.NewStr("ext"):          λ.Cal(ϒmimetype2ext, ϒmime_type),
 											λ.NewStr("width"):        λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒrepresentation_attrib, "get", nil), λ.NewStr("width"))),
@@ -4775,6 +4776,13 @@ func init() {
 										}
 										if λ.IsTrue(λ.NewBool(λ.Contains(ϒrepresentation_ms_info, λ.NewStr("fragments")))) {
 											λ.Cal(λ.GetAttr(ϒf, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+												λ.NewStr("url"): func() λ.Object {
+													if λv := ϒmpd_url; λ.IsTrue(λv) {
+														return λv
+													} else {
+														return ϒbase_url
+													}
+												}(),
 												λ.NewStr("fragment_base_url"): ϒbase_url,
 												λ.NewStr("fragments"):         λ.NewList(),
 												λ.NewStr("protocol"):          λ.NewStr("http_dash_segments"),
@@ -4789,6 +4797,8 @@ func init() {
 												}))
 											}
 											λ.Cal(λ.GetAttr(λ.GetItem(ϒf, λ.NewStr("fragments")), "extend", nil), λ.GetItem(ϒrepresentation_ms_info, λ.NewStr("fragments")))
+										} else {
+											λ.SetItem(ϒf, λ.NewStr("url"), ϒbase_url)
 										}
 										ϒfull_info = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒformats_dict, "get", nil), ϒrepresentation_id, λ.NewDictWithTable(map[λ.Object]λ.Object{})), "copy", nil))
 										λ.Cal(λ.GetAttr(ϒfull_info, "update", nil), ϒf)
@@ -5125,9 +5135,12 @@ func init() {
 						ϒentries             λ.Object
 						ϒf                   λ.Object
 						ϒformats             λ.Object
+						ϒheight              λ.Object
 						ϒis_plain_url        λ.Object
 						ϒkind                λ.Object
+						ϒlabels              λ.Object
 						ϒlang                λ.Object
+						ϒlbl                 λ.Object
 						ϒm3u8_entry_protocol = λargs[5]
 						ϒm3u8_id             = λargs[4]
 						ϒmedia_attributes    λ.Object
@@ -5139,19 +5152,23 @@ func init() {
 						ϒmpd_id              = λargs[6]
 						ϒparse_content_type  λ.Object
 						ϒpreference          = λargs[7]
+						ϒresolution          λ.Object
+						ϒs_attr              λ.Object
 						ϒself                = λargs[0]
-						ϒsource_attributes   λ.Object
 						ϒsource_tag          λ.Object
 						ϒsrc                 λ.Object
+						ϒtbr                 λ.Object
 						ϒtrack_attributes    λ.Object
 						ϒtrack_tag           λ.Object
 						ϒvideo_id            = λargs[3]
 						ϒwebpage             = λargs[2]
+						ϒwidth               λ.Object
 						τmp0                 λ.Object
 						τmp1                 λ.Object
 						τmp2                 λ.Object
 						τmp3                 λ.Object
 						τmp4                 λ.Object
+						τmp5                 λ.Object
 					)
 					ϒabsolute_url = λ.NewFunction("absolute_url",
 						[]λ.Param{
@@ -5318,19 +5335,112 @@ func init() {
 									break
 								}
 								ϒsource_tag = τmp3
-								ϒsource_attributes = λ.Cal(ϒextract_attributes, ϒsource_tag)
-								ϒsrc = λ.Cal(λ.GetAttr(ϒsource_attributes, "get", nil), λ.NewStr("src"))
+								ϒs_attr = λ.Cal(ϒextract_attributes, ϒsource_tag)
+								ϒsrc = λ.Cal(ϒdict_get, ϒs_attr, λ.NewTuple(
+									λ.NewStr("src"),
+									λ.NewStr("data-video-src"),
+									λ.NewStr("data-src"),
+								))
 								if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒsrc))) {
 									continue
 								}
-								ϒf = λ.Cal(ϒparse_content_type, λ.Cal(λ.GetAttr(ϒsource_attributes, "get", nil), λ.NewStr("type")))
+								ϒf = λ.Cal(ϒparse_content_type, λ.Cal(λ.GetAttr(ϒs_attr, "get", nil), λ.NewStr("type")))
 								τmp4 = λ.Cal(ϒ_media_formats, ϒsrc, ϒmedia_type, ϒf)
 								ϒis_plain_url = λ.GetItem(τmp4, λ.NewInt(0))
 								ϒformats = λ.GetItem(τmp4, λ.NewInt(1))
 								if λ.IsTrue(ϒis_plain_url) {
+									ϒlabels = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+										nil,
+										0, false, false,
+										func(λargs []λ.Object) λ.Object {
+											return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+												var (
+													ϒlbl λ.Object
+													τmp0 λ.Object
+													τmp1 λ.Object
+												)
+												τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+													λ.NewStr("label"),
+													λ.NewStr("title"),
+												))
+												for {
+													if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+														break
+													}
+													ϒlbl = τmp1
+													if λ.IsTrue(λ.Cal(ϒstr_or_none, λ.Cal(λ.GetAttr(ϒs_attr, "get", nil), ϒlbl))) {
+														λgen.Yield(λ.Cal(λ.GetAttr(ϒs_attr, "get", nil), ϒlbl))
+													}
+												}
+												return λ.None
+											})
+										})))
+									ϒwidth = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒs_attr, "get", nil), λ.NewStr("width")))
+									ϒheight = func() λ.Object {
+										if λv := λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒs_attr, "get", nil), λ.NewStr("height"))); λ.IsTrue(λv) {
+											return λv
+										} else {
+											return λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒs_attr, "get", nil), λ.NewStr("res")))
+										}
+									}()
+									if λ.IsTrue(func() λ.Object {
+										if λv := λ.NewBool(!λ.IsTrue(ϒwidth)); λ.IsTrue(λv) {
+											return λv
+										} else {
+											return λ.NewBool(!λ.IsTrue(ϒheight))
+										}
+									}()) {
+										τmp4 = λ.Cal(λ.BuiltinIter, ϒlabels)
+										for {
+											if τmp5 = λ.NextDefault(τmp4, λ.AfterLast); τmp5 == λ.AfterLast {
+												break
+											}
+											ϒlbl = τmp5
+											ϒresolution = λ.Cal(ϒparse_resolution, ϒlbl)
+											if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒresolution))) {
+												continue
+											}
+											ϒwidth = func() λ.Object {
+												if λv := ϒwidth; λ.IsTrue(λv) {
+													return λv
+												} else {
+													return λ.Cal(λ.GetAttr(ϒresolution, "get", nil), λ.NewStr("width"))
+												}
+											}()
+											ϒheight = func() λ.Object {
+												if λv := ϒheight; λ.IsTrue(λv) {
+													return λv
+												} else {
+													return λ.Cal(λ.GetAttr(ϒresolution, "get", nil), λ.NewStr("height"))
+												}
+											}()
+										}
+									}
+									τmp4 = λ.Cal(λ.BuiltinIter, ϒlabels)
+									for {
+										if τmp5 = λ.NextDefault(τmp4, λ.AfterLast); τmp5 == λ.AfterLast {
+											break
+										}
+										ϒlbl = τmp5
+										ϒtbr = λ.Cal(ϒparse_bitrate, ϒlbl)
+										if λ.IsTrue(ϒtbr) {
+											break
+										}
+									}
+									if τmp5 == λ.AfterLast {
+										ϒtbr = λ.None
+									}
 									λ.Cal(λ.GetAttr(ϒf, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("height"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒsource_attributes, "get", nil), λ.NewStr("res"))),
-										λ.NewStr("format_id"): λ.Cal(λ.GetAttr(ϒsource_attributes, "get", nil), λ.NewStr("label")),
+										λ.NewStr("width"):  ϒwidth,
+										λ.NewStr("height"): ϒheight,
+										λ.NewStr("tbr"):    ϒtbr,
+										λ.NewStr("format_id"): func() λ.Object {
+											if λv := λ.Cal(λ.GetAttr(ϒs_attr, "get", nil), λ.NewStr("label")); λ.IsTrue(λv) {
+												return λv
+											} else {
+												return λ.Cal(λ.GetAttr(ϒs_attr, "get", nil), λ.NewStr("title"))
+											}
+										}(),
 									}))
 									λ.Cal(λ.GetAttr(ϒf, "update", nil), λ.GetItem(ϒformats, λ.NewInt(0)))
 									λ.Cal(λ.GetAttr(λ.GetItem(ϒmedia_info, λ.NewStr("formats")), "append", nil), ϒf)

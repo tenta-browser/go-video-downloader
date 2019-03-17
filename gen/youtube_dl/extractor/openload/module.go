@@ -51,10 +51,13 @@ func init() {
 		ϒstd_headers = Ωutils.ϒstd_headers
 		OpenloadIE = λ.Cal(λ.TypeType, λ.NewStr("OpenloadIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
+				OpenloadIE__DOMAINS   λ.Object
 				OpenloadIE__VALID_URL λ.Object
 			)
-			OpenloadIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?P<host>\n                            (?:www\\.)?\n                            (?:\n                                openload\\.(?:co|io|link|pw)|\n                                oload\\.(?:tv|stream|site|xyz|win|download|cloud|cc|icu|fun|club|info|pw|live|space)\n                            )\n                        )/\n                        (?:f|embed)/\n                        (?P<id>[a-zA-Z0-9-_]+)\n                    ")
+			OpenloadIE__DOMAINS = λ.NewStr("(?:openload\\.(?:co|io|link|pw)|oload\\.(?:tv|stream|site|xyz|win|download|cloud|cc|icu|fun|club|info|pw|live|space))")
+			OpenloadIE__VALID_URL = λ.Mod(λ.NewStr("(?x)\n                    https?://\n                        (?P<host>\n                            (?:www\\.)?\n                            %s\n                        )/\n                        (?:f|embed)/\n                        (?P<id>[a-zA-Z0-9-_]+)\n                    "), OpenloadIE__DOMAINS)
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_DOMAINS"):   OpenloadIE__DOMAINS,
 				λ.NewStr("_VALID_URL"): OpenloadIE__VALID_URL,
 			})
 		}())

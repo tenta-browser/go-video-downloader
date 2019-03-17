@@ -881,11 +881,51 @@ func init() {
 		}())
 		FacebookPluginsVideoIE = λ.Cal(λ.TypeType, λ.NewStr("FacebookPluginsVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				FacebookPluginsVideoIE__VALID_URL λ.Object
+				FacebookPluginsVideoIE__TESTS        λ.Object
+				FacebookPluginsVideoIE__VALID_URL    λ.Object
+				FacebookPluginsVideoIE__real_extract λ.Object
 			)
 			FacebookPluginsVideoIE__VALID_URL = λ.NewStr("https?://(?:[\\w-]+\\.)?facebook\\.com/plugins/video\\.php\\?.*?\\bhref=(?P<id>https.+)")
+			FacebookPluginsVideoIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fgov.sg%2Fvideos%2F10154383743583686%2F&show_text=0&width=560"),
+					λ.NewStr("md5"): λ.NewStr("5954e92cdfe51fe5782ae9bda7058a07"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("10154383743583686"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("What to do during the haze?"),
+						λ.NewStr("uploader"):    λ.NewStr("Gov.sg"),
+						λ.NewStr("upload_date"): λ.NewStr("20160826"),
+						λ.NewStr("timestamp"):   λ.NewInt(1472184808),
+					}),
+					λ.NewStr("add_ie"): λ.NewList(λ.Cal(λ.GetAttr(FacebookIE, "ie_key", nil))),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fvideo.php%3Fv%3D10204634152394104"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/gov.sg/videos/10154383743583686/&show_text=0&width=560"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
+			FacebookPluginsVideoIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself = λargs[0]
+						ϒurl  = λargs[1]
+					)
+					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Cal(ϒcompat_urllib_parse_unquote, λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)), λ.Cal(λ.GetAttr(FacebookIE, "ie_key", nil)))
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): FacebookPluginsVideoIE__VALID_URL,
+				λ.NewStr("_TESTS"):        FacebookPluginsVideoIE__TESTS,
+				λ.NewStr("_VALID_URL"):    FacebookPluginsVideoIE__VALID_URL,
+				λ.NewStr("_real_extract"): FacebookPluginsVideoIE__real_extract,
 			})
 		}())
 	})

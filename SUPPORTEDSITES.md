@@ -44,6 +44,7 @@ Supported sites
  * CuriosityStream: `app.curiositystream.com`
  * DailyMail: `www.dailymail.co.uk`
  * Dailymotion: `www.dailymotion.com`
+ * Digg: `digg.com`
  * Dotsub: `dotsub.com`
  * DiscoveryNetworksDe: `www.tlc.de`
  * Disney: `video.disney.com`
@@ -53,9 +54,9 @@ Supported sites
  * EchoMsk: `www.echo.msk.ru`
  * ElPais: `blogs.elpais.com`
  * Engadget: `www.engadget.com`
- * Europa: `ec.europa.eu`
  * ExtremeTube _(adult)_: `www.extremetube.com`
  * Facebook: `www.facebook.com`
+ * FacebookPluginsVideo: `www.facebook.com`
  * Faz: `www.faz.net`
  * FiveMin: `pshared.5min.com`
  * Flickr: `www.flickr.com`
@@ -82,6 +83,7 @@ Supported sites
  * ImgurGallery: `imgur.com`
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
+ * Instagram: `instagram.com`
  * Ir90Tv: `90tv.ir`
  * Ivideon: `www.ivideon.com`
  * Izlesene: `www.izlesene.com`
@@ -116,7 +118,6 @@ Supported sites
  * NDTV: `movies.ndtv.com`
  * Netzkino: `www.netzkino.de`
  * Newgrounds: `www.newgrounds.com`
- * NextTV: `www.nexttv.com.tw`
  * NHL: `www.nhl.com`
  * NovaEmbed: `media.cms.nova.cz`
  * Nowness: `www.nowness.com`
@@ -144,7 +145,7 @@ Supported sites
  * PressTV: `www.presstv.ir`
  * RadioDe: `ndr2.radio.de`
  * RadioJavan: `www.radiojavan.com`
- * Rai: `www.rai.tv`
+ * Rai: `www.raisport.rai.it`
  * RayWenderlich: `www.raywenderlich.com`
  * RBMARadio: `www.rbmaradio.com`
  * RedTube _(adult)_: `www.redtube.com`

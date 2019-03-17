@@ -64,6 +64,7 @@ import (
 	Ωcuriositystream "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/curiositystream"
 	Ωdailymail "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dailymail"
 	Ωdailymotion "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dailymotion"
+	Ωdigg "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/digg"
 	Ωdigiteka "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/digiteka"
 	Ωdiscoverynetworks "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/discoverynetworks"
 	Ωdisney "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/disney"
@@ -74,7 +75,6 @@ import (
 	Ωechomsk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/echomsk"
 	Ωelpais "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/elpais"
 	Ωengadget "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/engadget"
-	Ωeuropa "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/europa"
 	Ωextremetube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/extremetube"
 	Ωfacebook "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/facebook"
 	Ωfaz "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/faz"
@@ -101,6 +101,7 @@ import (
 	Ωimgur "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/imgur"
 	Ωina "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ina"
 	Ωinfoq "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/infoq"
+	Ωinstagram "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/instagram"
 	Ωir90tv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ir90tv"
 	Ωivideon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ivideon"
 	Ωizlesene "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/izlesene"
@@ -133,7 +134,6 @@ import (
 	Ωndtv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ndtv"
 	Ωnetzkino "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/netzkino"
 	Ωnewgrounds "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/newgrounds"
-	Ωnextmedia "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nextmedia"
 	Ωnexx "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nexx"
 	Ωnhl "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nhl"
 	Ωnova "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nova"
@@ -299,6 +299,7 @@ var (
 	DWIE                      λ.Object
 	DailyMailIE               λ.Object
 	DailymotionIE             λ.Object
+	DiggIE                    λ.Object
 	DigitallySpeakingIE       λ.Object
 	DigitekaIE                λ.Object
 	DiscoveryNetworksDeIE     λ.Object
@@ -309,9 +310,9 @@ var (
 	EchoMskIE                 λ.Object
 	ElPaisIE                  λ.Object
 	EngadgetIE                λ.Object
-	EuropaIE                  λ.Object
 	ExtremeTubeIE             λ.Object
 	FacebookIE                λ.Object
+	FacebookPluginsVideoIE    λ.Object
 	FazIE                     λ.Object
 	FiveMinIE                 λ.Object
 	FlickrIE                  λ.Object
@@ -338,6 +339,7 @@ var (
 	ImgurIE                   λ.Object
 	InaIE                     λ.Object
 	InfoQIE                   λ.Object
+	InstagramIE               λ.Object
 	Ir90TvIE                  λ.Object
 	IvideonIE                 λ.Object
 	IzleseneIE                λ.Object
@@ -375,7 +377,6 @@ var (
 	NTVRuIE                   λ.Object
 	NetzkinoIE                λ.Object
 	NewgroundsIE              λ.Object
-	NextTVIE                  λ.Object
 	NexxIE                    λ.Object
 	NovaEmbedIE               λ.Object
 	NownessIE                 λ.Object
@@ -545,6 +546,7 @@ func init() {
 		CuriosityStreamIE = Ωcuriositystream.CuriosityStreamIE
 		DailyMailIE = Ωdailymail.DailyMailIE
 		DailymotionIE = Ωdailymotion.DailymotionIE
+		DiggIE = Ωdigg.DiggIE
 		DotsubIE = Ωdotsub.DotsubIE
 		DiscoveryNetworksDeIE = Ωdiscoverynetworks.DiscoveryNetworksDeIE
 		DisneyIE = Ωdisney.DisneyIE
@@ -554,9 +556,9 @@ func init() {
 		EchoMskIE = Ωechomsk.EchoMskIE
 		ElPaisIE = Ωelpais.ElPaisIE
 		EngadgetIE = Ωengadget.EngadgetIE
-		EuropaIE = Ωeuropa.EuropaIE
 		ExtremeTubeIE = Ωextremetube.ExtremeTubeIE
 		FacebookIE = Ωfacebook.FacebookIE
+		FacebookPluginsVideoIE = Ωfacebook.FacebookPluginsVideoIE
 		FazIE = Ωfaz.FazIE
 		FiveMinIE = Ωfivemin.FiveMinIE
 		FlickrIE = Ωflickr.FlickrIE
@@ -583,6 +585,7 @@ func init() {
 		ImgurGalleryIE = Ωimgur.ImgurGalleryIE
 		InaIE = Ωina.InaIE
 		InfoQIE = Ωinfoq.InfoQIE
+		InstagramIE = Ωinstagram.InstagramIE
 		Ir90TvIE = Ωir90tv.Ir90TvIE
 		IvideonIE = Ωivideon.IvideonIE
 		IzleseneIE = Ωizlesene.IzleseneIE
@@ -617,7 +620,6 @@ func init() {
 		NDTVIE = Ωndtv.NDTVIE
 		NetzkinoIE = Ωnetzkino.NetzkinoIE
 		NewgroundsIE = Ωnewgrounds.NewgroundsIE
-		NextTVIE = Ωnextmedia.NextTVIE
 		NexxIE = Ωnexx.NexxIE
 		NHLIE = Ωnhl.NHLIE
 		NovaEmbedIE = Ωnova.NovaEmbedIE
@@ -788,6 +790,7 @@ func init() {
 			CuriosityStreamIE,
 			DailyMailIE,
 			DailymotionIE,
+			DiggIE,
 			DotsubIE,
 			DiscoveryNetworksDeIE,
 			DisneyIE,
@@ -797,9 +800,9 @@ func init() {
 			EchoMskIE,
 			ElPaisIE,
 			EngadgetIE,
-			EuropaIE,
 			ExtremeTubeIE,
 			FacebookIE,
+			FacebookPluginsVideoIE,
 			FazIE,
 			FiveMinIE,
 			FlickrIE,
@@ -826,6 +829,7 @@ func init() {
 			ImgurGalleryIE,
 			InaIE,
 			InfoQIE,
+			InstagramIE,
 			Ir90TvIE,
 			IvideonIE,
 			IzleseneIE,
@@ -860,7 +864,6 @@ func init() {
 			NDTVIE,
 			NetzkinoIE,
 			NewgroundsIE,
-			NextTVIE,
 			NexxIE,
 			NHLIE,
 			NovaEmbedIE,
