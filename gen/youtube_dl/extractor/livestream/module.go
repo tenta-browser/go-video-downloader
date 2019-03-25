@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,11 +44,11 @@ var (
 	ϒfind_xpath_attr      λ.Object
 	ϒfloat_or_none        λ.Object
 	ϒint_or_none          λ.Object
-	ϒorderedSet           λ.Object
 	ϒparse_iso8601        λ.Object
 	ϒupdate_url_query     λ.Object
 	ϒxpath_attr           λ.Object
 	ϒxpath_text           λ.Object
+	ϒxpath_with_ns        λ.Object
 )
 
 func init() {
@@ -57,8 +57,8 @@ func init() {
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒfind_xpath_attr = Ωutils.ϒfind_xpath_attr
 		ϒxpath_attr = Ωutils.ϒxpath_attr
+		ϒxpath_with_ns = Ωutils.ϒxpath_with_ns
 		ϒxpath_text = Ωutils.ϒxpath_text
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none

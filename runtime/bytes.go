@@ -25,9 +25,6 @@ package runtime
 import (
 	"bytes"
 	"fmt"
-	"strings"
-	"unicode"
-	"unicode/utf8"
 )
 
 // Bytes ..
@@ -72,13 +69,13 @@ func bytesNew(t Type, args Args, kwArgs KWArgs) Object {
 		if argc < 2 {
 			panic(RaiseType(TypeErrorType, "string argument without an encoding"))
 		}
-		s := args[0].(Str).Value()
 		encoding := args[1].(Str).Value()
-		errors := codingErrorsStrict
+		errors := NewStr(codingErrorsStrict)
 		if argc >= 3 {
-			errors = args[2].(Str).Value()
+			errors = args[2].(Str)
 		}
-		return NewBytes(encodeStrToBytes(s, encoding, errors)...)
+		bytes, _ := GetCodec(encoding).Encode(args[0], errors)
+		return bytes
 	}
 	// it must be an iterable
 	value := []byte{}
@@ -187,17 +184,17 @@ func bytesCompare(op compareOp, a, b Object) Object {
 
 func bytesDecode(args Args, kwArgs KWArgs) Object {
 	checkFunctionArgsMin("decode", args, kwArgs, 1, BytesType, StrType, StrType)
-	b := args[0].(Bytes)
 	argc := len(args)
 	encoding := "utf-8"
 	if argc >= 2 {
 		encoding = args[1].(Str).Value()
 	}
-	errors := codingErrorsStrict
+	errors := NewStr(codingErrorsStrict)
 	if argc >= 3 {
-		errors = args[2].(Str).Value()
+		errors = args[2].(Str)
 	}
-	return NewStr(decodeBytesToStr(b.Value(), encoding, errors))
+	s, _ := GetCodec(encoding).Decode(args[0], errors)
+	return s
 }
 
 func bytesStartswith(args Args, kwArgs KWArgs) Object {
@@ -222,95 +219,4 @@ func initBytesType(slots *typeSlots, dict map[string]Object) {
 	slots.Gt = makeCompareFn(bytesCompare, compareGt)
 	slots.Le = makeCompareFn(bytesCompare, compareLe)
 	slots.Ge = makeCompareFn(bytesCompare, compareGe)
-}
-
-// ---- unicode encoding/decoding ----
-
-const (
-	codingErrorsStrict  = "strict"
-	codingErrorsIgnore  = "ignore"
-	codingErrorsReplace = "replace"
-)
-
-func encodeStrToBytes(s string, encoding string, errors string) []byte {
-	encoding = strings.ToLower(encoding)
-	var isValid func(rune) bool
-	var repl rune
-	if encoding == "utf-8" {
-		isValid = utf8.ValidRune
-		repl = unicode.ReplacementChar
-	} else if encoding == "ascii" {
-		isValid = func(r rune) bool {
-			return r < 128
-		}
-		repl = '?'
-	} else {
-		panic(RaiseType(LookupErrorType, fmt.Sprintf("unknown encoding: %s", encoding)))
-	}
-	b := bytes.Buffer{}
-	for i, r := range s {
-		switch {
-		case isValid(r):
-			b.WriteRune(r)
-		case errors == codingErrorsIgnore:
-			// Do nothing
-		case errors == codingErrorsReplace:
-			b.WriteRune(repl)
-		case errors == codingErrorsStrict:
-			panic(RaiseType(UnicodeEncodeErrorType, fmt.Sprintf(
-				"'%s' codec can't encode character %v in position %d", encoding, r, i)))
-		default:
-			panic(RaiseType(LookupErrorType, fmt.Sprintf(
-				"unknown error handler name '%s'", errors)))
-		}
-	}
-	return b.Bytes()
-}
-
-func decodeBytesToStr(bytes []byte, encoding string, errors string) string {
-	encoding = strings.ToLower(encoding)
-	if encoding == "utf-8" {
-		s := string(bytes)
-		sb := strings.Builder{}
-		for pos, r := range s {
-			switch {
-			case r != utf8.RuneError:
-				sb.WriteRune(r)
-			case errors == codingErrorsIgnore:
-				// Do nothing
-			case errors == codingErrorsReplace:
-				sb.WriteRune(unicode.ReplacementChar)
-			case errors == codingErrorsStrict:
-				panic(RaiseType(UnicodeDecodeErrorType, fmt.Sprintf(
-					"'%s' codec can't decode byte 0x%02x in position %d",
-					encoding, int(s[pos]), pos)))
-			default:
-				panic(RaiseType(LookupErrorType, fmt.Sprintf(
-					"unknown error handler name '%s'", errors)))
-			}
-		}
-		return sb.String()
-	} else if encoding == "ascii" {
-		sb := strings.Builder{}
-		for pos, b := range bytes {
-			switch {
-			case b < 128:
-				sb.WriteByte(b)
-			case errors == codingErrorsIgnore:
-				// Do nothing
-			case errors == codingErrorsReplace:
-				sb.WriteRune(unicode.ReplacementChar)
-			case errors == codingErrorsStrict:
-				panic(RaiseType(UnicodeDecodeErrorType, fmt.Sprintf(
-					"'%s' codec can't decode byte 0x%02x in position %d",
-					encoding, b, pos)))
-			default:
-				panic(RaiseType(LookupErrorType, fmt.Sprintf(
-					"unknown error handler name '%s'", errors)))
-			}
-		}
-		return sb.String()
-	} else {
-		panic(RaiseType(LookupErrorType, fmt.Sprintf("unknown encoding: %s", encoding)))
-	}
 }

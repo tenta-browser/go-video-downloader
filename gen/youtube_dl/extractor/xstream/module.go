@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,6 +37,7 @@ var (
 	ϒint_or_none     λ.Object
 	ϒparse_iso8601   λ.Object
 	ϒxpath_text      λ.Object
+	ϒxpath_with_ns   λ.Object
 )
 
 func init() {
@@ -44,6 +45,7 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
+		ϒxpath_with_ns = Ωutils.ϒxpath_with_ns
 		ϒxpath_text = Ωutils.ϒxpath_text
 		ϒfind_xpath_attr = Ωutils.ϒfind_xpath_attr
 		XstreamIE = λ.Cal(λ.TypeType, λ.NewStr("XstreamIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

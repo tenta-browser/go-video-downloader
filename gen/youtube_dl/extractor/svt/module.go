@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,6 @@ var (
 	ϒdetermine_ext                λ.Object
 	ϒdict_get                     λ.Object
 	ϒint_or_none                  λ.Object
-	ϒorderedSet                   λ.Object
 	ϒstrip_or_none                λ.Object
 	ϒtry_get                      λ.Object
 	ϒurljoin                      λ.Object
@@ -59,7 +58,6 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒdict_get = Ωutils.ϒdict_get
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒurljoin = Ωutils.ϒurljoin

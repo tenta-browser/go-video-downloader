@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,12 +25,15 @@
 package youtube
 
 import (
+	Ωitertools "github.com/tenta-browser/go-video-downloader/gen/itertools"
 	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
+	Ωpath "github.com/tenta-browser/go-video-downloader/gen/os/path"
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωtime "github.com/tenta-browser/go-video-downloader/gen/time"
 	Ωparse "github.com/tenta-browser/go-video-downloader/gen/urllib/parse"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
+	Ωjsinterp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/jsinterp"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
@@ -38,6 +41,7 @@ import (
 var (
 	ExtractorError                    λ.Object
 	InfoExtractor                     λ.Object
+	JSInterpreter                     λ.Object
 	SearchInfoExtractor               λ.Object
 	YoutubeBaseInfoExtractor          λ.Object
 	YoutubeChannelIE                  λ.Object
@@ -76,10 +80,10 @@ var (
 	ϒget_element_by_id                λ.Object
 	ϒint_or_none                      λ.Object
 	ϒmimetype2ext                     λ.Object
-	ϒorderedSet                       λ.Object
 	ϒparse_codecs                     λ.Object
 	ϒparse_duration                   λ.Object
 	ϒqualities                        λ.Object
+	ϒremove_quotes                    λ.Object
 	ϒremove_start                     λ.Object
 	ϒsmuggle_url                      λ.Object
 	ϒstr_or_none                      λ.Object
@@ -97,6 +101,7 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		SearchInfoExtractor = Ωcommon.SearchInfoExtractor
+		JSInterpreter = Ωjsinterp.JSInterpreter
 		ϒcompat_chr = Ωcompat.ϒcompat_chr
 		ϒcompat_kwargs = Ωcompat.ϒcompat_kwargs
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
@@ -113,10 +118,10 @@ func init() {
 		ϒget_element_by_id = Ωutils.ϒget_element_by_id
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_codecs = Ωutils.ϒparse_codecs
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒqualities = Ωutils.ϒqualities
+		ϒremove_quotes = Ωutils.ϒremove_quotes
 		ϒremove_start = Ωutils.ϒremove_start
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		ϒstr_or_none = Ωutils.ϒstr_or_none
@@ -662,8 +667,73 @@ func init() {
 			})
 		}())
 		YoutubeEntryListBaseInfoExtractor = λ.Cal(λ.TypeType, λ.NewStr("YoutubeEntryListBaseInfoExtractor"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {
-
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			var (
+				YoutubeEntryListBaseInfoExtractor__entries λ.Object
+			)
+			YoutubeEntryListBaseInfoExtractor__entries = λ.NewFunction("_entries",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "page"},
+					{Name: "playlist_id"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+						var (
+							ϒcontent_html     λ.Object
+							ϒentry            λ.Object
+							ϒmobj             λ.Object
+							ϒmore             λ.Object
+							ϒmore_widget_html λ.Object
+							ϒpage             = λargs[1]
+							ϒpage_num         λ.Object
+							ϒplaylist_id      = λargs[2]
+							ϒself             = λargs[0]
+							τmp0              λ.Object
+							τmp1              λ.Object
+							τmp2              λ.Object
+							τmp3              λ.Object
+						)
+						τmp0 = ϒpage
+						ϒmore_widget_html = τmp0
+						ϒcontent_html = τmp0
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωitertools.ϒcount, λ.NewInt(1)))
+						for {
+							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+								break
+							}
+							ϒpage_num = τmp1
+							τmp2 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒself, "_process_page", nil), ϒcontent_html))
+							for {
+								if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+									break
+								}
+								ϒentry = τmp3
+								λgen.Yield(ϒentry)
+							}
+							ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("data-uix-load-more-href=\"/?(?P<more>[^\"]+)\""), ϒmore_widget_html)
+							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒmobj))) {
+								break
+							}
+							ϒmore = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+								λ.Mod(λ.NewStr("https://youtube.com/%s"), λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("more"))),
+								ϒplaylist_id,
+								λ.Mod(λ.NewStr("Downloading page #%s"), ϒpage_num),
+							), λ.KWArgs{
+								{Name: "transform_source", Value: ϒuppercase_escape},
+							})
+							ϒcontent_html = λ.GetItem(ϒmore, λ.NewStr("content_html"))
+							if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒcontent_html, "strip", nil))))) {
+								break
+							}
+							ϒmore_widget_html = λ.GetItem(ϒmore, λ.NewStr("load_more_widget_html"))
+						}
+						return λ.None
+					})
+				})
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_entries"): YoutubeEntryListBaseInfoExtractor__entries,
+			})
 		}())
 		YoutubePlaylistBaseInfoExtractor = λ.Cal(λ.TypeType, λ.NewStr("YoutubePlaylistBaseInfoExtractor"), λ.NewTuple(YoutubeEntryListBaseInfoExtractor), func() λ.Dict {
 
@@ -675,21 +745,590 @@ func init() {
 		}())
 		YoutubeIE = λ.Cal(λ.TypeType, λ.NewStr("YoutubeIE"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {
 			var (
-				YoutubeIE_IE_NAME              λ.Object
-				YoutubeIE__GEO_BYPASS          λ.Object
-				YoutubeIE__NEXT_URL_RE         λ.Object
-				YoutubeIE__VALID_URL           λ.Object
-				YoutubeIE___init__             λ.Object
-				YoutubeIE__extract_url         λ.Object
-				YoutubeIE__extract_urls        λ.Object
-				YoutubeIE__get_ytplayer_config λ.Object
-				YoutubeIE__real_extract        λ.Object
-				YoutubeIE_extract_id           λ.Object
+				YoutubeIE_IE_NAME                            λ.Object
+				YoutubeIE__GEO_BYPASS                        λ.Object
+				YoutubeIE__NEXT_URL_RE                       λ.Object
+				YoutubeIE__VALID_URL                         λ.Object
+				YoutubeIE___init__                           λ.Object
+				YoutubeIE__decrypt_signature                 λ.Object
+				YoutubeIE__extract_chapters                  λ.Object
+				YoutubeIE__extract_signature_function        λ.Object
+				YoutubeIE__extract_url                       λ.Object
+				YoutubeIE__extract_urls                      λ.Object
+				YoutubeIE__formats                           λ.Object
+				YoutubeIE__get_ytplayer_config               λ.Object
+				YoutubeIE__parse_sig_js                      λ.Object
+				YoutubeIE__real_extract                      λ.Object
+				YoutubeIE__signature_cache_id                λ.Object
+				YoutubeIE_extract_id                         λ.Object
+				YoutubeIE_report_video_info_webpage_download λ.Object
 			)
 			YoutubeIE__VALID_URL = λ.Mod(λ.NewStr("(?x)^\n                     (\n                         (?:https?://|//)                                    # http(s):// or protocol-independent URL\n                         (?:(?:(?:(?:\\w+\\.)?[yY][oO][uU][tT][uU][bB][eE](?:-nocookie)?\\.com/|\n                            (?:www\\.)?deturl\\.com/www\\.youtube\\.com/|\n                            (?:www\\.)?pwnyoutube\\.com/|\n                            (?:www\\.)?hooktube\\.com/|\n                            (?:www\\.)?yourepeat\\.com/|\n                            tube\\.majestyc\\.net/|\n                            (?:(?:www|dev)\\.)?invidio\\.us/|\n                            (?:www\\.)?invidiou\\.sh/|\n                            (?:www\\.)?invidious\\.snopyta\\.org/|\n                            (?:www\\.)?invidious\\.kabi\\.tk/|\n                            (?:www\\.)?vid\\.wxzm\\.sx/|\n                            youtube\\.googleapis\\.com/)                        # the various hostnames, with wildcard subdomains\n                         (?:.*?\\#/)?                                          # handle anchor (#/) redirect urls\n                         (?:                                                  # the various things that can precede the ID:\n                             (?:(?:v|embed|e)/(?!videoseries))                # v/ or embed/ or e/\n                             |(?:                                             # or the v= param in all its forms\n                                 (?:(?:watch|movie)(?:_popup)?(?:\\.php)?/?)?  # preceding watch(_popup|.php) or nothing (like /?v=xxxx)\n                                 (?:\\?|\\#!?)                                  # the params delimiter ? or # or #!\n                                 (?:.*?[&;])??                                # any other preceding param (like /?s=tuff&v=xxxx or ?s=tuff&amp;v=V36LpHqtcDY)\n                                 v=\n                             )\n                         ))\n                         |(?:\n                            youtu\\.be|                                        # just youtu.be/xxxx\n                            vid\\.plus|                                        # or vid.plus/xxxx\n                            zwearz\\.com/watch|                                # or zwearz.com/watch/xxxx\n                         )/\n                         |(?:www\\.)?cleanvideosearch\\.com/media/action/yt/watch\\?videoId=\n                         )\n                     )?                                                       # all until now is optional -> you can pass the naked ID\n                     ([0-9A-Za-z_-]{11})                                      # here is it! the YouTube video ID\n                     (?!.*?\\blist=\n                        (?:\n                            %(playlist_id)s|                                  # combined list/video URLs are handled by the playlist IE\n                            WL                                                # WL are handled by the watch later IE\n                        )\n                     )\n                     (?(1).+)?                                                # if we found the ID, everything can follow\n                     $"), λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("playlist_id"): λ.GetAttr(YoutubeBaseInfoExtractor, "_PLAYLIST_ID_RE", nil),
 			}))
 			YoutubeIE__NEXT_URL_RE = λ.NewStr("[\\?&]next_url=([^&]+)")
+			YoutubeIE__formats = λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("5"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):    λ.NewStr("flv"),
+					λ.NewStr("width"):  λ.NewInt(400),
+					λ.NewStr("height"): λ.NewInt(240),
+					λ.NewStr("acodec"): λ.NewStr("mp3"),
+					λ.NewStr("abr"):    λ.NewInt(64),
+					λ.NewStr("vcodec"): λ.NewStr("h263"),
+				}),
+				λ.NewStr("6"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):    λ.NewStr("flv"),
+					λ.NewStr("width"):  λ.NewInt(450),
+					λ.NewStr("height"): λ.NewInt(270),
+					λ.NewStr("acodec"): λ.NewStr("mp3"),
+					λ.NewStr("abr"):    λ.NewInt(64),
+					λ.NewStr("vcodec"): λ.NewStr("h263"),
+				}),
+				λ.NewStr("13"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):    λ.NewStr("3gp"),
+					λ.NewStr("acodec"): λ.NewStr("aac"),
+					λ.NewStr("vcodec"): λ.NewStr("mp4v"),
+				}),
+				λ.NewStr("17"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):    λ.NewStr("3gp"),
+					λ.NewStr("width"):  λ.NewInt(176),
+					λ.NewStr("height"): λ.NewInt(144),
+					λ.NewStr("acodec"): λ.NewStr("aac"),
+					λ.NewStr("abr"):    λ.NewInt(24),
+					λ.NewStr("vcodec"): λ.NewStr("mp4v"),
+				}),
+				λ.NewStr("18"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):    λ.NewStr("mp4"),
+					λ.NewStr("width"):  λ.NewInt(640),
+					λ.NewStr("height"): λ.NewInt(360),
+					λ.NewStr("acodec"): λ.NewStr("aac"),
+					λ.NewStr("abr"):    λ.NewInt(96),
+					λ.NewStr("vcodec"): λ.NewStr("h264"),
+				}),
+				λ.NewStr("22"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):    λ.NewStr("mp4"),
+					λ.NewStr("width"):  λ.NewInt(1280),
+					λ.NewStr("height"): λ.NewInt(720),
+					λ.NewStr("acodec"): λ.NewStr("aac"),
+					λ.NewStr("abr"):    λ.NewInt(192),
+					λ.NewStr("vcodec"): λ.NewStr("h264"),
+				}),
+				λ.NewStr("34"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):    λ.NewStr("flv"),
+					λ.NewStr("width"):  λ.NewInt(640),
+					λ.NewStr("height"): λ.NewInt(360),
+					λ.NewStr("acodec"): λ.NewStr("aac"),
+					λ.NewStr("abr"):    λ.NewInt(128),
+					λ.NewStr("vcodec"): λ.NewStr("h264"),
+				}),
+				λ.NewStr("35"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):    λ.NewStr("flv"),
+					λ.NewStr("width"):  λ.NewInt(854),
+					λ.NewStr("height"): λ.NewInt(480),
+					λ.NewStr("acodec"): λ.NewStr("aac"),
+					λ.NewStr("abr"):    λ.NewInt(128),
+					λ.NewStr("vcodec"): λ.NewStr("h264"),
+				}),
+				λ.NewStr("36"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):    λ.NewStr("3gp"),
+					λ.NewStr("width"):  λ.NewInt(320),
+					λ.NewStr("acodec"): λ.NewStr("aac"),
+					λ.NewStr("vcodec"): λ.NewStr("mp4v"),
+				}),
+				λ.NewStr("37"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):    λ.NewStr("mp4"),
+					λ.NewStr("width"):  λ.NewInt(1920),
+					λ.NewStr("height"): λ.NewInt(1080),
+					λ.NewStr("acodec"): λ.NewStr("aac"),
+					λ.NewStr("abr"):    λ.NewInt(192),
+					λ.NewStr("vcodec"): λ.NewStr("h264"),
+				}),
+				λ.NewStr("38"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):    λ.NewStr("mp4"),
+					λ.NewStr("width"):  λ.NewInt(4096),
+					λ.NewStr("height"): λ.NewInt(3072),
+					λ.NewStr("acodec"): λ.NewStr("aac"),
+					λ.NewStr("abr"):    λ.NewInt(192),
+					λ.NewStr("vcodec"): λ.NewStr("h264"),
+				}),
+				λ.NewStr("43"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):    λ.NewStr("webm"),
+					λ.NewStr("width"):  λ.NewInt(640),
+					λ.NewStr("height"): λ.NewInt(360),
+					λ.NewStr("acodec"): λ.NewStr("vorbis"),
+					λ.NewStr("abr"):    λ.NewInt(128),
+					λ.NewStr("vcodec"): λ.NewStr("vp8"),
+				}),
+				λ.NewStr("44"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):    λ.NewStr("webm"),
+					λ.NewStr("width"):  λ.NewInt(854),
+					λ.NewStr("height"): λ.NewInt(480),
+					λ.NewStr("acodec"): λ.NewStr("vorbis"),
+					λ.NewStr("abr"):    λ.NewInt(128),
+					λ.NewStr("vcodec"): λ.NewStr("vp8"),
+				}),
+				λ.NewStr("45"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):    λ.NewStr("webm"),
+					λ.NewStr("width"):  λ.NewInt(1280),
+					λ.NewStr("height"): λ.NewInt(720),
+					λ.NewStr("acodec"): λ.NewStr("vorbis"),
+					λ.NewStr("abr"):    λ.NewInt(192),
+					λ.NewStr("vcodec"): λ.NewStr("vp8"),
+				}),
+				λ.NewStr("46"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):    λ.NewStr("webm"),
+					λ.NewStr("width"):  λ.NewInt(1920),
+					λ.NewStr("height"): λ.NewInt(1080),
+					λ.NewStr("acodec"): λ.NewStr("vorbis"),
+					λ.NewStr("abr"):    λ.NewInt(192),
+					λ.NewStr("vcodec"): λ.NewStr("vp8"),
+				}),
+				λ.NewStr("59"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):    λ.NewStr("mp4"),
+					λ.NewStr("width"):  λ.NewInt(854),
+					λ.NewStr("height"): λ.NewInt(480),
+					λ.NewStr("acodec"): λ.NewStr("aac"),
+					λ.NewStr("abr"):    λ.NewInt(128),
+					λ.NewStr("vcodec"): λ.NewStr("h264"),
+				}),
+				λ.NewStr("78"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):    λ.NewStr("mp4"),
+					λ.NewStr("width"):  λ.NewInt(854),
+					λ.NewStr("height"): λ.NewInt(480),
+					λ.NewStr("acodec"): λ.NewStr("aac"),
+					λ.NewStr("abr"):    λ.NewInt(128),
+					λ.NewStr("vcodec"): λ.NewStr("h264"),
+				}),
+				λ.NewStr("82"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(360),
+					λ.NewStr("format_note"): λ.NewStr("3D"),
+					λ.NewStr("acodec"):      λ.NewStr("aac"),
+					λ.NewStr("abr"):         λ.NewInt(128),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+					λ.NewStr("preference"):  λ.Neg(λ.NewInt(20)),
+				}),
+				λ.NewStr("83"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(480),
+					λ.NewStr("format_note"): λ.NewStr("3D"),
+					λ.NewStr("acodec"):      λ.NewStr("aac"),
+					λ.NewStr("abr"):         λ.NewInt(128),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+					λ.NewStr("preference"):  λ.Neg(λ.NewInt(20)),
+				}),
+				λ.NewStr("84"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(720),
+					λ.NewStr("format_note"): λ.NewStr("3D"),
+					λ.NewStr("acodec"):      λ.NewStr("aac"),
+					λ.NewStr("abr"):         λ.NewInt(192),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+					λ.NewStr("preference"):  λ.Neg(λ.NewInt(20)),
+				}),
+				λ.NewStr("85"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(1080),
+					λ.NewStr("format_note"): λ.NewStr("3D"),
+					λ.NewStr("acodec"):      λ.NewStr("aac"),
+					λ.NewStr("abr"):         λ.NewInt(192),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+					λ.NewStr("preference"):  λ.Neg(λ.NewInt(20)),
+				}),
+				λ.NewStr("100"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(360),
+					λ.NewStr("format_note"): λ.NewStr("3D"),
+					λ.NewStr("acodec"):      λ.NewStr("vorbis"),
+					λ.NewStr("abr"):         λ.NewInt(128),
+					λ.NewStr("vcodec"):      λ.NewStr("vp8"),
+					λ.NewStr("preference"):  λ.Neg(λ.NewInt(20)),
+				}),
+				λ.NewStr("101"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(480),
+					λ.NewStr("format_note"): λ.NewStr("3D"),
+					λ.NewStr("acodec"):      λ.NewStr("vorbis"),
+					λ.NewStr("abr"):         λ.NewInt(192),
+					λ.NewStr("vcodec"):      λ.NewStr("vp8"),
+					λ.NewStr("preference"):  λ.Neg(λ.NewInt(20)),
+				}),
+				λ.NewStr("102"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(720),
+					λ.NewStr("format_note"): λ.NewStr("3D"),
+					λ.NewStr("acodec"):      λ.NewStr("vorbis"),
+					λ.NewStr("abr"):         λ.NewInt(192),
+					λ.NewStr("vcodec"):      λ.NewStr("vp8"),
+					λ.NewStr("preference"):  λ.Neg(λ.NewInt(20)),
+				}),
+				λ.NewStr("91"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(144),
+					λ.NewStr("format_note"): λ.NewStr("HLS"),
+					λ.NewStr("acodec"):      λ.NewStr("aac"),
+					λ.NewStr("abr"):         λ.NewInt(48),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+					λ.NewStr("preference"):  λ.Neg(λ.NewInt(10)),
+				}),
+				λ.NewStr("92"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(240),
+					λ.NewStr("format_note"): λ.NewStr("HLS"),
+					λ.NewStr("acodec"):      λ.NewStr("aac"),
+					λ.NewStr("abr"):         λ.NewInt(48),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+					λ.NewStr("preference"):  λ.Neg(λ.NewInt(10)),
+				}),
+				λ.NewStr("93"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(360),
+					λ.NewStr("format_note"): λ.NewStr("HLS"),
+					λ.NewStr("acodec"):      λ.NewStr("aac"),
+					λ.NewStr("abr"):         λ.NewInt(128),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+					λ.NewStr("preference"):  λ.Neg(λ.NewInt(10)),
+				}),
+				λ.NewStr("94"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(480),
+					λ.NewStr("format_note"): λ.NewStr("HLS"),
+					λ.NewStr("acodec"):      λ.NewStr("aac"),
+					λ.NewStr("abr"):         λ.NewInt(128),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+					λ.NewStr("preference"):  λ.Neg(λ.NewInt(10)),
+				}),
+				λ.NewStr("95"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(720),
+					λ.NewStr("format_note"): λ.NewStr("HLS"),
+					λ.NewStr("acodec"):      λ.NewStr("aac"),
+					λ.NewStr("abr"):         λ.NewInt(256),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+					λ.NewStr("preference"):  λ.Neg(λ.NewInt(10)),
+				}),
+				λ.NewStr("96"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(1080),
+					λ.NewStr("format_note"): λ.NewStr("HLS"),
+					λ.NewStr("acodec"):      λ.NewStr("aac"),
+					λ.NewStr("abr"):         λ.NewInt(256),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+					λ.NewStr("preference"):  λ.Neg(λ.NewInt(10)),
+				}),
+				λ.NewStr("132"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(240),
+					λ.NewStr("format_note"): λ.NewStr("HLS"),
+					λ.NewStr("acodec"):      λ.NewStr("aac"),
+					λ.NewStr("abr"):         λ.NewInt(48),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+					λ.NewStr("preference"):  λ.Neg(λ.NewInt(10)),
+				}),
+				λ.NewStr("151"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(72),
+					λ.NewStr("format_note"): λ.NewStr("HLS"),
+					λ.NewStr("acodec"):      λ.NewStr("aac"),
+					λ.NewStr("abr"):         λ.NewInt(24),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+					λ.NewStr("preference"):  λ.Neg(λ.NewInt(10)),
+				}),
+				λ.NewStr("133"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(240),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+				}),
+				λ.NewStr("134"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(360),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+				}),
+				λ.NewStr("135"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(480),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+				}),
+				λ.NewStr("136"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(720),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+				}),
+				λ.NewStr("137"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(1080),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+				}),
+				λ.NewStr("138"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+				}),
+				λ.NewStr("160"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(144),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+				}),
+				λ.NewStr("212"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(480),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+				}),
+				λ.NewStr("264"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(1440),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+				}),
+				λ.NewStr("298"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(720),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+					λ.NewStr("fps"):         λ.NewInt(60),
+				}),
+				λ.NewStr("299"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(1080),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+					λ.NewStr("fps"):         λ.NewInt(60),
+				}),
+				λ.NewStr("266"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("height"):      λ.NewInt(2160),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("h264"),
+				}),
+				λ.NewStr("139"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("m4a"),
+					λ.NewStr("format_note"): λ.NewStr("DASH audio"),
+					λ.NewStr("acodec"):      λ.NewStr("aac"),
+					λ.NewStr("abr"):         λ.NewInt(48),
+					λ.NewStr("container"):   λ.NewStr("m4a_dash"),
+				}),
+				λ.NewStr("140"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("m4a"),
+					λ.NewStr("format_note"): λ.NewStr("DASH audio"),
+					λ.NewStr("acodec"):      λ.NewStr("aac"),
+					λ.NewStr("abr"):         λ.NewInt(128),
+					λ.NewStr("container"):   λ.NewStr("m4a_dash"),
+				}),
+				λ.NewStr("141"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("m4a"),
+					λ.NewStr("format_note"): λ.NewStr("DASH audio"),
+					λ.NewStr("acodec"):      λ.NewStr("aac"),
+					λ.NewStr("abr"):         λ.NewInt(256),
+					λ.NewStr("container"):   λ.NewStr("m4a_dash"),
+				}),
+				λ.NewStr("256"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("m4a"),
+					λ.NewStr("format_note"): λ.NewStr("DASH audio"),
+					λ.NewStr("acodec"):      λ.NewStr("aac"),
+					λ.NewStr("container"):   λ.NewStr("m4a_dash"),
+				}),
+				λ.NewStr("258"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("m4a"),
+					λ.NewStr("format_note"): λ.NewStr("DASH audio"),
+					λ.NewStr("acodec"):      λ.NewStr("aac"),
+					λ.NewStr("container"):   λ.NewStr("m4a_dash"),
+				}),
+				λ.NewStr("325"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("m4a"),
+					λ.NewStr("format_note"): λ.NewStr("DASH audio"),
+					λ.NewStr("acodec"):      λ.NewStr("dtse"),
+					λ.NewStr("container"):   λ.NewStr("m4a_dash"),
+				}),
+				λ.NewStr("328"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("m4a"),
+					λ.NewStr("format_note"): λ.NewStr("DASH audio"),
+					λ.NewStr("acodec"):      λ.NewStr("ec-3"),
+					λ.NewStr("container"):   λ.NewStr("m4a_dash"),
+				}),
+				λ.NewStr("167"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(360),
+					λ.NewStr("width"):       λ.NewInt(640),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("container"):   λ.NewStr("webm"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp8"),
+				}),
+				λ.NewStr("168"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(480),
+					λ.NewStr("width"):       λ.NewInt(854),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("container"):   λ.NewStr("webm"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp8"),
+				}),
+				λ.NewStr("169"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(720),
+					λ.NewStr("width"):       λ.NewInt(1280),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("container"):   λ.NewStr("webm"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp8"),
+				}),
+				λ.NewStr("170"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(1080),
+					λ.NewStr("width"):       λ.NewInt(1920),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("container"):   λ.NewStr("webm"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp8"),
+				}),
+				λ.NewStr("218"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(480),
+					λ.NewStr("width"):       λ.NewInt(854),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("container"):   λ.NewStr("webm"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp8"),
+				}),
+				λ.NewStr("219"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(480),
+					λ.NewStr("width"):       λ.NewInt(854),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("container"):   λ.NewStr("webm"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp8"),
+				}),
+				λ.NewStr("278"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(144),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("container"):   λ.NewStr("webm"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp9"),
+				}),
+				λ.NewStr("242"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(240),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp9"),
+				}),
+				λ.NewStr("243"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(360),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp9"),
+				}),
+				λ.NewStr("244"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(480),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp9"),
+				}),
+				λ.NewStr("245"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(480),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp9"),
+				}),
+				λ.NewStr("246"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(480),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp9"),
+				}),
+				λ.NewStr("247"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(720),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp9"),
+				}),
+				λ.NewStr("248"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(1080),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp9"),
+				}),
+				λ.NewStr("271"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(1440),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp9"),
+				}),
+				λ.NewStr("272"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(2160),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp9"),
+				}),
+				λ.NewStr("302"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(720),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp9"),
+					λ.NewStr("fps"):         λ.NewInt(60),
+				}),
+				λ.NewStr("303"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(1080),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp9"),
+					λ.NewStr("fps"):         λ.NewInt(60),
+				}),
+				λ.NewStr("308"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(1440),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp9"),
+					λ.NewStr("fps"):         λ.NewInt(60),
+				}),
+				λ.NewStr("313"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(2160),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp9"),
+				}),
+				λ.NewStr("315"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("height"):      λ.NewInt(2160),
+					λ.NewStr("format_note"): λ.NewStr("DASH video"),
+					λ.NewStr("vcodec"):      λ.NewStr("vp9"),
+					λ.NewStr("fps"):         λ.NewInt(60),
+				}),
+				λ.NewStr("171"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("acodec"):      λ.NewStr("vorbis"),
+					λ.NewStr("format_note"): λ.NewStr("DASH audio"),
+					λ.NewStr("abr"):         λ.NewInt(128),
+				}),
+				λ.NewStr("172"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("acodec"):      λ.NewStr("vorbis"),
+					λ.NewStr("format_note"): λ.NewStr("DASH audio"),
+					λ.NewStr("abr"):         λ.NewInt(256),
+				}),
+				λ.NewStr("249"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("format_note"): λ.NewStr("DASH audio"),
+					λ.NewStr("acodec"):      λ.NewStr("opus"),
+					λ.NewStr("abr"):         λ.NewInt(50),
+				}),
+				λ.NewStr("250"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("format_note"): λ.NewStr("DASH audio"),
+					λ.NewStr("acodec"):      λ.NewStr("opus"),
+					λ.NewStr("abr"):         λ.NewInt(70),
+				}),
+				λ.NewStr("251"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("ext"):         λ.NewStr("webm"),
+					λ.NewStr("format_note"): λ.NewStr("DASH audio"),
+					λ.NewStr("acodec"):      λ.NewStr("opus"),
+					λ.NewStr("abr"):         λ.NewInt(160),
+				}),
+				λ.NewStr("_rtmp"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("protocol"): λ.NewStr("rtmp"),
+				}),
+			})
 			YoutubeIE__GEO_BYPASS = λ.False
 			YoutubeIE_IE_NAME = λ.NewStr("youtube")
 			YoutubeIE___init__ = λ.NewFunction("__init__",
@@ -707,6 +1346,299 @@ func init() {
 						{Name: "", Value: ϒkwargs},
 					})
 					λ.SetAttr(ϒself, "_player_cache", λ.NewDictWithTable(map[λ.Object]λ.Object{}))
+					return λ.None
+				})
+			YoutubeIE_report_video_info_webpage_download = λ.NewFunction("report_video_info_webpage_download",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "video_id"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself     = λargs[0]
+						ϒvideo_id = λargs[1]
+					)
+					λ.NewStr("Report attempt to download video info webpage.")
+					λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("%s: Downloading video info webpage"), ϒvideo_id))
+					return λ.None
+				})
+			YoutubeIE__signature_cache_id = λ.NewFunction("_signature_cache_id",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "example_sig"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒexample_sig = λargs[1]
+						ϒself        = λargs[0]
+					)
+					_ = ϒself
+					λ.NewStr(" Return a string representation of a signature ")
+					return λ.Cal(λ.GetAttr(λ.NewStr("."), "join", nil), λ.Cal(λ.NewFunction("<generator>",
+						nil,
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								var (
+									ϒpart λ.Object
+									τmp0  λ.Object
+									τmp1  λ.Object
+								)
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒexample_sig, "split", nil), λ.NewStr(".")))
+								for {
+									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+										break
+									}
+									ϒpart = τmp1
+									λgen.Yield(λ.Cal(ϒcompat_str, λ.Cal(λ.BuiltinLen, ϒpart)))
+								}
+								return λ.None
+							})
+						})))
+				})
+			YoutubeIE__extract_signature_function = λ.NewFunction("_extract_signature_function",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "video_id"},
+					{Name: "player_url"},
+					{Name: "example_sig"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcache_res     λ.Object
+						ϒcache_spec    λ.Object
+						ϒcode          λ.Object
+						ϒdownload_note λ.Object
+						ϒexample_sig   = λargs[3]
+						ϒfunc_id       λ.Object
+						ϒid_m          λ.Object
+						ϒplayer_id     λ.Object
+						ϒplayer_type   λ.Object
+						ϒplayer_url    = λargs[2]
+						ϒres           λ.Object
+						ϒself          = λargs[0]
+						ϒtest_string   λ.Object
+						ϒurlh          λ.Object
+						ϒvideo_id      = λargs[1]
+					)
+					ϒid_m = λ.Cal(Ωre.ϒmatch, λ.NewStr(".*?-(?P<id>[a-zA-Z0-9_-]+)(?:/watch_as3|/html5player(?:-new)?|(?:/[a-z]{2,3}_[A-Z]{2})?/base)?\\.(?P<ext>[a-z]+)$"), ϒplayer_url)
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒid_m))) {
+						panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.NewStr("Cannot identify player %r"), ϒplayer_url))))
+					}
+					ϒplayer_type = λ.Cal(λ.GetAttr(ϒid_m, "group", nil), λ.NewStr("ext"))
+					ϒplayer_id = λ.Cal(λ.GetAttr(ϒid_m, "group", nil), λ.NewStr("id"))
+					ϒfunc_id = λ.Mod(λ.NewStr("%s_%s_%s"), λ.NewTuple(
+						ϒplayer_type,
+						ϒplayer_id,
+						λ.Cal(λ.GetAttr(ϒself, "_signature_cache_id", nil), ϒexample_sig),
+					))
+					if !λ.IsTrue(λ.Eq(λ.Cal(Ωpath.ϒbasename, ϒfunc_id), ϒfunc_id)) {
+						panic(λ.Raise(λ.Cal(λ.AssertionErrorType)))
+					}
+					ϒcache_spec = λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "cache", nil), "load", nil), λ.NewStr("youtube-sigfuncs"), ϒfunc_id)
+					if λ.IsTrue(λ.NewBool(ϒcache_spec != λ.None)) {
+						return λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "s"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒs = λargs[0]
+								)
+								return λ.Cal(λ.GetAttr(λ.NewStr(""), "join", nil), λ.Cal(λ.NewFunction("<generator>",
+									nil,
+									0, false, false,
+									func(λargs []λ.Object) λ.Object {
+										return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+											var (
+												ϒi   λ.Object
+												τmp0 λ.Object
+												τmp1 λ.Object
+											)
+											τmp0 = λ.Cal(λ.BuiltinIter, ϒcache_spec)
+											for {
+												if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+													break
+												}
+												ϒi = τmp1
+												λgen.Yield(λ.GetItem(ϒs, ϒi))
+											}
+											return λ.None
+										})
+									})))
+							})
+					}
+					ϒdownload_note = func() λ.Object {
+						if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("verbose"))) {
+							return λ.Mod(λ.NewStr("Downloading player %s"), ϒplayer_url)
+						} else {
+							return λ.Mod(λ.NewStr("Downloading %s player %s"), λ.NewTuple(
+								ϒplayer_type,
+								ϒplayer_id,
+							))
+						}
+					}()
+					if λ.IsTrue(λ.Eq(ϒplayer_type, λ.NewStr("js"))) {
+						ϒcode = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
+							ϒplayer_url,
+							ϒvideo_id,
+						), λ.KWArgs{
+							{Name: "note", Value: ϒdownload_note},
+							{Name: "errnote", Value: λ.Mod(λ.NewStr("Download of %s failed"), ϒplayer_url)},
+						})
+						ϒres = λ.Cal(λ.GetAttr(ϒself, "_parse_sig_js", nil), ϒcode)
+					} else {
+						if λ.IsTrue(λ.Eq(ϒplayer_type, λ.NewStr("swf"))) {
+							ϒurlh = λ.Call(λ.GetAttr(ϒself, "_request_webpage", nil), λ.NewArgs(
+								ϒplayer_url,
+								ϒvideo_id,
+							), λ.KWArgs{
+								{Name: "note", Value: ϒdownload_note},
+								{Name: "errnote", Value: λ.Mod(λ.NewStr("Download of %s failed"), ϒplayer_url)},
+							})
+							ϒcode = λ.Cal(λ.GetAttr(ϒurlh, "read", nil))
+							ϒres = λ.Cal(λ.GetAttr(ϒself, "_parse_sig_swf", nil), ϒcode)
+						} else {
+							if !λ.IsTrue(λ.False) {
+								panic(λ.Raise(λ.Cal(λ.AssertionErrorType, λ.Mod(λ.NewStr("Invalid player type %r"), ϒplayer_type))))
+							}
+						}
+					}
+					ϒtest_string = λ.Cal(λ.GetAttr(λ.NewStr(""), "join", nil), λ.Cal(λ.MapIteratorType, ϒcompat_chr, λ.Cal(λ.RangeType, λ.Cal(λ.BuiltinLen, ϒexample_sig))))
+					ϒcache_res = λ.Cal(ϒres, ϒtest_string)
+					ϒcache_spec = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+						nil,
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								var (
+									ϒc   λ.Object
+									τmp0 λ.Object
+									τmp1 λ.Object
+								)
+								τmp0 = λ.Cal(λ.BuiltinIter, ϒcache_res)
+								for {
+									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+										break
+									}
+									ϒc = τmp1
+									λgen.Yield(λ.Cal(λ.BuiltinOrd, ϒc))
+								}
+								return λ.None
+							})
+						})))
+					λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "cache", nil), "store", nil), λ.NewStr("youtube-sigfuncs"), ϒfunc_id, ϒcache_spec)
+					return ϒres
+				})
+			YoutubeIE__parse_sig_js = λ.NewFunction("_parse_sig_js",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "jscode"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒfuncname         λ.Object
+						ϒinitial_function λ.Object
+						ϒjscode           = λargs[1]
+						ϒjsi              λ.Object
+						ϒself             = λargs[0]
+					)
+					ϒfuncname = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+						λ.NewTuple(
+							λ.NewStr("([\"\\'])signature\\1\\s*,\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
+							λ.NewStr("\\.sig\\|\\|(?P<sig>[a-zA-Z0-9$]+)\\("),
+							λ.NewStr("yt\\.akamaized\\.net/\\)\\s*\\|\\|\\s*.*?\\s*c\\s*&&\\s*d\\.set\\([^,]+\\s*,\\s*(?:encodeURIComponent\\s*\\()?(?P<sig>[a-zA-Z0-9$]+)\\("),
+							λ.NewStr("\\bc\\s*&&\\s*d\\.set\\([^,]+\\s*,\\s*(?:encodeURIComponent\\s*\\()?\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
+							λ.NewStr("\\bc\\s*&&\\s*d\\.set\\([^,]+\\s*,\\s*\\([^)]*\\)\\s*\\(\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
+						),
+						ϒjscode,
+						λ.NewStr("Initial JS player signature function name"),
+					), λ.KWArgs{
+						{Name: "group", Value: λ.NewStr("sig")},
+					})
+					ϒjsi = λ.Cal(JSInterpreter, ϒjscode)
+					ϒinitial_function = λ.Cal(λ.GetAttr(ϒjsi, "extract_function", nil), ϒfuncname)
+					return λ.NewFunction("<lambda>",
+						[]λ.Param{
+							{Name: "s"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒs = λargs[0]
+							)
+							return λ.Cal(ϒinitial_function, λ.NewList(ϒs))
+						})
+				})
+			YoutubeIE__decrypt_signature = λ.NewFunction("_decrypt_signature",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "s"},
+					{Name: "video_id"},
+					{Name: "player_url"},
+					{Name: "age_gate", Def: λ.False},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒage_gate   = λargs[4]
+						ϒfunc       λ.Object
+						ϒplayer_id  λ.Object
+						ϒplayer_url = λargs[3]
+						ϒs          = λargs[1]
+						ϒself       = λargs[0]
+						ϒtb         λ.Object
+						ϒvideo_id   = λargs[2]
+						τmp0        λ.Object
+						τmp1        λ.Object
+					)
+					_ = ϒage_gate
+					λ.NewStr("Turn the encrypted s field into a working signature")
+					if λ.IsTrue(λ.NewBool(ϒplayer_url == λ.None)) {
+						panic(λ.Raise(λ.Cal(ExtractorError, λ.NewStr("Cannot decrypt signature without player_url"))))
+					}
+					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒplayer_url, "startswith", nil), λ.NewStr("//"))) {
+						ϒplayer_url = λ.Add(λ.NewStr("https:"), ϒplayer_url)
+					} else {
+						if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(Ωre.ϒmatch, λ.NewStr("https?://"), ϒplayer_url)))) {
+							ϒplayer_url = λ.Cal(Ωparse.ϒurljoin, λ.NewStr("https://www.youtube.com"), ϒplayer_url)
+						}
+					}
+					τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
+						defer λ.CatchMulti(
+							nil,
+							&λ.Catcher{λ.ExceptionType, func(λex λ.BaseException) {
+								var ϒe λ.Object = λex
+								ϒtb = λ.Cal(λ.GetAttr(λ.None, "format_exc", nil))
+								panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Add(λ.NewStr("Signature extraction failed: "), ϒtb)), λ.KWArgs{
+									{Name: "cause", Value: ϒe},
+								})))
+							}},
+						)
+						ϒplayer_id = λ.NewTuple(
+							ϒplayer_url,
+							λ.Cal(λ.GetAttr(ϒself, "_signature_cache_id", nil), ϒs),
+						)
+						if λ.IsTrue(λ.NewBool(!λ.Contains(λ.GetAttr(ϒself, "_player_cache", nil), ϒplayer_id))) {
+							ϒfunc = λ.Cal(λ.GetAttr(ϒself, "_extract_signature_function", nil), ϒvideo_id, ϒplayer_url, ϒs)
+							λ.SetItem(λ.GetAttr(ϒself, "_player_cache", nil), ϒplayer_id, ϒfunc)
+						}
+						ϒfunc = λ.GetItem(λ.GetAttr(ϒself, "_player_cache", nil), ϒplayer_id)
+						if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("youtube_print_sig_code"))) {
+							λ.Cal(λ.GetAttr(ϒself, "_print_sig_code", nil), ϒfunc, ϒs)
+						}
+						λexit, λret = λ.BlockExitReturn, λ.Cal(ϒfunc, ϒs)
+						return
+						return λ.BlockExitNormally, nil
+					}()
+					if τmp0 == λ.BlockExitReturn {
+						return τmp1
+					}
 					return λ.None
 				})
 			YoutubeIE__get_ytplayer_config = λ.NewFunction("_get_ytplayer_config",
@@ -844,6 +1776,83 @@ func init() {
 					return ϒvideo_id
 				})
 			YoutubeIE_extract_id = λ.Cal(λ.ClassMethodType, YoutubeIE_extract_id)
+			YoutubeIE__extract_chapters = λ.NewFunction("_extract_chapters",
+				[]λ.Param{
+					{Name: "description"},
+					{Name: "duration"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒchapter_line  λ.Object
+						ϒchapter_lines λ.Object
+						ϒchapter_title λ.Object
+						ϒchapters      λ.Object
+						ϒdescription   = λargs[0]
+						ϒduration      = λargs[1]
+						ϒend_time      λ.Object
+						ϒnext_num      λ.Object
+						ϒstart_time    λ.Object
+						ϒtime_point    λ.Object
+						τmp0           λ.Object
+						τmp1           λ.Object
+						τmp2           λ.Object
+						τmp3           λ.Object
+					)
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒdescription))) {
+						return λ.None
+					}
+					ϒchapter_lines = λ.Cal(Ωre.ϒfindall, λ.NewStr("(?:^|<br\\s*/>)([^<]*<a[^>]+onclick=[\"\\']yt\\.www\\.watch\\.player\\.seekTo[^>]+>(\\d{1,2}:\\d{1,2}(?::\\d{1,2})?)</a>[^>]*)(?=$|<br\\s*/>)"), ϒdescription)
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒchapter_lines))) {
+						return λ.None
+					}
+					ϒchapters = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Call(λ.EnumerateIteratorType, λ.NewArgs(ϒchapter_lines), λ.KWArgs{
+						{Name: "start", Value: λ.NewInt(1)},
+					}))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						τmp2 = τmp1
+						ϒnext_num = λ.GetItem(τmp2, λ.NewInt(0))
+						τmp3 = λ.GetItem(τmp2, λ.NewInt(1))
+						ϒchapter_line = λ.GetItem(τmp3, λ.NewInt(0))
+						ϒtime_point = λ.GetItem(τmp3, λ.NewInt(1))
+						ϒstart_time = λ.Cal(ϒparse_duration, ϒtime_point)
+						if λ.IsTrue(λ.NewBool(ϒstart_time == λ.None)) {
+							continue
+						}
+						if λ.IsTrue(λ.Gt(ϒstart_time, ϒduration)) {
+							break
+						}
+						ϒend_time = func() λ.Object {
+							if λ.IsTrue(λ.Eq(ϒnext_num, λ.Cal(λ.BuiltinLen, ϒchapter_lines))) {
+								return ϒduration
+							} else {
+								return λ.Cal(ϒparse_duration, λ.GetItem(λ.GetItem(ϒchapter_lines, ϒnext_num), λ.NewInt(1)))
+							}
+						}()
+						if λ.IsTrue(λ.NewBool(ϒend_time == λ.None)) {
+							continue
+						}
+						if λ.IsTrue(λ.Gt(ϒend_time, ϒduration)) {
+							ϒend_time = ϒduration
+						}
+						if λ.IsTrue(λ.Gt(ϒstart_time, ϒend_time)) {
+							break
+						}
+						ϒchapter_title = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒsub, λ.NewStr("<a[^>]+>[^<]+</a>"), λ.NewStr(""), ϒchapter_line), "strip", nil), λ.NewStr(" \t-"))
+						ϒchapter_title = λ.Cal(Ωre.ϒsub, λ.NewStr("\\s+"), λ.NewStr(" "), ϒchapter_title)
+						λ.Cal(λ.GetAttr(ϒchapters, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("start_time"): ϒstart_time,
+							λ.NewStr("end_time"):   ϒend_time,
+							λ.NewStr("title"):      ϒchapter_title,
+						}))
+					}
+					return ϒchapters
+				})
+			YoutubeIE__extract_chapters = λ.Cal(λ.StaticMethodType, YoutubeIE__extract_chapters)
 			YoutubeIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -2052,7 +3061,7 @@ func init() {
 					})
 					ϒm_music = λ.Cal(Ωre.ϒsearch, λ.NewStr("(?x)\n                <h4[^>]+class=\"title\"[^>]*>\\s*Music\\s*</h4>\\s*\n                <ul[^>]*>\\s*\n                <li>(?P<title>.+?)\n                by (?P<creator>.+?)\n                (?:\n                    \\(.+?\\)|\n                    <a[^>]*\n                        (?:\n                            \\bhref=[\"\\']/red[^>]*>|             # drop possible\n                            >\\s*Listen ad-free with YouTube Red # YouTube Red ad\n                        )\n                    .*?\n                )?</li\n            "), ϒvideo_webpage)
 					if λ.IsTrue(ϒm_music) {
-						ϒvideo_alt_title = λ.Cal(λ.None, λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒm_music, "group", nil), λ.NewStr("title"))))
+						ϒvideo_alt_title = λ.Cal(ϒremove_quotes, λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒm_music, "group", nil), λ.NewStr("title"))))
 						ϒvideo_creator = λ.Cal(ϒclean_html, λ.Cal(λ.GetAttr(ϒm_music, "group", nil), λ.NewStr("creator")))
 					} else {
 						τmp0 = λ.None
@@ -2356,37 +3365,504 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):              YoutubeIE_IE_NAME,
-				λ.NewStr("_GEO_BYPASS"):          YoutubeIE__GEO_BYPASS,
-				λ.NewStr("_NEXT_URL_RE"):         YoutubeIE__NEXT_URL_RE,
-				λ.NewStr("_VALID_URL"):           YoutubeIE__VALID_URL,
-				λ.NewStr("__init__"):             YoutubeIE___init__,
-				λ.NewStr("_extract_url"):         YoutubeIE__extract_url,
-				λ.NewStr("_extract_urls"):        YoutubeIE__extract_urls,
-				λ.NewStr("_get_ytplayer_config"): YoutubeIE__get_ytplayer_config,
-				λ.NewStr("_real_extract"):        YoutubeIE__real_extract,
-				λ.NewStr("extract_id"):           YoutubeIE_extract_id,
+				λ.NewStr("IE_NAME"):                            YoutubeIE_IE_NAME,
+				λ.NewStr("_GEO_BYPASS"):                        YoutubeIE__GEO_BYPASS,
+				λ.NewStr("_NEXT_URL_RE"):                       YoutubeIE__NEXT_URL_RE,
+				λ.NewStr("_VALID_URL"):                         YoutubeIE__VALID_URL,
+				λ.NewStr("__init__"):                           YoutubeIE___init__,
+				λ.NewStr("_decrypt_signature"):                 YoutubeIE__decrypt_signature,
+				λ.NewStr("_extract_chapters"):                  YoutubeIE__extract_chapters,
+				λ.NewStr("_extract_signature_function"):        YoutubeIE__extract_signature_function,
+				λ.NewStr("_extract_url"):                       YoutubeIE__extract_url,
+				λ.NewStr("_extract_urls"):                      YoutubeIE__extract_urls,
+				λ.NewStr("_formats"):                           YoutubeIE__formats,
+				λ.NewStr("_get_ytplayer_config"):               YoutubeIE__get_ytplayer_config,
+				λ.NewStr("_parse_sig_js"):                      YoutubeIE__parse_sig_js,
+				λ.NewStr("_real_extract"):                      YoutubeIE__real_extract,
+				λ.NewStr("_signature_cache_id"):                YoutubeIE__signature_cache_id,
+				λ.NewStr("extract_id"):                         YoutubeIE_extract_id,
+				λ.NewStr("report_video_info_webpage_download"): YoutubeIE_report_video_info_webpage_download,
 			})
 		}())
 		YoutubePlaylistIE = λ.Cal(λ.TypeType, λ.NewStr("YoutubePlaylistIE"), λ.NewTuple(YoutubePlaylistBaseInfoExtractor), func() λ.Dict {
-
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			var (
+				YoutubePlaylistIE_IE_NAME                    λ.Object
+				YoutubePlaylistIE__TEMPLATE_URL              λ.Object
+				YoutubePlaylistIE__TESTS                     λ.Object
+				YoutubePlaylistIE__VALID_URL                 λ.Object
+				YoutubePlaylistIE__check_download_just_video λ.Object
+				YoutubePlaylistIE__extract_playlist          λ.Object
+				YoutubePlaylistIE__real_extract              λ.Object
+				YoutubePlaylistIE__real_initialize           λ.Object
+			)
+			YoutubePlaylistIE__VALID_URL = λ.Mod(λ.NewStr("(?x)(?:\n                        (?:https?://)?\n                        (?:\\w+\\.)?\n                        (?:\n                            (?:\n                                youtube\\.com|\n                                invidio\\.us\n                            )\n                            /\n                            (?:\n                               (?:course|view_play_list|my_playlists|artist|playlist|watch|embed/(?:videoseries|[0-9A-Za-z_-]{11}))\n                               \\? (?:.*?[&;])*? (?:p|a|list)=\n                            |  p/\n                            )|\n                            youtu\\.be/[0-9A-Za-z_-]{11}\\?.*?\\blist=\n                        )\n                        (\n                            (?:PL|LL|EC|UU|FL|RD|UL|TL|OLAK5uy_)?[0-9A-Za-z-_]{10,}\n                            # Top tracks, they can also include dots\n                            |(?:MC)[\\w\\.]*\n                        )\n                        .*\n                     |\n                        (%(playlist_id)s)\n                     )"), λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("playlist_id"): λ.GetAttr(YoutubeBaseInfoExtractor, "_PLAYLIST_ID_RE", nil),
+			}))
+			YoutubePlaylistIE__TEMPLATE_URL = λ.NewStr("https://www.youtube.com/playlist?list=%s")
+			YoutubePlaylistIE_IE_NAME = λ.NewStr("youtube:playlist")
+			YoutubePlaylistIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://www.youtube.com/playlist?list=PLwiyx1dc3P2JR9N8gQaQN_BCvlSlap7re"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("title"): λ.NewStr("ytdl test PL"),
+						λ.NewStr("id"):    λ.NewStr("PLwiyx1dc3P2JR9N8gQaQN_BCvlSlap7re"),
+					}),
+					λ.NewStr("playlist_count"): λ.NewInt(3),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://www.youtube.com/playlist?list=PLtPgu7CB4gbZDA7i_euNxn75ISqxwZPYx"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):    λ.NewStr("PLtPgu7CB4gbZDA7i_euNxn75ISqxwZPYx"),
+						λ.NewStr("title"): λ.NewStr("YDL_Empty_List"),
+					}),
+					λ.NewStr("playlist_count"): λ.NewInt(0),
+					λ.NewStr("skip"):           λ.NewStr("This playlist is private"),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("note"): λ.NewStr("Playlist with deleted videos (#651). As a bonus, the video #51 is also twice in this list."),
+					λ.NewStr("url"):  λ.NewStr("https://www.youtube.com/playlist?list=PLwP_SiAcdui0KVebT0mU9Apz359a4ubsC"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("title"): λ.NewStr("29C3: Not my department"),
+						λ.NewStr("id"):    λ.NewStr("PLwP_SiAcdui0KVebT0mU9Apz359a4ubsC"),
+					}),
+					λ.NewStr("playlist_count"): λ.NewInt(95),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("note"): λ.NewStr("issue #673"),
+					λ.NewStr("url"):  λ.NewStr("PLBB231211A4F62143"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("title"): λ.NewStr("[OLD]Team Fortress 2 (Class-based LP)"),
+						λ.NewStr("id"):    λ.NewStr("PLBB231211A4F62143"),
+					}),
+					λ.NewStr("playlist_mincount"): λ.NewInt(26),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("note"): λ.NewStr("Large playlist"),
+					λ.NewStr("url"):  λ.NewStr("https://www.youtube.com/playlist?list=UUBABnxM4Ar9ten8Mdjj1j0Q"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("title"): λ.NewStr("Uploads from Cauchemar"),
+						λ.NewStr("id"):    λ.NewStr("UUBABnxM4Ar9ten8Mdjj1j0Q"),
+					}),
+					λ.NewStr("playlist_mincount"): λ.NewInt(799),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("PLtPgu7CB4gbY9oDN3drwC3cMbJggS7dKl"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("title"): λ.NewStr("YDL_safe_search"),
+						λ.NewStr("id"):    λ.NewStr("PLtPgu7CB4gbY9oDN3drwC3cMbJggS7dKl"),
+					}),
+					λ.NewStr("playlist_count"): λ.NewInt(2),
+					λ.NewStr("skip"):           λ.NewStr("This playlist is private"),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("note"):           λ.NewStr("embedded"),
+					λ.NewStr("url"):            λ.NewStr("https://www.youtube.com/embed/videoseries?list=PL6IaIsEjSbf96XFRuNccS_RuEXwNdsoEu"),
+					λ.NewStr("playlist_count"): λ.NewInt(4),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("title"): λ.NewStr("JODA15"),
+						λ.NewStr("id"):    λ.NewStr("PL6IaIsEjSbf96XFRuNccS_RuEXwNdsoEu"),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):               λ.NewStr("http://www.youtube.com/embed/_xDOZElKyNU?list=PLsyOSbh5bs16vubvKePAQ1x3PhKavfBIl"),
+					λ.NewStr("playlist_mincount"): λ.NewInt(485),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("title"): λ.NewStr("2017 華語最新單曲 (2/24更新)"),
+						λ.NewStr("id"):    λ.NewStr("PLsyOSbh5bs16vubvKePAQ1x3PhKavfBIl"),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("note"):           λ.NewStr("Embedded SWF player"),
+					λ.NewStr("url"):            λ.NewStr("https://www.youtube.com/p/YN5VISEtHet5D4NEvfTd0zcgFk84NqFZ?hl=en_US&fs=1&rel=0"),
+					λ.NewStr("playlist_count"): λ.NewInt(4),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("title"): λ.NewStr("JODA7"),
+						λ.NewStr("id"):    λ.NewStr("YN5VISEtHet5D4NEvfTd0zcgFk84NqFZ"),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("note"): λ.NewStr("Buggy playlist: the webpage has a \"Load more\" button but it doesn't have more videos"),
+					λ.NewStr("url"):  λ.NewStr("https://www.youtube.com/playlist?list=UUXw-G3eDE9trcvY2sBMM_aA"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("title"): λ.NewStr("Uploads from Interstellar Movie"),
+						λ.NewStr("id"):    λ.NewStr("UUXw-G3eDE9trcvY2sBMM_aA"),
+					}),
+					λ.NewStr("playlist_mincount"): λ.NewInt(21),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://www.youtube.com/watch?v=FqZTN594JQw&list=PLMYEtVRpaqY00V9W81Cwmzp6N6vZqfUKD4"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):            λ.NewStr("FqZTN594JQw"),
+						λ.NewStr("ext"):           λ.NewStr("webm"),
+						λ.NewStr("title"):         λ.NewStr("Smiley's People 01 detective, Adventure Series, Action"),
+						λ.NewStr("uploader"):      λ.NewStr("STREEM"),
+						λ.NewStr("uploader_id"):   λ.NewStr("UCyPhqAZgwYWZfxElWVbVJng"),
+						λ.NewStr("uploader_url"):  λ.NewStr("re:https?://(?:www\\.)?youtube\\.com/channel/UCyPhqAZgwYWZfxElWVbVJng"),
+						λ.NewStr("upload_date"):   λ.NewStr("20150526"),
+						λ.NewStr("license"):       λ.NewStr("Standard YouTube License"),
+						λ.NewStr("description"):   λ.NewStr("md5:507cdcb5a49ac0da37a920ece610be80"),
+						λ.NewStr("categories"):    λ.NewList(λ.NewStr("People & Blogs")),
+						λ.NewStr("tags"):          λ.ListType,
+						λ.NewStr("view_count"):    λ.IntType,
+						λ.NewStr("like_count"):    λ.IntType,
+						λ.NewStr("dislike_count"): λ.IntType,
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+					λ.NewStr("add_ie"): λ.NewList(λ.Cal(λ.GetAttr(YoutubeIE, "ie_key", nil))),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://youtu.be/yeWKywCrFtk?list=PL2qgrgXsNUG5ig9cat4ohreBjYLAPC0J5"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):            λ.NewStr("yeWKywCrFtk"),
+						λ.NewStr("ext"):           λ.NewStr("mp4"),
+						λ.NewStr("title"):         λ.NewStr("Small Scale Baler and Braiding Rugs"),
+						λ.NewStr("uploader"):      λ.NewStr("Backus-Page House Museum"),
+						λ.NewStr("uploader_id"):   λ.NewStr("backuspagemuseum"),
+						λ.NewStr("uploader_url"):  λ.NewStr("re:https?://(?:www\\.)?youtube\\.com/user/backuspagemuseum"),
+						λ.NewStr("upload_date"):   λ.NewStr("20161008"),
+						λ.NewStr("license"):       λ.NewStr("Standard YouTube License"),
+						λ.NewStr("description"):   λ.NewStr("md5:800c0c78d5eb128500bffd4f0b4f2e8a"),
+						λ.NewStr("categories"):    λ.NewList(λ.NewStr("Nonprofits & Activism")),
+						λ.NewStr("tags"):          λ.ListType,
+						λ.NewStr("like_count"):    λ.IntType,
+						λ.NewStr("dislike_count"): λ.IntType,
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("noplaylist"):    λ.True,
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://youtu.be/uWyaPkt-VOI?list=PL9D9FC436B881BA21"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("TLGGrESM50VT6acwMjAyMjAxNw"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("OLAK5uy_m4xAFdmMC5rX3Ji3g93pQe3hqLZw_9LhM"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://invidio.us/playlist?list=PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
+			YoutubePlaylistIE__real_initialize = λ.NewFunction("_real_initialize",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself = λargs[0]
+					)
+					λ.Cal(λ.GetAttr(ϒself, "_login", nil))
+					return λ.None
+				})
+			YoutubePlaylistIE__extract_playlist = λ.NewFunction("_extract_playlist",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "playlist_id"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒ_UPLOADER_BASE λ.Object
+						ϒhas_videos     λ.Object
+						ϒmatch          λ.Object
+						ϒmessage        λ.Object
+						ϒmobj           λ.Object
+						ϒpage           λ.Object
+						ϒplaylist       λ.Object
+						ϒplaylist_id    = λargs[1]
+						ϒplaylist_title λ.Object
+						ϒreason         λ.Object
+						ϒself           = λargs[0]
+						ϒuploader       λ.Object
+						ϒuploader_id    λ.Object
+						ϒuploader_url   λ.Object
+						ϒurl            λ.Object
+						τmp0            λ.Object
+						τmp1            λ.Object
+						τmp2            λ.Object
+					)
+					_ = τmp0
+					_ = τmp1
+					ϒurl = λ.Mod(λ.GetAttr(ϒself, "_TEMPLATE_URL", nil), ϒplaylist_id)
+					ϒpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒplaylist_id)
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.NewStr("<div class=\"yt-alert-message\"[^>]*>([^<]+)</div>"), ϒpage))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒmatch = τmp1
+						ϒmatch = λ.Cal(λ.GetAttr(ϒmatch, "strip", nil))
+						ϒmobj = λ.Cal(Ωre.ϒmatch, λ.NewStr("[^<]*(?:The|This) playlist (?P<reason>does not exist|is private)[^<]*"), ϒmatch)
+						if λ.IsTrue(ϒmobj) {
+							ϒreason = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("reason"))
+							ϒmessage = λ.Mod(λ.NewStr("This playlist %s"), ϒreason)
+							if λ.IsTrue(λ.NewBool(λ.Contains(ϒreason, λ.NewStr("private")))) {
+								τmp2 = λ.IAdd(ϒmessage, λ.NewStr(", use --username or --netrc to access it"))
+								ϒmessage = τmp2
+							}
+							τmp2 = λ.IAdd(ϒmessage, λ.NewStr("."))
+							ϒmessage = τmp2
+							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(ϒmessage), λ.KWArgs{
+								{Name: "expected", Value: λ.True},
+							})))
+						} else {
+							if λ.IsTrue(λ.Cal(Ωre.ϒmatch, λ.NewStr("[^<]*Invalid parameters[^<]*"), ϒmatch)) {
+								panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("Invalid parameters. Maybe URL is incorrect.")), λ.KWArgs{
+									{Name: "expected", Value: λ.True},
+								})))
+							} else {
+								if λ.IsTrue(λ.Cal(Ωre.ϒmatch, λ.NewStr("[^<]*Choose your language[^<]*"), ϒmatch)) {
+									continue
+								} else {
+									λ.Cal(λ.GetAttr(ϒself, "report_warning", nil), λ.Add(λ.NewStr("Youtube gives an alert message: "), ϒmatch))
+								}
+							}
+						}
+					}
+					ϒplaylist_title = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
+						λ.NewStr("(?s)<h1 class=\"pl-header-title[^\"]*\"[^>]*>\\s*(.*?)\\s*</h1>"),
+						ϒpage,
+						λ.NewStr("title"),
+					), λ.KWArgs{
+						{Name: "default", Value: λ.None},
+					})
+					ϒ_UPLOADER_BASE = λ.NewStr("class=[\"\\']pl-header-details[^>]+>\\s*<li>\\s*<a[^>]+\\bhref=")
+					ϒuploader = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+						λ.Mod(λ.NewStr("%s[\"\\']/(?:user|channel)/[^>]+>([^<]+)"), ϒ_UPLOADER_BASE),
+						ϒpage,
+						λ.NewStr("uploader"),
+					), λ.KWArgs{
+						{Name: "default", Value: λ.None},
+					})
+					ϒmobj = λ.Cal(Ωre.ϒsearch, λ.Mod(λ.NewStr("%s([\"\\'])(?P<path>/(?:user|channel)/(?P<uploader_id>.+?))\\1"), ϒ_UPLOADER_BASE), ϒpage)
+					if λ.IsTrue(ϒmobj) {
+						ϒuploader_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("uploader_id"))
+						ϒuploader_url = λ.Cal(Ωparse.ϒurljoin, ϒurl, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("path")))
+					} else {
+						τmp0 = λ.None
+						ϒuploader_id = τmp0
+						ϒuploader_url = τmp0
+					}
+					ϒhas_videos = λ.True
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒplaylist_title))) {
+						τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
+							defer λ.CatchMulti(
+								nil,
+								&λ.Catcher{λ.StopIterationType, func(λex λ.BaseException) {
+									ϒhas_videos = λ.False
+								}},
+							)
+							λ.Cal(λ.BuiltinNext, λ.Cal(λ.GetAttr(ϒself, "_entries", nil), ϒpage, ϒplaylist_id))
+							return λ.BlockExitNormally, nil
+						}()
+					}
+					ϒplaylist = λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), λ.Cal(λ.GetAttr(ϒself, "_entries", nil), ϒpage, ϒplaylist_id), ϒplaylist_id, ϒplaylist_title)
+					λ.Cal(λ.GetAttr(ϒplaylist, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("uploader"):     ϒuploader,
+						λ.NewStr("uploader_id"):  ϒuploader_id,
+						λ.NewStr("uploader_url"): ϒuploader_url,
+					}))
+					return λ.NewTuple(
+						ϒhas_videos,
+						ϒplaylist,
+					)
+				})
+			YoutubePlaylistIE__check_download_just_video = λ.NewFunction("_check_download_just_video",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+					{Name: "playlist_id"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒplaylist_id = λargs[2]
+						ϒquery_dict  λ.Object
+						ϒself        = λargs[0]
+						ϒurl         = λargs[1]
+						ϒvideo_id    λ.Object
+					)
+					ϒquery_dict = λ.Cal(Ωparse.ϒparse_qs, λ.GetAttr(λ.Cal(Ωparse.ϒurlparse, ϒurl), "query", nil))
+					ϒvideo_id = func() λ.Object {
+						if λv := λ.GetItem(λ.Cal(λ.GetAttr(ϒquery_dict, "get", nil), λ.NewStr("v"), λ.NewList(λ.None)), λ.NewInt(0)); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+								λ.NewStr("(?:(?:^|//)youtu\\.be/|youtube\\.com/embed/(?!videoseries))([0-9A-Za-z_-]{11})"),
+								ϒurl,
+								λ.NewStr("video id"),
+							), λ.KWArgs{
+								{Name: "default", Value: λ.None},
+							})
+						}
+					}()
+					if λ.IsTrue(ϒvideo_id) {
+						if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("noplaylist"))) {
+							λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("Downloading just video %s because of --no-playlist"), ϒvideo_id))
+							return λ.NewTuple(
+								ϒvideo_id,
+								λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(
+									ϒvideo_id,
+									λ.NewStr("Youtube"),
+								), λ.KWArgs{
+									{Name: "video_id", Value: ϒvideo_id},
+								}),
+							)
+						} else {
+							λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("Downloading playlist %s - add --no-playlist to just download video %s"), λ.NewTuple(
+								ϒplaylist_id,
+								ϒvideo_id,
+							)))
+							return λ.NewTuple(
+								ϒvideo_id,
+								λ.None,
+							)
+						}
+					}
+					return λ.NewTuple(
+						λ.None,
+						λ.None,
+					)
+				})
+			YoutubePlaylistIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒhas_videos  λ.Object
+						ϒmobj        λ.Object
+						ϒplaylist    λ.Object
+						ϒplaylist_id λ.Object
+						ϒself        = λargs[0]
+						ϒurl         = λargs[1]
+						ϒvideo       λ.Object
+						ϒvideo_id    λ.Object
+						τmp0         λ.Object
+					)
+					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
+					if λ.IsTrue(λ.NewBool(ϒmobj == λ.None)) {
+						panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.NewStr("Invalid URL: %s"), ϒurl))))
+					}
+					ϒplaylist_id = func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewInt(1)); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewInt(2))
+						}
+					}()
+					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_check_download_just_video", nil), ϒurl, ϒplaylist_id)
+					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(0))
+					ϒvideo = λ.GetItem(τmp0, λ.NewInt(1))
+					if λ.IsTrue(ϒvideo) {
+						return ϒvideo
+					}
+					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒplaylist_id, "startswith", nil), λ.NewTuple(
+						λ.NewStr("RD"),
+						λ.NewStr("UL"),
+						λ.NewStr("PU"),
+					))) {
+						return λ.Cal(λ.GetAttr(ϒself, "_extract_mix", nil), ϒplaylist_id)
+					}
+					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_extract_playlist", nil), ϒplaylist_id)
+					ϒhas_videos = λ.GetItem(τmp0, λ.NewInt(0))
+					ϒplaylist = λ.GetItem(τmp0, λ.NewInt(1))
+					if λ.IsTrue(func() λ.Object {
+						if λv := ϒhas_videos; λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewBool(!λ.IsTrue(ϒvideo_id))
+						}
+					}()) {
+						return ϒplaylist
+					}
+					return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(
+						ϒvideo_id,
+						λ.NewStr("Youtube"),
+					), λ.KWArgs{
+						{Name: "video_id", Value: ϒvideo_id},
+					})
+				})
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("IE_NAME"):                    YoutubePlaylistIE_IE_NAME,
+				λ.NewStr("_TEMPLATE_URL"):              YoutubePlaylistIE__TEMPLATE_URL,
+				λ.NewStr("_TESTS"):                     YoutubePlaylistIE__TESTS,
+				λ.NewStr("_VALID_URL"):                 YoutubePlaylistIE__VALID_URL,
+				λ.NewStr("_check_download_just_video"): YoutubePlaylistIE__check_download_just_video,
+				λ.NewStr("_extract_playlist"):          YoutubePlaylistIE__extract_playlist,
+				λ.NewStr("_real_extract"):              YoutubePlaylistIE__real_extract,
+				λ.NewStr("_real_initialize"):           YoutubePlaylistIE__real_initialize,
+			})
 		}())
 		YoutubeChannelIE = λ.Cal(λ.TypeType, λ.NewStr("YoutubeChannelIE"), λ.NewTuple(YoutubePlaylistBaseInfoExtractor), func() λ.Dict {
-
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			var (
+				YoutubeChannelIE__VALID_URL λ.Object
+				YoutubeChannelIE_suitable   λ.Object
+			)
+			YoutubeChannelIE__VALID_URL = λ.NewStr("https?://(?:youtu\\.be|(?:\\w+\\.)?youtube(?:-nocookie)?\\.com|(?:www\\.)?invidio\\.us)/channel/(?P<id>[0-9A-Za-z_-]+)")
+			YoutubeChannelIE_suitable = λ.NewFunction("suitable",
+				[]λ.Param{
+					{Name: "cls"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcls = λargs[0]
+						ϒurl = λargs[1]
+					)
+					return func() λ.Object {
+						if λ.IsTrue(func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(YoutubePlaylistsIE, "suitable", nil), ϒurl); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Cal(λ.GetAttr(YoutubeLiveIE, "suitable", nil), ϒurl)
+							}
+						}()) {
+							return λ.False
+						} else {
+							return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, YoutubeChannelIE, ϒcls), "suitable", nil), ϒurl)
+						}
+					}()
+				})
+			YoutubeChannelIE_suitable = λ.Cal(λ.ClassMethodType, YoutubeChannelIE_suitable)
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_VALID_URL"): YoutubeChannelIE__VALID_URL,
+				λ.NewStr("suitable"):   YoutubeChannelIE_suitable,
+			})
 		}())
 		YoutubeUserIE = λ.Cal(λ.TypeType, λ.NewStr("YoutubeUserIE"), λ.NewTuple(YoutubeChannelIE), func() λ.Dict {
 
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 		}())
 		YoutubeLiveIE = λ.Cal(λ.TypeType, λ.NewStr("YoutubeLiveIE"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {
-
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			var (
+				YoutubeLiveIE__VALID_URL λ.Object
+			)
+			YoutubeLiveIE__VALID_URL = λ.NewStr("(?P<base_url>https?://(?:\\w+\\.)?youtube\\.com/(?:(?:user|channel|c)/)?(?P<id>[^/]+))/live")
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_VALID_URL"): YoutubeLiveIE__VALID_URL,
+			})
 		}())
 		YoutubePlaylistsIE = λ.Cal(λ.TypeType, λ.NewStr("YoutubePlaylistsIE"), λ.NewTuple(YoutubePlaylistsBaseInfoExtractor), func() λ.Dict {
-
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			var (
+				YoutubePlaylistsIE__VALID_URL λ.Object
+			)
+			YoutubePlaylistsIE__VALID_URL = λ.NewStr("https?://(?:\\w+\\.)?youtube\\.com/(?:user|channel)/(?P<id>[^/]+)/playlists")
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_VALID_URL"): YoutubePlaylistsIE__VALID_URL,
+			})
 		}())
 		YoutubeSearchBaseInfoExtractor = λ.Cal(λ.TypeType, λ.NewStr("YoutubeSearchBaseInfoExtractor"), λ.NewTuple(YoutubePlaylistBaseInfoExtractor), func() λ.Dict {
 
@@ -2421,8 +3897,13 @@ func init() {
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 		}())
 		YoutubeFavouritesIE = λ.Cal(λ.TypeType, λ.NewStr("YoutubeFavouritesIE"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {
-
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			var (
+				YoutubeFavouritesIE__VALID_URL λ.Object
+			)
+			YoutubeFavouritesIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?youtube\\.com/my_favorites|:ytfav(?:ou?rites)?")
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_VALID_URL"): YoutubeFavouritesIE__VALID_URL,
+			})
 		}())
 		YoutubeRecommendedIE = λ.Cal(λ.TypeType, λ.NewStr("YoutubeRecommendedIE"), λ.NewTuple(YoutubeFeedsInfoExtractor), func() λ.Dict {
 
@@ -2433,8 +3914,13 @@ func init() {
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 		}())
 		YoutubeHistoryIE = λ.Cal(λ.TypeType, λ.NewStr("YoutubeHistoryIE"), λ.NewTuple(YoutubeFeedsInfoExtractor), func() λ.Dict {
-
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			var (
+				YoutubeHistoryIE__VALID_URL λ.Object
+			)
+			YoutubeHistoryIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?youtube\\.com/feed/history|:ythistory")
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_VALID_URL"): YoutubeHistoryIE__VALID_URL,
+			})
 		}())
 		YoutubeTruncatedURLIE = λ.Cal(λ.TypeType, λ.NewStr("YoutubeTruncatedURLIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 

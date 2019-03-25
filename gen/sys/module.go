@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,10 +25,12 @@
 package sys
 
 import (
+	Ωmath "github.com/tenta-browser/go-video-downloader/lib/math"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
+	MaxUInt       λ.Object
 	ϒexc_info     λ.Object
 	ϒplatform     λ.Object
 	ϒversion_info λ.Object
@@ -36,6 +38,7 @@ var (
 
 func init() {
 	λ.InitModule(func() {
+		MaxUInt = Ωmath.MaxUInt
 		ϒversion_info = λ.NewTuple(
 			λ.NewInt(3),
 			λ.NewInt(7),

@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,6 @@ var (
 	VideomoreVideoIE  λ.Object
 	ϒcompat_str       λ.Object
 	ϒint_or_none      λ.Object
-	ϒorderedSet       λ.Object
 	ϒparse_duration   λ.Object
 	ϒstr_or_none      λ.Object
 	ϒunified_strdate  λ.Object
@@ -52,7 +51,6 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒstr_or_none = Ωutils.ϒstr_or_none
 		ϒunified_strdate = Ωutils.ϒunified_strdate

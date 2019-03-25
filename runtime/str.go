@@ -109,6 +109,7 @@ func strStr(o Object) Object {
 
 func strInt(o Object) Object {
 	s := o.(Str).Value()
+	s = strings.TrimSpace(s)
 	i, err := strconv.Atoi(s)
 	if err != nil {
 		panic(RaiseType(ValueErrorType, fmt.Sprintf(
@@ -395,17 +396,17 @@ func strCapitalize(args Args, kwArgs KWArgs) Object {
 
 func strEncode(args Args, kwArgs KWArgs) Object {
 	checkFunctionArgsMin("encode", args, kwArgs, 1, StrType, StrType, StrType)
-	s := args[0].(Str)
 	argc := len(args)
 	encoding := "utf-8"
 	if argc >= 2 {
 		encoding = args[1].(Str).Value()
 	}
-	errors := codingErrorsStrict
+	errors := NewStr(codingErrorsStrict)
 	if argc >= 3 {
-		errors = args[2].(Str).Value()
+		errors = args[2].(Str)
 	}
-	return NewBytes(encodeStrToBytes(s.Value(), encoding, errors)...)
+	bytes, _ := GetCodec(encoding).Encode(args[0], errors)
+	return bytes
 }
 
 func strEndswith(args Args, kwArgs KWArgs) Object {

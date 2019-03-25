@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,6 @@ var (
 
 func init() {
 	λ.InitModule(func() {
-		λ.NewStr("Placeholder")
 		ϒloads = Ωencoding.JSONLoads
 		ϒdumps = Ωencoding.JSONDumps
 	})

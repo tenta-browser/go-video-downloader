@@ -494,6 +494,11 @@ const (
 	binaryOpTrueDiv
 	binaryOpFloorDiv
 	binaryOpPow
+	binaryOpOr
+	binaryOpXor
+	binaryOpAnd
+	binaryOpLShift
+	binaryOpRShift
 )
 
 // Add ..
@@ -529,6 +534,31 @@ func FloorDiv(a, b Object) Object {
 // Pow ..
 func Pow(a, b Object) Object {
 	return doBinaryOp("**", a.Type().Slots().Pow, b.Type().Slots().RPow, a, b)
+}
+
+// Or ..
+func Or(a, b Object) Object {
+	return doBinaryOp("|", a.Type().Slots().Or, b.Type().Slots().ROr, a, b)
+}
+
+// Xor ..
+func Xor(a, b Object) Object {
+	return doBinaryOp("^", a.Type().Slots().Xor, b.Type().Slots().RXor, a, b)
+}
+
+// And ..
+func And(a, b Object) Object {
+	return doBinaryOp("&", a.Type().Slots().And, b.Type().Slots().RAnd, a, b)
+}
+
+// LShift ..
+func LShift(a, b Object) Object {
+	return doBinaryOp("<<", a.Type().Slots().LShift, b.Type().Slots().RLShift, a, b)
+}
+
+// RShift ..
+func RShift(a, b Object) Object {
+	return doBinaryOp(">>", a.Type().Slots().RShift, b.Type().Slots().RRShift, a, b)
 }
 
 func doInplaceOp(iop, op binaryOpFn, a, b Object) Object {
@@ -655,7 +685,7 @@ func checkFunctionArgsMin(fname string, args Args, kwArgs KWArgs, minArgs int, t
 	}
 	for i, arg := range args {
 		if t := types[i]; !arg.IsInstance(t) {
-			panic(RaiseType(TypeErrorType, fmt.Sprintf("%s() argument %d is must to be %s, not %s",
+			panic(RaiseType(TypeErrorType, fmt.Sprintf("%s() argument %d must be %s, not %s",
 				fname, i+1, t.Name(), arg.Type().Name())))
 		}
 	}

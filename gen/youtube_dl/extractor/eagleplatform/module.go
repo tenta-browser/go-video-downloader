@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@
 package eagleplatform
 
 import (
+	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
@@ -51,11 +52,278 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		EaglePlatformIE = λ.Cal(λ.TypeType, λ.NewStr("EaglePlatformIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				EaglePlatformIE__VALID_URL λ.Object
+				EaglePlatformIE__TESTS         λ.Object
+				EaglePlatformIE__VALID_URL     λ.Object
+				EaglePlatformIE__download_json λ.Object
+				EaglePlatformIE__get_video_url λ.Object
+				EaglePlatformIE__real_extract  λ.Object
 			)
 			EaglePlatformIE__VALID_URL = λ.NewStr("(?x)\n                    (?:\n                        eagleplatform:(?P<custom_host>[^/]+):|\n                        https?://(?P<host>.+?\\.media\\.eagleplatform\\.com)/index/player\\?.*\\brecord_id=\n                    )\n                    (?P<id>\\d+)\n                ")
+			EaglePlatformIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://lentaru.media.eagleplatform.com/index/player?player=new&record_id=227304&player_template_id=5201"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("227304"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Навальный вышел на свободу"),
+						λ.NewStr("description"): λ.NewStr("md5:d97861ac9ae77377f3f20eaf9d04b4f5"),
+						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
+						λ.NewStr("duration"):    λ.NewInt(87),
+						λ.NewStr("view_count"):  λ.IntType,
+						λ.NewStr("age_limit"):   λ.NewInt(0),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("eagleplatform:media.clipyou.ru:12820"),
+					λ.NewStr("md5"): λ.NewStr("358597369cf8ba56675c1df15e7af624"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):         λ.NewStr("12820"),
+						λ.NewStr("ext"):        λ.NewStr("mp4"),
+						λ.NewStr("title"):      λ.NewStr("'O Sole Mio"),
+						λ.NewStr("thumbnail"):  λ.NewStr("re:^https?://.*\\.jpg$"),
+						λ.NewStr("duration"):   λ.NewInt(216),
+						λ.NewStr("view_count"): λ.IntType,
+					}),
+					λ.NewStr("skip"): λ.NewStr("Georestricted"),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("eagleplatform:tvrainru.media.eagleplatform.com:582306"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
+			EaglePlatformIE__download_json = λ.NewFunction("_download_json",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url_or_request"},
+					{Name: "video_id"},
+				},
+				0, true, true,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒargs           = λargs[3]
+						ϒkwargs         = λargs[4]
+						ϒresponse       λ.Object
+						ϒself           = λargs[0]
+						ϒurl_or_request = λargs[1]
+						ϒvideo_id       = λargs[2]
+						τmp0            λ.Object
+						τmp1            λ.Object
+					)
+					_ = τmp0
+					_ = τmp1
+					τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
+						defer λ.CatchMulti(
+							nil,
+							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
+								var ϒee λ.Object = λex
+								if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒee, "cause", nil), ϒcompat_HTTPError)) {
+									ϒresponse = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(λ.GetAttr(ϒee, "cause", nil), "read", nil)), "decode", nil), λ.NewStr("utf-8")), ϒvideo_id)
+									λ.Cal(λ.GetAttr(ϒself, "_handle_error", nil), ϒresponse)
+								}
+								panic(λ.Raise(λex))
+							}},
+						)
+						ϒresponse = λ.Call(λ.GetAttr(λ.Cal(λ.SuperType, EaglePlatformIE, ϒself), "_download_json", nil), λ.NewArgs(λ.Unpack(
+							ϒurl_or_request,
+							ϒvideo_id,
+							λ.AsStarred(ϒargs),
+						)...), λ.KWArgs{
+							{Name: "", Value: ϒkwargs},
+						})
+						return λ.BlockExitNormally, nil
+					}()
+					return ϒresponse
+				})
+			EaglePlatformIE__get_video_url = λ.NewFunction("_get_video_url",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url_or_request"},
+					{Name: "video_id"},
+					{Name: "note", Def: λ.NewStr("Downloading JSON metadata")},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒnote           = λargs[3]
+						ϒself           = λargs[0]
+						ϒurl_or_request = λargs[1]
+						ϒvideo_id       = λargs[2]
+					)
+					return λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), ϒurl_or_request, ϒvideo_id, ϒnote), λ.NewStr("data")), λ.NewInt(0))
+				})
+			EaglePlatformIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒage_limit         λ.Object
+						ϒage_restriction   λ.Object
+						ϒdescription       λ.Object
+						ϒduration          λ.Object
+						ϒf                 λ.Object
+						ϒformat_id         λ.Object
+						ϒformat_url        λ.Object
+						ϒformats           λ.Object
+						ϒheaders           λ.Object
+						ϒheight            λ.Object
+						ϒhost              λ.Object
+						ϒm3u8_formats      λ.Object
+						ϒm3u8_formats_dict λ.Object
+						ϒm3u8_url          λ.Object
+						ϒmedia             λ.Object
+						ϒmobj              λ.Object
+						ϒmp4_data          λ.Object
+						ϒplayer_data       λ.Object
+						ϒquery             λ.Object
+						ϒreferrer          λ.Object
+						ϒsecure_m3u8       λ.Object
+						ϒself              = λargs[0]
+						ϒsmuggled_data     λ.Object
+						ϒthumbnail         λ.Object
+						ϒtitle             λ.Object
+						ϒurl               = λargs[1]
+						ϒvideo_id          λ.Object
+						ϒview_count        λ.Object
+						τmp0               λ.Object
+						τmp1               λ.Object
+						τmp2               λ.Object
+					)
+					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.NewDictWithTable(map[λ.Object]λ.Object{}))
+					ϒurl = λ.GetItem(τmp0, λ.NewInt(0))
+					ϒsmuggled_data = λ.GetItem(τmp0, λ.NewInt(1))
+					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
+					τmp0 = λ.NewTuple(
+						func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("custom_host")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("host"))
+							}
+						}(),
+						λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id")),
+					)
+					ϒhost = λ.GetItem(τmp0, λ.NewInt(0))
+					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(1))
+					ϒheaders = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+					ϒquery = λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"): ϒvideo_id,
+					})
+					ϒreferrer = λ.Cal(λ.GetAttr(ϒsmuggled_data, "get", nil), λ.NewStr("referrer"))
+					if λ.IsTrue(ϒreferrer) {
+						λ.SetItem(ϒheaders, λ.NewStr("Referer"), ϒreferrer)
+						λ.SetItem(ϒquery, λ.NewStr("referrer"), ϒreferrer)
+					}
+					ϒplayer_data = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.Mod(λ.NewStr("http://%s/api/player_data"), ϒhost),
+						ϒvideo_id,
+					), λ.KWArgs{
+						{Name: "headers", Value: ϒheaders},
+						{Name: "query", Value: ϒquery},
+					})
+					ϒmedia = λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒplayer_data, λ.NewStr("data")), λ.NewStr("playlist")), λ.NewStr("viewports")), λ.NewInt(0)), λ.NewStr("medialist")), λ.NewInt(0))
+					ϒtitle = λ.GetItem(ϒmedia, λ.NewStr("title"))
+					ϒdescription = λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("description"))
+					ϒthumbnail = λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("snapshot")), λ.NewStr("http:"))
+					ϒduration = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("duration")))
+					ϒview_count = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("views")))
+					ϒage_restriction = λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("age_restriction"))
+					ϒage_limit = λ.None
+					if λ.IsTrue(ϒage_restriction) {
+						ϒage_limit = func() λ.Object {
+							if λ.IsTrue(λ.Eq(ϒage_restriction, λ.NewStr("allow_all"))) {
+								return λ.NewInt(0)
+							} else {
+								return λ.NewInt(18)
+							}
+						}()
+					}
+					ϒsecure_m3u8 = λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.GetItem(λ.GetItem(λ.GetItem(ϒmedia, λ.NewStr("sources")), λ.NewStr("secure_m3u8")), λ.NewStr("auto")), λ.NewStr("http:"))
+					ϒformats = λ.NewList()
+					ϒm3u8_url = λ.Cal(λ.GetAttr(ϒself, "_get_video_url", nil), ϒsecure_m3u8, ϒvideo_id, λ.NewStr("Downloading m3u8 JSON"))
+					ϒm3u8_formats = λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+						ϒm3u8_url,
+						ϒvideo_id,
+						λ.NewStr("mp4"),
+					), λ.KWArgs{
+						{Name: "entry_protocol", Value: λ.NewStr("m3u8_native")},
+						{Name: "m3u8_id", Value: λ.NewStr("hls")},
+						{Name: "fatal", Value: λ.False},
+					})
+					λ.Cal(λ.GetAttr(ϒformats, "extend", nil), ϒm3u8_formats)
+					ϒm3u8_formats_dict = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+					τmp0 = λ.Cal(λ.BuiltinIter, ϒm3u8_formats)
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒf = τmp1
+						if λ.IsTrue(λ.NewBool(λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("height")) != λ.None)) {
+							λ.SetItem(ϒm3u8_formats_dict, λ.GetItem(ϒf, λ.NewStr("height")), ϒf)
+						}
+					}
+					ϒmp4_data = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.Cal(Ωre.ϒsub, λ.NewStr("m3u8|hlsvod|hls|f4m"), λ.NewStr("mp4s"), ϒsecure_m3u8),
+						ϒvideo_id,
+						λ.NewStr("Downloading mp4 JSON"),
+					), λ.KWArgs{
+						{Name: "fatal", Value: λ.False},
+					})
+					if λ.IsTrue(ϒmp4_data) {
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒmp4_data, "get", nil), λ.NewStr("data"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "items", nil)))
+						for {
+							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+								break
+							}
+							τmp2 = τmp1
+							ϒformat_id = λ.GetItem(τmp2, λ.NewInt(0))
+							ϒformat_url = λ.GetItem(τmp2, λ.NewInt(1))
+							if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(ϒurl_or_none, ϒformat_url)))) {
+								continue
+							}
+							ϒheight = λ.Cal(ϒint_or_none, ϒformat_id)
+							if λ.IsTrue(func() λ.Object {
+								if λv := λ.NewBool(ϒheight != λ.None); !λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.Cal(λ.GetAttr(ϒm3u8_formats_dict, "get", nil), ϒheight)
+								}
+							}()) {
+								ϒf = λ.Cal(λ.GetAttr(λ.GetItem(ϒm3u8_formats_dict, ϒheight), "copy", nil))
+								λ.Cal(λ.GetAttr(ϒf, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λ.NewStr("format_id"): λ.Cal(λ.GetAttr(λ.GetItem(ϒf, λ.NewStr("format_id")), "replace", nil), λ.NewStr("hls"), λ.NewStr("http")),
+									λ.NewStr("protocol"):  λ.NewStr("http"),
+								}))
+							} else {
+								ϒf = λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λ.NewStr("format_id"): λ.Mod(λ.NewStr("http-%s"), ϒformat_id),
+									λ.NewStr("height"):    λ.Cal(ϒint_or_none, ϒformat_id),
+								})
+							}
+							λ.SetItem(ϒf, λ.NewStr("url"), ϒformat_url)
+							λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)
+						}
+					}
+					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					return λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          ϒvideo_id,
+						λ.NewStr("title"):       ϒtitle,
+						λ.NewStr("description"): ϒdescription,
+						λ.NewStr("thumbnail"):   ϒthumbnail,
+						λ.NewStr("duration"):    ϒduration,
+						λ.NewStr("view_count"):  ϒview_count,
+						λ.NewStr("age_limit"):   ϒage_limit,
+						λ.NewStr("formats"):     ϒformats,
+					})
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): EaglePlatformIE__VALID_URL,
+				λ.NewStr("_TESTS"):         EaglePlatformIE__TESTS,
+				λ.NewStr("_VALID_URL"):     EaglePlatformIE__VALID_URL,
+				λ.NewStr("_download_json"): EaglePlatformIE__download_json,
+				λ.NewStr("_get_video_url"): EaglePlatformIE__get_video_url,
+				λ.NewStr("_real_extract"):  EaglePlatformIE__real_extract,
 			})
 		}())
 	})

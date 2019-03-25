@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ import (
 	Ωcookiejar "github.com/tenta-browser/go-video-downloader/gen/http/cookiejar"
 	Ωrequester "github.com/tenta-browser/go-video-downloader/gen/lib/requester"
 	ΩYoutubeDL "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/YoutubeDL"
+	Ωcache "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/cache"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	Ωlib "github.com/tenta-browser/go-video-downloader/lib"
@@ -35,6 +36,7 @@ import (
 )
 
 var (
+	Cache              λ.Object
 	SetExtractorRunner λ.Object
 	SimpleYoutubeDL    λ.Object
 	YoutubeDL          λ.Object
@@ -48,6 +50,7 @@ func init() {
 		YoutubeDL = ΩYoutubeDL.YoutubeDL
 		ϒcompat_basestring = Ωcompat.ϒcompat_basestring
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
+		Cache = Ωcache.Cache
 		SetExtractorRunner = Ωlib.SetExtractorRunner
 		SimpleYoutubeDL = λ.Cal(λ.TypeType, λ.NewStr("SimpleYoutubeDL"), λ.NewTuple(YoutubeDL), func() λ.Dict {
 			var (
@@ -74,14 +77,17 @@ func init() {
 					λ.SetAttr(ϒself, "_num_downloads", λ.NewInt(0))
 					λ.SetAttr(ϒself, "_err_file", λ.None)
 					λ.SetAttr(ϒself, "params", λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("no_color"): λ.True,
-						λ.NewStr("simulate"): λ.True,
-						λ.NewStr("username"): λ.Cal(λ.GetAttr(ϒconnector, "get", nil), λ.NewStr("username"), λ.None),
-						λ.NewStr("password"): λ.Cal(λ.GetAttr(ϒconnector, "get", nil), λ.NewStr("password"), λ.None),
+						λ.NewStr("cachedir"):   λ.False,
+						λ.NewStr("no_color"):   λ.True,
+						λ.NewStr("simulate"):   λ.True,
+						λ.NewStr("noplaylist"): λ.True,
+						λ.NewStr("username"):   λ.Cal(λ.GetAttr(ϒconnector, "get", nil), λ.NewStr("username"), λ.None),
+						λ.NewStr("password"):   λ.Cal(λ.GetAttr(ϒconnector, "get", nil), λ.NewStr("password"), λ.None),
 					}))
 					λ.SetAttr(ϒself, "connector", ϒconnector)
 					λ.SetAttr(ϒself, "cookiejar", λ.Cal(Ωcookiejar.CookieJar, λ.GetItem(ϒconnector, λ.NewStr("jar"))))
 					λ.Cal(λ.GetAttr(ϒself, "add_default_info_extractors", nil))
+					λ.SetAttr(ϒself, "cache", λ.Cal(Cache, ϒself))
 					return λ.None
 				})
 			SimpleYoutubeDL__write_string = λ.NewFunction("_write_string",

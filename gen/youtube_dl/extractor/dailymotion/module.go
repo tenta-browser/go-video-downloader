@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,6 @@ var (
 	DailymotionUserIE            λ.Object
 	ExtractorError               λ.Object
 	InfoExtractor                λ.Object
-	OnDemandPagedList            λ.Object
 	ϒdetermine_ext               λ.Object
 	ϒerror_to_compat_str         λ.Object
 	ϒint_or_none                 λ.Object
@@ -63,7 +62,6 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
-		OnDemandPagedList = Ωutils.OnDemandPagedList
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		ϒstr_to_int = Ωutils.ϒstr_to_int
@@ -609,7 +607,7 @@ func init() {
 						ϒembed_page,
 						λ.NewStr("video info"),
 					), λ.KWArgs{
-						{Name: "flags", Value: λ.None},
+						{Name: "flags", Value: Ωre.MULTILINE},
 					}), ϒvideo_id)
 					λ.Cal(λ.GetAttr(ϒself, "_check_error", nil), ϒinfo)
 					ϒformats = λ.NewList()

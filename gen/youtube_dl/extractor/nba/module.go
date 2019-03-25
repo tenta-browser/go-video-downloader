@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,6 @@ import (
 
 var (
 	NBAIE                          λ.Object
-	OnDemandPagedList              λ.Object
 	TurnerBaseIE                   λ.Object
 	ϒcompat_urllib_parse_urlencode λ.Object
 	ϒremove_start                  λ.Object
@@ -44,7 +43,6 @@ func init() {
 	λ.InitModule(func() {
 		TurnerBaseIE = Ωturner.TurnerBaseIE
 		ϒcompat_urllib_parse_urlencode = Ωcompat.ϒcompat_urllib_parse_urlencode
-		OnDemandPagedList = Ωutils.OnDemandPagedList
 		ϒremove_start = Ωutils.ϒremove_start
 		NBAIE = λ.Cal(λ.TypeType, λ.NewStr("NBAIE"), λ.NewTuple(TurnerBaseIE), func() λ.Dict {
 			var (
@@ -166,7 +164,7 @@ func init() {
 					ϒplaylist_title = λ.Call(λ.GetAttr(ϒself, "_og_search_title", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
-					ϒentries = λ.Cal(OnDemandPagedList, λ.Cal(λ.GetAttr(λ.None, "partial", nil), λ.GetAttr(ϒself, "_fetch_page", nil), ϒteam, ϒvideo_id), λ.GetAttr(ϒself, "_PAGE_SIZE", nil))
+					ϒentries = λ.Cal(λ.None, λ.Cal(λ.GetAttr(λ.None, "partial", nil), λ.GetAttr(ϒself, "_fetch_page", nil), ϒteam, ϒvideo_id), λ.GetAttr(ϒself, "_PAGE_SIZE", nil))
 					return λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), ϒentries, ϒteam, ϒplaylist_title)
 				})
 			NBAIE__real_extract = λ.NewFunction("_real_extract",

@@ -140,7 +140,9 @@ var ParseQS = rnt.NewFunction("parse_qs",
 					resVals = append(resVals, lib.NewStringlike(val, st))
 				}
 			}
-			resDict.SetItem(rnt.NewStr(name), rnt.NewList(resVals...))
+			if len(resVals) > 0 {
+				resDict.SetItem(rnt.NewStr(name), rnt.NewList(resVals...))
+			}
 		}
 		return resDict
 	})
@@ -169,6 +171,11 @@ var URLEncode = rnt.NewFunction("urlencode",
 			val := rnt.GetItem(pair, rnt.NewInt(1))
 			listVal := func() rnt.Object {
 				defer rnt.Catch(rnt.TypeErrorType, nil, nil)
+				if val.IsInstance(rnt.StrType) || val.IsInstance(rnt.BytesType) {
+					// sadly they are sequences too, even the Python source remarks:
+					// https://github.com/python/cpython/blob/3.7/Lib/urllib/parse.py#L885
+					return nil
+				}
 				return rnt.Cal(rnt.ListType, val)
 			}()
 			if listVal != nil && doSeq {

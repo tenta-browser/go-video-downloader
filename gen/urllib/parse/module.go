@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,6 +54,7 @@ func init() {
 			var (
 				ParseResult__replace λ.Object
 				ParseResult_fragment λ.Object
+				ParseResult_netloc   λ.Object
 				ParseResult_path     λ.Object
 				ParseResult_query    λ.Object
 				ParseResult_scheme   λ.Object
@@ -70,6 +71,18 @@ func init() {
 					return λ.GetItem(ϒself, λ.NewInt(0))
 				})
 			ParseResult_scheme = λ.Cal(λ.PropertyType, ParseResult_scheme)
+			ParseResult_netloc = λ.NewFunction("netloc",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself = λargs[0]
+					)
+					return λ.GetItem(ϒself, λ.NewInt(1))
+				})
+			ParseResult_netloc = λ.Cal(λ.PropertyType, ParseResult_netloc)
 			ParseResult_path = λ.NewFunction("path",
 				[]λ.Param{
 					{Name: "self"},
@@ -149,6 +162,7 @@ func init() {
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_replace"): ParseResult__replace,
 				λ.NewStr("fragment"): ParseResult_fragment,
+				λ.NewStr("netloc"):   ParseResult_netloc,
 				λ.NewStr("path"):     ParseResult_path,
 				λ.NewStr("query"):    ParseResult_query,
 				λ.NewStr("scheme"):   ParseResult_scheme,

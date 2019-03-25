@@ -197,6 +197,40 @@ func listIndex(args Args, kwArgs KWArgs) Object {
 	return NewInt(index)
 }
 
+func listPop(args Args, kwArgs KWArgs) Object {
+	checkFunctionArgsMin("pop", args, kwArgs, 1, ListType, IntType)
+	l := args[0].(List)
+	elems := l.Elems()
+	listLen := len(elems)
+	i := -1
+	if len(args) == 2 {
+		i = args[1].(Int).Value()
+	}
+	if i < 0 {
+		i += listLen
+	}
+	if i < 0 || i >= listLen {
+		msg := "pop index out of range"
+		if listLen == 0 {
+			msg = "pop from empty list"
+		}
+		panic(RaiseType(IndexErrorType, msg))
+	}
+	item := elems[i]
+	l.setElems(append(elems[:i], elems[i+1:]...))
+	return item
+}
+
+func listReverse(args Args, kwArgs KWArgs) Object {
+	checkFunctionArgs("reverse", args, kwArgs, ListType)
+	l := args[0].(List)
+	elems := l.Elems()
+	for left, right := 0, len(elems)-1; left < right; left, right = left+1, right-1 {
+		elems[left], elems[right] = elems[right], elems[left]
+	}
+	return None
+}
+
 func listSort(args Args, kwArgs KWArgs) Object {
 	checkFunctionArgs("sort", args, nil, ListType)
 	checkFunctionKWArgs("sort", kwArgs, map[string]Type{
@@ -230,6 +264,8 @@ func initListType(slots *typeSlots, dict map[string]Object) {
 	dict["append"] = newBuiltinFunction("append", listAppend)
 	dict["extend"] = newBuiltinFunction("extend", listExtend)
 	dict["index"] = newBuiltinFunction("index", listIndex)
+	dict["pop"] = newBuiltinFunction("pop", listPop)
+	dict["reverse"] = newBuiltinFunction("reverse", listReverse)
 	dict["sort"] = newBuiltinFunction("sort", listSort)
 	slots.New = listNew
 	slots.Hash = listHash

@@ -222,6 +222,23 @@ func intBinaryOp(opt binaryOpType, a, b Object, refl bool) Object {
 			return NewFloat(1.0 / float64(powInt(ai, -bi)))
 		}
 		ci = powInt(ai, bi)
+	case binaryOpOr:
+		ci = ai | bi
+	case binaryOpXor:
+		ci = ai ^ bi
+	case binaryOpAnd:
+		ci = ai & bi
+	case binaryOpLShift:
+		fallthrough
+	case binaryOpRShift:
+		if bi < 0 {
+			panic(RaiseType(ValueErrorType, "negative shift count"))
+		}
+		if opt == binaryOpLShift {
+			ci = ai << uint(bi)
+		} else {
+			ci = ai >> uint(bi)
+		}
 	default:
 		return NotImplemented
 	}
@@ -262,6 +279,11 @@ func initIntType(slots *typeSlots, dict map[string]Object) {
 	slots.TrueDiv = makeBinaryOpFn(intBinaryOp, binaryOpTrueDiv, false)
 	slots.FloorDiv = makeBinaryOpFn(intBinaryOp, binaryOpFloorDiv, false)
 	slots.Pow = makeBinaryOpFn(intBinaryOp, binaryOpPow, false)
+	slots.Or = makeBinaryOpFn(intBinaryOp, binaryOpOr, false)
+	slots.Xor = makeBinaryOpFn(intBinaryOp, binaryOpXor, false)
+	slots.And = makeBinaryOpFn(intBinaryOp, binaryOpAnd, false)
+	slots.LShift = makeBinaryOpFn(intBinaryOp, binaryOpLShift, false)
+	slots.RShift = makeBinaryOpFn(intBinaryOp, binaryOpRShift, false)
 	slots.RAdd = makeBinaryOpFn(intBinaryOp, binaryOpAdd, true)
 	slots.RSub = makeBinaryOpFn(intBinaryOp, binaryOpSub, true)
 	slots.RMul = makeBinaryOpFn(intBinaryOp, binaryOpMul, true)
@@ -269,4 +291,9 @@ func initIntType(slots *typeSlots, dict map[string]Object) {
 	slots.RTrueDiv = makeBinaryOpFn(intBinaryOp, binaryOpTrueDiv, true)
 	slots.RFloorDiv = makeBinaryOpFn(intBinaryOp, binaryOpFloorDiv, true)
 	slots.RPow = makeBinaryOpFn(intBinaryOp, binaryOpPow, true)
+	slots.ROr = makeBinaryOpFn(intBinaryOp, binaryOpOr, true)
+	slots.RXor = makeBinaryOpFn(intBinaryOp, binaryOpXor, true)
+	slots.RAnd = makeBinaryOpFn(intBinaryOp, binaryOpAnd, true)
+	slots.RLShift = makeBinaryOpFn(intBinaryOp, binaryOpLShift, true)
+	slots.RRShift = makeBinaryOpFn(intBinaryOp, binaryOpRShift, true)
 }

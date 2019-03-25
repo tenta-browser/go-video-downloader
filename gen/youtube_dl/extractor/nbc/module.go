@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@
 package nbc
 
 import (
+	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωadobepass "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/adobepass"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
@@ -73,20 +74,113 @@ func init() {
 		}())
 		NBCSportsVPlayerIE = λ.Cal(λ.TypeType, λ.NewStr("NBCSportsVPlayerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				NBCSportsVPlayerIE__VALID_URL λ.Object
+				NBCSportsVPlayerIE__TESTS        λ.Object
+				NBCSportsVPlayerIE__VALID_URL    λ.Object
+				NBCSportsVPlayerIE__extract_url  λ.Object
+				NBCSportsVPlayerIE__real_extract λ.Object
 			)
 			NBCSportsVPlayerIE__VALID_URL = λ.NewStr("https?://vplayer\\.nbcsports\\.com/(?:[^/]+/)+(?P<id>[0-9a-zA-Z_]+)")
+			NBCSportsVPlayerIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://vplayer.nbcsports.com/p/BxmELC/nbcsports_embed/select/9CsDKds0kvHI"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("9CsDKds0kvHI"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("description"): λ.NewStr("md5:df390f70a9ba7c95ff1daace988f0d8d"),
+						λ.NewStr("title"):       λ.NewStr("Tyler Kalinoski hits buzzer-beater to lift Davidson"),
+						λ.NewStr("timestamp"):   λ.NewInt(1426270238),
+						λ.NewStr("upload_date"): λ.NewStr("20150313"),
+						λ.NewStr("uploader"):    λ.NewStr("NBCU-SPORTS"),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://vplayer.nbcsports.com/p/BxmELC/nbcsports_embed/select/media/_hqLjQ95yx8Z"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
+			NBCSportsVPlayerIE__extract_url = λ.NewFunction("_extract_url",
+				[]λ.Param{
+					{Name: "webpage"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒiframe_m λ.Object
+						ϒwebpage  = λargs[0]
+					)
+					ϒiframe_m = λ.Cal(Ωre.ϒsearch, λ.NewStr("<iframe[^>]+src=\"(?P<url>https?://vplayer\\.nbcsports\\.com/[^\"]+)\""), ϒwebpage)
+					if λ.IsTrue(ϒiframe_m) {
+						return λ.Cal(λ.GetAttr(ϒiframe_m, "group", nil), λ.NewStr("url"))
+					}
+					return λ.None
+				})
+			NBCSportsVPlayerIE__extract_url = λ.Cal(λ.StaticMethodType, NBCSportsVPlayerIE__extract_url)
+			NBCSportsVPlayerIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself            = λargs[0]
+						ϒtheplatform_url λ.Object
+						ϒurl             = λargs[1]
+						ϒvideo_id        λ.Object
+						ϒwebpage         λ.Object
+					)
+					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒtheplatform_url = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒself, "_og_search_video_url", nil), ϒwebpage), "replace", nil), λ.NewStr("vplayer.nbcsports.com"), λ.NewStr("player.theplatform.com"))
+					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒtheplatform_url, λ.NewStr("ThePlatform"))
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): NBCSportsVPlayerIE__VALID_URL,
+				λ.NewStr("_TESTS"):        NBCSportsVPlayerIE__TESTS,
+				λ.NewStr("_VALID_URL"):    NBCSportsVPlayerIE__VALID_URL,
+				λ.NewStr("_extract_url"):  NBCSportsVPlayerIE__extract_url,
+				λ.NewStr("_real_extract"): NBCSportsVPlayerIE__real_extract,
 			})
 		}())
 		NBCSportsIE = λ.Cal(λ.TypeType, λ.NewStr("NBCSportsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				NBCSportsIE__VALID_URL λ.Object
+				NBCSportsIE__TEST         λ.Object
+				NBCSportsIE__VALID_URL    λ.Object
+				NBCSportsIE__real_extract λ.Object
 			)
 			NBCSportsIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?nbcsports\\.com//?(?:[^/]+/)+(?P<id>[0-9a-z-]+)")
+			NBCSportsIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("url"): λ.NewStr("http://www.nbcsports.com//college-basketball/ncaab/tom-izzo-michigan-st-has-so-much-respect-duke"),
+				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("id"):          λ.NewStr("PHJSaFWbrTY9"),
+					λ.NewStr("ext"):         λ.NewStr("flv"),
+					λ.NewStr("title"):       λ.NewStr("Tom Izzo, Michigan St. has 'so much respect' for Duke"),
+					λ.NewStr("description"): λ.NewStr("md5:ecb459c9d59e0766ac9c7d5d0eda8113"),
+					λ.NewStr("uploader"):    λ.NewStr("NBCU-SPORTS"),
+					λ.NewStr("upload_date"): λ.NewStr("20150330"),
+					λ.NewStr("timestamp"):   λ.NewInt(1427726529),
+				}),
+			})
+			NBCSportsIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself     = λargs[0]
+						ϒurl      = λargs[1]
+						ϒvideo_id λ.Object
+						ϒwebpage  λ.Object
+					)
+					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Cal(λ.GetAttr(NBCSportsVPlayerIE, "_extract_url", nil), ϒwebpage), λ.NewStr("NBCSportsVPlayer"))
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): NBCSportsIE__VALID_URL,
+				λ.NewStr("_TEST"):         NBCSportsIE__TEST,
+				λ.NewStr("_VALID_URL"):    NBCSportsIE__VALID_URL,
+				λ.NewStr("_real_extract"): NBCSportsIE__real_extract,
 			})
 		}())
 		NBCSportsStreamIE = λ.Cal(λ.TypeType, λ.NewStr("NBCSportsStreamIE"), λ.NewTuple(AdobePassIE), func() λ.Dict {
@@ -100,20 +194,178 @@ func init() {
 		}())
 		CSNNEIE = λ.Cal(λ.TypeType, λ.NewStr("CSNNEIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				CSNNEIE__VALID_URL λ.Object
+				CSNNEIE__TEST         λ.Object
+				CSNNEIE__VALID_URL    λ.Object
+				CSNNEIE__real_extract λ.Object
 			)
 			CSNNEIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?csnne\\.com/video/(?P<id>[0-9a-z-]+)")
+			CSNNEIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("url"): λ.NewStr("http://www.csnne.com/video/snc-evening-update-wright-named-red-sox-no-5-starter"),
+				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("id"):          λ.NewStr("yvBLLUgQ8WU0"),
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("title"):       λ.NewStr("SNC evening update: Wright named Red Sox' No. 5 starter."),
+					λ.NewStr("description"): λ.NewStr("md5:1753cfee40d9352b19b4c9b3e589b9e3"),
+					λ.NewStr("timestamp"):   λ.NewInt(1459369979),
+					λ.NewStr("upload_date"): λ.NewStr("20160330"),
+					λ.NewStr("uploader"):    λ.NewStr("NBCU-SPORTS"),
+				}),
+			})
+			CSNNEIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒdisplay_id λ.Object
+						ϒself       = λargs[0]
+						ϒurl        = λargs[1]
+						ϒwebpage    λ.Object
+					)
+					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
+					return λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("_type"):      λ.NewStr("url_transparent"),
+						λ.NewStr("ie_key"):     λ.NewStr("ThePlatform"),
+						λ.NewStr("url"):        λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewStr("twitter:player:stream"), ϒwebpage),
+						λ.NewStr("display_id"): ϒdisplay_id,
+					})
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): CSNNEIE__VALID_URL,
+				λ.NewStr("_TEST"):         CSNNEIE__TEST,
+				λ.NewStr("_VALID_URL"):    CSNNEIE__VALID_URL,
+				λ.NewStr("_real_extract"): CSNNEIE__real_extract,
 			})
 		}())
 		NBCNewsIE = λ.Cal(λ.TypeType, λ.NewStr("NBCNewsIE"), λ.NewTuple(ThePlatformIE), func() λ.Dict {
 			var (
-				NBCNewsIE__VALID_URL λ.Object
+				NBCNewsIE__TESTS        λ.Object
+				NBCNewsIE__VALID_URL    λ.Object
+				NBCNewsIE__real_extract λ.Object
 			)
 			NBCNewsIE__VALID_URL = λ.NewStr("(?x)https?://(?:www\\.)?(?:nbcnews|today|msnbc)\\.com/([^/]+/)*(?:.*-)?(?P<id>[^/?]+)")
+			NBCNewsIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.nbcnews.com/watch/nbcnews-com/how-twitter-reacted-to-the-snowden-interview-269389891880"),
+					λ.NewStr("md5"): λ.NewStr("af1adfa51312291a017720403826bb64"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("269389891880"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("How Twitter Reacted To The Snowden Interview"),
+						λ.NewStr("description"): λ.NewStr("md5:65a0bd5d76fe114f3c2727aa3a81fe64"),
+						λ.NewStr("uploader"):    λ.NewStr("NBCU-NEWS"),
+						λ.NewStr("timestamp"):   λ.NewInt(1401363060),
+						λ.NewStr("upload_date"): λ.NewStr("20140529"),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.nbcnews.com/feature/dateline-full-episodes/full-episode-family-business-n285156"),
+					λ.NewStr("md5"): λ.NewStr("fdbf39ab73a72df5896b6234ff98518a"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("529953347624"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("FULL EPISODE: Family Business"),
+						λ.NewStr("description"): λ.NewStr("md5:757988edbaae9d7be1d585eb5d55cc04"),
+					}),
+					λ.NewStr("skip"): λ.NewStr("This page is unavailable."),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.nbcnews.com/nightly-news/video/nightly-news-with-brian-williams-full-broadcast-february-4-394064451844"),
+					λ.NewStr("md5"): λ.NewStr("73135a2e0ef819107bbb55a5a9b2a802"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("394064451844"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Nightly News with Brian Williams Full Broadcast (February 4)"),
+						λ.NewStr("description"): λ.NewStr("md5:1c10c1eccbe84a26e5debb4381e2d3c5"),
+						λ.NewStr("timestamp"):   λ.NewInt(1423104900),
+						λ.NewStr("uploader"):    λ.NewStr("NBCU-NEWS"),
+						λ.NewStr("upload_date"): λ.NewStr("20150205"),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.nbcnews.com/business/autos/volkswagen-11-million-vehicles-could-have-suspect-software-emissions-scandal-n431456"),
+					λ.NewStr("md5"): λ.NewStr("a49e173825e5fcd15c13fc297fced39d"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("529953347624"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Volkswagen U.S. Chief:  We Have Totally Screwed Up"),
+						λ.NewStr("description"): λ.NewStr("md5:c8be487b2d80ff0594c005add88d8351"),
+						λ.NewStr("upload_date"): λ.NewStr("20150922"),
+						λ.NewStr("timestamp"):   λ.NewInt(1442917800),
+						λ.NewStr("uploader"):    λ.NewStr("NBCU-NEWS"),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.today.com/video/see-the-aurora-borealis-from-space-in-stunning-new-nasa-video-669831235788"),
+					λ.NewStr("md5"): λ.NewStr("118d7ca3f0bea6534f119c68ef539f71"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("669831235788"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("See the aurora borealis from space in stunning new NASA video"),
+						λ.NewStr("description"): λ.NewStr("md5:74752b7358afb99939c5f8bb2d1d04b1"),
+						λ.NewStr("upload_date"): λ.NewStr("20160420"),
+						λ.NewStr("timestamp"):   λ.NewInt(1461152093),
+						λ.NewStr("uploader"):    λ.NewStr("NBCU-NEWS"),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.msnbc.com/all-in-with-chris-hayes/watch/the-chaotic-gop-immigration-vote-314487875924"),
+					λ.NewStr("md5"): λ.NewStr("6d236bf4f3dddc226633ce6e2c3f814d"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("314487875924"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("The chaotic GOP immigration vote"),
+						λ.NewStr("description"): λ.NewStr("The Republican House votes on a border bill that has no chance of getting through the Senate or signed by the President and is drawing criticism from all sides."),
+						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
+						λ.NewStr("timestamp"):   λ.NewInt(1406937606),
+						λ.NewStr("upload_date"): λ.NewStr("20140802"),
+						λ.NewStr("uploader"):    λ.NewStr("NBCU-NEWS"),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://www.nbcnews.com/watch/dateline/full-episode--deadly-betrayal-386250819952"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://www.nbcnews.com/widget/video-embed/701714499682"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
+			NBCNewsIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒdata     λ.Object
+						ϒself     = λargs[0]
+						ϒurl      = λargs[1]
+						ϒvideo_id λ.Object
+						ϒwebpage  λ.Object
+					)
+					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒvideo_id, "isdigit", nil))))) {
+						ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+						ϒdata = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("window\\.__data\\s*=\\s*({.+});"), ϒwebpage, λ.NewStr("bootstrap json")), ϒvideo_id)
+						ϒvideo_id = λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒdata, λ.NewStr("article")), λ.NewStr("content")), λ.NewInt(0)), λ.NewStr("primaryMedia")), λ.NewStr("video")), λ.NewStr("mpxMetadata")), λ.NewStr("id"))
+					}
+					return λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("_type"): λ.NewStr("url_transparent"),
+						λ.NewStr("id"):    ϒvideo_id,
+						λ.NewStr("url"): λ.Cal(ϒupdate_url_query, λ.NewStr("http://feed.theplatform.com/f/2E2eJC/nnd_NBCNews"), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("byId"): ϒvideo_id,
+						})),
+						λ.NewStr("ie_key"): λ.NewStr("ThePlatformFeed"),
+					})
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): NBCNewsIE__VALID_URL,
+				λ.NewStr("_TESTS"):        NBCNewsIE__TESTS,
+				λ.NewStr("_VALID_URL"):    NBCNewsIE__VALID_URL,
+				λ.NewStr("_real_extract"): NBCNewsIE__real_extract,
 			})
 		}())
 		NBCOlympicsIE = λ.Cal(λ.TypeType, λ.NewStr("NBCOlympicsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

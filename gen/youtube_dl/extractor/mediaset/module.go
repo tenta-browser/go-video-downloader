@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,11 +53,269 @@ func init() {
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		MediasetIE = λ.Cal(λ.TypeType, λ.NewStr("MediasetIE"), λ.NewTuple(ThePlatformBaseIE), func() λ.Dict {
 			var (
-				MediasetIE__VALID_URL λ.Object
+				MediasetIE__TESTS        λ.Object
+				MediasetIE__TP_TLD       λ.Object
+				MediasetIE__VALID_URL    λ.Object
+				MediasetIE__real_extract λ.Object
 			)
+			MediasetIE__TP_TLD = λ.NewStr("eu")
 			MediasetIE__VALID_URL = λ.NewStr("(?x)\n                    (?:\n                        mediaset:|\n                        https?://\n                            (?:(?:www|static3)\\.)?mediasetplay\\.mediaset\\.it/\n                            (?:\n                                (?:video|on-demand)/(?:[^/]+/)+[^/]+_|\n                                player/index\\.html\\?.*?\\bprogramGuid=\n                            )\n                    )(?P<id>[0-9A-Z]{16})\n                    ")
+			MediasetIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://www.mediasetplay.mediaset.it/video/hellogoodbye/quarta-puntata_FAFU000000661824"),
+					λ.NewStr("md5"): λ.NewStr("9b75534d42c44ecef7bf1ffeacb7f85d"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("FAFU000000661824"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Quarta puntata"),
+						λ.NewStr("description"): λ.NewStr("md5:d41d8cd98f00b204e9800998ecf8427e"),
+						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
+						λ.NewStr("duration"):    λ.NewFloat(1414.26),
+						λ.NewStr("upload_date"): λ.NewStr("20161107"),
+						λ.NewStr("series"):      λ.NewStr("Hello Goodbye"),
+						λ.NewStr("timestamp"):   λ.NewInt(1478532900),
+						λ.NewStr("uploader"):    λ.NewStr("Rete 4"),
+						λ.NewStr("uploader_id"): λ.NewStr("R4"),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://www.mediasetplay.mediaset.it/video/matrix/puntata-del-25-maggio_F309013801000501"),
+					λ.NewStr("md5"): λ.NewStr("288532f0ad18307705b01e581304cd7b"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("F309013801000501"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Puntata del 25 maggio"),
+						λ.NewStr("description"): λ.NewStr("md5:d41d8cd98f00b204e9800998ecf8427e"),
+						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
+						λ.NewStr("duration"):    λ.NewFloat(6565.007),
+						λ.NewStr("upload_date"): λ.NewStr("20180526"),
+						λ.NewStr("series"):      λ.NewStr("Matrix"),
+						λ.NewStr("timestamp"):   λ.NewInt(1527326245),
+						λ.NewStr("uploader"):    λ.NewStr("Canale 5"),
+						λ.NewStr("uploader_id"): λ.NewStr("C5"),
+					}),
+					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("HTTP Error 403: Forbidden")),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://www.mediasetplay.mediaset.it/video/gogglebox/un-grande-classico-della-commedia-sexy_FAFU000000661680"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://static3.mediasetplay.mediaset.it/player/index.html?appKey=5ad3966b1de1c4000d5cec48&programGuid=FAFU000000665924&id=665924"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://static3.mediasetplay.mediaset.it/player/index.html?appKey=5ad3966b1de1c4000d5cec48&programGuid=FAFU000000665104&id=665104"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("mediaset:FAFU000000665924"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
+			MediasetIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒasset_type   λ.Object
+						ϒf            λ.Object
+						ϒfeed_data    λ.Object
+						ϒfields       λ.Object
+						ϒfirst_e      λ.Object
+						ϒformats      λ.Object
+						ϒguid         λ.Object
+						ϒinfo         λ.Object
+						ϒpublish_info λ.Object
+						ϒrepls        λ.Object
+						ϒself         = λargs[0]
+						ϒsubtitles    λ.Object
+						ϒtempl        λ.Object
+						ϒtp_f         λ.Object
+						ϒtp_formats   λ.Object
+						ϒtp_path      λ.Object
+						ϒtp_subtitles λ.Object
+						ϒurl          = λargs[1]
+						τmp0          λ.Object
+						τmp1          λ.Object
+						τmp2          λ.Object
+						τmp3          λ.Object
+						τmp4          λ.Object
+						τmp5          λ.Object
+						τmp6          λ.Object
+					)
+					ϒguid = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒtp_path = λ.Add(λ.NewStr("PR1GhC/media/guid/2702976343/"), ϒguid)
+					ϒinfo = λ.Cal(λ.GetAttr(ϒself, "_extract_theplatform_metadata", nil), ϒtp_path, ϒguid)
+					ϒformats = λ.NewList()
+					ϒsubtitles = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+					ϒfirst_e = λ.None
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+						λ.NewStr("SD"),
+						λ.NewStr("HD"),
+					))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒasset_type = τmp1
+						τmp2 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+							λ.NewStr("MPEG4"),
+							λ.NewStr("MPEG-DASH"),
+							λ.NewStr("M3U"),
+							λ.NewStr("ISM"),
+						))
+						for {
+							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+								break
+							}
+							ϒf = τmp3
+							τmp4, τmp5 = func() (λexit λ.Object, λret λ.Object) {
+								defer λ.CatchMulti(
+									nil,
+									&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
+										var ϒe λ.Object = λex
+										if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒfirst_e))) {
+											ϒfirst_e = ϒe
+										}
+										λexit = λ.BlockExitBreak
+										return
+									}},
+								)
+								τmp6 = λ.Cal(λ.GetAttr(ϒself, "_extract_theplatform_smil", nil), λ.Cal(ϒupdate_url_query, λ.Mod(λ.NewStr("http://link.theplatform.%s/s/%s"), λ.NewTuple(
+									λ.GetAttr(ϒself, "_TP_TLD", nil),
+									ϒtp_path,
+								)), λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λ.NewStr("mbr"):        λ.NewStr("true"),
+									λ.NewStr("formats"):    ϒf,
+									λ.NewStr("assetTypes"): ϒasset_type,
+								})), ϒguid, λ.Mod(λ.NewStr("Downloading %s %s SMIL data"), λ.NewTuple(
+									ϒf,
+									ϒasset_type,
+								)))
+								ϒtp_formats = λ.GetItem(τmp6, λ.NewInt(0))
+								ϒtp_subtitles = λ.GetItem(τmp6, λ.NewInt(1))
+								return λ.BlockExitNormally, nil
+							}()
+							if τmp4 == λ.BlockExitBreak {
+								break
+							}
+							τmp5 = λ.Cal(λ.BuiltinIter, ϒtp_formats)
+							for {
+								if τmp4 = λ.NextDefault(τmp5, λ.AfterLast); τmp4 == λ.AfterLast {
+									break
+								}
+								ϒtp_f = τmp4
+								λ.SetItem(ϒtp_f, λ.NewStr("quality"), func() λ.Object {
+									if λ.IsTrue(λ.Eq(ϒasset_type, λ.NewStr("HD"))) {
+										return λ.NewInt(1)
+									} else {
+										return λ.NewInt(0)
+									}
+								}())
+							}
+							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), ϒtp_formats)
+							ϒsubtitles = λ.Cal(λ.GetAttr(ϒself, "_merge_subtitles", nil), ϒsubtitles, ϒtp_subtitles)
+						}
+					}
+					if λ.IsTrue(func() λ.Object {
+						if λv := ϒfirst_e; !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewBool(!λ.IsTrue(ϒformats))
+						}
+					}()) {
+						panic(λ.Raise(ϒfirst_e))
+					}
+					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					ϒfields = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+						λ.NewTuple(
+							λ.NewStr("tvSeason%sNumber"),
+							λ.NewTuple(
+								λ.NewStr(""),
+								λ.NewStr("Episode"),
+							),
+						),
+						λ.NewTuple(
+							λ.NewStr("mediasetprogram$%s"),
+							λ.NewTuple(
+								λ.NewStr("brandTitle"),
+								λ.NewStr("numberOfViews"),
+								λ.NewStr("publishInfo"),
+							),
+						),
+					))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						τmp2 = τmp1
+						ϒtempl = λ.GetItem(τmp2, λ.NewInt(0))
+						ϒrepls = λ.GetItem(τmp2, λ.NewInt(1))
+						λ.Cal(λ.GetAttr(ϒfields, "extend", nil), λ.Cal(λ.NewFunction("<generator>",
+							nil,
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+									var (
+										ϒrepl λ.Object
+										τmp0  λ.Object
+										τmp1  λ.Object
+									)
+									τmp0 = λ.Cal(λ.BuiltinIter, ϒrepls)
+									for {
+										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+											break
+										}
+										ϒrepl = τmp1
+										λgen.Yield(λ.Mod(ϒtempl, ϒrepl))
+									}
+									return λ.None
+								})
+							})))
+					}
+					ϒfeed_data = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.Add(λ.NewStr("https://feed.entertainment.tv.theplatform.eu/f/PR1GhC/mediaset-prod-all-programs/guid/-/"), ϒguid),
+						ϒguid,
+					), λ.KWArgs{
+						{Name: "fatal", Value: λ.False},
+						{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("fields"): λ.Cal(λ.GetAttr(λ.NewStr(","), "join", nil), ϒfields),
+						})},
+					})
+					if λ.IsTrue(ϒfeed_data) {
+						ϒpublish_info = func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(ϒfeed_data, "get", nil), λ.NewStr("mediasetprogram$publishInfo")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+							}
+						}()
+						λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("episode_number"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfeed_data, "get", nil), λ.NewStr("tvSeasonEpisodeNumber"))),
+							λ.NewStr("season_number"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfeed_data, "get", nil), λ.NewStr("tvSeasonNumber"))),
+							λ.NewStr("series"):         λ.Cal(λ.GetAttr(ϒfeed_data, "get", nil), λ.NewStr("mediasetprogram$brandTitle")),
+							λ.NewStr("uploader"):       λ.Cal(λ.GetAttr(ϒpublish_info, "get", nil), λ.NewStr("description")),
+							λ.NewStr("uploader_id"):    λ.Cal(λ.GetAttr(ϒpublish_info, "get", nil), λ.NewStr("channel")),
+							λ.NewStr("view_count"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfeed_data, "get", nil), λ.NewStr("mediasetprogram$numberOfViews"))),
+						}))
+					}
+					λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):        ϒguid,
+						λ.NewStr("formats"):   ϒformats,
+						λ.NewStr("subtitles"): ϒsubtitles,
+					}))
+					return ϒinfo
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): MediasetIE__VALID_URL,
+				λ.NewStr("_TESTS"):        MediasetIE__TESTS,
+				λ.NewStr("_TP_TLD"):       MediasetIE__TP_TLD,
+				λ.NewStr("_VALID_URL"):    MediasetIE__VALID_URL,
+				λ.NewStr("_real_extract"): MediasetIE__real_extract,
 			})
 		}())
 	})

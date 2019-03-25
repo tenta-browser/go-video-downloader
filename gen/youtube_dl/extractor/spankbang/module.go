@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,6 @@ var (
 	InfoExtractor       λ.Object
 	SpankBangIE         λ.Object
 	SpankBangPlaylistIE λ.Object
-	ϒorderedSet         λ.Object
 	ϒparse_duration     λ.Object
 	ϒparse_resolution   λ.Object
 	ϒstr_to_int         λ.Object
@@ -48,7 +47,6 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ExtractorError = Ωutils.ExtractorError
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒparse_resolution = Ωutils.ϒparse_resolution
 		ϒstr_to_int = Ωutils.ϒstr_to_int

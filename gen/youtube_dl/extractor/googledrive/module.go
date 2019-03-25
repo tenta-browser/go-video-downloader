@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@
 package googledrive
 
 import (
+	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
@@ -48,11 +49,283 @@ func init() {
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		GoogleDriveIE = λ.Cal(λ.TypeType, λ.NewStr("GoogleDriveIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				GoogleDriveIE__VALID_URL λ.Object
+				GoogleDriveIE__TESTS        λ.Object
+				GoogleDriveIE__VALID_URL    λ.Object
+				GoogleDriveIE__real_extract λ.Object
 			)
 			GoogleDriveIE__VALID_URL = λ.NewStr("(?x)\n                        https?://\n                            (?:\n                                (?:docs|drive)\\.google\\.com/\n                                (?:\n                                    (?:uc|open)\\?.*?id=|\n                                    file/d/\n                                )|\n                                video\\.google\\.com/get_player\\?.*?docid=\n                            )\n                            (?P<id>[a-zA-Z0-9_-]{28,})\n                    ")
+			GoogleDriveIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://drive.google.com/file/d/0ByeS4oOUV-49Zzh4R1J6R09zazQ/edit?pli=1"),
+					λ.NewStr("md5"): λ.NewStr("5c602afbbf2c1db91831f5d82f678554"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):       λ.NewStr("0ByeS4oOUV-49Zzh4R1J6R09zazQ"),
+						λ.NewStr("ext"):      λ.NewStr("mp4"),
+						λ.NewStr("title"):    λ.NewStr("Big Buck Bunny.mp4"),
+						λ.NewStr("duration"): λ.NewInt(45),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://drive.google.com/file/d/0B-vUyvmDLdWDcEt4WjBqcmI2XzQ/view"),
+					λ.NewStr("md5"): λ.NewStr("bfbd670d03a470bb1e6d4a257adec12e"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):    λ.NewStr("0B-vUyvmDLdWDcEt4WjBqcmI2XzQ"),
+						λ.NewStr("ext"):   λ.NewStr("mp4"),
+						λ.NewStr("title"): λ.NewStr("Annabelle Creation (2017)- Z.V1 [TH].MP4"),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://drive.google.com/file/d/1ENcQ_jeCuj7y19s66_Ou9dRP4GKGsodiDQ/edit"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):       λ.NewStr("1ENcQ_jeCuj7y19s66_Ou9dRP4GKGsodiDQ"),
+						λ.NewStr("ext"):      λ.NewStr("mp4"),
+						λ.NewStr("title"):    λ.NewStr("Andreea Banica feat Smiley - Hooky Song (Official Video).mp4"),
+						λ.NewStr("duration"): λ.NewInt(189),
+					}),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://drive.google.com/open?id=0B2fjwgkl1A_CX083Tkowdmt6d28"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://drive.google.com/uc?id=0B2fjwgkl1A_CX083Tkowdmt6d28"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
+			GoogleDriveIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒadd_source_format    λ.Object
+						ϒconfirm              λ.Object
+						ϒconfirmation_webpage λ.Object
+						ϒduration             λ.Object
+						ϒf                    λ.Object
+						ϒfmt                  λ.Object
+						ϒfmt_list             λ.Object
+						ϒfmt_stream           λ.Object
+						ϒfmt_stream_map       λ.Object
+						ϒfmt_stream_split     λ.Object
+						ϒformat_id            λ.Object
+						ϒformat_url           λ.Object
+						ϒformats              λ.Object
+						ϒhl                   λ.Object
+						ϒmobj                 λ.Object
+						ϒreason               λ.Object
+						ϒresolution           λ.Object
+						ϒresolutions          λ.Object
+						ϒself                 = λargs[0]
+						ϒsource_url           λ.Object
+						ϒsubtitles_id         λ.Object
+						ϒtitle                λ.Object
+						ϒttsurl               λ.Object
+						ϒurl                  = λargs[1]
+						ϒurlh                 λ.Object
+						ϒvideo_id             λ.Object
+						ϒwebpage              λ.Object
+						τmp0                  λ.Object
+						τmp1                  λ.Object
+						τmp2                  λ.Object
+					)
+					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.NewStr("http://docs.google.com/file/d/%s"), ϒvideo_id), ϒvideo_id)
+					ϒtitle = func() λ.Object {
+						if λv := λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+							λ.NewStr("\"title\"\\s*,\\s*\"([^\"]+)"),
+							ϒwebpage,
+							λ.NewStr("title"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						}); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
+						}
+					}()
+					ϒduration = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+						λ.NewStr("\"length_seconds\"\\s*,\\s*\"([^\"]+)"),
+						ϒwebpage,
+						λ.NewStr("length seconds"),
+					), λ.KWArgs{
+						{Name: "default", Value: λ.None},
+					}))
+					ϒformats = λ.NewList()
+					ϒfmt_stream_map = λ.Cal(λ.GetAttr(λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+						λ.NewStr("\"fmt_stream_map\"\\s*,\\s*\"([^\"]+)"),
+						ϒwebpage,
+						λ.NewStr("fmt stream map"),
+					), λ.KWArgs{
+						{Name: "default", Value: λ.NewStr("")},
+					}), "split", nil), λ.NewStr(","))
+					ϒfmt_list = λ.Cal(λ.GetAttr(λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+						λ.NewStr("\"fmt_list\"\\s*,\\s*\"([^\"]+)"),
+						ϒwebpage,
+						λ.NewStr("fmt_list"),
+					), λ.KWArgs{
+						{Name: "default", Value: λ.NewStr("")},
+					}), "split", nil), λ.NewStr(","))
+					if λ.IsTrue(func() λ.Object {
+						if λv := ϒfmt_stream_map; !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return ϒfmt_list
+						}
+					}()) {
+						ϒresolutions = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+						τmp0 = λ.Cal(λ.BuiltinIter, ϒfmt_list)
+						for {
+							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+								break
+							}
+							ϒfmt = τmp1
+							ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("^(?P<format_id>\\d+)/(?P<width>\\d+)[xX](?P<height>\\d+)"), ϒfmt)
+							if λ.IsTrue(ϒmobj) {
+								λ.SetItem(ϒresolutions, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("format_id")), λ.NewTuple(
+									λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("width"))),
+									λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("height"))),
+								))
+							}
+						}
+						τmp0 = λ.Cal(λ.BuiltinIter, ϒfmt_stream_map)
+						for {
+							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+								break
+							}
+							ϒfmt_stream = τmp1
+							ϒfmt_stream_split = λ.Cal(λ.GetAttr(ϒfmt_stream, "split", nil), λ.NewStr("|"))
+							if λ.IsTrue(λ.Lt(λ.Cal(λ.BuiltinLen, ϒfmt_stream_split), λ.NewInt(2))) {
+								continue
+							}
+							τmp2 = λ.GetItem(ϒfmt_stream_split, λ.NewSlice(λ.None, λ.NewInt(2), λ.None))
+							ϒformat_id = λ.GetItem(τmp2, λ.NewInt(0))
+							ϒformat_url = λ.GetItem(τmp2, λ.NewInt(1))
+							ϒf = λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("url"):       λ.Cal(λ.None, ϒformat_url),
+								λ.NewStr("format_id"): ϒformat_id,
+								λ.NewStr("ext"):       λ.GetItem(λ.GetAttr(ϒself, "_FORMATS_EXT", nil), ϒformat_id),
+							})
+							ϒresolution = λ.Cal(λ.GetAttr(ϒresolutions, "get", nil), ϒformat_id)
+							if λ.IsTrue(ϒresolution) {
+								λ.Cal(λ.GetAttr(ϒf, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λ.NewStr("width"):  λ.GetItem(ϒresolution, λ.NewInt(0)),
+									λ.NewStr("height"): λ.GetItem(ϒresolution, λ.NewInt(1)),
+								}))
+							}
+							λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)
+						}
+					}
+					ϒsource_url = λ.Cal(ϒupdate_url_query, λ.NewStr("https://drive.google.com/uc"), λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):     ϒvideo_id,
+						λ.NewStr("export"): λ.NewStr("download"),
+					}))
+					ϒurlh = λ.Call(λ.GetAttr(ϒself, "_request_webpage", nil), λ.NewArgs(
+						ϒsource_url,
+						ϒvideo_id,
+					), λ.KWArgs{
+						{Name: "note", Value: λ.NewStr("Requesting source file")},
+						{Name: "errnote", Value: λ.NewStr("Unable to request source file")},
+						{Name: "fatal", Value: λ.False},
+					})
+					if λ.IsTrue(ϒurlh) {
+						ϒadd_source_format = λ.NewFunction("add_source_format",
+							[]λ.Param{
+								{Name: "src_url"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒsrc_url = λargs[0]
+								)
+								λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λ.NewStr("url"):       ϒsrc_url,
+									λ.NewStr("ext"):       λ.Cal(λ.GetAttr(λ.Cal(ϒdetermine_ext, ϒtitle, λ.NewStr("mp4")), "lower", nil)),
+									λ.NewStr("format_id"): λ.NewStr("source"),
+									λ.NewStr("quality"):   λ.NewInt(1),
+								}))
+								return λ.None
+							})
+						if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(ϒurlh, "headers", nil), "get", nil), λ.NewStr("Content-Disposition"))) {
+							λ.Cal(ϒadd_source_format, ϒsource_url)
+						} else {
+							ϒconfirmation_webpage = λ.Call(λ.GetAttr(ϒself, "_webpage_read_content", nil), λ.NewArgs(
+								ϒurlh,
+								ϒurl,
+								ϒvideo_id,
+							), λ.KWArgs{
+								{Name: "note", Value: λ.NewStr("Downloading confirmation page")},
+								{Name: "errnote", Value: λ.NewStr("Unable to confirm download")},
+								{Name: "fatal", Value: λ.False},
+							})
+							if λ.IsTrue(ϒconfirmation_webpage) {
+								ϒconfirm = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+									λ.NewStr("confirm=([^&\"\\']+)"),
+									ϒconfirmation_webpage,
+									λ.NewStr("confirmation code"),
+								), λ.KWArgs{
+									{Name: "fatal", Value: λ.False},
+								})
+								if λ.IsTrue(ϒconfirm) {
+									λ.Cal(ϒadd_source_format, λ.Cal(ϒupdate_url_query, ϒsource_url, λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λ.NewStr("confirm"): ϒconfirm,
+									})))
+								}
+							}
+						}
+					}
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
+						ϒreason = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+							λ.NewStr("\"reason\"\\s*,\\s*\"([^\"]+)"),
+							ϒwebpage,
+							λ.NewStr("reason"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						})
+						if λ.IsTrue(ϒreason) {
+							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(ϒreason), λ.KWArgs{
+								{Name: "expected", Value: λ.True},
+							})))
+						}
+					}
+					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					ϒhl = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+						λ.NewStr("\"hl\"\\s*,\\s*\"([^\"]+)"),
+						ϒwebpage,
+						λ.NewStr("hl"),
+					), λ.KWArgs{
+						{Name: "default", Value: λ.None},
+					})
+					ϒsubtitles_id = λ.None
+					ϒttsurl = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+						λ.NewStr("\"ttsurl\"\\s*,\\s*\"([^\"]+)"),
+						ϒwebpage,
+						λ.NewStr("ttsurl"),
+					), λ.KWArgs{
+						{Name: "default", Value: λ.None},
+					})
+					if λ.IsTrue(ϒttsurl) {
+						ϒsubtitles_id = λ.GetItem(λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒttsurl, "encode", nil), λ.NewStr("utf-8")), "decode", nil), λ.NewStr("unicode_escape")), "split", nil), λ.NewStr("=")), λ.Neg(λ.NewInt(1)))
+					}
+					return λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):    ϒvideo_id,
+						λ.NewStr("title"): ϒtitle,
+						λ.NewStr("thumbnail"): λ.Call(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						}),
+						λ.NewStr("duration"):           ϒduration,
+						λ.NewStr("formats"):            ϒformats,
+						λ.NewStr("subtitles"):          λ.Cal(λ.GetAttr(ϒself, "extract_subtitles", nil), ϒvideo_id, ϒsubtitles_id, ϒhl),
+						λ.NewStr("automatic_captions"): λ.Cal(λ.GetAttr(ϒself, "extract_automatic_captions", nil), ϒvideo_id, ϒsubtitles_id, ϒhl),
+					})
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): GoogleDriveIE__VALID_URL,
+				λ.NewStr("_TESTS"):        GoogleDriveIE__TESTS,
+				λ.NewStr("_VALID_URL"):    GoogleDriveIE__VALID_URL,
+				λ.NewStr("_real_extract"): GoogleDriveIE__real_extract,
 			})
 		}())
 	})

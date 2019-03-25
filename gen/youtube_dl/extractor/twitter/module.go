@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@
 package twitter
 
 import (
+	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωperiscope "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/periscope"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
@@ -101,11 +102,312 @@ func init() {
 		}())
 		TwitterCardIE = λ.Cal(λ.TypeType, λ.NewStr("TwitterCardIE"), λ.NewTuple(TwitterBaseIE), func() λ.Dict {
 			var (
-				TwitterCardIE__VALID_URL λ.Object
+				TwitterCardIE_IE_NAME       λ.Object
+				TwitterCardIE__API_BASE     λ.Object
+				TwitterCardIE__TESTS        λ.Object
+				TwitterCardIE__VALID_URL    λ.Object
+				TwitterCardIE__real_extract λ.Object
 			)
+			TwitterCardIE_IE_NAME = λ.NewStr("twitter:card")
 			TwitterCardIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?twitter\\.com/i/(?P<path>cards/tfw/v1|videos(?:/tweet)?)/(?P<id>\\d+)")
+			TwitterCardIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://twitter.com/i/cards/tfw/v1/560070183650213889"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):        λ.NewStr("560070183650213889"),
+						λ.NewStr("ext"):       λ.NewStr("mp4"),
+						λ.NewStr("title"):     λ.NewStr("Twitter web player"),
+						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg$"),
+						λ.NewStr("duration"):  λ.NewFloat(30.033),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://twitter.com/i/cards/tfw/v1/623160978427936768"),
+					λ.NewStr("md5"): λ.NewStr("7ee2a553b63d1bccba97fbed97d9e1c8"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):        λ.NewStr("623160978427936768"),
+						λ.NewStr("ext"):       λ.NewStr("mp4"),
+						λ.NewStr("title"):     λ.NewStr("Twitter web player"),
+						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*$"),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://twitter.com/i/cards/tfw/v1/654001591733886977"),
+					λ.NewStr("md5"): λ.NewStr("b6d9683dd3f48e340ded81c0e917ad46"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("dq4Oj5quskI"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Ubuntu 11.10 Overview"),
+						λ.NewStr("description"): λ.NewStr("md5:a831e97fa384863d6e26ce48d1c43376"),
+						λ.NewStr("upload_date"): λ.NewStr("20111013"),
+						λ.NewStr("uploader"):    λ.NewStr("OMG! Ubuntu!"),
+						λ.NewStr("uploader_id"): λ.NewStr("omgubuntu"),
+					}),
+					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Youtube")),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://twitter.com/i/cards/tfw/v1/665289828897005568"),
+					λ.NewStr("md5"): λ.NewStr("6dabeaca9e68cbb71c99c322a4b42a11"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("iBb2x00UVlv"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("upload_date"): λ.NewStr("20151113"),
+						λ.NewStr("uploader_id"): λ.NewStr("1189339351084113920"),
+						λ.NewStr("uploader"):    λ.NewStr("ArsenalTerje"),
+						λ.NewStr("title"):       λ.NewStr("Vine by ArsenalTerje"),
+						λ.NewStr("timestamp"):   λ.NewInt(1447451307),
+					}),
+					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Vine")),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://twitter.com/i/videos/tweet/705235433198714880"),
+					λ.NewStr("md5"): λ.NewStr("884812a2adc8aaf6fe52b15ccbfa3b88"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):        λ.NewStr("705235433198714880"),
+						λ.NewStr("ext"):       λ.NewStr("mp4"),
+						λ.NewStr("title"):     λ.NewStr("Twitter web player"),
+						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*"),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://twitter.com/i/videos/752274308186120192"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
+			TwitterCardIE__API_BASE = λ.NewStr("https://api.twitter.com/1.1")
+			TwitterCardIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒconfig        λ.Object
+						ϒct0           λ.Object
+						ϒduration      λ.Object
+						ϒentity        λ.Object
+						ϒf             λ.Object
+						ϒformats       λ.Object
+						ϒguest_token   λ.Object
+						ϒheaders       λ.Object
+						ϒiframe_url    λ.Object
+						ϒmedia_info    λ.Object
+						ϒpath          λ.Object
+						ϒperiscope_url λ.Object
+						ϒplayback_url  λ.Object
+						ϒself          = λargs[0]
+						ϒthumbnail     λ.Object
+						ϒtitle         λ.Object
+						ϒtrack         λ.Object
+						ϒu             λ.Object
+						ϒurl           = λargs[1]
+						ϒurls          λ.Object
+						ϒusername      λ.Object
+						ϒvideo_id      λ.Object
+						ϒvideo_url     λ.Object
+						ϒvmap_url      λ.Object
+						ϒwebpage       λ.Object
+						τmp0           λ.Object
+						τmp1           λ.Object
+						τmp2           λ.Object
+						τmp3           λ.Object
+					)
+					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒsearch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
+					ϒpath = λ.GetItem(τmp0, λ.NewInt(0))
+					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(1))
+					ϒconfig = λ.None
+					ϒformats = λ.NewList()
+					ϒduration = λ.None
+					ϒurls = λ.NewList(ϒurl)
+					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒpath, "startswith", nil), λ.NewStr("cards/"))) {
+						λ.Cal(λ.GetAttr(ϒurls, "append", nil), λ.Add(λ.NewStr("https://twitter.com/i/videos/"), ϒvideo_id))
+					}
+					τmp0 = λ.Cal(λ.BuiltinIter, ϒurls)
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒu = τmp1
+						ϒwebpage = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
+							ϒu,
+							ϒvideo_id,
+						), λ.KWArgs{
+							{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("Referer"): λ.NewStr("https://twitter.com/"),
+							})},
+						})
+						ϒiframe_url = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
+							λ.NewStr("<iframe[^>]+src=\"((?:https?:)?//(?:www\\.youtube\\.com/embed/[^\"]+|(?:www\\.)?vine\\.co/v/\\w+/card))\""),
+							ϒwebpage,
+							λ.NewStr("video iframe"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						})
+						if λ.IsTrue(ϒiframe_url) {
+							return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒiframe_url)
+						}
+						ϒconfig = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
+							λ.NewStr("data-(?:player-)?config=\"([^\"]+)\""),
+							ϒwebpage,
+							λ.NewStr("data player config"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.NewStr("{}")},
+						}), ϒvideo_id)
+						if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("source_type")), λ.NewStr("vine"))) {
+							return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.GetItem(ϒconfig, λ.NewStr("player_url")), λ.NewStr("Vine"))
+						}
+						ϒperiscope_url = λ.Cal(λ.GetAttr(PeriscopeIE, "_extract_url", nil), ϒwebpage)
+						if λ.IsTrue(ϒperiscope_url) {
+							return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒperiscope_url, λ.Cal(λ.GetAttr(PeriscopeIE, "ie_key", nil)))
+						}
+						ϒvideo_url = func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("video_url")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Cal(λ.GetAttr(λ.GetItem(λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("playlist"), λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{}))), λ.NewInt(0)), "get", nil), λ.NewStr("source"))
+							}
+						}()
+						if λ.IsTrue(ϒvideo_url) {
+							if λ.IsTrue(λ.Eq(λ.Cal(ϒdetermine_ext, ϒvideo_url), λ.NewStr("m3u8"))) {
+								λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+									ϒvideo_url,
+									ϒvideo_id,
+								), λ.KWArgs{
+									{Name: "ext", Value: λ.NewStr("mp4")},
+									{Name: "m3u8_id", Value: λ.NewStr("hls")},
+								}))
+							} else {
+								ϒf = λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λ.NewStr("url"): ϒvideo_url,
+								})
+								λ.Cal(λ.GetAttr(ϒself, "_search_dimensions_in_video_url", nil), ϒf, ϒvideo_url)
+								λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)
+							}
+						}
+						ϒvmap_url = func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("vmapUrl")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("vmap_url"))
+							}
+						}()
+						if λ.IsTrue(ϒvmap_url) {
+							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Cal(λ.GetAttr(ϒself, "_extract_formats_from_vmap_url", nil), ϒvmap_url, ϒvideo_id))
+						}
+						ϒmedia_info = λ.None
+						τmp2 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("status"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("entities"), λ.NewList()))
+						for {
+							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+								break
+							}
+							ϒentity = τmp3
+							if λ.IsTrue(λ.NewBool(λ.Contains(ϒentity, λ.NewStr("mediaInfo")))) {
+								ϒmedia_info = λ.GetItem(ϒentity, λ.NewStr("mediaInfo"))
+							}
+						}
+						if λ.IsTrue(ϒmedia_info) {
+							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Cal(λ.GetAttr(ϒself, "_parse_media_info", nil), ϒmedia_info, ϒvideo_id))
+							ϒduration = λ.Call(ϒfloat_or_none, λ.NewArgs(λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒmedia_info, "get", nil), λ.NewStr("duration"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("nanos"))), λ.KWArgs{
+								{Name: "scale", Value: λ.NewFloat(1000000000.0)},
+							})
+						}
+						ϒusername = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("user"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("screen_name"))
+						if λ.IsTrue(ϒusername) {
+							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Cal(λ.GetAttr(ϒself, "_extract_mobile_formats", nil), ϒusername, ϒvideo_id))
+						}
+						if λ.IsTrue(ϒformats) {
+							ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<title>([^<]+)</title>"), ϒwebpage, λ.NewStr("title"))
+							ϒthumbnail = func() λ.Object {
+								if λv := λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("posterImageUrl")); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("image_src"))
+								}
+							}()
+							ϒduration = func() λ.Object {
+								if λv := λ.Call(ϒfloat_or_none, λ.NewArgs(λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("duration"))), λ.KWArgs{
+									{Name: "scale", Value: λ.NewInt(1000)},
+								}); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return ϒduration
+								}
+							}()
+							break
+						}
+					}
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
+						ϒheaders = λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("Authorization"): λ.NewStr("Bearer AAAAAAAAAAAAAAAAAAAAAPYXBAAAAAAACLXUNDekMxqa8h%2F40K4moUkGsoc%3DTYfbDKbT3jJPCEVnMYqilB28NHfOPqkca3qaAxGfsyKCs0wRbw"),
+							λ.NewStr("Referer"):       ϒurl,
+						})
+						ϒct0 = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒself, "_get_cookies", nil), ϒurl), "get", nil), λ.NewStr("ct0"))
+						if λ.IsTrue(ϒct0) {
+							λ.SetItem(ϒheaders, λ.NewStr("csrf_token"), λ.GetAttr(ϒct0, "value", nil))
+						}
+						ϒguest_token = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+							λ.Mod(λ.NewStr("%s/guest/activate.json"), λ.GetAttr(ϒself, "_API_BASE", nil)),
+							ϒvideo_id,
+							λ.NewStr("Downloading guest token"),
+						), λ.KWArgs{
+							{Name: "data", Value: λ.NewBytes()},
+							{Name: "headers", Value: ϒheaders},
+						}), λ.NewStr("guest_token"))
+						λ.SetItem(ϒheaders, λ.NewStr("x-guest-token"), ϒguest_token)
+						λ.Cal(λ.GetAttr(ϒself, "_set_cookie", nil), λ.NewStr("api.twitter.com"), λ.NewStr("gt"), ϒguest_token)
+						ϒconfig = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+							λ.Mod(λ.NewStr("%s/videos/tweet/config/%s.json"), λ.NewTuple(
+								λ.GetAttr(ϒself, "_API_BASE", nil),
+								ϒvideo_id,
+							)),
+							ϒvideo_id,
+						), λ.KWArgs{
+							{Name: "headers", Value: ϒheaders},
+						})
+						ϒtrack = λ.GetItem(ϒconfig, λ.NewStr("track"))
+						ϒvmap_url = λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("vmapUrl"))
+						if λ.IsTrue(ϒvmap_url) {
+							ϒformats = λ.Cal(λ.GetAttr(ϒself, "_extract_formats_from_vmap_url", nil), ϒvmap_url, ϒvideo_id)
+						} else {
+							ϒplayback_url = λ.GetItem(ϒtrack, λ.NewStr("playbackUrl"))
+							if λ.IsTrue(λ.Eq(λ.Cal(ϒdetermine_ext, ϒplayback_url), λ.NewStr("m3u8"))) {
+								ϒformats = λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+									ϒplayback_url,
+									ϒvideo_id,
+									λ.NewStr("mp4"),
+								), λ.KWArgs{
+									{Name: "entry_protocol", Value: λ.NewStr("m3u8_native")},
+									{Name: "m3u8_id", Value: λ.NewStr("hls")},
+								})
+							} else {
+								ϒformats = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λ.NewStr("url"): ϒplayback_url,
+								}))
+							}
+						}
+						ϒtitle = λ.NewStr("Twitter web player")
+						ϒthumbnail = λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("posterImage"))
+						ϒduration = λ.Call(ϒfloat_or_none, λ.NewArgs(λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("durationMs"))), λ.KWArgs{
+							{Name: "scale", Value: λ.NewInt(1000)},
+						})
+					}
+					λ.Cal(λ.GetAttr(ϒself, "_remove_duplicate_formats", nil), ϒformats)
+					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					return λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):        ϒvideo_id,
+						λ.NewStr("title"):     ϒtitle,
+						λ.NewStr("thumbnail"): ϒthumbnail,
+						λ.NewStr("duration"):  ϒduration,
+						λ.NewStr("formats"):   ϒformats,
+					})
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): TwitterCardIE__VALID_URL,
+				λ.NewStr("IE_NAME"):       TwitterCardIE_IE_NAME,
+				λ.NewStr("_API_BASE"):     TwitterCardIE__API_BASE,
+				λ.NewStr("_TESTS"):        TwitterCardIE__TESTS,
+				λ.NewStr("_VALID_URL"):    TwitterCardIE__VALID_URL,
+				λ.NewStr("_real_extract"): TwitterCardIE__real_extract,
 			})
 		}())
 		TwitterIE = λ.Cal(λ.TypeType, λ.NewStr("TwitterIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

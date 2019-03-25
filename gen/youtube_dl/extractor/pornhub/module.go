@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,8 +43,9 @@ var (
 	PornHubUserVideosIE   λ.Object
 	ϒcompat_HTTPError     λ.Object
 	ϒcompat_str           λ.Object
+	ϒdetermine_ext        λ.Object
 	ϒint_or_none          λ.Object
-	ϒorderedSet           λ.Object
+	ϒremove_quotes        λ.Object
 	ϒstr_to_int           λ.Object
 	ϒurl_or_none          λ.Object
 )
@@ -54,9 +55,10 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_str = Ωcompat.ϒcompat_str
+		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ϒorderedSet = Ωutils.ϒorderedSet
+		ϒremove_quotes = Ωutils.ϒremove_quotes
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		PornHubBaseIE = λ.Cal(λ.TypeType, λ.NewStr("PornHubBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
@@ -472,7 +474,7 @@ func init() {
 								if λ.IsTrue(λ.NewBool(λ.Contains(ϒjs_vars, ϒinp))) {
 									return λ.GetItem(ϒjs_vars, ϒinp)
 								}
-								return λ.Cal(λ.None, ϒinp)
+								return λ.Cal(ϒremove_quotes, ϒinp)
 							})
 						τmp0 = λ.Cal(λ.BuiltinIter, ϒassignments)
 						for {
@@ -535,6 +537,16 @@ func init() {
 							if λ.IsTrue(ϒupload_date) {
 								ϒupload_date = λ.Cal(λ.GetAttr(ϒupload_date, "replace", nil), λ.NewStr("/"), λ.NewStr(""))
 							}
+						}
+						if λ.IsTrue(λ.Eq(λ.Cal(ϒdetermine_ext, ϒvideo_url), λ.NewStr("mpd"))) {
+							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_mpd_formats", nil), λ.NewArgs(
+								ϒvideo_url,
+								ϒvideo_id,
+							), λ.KWArgs{
+								{Name: "mpd_id", Value: λ.NewStr("dash")},
+								{Name: "fatal", Value: λ.False},
+							}))
+							continue
 						}
 						ϒtbr = λ.None
 						ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("(?P<height>\\d+)[pP]?_(?P<tbr>\\d+)[kK]"), ϒvideo_url)

@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ import (
 
 var (
 	DOTALL        λ.Object
+	MULTILINE     λ.Object
 	Match         λ.Object
 	MatchIterator λ.Object
 	Pattern       λ.Object
@@ -50,6 +51,7 @@ func init() {
 		τmp0 = Ωre.FlagIgnoreCase
 
 		τmp0 = Ωre.FlagMultiline
+		MULTILINE = τmp0
 
 		τmp0 = Ωre.FlagDotAll
 		DOTALL = τmp0

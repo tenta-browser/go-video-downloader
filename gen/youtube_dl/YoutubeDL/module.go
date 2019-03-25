@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,7 @@ import (
 	Ωsys "github.com/tenta-browser/go-video-downloader/gen/sys"
 	Ωtime "github.com/tenta-browser/go-video-downloader/gen/time"
 	Ωerror "github.com/tenta-browser/go-video-downloader/gen/urllib/error"
+	Ωcache "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/cache"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωextractor "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor"
 	Ωpostprocessor "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/postprocessor"
@@ -42,6 +43,7 @@ import (
 )
 
 var (
+	Cache                  λ.Object
 	DEFAULT_OUTTMPL        λ.Object
 	DownloadError          λ.Object
 	ExtractorError         λ.Object
@@ -65,7 +67,6 @@ var (
 	ϒgen_extractor_classes λ.Object
 	ϒget_info_extractor    λ.Object
 	ϒint_or_none           λ.Object
-	ϒorderedSet            λ.Object
 	ϒparse_filesize        λ.Object
 	ϒpreferredencoding     λ.Object
 	ϒsanitize_filename     λ.Object
@@ -95,7 +96,6 @@ func init() {
 		GeoRestrictedError = Ωutils.GeoRestrictedError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		MaxDownloadsReached = Ωutils.MaxDownloadsReached
-		ϒorderedSet = Ωutils.ϒorderedSet
 		PagedList = Ωutils.PagedList
 		ϒparse_filesize = Ωutils.ϒparse_filesize
 		PostProcessingError = Ωutils.PostProcessingError
@@ -108,6 +108,7 @@ func init() {
 		ϒstr_or_none = Ωutils.ϒstr_or_none
 		UnavailableVideoError = Ωutils.UnavailableVideoError
 		ϒurl_basename = Ωutils.ϒurl_basename
+		Cache = Ωcache.Cache
 		ϒget_info_extractor = Ωextractor.ϒget_info_extractor
 		ϒgen_extractor_classes = Ωextractor.ϒgen_extractor_classes
 		FFmpegPostProcessor = Ωpostprocessor.FFmpegPostProcessor
@@ -1058,6 +1059,7 @@ func init() {
 									λ.NewStr("playlist"),
 									λ.NewStr("multi_video"),
 								), ϒresult_type))) {
+									panic(λ.Raise(λ.Cal(λ.ExceptionType, λ.NewStr("Playlists and multi video results are not supported!"))))
 									ϒplaylist = func() λ.Object {
 										if λv := λ.Cal(λ.GetAttr(ϒie_result, "get", nil), λ.NewStr("title")); λ.IsTrue(λv) {
 											return λv
@@ -1118,7 +1120,7 @@ func init() {
 													return λ.None
 												})
 											})
-										ϒplaylistitems = λ.Cal(ϒorderedSet, λ.Cal(ϒiter_playlistitems, ϒplaylistitems_str))
+										ϒplaylistitems = λ.Cal(λ.None, λ.Cal(ϒiter_playlistitems, ϒplaylistitems_str))
 									}
 									ϒie_entries = λ.GetItem(ϒie_result, λ.NewStr("entries"))
 									ϒmake_playlistitems_entries = λ.NewFunction("make_playlistitems_entries",
@@ -2294,15 +2296,15 @@ func init() {
 										return
 									}},
 								)
-								ϒdn = λ.Cal(λ.GetAttr(λ.GetAttr(λ.None, "path", nil), "dirname", nil), ϒpath)
+								ϒdn = λ.Cal(λ.None, ϒpath)
 								if λ.IsTrue(func() λ.Object {
 									if λv := ϒdn; !λ.IsTrue(λv) {
 										return λv
 									} else {
-										return λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(λ.None, "path", nil), "exists", nil), ϒdn)))
+										return λ.NewBool(!λ.IsTrue(λ.Cal(λ.None, ϒdn)))
 									}
 								}()) {
-									λ.Cal(λ.GetAttr(λ.None, "makedirs", nil), ϒdn)
+									λ.Cal(λ.None, ϒdn)
 								}
 								λexit, λret = λ.BlockExitReturn, λ.True
 								return
@@ -2322,7 +2324,7 @@ func init() {
 							if λv := λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("nooverwrites"), λ.False); !λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(λ.GetAttr(λ.None, "path", nil), "exists", nil), λ.Cal(λ.None, ϒdescfn))
+								return λ.Cal(λ.None, λ.Cal(λ.None, ϒdescfn))
 							}
 						}()) {
 							λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.NewStr("[info] Video description is already present"))
@@ -2376,7 +2378,7 @@ func init() {
 							if λv := λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("nooverwrites"), λ.False); !λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(λ.GetAttr(λ.None, "path", nil), "exists", nil), λ.Cal(λ.None, ϒannofn))
+								return λ.Cal(λ.None, λ.Cal(λ.None, ϒannofn))
 							}
 						}()) {
 							λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.NewStr("[info] Video annotations are already present"))
@@ -2453,7 +2455,7 @@ func init() {
 								if λv := λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("nooverwrites"), λ.False); !λ.IsTrue(λv) {
 									return λv
 								} else {
-									return λ.Cal(λ.GetAttr(λ.GetAttr(λ.None, "path", nil), "exists", nil), λ.Cal(λ.None, ϒsub_filename))
+									return λ.Cal(λ.None, λ.Cal(λ.None, ϒsub_filename))
 								}
 							}()) {
 								λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("[info] Video subtitle %s.%s is already present"), λ.NewTuple(
@@ -2554,7 +2556,7 @@ func init() {
 							if λv := λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("nooverwrites"), λ.False); !λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(λ.GetAttr(λ.None, "path", nil), "exists", nil), λ.Cal(λ.None, ϒinfofn))
+								return λ.Cal(λ.None, λ.Cal(λ.None, ϒinfofn))
 							}
 						}()) {
 							λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.NewStr("[info] Video description metadata is already present"))
@@ -2717,10 +2719,10 @@ func init() {
 										}
 										return λ.False
 									})
-								ϒfilename_real_ext = λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(λ.GetAttr(λ.None, "path", nil), "splitext", nil), ϒfilename), λ.NewInt(1)), λ.NewSlice(λ.NewInt(1), λ.None, λ.None))
+								ϒfilename_real_ext = λ.GetItem(λ.GetItem(λ.Cal(λ.None, ϒfilename), λ.NewInt(1)), λ.NewSlice(λ.NewInt(1), λ.None, λ.None))
 								ϒfilename_wo_ext = func() λ.Object {
 									if λ.IsTrue(λ.Eq(ϒfilename_real_ext, λ.GetItem(ϒinfo_dict, λ.NewStr("ext")))) {
-										return λ.GetItem(λ.Cal(λ.GetAttr(λ.GetAttr(λ.None, "path", nil), "splitext", nil), ϒfilename), λ.NewInt(0))
+										return λ.GetItem(λ.Cal(λ.None, ϒfilename), λ.NewInt(0))
 									} else {
 										return ϒfilename
 									}
@@ -2740,7 +2742,7 @@ func init() {
 									ϒfilename_wo_ext,
 									λ.GetItem(ϒinfo_dict, λ.NewStr("ext")),
 								))
-								if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(λ.None, "path", nil), "exists", nil), λ.Cal(λ.None, ϒfilename))) {
+								if λ.IsTrue(λ.Cal(λ.None, λ.Cal(λ.None, ϒfilename))) {
 									λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("[download] %s has already been downloaded and merged"), ϒfilename))
 								} else {
 									τmp2 = λ.Cal(λ.BuiltinIter, ϒrequested_formats)

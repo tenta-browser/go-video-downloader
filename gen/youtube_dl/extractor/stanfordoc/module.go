@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,6 @@ var (
 	ExtractorError          λ.Object
 	InfoExtractor           λ.Object
 	StanfordOpenClassroomIE λ.Object
-	ϒorderedSet             λ.Object
 	ϒunescapeHTML           λ.Object
 )
 
@@ -43,7 +42,6 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ExtractorError = Ωutils.ExtractorError
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		StanfordOpenClassroomIE = λ.Cal(λ.TypeType, λ.NewStr("StanfordOpenClassroomIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
@@ -149,7 +147,7 @@ func init() {
 							), λ.KWArgs{
 								{Name: "fatal", Value: λ.False},
 							}))
-							ϒlinks = λ.Cal(ϒorderedSet, λ.Cal(Ωre.ϒfindall, λ.NewStr("<a href=\"(VideoPage\\.php\\?[^\"]+)\">"), ϒcoursepage))
+							ϒlinks = λ.Cal(λ.None, λ.Cal(Ωre.ϒfindall, λ.NewStr("<a href=\"(VideoPage\\.php\\?[^\"]+)\">"), ϒcoursepage))
 							λ.SetItem(ϒinfo, λ.NewStr("entries"), λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 								nil,
 								0, false, false,
@@ -187,7 +185,7 @@ func init() {
 							), λ.KWArgs{
 								{Name: "errnote", Value: λ.NewStr("Unable to download course info page")},
 							})
-							ϒlinks = λ.Cal(ϒorderedSet, λ.Cal(Ωre.ϒfindall, λ.NewStr("<a href=\"(CoursePage\\.php\\?[^\"]+)\">"), ϒrootpage))
+							ϒlinks = λ.Cal(λ.None, λ.Cal(Ωre.ϒfindall, λ.NewStr("<a href=\"(CoursePage\\.php\\?[^\"]+)\">"), ϒrootpage))
 							λ.SetItem(ϒinfo, λ.NewStr("entries"), λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 								nil,
 								0, false, false,

@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,8 +28,150 @@ import (
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
+var (
+	ϒadd     λ.Object
+	ϒand_    λ.Object
+	ϒlshift  λ.Object
+	ϒmod     λ.Object
+	ϒmul     λ.Object
+	ϒor_     λ.Object
+	ϒrshift  λ.Object
+	ϒsub     λ.Object
+	ϒtruediv λ.Object
+	ϒxor     λ.Object
+)
+
 func init() {
 	λ.InitModule(func() {
-		λ.NewStr("Placeholder")
+		ϒadd = λ.NewFunction("add",
+			[]λ.Param{
+				{Name: "a"},
+				{Name: "b"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒa = λargs[0]
+					ϒb = λargs[1]
+				)
+				return λ.Add(ϒa, ϒb)
+			})
+		ϒsub = λ.NewFunction("sub",
+			[]λ.Param{
+				{Name: "a"},
+				{Name: "b"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒa = λargs[0]
+					ϒb = λargs[1]
+				)
+				return λ.Sub(ϒa, ϒb)
+			})
+		ϒmul = λ.NewFunction("mul",
+			[]λ.Param{
+				{Name: "a"},
+				{Name: "b"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒa = λargs[0]
+					ϒb = λargs[1]
+				)
+				return λ.Mul(ϒa, ϒb)
+			})
+		ϒtruediv = λ.NewFunction("truediv",
+			[]λ.Param{
+				{Name: "a"},
+				{Name: "b"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒa = λargs[0]
+					ϒb = λargs[1]
+				)
+				return λ.TrueDiv(ϒa, ϒb)
+			})
+		ϒmod = λ.NewFunction("mod",
+			[]λ.Param{
+				{Name: "a"},
+				{Name: "b"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒa = λargs[0]
+					ϒb = λargs[1]
+				)
+				return λ.Mod(ϒa, ϒb)
+			})
+		ϒor_ = λ.NewFunction("or_",
+			[]λ.Param{
+				{Name: "a"},
+				{Name: "b"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒa = λargs[0]
+					ϒb = λargs[1]
+				)
+				return λ.Or(ϒa, ϒb)
+			})
+		ϒxor = λ.NewFunction("xor",
+			[]λ.Param{
+				{Name: "a"},
+				{Name: "b"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒa = λargs[0]
+					ϒb = λargs[1]
+				)
+				return λ.Xor(ϒa, ϒb)
+			})
+		ϒand_ = λ.NewFunction("and_",
+			[]λ.Param{
+				{Name: "a"},
+				{Name: "b"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒa = λargs[0]
+					ϒb = λargs[1]
+				)
+				return λ.And(ϒa, ϒb)
+			})
+		ϒlshift = λ.NewFunction("lshift",
+			[]λ.Param{
+				{Name: "a"},
+				{Name: "b"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒa = λargs[0]
+					ϒb = λargs[1]
+				)
+				return λ.LShift(ϒa, ϒb)
+			})
+		ϒrshift = λ.NewFunction("rshift",
+			[]λ.Param{
+				{Name: "a"},
+				{Name: "b"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒa = λargs[0]
+					ϒb = λargs[1]
+				)
+				return λ.RShift(ϒa, ϒb)
+			})
 	})
 }

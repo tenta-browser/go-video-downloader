@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,11 +53,160 @@ func init() {
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		PikselIE = λ.Cal(λ.TypeType, λ.NewStr("PikselIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				PikselIE__VALID_URL λ.Object
+				PikselIE__TESTS        λ.Object
+				PikselIE__VALID_URL    λ.Object
+				PikselIE__real_extract λ.Object
 			)
 			PikselIE__VALID_URL = λ.NewStr("https?://player\\.piksel\\.com/v/(?P<id>[a-z0-9]+)")
+			PikselIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://player.piksel.com/v/nv60p12f"),
+					λ.NewStr("md5"): λ.NewStr("d9c17bbe9c3386344f9cfd32fad8d235"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("nv60p12f"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("فن الحياة  - الحلقة 1"),
+						λ.NewStr("description"): λ.NewStr("احدث برامج الداعية الاسلامي \" مصطفي حسني \" فى رمضان 2016علي النهار نور"),
+						λ.NewStr("timestamp"):   λ.NewInt(1465231790),
+						λ.NewStr("upload_date"): λ.NewStr("20160606"),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://player.piksel.com/v/v80kqp41"),
+					λ.NewStr("md5"): λ.NewStr("753ddcd8cc8e4fa2dda4b7be0e77744d"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("v80kqp41"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("WAW- State of Washington vs. Donald J. Trump, et al"),
+						λ.NewStr("description"): λ.NewStr("State of Washington vs. Donald J. Trump, et al, Case Number 17-CV-00141-JLR, TRO Hearing, Civil Rights Case, 02/3/2017, 1:00 PM (PST), Seattle Federal Courthouse, Seattle, WA, Judge James L. Robart presiding."),
+						λ.NewStr("timestamp"):   λ.NewInt(1486171129),
+						λ.NewStr("upload_date"): λ.NewStr("20170204"),
+					}),
+				}),
+			)
+			PikselIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒabr        λ.Object
+						ϒapp_token  λ.Object
+						ϒasset_file λ.Object
+						ϒasset_type λ.Object
+						ϒfailure    λ.Object
+						ϒformat_id  λ.Object
+						ϒformats    λ.Object
+						ϒhttp_url   λ.Object
+						ϒm3u8_url   λ.Object
+						ϒresponse   λ.Object
+						ϒself       = λargs[0]
+						ϒtbr        λ.Object
+						ϒtitle      λ.Object
+						ϒurl        = λargs[1]
+						ϒvbr        λ.Object
+						ϒvideo_data λ.Object
+						ϒvideo_id   λ.Object
+						ϒwebpage    λ.Object
+						τmp0        λ.Object
+						τmp1        λ.Object
+					)
+					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒapp_token = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewList(
+						λ.NewStr("clientAPI\\s*:\\s*\"([^\"]+)\""),
+						λ.NewStr("data-de-api-key\\s*=\\s*\"([^\"]+)\""),
+					), ϒwebpage, λ.NewStr("app token"))
+					ϒresponse = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.Mod(λ.NewStr("http://player.piksel.com/ws/ws_program/api/%s/mode/json/apiv/5"), ϒapp_token),
+						ϒvideo_id,
+					), λ.KWArgs{
+						{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("v"): ϒvideo_id,
+						})},
+					}), λ.NewStr("response"))
+					ϒfailure = λ.Cal(λ.GetAttr(ϒresponse, "get", nil), λ.NewStr("failure"))
+					if λ.IsTrue(ϒfailure) {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.GetItem(λ.GetItem(ϒresponse, λ.NewStr("failure")), λ.NewStr("reason"))), λ.KWArgs{
+							{Name: "expected", Value: λ.True},
+						})))
+					}
+					ϒvideo_data = λ.GetItem(λ.GetItem(λ.GetItem(ϒresponse, λ.NewStr("WsProgramResponse")), λ.NewStr("program")), λ.NewStr("asset"))
+					ϒtitle = λ.GetItem(ϒvideo_data, λ.NewStr("title"))
+					ϒformats = λ.NewList()
+					ϒm3u8_url = λ.Cal(ϒdict_get, ϒvideo_data, λ.NewList(
+						λ.NewStr("m3u8iPadURL"),
+						λ.NewStr("ipadM3u8Url"),
+						λ.NewStr("m3u8AndroidURL"),
+						λ.NewStr("m3u8iPhoneURL"),
+						λ.NewStr("iphoneM3u8Url"),
+					))
+					if λ.IsTrue(ϒm3u8_url) {
+						λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+							ϒm3u8_url,
+							ϒvideo_id,
+							λ.NewStr("mp4"),
+							λ.NewStr("m3u8_native"),
+						), λ.KWArgs{
+							{Name: "m3u8_id", Value: λ.NewStr("hls")},
+							{Name: "fatal", Value: λ.False},
+						}))
+					}
+					ϒasset_type = λ.Cal(ϒdict_get, ϒvideo_data, λ.NewList(
+						λ.NewStr("assetType"),
+						λ.NewStr("asset_type"),
+					))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("assetFiles"), λ.NewList()))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒasset_file = τmp1
+						ϒhttp_url = λ.Cal(λ.GetAttr(ϒasset_file, "get", nil), λ.NewStr("http_url"))
+						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒhttp_url))) {
+							continue
+						}
+						ϒtbr = λ.None
+						ϒvbr = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒasset_file, "get", nil), λ.NewStr("videoBitrate")), λ.NewInt(1024))
+						ϒabr = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒasset_file, "get", nil), λ.NewStr("audioBitrate")), λ.NewInt(1024))
+						if λ.IsTrue(λ.Eq(ϒasset_type, λ.NewStr("video"))) {
+							ϒtbr = λ.Add(ϒvbr, ϒabr)
+						} else {
+							if λ.IsTrue(λ.Eq(ϒasset_type, λ.NewStr("audio"))) {
+								ϒtbr = ϒabr
+							}
+						}
+						ϒformat_id = λ.NewList(λ.NewStr("http"))
+						if λ.IsTrue(ϒtbr) {
+							λ.Cal(λ.GetAttr(ϒformat_id, "append", nil), λ.Cal(ϒcompat_str, ϒtbr))
+						}
+						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("format_id"): λ.Cal(λ.GetAttr(λ.NewStr("-"), "join", nil), ϒformat_id),
+							λ.NewStr("url"):       λ.Cal(ϒunescapeHTML, ϒhttp_url),
+							λ.NewStr("vbr"):       ϒvbr,
+							λ.NewStr("abr"):       ϒabr,
+							λ.NewStr("width"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒasset_file, "get", nil), λ.NewStr("videoWidth"))),
+							λ.NewStr("height"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒasset_file, "get", nil), λ.NewStr("videoHeight"))),
+							λ.NewStr("filesize"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒasset_file, "get", nil), λ.NewStr("filesize"))),
+							λ.NewStr("tbr"):       ϒtbr,
+						}))
+					}
+					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					return λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          ϒvideo_id,
+						λ.NewStr("title"):       ϒtitle,
+						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("description")),
+						λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("thumbnailUrl")),
+						λ.NewStr("timestamp"):   λ.Cal(ϒparse_iso8601, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("dateadd"))),
+						λ.NewStr("formats"):     ϒformats,
+					})
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): PikselIE__VALID_URL,
+				λ.NewStr("_TESTS"):        PikselIE__TESTS,
+				λ.NewStr("_VALID_URL"):    PikselIE__VALID_URL,
+				λ.NewStr("_real_extract"): PikselIE__real_extract,
 			})
 		}())
 	})

@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -199,7 +199,6 @@ var (
 	ϒjs_to_json                  λ.Object
 	ϒmerge_dicts                 λ.Object
 	ϒmimetype2ext                λ.Object
-	ϒorderedSet                  λ.Object
 	ϒsanitized_Request           λ.Object
 	ϒsmuggle_url                 λ.Object
 	ϒunescapeHTML                λ.Object
@@ -224,7 +223,6 @@ func init() {
 		KNOWN_EXTENSIONS = Ωutils.KNOWN_EXTENSIONS
 		ϒmerge_dicts = Ωutils.ϒmerge_dicts
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML

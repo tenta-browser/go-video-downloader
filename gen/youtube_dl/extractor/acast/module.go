@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,6 @@ var (
 	ACastChannelIE     λ.Object
 	ACastIE            λ.Object
 	InfoExtractor      λ.Object
-	OnDemandPagedList  λ.Object
 	ϒcompat_str        λ.Object
 	ϒfloat_or_none     λ.Object
 	ϒint_or_none       λ.Object
@@ -52,7 +51,6 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
-		OnDemandPagedList = Ωutils.OnDemandPagedList
 		ACastIE = λ.Cal(λ.TypeType, λ.NewStr("ACastIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ACastIE_IE_NAME       λ.Object

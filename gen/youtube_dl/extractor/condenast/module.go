@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@
 package condenast
 
 import (
+	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
@@ -40,7 +41,6 @@ var (
 	ϒint_or_none                  λ.Object
 	ϒjs_to_json                   λ.Object
 	ϒmimetype2ext                 λ.Object
-	ϒorderedSet                   λ.Object
 	ϒparse_iso8601                λ.Object
 )
 
@@ -53,12 +53,15 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		CondeNastIE = λ.Cal(λ.TypeType, λ.NewStr("CondeNastIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				CondeNastIE__SITES     λ.Object
-				CondeNastIE__VALID_URL λ.Object
+				CondeNastIE__SITES                λ.Object
+				CondeNastIE__TESTS                λ.Object
+				CondeNastIE__VALID_URL            λ.Object
+				CondeNastIE__extract_video        λ.Object
+				CondeNastIE__extract_video_params λ.Object
+				CondeNastIE__real_extract         λ.Object
 			)
 			λ.NewStr("\n    Condé Nast is a media group, some of its sites use a custom HTML5 player\n    that works the same in all of them.\n    ")
 			CondeNastIE__SITES = λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -83,9 +86,298 @@ func init() {
 				λ.NewStr("wmagazine"):           λ.NewStr("W Magazine"),
 			})
 			CondeNastIE__VALID_URL = λ.Mod(λ.NewStr("(?x)https?://(?:video|www|player(?:-backend)?)\\.(?:%s)\\.com/\n        (?:\n            (?:\n                embed(?:js)?|\n                (?:script|inline)/video\n            )/(?P<id>[0-9a-f]{24})(?:/(?P<player_id>[0-9a-f]{24}))?(?:.+?\\btarget=(?P<target>[^&]+))?|\n            (?P<type>watch|series|video)/(?P<display_id>[^/?#]+)\n        )"), λ.Cal(λ.GetAttr(λ.NewStr("|"), "join", nil), λ.Cal(λ.GetAttr(CondeNastIE__SITES, "keys", nil))))
+			CondeNastIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://video.wired.com/watch/3d-printed-speakers-lit-with-led"),
+					λ.NewStr("md5"): λ.NewStr("1921f713ed48aabd715691f774c451f7"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("5171b343c2b4c00dd0c1ccb3"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("3D Printed Speakers Lit With LED"),
+						λ.NewStr("description"): λ.NewStr("Check out these beautiful 3D printed LED speakers.  You can't actually buy them, but LumiGeek is working on a board that will let you make you're own."),
+						λ.NewStr("uploader"):    λ.NewStr("wired"),
+						λ.NewStr("upload_date"): λ.NewStr("20130314"),
+						λ.NewStr("timestamp"):   λ.NewInt(1363219200),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://video.gq.com/watch/the-closer-with-keith-olbermann-the-only-true-surprise-trump-s-an-idiot?c=series"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("58d1865bfd2e6126e2000015"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("The Only True Surprise? Trump’s an Idiot"),
+						λ.NewStr("uploader"):    λ.NewStr("gq"),
+						λ.NewStr("upload_date"): λ.NewStr("20170321"),
+						λ.NewStr("timestamp"):   λ.NewInt(1490126427),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://player.cnevids.com/embedjs/55f9cf8b61646d1acf00000c/5511d76261646d5566020000.js"),
+					λ.NewStr("md5"): λ.NewStr("f1a6f9cafb7083bab74a710f65d08999"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("55f9cf8b61646d1acf00000c"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("3D printed TSA Travel Sentry keys really do open TSA locks"),
+						λ.NewStr("uploader"):    λ.NewStr("arstechnica"),
+						λ.NewStr("upload_date"): λ.NewStr("20150916"),
+						λ.NewStr("timestamp"):   λ.NewInt(1442434955),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://player.cnevids.com/inline/video/59138decb57ac36b83000005.js?target=js-cne-player"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://player-backend.cnevids.com/script/video/59138decb57ac36b83000005.js"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
+			CondeNastIE__extract_video_params = λ.NewFunction("_extract_video_params",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "webpage"},
+					{Name: "display_id"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒdisplay_id = λargs[2]
+						ϒparams     λ.Object
+						ϒquery      λ.Object
+						ϒself       = λargs[0]
+						ϒwebpage    = λargs[1]
+					)
+					ϒquery = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
+						λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+							λ.NewStr("(?s)var\\s+params\\s*=\\s*({.+?})[;,]"),
+							ϒwebpage,
+							λ.NewStr("player params"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.NewStr("{}")},
+						}),
+						ϒdisplay_id,
+					), λ.KWArgs{
+						{Name: "transform_source", Value: ϒjs_to_json},
+						{Name: "fatal", Value: λ.False},
+					})
+					if λ.IsTrue(ϒquery) {
+						λ.SetItem(ϒquery, λ.NewStr("videoId"), λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+							λ.NewStr("(?:data-video-id=|currentVideoId\\s*=\\s*)[\"\\']([\\da-f]+)"),
+							ϒwebpage,
+							λ.NewStr("video id"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						}))
+					} else {
+						ϒparams = λ.Cal(ϒextract_attributes, λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("(<[^>]+data-js=\"video-player\"[^>]+>)"), ϒwebpage, λ.NewStr("player params element")))
+						λ.Cal(λ.GetAttr(ϒquery, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("videoId"):  λ.GetItem(ϒparams, λ.NewStr("data-video")),
+							λ.NewStr("playerId"): λ.GetItem(ϒparams, λ.NewStr("data-player")),
+							λ.NewStr("target"):   λ.GetItem(ϒparams, λ.NewStr("id")),
+						}))
+					}
+					return ϒquery
+				})
+			CondeNastIE__extract_video = λ.NewFunction("_extract_video",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "params"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒext        λ.Object
+						ϒfdata      λ.Object
+						ϒformats    λ.Object
+						ϒinfo_page  λ.Object
+						ϒparams     = λargs[1]
+						ϒquality    λ.Object
+						ϒquery      λ.Object
+						ϒself       = λargs[0]
+						ϒsrc        λ.Object
+						ϒtitle      λ.Object
+						ϒvideo_id   λ.Object
+						ϒvideo_info λ.Object
+						τmp0        λ.Object
+						τmp1        λ.Object
+					)
+					ϒvideo_id = λ.GetItem(ϒparams, λ.NewStr("videoId"))
+					ϒvideo_info = λ.None
+					ϒquery = λ.Cal(λ.GetAttr(ϒparams, "copy", nil))
+					λ.SetItem(ϒquery, λ.NewStr("embedType"), λ.NewStr("inline"))
+					ϒinfo_page = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.NewStr("http://player.cnevids.com/embed-api.json"),
+						ϒvideo_id,
+						λ.NewStr("Downloading embed info"),
+					), λ.KWArgs{
+						{Name: "fatal", Value: λ.False},
+						{Name: "query", Value: ϒquery},
+					})
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒinfo_page))) {
+						if λ.IsTrue(λ.Cal(λ.GetAttr(ϒparams, "get", nil), λ.NewStr("playerId"))) {
+							ϒinfo_page = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+								λ.NewStr("http://player.cnevids.com/player/video.js"),
+								ϒvideo_id,
+								λ.NewStr("Downloading video info"),
+							), λ.KWArgs{
+								{Name: "fatal", Value: λ.False},
+								{Name: "query", Value: ϒparams},
+							})
+						}
+					}
+					if λ.IsTrue(ϒinfo_page) {
+						ϒvideo_info = λ.Cal(λ.GetAttr(ϒinfo_page, "get", nil), λ.NewStr("video"))
+					}
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_info))) {
+						ϒinfo_page = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
+							λ.NewStr("http://player.cnevids.com/player/loader.js"),
+							ϒvideo_id,
+							λ.NewStr("Downloading loader info"),
+						), λ.KWArgs{
+							{Name: "query", Value: ϒparams},
+						})
+					}
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_info))) {
+						ϒinfo_page = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
+							λ.Mod(λ.NewStr("https://player.cnevids.com/inline/video/%s.js"), ϒvideo_id),
+							ϒvideo_id,
+							λ.NewStr("Downloading inline info"),
+						), λ.KWArgs{
+							{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("target"): λ.Cal(λ.GetAttr(ϒparams, "get", nil), λ.NewStr("target"), λ.NewStr("embedplayer")),
+							})},
+						})
+					}
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_info))) {
+						ϒvideo_info = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
+							λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("(?s)var\\s+config\\s*=\\s*({.+?});"), ϒinfo_page, λ.NewStr("config")),
+							ϒvideo_id,
+						), λ.KWArgs{
+							{Name: "transform_source", Value: ϒjs_to_json},
+						}), λ.NewStr("video"))
+					}
+					ϒtitle = λ.GetItem(ϒvideo_info, λ.NewStr("title"))
+					ϒformats = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒvideo_info, λ.NewStr("sources")))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒfdata = τmp1
+						ϒsrc = λ.Cal(λ.GetAttr(ϒfdata, "get", nil), λ.NewStr("src"))
+						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒsrc))) {
+							continue
+						}
+						ϒext = func() λ.Object {
+							if λv := λ.Cal(ϒmimetype2ext, λ.Cal(λ.GetAttr(ϒfdata, "get", nil), λ.NewStr("type"))); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Cal(ϒdetermine_ext, ϒsrc)
+							}
+						}()
+						if λ.IsTrue(λ.Eq(ϒext, λ.NewStr("m3u8"))) {
+							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+								ϒsrc,
+								ϒvideo_id,
+								λ.NewStr("mp4"),
+							), λ.KWArgs{
+								{Name: "entry_protocol", Value: λ.NewStr("m3u8_native")},
+								{Name: "m3u8_id", Value: λ.NewStr("hls")},
+								{Name: "fatal", Value: λ.False},
+							}))
+							continue
+						}
+						ϒquality = λ.Cal(λ.GetAttr(ϒfdata, "get", nil), λ.NewStr("quality"))
+						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("format_id"): λ.Add(ϒext, func() λ.Object {
+								if λ.IsTrue(ϒquality) {
+									return λ.Mod(λ.NewStr("-%s"), ϒquality)
+								} else {
+									return λ.NewStr("")
+								}
+							}()),
+							λ.NewStr("url"): ϒsrc,
+							λ.NewStr("ext"): ϒext,
+							λ.NewStr("quality"): func() λ.Object {
+								if λ.IsTrue(λ.Eq(ϒquality, λ.NewStr("high"))) {
+									return λ.NewInt(1)
+								} else {
+									return λ.NewInt(0)
+								}
+							}(),
+						}))
+					}
+					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					return λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):         ϒvideo_id,
+						λ.NewStr("formats"):    ϒformats,
+						λ.NewStr("title"):      ϒtitle,
+						λ.NewStr("thumbnail"):  λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("poster_frame")),
+						λ.NewStr("uploader"):   λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("brand")),
+						λ.NewStr("duration"):   λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("duration"))),
+						λ.NewStr("tags"):       λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("tags")),
+						λ.NewStr("series"):     λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("series_title")),
+						λ.NewStr("season"):     λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("season_title")),
+						λ.NewStr("timestamp"):  λ.Cal(ϒparse_iso8601, λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("premiere_date"))),
+						λ.NewStr("categories"): λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("categories")),
+					})
+				})
+			CondeNastIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒdisplay_id λ.Object
+						ϒinfo       λ.Object
+						ϒparams     λ.Object
+						ϒplayer_id  λ.Object
+						ϒself       = λargs[0]
+						ϒtarget     λ.Object
+						ϒurl        = λargs[1]
+						ϒurl_type   λ.Object
+						ϒvideo_id   λ.Object
+						ϒwebpage    λ.Object
+						τmp0        λ.Object
+					)
+					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
+					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(0))
+					ϒplayer_id = λ.GetItem(τmp0, λ.NewInt(1))
+					ϒtarget = λ.GetItem(τmp0, λ.NewInt(2))
+					ϒurl_type = λ.GetItem(τmp0, λ.NewInt(3))
+					ϒdisplay_id = λ.GetItem(τmp0, λ.NewInt(4))
+					if λ.IsTrue(ϒvideo_id) {
+						return λ.Cal(λ.GetAttr(ϒself, "_extract_video", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("videoId"):  ϒvideo_id,
+							λ.NewStr("playerId"): ϒplayer_id,
+							λ.NewStr("target"):   ϒtarget,
+						}))
+					}
+					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
+					if λ.IsTrue(λ.Eq(ϒurl_type, λ.NewStr("series"))) {
+						return λ.Cal(λ.GetAttr(ϒself, "_extract_series", nil), ϒurl, ϒwebpage)
+					} else {
+						ϒparams = λ.Cal(λ.GetAttr(ϒself, "_extract_video_params", nil), ϒwebpage, ϒdisplay_id)
+						ϒinfo = λ.Call(λ.GetAttr(ϒself, "_search_json_ld", nil), λ.NewArgs(
+							ϒwebpage,
+							ϒdisplay_id,
+						), λ.KWArgs{
+							{Name: "fatal", Value: λ.False},
+						})
+						λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.Cal(λ.GetAttr(ϒself, "_extract_video", nil), ϒparams))
+						return ϒinfo
+					}
+					return λ.None
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_SITES"):     CondeNastIE__SITES,
-				λ.NewStr("_VALID_URL"): CondeNastIE__VALID_URL,
+				λ.NewStr("_SITES"):                CondeNastIE__SITES,
+				λ.NewStr("_TESTS"):                CondeNastIE__TESTS,
+				λ.NewStr("_VALID_URL"):            CondeNastIE__VALID_URL,
+				λ.NewStr("_extract_video"):        CondeNastIE__extract_video,
+				λ.NewStr("_extract_video_params"): CondeNastIE__extract_video_params,
+				λ.NewStr("_real_extract"):         CondeNastIE__real_extract,
 			})
 		}())
 	})

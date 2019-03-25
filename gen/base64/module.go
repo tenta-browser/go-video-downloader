@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,12 +33,24 @@ var (
 	B64Decode  λ.Object
 	B64Encode  λ.Object
 	ϒb64decode λ.Object
+	ϒb64encode λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		B64Encode = Ωencoding.B64Encode
 		B64Decode = Ωencoding.B64Decode
+		ϒb64encode = λ.NewFunction("b64encode",
+			[]λ.Param{
+				{Name: "s"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒs = λargs[0]
+				)
+				return λ.Cal(B64Encode, ϒs, λ.False)
+			})
 		ϒb64decode = λ.NewFunction("b64decode",
 			[]λ.Param{
 				{Name: "s"},

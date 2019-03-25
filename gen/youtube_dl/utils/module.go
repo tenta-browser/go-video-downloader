@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@
 package utils
 
 import (
+	Ωcodecs "github.com/tenta-browser/go-video-downloader/gen/codecs"
 	Ωentities "github.com/tenta-browser/go-video-downloader/gen/html/entities"
 	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
@@ -52,12 +53,13 @@ var (
 	ISO639Utils                       λ.Object
 	JSON_LD_RE                        λ.Object
 	KNOWN_EXTENSIONS                  λ.Object
+	MONTH_NAMES                       λ.Object
 	MaxDownloadsReached               λ.Object
 	NO_DEFAULT                        λ.Object
-	OnDemandPagedList                 λ.Object
 	PagedList                         λ.Object
 	PostProcessingError               λ.Object
 	RegexNotFoundError                λ.Object
+	TV_PARENTAL_GUIDELINES            λ.Object
 	US_RATINGS                        λ.Object
 	UnavailableVideoError             λ.Object
 	YoutubeDLError                    λ.Object
@@ -83,6 +85,7 @@ var (
 	ϒdetermine_ext                    λ.Object
 	ϒdetermine_protocol               λ.Object
 	ϒdict_get                         λ.Object
+	ϒencode_base_n                    λ.Object
 	ϒerror_to_compat_str              λ.Object
 	ϒexpand_path                      λ.Object
 	ϒextract_attributes               λ.Object
@@ -100,7 +103,7 @@ var (
 	ϒlookup_unit_table                λ.Object
 	ϒmerge_dicts                      λ.Object
 	ϒmimetype2ext                     λ.Object
-	ϒorderedSet                       λ.Object
+	ϒmonth_by_name                    λ.Object
 	ϒparse_age_limit                  λ.Object
 	ϒparse_bitrate                    λ.Object
 	ϒparse_codecs                     λ.Object
@@ -114,6 +117,7 @@ var (
 	ϒqualities                        λ.Object
 	ϒrandom_birthday                  λ.Object
 	ϒremove_end                       λ.Object
+	ϒremove_quotes                    λ.Object
 	ϒremove_start                     λ.Object
 	ϒsanitize_filename                λ.Object
 	ϒsanitize_path                    λ.Object
@@ -140,6 +144,7 @@ var (
 	ϒxpath_attr                       λ.Object
 	ϒxpath_element                    λ.Object
 	ϒxpath_text                       λ.Object
+	ϒxpath_with_ns                    λ.Object
 	ϒytdl_is_updateable               λ.Object
 	τmp0                              λ.Object
 	τmp1                              λ.Object
@@ -184,6 +189,23 @@ func init() {
 			λ.NewStr("November"),
 			λ.NewStr("December"),
 		)
+		MONTH_NAMES = λ.NewDictWithTable(map[λ.Object]λ.Object{
+			λ.NewStr("en"): ENGLISH_MONTH_NAMES,
+			λ.NewStr("fr"): λ.NewList(
+				λ.NewStr("janvier"),
+				λ.NewStr("février"),
+				λ.NewStr("mars"),
+				λ.NewStr("avril"),
+				λ.NewStr("mai"),
+				λ.NewStr("juin"),
+				λ.NewStr("juillet"),
+				λ.NewStr("août"),
+				λ.NewStr("septembre"),
+				λ.NewStr("octobre"),
+				λ.NewStr("novembre"),
+				λ.NewStr("décembre"),
+			),
+		})
 		KNOWN_EXTENSIONS = λ.NewTuple(
 			λ.NewStr("mp4"),
 			λ.NewStr("m4a"),
@@ -378,6 +400,67 @@ func init() {
 					return λ.None
 				})
 		}
+		ϒxpath_with_ns = λ.NewFunction("xpath_with_ns",
+			[]λ.Param{
+				{Name: "path"},
+				{Name: "ns_map"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒc          λ.Object
+					ϒcomponents λ.Object
+					ϒns         λ.Object
+					ϒns_map     = λargs[1]
+					ϒpath       = λargs[0]
+					ϒreplaced   λ.Object
+					ϒtag        λ.Object
+					τmp0        λ.Object
+					τmp1        λ.Object
+					τmp2        λ.Object
+				)
+				ϒcomponents = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+					nil,
+					0, false, false,
+					func(λargs []λ.Object) λ.Object {
+						return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							var (
+								ϒc   λ.Object
+								τmp0 λ.Object
+								τmp1 λ.Object
+							)
+							τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒpath, "split", nil), λ.NewStr("/")))
+							for {
+								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+									break
+								}
+								ϒc = τmp1
+								λgen.Yield(λ.Cal(λ.GetAttr(ϒc, "split", nil), λ.NewStr(":")))
+							}
+							return λ.None
+						})
+					})))
+				ϒreplaced = λ.NewList()
+				τmp0 = λ.Cal(λ.BuiltinIter, ϒcomponents)
+				for {
+					if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+						break
+					}
+					ϒc = τmp1
+					if λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒc), λ.NewInt(1))) {
+						λ.Cal(λ.GetAttr(ϒreplaced, "append", nil), λ.GetItem(ϒc, λ.NewInt(0)))
+					} else {
+						τmp2 = ϒc
+						ϒns = λ.GetItem(τmp2, λ.NewInt(0))
+						ϒtag = λ.GetItem(τmp2, λ.NewInt(1))
+						λ.Cal(λ.GetAttr(ϒreplaced, "append", nil), λ.Mod(λ.NewStr("{%s}%s"), λ.NewTuple(
+							λ.GetItem(ϒns_map, ϒns),
+							ϒtag,
+						)))
+					}
+				}
+				return λ.Cal(λ.GetAttr(λ.NewStr("/"), "join", nil), ϒreplaced)
+			})
 		ϒxpath_element = λ.NewFunction("xpath_element",
 			[]λ.Param{
 				{Name: "node"},
@@ -919,7 +1002,7 @@ func init() {
 				if λ.IsTrue(λ.Ne(Ωsys.ϒplatform, λ.NewStr("win32"))) {
 					return ϒs
 				}
-				τmp0 = λ.Cal(λ.GetAttr(λ.GetAttr(λ.None, "path", nil), "splitdrive", nil), ϒs)
+				τmp0 = λ.Cal(λ.None, ϒs)
 				ϒdrive_or_unc = λ.GetItem(τmp0, λ.NewInt(0))
 				_ = λ.GetItem(τmp0, λ.NewInt(1))
 				if λ.IsTrue(func() λ.Object {
@@ -932,11 +1015,11 @@ func init() {
 						return λ.NewBool(!λ.IsTrue(ϒdrive_or_unc))
 					}
 				}()) {
-					τmp0 = λ.Cal(λ.GetAttr(λ.GetAttr(λ.None, "path", nil), "splitunc", nil), ϒs)
+					τmp0 = λ.Cal(λ.None, ϒs)
 					ϒdrive_or_unc = λ.GetItem(τmp0, λ.NewInt(0))
 					_ = λ.GetItem(τmp0, λ.NewInt(1))
 				}
-				ϒnorm_path = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(λ.GetAttr(λ.None, "path", nil), "normpath", nil), λ.Cal(ϒremove_start, ϒs, ϒdrive_or_unc)), "split", nil), λ.GetAttr(λ.GetAttr(λ.None, "path", nil), "sep", nil))
+				ϒnorm_path = λ.Cal(λ.GetAttr(λ.Cal(λ.None, λ.Cal(ϒremove_start, ϒs, ϒdrive_or_unc)), "split", nil), λ.None)
 				if λ.IsTrue(ϒdrive_or_unc) {
 					λ.Cal(λ.GetAttr(ϒnorm_path, "pop", nil), λ.NewInt(0))
 				}
@@ -971,9 +1054,9 @@ func init() {
 						})
 					})))
 				if λ.IsTrue(ϒdrive_or_unc) {
-					λ.Cal(λ.GetAttr(ϒsanitized_path, "insert", nil), λ.NewInt(0), λ.Add(ϒdrive_or_unc, λ.GetAttr(λ.GetAttr(λ.None, "path", nil), "sep", nil)))
+					λ.Cal(λ.GetAttr(ϒsanitized_path, "insert", nil), λ.NewInt(0), λ.Add(ϒdrive_or_unc, λ.None))
 				}
-				return λ.Cal(λ.GetAttr(λ.GetAttr(λ.None, "path", nil), "join", nil), λ.Unpack(λ.AsStarred(ϒsanitized_path))...)
+				return λ.Cal(λ.None, λ.Unpack(λ.AsStarred(ϒsanitized_path))...)
 			})
 		ϒsanitize_url = λ.NewFunction("sanitize_url",
 			[]λ.Param{
@@ -1045,33 +1128,6 @@ func init() {
 					ϒs = λargs[0]
 				)
 				return ϒs
-			})
-		ϒorderedSet = λ.NewFunction("orderedSet",
-			[]λ.Param{
-				{Name: "iterable"},
-			},
-			0, false, false,
-			func(λargs []λ.Object) λ.Object {
-				var (
-					ϒel       λ.Object
-					ϒiterable = λargs[0]
-					ϒres      λ.Object
-					τmp0      λ.Object
-					τmp1      λ.Object
-				)
-				λ.NewStr(" Remove all duplicates from the input iterable ")
-				ϒres = λ.NewList()
-				τmp0 = λ.Cal(λ.BuiltinIter, ϒiterable)
-				for {
-					if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-						break
-					}
-					ϒel = τmp1
-					if λ.IsTrue(λ.NewBool(!λ.Contains(ϒres, ϒel))) {
-						λ.Cal(λ.GetAttr(ϒres, "append", nil), ϒel)
-					}
-				}
-				return ϒres
 			})
 		ϒ_htmlentity_transform = λ.NewFunction("_htmlentity_transform",
 			[]λ.Param{
@@ -1665,6 +1721,39 @@ func init() {
 				}
 				return λ.None
 			})
+		ϒmonth_by_name = λ.NewFunction("month_by_name",
+			[]λ.Param{
+				{Name: "name"},
+				{Name: "lang", Def: λ.NewStr("en")},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒlang        = λargs[1]
+					ϒmonth_names λ.Object
+					ϒname        = λargs[0]
+					τmp0         λ.Object
+					τmp1         λ.Object
+				)
+				λ.NewStr(" Return the number of a month by (locale-independently) English name ")
+				ϒmonth_names = λ.Cal(λ.GetAttr(MONTH_NAMES, "get", nil), ϒlang, λ.GetItem(MONTH_NAMES, λ.NewStr("en")))
+				τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
+					defer λ.CatchMulti(
+						nil,
+						&λ.Catcher{λ.ValueErrorType, func(λex λ.BaseException) {
+							λexit, λret = λ.BlockExitReturn, λ.None
+							return
+						}},
+					)
+					λexit, λret = λ.BlockExitReturn, λ.Add(λ.Cal(λ.GetAttr(ϒmonth_names, "index", nil), ϒname), λ.NewInt(1))
+					return
+					return λ.BlockExitNormally, nil
+				}()
+				if τmp0 == λ.BlockExitReturn {
+					return τmp1
+				}
+				return λ.None
+			})
 		ϒfix_xml_ampersands = λ.NewFunction("fix_xml_ampersands",
 			[]λ.Param{
 				{Name: "xml_str"},
@@ -1726,6 +1815,48 @@ func init() {
 						return ϒs
 					}
 				}()
+			})
+		ϒremove_quotes = λ.NewFunction("remove_quotes",
+			[]λ.Param{
+				{Name: "s"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒquote λ.Object
+					ϒs     = λargs[0]
+					τmp0   λ.Object
+					τmp1   λ.Object
+				)
+				if λ.IsTrue(func() λ.Object {
+					if λv := λ.NewBool(ϒs == λ.None); λ.IsTrue(λv) {
+						return λv
+					} else {
+						return λ.Lt(λ.Cal(λ.BuiltinLen, ϒs), λ.NewInt(2))
+					}
+				}()) {
+					return ϒs
+				}
+				τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+					λ.NewStr("\""),
+					λ.NewStr("'"),
+				))
+				for {
+					if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+						break
+					}
+					ϒquote = τmp1
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.Eq(λ.GetItem(ϒs, λ.NewInt(0)), ϒquote); !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Eq(λ.GetItem(ϒs, λ.Neg(λ.NewInt(1))), ϒquote)
+						}
+					}()) {
+						return λ.GetItem(ϒs, λ.NewSlice(λ.NewInt(1), λ.Neg(λ.NewInt(1)), λ.None))
+					}
+				}
+				return ϒs
 			})
 		ϒurl_basename = λ.NewFunction("url_basename",
 			[]λ.Param{
@@ -1844,7 +1975,10 @@ func init() {
 				τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
 					defer λ.CatchMulti(
 						nil,
-						&λ.Catcher{λ.ValueErrorType, func(λex λ.BaseException) {
+						&λ.Catcher{λ.NewTuple(
+							λ.ValueErrorType,
+							λ.TypeErrorType,
+						), func(λex λ.BaseException) {
 							λexit, λret = λ.BlockExitReturn, ϒdefault
 							return
 						}},
@@ -1916,7 +2050,10 @@ func init() {
 				τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
 					defer λ.CatchMulti(
 						nil,
-						&λ.Catcher{λ.ValueErrorType, func(λex λ.BaseException) {
+						&λ.Catcher{λ.NewTuple(
+							λ.ValueErrorType,
+							λ.TypeErrorType,
+						), func(λex λ.BaseException) {
 							λexit, λret = λ.BlockExitReturn, ϒdefault
 							return
 						}},
@@ -2056,10 +2193,6 @@ func init() {
 
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 		}())
-		OnDemandPagedList = λ.Cal(λ.TypeType, λ.NewStr("OnDemandPagedList"), λ.NewTuple(PagedList), func() λ.Dict {
-
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
-		}())
 		ϒuppercase_escape = λ.NewFunction("uppercase_escape",
 			[]λ.Param{
 				{Name: "s"},
@@ -2070,7 +2203,7 @@ func init() {
 					ϒs              = λargs[0]
 					ϒunicode_escape λ.Object
 				)
-				ϒunicode_escape = λ.Cal(λ.GetAttr(λ.None, "getdecoder", nil), λ.NewStr("unicode_escape"))
+				ϒunicode_escape = λ.Cal(Ωcodecs.ϒgetdecoder, λ.NewStr("unicode_escape"))
 				return λ.Cal(Ωre.ϒsub, λ.NewStr("\\\\U[0-9a-fA-F]{8}"), λ.NewFunction("<lambda>",
 					[]λ.Param{
 						{Name: "m"},
@@ -2356,6 +2489,14 @@ func init() {
 			λ.NewStr("R"):     λ.NewInt(16),
 			λ.NewStr("NC"):    λ.NewInt(18),
 		})
+		TV_PARENTAL_GUIDELINES = λ.NewDictWithTable(map[λ.Object]λ.Object{
+			λ.NewStr("TV-Y"):  λ.NewInt(0),
+			λ.NewStr("TV-Y7"): λ.NewInt(7),
+			λ.NewStr("TV-G"):  λ.NewInt(0),
+			λ.NewStr("TV-PG"): λ.NewInt(0),
+			λ.NewStr("TV-14"): λ.NewInt(14),
+			λ.NewStr("TV-MA"): λ.NewInt(17),
+		})
 		ϒparse_age_limit = λ.NewFunction("parse_age_limit",
 			[]λ.Param{
 				{Name: "s"},
@@ -2407,7 +2548,7 @@ func init() {
 								τmp0 λ.Object
 								τmp1 λ.Object
 							)
-							τmp0 = λ.Cal(λ.BuiltinIter, λ.None)
+							τmp0 = λ.Cal(λ.BuiltinIter, TV_PARENTAL_GUIDELINES)
 							for {
 								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 									break
@@ -2419,7 +2560,7 @@ func init() {
 						})
 					})))), ϒs)
 				if λ.IsTrue(ϒm) {
-					return λ.GetItem(λ.None, λ.Add(λ.NewStr("TV-"), λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewInt(1))))
+					return λ.GetItem(TV_PARENTAL_GUIDELINES, λ.Add(λ.NewStr("TV-"), λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewInt(1))))
 				}
 				return λ.None
 			})
@@ -3351,6 +3492,41 @@ func init() {
 				λ.NewStr("random_ipv4"):     GeoUtils_random_ipv4,
 			})
 		}())
+		ϒencode_base_n = λ.NewFunction("encode_base_n",
+			[]λ.Param{
+				{Name: "num"},
+				{Name: "n"},
+				{Name: "table", Def: λ.None},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					FULL_TABLE λ.Object
+					ϒn         = λargs[1]
+					ϒnum       = λargs[0]
+					ϒret       λ.Object
+					ϒtable     = λargs[2]
+				)
+				FULL_TABLE = λ.NewStr("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+				if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒtable))) {
+					ϒtable = λ.GetItem(FULL_TABLE, λ.NewSlice(λ.None, ϒn, λ.None))
+				}
+				if λ.IsTrue(λ.Gt(ϒn, λ.Cal(λ.BuiltinLen, ϒtable))) {
+					panic(λ.Raise(λ.Cal(λ.ValueErrorType, λ.Mod(λ.NewStr("base %d exceeds table length %d"), λ.NewTuple(
+						ϒn,
+						λ.Cal(λ.BuiltinLen, ϒtable),
+					)))))
+				}
+				if λ.IsTrue(λ.Eq(ϒnum, λ.NewInt(0))) {
+					return λ.GetItem(ϒtable, λ.NewInt(0))
+				}
+				ϒret = λ.NewStr("")
+				for λ.IsTrue(ϒnum) {
+					ϒret = λ.Add(λ.GetItem(ϒtable, λ.Mod(ϒnum, ϒn)), ϒret)
+					ϒnum = λ.FloorDiv(ϒnum, ϒn)
+				}
+				return ϒret
+			})
 		ϒparse_m3u8_attributes = λ.NewFunction("parse_m3u8_attributes",
 			[]λ.Param{
 				{Name: "attrib"},

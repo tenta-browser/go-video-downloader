@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@
 package common
 
 import (
+	Ωbase64 "github.com/tenta-browser/go-video-downloader/gen/base64"
 	Ωcookiejar "github.com/tenta-browser/go-video-downloader/gen/http/cookiejar"
 	Ωcookies "github.com/tenta-browser/go-video-downloader/gen/http/cookies"
 	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
@@ -72,7 +73,6 @@ var (
 	ϒint_or_none                   λ.Object
 	ϒjs_to_json                    λ.Object
 	ϒmimetype2ext                  λ.Object
-	ϒorderedSet                    λ.Object
 	ϒparse_bitrate                 λ.Object
 	ϒparse_codecs                  λ.Object
 	ϒparse_duration                λ.Object
@@ -93,6 +93,7 @@ var (
 	ϒurljoin                       λ.Object
 	ϒxpath_element                 λ.Object
 	ϒxpath_text                    λ.Object
+	ϒxpath_with_ns                 λ.Object
 )
 
 func init() {
@@ -125,7 +126,6 @@ func init() {
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		JSON_LD_RE = Ωutils.JSON_LD_RE
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_bitrate = Ωutils.ϒparse_bitrate
 		ϒparse_codecs = Ωutils.ϒparse_codecs
 		ϒparse_duration = Ωutils.ϒparse_duration
@@ -146,6 +146,7 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		ϒxpath_element = Ωutils.ϒxpath_element
 		ϒxpath_text = Ωutils.ϒxpath_text
+		ϒxpath_with_ns = Ωutils.ϒxpath_with_ns
 		InfoExtractor = λ.Cal(λ.TypeType, λ.NewStr("InfoExtractor"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
 			var (
 				InfoExtractor_IE_NAME                      λ.Object
@@ -186,6 +187,8 @@ func init() {
 				InfoExtractor__live_title                  λ.Object
 				InfoExtractor__match_id                    λ.Object
 				InfoExtractor__media_rating_search         λ.Object
+				InfoExtractor__merge_subtitle_items        λ.Object
+				InfoExtractor__merge_subtitles             λ.Object
 				InfoExtractor__meta_regex                  λ.Object
 				InfoExtractor__og_regexes                  λ.Object
 				InfoExtractor__og_search_description       λ.Object
@@ -203,6 +206,7 @@ func init() {
 				InfoExtractor__parse_mpd_formats           λ.Object
 				InfoExtractor__parse_smil_formats          λ.Object
 				InfoExtractor__parse_smil_namespace        λ.Object
+				InfoExtractor__parse_smil_subtitles        λ.Object
 				InfoExtractor__parse_xml                   λ.Object
 				InfoExtractor__proto_relative_url          λ.Object
 				InfoExtractor__ready                       λ.Object
@@ -218,10 +222,13 @@ func init() {
 				InfoExtractor__x_forwarded_for_ip          λ.Object
 				InfoExtractor__xpath_ns                    λ.Object
 				InfoExtractor_extract                      λ.Object
+				InfoExtractor_extract_automatic_captions   λ.Object
+				InfoExtractor_extract_subtitles            λ.Object
 				InfoExtractor_geo_verification_headers     λ.Object
 				InfoExtractor_http_scheme                  λ.Object
 				InfoExtractor_ie_key                       λ.Object
 				InfoExtractor_initialize                   λ.Object
+				InfoExtractor_mark_watched                 λ.Object
 				InfoExtractor_playlist_result              λ.Object
 				InfoExtractor_report_download_webpage      λ.Object
 				InfoExtractor_report_extraction            λ.Object
@@ -931,7 +938,7 @@ func init() {
 					}
 					if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("dump_intermediate_pages"), λ.False)) {
 						λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Add(λ.NewStr("Dumping request to "), λ.Cal(λ.GetAttr(ϒurlh, "geturl", nil))))
-						ϒdump = λ.Cal(λ.GetAttr(λ.Cal(λ.None, ϒwebpage_bytes), "decode", nil), λ.NewStr("ascii"))
+						ϒdump = λ.Cal(λ.GetAttr(λ.Cal(Ωbase64.ϒb64encode, ϒwebpage_bytes), "decode", nil), λ.NewStr("ascii"))
 						λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "to_screen", nil), ϒdump)
 					}
 					if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("write_pages"), λ.False)) {
@@ -949,7 +956,7 @@ func init() {
 						})
 						λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Add(λ.NewStr("Saving request to "), ϒfilename))
 						if λ.IsTrue(λ.Eq(λ.None, λ.NewStr("nt"))) {
-							ϒabsfilepath = λ.Cal(λ.GetAttr(λ.GetAttr(λ.None, "path", nil), "abspath", nil), ϒfilename)
+							ϒabsfilepath = λ.Cal(λ.None, ϒfilename)
 							if λ.IsTrue(λ.Gt(λ.Cal(λ.BuiltinLen, ϒabsfilepath), λ.NewInt(259))) {
 								ϒfilename = λ.Add(λ.NewStr("\\\\?\\"), ϒabsfilepath)
 							}
@@ -4076,6 +4083,80 @@ func init() {
 					}
 					return ϒformats
 				})
+			InfoExtractor__parse_smil_subtitles = λ.NewFunction("_parse_smil_subtitles",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "smil"},
+					{Name: "namespace", Def: λ.None},
+					{Name: "subtitles_lang", Def: λ.NewStr("en")},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒext            λ.Object
+						ϒlang           λ.Object
+						ϒnamespace      = λargs[2]
+						ϒnum            λ.Object
+						ϒself           = λargs[0]
+						ϒsmil           = λargs[1]
+						ϒsrc            λ.Object
+						ϒsubtitles      λ.Object
+						ϒsubtitles_lang = λargs[3]
+						ϒtextstream     λ.Object
+						ϒurls           λ.Object
+						τmp0            λ.Object
+						τmp1            λ.Object
+						τmp2            λ.Object
+					)
+					_ = ϒnum
+					ϒurls = λ.NewList()
+					ϒsubtitles = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.EnumerateIteratorType, λ.Cal(λ.GetAttr(ϒsmil, "findall", nil), λ.Cal(λ.GetAttr(ϒself, "_xpath_ns", nil), λ.NewStr(".//textstream"), ϒnamespace))))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						τmp2 = τmp1
+						ϒnum = λ.GetItem(τmp2, λ.NewInt(0))
+						ϒtextstream = λ.GetItem(τmp2, λ.NewInt(1))
+						ϒsrc = λ.Cal(λ.GetAttr(ϒtextstream, "get", nil), λ.NewStr("src"))
+						if λ.IsTrue(func() λ.Object {
+							if λv := λ.NewBool(!λ.IsTrue(ϒsrc)); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.NewBool(λ.Contains(ϒurls, ϒsrc))
+							}
+						}()) {
+							continue
+						}
+						λ.Cal(λ.GetAttr(ϒurls, "append", nil), ϒsrc)
+						ϒext = func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(ϒtextstream, "get", nil), λ.NewStr("ext")); λ.IsTrue(λv) {
+								return λv
+							} else if λv := λ.Cal(ϒmimetype2ext, λ.Cal(λ.GetAttr(ϒtextstream, "get", nil), λ.NewStr("type"))); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Cal(ϒdetermine_ext, ϒsrc)
+							}
+						}()
+						ϒlang = func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(ϒtextstream, "get", nil), λ.NewStr("systemLanguage")); λ.IsTrue(λv) {
+								return λv
+							} else if λv := λ.Cal(λ.GetAttr(ϒtextstream, "get", nil), λ.NewStr("systemLanguageName")); λ.IsTrue(λv) {
+								return λv
+							} else if λv := λ.Cal(λ.GetAttr(ϒtextstream, "get", nil), λ.NewStr("lang")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return ϒsubtitles_lang
+							}
+						}()
+						λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒsubtitles, "setdefault", nil), ϒlang, λ.NewList()), "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("url"): ϒsrc,
+							λ.NewStr("ext"): ϒext,
+						}))
+					}
+					return ϒsubtitles
+				})
 			InfoExtractor__extract_mpd_formats = λ.NewFunction("_extract_mpd_formats",
 				[]λ.Param{
 					{Name: "self"},
@@ -5984,6 +6065,176 @@ func init() {
 					λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "cookiejar", nil), "add_cookie_header", nil), ϒreq)
 					return λ.Cal(Ωcookies.SimpleCookie, λ.Cal(λ.GetAttr(ϒreq, "get_header", nil), λ.NewStr("Cookie")))
 				})
+			InfoExtractor_extract_subtitles = λ.NewFunction("extract_subtitles",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, true, true,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒargs   = λargs[1]
+						ϒkwargs = λargs[2]
+						ϒself   = λargs[0]
+					)
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("writesubtitles"), λ.False); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("listsubtitles"))
+						}
+					}()) {
+						return λ.Call(λ.GetAttr(ϒself, "_get_subtitles", nil), λ.NewArgs(λ.Unpack(λ.AsStarred(ϒargs))...), λ.KWArgs{
+							{Name: "", Value: ϒkwargs},
+						})
+					}
+					return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+				})
+			InfoExtractor__merge_subtitle_items = λ.NewFunction("_merge_subtitle_items",
+				[]λ.Param{
+					{Name: "subtitle_list1"},
+					{Name: "subtitle_list2"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒlist1_urls     λ.Object
+						ϒret            λ.Object
+						ϒsubtitle_list1 = λargs[0]
+						ϒsubtitle_list2 = λargs[1]
+					)
+					λ.NewStr(" Merge subtitle items for one language. Items with duplicated URLs\n        will be dropped. ")
+					ϒlist1_urls = λ.Cal(λ.SetType, λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+						nil,
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								var (
+									ϒitem λ.Object
+									τmp0  λ.Object
+									τmp1  λ.Object
+								)
+								τmp0 = λ.Cal(λ.BuiltinIter, ϒsubtitle_list1)
+								for {
+									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+										break
+									}
+									ϒitem = τmp1
+									λgen.Yield(λ.GetItem(ϒitem, λ.NewStr("url")))
+								}
+								return λ.None
+							})
+						}))))
+					ϒret = λ.Cal(λ.ListType, ϒsubtitle_list1)
+					λ.Cal(λ.GetAttr(ϒret, "extend", nil), λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+						nil,
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								var (
+									ϒitem λ.Object
+									τmp0  λ.Object
+									τmp1  λ.Object
+								)
+								τmp0 = λ.Cal(λ.BuiltinIter, ϒsubtitle_list2)
+								for {
+									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+										break
+									}
+									ϒitem = τmp1
+									if λ.IsTrue(λ.NewBool(!λ.Contains(ϒlist1_urls, λ.GetItem(ϒitem, λ.NewStr("url"))))) {
+										λgen.Yield(ϒitem)
+									}
+								}
+								return λ.None
+							})
+						}))))
+					return ϒret
+				})
+			InfoExtractor__merge_subtitle_items = λ.Cal(λ.StaticMethodType, InfoExtractor__merge_subtitle_items)
+			InfoExtractor__merge_subtitles = λ.NewFunction("_merge_subtitles",
+				[]λ.Param{
+					{Name: "cls"},
+					{Name: "subtitle_dict1"},
+					{Name: "subtitle_dict2"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcls            = λargs[0]
+						ϒlang           λ.Object
+						ϒret            λ.Object
+						ϒsubtitle_dict1 = λargs[1]
+						ϒsubtitle_dict2 = λargs[2]
+						τmp0            λ.Object
+						τmp1            λ.Object
+					)
+					λ.NewStr(" Merge two subtitle dictionaries, language by language. ")
+					ϒret = λ.Cal(λ.DictType, ϒsubtitle_dict1)
+					τmp0 = λ.Cal(λ.BuiltinIter, ϒsubtitle_dict2)
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒlang = τmp1
+						λ.SetItem(ϒret, ϒlang, λ.Cal(λ.GetAttr(ϒcls, "_merge_subtitle_items", nil), λ.Cal(λ.GetAttr(ϒsubtitle_dict1, "get", nil), ϒlang, λ.NewList()), λ.GetItem(ϒsubtitle_dict2, ϒlang)))
+					}
+					return ϒret
+				})
+			InfoExtractor__merge_subtitles = λ.Cal(λ.ClassMethodType, InfoExtractor__merge_subtitles)
+			InfoExtractor_extract_automatic_captions = λ.NewFunction("extract_automatic_captions",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, true, true,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒargs   = λargs[1]
+						ϒkwargs = λargs[2]
+						ϒself   = λargs[0]
+					)
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("writeautomaticsub"), λ.False); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("listsubtitles"))
+						}
+					}()) {
+						return λ.Call(λ.GetAttr(ϒself, "_get_automatic_captions", nil), λ.NewArgs(λ.Unpack(λ.AsStarred(ϒargs))...), λ.KWArgs{
+							{Name: "", Value: ϒkwargs},
+						})
+					}
+					return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+				})
+			InfoExtractor_mark_watched = λ.NewFunction("mark_watched",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, true, true,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒargs   = λargs[1]
+						ϒkwargs = λargs[2]
+						ϒself   = λargs[0]
+					)
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("mark_watched"), λ.False); !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return func() λ.Object {
+								if λv := λ.NewBool(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_get_login_info", nil)), λ.NewInt(0)) != λ.None); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.NewBool(λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("cookiefile")) != λ.None)
+								}
+							}()
+						}
+					}()) {
+						λ.Call(λ.GetAttr(ϒself, "_mark_watched", nil), λ.NewArgs(λ.Unpack(λ.AsStarred(ϒargs))...), λ.KWArgs{
+							{Name: "", Value: ϒkwargs},
+						})
+					}
+					return λ.None
+				})
 			InfoExtractor_geo_verification_headers = λ.NewFunction("geo_verification_headers",
 				[]λ.Param{
 					{Name: "self"},
@@ -6041,6 +6292,8 @@ func init() {
 				λ.NewStr("_live_title"):                  InfoExtractor__live_title,
 				λ.NewStr("_match_id"):                    InfoExtractor__match_id,
 				λ.NewStr("_media_rating_search"):         InfoExtractor__media_rating_search,
+				λ.NewStr("_merge_subtitle_items"):        InfoExtractor__merge_subtitle_items,
+				λ.NewStr("_merge_subtitles"):             InfoExtractor__merge_subtitles,
 				λ.NewStr("_meta_regex"):                  InfoExtractor__meta_regex,
 				λ.NewStr("_og_regexes"):                  InfoExtractor__og_regexes,
 				λ.NewStr("_og_search_description"):       InfoExtractor__og_search_description,
@@ -6058,6 +6311,7 @@ func init() {
 				λ.NewStr("_parse_mpd_formats"):           InfoExtractor__parse_mpd_formats,
 				λ.NewStr("_parse_smil_formats"):          InfoExtractor__parse_smil_formats,
 				λ.NewStr("_parse_smil_namespace"):        InfoExtractor__parse_smil_namespace,
+				λ.NewStr("_parse_smil_subtitles"):        InfoExtractor__parse_smil_subtitles,
 				λ.NewStr("_parse_xml"):                   InfoExtractor__parse_xml,
 				λ.NewStr("_proto_relative_url"):          InfoExtractor__proto_relative_url,
 				λ.NewStr("_ready"):                       InfoExtractor__ready,
@@ -6073,10 +6327,13 @@ func init() {
 				λ.NewStr("_x_forwarded_for_ip"):          InfoExtractor__x_forwarded_for_ip,
 				λ.NewStr("_xpath_ns"):                    InfoExtractor__xpath_ns,
 				λ.NewStr("extract"):                      InfoExtractor_extract,
+				λ.NewStr("extract_automatic_captions"):   InfoExtractor_extract_automatic_captions,
+				λ.NewStr("extract_subtitles"):            InfoExtractor_extract_subtitles,
 				λ.NewStr("geo_verification_headers"):     InfoExtractor_geo_verification_headers,
 				λ.NewStr("http_scheme"):                  InfoExtractor_http_scheme,
 				λ.NewStr("ie_key"):                       InfoExtractor_ie_key,
 				λ.NewStr("initialize"):                   InfoExtractor_initialize,
+				λ.NewStr("mark_watched"):                 InfoExtractor_mark_watched,
 				λ.NewStr("playlist_result"):              InfoExtractor_playlist_result,
 				λ.NewStr("report_download_webpage"):      InfoExtractor_report_download_webpage,
 				λ.NewStr("report_extraction"):            InfoExtractor_report_extraction,

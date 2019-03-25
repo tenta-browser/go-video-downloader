@@ -3,7 +3,7 @@
 /**
  * Go Video Downloader
  *
- *    Copyright 2018 Tenta, LLC
+ *    Copyright 2019 Tenta, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -110,8 +110,44 @@ func init() {
 				λ.NewStr("__init__"): ϒ_AVMClass___init__,
 			})
 		}())
-		// unknown_binary_op:BitOr
-		ϒ_read_int = λ.None
+		ϒ_read_int = λ.NewFunction("_read_int",
+			[]λ.Param{
+				{Name: "reader"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒb      λ.Object
+					ϒbuf    λ.Object
+					ϒreader = λargs[0]
+					ϒres    λ.Object
+					ϒshift  λ.Object
+					τmp0    λ.Object
+					τmp1    λ.Object
+					τmp2    λ.Object
+				)
+				ϒres = λ.NewInt(0)
+				ϒshift = λ.NewInt(0)
+				τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.RangeType, λ.NewInt(5)))
+				for {
+					if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+						break
+					}
+					_ = τmp1
+					ϒbuf = λ.Cal(λ.GetAttr(ϒreader, "read", nil), λ.NewInt(1))
+					if !λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒbuf), λ.NewInt(1))) {
+						panic(λ.Raise(λ.Cal(λ.AssertionErrorType)))
+					}
+					ϒb = λ.GetItem(λ.Cal(λ.None, λ.NewStr("<B"), ϒbuf), λ.NewInt(0))
+					ϒres = λ.Or(ϒres, λ.LShift(λ.And(ϒb, λ.NewInt(127)), ϒshift))
+					if λ.IsTrue(λ.Eq(λ.And(ϒb, λ.NewInt(128)), λ.NewInt(0))) {
+						break
+					}
+					τmp2 = λ.IAdd(ϒshift, λ.NewInt(7))
+					ϒshift = τmp2
+				}
+				return ϒres
+			})
 		StringClass = λ.Cal(ϒ_AVMClass, λ.NewStr("(no name idx)"), λ.NewStr("String"))
 		ByteArrayClass = λ.Cal(ϒ_AVMClass, λ.NewStr("(no name idx)"), λ.NewStr("ByteArray"))
 		TimerClass = λ.Cal(ϒ_AVMClass, λ.NewStr("(no name idx)"), λ.NewStr("Timer"))

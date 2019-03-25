@@ -102,6 +102,11 @@ type typeSlots struct {
 	TrueDiv   binaryOpFn
 	FloorDiv  binaryOpFn
 	Pow       binaryOpFn
+	Or        binaryOpFn
+	Xor       binaryOpFn
+	And       binaryOpFn
+	LShift    binaryOpFn
+	RShift    binaryOpFn
 	RAdd      binaryOpFn
 	RSub      binaryOpFn
 	RMul      binaryOpFn
@@ -109,6 +114,11 @@ type typeSlots struct {
 	RTrueDiv  binaryOpFn
 	RFloorDiv binaryOpFn
 	RPow      binaryOpFn
+	ROr       binaryOpFn
+	RXor      binaryOpFn
+	RAnd      binaryOpFn
+	RLShift   binaryOpFn
+	RRShift   binaryOpFn
 	IAdd      binaryOpFn
 	ISub      binaryOpFn
 	IMul      binaryOpFn
@@ -116,6 +126,11 @@ type typeSlots struct {
 	ITrueDiv  binaryOpFn
 	IFloorDiv binaryOpFn
 	IPow      binaryOpFn
+	IOr       binaryOpFn
+	IXor      binaryOpFn
+	IAnd      binaryOpFn
+	ILShift   binaryOpFn
+	IRShift   binaryOpFn
 
 	// misc
 	Contains binaryOpFn
