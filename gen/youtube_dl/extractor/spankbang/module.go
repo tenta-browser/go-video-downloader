@@ -36,6 +36,7 @@ var (
 	InfoExtractor       λ.Object
 	SpankBangIE         λ.Object
 	SpankBangPlaylistIE λ.Object
+	ϒorderedSet         λ.Object
 	ϒparse_duration     λ.Object
 	ϒparse_resolution   λ.Object
 	ϒstr_to_int         λ.Object
@@ -47,6 +48,7 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ExtractorError = Ωutils.ExtractorError
+		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒparse_resolution = Ωutils.ϒparse_resolution
 		ϒstr_to_int = Ωutils.ϒstr_to_int

@@ -85,7 +85,6 @@ var (
 	ϒdetermine_ext                    λ.Object
 	ϒdetermine_protocol               λ.Object
 	ϒdict_get                         λ.Object
-	ϒencode_base_n                    λ.Object
 	ϒerror_to_compat_str              λ.Object
 	ϒexpand_path                      λ.Object
 	ϒextract_attributes               λ.Object
@@ -101,9 +100,11 @@ var (
 	ϒjs_to_json                       λ.Object
 	ϒlimit_length                     λ.Object
 	ϒlookup_unit_table                λ.Object
+	ϒlowercase_escape                 λ.Object
 	ϒmerge_dicts                      λ.Object
 	ϒmimetype2ext                     λ.Object
 	ϒmonth_by_name                    λ.Object
+	ϒorderedSet                       λ.Object
 	ϒparse_age_limit                  λ.Object
 	ϒparse_bitrate                    λ.Object
 	ϒparse_codecs                     λ.Object
@@ -1128,6 +1129,33 @@ func init() {
 					ϒs = λargs[0]
 				)
 				return ϒs
+			})
+		ϒorderedSet = λ.NewFunction("orderedSet",
+			[]λ.Param{
+				{Name: "iterable"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒel       λ.Object
+					ϒiterable = λargs[0]
+					ϒres      λ.Object
+					τmp0      λ.Object
+					τmp1      λ.Object
+				)
+				λ.NewStr(" Remove all duplicates from the input iterable ")
+				ϒres = λ.NewList()
+				τmp0 = λ.Cal(λ.BuiltinIter, ϒiterable)
+				for {
+					if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+						break
+					}
+					ϒel = τmp1
+					if λ.IsTrue(λ.NewBool(!λ.Contains(ϒres, ϒel))) {
+						λ.Cal(λ.GetAttr(ϒres, "append", nil), ϒel)
+					}
+				}
+				return ϒres
 			})
 		ϒ_htmlentity_transform = λ.NewFunction("_htmlentity_transform",
 			[]λ.Param{
@@ -2205,6 +2233,29 @@ func init() {
 				)
 				ϒunicode_escape = λ.Cal(Ωcodecs.ϒgetdecoder, λ.NewStr("unicode_escape"))
 				return λ.Cal(Ωre.ϒsub, λ.NewStr("\\\\U[0-9a-fA-F]{8}"), λ.NewFunction("<lambda>",
+					[]λ.Param{
+						{Name: "m"},
+					},
+					0, false, false,
+					func(λargs []λ.Object) λ.Object {
+						var (
+							ϒm = λargs[0]
+						)
+						return λ.GetItem(λ.Cal(ϒunicode_escape, λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewInt(0))), λ.NewInt(0))
+					}), ϒs)
+			})
+		ϒlowercase_escape = λ.NewFunction("lowercase_escape",
+			[]λ.Param{
+				{Name: "s"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒs              = λargs[0]
+					ϒunicode_escape λ.Object
+				)
+				ϒunicode_escape = λ.Cal(Ωcodecs.ϒgetdecoder, λ.NewStr("unicode_escape"))
+				return λ.Cal(Ωre.ϒsub, λ.NewStr("\\\\u[0-9a-fA-F]{4}"), λ.NewFunction("<lambda>",
 					[]λ.Param{
 						{Name: "m"},
 					},
@@ -3492,41 +3543,6 @@ func init() {
 				λ.NewStr("random_ipv4"):     GeoUtils_random_ipv4,
 			})
 		}())
-		ϒencode_base_n = λ.NewFunction("encode_base_n",
-			[]λ.Param{
-				{Name: "num"},
-				{Name: "n"},
-				{Name: "table", Def: λ.None},
-			},
-			0, false, false,
-			func(λargs []λ.Object) λ.Object {
-				var (
-					FULL_TABLE λ.Object
-					ϒn         = λargs[1]
-					ϒnum       = λargs[0]
-					ϒret       λ.Object
-					ϒtable     = λargs[2]
-				)
-				FULL_TABLE = λ.NewStr("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
-				if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒtable))) {
-					ϒtable = λ.GetItem(FULL_TABLE, λ.NewSlice(λ.None, ϒn, λ.None))
-				}
-				if λ.IsTrue(λ.Gt(ϒn, λ.Cal(λ.BuiltinLen, ϒtable))) {
-					panic(λ.Raise(λ.Cal(λ.ValueErrorType, λ.Mod(λ.NewStr("base %d exceeds table length %d"), λ.NewTuple(
-						ϒn,
-						λ.Cal(λ.BuiltinLen, ϒtable),
-					)))))
-				}
-				if λ.IsTrue(λ.Eq(ϒnum, λ.NewInt(0))) {
-					return λ.GetItem(ϒtable, λ.NewInt(0))
-				}
-				ϒret = λ.NewStr("")
-				for λ.IsTrue(ϒnum) {
-					ϒret = λ.Add(λ.GetItem(ϒtable, λ.Mod(ϒnum, ϒn)), ϒret)
-					ϒnum = λ.FloorDiv(ϒnum, ϒn)
-				}
-				return ϒret
-			})
 		ϒparse_m3u8_attributes = λ.NewFunction("parse_m3u8_attributes",
 			[]λ.Param{
 				{Name: "attrib"},

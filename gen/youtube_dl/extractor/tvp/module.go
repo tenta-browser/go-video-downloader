@@ -39,6 +39,7 @@ var (
 	ϒclean_html               λ.Object
 	ϒdetermine_ext            λ.Object
 	ϒget_element_by_attribute λ.Object
+	ϒorderedSet               λ.Object
 )
 
 func init() {
@@ -48,6 +49,7 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
 		ϒget_element_by_attribute = Ωutils.ϒget_element_by_attribute
+		ϒorderedSet = Ωutils.ϒorderedSet
 		TVPIE = λ.Cal(λ.TypeType, λ.NewStr("TVPIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TVPIE_IE_NAME       λ.Object

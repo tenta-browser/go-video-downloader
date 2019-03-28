@@ -204,7 +204,6 @@
     "AfreecaTVIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Failed to download m3u8 information: HTTP Error 500: Internal Server Error (caused by <HTTPError 500: 'Internal Server Error'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "DownloadError: ERROR: requested format not available",
             "Exception: Playlists and multi video results are not supported!"
         ],
@@ -430,10 +429,10 @@
     },
     "AudiMediaIE": {
         "adult": false,
-        "error_msgs": [],
-        "success_urls": [
-            "https://www.audi-mediacenter.com/en/audimediatv/60-seconds-of-audi-sport-104-2015-wec-bahrain-rookie-test-1467"
-        ]
+        "error_msgs": [
+            "DownloadError: ERROR: Unable to extract raw payload; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+        ],
+        "success_urls": []
     },
     "AudioBoomIE": {
         "adult": false,
@@ -511,11 +510,10 @@
     },
     "BIQLEIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: YOUTUBE_PLACEHOLDER"
-        ],
+        "error_msgs": [],
         "success_urls": [
-            "http://biqle.org/watch/-44781847_168547604"
+            "http://biqle.org/watch/-44781847_168547604",
+            "https://biqle.ru/watch/-115995369_456239081"
         ]
     },
     "BRIE": {
@@ -706,10 +704,10 @@
     },
     "BitChuteIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: No video formats found; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "https://www.bitchute.com/video/szoMrox2JEI/"
+        ]
     },
     "BleacherReportCMSIE": {
         "adult": false,
@@ -721,10 +719,11 @@
     "BleacherReportIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Ooyala said: movie expired",
-            "DownloadError: ERROR: YOUTUBE_PLACEHOLDER"
+            "DownloadError: ERROR: Ooyala said: movie expired"
         ],
-        "success_urls": []
+        "success_urls": [
+            "http://bleacherreport.com/articles/2586817-aussie-golfers-get-fright-of-their-lives-after-being-chased-by-angry-kangaroo"
+        ]
     },
     "BlinkxIE": {
         "adult": false,
@@ -1041,11 +1040,10 @@
     },
     "CamdemyIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: YOUTUBE_PLACEHOLDER"
-        ],
+        "error_msgs": [],
         "success_urls": [
             "http://www.camdemy.com/media/13885",
+            "http://www.camdemy.com/media/14842",
             "http://www.camdemy.com/media/5181/"
         ]
     },
@@ -1082,7 +1080,7 @@
     "CarambaTVIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://video1.carambatv.ru/v/191910501/videoinfo.js: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -1137,7 +1135,7 @@
     "ChilloutzoneIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 500: Internal Server Error (caused by <HTTPError 500: 'Internal Server Error'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to extract video data; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -1231,7 +1229,7 @@
     "CloudyIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://www.cloudy.ec/embed.php?autoplay=1&id=af511e2527aac&playerPage=1: dial tcp 91.92.120.254:443: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://www.cloudy.ec/embed.php?autoplay=1&id=af511e2527aac&playerPage=1: dial tcp 91.92.120.253:443: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -1678,7 +1676,7 @@
     "DramaFeverSeriesIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 504: Gateway Timeout (caused by <HTTPError 504: 'Gateway Timeout'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'series\\'')); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -1849,11 +1847,11 @@
         ]
     },
     "EpornerIE": {
-        "adult": true,
-        "error_msgs": [],
-        "success_urls": [
-            "http://www.eporner.com/hd-porn/95008/Infamous-Tiffany-Teen-Strip-Tease-Video/"
-        ]
+        "adult": false,
+        "error_msgs": [
+            "ValueError: invalid literal for int() with base 16: '07273996'"
+        ],
+        "success_urls": []
     },
     "EroProfileIE": {
         "adult": false,
@@ -2511,7 +2509,7 @@
     "HellPornoIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to extract flashvars; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://hellporno.com/videos/dixie-is-posing-with-naked-ass-very-erotic/: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -2532,7 +2530,7 @@
     "HetKlokhuisIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: requested format not available"
+            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -2744,11 +2742,10 @@
     "IncIE": {
         "adult": false,
         "error_msgs": [
+            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'dataUrl\\'')); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "DownloadError: ERROR: Unable to extract kaltura id; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
-        "success_urls": [
-            "http://www.inc.com/tip-sheet/bill-gates-says-these-5-books-will-make-you-smarter.html"
-        ]
+        "success_urls": []
     },
     "IndavideoEmbedIE": {
         "adult": false,
@@ -3147,7 +3144,7 @@
     "LearnrIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to extract youtube id; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -3541,7 +3538,7 @@
     "MedialaanIE": {
         "adult": false,
         "error_msgs": [
-            "IndexError: list index out of range"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://vtm.be/video?aid=168332: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -3704,7 +3701,7 @@
     "MnetIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 500: Internal Server Error (caused by <HTTPError 500: 'Internal Server Error'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -3795,7 +3792,7 @@
     "MusicPlayOnIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to extract video sources; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -3874,13 +3871,11 @@
     "NBAIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download XML: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
-            "DownloadError: ERROR: Unable to download XML: HTTP Error 502: Bad Gateway (caused by <HTTPError 502: 'Bad Gateway'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download XML: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": [
             "http://watch.nba.com/video/channels/playoffs/2015/05/20/0041400301-cle-atl-recap.nba",
-            "http://www.nba.com/timberwolves/wiggins-shootaround#",
-            "http://www.nba.com/timberwolves/wiggins-shootaround#"
+            "http://www.nba.com/video/games/nets/2012/12/04/0021200253-okc-bkn-recap.nba/index.html"
         ]
     },
     "NBCIE": {
@@ -3980,18 +3975,21 @@
     "NFLIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://prod.www.steelers.clubs.nfl.com/video-and-audio/videos/LIVE_Post_Game_vs_Browns/9d72f26a-9e2b-4718-84d3-09fb4046c266: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.patriots.com/video/2015/09/18/10-days-gillette: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.steelers.com/news/article-1/Tomlin-on-Ben-getting-Vick-ready/56399c96-4160-48cf-a7ad-1d17d4a3aef7: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "ValueError: invalid format string"
         ],
         "success_urls": []
     },
     "NHLIE": {
         "adult": false,
-        "error_msgs": [],
+        "error_msgs": [
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get https://nhl.bamcontent.com/nhl/id/v1/278258934/details/web-v1.json: x509: certificate is valid for *.gridserver.com, gridserver.com, not nhl.bamcontent.com> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get https://nhl.bamcontent.com/nhl/id/v1/43663503/details/web-v1.json: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+        ],
         "success_urls": [
-            "https://www.nhl.com/news/dennis-wideman-suspended/c-278258934",
-            "https://www.nhl.com/predators/video/poile-laviolette-on-subban-trade/t-277437416/c-44315003",
-            "https://www.nhl.com/video/anisimov-cleans-up-mess/t-277752844/c-43663503"
+            "https://www.nhl.com/predators/video/poile-laviolette-on-subban-trade/t-277437416/c-44315003"
         ]
     },
     "NJPWWorldIE": {
@@ -4050,21 +4048,23 @@
     "NRKIE": {
         "adult": false,
         "error_msgs": [
-            "Exception: Playlists and multi video results are not supported!"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://v8-psapi.nrk.no/mediaelement/150533: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://v8-psapi.nrk.no/mediaelement/154915: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "NRKPlaylistIE": {
         "adult": false,
         "error_msgs": [
-            "Exception: Playlists and multi video results are not supported!"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.nrk.no/kultur/bok/rivertonprisen-til-karin-fossum-1.12266449: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.nrk.no/troms/gjenopplev-den-historiske-solformorkelsen-1.12270763: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "NRKSkoleIE": {
         "adult": false,
         "error_msgs": [
-            "Exception: Playlists and multi video results are not supported!"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://mimir.nrk.no/plugin/1.0/static?mediaId=14099: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -4090,8 +4090,11 @@
     "NRKTVIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: NRKTV said: Programmet har g\u00e5tt ut",
-            "Exception: Playlists and multi video results are not supported!"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://psapi-we.nrk.no/mediaelement/KMTE50001317: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://psapi-we.nrk.no/mediaelement/MSPO40010515: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://psapi-we.nrk.no/mediaelement/MUHH48000314: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://psapi-we.nrk.no/mediaelement/mdfp15000514: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -4277,18 +4280,16 @@
     "NexxEmbedIE": {
         "adult": false,
         "error_msgs": [
-            "IndexError: list index out of range"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://embed.nexx.cloud/748/KC1614647Z27Y7T?autoplay=1: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "NexxIE": {
         "adult": false,
         "error_msgs": [
-            "AttributeError: 'placeholder math' object has no attribute 'ceil'"
+            "Crash: interface conversion: *runtime.floatStruct is not runtime.Int: missing method Value"
         ],
-        "success_urls": [
-            "nexx:741:1269984"
-        ]
+        "success_urls": []
     },
     "NhkVodIE": {
         "adult": false,
@@ -4356,14 +4357,15 @@
     "NintendoIE": {
         "adult": false,
         "error_msgs": [
-            "Exception: Playlists and multi video results are not supported!"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.nintendo.com/games/detail/tokyo-mirage-sessions-fe-wii-u: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.nintendo.com/games/detail/yEiAzhU2eQI1KZ7wOHhngFoAHc1FpHwj: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "NobelPrizeIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to extract config; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.nobelprize.org/mediaplayer/?id=2636: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -4375,47 +4377,47 @@
     "NonkTubeIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: No video formats found!; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download XML: <urlopen error Get https://www.nonktube.com/media/nuevo/econfig.php?key=118636: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "NoovoIE": {
         "adult": false,
         "error_msgs": [
-            "AttributeError: 'placeholder math' object has no attribute 'ceil'"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://noovo.ca/videos/l-amour-est-dans-le-pre/episode-13-8: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://noovo.ca/videos/rpm-plus/chrysler-imperial: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "NormalbootsIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://normalboots.com/video/home-alone-games-jontron/: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "NosVideoIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to extract XML ID; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Post http://nosvideo.com/?v=mu8fle7g7rpq: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "NovaEmbedIE": {
         "adult": false,
-        "error_msgs": [],
-        "success_urls": [
-            "https://media.cms.nova.cz/embed/8o0n0r?autoplay=1"
-        ]
+        "error_msgs": [
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://media.cms.nova.cz/embed/8o0n0r?autoplay=1: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+        ],
+        "success_urls": []
     },
     "NovaIE": {
         "adult": false,
         "error_msgs": [
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://tn.nova.cz/clanek/tajemstvi-ukryte-v-podzemi-specialni-nemocnice-v-prazske-krci.html: dial tcp: lookup tn.nova.cz on 8.20.247.20:53: read udp 74.206.165.158:51327->8.20.247.20:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "DownloadError: ERROR: Unable to extract video id; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
-        "success_urls": [
-            "http://tn.nova.cz/clanek/tajemstvi-ukryte-v-podzemi-specialni-nemocnice-v-prazske-krci.html#player_13260"
-        ]
+        "success_urls": []
     },
     "NowVideoIE": {
         "adult": false,
@@ -4457,7 +4459,9 @@
     "NprIE": {
         "adult": false,
         "error_msgs": [
-            "Exception: Playlists and multi video results are not supported!"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://api.npr.org/query?apiKey=MDAzMzQ2MjAyMDEyMzk4MTU1MDg3ZmM3MQ010&fields=audio%2Cmultimedia%2Ctitle&format=json&id=446928052: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://api.npr.org/query?apiKey=MDAzMzQ2MjAyMDEyMzk4MTU1MDg3ZmM3MQ010&fields=audio%2Cmultimedia%2Ctitle&format=json&id=449974205: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://api.npr.org/query?apiKey=MDAzMzQ2MjAyMDEyMzk4MTU1MDg3ZmM3MQ010&fields=audio%2Cmultimedia%2Ctitle&format=json&id=533198237: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -4513,12 +4517,11 @@
     },
     "OdnoklassnikiIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: YOUTUBE_PLACEHOLDER"
-        ],
+        "error_msgs": [],
         "success_urls": [
             "http://ok.ru/video/20079905452",
-            "http://ok.ru/video/63567059965189-0?fromTime=5"
+            "http://ok.ru/video/63567059965189-0?fromTime=5",
+            "http://ok.ru/video/64211978996595-1"
         ]
     },
     "OktoberfestTVIE": {
@@ -4986,7 +4989,7 @@
     "PromptFileIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to extract chash; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -5007,13 +5010,14 @@
     "Puls4IE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder hashlib/sha1' object is not callable"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get https://www.puls4.com/api/json-fe/components/118118/118118: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "PyvideoIE": {
         "adult": false,
         "error_msgs": [
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
@@ -5227,7 +5231,7 @@
     "RUTVIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Failed to download m3u8 information: HTTP Error 503: Service Unavailable (caused by <HTTPError 503: 'Service Unavailable'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": [
             "http://player.rutv.ru/flash2v/container.swf?id=774471&sid=kultura&fbv=true&isPlay=true&ssl=false&i=560&acc_video_id=episode_id/972347/video_id/978186/brand_id/31724",
@@ -5513,10 +5517,9 @@
     },
     "RuutuIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: requested format not available"
-        ],
+        "error_msgs": [],
         "success_urls": [
+            "http://www.ruutu.fi/video/2057306",
             "http://www.ruutu.fi/video/2058907",
             "http://www.supla.fi/supla/2231370"
         ]
@@ -5570,14 +5573,14 @@
     "SVTIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 403: Forbidden (caused by <HTTPError 403: 'Forbidden'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "SVTPageIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 403: Forbidden (caused by <HTTPError 403: 'Forbidden'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
@@ -6154,12 +6157,12 @@
     "TEDIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: YOUTUBE_PLACEHOLDER",
             "ValueError: invalid character 'i' looking for beginning of object key string"
         ],
         "success_urls": [
             "http://www.ted.com/talks/dan_dennett_on_our_consciousness.html",
             "http://www.ted.com/talks/gabby_giffords_and_mark_kelly_be_passionate_be_courageous_be_your_best",
+            "https://www.ted.com/talks/douglas_adams_parrots_the_universe_and_everything",
             "https://www.ted.com/talks/tom_thum_the_orchestra_in_my_mouth",
             "https://www.ted.com/talks/vishal_sikka_the_beauty_and_power_of_algorithms"
         ]
@@ -6464,6 +6467,15 @@
             "DownloadError: ERROR: Unable to extract ooyala code; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
+    },
+    "TeamTreeHouseIE": {
+        "adult": false,
+        "error_msgs": [
+            "Exception: Playlists and multi video results are not supported!"
+        ],
+        "success_urls": [
+            "https://teamtreehouse.com/library/application-overview-2"
+        ]
     },
     "TeamcocoIE": {
         "adult": false,
@@ -7005,7 +7017,7 @@
             "DownloadError: ERROR: No video formats found; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": [
-            "http://player.mais.uol.com.br/player_video_v3.swf?mediaId=15951931"
+            "http://tvuol.uol.com.br/video/incendio-destroi-uma-das-maiores-casas-noturnas-de-londres-04024E9A3268D4C95326"
         ]
     },
     "URPlayIE": {
@@ -7186,7 +7198,7 @@
     "VODPlatformIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: requested format not available"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://vod-platform.net/embed/RufMcytHDolTH1MuKHY9Fw: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -7201,28 +7213,29 @@
     "VRTIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: No video formats found; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://cobra.canvas.be/cm/cobra/videozone/rubriek/film-videozone/1.2377055: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://deredactie.be/cm/vrtnieuws/videozone/nieuws/cultuurenmedia/1.2622957: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "VRVIE": {
         "adult": false,
         "error_msgs": [
-            "AttributeError: 'placeholder youtube_dl/compat/compat_urllib_parse' object has no attribute 'quote'"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://vrv.co/: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "VRVSeriesIE": {
         "adult": false,
         "error_msgs": [
-            "AttributeError: 'placeholder youtube_dl/compat/compat_urllib_parse' object has no attribute 'quote'"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://vrv.co/: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "VShareIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to extract packed code; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://vshare.io/v/0f64ce6/width-650/height-430/1: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -7236,7 +7249,7 @@
     "VVVVIDIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 403: Forbidden (caused by <HTTPError 403: 'Forbidden'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get https://www.vvvvid.it/user/login: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -7558,7 +7571,7 @@
             "AttributeError: 'NoneType' object has no attribute 'startswith'",
             "DownloadError: ERROR: Cannot download embed-only video without embedding URL. Please call youtube-dl with the URL of the page that embeds this video.",
             "DownloadError: ERROR: This video is protected by a password, use the --video-password option",
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 503: Maximum threads for service reached (caused by <HTTPError 503: 'Maximum threads for service reached'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: This video is protected by a password, use the --video-password option; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": [
             "http://player.vimeo.com/video/54469442",
@@ -7668,24 +7681,25 @@
     "VoiceRepublicIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to extract player; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://voicerepublic.com/talks/watching-the-watchers-building-a-sousveillance-state: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "VootIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: requested format not available"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get https://wapi.voot.com/ws/ott/getMediaInfo.json?mediaId=441353&pId=2&platform=Web: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "VoxMediaIE": {
         "adult": false,
         "error_msgs": [
-            "ExtractorError: invalid URL escape \"% 4\"",
-            "ExtractorError: invalid URL escape \"% 5\"",
-            "ExtractorError: invalid URL escape \"%= \"",
-            "ExtractorError: invalid URL escape \"%qu\""
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.sbnation.com/college-football-recruiting/2015/2/3/7970291/national-signing-day-rationalizations-itll-be-ok-itll-be-ok: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.theverge.com/2014/6/27/5849272/material-world-how-google-discovered-what-software-is-made-of: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.vox.com/2016/3/24/11291692/robot-dance: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.vox.com/2016/3/31/11336640/mississippi-lgbt-religious-freedom-bill: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://www.recode.net/2014/6/17/11628066/post-post-pc-ceo-the-full-code-conference-video-of-microsofts-satya: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -7699,7 +7713,7 @@
     "VrakIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to extract ref id; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.vrak.tv/videos?target=1.2306782&filtre=emission&id=1.1806721: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -7710,10 +7724,10 @@
     },
     "VuClipIE": {
         "adult": false,
-        "error_msgs": [],
-        "success_urls": [
-            "http://m.vuclip.com/w?cid=1129900602&bu=8589892792&frm=w&z=34801&op=0&oc=843169247&section=recommend"
-        ]
+        "error_msgs": [
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://m.vuclip.com/w?cid=1129900602&bu=8589892792&frm=w&z=34801&op=0&oc=843169247&section=recommend: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+        ],
+        "success_urls": []
     },
     "VubeIE": {
         "adult": false,
@@ -7723,17 +7737,17 @@
     "VyboryMosIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: 13636: Failed to parse JSON  (caused by ValueError('invalid character \\'<\\' looking for beginning of value')); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://vybory.mos.ru/account/channels?station_id=13636: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "VzaarIE": {
         "adult": false,
-        "error_msgs": [],
-        "success_urls": [
-            "https://view.vzaar.com/27272/player",
-            "https://vzaar.com/videos/1152805"
-        ]
+        "error_msgs": [
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://view.vzaar.com/v2/1152805/video: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://view.vzaar.com/v2/27272/video: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+        ],
+        "success_urls": []
     },
     "WDRElefantIE": {
         "adult": false,
@@ -7793,7 +7807,7 @@
     "WakanimIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to extract m3u8 url; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://www.wakanim.tv/de/v2/catalogue/episode/2997/the-asterisk-war-omu-staffel-1-episode-02-omu: dial tcp: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -7835,13 +7849,11 @@
         ]
     },
     "WatchBoxIE": {
-        "adult": true,
+        "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 500: Internal Server Error (caused by <HTTPError 500: 'Internal Server Error'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'title\\'')); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
-        "success_urls": [
-            "https://www.watchbox.de/filme/free-jimmy-12325.html"
-        ]
+        "success_urls": []
     },
     "WatchIndianPornIE": {
         "adult": false,
@@ -7879,7 +7891,7 @@
     "WeiboIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'confidence\\'')); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "TypeError: 'placeholder random/random' object is not callable"
         ],
         "success_urls": []
     },
@@ -8233,24 +8245,35 @@
         "success_urls": []
     },
     "YoutubeIE": {
-        "adult": false,
+        "adult": true,
         "error_msgs": [
-            "DownloadError: ERROR: YOUTUBE_PLACEHOLDER",
-            "check failed"
+            "DownloadError: ERROR: This video is unavailable."
         ],
-        "success_urls": []
+        "success_urls": [
+            "__2ABJjxzNo",
+            "https://www.youtube.com/watch?v=07FYdnEawAQ",
+            "https://www.youtube.com/watch?v=6SJNVb0GnPI",
+            "https://www.youtube.com/watch?v=6kLq3WMV1nU",
+            "https://www.youtube.com/watch?v=BaW_jenozKc&t=1s&end=9",
+            "https://www.youtube.com/watch?v=BaW_jenozKc&v=UxxajLWwzqY",
+            "https://www.youtube.com/watch?v=IB3lcPjvWLA",
+            "https://www.youtube.com/watch?v=M4gD1WSo5mA",
+            "https://www.youtube.com/watch?v=T4XJQO3qol8",
+            "https://www.youtube.com/watch?v=UxxajLWwzqY",
+            "https://www.youtube.com/watch?v=Z4Vy8R84T1U",
+            "https://www.youtube.com/watch?v=_b-2C3KPAM0",
+            "https://www.youtube.com/watch?v=eQcmzGIKrzg",
+            "https://www.youtube.com/watch?v=iqKdEhx-dD4",
+            "https://www.youtube.com/watch?v=lsguqyKfVQg",
+            "https://www.youtube.com/watch?v=nfWlot6h_JM",
+            "https://youtube.com/watch?v=HtVdAasjOgU",
+            "lqQg6PlCWgI"
+        ]
     },
     "YoutubeLiveIE": {
         "adult": false,
         "error_msgs": [
             "DownloadError: ERROR: This video is unavailable."
-        ],
-        "success_urls": []
-    },
-    "YoutubePlaceholderIE": {
-        "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: YOUTUBE_PLACEHOLDER"
         ],
         "success_urls": []
     },

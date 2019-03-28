@@ -25,6 +25,7 @@
 package vimeo
 
 import (
+	Ωbase64 "github.com/tenta-browser/go-video-downloader/gen/base64"
 	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
@@ -603,14 +604,15 @@ func init() {
 		}())
 		VimeoIE = λ.Cal(λ.TypeType, λ.NewStr("VimeoIE"), λ.NewTuple(VimeoBaseInfoExtractor), func() λ.Dict {
 			var (
-				VimeoIE_IE_NAME           λ.Object
-				VimeoIE__TESTS            λ.Object
-				VimeoIE__VALID_URL        λ.Object
-				VimeoIE__extract_url      λ.Object
-				VimeoIE__extract_urls     λ.Object
-				VimeoIE__real_extract     λ.Object
-				VimeoIE__real_initialize  λ.Object
-				VimeoIE__smuggle_referrer λ.Object
+				VimeoIE_IE_NAME                       λ.Object
+				VimeoIE__TESTS                        λ.Object
+				VimeoIE__VALID_URL                    λ.Object
+				VimeoIE__extract_url                  λ.Object
+				VimeoIE__extract_urls                 λ.Object
+				VimeoIE__real_extract                 λ.Object
+				VimeoIE__real_initialize              λ.Object
+				VimeoIE__smuggle_referrer             λ.Object
+				VimeoIE__verify_player_video_password λ.Object
 			)
 			λ.NewStr("Information extractor for vimeo.com.")
 			VimeoIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            (?:\n                                www|\n                                (?P<player>player)\n                            )\n                            \\.\n                        )?\n                        vimeo(?P<pro>pro)?\\.com/\n                        (?!(?:channels|album)/[^/?#]+/?(?:$|[?#])|[^/]+/review/|ondemand/)\n                        (?:.*?/)?\n                        (?:\n                            (?:\n                                play_redirect_hls|\n                                moogaloop\\.swf)\\?clip_id=\n                            )?\n                        (?:videos?/)?\n                        (?P<id>[0-9]+)\n                        (?:/[\\da-f]+)?\n                        /?(?:[?&].*)?(?:[#].*)?$\n                    ")
@@ -911,6 +913,49 @@ func init() {
 					}()
 				})
 			VimeoIE__extract_url = λ.Cal(λ.StaticMethodType, VimeoIE__extract_url)
+			VimeoIE__verify_player_video_password = λ.NewFunction("_verify_player_video_password",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+					{Name: "video_id"},
+					{Name: "headers"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒchecked  λ.Object
+						ϒdata     λ.Object
+						ϒheaders  = λargs[3]
+						ϒpassword λ.Object
+						ϒself     = λargs[0]
+						ϒurl      = λargs[1]
+						ϒvideo_id = λargs[2]
+					)
+					ϒpassword = λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("videopassword"))
+					if λ.IsTrue(λ.NewBool(ϒpassword == λ.None)) {
+						panic(λ.Raise(λ.Cal(ExtractorError, λ.NewStr("This video is protected by a password, use the --video-password option"))))
+					}
+					ϒdata = λ.Cal(ϒurlencode_postdata, λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("password"): λ.Cal(Ωbase64.ϒb64encode, λ.Cal(λ.GetAttr(ϒpassword, "encode", nil))),
+					}))
+					ϒheaders = λ.Cal(ϒmerge_dicts, ϒheaders, λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("Content-Type"): λ.NewStr("application/x-www-form-urlencoded"),
+					}))
+					ϒchecked = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.Add(ϒurl, λ.NewStr("/check-password")),
+						ϒvideo_id,
+						λ.NewStr("Verifying the password"),
+					), λ.KWArgs{
+						{Name: "data", Value: ϒdata},
+						{Name: "headers", Value: ϒheaders},
+					})
+					if λ.IsTrue(λ.NewBool(ϒchecked == λ.False)) {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("Wrong video password")), λ.KWArgs{
+							{Name: "expected", Value: λ.True},
+						})))
+					}
+					return ϒchecked
+				})
 			VimeoIE__real_initialize = λ.NewFunction("_real_initialize",
 				[]λ.Param{
 					{Name: "self"},
@@ -1360,14 +1405,15 @@ func init() {
 					return ϒinfo_dict
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):           VimeoIE_IE_NAME,
-				λ.NewStr("_TESTS"):            VimeoIE__TESTS,
-				λ.NewStr("_VALID_URL"):        VimeoIE__VALID_URL,
-				λ.NewStr("_extract_url"):      VimeoIE__extract_url,
-				λ.NewStr("_extract_urls"):     VimeoIE__extract_urls,
-				λ.NewStr("_real_extract"):     VimeoIE__real_extract,
-				λ.NewStr("_real_initialize"):  VimeoIE__real_initialize,
-				λ.NewStr("_smuggle_referrer"): VimeoIE__smuggle_referrer,
+				λ.NewStr("IE_NAME"):                       VimeoIE_IE_NAME,
+				λ.NewStr("_TESTS"):                        VimeoIE__TESTS,
+				λ.NewStr("_VALID_URL"):                    VimeoIE__VALID_URL,
+				λ.NewStr("_extract_url"):                  VimeoIE__extract_url,
+				λ.NewStr("_extract_urls"):                 VimeoIE__extract_urls,
+				λ.NewStr("_real_extract"):                 VimeoIE__real_extract,
+				λ.NewStr("_real_initialize"):              VimeoIE__real_initialize,
+				λ.NewStr("_smuggle_referrer"):             VimeoIE__smuggle_referrer,
+				λ.NewStr("_verify_player_video_password"): VimeoIE__verify_player_video_password,
 			})
 		}())
 		VimeoOndemandIE = λ.Cal(λ.TypeType, λ.NewStr("VimeoOndemandIE"), λ.NewTuple(VimeoBaseInfoExtractor), func() λ.Dict {

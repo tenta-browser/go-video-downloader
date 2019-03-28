@@ -62,7 +62,7 @@ type VideoData struct {
 // runs transpiled module initialization and compiles the master regexps
 func Init() (err error) {
 	defer func() {
-		err = handlePanic(recover())
+		err = handlePanic(recover(), err)
 	}()
 	rnt.InitModules()
 	if err := compileMasterRegexps(); err != nil {
@@ -74,7 +74,7 @@ func Init() (err error) {
 // Check verifies if url contains a downloadable video
 func Check(url string) (found bool, err error) {
 	defer func() {
-		err = handlePanic(recover())
+		err = handlePanic(recover(), err)
 	}()
 	// check if something matches the url
 	for _, masterRegexpComp := range masterRegexpComps {
@@ -88,7 +88,7 @@ func Check(url string) (found bool, err error) {
 // Extract extracts video info from the page at url
 func Extract(url string, connector *Connector) (resData *VideoData, err error) {
 	defer func() {
-		err = handlePanic(recover())
+		err = handlePanic(recover(), err)
 	}()
 	connectorDict := rnt.NewDict()
 	var client *http.Client
@@ -142,9 +142,9 @@ func Extract(url string, connector *Connector) (resData *VideoData, err error) {
 	return resData, nil
 }
 
-func handlePanic(r interface{}) error {
+func handlePanic(r interface{}, originalErr error) error {
 	if r == nil {
-		return nil
+		return originalErr
 	}
 	var msg string
 	if e, ok := r.(rnt.BaseException); ok {

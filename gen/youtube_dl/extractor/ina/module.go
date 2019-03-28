@@ -25,35 +25,60 @@
 package ina
 
 import (
-	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
+	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	InaIE         λ.Object
-	InfoExtractor λ.Object
+	InaIE          λ.Object
+	InfoExtractor  λ.Object
+	ϒdetermine_ext λ.Object
+	ϒint_or_none   λ.Object
+	ϒstrip_or_none λ.Object
+	ϒxpath_attr    λ.Object
+	ϒxpath_text    λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒdetermine_ext = Ωutils.ϒdetermine_ext
+		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒstrip_or_none = Ωutils.ϒstrip_or_none
+		ϒxpath_attr = Ωutils.ϒxpath_attr
+		ϒxpath_text = Ωutils.ϒxpath_text
 		InaIE = λ.Cal(λ.TypeType, λ.NewStr("InaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				InaIE__TEST         λ.Object
+				InaIE__TESTS        λ.Object
 				InaIE__VALID_URL    λ.Object
 				InaIE__real_extract λ.Object
 			)
-			InaIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?ina\\.fr/video/(?P<id>I?[A-Z0-9]+)")
-			InaIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.ina.fr/video/I12055569/francois-hollande-je-crois-que-c-est-clair-video.html"),
-				λ.NewStr("md5"): λ.NewStr("a667021bf2b41f8dc6049479d9bb38a3"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):    λ.NewStr("I12055569"),
-					λ.NewStr("ext"):   λ.NewStr("mp4"),
-					λ.NewStr("title"): λ.NewStr("François Hollande \"Je crois que c'est clair\""),
+			InaIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?ina\\.fr/(?:video|audio)/(?P<id>[A-Z0-9_]+)")
+			InaIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.ina.fr/video/I12055569/francois-hollande-je-crois-que-c-est-clair-video.html"),
+					λ.NewStr("md5"): λ.NewStr("a667021bf2b41f8dc6049479d9bb38a3"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("I12055569"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("François Hollande \"Je crois que c'est clair\""),
+						λ.NewStr("description"): λ.NewStr("md5:3f09eb072a06cb286b8f7e4f77109663"),
+					}),
 				}),
-			})
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://www.ina.fr/video/S806544_001/don-d-organes-des-avancees-mais-d-importants-besoins-video.html"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://www.ina.fr/audio/P16173408"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://www.ina.fr/video/P16173408-video.html"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
 			InaIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -62,28 +87,146 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒinfo_doc  λ.Object
-						ϒmobj      λ.Object
-						ϒmrss_url  λ.Object
-						ϒself      = λargs[0]
-						ϒurl       = λargs[1]
-						ϒvideo_id  λ.Object
-						ϒvideo_url λ.Object
+						ϒcontent        λ.Object
+						ϒext            λ.Object
+						ϒformats        λ.Object
+						ϒfurl           λ.Object
+						ϒget_furl       λ.Object
+						ϒh              λ.Object
+						ϒinfo_doc       λ.Object
+						ϒitem           λ.Object
+						ϒmedia_ns_xpath λ.Object
+						ϒq              λ.Object
+						ϒq_url          λ.Object
+						ϒself           = λargs[0]
+						ϒthumbnail      λ.Object
+						ϒthumbnail_url  λ.Object
+						ϒthumbnails     λ.Object
+						ϒtitle          λ.Object
+						ϒurl            = λargs[1]
+						ϒvideo_id       λ.Object
+						ϒw              λ.Object
+						τmp0            λ.Object
+						τmp1            λ.Object
+						τmp2            λ.Object
 					)
-					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-					ϒmrss_url = λ.Mod(λ.NewStr("http://player.ina.fr/notices/%s.mrss"), ϒvideo_id)
-					ϒinfo_doc = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), ϒmrss_url, ϒvideo_id)
-					λ.Cal(λ.GetAttr(ϒself, "report_extraction", nil), ϒvideo_id)
-					ϒvideo_url = λ.GetItem(λ.GetAttr(λ.Cal(λ.GetAttr(ϒinfo_doc, "find", nil), λ.NewStr(".//{http://search.yahoo.com/mrss/}player")), "attrib", nil), λ.NewStr("url"))
+					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒinfo_doc = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), λ.Mod(λ.NewStr("http://player.ina.fr/notices/%s.mrss"), ϒvideo_id), ϒvideo_id)
+					ϒitem = λ.Cal(λ.GetAttr(ϒinfo_doc, "find", nil), λ.NewStr("channel/item"))
+					ϒtitle = λ.Call(ϒxpath_text, λ.NewArgs(
+						ϒitem,
+						λ.NewStr("title"),
+					), λ.KWArgs{
+						{Name: "fatal", Value: λ.True},
+					})
+					ϒmedia_ns_xpath = λ.NewFunction("<lambda>",
+						[]λ.Param{
+							{Name: "x"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒx = λargs[0]
+							)
+							return λ.Cal(λ.GetAttr(ϒself, "_xpath_ns", nil), ϒx, λ.NewStr("http://search.yahoo.com/mrss/"))
+						})
+					ϒcontent = λ.Cal(λ.GetAttr(ϒitem, "find", nil), λ.Cal(ϒmedia_ns_xpath, λ.NewStr("content")))
+					ϒget_furl = λ.NewFunction("<lambda>",
+						[]λ.Param{
+							{Name: "x"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒx = λargs[0]
+							)
+							return λ.Cal(ϒxpath_attr, ϒcontent, λ.Cal(ϒmedia_ns_xpath, ϒx), λ.NewStr("url"))
+						})
+					ϒformats = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+						λ.NewTuple(
+							λ.NewStr("bq"),
+							λ.NewInt(400),
+							λ.NewInt(300),
+						),
+						λ.NewTuple(
+							λ.NewStr("mq"),
+							λ.NewInt(512),
+							λ.NewInt(384),
+						),
+						λ.NewTuple(
+							λ.NewStr("hq"),
+							λ.NewInt(768),
+							λ.NewInt(576),
+						),
+					))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						τmp2 = τmp1
+						ϒq = λ.GetItem(τmp2, λ.NewInt(0))
+						ϒw = λ.GetItem(τmp2, λ.NewInt(1))
+						ϒh = λ.GetItem(τmp2, λ.NewInt(2))
+						ϒq_url = λ.Cal(ϒget_furl, ϒq)
+						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒq_url))) {
+							continue
+						}
+						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("format_id"): ϒq,
+							λ.NewStr("url"):       ϒq_url,
+							λ.NewStr("width"):     ϒw,
+							λ.NewStr("height"):    ϒh,
+						}))
+					}
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
+						ϒfurl = func() λ.Object {
+							if λv := λ.Cal(ϒget_furl, λ.NewStr("player")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.GetItem(λ.GetAttr(ϒcontent, "attrib", nil), λ.NewStr("url"))
+							}
+						}()
+						ϒext = λ.Cal(ϒdetermine_ext, ϒfurl)
+						ϒformats = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("url"): ϒfurl,
+							λ.NewStr("vcodec"): func() λ.Object {
+								if λ.IsTrue(λ.Eq(ϒext, λ.NewStr("mp3"))) {
+									return λ.NewStr("none")
+								} else {
+									return λ.None
+								}
+							}(),
+							λ.NewStr("ext"): ϒext,
+						}))
+					}
+					ϒthumbnails = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒcontent, "findall", nil), λ.Cal(ϒmedia_ns_xpath, λ.NewStr("thumbnail"))))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒthumbnail = τmp1
+						ϒthumbnail_url = λ.Cal(λ.GetAttr(ϒthumbnail, "get", nil), λ.NewStr("url"))
+						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒthumbnail_url))) {
+							continue
+						}
+						λ.Cal(λ.GetAttr(ϒthumbnails, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("url"):    ϒthumbnail_url,
+							λ.NewStr("height"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒthumbnail, "get", nil), λ.NewStr("height"))),
+							λ.NewStr("width"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒthumbnail, "get", nil), λ.NewStr("width"))),
+						}))
+					}
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    ϒvideo_id,
-						λ.NewStr("url"):   ϒvideo_url,
-						λ.NewStr("title"): λ.GetAttr(λ.Cal(λ.GetAttr(ϒinfo_doc, "find", nil), λ.NewStr(".//title")), "text", nil),
+						λ.NewStr("id"):          ϒvideo_id,
+						λ.NewStr("formats"):     ϒformats,
+						λ.NewStr("title"):       ϒtitle,
+						λ.NewStr("description"): λ.Cal(ϒstrip_or_none, λ.Cal(ϒxpath_text, ϒitem, λ.NewStr("description"))),
+						λ.NewStr("thumbnails"):  ϒthumbnails,
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         InaIE__TEST,
+				λ.NewStr("_TESTS"):        InaIE__TESTS,
 				λ.NewStr("_VALID_URL"):    InaIE__VALID_URL,
 				λ.NewStr("_real_extract"): InaIE__real_extract,
 			})

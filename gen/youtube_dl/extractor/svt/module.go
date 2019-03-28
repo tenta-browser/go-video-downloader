@@ -45,6 +45,7 @@ var (
 	ϒdetermine_ext                λ.Object
 	ϒdict_get                     λ.Object
 	ϒint_or_none                  λ.Object
+	ϒorderedSet                   λ.Object
 	ϒstrip_or_none                λ.Object
 	ϒtry_get                      λ.Object
 	ϒurljoin                      λ.Object
@@ -58,6 +59,7 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒdict_get = Ωutils.ϒdict_get
 		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒurljoin = Ωutils.ϒurljoin

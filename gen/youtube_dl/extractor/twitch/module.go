@@ -58,6 +58,7 @@ var (
 	ϒcompat_urllib_parse_urlparse  λ.Object
 	ϒfloat_or_none                 λ.Object
 	ϒint_or_none                   λ.Object
+	ϒorderedSet                    λ.Object
 	ϒparse_duration                λ.Object
 	ϒparse_iso8601                 λ.Object
 	ϒqualities                     λ.Object
@@ -80,6 +81,7 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒqualities = Ωutils.ϒqualities

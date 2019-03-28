@@ -45,6 +45,7 @@ var (
 	ϒcompat_str           λ.Object
 	ϒdetermine_ext        λ.Object
 	ϒint_or_none          λ.Object
+	ϒorderedSet           λ.Object
 	ϒremove_quotes        λ.Object
 	ϒstr_to_int           λ.Object
 	ϒurl_or_none          λ.Object
@@ -58,6 +59,7 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒremove_quotes = Ωutils.ϒremove_quotes
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		ϒurl_or_none = Ωutils.ϒurl_or_none

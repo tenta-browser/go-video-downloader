@@ -45,6 +45,7 @@ var (
 	ϒfind_xpath_attr  λ.Object
 	ϒint_or_none      λ.Object
 	ϒjs_to_json       λ.Object
+	ϒorderedSet       λ.Object
 	ϒparse_age_limit  λ.Object
 	ϒparse_duration   λ.Object
 	ϒparse_iso8601    λ.Object
@@ -68,6 +69,7 @@ func init() {
 		ϒxpath_element = Ωutils.ϒxpath_element
 		ϒxpath_with_ns = Ωutils.ϒxpath_with_ns
 		ϒfind_xpath_attr = Ωutils.ϒfind_xpath_attr
+		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒparse_age_limit = Ωutils.ϒparse_age_limit

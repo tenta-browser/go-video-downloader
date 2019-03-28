@@ -50,11 +50,115 @@ func init() {
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		BleacherReportIE = λ.Cal(λ.TypeType, λ.NewStr("BleacherReportIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				BleacherReportIE__VALID_URL λ.Object
+				BleacherReportIE__TESTS        λ.Object
+				BleacherReportIE__VALID_URL    λ.Object
+				BleacherReportIE__real_extract λ.Object
 			)
 			BleacherReportIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bleacherreport\\.com/articles/(?P<id>\\d+)")
+			BleacherReportIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://bleacherreport.com/articles/2496438-fsu-stat-projections-is-jalen-ramsey-best-defensive-player-in-college-football"),
+					λ.NewStr("md5"): λ.NewStr("a3ffc3dc73afdbc2010f02d98f990f20"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("2496438"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("FSU Stat Projections: Is Jalen Ramsey Best Defensive Player in College Football?"),
+						λ.NewStr("uploader_id"): λ.NewInt(3992341),
+						λ.NewStr("description"): λ.NewStr("CFB, ACC, Florida State"),
+						λ.NewStr("timestamp"):   λ.NewInt(1434380212),
+						λ.NewStr("upload_date"): λ.NewStr("20150615"),
+						λ.NewStr("uploader"):    λ.NewStr("Team Stream Now "),
+					}),
+					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Ooyala")),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://bleacherreport.com/articles/2586817-aussie-golfers-get-fright-of-their-lives-after-being-chased-by-angry-kangaroo"),
+					λ.NewStr("md5"): λ.NewStr("6a5cd403418c7b01719248ca97fb0692"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("2586817"),
+						λ.NewStr("ext"):         λ.NewStr("webm"),
+						λ.NewStr("title"):       λ.NewStr("Aussie Golfers Get Fright of Their Lives After Being Chased by Angry Kangaroo"),
+						λ.NewStr("timestamp"):   λ.NewInt(1446839961),
+						λ.NewStr("uploader"):    λ.NewStr("Sean Fay"),
+						λ.NewStr("description"): λ.NewStr("md5:b1601e2314c4d8eec23b6eafe086a757"),
+						λ.NewStr("uploader_id"): λ.NewInt(6466954),
+						λ.NewStr("upload_date"): λ.NewStr("20151011"),
+					}),
+					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Youtube")),
+				}),
+			)
+			BleacherReportIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒarticle_data  λ.Object
+						ϒarticle_id    λ.Object
+						ϒinfo          λ.Object
+						ϒprimary_photo λ.Object
+						ϒself          = λargs[0]
+						ϒthumbnails    λ.Object
+						ϒurl           = λargs[1]
+						ϒvideo         λ.Object
+						ϒvideo_type    λ.Object
+					)
+					ϒarticle_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒarticle_data = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("http://api.bleacherreport.com/api/v1/articles/%s"), ϒarticle_id), ϒarticle_id), λ.NewStr("article"))
+					ϒthumbnails = λ.NewList()
+					ϒprimary_photo = λ.Cal(λ.GetAttr(ϒarticle_data, "get", nil), λ.NewStr("primaryPhoto"))
+					if λ.IsTrue(ϒprimary_photo) {
+						ϒthumbnails = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("url"):    λ.GetItem(ϒprimary_photo, λ.NewStr("url")),
+							λ.NewStr("width"):  λ.Cal(λ.GetAttr(ϒprimary_photo, "get", nil), λ.NewStr("width")),
+							λ.NewStr("height"): λ.Cal(λ.GetAttr(ϒprimary_photo, "get", nil), λ.NewStr("height")),
+						}))
+					}
+					ϒinfo = λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("_type"):         λ.NewStr("url_transparent"),
+						λ.NewStr("id"):            ϒarticle_id,
+						λ.NewStr("title"):         λ.GetItem(ϒarticle_data, λ.NewStr("title")),
+						λ.NewStr("uploader"):      λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒarticle_data, "get", nil), λ.NewStr("author"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("name")),
+						λ.NewStr("uploader_id"):   λ.Cal(λ.GetAttr(ϒarticle_data, "get", nil), λ.NewStr("authorId")),
+						λ.NewStr("timestamp"):     λ.Cal(ϒparse_iso8601, λ.Cal(λ.GetAttr(ϒarticle_data, "get", nil), λ.NewStr("createdAt"))),
+						λ.NewStr("thumbnails"):    ϒthumbnails,
+						λ.NewStr("comment_count"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒarticle_data, "get", nil), λ.NewStr("commentsCount"))),
+						λ.NewStr("view_count"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒarticle_data, "get", nil), λ.NewStr("hitCount"))),
+					})
+					ϒvideo = λ.Cal(λ.GetAttr(ϒarticle_data, "get", nil), λ.NewStr("video"))
+					if λ.IsTrue(ϒvideo) {
+						ϒvideo_type = λ.GetItem(ϒvideo, λ.NewStr("type"))
+						if λ.IsTrue(λ.Eq(ϒvideo_type, λ.NewStr("cms.bleacherreport.com"))) {
+							λ.SetItem(ϒinfo, λ.NewStr("url"), λ.Mod(λ.NewStr("http://bleacherreport.com/video_embed?id=%s"), λ.GetItem(ϒvideo, λ.NewStr("id"))))
+						} else {
+							if λ.IsTrue(λ.Eq(ϒvideo_type, λ.NewStr("ooyala.com"))) {
+								λ.SetItem(ϒinfo, λ.NewStr("url"), λ.Mod(λ.NewStr("ooyala:%s"), λ.GetItem(ϒvideo, λ.NewStr("id"))))
+							} else {
+								if λ.IsTrue(λ.Eq(ϒvideo_type, λ.NewStr("youtube.com"))) {
+									λ.SetItem(ϒinfo, λ.NewStr("url"), λ.GetItem(ϒvideo, λ.NewStr("id")))
+								} else {
+									if λ.IsTrue(λ.Eq(ϒvideo_type, λ.NewStr("vine.co"))) {
+										λ.SetItem(ϒinfo, λ.NewStr("url"), λ.Mod(λ.NewStr("https://vine.co/v/%s"), λ.GetItem(ϒvideo, λ.NewStr("id"))))
+									} else {
+										λ.SetItem(ϒinfo, λ.NewStr("url"), λ.Add(ϒvideo_type, λ.GetItem(ϒvideo, λ.NewStr("id"))))
+									}
+								}
+							}
+						}
+						return ϒinfo
+					} else {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("no video in the article")), λ.KWArgs{
+							{Name: "expected", Value: λ.True},
+						})))
+					}
+					return λ.None
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): BleacherReportIE__VALID_URL,
+				λ.NewStr("_TESTS"):        BleacherReportIE__TESTS,
+				λ.NewStr("_VALID_URL"):    BleacherReportIE__VALID_URL,
+				λ.NewStr("_real_extract"): BleacherReportIE__real_extract,
 			})
 		}())
 		BleacherReportCMSIE = λ.Cal(λ.TypeType, λ.NewStr("BleacherReportCMSIE"), λ.NewTuple(AMPIE), func() λ.Dict {

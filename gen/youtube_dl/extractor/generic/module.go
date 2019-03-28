@@ -199,6 +199,7 @@ var (
 	ϒjs_to_json                  λ.Object
 	ϒmerge_dicts                 λ.Object
 	ϒmimetype2ext                λ.Object
+	ϒorderedSet                  λ.Object
 	ϒsanitized_Request           λ.Object
 	ϒsmuggle_url                 λ.Object
 	ϒunescapeHTML                λ.Object
@@ -223,6 +224,7 @@ func init() {
 		KNOWN_EXTENSIONS = Ωutils.KNOWN_EXTENSIONS
 		ϒmerge_dicts = Ωutils.ϒmerge_dicts
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
+		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML

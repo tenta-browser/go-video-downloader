@@ -11,7 +11,6 @@ Supported sites
  * ArchiveOrg: `archive.org`
  * ARDMediathek: `www.ardmediathek.de`
  * AsianCrush: `www.asiancrush.com`
- * AudiMedia: `www.audi-mediacenter.com`
  * Audiomack: `www.audiomack.com`
  * AZMedien: `www.telezueri.ch`
  * Bandcamp: `youtube-dl.bandcamp.com`
@@ -20,7 +19,9 @@ Supported sites
  * Beatport: `beatport.com`
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
- * BIQLE: `biqle.org`
+ * BitChute: `www.bitchute.com`
+ * BIQLE: `biqle.ru`
+ * BleacherReport: `bleacherreport.com`
  * BleacherReportCMS: `bleacherreport.com`
  * Bpb: `www.bpb.de`
  * BR: `www.br.de`
@@ -67,7 +68,6 @@ Supported sites
  * EchoMsk: `www.echo.msk.ru`
  * ElPais: `blogs.elpais.com`
  * Engadget: `www.engadget.com`
- * Eporner _(adult)_: `www.eporner.com`
  * Escapist: `www.escapistmagazine.com`
  * ExtremeTube _(adult)_: `www.extremetube.com`
  * Facebook: `www.facebook.com`
@@ -105,7 +105,6 @@ Supported sites
  * Imgur: `i.imgur.com`
  * ImgurGallery: `imgur.com`
  * Ina: `www.ina.fr`
- * Inc: `www.inc.com`
  * InfoQ: `www.infoq.com`
  * Instagram: `instagram.com`
  * Ir90Tv: `90tv.ir`
@@ -144,7 +143,7 @@ Supported sites
  * Myvi: `myvi.ru`
  * NationalGeographicVideo: `video.nationalgeographic.com`
  * Naver: `tv.naver.com`
- * NBA: `watch.nba.com`
+ * NBA: `www.nba.com`
  * CSNNE: `www.csnne.com`
  * NBCNews: `www.nbcnews.com`
  * NBCSports: `www.nbcsports.com`
@@ -156,8 +155,6 @@ Supported sites
  * Netzkino: `www.netzkino.de`
  * Newgrounds: `www.newgrounds.com`
  * NHL: `www.nhl.com`
- * NovaEmbed: `media.cms.nova.cz`
- * Nova: `tn.nova.cz`
  * Nowness: `www.nowness.com`
  * NPO: `www.npo.nl`
  * NTVRu: `www.ntv.ru`
@@ -224,6 +221,7 @@ Supported sites
  * TastyTrade: `www.tastytrade.com`
  * TDSLifeway: `tds.lifeway.com`
  * TeacherTube: `www.teachertube.com`
+ * TeamTreeHouse: `teamtreehouse.com`
  * TED: `www.ted.com`
  * Tele13: `www.t13.cl`
  * Tenta: `tenta.com`
@@ -261,7 +259,7 @@ Supported sites
  * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
  * Unity: `unity3d.com`
- * UOL: `player.mais.uol.com.br`
+ * UOL: `tvuol.uol.com.br`
  * USAToday: `www.usatoday.com`
  * UstudioEmbed: `app.ustudio.com`
  * Varzesh3: `video.varzesh3.com`
@@ -287,11 +285,8 @@ Supported sites
  * VLive: `www.vlive.tv`
  * VLivePlaylist: `www.vlive.tv`
  * VODPl: `vod.pl`
- * VuClip: `m.vuclip.com`
- * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
  * Wat: `www.wat.tv`
- * WatchBox _(adult)_: `www.watchbox.de`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`
@@ -308,4 +303,5 @@ Supported sites
  * YouPorn _(adult)_: `www.youporn.com`
  * YourPorn _(adult)_: `yourporn.sexy`
  * YourUpload: `yourupload.com`
+ * Youtube _(adult)_: `www.youtube.com`
  * YoutubePlaylist: `www.youtube.com`

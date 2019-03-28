@@ -53,6 +53,7 @@ var (
 	ϒfix_xml_ampersands λ.Object
 	ϒint_or_none        λ.Object
 	ϒmerge_dicts        λ.Object
+	ϒorderedSet         λ.Object
 	ϒparse_duration     λ.Object
 	ϒqualities          λ.Object
 	ϒstr_or_none        λ.Object
@@ -73,6 +74,7 @@ func init() {
 		ϒfix_xml_ampersands = Ωutils.ϒfix_xml_ampersands
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒmerge_dicts = Ωutils.ϒmerge_dicts
+		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒqualities = Ωutils.ϒqualities
 		ϒstr_or_none = Ωutils.ϒstr_or_none
