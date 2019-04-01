@@ -33,7 +33,6 @@ Supported sites
  * Canalplus: `www.piwiplus.fr`
  * Canalc2: `www.canalc2.tv`
  * CBCPlayer: `www.cbc.ca`
- * CBSSports: `www.cbssports.com`
  * CCC: `media.ccc.de`
  * CCMA: `www.ccma.cat`
  * CCTV: `sports.cntv.cn`
@@ -68,6 +67,7 @@ Supported sites
  * EchoMsk: `www.echo.msk.ru`
  * ElPais: `blogs.elpais.com`
  * Engadget: `www.engadget.com`
+ * Eporner _(adult)_: `www.eporner.com`
  * Escapist: `www.escapistmagazine.com`
  * ExtremeTube _(adult)_: `www.extremetube.com`
  * Facebook: `www.facebook.com`
@@ -153,10 +153,11 @@ Supported sites
  * NJoyEmbed: `www.n-joy.de`
  * NDTV: `movies.ndtv.com`
  * Netzkino: `www.netzkino.de`
- * Newgrounds: `www.newgrounds.com`
+ * NextTV: `www.nexttv.com.tw`
  * NHL: `www.nhl.com`
+ * NovaEmbed: `media.cms.nova.cz`
+ * Nova: `tn.nova.cz`
  * Nowness: `www.nowness.com`
- * NPO: `www.npo.nl`
  * NTVRu: `www.ntv.ru`
  * Odnoklassniki: `ok.ru`
  * Onet: `onet.tv`
@@ -259,7 +260,7 @@ Supported sites
  * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
  * Unity: `unity3d.com`
- * UOL: `tvuol.uol.com.br`
+ * UOL: `player.mais.uol.com.br`
  * USAToday: `www.usatoday.com`
  * UstudioEmbed: `app.ustudio.com`
  * Varzesh3: `video.varzesh3.com`
@@ -284,7 +285,8 @@ Supported sites
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * VLivePlaylist: `www.vlive.tv`
- * VODPl: `vod.pl`
+ * VuClip: `m.vuclip.com`
+ * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
  * Wat: `www.wat.tv`
  * WeiboMobile: `m.weibo.cn`
@@ -297,7 +299,7 @@ Supported sites
  * XTube _(adult)_: `www.xtube.com`
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
- * Yahoo: `news.yahoo.com`
+ * Yahoo: `www.yahoo.com`
  * YinYueTai: `v.yinyuetai.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`

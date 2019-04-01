@@ -55,7 +55,7 @@ func init() {
 			var (
 				WeiboIE__VALID_URL λ.Object
 			)
-			WeiboIE__VALID_URL = λ.NewStr("https?://weibo\\.com/[0-9]+/(?P<id>[a-zA-Z0-9]+)")
+			WeiboIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?weibo\\.com/[0-9]+/(?P<id>[a-zA-Z0-9]+)")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): WeiboIE__VALID_URL,
 			})

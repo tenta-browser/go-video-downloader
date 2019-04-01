@@ -53,7 +53,6 @@ import (
 	Ωlimelight "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/limelight"
 	Ωliveleak "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/liveleak"
 	Ωmediaset "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mediaset"
-	Ωmediasite "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mediasite"
 	Ωmegaphone "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/megaphone"
 	Ωmtv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mtv"
 	Ωmyvi "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/myvi"
@@ -139,7 +138,6 @@ var (
 	LiveLeakIE                   λ.Object
 	MTVServicesEmbeddedIE        λ.Object
 	MediasetIE                   λ.Object
-	MediasiteIE                  λ.Object
 	MegaphoneIE                  λ.Object
 	MyviIE                       λ.Object
 	NBCSportsVPlayerIE           λ.Object
@@ -295,7 +293,6 @@ func init() {
 		VzaarIE = Ωvzaar.VzaarIE
 		Channel9IE = Ωchannel9.Channel9IE
 		VShareIE = Ωvshare.VShareIE
-		MediasiteIE = Ωmediasite.MediasiteIE
 		SpringboardPlatformIE = Ωspringboardplatform.SpringboardPlatformIE
 		YapFilesIE = Ωyapfiles.YapFilesIE
 		ViceIE = Ωvice.ViceIE

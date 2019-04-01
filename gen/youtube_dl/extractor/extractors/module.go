@@ -53,7 +53,6 @@ import (
 	Ωcanalc2 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/canalc2"
 	Ωcanalplus "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/canalplus"
 	Ωcbc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/cbc"
-	Ωcbssports "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/cbssports"
 	Ωccc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ccc"
 	Ωccma "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ccma"
 	Ωcctv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/cctv"
@@ -87,6 +86,7 @@ import (
 	Ωechomsk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/echomsk"
 	Ωelpais "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/elpais"
 	Ωengadget "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/engadget"
+	Ωeporner "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/eporner"
 	Ωescapist "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/escapist"
 	Ωextremetube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/extremetube"
 	Ωfacebook "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/facebook"
@@ -165,10 +165,11 @@ import (
 	Ωndr "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ndr"
 	Ωndtv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ndtv"
 	Ωnetzkino "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/netzkino"
-	Ωnewgrounds "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/newgrounds"
+	Ωnextmedia "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nextmedia"
+	Ωnexx "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nexx"
 	Ωnhl "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nhl"
+	Ωnova "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nova"
 	Ωnowness "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nowness"
-	Ωnpo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/npo"
 	Ωntvru "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ntvru"
 	Ωodnoklassniki "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/odnoklassniki"
 	Ωonet "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/onet"
@@ -284,7 +285,8 @@ import (
 	Ωviqeo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/viqeo"
 	Ωvk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vk"
 	Ωvlive "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vlive"
-	Ωvodpl "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vodpl"
+	Ωvuclip "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vuclip"
+	Ωvzaar "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vzaar"
 	Ωwashingtonpost "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/washingtonpost"
 	Ωwat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/wat"
 	Ωweibo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/weibo"
@@ -335,7 +337,6 @@ var (
 	BrightcoveNewIE           λ.Object
 	BusinessInsiderIE         λ.Object
 	CBCPlayerIE               λ.Object
-	CBSSportsIE               λ.Object
 	CCCIE                     λ.Object
 	CCMAIE                    λ.Object
 	CCTVIE                    λ.Object
@@ -376,6 +377,7 @@ var (
 	EchoMskIE                 λ.Object
 	ElPaisIE                  λ.Object
 	EngadgetIE                λ.Object
+	EpornerIE                 λ.Object
 	EscapistIE                λ.Object
 	ExtremeTubeIE             λ.Object
 	FXNetworksIE              λ.Object
@@ -460,12 +462,14 @@ var (
 	NDTVIE                    λ.Object
 	NHLIE                     λ.Object
 	NJoyEmbedIE               λ.Object
-	NPOIE                     λ.Object
 	NTVRuIE                   λ.Object
 	NationalGeographicVideoIE λ.Object
 	NaverIE                   λ.Object
 	NetzkinoIE                λ.Object
-	NewgroundsIE              λ.Object
+	NextTVIE                  λ.Object
+	NexxIE                    λ.Object
+	NovaEmbedIE               λ.Object
+	NovaIE                    λ.Object
 	NownessIE                 λ.Object
 	OdnoklassnikiIE           λ.Object
 	OnetChannelIE             λ.Object
@@ -573,7 +577,6 @@ var (
 	VKIE                      λ.Object
 	VLiveIE                   λ.Object
 	VLivePlaylistIE           λ.Object
-	VODPlIE                   λ.Object
 	Varzesh3IE                λ.Object
 	Vbox7IE                   λ.Object
 	VeeHDIE                   λ.Object
@@ -592,6 +595,8 @@ var (
 	VimpleIE                  λ.Object
 	VineIE                    λ.Object
 	ViqeoIE                   λ.Object
+	VuClipIE                  λ.Object
+	VzaarIE                   λ.Object
 	WSJArticleIE              λ.Object
 	WSJIE                     λ.Object
 	WashingtonPostIE          λ.Object
@@ -649,7 +654,6 @@ func init() {
 		CanalplusIE = Ωcanalplus.CanalplusIE
 		Canalc2IE = Ωcanalc2.Canalc2IE
 		CBCPlayerIE = Ωcbc.CBCPlayerIE
-		CBSSportsIE = Ωcbssports.CBSSportsIE
 		CCCIE = Ωccc.CCCIE
 		CCMAIE = Ωccma.CCMAIE
 		CCTVIE = Ωcctv.CCTVIE
@@ -684,6 +688,7 @@ func init() {
 		EchoMskIE = Ωechomsk.EchoMskIE
 		ElPaisIE = Ωelpais.ElPaisIE
 		EngadgetIE = Ωengadget.EngadgetIE
+		EpornerIE = Ωeporner.EpornerIE
 		EscapistIE = Ωescapist.EscapistIE
 		ExtremeTubeIE = Ωextremetube.ExtremeTubeIE
 		FacebookIE = Ωfacebook.FacebookIE
@@ -770,10 +775,12 @@ func init() {
 		NJoyEmbedIE = Ωndr.NJoyEmbedIE
 		NDTVIE = Ωndtv.NDTVIE
 		NetzkinoIE = Ωnetzkino.NetzkinoIE
-		NewgroundsIE = Ωnewgrounds.NewgroundsIE
+		NextTVIE = Ωnextmedia.NextTVIE
+		NexxIE = Ωnexx.NexxIE
 		NHLIE = Ωnhl.NHLIE
+		NovaEmbedIE = Ωnova.NovaEmbedIE
+		NovaIE = Ωnova.NovaIE
 		NownessIE = Ωnowness.NownessIE
-		NPOIE = Ωnpo.NPOIE
 		NTVRuIE = Ωntvru.NTVRuIE
 		OdnoklassnikiIE = Ωodnoklassniki.OdnoklassnikiIE
 		OnetIE = Ωonet.OnetIE
@@ -902,7 +909,8 @@ func init() {
 		VKIE = Ωvk.VKIE
 		VLiveIE = Ωvlive.VLiveIE
 		VLivePlaylistIE = Ωvlive.VLivePlaylistIE
-		VODPlIE = Ωvodpl.VODPlIE
+		VuClipIE = Ωvuclip.VuClipIE
+		VzaarIE = Ωvzaar.VzaarIE
 		WashingtonPostIE = Ωwashingtonpost.WashingtonPostIE
 		WatIE = Ωwat.WatIE
 		WeiboMobileIE = Ωweibo.WeiboMobileIE
@@ -956,7 +964,6 @@ func init() {
 			CanalplusIE,
 			Canalc2IE,
 			CBCPlayerIE,
-			CBSSportsIE,
 			CCCIE,
 			CCMAIE,
 			CCTVIE,
@@ -991,6 +998,7 @@ func init() {
 			EchoMskIE,
 			ElPaisIE,
 			EngadgetIE,
+			EpornerIE,
 			EscapistIE,
 			ExtremeTubeIE,
 			FacebookIE,
@@ -1077,10 +1085,12 @@ func init() {
 			NJoyEmbedIE,
 			NDTVIE,
 			NetzkinoIE,
-			NewgroundsIE,
+			NextTVIE,
+			NexxIE,
 			NHLIE,
+			NovaEmbedIE,
+			NovaIE,
 			NownessIE,
-			NPOIE,
 			NTVRuIE,
 			OdnoklassnikiIE,
 			OnetIE,
@@ -1209,7 +1219,8 @@ func init() {
 			VKIE,
 			VLiveIE,
 			VLivePlaylistIE,
-			VODPlIE,
+			VuClipIE,
+			VzaarIE,
 			WashingtonPostIE,
 			WatIE,
 			WeiboMobileIE,

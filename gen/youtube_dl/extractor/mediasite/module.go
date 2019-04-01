@@ -34,10 +34,12 @@ import (
 var (
 	ExtractorError λ.Object
 	InfoExtractor  λ.Object
-	MediasiteIE    λ.Object
+	ϒ_ID_RE        λ.Object
 	ϒcompat_str    λ.Object
 	ϒfloat_or_none λ.Object
 	ϒmimetype2ext  λ.Object
+	ϒstr_or_none   λ.Object
+	ϒtry_get       λ.Object
 	ϒunescapeHTML  λ.Object
 	ϒunsmuggle_url λ.Object
 	ϒurl_or_none   λ.Object
@@ -51,18 +53,12 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
+		ϒstr_or_none = Ωutils.ϒstr_or_none
+		ϒtry_get = Ωutils.ϒtry_get
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒunsmuggle_url = Ωutils.ϒunsmuggle_url
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		ϒurljoin = Ωutils.ϒurljoin
-		MediasiteIE = λ.Cal(λ.TypeType, λ.NewStr("MediasiteIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
-			var (
-				MediasiteIE__VALID_URL λ.Object
-			)
-			MediasiteIE__VALID_URL = λ.NewStr("(?xi)https?://[^/]+/Mediasite/(?:Play|Showcase/(?:default|livebroadcast)/Presentation)/(?P<id>[0-9a-f]{32,34})(?P<query>\\?[^#]+|)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): MediasiteIE__VALID_URL,
-			})
-		}())
+		ϒ_ID_RE = λ.NewStr("[0-9a-f]{32,34}")
 	})
 }

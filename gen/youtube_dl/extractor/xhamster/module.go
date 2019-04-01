@@ -67,7 +67,7 @@ func init() {
 				XHamsterIE__VALID_URL    λ.Object
 				XHamsterIE__real_extract λ.Object
 			)
-			XHamsterIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:.+?\\.)?xhamster\\.com/\n                        (?:\n                            movies/(?P<id>\\d+)/(?P<display_id>[^/]*)\\.html|\n                            videos/(?P<display_id_2>[^/]*)-(?P<id_2>\\d+)\n                        )\n                    ")
+			XHamsterIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:.+?\\.)?xhamster\\.(?:com|one)/\n                        (?:\n                            movies/(?P<id>\\d+)/(?P<display_id>[^/]*)\\.html|\n                            videos/(?P<display_id_2>[^/]*)-(?P<id_2>\\d+)\n                        )\n                    ")
 			XHamsterIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://xhamster.com/movies/1509445/femaleagent_shy_beauty_takes_the_bait.html"),
@@ -157,6 +157,10 @@ func init() {
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"):           λ.NewStr("https://pt.xhamster.com/videos/euro-pedal-pumping-7937821"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://xhamster.one/videos/femaleagent-shy-beauty-takes-the-bait-1509445"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
 			)
