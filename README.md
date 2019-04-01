@@ -10,40 +10,65 @@ Contact: developer@tenta.io
 Installation
 ============
 
-1. `go get github.com/tenta-browser/go-video-downloader`
+```
+go get github.com/tenta-browser/go-video-downloader
+```
+
+The extractor leans heavily on a regular expression engine supporting Perl Compatible Regular Expressions (PCRE). This library explicitly doesn't reference one, but uses the interface provided by [tenta-browser/go-pcre-matcher](https://github.com/tenta-browser/go-pcre-matcher). An implementation is provided there, to use that:
+ - install libpcre, on Debian based platforms: `sudo apt-get install libpcre++-dev`
+ - make sure the `github.com/tenta-browser/go-pcre-matcher/matcherpcre` package is fetched
+ - reference it in `matcher.ReEngine` (see the example below) 
 
 Usage
 =====
 
 ```go
-matcher.ReEngine = matcherpcre.NewEngine() // select matcher engine
+package main
 
-// The downloader has to be initialized once, before usage.
-// This is a slow, computationally intensive step.
-if downloader.Init() != nil {
-    // failed to initialize downloader
-    return
+import (
+    "net/http"
+
+    matcher "github.com/tenta-browser/go-pcre-matcher"
+    "github.com/tenta-browser/go-pcre-matcher/matcherpcre"
+    downloader "github.com/tenta-browser/go-video-downloader"
+)
+
+func main() {
+    // Select PCRE matcher engine.
+    matcher.ReEngine = matcherpcre.NewEngine()
+
+    // The downloader has to be initialized once, before usage.
+    if err := downloader.Init(); err != nil {
+        panic(err.Error())
+    }
+
+    // Quick check to see if the specified URL contains a video
+    // (for which extraction is supported).
+    hasVideo, err := downloader.Check("https://tenta.com/how-to-download-videos")
+    if err != nil {
+        panic(err.Error())
+    }
+    println("Has video:", hasVideo)
+
+    // Pluggable HTTP client and common headers to be used at each page request
+    // done by the extractor.
+    connector := &downloader.Connector{
+        Client:    &http.Client{},
+        UserAgent: "Mozilla/5.0 (X11; Linux x86_64) ..",
+        Cookie:    "SESSIONID=12345",
+    }
+
+    // Extracts various properties of the video contained at the specified URL,
+    // most importantly it's direct URL.
+    // This is a slow call, the extractor will possibly do multiple HTTP requests.
+    videoData, err := downloader.Extract("https://tenta.com/how-to-download-videos", connector)
+    if err != nil {
+        panic(err.Error())
+    }
+    println("Video title:", videoData.Title)
+    println("Raw video URL:", videoData.URL)
+    println("Suggested filename:", videoData.Filename)
 }
-
-// Check is a quick method to verify if an URL holds a downloadable video.
-found, err := downloader.Check("https://example.com/video")
-if err == nil {
-    // internal error occurred while matching the specified URL
-    return
-}
-
-connector := &downloader.Connector{
-    Client:    &http.Client{},
-    UserAgent: "Mozilla/5.0 (X11; Linux x86_64)..",
-    Cookie:    "SESSIONID=12345",
-}
-
-videoData, err := downloader.Extract("https://example.com/video", connector)
-if err != nil {
-    // failed to extract video data
-}
-
-// success, videoData holds download URL, suggested file name, video title, etc.
 ```
 
 Supported sites
