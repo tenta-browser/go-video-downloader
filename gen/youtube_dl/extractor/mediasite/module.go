@@ -32,18 +32,19 @@ import (
 )
 
 var (
-	ExtractorError λ.Object
-	InfoExtractor  λ.Object
-	ϒ_ID_RE        λ.Object
-	ϒcompat_str    λ.Object
-	ϒfloat_or_none λ.Object
-	ϒmimetype2ext  λ.Object
-	ϒstr_or_none   λ.Object
-	ϒtry_get       λ.Object
-	ϒunescapeHTML  λ.Object
-	ϒunsmuggle_url λ.Object
-	ϒurl_or_none   λ.Object
-	ϒurljoin       λ.Object
+	ExtractorError          λ.Object
+	InfoExtractor           λ.Object
+	MediasiteNamedCatalogIE λ.Object
+	ϒ_ID_RE                 λ.Object
+	ϒcompat_str             λ.Object
+	ϒfloat_or_none          λ.Object
+	ϒmimetype2ext           λ.Object
+	ϒstr_or_none            λ.Object
+	ϒtry_get                λ.Object
+	ϒunescapeHTML           λ.Object
+	ϒunsmuggle_url          λ.Object
+	ϒurl_or_none            λ.Object
+	ϒurljoin                λ.Object
 )
 
 func init() {
@@ -59,6 +60,15 @@ func init() {
 		ϒunsmuggle_url = Ωutils.ϒunsmuggle_url
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		ϒurljoin = Ωutils.ϒurljoin
-		ϒ_ID_RE = λ.NewStr("[0-9a-f]{32,34}")
+		ϒ_ID_RE = λ.NewStr("(?:[0-9a-f]{32,34}|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12,14})")
+		MediasiteNamedCatalogIE = λ.Cal(λ.TypeType, λ.NewStr("MediasiteNamedCatalogIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+			var (
+				MediasiteNamedCatalogIE__VALID_URL λ.Object
+			)
+			MediasiteNamedCatalogIE__VALID_URL = λ.NewStr("(?xi)(?P<url>https?://[^/]+/Mediasite)/Catalog/catalogs/(?P<catalog_name>[^/?#&]+)")
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_VALID_URL"): MediasiteNamedCatalogIE__VALID_URL,
+			})
+		}())
 	})
 }

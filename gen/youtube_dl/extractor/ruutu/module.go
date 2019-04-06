@@ -101,6 +101,19 @@ func init() {
 					λ.NewStr("url"):           λ.NewStr("http://www.ruutu.fi/video/3193728"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://www.supla.fi/supla/3382410"),
+					λ.NewStr("md5"): λ.NewStr("b9d7155fed37b2ebf6021d74c4b8e908"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("3382410"),
+						λ.NewStr("ext"):         λ.NewStr("mp3"),
+						λ.NewStr("title"):       λ.NewStr("Mikä ihmeen poltergeist?"),
+						λ.NewStr("description"): λ.NewStr("md5:bbb6963df17dfd0ecd9eb9a61bf14b52"),
+						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
+						λ.NewStr("age_limit"):   λ.NewInt(0),
+					}),
+					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("HTTP Error 502: Bad Gateway")),
+				}),
 			)
 			RuutuIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -228,81 +241,95 @@ func init() {
 														{Name: "fatal", Value: λ.False},
 													}))
 												} else {
-													ϒproto = λ.GetAttr(λ.Cal(ϒcompat_urllib_parse_urlparse, ϒvideo_url), "scheme", nil)
 													if λ.IsTrue(func() λ.Object {
-														if λv := λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(ϒchild, "tag", nil), "startswith", nil), λ.NewStr("HTTP")))); !λ.IsTrue(λv) {
+														if λv := λ.Eq(ϒext, λ.NewStr("mp3")); λ.IsTrue(λv) {
 															return λv
 														} else {
-															return λ.Ne(ϒproto, λ.NewStr("rtmp"))
+															return λ.Eq(λ.GetAttr(ϒchild, "tag", nil), λ.NewStr("AudioMediaFile"))
 														}
 													}()) {
-														continue
-													}
-													ϒpreference = func() λ.Object {
-														if λ.IsTrue(λ.Eq(ϒproto, λ.NewStr("rtmp"))) {
-															return λ.Neg(λ.NewInt(1))
-														} else {
-															return λ.NewInt(1)
-														}
-													}()
-													ϒlabel = λ.Cal(λ.GetAttr(ϒchild, "get", nil), λ.NewStr("label"))
-													ϒtbr = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒchild, "get", nil), λ.NewStr("bitrate")))
-													ϒformat_id = func() λ.Object {
+														λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+															λ.NewStr("format_id"): λ.NewStr("audio"),
+															λ.NewStr("url"):       ϒvideo_url,
+															λ.NewStr("vcodec"):    λ.NewStr("none"),
+														}))
+													} else {
+														ϒproto = λ.GetAttr(λ.Cal(ϒcompat_urllib_parse_urlparse, ϒvideo_url), "scheme", nil)
 														if λ.IsTrue(func() λ.Object {
-															if λv := ϒlabel; λ.IsTrue(λv) {
+															if λv := λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(ϒchild, "tag", nil), "startswith", nil), λ.NewStr("HTTP")))); !λ.IsTrue(λv) {
 																return λv
 															} else {
-																return ϒtbr
+																return λ.Ne(ϒproto, λ.NewStr("rtmp"))
 															}
 														}()) {
-															return λ.Mod(λ.NewStr("%s-%s"), λ.NewTuple(
-																ϒproto,
-																func() λ.Object {
-																	if λ.IsTrue(ϒlabel) {
-																		return ϒlabel
-																	} else {
-																		return ϒtbr
-																	}
-																}(),
-															))
-														} else {
-															return ϒproto
+															continue
 														}
-													}()
-													if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒself, "_is_valid_url", nil), ϒvideo_url, ϒvideo_id, ϒformat_id)))) {
-														continue
-													}
-													τmp2 = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
-														nil,
-														0, false, false,
-														func(λargs []λ.Object) λ.Object {
-															return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
-																var (
-																	ϒx   λ.Object
-																	τmp0 λ.Object
-																	τmp1 λ.Object
-																)
-																τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒchild, "get", nil), λ.NewStr("resolution"), λ.NewStr("x")), "split", nil), λ.NewStr("x")), λ.NewSlice(λ.None, λ.NewInt(2), λ.None)))
-																for {
-																	if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-																		break
-																	}
-																	ϒx = τmp1
-																	λgen.Yield(λ.Cal(ϒint_or_none, ϒx))
+														ϒpreference = func() λ.Object {
+															if λ.IsTrue(λ.Eq(ϒproto, λ.NewStr("rtmp"))) {
+																return λ.Neg(λ.NewInt(1))
+															} else {
+																return λ.NewInt(1)
+															}
+														}()
+														ϒlabel = λ.Cal(λ.GetAttr(ϒchild, "get", nil), λ.NewStr("label"))
+														ϒtbr = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒchild, "get", nil), λ.NewStr("bitrate")))
+														ϒformat_id = func() λ.Object {
+															if λ.IsTrue(func() λ.Object {
+																if λv := ϒlabel; λ.IsTrue(λv) {
+																	return λv
+																} else {
+																	return ϒtbr
 																}
-																return λ.None
-															})
-														})))
-													ϒwidth = λ.GetItem(τmp2, λ.NewInt(0))
-													ϒheight = λ.GetItem(τmp2, λ.NewInt(1))
-													λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-														λ.NewStr("format_id"):  ϒformat_id,
-														λ.NewStr("url"):        ϒvideo_url,
-														λ.NewStr("width"):      ϒwidth,
-														λ.NewStr("height"):     ϒheight,
-														λ.NewStr("tbr"):        ϒtbr,
-														λ.NewStr("preference"): ϒpreference,
-													}))
+															}()) {
+																return λ.Mod(λ.NewStr("%s-%s"), λ.NewTuple(
+																	ϒproto,
+																	func() λ.Object {
+																		if λ.IsTrue(ϒlabel) {
+																			return ϒlabel
+																		} else {
+																			return ϒtbr
+																		}
+																	}(),
+																))
+															} else {
+																return ϒproto
+															}
+														}()
+														if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒself, "_is_valid_url", nil), ϒvideo_url, ϒvideo_id, ϒformat_id)))) {
+															continue
+														}
+														τmp2 = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+															nil,
+															0, false, false,
+															func(λargs []λ.Object) λ.Object {
+																return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+																	var (
+																		ϒx   λ.Object
+																		τmp0 λ.Object
+																		τmp1 λ.Object
+																	)
+																	τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒchild, "get", nil), λ.NewStr("resolution"), λ.NewStr("x")), "split", nil), λ.NewStr("x")), λ.NewSlice(λ.None, λ.NewInt(2), λ.None)))
+																	for {
+																		if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+																			break
+																		}
+																		ϒx = τmp1
+																		λgen.Yield(λ.Cal(ϒint_or_none, ϒx))
+																	}
+																	return λ.None
+																})
+															})))
+														ϒwidth = λ.GetItem(τmp2, λ.NewInt(0))
+														ϒheight = λ.GetItem(τmp2, λ.NewInt(1))
+														λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+															λ.NewStr("format_id"):  ϒformat_id,
+															λ.NewStr("url"):        ϒvideo_url,
+															λ.NewStr("width"):      ϒwidth,
+															λ.NewStr("height"):     ϒheight,
+															λ.NewStr("tbr"):        ϒtbr,
+															λ.NewStr("preference"): ϒpreference,
+														}))
+													}
 												}
 											}
 										}

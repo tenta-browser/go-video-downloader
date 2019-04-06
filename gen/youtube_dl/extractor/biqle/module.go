@@ -70,7 +70,7 @@ func init() {
 					λ.NewStr("url"): λ.NewStr("http://biqle.org/watch/-44781847_168547604"),
 					λ.NewStr("md5"): λ.NewStr("7f24e72af1db0edf7c1aaba513174f97"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("168547604"),
+						λ.NewStr("id"):          λ.NewStr("-44781847_168547604"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
 						λ.NewStr("title"):       λ.NewStr("Ребенок в шоке от автоматической мойки"),
 						λ.NewStr("timestamp"):   λ.NewInt(1396633454),

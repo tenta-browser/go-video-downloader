@@ -27,7 +27,6 @@ package vk
 import (
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωsys "github.com/tenta-browser/go-video-downloader/gen/sys"
-	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωdailymotion "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dailymotion"
 	Ωpladform "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pladform"
@@ -49,7 +48,6 @@ var (
 	VimeoIE               λ.Object
 	YoutubeIE             λ.Object
 	ϒclean_html           λ.Object
-	ϒcompat_str           λ.Object
 	ϒget_element_by_class λ.Object
 	ϒint_or_none          λ.Object
 	ϒorderedSet           λ.Object
@@ -65,7 +63,6 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒclean_html = Ωutils.ϒclean_html
 		ExtractorError = Ωutils.ExtractorError
 		ϒget_element_by_class = Ωutils.ϒget_element_by_class
@@ -195,7 +192,7 @@ func init() {
 					λ.NewStr("url"): λ.NewStr("http://vk.com/videos-77521?z=video-77521_162222515%2Fclub77521"),
 					λ.NewStr("md5"): λ.NewStr("7babad3b85ea2e91948005b1b8b0cb84"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("162222515"),
+						λ.NewStr("id"):          λ.NewStr("-77521_162222515"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
 						λ.NewStr("title"):       λ.NewStr("ProtivoGunz - Хуёвая песня"),
 						λ.NewStr("uploader"):    λ.NewStr("re:(?:Noize MC|Alexander Ilyashenko).*"),
@@ -209,7 +206,7 @@ func init() {
 					λ.NewStr("url"): λ.NewStr("http://vk.com/video205387401_165548505"),
 					λ.NewStr("md5"): λ.NewStr("6c0aeb2e90396ba97035b9cbde548700"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("165548505"),
+						λ.NewStr("id"):          λ.NewStr("205387401_165548505"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
 						λ.NewStr("title"):       λ.NewStr("No name"),
 						λ.NewStr("uploader"):    λ.NewStr("Tom Cruise"),
@@ -224,7 +221,7 @@ func init() {
 					λ.NewStr("url"):  λ.NewStr("http://vk.com/video_ext.php?oid=32194266&id=162925554&hash=7d8c2e0d5e05aeaa&hd=1"),
 					λ.NewStr("md5"):  λ.NewStr("c7ce8f1f87bec05b3de07fdeafe21a0a"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("162925554"),
+						λ.NewStr("id"):          λ.NewStr("32194266_162925554"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
 						λ.NewStr("uploader"):    λ.NewStr("Vladimir Gavrin"),
 						λ.NewStr("title"):       λ.NewStr("Lin Dan"),
@@ -239,7 +236,7 @@ func init() {
 					λ.NewStr("md5"):  λ.NewStr("a590bcaf3d543576c9bd162812387666"),
 					λ.NewStr("note"): λ.NewStr("Only available for registered users"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("164049491"),
+						λ.NewStr("id"):          λ.NewStr("-8871596_164049491"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
 						λ.NewStr("uploader"):    λ.NewStr("Триллеры"),
 						λ.NewStr("title"):       λ.NewStr("► Бойцовский клуб / Fight Club 1999 [HD 720]"),
@@ -253,7 +250,7 @@ func init() {
 					λ.NewStr("url"): λ.NewStr("http://vk.com/hd_kino_mania?z=video-43215063_168067957%2F15c66b9b533119788d"),
 					λ.NewStr("md5"): λ.NewStr("4d7a5ef8cf114dfa09577e57b2993202"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("168067957"),
+						λ.NewStr("id"):          λ.NewStr("-43215063_168067957"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
 						λ.NewStr("uploader"):    λ.NewStr("Киномания - лучшее из мира кино"),
 						λ.NewStr("title"):       λ.NewStr(" "),
@@ -267,7 +264,7 @@ func init() {
 					λ.NewStr("md5"):  λ.NewStr("0c45586baa71b7cb1d0784ee3f4e00a6"),
 					λ.NewStr("note"): λ.NewStr("ivi.ru embed"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("60690"),
+						λ.NewStr("id"):          λ.NewStr("-43215063_169084319"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
 						λ.NewStr("title"):       λ.NewStr("Книга Илая"),
 						λ.NewStr("duration"):    λ.NewInt(6771),
@@ -280,7 +277,7 @@ func init() {
 					λ.NewStr("url"): λ.NewStr("https://vk.com/video30481095_171201961?list=8764ae2d21f14088d4"),
 					λ.NewStr("md5"): λ.NewStr("091287af5402239a1051c37ec7b92913"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("171201961"),
+						λ.NewStr("id"):          λ.NewStr("30481095_171201961"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
 						λ.NewStr("title"):       λ.NewStr("ТюменцевВВ_09.07.2015"),
 						λ.NewStr("uploader"):    λ.NewStr("Anton Ivanov"),
@@ -294,10 +291,10 @@ func init() {
 					λ.NewStr("url"): λ.NewStr("https://vk.com/video276849682_170681728"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):          λ.NewStr("V3K4mi0SYkc"),
-						λ.NewStr("ext"):         λ.NewStr("webm"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
 						λ.NewStr("title"):       λ.NewStr("DSWD Awards 'Children's Joy Foundation, Inc.' Certificate of Registration and License to Operate"),
 						λ.NewStr("description"): λ.NewStr("md5:bf9c26cfa4acdfb146362682edd3827a"),
-						λ.NewStr("duration"):    λ.NewInt(179),
+						λ.NewStr("duration"):    λ.NewInt(178),
 						λ.NewStr("upload_date"): λ.NewStr("20130116"),
 						λ.NewStr("uploader"):    λ.NewStr("Children's Joy Foundation Inc."),
 						λ.NewStr("uploader_id"): λ.NewStr("thecjf"),
@@ -324,7 +321,7 @@ func init() {
 					λ.NewStr("url"): λ.NewStr("http://vk.com/video-110305615_171782105"),
 					λ.NewStr("md5"): λ.NewStr("e13fcda136f99764872e739d13fac1d1"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("171782105"),
+						λ.NewStr("id"):          λ.NewStr("-110305615_171782105"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
 						λ.NewStr("title"):       λ.NewStr("S-Dance, репетиции к The way show"),
 						λ.NewStr("uploader"):    λ.NewStr("THE WAY SHOW | 17 апреля"),
@@ -338,14 +335,15 @@ func init() {
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("https://vk.com/videos-387766?z=video-387766_456242764%2Fpl_-387766_-2"),
-					λ.NewStr("md5"): λ.NewStr("90d22d051fccbbe9becfccc615be6791"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("456242764"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("ИгроМир 2016 — день 1"),
-						λ.NewStr("uploader"):   λ.NewStr("Игромания"),
-						λ.NewStr("duration"):   λ.NewInt(5239),
-						λ.NewStr("view_count"): λ.IntType,
+						λ.NewStr("id"):          λ.NewStr("-387766_456242764"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("ИгроМир 2016 День 1 — Игромания Утром"),
+						λ.NewStr("uploader"):    λ.NewStr("Игромания"),
+						λ.NewStr("duration"):    λ.NewInt(5239),
+						λ.NewStr("upload_date"): λ.NewStr("20160929"),
+						λ.NewStr("uploader_id"): λ.NewStr("-387766"),
+						λ.NewStr("timestamp"):   λ.NewInt(1475137527),
 					}),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -646,13 +644,7 @@ func init() {
 					}
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"): λ.Cal(ϒcompat_str, func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("vid")); λ.IsTrue(λv) {
-								return λv
-							} else {
-								return ϒvideo_id
-							}
-						}()),
+						λ.NewStr("id"):            ϒvideo_id,
 						λ.NewStr("formats"):       ϒformats,
 						λ.NewStr("title"):         ϒtitle,
 						λ.NewStr("thumbnail"):     λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("jpg")),

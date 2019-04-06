@@ -58,6 +58,7 @@ Supported sites
  * Digg: `digg.com`
  * Dotsub: `dotsub.com`
  * DrTuber _(adult)_: `www.drtuber.com`
+ * DVTV: `video.aktualne.cz`
  * DiscoveryNetworksDe: `www.tlc.de`
  * Disney: `video.disney.com`
  * DigitallySpeaking: `evt.dispeak.com`
@@ -94,6 +95,7 @@ Supported sites
  * Golem: `video.golem.de`
  * GoogleDrive: `drive.google.com`
  * GPUTechConf: `on-demand.gputechconf.com`
+ * HBO: `www.hbo.com`
  * Heise: `www.heise.de`
  * HistoricFilms: `www.historicfilms.com`
  * HitRecord: `hitrecord.org`
@@ -153,6 +155,7 @@ Supported sites
  * NJoyEmbed: `www.n-joy.de`
  * NDTV: `movies.ndtv.com`
  * Netzkino: `www.netzkino.de`
+ * Newgrounds: `www.newgrounds.com`
  * NextTV: `www.nexttv.com.tw`
  * NHL: `www.nhl.com`
  * NovaEmbed: `media.cms.nova.cz`
@@ -222,6 +225,7 @@ Supported sites
  * TastyTrade: `www.tastytrade.com`
  * TDSLifeway: `tds.lifeway.com`
  * TeacherTube: `www.teachertube.com`
+ * Teamcoco: `teamcoco.com`
  * TeamTreeHouse: `teamtreehouse.com`
  * TED: `www.ted.com`
  * Tele13: `www.t13.cl`
@@ -260,7 +264,6 @@ Supported sites
  * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
  * Unity: `unity3d.com`
- * UOL: `player.mais.uol.com.br`
  * USAToday: `www.usatoday.com`
  * UstudioEmbed: `app.ustudio.com`
  * Varzesh3: `video.varzesh3.com`
@@ -281,7 +284,6 @@ Supported sites
  * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
  * Vine: `vine.co`
- * Viqeo: `cdn.viqeo.tv`
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * VLivePlaylist: `www.vlive.tv`
@@ -299,7 +301,7 @@ Supported sites
  * XTube _(adult)_: `www.xtube.com`
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
- * Yahoo: `www.yahoo.com`
+ * Yahoo: `news.yahoo.com`
  * YinYueTai: `v.yinyuetai.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`

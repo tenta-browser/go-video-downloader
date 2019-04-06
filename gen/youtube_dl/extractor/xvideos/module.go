@@ -88,22 +88,25 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒduration   λ.Object
-						ϒformat_id  λ.Object
-						ϒformat_url λ.Object
-						ϒformats    λ.Object
-						ϒkind       λ.Object
-						ϒmobj       λ.Object
-						ϒself       = λargs[0]
-						ϒthumbnail  λ.Object
-						ϒtitle      λ.Object
-						ϒurl        = λargs[1]
-						ϒvideo_id   λ.Object
-						ϒvideo_url  λ.Object
-						ϒwebpage    λ.Object
-						τmp0        λ.Object
-						τmp1        λ.Object
-						τmp2        λ.Object
+						ϒduration      λ.Object
+						ϒformat_id     λ.Object
+						ϒformat_url    λ.Object
+						ϒformats       λ.Object
+						ϒkind          λ.Object
+						ϒmobj          λ.Object
+						ϒpreference    λ.Object
+						ϒself          = λargs[0]
+						ϒthumbnail     λ.Object
+						ϒthumbnail_url λ.Object
+						ϒthumbnails    λ.Object
+						ϒtitle         λ.Object
+						ϒurl           = λargs[1]
+						ϒvideo_id      λ.Object
+						ϒvideo_url     λ.Object
+						ϒwebpage       λ.Object
+						τmp0           λ.Object
+						τmp1           λ.Object
+						τmp2           λ.Object
 					)
 					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
 					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.NewStr("https://www.xvideos.com/video%s/"), ϒvideo_id), ϒvideo_id)
@@ -133,17 +136,33 @@ func init() {
 							return λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
 						}
 					}()
-					ϒthumbnail = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewTuple(
-							λ.NewStr("setThumbUrl\\(\\s*([\"\\'])(?P<thumbnail>(?:(?!\\1).)+)\\1"),
-							λ.NewStr("url_bigthumb=(?P<thumbnail>.+?)&amp"),
-						),
-						ϒwebpage,
-						λ.NewStr("thumbnail"),
-					), λ.KWArgs{
-						{Name: "fatal", Value: λ.False},
-						{Name: "group", Value: λ.NewStr("thumbnail")},
-					})
+					ϒthumbnails = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.EnumerateIteratorType, λ.NewTuple(
+						λ.NewStr(""),
+						λ.NewStr("169"),
+					)))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						τmp2 = τmp1
+						ϒpreference = λ.GetItem(τmp2, λ.NewInt(0))
+						ϒthumbnail = λ.GetItem(τmp2, λ.NewInt(1))
+						ϒthumbnail_url = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+							λ.Mod(λ.NewStr("setThumbUrl%s\\(\\s*([\"\\'])(?P<thumbnail>(?:(?!\\1).)+)\\1"), ϒthumbnail),
+							ϒwebpage,
+							λ.NewStr("thumbnail"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+							{Name: "group", Value: λ.NewStr("thumbnail")},
+						})
+						if λ.IsTrue(ϒthumbnail_url) {
+							λ.Cal(λ.GetAttr(ϒthumbnails, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("url"):        ϒthumbnail_url,
+								λ.NewStr("preference"): ϒpreference,
+							}))
+						}
+					}
 					ϒduration = func() λ.Object {
 						if λv := λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_og_search_property", nil), λ.NewArgs(
 							λ.NewStr("duration"),
@@ -220,12 +239,12 @@ func init() {
 					}
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("formats"):   ϒformats,
-						λ.NewStr("title"):     ϒtitle,
-						λ.NewStr("duration"):  ϒduration,
-						λ.NewStr("thumbnail"): ϒthumbnail,
-						λ.NewStr("age_limit"): λ.NewInt(18),
+						λ.NewStr("id"):         ϒvideo_id,
+						λ.NewStr("formats"):    ϒformats,
+						λ.NewStr("title"):      ϒtitle,
+						λ.NewStr("duration"):   ϒduration,
+						λ.NewStr("thumbnails"): ϒthumbnails,
+						λ.NewStr("age_limit"):  λ.NewInt(18),
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{

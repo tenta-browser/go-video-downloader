@@ -80,6 +80,7 @@ import (
 	Ωdispeak "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dispeak"
 	Ωdotsub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dotsub"
 	Ωdrtuber "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/drtuber"
+	Ωdvtv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dvtv"
 	Ωdw "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dw"
 	Ωeagleplatform "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/eagleplatform"
 	Ωebaumsworld "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ebaumsworld"
@@ -111,6 +112,7 @@ import (
 	Ωgolem "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/golem"
 	Ωgoogledrive "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/googledrive"
 	Ωgputechconf "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/gputechconf"
+	Ωhbo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/hbo"
 	Ωheise "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/heise"
 	Ωhistoricfilms "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/historicfilms"
 	Ωhitrecord "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/hitrecord"
@@ -165,6 +167,7 @@ import (
 	Ωndr "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ndr"
 	Ωndtv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ndtv"
 	Ωnetzkino "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/netzkino"
+	Ωnewgrounds "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/newgrounds"
 	Ωnextmedia "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nextmedia"
 	Ωnexx "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nexx"
 	Ωnhl "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nhl"
@@ -233,6 +236,7 @@ import (
 	Ωtastytrade "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tastytrade"
 	Ωtdslifeway "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tdslifeway"
 	Ωteachertube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/teachertube"
+	Ωteamcoco "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/teamcoco"
 	Ωteamtreehouse "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/teamtreehouse"
 	Ωted "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ted"
 	Ωtele13 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tele13"
@@ -263,7 +267,6 @@ import (
 	Ωudn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/udn"
 	Ωunistra "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/unistra"
 	Ωunity "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/unity"
-	Ωuol "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/uol"
 	Ωusatoday "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/usatoday"
 	Ωustudio "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ustudio"
 	Ωvarzesh3 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/varzesh3"
@@ -282,7 +285,6 @@ import (
 	Ωvimeo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vimeo"
 	Ωvimple "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vimple"
 	Ωvine "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vine"
-	Ωviqeo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/viqeo"
 	Ωvk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vk"
 	Ωvlive "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vlive"
 	Ωvuclip "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vuclip"
@@ -361,6 +363,7 @@ var (
 	CrackedIE                 λ.Object
 	CtsNewsIE                 λ.Object
 	CuriosityStreamIE         λ.Object
+	DVTVIE                    λ.Object
 	DWIE                      λ.Object
 	DailyMailIE               λ.Object
 	DailymotionIE             λ.Object
@@ -404,6 +407,7 @@ var (
 	GodTubeIE                 λ.Object
 	GolemIE                   λ.Object
 	GoogleDriveIE             λ.Object
+	HBOIE                     λ.Object
 	HeiseIE                   λ.Object
 	HistoricFilmsIE           λ.Object
 	HitRecordIE               λ.Object
@@ -466,6 +470,7 @@ var (
 	NationalGeographicVideoIE λ.Object
 	NaverIE                   λ.Object
 	NetzkinoIE                λ.Object
+	NewgroundsIE              λ.Object
 	NextTVIE                  λ.Object
 	NexxIE                    λ.Object
 	NovaEmbedIE               λ.Object
@@ -548,6 +553,7 @@ var (
 	TastyTradeIE              λ.Object
 	TeacherTubeIE             λ.Object
 	TeamTreeHouseIE           λ.Object
+	TeamcocoIE                λ.Object
 	Tele13IE                  λ.Object
 	TentaIE                   λ.Object
 	ThePlatformFeedIE         λ.Object
@@ -568,7 +574,6 @@ var (
 	TwitterAmplifyIE          λ.Object
 	TwitterCardIE             λ.Object
 	UDNEmbedIE                λ.Object
-	UOLIE                     λ.Object
 	USATodayIE                λ.Object
 	UnistraIE                 λ.Object
 	UnityIE                   λ.Object
@@ -594,7 +599,6 @@ var (
 	VimeoReviewIE             λ.Object
 	VimpleIE                  λ.Object
 	VineIE                    λ.Object
-	ViqeoIE                   λ.Object
 	VuClipIE                  λ.Object
 	VzaarIE                   λ.Object
 	WSJArticleIE              λ.Object
@@ -679,6 +683,7 @@ func init() {
 		DiggIE = Ωdigg.DiggIE
 		DotsubIE = Ωdotsub.DotsubIE
 		DrTuberIE = Ωdrtuber.DrTuberIE
+		DVTVIE = Ωdvtv.DVTVIE
 		DiscoveryNetworksDeIE = Ωdiscoverynetworks.DiscoveryNetworksDeIE
 		DisneyIE = Ωdisney.DisneyIE
 		DigitallySpeakingIE = Ωdispeak.DigitallySpeakingIE
@@ -715,6 +720,7 @@ func init() {
 		GolemIE = Ωgolem.GolemIE
 		GoogleDriveIE = Ωgoogledrive.GoogleDriveIE
 		GPUTechConfIE = Ωgputechconf.GPUTechConfIE
+		HBOIE = Ωhbo.HBOIE
 		HeiseIE = Ωheise.HeiseIE
 		HistoricFilmsIE = Ωhistoricfilms.HistoricFilmsIE
 		HitRecordIE = Ωhitrecord.HitRecordIE
@@ -775,6 +781,7 @@ func init() {
 		NJoyEmbedIE = Ωndr.NJoyEmbedIE
 		NDTVIE = Ωndtv.NDTVIE
 		NetzkinoIE = Ωnetzkino.NetzkinoIE
+		NewgroundsIE = Ωnewgrounds.NewgroundsIE
 		NextTVIE = Ωnextmedia.NextTVIE
 		NexxIE = Ωnexx.NexxIE
 		NHLIE = Ωnhl.NHLIE
@@ -845,6 +852,7 @@ func init() {
 		TastyTradeIE = Ωtastytrade.TastyTradeIE
 		TDSLifewayIE = Ωtdslifeway.TDSLifewayIE
 		TeacherTubeIE = Ωteachertube.TeacherTubeIE
+		TeamcocoIE = Ωteamcoco.TeamcocoIE
 		TeamTreeHouseIE = Ωteamtreehouse.TeamTreeHouseIE
 		TEDIE = Ωted.TEDIE
 		Tele13IE = Ωtele13.Tele13IE
@@ -884,7 +892,6 @@ func init() {
 		DigitekaIE = Ωdigiteka.DigitekaIE
 		UnistraIE = Ωunistra.UnistraIE
 		UnityIE = Ωunity.UnityIE
-		UOLIE = Ωuol.UOLIE
 		USATodayIE = Ωusatoday.USATodayIE
 		UstudioEmbedIE = Ωustudio.UstudioEmbedIE
 		Varzesh3IE = Ωvarzesh3.Varzesh3IE
@@ -905,7 +912,6 @@ func init() {
 		VimeoReviewIE = Ωvimeo.VimeoReviewIE
 		VimpleIE = Ωvimple.VimpleIE
 		VineIE = Ωvine.VineIE
-		ViqeoIE = Ωviqeo.ViqeoIE
 		VKIE = Ωvk.VKIE
 		VLiveIE = Ωvlive.VLiveIE
 		VLivePlaylistIE = Ωvlive.VLivePlaylistIE
@@ -989,6 +995,7 @@ func init() {
 			DiggIE,
 			DotsubIE,
 			DrTuberIE,
+			DVTVIE,
 			DiscoveryNetworksDeIE,
 			DisneyIE,
 			DigitallySpeakingIE,
@@ -1025,6 +1032,7 @@ func init() {
 			GolemIE,
 			GoogleDriveIE,
 			GPUTechConfIE,
+			HBOIE,
 			HeiseIE,
 			HistoricFilmsIE,
 			HitRecordIE,
@@ -1085,6 +1093,7 @@ func init() {
 			NJoyEmbedIE,
 			NDTVIE,
 			NetzkinoIE,
+			NewgroundsIE,
 			NextTVIE,
 			NexxIE,
 			NHLIE,
@@ -1155,6 +1164,7 @@ func init() {
 			TastyTradeIE,
 			TDSLifewayIE,
 			TeacherTubeIE,
+			TeamcocoIE,
 			TeamTreeHouseIE,
 			TEDIE,
 			Tele13IE,
@@ -1194,7 +1204,6 @@ func init() {
 			DigitekaIE,
 			UnistraIE,
 			UnityIE,
-			UOLIE,
 			USATodayIE,
 			UstudioEmbedIE,
 			Varzesh3IE,
@@ -1215,7 +1224,6 @@ func init() {
 			VimeoReviewIE,
 			VimpleIE,
 			VineIE,
-			ViqeoIE,
 			VKIE,
 			VLiveIE,
 			VLivePlaylistIE,
