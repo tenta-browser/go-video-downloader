@@ -27,6 +27,7 @@ package gdcvault
 import (
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
+	Ωkaltura "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/kaltura"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
@@ -35,15 +36,19 @@ var (
 	GDCVaultIE          λ.Object
 	HEADRequest         λ.Object
 	InfoExtractor       λ.Object
+	KalturaIE           λ.Object
 	ϒsanitized_Request  λ.Object
+	ϒsmuggle_url        λ.Object
 	ϒurlencode_postdata λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		KalturaIE = Ωkaltura.KalturaIE
 		HEADRequest = Ωutils.HEADRequest
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
+		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		GDCVaultIE = λ.Cal(λ.TypeType, λ.NewStr("GDCVaultIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
@@ -51,13 +56,13 @@ func init() {
 				GDCVaultIE__VALID_URL    λ.Object
 				GDCVaultIE__real_extract λ.Object
 			)
-			GDCVaultIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?gdcvault\\.com/play/(?P<id>\\d+)/(?P<name>(\\w|-)+)?")
+			GDCVaultIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?gdcvault\\.com/play/(?P<id>\\d+)(?:/(?P<name>[\\w-]+))?")
 			GDCVaultIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://www.gdcvault.com/play/1019721/Doki-Doki-Universe-Sweet-Simple"),
 					λ.NewStr("md5"): λ.NewStr("7ce8388f544c88b7ac11c7ab1b593704"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("1019721"),
+						λ.NewStr("id"):         λ.NewStr("201311826596_AWNY"),
 						λ.NewStr("display_id"): λ.NewStr("Doki-Doki-Universe-Sweet-Simple"),
 						λ.NewStr("ext"):        λ.NewStr("mp4"),
 						λ.NewStr("title"):      λ.NewStr("Doki-Doki Universe: Sweet, Simple and Genuine (GDC Next 10)"),
@@ -66,7 +71,7 @@ func init() {
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://www.gdcvault.com/play/1015683/Embracing-the-Dark-Art-of"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("1015683"),
+						λ.NewStr("id"):         λ.NewStr("201203272_1330951438328RSXR"),
 						λ.NewStr("display_id"): λ.NewStr("Embracing-the-Dark-Art-of"),
 						λ.NewStr("ext"):        λ.NewStr("flv"),
 						λ.NewStr("title"):      λ.NewStr("Embracing the Dark Art of Mathematical Modeling in AI"),
@@ -94,7 +99,7 @@ func init() {
 					λ.NewStr("url"): λ.NewStr("http://gdcvault.com/play/1023460/Tenacious-Design-and-The-Interface"),
 					λ.NewStr("md5"): λ.NewStr("a8efb6c31ed06ca8739294960b2dbabd"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("1023460"),
+						λ.NewStr("id"):         λ.NewStr("840376_BQRC"),
 						λ.NewStr("ext"):        λ.NewStr("mp4"),
 						λ.NewStr("display_id"): λ.NewStr("Tenacious-Design-and-The-Interface"),
 						λ.NewStr("title"):      λ.NewStr("Tenacious Design and The Interface of 'Destiny'"),
@@ -103,25 +108,32 @@ func init() {
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://www.gdcvault.com/play/1014631/Classic-Game-Postmortem-PAC"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("1014631"),
-						λ.NewStr("ext"):   λ.NewStr("flv"),
+						λ.NewStr("id"):    λ.NewStr("12396_1299111843500GMPX"),
+						λ.NewStr("ext"):   λ.NewStr("mp4"),
 						λ.NewStr("title"): λ.NewStr("How to Create a Good Game - From My Experience of Designing Pac-Man"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-						λ.NewStr("format"):        λ.NewStr("jp"),
 					}),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://www.gdcvault.com/play/1435/An-American-engine-in-Tokyo"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("1435"),
+						λ.NewStr("id"):         λ.NewStr("9350_1238021887562UHXB"),
 						λ.NewStr("display_id"): λ.NewStr("An-American-engine-in-Tokyo"),
-						λ.NewStr("ext"):        λ.NewStr("flv"),
+						λ.NewStr("ext"):        λ.NewStr("mp4"),
 						λ.NewStr("title"):      λ.NewStr("An American Engine in Tokyo:/nThe collaboration of Epic Games and Square Enix/nFor THE LAST REMINANT"),
 					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://www.gdcvault.com/play/1026180/Mastering-the-Apex-of-Scaling"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("0_h1fg8j3p"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Mastering the Apex of Scaling Game Servers (Presented by Multiplay)"),
+						λ.NewStr("timestamp"):   λ.NewInt(1554401811),
+						λ.NewStr("upload_date"): λ.NewStr("20190404"),
+						λ.NewStr("uploader_id"): λ.NewStr("joe@blazestreaming.com"),
+					}),
 					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
+						λ.NewStr("format"): λ.NewStr("mp4-408"),
 					}),
 				}),
 			)
@@ -136,9 +148,10 @@ func init() {
 						PLAYER_REGEX λ.Object
 						ϒdirect_url  λ.Object
 						ϒdisplay_id  λ.Object
-						ϒhead        λ.Object
+						ϒembed_url   λ.Object
+						ϒie_key      λ.Object
 						ϒlogin_res   λ.Object
-						ϒmobj        λ.Object
+						ϒname        λ.Object
 						ϒself        = λargs[0]
 						ϒstart_page  λ.Object
 						ϒtitle       λ.Object
@@ -148,11 +161,13 @@ func init() {
 						ϒwebpage_url λ.Object
 						ϒxml_name    λ.Object
 						ϒxml_root    λ.Object
+						τmp0         λ.Object
 					)
-					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
+					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
+					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(0))
+					ϒname = λ.GetItem(τmp0, λ.NewInt(1))
 					ϒdisplay_id = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("name")); λ.IsTrue(λv) {
+						if λv := ϒname; λ.IsTrue(λv) {
 							return λv
 						} else {
 							return ϒvideo_id
@@ -168,10 +183,9 @@ func init() {
 						{Name: "default", Value: λ.None},
 					})
 					if λ.IsTrue(ϒdirect_url) {
-						ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<td><strong>Session Name</strong></td>\\s*<td>(.*?)</td>"), ϒstart_page, λ.NewStr("title"))
+						ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<td><strong>Session Name:?</strong></td>\\s*<td>(.*?)</td>"), ϒstart_page, λ.NewStr("title"))
 						ϒvideo_url = λ.Add(λ.NewStr("http://www.gdcvault.com"), ϒdirect_url)
-						ϒhead = λ.Cal(λ.GetAttr(ϒself, "_request_webpage", nil), λ.Cal(HEADRequest, ϒvideo_url), ϒvideo_id)
-						ϒvideo_url = λ.Cal(λ.GetAttr(ϒhead, "geturl", nil))
+						ϒvideo_url = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒself, "_request_webpage", nil), λ.Cal(HEADRequest, ϒvideo_url), ϒvideo_id), "geturl", nil))
 						return λ.NewDictWithTable(map[λ.Object]λ.Object{
 							λ.NewStr("id"):         ϒvideo_id,
 							λ.NewStr("display_id"): ϒdisplay_id,
@@ -179,42 +193,43 @@ func init() {
 							λ.NewStr("title"):      ϒtitle,
 						})
 					}
-					PLAYER_REGEX = λ.NewStr("<iframe src=\"(?P<xml_root>.+?)/(?:gdc-)?player.*?\\.html.*?\".*?</iframe>")
-					ϒxml_root = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						PLAYER_REGEX,
-						ϒstart_page,
-						λ.NewStr("xml root"),
-					), λ.KWArgs{
-						{Name: "default", Value: λ.None},
-					})
-					if λ.IsTrue(λ.NewBool(ϒxml_root == λ.None)) {
-						ϒlogin_res = λ.Cal(λ.GetAttr(ϒself, "_login", nil), ϒwebpage_url, ϒdisplay_id)
-						if λ.IsTrue(λ.NewBool(ϒlogin_res == λ.None)) {
-							λ.Cal(λ.GetAttr(ϒself, "report_warning", nil), λ.NewStr("Could not login."))
-						} else {
-							ϒstart_page = ϒlogin_res
-							ϒxml_root = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), PLAYER_REGEX, ϒstart_page, λ.NewStr("xml root"))
+					ϒembed_url = λ.Cal(λ.GetAttr(KalturaIE, "_extract_url", nil), ϒstart_page)
+					if λ.IsTrue(ϒembed_url) {
+						ϒembed_url = λ.Cal(ϒsmuggle_url, ϒembed_url, λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("source_url"): ϒurl,
+						}))
+						ϒie_key = λ.NewStr("Kaltura")
+					} else {
+						PLAYER_REGEX = λ.NewStr("<iframe src=\"(?P<xml_root>.+?)/(?:gdc-)?player.*?\\.html.*?\".*?</iframe>")
+						ϒxml_root = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
+							PLAYER_REGEX,
+							ϒstart_page,
+							λ.NewStr("xml root"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						})
+						if λ.IsTrue(λ.NewBool(ϒxml_root == λ.None)) {
+							ϒlogin_res = λ.Cal(λ.GetAttr(ϒself, "_login", nil), ϒwebpage_url, ϒdisplay_id)
+							if λ.IsTrue(λ.NewBool(ϒlogin_res == λ.None)) {
+								λ.Cal(λ.GetAttr(ϒself, "report_warning", nil), λ.NewStr("Could not login."))
+							} else {
+								ϒstart_page = ϒlogin_res
+								ϒxml_root = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), PLAYER_REGEX, ϒstart_page, λ.NewStr("xml root"))
+							}
 						}
-					}
-					ϒxml_name = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<iframe src=\".*?\\?xml=(.+?\\.xml).*?\".*?</iframe>"),
-						ϒstart_page,
-						λ.NewStr("xml filename"),
-					), λ.KWArgs{
-						{Name: "default", Value: λ.None},
-					})
-					if λ.IsTrue(λ.NewBool(ϒxml_name == λ.None)) {
-						ϒxml_name = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<iframe src=\".*?\\?xmlURL=xml/(?P<xml_file>.+?\\.xml).*?\".*?</iframe>"), ϒstart_page, λ.NewStr("xml filename"))
+						ϒxml_name = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<iframe src=\".*?\\?xml(?:=|URL=xml/)(.+?\\.xml).*?\".*?</iframe>"), ϒstart_page, λ.NewStr("xml filename"))
+						ϒembed_url = λ.Mod(λ.NewStr("%s/xml/%s"), λ.NewTuple(
+							ϒxml_root,
+							ϒxml_name,
+						))
+						ϒie_key = λ.NewStr("DigitallySpeaking")
 					}
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("_type"):      λ.NewStr("url_transparent"),
 						λ.NewStr("id"):         ϒvideo_id,
 						λ.NewStr("display_id"): ϒdisplay_id,
-						λ.NewStr("url"): λ.Mod(λ.NewStr("%s/xml/%s"), λ.NewTuple(
-							ϒxml_root,
-							ϒxml_name,
-						)),
-						λ.NewStr("ie_key"): λ.NewStr("DigitallySpeaking"),
+						λ.NewStr("url"):        ϒembed_url,
+						λ.NewStr("ie_key"):     ϒie_key,
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{

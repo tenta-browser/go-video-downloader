@@ -54,7 +54,7 @@ func init() {
 				OpenloadIE__DOMAINS   λ.Object
 				OpenloadIE__VALID_URL λ.Object
 			)
-			OpenloadIE__DOMAINS = λ.NewStr("(?:openload\\.(?:co|io|link|pw)|oload\\.(?:tv|stream|site|xyz|win|download|cloud|cc|icu|fun|club|info|pw|live|space))")
+			OpenloadIE__DOMAINS = λ.NewStr("(?:openload\\.(?:co|io|link|pw)|oload\\.(?:tv|stream|site|xyz|win|download|cloud|cc|icu|fun|club|info|pw|live|space)|oladblock\\.(?:services|xyz|me))")
 			OpenloadIE__VALID_URL = λ.Mod(λ.NewStr("(?x)\n                    https?://\n                        (?P<host>\n                            (?:www\\.)?\n                            %s\n                        )/\n                        (?:f|embed)/\n                        (?P<id>[a-zA-Z0-9-_]+)\n                    "), OpenloadIE__DOMAINS)
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_DOMAINS"):   OpenloadIE__DOMAINS,

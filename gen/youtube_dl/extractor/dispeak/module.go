@@ -86,6 +86,8 @@ func init() {
 				func(λargs []λ.Object) λ.Object {
 					var (
 						ϒa_format      λ.Object
+						ϒabr           λ.Object
+						ϒbitrate       λ.Object
 						ϒformats       λ.Object
 						ϒhttp_host     λ.Object
 						ϒmetadata      = λargs[1]
@@ -93,6 +95,7 @@ func init() {
 						ϒmp4_video     λ.Object
 						ϒself          = λargs[0]
 						ϒstream_name   λ.Object
+						ϒtbr           λ.Object
 						ϒurl           λ.Object
 						ϒvbr           λ.Object
 						ϒvideo_formats λ.Object
@@ -101,7 +104,6 @@ func init() {
 						τmp0           λ.Object
 						τmp1           λ.Object
 					)
-					_ = ϒself
 					ϒvideo_formats = λ.NewList()
 					ϒvideo_root = λ.None
 					ϒmp4_video = λ.Call(ϒxpath_text, λ.NewArgs(
@@ -146,10 +148,34 @@ func init() {
 						})
 						ϒvideo_path = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.NewStr("mp4\\:(?P<path>.*)"), ϒstream_name), "group", nil), λ.NewStr("path"))
 						ϒurl = λ.Add(ϒvideo_root, ϒvideo_path)
-						ϒvbr = λ.Cal(ϒxpath_text, ϒa_format, λ.NewStr("bitrate"))
+						ϒbitrate = λ.Cal(ϒxpath_text, ϒa_format, λ.NewStr("bitrate"))
+						ϒtbr = λ.Cal(ϒint_or_none, ϒbitrate)
+						ϒvbr = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+							λ.NewStr("-(\\d+)\\.mp4"),
+							ϒvideo_path,
+							λ.NewStr("vbr"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						}))
+						ϒabr = func() λ.Object {
+							if λ.IsTrue(func() λ.Object {
+								if λv := ϒtbr; !λ.IsTrue(λv) {
+									return λv
+								} else {
+									return ϒvbr
+								}
+							}()) {
+								return λ.Sub(ϒtbr, ϒvbr)
+							} else {
+								return λ.None
+							}
+						}()
 						λ.Cal(λ.GetAttr(ϒvideo_formats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"): ϒurl,
-							λ.NewStr("vbr"): λ.Cal(ϒint_or_none, ϒvbr),
+							λ.NewStr("format_id"): ϒbitrate,
+							λ.NewStr("url"):       ϒurl,
+							λ.NewStr("tbr"):       ϒtbr,
+							λ.NewStr("vbr"):       ϒvbr,
+							λ.NewStr("abr"):       ϒabr,
 						}))
 					}
 					return ϒvideo_formats

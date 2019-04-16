@@ -42,6 +42,8 @@ var (
 	InfoExtractor       λ.Object
 	NBCSportsVPlayerIE  λ.Object
 	SearchInfoExtractor λ.Object
+	YahooGyaOIE         λ.Object
+	YahooGyaOPlayerIE   λ.Object
 	YahooIE             λ.Object
 	ϒclean_html         λ.Object
 	ϒdetermine_ext      λ.Object
@@ -728,6 +730,24 @@ func init() {
 				λ.NewStr("_extract_info"): YahooIE__extract_info,
 				λ.NewStr("_get_info"):     YahooIE__get_info,
 				λ.NewStr("_real_extract"): YahooIE__real_extract,
+			})
+		}())
+		YahooGyaOPlayerIE = λ.Cal(λ.TypeType, λ.NewStr("YahooGyaOPlayerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+			var (
+				YahooGyaOPlayerIE__VALID_URL λ.Object
+			)
+			YahooGyaOPlayerIE__VALID_URL = λ.NewStr("https?://(?:gyao\\.yahoo\\.co\\.jp/(?:player|episode/[^/]+)|streaming\\.yahoo\\.co\\.jp/c/y)/(?P<id>\\d+/v\\d+/v\\d+|[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_VALID_URL"): YahooGyaOPlayerIE__VALID_URL,
+			})
+		}())
+		YahooGyaOIE = λ.Cal(λ.TypeType, λ.NewStr("YahooGyaOIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+			var (
+				YahooGyaOIE__VALID_URL λ.Object
+			)
+			YahooGyaOIE__VALID_URL = λ.NewStr("https?://(?:gyao\\.yahoo\\.co\\.jp/p|streaming\\.yahoo\\.co\\.jp/p/y)/(?P<id>\\d+/v\\d+)")
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_VALID_URL"): YahooGyaOIE__VALID_URL,
 			})
 		}())
 	})

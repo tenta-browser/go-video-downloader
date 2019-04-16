@@ -138,10 +138,15 @@ func init() {
 					var (
 						ϒembed_info  λ.Object
 						ϒescaped_pid λ.Object
+						ϒk           λ.Object
 						ϒmobj        λ.Object
 						ϒservice_url λ.Object
 						ϒurl         λ.Object
+						ϒv           λ.Object
 						ϒwebpage     = λargs[0]
+						τmp0         λ.Object
+						τmp1         λ.Object
+						τmp2         λ.Object
 					)
 					ϒmobj = func() λ.Object {
 						if λv := λ.Cal(Ωre.ϒsearch, λ.NewStr("(?xs)\n                    kWidget\\.(?:thumb)?[Ee]mbed\\(\n                    \\{.*?\n                        (?P<q1>['\"])wid(?P=q1)\\s*:\\s*\n                        (?P<q2>['\"])_?(?P<partner_id>(?:(?!(?P=q2)).)+)(?P=q2),.*?\n                        (?P<q3>['\"])entry_?[Ii]d(?P=q3)\\s*:\\s*\n                        (?P<q4>['\"])(?P<id>(?:(?!(?P=q4)).)+)(?P=q4)(?:,|\\s*\\})\n                "), ϒwebpage); λ.IsTrue(λv) {
@@ -154,6 +159,16 @@ func init() {
 					}()
 					if λ.IsTrue(ϒmobj) {
 						ϒembed_info = λ.Cal(λ.GetAttr(ϒmobj, "groupdict", nil))
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒembed_info, "items", nil)))
+						for {
+							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+								break
+							}
+							τmp2 = τmp1
+							ϒk = λ.GetItem(τmp2, λ.NewInt(0))
+							ϒv = λ.GetItem(τmp2, λ.NewInt(1))
+							λ.SetItem(ϒembed_info, ϒk, λ.Cal(λ.GetAttr(ϒv, "strip", nil)))
+						}
 						ϒurl = λ.Mod(λ.NewStr("kaltura:%(partner_id)s:%(id)s"), ϒembed_info)
 						ϒescaped_pid = λ.Cal(Ωre.ϒescape, λ.GetItem(ϒembed_info, λ.NewStr("partner_id")))
 						ϒservice_url = λ.Cal(Ωre.ϒsearch, λ.Mod(λ.NewStr("<script[^>]+src=[\"\\']((?:https?:)?//.+?)/p/%s/sp/%s00/embedIframeJs"), λ.NewTuple(

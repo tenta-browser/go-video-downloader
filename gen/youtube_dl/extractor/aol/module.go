@@ -26,22 +26,27 @@ package aol
 
 import (
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
+	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	AolIE          λ.Object
-	ExtractorError λ.Object
-	InfoExtractor  λ.Object
-	ϒint_or_none   λ.Object
-	ϒurl_or_none   λ.Object
+	AolIE                         λ.Object
+	ExtractorError                λ.Object
+	InfoExtractor                 λ.Object
+	ϒcompat_parse_qs              λ.Object
+	ϒcompat_urllib_parse_urlparse λ.Object
+	ϒint_or_none                  λ.Object
+	ϒurl_or_none                  λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
+		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒurl_or_none = Ωutils.ϒurl_or_none
@@ -52,11 +57,11 @@ func init() {
 				AolIE__VALID_URL    λ.Object
 				AolIE__real_extract λ.Object
 			)
-			AolIE_IE_NAME = λ.NewStr("on.aol.com")
-			AolIE__VALID_URL = λ.NewStr("(?:aol-video:|https?://(?:(?:www|on)\\.)?aol\\.com/(?:[^/]+/)*(?:[^/?#&]+-)?)(?P<id>[^/?#&]+)")
+			AolIE_IE_NAME = λ.NewStr("aol.com")
+			AolIE__VALID_URL = λ.NewStr("(?:aol-video:|https?://(?:www\\.)?aol\\.(?:com|ca|co\\.uk|de|jp)/video/(?:[^/]+/)*)(?P<id>[0-9a-f]+)")
 			AolIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://on.aol.com/video/u-s--official-warns-of-largest-ever-irs-phone-scam-518167793?icid=OnHomepageC2Wide_MustSee_Img"),
+					λ.NewStr("url"): λ.NewStr("https://www.aol.com/video/view/u-s--official-warns-of-largest-ever-irs-phone-scam/518167793/"),
 					λ.NewStr("md5"): λ.NewStr("18ef68f48740e86ae94b98da815eec42"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):          λ.NewStr("518167793"),
@@ -72,7 +77,7 @@ func init() {
 					}),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.aol.com/video/view/netflix-is-raising-rates/5707d6b8e4b090497b04f706/"),
+					λ.NewStr("url"): λ.NewStr("https://www.aol.com/video/view/netflix-is-raising-rates/5707d6b8e4b090497b04f706/"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):          λ.NewStr("5707d6b8e4b090497b04f706"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
@@ -87,19 +92,35 @@ func init() {
 					}),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://on.aol.com/partners/abc-551438d309eab105804dbfe8/sneak-peek-was-haley-really-framed-570eaebee4b0448640a5c944"),
+					λ.NewStr("url"):           λ.NewStr("https://www.aol.com/video/view/park-bench-season-2-trailer/559a1b9be4b0c3bfad3357a7/"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://on.aol.com/shows/park-bench-shw518173474-559a1b9be4b0c3bfad3357a7?context=SH:SHW518173474:PL4327:1460619712763"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://on.aol.com/video/519442220"),
+					λ.NewStr("url"):           λ.NewStr("https://www.aol.com/video/view/donald-trump-spokeswoman-tones-down-megyn-kelly-attacks/519442220/"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"):           λ.NewStr("aol-video:5707d6b8e4b090497b04f706"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://www.aol.com/video/playlist/PL8245/5ca79d19d21f1a04035db606/"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://www.aol.ca/video/view/u-s-woman-s-family-arrested-for-murder-first-pinned-on-panhandler-police/5c7ccf45bc03931fa04b2fe1/"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://www.aol.co.uk/video/view/-one-dead-and-22-hurt-in-bus-crash-/5cb3a6f3d21f1a072b457347/"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://www.aol.de/video/view/eva-braun-privataufnahmen-von-hitlers-geliebter-werden-digitalisiert/5cb2d49de98ab54c113d3d5d/"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://www.aol.jp/video/playlist/5a28e936a1334d000137da0c/5a28f3151e642219fde19831/"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
 			)
@@ -116,6 +137,7 @@ func init() {
 						ϒformats    λ.Object
 						ϒm3u8_url   λ.Object
 						ϒmobj       λ.Object
+						ϒqs         λ.Object
 						ϒrendition  λ.Object
 						ϒresponse   λ.Object
 						ϒself       = λargs[0]
@@ -138,7 +160,7 @@ func init() {
 					}
 					ϒvideo_data = λ.GetItem(ϒresponse, λ.NewStr("data"))
 					ϒformats = λ.NewList()
-					ϒm3u8_url = λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("videoMasterPlaylist"))
+					ϒm3u8_url = λ.Cal(ϒurl_or_none, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("videoMasterPlaylist")))
 					if λ.IsTrue(ϒm3u8_url) {
 						λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
 							ϒm3u8_url,
@@ -179,6 +201,12 @@ func init() {
 								λ.Cal(λ.GetAttr(ϒf, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
 									λ.NewStr("width"):  λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewInt(1))),
 									λ.NewStr("height"): λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewInt(2))),
+								}))
+							} else {
+								ϒqs = λ.Cal(ϒcompat_parse_qs, λ.GetAttr(λ.Cal(ϒcompat_urllib_parse_urlparse, ϒvideo_url), "query", nil))
+								λ.Cal(λ.GetAttr(ϒf, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λ.NewStr("width"):  λ.Cal(ϒint_or_none, λ.GetItem(λ.Cal(λ.GetAttr(ϒqs, "get", nil), λ.NewStr("w"), λ.NewList(λ.None)), λ.NewInt(0))),
+									λ.NewStr("height"): λ.Cal(ϒint_or_none, λ.GetItem(λ.Cal(λ.GetAttr(ϒqs, "get", nil), λ.NewStr("h"), λ.NewList(λ.None)), λ.NewInt(0))),
 								}))
 							}
 							λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)

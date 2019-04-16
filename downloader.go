@@ -52,10 +52,11 @@ type Connector struct {
 
 // VideoData holds the final result of the extraction
 type VideoData struct {
-	URL      string
-	Title    string
-	Filename string
-	AgeLimit int
+	URL       string
+	Title     string
+	Filename  string
+	AgeLimit  int
+	Thumbnail string
 }
 
 // Init initializes the downloader:
@@ -134,10 +135,11 @@ func Extract(url string, connector *Connector) (resData *VideoData, err error) {
 	}
 	resDict := res.(rnt.Dict)
 	resData = &VideoData{
-		URL:      resStringField(resDict, "url", true, ""),
-		Title:    resStringField(resDict, "title", true, ""),
-		Filename: resStringField(resDict, "_filename", false, "unknown.video"),
-		AgeLimit: resIntField(resDict, "age_limit", false, 0),
+		URL:       resStringField(resDict, "url", true, ""),
+		Title:     resStringField(resDict, "title", true, ""),
+		Filename:  resStringField(resDict, "_filename", false, "unknown.video"),
+		AgeLimit:  resIntField(resDict, "age_limit", false, 0),
+		Thumbnail: resStringField(resDict, "thumbnail", false, ""),
 	}
 	return resData, nil
 }

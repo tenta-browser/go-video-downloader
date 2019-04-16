@@ -56,7 +56,7 @@ func init() {
 				StreamangoIE__VALID_URL    λ.Object
 				StreamangoIE__real_extract λ.Object
 			)
-			StreamangoIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?:streamango\\.com|fruithosts\\.net)/(?:f|embed)/(?P<id>[^/?#&]+)")
+			StreamangoIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?:streamango\\.com|fruithosts\\.net|streamcherry\\.com)/(?:f|embed)/(?P<id>[^/?#&]+)")
 			StreamangoIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("https://streamango.com/f/clapasobsptpkdfe/20170315_150006_mp4"),
@@ -85,6 +85,10 @@ func init() {
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"):           λ.NewStr("https://fruithosts.net/f/mreodparcdcmspsm/w1f1_r4lph_2018_brrs_720p_latino_mp4"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://streamcherry.com/f/clapasobsptpkdfe/"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
 			)

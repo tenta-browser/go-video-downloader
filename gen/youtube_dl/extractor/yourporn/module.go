@@ -44,26 +44,32 @@ func init() {
 		ϒurljoin = Ωutils.ϒurljoin
 		YourPornIE = λ.Cal(λ.TypeType, λ.NewStr("YourPornIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				YourPornIE__TEST         λ.Object
+				YourPornIE__TESTS        λ.Object
 				YourPornIE__VALID_URL    λ.Object
 				YourPornIE__real_extract λ.Object
 			)
-			YourPornIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?yourporn\\.sexy/post/(?P<id>[^/?#&.]+)")
-			YourPornIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://yourporn.sexy/post/57ffcb2e1179b.html"),
-				λ.NewStr("md5"): λ.NewStr("6f8682b6464033d87acaa7a8ff0c092e"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):        λ.NewStr("57ffcb2e1179b"),
-					λ.NewStr("ext"):       λ.NewStr("mp4"),
-					λ.NewStr("title"):     λ.NewStr("md5:c9f43630bd968267672651ba905a7d35"),
-					λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg$"),
-					λ.NewStr("duration"):  λ.NewInt(165),
-					λ.NewStr("age_limit"): λ.NewInt(18),
+			YourPornIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?:yourporn\\.sexy|sxyprn\\.com)/post/(?P<id>[^/?#&.]+)")
+			YourPornIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://yourporn.sexy/post/57ffcb2e1179b.html"),
+					λ.NewStr("md5"): λ.NewStr("6f8682b6464033d87acaa7a8ff0c092e"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):        λ.NewStr("57ffcb2e1179b"),
+						λ.NewStr("ext"):       λ.NewStr("mp4"),
+						λ.NewStr("title"):     λ.NewStr("md5:c9f43630bd968267672651ba905a7d35"),
+						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg$"),
+						λ.NewStr("duration"):  λ.NewInt(165),
+						λ.NewStr("age_limit"): λ.NewInt(18),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
 				}),
-				λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("skip_download"): λ.True,
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://sxyprn.com/post/57ffcb2e1179b.html"),
+					λ.NewStr("only_matching"): λ.True,
 				}),
-			})
+			)
 			YourPornIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -121,7 +127,7 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         YourPornIE__TEST,
+				λ.NewStr("_TESTS"):        YourPornIE__TESTS,
 				λ.NewStr("_VALID_URL"):    YourPornIE__VALID_URL,
 				λ.NewStr("_real_extract"): YourPornIE__real_extract,
 			})

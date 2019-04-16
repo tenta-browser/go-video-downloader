@@ -5,7 +5,7 @@ Supported sites
  * ACast: `www.acast.com`
  * AdobeTV: `tv.adobe.com`
  * AdobeTVVideo: `video.tv.adobe.com`
- * Aol: `on.aol.com`
+ * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
  * Aparat: `www.aparat.com`
  * ArchiveOrg: `archive.org`
@@ -58,7 +58,6 @@ Supported sites
  * Digg: `digg.com`
  * Dotsub: `dotsub.com`
  * DrTuber _(adult)_: `www.drtuber.com`
- * DVTV: `video.aktualne.cz`
  * DiscoveryNetworksDe: `www.tlc.de`
  * Disney: `video.disney.com`
  * DigitallySpeaking: `evt.dispeak.com`
@@ -96,7 +95,6 @@ Supported sites
  * GoogleDrive: `drive.google.com`
  * GPUTechConf: `on-demand.gputechconf.com`
  * HBO: `www.hbo.com`
- * Heise: `www.heise.de`
  * HistoricFilms: `www.historicfilms.com`
  * HitRecord: `hitrecord.org`
  * HornBunny _(adult)_: `hornbunny.com`
@@ -109,7 +107,6 @@ Supported sites
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
  * Instagram: `instagram.com`
- * Ir90Tv: `90tv.ir`
  * Ivideon: `www.ivideon.com`
  * Izlesene: `www.izlesene.com`
  * Jamendo: `www.jamendo.com`
@@ -120,7 +117,6 @@ Supported sites
  * KeezMovies _(adult)_: `www.keezmovies.com`
  * KhanAcademy: `www.khanacademy.org`
  * KickStarter: `www.kickstarter.com`
- * KrasView: `krasview.ru`
  * KuwoMv: `www.kuwo.cn`
  * LA7: `www.la7.it`
  * LCI: `www.lci.fr`
@@ -131,7 +127,6 @@ Supported sites
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * Lynda: `www.lynda.com`
  * MacGameStore: `www.macgamestore.com`
- * MailRuMusic: `my.mail.ru`
  * ManyVids: `www.manyvids.com`
  * MassengeschmackTV: `massengeschmack.tv`
  * Mediaset: `www.mediasetplay.mediaset.it`
@@ -181,7 +176,6 @@ Supported sites
  * Playvid _(adult)_: `www.playvid.com`
  * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
- * PornCom _(adult)_: `www.porn.com`
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
@@ -191,11 +185,9 @@ Supported sites
  * RadioJavan: `www.radiojavan.com`
  * Rai: `www.raisport.rai.it`
  * RayWenderlich: `www.raywenderlich.com`
- * RBMARadio: `www.rbmaradio.com`
  * RedTube _(adult)_: `www.redtube.com`
  * RENTV: `ren.tv`
  * ReverbNation: `www.reverbnation.com`
- * RockstarGames: `www.rockstargames.com`
  * Rozhlas: `prehravac.rozhlas.cz`
  * RTS: `www.rts.ch`
  * RTVS: `www.rtvs.sk`
@@ -204,7 +196,6 @@ Supported sites
  * Sapo: `videos.sapo.pt`
  * SBS: `www.sbs.com.au`
  * Screencast: `www.screencast.com`
- * SenateISVP: `www.senate.gov`
  * SeznamZpravy: `www.seznamzpravy.cz`
  * Sina: `video.sina.com.cn`
  * SkySports: `www.skysports.com`
@@ -235,7 +226,6 @@ Supported sites
  * ThePlatformFeed: `feed.theplatform.com`
  * TheScene: `thescene.com`
  * ThisOldHouse: `www.thisoldhouse.com`
- * TikTok: `m.tiktok.com`
  * TinyPic: `tinypic.com`
  * TMZ: `www.tmz.com`
  * TMZArticle: `www.tmz.com`
@@ -284,6 +274,7 @@ Supported sites
  * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
  * Vine: `vine.co`
+ * Viqeo: `cdn.viqeo.tv`
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * VLivePlaylist: `www.vlive.tv`
@@ -301,7 +292,7 @@ Supported sites
  * XTube _(adult)_: `www.xtube.com`
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
- * Yahoo: `news.yahoo.com`
+ * Yahoo: `tw.video.yahoo.com`
  * YinYueTai: `v.yinyuetai.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`
