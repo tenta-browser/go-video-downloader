@@ -50,6 +50,7 @@ func init() {
 		SenateISVPIE = λ.Cal(λ.TypeType, λ.NewStr("SenateISVPIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SenateISVPIE__COMM_MAP          λ.Object
+				SenateISVPIE__TESTS             λ.Object
 				SenateISVPIE__VALID_URL         λ.Object
 				SenateISVPIE__get_info_for_comm λ.Object
 				SenateISVPIE__real_extract      λ.Object
@@ -213,6 +214,43 @@ func init() {
 				),
 			)
 			SenateISVPIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?senate\\.gov/isvp/?\\?(?P<qs>.+)")
+			SenateISVPIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.senate.gov/isvp/?comm=judiciary&type=live&stt=&filename=judiciary031715&auto_play=false&wmode=transparent&poster=http%3A%2F%2Fwww.judiciary.senate.gov%2Fthemes%2Fjudiciary%2Fimages%2Fvideo-poster-flash-fit.png"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):        λ.NewStr("judiciary031715"),
+						λ.NewStr("ext"):       λ.NewStr("mp4"),
+						λ.NewStr("title"):     λ.NewStr("Integrated Senate Video Player"),
+						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.(?:jpg|png)$"),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.senate.gov/isvp/?type=live&comm=commerce&filename=commerce011514.mp4&auto_play=false"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):    λ.NewStr("commerce011514"),
+						λ.NewStr("ext"):   λ.NewStr("mp4"),
+						λ.NewStr("title"): λ.NewStr("Integrated Senate Video Player"),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.senate.gov/isvp/?type=arch&comm=intel&filename=intel090613&hc_location=ufi"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):    λ.NewStr("intel090613"),
+						λ.NewStr("ext"):   λ.NewStr("mp4"),
+						λ.NewStr("title"): λ.NewStr("Integrated Senate Video Player"),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://www.senate.gov/isvp?type=live&comm=banking&filename=banking012715"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
 			SenateISVPIE__search_iframe_url = λ.NewFunction("_search_iframe_url",
 				[]λ.Param{
 					{Name: "webpage"},
@@ -399,6 +437,7 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_COMM_MAP"):          SenateISVPIE__COMM_MAP,
+				λ.NewStr("_TESTS"):             SenateISVPIE__TESTS,
 				λ.NewStr("_VALID_URL"):         SenateISVPIE__VALID_URL,
 				λ.NewStr("_get_info_for_comm"): SenateISVPIE__get_info_for_comm,
 				λ.NewStr("_real_extract"):      SenateISVPIE__real_extract,

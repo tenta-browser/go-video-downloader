@@ -70,11 +70,198 @@ func init() {
 		TVPlayIE = λ.Cal(λ.TypeType, λ.NewStr("TVPlayIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TVPlayIE_IE_NAME       λ.Object
+				TVPlayIE__TESTS        λ.Object
 				TVPlayIE__VALID_URL    λ.Object
 				TVPlayIE__real_extract λ.Object
 			)
 			TVPlayIE_IE_NAME = λ.NewStr("mtg")
 			TVPlayIE__VALID_URL = λ.NewStr("(?x)\n                    (?:\n                        mtg:|\n                        https?://\n                            (?:www\\.)?\n                            (?:\n                                tvplay(?:\\.skaties)?\\.lv(?:/parraides)?|\n                                (?:tv3play|play\\.tv3)\\.lt(?:/programos)?|\n                                tv3play(?:\\.tv3)?\\.ee/sisu|\n                                (?:tv(?:3|6|8|10)play|viafree)\\.se/program|\n                                (?:(?:tv3play|viasat4play|tv6play|viafree)\\.no|(?:tv3play|viafree)\\.dk)/programmer|\n                                play\\.nova(?:tv)?\\.bg/programi\n                            )\n                            /(?:[^/]+/)+\n                        )\n                        (?P<id>\\d+)\n                    ")
+			TVPlayIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.tvplay.lv/parraides/vinas-melo-labak/418113?autostart=true"),
+					λ.NewStr("md5"): λ.NewStr("a1612fe0849455423ad8718fe049be21"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):            λ.NewStr("418113"),
+						λ.NewStr("ext"):           λ.NewStr("mp4"),
+						λ.NewStr("title"):         λ.NewStr("Kādi ir īri? - Viņas melo labāk"),
+						λ.NewStr("description"):   λ.NewStr("Baiba apsmej īrus, kādi tie ir un ko viņi dara."),
+						λ.NewStr("series"):        λ.NewStr("Viņas melo labāk"),
+						λ.NewStr("season"):        λ.NewStr("2.sezona"),
+						λ.NewStr("season_number"): λ.NewInt(2),
+						λ.NewStr("duration"):      λ.NewInt(25),
+						λ.NewStr("timestamp"):     λ.NewInt(1406097056),
+						λ.NewStr("upload_date"):   λ.NewStr("20140723"),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://play.tv3.lt/programos/moterys-meluoja-geriau/409229?autostart=true"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):             λ.NewStr("409229"),
+						λ.NewStr("ext"):            λ.NewStr("flv"),
+						λ.NewStr("title"):          λ.NewStr("Moterys meluoja geriau"),
+						λ.NewStr("description"):    λ.NewStr("md5:9aec0fc68e2cbc992d2a140bd41fa89e"),
+						λ.NewStr("series"):         λ.NewStr("Moterys meluoja geriau"),
+						λ.NewStr("episode_number"): λ.NewInt(47),
+						λ.NewStr("season"):         λ.NewStr("1 sezonas"),
+						λ.NewStr("season_number"):  λ.NewInt(1),
+						λ.NewStr("duration"):       λ.NewInt(1330),
+						λ.NewStr("timestamp"):      λ.NewInt(1403769181),
+						λ.NewStr("upload_date"):    λ.NewStr("20140626"),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.tv3play.ee/sisu/kodu-keset-linna/238551?autostart=true"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("238551"),
+						λ.NewStr("ext"):         λ.NewStr("flv"),
+						λ.NewStr("title"):       λ.NewStr("Kodu keset linna 398537"),
+						λ.NewStr("description"): λ.NewStr("md5:7df175e3c94db9e47c0d81ffa5d68701"),
+						λ.NewStr("duration"):    λ.NewInt(1257),
+						λ.NewStr("timestamp"):   λ.NewInt(1292449761),
+						λ.NewStr("upload_date"): λ.NewStr("20101215"),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.tv3play.se/program/husraddarna/395385?autostart=true"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("395385"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Husräddarna S02E07"),
+						λ.NewStr("description"): λ.NewStr("md5:f210c6c89f42d4fc39faa551be813777"),
+						λ.NewStr("duration"):    λ.NewInt(2574),
+						λ.NewStr("timestamp"):   λ.NewInt(1400596321),
+						λ.NewStr("upload_date"): λ.NewStr("20140520"),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.tv6play.se/program/den-sista-dokusapan/266636?autostart=true"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("266636"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Den sista dokusåpan S01E08"),
+						λ.NewStr("description"): λ.NewStr("md5:295be39c872520221b933830f660b110"),
+						λ.NewStr("duration"):    λ.NewInt(1492),
+						λ.NewStr("timestamp"):   λ.NewInt(1330522854),
+						λ.NewStr("upload_date"): λ.NewStr("20120229"),
+						λ.NewStr("age_limit"):   λ.NewInt(18),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.tv8play.se/program/antikjakten/282756?autostart=true"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("282756"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Antikjakten S01E10"),
+						λ.NewStr("description"): λ.NewStr("md5:1b201169beabd97e20c5ad0ad67b13b8"),
+						λ.NewStr("duration"):    λ.NewInt(2646),
+						λ.NewStr("timestamp"):   λ.NewInt(1348575868),
+						λ.NewStr("upload_date"): λ.NewStr("20120925"),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.tv3play.no/programmer/anna-anka-soker-assistent/230898?autostart=true"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("230898"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Anna Anka søker assistent - Ep. 8"),
+						λ.NewStr("description"): λ.NewStr("md5:f80916bf5bbe1c5f760d127f8dd71474"),
+						λ.NewStr("duration"):    λ.NewInt(2656),
+						λ.NewStr("timestamp"):   λ.NewInt(1277720005),
+						λ.NewStr("upload_date"): λ.NewStr("20100628"),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.viasat4play.no/programmer/budbringerne/21873?autostart=true"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("21873"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Budbringerne program 10"),
+						λ.NewStr("description"): λ.NewStr("md5:4db78dc4ec8a85bb04fd322a3ee5092d"),
+						λ.NewStr("duration"):    λ.NewInt(1297),
+						λ.NewStr("timestamp"):   λ.NewInt(1254205102),
+						λ.NewStr("upload_date"): λ.NewStr("20090929"),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://www.tv6play.no/programmer/hotelinspektor-alex-polizzi/361883?autostart=true"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("361883"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Hotelinspektør Alex Polizzi - Ep. 10"),
+						λ.NewStr("description"): λ.NewStr("md5:3ecf808db9ec96c862c8ecb3a7fdaf81"),
+						λ.NewStr("duration"):    λ.NewInt(2594),
+						λ.NewStr("timestamp"):   λ.NewInt(1393236292),
+						λ.NewStr("upload_date"): λ.NewStr("20140224"),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://play.novatv.bg/programi/zdravei-bulgariya/624952?autostart=true"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("624952"),
+						λ.NewStr("ext"):         λ.NewStr("flv"),
+						λ.NewStr("title"):       λ.NewStr("Здравей, България (12.06.2015 г.) "),
+						λ.NewStr("description"): λ.NewStr("md5:99f3700451ac5bb71a260268b8daefd7"),
+						λ.NewStr("duration"):    λ.NewInt(8838),
+						λ.NewStr("timestamp"):   λ.NewInt(1434100372),
+						λ.NewStr("upload_date"): λ.NewStr("20150612"),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://play.nova.bg/programi/zdravei-bulgariya/764300?autostart=true"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://tvplay.skaties.lv/parraides/vinas-melo-labak/418113?autostart=true"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://tvplay.skaties.lv/vinas-melo-labak/418113/?autostart=true"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://tvplay.skaties.lv/parraides/tv3-zinas/760183"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://tv3play.tv3.ee/sisu/kodu-keset-linna/238551?autostart=true"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://www.viafree.se/program/underhallning/i-like-radio-live/sasong-1/676869"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("mtg:418113"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
 			TVPlayIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -281,6 +468,7 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       TVPlayIE_IE_NAME,
+				λ.NewStr("_TESTS"):        TVPlayIE__TESTS,
 				λ.NewStr("_VALID_URL"):    TVPlayIE__VALID_URL,
 				λ.NewStr("_real_extract"): TVPlayIE__real_extract,
 			})

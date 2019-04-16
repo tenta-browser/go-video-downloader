@@ -200,6 +200,9 @@ func resIntField(resDict rnt.Dict, name string, required bool, def int) int {
 
 func resField(resDict rnt.Dict, name string, required bool) rnt.Object {
 	val := resDict.GetItem(rnt.NewStr(name))
+	if val == rnt.None {
+		val = nil
+	}
 	if val == nil && required {
 		panic(rnt.RaiseType(lib.ExtractorErrorType, fmt.Sprintf(
 			"result dict is missing '%s'", name)))

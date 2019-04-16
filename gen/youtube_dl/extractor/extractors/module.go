@@ -46,6 +46,7 @@ import (
 	Ωbleacherreport "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bleacherreport"
 	Ωbpb "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bpb"
 	Ωbr "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/br"
+	Ωbravotv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bravotv"
 	Ωbrightcove "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/brightcove"
 	Ωbusinessinsider "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/businessinsider"
 	Ωbyutv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/byutv"
@@ -80,6 +81,7 @@ import (
 	Ωdispeak "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dispeak"
 	Ωdotsub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dotsub"
 	Ωdrtuber "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/drtuber"
+	Ωdvtv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dvtv"
 	Ωdw "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dw"
 	Ωeagleplatform "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/eagleplatform"
 	Ωebaumsworld "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ebaumsworld"
@@ -123,6 +125,7 @@ import (
 	Ωina "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ina"
 	Ωinfoq "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/infoq"
 	Ωinstagram "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/instagram"
+	Ωir90tv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ir90tv"
 	Ωivideon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ivideon"
 	Ωizlesene "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/izlesene"
 	Ωjamendo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/jamendo"
@@ -144,6 +147,7 @@ import (
 	Ωlovehomeporn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/lovehomeporn"
 	Ωlynda "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/lynda"
 	Ωmacgamestore "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/macgamestore"
+	Ωmailru "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mailru"
 	Ωmanyvids "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/manyvids"
 	Ωmassengeschmacktv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/massengeschmacktv"
 	Ωmediaset "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mediaset"
@@ -177,6 +181,7 @@ import (
 	Ωpandoratv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pandoratv"
 	Ωparliamentliveuk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/parliamentliveuk"
 	Ωpatreon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/patreon"
+	Ωpbs "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pbs"
 	Ωpearvideo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pearvideo"
 	Ωpeople "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/people"
 	Ωperformgroup "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/performgroup"
@@ -187,6 +192,7 @@ import (
 	Ωplayvid "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/playvid"
 	Ωpodomatic "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/podomatic"
 	Ωpokemon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pokemon"
+	Ωporncom "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/porncom"
 	Ωpornhd "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhd"
 	Ωpornhub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhub"
 	Ωpornotube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornotube"
@@ -196,9 +202,11 @@ import (
 	Ωradiojavan "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/radiojavan"
 	Ωrai "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rai"
 	Ωraywenderlich "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/raywenderlich"
+	Ωrbmaradio "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rbmaradio"
 	Ωredtube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/redtube"
 	Ωrentv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rentv"
 	Ωreverbnation "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/reverbnation"
+	Ωrockstargames "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rockstargames"
 	Ωrozhlas "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rozhlas"
 	Ωrts "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rts"
 	Ωrtvs "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rtvs"
@@ -207,6 +215,7 @@ import (
 	Ωsapo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sapo"
 	Ωsbs "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sbs"
 	Ωscreencast "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/screencast"
+	Ωsenateisvp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/senateisvp"
 	Ωseznamzpravy "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/seznamzpravy"
 	Ωsina "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sina"
 	Ωskysports "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/skysports"
@@ -326,6 +335,7 @@ var (
 	BleacherReportCMSIE       λ.Object
 	BleacherReportIE          λ.Object
 	BpbIE                     λ.Object
+	BravoTVIE                 λ.Object
 	BrightcoveLegacyIE        λ.Object
 	BrightcoveNewIE           λ.Object
 	BusinessInsiderIE         λ.Object
@@ -354,6 +364,7 @@ var (
 	CrackedIE                 λ.Object
 	CtsNewsIE                 λ.Object
 	CuriosityStreamIE         λ.Object
+	DVTVIE                    λ.Object
 	DWIE                      λ.Object
 	DailyMailIE               λ.Object
 	DailymotionIE             λ.Object
@@ -410,6 +421,7 @@ var (
 	InaIE                     λ.Object
 	InfoQIE                   λ.Object
 	InstagramIE               λ.Object
+	Ir90TvIE                  λ.Object
 	IvideonIE                 λ.Object
 	IzleseneIE                λ.Object
 	JWPlatformIE              λ.Object
@@ -432,6 +444,7 @@ var (
 	LyndaIE                   λ.Object
 	MLBIE                     λ.Object
 	MacGameStoreIE            λ.Object
+	MailRuMusicIE             λ.Object
 	ManyVidsIE                λ.Object
 	MassengeschmackTVIE       λ.Object
 	MediasetIE                λ.Object
@@ -467,6 +480,7 @@ var (
 	OnetIE                    λ.Object
 	OoyalaIE                  λ.Object
 	OutsideTVIE               λ.Object
+	PBSIE                     λ.Object
 	PacktPubIE                λ.Object
 	PandoraTVIE               λ.Object
 	ParliamentLiveUKIE        λ.Object
@@ -481,11 +495,13 @@ var (
 	PlayvidIE                 λ.Object
 	PodomaticIE               λ.Object
 	PokemonIE                 λ.Object
+	PornComIE                 λ.Object
 	PornHdIE                  λ.Object
 	PornHubIE                 λ.Object
 	PornotubeIE               λ.Object
 	PressTVIE                 λ.Object
 	PuhuTVIE                  λ.Object
+	RBMARadioIE               λ.Object
 	RENTVIE                   λ.Object
 	RTSIE                     λ.Object
 	RTVSIE                    λ.Object
@@ -496,6 +512,7 @@ var (
 	RayWenderlichIE           λ.Object
 	RedTubeIE                 λ.Object
 	ReverbNationIE            λ.Object
+	RockstarGamesIE           λ.Object
 	RozhlasIE                 λ.Object
 	RuutuIE                   λ.Object
 	SBSIE                     λ.Object
@@ -503,6 +520,7 @@ var (
 	SWRMediathekIE            λ.Object
 	SapoIE                    λ.Object
 	ScreencastIE              λ.Object
+	SenateISVPIE              λ.Object
 	SeznamZpravyIE            λ.Object
 	SinaIE                    λ.Object
 	SkySportsIE               λ.Object
@@ -531,6 +549,7 @@ var (
 	TVPEmbedIE                λ.Object
 	TVPIE                     λ.Object
 	TVPlayHomeIE              λ.Object
+	TVPlayIE                  λ.Object
 	TagesschauIE              λ.Object
 	TastyTradeIE              λ.Object
 	TeacherTubeIE             λ.Object
@@ -632,6 +651,7 @@ func init() {
 		BleacherReportCMSIE = Ωbleacherreport.BleacherReportCMSIE
 		BpbIE = Ωbpb.BpbIE
 		BRIE = Ωbr.BRIE
+		BravoTVIE = Ωbravotv.BravoTVIE
 		BrightcoveLegacyIE = Ωbrightcove.BrightcoveLegacyIE
 		BrightcoveNewIE = Ωbrightcove.BrightcoveNewIE
 		BusinessInsiderIE = Ωbusinessinsider.BusinessInsiderIE
@@ -665,6 +685,7 @@ func init() {
 		DiggIE = Ωdigg.DiggIE
 		DotsubIE = Ωdotsub.DotsubIE
 		DrTuberIE = Ωdrtuber.DrTuberIE
+		DVTVIE = Ωdvtv.DVTVIE
 		DiscoveryNetworksDeIE = Ωdiscoverynetworks.DiscoveryNetworksDeIE
 		DisneyIE = Ωdisney.DisneyIE
 		DigitallySpeakingIE = Ωdispeak.DigitallySpeakingIE
@@ -714,6 +735,7 @@ func init() {
 		InaIE = Ωina.InaIE
 		InfoQIE = Ωinfoq.InfoQIE
 		InstagramIE = Ωinstagram.InstagramIE
+		Ir90TvIE = Ωir90tv.Ir90TvIE
 		IvideonIE = Ωivideon.IvideonIE
 		IzleseneIE = Ωizlesene.IzleseneIE
 		JamendoIE = Ωjamendo.JamendoIE
@@ -735,6 +757,7 @@ func init() {
 		LoveHomePornIE = Ωlovehomeporn.LoveHomePornIE
 		LyndaIE = Ωlynda.LyndaIE
 		MacGameStoreIE = Ωmacgamestore.MacGameStoreIE
+		MailRuMusicIE = Ωmailru.MailRuMusicIE
 		ManyVidsIE = Ωmanyvids.ManyVidsIE
 		MassengeschmackTVIE = Ωmassengeschmacktv.MassengeschmackTVIE
 		MediasetIE = Ωmediaset.MediasetIE
@@ -775,6 +798,7 @@ func init() {
 		PandoraTVIE = Ωpandoratv.PandoraTVIE
 		ParliamentLiveUKIE = Ωparliamentliveuk.ParliamentLiveUKIE
 		PatreonIE = Ωpatreon.PatreonIE
+		PBSIE = Ωpbs.PBSIE
 		PearVideoIE = Ωpearvideo.PearVideoIE
 		PeopleIE = Ωpeople.PeopleIE
 		PerformGroupIE = Ωperformgroup.PerformGroupIE
@@ -785,6 +809,7 @@ func init() {
 		PlayvidIE = Ωplayvid.PlayvidIE
 		PodomaticIE = Ωpodomatic.PodomaticIE
 		PokemonIE = Ωpokemon.PokemonIE
+		PornComIE = Ωporncom.PornComIE
 		PornHdIE = Ωpornhd.PornHdIE
 		PornHubIE = Ωpornhub.PornHubIE
 		PornotubeIE = Ωpornotube.PornotubeIE
@@ -794,9 +819,11 @@ func init() {
 		RadioJavanIE = Ωradiojavan.RadioJavanIE
 		RaiIE = Ωrai.RaiIE
 		RayWenderlichIE = Ωraywenderlich.RayWenderlichIE
+		RBMARadioIE = Ωrbmaradio.RBMARadioIE
 		RedTubeIE = Ωredtube.RedTubeIE
 		RENTVIE = Ωrentv.RENTVIE
 		ReverbNationIE = Ωreverbnation.ReverbNationIE
+		RockstarGamesIE = Ωrockstargames.RockstarGamesIE
 		RozhlasIE = Ωrozhlas.RozhlasIE
 		RTSIE = Ωrts.RTSIE
 		RTVSIE = Ωrtvs.RTVSIE
@@ -805,6 +832,7 @@ func init() {
 		SapoIE = Ωsapo.SapoIE
 		SBSIE = Ωsbs.SBSIE
 		ScreencastIE = Ωscreencast.ScreencastIE
+		SenateISVPIE = Ωsenateisvp.SenateISVPIE
 		SeznamZpravyIE = Ωseznamzpravy.SeznamZpravyIE
 		SinaIE = Ωsina.SinaIE
 		SkySportsIE = Ωskysports.SkySportsIE
@@ -854,6 +882,7 @@ func init() {
 		TVN24IE = Ωtvn24.TVN24IE
 		TVPEmbedIE = Ωtvp.TVPEmbedIE
 		TVPIE = Ωtvp.TVPIE
+		TVPlayIE = Ωtvplay.TVPlayIE
 		TVPlayHomeIE = Ωtvplay.TVPlayHomeIE
 		TwentyMinutenIE = Ωtwentymin.TwentyMinutenIE
 		TwentyThreeVideoIE = Ωtwentythreevideo.TwentyThreeVideoIE
@@ -935,6 +964,7 @@ func init() {
 			BleacherReportCMSIE,
 			BpbIE,
 			BRIE,
+			BravoTVIE,
 			BrightcoveLegacyIE,
 			BrightcoveNewIE,
 			BusinessInsiderIE,
@@ -968,6 +998,7 @@ func init() {
 			DiggIE,
 			DotsubIE,
 			DrTuberIE,
+			DVTVIE,
 			DiscoveryNetworksDeIE,
 			DisneyIE,
 			DigitallySpeakingIE,
@@ -1017,6 +1048,7 @@ func init() {
 			InaIE,
 			InfoQIE,
 			InstagramIE,
+			Ir90TvIE,
 			IvideonIE,
 			IzleseneIE,
 			JamendoIE,
@@ -1038,6 +1070,7 @@ func init() {
 			LoveHomePornIE,
 			LyndaIE,
 			MacGameStoreIE,
+			MailRuMusicIE,
 			ManyVidsIE,
 			MassengeschmackTVIE,
 			MediasetIE,
@@ -1078,6 +1111,7 @@ func init() {
 			PandoraTVIE,
 			ParliamentLiveUKIE,
 			PatreonIE,
+			PBSIE,
 			PearVideoIE,
 			PeopleIE,
 			PerformGroupIE,
@@ -1088,6 +1122,7 @@ func init() {
 			PlayvidIE,
 			PodomaticIE,
 			PokemonIE,
+			PornComIE,
 			PornHdIE,
 			PornHubIE,
 			PornotubeIE,
@@ -1097,9 +1132,11 @@ func init() {
 			RadioJavanIE,
 			RaiIE,
 			RayWenderlichIE,
+			RBMARadioIE,
 			RedTubeIE,
 			RENTVIE,
 			ReverbNationIE,
+			RockstarGamesIE,
 			RozhlasIE,
 			RTSIE,
 			RTVSIE,
@@ -1108,6 +1145,7 @@ func init() {
 			SapoIE,
 			SBSIE,
 			ScreencastIE,
+			SenateISVPIE,
 			SeznamZpravyIE,
 			SinaIE,
 			SkySportsIE,
@@ -1157,6 +1195,7 @@ func init() {
 			TVN24IE,
 			TVPEmbedIE,
 			TVPIE,
+			TVPlayIE,
 			TVPlayHomeIE,
 			TwentyMinutenIE,
 			TwentyThreeVideoIE,

@@ -25,6 +25,7 @@ Supported sites
  * BleacherReportCMS: `bleacherreport.com`
  * Bpb: `www.bpb.de`
  * BR: `www.br.de`
+ * BravoTV: `www.bravotv.com`
  * BrightcoveLegacy: `c.brightcove.com`
  * BrightcoveNew: `players.brightcove.net`
  * BusinessInsider: `uk.businessinsider.com`
@@ -58,6 +59,7 @@ Supported sites
  * Digg: `digg.com`
  * Dotsub: `dotsub.com`
  * DrTuber _(adult)_: `www.drtuber.com`
+ * DVTV: `video.aktualne.cz`
  * DiscoveryNetworksDe: `www.tlc.de`
  * Disney: `video.disney.com`
  * DigitallySpeaking: `evt.dispeak.com`
@@ -107,6 +109,7 @@ Supported sites
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
  * Instagram: `instagram.com`
+ * Ir90Tv: `90tv.ir`
  * Ivideon: `www.ivideon.com`
  * Izlesene: `www.izlesene.com`
  * Jamendo: `www.jamendo.com`
@@ -127,6 +130,7 @@ Supported sites
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * Lynda: `www.lynda.com`
  * MacGameStore: `www.macgamestore.com`
+ * MailRuMusic: `my.mail.ru`
  * ManyVids: `www.manyvids.com`
  * MassengeschmackTV: `massengeschmack.tv`
  * Mediaset: `www.mediasetplay.mediaset.it`
@@ -166,6 +170,7 @@ Supported sites
  * PandoraTV: `jp.channel.pandora.tv`
  * ParliamentLiveUK: `parliamentlive.tv`
  * Patreon: `www.patreon.com`
+ * PBS: `www.pbs.org`
  * PearVideo: `www.pearvideo.com`
  * People: `www.people.com`
  * PerformGroup: `player.performgroup.com`
@@ -176,6 +181,7 @@ Supported sites
  * Playvid _(adult)_: `www.playvid.com`
  * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
+ * PornCom _(adult)_: `www.porn.com`
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
@@ -185,9 +191,11 @@ Supported sites
  * RadioJavan: `www.radiojavan.com`
  * Rai: `www.raisport.rai.it`
  * RayWenderlich: `www.raywenderlich.com`
+ * RBMARadio: `www.rbmaradio.com`
  * RedTube _(adult)_: `www.redtube.com`
  * RENTV: `ren.tv`
  * ReverbNation: `www.reverbnation.com`
+ * RockstarGames: `www.rockstargames.com`
  * Rozhlas: `prehravac.rozhlas.cz`
  * RTS: `www.rts.ch`
  * RTVS: `www.rtvs.sk`
@@ -196,6 +204,7 @@ Supported sites
  * Sapo: `videos.sapo.pt`
  * SBS: `www.sbs.com.au`
  * Screencast: `www.screencast.com`
+ * SenateISVP: `www.senate.gov`
  * SeznamZpravy: `www.seznamzpravy.cz`
  * Sina: `video.sina.com.cn`
  * SkySports: `www.skysports.com`
@@ -244,6 +253,7 @@ Supported sites
  * TVCArticle: `www.tvc.ru`
  * TVN24: `www.tvn24.pl`
  * TVP: `vod.tvp.pl`
+ * TVPlay: `play.novatv.bg`
  * TVPlayHome _(adult)_: `tvplay.tv3.lt`
  * TwentyMinuten: `www.20min.ch`
  * TwentyThreeVideo: `video.twentythree.net`
