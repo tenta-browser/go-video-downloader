@@ -2500,6 +2500,7 @@ func init() {
 						ϒformat_id                   λ.Object
 						ϒformats                     λ.Object
 						ϒformats_spec                λ.Object
+						ϒget_token                   λ.Object
 						ϒget_video_info              λ.Object
 						ϒh                           λ.Object
 						ϒheight                      λ.Object
@@ -2548,6 +2549,7 @@ func init() {
 						ϒstreaming_formats           λ.Object
 						ϒstretched_m                 λ.Object
 						ϒsts                         λ.Object
+						ϒtoken                       λ.Object
 						ϒtrack                       λ.Object
 						ϒtype_                       λ.Object
 						ϒtype_split                  λ.Object
@@ -2904,8 +2906,22 @@ func init() {
 								if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_info))) {
 									ϒvideo_info = ϒget_video_info
 								}
-								if λ.IsTrue(λ.NewBool(λ.Contains(ϒget_video_info, λ.NewStr("token")))) {
-									if λ.IsTrue(λ.NewBool(!λ.Contains(ϒvideo_info, λ.NewStr("token")))) {
+								ϒget_token = func() λ.Object {
+									if λv := λ.Cal(λ.GetAttr(ϒget_video_info, "get", nil), λ.NewStr("token")); λ.IsTrue(λv) {
+										return λv
+									} else {
+										return λ.Cal(λ.GetAttr(ϒget_video_info, "get", nil), λ.NewStr("account_playback_token"))
+									}
+								}()
+								if λ.IsTrue(ϒget_token) {
+									ϒtoken = func() λ.Object {
+										if λv := λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("token")); λ.IsTrue(λv) {
+											return λv
+										} else {
+											return λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("account_playback_token"))
+										}
+									}()
+									if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒtoken))) {
 										ϒvideo_info = ϒget_video_info
 									}
 									break
@@ -2925,7 +2941,24 @@ func init() {
 								{Name: "default", Value: λ.None},
 							})
 						})
-					if λ.IsTrue(λ.NewBool(!λ.Contains(ϒvideo_info, λ.NewStr("token")))) {
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_info))) {
+						ϒunavailable_message = λ.Cal(ϒextract_unavailable_message)
+						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒunavailable_message))) {
+							ϒunavailable_message = λ.NewStr("Unable to extract video data")
+						}
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("YouTube said: %s"), ϒunavailable_message)), λ.KWArgs{
+							{Name: "expected", Value: λ.True},
+							{Name: "video_id", Value: ϒvideo_id},
+						})))
+					}
+					ϒtoken = func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("token")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("account_playback_token"))
+						}
+					}()
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒtoken))) {
 						if λ.IsTrue(λ.NewBool(λ.Contains(ϒvideo_info, λ.NewStr("reason")))) {
 							if λ.IsTrue(λ.NewBool(λ.Contains(λ.GetItem(ϒvideo_info, λ.NewStr("reason")), λ.NewStr("The uploader has not made this video available in your country.")))) {
 								ϒregions_allowed = λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(

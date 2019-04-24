@@ -34,12 +34,10 @@ import (
 	Ωarchiveorg "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/archiveorg"
 	Ωard "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ard"
 	Ωasiancrush "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/asiancrush"
-	Ωaudiomack "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/audiomack"
 	Ωazmedien "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/azmedien"
 	Ωbandcamp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bandcamp"
 	Ωbeatport "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/beatport"
 	Ωbeeg "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/beeg"
-	Ωbigflix "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bigflix"
 	Ωbild "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bild"
 	Ωbiqle "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/biqle"
 	Ωbitchute "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bitchute"
@@ -221,13 +219,11 @@ import (
 	Ωskysports "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/skysports"
 	Ωslideshare "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/slideshare"
 	Ωslideslive "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/slideslive"
-	Ωslutload "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/slutload"
 	Ωsoundcloud "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/soundcloud"
 	Ωsoundgasm "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/soundgasm"
 	Ωspankbang "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/spankbang"
 	Ωsrgssr "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/srgssr"
 	Ωstanfordoc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/stanfordoc"
-	Ωstitcher "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/stitcher"
 	Ωstreamable "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/streamable"
 	Ωstreamango "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/streamango"
 	Ωsunporno "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sunporno"
@@ -314,14 +310,12 @@ var (
 	ARDMediathekIE            λ.Object
 	AZMedienIE                λ.Object
 	AbcNewsVideoIE            λ.Object
-	AdobeTVIE                 λ.Object
 	AdobeTVVideoIE            λ.Object
 	AllocineIE                λ.Object
 	AolIE                     λ.Object
 	AparatIE                  λ.Object
 	ArchiveOrgIE              λ.Object
 	AsianCrushIE              λ.Object
-	AudiomackIE               λ.Object
 	BIQLEIE                   λ.Object
 	BRIE                      λ.Object
 	BYUtvIE                   λ.Object
@@ -329,7 +323,6 @@ var (
 	BandcampWeeklyIE          λ.Object
 	BeatportIE                λ.Object
 	BeegIE                    λ.Object
-	BigflixIE                 λ.Object
 	BildIE                    λ.Object
 	BitChuteIE                λ.Object
 	BleacherReportCMSIE       λ.Object
@@ -526,12 +519,10 @@ var (
 	SkySportsIE               λ.Object
 	SlidesLiveIE              λ.Object
 	SlideshareIE              λ.Object
-	SlutloadIE                λ.Object
 	SoundcloudIE              λ.Object
 	SoundgasmIE               λ.Object
 	SpankBangIE               λ.Object
 	StanfordOpenClassroomIE   λ.Object
-	StitcherIE                λ.Object
 	StreamableIE              λ.Object
 	StreamangoIE              λ.Object
 	SunPornoIE                λ.Object
@@ -629,7 +620,6 @@ func init() {
 	λ.InitModule(func() {
 		AbcNewsVideoIE = Ωabcnews.AbcNewsVideoIE
 		ACastIE = Ωacast.ACastIE
-		AdobeTVIE = Ωadobetv.AdobeTVIE
 		AdobeTVVideoIE = Ωadobetv.AdobeTVVideoIE
 		AolIE = Ωaol.AolIE
 		AllocineIE = Ωallocine.AllocineIE
@@ -637,13 +627,11 @@ func init() {
 		ArchiveOrgIE = Ωarchiveorg.ArchiveOrgIE
 		ARDMediathekIE = Ωard.ARDMediathekIE
 		AsianCrushIE = Ωasiancrush.AsianCrushIE
-		AudiomackIE = Ωaudiomack.AudiomackIE
 		AZMedienIE = Ωazmedien.AZMedienIE
 		BandcampIE = Ωbandcamp.BandcampIE
 		BandcampWeeklyIE = Ωbandcamp.BandcampWeeklyIE
 		BeegIE = Ωbeeg.BeegIE
 		BeatportIE = Ωbeatport.BeatportIE
-		BigflixIE = Ωbigflix.BigflixIE
 		BildIE = Ωbild.BildIE
 		BitChuteIE = Ωbitchute.BitChuteIE
 		BIQLEIE = Ωbiqle.BIQLEIE
@@ -838,11 +826,9 @@ func init() {
 		SkySportsIE = Ωskysports.SkySportsIE
 		SlideshareIE = Ωslideshare.SlideshareIE
 		SlidesLiveIE = Ωslideslive.SlidesLiveIE
-		SlutloadIE = Ωslutload.SlutloadIE
 		SoundcloudIE = Ωsoundcloud.SoundcloudIE
 		SoundgasmIE = Ωsoundgasm.SoundgasmIE
 		SpankBangIE = Ωspankbang.SpankBangIE
-		StitcherIE = Ωstitcher.StitcherIE
 		SRGSSRPlayIE = Ωsrgssr.SRGSSRPlayIE
 		StanfordOpenClassroomIE = Ωstanfordoc.StanfordOpenClassroomIE
 		StreamableIE = Ωstreamable.StreamableIE
@@ -942,7 +928,6 @@ func init() {
 		ϒ__ALL__ = λ.NewList(
 			AbcNewsVideoIE,
 			ACastIE,
-			AdobeTVIE,
 			AdobeTVVideoIE,
 			AolIE,
 			AllocineIE,
@@ -950,13 +935,11 @@ func init() {
 			ArchiveOrgIE,
 			ARDMediathekIE,
 			AsianCrushIE,
-			AudiomackIE,
 			AZMedienIE,
 			BandcampIE,
 			BandcampWeeklyIE,
 			BeegIE,
 			BeatportIE,
-			BigflixIE,
 			BildIE,
 			BitChuteIE,
 			BIQLEIE,
@@ -1151,11 +1134,9 @@ func init() {
 			SkySportsIE,
 			SlideshareIE,
 			SlidesLiveIE,
-			SlutloadIE,
 			SoundcloudIE,
 			SoundgasmIE,
 			SpankBangIE,
-			StitcherIE,
 			SRGSSRPlayIE,
 			StanfordOpenClassroomIE,
 			StreamableIE,

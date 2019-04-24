@@ -3,7 +3,6 @@ Supported sites
 
  * AbcNewsVideo: `abcnews.go.com`
  * ACast: `www.acast.com`
- * AdobeTV: `tv.adobe.com`
  * AdobeTVVideo: `video.tv.adobe.com`
  * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
@@ -11,13 +10,11 @@ Supported sites
  * ArchiveOrg: `archive.org`
  * ARDMediathek: `www.ardmediathek.de`
  * AsianCrush: `www.asiancrush.com`
- * Audiomack: `www.audiomack.com`
  * AZMedien: `www.telezueri.ch`
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
  * Beeg _(adult)_: `beeg.com`
  * Beatport: `beatport.com`
- * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BitChute: `www.bitchute.com`
  * BIQLE: `biqle.ru`
@@ -210,11 +207,9 @@ Supported sites
  * SkySports: `www.skysports.com`
  * Slideshare: `www.slideshare.net`
  * SlidesLive: `slideslive.com`
- * Slutload _(adult)_: `www.slutload.com`
  * Soundcloud: `soundcloud.com`
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
- * Stitcher: `www.stitcher.com`
  * SRGSSRPlay: `www.rts.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
  * Streamable: `streamable.com`

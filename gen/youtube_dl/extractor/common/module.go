@@ -4233,6 +4233,9 @@ func init() {
 					τmp0 = ϒres
 					ϒmpd_doc = λ.GetItem(τmp0, λ.NewInt(0))
 					ϒurlh = λ.GetItem(τmp0, λ.NewInt(1))
+					if λ.IsTrue(λ.NewBool(ϒmpd_doc == λ.None)) {
+						return λ.NewList()
+					}
 					ϒmpd_base_url = λ.Cal(ϒbase_url, λ.Cal(λ.GetAttr(ϒurlh, "geturl", nil)))
 					return λ.Call(λ.GetAttr(ϒself, "_parse_mpd_formats", nil), λ.NewArgs(ϒmpd_doc), λ.KWArgs{
 						{Name: "mpd_id", Value: ϒmpd_id},

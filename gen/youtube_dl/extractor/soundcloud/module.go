@@ -36,6 +36,7 @@ import (
 var (
 	ExtractorError                 λ.Object
 	InfoExtractor                  λ.Object
+	KNOWN_EXTENSIONS               λ.Object
 	SearchInfoExtractor            λ.Object
 	SoundcloudIE                   λ.Object
 	SoundcloudPagedPlaylistBaseIE  λ.Object
@@ -47,7 +48,11 @@ var (
 	SoundcloudUserIE               λ.Object
 	ϒcompat_str                    λ.Object
 	ϒcompat_urllib_parse_urlencode λ.Object
+	ϒfloat_or_none                 λ.Object
 	ϒint_or_none                   λ.Object
+	ϒmerge_dicts                   λ.Object
+	ϒmimetype2ext                  λ.Object
+	ϒstr_or_none                   λ.Object
 	ϒtry_get                       λ.Object
 	ϒunified_timestamp             λ.Object
 	ϒupdate_url_query              λ.Object
@@ -61,7 +66,12 @@ func init() {
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒcompat_urllib_parse_urlencode = Ωcompat.ϒcompat_urllib_parse_urlencode
 		ExtractorError = Ωutils.ExtractorError
+		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
+		KNOWN_EXTENSIONS = Ωutils.KNOWN_EXTENSIONS
+		ϒmerge_dicts = Ωutils.ϒmerge_dicts
+		ϒmimetype2ext = Ωutils.ϒmimetype2ext
+		ϒstr_or_none = Ωutils.ϒstr_or_none
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
@@ -75,7 +85,6 @@ func init() {
 				SoundcloudIE__extract_info_dict λ.Object
 				SoundcloudIE__real_extract      λ.Object
 				SoundcloudIE__resolv_url        λ.Object
-				SoundcloudIE_report_resolve     λ.Object
 			)
 			λ.NewStr("Information extractor for soundcloud.com\n       To access the media, the uid of the song and a stream token\n       must be extracted from the page source and the script must make\n       a request to media.soundcloud.com/crossdomain.xml. Then\n       the media can be grabbed by requesting from an url composed\n       of the stream token and uid\n     ")
 			SoundcloudIE__VALID_URL = λ.NewStr("(?x)^(?:https?://)?\n                    (?:(?:(?:www\\.|m\\.)?soundcloud\\.com/\n                            (?!stations/track)\n                            (?P<uploader>[\\w\\d-]+)/\n                            (?!(?:tracks|albums|sets(?:/.+?)?|reposts|likes|spotlight)/?(?:$|[?#]))\n                            (?P<title>[\\w\\d-]+)/?\n                            (?P<token>[^?]+?)?(?:[?].*)?$)\n                       |(?:api\\.soundcloud\\.com/tracks/(?P<track_id>\\d+)\n                          (?:/?\\?secret_token=(?P<secret_token>[^&]+))?)\n                       |(?P<player>(?:w|player|p.)\\.soundcloud\\.com/player/?.*?url=.*)\n                    )\n                    ")
@@ -92,7 +101,7 @@ func init() {
 						λ.NewStr("uploader"):      λ.NewStr("E.T. ExTerrestrial Music"),
 						λ.NewStr("timestamp"):     λ.NewInt(1349920598),
 						λ.NewStr("upload_date"):   λ.NewStr("20121011"),
-						λ.NewStr("duration"):      λ.NewInt(143),
+						λ.NewStr("duration"):      λ.NewFloat(143.216),
 						λ.NewStr("license"):       λ.NewStr("all-rights-reserved"),
 						λ.NewStr("view_count"):    λ.IntType,
 						λ.NewStr("like_count"):    λ.IntType,
@@ -132,7 +141,7 @@ func init() {
 						λ.NewStr("uploader"):      λ.NewStr("jaimeMF"),
 						λ.NewStr("timestamp"):     λ.NewInt(1386604920),
 						λ.NewStr("upload_date"):   λ.NewStr("20131209"),
-						λ.NewStr("duration"):      λ.NewInt(9),
+						λ.NewStr("duration"):      λ.NewFloat(9.927),
 						λ.NewStr("license"):       λ.NewStr("all-rights-reserved"),
 						λ.NewStr("view_count"):    λ.IntType,
 						λ.NewStr("like_count"):    λ.IntType,
@@ -151,7 +160,7 @@ func init() {
 						λ.NewStr("uploader"):      λ.NewStr("jaimeMF"),
 						λ.NewStr("timestamp"):     λ.NewInt(1386604920),
 						λ.NewStr("upload_date"):   λ.NewStr("20131209"),
-						λ.NewStr("duration"):      λ.NewInt(9),
+						λ.NewStr("duration"):      λ.NewFloat(9.927),
 						λ.NewStr("license"):       λ.NewStr("all-rights-reserved"),
 						λ.NewStr("view_count"):    λ.IntType,
 						λ.NewStr("like_count"):    λ.IntType,
@@ -170,7 +179,7 @@ func init() {
 						λ.NewStr("uploader"):      λ.NewStr("oddsamples"),
 						λ.NewStr("timestamp"):     λ.NewInt(1389232924),
 						λ.NewStr("upload_date"):   λ.NewStr("20140109"),
-						λ.NewStr("duration"):      λ.NewInt(17),
+						λ.NewStr("duration"):      λ.NewFloat(17.346),
 						λ.NewStr("license"):       λ.NewStr("cc-by-sa"),
 						λ.NewStr("view_count"):    λ.IntType,
 						λ.NewStr("like_count"):    λ.IntType,
@@ -189,7 +198,7 @@ func init() {
 						λ.NewStr("uploader"):      λ.NewStr("Ori Uplift Music"),
 						λ.NewStr("timestamp"):     λ.NewInt(1504206263),
 						λ.NewStr("upload_date"):   λ.NewStr("20170831"),
-						λ.NewStr("duration"):      λ.NewInt(7449),
+						λ.NewStr("duration"):      λ.NewFloat(7449.096),
 						λ.NewStr("license"):       λ.NewStr("all-rights-reserved"),
 						λ.NewStr("view_count"):    λ.IntType,
 						λ.NewStr("like_count"):    λ.IntType,
@@ -208,7 +217,7 @@ func init() {
 						λ.NewStr("uploader"):      λ.NewStr("garyvee"),
 						λ.NewStr("timestamp"):     λ.NewInt(1488152409),
 						λ.NewStr("upload_date"):   λ.NewStr("20170226"),
-						λ.NewStr("duration"):      λ.NewInt(207),
+						λ.NewStr("duration"):      λ.NewFloat(207.012),
 						λ.NewStr("thumbnail"):     λ.NewStr("re:https?://.*\\.jpg"),
 						λ.NewStr("license"):       λ.NewStr("all-rights-reserved"),
 						λ.NewStr("view_count"):    λ.IntType,
@@ -220,23 +229,29 @@ func init() {
 						λ.NewStr("skip_download"): λ.True,
 					}),
 				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://soundcloud.com/giovannisarani/mezzo-valzer"),
+					λ.NewStr("md5"): λ.NewStr("e22aecd2bc88e0e4e432d7dcc0a1abf7"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):            λ.NewStr("583011102"),
+						λ.NewStr("ext"):           λ.NewStr("mp3"),
+						λ.NewStr("title"):         λ.NewStr("Mezzo Valzer"),
+						λ.NewStr("description"):   λ.NewStr("md5:4138d582f81866a530317bae316e8b61"),
+						λ.NewStr("uploader"):      λ.NewStr("Giovanni Sarani"),
+						λ.NewStr("timestamp"):     λ.NewInt(1551394171),
+						λ.NewStr("upload_date"):   λ.NewStr("20190228"),
+						λ.NewStr("duration"):      λ.NewFloat(180.157),
+						λ.NewStr("thumbnail"):     λ.NewStr("re:https?://.*\\.jpg"),
+						λ.NewStr("license"):       λ.NewStr("all-rights-reserved"),
+						λ.NewStr("view_count"):    λ.IntType,
+						λ.NewStr("like_count"):    λ.IntType,
+						λ.NewStr("comment_count"): λ.IntType,
+						λ.NewStr("repost_count"):  λ.IntType,
+					}),
+					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("Unable to download JSON metadata")),
+				}),
 			)
-			SoundcloudIE__CLIENT_ID = λ.NewStr("NmW1FlPaiL94ueEu7oziOWjYEzZzQDcK")
-			SoundcloudIE_report_resolve = λ.NewFunction("report_resolve",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "video_id"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒself     = λargs[0]
-						ϒvideo_id = λargs[1]
-					)
-					λ.NewStr("Report information extraction.")
-					λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("%s: Resolving id"), ϒvideo_id))
-					return λ.None
-				})
+			SoundcloudIE__CLIENT_ID = λ.NewStr("FweeGBOOEOYJWLJN3oEyToGLKhmSz0I7")
 			SoundcloudIE__resolv_url = λ.NewFunction("_resolv_url",
 				[]λ.Param{
 					{Name: "cls"},
@@ -267,24 +282,34 @@ func init() {
 						ϒextract_count  λ.Object
 						ϒf              λ.Object
 						ϒformat_dict    λ.Object
+						ϒformat_id      λ.Object
+						ϒformat_id_list λ.Object
 						ϒformat_url     λ.Object
+						ϒformat_urls    λ.Object
 						ϒformats        λ.Object
 						ϒfull_title     = λargs[2]
 						ϒinfo           = λargs[1]
 						ϒkey            λ.Object
+						ϒlike_count     λ.Object
+						ϒmimetype       λ.Object
 						ϒmobj           λ.Object
 						ϒname           λ.Object
 						ϒpath           λ.Object
+						ϒpreset         λ.Object
+						ϒprotocol       λ.Object
 						ϒquery          λ.Object
 						ϒquiet          = λargs[3]
 						ϒresult         λ.Object
 						ϒsecret_token   = λargs[4]
 						ϒself           = λargs[0]
+						ϒstream         λ.Object
 						ϒstream_formats λ.Object
 						ϒstream_url     λ.Object
+						ϒt              λ.Object
 						ϒthumbnail      λ.Object
 						ϒtitle          λ.Object
 						ϒtrack_id       λ.Object
+						ϒtranscodings   λ.Object
 						ϒurl            λ.Object
 						ϒusername       λ.Object
 						τmp0            λ.Object
@@ -336,6 +361,10 @@ func init() {
 							)
 							return λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.Mod(λ.NewStr("%s_count"), ϒkey)))
 						})
+					ϒlike_count = λ.Cal(ϒextract_count, λ.NewStr("favoritings"))
+					if λ.IsTrue(λ.NewBool(ϒlike_count == λ.None)) {
+						ϒlike_count = λ.Cal(ϒextract_count, λ.NewStr("likes"))
+					}
 					ϒresult = λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):            ϒtrack_id,
 						λ.NewStr("uploader"):      ϒusername,
@@ -343,15 +372,16 @@ func init() {
 						λ.NewStr("title"):         ϒtitle,
 						λ.NewStr("description"):   λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("description")),
 						λ.NewStr("thumbnail"):     ϒthumbnail,
-						λ.NewStr("duration"):      λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("duration")), λ.NewInt(1000)),
+						λ.NewStr("duration"):      λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("duration")), λ.NewInt(1000)),
 						λ.NewStr("webpage_url"):   λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("permalink_url")),
 						λ.NewStr("license"):       λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("license")),
 						λ.NewStr("view_count"):    λ.Cal(ϒextract_count, λ.NewStr("playback")),
-						λ.NewStr("like_count"):    λ.Cal(ϒextract_count, λ.NewStr("favoritings")),
+						λ.NewStr("like_count"):    ϒlike_count,
 						λ.NewStr("comment_count"): λ.Cal(ϒextract_count, λ.NewStr("comment")),
 						λ.NewStr("repost_count"):  λ.Cal(ϒextract_count, λ.NewStr("reposts")),
 						λ.NewStr("genre"):         λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("genre")),
 					})
+					ϒformat_urls = λ.Cal(λ.SetType)
 					ϒformats = λ.NewList()
 					ϒquery = λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("client_id"): λ.GetAttr(ϒself, "_CLIENT_ID", nil),
@@ -361,6 +391,7 @@ func init() {
 					}
 					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("downloadable"), λ.False)) {
 						ϒformat_url = λ.Cal(ϒupdate_url_query, λ.Mod(λ.NewStr("https://api.soundcloud.com/tracks/%s/download"), ϒtrack_id), ϒquery)
+						λ.Cal(λ.GetAttr(ϒformat_urls, "add", nil), ϒformat_url)
 						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
 							λ.NewStr("format_id"):  λ.NewStr("download"),
 							λ.NewStr("ext"):        λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("original_format"), λ.NewStr("mp3")),
@@ -375,72 +406,190 @@ func init() {
 						λ.NewStr("Downloading track url"),
 					), λ.KWArgs{
 						{Name: "query", Value: ϒquery},
+						{Name: "fatal", Value: λ.False},
 					})
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒformat_dict, "items", nil)))
+					if λ.IsTrue(ϒformat_dict) {
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒformat_dict, "items", nil)))
+						for {
+							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+								break
+							}
+							τmp2 = τmp1
+							ϒkey = λ.GetItem(τmp2, λ.NewInt(0))
+							ϒstream_url = λ.GetItem(τmp2, λ.NewInt(1))
+							if λ.IsTrue(λ.NewBool(λ.Contains(ϒformat_urls, ϒstream_url))) {
+								continue
+							}
+							λ.Cal(λ.GetAttr(ϒformat_urls, "add", nil), ϒstream_url)
+							τmp2 = λ.NewTuple(
+								λ.NewStr("mp3"),
+								λ.None,
+							)
+							ϒext = λ.GetItem(τmp2, λ.NewInt(0))
+							ϒabr = λ.GetItem(τmp2, λ.NewInt(1))
+							ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("_([^_]+)_(\\d+)_url"), ϒkey)
+							if λ.IsTrue(ϒmobj) {
+								τmp2 = λ.Cal(λ.GetAttr(ϒmobj, "groups", nil))
+								ϒext = λ.GetItem(τmp2, λ.NewInt(0))
+								ϒabr = λ.GetItem(τmp2, λ.NewInt(1))
+								ϒabr = λ.Cal(λ.IntType, ϒabr)
+							}
+							if λ.IsTrue(λ.Cal(λ.GetAttr(ϒkey, "startswith", nil), λ.NewStr("http"))) {
+								ϒstream_formats = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λ.NewStr("format_id"): ϒkey,
+									λ.NewStr("ext"):       ϒext,
+									λ.NewStr("url"):       ϒstream_url,
+								}))
+							} else {
+								if λ.IsTrue(λ.Cal(λ.GetAttr(ϒkey, "startswith", nil), λ.NewStr("rtmp"))) {
+									τmp2 = λ.Cal(λ.GetAttr(ϒstream_url, "split", nil), λ.NewStr("mp3:"), λ.NewInt(1))
+									ϒurl = λ.GetItem(τmp2, λ.NewInt(0))
+									ϒpath = λ.GetItem(τmp2, λ.NewInt(1))
+									ϒstream_formats = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λ.NewStr("format_id"): ϒkey,
+										λ.NewStr("url"):       ϒurl,
+										λ.NewStr("play_path"): λ.Add(λ.NewStr("mp3:"), ϒpath),
+										λ.NewStr("ext"):       λ.NewStr("flv"),
+									}))
+								} else {
+									if λ.IsTrue(λ.Cal(λ.GetAttr(ϒkey, "startswith", nil), λ.NewStr("hls"))) {
+										ϒstream_formats = λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+											ϒstream_url,
+											ϒtrack_id,
+											ϒext,
+										), λ.KWArgs{
+											{Name: "entry_protocol", Value: λ.NewStr("m3u8_native")},
+											{Name: "m3u8_id", Value: ϒkey},
+											{Name: "fatal", Value: λ.False},
+										})
+									} else {
+										continue
+									}
+								}
+							}
+							if λ.IsTrue(ϒabr) {
+								τmp2 = λ.Cal(λ.BuiltinIter, ϒstream_formats)
+								for {
+									if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+										break
+									}
+									ϒf = τmp3
+									λ.SetItem(ϒf, λ.NewStr("abr"), ϒabr)
+								}
+							}
+							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), ϒstream_formats)
+						}
+					}
+					ϒtranscodings = func() λ.Object {
+						if λv := λ.Cal(ϒtry_get, ϒinfo, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("media")), λ.NewStr("transcodings"))
+							}), λ.ListType); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewList()
+						}
+					}()
+					τmp0 = λ.Cal(λ.BuiltinIter, ϒtranscodings)
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
-						ϒkey = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒstream_url = λ.GetItem(τmp2, λ.NewInt(1))
-						τmp2 = λ.NewTuple(
-							λ.NewStr("mp3"),
-							λ.None,
-						)
-						ϒext = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒabr = λ.GetItem(τmp2, λ.NewInt(1))
-						ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("_([^_]+)_(\\d+)_url"), ϒkey)
-						if λ.IsTrue(ϒmobj) {
-							τmp2 = λ.Cal(λ.GetAttr(ϒmobj, "groups", nil))
-							ϒext = λ.GetItem(τmp2, λ.NewInt(0))
-							ϒabr = λ.GetItem(τmp2, λ.NewInt(1))
-							ϒabr = λ.Cal(λ.IntType, ϒabr)
+						ϒt = τmp1
+						if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒt, λ.DictType)))) {
+							continue
 						}
-						if λ.IsTrue(λ.Cal(λ.GetAttr(ϒkey, "startswith", nil), λ.NewStr("http"))) {
-							ϒstream_formats = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("format_id"): ϒkey,
-								λ.NewStr("ext"):       ϒext,
-								λ.NewStr("url"):       ϒstream_url,
-							}))
-						} else {
-							if λ.IsTrue(λ.Cal(λ.GetAttr(ϒkey, "startswith", nil), λ.NewStr("rtmp"))) {
-								τmp2 = λ.Cal(λ.GetAttr(ϒstream_url, "split", nil), λ.NewStr("mp3:"), λ.NewInt(1))
-								ϒurl = λ.GetItem(τmp2, λ.NewInt(0))
-								ϒpath = λ.GetItem(τmp2, λ.NewInt(1))
-								ϒstream_formats = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("format_id"): ϒkey,
-									λ.NewStr("url"):       ϒurl,
-									λ.NewStr("play_path"): λ.Add(λ.NewStr("mp3:"), ϒpath),
-									λ.NewStr("ext"):       λ.NewStr("flv"),
-								}))
+						ϒformat_url = λ.Cal(ϒurl_or_none, λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("url")))
+						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformat_url))) {
+							continue
+						}
+						ϒstream = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+							λ.Cal(ϒupdate_url_query, ϒformat_url, ϒquery),
+							ϒtrack_id,
+						), λ.KWArgs{
+							{Name: "fatal", Value: λ.False},
+						})
+						if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒstream, λ.DictType)))) {
+							continue
+						}
+						ϒstream_url = λ.Cal(ϒurl_or_none, λ.Cal(λ.GetAttr(ϒstream, "get", nil), λ.NewStr("url")))
+						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒstream_url))) {
+							continue
+						}
+						if λ.IsTrue(λ.NewBool(λ.Contains(ϒformat_urls, ϒstream_url))) {
+							continue
+						}
+						λ.Cal(λ.GetAttr(ϒformat_urls, "add", nil), ϒstream_url)
+						ϒprotocol = λ.Cal(ϒtry_get, ϒt, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("format")), λ.NewStr("protocol"))
+							}), ϒcompat_str)
+						if λ.IsTrue(func() λ.Object {
+							if λv := λ.Ne(ϒprotocol, λ.NewStr("hls")); !λ.IsTrue(λv) {
+								return λv
 							} else {
-								if λ.IsTrue(λ.Cal(λ.GetAttr(ϒkey, "startswith", nil), λ.NewStr("hls"))) {
-									ϒstream_formats = λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
-										ϒstream_url,
-										ϒtrack_id,
-										ϒext,
-									), λ.KWArgs{
-										{Name: "entry_protocol", Value: λ.NewStr("m3u8_native")},
-										{Name: "m3u8_id", Value: ϒkey},
-										{Name: "fatal", Value: λ.False},
-									})
+								return λ.NewBool(λ.Contains(ϒformat_url, λ.NewStr("/hls")))
+							}
+						}()) {
+							ϒprotocol = λ.NewStr("hls")
+						}
+						ϒext = λ.None
+						ϒpreset = λ.Cal(ϒstr_or_none, λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("preset")))
+						if λ.IsTrue(ϒpreset) {
+							ϒext = λ.GetItem(λ.Cal(λ.GetAttr(ϒpreset, "split", nil), λ.NewStr("_")), λ.NewInt(0))
+							if λ.IsTrue(λ.NewBool(!λ.Contains(KNOWN_EXTENSIONS, ϒext))) {
+								ϒmimetype = λ.Cal(ϒtry_get, ϒt, λ.NewFunction("<lambda>",
+									[]λ.Param{
+										{Name: "x"},
+									},
+									0, false, false,
+									func(λargs []λ.Object) λ.Object {
+										var (
+											ϒx = λargs[0]
+										)
+										return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("format")), λ.NewStr("mime_type"))
+									}), ϒcompat_str)
+								ϒext = func() λ.Object {
+									if λv := λ.Cal(ϒmimetype2ext, ϒmimetype); λ.IsTrue(λv) {
+										return λv
+									} else {
+										return λ.NewStr("mp3")
+									}
+								}()
+							}
+						}
+						ϒformat_id_list = λ.NewList()
+						if λ.IsTrue(ϒprotocol) {
+							λ.Cal(λ.GetAttr(ϒformat_id_list, "append", nil), ϒprotocol)
+						}
+						λ.Cal(λ.GetAttr(ϒformat_id_list, "append", nil), ϒext)
+						ϒformat_id = λ.Cal(λ.GetAttr(λ.NewStr("_"), "join", nil), ϒformat_id_list)
+						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("url"):       ϒstream_url,
+							λ.NewStr("format_id"): ϒformat_id,
+							λ.NewStr("ext"):       ϒext,
+							λ.NewStr("protocol"): func() λ.Object {
+								if λ.IsTrue(λ.Eq(ϒprotocol, λ.NewStr("hls"))) {
+									return λ.NewStr("m3u8_native")
 								} else {
-									continue
+									return λ.NewStr("http")
 								}
-							}
-						}
-						if λ.IsTrue(ϒabr) {
-							τmp2 = λ.Cal(λ.BuiltinIter, ϒstream_formats)
-							for {
-								if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
-									break
-								}
-								ϒf = τmp3
-								λ.SetItem(ϒf, λ.NewStr("abr"), ϒabr)
-							}
-						}
-						λ.Cal(λ.GetAttr(ϒformats, "extend", nil), ϒstream_formats)
+							}(),
+						}))
 					}
 					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
 						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -448,6 +597,7 @@ func init() {
 							λ.NewStr("url"):       λ.Cal(ϒupdate_url_query, λ.GetItem(ϒinfo, λ.NewStr("stream_url")), ϒquery),
 							λ.NewStr("ext"):       λ.NewStr("mp3"),
 						}))
+						λ.Cal(λ.GetAttr(ϒself, "_check_formats", nil), ϒformats, ϒtrack_id)
 					}
 					τmp0 = λ.Cal(λ.BuiltinIter, ϒformats)
 					for {
@@ -457,7 +607,6 @@ func init() {
 						ϒf = τmp1
 						λ.SetItem(ϒf, λ.NewStr("vcodec"), λ.NewStr("none"))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_check_formats", nil), ϒformats, ϒtrack_id)
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
 					λ.SetItem(ϒresult, λ.NewStr("formats"), ϒformats)
 					return ϒresult
@@ -470,10 +619,14 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
+						ϒdata          λ.Object
+						ϒe             λ.Object
+						ϒentries       λ.Object
 						ϒfull_title    λ.Object
 						ϒinfo          λ.Object
 						ϒinfo_json_url λ.Object
 						ϒmobj          λ.Object
+						ϒnew_info      λ.Object
 						ϒquery         λ.Object
 						ϒreal_url      λ.Object
 						ϒresolve_title λ.Object
@@ -483,7 +636,9 @@ func init() {
 						ϒtrack_id      λ.Object
 						ϒuploader      λ.Object
 						ϒurl           = λargs[1]
+						ϒwebpage       λ.Object
 						τmp0           λ.Object
+						τmp1           λ.Object
 					)
 					ϒmobj = λ.Call(Ωre.ϒmatch, λ.NewArgs(
 						λ.GetAttr(ϒself, "_VALID_URL", nil),
@@ -495,6 +650,7 @@ func init() {
 						panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.NewStr("Invalid URL: %s"), ϒurl))))
 					}
 					ϒtrack_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("track_id"))
+					ϒnew_info = λ.NewDictWithTable(map[λ.Object]λ.Object{})
 					if λ.IsTrue(λ.NewBool(ϒtrack_id != λ.None)) {
 						ϒinfo_json_url = λ.Add(λ.Add(λ.Add(λ.NewStr("https://api.soundcloud.com/tracks/"), ϒtrack_id), λ.NewStr(".json?client_id=")), λ.GetAttr(ϒself, "_CLIENT_ID", nil))
 						ϒfull_title = ϒtrack_id
@@ -526,14 +682,62 @@ func init() {
 								τmp0 = λ.IAdd(ϒresolve_title, λ.Mod(λ.NewStr("/%s"), ϒtoken))
 								ϒresolve_title = τmp0
 							}
-							λ.Cal(λ.GetAttr(ϒself, "report_resolve", nil), ϒfull_title)
-							ϒurl = λ.Mod(λ.NewStr("https://soundcloud.com/%s"), ϒresolve_title)
-							ϒinfo_json_url = λ.Cal(λ.GetAttr(ϒself, "_resolv_url", nil), ϒurl)
+							ϒwebpage = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
+								ϒurl,
+								ϒfull_title,
+							), λ.KWArgs{
+								{Name: "fatal", Value: λ.False},
+							})
+							if λ.IsTrue(ϒwebpage) {
+								ϒentries = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
+									λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+										λ.NewStr("var\\s+c\\s*=\\s*(\\[.+?\\])\\s*,\\s*o\\s*=Date\\b"),
+										ϒwebpage,
+										λ.NewStr("data"),
+									), λ.KWArgs{
+										{Name: "default", Value: λ.NewStr("[]")},
+									}),
+									ϒfull_title,
+								), λ.KWArgs{
+									{Name: "fatal", Value: λ.False},
+								})
+								if λ.IsTrue(ϒentries) {
+									τmp0 = λ.Cal(λ.BuiltinIter, ϒentries)
+									for {
+										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+											break
+										}
+										ϒe = τmp1
+										if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒe, λ.DictType)))) {
+											continue
+										}
+										if λ.IsTrue(λ.Ne(λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("id")), λ.NewInt(67))) {
+											continue
+										}
+										ϒdata = λ.Cal(ϒtry_get, ϒe, λ.NewFunction("<lambda>",
+											[]λ.Param{
+												{Name: "x"},
+											},
+											0, false, false,
+											func(λargs []λ.Object) λ.Object {
+												var (
+													ϒx = λargs[0]
+												)
+												return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("data")), λ.NewInt(0))
+											}), λ.DictType)
+										if λ.IsTrue(ϒdata) {
+											ϒnew_info = ϒdata
+											break
+										}
+									}
+								}
+								ϒinfo_json_url = λ.Cal(λ.GetAttr(ϒself, "_resolv_url", nil), λ.Mod(λ.NewStr("https://soundcloud.com/%s"), ϒresolve_title))
+							}
 						}
 					}
 					ϒinfo = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), ϒinfo_json_url, ϒfull_title, λ.NewStr("Downloading info JSON"))
 					return λ.Call(λ.GetAttr(ϒself, "_extract_info_dict", nil), λ.NewArgs(
-						ϒinfo,
+						λ.Cal(ϒmerge_dicts, ϒinfo, ϒnew_info),
 						ϒfull_title,
 					), λ.KWArgs{
 						{Name: "secret_token", Value: ϒtoken},
@@ -547,7 +751,6 @@ func init() {
 				λ.NewStr("_extract_info_dict"): SoundcloudIE__extract_info_dict,
 				λ.NewStr("_real_extract"):      SoundcloudIE__real_extract,
 				λ.NewStr("_resolv_url"):        SoundcloudIE__resolv_url,
-				λ.NewStr("report_resolve"):     SoundcloudIE_report_resolve,
 			})
 		}())
 		SoundcloudPlaylistBaseIE = λ.Cal(λ.TypeType, λ.NewStr("SoundcloudPlaylistBaseIE"), λ.NewTuple(SoundcloudIE), func() λ.Dict {

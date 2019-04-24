@@ -253,105 +253,60 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒcdn_data           λ.Object
-						ϒcdn_name           λ.Object
-						ϒconfig             = λargs[1]
-						ϒconfig_files       λ.Object
-						ϒf                  λ.Object
-						ϒf_id               λ.Object
-						ϒfiles_type         λ.Object
-						ϒformat_id          λ.Object
-						ϒformats            λ.Object
-						ϒm_url              λ.Object
-						ϒmanifest_url       λ.Object
-						ϒmpd_formats        λ.Object
-						ϒmpd_manifest_urls  λ.Object
-						ϒmpd_pattern        λ.Object
-						ϒrepl               λ.Object
-						ϒself               = λargs[0]
-						ϒsubtitles          λ.Object
-						ϒsuffix             λ.Object
-						ϒtext_tracks        λ.Object
-						ϒtt                 λ.Object
-						ϒvideo_data         λ.Object
-						ϒvideo_duration     λ.Object
-						ϒvideo_id           = λargs[2]
-						ϒvideo_thumbnail    λ.Object
-						ϒvideo_thumbs       λ.Object
-						ϒvideo_title        λ.Object
-						ϒvideo_uploader     λ.Object
-						ϒvideo_uploader_id  λ.Object
-						ϒvideo_uploader_url λ.Object
-						ϒvideo_url          λ.Object
-						τmp0                λ.Object
-						τmp1                λ.Object
-						τmp2                λ.Object
-						τmp3                λ.Object
-						τmp4                λ.Object
-						τmp5                λ.Object
-						τmp6                λ.Object
-						τmp7                λ.Object
+						ϒcdn_data                λ.Object
+						ϒcdn_name                λ.Object
+						ϒconfig                  = λargs[1]
+						ϒconfig_files            λ.Object
+						ϒf                       λ.Object
+						ϒf_id                    λ.Object
+						ϒfiles_type              λ.Object
+						ϒformat_id               λ.Object
+						ϒformats                 λ.Object
+						ϒis_live                 λ.Object
+						ϒkey                     λ.Object
+						ϒlive_archive            λ.Object
+						ϒlive_archive_source_url λ.Object
+						ϒlive_event              λ.Object
+						ϒm_url                   λ.Object
+						ϒmanifest_url            λ.Object
+						ϒmpd_formats             λ.Object
+						ϒmpd_manifest_urls       λ.Object
+						ϒmpd_pattern             λ.Object
+						ϒowner                   λ.Object
+						ϒreal_m_url              λ.Object
+						ϒrepl                    λ.Object
+						ϒself                    = λargs[0]
+						ϒsubtitles               λ.Object
+						ϒsuffix                  λ.Object
+						ϒtext_tracks             λ.Object
+						ϒthumb                   λ.Object
+						ϒthumbnail               λ.Object
+						ϒthumbnails              λ.Object
+						ϒtt                      λ.Object
+						ϒvideo_data              λ.Object
+						ϒvideo_id                = λargs[2]
+						ϒvideo_title             λ.Object
+						ϒvideo_uploader_url      λ.Object
+						ϒvideo_url               λ.Object
+						τmp0                     λ.Object
+						τmp1                     λ.Object
+						τmp2                     λ.Object
+						τmp3                     λ.Object
+						τmp4                     λ.Object
+						τmp5                     λ.Object
+						τmp6                     λ.Object
+						τmp7                     λ.Object
 					)
 					ϒvideo_data = λ.GetItem(ϒconfig, λ.NewStr("video"))
 					ϒvideo_title = λ.GetItem(ϒvideo_data, λ.NewStr("title"))
-					ϒvideo_uploader = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("owner"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("name"))
-					ϒvideo_uploader_url = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("owner"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("url"))
-					ϒvideo_uploader_id = func() λ.Object {
-						if λ.IsTrue(ϒvideo_uploader_url) {
-							return λ.GetItem(λ.Cal(λ.GetAttr(ϒvideo_uploader_url, "split", nil), λ.NewStr("/")), λ.Neg(λ.NewInt(1)))
+					ϒlive_event = func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("live_event")); λ.IsTrue(λv) {
+							return λv
 						} else {
-							return λ.None
+							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 						}
 					}()
-					ϒvideo_thumbnail = λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("thumbnail"))
-					if λ.IsTrue(λ.NewBool(ϒvideo_thumbnail == λ.None)) {
-						ϒvideo_thumbs = λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("thumbs"))
-						if λ.IsTrue(func() λ.Object {
-							if λv := ϒvideo_thumbs; !λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.Cal(λ.BuiltinIsInstance, ϒvideo_thumbs, λ.DictType)
-							}
-						}()) {
-							τmp0 = λ.GetItem(λ.Cal(λ.BuiltinSorted, λ.Cal(λ.NewFunction("<generator>",
-								nil,
-								0, false, false,
-								func(λargs []λ.Object) λ.Object {
-									return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
-										var (
-											ϒt_url λ.Object
-											ϒwidth λ.Object
-											τmp0   λ.Object
-											τmp1   λ.Object
-											τmp2   λ.Object
-										)
-										τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒvideo_thumbs, "items", nil)))
-										for {
-											if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-												break
-											}
-											τmp2 = τmp1
-											ϒwidth = λ.GetItem(τmp2, λ.NewInt(0))
-											ϒt_url = λ.GetItem(τmp2, λ.NewInt(1))
-											λgen.Yield(λ.NewTuple(
-												λ.Cal(λ.IntType, func() λ.Object {
-													if λ.IsTrue(λ.Cal(λ.GetAttr(ϒwidth, "isdigit", nil))) {
-														return ϒwidth
-													} else {
-														return λ.NewInt(0)
-													}
-												}()),
-												ϒt_url,
-											))
-										}
-										return λ.None
-									})
-								}))), λ.Neg(λ.NewInt(1)))
-							_ = λ.GetItem(τmp0, λ.NewInt(0))
-							ϒvideo_thumbnail = λ.GetItem(τmp0, λ.NewInt(1))
-						}
-					}
-					ϒvideo_duration = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("duration")))
+					ϒis_live = λ.Eq(λ.Cal(λ.GetAttr(ϒlive_event, "get", nil), λ.NewStr("status")), λ.NewStr("started"))
 					ϒformats = λ.NewList()
 					ϒconfig_files = func() λ.Object {
 						if λv := λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("files")); λ.IsTrue(λv) {
@@ -409,7 +364,13 @@ func init() {
 									ϒmanifest_url,
 									ϒvideo_id,
 									λ.NewStr("mp4"),
-									λ.NewStr("m3u8_native"),
+									func() λ.Object {
+										if λ.IsTrue(ϒis_live) {
+											return λ.NewStr("m3u8")
+										} else {
+											return λ.NewStr("m3u8_native")
+										}
+									}(),
 								), λ.KWArgs{
 									{Name: "m3u8_id", Value: ϒformat_id},
 									{Name: "note", Value: λ.Mod(λ.NewStr("Downloading %s m3u8 information"), ϒcdn_name)},
@@ -459,6 +420,23 @@ func init() {
 										τmp6 = τmp5
 										ϒf_id = λ.GetItem(τmp6, λ.NewInt(0))
 										ϒm_url = λ.GetItem(τmp6, λ.NewInt(1))
+										if λ.IsTrue(λ.NewBool(λ.Contains(ϒm_url, λ.NewStr("json=1")))) {
+											ϒreal_m_url = λ.Cal(λ.GetAttr(func() λ.Object {
+												if λv := λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+													ϒm_url,
+													ϒvideo_id,
+												), λ.KWArgs{
+													{Name: "fatal", Value: λ.False},
+												}); λ.IsTrue(λv) {
+													return λv
+												} else {
+													return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+												}
+											}(), "get", nil), λ.NewStr("url"))
+											if λ.IsTrue(ϒreal_m_url) {
+												ϒm_url = ϒreal_m_url
+											}
+										}
 										ϒmpd_formats = λ.Call(λ.GetAttr(ϒself, "_extract_mpd_formats", nil), λ.NewArgs(
 											λ.Cal(λ.GetAttr(ϒm_url, "replace", nil), λ.NewStr("/master.json"), λ.NewStr("/master.mpd")),
 											ϒvideo_id,
@@ -487,6 +465,27 @@ func init() {
 							}
 						}
 					}
+					ϒlive_archive = func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(ϒlive_event, "get", nil), λ.NewStr("archive")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+						}
+					}()
+					ϒlive_archive_source_url = λ.Cal(λ.GetAttr(ϒlive_archive, "get", nil), λ.NewStr("source_url"))
+					if λ.IsTrue(func() λ.Object {
+						if λv := ϒlive_archive_source_url; !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Eq(λ.Cal(λ.GetAttr(ϒlive_archive, "get", nil), λ.NewStr("status")), λ.NewStr("done"))
+						}
+					}()) {
+						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("format_id"):  λ.NewStr("live-archive-source"),
+							λ.NewStr("url"):        ϒlive_archive_source_url,
+							λ.NewStr("preference"): λ.NewInt(1),
+						}))
+					}
 					ϒsubtitles = λ.NewDictWithTable(map[λ.Object]λ.Object{})
 					ϒtext_tracks = λ.Cal(λ.GetAttr(λ.GetItem(ϒconfig, λ.NewStr("request")), "get", nil), λ.NewStr("text_tracks"))
 					if λ.IsTrue(ϒtext_tracks) {
@@ -502,15 +501,59 @@ func init() {
 							})))
 						}
 					}
+					ϒthumbnails = λ.NewList()
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒis_live))) {
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("thumbs"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "items", nil)))
+						for {
+							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+								break
+							}
+							τmp2 = τmp1
+							ϒkey = λ.GetItem(τmp2, λ.NewInt(0))
+							ϒthumb = λ.GetItem(τmp2, λ.NewInt(1))
+							λ.Cal(λ.GetAttr(ϒthumbnails, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("id"):    ϒkey,
+								λ.NewStr("width"): λ.Cal(ϒint_or_none, ϒkey),
+								λ.NewStr("url"):   ϒthumb,
+							}))
+						}
+						ϒthumbnail = λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("thumbnail"))
+						if λ.IsTrue(ϒthumbnail) {
+							λ.Cal(λ.GetAttr(ϒthumbnails, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("url"): ϒthumbnail,
+							}))
+						}
+					}
+					ϒowner = func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("owner")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+						}
+					}()
+					ϒvideo_uploader_url = λ.Cal(λ.GetAttr(ϒowner, "get", nil), λ.NewStr("url"))
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("title"):        ϒvideo_title,
-						λ.NewStr("uploader"):     ϒvideo_uploader,
-						λ.NewStr("uploader_id"):  ϒvideo_uploader_id,
+						λ.NewStr("title"): func() λ.Object {
+							if λ.IsTrue(ϒis_live) {
+								return λ.Cal(λ.GetAttr(ϒself, "_live_title", nil), ϒvideo_title)
+							} else {
+								return ϒvideo_title
+							}
+						}(),
+						λ.NewStr("uploader"): λ.Cal(λ.GetAttr(ϒowner, "get", nil), λ.NewStr("name")),
+						λ.NewStr("uploader_id"): func() λ.Object {
+							if λ.IsTrue(ϒvideo_uploader_url) {
+								return λ.GetItem(λ.Cal(λ.GetAttr(ϒvideo_uploader_url, "split", nil), λ.NewStr("/")), λ.Neg(λ.NewInt(1)))
+							} else {
+								return λ.None
+							}
+						}(),
 						λ.NewStr("uploader_url"): ϒvideo_uploader_url,
-						λ.NewStr("thumbnail"):    ϒvideo_thumbnail,
-						λ.NewStr("duration"):     ϒvideo_duration,
+						λ.NewStr("thumbnails"):   ϒthumbnails,
+						λ.NewStr("duration"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("duration"))),
 						λ.NewStr("formats"):      ϒformats,
 						λ.NewStr("subtitles"):    ϒsubtitles,
+						λ.NewStr("is_live"):      ϒis_live,
 					})
 				})
 			VimeoBaseInfoExtractor__extract_original_format = λ.NewFunction("_extract_original_format",

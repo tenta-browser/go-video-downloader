@@ -121,20 +121,25 @@ func init() {
 						}
 					}()
 					ϒtitle = λ.GetItem(ϒmetadata, λ.NewStr("title"))
-					ϒauth_data = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Add(λ.Mod(λ.GetAttr(ϒself, "_AUTHORIZATION_URL_TEMPLATE", nil), λ.NewTuple(
-						ϒpcode,
-						ϒembed_code,
-					)), λ.Cal(ϒcompat_urllib_parse_urlencode, λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("domain"): ϒdomain,
-						λ.NewStr("supportedFormats"): func() λ.Object {
-							if λv := ϒsupportedformats; λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.NewStr("mp4,rtmp,m3u8,hds,dash,smooth")
-							}
-						}(),
-						λ.NewStr("embedToken"): ϒembed_token,
-					}))), ϒvideo_id)
+					ϒauth_data = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.Add(λ.Mod(λ.GetAttr(ϒself, "_AUTHORIZATION_URL_TEMPLATE", nil), λ.NewTuple(
+							ϒpcode,
+							ϒembed_code,
+						)), λ.Cal(ϒcompat_urllib_parse_urlencode, λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("domain"): ϒdomain,
+							λ.NewStr("supportedFormats"): func() λ.Object {
+								if λv := ϒsupportedformats; λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.NewStr("mp4,rtmp,m3u8,hds,dash,smooth")
+								}
+							}(),
+							λ.NewStr("embedToken"): ϒembed_token,
+						}))),
+						ϒvideo_id,
+					), λ.KWArgs{
+						{Name: "headers", Value: λ.Cal(λ.GetAttr(ϒself, "geo_verification_headers", nil))},
+					})
 					ϒcur_auth_data = λ.GetItem(λ.GetItem(ϒauth_data, λ.NewStr("authorization_data")), ϒembed_code)
 					ϒurls = λ.NewList()
 					ϒformats = λ.NewList()
