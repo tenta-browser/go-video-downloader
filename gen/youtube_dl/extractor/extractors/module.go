@@ -34,6 +34,7 @@ import (
 	Ωarchiveorg "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/archiveorg"
 	Ωard "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ard"
 	Ωasiancrush "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/asiancrush"
+	Ωaudiomack "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/audiomack"
 	Ωazmedien "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/azmedien"
 	Ωbandcamp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bandcamp"
 	Ωbeatport "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/beatport"
@@ -58,6 +59,7 @@ import (
 	Ωcharlierose "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/charlierose"
 	Ωchirbit "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/chirbit"
 	Ωcinchcast "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/cinchcast"
+	Ωcinemax "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/cinemax"
 	Ωclippit "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/clippit"
 	Ωcliprs "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/cliprs"
 	Ωclipsyndicate "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/clipsyndicate"
@@ -182,7 +184,6 @@ import (
 	Ωpbs "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pbs"
 	Ωpearvideo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pearvideo"
 	Ωpeople "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/people"
-	Ωperformgroup "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/performgroup"
 	Ωphotobucket "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/photobucket"
 	Ωpiksel "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/piksel"
 	Ωplayfm "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/playfm"
@@ -224,9 +225,11 @@ import (
 	Ωspankbang "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/spankbang"
 	Ωsrgssr "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/srgssr"
 	Ωstanfordoc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/stanfordoc"
+	Ωstitcher "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/stitcher"
 	Ωstreamable "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/streamable"
 	Ωstreamango "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/streamango"
 	Ωsunporno "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sunporno"
+	Ωsverigesradio "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sverigesradio"
 	Ωswrmediathek "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/swrmediathek"
 	Ωtagesschau "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tagesschau"
 	Ωtastytrade "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tastytrade"
@@ -306,314 +309,318 @@ import (
 )
 
 var (
-	ACastIE                   λ.Object
-	ARDMediathekIE            λ.Object
-	AZMedienIE                λ.Object
-	AbcNewsVideoIE            λ.Object
-	AdobeTVVideoIE            λ.Object
-	AllocineIE                λ.Object
-	AolIE                     λ.Object
-	AparatIE                  λ.Object
-	ArchiveOrgIE              λ.Object
-	AsianCrushIE              λ.Object
-	BIQLEIE                   λ.Object
-	BRIE                      λ.Object
-	BYUtvIE                   λ.Object
-	BandcampIE                λ.Object
-	BandcampWeeklyIE          λ.Object
-	BeatportIE                λ.Object
-	BeegIE                    λ.Object
-	BildIE                    λ.Object
-	BitChuteIE                λ.Object
-	BleacherReportCMSIE       λ.Object
-	BleacherReportIE          λ.Object
-	BpbIE                     λ.Object
-	BravoTVIE                 λ.Object
-	BrightcoveLegacyIE        λ.Object
-	BrightcoveNewIE           λ.Object
-	BusinessInsiderIE         λ.Object
-	CBCPlayerIE               λ.Object
-	CCCIE                     λ.Object
-	CCMAIE                    λ.Object
-	CCTVIE                    λ.Object
-	CNNArticleIE              λ.Object
-	CNNBlogsIE                λ.Object
-	CNNIE                     λ.Object
-	CSNNEIE                   λ.Object
-	CSpanIE                   λ.Object
-	CamdemyIE                 λ.Object
-	Canalc2IE                 λ.Object
-	CanalplusIE               λ.Object
-	CharlieRoseIE             λ.Object
-	ChirbitIE                 λ.Object
-	CinchcastIE               λ.Object
-	ClipRsIE                  λ.Object
-	ClippitIE                 λ.Object
-	ClipsyndicateIE           λ.Object
-	CloserToTruthIE           λ.Object
-	ClypIE                    λ.Object
-	CondeNastIE               λ.Object
-	CoubIE                    λ.Object
-	CrackedIE                 λ.Object
-	CtsNewsIE                 λ.Object
-	CuriosityStreamIE         λ.Object
-	DVTVIE                    λ.Object
-	DWIE                      λ.Object
-	DailyMailIE               λ.Object
-	DailymotionIE             λ.Object
-	DiggIE                    λ.Object
-	DigitallySpeakingIE       λ.Object
-	DigitekaIE                λ.Object
-	DiscoveryNetworksDeIE     λ.Object
-	DisneyIE                  λ.Object
-	DotsubIE                  λ.Object
-	DrTuberIE                 λ.Object
-	EMPFlixIE                 λ.Object
-	EaglePlatformIE           λ.Object
-	EbaumsWorldIE             λ.Object
-	EchoMskIE                 λ.Object
-	ElPaisIE                  λ.Object
-	EngadgetIE                λ.Object
-	EpornerIE                 λ.Object
-	EscapistIE                λ.Object
-	ExtremeTubeIE             λ.Object
-	FXNetworksIE              λ.Object
-	FacebookIE                λ.Object
-	FacebookPluginsVideoIE    λ.Object
-	FazIE                     λ.Object
-	FczenitIE                 λ.Object
-	FilmwebIE                 λ.Object
-	FiveMinIE                 λ.Object
-	FlickrIE                  λ.Object
-	Formula1IE                λ.Object
-	FoxNewsArticleIE          λ.Object
-	FoxNewsIE                 λ.Object
-	FranceCultureIE           λ.Object
-	FranceInterIE             λ.Object
-	FreesoundIE               λ.Object
-	GDCVaultIE                λ.Object
-	GPUTechConfIE             λ.Object
-	GameSpotIE                λ.Object
-	GaskrankIE                λ.Object
-	GazetaIE                  λ.Object
-	GenerationWhatIE          λ.Object
-	GfycatIE                  λ.Object
-	GodTubeIE                 λ.Object
-	GolemIE                   λ.Object
-	GoogleDriveIE             λ.Object
-	HBOIE                     λ.Object
-	HistoricFilmsIE           λ.Object
-	HitRecordIE               λ.Object
-	HornBunnyIE               λ.Object
-	HowStuffWorksIE           λ.Object
-	HypemIE                   λ.Object
-	IGNIE                     λ.Object
-	ImdbIE                    λ.Object
-	ImgurGalleryIE            λ.Object
-	ImgurIE                   λ.Object
-	InaIE                     λ.Object
-	InfoQIE                   λ.Object
-	InstagramIE               λ.Object
-	Ir90TvIE                  λ.Object
-	IvideonIE                 λ.Object
-	IzleseneIE                λ.Object
-	JWPlatformIE              λ.Object
-	JamendoIE                 λ.Object
-	JeuxVideoIE               λ.Object
-	JojIE                     λ.Object
-	KakaoIE                   λ.Object
-	KalturaIE                 λ.Object
-	KeezMoviesIE              λ.Object
-	KhanAcademyIE             λ.Object
-	KickStarterIE             λ.Object
-	KuwoMvIE                  λ.Object
-	LA7IE                     λ.Object
-	LCIIE                     λ.Object
-	LibraryOfCongressIE       λ.Object
-	LibsynIE                  λ.Object
-	LimelightMediaIE          λ.Object
-	LivestreamIE              λ.Object
-	LoveHomePornIE            λ.Object
-	LyndaIE                   λ.Object
-	MLBIE                     λ.Object
-	MacGameStoreIE            λ.Object
-	MailRuMusicIE             λ.Object
-	ManyVidsIE                λ.Object
-	MassengeschmackTVIE       λ.Object
-	MediasetIE                λ.Object
-	MegaphoneIE               λ.Object
-	MetacriticIE              λ.Object
-	MicrosoftVirtualAcademyIE λ.Object
-	MofosexIE                 λ.Object
-	MojvideoIE                λ.Object
-	MovieFapIE                λ.Object
-	MySpaceIE                 λ.Object
-	MyviIE                    λ.Object
-	NBAIE                     λ.Object
-	NBCNewsIE                 λ.Object
-	NBCSportsIE               λ.Object
-	NBCSportsVPlayerIE        λ.Object
-	NDREmbedIE                λ.Object
-	NDRIE                     λ.Object
-	NDTVIE                    λ.Object
-	NHLIE                     λ.Object
-	NJoyEmbedIE               λ.Object
-	NTVRuIE                   λ.Object
-	NationalGeographicVideoIE λ.Object
-	NaverIE                   λ.Object
-	NetzkinoIE                λ.Object
-	NewgroundsIE              λ.Object
-	NextTVIE                  λ.Object
-	NexxIE                    λ.Object
-	NovaEmbedIE               λ.Object
-	NovaIE                    λ.Object
-	NownessIE                 λ.Object
-	OdnoklassnikiIE           λ.Object
-	OnetChannelIE             λ.Object
-	OnetIE                    λ.Object
-	OoyalaIE                  λ.Object
-	OutsideTVIE               λ.Object
-	PBSIE                     λ.Object
-	PacktPubIE                λ.Object
-	PandoraTVIE               λ.Object
-	ParliamentLiveUKIE        λ.Object
-	PatreonIE                 λ.Object
-	PearVideoIE               λ.Object
-	PeopleIE                  λ.Object
-	PerformGroupIE            λ.Object
-	PhotobucketIE             λ.Object
-	PikselIE                  λ.Object
-	PlayFMIE                  λ.Object
-	PlaysTVIE                 λ.Object
-	PlayvidIE                 λ.Object
-	PodomaticIE               λ.Object
-	PokemonIE                 λ.Object
-	PornComIE                 λ.Object
-	PornHdIE                  λ.Object
-	PornHubIE                 λ.Object
-	PornotubeIE               λ.Object
-	PressTVIE                 λ.Object
-	PuhuTVIE                  λ.Object
-	RBMARadioIE               λ.Object
-	RENTVIE                   λ.Object
-	RTSIE                     λ.Object
-	RTVSIE                    λ.Object
-	RUTVIE                    λ.Object
-	RadioDeIE                 λ.Object
-	RadioJavanIE              λ.Object
-	RaiIE                     λ.Object
-	RayWenderlichIE           λ.Object
-	RedTubeIE                 λ.Object
-	ReverbNationIE            λ.Object
-	RockstarGamesIE           λ.Object
-	RozhlasIE                 λ.Object
-	RuutuIE                   λ.Object
-	SBSIE                     λ.Object
-	SRGSSRPlayIE              λ.Object
-	SWRMediathekIE            λ.Object
-	SapoIE                    λ.Object
-	ScreencastIE              λ.Object
-	SenateISVPIE              λ.Object
-	SeznamZpravyIE            λ.Object
-	SinaIE                    λ.Object
-	SkySportsIE               λ.Object
-	SlidesLiveIE              λ.Object
-	SlideshareIE              λ.Object
-	SoundcloudIE              λ.Object
-	SoundgasmIE               λ.Object
-	SpankBangIE               λ.Object
-	StanfordOpenClassroomIE   λ.Object
-	StreamableIE              λ.Object
-	StreamangoIE              λ.Object
-	SunPornoIE                λ.Object
-	TDSLifewayIE              λ.Object
-	TEDIE                     λ.Object
-	TFOIE                     λ.Object
-	TMZArticleIE              λ.Object
-	TMZIE                     λ.Object
-	TNAFlixIE                 λ.Object
-	TNAFlixNetworkEmbedIE     λ.Object
-	TVANouvellesIE            λ.Object
-	TVCArticleIE              λ.Object
-	TVCIE                     λ.Object
-	TVN24IE                   λ.Object
-	TVPEmbedIE                λ.Object
-	TVPIE                     λ.Object
-	TVPlayHomeIE              λ.Object
-	TVPlayIE                  λ.Object
-	TagesschauIE              λ.Object
-	TastyTradeIE              λ.Object
-	TeacherTubeIE             λ.Object
-	TeamTreeHouseIE           λ.Object
-	TeamcocoIE                λ.Object
-	Tele13IE                  λ.Object
-	TentaIE                   λ.Object
-	ThePlatformFeedIE         λ.Object
-	ThePlatformIE             λ.Object
-	TheSceneIE                λ.Object
-	ThisOldHouseIE            λ.Object
-	TinyPicIE                 λ.Object
-	ToonGogglesIE             λ.Object
-	ToypicsIE                 λ.Object
-	TriluliluIE               λ.Object
-	Tube8IE                   λ.Object
-	TumblrIE                  λ.Object
-	TunePkIE                  λ.Object
-	TwentyMinutenIE           λ.Object
-	TwentyThreeVideoIE        λ.Object
-	TwitchClipsIE             λ.Object
-	TwitterAmplifyIE          λ.Object
-	TwitterCardIE             λ.Object
-	UDNEmbedIE                λ.Object
-	USATodayIE                λ.Object
-	UnistraIE                 λ.Object
-	UnityIE                   λ.Object
-	UstudioEmbedIE            λ.Object
-	VGTVIE                    λ.Object
-	VKIE                      λ.Object
-	VLiveIE                   λ.Object
-	VLivePlaylistIE           λ.Object
-	Varzesh3IE                λ.Object
-	Vbox7IE                   λ.Object
-	VeeHDIE                   λ.Object
-	VeohIE                    λ.Object
-	VestiIE                   λ.Object
-	VevoIE                    λ.Object
-	ViceArticleIE             λ.Object
-	VidLiiIE                  λ.Object
-	ViddlerIE                 λ.Object
-	VideaIE                   λ.Object
-	VideoPressIE              λ.Object
-	VideosZIE                 λ.Object
-	VimeoIE                   λ.Object
-	VimeoOndemandIE           λ.Object
-	VimeoReviewIE             λ.Object
-	VimpleIE                  λ.Object
-	VineIE                    λ.Object
-	ViqeoIE                   λ.Object
-	VuClipIE                  λ.Object
-	VzaarIE                   λ.Object
-	WSJArticleIE              λ.Object
-	WSJIE                     λ.Object
-	WashingtonPostIE          λ.Object
-	WatIE                     λ.Object
-	WeiboMobileIE             λ.Object
-	WorldStarHipHopIE         λ.Object
-	XHamsterEmbedIE           λ.Object
-	XHamsterIE                λ.Object
-	XNXXIE                    λ.Object
-	XTubeIE                   λ.Object
-	XVideosIE                 λ.Object
-	XXXYMoviesIE              λ.Object
-	YahooIE                   λ.Object
-	YinYueTaiIE               λ.Object
-	YouJizzIE                 λ.Object
-	YouPornIE                 λ.Object
-	YourPornIE                λ.Object
-	YourUploadIE              λ.Object
-	YoutubeIE                 λ.Object
-	YoutubePlaylistIE         λ.Object
-	ϒ__ALL__                  λ.Object
+	ACastIE                    λ.Object
+	ARDMediathekIE             λ.Object
+	AZMedienIE                 λ.Object
+	AbcNewsVideoIE             λ.Object
+	AdobeTVVideoIE             λ.Object
+	AllocineIE                 λ.Object
+	AolIE                      λ.Object
+	AparatIE                   λ.Object
+	ArchiveOrgIE               λ.Object
+	AsianCrushIE               λ.Object
+	AudiomackIE                λ.Object
+	BIQLEIE                    λ.Object
+	BRIE                       λ.Object
+	BYUtvIE                    λ.Object
+	BandcampIE                 λ.Object
+	BandcampWeeklyIE           λ.Object
+	BeatportIE                 λ.Object
+	BeegIE                     λ.Object
+	BildIE                     λ.Object
+	BitChuteIE                 λ.Object
+	BleacherReportCMSIE        λ.Object
+	BleacherReportIE           λ.Object
+	BpbIE                      λ.Object
+	BravoTVIE                  λ.Object
+	BrightcoveLegacyIE         λ.Object
+	BrightcoveNewIE            λ.Object
+	BusinessInsiderIE          λ.Object
+	CBCPlayerIE                λ.Object
+	CCCIE                      λ.Object
+	CCMAIE                     λ.Object
+	CCTVIE                     λ.Object
+	CNNArticleIE               λ.Object
+	CNNBlogsIE                 λ.Object
+	CNNIE                      λ.Object
+	CSNNEIE                    λ.Object
+	CSpanIE                    λ.Object
+	CamdemyIE                  λ.Object
+	Canalc2IE                  λ.Object
+	CanalplusIE                λ.Object
+	CharlieRoseIE              λ.Object
+	ChirbitIE                  λ.Object
+	CinchcastIE                λ.Object
+	CinemaxIE                  λ.Object
+	ClipRsIE                   λ.Object
+	ClippitIE                  λ.Object
+	ClipsyndicateIE            λ.Object
+	CloserToTruthIE            λ.Object
+	ClypIE                     λ.Object
+	CondeNastIE                λ.Object
+	CoubIE                     λ.Object
+	CrackedIE                  λ.Object
+	CtsNewsIE                  λ.Object
+	CuriosityStreamIE          λ.Object
+	DVTVIE                     λ.Object
+	DWIE                       λ.Object
+	DailyMailIE                λ.Object
+	DailymotionIE              λ.Object
+	DiggIE                     λ.Object
+	DigitallySpeakingIE        λ.Object
+	DigitekaIE                 λ.Object
+	DiscoveryNetworksDeIE      λ.Object
+	DisneyIE                   λ.Object
+	DotsubIE                   λ.Object
+	DrTuberIE                  λ.Object
+	EMPFlixIE                  λ.Object
+	EaglePlatformIE            λ.Object
+	EbaumsWorldIE              λ.Object
+	EchoMskIE                  λ.Object
+	ElPaisIE                   λ.Object
+	EngadgetIE                 λ.Object
+	EpornerIE                  λ.Object
+	EscapistIE                 λ.Object
+	ExtremeTubeIE              λ.Object
+	FXNetworksIE               λ.Object
+	FacebookIE                 λ.Object
+	FacebookPluginsVideoIE     λ.Object
+	FazIE                      λ.Object
+	FczenitIE                  λ.Object
+	FilmwebIE                  λ.Object
+	FiveMinIE                  λ.Object
+	FlickrIE                   λ.Object
+	Formula1IE                 λ.Object
+	FoxNewsArticleIE           λ.Object
+	FoxNewsIE                  λ.Object
+	FranceCultureIE            λ.Object
+	FranceInterIE              λ.Object
+	FreesoundIE                λ.Object
+	GDCVaultIE                 λ.Object
+	GPUTechConfIE              λ.Object
+	GameSpotIE                 λ.Object
+	GaskrankIE                 λ.Object
+	GazetaIE                   λ.Object
+	GenerationWhatIE           λ.Object
+	GfycatIE                   λ.Object
+	GodTubeIE                  λ.Object
+	GolemIE                    λ.Object
+	GoogleDriveIE              λ.Object
+	HBOIE                      λ.Object
+	HistoricFilmsIE            λ.Object
+	HitRecordIE                λ.Object
+	HornBunnyIE                λ.Object
+	HowStuffWorksIE            λ.Object
+	HypemIE                    λ.Object
+	IGNIE                      λ.Object
+	ImdbIE                     λ.Object
+	ImgurGalleryIE             λ.Object
+	ImgurIE                    λ.Object
+	InaIE                      λ.Object
+	InfoQIE                    λ.Object
+	InstagramIE                λ.Object
+	Ir90TvIE                   λ.Object
+	IvideonIE                  λ.Object
+	IzleseneIE                 λ.Object
+	JWPlatformIE               λ.Object
+	JamendoIE                  λ.Object
+	JeuxVideoIE                λ.Object
+	JojIE                      λ.Object
+	KakaoIE                    λ.Object
+	KalturaIE                  λ.Object
+	KeezMoviesIE               λ.Object
+	KhanAcademyIE              λ.Object
+	KickStarterIE              λ.Object
+	KuwoMvIE                   λ.Object
+	LA7IE                      λ.Object
+	LCIIE                      λ.Object
+	LibraryOfCongressIE        λ.Object
+	LibsynIE                   λ.Object
+	LimelightMediaIE           λ.Object
+	LivestreamIE               λ.Object
+	LoveHomePornIE             λ.Object
+	LyndaIE                    λ.Object
+	MLBIE                      λ.Object
+	MacGameStoreIE             λ.Object
+	MailRuMusicIE              λ.Object
+	ManyVidsIE                 λ.Object
+	MassengeschmackTVIE        λ.Object
+	MediasetIE                 λ.Object
+	MegaphoneIE                λ.Object
+	MetacriticIE               λ.Object
+	MicrosoftVirtualAcademyIE  λ.Object
+	MofosexIE                  λ.Object
+	MojvideoIE                 λ.Object
+	MovieFapIE                 λ.Object
+	MySpaceIE                  λ.Object
+	MyviIE                     λ.Object
+	NBAIE                      λ.Object
+	NBCNewsIE                  λ.Object
+	NBCSportsIE                λ.Object
+	NBCSportsVPlayerIE         λ.Object
+	NDREmbedIE                 λ.Object
+	NDRIE                      λ.Object
+	NDTVIE                     λ.Object
+	NHLIE                      λ.Object
+	NJoyEmbedIE                λ.Object
+	NTVRuIE                    λ.Object
+	NationalGeographicVideoIE  λ.Object
+	NaverIE                    λ.Object
+	NetzkinoIE                 λ.Object
+	NewgroundsIE               λ.Object
+	NextTVIE                   λ.Object
+	NexxIE                     λ.Object
+	NovaEmbedIE                λ.Object
+	NovaIE                     λ.Object
+	NownessIE                  λ.Object
+	OdnoklassnikiIE            λ.Object
+	OnetChannelIE              λ.Object
+	OnetIE                     λ.Object
+	OoyalaIE                   λ.Object
+	OutsideTVIE                λ.Object
+	PBSIE                      λ.Object
+	PacktPubIE                 λ.Object
+	PandoraTVIE                λ.Object
+	ParliamentLiveUKIE         λ.Object
+	PatreonIE                  λ.Object
+	PearVideoIE                λ.Object
+	PeopleIE                   λ.Object
+	PhotobucketIE              λ.Object
+	PikselIE                   λ.Object
+	PlayFMIE                   λ.Object
+	PlaysTVIE                  λ.Object
+	PlayvidIE                  λ.Object
+	PodomaticIE                λ.Object
+	PokemonIE                  λ.Object
+	PornComIE                  λ.Object
+	PornHdIE                   λ.Object
+	PornHubIE                  λ.Object
+	PornotubeIE                λ.Object
+	PressTVIE                  λ.Object
+	PuhuTVIE                   λ.Object
+	RBMARadioIE                λ.Object
+	RENTVIE                    λ.Object
+	RTSIE                      λ.Object
+	RTVSIE                     λ.Object
+	RUTVIE                     λ.Object
+	RadioDeIE                  λ.Object
+	RadioJavanIE               λ.Object
+	RaiIE                      λ.Object
+	RayWenderlichIE            λ.Object
+	RedTubeIE                  λ.Object
+	ReverbNationIE             λ.Object
+	RockstarGamesIE            λ.Object
+	RozhlasIE                  λ.Object
+	RuutuIE                    λ.Object
+	SBSIE                      λ.Object
+	SRGSSRPlayIE               λ.Object
+	SWRMediathekIE             λ.Object
+	SapoIE                     λ.Object
+	ScreencastIE               λ.Object
+	SenateISVPIE               λ.Object
+	SeznamZpravyIE             λ.Object
+	SinaIE                     λ.Object
+	SkySportsIE                λ.Object
+	SlidesLiveIE               λ.Object
+	SlideshareIE               λ.Object
+	SoundcloudIE               λ.Object
+	SoundgasmIE                λ.Object
+	SpankBangIE                λ.Object
+	StanfordOpenClassroomIE    λ.Object
+	StitcherIE                 λ.Object
+	StreamableIE               λ.Object
+	StreamangoIE               λ.Object
+	SunPornoIE                 λ.Object
+	SverigesRadioEpisodeIE     λ.Object
+	SverigesRadioPublicationIE λ.Object
+	TDSLifewayIE               λ.Object
+	TEDIE                      λ.Object
+	TFOIE                      λ.Object
+	TMZArticleIE               λ.Object
+	TMZIE                      λ.Object
+	TNAFlixIE                  λ.Object
+	TNAFlixNetworkEmbedIE      λ.Object
+	TVANouvellesIE             λ.Object
+	TVCArticleIE               λ.Object
+	TVCIE                      λ.Object
+	TVN24IE                    λ.Object
+	TVPEmbedIE                 λ.Object
+	TVPIE                      λ.Object
+	TVPlayHomeIE               λ.Object
+	TVPlayIE                   λ.Object
+	TagesschauIE               λ.Object
+	TastyTradeIE               λ.Object
+	TeacherTubeIE              λ.Object
+	TeamTreeHouseIE            λ.Object
+	TeamcocoIE                 λ.Object
+	Tele13IE                   λ.Object
+	TentaIE                    λ.Object
+	ThePlatformFeedIE          λ.Object
+	ThePlatformIE              λ.Object
+	TheSceneIE                 λ.Object
+	ThisOldHouseIE             λ.Object
+	TinyPicIE                  λ.Object
+	ToonGogglesIE              λ.Object
+	ToypicsIE                  λ.Object
+	TriluliluIE                λ.Object
+	Tube8IE                    λ.Object
+	TumblrIE                   λ.Object
+	TunePkIE                   λ.Object
+	TwentyMinutenIE            λ.Object
+	TwentyThreeVideoIE         λ.Object
+	TwitchClipsIE              λ.Object
+	TwitterAmplifyIE           λ.Object
+	TwitterCardIE              λ.Object
+	UDNEmbedIE                 λ.Object
+	USATodayIE                 λ.Object
+	UnistraIE                  λ.Object
+	UnityIE                    λ.Object
+	UstudioEmbedIE             λ.Object
+	VGTVIE                     λ.Object
+	VKIE                       λ.Object
+	VLiveIE                    λ.Object
+	VLivePlaylistIE            λ.Object
+	Varzesh3IE                 λ.Object
+	Vbox7IE                    λ.Object
+	VeeHDIE                    λ.Object
+	VeohIE                     λ.Object
+	VestiIE                    λ.Object
+	VevoIE                     λ.Object
+	ViceArticleIE              λ.Object
+	VidLiiIE                   λ.Object
+	ViddlerIE                  λ.Object
+	VideaIE                    λ.Object
+	VideoPressIE               λ.Object
+	VideosZIE                  λ.Object
+	VimeoIE                    λ.Object
+	VimeoOndemandIE            λ.Object
+	VimeoReviewIE              λ.Object
+	VimpleIE                   λ.Object
+	VineIE                     λ.Object
+	ViqeoIE                    λ.Object
+	VuClipIE                   λ.Object
+	VzaarIE                    λ.Object
+	WSJArticleIE               λ.Object
+	WSJIE                      λ.Object
+	WashingtonPostIE           λ.Object
+	WatIE                      λ.Object
+	WeiboMobileIE              λ.Object
+	WorldStarHipHopIE          λ.Object
+	XHamsterEmbedIE            λ.Object
+	XHamsterIE                 λ.Object
+	XNXXIE                     λ.Object
+	XTubeIE                    λ.Object
+	XVideosIE                  λ.Object
+	XXXYMoviesIE               λ.Object
+	YahooIE                    λ.Object
+	YinYueTaiIE                λ.Object
+	YouJizzIE                  λ.Object
+	YouPornIE                  λ.Object
+	YourPornIE                 λ.Object
+	YourUploadIE               λ.Object
+	YoutubeIE                  λ.Object
+	YoutubePlaylistIE          λ.Object
+	ϒ__ALL__                   λ.Object
 )
 
 func init() {
@@ -627,6 +634,7 @@ func init() {
 		ArchiveOrgIE = Ωarchiveorg.ArchiveOrgIE
 		ARDMediathekIE = Ωard.ARDMediathekIE
 		AsianCrushIE = Ωasiancrush.AsianCrushIE
+		AudiomackIE = Ωaudiomack.AudiomackIE
 		AZMedienIE = Ωazmedien.AZMedienIE
 		BandcampIE = Ωbandcamp.BandcampIE
 		BandcampWeeklyIE = Ωbandcamp.BandcampWeeklyIE
@@ -654,6 +662,7 @@ func init() {
 		CharlieRoseIE = Ωcharlierose.CharlieRoseIE
 		ChirbitIE = Ωchirbit.ChirbitIE
 		CinchcastIE = Ωcinchcast.CinchcastIE
+		CinemaxIE = Ωcinemax.CinemaxIE
 		ClippitIE = Ωclippit.ClippitIE
 		ClipRsIE = Ωcliprs.ClipRsIE
 		ClipsyndicateIE = Ωclipsyndicate.ClipsyndicateIE
@@ -789,7 +798,6 @@ func init() {
 		PBSIE = Ωpbs.PBSIE
 		PearVideoIE = Ωpearvideo.PearVideoIE
 		PeopleIE = Ωpeople.PeopleIE
-		PerformGroupIE = Ωperformgroup.PerformGroupIE
 		PhotobucketIE = Ωphotobucket.PhotobucketIE
 		PikselIE = Ωpiksel.PikselIE
 		PlayFMIE = Ωplayfm.PlayFMIE
@@ -829,11 +837,14 @@ func init() {
 		SoundcloudIE = Ωsoundcloud.SoundcloudIE
 		SoundgasmIE = Ωsoundgasm.SoundgasmIE
 		SpankBangIE = Ωspankbang.SpankBangIE
+		StitcherIE = Ωstitcher.StitcherIE
 		SRGSSRPlayIE = Ωsrgssr.SRGSSRPlayIE
 		StanfordOpenClassroomIE = Ωstanfordoc.StanfordOpenClassroomIE
 		StreamableIE = Ωstreamable.StreamableIE
 		StreamangoIE = Ωstreamango.StreamangoIE
 		SunPornoIE = Ωsunporno.SunPornoIE
+		SverigesRadioEpisodeIE = Ωsverigesradio.SverigesRadioEpisodeIE
+		SverigesRadioPublicationIE = Ωsverigesradio.SverigesRadioPublicationIE
 		SWRMediathekIE = Ωswrmediathek.SWRMediathekIE
 		TagesschauIE = Ωtagesschau.TagesschauIE
 		TastyTradeIE = Ωtastytrade.TastyTradeIE
@@ -935,6 +946,7 @@ func init() {
 			ArchiveOrgIE,
 			ARDMediathekIE,
 			AsianCrushIE,
+			AudiomackIE,
 			AZMedienIE,
 			BandcampIE,
 			BandcampWeeklyIE,
@@ -962,6 +974,7 @@ func init() {
 			CharlieRoseIE,
 			ChirbitIE,
 			CinchcastIE,
+			CinemaxIE,
 			ClippitIE,
 			ClipRsIE,
 			ClipsyndicateIE,
@@ -1097,7 +1110,6 @@ func init() {
 			PBSIE,
 			PearVideoIE,
 			PeopleIE,
-			PerformGroupIE,
 			PhotobucketIE,
 			PikselIE,
 			PlayFMIE,
@@ -1137,11 +1149,14 @@ func init() {
 			SoundcloudIE,
 			SoundgasmIE,
 			SpankBangIE,
+			StitcherIE,
 			SRGSSRPlayIE,
 			StanfordOpenClassroomIE,
 			StreamableIE,
 			StreamangoIE,
 			SunPornoIE,
+			SverigesRadioEpisodeIE,
+			SverigesRadioPublicationIE,
 			SWRMediathekIE,
 			TagesschauIE,
 			TastyTradeIE,

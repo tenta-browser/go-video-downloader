@@ -32,9 +32,12 @@ import (
 
 var (
 	CCCIE          λ.Object
+	CCCPlaylistIE  λ.Object
 	InfoExtractor  λ.Object
 	ϒint_or_none   λ.Object
 	ϒparse_iso8601 λ.Object
+	ϒtry_get       λ.Object
+	ϒurl_or_none   λ.Object
 )
 
 func init() {
@@ -42,6 +45,8 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
+		ϒtry_get = Ωutils.ϒtry_get
+		ϒurl_or_none = Ωutils.ϒurl_or_none
 		CCCIE = λ.Cal(λ.TypeType, λ.NewStr("CCCIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CCCIE_IE_NAME       λ.Object
@@ -59,11 +64,13 @@ func init() {
 						λ.NewStr("id"):          λ.NewStr("1839"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
 						λ.NewStr("title"):       λ.NewStr("Introduction to Processor Design"),
+						λ.NewStr("creator"):     λ.NewStr("byterazor"),
 						λ.NewStr("description"): λ.NewStr("md5:df55f6d073d4ceae55aae6f2fd98a0ac"),
 						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
 						λ.NewStr("upload_date"): λ.NewStr("20131228"),
 						λ.NewStr("timestamp"):   λ.NewInt(1388188800),
 						λ.NewStr("duration"):    λ.NewInt(3710),
+						λ.NewStr("tags"):        λ.ListType,
 					}),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -155,9 +162,20 @@ func init() {
 					}
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒevent_id,
-						λ.NewStr("display_id"):  ϒdisplay_id,
-						λ.NewStr("title"):       λ.GetItem(ϒevent_data, λ.NewStr("title")),
+						λ.NewStr("id"):         ϒevent_id,
+						λ.NewStr("display_id"): ϒdisplay_id,
+						λ.NewStr("title"):      λ.GetItem(ϒevent_data, λ.NewStr("title")),
+						λ.NewStr("creator"): λ.Cal(ϒtry_get, ϒevent_data, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.Cal(λ.GetAttr(λ.NewStr(", "), "join", nil), λ.GetItem(ϒx, λ.NewStr("persons")))
+							})),
 						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒevent_data, "get", nil), λ.NewStr("description")),
 						λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒevent_data, "get", nil), λ.NewStr("thumb_url")),
 						λ.NewStr("timestamp"):   λ.Cal(ϒparse_iso8601, λ.Cal(λ.GetAttr(ϒevent_data, "get", nil), λ.NewStr("date"))),
@@ -171,6 +189,15 @@ func init() {
 				λ.NewStr("_TESTS"):        CCCIE__TESTS,
 				λ.NewStr("_VALID_URL"):    CCCIE__VALID_URL,
 				λ.NewStr("_real_extract"): CCCIE__real_extract,
+			})
+		}())
+		CCCPlaylistIE = λ.Cal(λ.TypeType, λ.NewStr("CCCPlaylistIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+			var (
+				CCCPlaylistIE__VALID_URL λ.Object
+			)
+			CCCPlaylistIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?media\\.ccc\\.de/c/(?P<id>[^/?#&]+)")
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_VALID_URL"): CCCPlaylistIE__VALID_URL,
 			})
 		}())
 	})

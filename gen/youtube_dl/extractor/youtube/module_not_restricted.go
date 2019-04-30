@@ -75,6 +75,7 @@ var (
 	ϒcompat_urllib_parse_unquote_plus λ.Object
 	ϒcompat_urllib_parse_urlencode    λ.Object
 	ϒcompat_urllib_parse_urlparse     λ.Object
+	ϒdict_get                         λ.Object
 	ϒerror_to_compat_str              λ.Object
 	ϒfloat_or_none                    λ.Object
 	ϒget_element_by_attribute         λ.Object
@@ -113,6 +114,7 @@ func init() {
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒclean_html = Ωutils.ϒclean_html
+		ϒdict_get = Ωutils.ϒdict_get
 		ϒerror_to_compat_str = Ωutils.ϒerror_to_compat_str
 		ExtractorError = Ωutils.ExtractorError
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
@@ -1756,6 +1758,7 @@ func init() {
 						λ.NewStr("creator"):      λ.NewStr("Todd Haberman,  Daniel Law Heath and Aaron Kaplan"),
 						λ.NewStr("track"):        λ.NewStr("Dark Walk - Position Music"),
 						λ.NewStr("artist"):       λ.NewStr("Todd Haberman,  Daniel Law Heath and Aaron Kaplan"),
+						λ.NewStr("album"):        λ.NewStr("Position Music - Production Music Vol. 143 - Dark Walk"),
 					}),
 					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("skip_download"): λ.True,
@@ -1918,6 +1921,86 @@ func init() {
 					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("skip_download"):                 λ.True,
 						λ.NewStr("youtube_include_dash_manifest"): λ.False,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://music.youtube.com/watch?v=MgNrAu2pzNs"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):           λ.NewStr("MgNrAu2pzNs"),
+						λ.NewStr("ext"):          λ.NewStr("mp4"),
+						λ.NewStr("title"):        λ.NewStr("Voyeur Girl"),
+						λ.NewStr("description"):  λ.NewStr("md5:7ae382a65843d6df2685993e90a8628f"),
+						λ.NewStr("upload_date"):  λ.NewStr("20190312"),
+						λ.NewStr("uploader"):     λ.NewStr("Various Artists - Topic"),
+						λ.NewStr("uploader_id"):  λ.NewStr("UCVWKBi1ELZn0QX2CBLSkiyw"),
+						λ.NewStr("artist"):       λ.NewStr("Stephen"),
+						λ.NewStr("track"):        λ.NewStr("Voyeur Girl"),
+						λ.NewStr("album"):        λ.NewStr("it's too much love to know my dear"),
+						λ.NewStr("release_date"): λ.NewStr("20190313"),
+						λ.NewStr("release_year"): λ.NewInt(2019),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://www.youtube.com/watch?v=k0jLE7tTwjY"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):           λ.NewStr("k0jLE7tTwjY"),
+						λ.NewStr("ext"):          λ.NewStr("mp4"),
+						λ.NewStr("title"):        λ.NewStr("Latch Feat. Sam Smith"),
+						λ.NewStr("description"):  λ.NewStr("md5:3cb1e8101a7c85fcba9b4fb41b951335"),
+						λ.NewStr("upload_date"):  λ.NewStr("20150110"),
+						λ.NewStr("uploader"):     λ.NewStr("Various Artists - Topic"),
+						λ.NewStr("uploader_id"):  λ.NewStr("UCNkEcmYdjrH4RqtNgh7BZ9w"),
+						λ.NewStr("artist"):       λ.NewStr("Disclosure"),
+						λ.NewStr("track"):        λ.NewStr("Latch Feat. Sam Smith"),
+						λ.NewStr("album"):        λ.NewStr("Latch Featuring Sam Smith"),
+						λ.NewStr("release_date"): λ.NewStr("20121008"),
+						λ.NewStr("release_year"): λ.NewInt(2012),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://www.youtube.com/watch?v=74qn0eJSjpA"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):           λ.NewStr("74qn0eJSjpA"),
+						λ.NewStr("ext"):          λ.NewStr("mp4"),
+						λ.NewStr("title"):        λ.NewStr("Eastside"),
+						λ.NewStr("description"):  λ.NewStr("md5:290516bb73dcbfab0dcc4efe6c3de5f2"),
+						λ.NewStr("upload_date"):  λ.NewStr("20180710"),
+						λ.NewStr("uploader"):     λ.NewStr("Benny Blanco - Topic"),
+						λ.NewStr("uploader_id"):  λ.NewStr("UCzqz_ksRu_WkIzmivMdIS7A"),
+						λ.NewStr("artist"):       λ.NewStr("benny blanco, Halsey, Khalid"),
+						λ.NewStr("track"):        λ.NewStr("Eastside"),
+						λ.NewStr("album"):        λ.NewStr("Eastside"),
+						λ.NewStr("release_date"): λ.NewStr("20180713"),
+						λ.NewStr("release_year"): λ.NewInt(2018),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://www.youtube.com/watch?v=-hcAI0g-f5M"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):           λ.NewStr("-hcAI0g-f5M"),
+						λ.NewStr("ext"):          λ.NewStr("mp4"),
+						λ.NewStr("title"):        λ.NewStr("Put It On Me"),
+						λ.NewStr("description"):  λ.NewStr("md5:93c55acc682ae7b0c668f2e34e1c069e"),
+						λ.NewStr("upload_date"):  λ.NewStr("20180426"),
+						λ.NewStr("uploader"):     λ.NewStr("Matt Maeson - Topic"),
+						λ.NewStr("uploader_id"):  λ.NewStr("UCnEkIGqtGcQMLk73Kp-Q5LQ"),
+						λ.NewStr("artist"):       λ.NewStr("Matt Maeson"),
+						λ.NewStr("track"):        λ.NewStr("Put It On Me"),
+						λ.NewStr("album"):        λ.NewStr("The Hearse"),
+						λ.NewStr("release_date"): λ.None,
+						λ.NewStr("release_year"): λ.NewInt(2018),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
 					}),
 				}),
 			)
@@ -2458,6 +2541,7 @@ func init() {
 						ϒadd_dash_mpd                λ.Object
 						ϒadd_dash_mpd_pr             λ.Object
 						ϒage_gate                    λ.Object
+						ϒalbum                       λ.Object
 						ϒargs                        λ.Object
 						ϒartist                      λ.Object
 						ϒautomatic_captions          λ.Object
@@ -2487,6 +2571,7 @@ func init() {
 						ϒepisode_number              λ.Object
 						ϒerror_message               λ.Object
 						ϒextract_meta                λ.Object
+						ϒextract_token               λ.Object
 						ϒextract_unavailable_message λ.Object
 						ϒextract_view_count          λ.Object
 						ϒf                           λ.Object
@@ -2537,6 +2622,8 @@ func init() {
 						ϒratio                       λ.Object
 						ϒreason                      λ.Object
 						ϒregions_allowed             λ.Object
+						ϒrelease_date                λ.Object
+						ϒrelease_year                λ.Object
 						ϒreplace_url                 λ.Object
 						ϒseason_number               λ.Object
 						ϒself                        = λargs[0]
@@ -2735,6 +2822,21 @@ func init() {
 									return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("view_count")), λ.NewInt(0))
 								})))
 						})
+					ϒextract_token = λ.NewFunction("extract_token",
+						[]λ.Param{
+							{Name: "v_info"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒv_info = λargs[0]
+							)
+							return λ.Cal(ϒdict_get, ϒv_info, λ.NewTuple(
+								λ.NewStr("account_playback_token"),
+								λ.NewStr("accountPlaybackToken"),
+								λ.NewStr("token"),
+							))
+						})
 					ϒplayer_response = λ.NewDictWithTable(map[λ.Object]λ.Object{})
 					ϒembed_webpage = λ.None
 					if λ.IsTrue(λ.NewBool(λ.Cal(Ωre.ϒsearch, λ.NewStr("player-age-gate-content\">"), ϒvideo_webpage) != λ.None)) {
@@ -2855,7 +2957,6 @@ func init() {
 							λ.Cal(ϒadd_dash_mpd_pr, ϒplayer_response)
 							λ.Cal(λ.GetAttr(ϒself, "report_video_info_webpage_download", nil), ϒvideo_id)
 							τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-								λ.NewStr("info"),
 								λ.NewStr("embedded"),
 								λ.NewStr("detailpage"),
 								λ.NewStr("vevo"),
@@ -2906,21 +3007,9 @@ func init() {
 								if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_info))) {
 									ϒvideo_info = ϒget_video_info
 								}
-								ϒget_token = func() λ.Object {
-									if λv := λ.Cal(λ.GetAttr(ϒget_video_info, "get", nil), λ.NewStr("token")); λ.IsTrue(λv) {
-										return λv
-									} else {
-										return λ.Cal(λ.GetAttr(ϒget_video_info, "get", nil), λ.NewStr("account_playback_token"))
-									}
-								}()
+								ϒget_token = λ.Cal(ϒextract_token, ϒget_video_info)
 								if λ.IsTrue(ϒget_token) {
-									ϒtoken = func() λ.Object {
-										if λv := λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("token")); λ.IsTrue(λv) {
-											return λv
-										} else {
-											return λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("account_playback_token"))
-										}
-									}()
+									ϒtoken = λ.Cal(ϒextract_token, ϒvideo_info)
 									if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒtoken))) {
 										ϒvideo_info = ϒget_video_info
 									}
@@ -2950,51 +3039,6 @@ func init() {
 							{Name: "expected", Value: λ.True},
 							{Name: "video_id", Value: ϒvideo_id},
 						})))
-					}
-					ϒtoken = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("token")); λ.IsTrue(λv) {
-							return λv
-						} else {
-							return λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("account_playback_token"))
-						}
-					}()
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒtoken))) {
-						if λ.IsTrue(λ.NewBool(λ.Contains(ϒvideo_info, λ.NewStr("reason")))) {
-							if λ.IsTrue(λ.NewBool(λ.Contains(λ.GetItem(ϒvideo_info, λ.NewStr("reason")), λ.NewStr("The uploader has not made this video available in your country.")))) {
-								ϒregions_allowed = λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
-									λ.NewStr("regionsAllowed"),
-									ϒvideo_webpage,
-								), λ.KWArgs{
-									{Name: "default", Value: λ.None},
-								})
-								ϒcountries = func() λ.Object {
-									if λ.IsTrue(ϒregions_allowed) {
-										return λ.Cal(λ.GetAttr(ϒregions_allowed, "split", nil), λ.NewStr(","))
-									} else {
-										return λ.None
-									}
-								}()
-								λ.Call(λ.GetAttr(ϒself, "raise_geo_restricted", nil), nil, λ.KWArgs{
-									{Name: "msg", Value: λ.GetItem(λ.GetItem(ϒvideo_info, λ.NewStr("reason")), λ.NewInt(0))},
-									{Name: "countries", Value: ϒcountries},
-								})
-							}
-							ϒreason = λ.GetItem(λ.GetItem(ϒvideo_info, λ.NewStr("reason")), λ.NewInt(0))
-							if λ.IsTrue(λ.NewBool(λ.Contains(ϒreason, λ.NewStr("Invalid parameters")))) {
-								ϒunavailable_message = λ.Cal(ϒextract_unavailable_message)
-								if λ.IsTrue(ϒunavailable_message) {
-									ϒreason = ϒunavailable_message
-								}
-							}
-							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("YouTube said: %s"), ϒreason)), λ.KWArgs{
-								{Name: "expected", Value: λ.True},
-								{Name: "video_id", Value: ϒvideo_id},
-							})))
-						} else {
-							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("\"token\" parameter not in video info for unknown reason")), λ.KWArgs{
-								{Name: "video_id", Value: ϒvideo_id},
-							})))
-						}
 					}
 					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("license_info"))) {
 						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("This video is DRM protected.")), λ.KWArgs{
@@ -3710,6 +3754,61 @@ func init() {
 						})
 					ϒtrack = λ.Cal(ϒextract_meta, λ.NewStr("Song"))
 					ϒartist = λ.Cal(ϒextract_meta, λ.NewStr("Artist"))
+					ϒalbum = λ.Cal(ϒextract_meta, λ.NewStr("Album"))
+					τmp0 = λ.None
+					ϒrelease_date = τmp0
+					ϒrelease_year = τmp0
+					if λ.IsTrue(ϒvideo_description) {
+						ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("(?s)Provided to YouTube by [^\\n]+\\n+(?P<track>[^·]+)·(?P<artist>[^\\n]+)\\n+(?P<album>[^\\n]+)(?:.+?℗\\s*(?P<release_year>\\d{4})(?!\\d))?(?:.+?Released on\\s*:\\s*(?P<release_date>\\d{4}-\\d{2}-\\d{2}))?(.+?\\nArtist\\s*:\\s*(?P<clean_artist>[^\\n]+))?"), ϒvideo_description)
+						if λ.IsTrue(ϒmobj) {
+							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒtrack))) {
+								ϒtrack = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("track")), "strip", nil))
+							}
+							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒartist))) {
+								ϒartist = func() λ.Object {
+									if λv := λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("clean_artist")); λ.IsTrue(λv) {
+										return λv
+									} else {
+										return λ.Cal(λ.GetAttr(λ.NewStr(", "), "join", nil), λ.Cal(λ.NewFunction("<generator>",
+											nil,
+											0, false, false,
+											func(λargs []λ.Object) λ.Object {
+												return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+													var (
+														ϒa   λ.Object
+														τmp0 λ.Object
+														τmp1 λ.Object
+													)
+													τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("artist")), "split", nil), λ.NewStr("·")))
+													for {
+														if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+															break
+														}
+														ϒa = τmp1
+														λgen.Yield(λ.Cal(λ.GetAttr(ϒa, "strip", nil)))
+													}
+													return λ.None
+												})
+											})))
+									}
+								}()
+							}
+							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒalbum))) {
+								ϒalbum = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.Cal(λ.GetAttr(λ.NewStr("album"), "strip", nil)))
+							}
+							ϒrelease_year = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("release_year"))
+							ϒrelease_date = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("release_date"))
+							if λ.IsTrue(ϒrelease_date) {
+								ϒrelease_date = λ.Cal(λ.GetAttr(ϒrelease_date, "replace", nil), λ.NewStr("-"), λ.NewStr(""))
+								if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒrelease_year))) {
+									ϒrelease_year = λ.Cal(λ.IntType, λ.GetItem(ϒrelease_date, λ.NewSlice(λ.None, λ.NewInt(4), λ.None)))
+								}
+							}
+							if λ.IsTrue(ϒrelease_year) {
+								ϒrelease_year = λ.Cal(λ.IntType, ϒrelease_year)
+							}
+						}
+					}
 					ϒm_episode = λ.Cal(Ωre.ϒsearch, λ.NewStr("<div[^>]+id=\"watch7-headline\"[^>]*>\\s*<span[^>]*>.*?>(?P<series>[^<]+)</a></b>\\s*S(?P<season>\\d+)\\s*•\\s*E(?P<episode>\\d+)</span>"), ϒvideo_webpage)
 					if λ.IsTrue(ϒm_episode) {
 						ϒseries = λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒm_episode, "group", nil), λ.NewStr("series")))
@@ -3929,6 +4028,47 @@ func init() {
 							}
 						}
 					}
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
+						ϒtoken = λ.Cal(ϒextract_token, ϒvideo_info)
+						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒtoken))) {
+							if λ.IsTrue(λ.NewBool(λ.Contains(ϒvideo_info, λ.NewStr("reason")))) {
+								if λ.IsTrue(λ.NewBool(λ.Contains(λ.GetItem(ϒvideo_info, λ.NewStr("reason")), λ.NewStr("The uploader has not made this video available in your country.")))) {
+									ϒregions_allowed = λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
+										λ.NewStr("regionsAllowed"),
+										ϒvideo_webpage,
+									), λ.KWArgs{
+										{Name: "default", Value: λ.None},
+									})
+									ϒcountries = func() λ.Object {
+										if λ.IsTrue(ϒregions_allowed) {
+											return λ.Cal(λ.GetAttr(ϒregions_allowed, "split", nil), λ.NewStr(","))
+										} else {
+											return λ.None
+										}
+									}()
+									λ.Call(λ.GetAttr(ϒself, "raise_geo_restricted", nil), nil, λ.KWArgs{
+										{Name: "msg", Value: λ.GetItem(λ.GetItem(ϒvideo_info, λ.NewStr("reason")), λ.NewInt(0))},
+										{Name: "countries", Value: ϒcountries},
+									})
+								}
+								ϒreason = λ.GetItem(λ.GetItem(ϒvideo_info, λ.NewStr("reason")), λ.NewInt(0))
+								if λ.IsTrue(λ.NewBool(λ.Contains(ϒreason, λ.NewStr("Invalid parameters")))) {
+									ϒunavailable_message = λ.Cal(ϒextract_unavailable_message)
+									if λ.IsTrue(ϒunavailable_message) {
+										ϒreason = ϒunavailable_message
+									}
+								}
+								panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("YouTube said: %s"), ϒreason)), λ.KWArgs{
+									{Name: "expected", Value: λ.True},
+									{Name: "video_id", Value: ϒvideo_id},
+								})))
+							} else {
+								panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("\"token\" parameter not in video info for unknown reason")), λ.KWArgs{
+									{Name: "video_id", Value: ϒvideo_id},
+								})))
+							}
+						}
+					}
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
 					λ.Cal(λ.GetAttr(ϒself, "mark_watched", nil), ϒvideo_id, ϒvideo_info, ϒplayer_response)
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -3985,6 +4125,9 @@ func init() {
 						λ.NewStr("episode_number"): ϒepisode_number,
 						λ.NewStr("track"):          ϒtrack,
 						λ.NewStr("artist"):         ϒartist,
+						λ.NewStr("album"):          ϒalbum,
+						λ.NewStr("release_date"):   ϒrelease_date,
+						λ.NewStr("release_year"):   ϒrelease_year,
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{

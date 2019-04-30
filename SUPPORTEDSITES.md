@@ -10,6 +10,7 @@ Supported sites
  * ArchiveOrg: `archive.org`
  * ARDMediathek: `www.ardmediathek.de`
  * AsianCrush: `www.asiancrush.com`
+ * Audiomack: `www.audiomack.com`
  * AZMedien: `www.telezueri.ch`
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
@@ -37,6 +38,7 @@ Supported sites
  * CharlieRose: `charlierose.com`
  * Chirbit: `chirb.it`
  * Cinchcast: `player.cinchcast.com`
+ * Cinemax: `www.cinemax.com`
  * Clippit: `www.clippituser.tv`
  * ClipRs: `www.clip.rs`
  * Clipsyndicate: `www.clipsyndicate.com`
@@ -170,7 +172,6 @@ Supported sites
  * PBS: `www.pbs.org`
  * PearVideo: `www.pearvideo.com`
  * People: `www.people.com`
- * PerformGroup: `player.performgroup.com`
  * Photobucket: `media.photobucket.com`
  * Piksel: `player.piksel.com`
  * PlayFM: `www.play.fm`
@@ -210,11 +211,14 @@ Supported sites
  * Soundcloud: `soundcloud.com`
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
+ * Stitcher: `www.stitcher.com`
  * SRGSSRPlay: `www.rts.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
  * Streamable: `streamable.com`
  * Streamango: `streamango.com`
  * SunPorno _(adult)_: `www.sunporno.com`
+ * SverigesRadioEpisode: `sverigesradio.se`
+ * SverigesRadioPublication: `sverigesradio.se`
  * SWRMediathek: `swrmediathek.de`
  * Tagesschau: `www.tagesschau.de`
  * TastyTrade: `www.tastytrade.com`

@@ -32,6 +32,7 @@ import (
 )
 
 var (
+	HBOBaseIE       λ.Object
 	HBOIE           λ.Object
 	InfoExtractor   λ.Object
 	ϒint_or_none    λ.Object
@@ -49,27 +50,12 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒurljoin = Ωutils.ϒurljoin
-		HBOIE = λ.Cal(λ.TypeType, λ.NewStr("HBOIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		HBOBaseIE = λ.Cal(λ.TypeType, λ.NewStr("HBOBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				HBOIE_IE_NAME       λ.Object
-				HBOIE__FORMATS_INFO λ.Object
-				HBOIE__TEST         λ.Object
-				HBOIE__VALID_URL    λ.Object
-				HBOIE__real_extract λ.Object
+				HBOBaseIE__FORMATS_INFO λ.Object
+				HBOBaseIE__extract_info λ.Object
 			)
-			HBOIE_IE_NAME = λ.NewStr("hbo")
-			HBOIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?hbo\\.com/(?:video|embed)(?:/[^/]+)*/(?P<id>[^/?#]+)")
-			HBOIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://www.hbo.com/video/game-of-thrones/seasons/season-8/videos/trailer"),
-				λ.NewStr("md5"): λ.NewStr("8126210656f433c452a21367f9ad85b3"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):    λ.NewStr("22113301"),
-					λ.NewStr("ext"):   λ.NewStr("mp4"),
-					λ.NewStr("title"): λ.NewStr("Game of Thrones - Trailer"),
-				}),
-				λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("Unknown MIME type application/mp4 in DASH manifest")),
-			})
-			HBOIE__FORMATS_INFO = λ.NewDictWithTable(map[λ.Object]λ.Object{
+			HBOBaseIE__FORMATS_INFO = λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("pro7"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("width"):  λ.NewInt(1280),
 					λ.NewStr("height"): λ.NewInt(720),
@@ -107,24 +93,24 @@ func init() {
 					λ.NewStr("height"): λ.NewInt(224),
 				}),
 			})
-			HBOIE__real_extract = λ.NewFunction("_real_extract",
+			HBOBaseIE__extract_info = λ.NewFunction("_extract_info",
 				[]λ.Param{
 					{Name: "self"},
 					{Name: "url"},
+					{Name: "display_id"},
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
 						ϒcaption_url   λ.Object
 						ϒcard_sizes    λ.Object
-						ϒdisplay_id    λ.Object
+						ϒdisplay_id    = λargs[2]
 						ϒepisode_title λ.Object
 						ϒf             λ.Object
 						ϒfmt           λ.Object
 						ϒformat_info   λ.Object
 						ϒformats       λ.Object
 						ϒheight        λ.Object
-						ϒlocation_path λ.Object
 						ϒm3u8_formats  λ.Object
 						ϒpath          λ.Object
 						ϒrtmp          λ.Object
@@ -139,17 +125,13 @@ func init() {
 						ϒvideo_data    λ.Object
 						ϒvideo_id      λ.Object
 						ϒvideo_url     λ.Object
-						ϒwebpage       λ.Object
 						ϒwidth         λ.Object
 						τmp0           λ.Object
 						τmp1           λ.Object
 						τmp2           λ.Object
 						τmp3           λ.Object
 					)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
-					ϒlocation_path = λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("data-state=\"({.+?})\""), ϒwebpage, λ.NewStr("state")), ϒdisplay_id), λ.NewStr("video")), λ.NewStr("locationUrl"))
-					ϒvideo_data = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), λ.Cal(ϒurljoin, ϒurl, ϒlocation_path), ϒdisplay_id)
+					ϒvideo_data = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), ϒurl, ϒdisplay_id)
 					ϒvideo_id = λ.Call(ϒxpath_text, λ.NewArgs(
 						ϒvideo_data,
 						λ.NewStr("id"),
@@ -324,8 +306,50 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_FORMATS_INFO"): HBOBaseIE__FORMATS_INFO,
+				λ.NewStr("_extract_info"): HBOBaseIE__extract_info,
+			})
+		}())
+		HBOIE = λ.Cal(λ.TypeType, λ.NewStr("HBOIE"), λ.NewTuple(HBOBaseIE), func() λ.Dict {
+			var (
+				HBOIE_IE_NAME       λ.Object
+				HBOIE__TEST         λ.Object
+				HBOIE__VALID_URL    λ.Object
+				HBOIE__real_extract λ.Object
+			)
+			HBOIE_IE_NAME = λ.NewStr("hbo")
+			HBOIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?hbo\\.com/(?:video|embed)(?:/[^/]+)*/(?P<id>[^/?#]+)")
+			HBOIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("url"): λ.NewStr("https://www.hbo.com/video/game-of-thrones/seasons/season-8/videos/trailer"),
+				λ.NewStr("md5"): λ.NewStr("8126210656f433c452a21367f9ad85b3"),
+				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("id"):    λ.NewStr("22113301"),
+					λ.NewStr("ext"):   λ.NewStr("mp4"),
+					λ.NewStr("title"): λ.NewStr("Game of Thrones - Trailer"),
+				}),
+				λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("Unknown MIME type application/mp4 in DASH manifest")),
+			})
+			HBOIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒdisplay_id    λ.Object
+						ϒlocation_path λ.Object
+						ϒself          = λargs[0]
+						ϒurl           = λargs[1]
+						ϒwebpage       λ.Object
+					)
+					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
+					ϒlocation_path = λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("data-state=\"({.+?})\""), ϒwebpage, λ.NewStr("state")), ϒdisplay_id), λ.NewStr("video")), λ.NewStr("locationUrl"))
+					return λ.Cal(λ.GetAttr(ϒself, "_extract_info", nil), λ.Cal(ϒurljoin, ϒurl, ϒlocation_path), ϒdisplay_id)
+				})
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       HBOIE_IE_NAME,
-				λ.NewStr("_FORMATS_INFO"): HBOIE__FORMATS_INFO,
 				λ.NewStr("_TEST"):         HBOIE__TEST,
 				λ.NewStr("_VALID_URL"):    HBOIE__VALID_URL,
 				λ.NewStr("_real_extract"): HBOIE__real_extract,
