@@ -29,6 +29,7 @@ import (
 
 	"github.com/tenta-browser/go-pcre-matcher"
 	"github.com/tenta-browser/go-video-downloader/lib"
+	"github.com/tenta-browser/go-video-downloader/lib/browser"
 	"github.com/tenta-browser/go-video-downloader/lib/re"
 
 	netlib "github.com/tenta-browser/go-video-downloader/lib/net"
@@ -40,9 +41,29 @@ var (
 	masterRegexpComps []matcher.Regexp
 )
 
+// BrowserRequest respresents a request towards a Browser.
+type BrowserRequest struct {
+	UserAgent string
+	Cookies   string
+	URL       string
+}
+
+// BrowserResponse respresents a response from a Browser.
+type BrowserResponse struct {
+	HTML    string
+	Cookies string
+}
+
+// Browser represents an interface towards a real browser,
+// which can load pages evaluating JavaScript.
+type Browser interface {
+	Load(*BrowserRequest) (*BrowserResponse, error)
+}
+
 // Connector holds settings/callbacks related to establishing connections,
 // downloading content, etc.
 type Connector struct {
+	Browser   Browser
 	Client    *http.Client
 	UserAgent string
 	Cookie    string
@@ -99,6 +120,8 @@ func Extract(url string, connector *Connector) (resData *VideoData, err error) {
 	if client == nil {
 		client = new(http.Client)
 	}
+	// we can't be sure the Python code cleans up after itself
+	defer client.CloseIdleConnections()
 	jar := client.Jar
 	if jar == nil {
 		jar, err = netlib.NewJar()
@@ -113,6 +136,10 @@ func Extract(url string, connector *Connector) (resData *VideoData, err error) {
 	connectorDict.SetItem(rnt.NewStr("client"), rnt.NewNative(client))
 	connectorDict.SetItem(rnt.NewStr("jar"), rnt.NewNative(jar))
 	if connector != nil {
+		if connector.Browser != nil {
+			var b browser.Browser = &browserImpl{connector.Browser}
+			connectorDict.SetItem(rnt.NewStr("browser"), rnt.NewNative(b))
+		}
 		if connector.UserAgent != "" {
 			headersDict := rnt.NewDict()
 			headersDict.SetItem(rnt.NewStr("User-Agent"), rnt.NewStr(connector.UserAgent))
@@ -208,4 +235,21 @@ func resField(resDict rnt.Dict, name string, required bool) rnt.Object {
 			"result dict is missing '%s'", name)))
 	}
 	return val
+}
+
+type browserImpl struct {
+	Browser
+}
+
+func (b *browserImpl) Load(url, ua, inCookies string) (html string, outCookies string, err error) {
+	req := &BrowserRequest{
+		UserAgent: ua,
+		Cookies:   inCookies,
+		URL:       url,
+	}
+	res, err := b.Browser.Load(req)
+	if err != nil {
+		return "", "", err
+	}
+	return res.HTML, res.Cookies, nil
 }

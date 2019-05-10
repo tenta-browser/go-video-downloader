@@ -85,6 +85,7 @@ func init() {
 						λ.NewStr("password"):   λ.Cal(λ.GetAttr(ϒconnector, "get", nil), λ.NewStr("password"), λ.None),
 					}))
 					λ.SetAttr(ϒself, "connector", ϒconnector)
+					λ.SetAttr(ϒself, "browser", λ.Cal(λ.GetAttr(ϒconnector, "get", nil), λ.NewStr("browser")))
 					λ.SetAttr(ϒself, "cookiejar", λ.Cal(Ωcookiejar.CookieJar, λ.GetItem(ϒconnector, λ.NewStr("jar"))))
 					λ.Cal(λ.GetAttr(ϒself, "add_default_info_extractors", nil))
 					λ.SetAttr(ϒself, "cache", λ.Cal(Cache, ϒself))

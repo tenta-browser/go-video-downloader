@@ -94,7 +94,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒq   λ.Object
 									τmp0 λ.Object
@@ -107,7 +107,7 @@ func init() {
 									}
 									ϒq = τmp1
 									if λ.IsTrue(λ.Cal(λ.GetAttr(ϒq, "get", nil), λ.NewStr("url"))) {
-										λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 											λ.NewStr("format_id"): λ.Cal(λ.GetAttr(ϒq, "get", nil), λ.NewStr("label")),
 											λ.NewStr("url"):       λ.GetItem(ϒq, λ.NewStr("url")),
 											λ.NewStr("height"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒq, "get", nil), λ.NewStr("label"))),
@@ -122,7 +122,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒtag λ.Object
 									τmp0 λ.Object
@@ -135,7 +135,7 @@ func init() {
 									}
 									ϒtag = τmp1
 									if λ.IsTrue(λ.Cal(λ.GetAttr(ϒtag, "get", nil), λ.NewStr("label"))) {
-										λgen.Yield(λ.GetItem(ϒtag, λ.NewStr("label")))
+										λgy.Yield(λ.GetItem(ϒtag, λ.NewStr("label")))
 									}
 								}
 								return λ.None

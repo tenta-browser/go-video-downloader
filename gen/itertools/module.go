@@ -114,7 +114,7 @@ func init() {
 			},
 			0, false, false,
 			func(λargs []λ.Object) λ.Object {
-				return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+				return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 					var (
 						ϒn     λ.Object
 						ϒstart = λargs[0]
@@ -123,7 +123,7 @@ func init() {
 					)
 					ϒn = ϒstart
 					for λ.IsTrue(λ.True) {
-						λgen.Yield(ϒn)
+						λgy.Yield(ϒn)
 						τmp0 = λ.IAdd(ϒn, ϒstep)
 						ϒn = τmp0
 					}

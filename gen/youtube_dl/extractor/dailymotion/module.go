@@ -419,7 +419,7 @@ func init() {
 									nil,
 									0, false, false,
 									func(λargs []λ.Object) λ.Object {
-										return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+										return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 											var (
 												ϒi   λ.Object
 												τmp0 λ.Object
@@ -432,7 +432,7 @@ func init() {
 													break
 												}
 												ϒi = τmp1
-												λgen.Yield(λ.Cal(Ωrandom.ϒchoice, Ωstring.ϒascii_letters))
+												λgy.Yield(λ.Cal(Ωrandom.ϒchoice, Ωstring.ϒascii_letters))
 											}
 											return λ.None
 										})
@@ -552,7 +552,7 @@ func init() {
 									nil,
 									0, false, false,
 									func(λargs []λ.Object) λ.Object {
-										return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+										return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 											var (
 												ϒsubtitle_url λ.Object
 												τmp0          λ.Object
@@ -564,7 +564,7 @@ func init() {
 													break
 												}
 												ϒsubtitle_url = τmp1
-												λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+												λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 													λ.NewStr("ext"): λ.Cal(ϒdetermine_ext, ϒsubtitle_url),
 													λ.NewStr("url"): ϒsubtitle_url,
 												}))

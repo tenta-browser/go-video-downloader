@@ -298,7 +298,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒvariant λ.Object
 									τmp0     λ.Object
@@ -311,7 +311,7 @@ func init() {
 									}
 									ϒvariant = τmp1
 									if λ.IsTrue(λ.Cal(ϒxpath_text, ϒvariant, λ.NewStr("url"))) {
-										λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 											λ.NewStr("url"):    λ.Add(ϒbase_url, λ.Cal(ϒxpath_text, ϒvariant, λ.NewStr("url"))),
 											λ.NewStr("width"):  λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒvariant, λ.NewStr("width"))),
 											λ.NewStr("height"): λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒvariant, λ.NewStr("height"))),

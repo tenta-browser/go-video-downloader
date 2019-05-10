@@ -440,7 +440,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒthumbnail λ.Object
 									τmp0       λ.Object
@@ -453,7 +453,7 @@ func init() {
 									}
 									ϒthumbnail = τmp1
 									if λ.IsTrue(λ.Cal(λ.GetAttr(ϒthumbnail, "get", nil), λ.NewStr("url"))) {
-										λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 											λ.NewStr("url"):    λ.GetItem(ϒthumbnail, λ.NewStr("url")),
 											λ.NewStr("width"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒthumbnail, "get", nil), λ.NewStr("width"))),
 											λ.NewStr("height"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒthumbnail, "get", nil), λ.NewStr("height"))),

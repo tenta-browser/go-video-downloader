@@ -29,6 +29,7 @@ import (
 	Ωcookiejar "github.com/tenta-browser/go-video-downloader/gen/http/cookiejar"
 	Ωcookies "github.com/tenta-browser/go-video-downloader/gen/http/cookies"
 	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
+	Ωmath "github.com/tenta-browser/go-video-downloader/gen/math"
 	Ωrandom "github.com/tenta-browser/go-video-downloader/gen/random"
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωsocket "github.com/tenta-browser/go-video-downloader/gen/socket"
@@ -1620,7 +1621,7 @@ func init() {
 								nil,
 								0, false, false,
 								func(λargs []λ.Object) λ.Object {
-									return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+									return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 										var (
 											ϒg   λ.Object
 											τmp0 λ.Object
@@ -1633,7 +1634,7 @@ func init() {
 											}
 											ϒg = τmp1
 											if λ.IsTrue(λ.NewBool(ϒg != λ.None)) {
-												λgen.Yield(ϒg)
+												λgy.Yield(ϒg)
 											}
 										}
 										return λ.None
@@ -2016,7 +2017,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒn   λ.Object
 										τmp0 λ.Object
@@ -2028,7 +2029,7 @@ func init() {
 											break
 										}
 										ϒn = τmp1
-										λgen.Yield(λ.Cal(λ.GetAttr(ϒself, "_meta_regex", nil), ϒn))
+										λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "_meta_regex", nil), ϒn))
 									}
 									return λ.None
 								})
@@ -2436,7 +2437,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒk   λ.Object
 									ϒv   λ.Object
@@ -2453,7 +2454,7 @@ func init() {
 									ϒk = λ.GetItem(τmp2, λ.NewInt(0))
 									ϒv = λ.GetItem(τmp2, λ.NewInt(1))
 									if λ.IsTrue(λ.NewBool(ϒv != λ.None)) {
-										λgen.Yield(λ.NewTuple(
+										λgy.Yield(λ.NewTuple(
 											ϒk,
 											ϒv,
 										))
@@ -2594,7 +2595,7 @@ func init() {
 									nil,
 									0, false, false,
 									func(λargs []λ.Object) λ.Object {
-										return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+										return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 											var (
 												ϒfield λ.Object
 												τmp0   λ.Object
@@ -2606,7 +2607,7 @@ func init() {
 													break
 												}
 												ϒfield = τmp1
-												λgen.Yield(func() λ.Object {
+												λgy.Yield(func() λ.Object {
 													if λ.IsTrue(λ.NewBool(λ.Cal(λ.GetAttr(ϒf, "get", nil), ϒfield) != λ.None)) {
 														return λ.Cal(λ.GetAttr(ϒf, "get", nil), ϒfield)
 													} else {
@@ -4458,7 +4459,7 @@ func init() {
 										nil,
 										0, false, false,
 										func(λargs []λ.Object) λ.Object {
-											return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+											return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 												var (
 													ϒsegment λ.Object
 													τmp0     λ.Object
@@ -4470,7 +4471,7 @@ func init() {
 														break
 													}
 													ϒsegment = τmp1
-													λgen.Yield(λ.GetItem(λ.GetAttr(ϒsegment, "attrib", nil), λ.NewStr("media")))
+													λgy.Yield(λ.GetItem(λ.GetAttr(ϒsegment, "attrib", nil), λ.NewStr("media")))
 												}
 												return λ.None
 											})
@@ -4731,13 +4732,13 @@ func init() {
 													}
 												}()) {
 													ϒsegment_duration = λ.Cal(ϒfloat_or_none, λ.GetItem(ϒrepresentation_ms_info, λ.NewStr("segment_duration")), λ.GetItem(ϒrepresentation_ms_info, λ.NewStr("timescale")))
-													λ.SetItem(ϒrepresentation_ms_info, λ.NewStr("total_number"), λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(λ.None, "ceil", nil), λ.TrueDiv(λ.Cal(λ.FloatType, ϒperiod_duration), ϒsegment_duration))))
+													λ.SetItem(ϒrepresentation_ms_info, λ.NewStr("total_number"), λ.Cal(λ.IntType, λ.Cal(Ωmath.ϒceil, λ.TrueDiv(λ.Cal(λ.FloatType, ϒperiod_duration), ϒsegment_duration))))
 												}
 												λ.SetItem(ϒrepresentation_ms_info, λ.NewStr("fragments"), λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 													nil,
 													0, false, false,
 													func(λargs []λ.Object) λ.Object {
-														return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+														return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 															var (
 																ϒsegment_number λ.Object
 																τmp0            λ.Object
@@ -4749,7 +4750,7 @@ func init() {
 																	break
 																}
 																ϒsegment_number = τmp1
-																λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+																λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 																	ϒmedia_location_key: λ.Mod(ϒmedia_template, λ.NewDictWithTable(map[λ.Object]λ.Object{
 																		λ.NewStr("Number"):    ϒsegment_number,
 																		λ.NewStr("Bandwidth"): ϒbandwidth,
@@ -5386,7 +5387,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒmedia_tag  λ.Object
 									ϒmedia_type λ.Object
@@ -5402,7 +5403,7 @@ func init() {
 									τmp2 = τmp1
 									ϒmedia_tag = λ.GetItem(τmp2, λ.NewInt(0))
 									ϒmedia_type = λ.GetItem(τmp2, λ.NewInt(1))
-									λgen.Yield(λ.NewTuple(
+									λgy.Yield(λ.NewTuple(
 										ϒmedia_tag,
 										ϒmedia_type,
 										λ.NewStr(""),
@@ -5459,7 +5460,7 @@ func init() {
 										nil,
 										0, false, false,
 										func(λargs []λ.Object) λ.Object {
-											return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+											return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 												var (
 													ϒlbl λ.Object
 													τmp0 λ.Object
@@ -5475,7 +5476,7 @@ func init() {
 													}
 													ϒlbl = τmp1
 													if λ.IsTrue(λ.Cal(ϒstr_or_none, λ.Cal(λ.GetAttr(ϒs_attr, "get", nil), ϒlbl))) {
-														λgen.Yield(λ.Cal(λ.GetAttr(ϒs_attr, "get", nil), ϒlbl))
+														λgy.Yield(λ.Cal(λ.GetAttr(ϒs_attr, "get", nil), ϒlbl))
 													}
 												}
 												return λ.None
@@ -6132,7 +6133,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒitem λ.Object
 									τmp0  λ.Object
@@ -6144,7 +6145,7 @@ func init() {
 										break
 									}
 									ϒitem = τmp1
-									λgen.Yield(λ.GetItem(ϒitem, λ.NewStr("url")))
+									λgy.Yield(λ.GetItem(ϒitem, λ.NewStr("url")))
 								}
 								return λ.None
 							})
@@ -6154,7 +6155,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒitem λ.Object
 									τmp0  λ.Object
@@ -6167,7 +6168,7 @@ func init() {
 									}
 									ϒitem = τmp1
 									if λ.IsTrue(λ.NewBool(!λ.Contains(ϒlist1_urls, λ.GetItem(ϒitem, λ.NewStr("url"))))) {
-										λgen.Yield(ϒitem)
+										λgy.Yield(ϒitem)
 									}
 								}
 								return λ.None
@@ -6408,5 +6409,6 @@ func init() {
 				λ.NewStr("suitable"):        SearchInfoExtractor_suitable,
 			})
 		}())
+		λ.Cal(Ωmath.ϒceil, λ.NewInt(23))
 	})
 }

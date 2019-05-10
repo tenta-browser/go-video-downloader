@@ -106,7 +106,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒp   λ.Object
 									τmp0 λ.Object
@@ -119,7 +119,7 @@ func init() {
 									}
 									ϒp = τmp1
 									if λ.IsTrue(λ.Eq(λ.GetItem(ϒp, λ.NewStr("slug")), ϒvideo_id)) {
-										λgen.Yield(ϒp)
+										λgy.Yield(ϒp)
 									}
 								}
 								return λ.None
@@ -149,7 +149,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒkey λ.Object
 									ϒtpl λ.Object
@@ -165,7 +165,7 @@ func init() {
 									τmp2 = τmp1
 									ϒkey = λ.GetItem(τmp2, λ.NewInt(0))
 									ϒtpl = λ.GetItem(τmp2, λ.NewInt(1))
-									λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 										λ.NewStr("format_id"): ϒkey,
 										λ.NewStr("ext"):       λ.NewStr("mp4"),
 										λ.NewStr("url"):       λ.Add(λ.Cal(λ.GetAttr(ϒtpl, "replace", nil), λ.NewStr("{}"), ϒfilm_fn), λ.GetItem(ϒsuffix, ϒkey)),
@@ -179,7 +179,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒc   λ.Object
 									τmp0 λ.Object
@@ -191,7 +191,7 @@ func init() {
 										break
 									}
 									ϒc = τmp1
-									λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 										λ.NewStr("timestamp"): λ.Call(ϒparse_iso8601, λ.NewArgs(λ.Cal(λ.GetAttr(ϒc, "get", nil), λ.NewStr("date"))), λ.KWArgs{
 											{Name: "delimiter", Value: λ.NewStr(" ")},
 										}),

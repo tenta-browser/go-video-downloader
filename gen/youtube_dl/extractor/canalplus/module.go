@@ -129,7 +129,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒvideo λ.Object
 										τmp0   λ.Object
@@ -142,7 +142,7 @@ func init() {
 										}
 										ϒvideo = τmp1
 										if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("ID")), ϒvideo_id)) {
-											λgen.Yield(ϒvideo)
+											λgy.Yield(ϒvideo)
 										}
 									}
 									return λ.None
@@ -202,7 +202,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒimage_id  λ.Object
 									ϒimage_url λ.Object
@@ -218,7 +218,7 @@ func init() {
 									τmp2 = τmp1
 									ϒimage_id = λ.GetItem(τmp2, λ.NewInt(0))
 									ϒimage_url = λ.GetItem(τmp2, λ.NewInt(1))
-									λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 										λ.NewStr("id"):  ϒimage_id,
 										λ.NewStr("url"): ϒimage_url,
 									}))

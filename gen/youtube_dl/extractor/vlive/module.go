@@ -178,7 +178,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒp   λ.Object
 										τmp0 λ.Object
@@ -190,7 +190,7 @@ func init() {
 											break
 										}
 										ϒp = τmp1
-										λgen.Yield(λ.Cal(λ.GetAttr(ϒp, "strip", nil), λ.NewStr("\"")))
+										λgy.Yield(λ.Cal(λ.GetAttr(ϒp, "strip", nil), λ.NewStr("\"")))
 									}
 									return λ.None
 								})
@@ -315,7 +315,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒvid λ.Object
 									τmp0 λ.Object
@@ -328,7 +328,7 @@ func init() {
 									}
 									ϒvid = τmp1
 									if λ.IsTrue(λ.Cal(λ.GetAttr(ϒvid, "get", nil), λ.NewStr("source"))) {
-										λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 											λ.NewStr("url"):       λ.GetItem(ϒvid, λ.NewStr("source")),
 											λ.NewStr("format_id"): λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvid, "get", nil), λ.NewStr("encodingOption"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("name")),
 											λ.NewStr("abr"):       λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvid, "get", nil), λ.NewStr("bitrate"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("audio"))),
@@ -457,7 +457,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒitem_id λ.Object
 									τmp0     λ.Object
@@ -469,7 +469,7 @@ func init() {
 										break
 									}
 									ϒitem_id = τmp1
-									λgen.Yield(λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(λ.Mod(VIDEO_URL_TEMPLATE, ϒitem_id)), λ.KWArgs{
+									λgy.Yield(λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(λ.Mod(VIDEO_URL_TEMPLATE, ϒitem_id)), λ.KWArgs{
 										{Name: "ie", Value: λ.Cal(λ.GetAttr(VLiveIE, "ie_key", nil))},
 										{Name: "video_id", Value: λ.Cal(ϒcompat_str, ϒitem_id)},
 									}))

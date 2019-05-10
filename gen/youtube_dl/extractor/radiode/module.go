@@ -104,7 +104,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒstream λ.Object
 									τmp0    λ.Object
@@ -116,7 +116,7 @@ func init() {
 										break
 									}
 									ϒstream = τmp1
-									λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 										λ.NewStr("url"):    λ.GetItem(ϒstream, λ.NewStr("streamUrl")),
 										λ.NewStr("ext"):    λ.Cal(λ.GetAttr(λ.GetItem(ϒstream, λ.NewStr("streamContentFormat")), "lower", nil)),
 										λ.NewStr("acodec"): λ.GetItem(ϒstream, λ.NewStr("streamContentFormat")),

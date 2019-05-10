@@ -97,7 +97,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒsource λ.Object
 									τmp0    λ.Object
@@ -109,7 +109,7 @@ func init() {
 										break
 									}
 									ϒsource = τmp1
-									λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 										λ.NewStr("url"):        λ.GetItem(ϒsource, λ.NewStr("file")),
 										λ.NewStr("format_id"):  λ.GetItem(ϒsource, λ.NewStr("label")),
 										λ.NewStr("resolution"): λ.GetItem(ϒsource, λ.NewStr("label")),

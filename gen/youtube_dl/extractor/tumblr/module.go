@@ -334,7 +334,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒformat_id λ.Object
 									ϒquality   λ.Object
@@ -354,7 +354,7 @@ func init() {
 									τmp3 = λ.GetItem(τmp2, λ.NewInt(1))
 									ϒvideo_url = λ.GetItem(τmp3, λ.NewInt(0))
 									ϒformat_id = λ.GetItem(τmp3, λ.NewInt(1))
-									λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 										λ.NewStr("url"):       ϒvideo_url,
 										λ.NewStr("ext"):       λ.NewStr("mp4"),
 										λ.NewStr("format_id"): ϒformat_id,

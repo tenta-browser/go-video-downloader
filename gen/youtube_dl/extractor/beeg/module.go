@@ -187,7 +187,7 @@ func init() {
 								nil,
 								0, false, false,
 								func(λargs []λ.Object) λ.Object {
-									return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+									return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 										var (
 											ϒtag λ.Object
 											τmp0 λ.Object
@@ -199,7 +199,7 @@ func init() {
 												break
 											}
 											ϒtag = τmp1
-											λgen.Yield(λ.Cal(λ.GetAttr(ϒtag, "strip", nil)))
+											λgy.Yield(λ.Cal(λ.GetAttr(ϒtag, "strip", nil)))
 										}
 										return λ.None
 									})

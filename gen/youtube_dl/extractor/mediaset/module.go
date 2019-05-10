@@ -260,7 +260,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒrepl λ.Object
 										τmp0  λ.Object
@@ -272,7 +272,7 @@ func init() {
 											break
 										}
 										ϒrepl = τmp1
-										λgen.Yield(λ.Mod(ϒtempl, ϒrepl))
+										λgy.Yield(λ.Mod(ϒtempl, ϒrepl))
 									}
 									return λ.None
 								})

@@ -294,7 +294,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒcomment λ.Object
 									τmp0     λ.Object
@@ -306,7 +306,7 @@ func init() {
 										break
 									}
 									ϒcomment = τmp1
-									λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 										λ.NewStr("author_id"): λ.Cal(λ.GetAttr(ϒcomment, "get", nil), λ.NewStr("author_id")),
 										λ.NewStr("author"):    λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒcomment, "get", nil), λ.NewStr("author"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("full_name")),
 										λ.NewStr("id"):        λ.Cal(λ.GetAttr(ϒcomment, "get", nil), λ.NewStr("id")),
@@ -388,7 +388,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒv   λ.Object
 										τmp0 λ.Object
@@ -401,7 +401,7 @@ func init() {
 										}
 										ϒv = τmp1
 										if λ.IsTrue(λ.Eq(λ.GetItem(ϒv, λ.NewStr("type")), λ.NewStr("video"))) {
-											λgen.Yield(λ.GetItem(ϒv, λ.NewStr("data")))
+											λgy.Yield(λ.GetItem(ϒv, λ.NewStr("data")))
 										}
 									}
 									return λ.None

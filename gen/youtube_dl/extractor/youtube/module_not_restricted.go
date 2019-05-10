@@ -67,6 +67,7 @@ var (
 	YoutubeUserIE                     λ.Object
 	YoutubeWatchLaterIE               λ.Object
 	ϒclean_html                       λ.Object
+	ϒcompat_HTTPError                 λ.Object
 	ϒcompat_chr                       λ.Object
 	ϒcompat_kwargs                    λ.Object
 	ϒcompat_parse_qs                  λ.Object
@@ -106,6 +107,7 @@ func init() {
 		SearchInfoExtractor = Ωcommon.SearchInfoExtractor
 		JSInterpreter = Ωjsinterp.JSInterpreter
 		ϒcompat_chr = Ωcompat.ϒcompat_chr
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_kwargs = Ωcompat.ϒcompat_kwargs
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒcompat_urllib_parse_unquote = Ωcompat.ϒcompat_urllib_parse_unquote
@@ -683,9 +685,10 @@ func init() {
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
-					return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+					return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 						var (
 							ϒcontent_html     λ.Object
+							ϒcount            λ.Object
 							ϒentry            λ.Object
 							ϒmobj             λ.Object
 							ϒmore             λ.Object
@@ -693,12 +696,15 @@ func init() {
 							ϒpage             = λargs[1]
 							ϒpage_num         λ.Object
 							ϒplaylist_id      = λargs[2]
+							ϒretries          λ.Object
 							ϒself             = λargs[0]
 							τmp0              λ.Object
 							τmp1              λ.Object
 							τmp2              λ.Object
 							τmp3              λ.Object
+							τmp4              λ.Object
 						)
+						_ = τmp3
 						τmp0 = ϒpage
 						ϒmore_widget_html = τmp0
 						ϒcontent_html = τmp0
@@ -714,19 +720,67 @@ func init() {
 									break
 								}
 								ϒentry = τmp3
-								λgen.Yield(ϒentry)
+								λgy.Yield(ϒentry)
 							}
 							ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("data-uix-load-more-href=\"/?(?P<more>[^\"]+)\""), ϒmore_widget_html)
 							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒmobj))) {
 								break
 							}
-							ϒmore = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-								λ.Mod(λ.NewStr("https://youtube.com/%s"), λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("more"))),
-								ϒplaylist_id,
-								λ.Mod(λ.NewStr("Downloading page #%s"), ϒpage_num),
-							), λ.KWArgs{
-								{Name: "transform_source", Value: ϒuppercase_escape},
-							})
+							ϒcount = λ.NewInt(0)
+							ϒretries = λ.NewInt(3)
+							for λ.IsTrue(λ.Le(ϒcount, ϒretries)) {
+								τmp2, τmp3 = func() (λexit λ.Object, λret λ.Object) {
+									defer λ.CatchMulti(
+										nil,
+										&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
+											var ϒe λ.Object = λex
+											if λ.IsTrue(func() λ.Object {
+												if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
+													return λv
+												} else {
+													return λ.NewBool(λ.Contains(λ.NewTuple(
+														λ.NewInt(500),
+														λ.NewInt(503),
+													), λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil)))
+												}
+											}()) {
+												τmp4 = λ.IAdd(ϒcount, λ.NewInt(1))
+												ϒcount = τmp4
+												if λ.IsTrue(λ.Le(ϒcount, ϒretries)) {
+													λexit = λ.BlockExitContinue
+													return
+												}
+											}
+											panic(λ.Raise(λex))
+										}},
+									)
+									ϒmore = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+										λ.Mod(λ.NewStr("https://youtube.com/%s"), λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("more"))),
+										ϒplaylist_id,
+										λ.Mod(λ.NewStr("Downloading page #%s%s"), λ.NewTuple(
+											ϒpage_num,
+											func() λ.Object {
+												if λ.IsTrue(ϒcount) {
+													return λ.Mod(λ.NewStr(" (retry #%d)"), ϒcount)
+												} else {
+													return λ.NewStr("")
+												}
+											}(),
+										)),
+									), λ.KWArgs{
+										{Name: "transform_source", Value: ϒuppercase_escape},
+									})
+									λexit = λ.BlockExitBreak
+									return
+									return λ.BlockExitNormally, nil
+								}()
+								if τmp2 == λ.BlockExitBreak {
+									break
+								}
+								if τmp2 == λ.BlockExitContinue {
+									continue
+								}
+							}
 							ϒcontent_html = λ.GetItem(ϒmore, λ.NewStr("content_html"))
 							if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒcontent_html, "strip", nil))))) {
 								break
@@ -2053,7 +2107,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒpart λ.Object
 									τmp0  λ.Object
@@ -2065,7 +2119,7 @@ func init() {
 										break
 									}
 									ϒpart = τmp1
-									λgen.Yield(λ.Cal(ϒcompat_str, λ.Cal(λ.BuiltinLen, ϒpart)))
+									λgy.Yield(λ.Cal(ϒcompat_str, λ.Cal(λ.BuiltinLen, ϒpart)))
 								}
 								return λ.None
 							})
@@ -2126,7 +2180,7 @@ func init() {
 									nil,
 									0, false, false,
 									func(λargs []λ.Object) λ.Object {
-										return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+										return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 											var (
 												ϒi   λ.Object
 												τmp0 λ.Object
@@ -2138,7 +2192,7 @@ func init() {
 													break
 												}
 												ϒi = τmp1
-												λgen.Yield(λ.GetItem(ϒs, ϒi))
+												λgy.Yield(λ.GetItem(ϒs, ϒi))
 											}
 											return λ.None
 										})
@@ -2187,7 +2241,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒc   λ.Object
 									τmp0 λ.Object
@@ -2199,7 +2253,7 @@ func init() {
 										break
 									}
 									ϒc = τmp1
-									λgen.Yield(λ.Cal(λ.BuiltinOrd, ϒc))
+									λgy.Yield(λ.Cal(λ.BuiltinOrd, ϒc))
 								}
 								return λ.None
 							})
@@ -2365,7 +2419,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒmobj λ.Object
 									τmp0  λ.Object
@@ -2377,7 +2431,7 @@ func init() {
 										break
 									}
 									ϒmobj = τmp1
-									λgen.Yield(λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("url"))))
+									λgy.Yield(λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("url"))))
 								}
 								return λ.None
 							})
@@ -2388,7 +2442,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒm   λ.Object
 									τmp0 λ.Object
@@ -2400,7 +2454,7 @@ func init() {
 										break
 									}
 									ϒm = τmp1
-									λgen.Yield(λ.GetItem(ϒm, λ.Neg(λ.NewInt(1))))
+									λgy.Yield(λ.GetItem(ϒm, λ.Neg(λ.NewInt(1))))
 								}
 								return λ.None
 							})
@@ -2630,6 +2684,7 @@ func init() {
 						ϒseries                      λ.Object
 						ϒsignature                   λ.Object
 						ϒsmuggled_data               λ.Object
+						ϒsp                          λ.Object
 						ϒspec                        λ.Object
 						ϒstart_time                  λ.Object
 						ϒstream_type                 λ.Object
@@ -2882,7 +2937,7 @@ func init() {
 									nil,
 									0, false, false,
 									func(λargs []λ.Object) λ.Object {
-										return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+										return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 											var (
 												ϒk   λ.Object
 												ϒv   λ.Object
@@ -2898,7 +2953,7 @@ func init() {
 												τmp2 = τmp1
 												ϒk = λ.GetItem(τmp2, λ.NewInt(0))
 												ϒv = λ.GetItem(τmp2, λ.NewInt(1))
-												λgen.Yield(λ.NewTuple(
+												λgy.Yield(λ.NewTuple(
 													ϒk,
 													λ.NewList(ϒv),
 												))
@@ -3459,7 +3514,27 @@ func init() {
 											)))
 										}
 										ϒsignature = λ.Cal(λ.GetAttr(ϒself, "_decrypt_signature", nil), ϒencrypted_sig, ϒvideo_id, ϒplayer_url, ϒage_gate)
-										τmp2 = λ.IAdd(ϒurl, λ.Add(λ.NewStr("&signature="), ϒsignature))
+										ϒsp = func() λ.Object {
+											if λv := λ.Cal(ϒtry_get, ϒurl_data, λ.NewFunction("<lambda>",
+												[]λ.Param{
+													{Name: "x"},
+												},
+												0, false, false,
+												func(λargs []λ.Object) λ.Object {
+													var (
+														ϒx = λargs[0]
+													)
+													return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("sp")), λ.NewInt(0))
+												}), ϒcompat_str); λ.IsTrue(λv) {
+												return λv
+											} else {
+												return λ.NewStr("signature")
+											}
+										}()
+										τmp2 = λ.IAdd(ϒurl, λ.Mod(λ.NewStr("&%s=%s"), λ.NewTuple(
+											ϒsp,
+											ϒsignature,
+										)))
 										ϒurl = τmp2
 									}
 								}
@@ -3680,7 +3755,28 @@ func init() {
 					} else {
 						λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "report_warning", nil), λ.NewStr("unable to extract uploader nickname"))
 					}
-					ϒchannel_id = λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewStr("channelId"), ϒvideo_webpage, λ.NewStr("channel id"))
+					ϒchannel_id = func() λ.Object {
+						if λv := λ.Cal(ϒstr_or_none, λ.Cal(λ.GetAttr(ϒvideo_details, "get", nil), λ.NewStr("channelId"))); λ.IsTrue(λv) {
+							return λv
+						} else if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
+							λ.NewStr("channelId"),
+							ϒvideo_webpage,
+							λ.NewStr("channel id"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						}); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+								λ.NewStr("data-channel-external-id=([\"\\'])(?P<id>(?:(?!\\1).)+)\\1"),
+								ϒvideo_webpage,
+								λ.NewStr("channel id"),
+							), λ.KWArgs{
+								{Name: "default", Value: λ.None},
+								{Name: "group", Value: λ.NewStr("id")},
+							})
+						}
+					}()
 					ϒchannel_url = func() λ.Object {
 						if λ.IsTrue(ϒchannel_id) {
 							return λ.Mod(λ.NewStr("http://www.youtube.com/channel/%s"), ϒchannel_id)
@@ -3773,7 +3869,7 @@ func init() {
 											nil,
 											0, false, false,
 											func(λargs []λ.Object) λ.Object {
-												return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+												return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 													var (
 														ϒa   λ.Object
 														τmp0 λ.Object
@@ -3785,7 +3881,7 @@ func init() {
 															break
 														}
 														ϒa = τmp1
-														λgen.Yield(λ.Cal(λ.GetAttr(ϒa, "strip", nil)))
+														λgy.Yield(λ.Cal(λ.GetAttr(ϒa, "strip", nil)))
 													}
 													return λ.None
 												})
@@ -3849,7 +3945,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒm   λ.Object
 									τmp0 λ.Object
@@ -3861,7 +3957,7 @@ func init() {
 										break
 									}
 									ϒm = τmp1
-									λgen.Yield(λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("content"))))
+									λgy.Yield(λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("content"))))
 								}
 								return λ.None
 							})
@@ -3981,7 +4077,7 @@ func init() {
 									nil,
 									0, false, false,
 									func(λargs []λ.Object) λ.Object {
-										return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+										return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 											var (
 												ϒf   λ.Object
 												τmp0 λ.Object
@@ -3994,7 +4090,7 @@ func init() {
 												}
 												ϒf = τmp1
 												if λ.IsTrue(λ.NewBool(!λ.Contains(λ.Cal(λ.GetAttr(ϒdash_formats, "keys", nil)), λ.GetItem(ϒf, λ.NewStr("format_id"))))) {
-													λgen.Yield(ϒf)
+													λgy.Yield(ϒf)
 												}
 											}
 											return λ.None

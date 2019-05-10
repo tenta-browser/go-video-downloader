@@ -133,7 +133,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒtag λ.Object
 									τmp0 λ.Object
@@ -146,7 +146,7 @@ func init() {
 									}
 									ϒtag = τmp1
 									if λ.IsTrue(λ.Cal(λ.GetAttr(ϒtag, "get", nil), λ.NewStr("name"))) {
-										λgen.Yield(λ.GetItem(ϒtag, λ.NewStr("name")))
+										λgy.Yield(λ.GetItem(ϒtag, λ.NewStr("name")))
 									}
 								}
 								return λ.None

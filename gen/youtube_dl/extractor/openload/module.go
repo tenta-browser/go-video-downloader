@@ -25,6 +25,7 @@
 package openload
 
 import (
+	Ωbrowser "github.com/tenta-browser/go-video-downloader/gen/lib/browser"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
@@ -32,9 +33,11 @@ import (
 )
 
 var (
+	BrowserWrapper     λ.Object
 	ExtractorError     λ.Object
 	InfoExtractor      λ.Object
 	OpenloadIE         λ.Object
+	PhantomJSwrapper   λ.Object
 	ϒcompat_kwargs     λ.Object
 	ϒdetermine_ext     λ.Object
 	ϒget_element_by_id λ.Object
@@ -49,6 +52,11 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒget_element_by_id = Ωutils.ϒget_element_by_id
 		ϒstd_headers = Ωutils.ϒstd_headers
+		BrowserWrapper = Ωbrowser.BrowserWrapper
+		PhantomJSwrapper = λ.Cal(λ.TypeType, λ.NewStr("PhantomJSwrapper"), λ.NewTuple(BrowserWrapper), func() λ.Dict {
+			λ.NewStr("PhantomJS wrapper class\n\n    This class is experimental.\n    ")
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+		}())
 		OpenloadIE = λ.Cal(λ.TypeType, λ.NewStr("OpenloadIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				OpenloadIE__DOMAINS   λ.Object

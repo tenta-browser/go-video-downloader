@@ -113,7 +113,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒt   λ.Object
 										τmp0 λ.Object
@@ -134,7 +134,7 @@ func init() {
 												return λ.Cal(λ.BuiltinIsInstance, λ.GetItem(ϒt, λ.NewStr("text")), ϒcompat_str)
 											}
 										}()) {
-											λgen.Yield(λ.GetItem(ϒt, λ.NewStr("text")))
+											λgy.Yield(λ.GetItem(ϒt, λ.NewStr("text")))
 										}
 									}
 									return λ.None

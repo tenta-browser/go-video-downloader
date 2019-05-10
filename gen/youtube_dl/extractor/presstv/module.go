@@ -118,7 +118,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒextension λ.Object
 									ϒheight    λ.Object
@@ -134,7 +134,7 @@ func init() {
 									τmp2 = τmp1
 									ϒheight = λ.GetItem(τmp2, λ.NewInt(0))
 									ϒextension = λ.GetItem(τmp2, λ.NewInt(1))
-									λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 										λ.NewStr("url"):       λ.Add(λ.Add(ϒbase_url, λ.GetItem(ϒvideo_url, λ.NewSlice(λ.None, λ.Neg(λ.NewInt(4)), λ.None))), ϒextension),
 										λ.NewStr("format_id"): λ.Mod(λ.NewStr("%dp"), ϒheight),
 										λ.NewStr("height"):    ϒheight,

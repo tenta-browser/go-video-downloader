@@ -128,7 +128,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒepisode_key λ.Object
 									τmp0         λ.Object
@@ -141,7 +141,7 @@ func init() {
 									}
 									ϒepisode_key = τmp1
 									if λ.IsTrue(λ.Cal(λ.GetAttr(ϒepisode, "get", nil), ϒepisode_key)) {
-										λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 											λ.NewStr("url"): λ.GetItem(ϒepisode, ϒepisode_key),
 											λ.NewStr("ext"): func() λ.Object {
 												if λv := λ.Cal(ϒdetermine_ext, λ.GetItem(ϒepisode, ϒepisode_key)); λ.IsTrue(λv) {

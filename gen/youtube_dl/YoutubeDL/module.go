@@ -37,6 +37,7 @@ import (
 	Ωcache "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/cache"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωextractor "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor"
+	Ωopenload "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/openload"
 	Ωpostprocessor "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/postprocessor"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
@@ -51,6 +52,7 @@ var (
 	GeoRestrictedError     λ.Object
 	MaxDownloadsReached    λ.Object
 	PagedList              λ.Object
+	PhantomJSwrapper       λ.Object
 	PostProcessingError    λ.Object
 	UnavailableVideoError  λ.Object
 	YoutubeDL              λ.Object
@@ -113,6 +115,7 @@ func init() {
 		Cache = Ωcache.Cache
 		ϒget_info_extractor = Ωextractor.ϒget_info_extractor
 		ϒgen_extractor_classes = Ωextractor.ϒgen_extractor_classes
+		PhantomJSwrapper = Ωopenload.PhantomJSwrapper
 		FFmpegPostProcessor = Ωpostprocessor.FFmpegPostProcessor
 		if λ.IsTrue(λ.Eq(λ.None, λ.NewStr("nt"))) {
 
@@ -275,7 +278,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									τmp0 λ.Object
 									τmp1 λ.Object
@@ -286,7 +289,7 @@ func init() {
 										break
 									}
 									_ = τmp1
-									λgen.Yield(λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_output_channel", nil), "readline", nil)), "decode", nil), λ.NewStr("utf-8")))
+									λgy.Yield(λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_output_channel", nil), "readline", nil)), "decode", nil), λ.NewStr("utf-8")))
 								}
 								return λ.None
 							})
@@ -609,7 +612,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒk   λ.Object
 										ϒv   λ.Object
@@ -636,7 +639,7 @@ func init() {
 												))))
 											}
 										}()) {
-											λgen.Yield(λ.NewTuple(
+											λgy.Yield(λ.NewTuple(
 												ϒk,
 												func() λ.Object {
 													if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒv, ϒcompat_numeric_types)) {
@@ -682,7 +685,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										τmp0 λ.Object
 										τmp1 λ.Object
@@ -693,7 +696,7 @@ func init() {
 											break
 										}
 										_ = τmp1
-										λgen.Yield(λ.Cal(Ωrandom.ϒchoice, ϒascii_letters))
+										λgy.Yield(λ.Cal(Ωrandom.ϒchoice, ϒascii_letters))
 									}
 									return λ.None
 								})
@@ -1004,7 +1007,7 @@ func init() {
 									nil,
 									0, false, false,
 									func(λargs []λ.Object) λ.Object {
-										return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+										return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 											var (
 												ϒk   λ.Object
 												ϒv   λ.Object
@@ -1021,7 +1024,7 @@ func init() {
 												ϒk = λ.GetItem(τmp2, λ.NewInt(0))
 												ϒv = λ.GetItem(τmp2, λ.NewInt(1))
 												if λ.IsTrue(λ.NewBool(ϒv != λ.None)) {
-													λgen.Yield(λ.NewTuple(
+													λgy.Yield(λ.NewTuple(
 														ϒk,
 														ϒv,
 													))
@@ -1085,7 +1088,7 @@ func init() {
 											},
 											0, false, false,
 											func(λargs []λ.Object) λ.Object {
-												return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+												return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 													var (
 														ϒend            λ.Object
 														ϒformat         = λargs[0]
@@ -1113,10 +1116,10 @@ func init() {
 																	break
 																}
 																ϒitem = τmp3
-																λgen.Yield(λ.Cal(λ.IntType, ϒitem))
+																λgy.Yield(λ.Cal(λ.IntType, ϒitem))
 															}
 														} else {
-															λgen.Yield(λ.Cal(λ.IntType, ϒstring_segment))
+															λgy.Yield(λ.Cal(λ.IntType, ϒstring_segment))
 														}
 													}
 													return λ.None
@@ -1140,7 +1143,7 @@ func init() {
 												nil,
 												0, false, false,
 												func(λargs []λ.Object) λ.Object {
-													return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+													return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 														var (
 															ϒi   λ.Object
 															τmp0 λ.Object
@@ -1165,7 +1168,7 @@ func init() {
 																}
 																return λ.True
 															}()) {
-																λgen.Yield(λ.GetItem(ϒlist_ie_entries, λ.Sub(ϒi, λ.NewInt(1))))
+																λgy.Yield(λ.GetItem(ϒlist_ie_entries, λ.Sub(ϒi, λ.NewInt(1))))
 															}
 														}
 														return λ.None
@@ -1304,7 +1307,7 @@ func init() {
 											nil,
 											0, false, false,
 											func(λargs []λ.Object) λ.Object {
-												return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+												return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 													var (
 														ϒr   λ.Object
 														τmp0 λ.Object
@@ -1316,7 +1319,7 @@ func init() {
 															break
 														}
 														ϒr = τmp1
-														λgen.Yield(λ.Cal(λ.GetAttr(ϒself, "process_ie_result", nil), λ.Cal(ϒ_fixup, ϒr), ϒdownload, ϒextra_info))
+														λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "process_ie_result", nil), λ.Cal(ϒ_fixup, ϒr), ϒdownload, ϒextra_info))
 													}
 													return λ.None
 												})
@@ -1884,7 +1887,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒf   λ.Object
 										τmp0 λ.Object
@@ -1896,7 +1899,7 @@ func init() {
 											break
 										}
 										ϒf = τmp1
-										λgen.Yield(func() λ.Object {
+										λgy.Yield(func() λ.Object {
 											if λv := λ.Ne(λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("vcodec")), λ.NewStr("none")); !λ.IsTrue(λv) {
 												return λv
 											} else {
@@ -1913,7 +1916,7 @@ func init() {
 								nil,
 								0, false, false,
 								func(λargs []λ.Object) λ.Object {
-									return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+									return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 										var (
 											ϒf   λ.Object
 											τmp0 λ.Object
@@ -1925,7 +1928,7 @@ func init() {
 												break
 											}
 											ϒf = τmp1
-											λgen.Yield(func() λ.Object {
+											λgy.Yield(func() λ.Object {
 												if λv := λ.Eq(λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("vcodec")), λ.NewStr("none")); !λ.IsTrue(λv) {
 													return λv
 												} else {

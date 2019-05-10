@@ -137,7 +137,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒk   λ.Object
 										ϒv   λ.Object
@@ -153,7 +153,7 @@ func init() {
 										τmp2 = τmp1
 										ϒk = λ.GetItem(τmp2, λ.NewInt(0))
 										ϒv = λ.GetItem(τmp2, λ.NewInt(1))
-										λgen.Yield(λ.Mod(λ.NewStr("%s=%s"), λ.NewTuple(
+										λgy.Yield(λ.Mod(λ.NewStr("%s=%s"), λ.NewTuple(
 											ϒk,
 											ϒv,
 										)))

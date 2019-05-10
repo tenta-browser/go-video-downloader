@@ -1162,7 +1162,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒvid_id λ.Object
 										τmp0    λ.Object
@@ -1174,7 +1174,7 @@ func init() {
 											break
 										}
 										ϒvid_id = τmp1
-										λgen.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://video.pbs.org/video/%s"), ϒvid_id), λ.NewStr("PBS"), ϒvid_id))
+										λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://video.pbs.org/video/%s"), ϒvid_id), λ.NewStr("PBS"), ϒvid_id))
 									}
 									return λ.None
 								})

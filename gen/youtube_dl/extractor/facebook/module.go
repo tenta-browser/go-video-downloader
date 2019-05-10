@@ -828,7 +828,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒvid λ.Object
 										τmp0 λ.Object
@@ -846,7 +846,7 @@ func init() {
 											break
 										}
 										ϒvid = τmp1
-										λgen.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("facebook:%s"), ϒvid), λ.Cal(λ.GetAttr(FacebookIE, "ie_key", nil))))
+										λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("facebook:%s"), ϒvid), λ.Cal(λ.GetAttr(FacebookIE, "ie_key", nil))))
 									}
 									return λ.None
 								})

@@ -92,7 +92,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒformat_info λ.Object
 									τmp0         λ.Object
@@ -104,7 +104,7 @@ func init() {
 										break
 									}
 									ϒformat_info = τmp1
-									λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 										λ.NewStr("url"):       λ.GetItem(ϒformat_info, λ.NewStr("videoUrl")),
 										λ.NewStr("format_id"): λ.GetItem(ϒformat_info, λ.NewStr("qualityLevel")),
 										λ.NewStr("format"):    λ.Cal(λ.GetAttr(ϒformat_info, "get", nil), λ.NewStr("qualityLevelName")),

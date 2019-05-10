@@ -211,7 +211,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒt   λ.Object
 									τmp0 λ.Object
@@ -224,7 +224,7 @@ func init() {
 									}
 									ϒt = τmp1
 									if λ.IsTrue(λ.NewBool(λ.Contains(ϒt, λ.NewStr("text")))) {
-										λgen.Yield(λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("text")))
+										λgy.Yield(λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("text")))
 									}
 								}
 								return λ.None

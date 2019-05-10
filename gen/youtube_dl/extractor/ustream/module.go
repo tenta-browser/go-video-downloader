@@ -149,7 +149,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒformat_id λ.Object
 									ϒvideo_url λ.Object
@@ -166,7 +166,7 @@ func init() {
 									ϒformat_id = λ.GetItem(τmp2, λ.NewInt(0))
 									ϒvideo_url = λ.GetItem(τmp2, λ.NewInt(1))
 									if λ.IsTrue(ϒvideo_url) {
-										λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 											λ.NewStr("id"):       ϒvideo_id,
 											λ.NewStr("url"):      ϒvideo_url,
 											λ.NewStr("ext"):      ϒformat_id,
@@ -209,7 +209,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒthumbnail_id  λ.Object
 									ϒthumbnail_url λ.Object
@@ -225,7 +225,7 @@ func init() {
 									τmp2 = τmp1
 									ϒthumbnail_id = λ.GetItem(τmp2, λ.NewInt(0))
 									ϒthumbnail_url = λ.GetItem(τmp2, λ.NewInt(1))
-									λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 										λ.NewStr("id"):  ϒthumbnail_id,
 										λ.NewStr("url"): ϒthumbnail_url,
 									}))

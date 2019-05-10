@@ -288,7 +288,7 @@ func init() {
 										nil,
 										0, false, false,
 										func(λargs []λ.Object) λ.Object {
-											return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+											return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 												var (
 													ϒerror λ.Object
 													τmp0   λ.Object
@@ -300,7 +300,7 @@ func init() {
 														break
 													}
 													ϒerror = τmp1
-													λgen.Yield(λ.GetItem(ϒerror, λ.NewStr("message")))
+													λgy.Yield(λ.GetItem(ϒerror, λ.NewStr("message")))
 												}
 												return λ.None
 											})
@@ -381,7 +381,7 @@ func init() {
 								nil,
 								0, false, false,
 								func(λargs []λ.Object) λ.Object {
-									return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+									return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 										var (
 											ϒkey   λ.Object
 											ϒvalue λ.Object
@@ -398,7 +398,7 @@ func init() {
 											ϒkey = λ.GetItem(τmp2, λ.NewInt(0))
 											ϒvalue = λ.GetItem(τmp2, λ.NewInt(1))
 											if λ.IsTrue(λ.Cal(λ.GetAttr(ϒkey, "startswith", nil), λ.Mod(λ.NewStr("%s.streams"), ϒvideo_id))) {
-												λgen.Yield(ϒvalue)
+												λgy.Yield(ϒvalue)
 											}
 										}
 										return λ.None

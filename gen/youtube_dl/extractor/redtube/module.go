@@ -109,7 +109,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒs   λ.Object
 									τmp0 λ.Object
@@ -124,7 +124,7 @@ func init() {
 										break
 									}
 									ϒs = τmp1
-									λgen.Yield(λ.NewBool(λ.Contains(ϒwebpage, ϒs)))
+									λgy.Yield(λ.NewBool(λ.Contains(ϒwebpage, ϒs)))
 								}
 								return λ.None
 							})

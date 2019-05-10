@@ -169,7 +169,7 @@ func init() {
 								nil,
 								0, false, false,
 								func(λargs []λ.Object) λ.Object {
-									return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+									return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 										var (
 											ϒlb  λ.Object
 											τmp0 λ.Object
@@ -181,7 +181,7 @@ func init() {
 												break
 											}
 											ϒlb = τmp1
-											λgen.Yield(λ.Cal(ϒencode_base_n, λ.Cal(λ.IntType, λ.GetItem(ϒs, λ.NewSlice(ϒlb, λ.Add(ϒlb, λ.NewInt(8)), λ.None)), λ.NewInt(16)), λ.NewInt(36)))
+											λgy.Yield(λ.Cal(ϒencode_base_n, λ.Cal(λ.IntType, λ.GetItem(ϒs, λ.NewSlice(ϒlb, λ.Add(ϒlb, λ.NewInt(8)), λ.None)), λ.NewInt(16)), λ.NewInt(36)))
 										}
 										return λ.None
 									})

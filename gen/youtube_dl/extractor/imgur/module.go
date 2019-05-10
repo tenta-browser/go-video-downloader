@@ -251,7 +251,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒimage λ.Object
 										τmp0   λ.Object
@@ -264,7 +264,7 @@ func init() {
 										}
 										ϒimage = τmp1
 										if λ.IsTrue(λ.Cal(λ.GetAttr(ϒimage, "get", nil), λ.NewStr("hash"))) {
-											λgen.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://imgur.com/%s"), λ.GetItem(ϒimage, λ.NewStr("hash"))), λ.Cal(λ.GetAttr(ImgurIE, "ie_key", nil)), λ.GetItem(ϒimage, λ.NewStr("hash"))))
+											λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://imgur.com/%s"), λ.GetItem(ϒimage, λ.NewStr("hash"))), λ.Cal(λ.GetAttr(ImgurIE, "ie_key", nil)), λ.GetItem(ϒimage, λ.NewStr("hash"))))
 										}
 									}
 									return λ.None

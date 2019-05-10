@@ -116,7 +116,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒc   λ.Object
 										τmp0 λ.Object
@@ -132,7 +132,7 @@ func init() {
 											λ.NewStr("Video"),
 											λ.NewStr("Topic"),
 										), λ.GetItem(ϒc, λ.NewStr("kind"))))) {
-											λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+											λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 												λ.NewStr("_type"): λ.NewStr("url"),
 												λ.NewStr("url"):   λ.GetItem(ϒc, λ.NewStr("url")),
 												λ.NewStr("id"):    λ.GetItem(ϒc, λ.NewStr("id")),

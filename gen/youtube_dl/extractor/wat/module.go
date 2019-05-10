@@ -211,7 +211,7 @@ func init() {
 								nil,
 								0, false, false,
 								func(λargs []λ.Object) λ.Object {
-									return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+									return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 										var (
 											ϒchapter λ.Object
 											τmp0     λ.Object
@@ -223,7 +223,7 @@ func init() {
 												break
 											}
 											ϒchapter = τmp1
-											λgen.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("wat:%s"), λ.Cal(ϒvideo_id_for_chapter, ϒchapter))))
+											λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("wat:%s"), λ.Cal(ϒvideo_id_for_chapter, ϒchapter))))
 										}
 										return λ.None
 									})
@@ -325,7 +325,7 @@ func init() {
 									nil,
 									0, false, false,
 									func(λargs []λ.Object) λ.Object {
-										return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+										return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 											var (
 												ϒrepl λ.Object
 												τmp0  λ.Object
@@ -340,7 +340,7 @@ func init() {
 													break
 												}
 												ϒrepl = τmp1
-												λgen.Yield(λ.Cal(Ωre.ϒsub, λ.NewStr("(?:wdv|ssm)?\\.ism/"), λ.Add(ϒrepl, λ.NewStr(".ism/")), ϒmanifest_url))
+												λgy.Yield(λ.Cal(Ωre.ϒsub, λ.NewStr("(?:wdv|ssm)?\\.ism/"), λ.Add(ϒrepl, λ.NewStr(".ism/")), ϒmanifest_url))
 											}
 											return λ.None
 										})

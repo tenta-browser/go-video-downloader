@@ -406,7 +406,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒvideo_link λ.Object
 									τmp0        λ.Object
@@ -418,7 +418,7 @@ func init() {
 										break
 									}
 									ϒvideo_link = τmp1
-									λgen.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒvideo_link, λ.Cal(λ.GetAttr(OnetIE, "ie_key", nil))))
+									λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒvideo_link, λ.Cal(λ.GetAttr(OnetIE, "ie_key", nil))))
 								}
 								return λ.None
 							})

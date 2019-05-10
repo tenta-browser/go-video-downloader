@@ -91,7 +91,7 @@ func init() {
 			nil,
 			0, false, false,
 			func(λargs []λ.Object) λ.Object {
-				return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+				return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 					var (
 						ϒop     λ.Object
 						ϒopfunc λ.Object
@@ -107,7 +107,7 @@ func init() {
 						τmp2 = τmp1
 						ϒop = λ.GetItem(τmp2, λ.NewInt(0))
 						ϒopfunc = λ.GetItem(τmp2, λ.NewInt(1))
-						λgen.Yield(λ.NewTuple(
+						λgy.Yield(λ.NewTuple(
 							λ.Add(ϒop, λ.NewStr("=")),
 							ϒopfunc,
 						))
@@ -381,7 +381,7 @@ func init() {
 								nil,
 								0, false, false,
 								func(λargs []λ.Object) λ.Object {
-									return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+									return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 										var (
 											ϒv   λ.Object
 											τmp0 λ.Object
@@ -393,7 +393,7 @@ func init() {
 												break
 											}
 											ϒv = τmp1
-											λgen.Yield(λ.Cal(λ.GetAttr(ϒself, "interpret_expression", nil), ϒv, ϒlocal_vars, ϒallow_recursion))
+											λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "interpret_expression", nil), ϒv, ϒlocal_vars, ϒallow_recursion))
 										}
 										return λ.None
 									})
@@ -485,7 +485,7 @@ func init() {
 									nil,
 									0, false, false,
 									func(λargs []λ.Object) λ.Object {
-										return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+										return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 											var (
 												ϒv   λ.Object
 												τmp0 λ.Object
@@ -497,7 +497,7 @@ func init() {
 													break
 												}
 												ϒv = τmp1
-												λgen.Yield(func() λ.Object {
+												λgy.Yield(func() λ.Object {
 													if λ.IsTrue(λ.Cal(λ.GetAttr(ϒv, "isdigit", nil))) {
 														return λ.Cal(λ.IntType, ϒv)
 													} else {

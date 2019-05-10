@@ -23,12 +23,20 @@
 
 package runtime
 
+import (
+	"errors"
+	"runtime"
+)
+
 // Generator ..
 type Generator interface {
 	Object
-	Yield(Object) Object
 	Send(Object) Object
-	run()
+}
+
+// Yielder ..
+type Yielder interface {
+	Yield(Object) Object
 }
 
 type generatorState int
@@ -44,14 +52,20 @@ type generatorItem struct {
 	err interface{}
 }
 
-type generatorStruct struct {
-	Object
+type generatorCore struct {
 	state generatorState
-	fn    func(Generator) Object
 	ch    chan generatorItem
+	fn    func(Yielder) Object
 }
 
-func (g *generatorStruct) Yield(o Object) Object {
+type generatorStruct struct {
+	Object
+	*generatorCore
+}
+
+var errGeneratorFinalized = errors.New("Generator finalized")
+
+func (g *generatorCore) Yield(o Object) Object {
 	g.ch <- generatorItem{val: o}
 	in := <-g.ch
 	if in.err != nil {
@@ -75,9 +89,13 @@ func (g *generatorStruct) Send(o Object) Object {
 	return g.Yield(o)
 }
 
-func (g *generatorStruct) run() {
+func (g *generatorCore) run() {
 	defer func() {
 		if r := recover(); r != nil {
+			if r == errGeneratorFinalized {
+				// do nothing, just finish run() asap
+				return
+			}
 			g.state = generatorStateFinished
 			g.ch <- generatorItem{err: r}
 		}
@@ -91,13 +109,30 @@ func (g *generatorStruct) run() {
 var _ Generator = (*generatorStruct)(nil)
 
 // NewGenerator ..
-func NewGenerator(fn func(Generator) Object) Generator {
-	return &generatorStruct{
+func NewGenerator(fn func(Yielder) Object) Generator {
+	g := &generatorStruct{
 		Object: newObject(GeneratorType),
-		state:  generatorStateNew,
-		fn:     fn,
-		ch:     make(chan generatorItem),
+		generatorCore: &generatorCore{
+			state: generatorStateNew,
+			ch:    make(chan generatorItem),
+			fn:    fn,
+		},
 	}
+	// This finalizer is meant to clean up the run() routine when the
+	// generator gets started but is not exhausted.
+	// Note: we detached the innards of the generator into *generatorCore,
+	// so that the generator can be garbage-collected even when it's running,
+	// and the associated goroutine still references its core.
+	runtime.SetFinalizer(g, func(g *generatorStruct) {
+		if g.state == generatorStateStarted {
+			// Inject a predefined error, which causes a stuck Yield running
+			// in the associated goroutine to blow up, taking the entire
+			// routine with it and finally terminating it cleanly in its
+			// panic handler.
+			g.ch <- generatorItem{err: errGeneratorFinalized}
+		}
+	})
+	return g
 }
 
 // GeneratorType ..

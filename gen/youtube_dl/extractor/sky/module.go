@@ -19,10 +19,10 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * skysports/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/skysports.py
+ * sky/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/sky.py
  */
 
-package skysports
+package sky
 
 import (
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
@@ -32,6 +32,8 @@ import (
 
 var (
 	InfoExtractor       λ.Object
+	SkyBaseIE           λ.Object
+	SkyNewsIE           λ.Object
 	SkySportsIE         λ.Object
 	ϒextract_attributes λ.Object
 	ϒsmuggle_url        λ.Object
@@ -46,25 +48,11 @@ func init() {
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒurljoin = Ωutils.ϒurljoin
-		SkySportsIE = λ.Cal(λ.TypeType, λ.NewStr("SkySportsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SkyBaseIE = λ.Cal(λ.TypeType, λ.NewStr("SkyBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				SkySportsIE__TEST         λ.Object
-				SkySportsIE__VALID_URL    λ.Object
-				SkySportsIE__real_extract λ.Object
+				SkyBaseIE__real_extract λ.Object
 			)
-			SkySportsIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?skysports\\.com/watch/video/(?P<id>[0-9]+)")
-			SkySportsIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.skysports.com/watch/video/10328419/bale-its-our-time-to-shine"),
-				λ.NewStr("md5"): λ.NewStr("77d59166cddc8d3cb7b13e35eaf0f5ec"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("10328419"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Bale: It's our time to shine"),
-					λ.NewStr("description"): λ.NewStr("md5:e88bda94ae15f7720c5cb467e777bb6d"),
-				}),
-				λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Ooyala")),
-			})
-			SkySportsIE__real_extract = λ.NewFunction("_real_extract",
+			SkyBaseIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
 					{Name: "url"},
@@ -84,7 +72,7 @@ func init() {
 					)
 					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
 					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒvideo_data = λ.Cal(ϒextract_attributes, λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("(<div.+?class=\"sdc-article-video__media-ooyala\"[^>]+>)"), ϒwebpage, λ.NewStr("video data")))
+					ϒvideo_data = λ.Cal(ϒextract_attributes, λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("(<div.+?class=\"[^\"]*sdc-article-video__media-ooyala[^\"]*\"[^>]+>)"), ϒwebpage, λ.NewStr("video data")))
 					ϒvideo_url = λ.Mod(λ.NewStr("ooyala:%s"), λ.GetItem(ϒvideo_data, λ.NewStr("data-video-id")))
 					if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("data-token-required")), λ.NewStr("true"))) {
 						ϒtoken_fetch_options = func() λ.Object {
@@ -124,9 +112,51 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         SkySportsIE__TEST,
-				λ.NewStr("_VALID_URL"):    SkySportsIE__VALID_URL,
-				λ.NewStr("_real_extract"): SkySportsIE__real_extract,
+				λ.NewStr("_real_extract"): SkyBaseIE__real_extract,
+			})
+		}())
+		SkySportsIE = λ.Cal(λ.TypeType, λ.NewStr("SkySportsIE"), λ.NewTuple(SkyBaseIE), func() λ.Dict {
+			var (
+				SkySportsIE__TEST      λ.Object
+				SkySportsIE__VALID_URL λ.Object
+			)
+			SkySportsIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?skysports\\.com/watch/video/(?P<id>[0-9]+)")
+			SkySportsIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("url"): λ.NewStr("http://www.skysports.com/watch/video/10328419/bale-its-our-time-to-shine"),
+				λ.NewStr("md5"): λ.NewStr("77d59166cddc8d3cb7b13e35eaf0f5ec"),
+				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("id"):          λ.NewStr("o3eWJnNDE6l7kfNO8BOoBlRxXRQ4ANNQ"),
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("title"):       λ.NewStr("Bale: It's our time to shine"),
+					λ.NewStr("description"): λ.NewStr("md5:e88bda94ae15f7720c5cb467e777bb6d"),
+				}),
+				λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Ooyala")),
+			})
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_TEST"):      SkySportsIE__TEST,
+				λ.NewStr("_VALID_URL"): SkySportsIE__VALID_URL,
+			})
+		}())
+		SkyNewsIE = λ.Cal(λ.TypeType, λ.NewStr("SkyNewsIE"), λ.NewTuple(SkyBaseIE), func() λ.Dict {
+			var (
+				SkyNewsIE__TEST      λ.Object
+				SkyNewsIE__VALID_URL λ.Object
+			)
+			SkyNewsIE__VALID_URL = λ.NewStr("https?://news\\.sky\\.com/video/[0-9a-z-]+-(?P<id>[0-9]+)")
+			SkyNewsIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("url"): λ.NewStr("https://news.sky.com/video/russian-plane-inspected-after-deadly-fire-11712962"),
+				λ.NewStr("md5"): λ.NewStr("d6327e581473cea9976a3236ded370cd"),
+				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("id"):          λ.NewStr("1ua21xaDE6lCtZDmbYfl8kwsKLooJbNM"),
+					λ.NewStr("ext"):         λ.NewStr("mp4"),
+					λ.NewStr("title"):       λ.NewStr("Russian plane inspected after deadly fire"),
+					λ.NewStr("description"): λ.NewStr("The Russian Investigative Committee has released video of the wreckage of a passenger plane which caught fire near Moscow."),
+				}),
+				λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Ooyala")),
+			})
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_TEST"):      SkyNewsIE__TEST,
+				λ.NewStr("_VALID_URL"): SkyNewsIE__VALID_URL,
 			})
 		}())
 	})

@@ -188,7 +188,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒext        λ.Object
 									ϒformat_id  λ.Object
@@ -231,7 +231,7 @@ func init() {
 									ϒformat_id = λ.GetItem(τmp3, λ.NewInt(0))
 									ϒsub_domain = λ.GetItem(τmp3, λ.NewInt(1))
 									ϒext = λ.GetItem(τmp3, λ.NewInt(2))
-									λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 										λ.NewStr("url"): λ.Mod(λ.NewStr("https://%s.jamendo.com/?trackid=%s&format=%s&from=app-97dab294"), λ.NewTuple(
 											ϒsub_domain,
 											ϒtrack_id,

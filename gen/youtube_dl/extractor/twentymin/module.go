@@ -107,7 +107,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒformat_id λ.Object
 									ϒp         λ.Object
@@ -136,7 +136,7 @@ func init() {
 									τmp3 = λ.GetItem(τmp2, λ.NewInt(1))
 									ϒformat_id = λ.GetItem(τmp3, λ.NewInt(0))
 									ϒp = λ.GetItem(τmp3, λ.NewInt(1))
-									λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 										λ.NewStr("format_id"): ϒformat_id,
 										λ.NewStr("url"): λ.Mod(λ.NewStr("http://podcast.20min-tv.ch/podcast/20min/%s%s.mp4"), λ.NewTuple(
 											ϒvideo_id,

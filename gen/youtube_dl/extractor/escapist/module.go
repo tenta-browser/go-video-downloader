@@ -86,7 +86,7 @@ func init() {
 					nil,
 					0, false, false,
 					func(λargs []λ.Object) λ.Object {
-						return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+						return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 							var (
 								ϒs   λ.Object
 								τmp0 λ.Object
@@ -98,7 +98,7 @@ func init() {
 									break
 								}
 								ϒs = τmp1
-								λgen.Yield(ϒs)
+								λgy.Yield(ϒs)
 							}
 							return λ.None
 						})
@@ -204,7 +204,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒvideo λ.Object
 									τmp0   λ.Object
@@ -216,7 +216,7 @@ func init() {
 										break
 									}
 									ϒvideo = τmp1
-									λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 										λ.NewStr("url"): λ.GetItem(ϒvideo, λ.NewStr("src")),
 										λ.NewStr("format_id"): λ.Mod(λ.NewStr("%s-%sp"), λ.NewTuple(
 											λ.Cal(ϒdetermine_ext, λ.GetItem(ϒvideo, λ.NewStr("src"))),

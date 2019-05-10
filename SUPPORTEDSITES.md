@@ -3,19 +3,20 @@ Supported sites
 
  * AbcNewsVideo: `abcnews.go.com`
  * ACast: `www.acast.com`
+ * AdobeTV: `tv.adobe.com`
  * AdobeTVVideo: `video.tv.adobe.com`
  * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
  * Aparat: `www.aparat.com`
  * ArchiveOrg: `archive.org`
  * ARDMediathek: `www.ardmediathek.de`
- * AsianCrush: `www.asiancrush.com`
  * Audiomack: `www.audiomack.com`
  * AZMedien: `www.telezueri.ch`
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
  * Beeg _(adult)_: `beeg.com`
  * Beatport: `beatport.com`
+ * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BitChute: `www.bitchute.com`
  * BIQLE: `biqle.ru`
@@ -25,8 +26,6 @@ Supported sites
  * BR: `www.br.de`
  * BravoTV: `www.bravotv.com`
  * BrightcoveLegacy: `c.brightcove.com`
- * BrightcoveNew: `players.brightcove.net`
- * BusinessInsider: `uk.businessinsider.com`
  * BYUtv: `www.byutv.org`
  * Camdemy: `www.camdemy.com`
  * Canalplus: `www.piwiplus.fr`
@@ -34,11 +33,12 @@ Supported sites
  * CBCPlayer: `www.cbc.ca`
  * CCC: `media.ccc.de`
  * CCMA: `www.ccma.cat`
- * CCTV: `sports.cntv.cn`
+ * CCTV: `tv.cctv.com`
  * CharlieRose: `charlierose.com`
  * Chirbit: `chirb.it`
  * Cinchcast: `player.cinchcast.com`
  * Cinemax: `www.cinemax.com`
+ * CiscoLiveSession: `ciscolive.cisco.com`
  * Clippit: `www.clippituser.tv`
  * ClipRs: `www.clip.rs`
  * Clipsyndicate: `www.clipsyndicate.com`
@@ -130,11 +130,11 @@ Supported sites
  * Lynda: `www.lynda.com`
  * MacGameStore: `www.macgamestore.com`
  * MailRuMusic: `my.mail.ru`
- * ManyVids: `www.manyvids.com`
  * MassengeschmackTV: `massengeschmack.tv`
  * Mediaset: `www.mediasetplay.mediaset.it`
  * Megaphone: `player.megaphone.fm`
  * Metacritic: `www.metacritic.com`
+ * MiaoPai: `www.miaopai.com`
  * MicrosoftVirtualAcademy: `mva.microsoft.com`
  * MLB: `www.mlb.com`
  * Mofosex _(adult)_: `www.mofosex.com`
@@ -155,7 +155,9 @@ Supported sites
  * Netzkino: `www.netzkino.de`
  * Newgrounds: `www.newgrounds.com`
  * NextTV: `www.nexttv.com.tw`
+ * Nexx: `api.nexx.cloud`
  * NHL: `www.nhl.com`
+ * Noovo: `noovo.ca`
  * NovaEmbed: `media.cms.nova.cz`
  * Nova: `tn.nova.cz`
  * Nowness: `www.nowness.com`
@@ -172,6 +174,7 @@ Supported sites
  * PBS: `www.pbs.org`
  * PearVideo: `www.pearvideo.com`
  * People: `www.people.com`
+ * PerformGroup: `player.performgroup.com`
  * Photobucket: `media.photobucket.com`
  * Piksel: `player.piksel.com`
  * PlayFM: `www.play.fm`
@@ -189,7 +192,6 @@ Supported sites
  * RadioJavan: `www.radiojavan.com`
  * Rai: `www.raisport.rai.it`
  * RayWenderlich: `www.raywenderlich.com`
- * RBMARadio: `www.rbmaradio.com`
  * RedTube _(adult)_: `www.redtube.com`
  * RENTV: `ren.tv`
  * ReverbNation: `www.reverbnation.com`
@@ -205,12 +207,15 @@ Supported sites
  * SenateISVP: `www.senate.gov`
  * SeznamZpravy: `www.seznamzpravy.cz`
  * Sina: `video.sina.com.cn`
+ * SkyNews: `news.sky.com`
  * SkySports: `www.skysports.com`
  * Slideshare: `www.slideshare.net`
  * SlidesLive: `slideslive.com`
+ * SonyLIV: `www.sonyliv.com`
  * Soundcloud: `soundcloud.com`
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
+ * Spiegel: `www.spiegel.de`
  * Stitcher: `www.stitcher.com`
  * SRGSSRPlay: `www.rts.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
@@ -283,11 +288,9 @@ Supported sites
  * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
  * Vine: `vine.co`
- * Viqeo: `cdn.viqeo.tv`
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * VLivePlaylist: `www.vlive.tv`
- * VuClip: `m.vuclip.com`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
  * Wat: `www.wat.tv`

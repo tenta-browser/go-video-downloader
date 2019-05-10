@@ -75,7 +75,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒgroup λ.Object
 									τmp0   λ.Object
@@ -88,7 +88,7 @@ func init() {
 									}
 									ϒgroup = τmp1
 									if λ.IsTrue(ϒgroup) {
-										λgen.Yield(ϒgroup)
+										λgy.Yield(ϒgroup)
 									}
 								}
 								return λ.None
@@ -378,7 +378,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒthumbnail    λ.Object
 									ϒthumbnail_id λ.Object
@@ -395,7 +395,7 @@ func init() {
 									ϒthumbnail_id = λ.GetItem(τmp2, λ.NewInt(0))
 									ϒthumbnail = λ.GetItem(τmp2, λ.NewInt(1))
 									if λ.IsTrue(λ.Cal(λ.GetAttr(ϒthumbnail, "get", nil), λ.NewStr("src"))) {
-										λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 											λ.NewStr("id"): func() λ.Object {
 												if λv := λ.Cal(λ.GetAttr(ϒthumbnail, "get", nil), λ.NewStr("quality")); λ.IsTrue(λv) {
 													return λv

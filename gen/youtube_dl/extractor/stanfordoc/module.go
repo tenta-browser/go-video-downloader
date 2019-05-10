@@ -154,7 +154,7 @@ func init() {
 								nil,
 								0, false, false,
 								func(λargs []λ.Object) λ.Object {
-									return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+									return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 										var (
 											ϒl   λ.Object
 											τmp0 λ.Object
@@ -166,7 +166,7 @@ func init() {
 												break
 											}
 											ϒl = τmp1
-											λgen.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://openclassroom.stanford.edu/MainFolder/%s"), λ.Cal(ϒunescapeHTML, ϒl))))
+											λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://openclassroom.stanford.edu/MainFolder/%s"), λ.Cal(ϒunescapeHTML, ϒl))))
 										}
 										return λ.None
 									})
@@ -192,7 +192,7 @@ func init() {
 								nil,
 								0, false, false,
 								func(λargs []λ.Object) λ.Object {
-									return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+									return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 										var (
 											ϒl   λ.Object
 											τmp0 λ.Object
@@ -204,7 +204,7 @@ func init() {
 												break
 											}
 											ϒl = τmp1
-											λgen.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://openclassroom.stanford.edu/MainFolder/%s"), λ.Cal(ϒunescapeHTML, ϒl))))
+											λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://openclassroom.stanford.edu/MainFolder/%s"), λ.Cal(ϒunescapeHTML, ϒl))))
 										}
 										return λ.None
 									})

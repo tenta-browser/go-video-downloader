@@ -77,7 +77,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒquality λ.Object
 									τmp0     λ.Object
@@ -89,7 +89,7 @@ func init() {
 										break
 									}
 									ϒquality = τmp1
-									λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 										λ.NewStr("format_id"):  ϒformat_id,
 										λ.NewStr("url"):        λ.GetItem(λ.GetAttr(λ.Cal(λ.GetAttr(ϒquality, "find", nil), λ.NewStr("./copy")), "attrib", nil), λ.NewStr("playurl")),
 										λ.NewStr("preference"): λ.Cal(λ.IntType, λ.GetItem(λ.GetAttr(ϒquality, "attrib", nil), λ.NewStr("value"))),

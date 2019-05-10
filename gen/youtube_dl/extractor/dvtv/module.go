@@ -356,7 +356,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒi   λ.Object
 										τmp0 λ.Object
@@ -368,7 +368,7 @@ func init() {
 											break
 										}
 										ϒi = τmp1
-										λgen.Yield(λ.Cal(λ.GetAttr(ϒself, "_parse_video_metadata", nil), ϒi, ϒvideo_id, ϒtimestamp))
+										λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "_parse_video_metadata", nil), ϒi, ϒvideo_id, ϒtimestamp))
 									}
 									return λ.None
 								})

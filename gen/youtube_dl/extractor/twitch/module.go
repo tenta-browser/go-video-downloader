@@ -449,7 +449,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒie  λ.Object
 										τmp0 λ.Object
@@ -471,7 +471,7 @@ func init() {
 											break
 										}
 										ϒie = τmp1
-										λgen.Yield(λ.Cal(λ.GetAttr(ϒie, "suitable", nil), ϒurl))
+										λgy.Yield(λ.Cal(λ.GetAttr(ϒie, "suitable", nil), ϒurl))
 									}
 									return λ.None
 								})

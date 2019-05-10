@@ -96,7 +96,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒp   λ.Object
 									τmp0 λ.Object
@@ -112,7 +112,7 @@ func init() {
 										break
 									}
 									ϒp = τmp1
-									λgen.Yield(λ.Cal(Ωre.ϒsearch, ϒp, ϒsignin_page))
+									λgy.Yield(λ.Cal(Ωre.ϒsearch, ϒp, ϒsignin_page))
 								}
 								return λ.None
 							})
@@ -311,7 +311,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒf   λ.Object
 										τmp0 λ.Object
@@ -324,7 +324,7 @@ func init() {
 										}
 										ϒf = τmp1
 										if λ.IsTrue(λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("Url"))) {
-											λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+											λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 												λ.NewStr("url"):      λ.GetItem(ϒf, λ.NewStr("Url")),
 												λ.NewStr("ext"):      λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("Extension")),
 												λ.NewStr("width"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("Width"))),
@@ -358,7 +358,7 @@ func init() {
 								nil,
 								0, false, false,
 								func(λargs []λ.Object) λ.Object {
-									return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+									return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 										var (
 											ϒformat_id λ.Object
 											ϒvideo_url λ.Object
@@ -374,7 +374,7 @@ func init() {
 											τmp2 = τmp1
 											ϒformat_id = λ.GetItem(τmp2, λ.NewInt(0))
 											ϒvideo_url = λ.GetItem(τmp2, λ.NewInt(1))
-											λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+											λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 												λ.NewStr("url"):    ϒvideo_url,
 												λ.NewStr("height"): λ.Cal(ϒint_or_none, ϒformat_id),
 												λ.NewStr("format_id"): λ.Mod(λ.NewStr("%s-%s"), λ.NewTuple(

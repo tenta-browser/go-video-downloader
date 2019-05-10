@@ -50,6 +50,9 @@ func (ss *strStruct) Value() string {
 var _ Str = (*strStruct)(nil)
 
 func newStr(t Type, value string) Str {
+	if t == StrType {
+		return newStrCompact(value)
+	}
 	return &strStruct{newObject(t), value}
 }
 

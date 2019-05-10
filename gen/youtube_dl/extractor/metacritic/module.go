@@ -108,7 +108,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒc   λ.Object
 									τmp0 λ.Object
@@ -121,7 +121,7 @@ func init() {
 									}
 									ϒc = τmp1
 									if λ.IsTrue(λ.Eq(λ.GetAttr(λ.Cal(λ.GetAttr(ϒc, "find", nil), λ.NewStr("id")), "text", nil), ϒvideo_id)) {
-										λgen.Yield(ϒc)
+										λgy.Yield(ϒc)
 									}
 								}
 								return λ.None

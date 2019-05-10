@@ -199,7 +199,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒi   λ.Object
 									τmp0 λ.Object
@@ -211,7 +211,7 @@ func init() {
 										break
 									}
 									ϒi = τmp1
-									λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 										λ.NewStr("url"):    λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Cal(λ.GetAttr(λ.GetAttr(ϒpattern_el, "text", nil), "replace", nil), λ.NewStr("#"), λ.Cal(ϒcompat_str, ϒi)), λ.NewStr("http:")),
 										λ.NewStr("width"):  ϒwidth,
 										λ.NewStr("height"): ϒheight,
@@ -436,7 +436,7 @@ func init() {
 								nil,
 								0, false, false,
 								func(λargs []λ.Object) λ.Object {
-									return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+									return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 										var (
 											ϒc   λ.Object
 											τmp0 λ.Object
@@ -448,7 +448,7 @@ func init() {
 												break
 											}
 											ϒc = τmp1
-											λgen.Yield(λ.Cal(λ.GetAttr(ϒc, "strip", nil)))
+											λgy.Yield(λ.Cal(λ.GetAttr(ϒc, "strip", nil)))
 										}
 										return λ.None
 									})

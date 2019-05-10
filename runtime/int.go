@@ -46,6 +46,9 @@ func (is *intStruct) Value() int {
 var _ Int = (*intStruct)(nil)
 
 func newInt(t Type, value int) Int {
+	if t == IntType {
+		return newIntCompact(value)
+	}
 	return &intStruct{newObject(t), value}
 }
 

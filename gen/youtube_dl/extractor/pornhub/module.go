@@ -29,6 +29,7 @@ import (
 	Ωrequest "github.com/tenta-browser/go-video-downloader/gen/urllib/request"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
+	Ωopenload "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/openload"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
@@ -36,6 +37,7 @@ import (
 var (
 	ExtractorError        λ.Object
 	InfoExtractor         λ.Object
+	PhantomJSwrapper      λ.Object
 	PornHubBaseIE         λ.Object
 	PornHubIE             λ.Object
 	PornHubPlaylistBaseIE λ.Object
@@ -56,6 +58,7 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_str = Ωcompat.ϒcompat_str
+		PhantomJSwrapper = Ωopenload.PhantomJSwrapper
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
@@ -106,7 +109,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒp   λ.Object
 									τmp0 λ.Object
@@ -122,7 +125,7 @@ func init() {
 										break
 									}
 									ϒp = τmp1
-									λgen.Yield(λ.Cal(Ωre.ϒsearch, ϒp, ϒwebpage))
+									λgy.Yield(λ.Cal(Ωre.ϒsearch, ϒp, ϒwebpage))
 								}
 								return λ.None
 							})
@@ -135,7 +138,7 @@ func init() {
 								return ϒurl_or_request
 							}
 						}()
-						ϒphantom = λ.Call(λ.None, λ.NewArgs(ϒself), λ.KWArgs{
+						ϒphantom = λ.Call(PhantomJSwrapper, λ.NewArgs(ϒself), λ.KWArgs{
 							{Name: "required_version", Value: λ.NewStr("2.0")},
 						})
 						λ.Call(λ.GetAttr(ϒphantom, "get", nil), λ.NewArgs(ϒurl), λ.KWArgs{
@@ -652,5 +655,7 @@ func init() {
 				λ.NewStr("_VALID_URL"): PornHubUserVideosIE__VALID_URL,
 			})
 		}())
+		λ.GetAttr(PhantomJSwrapper, "__init__", nil)
+		λ.GetAttr(PhantomJSwrapper, "get", nil)
 	})
 }

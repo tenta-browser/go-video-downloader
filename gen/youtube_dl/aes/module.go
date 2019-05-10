@@ -25,17 +25,20 @@
 package aes
 
 import (
+	Ωmath "github.com/tenta-browser/go-video-downloader/gen/math"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
 	MIX_COLUMN_MATRIX λ.Object
+	ϒceil             λ.Object
 	ϒcompat_b64decode λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
+		ϒceil = Ωmath.ϒceil
 		ϒcompat_b64decode = Ωcompat.ϒcompat_b64decode
 		MIX_COLUMN_MATRIX = λ.NewTuple(
 			λ.NewTuple(

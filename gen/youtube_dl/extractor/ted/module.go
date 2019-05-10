@@ -256,7 +256,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒtalk λ.Object
 									τmp0  λ.Object
@@ -284,7 +284,7 @@ func init() {
 										break
 									}
 									ϒtalk = τmp1
-									λgen.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Add(λ.NewStr("http://www.ted.com/talks/"), λ.GetItem(ϒtalk, λ.NewStr("slug"))), λ.Cal(λ.GetAttr(ϒself, "ie_key", nil))))
+									λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Add(λ.NewStr("http://www.ted.com/talks/"), λ.GetItem(ϒtalk, λ.NewStr("slug"))), λ.Cal(λ.GetAttr(ϒself, "ie_key", nil))))
 								}
 								return λ.None
 							})
@@ -393,7 +393,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒformat_id  λ.Object
 									ϒformat_url λ.Object
@@ -410,7 +410,7 @@ func init() {
 									ϒformat_id = λ.GetItem(τmp2, λ.NewInt(0))
 									ϒformat_url = λ.GetItem(τmp2, λ.NewInt(1))
 									if λ.IsTrue(λ.NewBool(ϒformat_url != λ.None)) {
-										λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 											λ.NewStr("url"):       ϒformat_url,
 											λ.NewStr("format_id"): ϒformat_id,
 											λ.NewStr("format"):    ϒformat_id,
@@ -706,7 +706,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒext λ.Object
 										τmp0 λ.Object
@@ -721,7 +721,7 @@ func init() {
 											break
 										}
 										ϒext = τmp1
-										λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 											λ.NewStr("url"): λ.Mod(λ.NewStr("http://www.ted.com/talks/subtitles/id/%s/lang/%s/format/%s"), λ.NewTuple(
 												ϒvideo_id,
 												ϒlang_code,

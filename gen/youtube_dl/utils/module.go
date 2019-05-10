@@ -101,6 +101,7 @@ var (
 	ϒjs_to_json                       λ.Object
 	ϒlimit_length                     λ.Object
 	ϒlookup_unit_table                λ.Object
+	ϒlowercase_escape                 λ.Object
 	ϒmerge_dicts                      λ.Object
 	ϒmimetype2ext                     λ.Object
 	ϒmonth_by_name                    λ.Object
@@ -424,7 +425,7 @@ func init() {
 					nil,
 					0, false, false,
 					func(λargs []λ.Object) λ.Object {
-						return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+						return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 							var (
 								ϒc   λ.Object
 								τmp0 λ.Object
@@ -436,7 +437,7 @@ func init() {
 									break
 								}
 								ϒc = τmp1
-								λgen.Yield(λ.Cal(λ.GetAttr(ϒc, "split", nil), λ.NewStr(":")))
+								λgy.Yield(λ.Cal(λ.GetAttr(ϒc, "split", nil), λ.NewStr(":")))
 							}
 							return λ.None
 						})
@@ -1028,7 +1029,7 @@ func init() {
 					nil,
 					0, false, false,
 					func(λargs []λ.Object) λ.Object {
-						return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+						return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 							var (
 								ϒpath_part λ.Object
 								τmp0       λ.Object
@@ -1040,7 +1041,7 @@ func init() {
 									break
 								}
 								ϒpath_part = τmp1
-								λgen.Yield(func() λ.Object {
+								λgy.Yield(func() λ.Object {
 									if λ.IsTrue(λ.NewBool(λ.Contains(λ.NewList(
 										λ.NewStr("."),
 										λ.NewStr(".."),
@@ -1568,7 +1569,7 @@ func init() {
 					nil,
 					0, false, false,
 					func(λargs []λ.Object) λ.Object {
-						return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+						return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 							var (
 								ϒu   λ.Object
 								τmp0 λ.Object
@@ -1580,7 +1581,7 @@ func init() {
 									break
 								}
 								ϒu = τmp1
-								λgen.Yield(λ.Cal(Ωre.ϒescape, ϒu))
+								λgy.Yield(λ.Cal(Ωre.ϒescape, ϒu))
 							}
 							return λ.None
 						})
@@ -2244,6 +2245,29 @@ func init() {
 						return λ.GetItem(λ.Cal(ϒunicode_escape, λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewInt(0))), λ.NewInt(0))
 					}), ϒs)
 			})
+		ϒlowercase_escape = λ.NewFunction("lowercase_escape",
+			[]λ.Param{
+				{Name: "s"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒs              = λargs[0]
+					ϒunicode_escape λ.Object
+				)
+				ϒunicode_escape = λ.Cal(Ωcodecs.ϒgetdecoder, λ.NewStr("unicode_escape"))
+				return λ.Cal(Ωre.ϒsub, λ.NewStr("\\\\u[0-9a-fA-F]{4}"), λ.NewFunction("<lambda>",
+					[]λ.Param{
+						{Name: "m"},
+					},
+					0, false, false,
+					func(λargs []λ.Object) λ.Object {
+						var (
+							ϒm = λargs[0]
+						)
+						return λ.GetItem(λ.Cal(ϒunicode_escape, λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewInt(0))), λ.NewInt(0))
+					}), ϒs)
+			})
 		ϒurlencode_postdata = λ.NewFunction("urlencode_postdata",
 			nil,
 			0, true, true,
@@ -2570,7 +2594,7 @@ func init() {
 					nil,
 					0, false, false,
 					func(λargs []λ.Object) λ.Object {
-						return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+						return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 							var (
 								ϒk   λ.Object
 								τmp0 λ.Object
@@ -2582,7 +2606,7 @@ func init() {
 									break
 								}
 								ϒk = τmp1
-								λgen.Yield(λ.GetItem(ϒk, λ.NewSlice(λ.NewInt(3), λ.None, λ.None)))
+								λgy.Yield(λ.GetItem(ϒk, λ.NewSlice(λ.NewInt(3), λ.None, λ.None)))
 							}
 							return λ.None
 						})

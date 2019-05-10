@@ -745,7 +745,7 @@ func init() {
 			var (
 				YahooGyaOIE__VALID_URL λ.Object
 			)
-			YahooGyaOIE__VALID_URL = λ.NewStr("https?://(?:gyao\\.yahoo\\.co\\.jp/p|streaming\\.yahoo\\.co\\.jp/p/y)/(?P<id>\\d+/v\\d+)")
+			YahooGyaOIE__VALID_URL = λ.NewStr("https?://(?:gyao\\.yahoo\\.co\\.jp/(?:p|title/[^/]+)|streaming\\.yahoo\\.co\\.jp/p/y)/(?P<id>\\d+/v\\d+|[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): YahooGyaOIE__VALID_URL,
 			})

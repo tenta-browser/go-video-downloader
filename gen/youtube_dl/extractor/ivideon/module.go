@@ -178,7 +178,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒformat_id λ.Object
 									τmp0       λ.Object
@@ -190,7 +190,7 @@ func init() {
 										break
 									}
 									ϒformat_id = τmp1
-									λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 										λ.NewStr("url"): λ.Mod(λ.NewStr("https://streaming.ivideon.com/flv/live?%s"), λ.Cal(ϒcompat_urllib_parse_urlencode, λ.NewDictWithTable(map[λ.Object]λ.Object{
 											λ.NewStr("server"):    ϒserver_id,
 											λ.NewStr("camera"):    ϒcamera_id,

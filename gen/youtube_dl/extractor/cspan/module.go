@@ -201,7 +201,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒt   λ.Object
 									τmp0 λ.Object
@@ -216,7 +216,7 @@ func init() {
 										break
 									}
 									ϒt = τmp1
-									λgen.Yield(λ.Mod(λ.NewStr("id=\\'clip(%s)\\'\\s*value=\\'([0-9]+)\\'"), ϒt))
+									λgy.Yield(λ.Mod(λ.NewStr("id=\\'clip(%s)\\'\\s*value=\\'([0-9]+)\\'"), ϒt))
 								}
 								return λ.None
 							})
@@ -225,7 +225,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒp   λ.Object
 									τmp0 λ.Object
@@ -237,7 +237,7 @@ func init() {
 										break
 									}
 									ϒp = τmp1
-									λgen.Yield(λ.Cal(Ωre.ϒsearch, ϒp, ϒwebpage))
+									λgy.Yield(λ.Cal(Ωre.ϒsearch, ϒp, ϒwebpage))
 								}
 								return λ.None
 							})

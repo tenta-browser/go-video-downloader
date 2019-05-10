@@ -750,7 +750,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒthumbnail λ.Object
 									τmp0       λ.Object
@@ -762,7 +762,7 @@ func init() {
 										break
 									}
 									ϒthumbnail = τmp1
-									λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 										λ.NewStr("url"):    λ.GetItem(ϒthumbnail, λ.NewStr("plfile$url")),
 										λ.NewStr("width"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒthumbnail, "get", nil), λ.NewStr("plfile$width"))),
 										λ.NewStr("height"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒthumbnail, "get", nil), λ.NewStr("plfile$height"))),
@@ -778,7 +778,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒitem λ.Object
 									τmp0  λ.Object
@@ -790,7 +790,7 @@ func init() {
 										break
 									}
 									ϒitem = τmp1
-									λgen.Yield(λ.GetItem(ϒitem, λ.NewStr("media$name")))
+									λgy.Yield(λ.GetItem(ϒitem, λ.NewStr("media$name")))
 								}
 								return λ.None
 							})

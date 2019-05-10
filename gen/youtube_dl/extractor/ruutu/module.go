@@ -186,7 +186,7 @@ func init() {
 													nil,
 													0, false, false,
 													func(λargs []λ.Object) λ.Object {
-														return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+														return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 															var (
 																ϒp   λ.Object
 																τmp0 λ.Object
@@ -201,7 +201,7 @@ func init() {
 																	break
 																}
 																ϒp = τmp1
-																λgen.Yield(λ.NewBool(λ.Contains(ϒvideo_url, ϒp)))
+																λgy.Yield(λ.NewBool(λ.Contains(ϒvideo_url, ϒp)))
 															}
 															return λ.None
 														})
@@ -302,7 +302,7 @@ func init() {
 															nil,
 															0, false, false,
 															func(λargs []λ.Object) λ.Object {
-																return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+																return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 																	var (
 																		ϒx   λ.Object
 																		τmp0 λ.Object
@@ -314,7 +314,7 @@ func init() {
 																			break
 																		}
 																		ϒx = τmp1
-																		λgen.Yield(λ.Cal(ϒint_or_none, ϒx))
+																		λgy.Yield(λ.Cal(ϒint_or_none, ϒx))
 																	}
 																	return λ.None
 																})

@@ -340,7 +340,7 @@ func init() {
 											nil,
 											0, false, false,
 											func(λargs []λ.Object) λ.Object {
-												return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+												return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 													var (
 														ϒx   λ.Object
 														τmp0 λ.Object
@@ -355,7 +355,7 @@ func init() {
 															break
 														}
 														ϒx = τmp1
-														λgen.Yield(λ.Cal(λ.BuiltinIsInstance, ϒx, ϒcompat_str))
+														λgy.Yield(λ.Cal(λ.BuiltinIsInstance, ϒx, ϒcompat_str))
 													}
 													return λ.None
 												})
@@ -651,7 +651,7 @@ func init() {
 								nil,
 								0, false, false,
 								func(λargs []λ.Object) λ.Object {
-									return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+									return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 										var (
 											ϒe   λ.Object
 											τmp0 λ.Object
@@ -670,7 +670,7 @@ func init() {
 													return λ.Eq(λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("id"))), ϒshow_id)
 												}
 											}()) {
-												λgen.Yield(λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("episode_number"))))
+												λgy.Yield(λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("episode_number"))))
 											}
 										}
 										return λ.None

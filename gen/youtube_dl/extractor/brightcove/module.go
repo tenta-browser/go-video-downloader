@@ -256,7 +256,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒm   λ.Object
 										τmp0 λ.Object
@@ -268,7 +268,7 @@ func init() {
 											break
 										}
 										ϒm = τmp1
-										λgen.Yield(λ.Cal(λ.GetAttr(ϒcls, "_build_brighcove_url", nil), ϒm))
+										λgy.Yield(λ.Cal(λ.GetAttr(ϒcls, "_build_brighcove_url", nil), ϒm))
 									}
 									return λ.None
 								})
@@ -280,7 +280,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒcustom_bc λ.Object
 										τmp0       λ.Object
@@ -292,7 +292,7 @@ func init() {
 											break
 										}
 										ϒcustom_bc = τmp1
-										λgen.Yield(λ.Cal(λ.GetAttr(ϒcls, "_build_brighcove_url_from_js", nil), ϒcustom_bc))
+										λgy.Yield(λ.Cal(λ.GetAttr(ϒcls, "_build_brighcove_url_from_js", nil), ϒcustom_bc))
 									}
 									return λ.None
 								})
@@ -302,7 +302,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒsrc λ.Object
 									τmp0 λ.Object
@@ -317,7 +317,7 @@ func init() {
 									τmp2 = τmp1
 									_ = λ.GetItem(τmp2, λ.NewInt(0))
 									ϒsrc = λ.GetItem(τmp2, λ.NewInt(1))
-									λgen.Yield(ϒsrc)
+									λgy.Yield(ϒsrc)
 								}
 								return λ.None
 							})
@@ -527,7 +527,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒvideo_info λ.Object
 									τmp0        λ.Object
@@ -539,7 +539,7 @@ func init() {
 										break
 									}
 									ϒvideo_info = τmp1
-									λgen.Yield(λ.Cal(λ.GetAttr(ϒself, "_extract_video_info", nil), ϒvideo_info))
+									λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "_extract_video_info", nil), ϒvideo_info))
 								}
 								return λ.None
 							})
@@ -748,7 +748,6 @@ func init() {
 		BrightcoveNewIE = λ.Cal(λ.TypeType, λ.NewStr("BrightcoveNewIE"), λ.NewTuple(AdobePassIE), func() λ.Dict {
 			var (
 				BrightcoveNewIE_IE_NAME                    λ.Object
-				BrightcoveNewIE__TESTS                     λ.Object
 				BrightcoveNewIE__VALID_URL                 λ.Object
 				BrightcoveNewIE__extract_url               λ.Object
 				BrightcoveNewIE__extract_urls              λ.Object
@@ -757,52 +756,6 @@ func init() {
 			)
 			BrightcoveNewIE_IE_NAME = λ.NewStr("brightcove:new")
 			BrightcoveNewIE__VALID_URL = λ.NewStr("https?://players\\.brightcove\\.net/(?P<account_id>\\d+)/(?P<player_id>[^/]+)_(?P<embed>[^/]+)/index\\.html\\?.*videoId=(?P<video_id>\\d+|ref:[^&]+)")
-			BrightcoveNewIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://players.brightcove.net/929656772001/e41d32dc-ec74-459e-a845-6c69f7b724ea_default/index.html?videoId=4463358922001"),
-					λ.NewStr("md5"): λ.NewStr("c8100925723840d4b0d243f7025703be"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("4463358922001"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Meet the man behind Popcorn Time"),
-						λ.NewStr("description"): λ.NewStr("md5:eac376a4fe366edc70279bfb681aea16"),
-						λ.NewStr("duration"):    λ.NewFloat(165.768),
-						λ.NewStr("timestamp"):   λ.NewInt(1441391203),
-						λ.NewStr("upload_date"): λ.NewStr("20150904"),
-						λ.NewStr("uploader_id"): λ.NewStr("929656772001"),
-						λ.NewStr("formats"):     λ.NewStr("mincount:20"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://players.brightcove.net/4036320279001/5d112ed9-283f-485f-a7f9-33f42e8bc042_default/index.html?videoId=4279049078001"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("4279049078001"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Titansgrave: Chapter 0"),
-						λ.NewStr("description"): λ.NewStr("Titansgrave: Chapter 0"),
-						λ.NewStr("duration"):    λ.NewFloat(1242.058),
-						λ.NewStr("timestamp"):   λ.NewInt(1433556729),
-						λ.NewStr("upload_date"): λ.NewStr("20150606"),
-						λ.NewStr("uploader_id"): λ.NewStr("4036320279001"),
-						λ.NewStr("formats"):     λ.NewStr("mincount:39"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://players.brightcove.net/3910869709001/21519b5c-4b3b-4363-accb-bdc8f358f823_default/index.html?videoId=ref:7069442"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://players.brightcove.net/710858724001/default_default/index.html?videoId=ref:event-stream-356"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://players.brightcove.net/1305187701/c832abfb-641b-44eb-9da0-2fe76786505f_default/index.html?videoId=4377407326001"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			BrightcoveNewIE__extract_url = λ.NewFunction("_extract_url",
 				[]λ.Param{
 					{Name: "ie"},
@@ -1393,7 +1346,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):                    BrightcoveNewIE_IE_NAME,
-				λ.NewStr("_TESTS"):                     BrightcoveNewIE__TESTS,
 				λ.NewStr("_VALID_URL"):                 BrightcoveNewIE__VALID_URL,
 				λ.NewStr("_extract_url"):               BrightcoveNewIE__extract_url,
 				λ.NewStr("_extract_urls"):              BrightcoveNewIE__extract_urls,

@@ -176,7 +176,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒs   λ.Object
 										τmp0 λ.Object
@@ -189,7 +189,7 @@ func init() {
 										}
 										ϒs = τmp1
 										if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("type")), λ.NewStr("video"))) {
-											λgen.Yield(ϒs)
+											λgy.Yield(ϒs)
 										}
 									}
 									return λ.None

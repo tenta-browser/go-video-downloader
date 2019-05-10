@@ -43,6 +43,7 @@ var (
 	ϒcompat_str               λ.Object
 	ϒget_element_by_attribute λ.Object
 	ϒint_or_none              λ.Object
+	ϒlowercase_escape         λ.Object
 	ϒstd_headers              λ.Object
 	ϒtry_get                  λ.Object
 	ϒurl_or_none              λ.Object
@@ -56,6 +57,7 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒget_element_by_attribute = Ωutils.ϒget_element_by_attribute
 		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒlowercase_escape = Ωutils.ϒlowercase_escape
 		ϒstd_headers = Ωutils.ϒstd_headers
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒurl_or_none = Ωutils.ϒurl_or_none
@@ -308,7 +310,7 @@ func init() {
 								nil,
 								0, false, false,
 								func(λargs []λ.Object) λ.Object {
-									return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+									return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 										var (
 											ϒcomment λ.Object
 											τmp0     λ.Object
@@ -321,7 +323,7 @@ func init() {
 											}
 											ϒcomment = τmp1
 											if λ.IsTrue(λ.Cal(λ.GetAttr(ϒcomment, "get", nil), λ.NewStr("text"))) {
-												λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+												λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 													λ.NewStr("author"):    λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒcomment, "get", nil), λ.NewStr("user"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("username")),
 													λ.NewStr("author_id"): λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒcomment, "get", nil), λ.NewStr("user"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("id")),
 													λ.NewStr("id"):        λ.Cal(λ.GetAttr(ϒcomment, "get", nil), λ.NewStr("id")),
@@ -456,7 +458,7 @@ func init() {
 							{Name: "default", Value: λ.None},
 						})
 						if λ.IsTrue(λ.NewBool(ϒdescription != λ.None)) {
-							ϒdescription = λ.Cal(λ.None, ϒdescription)
+							ϒdescription = λ.Cal(ϒlowercase_escape, ϒdescription)
 						}
 					}
 					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒthumbnail))) {

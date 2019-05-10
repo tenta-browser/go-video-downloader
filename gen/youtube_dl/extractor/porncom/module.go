@@ -131,7 +131,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒstream λ.Object
 										τmp0    λ.Object
@@ -144,7 +144,7 @@ func init() {
 										}
 										ϒstream = τmp1
 										if λ.IsTrue(λ.Cal(λ.GetAttr(ϒstream, "get", nil), λ.NewStr("url"))) {
-											λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+											λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 												λ.NewStr("url"):       λ.GetItem(ϒstream, λ.NewStr("url")),
 												λ.NewStr("format_id"): λ.Cal(λ.GetAttr(ϒstream, "get", nil), λ.NewStr("id")),
 												λ.NewStr("height"): λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
@@ -189,7 +189,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 									var (
 										ϒfilesize   λ.Object
 										ϒformat_url λ.Object
@@ -207,7 +207,7 @@ func init() {
 										ϒformat_url = λ.GetItem(τmp2, λ.NewInt(0))
 										ϒheight = λ.GetItem(τmp2, λ.NewInt(1))
 										ϒfilesize = λ.GetItem(τmp2, λ.NewInt(2))
-										λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 											λ.NewStr("url"):             λ.Cal(Ωparse.ϒurljoin, ϒurl, ϒformat_url),
 											λ.NewStr("format_id"):       λ.Mod(λ.NewStr("%sp"), ϒheight),
 											λ.NewStr("height"):          λ.Cal(λ.IntType, ϒheight),

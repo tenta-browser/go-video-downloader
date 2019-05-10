@@ -45,10 +45,10 @@ func NewJar() (http.CookieJar, error) {
 	return jar, nil
 }
 
-// SetCookies parses the cookiesstr string and adds the resulting cookies
-// (corresponding to the domain of rawurl) to the jar
-func SetCookies(jar http.CookieJar, rawurl string, cookiesstr string) error {
-	u, err := url.Parse(rawurl)
+// SetCookies parses the cookie string and adds the resulting cookies
+// (corresponding to the domain of urls) to the jar
+func SetCookies(jar http.CookieJar, urls string, cs string) error {
+	u, err := url.Parse(urls)
 	if err != nil {
 		return err
 	}
@@ -57,7 +57,7 @@ func SetCookies(jar http.CookieJar, rawurl string, cookiesstr string) error {
 	u.Scheme = "http"
 	// we set the cookies on tld+1 domain
 	dom, err := publicsuffix.EffectiveTLDPlusOne(u.Hostname())
-	cookies := parseCookieString(cookiesstr)
+	cookies := parseCookieString(cs)
 	if err != nil {
 		return err
 	}
@@ -71,11 +71,26 @@ func SetCookies(jar http.CookieJar, rawurl string, cookiesstr string) error {
 	return nil
 }
 
-func parseCookieString(cookies string) []*http.Cookie {
+func parseCookieString(cs string) []*http.Cookie {
 	header := http.Header{}
-	header.Add("Cookie", cookies)
+	header.Add("Cookie", cs)
 	request := http.Request{Header: header}
 	return request.Cookies()
+}
+
+// GetCookieString returns a string of all cookies for urls.
+func GetCookieString(jar http.CookieJar, urls string) (string, error) {
+	u, err := url.Parse(urls)
+	if err != nil {
+		return "", err
+	}
+	cookies := jar.Cookies(u)
+	var cs []string
+	for _, c := range cookies {
+		cs = append(cs, c.Name+"="+c.Value)
+	}
+	sort.Strings(cs)
+	return strings.Join(cs, "; "), nil
 }
 
 // SetCookie adds a new cookie to the jar
@@ -107,17 +122,11 @@ var GetCookieHeader = rnt.NewSimpleFunction("GetCookieHeader",
 	func(args []rnt.Object) rnt.Object {
 		jar := rnt.UnwrapNative(args[0]).(http.CookieJar)
 		urls := args[1].(rnt.Str).Value()
-		u, err := url.Parse(urls)
+		cs, err := GetCookieString(jar, urls)
 		if err != nil {
 			panic(rnt.RaiseType(lib.ExtractorErrorType, err.Error()))
 		}
-		cookies := jar.Cookies(u)
-		var cs []string
-		for _, c := range cookies {
-			cs = append(cs, c.Name+"="+c.Value)
-		}
-		sort.Strings(cs)
-		return rnt.NewStr(strings.Join(cs, "; "))
+		return rnt.NewStr(cs)
 	})
 
 // ParseCookieString parses cookies and returns a name-value map of them.

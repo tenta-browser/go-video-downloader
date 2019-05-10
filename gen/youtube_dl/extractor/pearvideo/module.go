@@ -94,7 +94,7 @@ func init() {
 						nil,
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgen λ.Generator) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
 									ϒmobj λ.Object
 									τmp0  λ.Object
@@ -106,7 +106,7 @@ func init() {
 										break
 									}
 									ϒmobj = τmp1
-									λgen.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 										λ.NewStr("url"):       λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("url")),
 										λ.NewStr("format_id"): λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id")),
 										λ.NewStr("quality"):   λ.Cal(ϒquality, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))),
