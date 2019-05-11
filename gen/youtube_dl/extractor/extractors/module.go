@@ -88,6 +88,7 @@ import (
 	Ωechomsk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/echomsk"
 	Ωelpais "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/elpais"
 	Ωengadget "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/engadget"
+	Ωeporner "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/eporner"
 	Ωescapist "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/escapist"
 	Ωextremetube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/extremetube"
 	Ωfacebook "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/facebook"
@@ -136,7 +137,6 @@ import (
 	Ωkeezmovies "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/keezmovies"
 	Ωkhanacademy "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/khanacademy"
 	Ωkickstarter "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/kickstarter"
-	Ωkuwo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/kuwo"
 	Ωla7 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/la7"
 	Ωlci "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/lci"
 	Ωlibraryofcongress "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/libraryofcongress"
@@ -152,7 +152,6 @@ import (
 	Ωmediaset "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mediaset"
 	Ωmegaphone "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/megaphone"
 	Ωmetacritic "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/metacritic"
-	Ωmiaopai "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/miaopai"
 	Ωmicrosoftvirtualacademy "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/microsoftvirtualacademy"
 	Ωmlb "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mlb"
 	Ωmofosex "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mofosex"
@@ -287,9 +286,9 @@ import (
 	Ωvimeo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vimeo"
 	Ωvimple "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vimple"
 	Ωvine "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vine"
+	Ωviqeo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/viqeo"
 	Ωvk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vk"
 	Ωvlive "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vlive"
-	Ωvuclip "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vuclip"
 	Ωvzaar "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vzaar"
 	Ωwashingtonpost "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/washingtonpost"
 	Ωwat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/wat"
@@ -382,6 +381,7 @@ var (
 	EchoMskIE                  λ.Object
 	ElPaisIE                   λ.Object
 	EngadgetIE                 λ.Object
+	EpornerIE                  λ.Object
 	EscapistIE                 λ.Object
 	ExtremeTubeIE              λ.Object
 	FXNetworksIE               λ.Object
@@ -433,7 +433,6 @@ var (
 	KeezMoviesIE               λ.Object
 	KhanAcademyIE              λ.Object
 	KickStarterIE              λ.Object
-	KuwoMvIE                   λ.Object
 	LA7IE                      λ.Object
 	LCIIE                      λ.Object
 	LibraryOfCongressIE        λ.Object
@@ -450,7 +449,6 @@ var (
 	MediasetIE                 λ.Object
 	MegaphoneIE                λ.Object
 	MetacriticIE               λ.Object
-	MiaoPaiIE                  λ.Object
 	MicrosoftVirtualAcademyIE  λ.Object
 	MofosexIE                  λ.Object
 	MojvideoIE                 λ.Object
@@ -605,7 +603,7 @@ var (
 	VimeoReviewIE              λ.Object
 	VimpleIE                   λ.Object
 	VineIE                     λ.Object
-	VuClipIE                   λ.Object
+	ViqeoIE                    λ.Object
 	VzaarIE                    λ.Object
 	WSJArticleIE               λ.Object
 	WSJIE                      λ.Object
@@ -699,6 +697,7 @@ func init() {
 		EchoMskIE = Ωechomsk.EchoMskIE
 		ElPaisIE = Ωelpais.ElPaisIE
 		EngadgetIE = Ωengadget.EngadgetIE
+		EpornerIE = Ωeporner.EpornerIE
 		EscapistIE = Ωescapist.EscapistIE
 		ExtremeTubeIE = Ωextremetube.ExtremeTubeIE
 		FacebookIE = Ωfacebook.FacebookIE
@@ -750,7 +749,6 @@ func init() {
 		KeezMoviesIE = Ωkeezmovies.KeezMoviesIE
 		KhanAcademyIE = Ωkhanacademy.KhanAcademyIE
 		KickStarterIE = Ωkickstarter.KickStarterIE
-		KuwoMvIE = Ωkuwo.KuwoMvIE
 		LA7IE = Ωla7.LA7IE
 		LCIIE = Ωlci.LCIIE
 		LibraryOfCongressIE = Ωlibraryofcongress.LibraryOfCongressIE
@@ -766,7 +764,6 @@ func init() {
 		MediasetIE = Ωmediaset.MediasetIE
 		MegaphoneIE = Ωmegaphone.MegaphoneIE
 		MetacriticIE = Ωmetacritic.MetacriticIE
-		MiaoPaiIE = Ωmiaopai.MiaoPaiIE
 		MicrosoftVirtualAcademyIE = Ωmicrosoftvirtualacademy.MicrosoftVirtualAcademyIE
 		MLBIE = Ωmlb.MLBIE
 		MofosexIE = Ωmofosex.MofosexIE
@@ -922,10 +919,10 @@ func init() {
 		VimeoReviewIE = Ωvimeo.VimeoReviewIE
 		VimpleIE = Ωvimple.VimpleIE
 		VineIE = Ωvine.VineIE
+		ViqeoIE = Ωviqeo.ViqeoIE
 		VKIE = Ωvk.VKIE
 		VLiveIE = Ωvlive.VLiveIE
 		VLivePlaylistIE = Ωvlive.VLivePlaylistIE
-		VuClipIE = Ωvuclip.VuClipIE
 		VzaarIE = Ωvzaar.VzaarIE
 		WashingtonPostIE = Ωwashingtonpost.WashingtonPostIE
 		WatIE = Ωwat.WatIE
@@ -1015,6 +1012,7 @@ func init() {
 			EchoMskIE,
 			ElPaisIE,
 			EngadgetIE,
+			EpornerIE,
 			EscapistIE,
 			ExtremeTubeIE,
 			FacebookIE,
@@ -1066,7 +1064,6 @@ func init() {
 			KeezMoviesIE,
 			KhanAcademyIE,
 			KickStarterIE,
-			KuwoMvIE,
 			LA7IE,
 			LCIIE,
 			LibraryOfCongressIE,
@@ -1082,7 +1079,6 @@ func init() {
 			MediasetIE,
 			MegaphoneIE,
 			MetacriticIE,
-			MiaoPaiIE,
 			MicrosoftVirtualAcademyIE,
 			MLBIE,
 			MofosexIE,
@@ -1238,10 +1234,10 @@ func init() {
 			VimeoReviewIE,
 			VimpleIE,
 			VineIE,
+			ViqeoIE,
 			VKIE,
 			VLiveIE,
 			VLivePlaylistIE,
-			VuClipIE,
 			VzaarIE,
 			WashingtonPostIE,
 			WatIE,

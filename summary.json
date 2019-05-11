@@ -500,9 +500,9 @@
     "BBCIE": {
         "adult": false,
         "error_msgs": [
+            "DownloadError: ERROR: Unable to download XML: HTTP Error 500: Internal Server Error (caused by <HTTPError 500: 'Internal Server Error'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "DownloadError: ERROR: no suitable InfoExtractor for URL https://www.bbc.co.uk/programmes/None",
-            "DownloadError: ERROR: requested format not available",
             "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
@@ -568,7 +568,8 @@
     "BaiduVideoIE": {
         "adult": false,
         "error_msgs": [
-            "Exception: Playlists and multi video results are not supported!"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://app.video.baidu.com/xqinfo/?worktype=adnativecomic&id=1069: read tcp 74.206.165.158:37060->123.125.115.248:80: read: connection timed out> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://app.video.baidu.com/xqinfo/?worktype=adnativetvshow&id=11595: dial tcp 123.125.115.248:80: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -1862,11 +1863,11 @@
         ]
     },
     "EpornerIE": {
-        "adult": false,
-        "error_msgs": [
-            "ValueError: invalid literal for int() with base 16: '06c75729'"
-        ],
-        "success_urls": []
+        "adult": true,
+        "error_msgs": [],
+        "success_urls": [
+            "http://www.eporner.com/hd-porn/95008/Infamous-Tiffany-Teen-Strip-Tease-Video/"
+        ]
     },
     "EroProfileIE": {
         "adult": false,
@@ -2627,7 +2628,7 @@
     "HuajiaoIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to extract feed json; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.huajiao.com/l/38941232: read tcp 74.206.165.158:57220->36.110.213.66:80: read: connection timed out> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -2813,8 +2814,8 @@
     "IqiyiIE": {
         "adult": false,
         "error_msgs": [
-            "AttributeError: 'placeholder hashlib' object has no attribute 'md5'",
-            "DownloadError: ERROR: Can't find any video; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Can't find any video; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 503: Service Unavailable (caused by <HTTPError 503: 'Service Unavailable'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -3057,16 +3058,16 @@
     "KuwoIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: this song has been offline because of copyright issues"
+            "DownloadError: ERROR: Unable to get song detail info: <urlopen error Get http://www.kuwo.cn/yinyue/6446136/: read tcp 74.206.165.158:44574->60.28.219.12:80: read: connection reset by peer> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "KuwoMvIE": {
         "adult": false,
-        "error_msgs": [],
-        "success_urls": [
-            "http://www.kuwo.cn/mv/6480076/"
-        ]
+        "error_msgs": [
+            "URLError: <urlopen error read tcp 74.206.165.158:43976->60.28.219.13:80: read: connection reset by peer>"
+        ],
+        "success_urls": []
     },
     "KuwoSingerIE": {
         "adult": false,
@@ -3560,7 +3561,7 @@
     "MediasiteCatalogIE": {
         "adult": false,
         "error_msgs": [
-            "RegexpError: Function not allowed: <built-in method format of str object at 0x7f9426787ae8>"
+            "RegexpError: Function not allowed: <built-in method format of str object at 0x7ff330776ae8>"
         ],
         "success_urls": []
     },
@@ -3636,10 +3637,10 @@
     },
     "MiaoPaiIE": {
         "adult": false,
-        "error_msgs": [],
-        "success_urls": [
-            "http://www.miaopai.com/show/n~0hO7sfV1nBEw4Y29-Hqg__.htm"
-        ]
+        "error_msgs": [
+            "IndexError: list index out of range"
+        ],
+        "success_urls": []
     },
     "MicrosoftVirtualAcademyCourseIE": {
         "adult": false,
@@ -4656,7 +4657,6 @@
             "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": [
-            "http://www.pbs.org/food/features/a-chefs-life-season-3-episode-5-prickly-business/",
             "http://www.pbs.org/newshour/bb/education-jan-june12-cyberschools_02-23/",
             "http://www.pbs.org/video/2365245528/",
             "http://www.pbs.org/video/2365641075/",
@@ -6094,8 +6094,8 @@
     "SportDeutschlandIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: lee-li-ning-badminton-weltmeisterschaft-2014-kopenhagen-herren-einzel-wei-vs: Failed to parse JSON  (caused by ValueError('invalid character \\'<\\' looking for beginning of value')); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
-            "DownloadError: ERROR: live-li-ning-badminton-weltmeisterschaft-2014-kopenhagen: Failed to parse JSON  (caused by ValueError('invalid character \\'<\\' looking for beginning of value')); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: lee-li-ning-badminton-weltmeisterschaft-2014-kopenhagen-herren-einzel-wei-vs: Failed to parse JSON  (caused by ValueError('invalid character \\'<\\' looking for beginning of value')); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -6592,7 +6592,7 @@
     "TeleBruxellesIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 502: Bad Gateway (caused by <HTTPError 502: 'Bad Gateway'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -6824,10 +6824,11 @@
     },
     "TriluliluIE": {
         "adult": false,
-        "error_msgs": [],
+        "error_msgs": [
+            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 500: Internal Server Error (caused by <HTTPError 500: 'Internal Server Error'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+        ],
         "success_urls": [
-            "http://www.trilulilu.ro/adena-ft-morreti-inocenta",
-            "http://www.trilulilu.ro/big-buck-bunny-1"
+            "http://www.trilulilu.ro/adena-ft-morreti-inocenta"
         ]
     },
     "TruNewsIE": {
@@ -7726,10 +7727,10 @@
     },
     "ViqeoIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://cdn.viqeo.tv/embed/?vid=cde96f09d25f39bee837: x509: certificate is valid for *.gridserver.com, gridserver.com, not cdn.viqeo.tv> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "https://cdn.viqeo.tv/embed/?vid=cde96f09d25f39bee837"
+        ]
     },
     "ViuIE": {
         "adult": false,
@@ -7779,7 +7780,7 @@
         "error_msgs": [
             "Exception: Playlists and multi video results are not supported!",
             "ExtractorError: invalid URL escape \"%= \"",
-            "ExtractorError: invalid URL escape \"%rn\""
+            "ExtractorError: invalid URL escape \"%@u\""
         ],
         "success_urls": []
     },
@@ -7804,10 +7805,10 @@
     },
     "VuClipIE": {
         "adult": false,
-        "error_msgs": [],
-        "success_urls": [
-            "http://m.vuclip.com/w?cid=1129900602&bu=8589892792&frm=w&z=34801&op=0&oc=843169247&section=recommend"
-        ]
+        "error_msgs": [
+            "IndexError: list index out of range"
+        ],
+        "success_urls": []
     },
     "VubeIE": {
         "adult": false,
@@ -8354,7 +8355,7 @@
     "YoutubeLiveIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: requested format not available"
+            "DownloadError: ERROR: This video is unavailable."
         ],
         "success_urls": []
     },

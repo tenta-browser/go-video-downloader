@@ -23,6 +23,7 @@
 package runtime
 
 import (
+	"errors"
 	"fmt"
 	"strconv"
 	"strings"
@@ -118,7 +119,9 @@ func intParse(s string, base int) (int, error) {
 				s = s[2:]
 			}
 		default:
-			base = 8
+			if base == 0 {
+				return 0, errors.New("prefix expected")
+			}
 		}
 	}
 	if base == 0 {

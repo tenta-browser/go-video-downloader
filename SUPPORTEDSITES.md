@@ -68,6 +68,7 @@ Supported sites
  * EchoMsk: `www.echo.msk.ru`
  * ElPais: `blogs.elpais.com`
  * Engadget: `www.engadget.com`
+ * Eporner _(adult)_: `www.eporner.com`
  * Escapist: `www.escapistmagazine.com`
  * ExtremeTube _(adult)_: `www.extremetube.com`
  * Facebook: `www.facebook.com`
@@ -118,7 +119,6 @@ Supported sites
  * KeezMovies _(adult)_: `www.keezmovies.com`
  * KhanAcademy: `www.khanacademy.org`
  * KickStarter: `www.kickstarter.com`
- * KuwoMv: `www.kuwo.cn`
  * LA7: `www.la7.it`
  * LCI: `www.lci.fr`
  * LibraryOfCongress: `loc.gov`
@@ -134,7 +134,6 @@ Supported sites
  * Mediaset: `www.mediasetplay.mediaset.it`
  * Megaphone: `player.megaphone.fm`
  * Metacritic: `www.metacritic.com`
- * MiaoPai: `www.miaopai.com`
  * MicrosoftVirtualAcademy: `mva.microsoft.com`
  * MLB: `www.mlb.com`
  * Mofosex _(adult)_: `www.mofosex.com`
@@ -289,10 +288,10 @@ Supported sites
  * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
  * Vine: `vine.co`
+ * Viqeo: `cdn.viqeo.tv`
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * VLivePlaylist: `www.vlive.tv`
- * VuClip: `m.vuclip.com`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
  * Wat: `www.wat.tv`

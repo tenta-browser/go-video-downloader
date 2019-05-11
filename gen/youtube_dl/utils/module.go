@@ -85,6 +85,7 @@ var (
 	ϒdetermine_ext                    λ.Object
 	ϒdetermine_protocol               λ.Object
 	ϒdict_get                         λ.Object
+	ϒencode_base_n                    λ.Object
 	ϒerror_to_compat_str              λ.Object
 	ϒexpand_path                      λ.Object
 	ϒextract_attributes               λ.Object
@@ -3519,6 +3520,41 @@ func init() {
 				λ.NewStr("random_ipv4"):     GeoUtils_random_ipv4,
 			})
 		}())
+		ϒencode_base_n = λ.NewFunction("encode_base_n",
+			[]λ.Param{
+				{Name: "num"},
+				{Name: "n"},
+				{Name: "table", Def: λ.None},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					FULL_TABLE λ.Object
+					ϒn         = λargs[1]
+					ϒnum       = λargs[0]
+					ϒret       λ.Object
+					ϒtable     = λargs[2]
+				)
+				FULL_TABLE = λ.NewStr("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+				if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒtable))) {
+					ϒtable = λ.GetItem(FULL_TABLE, λ.NewSlice(λ.None, ϒn, λ.None))
+				}
+				if λ.IsTrue(λ.Gt(ϒn, λ.Cal(λ.BuiltinLen, ϒtable))) {
+					panic(λ.Raise(λ.Cal(λ.ValueErrorType, λ.Mod(λ.NewStr("base %d exceeds table length %d"), λ.NewTuple(
+						ϒn,
+						λ.Cal(λ.BuiltinLen, ϒtable),
+					)))))
+				}
+				if λ.IsTrue(λ.Eq(ϒnum, λ.NewInt(0))) {
+					return λ.GetItem(ϒtable, λ.NewInt(0))
+				}
+				ϒret = λ.NewStr("")
+				for λ.IsTrue(ϒnum) {
+					ϒret = λ.Add(λ.GetItem(ϒtable, λ.Mod(ϒnum, ϒn)), ϒret)
+					ϒnum = λ.FloorDiv(ϒnum, ϒn)
+				}
+				return ϒret
+			})
 		ϒparse_m3u8_attributes = λ.NewFunction("parse_m3u8_attributes",
 			[]λ.Param{
 				{Name: "attrib"},
