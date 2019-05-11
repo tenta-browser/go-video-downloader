@@ -27,17 +27,20 @@ package byutv
 import (
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
+	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	BYUtvIE       λ.Object
-	InfoExtractor λ.Object
+	BYUtvIE         λ.Object
+	InfoExtractor   λ.Object
+	ϒparse_duration λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒparse_duration = Ωutils.ϒparse_duration
 		BYUtvIE = λ.Cal(λ.TypeType, λ.NewStr("BYUtvIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				BYUtvIE__TESTS        λ.Object
@@ -63,6 +66,20 @@ func init() {
 					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Ooyala")),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://www.byutv.org/player/8f1dab9b-b243-47c8-b525-3e2d021a3451/byu-softball-pacific-vs-byu-41219---game-2"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("8f1dab9b-b243-47c8-b525-3e2d021a3451"),
+						λ.NewStr("display_id"):  λ.NewStr("byu-softball-pacific-vs-byu-41219---game-2"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Pacific vs. BYU (4/12/19)"),
+						λ.NewStr("description"): λ.NewStr("md5:1ac7b57cb9a78015910a4834790ce1f3"),
+						λ.NewStr("duration"):    λ.NewInt(11645),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"):           λ.NewStr("http://www.byutv.org/watch/6587b9a3-89d2-42a6-a7f7-fd2f81840a7d"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
@@ -81,8 +98,11 @@ func init() {
 					var (
 						ϒdisplay_id λ.Object
 						ϒep         λ.Object
+						ϒformats    λ.Object
+						ϒinfo       λ.Object
 						ϒmobj       λ.Object
 						ϒself       = λargs[0]
+						ϒtitle      λ.Object
 						ϒurl        = λargs[1]
 						ϒvideo_id   λ.Object
 					)
@@ -95,9 +115,9 @@ func init() {
 							return ϒvideo_id
 						}
 					}()
-					ϒep = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+					ϒinfo = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
 						λ.NewStr("https://api.byutv.org/api3/catalog/getvideosforcontent"),
-						ϒvideo_id,
+						ϒdisplay_id,
 					), λ.KWArgs{
 						{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
 							λ.NewStr("contentid"):       ϒvideo_id,
@@ -108,16 +128,39 @@ func init() {
 							λ.NewStr("x-byutv-context"):     λ.NewStr("web$US"),
 							λ.NewStr("x-byutv-platformkey"): λ.NewStr("xsaaw9c7y5"),
 						})},
-					}), λ.NewStr("ooyalaVOD"))
+					})
+					ϒep = λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("ooyalaVOD"))
+					if λ.IsTrue(ϒep) {
+						return λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("_type"):       λ.NewStr("url_transparent"),
+							λ.NewStr("ie_key"):      λ.NewStr("Ooyala"),
+							λ.NewStr("url"):         λ.Mod(λ.NewStr("ooyala:%s"), λ.GetItem(ϒep, λ.NewStr("providerId"))),
+							λ.NewStr("id"):          ϒvideo_id,
+							λ.NewStr("display_id"):  ϒdisplay_id,
+							λ.NewStr("title"):       λ.Cal(λ.GetAttr(ϒep, "get", nil), λ.NewStr("title")),
+							λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒep, "get", nil), λ.NewStr("description")),
+							λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒep, "get", nil), λ.NewStr("imageThumbnail")),
+						})
+					}
+					ϒep = λ.GetItem(ϒinfo, λ.NewStr("dvr"))
+					ϒtitle = λ.GetItem(ϒep, λ.NewStr("title"))
+					ϒformats = λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+						λ.GetItem(ϒep, λ.NewStr("videoUrl")),
+						ϒvideo_id,
+						λ.NewStr("mp4"),
+					), λ.KWArgs{
+						{Name: "entry_protocol", Value: λ.NewStr("m3u8_native")},
+						{Name: "m3u8_id", Value: λ.NewStr("hls")},
+					})
+					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):       λ.NewStr("url_transparent"),
-						λ.NewStr("ie_key"):      λ.NewStr("Ooyala"),
-						λ.NewStr("url"):         λ.Mod(λ.NewStr("ooyala:%s"), λ.GetItem(ϒep, λ.NewStr("providerId"))),
 						λ.NewStr("id"):          ϒvideo_id,
 						λ.NewStr("display_id"):  ϒdisplay_id,
-						λ.NewStr("title"):       λ.Cal(λ.GetAttr(ϒep, "get", nil), λ.NewStr("title")),
+						λ.NewStr("title"):       ϒtitle,
 						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒep, "get", nil), λ.NewStr("description")),
 						λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒep, "get", nil), λ.NewStr("imageThumbnail")),
+						λ.NewStr("duration"):    λ.Cal(ϒparse_duration, λ.Cal(λ.GetAttr(ϒep, "get", nil), λ.NewStr("length"))),
+						λ.NewStr("formats"):     ϒformats,
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{

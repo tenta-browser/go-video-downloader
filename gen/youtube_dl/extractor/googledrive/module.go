@@ -37,7 +37,6 @@ var (
 	InfoExtractor     λ.Object
 	ϒdetermine_ext    λ.Object
 	ϒint_or_none      λ.Object
-	ϒlowercase_escape λ.Object
 	ϒupdate_url_query λ.Object
 )
 
@@ -47,11 +46,9 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ϒlowercase_escape = Ωutils.ϒlowercase_escape
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		GoogleDriveIE = λ.Cal(λ.TypeType, λ.NewStr("GoogleDriveIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				GoogleDriveIE__FORMATS_EXT  λ.Object
 				GoogleDriveIE__TESTS        λ.Object
 				GoogleDriveIE__VALID_URL    λ.Object
 				GoogleDriveIE__real_extract λ.Object
@@ -96,24 +93,6 @@ func init() {
 					λ.NewStr("only_matching"): λ.True,
 				}),
 			)
-			GoogleDriveIE__FORMATS_EXT = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("5"):  λ.NewStr("flv"),
-				λ.NewStr("6"):  λ.NewStr("flv"),
-				λ.NewStr("13"): λ.NewStr("3gp"),
-				λ.NewStr("17"): λ.NewStr("3gp"),
-				λ.NewStr("18"): λ.NewStr("mp4"),
-				λ.NewStr("22"): λ.NewStr("mp4"),
-				λ.NewStr("34"): λ.NewStr("flv"),
-				λ.NewStr("35"): λ.NewStr("flv"),
-				λ.NewStr("36"): λ.NewStr("3gp"),
-				λ.NewStr("37"): λ.NewStr("mp4"),
-				λ.NewStr("38"): λ.NewStr("mp4"),
-				λ.NewStr("43"): λ.NewStr("webm"),
-				λ.NewStr("44"): λ.NewStr("webm"),
-				λ.NewStr("45"): λ.NewStr("webm"),
-				λ.NewStr("46"): λ.NewStr("webm"),
-				λ.NewStr("59"): λ.NewStr("mp4"),
-			})
 			GoogleDriveIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -226,7 +205,7 @@ func init() {
 							ϒformat_id = λ.GetItem(τmp2, λ.NewInt(0))
 							ϒformat_url = λ.GetItem(τmp2, λ.NewInt(1))
 							ϒf = λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("url"):       λ.Cal(ϒlowercase_escape, ϒformat_url),
+								λ.NewStr("url"):       λ.Cal(λ.None, ϒformat_url),
 								λ.NewStr("format_id"): ϒformat_id,
 								λ.NewStr("ext"):       λ.GetItem(λ.GetAttr(ϒself, "_FORMATS_EXT", nil), ϒformat_id),
 							})
@@ -344,7 +323,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_FORMATS_EXT"):  GoogleDriveIE__FORMATS_EXT,
 				λ.NewStr("_TESTS"):        GoogleDriveIE__TESTS,
 				λ.NewStr("_VALID_URL"):    GoogleDriveIE__VALID_URL,
 				λ.NewStr("_real_extract"): GoogleDriveIE__real_extract,

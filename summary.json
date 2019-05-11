@@ -558,7 +558,9 @@
     },
     "BYUtvIE": {
         "adult": false,
-        "error_msgs": [],
+        "error_msgs": [
+            "DownloadError: ERROR: requested format not available"
+        ],
         "success_urls": [
             "http://www.byutv.org/watch/6587b9a3-89d2-42a6-a7f7-fd2f81840a7d/studio-c-season-5-episode-5"
         ]
@@ -926,11 +928,11 @@
     "CCTVIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
-            "ExtractorError: parse G@\u0011\u0010\u0000B\ufffd$\u0000\u0001\ufffd\u0000\u0000\u0000\u0001\ufffd\u0000\u0001\ufffd\ufffd\u0013H\u0011\u0001\u0004cntv: net/url: invalid control character in URL"
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": [
             "http://cctv.cntv.cn/lm/tvseries_russian/yilugesanghua/index.shtml",
+            "http://sports.cntv.cn/2016/02/12/ARTIaBRxv4rTT1yWf1frW2wi160212.shtml",
             "http://tv.cctv.com/2016/02/05/VIDEUS7apq3lKrHG9Dncm03B160205.shtml",
             "http://www.ncpa-classic.com/2013/05/22/VIDE1369219508996867.shtml",
             "http://www.ncpa-classic.com/clt/more/416/index.shtml"
@@ -1096,7 +1098,7 @@
     "CarambaTVIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: 191910501: Failed to parse JSON  (caused by ValueError('invalid character \\'<\\' looking for beginning of value')); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -1449,7 +1451,7 @@
     "DRBonanzaIE": {
         "adult": false,
         "error_msgs": [
-            "IndexError: list index out of range"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -1860,11 +1862,11 @@
         ]
     },
     "EpornerIE": {
-        "adult": true,
-        "error_msgs": [],
-        "success_urls": [
-            "http://www.eporner.com/hd-porn/95008/Infamous-Tiffany-Teen-Strip-Tease-Video/"
-        ]
+        "adult": false,
+        "error_msgs": [
+            "ValueError: invalid literal for int() with base 16: '06c75729'"
+        ],
+        "success_urls": []
     },
     "EroProfileIE": {
         "adult": false,
@@ -2303,7 +2305,7 @@
     "GameOnePlaylistIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 503: Service Unavailable (caused by <HTTPError 503: 'Service Unavailable'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 504: Gateway Time-out (caused by <HTTPError 504: 'Gateway Time-out'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -3505,9 +3507,11 @@
     "ManyVidsIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to extract video URL; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: requested format not available"
         ],
-        "success_urls": []
+        "success_urls": [
+            "https://www.manyvids.com/Video/133957/everthing-about-me/"
+        ]
     },
     "MarkizaIE": {
         "adult": false,
@@ -3556,7 +3560,7 @@
     "MediasiteCatalogIE": {
         "adult": false,
         "error_msgs": [
-            "RegexpError: Function not allowed: <built-in method format of str object at 0x7f6e64b40ae8>"
+            "RegexpError: Function not allowed: <built-in method format of str object at 0x7f9426787ae8>"
         ],
         "success_urls": []
     },
@@ -4658,6 +4662,7 @@
             "http://www.pbs.org/video/2365641075/",
             "http://www.pbs.org/wgbh/pages/frontline/losing-iraq/",
             "http://www.pbs.org/wgbh/pages/frontline/the-atomic-artists",
+            "http://www.pbs.org/wgbh/roadshow/watch/episode/2105-indianapolis-hour-2/",
             "https://player.pbs.org/partnerplayer/tOz9tM5ljOXQqIIWke53UA==/",
             "https://www.pbs.org/wgbh/masterpiece/episodes/victoria-s2-e1/"
         ]
@@ -4973,7 +4978,8 @@
     "PornHubUserVideosIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: No browser interface supplied"
+            "DownloadError: ERROR: No browser interface supplied",
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
@@ -7352,6 +7358,13 @@
             "http://www.veoh.com/watch/v56314296nk7Zdmz3"
         ]
     },
+    "VerystreamIE": {
+        "adult": false,
+        "error_msgs": [],
+        "success_urls": [
+            "https://verystream.com/stream/c1GWQ9ngBBx/"
+        ]
+    },
     "VesselIE": {
         "adult": false,
         "error_msgs": [
@@ -7765,7 +7778,8 @@
         "adult": false,
         "error_msgs": [
             "Exception: Playlists and multi video results are not supported!",
-            "ExtractorError: invalid URL escape \"%= \""
+            "ExtractorError: invalid URL escape \"%= \"",
+            "ExtractorError: invalid URL escape \"%rn\""
         ],
         "success_urls": []
     },
@@ -7790,10 +7804,10 @@
     },
     "VuClipIE": {
         "adult": false,
-        "error_msgs": [
-            "IndexError: list index out of range"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "http://m.vuclip.com/w?cid=1129900602&bu=8589892792&frm=w&z=34801&op=0&oc=843169247&section=recommend"
+        ]
     },
     "VubeIE": {
         "adult": false,
@@ -7957,7 +7971,7 @@
     "WeiboIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'confidence\\'')); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "TypeError: 'placeholder random/random' object is not callable"
         ],
         "success_urls": []
     },
@@ -8340,7 +8354,7 @@
     "YoutubeLiveIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: This video is unavailable."
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },

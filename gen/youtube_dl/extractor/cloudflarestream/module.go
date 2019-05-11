@@ -41,7 +41,7 @@ func init() {
 			var (
 				CloudflareStreamIE__VALID_URL λ.Object
 			)
-			CloudflareStreamIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            (?:watch\\.)?cloudflarestream\\.com/|\n                            embed\\.cloudflarestream\\.com/embed/[^/]+\\.js\\?.*?\\bvideo=\n                        )\n                        (?P<id>[\\da-f]+)\n                    ")
+			CloudflareStreamIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            (?:watch\\.)?(?:cloudflarestream\\.com|videodelivery\\.net)/|\n                            embed\\.(?:cloudflarestream\\.com|videodelivery\\.net)/embed/[^/]+\\.js\\?.*?\\bvideo=\n                        )\n                        (?P<id>[\\da-f]+)\n                    ")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): CloudflareStreamIE__VALID_URL,
 			})

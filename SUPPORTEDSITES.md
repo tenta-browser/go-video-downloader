@@ -33,7 +33,7 @@ Supported sites
  * CBCPlayer: `www.cbc.ca`
  * CCC: `media.ccc.de`
  * CCMA: `www.ccma.cat`
- * CCTV: `tv.cctv.com`
+ * CCTV: `sports.cntv.cn`
  * CharlieRose: `charlierose.com`
  * Chirbit: `chirb.it`
  * Cinchcast: `player.cinchcast.com`
@@ -68,7 +68,6 @@ Supported sites
  * EchoMsk: `www.echo.msk.ru`
  * ElPais: `blogs.elpais.com`
  * Engadget: `www.engadget.com`
- * Eporner _(adult)_: `www.eporner.com`
  * Escapist: `www.escapistmagazine.com`
  * ExtremeTube _(adult)_: `www.extremetube.com`
  * Facebook: `www.facebook.com`
@@ -130,6 +129,7 @@ Supported sites
  * Lynda: `www.lynda.com`
  * MacGameStore: `www.macgamestore.com`
  * MailRuMusic: `my.mail.ru`
+ * ManyVids: `www.manyvids.com`
  * MassengeschmackTV: `massengeschmack.tv`
  * Mediaset: `www.mediasetplay.mediaset.it`
  * Megaphone: `player.megaphone.fm`
@@ -166,6 +166,7 @@ Supported sites
  * Onet: `onet.tv`
  * OnetChannel: `onet.tv`
  * Ooyala: `player.ooyala.com`
+ * Verystream: `verystream.com`
  * OutsideTV: `www.outsidetv.com`
  * PacktPub: `www.packtpub.com`
  * PandoraTV: `jp.channel.pandora.tv`
@@ -291,6 +292,7 @@ Supported sites
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * VLivePlaylist: `www.vlive.tv`
+ * VuClip: `m.vuclip.com`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
  * Wat: `www.wat.tv`

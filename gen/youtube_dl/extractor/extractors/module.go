@@ -88,7 +88,6 @@ import (
 	Ωechomsk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/echomsk"
 	Ωelpais "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/elpais"
 	Ωengadget "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/engadget"
-	Ωeporner "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/eporner"
 	Ωescapist "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/escapist"
 	Ωextremetube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/extremetube"
 	Ωfacebook "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/facebook"
@@ -148,6 +147,7 @@ import (
 	Ωlynda "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/lynda"
 	Ωmacgamestore "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/macgamestore"
 	Ωmailru "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mailru"
+	Ωmanyvids "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/manyvids"
 	Ωmassengeschmacktv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/massengeschmacktv"
 	Ωmediaset "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mediaset"
 	Ωmegaphone "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/megaphone"
@@ -177,6 +177,7 @@ import (
 	Ωodnoklassniki "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/odnoklassniki"
 	Ωonet "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/onet"
 	Ωooyala "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ooyala"
+	Ωopenload "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/openload"
 	Ωoutsidetv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/outsidetv"
 	Ωpacktpub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/packtpub"
 	Ωpandoratv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pandoratv"
@@ -288,6 +289,7 @@ import (
 	Ωvine "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vine"
 	Ωvk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vk"
 	Ωvlive "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vlive"
+	Ωvuclip "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vuclip"
 	Ωvzaar "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vzaar"
 	Ωwashingtonpost "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/washingtonpost"
 	Ωwat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/wat"
@@ -380,7 +382,6 @@ var (
 	EchoMskIE                  λ.Object
 	ElPaisIE                   λ.Object
 	EngadgetIE                 λ.Object
-	EpornerIE                  λ.Object
 	EscapistIE                 λ.Object
 	ExtremeTubeIE              λ.Object
 	FXNetworksIE               λ.Object
@@ -444,6 +445,7 @@ var (
 	MLBIE                      λ.Object
 	MacGameStoreIE             λ.Object
 	MailRuMusicIE              λ.Object
+	ManyVidsIE                 λ.Object
 	MassengeschmackTVIE        λ.Object
 	MediasetIE                 λ.Object
 	MegaphoneIE                λ.Object
@@ -589,6 +591,7 @@ var (
 	Vbox7IE                    λ.Object
 	VeeHDIE                    λ.Object
 	VeohIE                     λ.Object
+	VerystreamIE               λ.Object
 	VestiIE                    λ.Object
 	VevoIE                     λ.Object
 	ViceArticleIE              λ.Object
@@ -602,6 +605,7 @@ var (
 	VimeoReviewIE              λ.Object
 	VimpleIE                   λ.Object
 	VineIE                     λ.Object
+	VuClipIE                   λ.Object
 	VzaarIE                    λ.Object
 	WSJArticleIE               λ.Object
 	WSJIE                      λ.Object
@@ -695,7 +699,6 @@ func init() {
 		EchoMskIE = Ωechomsk.EchoMskIE
 		ElPaisIE = Ωelpais.ElPaisIE
 		EngadgetIE = Ωengadget.EngadgetIE
-		EpornerIE = Ωeporner.EpornerIE
 		EscapistIE = Ωescapist.EscapistIE
 		ExtremeTubeIE = Ωextremetube.ExtremeTubeIE
 		FacebookIE = Ωfacebook.FacebookIE
@@ -758,6 +761,7 @@ func init() {
 		LyndaIE = Ωlynda.LyndaIE
 		MacGameStoreIE = Ωmacgamestore.MacGameStoreIE
 		MailRuMusicIE = Ωmailru.MailRuMusicIE
+		ManyVidsIE = Ωmanyvids.ManyVidsIE
 		MassengeschmackTVIE = Ωmassengeschmacktv.MassengeschmackTVIE
 		MediasetIE = Ωmediaset.MediasetIE
 		MegaphoneIE = Ωmegaphone.MegaphoneIE
@@ -794,6 +798,7 @@ func init() {
 		OnetIE = Ωonet.OnetIE
 		OnetChannelIE = Ωonet.OnetChannelIE
 		OoyalaIE = Ωooyala.OoyalaIE
+		VerystreamIE = Ωopenload.VerystreamIE
 		OutsideTVIE = Ωoutsidetv.OutsideTVIE
 		PacktPubIE = Ωpacktpub.PacktPubIE
 		PandoraTVIE = Ωpandoratv.PandoraTVIE
@@ -920,6 +925,7 @@ func init() {
 		VKIE = Ωvk.VKIE
 		VLiveIE = Ωvlive.VLiveIE
 		VLivePlaylistIE = Ωvlive.VLivePlaylistIE
+		VuClipIE = Ωvuclip.VuClipIE
 		VzaarIE = Ωvzaar.VzaarIE
 		WashingtonPostIE = Ωwashingtonpost.WashingtonPostIE
 		WatIE = Ωwat.WatIE
@@ -1009,7 +1015,6 @@ func init() {
 			EchoMskIE,
 			ElPaisIE,
 			EngadgetIE,
-			EpornerIE,
 			EscapistIE,
 			ExtremeTubeIE,
 			FacebookIE,
@@ -1072,6 +1077,7 @@ func init() {
 			LyndaIE,
 			MacGameStoreIE,
 			MailRuMusicIE,
+			ManyVidsIE,
 			MassengeschmackTVIE,
 			MediasetIE,
 			MegaphoneIE,
@@ -1108,6 +1114,7 @@ func init() {
 			OnetIE,
 			OnetChannelIE,
 			OoyalaIE,
+			VerystreamIE,
 			OutsideTVIE,
 			PacktPubIE,
 			PandoraTVIE,
@@ -1234,6 +1241,7 @@ func init() {
 			VKIE,
 			VLiveIE,
 			VLivePlaylistIE,
+			VuClipIE,
 			VzaarIE,
 			WashingtonPostIE,
 			WatIE,

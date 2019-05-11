@@ -171,6 +171,7 @@ var (
 	UstreamIE                    λ.Object
 	VShareIE                     λ.Object
 	Vbox7IE                      λ.Object
+	VerystreamIE                 λ.Object
 	VesselIE                     λ.Object
 	ViceIE                       λ.Object
 	VideaIE                      λ.Object
@@ -281,6 +282,7 @@ func init() {
 		TwentyMinutenIE = Ωtwentymin.TwentyMinutenIE
 		UstreamIE = Ωustream.UstreamIE
 		OpenloadIE = Ωopenload.OpenloadIE
+		VerystreamIE = Ωopenload.VerystreamIE
 		VideoPressIE = Ωvideopress.VideoPressIE
 		RutubeIE = Ωrutube.RutubeIE
 		LimelightBaseIE = Ωlimelight.LimelightBaseIE
