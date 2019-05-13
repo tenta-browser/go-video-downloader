@@ -112,6 +112,7 @@ func Extract(url string, connector *Connector) (resData *VideoData, err error) {
 	defer func() {
 		err = handlePanic(recover(), err)
 	}()
+	defer rnt.FinalizeGenerators()
 	connectorDict := rnt.NewDict()
 	var client *http.Client
 	if connector != nil {

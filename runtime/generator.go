@@ -25,8 +25,14 @@ package runtime
 
 import (
 	"errors"
+	"math/rand"
 	"runtime"
+	"sync"
 )
+
+// useFinalizer governs wether abandoned generators should be
+// stopped using their finalizers.
+const useFinalizer = false
 
 // Generator ..
 type Generator interface {
@@ -53,6 +59,7 @@ type generatorItem struct {
 }
 
 type generatorCore struct {
+	id    int
 	state generatorState
 	ch    chan generatorItem
 	fn    func(Yielder) Object
@@ -90,6 +97,8 @@ func (g *generatorStruct) Send(o Object) Object {
 }
 
 func (g *generatorCore) run() {
+	generatorStore.add(g)
+	defer generatorStore.remove(g)
 	defer func() {
 		if r := recover(); r != nil {
 			if r == errGeneratorFinalized {
@@ -104,6 +113,16 @@ func (g *generatorCore) run() {
 	res := g.fn(g)
 	g.state = generatorStateFinished
 	g.ch <- generatorItem{err: Cal(StopIterationType, res)}
+}
+
+func (g *generatorCore) finalize() {
+	if g.state == generatorStateStarted {
+		// Inject a predefined error, which causes a stuck Yield running
+		// in the associated goroutine to blow up, taking the entire
+		// routine with it and finally terminating it cleanly in its
+		// panic handler.
+		g.ch <- generatorItem{err: errGeneratorFinalized}
+	}
 }
 
 var _ Generator = (*generatorStruct)(nil)
@@ -123,15 +142,11 @@ func NewGenerator(fn func(Yielder) Object) Generator {
 	// Note: we detached the innards of the generator into *generatorCore,
 	// so that the generator can be garbage-collected even when it's running,
 	// and the associated goroutine still references its core.
-	runtime.SetFinalizer(g, func(g *generatorStruct) {
-		if g.state == generatorStateStarted {
-			// Inject a predefined error, which causes a stuck Yield running
-			// in the associated goroutine to blow up, taking the entire
-			// routine with it and finally terminating it cleanly in its
-			// panic handler.
-			g.ch <- generatorItem{err: errGeneratorFinalized}
-		}
-	})
+	if useFinalizer {
+		runtime.SetFinalizer(g, func(g *generatorStruct) {
+			g.finalize()
+		})
+	}
 	return g
 }
 
@@ -158,4 +173,41 @@ func initGeneratorType(slots *typeSlots, dict map[string]Object) {
 	dict["send"] = newBuiltinFunction("send", generatorSend)
 	slots.Iter = generatorIter
 	slots.Next = generatorNext
+}
+
+// ---- Generator store ----
+
+var generatorStore = generatorStoreImpl{m: make(map[int]*generatorCore)}
+
+type generatorStoreImpl struct {
+	sync.Mutex
+	m map[int]*generatorCore
+}
+
+func (gs *generatorStoreImpl) add(g *generatorCore) {
+	gs.Lock()
+	defer gs.Unlock()
+	for {
+		g.id = rand.Int()
+		_, ok := gs.m[g.id]
+		if !ok {
+			break
+		}
+	}
+	gs.m[g.id] = g
+}
+
+func (gs *generatorStoreImpl) remove(g *generatorCore) {
+	gs.Lock()
+	defer gs.Unlock()
+	delete(gs.m, g.id)
+}
+
+// FinalizeGenerators kills all running generators.
+func FinalizeGenerators() {
+	generatorStore.Lock()
+	defer generatorStore.Unlock()
+	for _, g := range generatorStore.m {
+		g.finalize()
+	}
 }
