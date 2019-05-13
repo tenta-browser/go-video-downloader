@@ -59,7 +59,6 @@ type generatorItem struct {
 }
 
 type generatorCore struct {
-	id    int
 	state generatorState
 	ch    chan generatorItem
 	fn    func(Yielder) Object
@@ -97,8 +96,8 @@ func (g *generatorStruct) Send(o Object) Object {
 }
 
 func (g *generatorCore) run() {
-	generatorStore.add(g)
-	defer generatorStore.remove(g)
+	gid := generatorStore.add(g)
+	defer generatorStore.remove(gid)
 	defer func() {
 		if r := recover(); r != nil {
 			if r == errGeneratorFinalized {
@@ -184,23 +183,25 @@ type generatorStoreImpl struct {
 	m map[int]*generatorCore
 }
 
-func (gs *generatorStoreImpl) add(g *generatorCore) {
+func (gs *generatorStoreImpl) add(g *generatorCore) int {
 	gs.Lock()
 	defer gs.Unlock()
+	var id int
 	for {
-		g.id = rand.Int()
-		_, ok := gs.m[g.id]
+		id = rand.Int()
+		_, ok := gs.m[id]
 		if !ok {
 			break
 		}
 	}
-	gs.m[g.id] = g
+	gs.m[id] = g
+	return id
 }
 
-func (gs *generatorStoreImpl) remove(g *generatorCore) {
+func (gs *generatorStoreImpl) remove(id int) {
 	gs.Lock()
 	defer gs.Unlock()
-	delete(gs.m, g.id)
+	delete(gs.m, id)
 }
 
 // FinalizeGenerators kills all running generators.
