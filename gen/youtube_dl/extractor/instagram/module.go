@@ -43,6 +43,7 @@ var (
 	ϒcompat_str               λ.Object
 	ϒget_element_by_attribute λ.Object
 	ϒint_or_none              λ.Object
+	ϒlowercase_escape         λ.Object
 	ϒstd_headers              λ.Object
 	ϒtry_get                  λ.Object
 	ϒurl_or_none              λ.Object
@@ -56,6 +57,7 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒget_element_by_attribute = Ωutils.ϒget_element_by_attribute
 		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒlowercase_escape = Ωutils.ϒlowercase_escape
 		ϒstd_headers = Ωutils.ϒstd_headers
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒurl_or_none = Ωutils.ϒurl_or_none
@@ -456,7 +458,7 @@ func init() {
 							{Name: "default", Value: λ.None},
 						})
 						if λ.IsTrue(λ.NewBool(ϒdescription != λ.None)) {
-							ϒdescription = λ.Cal(λ.None, ϒdescription)
+							ϒdescription = λ.Cal(ϒlowercase_escape, ϒdescription)
 						}
 					}
 					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒthumbnail))) {

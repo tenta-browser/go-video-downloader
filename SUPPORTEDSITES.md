@@ -10,6 +10,7 @@ Supported sites
  * Aparat: `www.aparat.com`
  * ArchiveOrg: `archive.org`
  * ARDMediathek: `www.ardmediathek.de`
+ * AsianCrush: `www.asiancrush.com`
  * Audiomack: `www.audiomack.com`
  * AZMedien: `www.telezueri.ch`
  * Bandcamp: `youtube-dl.bandcamp.com`
@@ -119,6 +120,8 @@ Supported sites
  * KeezMovies _(adult)_: `www.keezmovies.com`
  * KhanAcademy: `www.khanacademy.org`
  * KickStarter: `www.kickstarter.com`
+ * Kuwo: `www.kuwo.cn`
+ * KuwoMv: `www.kuwo.cn`
  * LA7: `www.la7.it`
  * LCI: `www.lci.fr`
  * LibraryOfCongress: `loc.gov`
@@ -201,6 +204,7 @@ Supported sites
  * RTVS: `www.rtvs.sk`
  * RUTV: `player.rutv.ru`
  * Ruutu: `www.ruutu.fi`
+ * Safari: `www.safaribooksonline.com`
  * Sapo: `videos.sapo.pt`
  * SBS: `www.sbs.com.au`
  * Screencast: `www.screencast.com`
@@ -224,7 +228,6 @@ Supported sites
  * SunPorno _(adult)_: `www.sunporno.com`
  * SverigesRadioEpisode: `sverigesradio.se`
  * SverigesRadioPublication: `sverigesradio.se`
- * SWRMediathek: `swrmediathek.de`
  * Tagesschau: `www.tagesschau.de`
  * TastyTrade: `www.tastytrade.com`
  * TDSLifeway: `tds.lifeway.com`
@@ -258,7 +261,6 @@ Supported sites
  * TVN24: `www.tvn24.pl`
  * TVP: `vod.tvp.pl`
  * TVPlay: `play.novatv.bg`
- * TVPlayHome _(adult)_: `tvplay.tv3.lt`
  * TwentyMinuten: `www.20min.ch`
  * TwentyThreeVideo: `video.twentythree.net`
  * TwitchClips: `clips.twitch.tv`
@@ -309,7 +311,6 @@ Supported sites
  * YinYueTai: `v.yinyuetai.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`
- * YourPorn _(adult)_: `yourporn.sexy`
  * YourUpload: `yourupload.com`
  * Youtube _(adult)_: `www.youtube.com`
  * YoutubePlaylist: `www.youtube.com`

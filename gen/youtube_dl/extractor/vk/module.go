@@ -26,7 +26,6 @@ package vk
 
 import (
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
-	Ωsys "github.com/tenta-browser/go-video-downloader/gen/sys"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωdailymotion "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dailymotion"
 	Ωpladform "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pladform"
@@ -93,20 +92,13 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒcookies    λ.Object
-						ϒdomain     λ.Object
-						ϒheader     λ.Object
 						ϒlogin_form λ.Object
 						ϒlogin_page λ.Object
 						ϒpassword   λ.Object
-						ϒremixlhk   λ.Object
 						ϒself       = λargs[0]
 						ϒurl_handle λ.Object
 						ϒusername   λ.Object
-						ϒvalue      λ.Object
 						τmp0        λ.Object
-						τmp1        λ.Object
-						τmp2        λ.Object
 					)
 					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_get_login_info", nil))
 					ϒusername = λ.GetItem(τmp0, λ.NewInt(0))
@@ -122,30 +114,7 @@ func init() {
 						λ.NewStr("email"): λ.Cal(λ.GetAttr(ϒusername, "encode", nil), λ.NewStr("cp1251")),
 						λ.NewStr("pass"):  λ.Cal(λ.GetAttr(ϒpassword, "encode", nil), λ.NewStr("cp1251")),
 					}))
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.GetAttr(ϒurl_handle, "headers", nil), "items", nil)))
-					for {
-						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-							break
-						}
-						τmp2 = τmp1
-						ϒheader = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒcookies = λ.GetItem(τmp2, λ.NewInt(1))
-						if λ.IsTrue(λ.Ne(λ.Cal(λ.GetAttr(ϒheader, "lower", nil)), λ.NewStr("set-cookie"))) {
-							continue
-						}
-						if λ.IsTrue(λ.Ge(λ.GetItem(Ωsys.ϒversion_info, λ.NewInt(0)), λ.NewInt(3))) {
-							ϒcookies = λ.Cal(λ.GetAttr(ϒcookies, "encode", nil), λ.NewStr("iso-8859-1"))
-						}
-						ϒcookies = λ.Cal(λ.GetAttr(ϒcookies, "decode", nil), λ.NewStr("utf-8"))
-						ϒremixlhk = λ.Cal(Ωre.ϒsearch, λ.NewStr("remixlhk=(.+?);.*?\\bdomain=(.+?)(?:[,;]|$)"), ϒcookies)
-						if λ.IsTrue(ϒremixlhk) {
-							τmp2 = λ.Cal(λ.GetAttr(ϒremixlhk, "groups", nil))
-							ϒvalue = λ.GetItem(τmp2, λ.NewInt(0))
-							ϒdomain = λ.GetItem(τmp2, λ.NewInt(1))
-							λ.Cal(λ.GetAttr(ϒself, "_set_cookie", nil), ϒdomain, λ.NewStr("remixlhk"), ϒvalue)
-							break
-						}
-					}
+					λ.Cal(λ.GetAttr(ϒself, "_apply_first_set_cookie_header", nil), ϒurl_handle, λ.NewStr("remixlhk"))
 					ϒlogin_page = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
 						λ.NewStr("https://login.vk.com/?act=login"),
 						λ.None,

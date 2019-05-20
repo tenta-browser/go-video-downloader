@@ -88,7 +88,6 @@ func init() {
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
 		BrightcoveLegacyIE = λ.Cal(λ.TypeType, λ.NewStr("BrightcoveLegacyIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				BrightcoveLegacyIE_FLV_VCODECS              λ.Object
 				BrightcoveLegacyIE_IE_NAME                  λ.Object
 				BrightcoveLegacyIE__FEDERATED_URL           λ.Object
 				BrightcoveLegacyIE__TESTS                   λ.Object
@@ -191,12 +190,6 @@ func init() {
 					λ.NewStr("only_matching"): λ.True,
 				}),
 			)
-			BrightcoveLegacyIE_FLV_VCODECS = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewInt(1): λ.NewStr("SORENSON"),
-				λ.NewInt(2): λ.NewStr("ON2"),
-				λ.NewInt(3): λ.NewStr("H264"),
-				λ.NewInt(4): λ.NewStr("VP8"),
-			})
 			BrightcoveLegacyIE__extract_brightcove_url = λ.NewFunction("_extract_brightcove_url",
 				[]λ.Param{
 					{Name: "cls"},
@@ -732,7 +725,6 @@ func init() {
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("FLV_VCODECS"):              BrightcoveLegacyIE_FLV_VCODECS,
 				λ.NewStr("IE_NAME"):                  BrightcoveLegacyIE_IE_NAME,
 				λ.NewStr("_FEDERATED_URL"):           BrightcoveLegacyIE__FEDERATED_URL,
 				λ.NewStr("_TESTS"):                   BrightcoveLegacyIE__TESTS,
