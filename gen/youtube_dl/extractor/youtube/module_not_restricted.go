@@ -2599,6 +2599,7 @@ func init() {
 						ϒargs                        λ.Object
 						ϒartist                      λ.Object
 						ϒautomatic_captions          λ.Object
+						ϒaverage_rating              λ.Object
 						ϒcategory                    λ.Object
 						ϒchannel_id                  λ.Object
 						ϒchannel_url                 λ.Object
@@ -3095,11 +3096,6 @@ func init() {
 							{Name: "video_id", Value: ϒvideo_id},
 						})))
 					}
-					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("license_info"))) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("This video is DRM protected.")), λ.KWArgs{
-							{Name: "expected", Value: λ.True},
-						})))
-					}
 					ϒvideo_details = func() λ.Object {
 						if λv := λ.Cal(ϒtry_get, ϒplayer_response, λ.NewFunction("<lambda>",
 							[]λ.Param{
@@ -3410,8 +3406,10 @@ func init() {
 								if λ.IsTrue(func() λ.Object {
 									if λv := λ.NewBool(!λ.Contains(ϒurl_data, λ.NewStr("itag"))); λ.IsTrue(λv) {
 										return λv
+									} else if λv := λ.NewBool(!λ.Contains(ϒurl_data, λ.NewStr("url"))); λ.IsTrue(λv) {
+										return λv
 									} else {
-										return λ.NewBool(!λ.Contains(ϒurl_data, λ.NewStr("url")))
+										return λ.Cal(λ.GetAttr(ϒurl_data, "get", nil), λ.NewStr("drm_families"))
 									}
 								}()) {
 									continue
@@ -3990,6 +3988,23 @@ func init() {
 							{Name: "default", Value: λ.None},
 						}))
 					}
+					ϒaverage_rating = func() λ.Object {
+						if λv := λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒvideo_details, "get", nil), λ.NewStr("averageRating"))); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Cal(ϒtry_get, ϒvideo_info, λ.NewFunction("<lambda>",
+								[]λ.Param{
+									{Name: "x"},
+								},
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									var (
+										ϒx = λargs[0]
+									)
+									return λ.Cal(ϒfloat_or_none, λ.GetItem(λ.GetItem(ϒx, λ.NewStr("avg_rating")), λ.NewInt(0)))
+								}))
+						}
+					}()
 					ϒvideo_subtitles = λ.Cal(λ.GetAttr(ϒself, "extract_subtitles", nil), ϒvideo_id, ϒvideo_webpage)
 					ϒautomatic_captions = λ.Cal(λ.GetAttr(ϒself, "extract_automatic_captions", nil), ϒvideo_id, ϒvideo_webpage)
 					ϒvideo_duration = λ.Cal(ϒtry_get, ϒvideo_info, λ.NewFunction("<lambda>",
@@ -4165,6 +4180,33 @@ func init() {
 							}
 						}
 					}
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.NewBool(!λ.IsTrue(ϒformats)); !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return func() λ.Object {
+								if λv := λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("license_info")); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.Cal(ϒtry_get, ϒplayer_response, λ.NewFunction("<lambda>",
+										[]λ.Param{
+											{Name: "x"},
+										},
+										0, false, false,
+										func(λargs []λ.Object) λ.Object {
+											var (
+												ϒx = λargs[0]
+											)
+											return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("streamingData")), λ.NewStr("licenseInfos"))
+										}))
+								}
+							}()
+						}
+					}()) {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("This video is DRM protected.")), λ.KWArgs{
+							{Name: "expected", Value: λ.True},
+						})))
+					}
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
 					λ.Cal(λ.GetAttr(ϒself, "mark_watched", nil), ϒvideo_id, ϒvideo_info, ϒplayer_response)
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -4211,7 +4253,7 @@ func init() {
 						λ.NewStr("view_count"):     ϒview_count,
 						λ.NewStr("like_count"):     ϒlike_count,
 						λ.NewStr("dislike_count"):  ϒdislike_count,
-						λ.NewStr("average_rating"): λ.Cal(ϒfloat_or_none, λ.GetItem(λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("avg_rating"), λ.NewList(λ.None)), λ.NewInt(0))),
+						λ.NewStr("average_rating"): ϒaverage_rating,
 						λ.NewStr("formats"):        ϒformats,
 						λ.NewStr("is_live"):        ϒis_live,
 						λ.NewStr("start_time"):     ϒstart_time,

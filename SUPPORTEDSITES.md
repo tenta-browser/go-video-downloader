@@ -8,7 +8,6 @@ Supported sites
  * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
  * Aparat: `www.aparat.com`
- * ArchiveOrg: `archive.org`
  * ARDMediathek: `www.ardmediathek.de`
  * AsianCrush: `www.asiancrush.com`
  * Audiomack: `www.audiomack.com`
@@ -170,7 +169,6 @@ Supported sites
  * Ooyala: `player.ooyala.com`
  * Verystream: `verystream.com`
  * OutsideTV: `www.outsidetv.com`
- * PacktPub: `www.packtpub.com`
  * PandoraTV: `jp.channel.pandora.tv`
  * ParliamentLiveUK: `parliamentlive.tv`
  * Patreon: `www.patreon.com`
@@ -200,6 +198,7 @@ Supported sites
  * ReverbNation: `www.reverbnation.com`
  * RockstarGames: `www.rockstargames.com`
  * Rozhlas: `prehravac.rozhlas.cz`
+ * RTP: `www.rtp.pt`
  * RTS: `www.rts.ch`
  * RTVS: `www.rtvs.sk`
  * RUTV: `player.rutv.ru`
@@ -210,6 +209,7 @@ Supported sites
  * Screencast: `www.screencast.com`
  * SenateISVP: `www.senate.gov`
  * SeznamZpravy: `www.seznamzpravy.cz`
+ * Vivo: `vivo.sx`
  * Sina: `video.sina.com.cn`
  * SkyNews: `news.sky.com`
  * SkySports: `www.skysports.com`
@@ -269,7 +269,6 @@ Supported sites
  * UDNEmbed: `video.udn.com`
  * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
- * Unity: `unity3d.com`
  * USAToday: `www.usatoday.com`
  * UstudioEmbed: `app.ustudio.com`
  * Varzesh3: `video.varzesh3.com`
@@ -294,6 +293,7 @@ Supported sites
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * VLivePlaylist: `www.vlive.tv`
+ * VuClip: `m.vuclip.com`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
  * Wat: `www.wat.tv`

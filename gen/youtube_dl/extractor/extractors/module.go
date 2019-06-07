@@ -31,7 +31,6 @@ import (
 	Ωallocine "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/allocine"
 	Ωaol "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/aol"
 	Ωaparat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/aparat"
-	Ωarchiveorg "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/archiveorg"
 	Ωard "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ard"
 	Ωasiancrush "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/asiancrush"
 	Ωaudiomack "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/audiomack"
@@ -180,7 +179,6 @@ import (
 	Ωooyala "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ooyala"
 	Ωopenload "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/openload"
 	Ωoutsidetv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/outsidetv"
-	Ωpacktpub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/packtpub"
 	Ωpandoratv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pandoratv"
 	Ωparliamentliveuk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/parliamentliveuk"
 	Ωpatreon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/patreon"
@@ -210,6 +208,7 @@ import (
 	Ωreverbnation "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/reverbnation"
 	Ωrockstargames "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rockstargames"
 	Ωrozhlas "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rozhlas"
+	Ωrtp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rtp"
 	Ωrts "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rts"
 	Ωrtvs "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rtvs"
 	Ωrutv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rutv"
@@ -220,6 +219,7 @@ import (
 	Ωscreencast "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/screencast"
 	Ωsenateisvp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/senateisvp"
 	Ωseznamzpravy "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/seznamzpravy"
+	Ωshared "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/shared"
 	Ωsina "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sina"
 	Ωsky "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sky"
 	Ωslideshare "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/slideshare"
@@ -269,7 +269,6 @@ import (
 	Ωtwitter "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twitter"
 	Ωudn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/udn"
 	Ωunistra "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/unistra"
-	Ωunity "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/unity"
 	Ωusatoday "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/usatoday"
 	Ωustudio "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ustudio"
 	Ωvarzesh3 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/varzesh3"
@@ -291,6 +290,7 @@ import (
 	Ωviqeo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/viqeo"
 	Ωvk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vk"
 	Ωvlive "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vlive"
+	Ωvuclip "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vuclip"
 	Ωvzaar "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vzaar"
 	Ωwashingtonpost "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/washingtonpost"
 	Ωwat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/wat"
@@ -321,7 +321,6 @@ var (
 	AllocineIE                 λ.Object
 	AolIE                      λ.Object
 	AparatIE                   λ.Object
-	ArchiveOrgIE               λ.Object
 	AsianCrushIE               λ.Object
 	AudiomackIE                λ.Object
 	BIQLEIE                    λ.Object
@@ -485,7 +484,6 @@ var (
 	OoyalaIE                   λ.Object
 	OutsideTVIE                λ.Object
 	PBSIE                      λ.Object
-	PacktPubIE                 λ.Object
 	PandoraTVIE                λ.Object
 	ParliamentLiveUKIE         λ.Object
 	PatreonIE                  λ.Object
@@ -506,6 +504,7 @@ var (
 	PressTVIE                  λ.Object
 	PuhuTVIE                   λ.Object
 	RENTVIE                    λ.Object
+	RTPIE                      λ.Object
 	RTSIE                      λ.Object
 	RTVSIE                     λ.Object
 	RUTVIE                     λ.Object
@@ -582,7 +581,6 @@ var (
 	UDNEmbedIE                 λ.Object
 	USATodayIE                 λ.Object
 	UnistraIE                  λ.Object
-	UnityIE                    λ.Object
 	UstudioEmbedIE             λ.Object
 	VGTVIE                     λ.Object
 	VKIE                       λ.Object
@@ -607,6 +605,8 @@ var (
 	VimpleIE                   λ.Object
 	VineIE                     λ.Object
 	ViqeoIE                    λ.Object
+	VivoIE                     λ.Object
+	VuClipIE                   λ.Object
 	VzaarIE                    λ.Object
 	WSJArticleIE               λ.Object
 	WSJIE                      λ.Object
@@ -639,7 +639,6 @@ func init() {
 		AolIE = Ωaol.AolIE
 		AllocineIE = Ωallocine.AllocineIE
 		AparatIE = Ωaparat.AparatIE
-		ArchiveOrgIE = Ωarchiveorg.ArchiveOrgIE
 		ARDMediathekIE = Ωard.ARDMediathekIE
 		AsianCrushIE = Ωasiancrush.AsianCrushIE
 		AudiomackIE = Ωaudiomack.AudiomackIE
@@ -802,7 +801,6 @@ func init() {
 		OoyalaIE = Ωooyala.OoyalaIE
 		VerystreamIE = Ωopenload.VerystreamIE
 		OutsideTVIE = Ωoutsidetv.OutsideTVIE
-		PacktPubIE = Ωpacktpub.PacktPubIE
 		PandoraTVIE = Ωpandoratv.PandoraTVIE
 		ParliamentLiveUKIE = Ωparliamentliveuk.ParliamentLiveUKIE
 		PatreonIE = Ωpatreon.PatreonIE
@@ -832,6 +830,7 @@ func init() {
 		ReverbNationIE = Ωreverbnation.ReverbNationIE
 		RockstarGamesIE = Ωrockstargames.RockstarGamesIE
 		RozhlasIE = Ωrozhlas.RozhlasIE
+		RTPIE = Ωrtp.RTPIE
 		RTSIE = Ωrts.RTSIE
 		RTVSIE = Ωrtvs.RTVSIE
 		RUTVIE = Ωrutv.RUTVIE
@@ -842,6 +841,7 @@ func init() {
 		ScreencastIE = Ωscreencast.ScreencastIE
 		SenateISVPIE = Ωsenateisvp.SenateISVPIE
 		SeznamZpravyIE = Ωseznamzpravy.SeznamZpravyIE
+		VivoIE = Ωshared.VivoIE
 		SinaIE = Ωsina.SinaIE
 		SkyNewsIE = Ωsky.SkyNewsIE
 		SkySportsIE = Ωsky.SkySportsIE
@@ -902,7 +902,6 @@ func init() {
 		UDNEmbedIE = Ωudn.UDNEmbedIE
 		DigitekaIE = Ωdigiteka.DigitekaIE
 		UnistraIE = Ωunistra.UnistraIE
-		UnityIE = Ωunity.UnityIE
 		USATodayIE = Ωusatoday.USATodayIE
 		UstudioEmbedIE = Ωustudio.UstudioEmbedIE
 		Varzesh3IE = Ωvarzesh3.Varzesh3IE
@@ -927,6 +926,7 @@ func init() {
 		VKIE = Ωvk.VKIE
 		VLiveIE = Ωvlive.VLiveIE
 		VLivePlaylistIE = Ωvlive.VLivePlaylistIE
+		VuClipIE = Ωvuclip.VuClipIE
 		VzaarIE = Ωvzaar.VzaarIE
 		WashingtonPostIE = Ωwashingtonpost.WashingtonPostIE
 		WatIE = Ωwat.WatIE
@@ -955,7 +955,6 @@ func init() {
 			AolIE,
 			AllocineIE,
 			AparatIE,
-			ArchiveOrgIE,
 			ARDMediathekIE,
 			AsianCrushIE,
 			AudiomackIE,
@@ -1118,7 +1117,6 @@ func init() {
 			OoyalaIE,
 			VerystreamIE,
 			OutsideTVIE,
-			PacktPubIE,
 			PandoraTVIE,
 			ParliamentLiveUKIE,
 			PatreonIE,
@@ -1148,6 +1146,7 @@ func init() {
 			ReverbNationIE,
 			RockstarGamesIE,
 			RozhlasIE,
+			RTPIE,
 			RTSIE,
 			RTVSIE,
 			RUTVIE,
@@ -1158,6 +1157,7 @@ func init() {
 			ScreencastIE,
 			SenateISVPIE,
 			SeznamZpravyIE,
+			VivoIE,
 			SinaIE,
 			SkyNewsIE,
 			SkySportsIE,
@@ -1218,7 +1218,6 @@ func init() {
 			UDNEmbedIE,
 			DigitekaIE,
 			UnistraIE,
-			UnityIE,
 			USATodayIE,
 			UstudioEmbedIE,
 			Varzesh3IE,
@@ -1243,6 +1242,7 @@ func init() {
 			VKIE,
 			VLiveIE,
 			VLivePlaylistIE,
+			VuClipIE,
 			VzaarIE,
 			WashingtonPostIE,
 			WatIE,

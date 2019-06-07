@@ -161,6 +161,9 @@ func init() {
 								return λ.None
 							})
 						})))
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
+						ϒformats = λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_html5_media_entries", nil), ϒurl, ϒwebpage, ϒvideo_id), λ.NewInt(0)), λ.NewStr("formats"))
+					}
 					λ.Cal(λ.GetAttr(ϒself, "_check_formats", nil), ϒformats, ϒvideo_id)
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
 					ϒdescription = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
@@ -180,7 +183,10 @@ func init() {
 						}
 					}()
 					ϒuploader = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("(?s)<p\\b[^>]+\\bclass=[\"\\']video-author[^>]+>(.+?)</p>"),
+						λ.NewTuple(
+							λ.NewStr("(?s)<div class=[\"\\']channel-banner.*?<p\\b[^>]+\\bclass=[\"\\']name[^>]+>(.+?)</p>"),
+							λ.NewStr("(?s)<p\\b[^>]+\\bclass=[\"\\']video-author[^>]+>(.+?)</p>"),
+						),
 						ϒwebpage,
 						λ.NewStr("uploader"),
 					), λ.KWArgs{

@@ -85,6 +85,7 @@ var (
 	ϒsanitize_filename             λ.Object
 	ϒsanitized_Request             λ.Object
 	ϒstr_or_none                   λ.Object
+	ϒstrip_or_none                 λ.Object
 	ϒunescapeHTML                  λ.Object
 	ϒunified_strdate               λ.Object
 	ϒunified_timestamp             λ.Object
@@ -139,6 +140,7 @@ func init() {
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		ϒsanitize_filename = Ωutils.ϒsanitize_filename
 		ϒstr_or_none = Ωutils.ϒstr_or_none
+		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
@@ -5427,7 +5429,7 @@ func init() {
 							λ.NewStr("subtitles"): λ.NewDictWithTable(map[λ.Object]λ.Object{}),
 						})
 						ϒmedia_attributes = λ.Cal(ϒextract_attributes, ϒmedia_tag)
-						ϒsrc = λ.Cal(λ.GetAttr(ϒmedia_attributes, "get", nil), λ.NewStr("src"))
+						ϒsrc = λ.Cal(ϒstrip_or_none, λ.Cal(λ.GetAttr(ϒmedia_attributes, "get", nil), λ.NewStr("src")))
 						if λ.IsTrue(ϒsrc) {
 							τmp2 = λ.Cal(ϒ_media_formats, ϒsrc, ϒmedia_type)
 							_ = λ.GetItem(τmp2, λ.NewInt(0))
@@ -5443,11 +5445,11 @@ func init() {
 								}
 								ϒsource_tag = τmp3
 								ϒs_attr = λ.Cal(ϒextract_attributes, ϒsource_tag)
-								ϒsrc = λ.Cal(ϒdict_get, ϒs_attr, λ.NewTuple(
+								ϒsrc = λ.Cal(ϒstrip_or_none, λ.Cal(ϒdict_get, ϒs_attr, λ.NewTuple(
 									λ.NewStr("src"),
 									λ.NewStr("data-video-src"),
 									λ.NewStr("data-src"),
-								))
+								)))
 								if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒsrc))) {
 									continue
 								}
@@ -5573,7 +5575,7 @@ func init() {
 										), ϒkind))
 									}
 								}()) {
-									ϒsrc = λ.Cal(λ.GetAttr(ϒtrack_attributes, "get", nil), λ.NewStr("src"))
+									ϒsrc = λ.Cal(ϒstrip_or_none, λ.Cal(λ.GetAttr(ϒtrack_attributes, "get", nil), λ.NewStr("src")))
 									if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒsrc))) {
 										continue
 									}

@@ -325,7 +325,7 @@ func init() {
 				SRGSSRPlayIE__VALID_URL    λ.Object
 				SRGSSRPlayIE__real_extract λ.Object
 			)
-			SRGSSRPlayIE__VALID_URL = λ.NewStr("https?://(?:(?:www|play)\\.)?(?P<bu>srf|rts|rsi|rtr|swissinfo)\\.ch/play/(?:tv|radio)/[^/]+/(?P<type>video|audio)/[^?]+\\?id=(?P<id>[0-9a-f\\-]{36}|\\d+)")
+			SRGSSRPlayIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:(?:www|play)\\.)?\n                        (?P<bu>srf|rts|rsi|rtr|swissinfo)\\.ch/play/(?:tv|radio)/\n                        (?:\n                            [^/]+/(?P<type>video|audio)/[^?]+|\n                            popup(?P<type_2>video|audio)player\n                        )\n                        \\?id=(?P<id>[0-9a-f\\-]{36}|\\d+)\n                    ")
 			SRGSSRPlayIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://www.srf.ch/play/tv/10vor10/video/snowden-beantragt-asyl-in-russland?id=28e1a57d-5b76-4399-8ab3-9097f071e6c5"),
@@ -383,6 +383,10 @@ func init() {
 						λ.NewStr("skip_download"): λ.True,
 					}),
 				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://www.srf.ch/play/tv/popupvideoplayer?id=c4dba0ca-e75b-43b2-a34f-f708a4932e01"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
 			)
 			SRGSSRPlayIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -395,14 +399,20 @@ func init() {
 						ϒbu         λ.Object
 						ϒmedia_id   λ.Object
 						ϒmedia_type λ.Object
+						ϒmobj       λ.Object
 						ϒself       = λargs[0]
 						ϒurl        = λargs[1]
-						τmp0        λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
-					ϒbu = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒmedia_type = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒmedia_id = λ.GetItem(τmp0, λ.NewInt(2))
+					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
+					ϒbu = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("bu"))
+					ϒmedia_type = func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("type")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("type_2"))
+						}
+					}()
+					ϒmedia_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
 					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("srgssr:%s:%s:%s"), λ.NewTuple(
 						λ.GetItem(ϒbu, λ.NewSlice(λ.None, λ.NewInt(3), λ.None)),
 						ϒmedia_type,

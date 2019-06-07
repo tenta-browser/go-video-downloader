@@ -68,7 +68,7 @@ func init() {
 				OpenloadIE__VALID_URL       λ.Object
 				OpenloadIE__real_extract    λ.Object
 			)
-			OpenloadIE__DOMAINS = λ.NewStr("(?:openload\\.(?:co|io|link|pw)|oload\\.(?:tv|stream|site|xyz|win|download|cloud|cc|icu|fun|club|info|pw|live|space|services)|oladblock\\.(?:services|xyz|me)|openloed\\.co)")
+			OpenloadIE__DOMAINS = λ.NewStr("(?:openload\\.(?:co|io|link|pw)|oload\\.(?:tv|stream|site|xyz|win|download|cloud|cc|icu|fun|club|info|press|pw|live|space|services|website)|oladblock\\.(?:services|xyz|me)|openloed\\.co)")
 			OpenloadIE__VALID_URL = λ.Mod(λ.NewStr("(?x)\n                    https?://\n                        (?P<host>\n                            (?:www\\.)?\n                            %s\n                        )/\n                        (?:f|embed)/\n                        (?P<id>[a-zA-Z0-9-_]+)\n                    "), OpenloadIE__DOMAINS)
 			OpenloadIE__USER_AGENT_TPL = λ.NewStr("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/%s Safari/537.36")
 			OpenloadIE__CHROME_VERSIONS = λ.NewTuple(

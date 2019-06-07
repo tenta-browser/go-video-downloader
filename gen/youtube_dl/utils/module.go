@@ -2099,17 +2099,19 @@ func init() {
 		ϒstrip_or_none = λ.NewFunction("strip_or_none",
 			[]λ.Param{
 				{Name: "v"},
+				{Name: "default", Def: λ.None},
 			},
 			0, false, false,
 			func(λargs []λ.Object) λ.Object {
 				var (
-					ϒv = λargs[0]
+					ϒdefault = λargs[1]
+					ϒv       = λargs[0]
 				)
 				return func() λ.Object {
-					if λ.IsTrue(λ.NewBool(ϒv == λ.None)) {
-						return λ.None
-					} else {
+					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒv, ϒcompat_str)) {
 						return λ.Cal(λ.GetAttr(ϒv, "strip", nil))
+					} else {
+						return ϒdefault
 					}
 				}()
 			})
