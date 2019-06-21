@@ -112,7 +112,7 @@ func init() {
 					)
 					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
 					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒembed_url = λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<iframe.+?src=\"((?:https?:)?//daxab\\.com/[^\"]+)\".*?></iframe>"), ϒwebpage, λ.NewStr("embed url")))
+					ϒembed_url = λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<iframe.+?src=\"((?:https?:)?//(?:daxab\\.com|dxb\\.to|[^/]+/player)/[^\"]+)\".*?></iframe>"), ϒwebpage, λ.NewStr("embed url")))
 					if λ.IsTrue(λ.Cal(λ.GetAttr(VKIE, "suitable", nil), ϒembed_url)) {
 						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒembed_url, λ.Cal(λ.GetAttr(VKIE, "ie_key", nil)), ϒvideo_id)
 					}

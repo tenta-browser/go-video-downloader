@@ -1388,6 +1388,22 @@ func init() {
 				λ.NewStr("_rtmp"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("protocol"): λ.NewStr("rtmp"),
 				}),
+				λ.NewStr("394"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("acodec"): λ.NewStr("none"),
+					λ.NewStr("vcodec"): λ.NewStr("av01.0.05M.08"),
+				}),
+				λ.NewStr("395"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("acodec"): λ.NewStr("none"),
+					λ.NewStr("vcodec"): λ.NewStr("av01.0.05M.08"),
+				}),
+				λ.NewStr("396"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("acodec"): λ.NewStr("none"),
+					λ.NewStr("vcodec"): λ.NewStr("av01.0.05M.08"),
+				}),
+				λ.NewStr("397"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("acodec"): λ.NewStr("none"),
+					λ.NewStr("vcodec"): λ.NewStr("av01.0.05M.08"),
+				}),
 			})
 			YoutubeIE__GEO_BYPASS = λ.False
 			YoutubeIE_IE_NAME = λ.NewStr("youtube")
@@ -2277,11 +2293,16 @@ func init() {
 					)
 					ϒfuncname = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
 						λ.NewTuple(
+							λ.NewStr("\\b[cs]\\s*&&\\s*[adf]\\.set\\([^,]+\\s*,\\s*encodeURIComponent\\s*\\(\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
+							λ.NewStr("\\b[a-zA-Z0-9]+\\s*&&\\s*[a-zA-Z0-9]+\\.set\\([^,]+\\s*,\\s*encodeURIComponent\\s*\\(\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
 							λ.NewStr("([\"\\'])signature\\1\\s*,\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
 							λ.NewStr("\\.sig\\|\\|(?P<sig>[a-zA-Z0-9$]+)\\("),
-							λ.NewStr("yt\\.akamaized\\.net/\\)\\s*\\|\\|\\s*.*?\\s*c\\s*&&\\s*d\\.set\\([^,]+\\s*,\\s*(?:encodeURIComponent\\s*\\()?(?P<sig>[a-zA-Z0-9$]+)\\("),
-							λ.NewStr("\\bc\\s*&&\\s*d\\.set\\([^,]+\\s*,\\s*(?:encodeURIComponent\\s*\\()?\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
-							λ.NewStr("\\bc\\s*&&\\s*d\\.set\\([^,]+\\s*,\\s*\\([^)]*\\)\\s*\\(\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
+							λ.NewStr("yt\\.akamaized\\.net/\\)\\s*\\|\\|\\s*.*?\\s*[cs]\\s*&&\\s*[adf]\\.set\\([^,]+\\s*,\\s*(?:encodeURIComponent\\s*\\()?\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
+							λ.NewStr("\\b[cs]\\s*&&\\s*[adf]\\.set\\([^,]+\\s*,\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
+							λ.NewStr("\\b[a-zA-Z0-9]+\\s*&&\\s*[a-zA-Z0-9]+\\.set\\([^,]+\\s*,\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
+							λ.NewStr("\\bc\\s*&&\\s*a\\.set\\([^,]+\\s*,\\s*\\([^)]*\\)\\s*\\(\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
+							λ.NewStr("\\bc\\s*&&\\s*[a-zA-Z0-9]+\\.set\\([^,]+\\s*,\\s*\\([^)]*\\)\\s*\\(\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
+							λ.NewStr("\\bc\\s*&&\\s*[a-zA-Z0-9]+\\.set\\([^,]+\\s*,\\s*\\([^)]*\\)\\s*\\(\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
 						),
 						ϒjscode,
 						λ.NewStr("Initial JS player signature function name"),

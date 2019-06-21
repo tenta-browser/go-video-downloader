@@ -117,23 +117,10 @@ func init() {
 		}())
 		SkySportsIE = λ.Cal(λ.TypeType, λ.NewStr("SkySportsIE"), λ.NewTuple(SkyBaseIE), func() λ.Dict {
 			var (
-				SkySportsIE__TEST      λ.Object
 				SkySportsIE__VALID_URL λ.Object
 			)
 			SkySportsIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?skysports\\.com/watch/video/(?P<id>[0-9]+)")
-			SkySportsIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.skysports.com/watch/video/10328419/bale-its-our-time-to-shine"),
-				λ.NewStr("md5"): λ.NewStr("77d59166cddc8d3cb7b13e35eaf0f5ec"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("o3eWJnNDE6l7kfNO8BOoBlRxXRQ4ANNQ"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Bale: It's our time to shine"),
-					λ.NewStr("description"): λ.NewStr("md5:e88bda94ae15f7720c5cb467e777bb6d"),
-				}),
-				λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Ooyala")),
-			})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):      SkySportsIE__TEST,
 				λ.NewStr("_VALID_URL"): SkySportsIE__VALID_URL,
 			})
 		}())

@@ -137,7 +137,6 @@ import (
 	Ωkeezmovies "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/keezmovies"
 	Ωkhanacademy "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/khanacademy"
 	Ωkickstarter "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/kickstarter"
-	Ωkuwo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/kuwo"
 	Ωla7 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/la7"
 	Ωlci "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/lci"
 	Ωlibraryofcongress "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/libraryofcongress"
@@ -146,7 +145,6 @@ import (
 	Ωlivestream "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/livestream"
 	Ωlovehomeporn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/lovehomeporn"
 	Ωlynda "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/lynda"
-	Ωmacgamestore "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/macgamestore"
 	Ωmailru "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mailru"
 	Ωmanyvids "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/manyvids"
 	Ωmassengeschmacktv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/massengeschmacktv"
@@ -210,7 +208,6 @@ import (
 	Ωrozhlas "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rozhlas"
 	Ωrtp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rtp"
 	Ωrts "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rts"
-	Ωrtvs "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rtvs"
 	Ωrutv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rutv"
 	Ωruutu "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ruutu"
 	Ωsafari "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/safari"
@@ -262,7 +259,6 @@ import (
 	Ωtvc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvc"
 	Ωtvn24 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvn24"
 	Ωtvp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvp"
-	Ωtvplay "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvplay"
 	Ωtwentymin "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twentymin"
 	Ωtwentythreevideo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twentythreevideo"
 	Ωtwitch "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twitch"
@@ -434,8 +430,6 @@ var (
 	KeezMoviesIE               λ.Object
 	KhanAcademyIE              λ.Object
 	KickStarterIE              λ.Object
-	KuwoIE                     λ.Object
-	KuwoMvIE                   λ.Object
 	LA7IE                      λ.Object
 	LCIIE                      λ.Object
 	LibraryOfCongressIE        λ.Object
@@ -445,7 +439,6 @@ var (
 	LoveHomePornIE             λ.Object
 	LyndaIE                    λ.Object
 	MLBIE                      λ.Object
-	MacGameStoreIE             λ.Object
 	MailRuMusicIE              λ.Object
 	ManyVidsIE                 λ.Object
 	MassengeschmackTVIE        λ.Object
@@ -506,7 +499,6 @@ var (
 	RENTVIE                    λ.Object
 	RTPIE                      λ.Object
 	RTSIE                      λ.Object
-	RTVSIE                     λ.Object
 	RUTVIE                     λ.Object
 	RadioDeIE                  λ.Object
 	RadioJavanIE               λ.Object
@@ -526,7 +518,6 @@ var (
 	SeznamZpravyIE             λ.Object
 	SinaIE                     λ.Object
 	SkyNewsIE                  λ.Object
-	SkySportsIE                λ.Object
 	SlidesLiveIE               λ.Object
 	SlideshareIE               λ.Object
 	SonyLIVIE                  λ.Object
@@ -554,7 +545,6 @@ var (
 	TVN24IE                    λ.Object
 	TVPEmbedIE                 λ.Object
 	TVPIE                      λ.Object
-	TVPlayIE                   λ.Object
 	TagesschauIE               λ.Object
 	TastyTradeIE               λ.Object
 	TeacherTubeIE              λ.Object
@@ -751,8 +741,6 @@ func init() {
 		KeezMoviesIE = Ωkeezmovies.KeezMoviesIE
 		KhanAcademyIE = Ωkhanacademy.KhanAcademyIE
 		KickStarterIE = Ωkickstarter.KickStarterIE
-		KuwoIE = Ωkuwo.KuwoIE
-		KuwoMvIE = Ωkuwo.KuwoMvIE
 		LA7IE = Ωla7.LA7IE
 		LCIIE = Ωlci.LCIIE
 		LibraryOfCongressIE = Ωlibraryofcongress.LibraryOfCongressIE
@@ -761,7 +749,6 @@ func init() {
 		LivestreamIE = Ωlivestream.LivestreamIE
 		LoveHomePornIE = Ωlovehomeporn.LoveHomePornIE
 		LyndaIE = Ωlynda.LyndaIE
-		MacGameStoreIE = Ωmacgamestore.MacGameStoreIE
 		MailRuMusicIE = Ωmailru.MailRuMusicIE
 		ManyVidsIE = Ωmanyvids.ManyVidsIE
 		MassengeschmackTVIE = Ωmassengeschmacktv.MassengeschmackTVIE
@@ -832,7 +819,6 @@ func init() {
 		RozhlasIE = Ωrozhlas.RozhlasIE
 		RTPIE = Ωrtp.RTPIE
 		RTSIE = Ωrts.RTSIE
-		RTVSIE = Ωrtvs.RTVSIE
 		RUTVIE = Ωrutv.RUTVIE
 		RuutuIE = Ωruutu.RuutuIE
 		SafariIE = Ωsafari.SafariIE
@@ -844,7 +830,6 @@ func init() {
 		VivoIE = Ωshared.VivoIE
 		SinaIE = Ωsina.SinaIE
 		SkyNewsIE = Ωsky.SkyNewsIE
-		SkySportsIE = Ωsky.SkySportsIE
 		SlideshareIE = Ωslideshare.SlideshareIE
 		SlidesLiveIE = Ωslideslive.SlidesLiveIE
 		SonyLIVIE = Ωsonyliv.SonyLIVIE
@@ -893,7 +878,6 @@ func init() {
 		TVN24IE = Ωtvn24.TVN24IE
 		TVPEmbedIE = Ωtvp.TVPEmbedIE
 		TVPIE = Ωtvp.TVPIE
-		TVPlayIE = Ωtvplay.TVPlayIE
 		TwentyMinutenIE = Ωtwentymin.TwentyMinutenIE
 		TwentyThreeVideoIE = Ωtwentythreevideo.TwentyThreeVideoIE
 		TwitchClipsIE = Ωtwitch.TwitchClipsIE
@@ -1067,8 +1051,6 @@ func init() {
 			KeezMoviesIE,
 			KhanAcademyIE,
 			KickStarterIE,
-			KuwoIE,
-			KuwoMvIE,
 			LA7IE,
 			LCIIE,
 			LibraryOfCongressIE,
@@ -1077,7 +1059,6 @@ func init() {
 			LivestreamIE,
 			LoveHomePornIE,
 			LyndaIE,
-			MacGameStoreIE,
 			MailRuMusicIE,
 			ManyVidsIE,
 			MassengeschmackTVIE,
@@ -1148,7 +1129,6 @@ func init() {
 			RozhlasIE,
 			RTPIE,
 			RTSIE,
-			RTVSIE,
 			RUTVIE,
 			RuutuIE,
 			SafariIE,
@@ -1160,7 +1140,6 @@ func init() {
 			VivoIE,
 			SinaIE,
 			SkyNewsIE,
-			SkySportsIE,
 			SlideshareIE,
 			SlidesLiveIE,
 			SonyLIVIE,
@@ -1209,7 +1188,6 @@ func init() {
 			TVN24IE,
 			TVPEmbedIE,
 			TVPIE,
-			TVPlayIE,
 			TwentyMinutenIE,
 			TwentyThreeVideoIE,
 			TwitchClipsIE,

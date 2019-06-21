@@ -119,8 +119,6 @@ Supported sites
  * KeezMovies _(adult)_: `www.keezmovies.com`
  * KhanAcademy: `www.khanacademy.org`
  * KickStarter: `www.kickstarter.com`
- * Kuwo: `www.kuwo.cn`
- * KuwoMv: `www.kuwo.cn`
  * LA7: `www.la7.it`
  * LCI: `www.lci.fr`
  * LibraryOfCongress: `loc.gov`
@@ -129,7 +127,6 @@ Supported sites
  * Livestream: `new.livestream.com`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * Lynda: `www.lynda.com`
- * MacGameStore: `www.macgamestore.com`
  * MailRuMusic: `my.mail.ru`
  * ManyVids: `www.manyvids.com`
  * MassengeschmackTV: `massengeschmack.tv`
@@ -200,7 +197,6 @@ Supported sites
  * Rozhlas: `prehravac.rozhlas.cz`
  * RTP: `www.rtp.pt`
  * RTS: `www.rts.ch`
- * RTVS: `www.rtvs.sk`
  * RUTV: `player.rutv.ru`
  * Ruutu: `www.ruutu.fi`
  * Safari: `www.safaribooksonline.com`
@@ -212,7 +208,6 @@ Supported sites
  * Vivo: `vivo.sx`
  * Sina: `video.sina.com.cn`
  * SkyNews: `news.sky.com`
- * SkySports: `www.skysports.com`
  * Slideshare: `www.slideshare.net`
  * SlidesLive: `slideslive.com`
  * SonyLIV: `www.sonyliv.com`
@@ -260,7 +255,6 @@ Supported sites
  * TVCArticle: `www.tvc.ru`
  * TVN24: `www.tvn24.pl`
  * TVP: `vod.tvp.pl`
- * TVPlay: `play.novatv.bg`
  * TwentyMinuten: `www.20min.ch`
  * TwentyThreeVideo: `video.twentythree.net`
  * TwitchClips: `clips.twitch.tv`
@@ -307,7 +301,7 @@ Supported sites
  * XTube _(adult)_: `www.xtube.com`
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
- * Yahoo: `tw.video.yahoo.com`
+ * Yahoo: `www.yahoo.com`
  * YinYueTai: `v.yinyuetai.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`

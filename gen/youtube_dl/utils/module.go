@@ -2936,6 +2936,7 @@ func init() {
 						λ.NewStr("mp4v"),
 						λ.NewStr("hvc1"),
 						λ.NewStr("av01"),
+						λ.NewStr("theora"),
 					), ϒcodec))) {
 						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvcodec))) {
 							ϒvcodec = ϒfull_codec
@@ -2972,16 +2973,9 @@ func init() {
 				}()) {
 					if λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒsplited_codecs), λ.NewInt(2))) {
 						return λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("vcodec"): ϒvcodec,
-							λ.NewStr("acodec"): ϒacodec,
+							λ.NewStr("vcodec"): λ.GetItem(ϒsplited_codecs, λ.NewInt(0)),
+							λ.NewStr("acodec"): λ.GetItem(ϒsplited_codecs, λ.NewInt(1)),
 						})
-					} else {
-						if λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒsplited_codecs), λ.NewInt(1))) {
-							return λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("vcodec"): λ.NewStr("none"),
-								λ.NewStr("acodec"): ϒvcodec,
-							})
-						}
 					}
 				} else {
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
