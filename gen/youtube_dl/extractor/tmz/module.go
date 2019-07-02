@@ -87,47 +87,11 @@ func init() {
 		}())
 		TMZArticleIE = λ.Cal(λ.TypeType, λ.NewStr("TMZArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				TMZArticleIE__TEST         λ.Object
-				TMZArticleIE__VALID_URL    λ.Object
-				TMZArticleIE__real_extract λ.Object
+				TMZArticleIE__VALID_URL λ.Object
 			)
 			TMZArticleIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tmz\\.com/\\d{4}/\\d{2}/\\d{2}/(?P<id>[^/]+)/?")
-			TMZArticleIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.tmz.com/2015/04/19/bobby-brown-bobbi-kristina-awake-video-concert"),
-				λ.NewStr("md5"): λ.NewStr("3316ff838ae5bb7f642537825e1e90d2"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("0_6snoelag"),
-					λ.NewStr("ext"):         λ.NewStr("mov"),
-					λ.NewStr("title"):       λ.NewStr("Bobby Brown Tells Crowd ... Bobbi Kristina is Awake"),
-					λ.NewStr("description"): λ.NewStr("Bobby Brown stunned his audience during a concert Saturday night, when he told the crowd, \"Bobbi is awake.  She's watching me.\""),
-					λ.NewStr("timestamp"):   λ.NewInt(1429467813),
-					λ.NewStr("upload_date"): λ.NewStr("20150419"),
-					λ.NewStr("uploader_id"): λ.NewStr("batchUser"),
-				}),
-			})
-			TMZArticleIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒembedded_video_info λ.Object
-						ϒself                = λargs[0]
-						ϒurl                 = λargs[1]
-						ϒvideo_id            λ.Object
-						ϒwebpage             λ.Object
-					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒembedded_video_info = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("tmzVideoEmbed\\(({.+?})\\);"), ϒwebpage, λ.NewStr("embedded video info")), ϒvideo_id)
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://www.tmz.com/videos/%s/"), λ.GetItem(ϒembedded_video_info, λ.NewStr("id"))))
-				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         TMZArticleIE__TEST,
-				λ.NewStr("_VALID_URL"):    TMZArticleIE__VALID_URL,
-				λ.NewStr("_real_extract"): TMZArticleIE__real_extract,
+				λ.NewStr("_VALID_URL"): TMZArticleIE__VALID_URL,
 			})
 		}())
 	})

@@ -35,8 +35,8 @@ Supported sites
  * CCMA: `www.ccma.cat`
  * CCTV: `sports.cntv.cn`
  * CharlieRose: `charlierose.com`
+ * Chilloutzone: `www.chilloutzone.net`
  * Chirbit: `chirb.it`
- * Cinchcast: `player.cinchcast.com`
  * Cinemax: `www.cinemax.com`
  * CiscoLiveSession: `ciscolive.cisco.com`
  * Clippit: `www.clippituser.tv`
@@ -184,7 +184,6 @@ Supported sites
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
- * PuhuTV: `puhutv.com`
  * PressTV: `www.presstv.ir`
  * RadioDe: `ndr2.radio.de`
  * RadioJavan: `www.radiojavan.com`
@@ -203,6 +202,7 @@ Supported sites
  * Sapo: `videos.sapo.pt`
  * SBS: `www.sbs.com.au`
  * Screencast: `www.screencast.com`
+ * ScreencastOMatic: `screencast-o-matic.com`
  * SenateISVP: `www.senate.gov`
  * SeznamZpravy: `www.seznamzpravy.cz`
  * Vivo: `vivo.sx`
@@ -229,7 +229,6 @@ Supported sites
  * TeacherTube: `www.teachertube.com`
  * Teamcoco: `teamcoco.com`
  * TeamTreeHouse: `teamtreehouse.com`
- * TED: `www.ted.com`
  * Tele13: `www.t13.cl`
  * Tenta: `tenta.com`
  * TFO: `www.tfo.org`
@@ -239,7 +238,6 @@ Supported sites
  * ThisOldHouse: `www.thisoldhouse.com`
  * TinyPic: `tinypic.com`
  * TMZ: `www.tmz.com`
- * TMZArticle: `www.tmz.com`
  * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
  * TNAFlix _(adult)_: `www.tnaflix.com`
  * EMPFlix _(adult)_: `www.empflix.com`
@@ -283,7 +281,6 @@ Supported sites
  * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
  * Vine: `vine.co`
- * Viqeo: `cdn.viqeo.tv`
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * VLivePlaylist: `www.vlive.tv`
@@ -301,7 +298,7 @@ Supported sites
  * XTube _(adult)_: `www.xtube.com`
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
- * Yahoo: `www.yahoo.com`
+ * Yahoo: `news.yahoo.com`
  * YinYueTai: `v.yinyuetai.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`

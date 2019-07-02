@@ -86,7 +86,7 @@ func init() {
 				VevoIE__real_extract   λ.Object
 			)
 			λ.NewStr("\n    Accepts urls from vevo.com or in the format 'vevo:{id}'\n    (currently used by MTVIE and MySpaceIE)\n    ")
-			VevoIE__VALID_URL = λ.NewStr("(?x)\n        (?:https?://(?:www\\.)?vevo\\.com/watch/(?!playlist|genre)(?:[^/]+/(?:[^/]+/)?)?|\n           https?://cache\\.vevo\\.com/m/html/embed\\.html\\?video=|\n           https?://videoplayer\\.vevo\\.com/embed/embedded\\?videoId=|\n           vevo:)\n        (?P<id>[^&?#]+)")
+			VevoIE__VALID_URL = λ.NewStr("(?x)\n        (?:https?://(?:www\\.)?vevo\\.com/watch/(?!playlist|genre)(?:[^/]+/(?:[^/]+/)?)?|\n           https?://cache\\.vevo\\.com/m/html/embed\\.html\\?video=|\n           https?://videoplayer\\.vevo\\.com/embed/embedded\\?videoId=|\n           https?://embed\\.vevo\\.com/.*?[?&]isrc=|\n           vevo:)\n        (?P<id>[^&?#]+)")
 			VevoIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://www.vevo.com/watch/hurts/somebody-to-die-for/GB1101300280"),
@@ -213,6 +213,10 @@ func init() {
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"):           λ.NewStr("http://www.vevo.com/watch/boostee/pop-corn-clip-officiel/FR1A91600909"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://embed.vevo.com/?isrc=USH5V1923499&partnerId=4d61b777-8023-4191-9ede-497ed6c24647&partnerAdCode="),
 					λ.NewStr("only_matching"): λ.True,
 				}),
 			)

@@ -747,7 +747,7 @@ func init() {
 				BrightcoveNewIE__real_extract              λ.Object
 			)
 			BrightcoveNewIE_IE_NAME = λ.NewStr("brightcove:new")
-			BrightcoveNewIE__VALID_URL = λ.NewStr("https?://players\\.brightcove\\.net/(?P<account_id>\\d+)/(?P<player_id>[^/]+)_(?P<embed>[^/]+)/index\\.html\\?.*videoId=(?P<video_id>\\d+|ref:[^&]+)")
+			BrightcoveNewIE__VALID_URL = λ.NewStr("https?://players\\.brightcove\\.net/(?P<account_id>\\d+)/(?P<player_id>[^/]+)_(?P<embed>[^/]+)/index\\.html\\?.*(?P<content_type>video|playlist)Id=(?P<video_id>\\d+|ref:[^&]+)")
 			BrightcoveNewIE__extract_url = λ.NewFunction("_extract_url",
 				[]λ.Param{
 					{Name: "ie"},
@@ -1188,6 +1188,7 @@ func init() {
 						ϒaccount_id    λ.Object
 						ϒapi_url       λ.Object
 						ϒcatalog       λ.Object
+						ϒcontent_type  λ.Object
 						ϒcustom_fields λ.Object
 						ϒembed         λ.Object
 						ϒerrors        λ.Object
@@ -1219,7 +1220,8 @@ func init() {
 					ϒaccount_id = λ.GetItem(τmp0, λ.NewInt(0))
 					ϒplayer_id = λ.GetItem(τmp0, λ.NewInt(1))
 					ϒembed = λ.GetItem(τmp0, λ.NewInt(2))
-					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(3))
+					ϒcontent_type = λ.GetItem(τmp0, λ.NewInt(3))
+					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(4))
 					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.NewStr("http://players.brightcove.net/%s/%s_%s/index.min.js"), λ.NewTuple(
 						ϒaccount_id,
 						ϒplayer_id,
@@ -1253,8 +1255,9 @@ func init() {
 							{Name: "group", Value: λ.NewStr("pk")},
 						})
 					}
-					ϒapi_url = λ.Mod(λ.NewStr("https://edge.api.brightcove.com/playback/v1/accounts/%s/videos/%s"), λ.NewTuple(
+					ϒapi_url = λ.Mod(λ.NewStr("https://edge.api.brightcove.com/playback/v1/accounts/%s/%ss/%s"), λ.NewTuple(
 						ϒaccount_id,
+						ϒcontent_type,
 						ϒvideo_id,
 					))
 					ϒheaders = λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -1328,6 +1331,31 @@ func init() {
 								λ.NewStr("tveToken"): ϒtve_token,
 							})},
 						})
+					}
+					if λ.IsTrue(λ.Eq(ϒcontent_type, λ.NewStr("playlist"))) {
+						return λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+							nil,
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
+									var (
+										ϒvid λ.Object
+										τmp0 λ.Object
+										τmp1 λ.Object
+									)
+									τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒjson_data, "get", nil), λ.NewStr("videos"), λ.NewList()))
+									for {
+										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+											break
+										}
+										ϒvid = τmp1
+										if λ.IsTrue(λ.Cal(λ.GetAttr(ϒvid, "get", nil), λ.NewStr("id"))) {
+											λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "_parse_brightcove_metadata", nil), ϒvid, λ.Cal(λ.GetAttr(ϒvid, "get", nil), λ.NewStr("id")), ϒheaders))
+										}
+									}
+									return λ.None
+								})
+							}))), λ.Cal(λ.GetAttr(ϒjson_data, "get", nil), λ.NewStr("id")), λ.Cal(λ.GetAttr(ϒjson_data, "get", nil), λ.NewStr("name")), λ.Cal(λ.GetAttr(ϒjson_data, "get", nil), λ.NewStr("description")))
 					}
 					return λ.Call(λ.GetAttr(ϒself, "_parse_brightcove_metadata", nil), λ.NewArgs(
 						ϒjson_data,

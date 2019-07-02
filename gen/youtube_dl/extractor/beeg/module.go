@@ -25,6 +25,7 @@
 package beeg
 
 import (
+	Ωparse "github.com/tenta-browser/go-video-downloader/gen/urllib/parse"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
@@ -69,6 +70,10 @@ func init() {
 					}),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://beeg.com/1941093077?t=911-1391"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"):           λ.NewStr("https://beeg.porn/video/5416503"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
@@ -93,8 +98,11 @@ func init() {
 						ϒformat_id    λ.Object
 						ϒformats      λ.Object
 						ϒheight       λ.Object
+						ϒqs           λ.Object
+						ϒquery        λ.Object
 						ϒself         = λargs[0]
 						ϒseries       λ.Object
+						ϒt            λ.Object
 						ϒtags         λ.Object
 						ϒtimestamp    λ.Object
 						ϒtitle        λ.Object
@@ -116,6 +124,19 @@ func init() {
 					), λ.KWArgs{
 						{Name: "default", Value: λ.NewStr("1546225636701")},
 					})
+					ϒqs = λ.Cal(Ωparse.ϒparse_qs, λ.GetAttr(λ.Cal(Ωparse.ϒurlparse, ϒurl), "query", nil))
+					ϒt = λ.Cal(λ.GetAttr(λ.GetItem(λ.Cal(λ.GetAttr(ϒqs, "get", nil), λ.NewStr("t"), λ.NewList(λ.NewStr(""))), λ.NewInt(0)), "split", nil), λ.NewStr("-"))
+					if λ.IsTrue(λ.Gt(λ.Cal(λ.BuiltinLen, ϒt), λ.NewInt(1))) {
+						ϒquery = λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("v"): λ.NewInt(2),
+							λ.NewStr("s"): λ.GetItem(ϒt, λ.NewInt(0)),
+							λ.NewStr("e"): λ.GetItem(ϒt, λ.NewInt(1)),
+						})
+					} else {
+						ϒquery = λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("v"): λ.NewInt(1),
+						})
+					}
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
 						λ.NewStr(""),
 						λ.NewStr("api."),
@@ -134,6 +155,7 @@ func init() {
 							ϒvideo_id,
 						), λ.KWArgs{
 							{Name: "fatal", Value: λ.Eq(ϒapi_path, λ.NewStr("api."))},
+							{Name: "query", Value: ϒquery},
 						})
 						if λ.IsTrue(ϒvideo) {
 							break

@@ -251,7 +251,7 @@ func init() {
 					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("Unable to download JSON metadata")),
 				}),
 			)
-			SoundcloudIE__CLIENT_ID = λ.NewStr("FweeGBOOEOYJWLJN3oEyToGLKhmSz0I7")
+			SoundcloudIE__CLIENT_ID = λ.NewStr("BeGVhOrGmfboy1LtiHTQF6Ejpt9ULJCI")
 			SoundcloudIE__resolv_url = λ.NewFunction("_resolv_url",
 				[]λ.Param{
 					{Name: "cls"},

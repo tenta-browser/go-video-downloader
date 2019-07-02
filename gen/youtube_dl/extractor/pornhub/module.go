@@ -35,22 +35,24 @@ import (
 )
 
 var (
-	ExtractorError        λ.Object
-	InfoExtractor         λ.Object
-	PhantomJSwrapper      λ.Object
-	PornHubBaseIE         λ.Object
-	PornHubIE             λ.Object
-	PornHubPlaylistBaseIE λ.Object
-	PornHubPlaylistIE     λ.Object
-	PornHubUserVideosIE   λ.Object
-	ϒcompat_HTTPError     λ.Object
-	ϒcompat_str           λ.Object
-	ϒdetermine_ext        λ.Object
-	ϒint_or_none          λ.Object
-	ϒorderedSet           λ.Object
-	ϒremove_quotes        λ.Object
-	ϒstr_to_int           λ.Object
-	ϒurl_or_none          λ.Object
+	ExtractorError             λ.Object
+	InfoExtractor              λ.Object
+	PhantomJSwrapper           λ.Object
+	PornHubBaseIE              λ.Object
+	PornHubIE                  λ.Object
+	PornHubPagedPlaylistBaseIE λ.Object
+	PornHubPagedVideoListIE    λ.Object
+	PornHubPlaylistBaseIE      λ.Object
+	PornHubUserIE              λ.Object
+	PornHubUserVideosUploadIE  λ.Object
+	ϒcompat_HTTPError          λ.Object
+	ϒcompat_str                λ.Object
+	ϒdetermine_ext             λ.Object
+	ϒint_or_none               λ.Object
+	ϒorderedSet                λ.Object
+	ϒremove_quotes             λ.Object
+	ϒstr_to_int                λ.Object
+	ϒurl_or_none               λ.Object
 )
 
 func init() {
@@ -637,22 +639,65 @@ func init() {
 
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 		}())
-		PornHubPlaylistIE = λ.Cal(λ.TypeType, λ.NewStr("PornHubPlaylistIE"), λ.NewTuple(PornHubPlaylistBaseIE), func() λ.Dict {
+		PornHubUserIE = λ.Cal(λ.TypeType, λ.NewStr("PornHubUserIE"), λ.NewTuple(PornHubPlaylistBaseIE), func() λ.Dict {
 			var (
-				PornHubPlaylistIE__VALID_URL λ.Object
+				PornHubUserIE__VALID_URL λ.Object
 			)
-			PornHubPlaylistIE__VALID_URL = λ.NewStr("https?://(?:[^/]+\\.)?(?P<host>pornhub\\.(?:com|net))/playlist/(?P<id>\\d+)")
+			PornHubUserIE__VALID_URL = λ.NewStr("(?P<url>https?://(?:[^/]+\\.)?pornhub\\.(?:com|net)/(?:(?:user|channel)s|model|pornstar)/(?P<id>[^/?#&]+))(?:[?#&]|/(?!videos)|$)")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): PornHubPlaylistIE__VALID_URL,
+				λ.NewStr("_VALID_URL"): PornHubUserIE__VALID_URL,
 			})
 		}())
-		PornHubUserVideosIE = λ.Cal(λ.TypeType, λ.NewStr("PornHubUserVideosIE"), λ.NewTuple(PornHubPlaylistBaseIE), func() λ.Dict {
+		PornHubPagedPlaylistBaseIE = λ.Cal(λ.TypeType, λ.NewStr("PornHubPagedPlaylistBaseIE"), λ.NewTuple(PornHubPlaylistBaseIE), func() λ.Dict {
+
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+		}())
+		PornHubPagedVideoListIE = λ.Cal(λ.TypeType, λ.NewStr("PornHubPagedVideoListIE"), λ.NewTuple(PornHubPagedPlaylistBaseIE), func() λ.Dict {
 			var (
-				PornHubUserVideosIE__VALID_URL λ.Object
+				PornHubPagedVideoListIE__VALID_URL λ.Object
+				PornHubPagedVideoListIE_suitable   λ.Object
 			)
-			PornHubUserVideosIE__VALID_URL = λ.NewStr("https?://(?:[^/]+\\.)?(?P<host>pornhub\\.(?:com|net))/(?:(?:user|channel)s|model|pornstar)/(?P<id>[^/]+)/videos")
+			PornHubPagedVideoListIE__VALID_URL = λ.NewStr("https?://(?:[^/]+\\.)?(?P<host>pornhub\\.(?:com|net))/(?P<id>(?:[^/]+/)*[^/?#&]+)")
+			PornHubPagedVideoListIE_suitable = λ.NewFunction("suitable",
+				[]λ.Param{
+					{Name: "cls"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcls = λargs[0]
+						ϒurl = λargs[1]
+					)
+					return func() λ.Object {
+						if λ.IsTrue(func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(PornHubIE, "suitable", nil), ϒurl); λ.IsTrue(λv) {
+								return λv
+							} else if λv := λ.Cal(λ.GetAttr(PornHubUserIE, "suitable", nil), ϒurl); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Cal(λ.GetAttr(PornHubUserVideosUploadIE, "suitable", nil), ϒurl)
+							}
+						}()) {
+							return λ.False
+						} else {
+							return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, PornHubPagedVideoListIE, ϒcls), "suitable", nil), ϒurl)
+						}
+					}()
+				})
+			PornHubPagedVideoListIE_suitable = λ.Cal(λ.ClassMethodType, PornHubPagedVideoListIE_suitable)
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): PornHubUserVideosIE__VALID_URL,
+				λ.NewStr("_VALID_URL"): PornHubPagedVideoListIE__VALID_URL,
+				λ.NewStr("suitable"):   PornHubPagedVideoListIE_suitable,
+			})
+		}())
+		PornHubUserVideosUploadIE = λ.Cal(λ.TypeType, λ.NewStr("PornHubUserVideosUploadIE"), λ.NewTuple(PornHubPagedPlaylistBaseIE), func() λ.Dict {
+			var (
+				PornHubUserVideosUploadIE__VALID_URL λ.Object
+			)
+			PornHubUserVideosUploadIE__VALID_URL = λ.NewStr("(?P<url>https?://(?:[^/]+\\.)?(?P<host>pornhub\\.(?:com|net))/(?:(?:user|channel)s|model|pornstar)/(?P<id>[^/]+)/videos/upload)")
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_VALID_URL"): PornHubUserVideosUploadIE__VALID_URL,
 			})
 		}())
 		λ.GetAttr(PhantomJSwrapper, "__init__", nil)

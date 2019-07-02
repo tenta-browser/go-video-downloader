@@ -36,6 +36,7 @@ var (
 	ACastChannelIE     λ.Object
 	ACastIE            λ.Object
 	InfoExtractor      λ.Object
+	ϒclean_html        λ.Object
 	ϒcompat_str        λ.Object
 	ϒfloat_or_none     λ.Object
 	ϒint_or_none       λ.Object
@@ -47,6 +48,7 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_str = Ωcompat.ϒcompat_str
+		ϒclean_html = Ωutils.ϒclean_html
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒtry_get = Ωutils.ϒtry_get
@@ -63,7 +65,7 @@ func init() {
 			ACastIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("https://www.acast.com/sparpodcast/2.raggarmordet-rosterurdetforflutna"),
-					λ.NewStr("md5"): λ.NewStr("a02393c74f3bdb1801c3ec2695577ce0"),
+					λ.NewStr("md5"): λ.NewStr("16d936099ec5ca2d5869e3a813ee8dc4"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):          λ.NewStr("2a92b283-1a75-4ad8-8396-499c641de0d9"),
 						λ.NewStr("ext"):         λ.NewStr("mp3"),
@@ -85,6 +87,10 @@ func init() {
 					λ.NewStr("url"):           λ.NewStr("https://play.acast.com/s/rattegangspodden/s04e09-styckmordet-i-helenelund-del-22"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://play.acast.com/s/sparpodcast/2a92b283-1a75-4ad8-8396-499c641de0d9"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
 			)
 			ACastIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -94,50 +100,79 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒcast_data  λ.Object
-						ϒchannel    λ.Object
-						ϒdisplay_id λ.Object
-						ϒe          λ.Object
-						ϒmedia_url  λ.Object
-						ϒs          λ.Object
-						ϒself       = λargs[0]
-						ϒtitle      λ.Object
-						ϒurl        = λargs[1]
-						τmp0        λ.Object
+						ϒcast_data   λ.Object
+						ϒchannel     λ.Object
+						ϒdisplay_id  λ.Object
+						ϒe           λ.Object
+						ϒepisode_url λ.Object
+						ϒmedia_url   λ.Object
+						ϒs           λ.Object
+						ϒself        = λargs[0]
+						ϒtitle       λ.Object
+						ϒurl         = λargs[1]
+						τmp0         λ.Object
 					)
 					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
 					ϒchannel = λ.GetItem(τmp0, λ.NewInt(0))
 					ϒdisplay_id = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒs = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("https://play-api.acast.com/stitch/%s/%s"), λ.NewTuple(
+					ϒs = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("https://feeder.acast.com/api/v1/shows/%s/episodes/%s"), λ.NewTuple(
 						ϒchannel,
 						ϒdisplay_id,
-					)), ϒdisplay_id), λ.NewStr("result"))
+					)), ϒdisplay_id)
 					ϒmedia_url = λ.GetItem(ϒs, λ.NewStr("url"))
+					if λ.IsTrue(λ.Cal(Ωre.ϒsearch, λ.NewStr("[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}"), ϒdisplay_id)) {
+						ϒepisode_url = λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("episodeUrl"))
+						if λ.IsTrue(ϒepisode_url) {
+							ϒdisplay_id = ϒepisode_url
+						} else {
+							τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), λ.GetItem(ϒs, λ.NewStr("link"))), "groups", nil))
+							ϒchannel = λ.GetItem(τmp0, λ.NewInt(0))
+							ϒdisplay_id = λ.GetItem(τmp0, λ.NewInt(1))
+						}
+					}
 					ϒcast_data = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("https://play-api.acast.com/splash/%s/%s"), λ.NewTuple(
 						ϒchannel,
 						ϒdisplay_id,
 					)), ϒdisplay_id), λ.NewStr("result"))
 					ϒe = λ.GetItem(ϒcast_data, λ.NewStr("episode"))
-					ϒtitle = λ.GetItem(ϒe, λ.NewStr("name"))
+					ϒtitle = func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("name")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.GetItem(ϒs, λ.NewStr("title"))
+						}
+					}()
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):         λ.Cal(ϒcompat_str, λ.GetItem(ϒe, λ.NewStr("id"))),
 						λ.NewStr("display_id"): ϒdisplay_id,
 						λ.NewStr("url"):        ϒmedia_url,
 						λ.NewStr("title"):      ϒtitle,
 						λ.NewStr("description"): func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("description")); λ.IsTrue(λv) {
+							if λv := λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("summary")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("summary"))
+								return λ.Cal(ϒclean_html, func() λ.Object {
+									if λv := λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("description")); λ.IsTrue(λv) {
+										return λv
+									} else {
+										return λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("description"))
+									}
+								}())
 							}
 						}(),
 						λ.NewStr("thumbnail"): λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("image")),
-						λ.NewStr("timestamp"): λ.Cal(ϒunified_timestamp, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("publishingDate"))),
-						λ.NewStr("duration"): λ.Cal(ϒfloat_or_none, func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("duration")); λ.IsTrue(λv) {
+						λ.NewStr("timestamp"): λ.Cal(ϒunified_timestamp, func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("publishingDate")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("duration"))
+								return λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("publishDate"))
+							}
+						}()),
+						λ.NewStr("duration"): λ.Cal(ϒfloat_or_none, func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("duration")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("duration"))
 							}
 						}()),
 						λ.NewStr("filesize"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("contentLength"))),

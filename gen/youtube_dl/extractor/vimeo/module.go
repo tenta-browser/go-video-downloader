@@ -1758,7 +1758,7 @@ func init() {
 				λ.NewStr("_VALID_URL"): VimeoWatchLaterIE__VALID_URL,
 			})
 		}())
-		VimeoLikesIE = λ.Cal(λ.TypeType, λ.NewStr("VimeoLikesIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		VimeoLikesIE = λ.Cal(λ.TypeType, λ.NewStr("VimeoLikesIE"), λ.NewTuple(VimeoChannelIE), func() λ.Dict {
 			var (
 				VimeoLikesIE__VALID_URL λ.Object
 			)

@@ -216,21 +216,30 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒmatches λ.Object
+						ϒmobj    λ.Object
+						ϒurls    λ.Object
 						ϒwebpage = λargs[0]
+						τmp0     λ.Object
+						τmp1     λ.Object
 					)
-					ϒmatches = λ.Cal(Ωre.ϒfindall, λ.NewStr("<(?:(?:embed|iframe)[^>]+?src=|input[^>]+id=[\\'\"]dmcloudUrlEmissionSelect[\\'\"][^>]+value=)([\"\\'])(?P<url>(?:https?:)?//(?:www\\.)?dailymotion\\.com/(?:embed|swf)/video/.+?)\\1"), ϒwebpage)
-					return λ.Cal(λ.ListType, λ.Cal(λ.MapIteratorType, λ.NewFunction("<lambda>",
-						[]λ.Param{
-							{Name: "m"},
-						},
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							var (
-								ϒm = λargs[0]
-							)
-							return λ.Cal(ϒunescapeHTML, λ.GetItem(ϒm, λ.NewInt(1)))
-						}), ϒmatches))
+					ϒurls = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfinditer, λ.NewStr("<(?:(?:embed|iframe)[^>]+?src=|input[^>]+id=[\\'\"]dmcloudUrlEmissionSelect[\\'\"][^>]+value=)([\"\\'])(?P<url>(?:https?:)?//(?:www\\.)?dailymotion\\.com/(?:embed|swf)/video/.+?)\\1"), ϒwebpage))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒmobj = τmp1
+						λ.Cal(λ.GetAttr(ϒurls, "append", nil), λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("url"))))
+					}
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfinditer, λ.NewStr("(?s)DM\\.player\\([^,]+,\\s*{.*?video[\\'\"]?\\s*:\\s*[\"\\']?(?P<id>[0-9a-zA-Z]+).+?}\\s*\\);"), ϒwebpage))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒmobj = τmp1
+						λ.Cal(λ.GetAttr(ϒurls, "append", nil), λ.Add(λ.NewStr("https://www.dailymotion.com/embed/video/"), λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))))
+					}
+					return ϒurls
 				})
 			DailymotionIE__extract_urls = λ.Cal(λ.StaticMethodType, DailymotionIE__extract_urls)
 			DailymotionIE__real_extract = λ.NewFunction("_real_extract",
