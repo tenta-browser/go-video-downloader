@@ -74,6 +74,10 @@ func init() {
 					λ.NewStr("only_matching"): λ.True,
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://beeg.com/1277207756"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"):           λ.NewStr("https://beeg.porn/video/5416503"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
@@ -124,14 +128,18 @@ func init() {
 					), λ.KWArgs{
 						{Name: "default", Value: λ.NewStr("1546225636701")},
 					})
-					ϒqs = λ.Cal(Ωparse.ϒparse_qs, λ.GetAttr(λ.Cal(Ωparse.ϒurlparse, ϒurl), "query", nil))
-					ϒt = λ.Cal(λ.GetAttr(λ.GetItem(λ.Cal(λ.GetAttr(ϒqs, "get", nil), λ.NewStr("t"), λ.NewList(λ.NewStr(""))), λ.NewInt(0)), "split", nil), λ.NewStr("-"))
-					if λ.IsTrue(λ.Gt(λ.Cal(λ.BuiltinLen, ϒt), λ.NewInt(1))) {
+					if λ.IsTrue(λ.Ge(λ.Cal(λ.BuiltinLen, ϒvideo_id), λ.NewInt(10))) {
 						ϒquery = λ.NewDictWithTable(map[λ.Object]λ.Object{
 							λ.NewStr("v"): λ.NewInt(2),
-							λ.NewStr("s"): λ.GetItem(ϒt, λ.NewInt(0)),
-							λ.NewStr("e"): λ.GetItem(ϒt, λ.NewInt(1)),
 						})
+						ϒqs = λ.Cal(Ωparse.ϒparse_qs, λ.GetAttr(λ.Cal(Ωparse.ϒurlparse, ϒurl), "query", nil))
+						ϒt = λ.Cal(λ.GetAttr(λ.GetItem(λ.Cal(λ.GetAttr(ϒqs, "get", nil), λ.NewStr("t"), λ.NewList(λ.NewStr(""))), λ.NewInt(0)), "split", nil), λ.NewStr("-"))
+						if λ.IsTrue(λ.Gt(λ.Cal(λ.BuiltinLen, ϒt), λ.NewInt(1))) {
+							λ.Cal(λ.GetAttr(ϒquery, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("s"): λ.GetItem(ϒt, λ.NewInt(0)),
+								λ.NewStr("e"): λ.GetItem(ϒt, λ.NewInt(1)),
+							}))
+						}
 					} else {
 						ϒquery = λ.NewDictWithTable(map[λ.Object]λ.Object{
 							λ.NewStr("v"): λ.NewInt(1),

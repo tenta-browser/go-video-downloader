@@ -75,6 +75,10 @@ func init() {
 						λ.NewStr("title"): λ.NewStr("MP3"),
 					}),
 				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://view.vzaar.com/20313539/download"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
 			)
 			VzaarIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -98,7 +102,13 @@ func init() {
 					)
 					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
 					ϒvideo_data = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("http://view.vzaar.com/v2/%s/video"), ϒvideo_id), ϒvideo_id)
-					ϒtitle = λ.GetItem(ϒvideo_data, λ.NewStr("videoTitle"))
+					ϒtitle = func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("videoTitle")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return ϒvideo_id
+						}
+					}()
 					ϒformats = λ.NewList()
 					ϒsource_url = λ.Cal(ϒurl_or_none, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("sourceUrl")))
 					if λ.IsTrue(ϒsource_url) {

@@ -102,7 +102,6 @@ var (
 	ϒjs_to_json                       λ.Object
 	ϒlimit_length                     λ.Object
 	ϒlookup_unit_table                λ.Object
-	ϒlowercase_escape                 λ.Object
 	ϒmerge_dicts                      λ.Object
 	ϒmimetype2ext                     λ.Object
 	ϒmonth_by_name                    λ.Object
@@ -3827,29 +3826,6 @@ func init() {
 				)
 				ϒunicode_escape = λ.Cal(Ωcodecs.ϒgetdecoder, λ.NewStr("unicode_escape"))
 				return λ.Cal(Ωre.ϒsub, λ.NewStr("\\\\U[0-9a-fA-F]{8}"), λ.NewFunction("<lambda>",
-					[]λ.Param{
-						{Name: "m"},
-					},
-					0, false, false,
-					func(λargs []λ.Object) λ.Object {
-						var (
-							ϒm = λargs[0]
-						)
-						return λ.GetItem(λ.Cal(ϒunicode_escape, λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewInt(0))), λ.NewInt(0))
-					}), ϒs)
-			})
-		ϒlowercase_escape = λ.NewFunction("lowercase_escape",
-			[]λ.Param{
-				{Name: "s"},
-			},
-			0, false, false,
-			func(λargs []λ.Object) λ.Object {
-				var (
-					ϒs              = λargs[0]
-					ϒunicode_escape λ.Object
-				)
-				ϒunicode_escape = λ.Cal(Ωcodecs.ϒgetdecoder, λ.NewStr("unicode_escape"))
-				return λ.Cal(Ωre.ϒsub, λ.NewStr("\\\\u[0-9a-fA-F]{4}"), λ.NewFunction("<lambda>",
 					[]λ.Param{
 						{Name: "m"},
 					},

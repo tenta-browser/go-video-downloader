@@ -9,6 +9,7 @@ Supported sites
  * Allocine: `www.allocine.fr`
  * Aparat: `www.aparat.com`
  * ARDMediathek: `www.ardmediathek.de`
+ * ArteTVPlus7: `www.arte.tv`
  * AsianCrush: `www.asiancrush.com`
  * Audiomack: `www.audiomack.com`
  * AZMedien: `www.telezueri.ch`
@@ -85,7 +86,9 @@ Supported sites
  * FranceInter: `www.franceinter.fr`
  * GenerationWhat: `generation-what.francetv.fr`
  * Freesound: `www.freesound.org`
+ * Funk: `www.funk.net`
  * FXNetworks: `www.fxnetworks.com`
+ * GameInformer: `www.gameinformer.com`
  * GameSpot: `www.gamespot.com`
  * Gaskrank: `www.gaskrank.tv`
  * Gazeta: `www.gazeta.ru`
@@ -119,7 +122,6 @@ Supported sites
  * KeezMovies _(adult)_: `www.keezmovies.com`
  * KhanAcademy: `www.khanacademy.org`
  * KickStarter: `www.kickstarter.com`
- * LA7: `www.la7.it`
  * LCI: `www.lci.fr`
  * LibraryOfCongress: `loc.gov`
  * Libsyn: `html5-player.libsyn.com`
@@ -143,7 +145,7 @@ Supported sites
  * Naver: `tv.naver.com`
  * NBA: `www.nba.com`
  * CSNNE: `www.csnne.com`
- * NBCNews: `www.nbcnews.com`
+ * NBCNews: `www.today.com`
  * NBCSports: `www.nbcsports.com`
  * NBCSportsVPlayer: `vplayer.nbcsports.com`
  * NDR: `www.ndr.de`
@@ -166,9 +168,9 @@ Supported sites
  * Ooyala: `player.ooyala.com`
  * Verystream: `verystream.com`
  * OutsideTV: `www.outsidetv.com`
+ * PacktPub: `www.packtpub.com`
  * PandoraTV: `jp.channel.pandora.tv`
  * ParliamentLiveUK: `parliamentlive.tv`
- * Patreon: `www.patreon.com`
  * PBS: `www.pbs.org`
  * PearVideo: `www.pearvideo.com`
  * People: `www.people.com`
@@ -229,11 +231,11 @@ Supported sites
  * TeacherTube: `www.teachertube.com`
  * Teamcoco: `teamcoco.com`
  * TeamTreeHouse: `teamtreehouse.com`
+ * TED: `www.ted.com`
  * Tele13: `www.t13.cl`
  * Tenta: `tenta.com`
  * TFO: `www.tfo.org`
  * ThePlatform: `player.theplatform.com`
- * ThePlatformFeed: `feed.theplatform.com`
  * TheScene: `thescene.com`
  * ThisOldHouse: `www.thisoldhouse.com`
  * TinyPic: `tinypic.com`
@@ -244,7 +246,6 @@ Supported sites
  * MovieFap _(adult)_: `www.moviefap.com`
  * ToonGoggles: `www.toongoggles.com`
  * Toypics _(adult)_: `videos.toypics.net`
- * Trilulilu: `www.trilulilu.ro`
  * Tube8 _(adult)_: `www.tube8.com`
  * Tumblr: `tatianamaslanydaily.tumblr.com`
  * TunePk: `tune.pk`
@@ -256,8 +257,6 @@ Supported sites
  * TwentyMinuten: `www.20min.ch`
  * TwentyThreeVideo: `video.twentythree.net`
  * TwitchClips: `clips.twitch.tv`
- * TwitterCard: `twitter.com`
- * TwitterAmplify: `amp.twimg.com`
  * UDNEmbed: `video.udn.com`
  * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
@@ -281,6 +280,7 @@ Supported sites
  * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
  * Vine: `vine.co`
+ * Viqeo: `cdn.viqeo.tv`
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * VLivePlaylist: `www.vlive.tv`

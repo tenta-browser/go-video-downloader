@@ -591,7 +591,6 @@ func init() {
 		}())
 		ThePlatformFeedIE = λ.Cal(λ.TypeType, λ.NewStr("ThePlatformFeedIE"), λ.NewTuple(ThePlatformBaseIE), func() λ.Dict {
 			var (
-				ThePlatformFeedIE__TESTS             λ.Object
 				ThePlatformFeedIE__URL_TEMPLATE      λ.Object
 				ThePlatformFeedIE__VALID_URL         λ.Object
 				ThePlatformFeedIE__extract_feed_info λ.Object
@@ -599,31 +598,6 @@ func init() {
 			)
 			ThePlatformFeedIE__URL_TEMPLATE = λ.NewStr("%s//feed.theplatform.com/f/%s/%s?form=json&%s")
 			ThePlatformFeedIE__VALID_URL = λ.NewStr("https?://feed\\.theplatform\\.com/f/(?P<provider_id>[^/]+)/(?P<feed_id>[^?/]+)\\?(?:[^&]+&)*(?P<filter>by(?:Gui|I)d=(?P<id>[^&]+))")
-			ThePlatformFeedIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://feed.theplatform.com/f/7wvmTC/msnbc_video-p-test?form=json&pretty=true&range=-40&byGuid=n_hardball_5biden_140207"),
-					λ.NewStr("md5"): λ.NewStr("6e32495b5073ab414471b615c5ded394"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("n_hardball_5biden_140207"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("The Biden factor: will Joe run in 2016?"),
-						λ.NewStr("description"): λ.NewStr("Could Vice President Joe Biden be preparing a 2016 campaign? Mark Halperin and Sam Stein weigh in."),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("upload_date"): λ.NewStr("20140208"),
-						λ.NewStr("timestamp"):   λ.NewInt(1391824260),
-						λ.NewStr("duration"):    λ.NewFloat(467.0),
-						λ.NewStr("categories"): λ.NewList(
-							λ.NewStr("MSNBC/Issues/Democrats"),
-							λ.NewStr("MSNBC/Issues/Elections/Election 2016"),
-						),
-						λ.NewStr("uploader"): λ.NewStr("NBCU-NEWS"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://feed.theplatform.com/f/2E2eJC/nnd_NBCNews?byGuid=nn_netcast_180306.Copy.01"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			ThePlatformFeedIE__extract_feed_info = λ.NewFunction("_extract_feed_info",
 				[]λ.Param{
 					{Name: "self"},
@@ -838,7 +812,6 @@ func init() {
 					return λ.Cal(λ.GetAttr(ϒself, "_extract_feed_info", nil), ϒprovider_id, ϒfeed_id, ϒfilter_query, ϒvideo_id)
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):             ThePlatformFeedIE__TESTS,
 				λ.NewStr("_URL_TEMPLATE"):      ThePlatformFeedIE__URL_TEMPLATE,
 				λ.NewStr("_VALID_URL"):         ThePlatformFeedIE__VALID_URL,
 				λ.NewStr("_extract_feed_info"): ThePlatformFeedIE__extract_feed_info,
