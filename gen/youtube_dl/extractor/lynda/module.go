@@ -169,6 +169,10 @@ func init() {
 					λ.NewStr("url"):           λ.NewStr("https://www.lynda.com/de/Graphic-Design-tutorials/Willkommen-Grundlagen-guten-Gestaltung/393570/393572-4.html"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://www.lynda.com/ASP-NET-tutorials/What-you-should-know/5034180/2811512-4.html"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
 			)
 			LyndaIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{

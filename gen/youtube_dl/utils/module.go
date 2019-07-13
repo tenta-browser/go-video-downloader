@@ -66,6 +66,7 @@ var (
 	YoutubeDLError                    λ.Object
 	ϒ_htmlentity_transform            λ.Object
 	ϒbase_url                         λ.Object
+	ϒbool_or_none                     λ.Object
 	ϒbug_reports_message              λ.Object
 	ϒclean_html                       λ.Object
 	ϒcompat_HTMLParseError            λ.Object
@@ -3685,6 +3686,25 @@ func init() {
 					return τmp1
 				}
 				return λ.None
+			})
+		ϒbool_or_none = λ.NewFunction("bool_or_none",
+			[]λ.Param{
+				{Name: "v"},
+				{Name: "default", Def: λ.None},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒdefault = λargs[1]
+					ϒv       = λargs[0]
+				)
+				return func() λ.Object {
+					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒv, λ.BoolType)) {
+						return ϒv
+					} else {
+						return ϒdefault
+					}
+				}()
 			})
 		ϒstrip_or_none = λ.NewFunction("strip_or_none",
 			[]λ.Param{

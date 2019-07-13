@@ -53,7 +53,7 @@ func init() {
 				AbcNewsVideoIE__real_extract λ.Object
 			)
 			AbcNewsVideoIE_IE_NAME = λ.NewStr("abcnews:video")
-			AbcNewsVideoIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        abcnews\\.go\\.com/\n                        (?:\n                            [^/]+/video/(?P<display_id>[0-9a-z-]+)-|\n                            video/embed\\?.*?\\bid=\n                        )\n                        (?P<id>\\d+)\n                    ")
+			AbcNewsVideoIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            abcnews\\.go\\.com/\n                            (?:\n                                [^/]+/video/(?P<display_id>[0-9a-z-]+)-|\n                                video/embed\\?.*?\\bid=\n                            )|\n                            fivethirtyeight\\.abcnews\\.go\\.com/video/embed/\\d+/\n                        )\n                        (?P<id>\\d+)\n                    ")
 			AbcNewsVideoIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://abcnews.go.com/ThisWeek/video/week-exclusive-irans-foreign-minister-zarif-20411932"),

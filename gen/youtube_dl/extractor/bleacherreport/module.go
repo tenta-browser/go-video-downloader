@@ -130,7 +130,10 @@ func init() {
 					ϒvideo = λ.Cal(λ.GetAttr(ϒarticle_data, "get", nil), λ.NewStr("video"))
 					if λ.IsTrue(ϒvideo) {
 						ϒvideo_type = λ.GetItem(ϒvideo, λ.NewStr("type"))
-						if λ.IsTrue(λ.Eq(ϒvideo_type, λ.NewStr("cms.bleacherreport.com"))) {
+						if λ.IsTrue(λ.NewBool(λ.Contains(λ.NewTuple(
+							λ.NewStr("cms.bleacherreport.com"),
+							λ.NewStr("vid.bleacherreport.com"),
+						), ϒvideo_type))) {
 							λ.SetItem(ϒinfo, λ.NewStr("url"), λ.Mod(λ.NewStr("http://bleacherreport.com/video_embed?id=%s"), λ.GetItem(ϒvideo, λ.NewStr("id"))))
 						} else {
 							if λ.IsTrue(λ.Eq(ϒvideo_type, λ.NewStr("ooyala.com"))) {
@@ -167,9 +170,9 @@ func init() {
 				BleacherReportCMSIE__VALID_URL    λ.Object
 				BleacherReportCMSIE__real_extract λ.Object
 			)
-			BleacherReportCMSIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bleacherreport\\.com/video_embed\\?id=(?P<id>[0-9a-f-]{36})")
+			BleacherReportCMSIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bleacherreport\\.com/video_embed\\?id=(?P<id>[0-9a-f-]{36}|\\d{5})")
 			BleacherReportCMSIE__TESTS = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://bleacherreport.com/video_embed?id=8fd44c2f-3dc5-4821-9118-2c825a98c0e1"),
+				λ.NewStr("url"): λ.NewStr("http://bleacherreport.com/video_embed?id=8fd44c2f-3dc5-4821-9118-2c825a98c0e1&library=video-cms"),
 				λ.NewStr("md5"): λ.NewStr("2e4b0a997f9228ffa31fada5c53d1ed1"),
 				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("id"):          λ.NewStr("8fd44c2f-3dc5-4821-9118-2c825a98c0e1"),
@@ -192,7 +195,7 @@ func init() {
 						ϒvideo_id λ.Object
 					)
 					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒinfo = λ.Cal(λ.GetAttr(ϒself, "_extract_feed_info", nil), λ.Mod(λ.NewStr("http://cms.bleacherreport.com/media/items/%s/akamai.json"), ϒvideo_id))
+					ϒinfo = λ.Cal(λ.GetAttr(ϒself, "_extract_feed_info", nil), λ.Mod(λ.NewStr("http://vid.bleacherreport.com/videos/%s.akamai"), ϒvideo_id))
 					λ.SetItem(ϒinfo, λ.NewStr("id"), ϒvideo_id)
 					return ϒinfo
 				})

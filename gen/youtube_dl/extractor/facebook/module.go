@@ -765,7 +765,10 @@ func init() {
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					}))
-					ϒthumbnail = λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage)
+					ϒthumbnail = λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewList(
+						λ.NewStr("og:image"),
+						λ.NewStr("twitter:image"),
+					), ϒwebpage)
 					ϒview_count = λ.Cal(ϒparse_count, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
 						λ.NewStr("\\bviewCount\\s*:\\s*[\"\\']([\\d,.]+)"),
 						ϒwebpage,

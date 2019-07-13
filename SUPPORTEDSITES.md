@@ -56,6 +56,7 @@ Supported sites
  * CuriosityStream: `app.curiositystream.com`
  * DailyMail: `www.dailymail.co.uk`
  * Dailymotion: `www.dailymotion.com`
+ * DBTV: `www.dagbladet.no`
  * Digg: `digg.com`
  * Dotsub: `dotsub.com`
  * DrTuber _(adult)_: `www.drtuber.com`
@@ -71,6 +72,7 @@ Supported sites
  * Engadget: `www.engadget.com`
  * Eporner _(adult)_: `www.eporner.com`
  * Escapist: `www.escapistmagazine.com`
+ * FiveThirtyEight: `fivethirtyeight.com`
  * ExtremeTube _(adult)_: `www.extremetube.com`
  * Facebook: `www.facebook.com`
  * FacebookPluginsVideo: `www.facebook.com`
@@ -78,6 +80,7 @@ Supported sites
  * Fczenit: `fc-zenit.ru`
  * Filmweb: `www.filmweb.no`
  * FiveMin: `pshared.5min.com`
+ * FiveTV: `5-tv.ru`
  * Flickr: `www.flickr.com`
  * Formula1: `www.formula1.com`
  * FoxNews: `video.foxnews.com`
@@ -182,6 +185,7 @@ Supported sites
  * Playvid _(adult)_: `www.playvid.com`
  * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
+ * Porn91 _(adult)_: `91porn.com`
  * PornCom _(adult)_: `www.porn.com`
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
@@ -246,6 +250,7 @@ Supported sites
  * MovieFap _(adult)_: `www.moviefap.com`
  * ToonGoggles: `www.toongoggles.com`
  * Toypics _(adult)_: `videos.toypics.net`
+ * Trilulilu: `www.trilulilu.ro`
  * Tube8 _(adult)_: `www.tube8.com`
  * Tumblr: `tatianamaslanydaily.tumblr.com`
  * TunePk: `tune.pk`
@@ -257,6 +262,8 @@ Supported sites
  * TwentyMinuten: `www.20min.ch`
  * TwentyThreeVideo: `video.twentythree.net`
  * TwitchClips: `clips.twitch.tv`
+ * TwitterCard: `twitter.com`
+ * TwitterAmplify: `amp.twimg.com`
  * UDNEmbed: `video.udn.com`
  * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
@@ -280,7 +287,6 @@ Supported sites
  * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
  * Vine: `vine.co`
- * Viqeo: `cdn.viqeo.tv`
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * VLivePlaylist: `www.vlive.tv`
