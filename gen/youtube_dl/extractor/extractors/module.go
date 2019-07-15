@@ -257,7 +257,6 @@ import (
 	Ωtnaflix "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tnaflix"
 	Ωtoongoggles "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/toongoggles"
 	Ωtoypics "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/toypics"
-	Ωtrilulilu "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/trilulilu"
 	Ωtube8 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tube8"
 	Ωtumblr "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tumblr"
 	Ωtunepk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tunepk"
@@ -273,7 +272,6 @@ import (
 	Ωunistra "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/unistra"
 	Ωusatoday "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/usatoday"
 	Ωustudio "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ustudio"
-	Ωvarzesh3 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/varzesh3"
 	Ωvbox7 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vbox7"
 	Ωveehd "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/veehd"
 	Ωveoh "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/veoh"
@@ -482,7 +480,6 @@ var (
 	NovaIE                     λ.Object
 	NownessIE                  λ.Object
 	OdnoklassnikiIE            λ.Object
-	OnetChannelIE              λ.Object
 	OnetIE                     λ.Object
 	OoyalaIE                   λ.Object
 	OutsideTVIE                λ.Object
@@ -568,7 +565,6 @@ var (
 	TinyPicIE                  λ.Object
 	ToonGogglesIE              λ.Object
 	ToypicsIE                  λ.Object
-	TriluliluIE                λ.Object
 	Tube8IE                    λ.Object
 	TumblrIE                   λ.Object
 	TunePkIE                   λ.Object
@@ -585,7 +581,6 @@ var (
 	VKIE                       λ.Object
 	VLiveIE                    λ.Object
 	VLivePlaylistIE            λ.Object
-	Varzesh3IE                 λ.Object
 	Vbox7IE                    λ.Object
 	VeeHDIE                    λ.Object
 	VeohIE                     λ.Object
@@ -797,7 +792,6 @@ func init() {
 		NTVRuIE = Ωntvru.NTVRuIE
 		OdnoklassnikiIE = Ωodnoklassniki.OdnoklassnikiIE
 		OnetIE = Ωonet.OnetIE
-		OnetChannelIE = Ωonet.OnetChannelIE
 		OoyalaIE = Ωooyala.OoyalaIE
 		VerystreamIE = Ωopenload.VerystreamIE
 		OutsideTVIE = Ωoutsidetv.OutsideTVIE
@@ -880,7 +874,6 @@ func init() {
 		MovieFapIE = Ωtnaflix.MovieFapIE
 		ToonGogglesIE = Ωtoongoggles.ToonGogglesIE
 		ToypicsIE = Ωtoypics.ToypicsIE
-		TriluliluIE = Ωtrilulilu.TriluliluIE
 		Tube8IE = Ωtube8.Tube8IE
 		TumblrIE = Ωtumblr.TumblrIE
 		TunePkIE = Ωtunepk.TunePkIE
@@ -900,7 +893,6 @@ func init() {
 		UnistraIE = Ωunistra.UnistraIE
 		USATodayIE = Ωusatoday.USATodayIE
 		UstudioEmbedIE = Ωustudio.UstudioEmbedIE
-		Varzesh3IE = Ωvarzesh3.Varzesh3IE
 		Vbox7IE = Ωvbox7.Vbox7IE
 		VeeHDIE = Ωveehd.VeeHDIE
 		VeohIE = Ωveoh.VeohIE
@@ -1110,7 +1102,6 @@ func init() {
 			NTVRuIE,
 			OdnoklassnikiIE,
 			OnetIE,
-			OnetChannelIE,
 			OoyalaIE,
 			VerystreamIE,
 			OutsideTVIE,
@@ -1193,7 +1184,6 @@ func init() {
 			MovieFapIE,
 			ToonGogglesIE,
 			ToypicsIE,
-			TriluliluIE,
 			Tube8IE,
 			TumblrIE,
 			TunePkIE,
@@ -1213,7 +1203,6 @@ func init() {
 			UnistraIE,
 			USATodayIE,
 			UstudioEmbedIE,
-			Varzesh3IE,
 			Vbox7IE,
 			VeeHDIE,
 			VeohIE,

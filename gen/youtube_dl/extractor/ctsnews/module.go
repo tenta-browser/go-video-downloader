@@ -26,6 +26,7 @@ package ctsnews
 
 import (
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
+	Ωyoutube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youtube"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
@@ -33,6 +34,7 @@ import (
 var (
 	CtsNewsIE          λ.Object
 	InfoExtractor      λ.Object
+	YoutubeIE          λ.Object
 	ϒunified_timestamp λ.Object
 )
 
@@ -40,6 +42,7 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
+		YoutubeIE = Ωyoutube.YoutubeIE
 		CtsNewsIE = λ.Cal(λ.TypeType, λ.NewStr("CtsNewsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CtsNewsIE__TESTS        λ.Object
@@ -54,8 +57,8 @@ func init() {
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):          λ.NewStr("201501291578109"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("以色列.真主黨交火 3人死亡"),
-						λ.NewStr("description"): λ.NewStr("以色列和黎巴嫩真主黨，爆發五年最嚴重衝突，雙方砲轟交火，兩名以軍死亡，還有一名西班牙籍的聯合國維和人..."),
+						λ.NewStr("title"):       λ.NewStr("以色列.真主黨交火 3人死亡 - 華視新聞網"),
+						λ.NewStr("description"): λ.NewStr("以色列和黎巴嫩真主黨，爆發五年最嚴重衝突，雙方砲轟交火，兩名以軍死亡，還有一名西班牙籍的聯合國維和人員也不幸罹難。大陸陝西、河南、安徽、江蘇和湖北五個省份出現大暴雪，嚴重影響陸空交通，不過九華山卻出現..."),
 						λ.NewStr("timestamp"):   λ.NewInt(1422528540),
 						λ.NewStr("upload_date"): λ.NewStr("20150129"),
 					}),
@@ -66,7 +69,7 @@ func init() {
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):          λ.NewStr("201309031304098"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("韓國31歲童顏男 貌如十多歲小孩"),
+						λ.NewStr("title"):       λ.NewStr("韓國31歲童顏男 貌如十多歲小孩 - 華視新聞網"),
 						λ.NewStr("description"): λ.NewStr("越有年紀的人，越希望看起來年輕一點，而南韓卻有一位31歲的男子，看起來像是11、12歲的小孩，身..."),
 						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
 						λ.NewStr("timestamp"):   λ.NewInt(1378205880),
@@ -126,7 +129,7 @@ func init() {
 						ϒvideo_url = λ.GetItem(ϒmp4_feed, λ.NewStr("source_url"))
 					} else {
 						λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.NewStr("Not CTSPlayer video, trying Youtube..."))
-						ϒyoutube_url = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("src=\"(//www\\.youtube\\.com/embed/[^\"]+)\""), ϒpage, λ.NewStr("youtube url"))
+						ϒyoutube_url = λ.Cal(λ.GetAttr(YoutubeIE, "_extract_url", nil), ϒpage)
 						return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(ϒyoutube_url), λ.KWArgs{
 							{Name: "ie", Value: λ.NewStr("Youtube")},
 						})

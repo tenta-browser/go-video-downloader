@@ -128,6 +128,10 @@ func init() {
 					λ.NewStr("url"):           λ.NewStr("https://www.kaltura.com:443/index.php/extwidget/preview/partner_id/1770401/uiconf_id/37307382/entry_id/0_58u8kme7/embed/iframe?&flashvars[streamerType]=auto"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("kaltura:513551:1_66x4rg7o"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
 			)
 			KalturaIE__extract_url = λ.NewFunction("_extract_url",
 				[]λ.Param{
@@ -345,6 +349,7 @@ func init() {
 						ϒentry_id       λ.Object
 						ϒf              λ.Object
 						ϒflavor_assets  λ.Object
+						ϒformat_id      λ.Object
 						ϒformats        λ.Object
 						ϒinfo           λ.Object
 						ϒks             λ.Object
@@ -553,6 +558,16 @@ func init() {
 							ϒdata_url,
 							λ.GetItem(ϒf, λ.NewStr("id")),
 						)))
+						ϒformat_id = λ.Mod(λ.NewStr("%(fileExt)s-%(bitrate)s"), ϒf)
+						if λ.IsTrue(func() λ.Object {
+							if λv := λ.NewBool(λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("isOriginal")) == λ.True); !λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒself, "_is_valid_url", nil), ϒvideo_url, ϒentry_id, ϒformat_id)))
+							}
+						}()) {
+							continue
+						}
 						ϒvcodec = func() λ.Object {
 							if λ.IsTrue(func() λ.Object {
 								if λv := λ.NewBool(!λ.Contains(ϒf, λ.NewStr("videoCodecId"))); !λ.IsTrue(λv) {
@@ -567,7 +582,7 @@ func init() {
 							}
 						}()
 						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("format_id"): λ.Mod(λ.NewStr("%(fileExt)s-%(bitrate)s"), ϒf),
+							λ.NewStr("format_id"): ϒformat_id,
 							λ.NewStr("ext"):       λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("fileExt")),
 							λ.NewStr("tbr"):       λ.Cal(ϒint_or_none, λ.GetItem(ϒf, λ.NewStr("bitrate"))),
 							λ.NewStr("fps"):       λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("frameRate"))),

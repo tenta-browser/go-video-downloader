@@ -9,7 +9,7 @@
     "ABCIViewIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'playlist\\'')); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "AttributeError: 'placeholder hmac' object has no attribute 'new'"
         ],
         "success_urls": []
     },
@@ -1197,7 +1197,7 @@
     "CloudyIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://www.cloudy.ec/embed.php?autoplay=1&id=af511e2527aac&playerPage=1: dial tcp 91.92.120.254:443: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://www.cloudy.ec/embed.php?autoplay=1&id=af511e2527aac&playerPage=1: dial tcp 91.92.120.253:443: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -1314,12 +1314,11 @@
     },
     "CtsNewsIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to extract youtube url; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
-        ],
+        "error_msgs": [],
         "success_urls": [
             "http://news.cts.com.tw/cts/international/201309/201309031304098.html",
-            "http://news.cts.com.tw/cts/international/201501/201501291578109.html"
+            "http://news.cts.com.tw/cts/international/201501/201501291578109.html",
+            "http://news.cts.com.tw/cts/money/201501/201501291578003.html"
         ]
     },
     "CultureUnpluggedIE": {
@@ -1678,7 +1677,7 @@
     "EHowIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.ehow.com/video_12245069_hardwood-flooring-basics.html: read tcp 74.206.165.158:40022->23.10.124.174:80: read: connection timed out> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.ehow.com/video_12245069_hardwood-flooring-basics.html: read tcp 74.206.165.158:38306->23.62.172.236:80: read: connection timed out> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -2243,7 +2242,7 @@
     "GameOnePlaylistIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 504: Gateway Time-out (caused by <HTTPError 504: 'Gateway Time-out'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 503: Service Unavailable (caused by <HTTPError 503: 'Service Unavailable'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -3504,7 +3503,7 @@
     "MediasiteCatalogIE": {
         "adult": false,
         "error_msgs": [
-            "RegexpError: Function not allowed: <built-in method format of str object at 0x7fd787b63ae8>"
+            "RegexpError: Function not allowed: <built-in method format of str object at 0x7f8e34a88ae8>"
         ],
         "success_urls": []
     },
@@ -4502,10 +4501,10 @@
     },
     "OnetChannelIE": {
         "adult": false,
-        "error_msgs": [],
-        "success_urls": [
-            "http://onet.tv/k/openerfestival"
-        ]
+        "error_msgs": [
+            "DownloadError: ERROR: Unable to extract video info; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+        ],
+        "success_urls": []
     },
     "OnetIE": {
         "adult": false,
@@ -4586,12 +4585,10 @@
             "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": [
-            "http://www.pbs.org/food/features/a-chefs-life-season-3-episode-5-prickly-business/",
             "http://www.pbs.org/video/2365245528/",
             "http://www.pbs.org/video/2365641075/",
             "http://www.pbs.org/wgbh/pages/frontline/losing-iraq/",
             "http://www.pbs.org/wgbh/pages/frontline/the-atomic-artists",
-            "http://www.pbs.org/wgbh/roadshow/watch/episode/2105-indianapolis-hour-2/",
             "https://player.pbs.org/partnerplayer/tOz9tM5ljOXQqIIWke53UA==/",
             "https://www.pbs.org/wgbh/masterpiece/episodes/victoria-s2-e1/"
         ]
@@ -4721,7 +4718,7 @@
     "PicartoVodIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: requested format not available"
+            "DownloadError: ERROR: No video formats found; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -6747,9 +6744,7 @@
         "error_msgs": [
             "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 500: Internal Server Error (caused by <HTTPError 500: 'Internal Server Error'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
-        "success_urls": [
-            "http://www.trilulilu.ro/big-buck-bunny-1"
-        ]
+        "success_urls": []
     },
     "TruNewsIE": {
         "adult": false,
@@ -7251,10 +7246,10 @@
     },
     "Varzesh3IE": {
         "adult": false,
-        "error_msgs": [],
-        "success_urls": [
-            "http://video.varzesh3.com/video/112785/%D8%AF%D9%84%D9%87-%D8%B9%D9%84%DB%8C%D8%9B-%D8%B3%D8%AA%D8%A7%D8%B1%D9%87-%D9%86%D9%88%D8%B8%D9%87%D9%88%D8%B1-%D9%84%DB%8C%DA%AF-%D8%A8%D8%B1%D8%AA%D8%B1-%D8%AC%D8%B2%DB%8C%D8%B1%D9%87"
-        ]
+        "error_msgs": [
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 500: Internal Server Error (caused by <HTTPError 500: 'Internal Server Error'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+        ],
+        "success_urls": []
     },
     "Vbox7IE": {
         "adult": false,
@@ -7882,7 +7877,7 @@
     "WeiboIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'confidence\\'')); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "TypeError: 'placeholder random/random' object is not callable"
         ],
         "success_urls": []
     },
@@ -8258,7 +8253,8 @@
             "https://www.youtube.com/watch?v=k0jLE7tTwjY",
             "https://www.youtube.com/watch?v=lsguqyKfVQg",
             "https://www.youtube.com/watch?v=nfWlot6h_JM",
-            "https://youtube.com/watch?v=HtVdAasjOgU"
+            "https://youtube.com/watch?v=HtVdAasjOgU",
+            "lqQg6PlCWgI"
         ]
     },
     "YoutubeLiveIE": {

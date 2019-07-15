@@ -167,7 +167,6 @@ Supported sites
  * NTVRu: `www.ntv.ru`
  * Odnoklassniki: `ok.ru`
  * Onet: `onet.tv`
- * OnetChannel: `onet.tv`
  * Ooyala: `player.ooyala.com`
  * Verystream: `verystream.com`
  * OutsideTV: `www.outsidetv.com`
@@ -250,7 +249,6 @@ Supported sites
  * MovieFap _(adult)_: `www.moviefap.com`
  * ToonGoggles: `www.toongoggles.com`
  * Toypics _(adult)_: `videos.toypics.net`
- * Trilulilu: `www.trilulilu.ro`
  * Tube8 _(adult)_: `www.tube8.com`
  * Tumblr: `tatianamaslanydaily.tumblr.com`
  * TunePk: `tune.pk`
@@ -269,7 +267,6 @@ Supported sites
  * Unistra: `utv.unistra.fr`
  * USAToday: `www.usatoday.com`
  * UstudioEmbed: `app.ustudio.com`
- * Varzesh3: `video.varzesh3.com`
  * Vbox7: `vbox7.com`
  * VeeHD: `veehd.com`
  * Veoh: `www.veoh.com`
