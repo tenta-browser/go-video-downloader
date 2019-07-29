@@ -28,6 +28,7 @@ import (
 	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωparse "github.com/tenta-browser/go-video-downloader/gen/urllib/parse"
+	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωbrightcove "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/brightcove"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωnbc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nbc"
@@ -45,19 +46,24 @@ var (
 	YahooGyaOIE         λ.Object
 	YahooGyaOPlayerIE   λ.Object
 	YahooIE             λ.Object
+	YahooJapanNewsIE    λ.Object
 	ϒclean_html         λ.Object
+	ϒcompat_str         λ.Object
 	ϒdetermine_ext      λ.Object
 	ϒextract_attributes λ.Object
 	ϒint_or_none        λ.Object
 	ϒmimetype2ext       λ.Object
 	ϒsmuggle_url        λ.Object
+	ϒtry_get            λ.Object
 	ϒunescapeHTML       λ.Object
+	ϒurl_or_none        λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		SearchInfoExtractor = Ωcommon.SearchInfoExtractor
+		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒclean_html = Ωutils.ϒclean_html
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
@@ -65,7 +71,9 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
+		ϒtry_get = Ωutils.ϒtry_get
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
+		ϒurl_or_none = Ωutils.ϒurl_or_none
 		BrightcoveLegacyIE = Ωbrightcove.BrightcoveLegacyIE
 		BrightcoveNewIE = Ωbrightcove.BrightcoveNewIE
 		NBCSportsVPlayerIE = Ωnbc.NBCSportsVPlayerIE
@@ -748,6 +756,15 @@ func init() {
 			YahooGyaOIE__VALID_URL = λ.NewStr("https?://(?:gyao\\.yahoo\\.co\\.jp/(?:p|title/[^/]+)|streaming\\.yahoo\\.co\\.jp/p/y)/(?P<id>\\d+/v\\d+|[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): YahooGyaOIE__VALID_URL,
+			})
+		}())
+		YahooJapanNewsIE = λ.Cal(λ.TypeType, λ.NewStr("YahooJapanNewsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+			var (
+				YahooJapanNewsIE__VALID_URL λ.Object
+			)
+			YahooJapanNewsIE__VALID_URL = λ.NewStr("https?://(?P<host>(?:news|headlines)\\.yahoo\\.co\\.jp)[^\\d]*(?P<id>\\d[\\d-]*\\d)?")
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_VALID_URL"): YahooJapanNewsIE__VALID_URL,
 			})
 		}())
 	})

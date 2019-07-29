@@ -337,11 +337,101 @@ func init() {
 		}())
 		OnetChannelIE = λ.Cal(λ.TypeType, λ.NewStr("OnetChannelIE"), λ.NewTuple(OnetBaseIE), func() λ.Dict {
 			var (
-				OnetChannelIE__VALID_URL λ.Object
+				OnetChannelIE_IE_NAME       λ.Object
+				OnetChannelIE__TEST         λ.Object
+				OnetChannelIE__VALID_URL    λ.Object
+				OnetChannelIE__real_extract λ.Object
 			)
 			OnetChannelIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?onet\\.tv/[a-z]/(?P<id>[a-z]+)(?:[?#]|$)")
+			OnetChannelIE_IE_NAME = λ.NewStr("onet.tv:channel")
+			OnetChannelIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("url"): λ.NewStr("http://onet.tv/k/openerfestival"),
+				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("id"):          λ.NewStr("openerfestival"),
+					λ.NewStr("title"):       λ.NewStr("Open'er Festival Live"),
+					λ.NewStr("description"): λ.NewStr("Dziękujemy, że oglądaliście transmisje. Zobaczcie nasze relacje i wywiady z artystami."),
+				}),
+				λ.NewStr("playlist_mincount"): λ.NewInt(46),
+			})
+			OnetChannelIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒchannel_description λ.Object
+						ϒchannel_id          λ.Object
+						ϒchannel_title       λ.Object
+						ϒcurrent_clip_info   λ.Object
+						ϒentries             λ.Object
+						ϒmatches             λ.Object
+						ϒself                = λargs[0]
+						ϒurl                 = λargs[1]
+						ϒvideo_id            λ.Object
+						ϒvideo_name          λ.Object
+						ϒwebpage             λ.Object
+					)
+					ϒchannel_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒchannel_id)
+					ϒcurrent_clip_info = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
+						λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("var\\s+currentClip\\s*=\\s*({[^}]+})"), ϒwebpage, λ.NewStr("video info")),
+						ϒchannel_id,
+					), λ.KWArgs{
+						{Name: "transform_source", Value: λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "s"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒs = λargs[0]
+								)
+								return λ.Cal(ϒjs_to_json, λ.Cal(Ωre.ϒsub, λ.NewStr("\\'\\s*\\+\\s*\\'"), λ.NewStr(""), ϒs))
+							})},
+					})
+					ϒvideo_id = λ.Cal(ϒremove_start, λ.GetItem(ϒcurrent_clip_info, λ.NewStr("ckmId")), λ.NewStr("mvp:"))
+					ϒvideo_name = λ.Cal(ϒurl_basename, λ.GetItem(ϒcurrent_clip_info, λ.NewStr("url")))
+					if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("noplaylist"))) {
+						λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("Downloading just video %s because of --no-playlist"), ϒvideo_name))
+						return λ.Cal(λ.GetAttr(ϒself, "_extract_from_id", nil), ϒvideo_id, ϒwebpage)
+					}
+					λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("Downloading channel %s - add --no-playlist to just download video %s"), λ.NewTuple(
+						ϒchannel_id,
+						ϒvideo_name,
+					)))
+					ϒmatches = λ.Cal(Ωre.ϒfindall, λ.NewStr("<a[^>]+href=[\\'\"](https?://(?:www\\.)?onet\\.tv/[a-z]/[a-z]+/[0-9a-z-]+/[0-9a-z]+)"), ϒwebpage)
+					ϒentries = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+						nil,
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
+								var (
+									ϒvideo_link λ.Object
+									τmp0        λ.Object
+									τmp1        λ.Object
+								)
+								τmp0 = λ.Cal(λ.BuiltinIter, ϒmatches)
+								for {
+									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+										break
+									}
+									ϒvideo_link = τmp1
+									λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒvideo_link, λ.Cal(λ.GetAttr(OnetIE, "ie_key", nil))))
+								}
+								return λ.None
+							})
+						})))
+					ϒchannel_title = λ.Cal(ϒstrip_or_none, λ.Cal(ϒget_element_by_class, λ.NewStr("o_channelName"), ϒwebpage))
+					ϒchannel_description = λ.Cal(ϒstrip_or_none, λ.Cal(ϒget_element_by_class, λ.NewStr("o_channelDesc"), ϒwebpage))
+					return λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), ϒentries, ϒchannel_id, ϒchannel_title, ϒchannel_description)
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): OnetChannelIE__VALID_URL,
+				λ.NewStr("IE_NAME"):       OnetChannelIE_IE_NAME,
+				λ.NewStr("_TEST"):         OnetChannelIE__TEST,
+				λ.NewStr("_VALID_URL"):    OnetChannelIE__VALID_URL,
+				λ.NewStr("_real_extract"): OnetChannelIE__real_extract,
 			})
 		}())
 		OnetPlIE = λ.Cal(λ.TypeType, λ.NewStr("OnetPlIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
