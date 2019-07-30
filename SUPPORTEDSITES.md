@@ -183,7 +183,6 @@ Supported sites
  * Playvid _(adult)_: `www.playvid.com`
  * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
- * Porn91 _(adult)_: `91porn.com`
  * PornCom _(adult)_: `www.porn.com`
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`

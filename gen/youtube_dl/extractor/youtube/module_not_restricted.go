@@ -2655,7 +2655,6 @@ func init() {
 						ϒextract_unavailable_message λ.Object
 						ϒextract_view_count          λ.Object
 						ϒf                           λ.Object
-						ϒfd_mobj                     λ.Object
 						ϒfeed                        λ.Object
 						ϒfeed_data                   λ.Object
 						ϒfeed_ids                    λ.Object
@@ -3138,15 +3137,16 @@ func init() {
 							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 						}
 					}()
-					if λ.IsTrue(λ.NewBool(λ.Contains(ϒvideo_info, λ.NewStr("title")))) {
-						ϒvideo_title = λ.GetItem(λ.GetItem(ϒvideo_info, λ.NewStr("title")), λ.NewInt(0))
-					} else {
-						if λ.IsTrue(λ.NewBool(λ.Contains(ϒplayer_response, λ.NewStr("title")))) {
-							ϒvideo_title = λ.GetItem(ϒvideo_details, λ.NewStr("title"))
+					ϒvideo_title = func() λ.Object {
+						if λv := λ.GetItem(λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("title"), λ.NewList(λ.None)), λ.NewInt(0)); λ.IsTrue(λv) {
+							return λv
 						} else {
-							λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "report_warning", nil), λ.NewStr("Unable to extract video title"))
-							ϒvideo_title = λ.NewStr("_")
+							return λ.Cal(λ.GetAttr(ϒvideo_details, "get", nil), λ.NewStr("title"))
 						}
+					}()
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_title))) {
+						λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "report_warning", nil), λ.NewStr("Unable to extract video title"))
+						ϒvideo_title = λ.NewStr("_")
 					}
 					τmp0 = λ.Cal(ϒget_element_by_id, λ.NewStr("eow-description"), ϒvideo_webpage)
 					ϒdescription_original = τmp0
@@ -3193,12 +3193,13 @@ func init() {
 						ϒvideo_description = τmp0
 						ϒvideo_description = λ.Cal(ϒclean_html, ϒvideo_description)
 					} else {
-						ϒfd_mobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("<meta name=\"description\" content=\"([^\"]+)\""), ϒvideo_webpage)
-						if λ.IsTrue(ϒfd_mobj) {
-							ϒvideo_description = λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒfd_mobj, "group", nil), λ.NewInt(1)))
-						} else {
-							ϒvideo_description = λ.NewStr("")
-						}
+						ϒvideo_description = func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewStr("description"), ϒvideo_webpage); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Cal(λ.GetAttr(ϒvideo_details, "get", nil), λ.NewStr("shortDescription"))
+							}
+						}()
 					}
 					if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒsmuggled_data, "get", nil), λ.NewStr("force_singlefeed"), λ.False)))) {
 						if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("noplaylist"))))) {

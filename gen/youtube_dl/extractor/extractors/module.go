@@ -194,7 +194,6 @@ import (
 	Ωplayvid "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/playvid"
 	Ωpodomatic "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/podomatic"
 	Ωpokemon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pokemon"
-	Ωporn91 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/porn91"
 	Ωporncom "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/porncom"
 	Ωpornhd "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhd"
 	Ωpornhub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhub"
@@ -497,7 +496,6 @@ var (
 	PlayvidIE                  λ.Object
 	PodomaticIE                λ.Object
 	PokemonIE                  λ.Object
-	Porn91IE                   λ.Object
 	PornComIE                  λ.Object
 	PornHdIE                   λ.Object
 	PornHubIE                  λ.Object
@@ -811,7 +809,6 @@ func init() {
 		PlayvidIE = Ωplayvid.PlayvidIE
 		PodomaticIE = Ωpodomatic.PodomaticIE
 		PokemonIE = Ωpokemon.PokemonIE
-		Porn91IE = Ωporn91.Porn91IE
 		PornComIE = Ωporncom.PornComIE
 		PornHdIE = Ωpornhd.PornHdIE
 		PornHubIE = Ωpornhub.PornHubIE
@@ -1123,7 +1120,6 @@ func init() {
 			PlayvidIE,
 			PodomaticIE,
 			PokemonIE,
-			Porn91IE,
 			PornComIE,
 			PornHdIE,
 			PornHubIE,
