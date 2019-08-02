@@ -2651,6 +2651,7 @@ func init() {
 						ϒepisode_number              λ.Object
 						ϒerror_message               λ.Object
 						ϒextract_meta                λ.Object
+						ϒextract_player_response     λ.Object
 						ϒextract_token               λ.Object
 						ϒextract_unavailable_message λ.Object
 						ϒextract_view_count          λ.Object
@@ -2917,6 +2918,34 @@ func init() {
 								λ.NewStr("token"),
 							))
 						})
+					ϒextract_player_response = λ.NewFunction("extract_player_response",
+						[]λ.Param{
+							{Name: "player_response"},
+							{Name: "video_id"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒpl_response     λ.Object
+								ϒplayer_response = λargs[0]
+								ϒvideo_id        = λargs[1]
+							)
+							ϒpl_response = λ.Cal(ϒstr_or_none, ϒplayer_response)
+							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒpl_response))) {
+								return λ.None
+							}
+							ϒpl_response = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
+								ϒpl_response,
+								ϒvideo_id,
+							), λ.KWArgs{
+								{Name: "fatal", Value: λ.False},
+							})
+							if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒpl_response, λ.DictType)) {
+								λ.Cal(ϒadd_dash_mpd_pr, ϒpl_response)
+								return ϒpl_response
+							}
+							return λ.None
+						})
 					ϒplayer_response = λ.NewDictWithTable(map[λ.Object]λ.Object{})
 					ϒembed_webpage = λ.None
 					if λ.IsTrue(λ.NewBool(λ.Cal(Ωre.ϒsearch, λ.NewStr("player-age-gate-content\">"), ϒvideo_webpage) != λ.None)) {
@@ -2943,7 +2972,10 @@ func init() {
 							{Name: "errnote", Value: λ.NewStr("unable to download video info webpage")},
 						})
 						ϒvideo_info = λ.Cal(ϒcompat_parse_qs, ϒvideo_info_webpage)
+						ϒpl_response = λ.GetItem(λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("player_response"), λ.NewList(λ.None)), λ.NewInt(0))
+						ϒplayer_response = λ.Cal(ϒextract_player_response, ϒpl_response, ϒvideo_id)
 						λ.Cal(ϒadd_dash_mpd, ϒvideo_info)
+						ϒview_count = λ.Cal(ϒextract_view_count, ϒvideo_info)
 					} else {
 						ϒage_gate = λ.False
 						ϒvideo_info = λ.None
@@ -3013,18 +3045,7 @@ func init() {
 							}
 							ϒsts = λ.Cal(λ.GetAttr(ϒytplayer_config, "get", nil), λ.NewStr("sts"))
 							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒplayer_response))) {
-								ϒpl_response = λ.Cal(ϒstr_or_none, λ.Cal(λ.GetAttr(ϒargs, "get", nil), λ.NewStr("player_response")))
-								if λ.IsTrue(ϒpl_response) {
-									ϒpl_response = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
-										ϒpl_response,
-										ϒvideo_id,
-									), λ.KWArgs{
-										{Name: "fatal", Value: λ.False},
-									})
-									if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒpl_response, λ.DictType)) {
-										ϒplayer_response = ϒpl_response
-									}
-								}
+								ϒplayer_response = λ.Cal(ϒextract_player_response, λ.Cal(λ.GetAttr(ϒargs, "get", nil), λ.NewStr("player_response")), ϒvideo_id)
 							}
 						}
 						if λ.IsTrue(func() λ.Object {
@@ -3075,10 +3096,7 @@ func init() {
 								ϒget_video_info = λ.Cal(ϒcompat_parse_qs, ϒvideo_info_webpage)
 								if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒplayer_response))) {
 									ϒpl_response = λ.GetItem(λ.Cal(λ.GetAttr(ϒget_video_info, "get", nil), λ.NewStr("player_response"), λ.NewList(λ.None)), λ.NewInt(0))
-									if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒpl_response, λ.DictType)) {
-										ϒplayer_response = ϒpl_response
-										λ.Cal(ϒadd_dash_mpd_pr, ϒplayer_response)
-									}
+									ϒplayer_response = λ.Cal(ϒextract_player_response, ϒpl_response, ϒvideo_id)
 								}
 								λ.Cal(ϒadd_dash_mpd, ϒget_video_info)
 								if λ.IsTrue(λ.NewBool(ϒview_count == λ.None)) {

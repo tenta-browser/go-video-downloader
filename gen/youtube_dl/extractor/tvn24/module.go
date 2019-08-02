@@ -32,6 +32,7 @@ import (
 
 var (
 	InfoExtractor λ.Object
+	NO_DEFAULT    λ.Object
 	TVN24IE       λ.Object
 	ϒint_or_none  λ.Object
 	ϒunescapeHTML λ.Object
@@ -41,6 +42,7 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
+		NO_DEFAULT = Ωutils.NO_DEFAULT
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		TVN24IE = λ.Cal(λ.TypeType, λ.NewStr("TVN24IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
@@ -57,8 +59,20 @@ func init() {
 						λ.NewStr("id"):          λ.NewStr("1584444"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
 						λ.NewStr("title"):       λ.NewStr("\"Święta mają być wesołe, dlatego, ludziska, wszyscy pod jemiołę\""),
-						λ.NewStr("description"): λ.NewStr("Wyjątkowe orędzie Artura Andrusa, jednego z gości \"Szkła kontaktowego\"."),
+						λ.NewStr("description"): λ.NewStr("Wyjątkowe orędzie Artura Andrusa, jednego z gości Szkła kontaktowego."),
 						λ.NewStr("thumbnail"):   λ.NewStr("re:https?://.*[.]jpeg"),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("https://tvnmeteo.tvn24.pl/magazyny/maja-w-ogrodzie,13/odcinki-online,1,4,1,0/pnacza-ptaki-i-iglaki-odc-691-hgtv-odc-29,1771763.html"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):        λ.NewStr("1771763"),
+						λ.NewStr("ext"):       λ.NewStr("mp4"),
+						λ.NewStr("title"):     λ.NewStr("Pnącza, ptaki i iglaki (odc. 691 /HGTV odc. 29)"),
+						λ.NewStr("thumbnail"): λ.NewStr("re:https?://.*"),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
 					}),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -87,6 +101,7 @@ func init() {
 				func(λargs []λ.Object) λ.Object {
 					var (
 						ϒdescription  λ.Object
+						ϒdisplay_id   λ.Object
 						ϒextract_json λ.Object
 						ϒformat_id    λ.Object
 						ϒformats      λ.Object
@@ -102,21 +117,31 @@ func init() {
 						τmp1          λ.Object
 						τmp2          λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
+					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
+					ϒtitle = func() λ.Object {
+						if λv := λ.Call(λ.GetAttr(ϒself, "_og_search_title", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						}); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<h\\d+[^>]+class=[\"\\']magazineItemHeader[^>]+>(.+?)</h"), ϒwebpage, λ.NewStr("title"))
+						}
+					}()
 					ϒextract_json = λ.NewFunction("extract_json",
 						[]λ.Param{
 							{Name: "attr"},
 							{Name: "name"},
+							{Name: "default", Def: NO_DEFAULT},
 							{Name: "fatal", Def: λ.True},
 						},
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
 							var (
-								ϒattr  = λargs[0]
-								ϒfatal = λargs[2]
-								ϒname  = λargs[1]
+								ϒattr    = λargs[0]
+								ϒdefault = λargs[2]
+								ϒfatal   = λargs[3]
+								ϒname    = λargs[1]
 							)
 							return λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 								func() λ.Object {
@@ -126,6 +151,7 @@ func init() {
 										ϒname,
 									), λ.KWArgs{
 										{Name: "group", Value: λ.NewStr("json")},
+										{Name: "default", Value: ϒdefault},
 										{Name: "fatal", Value: ϒfatal},
 									}); λ.IsTrue(λv) {
 										return λv
@@ -133,7 +159,7 @@ func init() {
 										return λ.NewStr("{}")
 									}
 								}(),
-								ϒvideo_id,
+								ϒdisplay_id,
 							), λ.KWArgs{
 								{Name: "transform_source", Value: ϒunescapeHTML},
 								{Name: "fatal", Value: ϒfatal},
@@ -156,7 +182,9 @@ func init() {
 						}))
 					}
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					ϒdescription = λ.Cal(λ.GetAttr(ϒself, "_og_search_description", nil), ϒwebpage)
+					ϒdescription = λ.Call(λ.GetAttr(ϒself, "_og_search_description", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
+						{Name: "default", Value: λ.None},
+					})
 					ϒthumbnail = func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 							{Name: "default", Value: λ.None},
@@ -172,18 +200,34 @@ func init() {
 							})
 						}
 					}()
+					ϒvideo_id = λ.None
 					ϒshare_params = λ.Call(ϒextract_json, λ.NewArgs(
 						λ.NewStr("data-share-params"),
 						λ.NewStr("share params"),
 					), λ.KWArgs{
-						{Name: "fatal", Value: λ.False},
+						{Name: "default", Value: λ.None},
 					})
 					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒshare_params, λ.DictType)) {
+						ϒvideo_id = λ.Cal(λ.GetAttr(ϒshare_params, "get", nil), λ.NewStr("id"))
+					}
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_id))) {
 						ϒvideo_id = func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒshare_params, "get", nil), λ.NewStr("id")); λ.IsTrue(λv) {
+							if λv := λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+								λ.NewStr("data-vid-id=[\"\\'](\\d+)"),
+								ϒwebpage,
+								λ.NewStr("video id"),
+							), λ.KWArgs{
+								{Name: "default", Value: λ.None},
+							}); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return ϒvideo_id
+								return λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+									λ.NewStr(",(\\d+)\\.html"),
+									ϒurl,
+									λ.NewStr("video id"),
+								), λ.KWArgs{
+									{Name: "default", Value: ϒdisplay_id},
+								})
 							}
 						}()
 					}

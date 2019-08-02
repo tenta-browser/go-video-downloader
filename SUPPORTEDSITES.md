@@ -17,7 +17,6 @@ Supported sites
  * BandcampWeekly: `bandcamp.com`
  * Beeg _(adult)_: `beeg.com`
  * Beatport: `beatport.com`
- * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BitChute: `www.bitchute.com`
  * BIQLE: `biqle.ru`
@@ -34,7 +33,7 @@ Supported sites
  * CBCPlayer: `www.cbc.ca`
  * CCC: `media.ccc.de`
  * CCMA: `www.ccma.cat`
- * CCTV: `sports.cntv.cn`
+ * CCTV: `tv.cctv.com`
  * CharlieRose: `charlierose.com`
  * Chilloutzone: `www.chilloutzone.net`
  * Chirbit: `chirb.it`
@@ -59,7 +58,6 @@ Supported sites
  * Digg: `digg.com`
  * Dotsub: `dotsub.com`
  * DrTuber _(adult)_: `www.drtuber.com`
- * DVTV: `video.aktualne.cz`
  * DiscoveryNetworksDe: `www.tlc.de`
  * Disney: `video.disney.com`
  * DigitallySpeaking: `evt.dispeak.com`
@@ -183,6 +181,7 @@ Supported sites
  * Playvid _(adult)_: `www.playvid.com`
  * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
+ * Porn91 _(adult)_: `91porn.com`
  * PornCom _(adult)_: `www.porn.com`
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
@@ -255,7 +254,6 @@ Supported sites
  * TVC: `www.tvc.ru`
  * TVCArticle: `www.tvc.ru`
  * TVN24: `www.tvn24.pl`
- * TVP: `vod.tvp.pl`
  * TwentyMinuten: `www.20min.ch`
  * TwentyThreeVideo: `video.twentythree.net`
  * TwitchClips: `clips.twitch.tv`
@@ -264,7 +262,6 @@ Supported sites
  * UDNEmbed: `video.udn.com`
  * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
- * USAToday: `www.usatoday.com`
  * UstudioEmbed: `app.ustudio.com`
  * Varzesh3: `video.varzesh3.com`
  * Vbox7: `vbox7.com`
