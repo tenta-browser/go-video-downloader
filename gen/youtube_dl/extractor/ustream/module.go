@@ -25,7 +25,6 @@
 package ustream
 
 import (
-	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
@@ -55,30 +54,11 @@ func init() {
 		ϒstr_or_none = Ωutils.ϒstr_or_none
 		UstreamIE = λ.Cal(λ.TypeType, λ.NewStr("UstreamIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				UstreamIE__VALID_URL   λ.Object
-				UstreamIE__extract_url λ.Object
+				UstreamIE__VALID_URL λ.Object
 			)
 			UstreamIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?ustream\\.tv/(?P<type>recorded|embed|embed/recorded)/(?P<id>\\d+)")
-			UstreamIE__extract_url = λ.NewFunction("_extract_url",
-				[]λ.Param{
-					{Name: "webpage"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒmobj    λ.Object
-						ϒwebpage = λargs[0]
-					)
-					ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("<iframe[^>]+?src=([\"\\'])(?P<url>http://www\\.ustream\\.tv/embed/.+?)\\1"), ϒwebpage)
-					if λ.IsTrue(λ.NewBool(ϒmobj != λ.None)) {
-						return λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("url"))
-					}
-					return λ.None
-				})
-			UstreamIE__extract_url = λ.Cal(λ.StaticMethodType, UstreamIE__extract_url)
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):   UstreamIE__VALID_URL,
-				λ.NewStr("_extract_url"): UstreamIE__extract_url,
+				λ.NewStr("_VALID_URL"): UstreamIE__VALID_URL,
 			})
 		}())
 		UstreamChannelIE = λ.Cal(λ.TypeType, λ.NewStr("UstreamChannelIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

@@ -54,7 +54,6 @@ func init() {
 				SenateISVPIE__VALID_URL         λ.Object
 				SenateISVPIE__get_info_for_comm λ.Object
 				SenateISVPIE__real_extract      λ.Object
-				SenateISVPIE__search_iframe_url λ.Object
 			)
 			SenateISVPIE__COMM_MAP = λ.NewList(
 				λ.NewList(
@@ -251,23 +250,6 @@ func init() {
 					λ.NewStr("only_matching"): λ.True,
 				}),
 			)
-			SenateISVPIE__search_iframe_url = λ.NewFunction("_search_iframe_url",
-				[]λ.Param{
-					{Name: "webpage"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒmobj    λ.Object
-						ϒwebpage = λargs[0]
-					)
-					ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("<iframe[^>]+src=['\\\"](?P<url>https?://www\\.senate\\.gov/isvp/?\\?[^'\\\"]+)['\\\"]"), ϒwebpage)
-					if λ.IsTrue(ϒmobj) {
-						return λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("url"))
-					}
-					return λ.None
-				})
-			SenateISVPIE__search_iframe_url = λ.Cal(λ.StaticMethodType, SenateISVPIE__search_iframe_url)
 			SenateISVPIE__get_info_for_comm = λ.NewFunction("_get_info_for_comm",
 				[]λ.Param{
 					{Name: "self"},
@@ -441,7 +423,6 @@ func init() {
 				λ.NewStr("_VALID_URL"):         SenateISVPIE__VALID_URL,
 				λ.NewStr("_get_info_for_comm"): SenateISVPIE__get_info_for_comm,
 				λ.NewStr("_real_extract"):      SenateISVPIE__real_extract,
-				λ.NewStr("_search_iframe_url"): SenateISVPIE__search_iframe_url,
 			})
 		}())
 	})

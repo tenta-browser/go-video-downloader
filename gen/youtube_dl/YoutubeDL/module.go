@@ -2388,48 +2388,52 @@ func init() {
 						}()) {
 							λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.NewStr("[info] Video annotations are already present"))
 						} else {
-							τmp1, τmp0 = func() (λexit λ.Object, λret λ.Object) {
-								defer λ.CatchMulti(
-									nil,
-									&λ.Catcher{λ.NewTuple(
-										λ.KeyErrorType,
-										λ.TypeErrorType,
-									), func(λex λ.BaseException) {
-										λ.Cal(λ.GetAttr(ϒself, "report_warning", nil), λ.NewStr("There are no annotations to write."))
-									}},
-									&λ.Catcher{λ.NewTuple(
-										λ.OSErrorType,
-										λ.OSErrorType,
-									), func(λex λ.BaseException) {
-										λ.Cal(λ.GetAttr(ϒself, "report_error", nil), λ.Add(λ.NewStr("Cannot write annotations file: "), ϒannofn))
-										λexit, λret = λ.BlockExitReturn, λ.None
-										return
-									}},
-								)
-								λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Add(λ.NewStr("[info] Writing video annotations to: "), ϒannofn))
-								τmp3 = λ.Call(λ.None, λ.NewArgs(
-									λ.Cal(λ.None, ϒannofn),
-									λ.NewStr("w"),
-								), λ.KWArgs{
-									{Name: "encoding", Value: λ.NewStr("utf-8")},
-								})
-								τmp2 = λ.GetAttr(τmp3, "__exit__", nil)
-								ϒannofile = λ.Cal(λ.GetAttr(τmp3, "__enter__", nil))
-								τmp5, τmp4 = func() (λexit λ.Object, λret λ.Object) {
-									defer λ.Catch(λ.BaseExceptionType, func(λex λ.BaseException) {
-										if ret := λ.Cal(τmp2, λex.Type(), λex, λ.NewStr("..todo..traceback..")); λ.IsTrue(ret) {
-											panic(λ.Raise(λex))
-										}
-									}, func() {
-										λ.Cal(τmp2, λ.None, λ.None, λ.None)
+							if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒinfo_dict, "get", nil), λ.NewStr("annotations"))))) {
+								λ.Cal(λ.GetAttr(ϒself, "report_warning", nil), λ.NewStr("There are no annotations to write."))
+							} else {
+								τmp1, τmp0 = func() (λexit λ.Object, λret λ.Object) {
+									defer λ.CatchMulti(
+										nil,
+										&λ.Catcher{λ.NewTuple(
+											λ.KeyErrorType,
+											λ.TypeErrorType,
+										), func(λex λ.BaseException) {
+											λ.Cal(λ.GetAttr(ϒself, "report_warning", nil), λ.NewStr("There are no annotations to write."))
+										}},
+										&λ.Catcher{λ.NewTuple(
+											λ.OSErrorType,
+											λ.OSErrorType,
+										), func(λex λ.BaseException) {
+											λ.Cal(λ.GetAttr(ϒself, "report_error", nil), λ.Add(λ.NewStr("Cannot write annotations file: "), ϒannofn))
+											λexit, λret = λ.BlockExitReturn, λ.None
+											return
+										}},
+									)
+									λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Add(λ.NewStr("[info] Writing video annotations to: "), ϒannofn))
+									τmp3 = λ.Call(λ.None, λ.NewArgs(
+										λ.Cal(λ.None, ϒannofn),
+										λ.NewStr("w"),
+									), λ.KWArgs{
+										{Name: "encoding", Value: λ.NewStr("utf-8")},
 									})
-									λ.Cal(λ.GetAttr(ϒannofile, "write", nil), λ.GetItem(ϒinfo_dict, λ.NewStr("annotations")))
+									τmp2 = λ.GetAttr(τmp3, "__exit__", nil)
+									ϒannofile = λ.Cal(λ.GetAttr(τmp3, "__enter__", nil))
+									τmp5, τmp4 = func() (λexit λ.Object, λret λ.Object) {
+										defer λ.Catch(λ.BaseExceptionType, func(λex λ.BaseException) {
+											if ret := λ.Cal(τmp2, λex.Type(), λex, λ.NewStr("..todo..traceback..")); λ.IsTrue(ret) {
+												panic(λ.Raise(λex))
+											}
+										}, func() {
+											λ.Cal(τmp2, λ.None, λ.None, λ.None)
+										})
+										λ.Cal(λ.GetAttr(ϒannofile, "write", nil), λ.GetItem(ϒinfo_dict, λ.NewStr("annotations")))
+										return λ.BlockExitNormally, nil
+									}()
 									return λ.BlockExitNormally, nil
 								}()
-								return λ.BlockExitNormally, nil
-							}()
-							if τmp1 == λ.BlockExitReturn {
-								return τmp0
+								if τmp1 == λ.BlockExitReturn {
+									return τmp0
+								}
 							}
 						}
 					}

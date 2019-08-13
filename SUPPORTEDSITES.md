@@ -3,7 +3,6 @@ Supported sites
 
  * AbcNewsVideo: `abcnews.go.com`
  * ACast: `www.acast.com`
- * AdobeTV: `tv.adobe.com`
  * AdobeTVVideo: `video.tv.adobe.com`
  * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
@@ -17,6 +16,7 @@ Supported sites
  * BandcampWeekly: `bandcamp.com`
  * Beeg _(adult)_: `beeg.com`
  * Beatport: `beatport.com`
+ * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BitChute: `www.bitchute.com`
  * BIQLE: `biqle.ru`
@@ -26,7 +26,6 @@ Supported sites
  * BR: `www.br.de`
  * BravoTV: `www.bravotv.com`
  * BrightcoveLegacy: `c.brightcove.com`
- * BYUtv: `www.byutv.org`
  * Camdemy: `www.camdemy.com`
  * Canalplus: `www.piwiplus.fr`
  * Canalc2: `www.canalc2.tv`
@@ -49,7 +48,6 @@ Supported sites
  * Coub: `coub.com`
  * CondeNast: `video.wired.com`
  * Cracked: `www.cracked.com`
- * CSpan: `www.c-span.org`
  * CtsNews: `news.cts.com.tw`
  * CuriosityStream: `app.curiositystream.com`
  * DailyMail: `www.dailymail.co.uk`
@@ -58,6 +56,7 @@ Supported sites
  * Digg: `digg.com`
  * Dotsub: `dotsub.com`
  * DrTuber _(adult)_: `www.drtuber.com`
+ * DVTV: `video.aktualne.cz`
  * DiscoveryNetworksDe: `www.tlc.de`
  * Disney: `video.disney.com`
  * DigitallySpeaking: `evt.dispeak.com`
@@ -137,7 +136,6 @@ Supported sites
  * MicrosoftVirtualAcademy: `mva.microsoft.com`
  * MLB: `www.mlb.com`
  * Mofosex _(adult)_: `www.mofosex.com`
- * Mojvideo: `www.mojvideo.com`
  * MySpace: `myspace.com`
  * Myvi: `myvi.ru`
  * NationalGeographicVideo: `video.nationalgeographic.com`
@@ -181,7 +179,6 @@ Supported sites
  * Playvid _(adult)_: `www.playvid.com`
  * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
- * Porn91 _(adult)_: `91porn.com`
  * PornCom _(adult)_: `www.porn.com`
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
@@ -221,7 +218,6 @@ Supported sites
  * SRGSSRPlay: `www.rts.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
  * Streamable: `streamable.com`
- * Streamango: `streamango.com`
  * SunPorno _(adult)_: `www.sunporno.com`
  * SverigesRadioEpisode: `sverigesradio.se`
  * SverigesRadioPublication: `sverigesradio.se`
@@ -254,6 +250,7 @@ Supported sites
  * TVC: `www.tvc.ru`
  * TVCArticle: `www.tvc.ru`
  * TVN24: `www.tvn24.pl`
+ * TVP: `vod.tvp.pl`
  * TwentyMinuten: `www.20min.ch`
  * TwentyThreeVideo: `video.twentythree.net`
  * TwitchClips: `clips.twitch.tv`

@@ -79,6 +79,7 @@ var (
 	ϒcompat_urllib_parse_urlparse     λ.Object
 	ϒdict_get                         λ.Object
 	ϒerror_to_compat_str              λ.Object
+	ϒextract_attributes               λ.Object
 	ϒfloat_or_none                    λ.Object
 	ϒget_element_by_attribute         λ.Object
 	ϒget_element_by_id                λ.Object
@@ -120,6 +121,7 @@ func init() {
 		ϒclean_html = Ωutils.ϒclean_html
 		ϒdict_get = Ωutils.ϒdict_get
 		ϒerror_to_compat_str = Ωutils.ϒerror_to_compat_str
+		ϒextract_attributes = Ωutils.ϒextract_attributes
 		ExtractorError = Ωutils.ExtractorError
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒget_element_by_attribute = Ωutils.ϒget_element_by_attribute
@@ -2669,6 +2671,7 @@ func init() {
 						ϒget_video_info              λ.Object
 						ϒh                           λ.Object
 						ϒheight                      λ.Object
+						ϒinvideo_url                 λ.Object
 						ϒis_live                     λ.Object
 						ϒitag                        λ.Object
 						ϒjsplayer_url_json           λ.Object
@@ -2751,6 +2754,8 @@ func init() {
 						ϒw                           λ.Object
 						ϒwidth                       λ.Object
 						ϒwidth_height                λ.Object
+						ϒxsrf_field_name             λ.Object
+						ϒxsrf_token                  λ.Object
 						ϒytplayer_config             λ.Object
 						τmp0                         λ.Object
 						τmp1                         λ.Object
@@ -3121,7 +3126,10 @@ func init() {
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
 							return λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-								λ.NewStr("(?s)<h1[^>]+id=\"unavailable-message\"[^>]*>(.+?)</h1>"),
+								λ.NewTuple(
+									λ.NewStr("(?s)<div[^>]+id=[\"\\']unavailable-submessage[\"\\'][^>]+>(.+?)</div"),
+									λ.NewStr("(?s)<h1[^>]+id=[\"\\']unavailable-message[\"\\'][^>]*>(.+?)</h1>"),
+								),
 								ϒvideo_webpage,
 								λ.NewStr("unavailable message"),
 							), λ.KWArgs{
@@ -3756,9 +3764,32 @@ func init() {
 									λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒa_format)
 								}
 							} else {
-								ϒerror_message = λ.Cal(ϒclean_html, λ.GetItem(λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("reason"), λ.NewList(λ.None)), λ.NewInt(0)))
+								ϒerror_message = λ.Cal(ϒextract_unavailable_message)
 								if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒerror_message))) {
-									ϒerror_message = λ.Cal(ϒextract_unavailable_message)
+									ϒerror_message = λ.Cal(ϒclean_html, λ.Cal(ϒtry_get, ϒplayer_response, λ.NewFunction("<lambda>",
+										[]λ.Param{
+											{Name: "x"},
+										},
+										0, false, false,
+										func(λargs []λ.Object) λ.Object {
+											var (
+												ϒx = λargs[0]
+											)
+											return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("playabilityStatus")), λ.NewStr("reason"))
+										}), ϒcompat_str))
+								}
+								if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒerror_message))) {
+									ϒerror_message = λ.Cal(ϒclean_html, λ.Cal(ϒtry_get, ϒvideo_info, λ.NewFunction("<lambda>",
+										[]λ.Param{
+											{Name: "x"},
+										},
+										0, false, false,
+										func(λargs []λ.Object) λ.Object {
+											var (
+												ϒx = λargs[0]
+											)
+											return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("reason")), λ.NewInt(0))
+										}), ϒcompat_str))
 								}
 								if λ.IsTrue(ϒerror_message) {
 									panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(ϒerror_message), λ.KWArgs{
@@ -4073,7 +4104,52 @@ func init() {
 					}
 					ϒvideo_annotations = λ.None
 					if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("writeannotations"), λ.False)) {
-						ϒvideo_annotations = λ.Cal(λ.GetAttr(ϒself, "_extract_annotations", nil), ϒvideo_id)
+						ϒxsrf_token = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+							λ.NewStr("([\\'\"])XSRF_TOKEN\\1\\s*:\\s*([\\'\"])(?P<xsrf_token>[A-Za-z0-9+/=]+)\\2"),
+							ϒvideo_webpage,
+							λ.NewStr("xsrf token"),
+						), λ.KWArgs{
+							{Name: "group", Value: λ.NewStr("xsrf_token")},
+							{Name: "fatal", Value: λ.False},
+						})
+						ϒinvideo_url = λ.Cal(ϒtry_get, ϒplayer_response, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.NewStr("annotations")), λ.NewInt(0)), λ.NewStr("playerAnnotationsUrlsRenderer")), λ.NewStr("invideoUrl"))
+							}), ϒcompat_str)
+						if λ.IsTrue(func() λ.Object {
+							if λv := ϒxsrf_token; !λ.IsTrue(λv) {
+								return λv
+							} else {
+								return ϒinvideo_url
+							}
+						}()) {
+							ϒxsrf_field_name = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+								λ.NewStr("([\\'\"])XSRF_FIELD_NAME\\1\\s*:\\s*([\\'\"])(?P<xsrf_field_name>\\w+)\\2"),
+								ϒvideo_webpage,
+								λ.NewStr("xsrf field name"),
+							), λ.KWArgs{
+								{Name: "group", Value: λ.NewStr("xsrf_field_name")},
+								{Name: "default", Value: λ.NewStr("session_token")},
+							})
+							ϒvideo_annotations = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
+								λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), ϒinvideo_url),
+								ϒvideo_id,
+							), λ.KWArgs{
+								{Name: "note", Value: λ.NewStr("Downloading annotations")},
+								{Name: "errnote", Value: λ.NewStr("Unable to download video annotations")},
+								{Name: "fatal", Value: λ.False},
+								{Name: "data", Value: λ.Cal(ϒurlencode_postdata, λ.NewDictWithTable(map[λ.Object]λ.Object{
+									ϒxsrf_field_name: ϒxsrf_token,
+								}))},
+							})
+						}
 					}
 					ϒchapters = λ.Cal(λ.GetAttr(ϒself, "_extract_chapters", nil), ϒdescription_original, ϒvideo_duration)
 					if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("youtube_include_dash_manifest"), λ.True)) {
@@ -4342,6 +4418,7 @@ func init() {
 				YoutubePlaylistIE__TEMPLATE_URL              λ.Object
 				YoutubePlaylistIE__TESTS                     λ.Object
 				YoutubePlaylistIE__VALID_URL                 λ.Object
+				YoutubePlaylistIE__VIDEO_RE_TPL              λ.Object
 				YoutubePlaylistIE__check_download_just_video λ.Object
 				YoutubePlaylistIE__extract_playlist          λ.Object
 				YoutubePlaylistIE__real_extract              λ.Object
@@ -4351,6 +4428,7 @@ func init() {
 				λ.NewStr("playlist_id"): λ.GetAttr(YoutubeBaseInfoExtractor, "_PLAYLIST_ID_RE", nil),
 			}))
 			YoutubePlaylistIE__TEMPLATE_URL = λ.NewStr("https://www.youtube.com/playlist?list=%s")
+			YoutubePlaylistIE__VIDEO_RE_TPL = λ.NewStr("href=\"\\s*/watch\\?v=%s(?:&amp;(?:[^\"]*?index=(?P<index>\\d+))?(?:[^>]+>(?P<title>[^<]+))?)?")
 			YoutubePlaylistIE_IE_NAME = λ.NewStr("youtube:playlist")
 			YoutubePlaylistIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -4774,6 +4852,7 @@ func init() {
 				λ.NewStr("_TEMPLATE_URL"):              YoutubePlaylistIE__TEMPLATE_URL,
 				λ.NewStr("_TESTS"):                     YoutubePlaylistIE__TESTS,
 				λ.NewStr("_VALID_URL"):                 YoutubePlaylistIE__VALID_URL,
+				λ.NewStr("_VIDEO_RE_TPL"):              YoutubePlaylistIE__VIDEO_RE_TPL,
 				λ.NewStr("_check_download_just_video"): YoutubePlaylistIE__check_download_just_video,
 				λ.NewStr("_extract_playlist"):          YoutubePlaylistIE__extract_playlist,
 				λ.NewStr("_real_extract"):              YoutubePlaylistIE__real_extract,

@@ -51,6 +51,7 @@ var (
 	VimeoUserIE            λ.Object
 	VimeoWatchLaterIE      λ.Object
 	ϒcompat_HTTPError      λ.Object
+	ϒcompat_kwargs         λ.Object
 	ϒcompat_str            λ.Object
 	ϒdetermine_ext         λ.Object
 	ϒint_or_none           λ.Object
@@ -71,6 +72,7 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒcompat_kwargs = Ωcompat.ϒcompat_kwargs
 		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
@@ -95,6 +97,7 @@ func init() {
 				VimeoBaseInfoExtractor__LOGIN_REQUIRED          λ.Object
 				VimeoBaseInfoExtractor__NETRC_MACHINE           λ.Object
 				VimeoBaseInfoExtractor__extract_original_format λ.Object
+				VimeoBaseInfoExtractor__extract_vimeo_config    λ.Object
 				VimeoBaseInfoExtractor__login                   λ.Object
 				VimeoBaseInfoExtractor__parse_config            λ.Object
 				VimeoBaseInfoExtractor__verify_video_password   λ.Object
@@ -220,6 +223,35 @@ func init() {
 					λ.Cal(λ.GetAttr(ϒpassword_request, "add_header", nil), λ.NewStr("Referer"), ϒurl)
 					λ.Cal(λ.GetAttr(ϒself, "_set_vimeo_cookie", nil), λ.NewStr("vuid"), ϒvuid)
 					return λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒpassword_request, ϒvideo_id, λ.NewStr("Verifying the password"), λ.NewStr("Wrong password"))
+				})
+			VimeoBaseInfoExtractor__extract_vimeo_config = λ.NewFunction("_extract_vimeo_config",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "webpage"},
+					{Name: "video_id"},
+				},
+				0, true, true,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒargs         = λargs[3]
+						ϒkwargs       = λargs[4]
+						ϒself         = λargs[0]
+						ϒvideo_id     = λargs[2]
+						ϒvimeo_config λ.Object
+						ϒwebpage      = λargs[1]
+					)
+					ϒvimeo_config = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(λ.Unpack(
+						λ.NewStr("vimeo\\.config\\s*=\\s*(?:({.+?})|_extend\\([^,]+,\\s+({.+?})\\));"),
+						ϒwebpage,
+						λ.NewStr("vimeo config"),
+						λ.AsStarred(ϒargs),
+					)...), λ.KWArgs{
+						{Name: "", Value: λ.Cal(ϒcompat_kwargs, ϒkwargs)},
+					})
+					if λ.IsTrue(ϒvimeo_config) {
+						return λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), ϒvimeo_config, ϒvideo_id)
+					}
+					return λ.None
 				})
 			VimeoBaseInfoExtractor__vimeo_sort_formats = λ.NewFunction("_vimeo_sort_formats",
 				[]λ.Param{
@@ -639,6 +671,7 @@ func init() {
 				λ.NewStr("_LOGIN_REQUIRED"):          VimeoBaseInfoExtractor__LOGIN_REQUIRED,
 				λ.NewStr("_NETRC_MACHINE"):           VimeoBaseInfoExtractor__NETRC_MACHINE,
 				λ.NewStr("_extract_original_format"): VimeoBaseInfoExtractor__extract_original_format,
+				λ.NewStr("_extract_vimeo_config"):    VimeoBaseInfoExtractor__extract_vimeo_config,
 				λ.NewStr("_login"):                   VimeoBaseInfoExtractor__login,
 				λ.NewStr("_parse_config"):            VimeoBaseInfoExtractor__parse_config,
 				λ.NewStr("_verify_video_password"):   VimeoBaseInfoExtractor__verify_video_password,
@@ -658,7 +691,7 @@ func init() {
 				VimeoIE__verify_player_video_password λ.Object
 			)
 			λ.NewStr("Information extractor for vimeo.com.")
-			VimeoIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            (?:\n                                www|\n                                (?P<player>player)\n                            )\n                            \\.\n                        )?\n                        vimeo(?P<pro>pro)?\\.com/\n                        (?!(?:channels|album)/[^/?#]+/?(?:$|[?#])|[^/]+/review/|ondemand/)\n                        (?:.*?/)?\n                        (?:\n                            (?:\n                                play_redirect_hls|\n                                moogaloop\\.swf)\\?clip_id=\n                            )?\n                        (?:videos?/)?\n                        (?P<id>[0-9]+)\n                        (?:/[\\da-f]+)?\n                        /?(?:[?&].*)?(?:[#].*)?$\n                    ")
+			VimeoIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            (?:\n                                www|\n                                (?P<player>player)\n                            )\n                            \\.\n                        )?\n                        vimeo(?P<pro>pro)?\\.com/\n                        (?!(?:channels|album|showcase)/[^/?#]+/?(?:$|[?#])|[^/]+/review/|ondemand/)\n                        (?:.*?/)?\n                        (?:\n                            (?:\n                                play_redirect_hls|\n                                moogaloop\\.swf)\\?clip_id=\n                            )?\n                        (?:videos?/)?\n                        (?P<id>[0-9]+)\n                        (?:/[\\da-f]+)?\n                        /?(?:[?&].*)?(?:[#].*)?$\n                    ")
 			VimeoIE_IE_NAME = λ.NewStr("vimeo")
 			VimeoIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -1159,15 +1192,14 @@ func init() {
 						return τmp1
 					}
 					λ.Cal(λ.GetAttr(ϒself, "report_extraction", nil), ϒvideo_id)
-					ϒvimeo_config = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("vimeo\\.config\\s*=\\s*(?:({.+?})|_extend\\([^,]+,\\s+({.+?})\\));"),
+					ϒvimeo_config = λ.Call(λ.GetAttr(ϒself, "_extract_vimeo_config", nil), λ.NewArgs(
 						ϒwebpage,
-						λ.NewStr("vimeo config"),
+						ϒvideo_id,
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
 					if λ.IsTrue(ϒvimeo_config) {
-						ϒseed_status = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), ϒvimeo_config, ϒvideo_id), "get", nil), λ.NewStr("seed_status"), λ.NewDictWithTable(map[λ.Object]λ.Object{}))
+						ϒseed_status = λ.Cal(λ.GetAttr(ϒvimeo_config, "get", nil), λ.NewStr("seed_status"), λ.NewDictWithTable(map[λ.Object]λ.Object{}))
 						if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒseed_status, "get", nil), λ.NewStr("state")), λ.NewStr("failed"))) {
 							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("%s said: %s"), λ.NewTuple(
 								λ.GetAttr(ϒself, "IE_NAME", nil),
@@ -1557,7 +1589,7 @@ func init() {
 			var (
 				VimeoAlbumIE__VALID_URL λ.Object
 			)
-			VimeoAlbumIE__VALID_URL = λ.NewStr("https://vimeo\\.com/album/(?P<id>\\d+)(?:$|[?#]|/(?!video))")
+			VimeoAlbumIE__VALID_URL = λ.NewStr("https://vimeo\\.com/(?:album|showcase)/(?P<id>\\d+)(?:$|[?#]|/(?!video))")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): VimeoAlbumIE__VALID_URL,
 			})
