@@ -82,6 +82,7 @@ func init() {
 				func(λargs []λ.Object) λ.Object {
 					var (
 						ϒauth         λ.Object
+						ϒcookie       λ.Object
 						ϒcredentials  λ.Object
 						ϒis_logged    λ.Object
 						ϒnext_uri     λ.Object
@@ -93,6 +94,7 @@ func init() {
 						ϒurlh         λ.Object
 						ϒusername     λ.Object
 						τmp0          λ.Object
+						τmp1          λ.Object
 					)
 					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_get_login_info", nil))
 					ϒusername = λ.GetItem(τmp0, λ.NewInt(0))
@@ -154,7 +156,18 @@ func init() {
 							{Name: "expected", Value: λ.True},
 						})))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_apply_first_set_cookie_header", nil), ϒurlh, λ.NewStr("groot_sessionid"))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+						λ.NewStr("groot_sessionid"),
+						λ.NewStr("orm-jwt"),
+						λ.NewStr("orm-rt"),
+					))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒcookie = τmp1
+						λ.Cal(λ.GetAttr(ϒself, "_apply_first_set_cookie_header", nil), ϒurlh, ϒcookie)
+					}
 					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_download_webpage_handle", nil), func() λ.Object {
 						if λv := λ.Cal(λ.GetAttr(ϒauth, "get", nil), λ.NewStr("redirect_uri")); λ.IsTrue(λv) {
 							return λv

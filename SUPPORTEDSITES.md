@@ -16,7 +16,6 @@ Supported sites
  * BandcampWeekly: `bandcamp.com`
  * Beeg _(adult)_: `beeg.com`
  * Beatport: `beatport.com`
- * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BitChute: `www.bitchute.com`
  * BIQLE: `biqle.ru`
@@ -32,7 +31,7 @@ Supported sites
  * CBCPlayer: `www.cbc.ca`
  * CCC: `media.ccc.de`
  * CCMA: `www.ccma.cat`
- * CCTV: `tv.cctv.com`
+ * CCTV: `sports.cntv.cn`
  * CharlieRose: `charlierose.com`
  * Chilloutzone: `www.chilloutzone.net`
  * Chirbit: `chirb.it`
@@ -53,7 +52,6 @@ Supported sites
  * DailyMail: `www.dailymail.co.uk`
  * Dailymotion: `www.dailymotion.com`
  * DBTV: `www.dagbladet.no`
- * Digg: `digg.com`
  * Dotsub: `dotsub.com`
  * DrTuber _(adult)_: `www.drtuber.com`
  * DVTV: `video.aktualne.cz`
@@ -104,8 +102,6 @@ Supported sites
  * Hypem: `hypem.com`
  * IGN: `www.ign.com`
  * Imdb: `www.imdb.com`
- * Imgur: `i.imgur.com`
- * ImgurGallery: `imgur.com`
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
  * Instagram: `instagram.com`
@@ -120,7 +116,6 @@ Supported sites
  * KeezMovies _(adult)_: `www.keezmovies.com`
  * KhanAcademy: `www.khanacademy.org`
  * KickStarter: `www.kickstarter.com`
- * LCI: `www.lci.fr`
  * LibraryOfCongress: `loc.gov`
  * Libsyn: `html5-player.libsyn.com`
  * LimelightMedia: `link.videoplatform.limelight.com`
@@ -136,8 +131,8 @@ Supported sites
  * MicrosoftVirtualAcademy: `mva.microsoft.com`
  * MLB: `www.mlb.com`
  * Mofosex _(adult)_: `www.mofosex.com`
+ * Mojvideo: `www.mojvideo.com`
  * MySpace: `myspace.com`
- * Myvi: `myvi.ru`
  * NationalGeographicVideo: `video.nationalgeographic.com`
  * Naver: `tv.naver.com`
  * NBA: `www.nba.com`
@@ -171,7 +166,6 @@ Supported sites
  * PBS: `www.pbs.org`
  * PearVideo: `www.pearvideo.com`
  * People: `www.people.com`
- * PerformGroup: `player.performgroup.com`
  * Photobucket: `media.photobucket.com`
  * Piksel: `player.piksel.com`
  * PlayFM: `www.play.fm`
@@ -179,6 +173,7 @@ Supported sites
  * Playvid _(adult)_: `www.playvid.com`
  * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
+ * Porn91 _(adult)_: `91porn.com`
  * PornCom _(adult)_: `www.porn.com`
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
@@ -204,7 +199,6 @@ Supported sites
  * ScreencastOMatic: `screencast-o-matic.com`
  * SenateISVP: `www.senate.gov`
  * SeznamZpravy: `www.seznamzpravy.cz`
- * Vivo: `vivo.sx`
  * Sina: `video.sina.com.cn`
  * SkyNews: `news.sky.com`
  * Slideshare: `www.slideshare.net`
@@ -259,6 +253,7 @@ Supported sites
  * UDNEmbed: `video.udn.com`
  * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
+ * USAToday: `www.usatoday.com`
  * UstudioEmbed: `app.ustudio.com`
  * Varzesh3: `video.varzesh3.com`
  * Vbox7: `vbox7.com`
@@ -267,7 +262,6 @@ Supported sites
  * Vesti: `www.vesti.ru`
  * Vevo _(adult)_: `www.vevo.com`
  * VGTV: `www.vgtv.no`
- * ViceArticle: `www.vice.com`
  * Viddler: `www.viddler.com`
  * Videa: `videa.hu`
  * VideoPress: `videopress.com`
@@ -282,10 +276,10 @@ Supported sites
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * VLivePlaylist: `www.vlive.tv`
+ * VoxMedia: `www.recode.net`
  * VuClip: `m.vuclip.com`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
- * Wat: `www.wat.tv`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`
@@ -297,7 +291,6 @@ Supported sites
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
  * Yahoo: `news.yahoo.com`
- * YinYueTai: `v.yinyuetai.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`
  * YourUpload: `yourupload.com`

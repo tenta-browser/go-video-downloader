@@ -60,15 +60,14 @@ func init() {
 			PikselIE__VALID_URL = λ.NewStr("https?://player\\.piksel\\.com/v/(?P<id>[a-z0-9]+)")
 			PikselIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://player.piksel.com/v/nv60p12f"),
-					λ.NewStr("md5"): λ.NewStr("d9c17bbe9c3386344f9cfd32fad8d235"),
+					λ.NewStr("url"): λ.NewStr("http://player.piksel.com/v/ums2867l"),
+					λ.NewStr("md5"): λ.NewStr("34e34c8d89dc2559976a6079db531e85"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("nv60p12f"),
+						λ.NewStr("id"):          λ.NewStr("ums2867l"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("فن الحياة  - الحلقة 1"),
-						λ.NewStr("description"): λ.NewStr("احدث برامج الداعية الاسلامي \" مصطفي حسني \" فى رمضان 2016علي النهار نور"),
-						λ.NewStr("timestamp"):   λ.NewInt(1465231790),
-						λ.NewStr("upload_date"): λ.NewStr("20160606"),
+						λ.NewStr("title"):       λ.NewStr("GX-005 with Caption"),
+						λ.NewStr("timestamp"):   λ.NewInt(1481335659),
+						λ.NewStr("upload_date"): λ.NewStr("20161210"),
 					}),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -92,26 +91,29 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒabr        λ.Object
-						ϒapp_token  λ.Object
-						ϒasset_file λ.Object
-						ϒasset_type λ.Object
-						ϒfailure    λ.Object
-						ϒformat_id  λ.Object
-						ϒformats    λ.Object
-						ϒhttp_url   λ.Object
-						ϒm3u8_url   λ.Object
-						ϒresponse   λ.Object
-						ϒself       = λargs[0]
-						ϒtbr        λ.Object
-						ϒtitle      λ.Object
-						ϒurl        = λargs[1]
-						ϒvbr        λ.Object
-						ϒvideo_data λ.Object
-						ϒvideo_id   λ.Object
-						ϒwebpage    λ.Object
-						τmp0        λ.Object
-						τmp1        λ.Object
+						ϒabr         λ.Object
+						ϒapp_token   λ.Object
+						ϒasset_file  λ.Object
+						ϒasset_type  λ.Object
+						ϒcaption     λ.Object
+						ϒcaption_url λ.Object
+						ϒfailure     λ.Object
+						ϒformat_id   λ.Object
+						ϒformats     λ.Object
+						ϒhttp_url    λ.Object
+						ϒm3u8_url    λ.Object
+						ϒresponse    λ.Object
+						ϒself        = λargs[0]
+						ϒsubtitles   λ.Object
+						ϒtbr         λ.Object
+						ϒtitle       λ.Object
+						ϒurl         = λargs[1]
+						ϒvbr         λ.Object
+						ϒvideo_data  λ.Object
+						ϒvideo_id    λ.Object
+						ϒwebpage     λ.Object
+						τmp0         λ.Object
+						τmp1         λ.Object
 					)
 					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
 					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
@@ -194,6 +196,20 @@ func init() {
 						}))
 					}
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					ϒsubtitles = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("captions"), λ.NewList()))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒcaption = τmp1
+						ϒcaption_url = λ.Cal(λ.GetAttr(ϒcaption, "get", nil), λ.NewStr("url"))
+						if λ.IsTrue(ϒcaption_url) {
+							λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒsubtitles, "setdefault", nil), λ.Cal(λ.GetAttr(ϒcaption, "get", nil), λ.NewStr("locale"), λ.NewStr("en")), λ.NewList()), "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("url"): ϒcaption_url,
+							}))
+						}
+					}
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):          ϒvideo_id,
 						λ.NewStr("title"):       ϒtitle,
@@ -201,6 +217,7 @@ func init() {
 						λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("thumbnailUrl")),
 						λ.NewStr("timestamp"):   λ.Cal(ϒparse_iso8601, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("dateadd"))),
 						λ.NewStr("formats"):     ϒformats,
+						λ.NewStr("subtitles"):   ϒsubtitles,
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{

@@ -127,7 +127,7 @@ func init() {
 				DailymotionIE__extract_urls λ.Object
 				DailymotionIE__real_extract λ.Object
 			)
-			DailymotionIE__VALID_URL = λ.NewStr("(?i)https?://(?:(www|touch)\\.)?dailymotion\\.[a-z]{2,3}/(?:(?:(?:embed|swf|#)/)?video|swf)/(?P<id>[^/?_]+)")
+			DailymotionIE__VALID_URL = λ.NewStr("(?ix)\n                    https?://\n                        (?:\n                            (?:(?:www|touch)\\.)?dailymotion\\.[a-z]{2,3}/(?:(?:(?:embed|swf|\\#)/)?video|swf)|\n                            (?:www\\.)?lequipe\\.fr/video\n                        )\n                        /(?P<id>[^/?_]+)\n                    ")
 			DailymotionIE_IE_NAME = λ.NewStr("dailymotion")
 			DailymotionIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -206,6 +206,14 @@ func init() {
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"):           λ.NewStr("http://www.dailymotion.com/swf/x3ss1m_funny-magic-trick-barry-and-stuart_fun"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://www.lequipe.fr/video/x791mem"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://www.lequipe.fr/video/k7MtHciueyTcrFtFKA2"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
 			)

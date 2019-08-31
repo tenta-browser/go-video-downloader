@@ -65,7 +65,7 @@ func init() {
 				OpenloadIE__VALID_URL    λ.Object
 				OpenloadIE__real_extract λ.Object
 			)
-			OpenloadIE__DOMAINS = λ.NewStr("(?:openload\\.(?:co|io|link|pw)|oload\\.(?:tv|best|biz|stream|site|xyz|win|download|cloud|cc|icu|fun|club|info|press|pw|life|live|space|services|website)|oladblock\\.(?:services|xyz|me)|openloed\\.co)")
+			OpenloadIE__DOMAINS = λ.NewStr("\n                    (?:\n                        openload\\.(?:co|io|link|pw)|\n                        oload\\.(?:tv|best|biz|stream|site|xyz|win|download|cloud|cc|icu|fun|club|info|press|pw|life|live|space|services|website|vip)|\n                        oladblock\\.(?:services|xyz|me)|openloed\\.co\n                    )\n                ")
 			OpenloadIE__VALID_URL = λ.Mod(λ.NewStr("(?x)\n                    https?://\n                        (?P<host>\n                            (?:www\\.)?\n                            %s\n                        )/\n                        (?:f|embed)/\n                        (?P<id>[a-zA-Z0-9-_]+)\n                    "), OpenloadIE__DOMAINS)
 			OpenloadIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -240,7 +240,7 @@ func init() {
 				VerystreamIE__extract_decrypted_page λ.Object
 			)
 			VerystreamIE_IE_NAME = λ.NewStr("verystream")
-			VerystreamIE__DOMAINS = λ.NewStr("(?:verystream\\.com)")
+			VerystreamIE__DOMAINS = λ.NewStr("(?:verystream\\.com|woof\\.tube)")
 			VerystreamIE__VALID_URL = λ.Mod(λ.NewStr("(?x)\n                    https?://\n                        (?P<host>\n                            (?:www\\.)?\n                            %s\n                        )/\n                        (?:stream|e)/\n                        (?P<id>[a-zA-Z0-9-_]+)\n                    "), VerystreamIE__DOMAINS)
 			VerystreamIE__EMBED_WORD = λ.NewStr("e")
 			VerystreamIE__STREAM_WORD = λ.NewStr("stream")

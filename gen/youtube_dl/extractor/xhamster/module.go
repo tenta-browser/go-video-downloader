@@ -33,19 +33,21 @@ import (
 )
 
 var (
-	ExtractorError   λ.Object
-	InfoExtractor    λ.Object
-	XHamsterEmbedIE  λ.Object
-	XHamsterIE       λ.Object
-	ϒclean_html      λ.Object
-	ϒcompat_str      λ.Object
-	ϒdetermine_ext   λ.Object
-	ϒdict_get        λ.Object
-	ϒint_or_none     λ.Object
-	ϒparse_duration  λ.Object
-	ϒtry_get         λ.Object
-	ϒunified_strdate λ.Object
-	ϒurl_or_none     λ.Object
+	ExtractorError      λ.Object
+	InfoExtractor       λ.Object
+	XHamsterEmbedIE     λ.Object
+	XHamsterIE          λ.Object
+	XHamsterUserIE      λ.Object
+	ϒclean_html         λ.Object
+	ϒcompat_str         λ.Object
+	ϒdetermine_ext      λ.Object
+	ϒdict_get           λ.Object
+	ϒextract_attributes λ.Object
+	ϒint_or_none        λ.Object
+	ϒparse_duration     λ.Object
+	ϒtry_get            λ.Object
+	ϒunified_strdate    λ.Object
+	ϒurl_or_none        λ.Object
 )
 
 func init() {
@@ -55,6 +57,7 @@ func init() {
 		ϒclean_html = Ωutils.ϒclean_html
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒdict_get = Ωutils.ϒdict_get
+		ϒextract_attributes = Ωutils.ϒextract_attributes
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_duration = Ωutils.ϒparse_duration
@@ -63,18 +66,20 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		XHamsterIE = λ.Cal(λ.TypeType, λ.NewStr("XHamsterIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
+				XHamsterIE__DOMAINS      λ.Object
 				XHamsterIE__TESTS        λ.Object
 				XHamsterIE__VALID_URL    λ.Object
 				XHamsterIE__real_extract λ.Object
 			)
-			XHamsterIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:.+?\\.)?xhamster\\.(?:com|one)/\n                        (?:\n                            movies/(?P<id>\\d+)/(?P<display_id>[^/]*)\\.html|\n                            videos/(?P<display_id_2>[^/]*)-(?P<id_2>\\d+)\n                        )\n                    ")
+			XHamsterIE__DOMAINS = λ.NewStr("(?:xhamster\\.(?:com|one|desi)|xhms\\.pro|xhamster[27]\\.com)")
+			XHamsterIE__VALID_URL = λ.Mod(λ.NewStr("(?x)\n                    https?://\n                        (?:.+?\\.)?%s/\n                        (?:\n                            movies/(?P<id>\\d+)/(?P<display_id>[^/]*)\\.html|\n                            videos/(?P<display_id_2>[^/]*)-(?P<id_2>\\d+)\n                        )\n                    "), XHamsterIE__DOMAINS)
 			XHamsterIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://xhamster.com/movies/1509445/femaleagent_shy_beauty_takes_the_bait.html"),
-					λ.NewStr("md5"): λ.NewStr("8281348b8d3c53d39fffb377d24eac4e"),
+					λ.NewStr("url"): λ.NewStr("https://xhamster.com/videos/femaleagent-shy-beauty-takes-the-bait-1509445"),
+					λ.NewStr("md5"): λ.NewStr("98b4687efb1ffd331c4197854dc09e8f"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):          λ.NewStr("1509445"),
-						λ.NewStr("display_id"):  λ.NewStr("femaleagent_shy_beauty_takes_the_bait"),
+						λ.NewStr("display_id"):  λ.NewStr("femaleagent-shy-beauty-takes-the-bait"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
 						λ.NewStr("title"):       λ.NewStr("FemaleAgent Shy beauty takes the bait"),
 						λ.NewStr("timestamp"):   λ.NewInt(1350194821),
@@ -82,28 +87,13 @@ func init() {
 						λ.NewStr("uploader"):    λ.NewStr("Ruseful2011"),
 						λ.NewStr("duration"):    λ.NewInt(893),
 						λ.NewStr("age_limit"):   λ.NewInt(18),
-						λ.NewStr("categories"): λ.NewList(
-							λ.NewStr("Fake Hub"),
-							λ.NewStr("Amateur"),
-							λ.NewStr("MILFs"),
-							λ.NewStr("POV"),
-							λ.NewStr("Beauti"),
-							λ.NewStr("Beauties"),
-							λ.NewStr("Beautiful"),
-							λ.NewStr("Boss"),
-							λ.NewStr("Office"),
-							λ.NewStr("Oral"),
-							λ.NewStr("Reality"),
-							λ.NewStr("Sexy"),
-							λ.NewStr("Taking"),
-						),
 					}),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://xhamster.com/movies/2221348/britney_spears_sexy_booty.html?hd"),
+					λ.NewStr("url"): λ.NewStr("https://xhamster.com/videos/britney-spears-sexy-booty-2221348?hd="),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):          λ.NewStr("2221348"),
-						λ.NewStr("display_id"):  λ.NewStr("britney_spears_sexy_booty"),
+						λ.NewStr("display_id"):  λ.NewStr("britney-spears-sexy-booty"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
 						λ.NewStr("title"):       λ.NewStr("Britney Spears  Sexy Booty"),
 						λ.NewStr("timestamp"):   λ.NewInt(1379123460),
@@ -111,13 +101,6 @@ func init() {
 						λ.NewStr("uploader"):    λ.NewStr("jojo747400"),
 						λ.NewStr("duration"):    λ.NewInt(200),
 						λ.NewStr("age_limit"):   λ.NewInt(18),
-						λ.NewStr("categories"): λ.NewList(
-							λ.NewStr("Britney Spears"),
-							λ.NewStr("Celebrities"),
-							λ.NewStr("HD Videos"),
-							λ.NewStr("Sexy"),
-							λ.NewStr("Sexy Booty"),
-						),
 					}),
 					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("skip_download"): λ.True,
@@ -134,10 +117,6 @@ func init() {
 						λ.NewStr("uploader"):    λ.NewStr("parejafree"),
 						λ.NewStr("duration"):    λ.NewInt(72),
 						λ.NewStr("age_limit"):   λ.NewInt(18),
-						λ.NewStr("categories"): λ.NewList(
-							λ.NewStr("Amateur"),
-							λ.NewStr("Blowjobs"),
-						),
 					}),
 					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("skip_download"): λ.True,
@@ -161,6 +140,22 @@ func init() {
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"):           λ.NewStr("https://xhamster.one/videos/femaleagent-shy-beauty-takes-the-bait-1509445"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://xhamster.desi/videos/femaleagent-shy-beauty-takes-the-bait-1509445"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://xhamster2.com/videos/femaleagent-shy-beauty-takes-the-bait-1509445"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://xhamster.com/movies/1509445/femaleagent_shy_beauty_takes_the_bait.html"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://xhamster.com/movies/2221348/britney_spears_sexy_booty.html?hd"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
 			)
@@ -588,6 +583,7 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_DOMAINS"):      XHamsterIE__DOMAINS,
 				λ.NewStr("_TESTS"):        XHamsterIE__TESTS,
 				λ.NewStr("_VALID_URL"):    XHamsterIE__VALID_URL,
 				λ.NewStr("_real_extract"): XHamsterIE__real_extract,
@@ -599,7 +595,7 @@ func init() {
 				XHamsterEmbedIE__VALID_URL    λ.Object
 				XHamsterEmbedIE__real_extract λ.Object
 			)
-			XHamsterEmbedIE__VALID_URL = λ.NewStr("https?://(?:.+?\\.)?xhamster\\.com/xembed\\.php\\?video=(?P<id>\\d+)")
+			XHamsterEmbedIE__VALID_URL = λ.Mod(λ.NewStr("https?://(?:.+?\\.)?%s/xembed\\.php\\?video=(?P<id>\\d+)"), λ.GetAttr(XHamsterIE, "_DOMAINS", nil))
 			XHamsterEmbedIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("url"): λ.NewStr("http://xhamster.com/xembed.php?video=3328539"),
 				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -652,6 +648,15 @@ func init() {
 				λ.NewStr("_TEST"):         XHamsterEmbedIE__TEST,
 				λ.NewStr("_VALID_URL"):    XHamsterEmbedIE__VALID_URL,
 				λ.NewStr("_real_extract"): XHamsterEmbedIE__real_extract,
+			})
+		}())
+		XHamsterUserIE = λ.Cal(λ.TypeType, λ.NewStr("XHamsterUserIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+			var (
+				XHamsterUserIE__VALID_URL λ.Object
+			)
+			XHamsterUserIE__VALID_URL = λ.Mod(λ.NewStr("https?://(?:.+?\\.)?%s/users/(?P<id>[^/?#&]+)"), λ.GetAttr(XHamsterIE, "_DOMAINS", nil))
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_VALID_URL"): XHamsterUserIE__VALID_URL,
 			})
 		}())
 	})

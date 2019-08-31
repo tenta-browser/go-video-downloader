@@ -43,69 +43,11 @@ func init() {
 		SprutoBaseIE = Ωvimple.SprutoBaseIE
 		MyviIE = λ.Cal(λ.TypeType, λ.NewStr("MyviIE"), λ.NewTuple(SprutoBaseIE), func() λ.Dict {
 			var (
-				MyviIE__TESTS        λ.Object
-				MyviIE__VALID_URL    λ.Object
-				MyviIE__real_extract λ.Object
+				MyviIE__VALID_URL λ.Object
 			)
 			MyviIE__VALID_URL = λ.NewStr("(?x)\n                        (?:\n                            https?://\n                                (?:www\\.)?\n                                myvi\\.\n                                (?:\n                                    (?:ru/player|tv)/\n                                    (?:\n                                        (?:\n                                            embed/html|\n                                            flash|\n                                            api/Video/Get\n                                        )/|\n                                        content/preloader\\.swf\\?.*\\bid=\n                                    )|\n                                    ru/watch/\n                                )|\n                            myvi:\n                        )\n                        (?P<id>[\\da-zA-Z_-]+)\n                    ")
-			MyviIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://myvi.ru/player/embed/html/oOy4euHA6LVwNNAjhD9_Jq5Ha2Qf0rtVMVFMAZav8wObeRTZaCATzucDQIDph8hQU0"),
-					λ.NewStr("md5"): λ.NewStr("571bbdfba9f9ed229dc6d34cc0f335bf"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("f16b2bbd-cde8-481c-a981-7cd48605df43"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("хозяин жизни"),
-						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):  λ.NewInt(25),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://myvi.ru/player/content/preloader.swf?id=oOy4euHA6LVwNNAjhD9_Jq5Ha2Qf0rtVMVFMAZav8wOYf1WFpPfc_bWTKGVf_Zafr0"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://myvi.ru/player/api/Video/Get/oOy4euHA6LVwNNAjhD9_Jq5Ha2Qf0rtVMVFMAZav8wObeRTZaCATzucDQIDph8hQU0"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://myvi.tv/embed/html/oTGTNWdyz4Zwy_u1nraolwZ1odenTd9WkTnRfIL9y8VOgHYqOHApE575x4_xxS9Vn0?ap=0"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://myvi.ru/player/flash/ocp2qZrHI-eZnHKQBK4cZV60hslH8LALnk0uBfKsB-Q4WnY26SeGoYPi8HWHxu0O30"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.myvi.ru/watch/YwbqszQynUaHPn_s82sx0Q2"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("myvi:YwbqszQynUaHPn_s82sx0Q2"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
-			MyviIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒself     = λargs[0]
-						ϒspruto   λ.Object
-						ϒurl      = λargs[1]
-						ϒvideo_id λ.Object
-					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒspruto = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("http://myvi.ru/player/api/Video/Get/%s?sig"), ϒvideo_id), ϒvideo_id), λ.NewStr("sprutoData"))
-					return λ.Cal(λ.GetAttr(ϒself, "_extract_spruto", nil), ϒspruto, ϒvideo_id)
-				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        MyviIE__TESTS,
-				λ.NewStr("_VALID_URL"):    MyviIE__VALID_URL,
-				λ.NewStr("_real_extract"): MyviIE__real_extract,
+				λ.NewStr("_VALID_URL"): MyviIE__VALID_URL,
 			})
 		}())
 		MyviEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("MyviEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
