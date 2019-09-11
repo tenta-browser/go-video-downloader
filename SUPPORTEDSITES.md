@@ -179,7 +179,6 @@ Supported sites
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
- * PuhuTV: `puhutv.com`
  * PressTV: `www.presstv.ir`
  * RadioDe: `ndr2.radio.de`
  * RadioJavan: `www.radiojavan.com`

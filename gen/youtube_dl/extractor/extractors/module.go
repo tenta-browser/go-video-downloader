@@ -191,7 +191,6 @@ import (
 	Ωpornhub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhub"
 	Ωpornotube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornotube"
 	Ωpresstv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/presstv"
-	Ωpuhutv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/puhutv"
 	Ωradiode "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/radiode"
 	Ωradiojavan "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/radiojavan"
 	Ωrai "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rai"
@@ -480,7 +479,6 @@ var (
 	PornHubIE                  λ.Object
 	PornotubeIE                λ.Object
 	PressTVIE                  λ.Object
-	PuhuTVIE                   λ.Object
 	RENTVIE                    λ.Object
 	RTPIE                      λ.Object
 	RTSIE                      λ.Object
@@ -779,7 +777,6 @@ func init() {
 		PornHdIE = Ωpornhd.PornHdIE
 		PornHubIE = Ωpornhub.PornHubIE
 		PornotubeIE = Ωpornotube.PornotubeIE
-		PuhuTVIE = Ωpuhutv.PuhuTVIE
 		PressTVIE = Ωpresstv.PressTVIE
 		RadioDeIE = Ωradiode.RadioDeIE
 		RadioJavanIE = Ωradiojavan.RadioJavanIE
@@ -1077,7 +1074,6 @@ func init() {
 			PornHdIE,
 			PornHubIE,
 			PornotubeIE,
-			PuhuTVIE,
 			PressTVIE,
 			RadioDeIE,
 			RadioJavanIE,

@@ -100,7 +100,7 @@
     "ATVAtIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://www.atv.at/aktuell/di-210317-2005-uhr/v1698449/: dial tcp: lookup www.atv.at on 74.206.188.87:53: read udp 74.206.165.158:49735->74.206.188.87:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -682,7 +682,7 @@
     "BlinkxIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://apib4.blinkx.com/api.php?action=play_video&video=Da0Gw3xc5ucpNduzLuDDlv4WC9PuI4fDi1-t6Y3LyfdY2SZS5Urbvn-UPJvrvbo8LTKTc67Wu2rPKSQDJyZeeORCR8bYkhs8lI7eqddznH2ofh5WEEdjYXnoRtj7ByQwt7atMErmXIeYKPsSDuMAAqJDlQZ-3Ff4HJVeH_s3Gh8oQ: dial tcp: lookup apib4.blinkx.com on 74.206.188.87:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://apib4.blinkx.com/api.php?action=play_video&video=Da0Gw3xc5ucpNduzLuDDlv4WC9PuI4fDi1-t6Y3LyfdY2SZS5Urbvn-UPJvrvbo8LTKTc67Wu2rPKSQDJyZeeORCR8bYkhs8lI7eqddznH2ofh5WEEdjYXnoRtj7ByQwt7atMErmXIeYKPsSDuMAAqJDlQZ-3Ff4HJVeH_s3Gh8oQ: dial tcp: lookup apib4.blinkx.com on 74.206.188.88:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -1191,7 +1191,7 @@
     "CloudyIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://www.cloudy.ec/embed.php?autoplay=1&id=af511e2527aac&playerPage=1: dial tcp 91.92.120.253:443: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://www.cloudy.ec/embed.php?autoplay=1&id=af511e2527aac&playerPage=1: dial tcp 91.92.120.254:443: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -1755,7 +1755,7 @@
     "EinthusanIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://einthusan.tv/movie/watch/9097/: dial tcp: lookup einthusan.tv on 74.206.188.87:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://einthusan.tv/movie/watch/9097/: dial tcp: lookup einthusan.tv on 74.206.188.88:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -2230,6 +2230,7 @@
     "GameOneIE": {
         "adult": false,
         "error_msgs": [
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 503: Service Unavailable (caused by <HTTPError 503: 'Service Unavailable'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "DownloadError: ERROR: Unable to download webpage: HTTP Error 504: Gateway Time-out (caused by <HTTPError 504: 'Gateway Time-out'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
@@ -3498,7 +3499,7 @@
     "MediasiteCatalogIE": {
         "adult": false,
         "error_msgs": [
-            "RegexpError: Function not allowed: <built-in method format of str object at 0x7fcb9e932ae8>"
+            "RegexpError: Function not allowed: <built-in method format of str object at 0x7f32aaa30ae8>"
         ],
         "success_urls": []
     },
@@ -3755,14 +3756,14 @@
     "MwaveIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://mwave.interest.me/onair/vod_info.m?vodtype=CL&sectorid=&endinfo=Y&id=168859: dial tcp: lookup mwave.interest.me on 74.206.188.88:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://mwave.interest.me/onair/vod_info.m?vodtype=CL&sectorid=&endinfo=Y&id=168859: dial tcp: lookup mwave.interest.me on 74.206.188.87:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "MwaveMeetGreetIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://mwave.interest.me/meetgreet/view/256: dial tcp: lookup mwave.interest.me on 74.206.188.87:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://mwave.interest.me/meetgreet/view/256: dial tcp: lookup mwave.interest.me on 74.206.188.88:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -3924,7 +3925,7 @@
     "NFLIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://prod.www.steelers.clubs.nfl.com/video-and-audio/videos/LIVE_Post_Game_vs_Browns/9d72f26a-9e2b-4718-84d3-09fb4046c266: dial tcp: lookup prod.www.steelers.clubs.nfl.com on 74.206.188.87:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://prod.www.steelers.clubs.nfl.com/video-and-audio/videos/LIVE_Post_Game_vs_Browns/9d72f26a-9e2b-4718-84d3-09fb4046c266: dial tcp: lookup prod.www.steelers.clubs.nfl.com on 74.206.188.88:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "ValueError: invalid format string"
         ],
@@ -4477,7 +4478,7 @@
     "OktoberfestTVIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.oktoberfest-tv.de/de/kameras/video/hb-zelt: dial tcp: lookup www.oktoberfest-tv.de on 74.206.188.87:53: read udp 74.206.165.158:42050->74.206.188.87:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to extract title; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -4658,7 +4659,7 @@
     "PeerTubeIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get https://peertube.moe/api/v1/videos/2790feb0-8120-4e63-9af3-c943c69f5e6c: dial tcp: lookup peertube.moe on 74.206.188.87:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get https://peertube.moe/api/v1/videos/2790feb0-8120-4e63-9af3-c943c69f5e6c: dial tcp: lookup peertube.moe on 74.206.188.88:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -4963,10 +4964,10 @@
     },
     "PuhuTVIE": {
         "adult": false,
-        "error_msgs": [],
-        "success_urls": [
-            "https://puhutv.com/sut-kardesler-izle"
-        ]
+        "error_msgs": [
+            "DownloadError: ERROR: requested format not available"
+        ],
+        "success_urls": []
     },
     "PuhuTVSerieIE": {
         "adult": false,
@@ -5365,7 +5366,7 @@
     "Revision3IE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://www.revision3.com/apiProxy/ddn/technobuffalo/5-google-predictions-for-2016?domain=revision3.com: dial tcp: lookup www.revision3.com on 74.206.188.87:53: server misbehaving> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get http://www.revision3.com/apiProxy/ddn/technobuffalo/5-google-predictions-for-2016?domain=revision3.com: dial tcp: lookup www.revision3.com on 74.206.188.88:53: server misbehaving> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -6017,7 +6018,8 @@
     "SportDeutschlandIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: lee-li-ning-badminton-weltmeisterschaft-2014-kopenhagen-herren-einzel-wei-vs: Failed to parse JSON  (caused by ValueError('invalid character \\'<\\' looking for beginning of value')); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: live-li-ning-badminton-weltmeisterschaft-2014-kopenhagen: Failed to parse JSON  (caused by ValueError('invalid character \\'<\\' looking for beginning of value')); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -6563,7 +6565,7 @@
     "TelegraafIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.telegraaf.nl/tv/nieuws/binnenland/24353229/__Tikibad_ontruimd_wegens_brand__.html: dial tcp: lookup www.telegraaf.nl on 74.206.188.88:53: read udp 74.206.165.158:40709->74.206.188.88:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -6830,7 +6832,7 @@
     "TurboIE": {
         "adult": false,
         "error_msgs": [
-            "ValueError: invalid format string"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.turbo.fr/videos-voiture/454443-turbo-du-07-09-2014-renault-twingo-3-bentley-continental-gt-speed-ces-guide-achat-dacia.html: dial tcp: lookup www.turbo.fr on 74.206.188.88:53: read udp 74.206.165.158:54730->74.206.188.88:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -7197,7 +7199,6 @@
     "VPROIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://www.vpro.nl/programmas/2doc/2015/sergio-herman.html: dial tcp: lookup www.vpro.nl on 74.206.188.88:53: read udp 74.206.165.158:59950->74.206.188.88:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "Exception: Playlists and multi video results are not supported!"
         ],
@@ -7285,7 +7286,7 @@
     "VesselIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://www.vessel.com/videos/HDN7G5UMs: dial tcp: lookup www.vessel.com on 74.206.188.88:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://www.vessel.com/videos/HDN7G5UMs: dial tcp: lookup www.vessel.com on 74.206.188.87:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -7802,7 +7803,7 @@
     "WallaIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download XML: <urlopen error Get http://video2.walla.co.il/?w=null/null/2642630/@@/video/flv_pl: dial tcp: lookup video2.walla.co.il on 74.206.188.88:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download XML: <urlopen error Get http://video2.walla.co.il/?w=null/null/2642630/@@/video/flv_pl: dial tcp: lookup video2.walla.co.il on 74.206.188.87:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -7877,7 +7878,7 @@
     "WeiboIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'confidence\\'')); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "TypeError: 'placeholder random/random' object is not callable"
         ],
         "success_urls": []
     },
@@ -7928,8 +7929,8 @@
         "adult": false,
         "error_msgs": [
             "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'op\\'')); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://daclips.in/3rso4kdn6f9m: dial tcp: lookup daclips.in on 74.206.188.87:53: read udp 74.206.165.158:34288->74.206.188.87:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://gorillavid.in/06y9juieqpmi: dial tcp: lookup gorillavid.in on 74.206.188.88:53: read udp 74.206.165.158:50806->74.206.188.88:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://daclips.in/3rso4kdn6f9m: dial tcp: lookup daclips.in on 74.206.188.88:53: read udp 74.206.165.158:37349->74.206.188.88:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://gorillavid.in/06y9juieqpmi: dial tcp: lookup gorillavid.in on 74.206.188.87:53: read udp 74.206.165.158:36175->74.206.188.87:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "DownloadError: ERROR: Unable to download webpage: <urlopen error Get http://powerwatch.pw/duecjibvicbu: dial tcp: lookup powerwatch.pw on 74.206.188.88:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
@@ -8076,7 +8077,6 @@
     "YahooIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 500: Internal Server Error (caused by <HTTPError 500: 'Internal Server Error'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "DownloadError: ERROR: Unable to download webpage: <urlopen error Get https://www.yahoo.com/community/communitary-community-episode-1-ladders-154501237.html: stopped after 10 redirects> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "DownloadError: ERROR: Unable to extract content ID; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",

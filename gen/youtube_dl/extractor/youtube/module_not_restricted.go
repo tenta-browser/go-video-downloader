@@ -88,7 +88,6 @@ var (
 	ϒorderedSet                       λ.Object
 	ϒparse_codecs                     λ.Object
 	ϒparse_duration                   λ.Object
-	ϒqualities                        λ.Object
 	ϒremove_quotes                    λ.Object
 	ϒremove_start                     λ.Object
 	ϒsmuggle_url                      λ.Object
@@ -131,7 +130,6 @@ func init() {
 		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_codecs = Ωutils.ϒparse_codecs
 		ϒparse_duration = Ωutils.ϒparse_duration
-		ϒqualities = Ωutils.ϒqualities
 		ϒremove_quotes = Ωutils.ϒremove_quotes
 		ϒremove_start = Ωutils.ϒremove_start
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
@@ -2700,7 +2698,6 @@ func init() {
 						ϒplayer_url_json             λ.Object
 						ϒplayer_version              λ.Object
 						ϒproto                       λ.Object
-						ϒq                           λ.Object
 						ϒquality                     λ.Object
 						ϒquality_label               λ.Object
 						ϒquery                       λ.Object
@@ -3465,11 +3462,6 @@ func init() {
 									}
 								}
 							}
-							ϒq = λ.Cal(ϒqualities, λ.NewList(
-								λ.NewStr("small"),
-								λ.NewStr("medium"),
-								λ.NewStr("hd720"),
-							))
 							τmp0 = λ.Cal(λ.BuiltinIter, ϒstreaming_formats)
 							for {
 								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
@@ -3494,7 +3486,6 @@ func init() {
 									λ.NewStr("format_note"): ϒquality_label,
 									λ.NewStr("fps"):         λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfmt, "get", nil), λ.NewStr("fps"))),
 									λ.NewStr("height"):      λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfmt, "get", nil), λ.NewStr("height"))),
-									λ.NewStr("quality"):     λ.Cal(ϒq, ϒquality),
 									λ.NewStr("tbr"): func() λ.Object {
 										if λ.IsTrue(λ.Ne(ϒitag, λ.NewStr("43"))) {
 											return λ.Cal(ϒfloat_or_none, func() λ.Object {
@@ -3737,10 +3728,16 @@ func init() {
 									}
 								}()
 								ϒtbr = func() λ.Object {
-									if λv := λ.Cal(ϒfloat_or_none, λ.GetItem(λ.Cal(λ.GetAttr(ϒurl_data, "get", nil), λ.NewStr("bitrate"), λ.NewList(λ.None)), λ.NewInt(0)), λ.NewInt(1000)); λ.IsTrue(λv) {
-										return λv
+									if λ.IsTrue(λ.Ne(ϒformat_id, λ.NewStr("43"))) {
+										return func() λ.Object {
+											if λv := λ.Cal(ϒfloat_or_none, λ.GetItem(λ.Cal(λ.GetAttr(ϒurl_data, "get", nil), λ.NewStr("bitrate"), λ.NewList(λ.None)), λ.NewInt(0)), λ.NewInt(1000)); λ.IsTrue(λv) {
+												return λv
+											} else {
+												return λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒfmt, "get", nil), λ.NewStr("bitrate")), λ.NewInt(1000))
+											}
+										}()
 									} else {
-										return λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒfmt, "get", nil), λ.NewStr("bitrate")), λ.NewInt(1000))
+										return λ.None
 									}
 								}()
 								ϒfps = func() λ.Object {
@@ -3763,7 +3760,6 @@ func init() {
 											return ϒquality
 										}
 									}(),
-									λ.NewStr("quality"): λ.Cal(ϒq, ϒquality),
 								})
 								τmp2 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒmore_fields, "items", nil)))
 								for {
