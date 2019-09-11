@@ -3,6 +3,7 @@ Supported sites
 
  * AbcNewsVideo: `abcnews.go.com`
  * ACast: `www.acast.com`
+ * AdobeTV: `tv.adobe.com`
  * AdobeTVVideo: `video.tv.adobe.com`
  * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
@@ -16,6 +17,7 @@ Supported sites
  * BandcampWeekly: `bandcamp.com`
  * Beeg _(adult)_: `beeg.com`
  * Beatport: `beatport.com`
+ * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BitChute: `www.bitchute.com`
  * BIQLE: `biqle.ru`
@@ -24,7 +26,6 @@ Supported sites
  * Bpb: `www.bpb.de`
  * BR: `www.br.de`
  * BravoTV: `www.bravotv.com`
- * BrightcoveLegacy: `c.brightcove.com`
  * Camdemy: `www.camdemy.com`
  * Canalplus: `www.piwiplus.fr`
  * Canalc2: `www.canalc2.tv`
@@ -102,6 +103,8 @@ Supported sites
  * Hypem: `hypem.com`
  * IGN: `www.ign.com`
  * Imdb: `www.imdb.com`
+ * Imgur: `i.imgur.com`
+ * ImgurGallery: `imgur.com`
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
  * Instagram: `instagram.com`
@@ -146,7 +149,6 @@ Supported sites
  * NDTV: `movies.ndtv.com`
  * Netzkino: `www.netzkino.de`
  * Newgrounds: `www.newgrounds.com`
- * NextTV: `www.nexttv.com.tw`
  * Nexx: `api.nexx.cloud`
  * NHL: `www.nhl.com`
  * Noovo: `noovo.ca`
@@ -174,10 +176,10 @@ Supported sites
  * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
  * Porn91 _(adult)_: `91porn.com`
- * PornCom _(adult)_: `www.porn.com`
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
+ * PuhuTV: `puhutv.com`
  * PressTV: `www.presstv.ir`
  * RadioDe: `ndr2.radio.de`
  * RadioJavan: `www.radiojavan.com`
@@ -218,11 +220,9 @@ Supported sites
  * Tagesschau: `www.tagesschau.de`
  * TastyTrade: `www.tastytrade.com`
  * TDSLifeway: `tds.lifeway.com`
- * TeacherTube: `www.teachertube.com`
  * Teamcoco: `teamcoco.com`
  * TeamTreeHouse: `teamtreehouse.com`
  * TED: `www.ted.com`
- * Tele13: `www.t13.cl`
  * Tenta: `tenta.com`
  * TFO: `www.tfo.org`
  * ThePlatform: `player.theplatform.com`

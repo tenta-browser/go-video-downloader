@@ -25,6 +25,7 @@
 package once
 
 import (
+	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
@@ -39,11 +40,90 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		OnceIE = λ.Cal(λ.TypeType, λ.NewStr("OnceIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				OnceIE__VALID_URL λ.Object
+				OnceIE_ADAPTIVE_URL_TEMPLATE λ.Object
+				OnceIE__VALID_URL            λ.Object
+				OnceIE__extract_once_formats λ.Object
 			)
 			OnceIE__VALID_URL = λ.NewStr("https?://.+?\\.unicornmedia\\.com/now/(?:ads/vmap/)?[^/]+/[^/]+/(?P<domain_id>[^/]+)/(?P<application_id>[^/]+)/(?:[^/]+/)?(?P<media_item_id>[^/]+)/content\\.(?:once|m3u8|mp4)")
+			OnceIE_ADAPTIVE_URL_TEMPLATE = λ.NewStr("http://once.unicornmedia.com/now/master/playlist/%s/%s/%s/content.m3u8")
+			OnceIE__extract_once_formats = λ.NewFunction("_extract_once_formats",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+					{Name: "http_formats_preference", Def: λ.None},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒadaptive_format         λ.Object
+						ϒapplication_id          λ.Object
+						ϒdomain_id               λ.Object
+						ϒformats                 λ.Object
+						ϒhttp_formats_preference = λargs[2]
+						ϒmedia_item_id           λ.Object
+						ϒprogressive_format      λ.Object
+						ϒprogressive_formats     λ.Object
+						ϒrendition_id            λ.Object
+						ϒself                    = λargs[0]
+						ϒurl                     = λargs[1]
+						τmp0                     λ.Object
+						τmp1                     λ.Object
+					)
+					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(OnceIE, "_VALID_URL", nil), ϒurl), "groups", nil))
+					ϒdomain_id = λ.GetItem(τmp0, λ.NewInt(0))
+					ϒapplication_id = λ.GetItem(τmp0, λ.NewInt(1))
+					ϒmedia_item_id = λ.GetItem(τmp0, λ.NewInt(2))
+					ϒformats = λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+						λ.Mod(λ.GetAttr(ϒself, "ADAPTIVE_URL_TEMPLATE", nil), λ.NewTuple(
+							ϒdomain_id,
+							ϒapplication_id,
+							ϒmedia_item_id,
+						)),
+						ϒmedia_item_id,
+						λ.NewStr("mp4"),
+					), λ.KWArgs{
+						{Name: "m3u8_id", Value: λ.NewStr("hls")},
+						{Name: "fatal", Value: λ.False},
+					})
+					ϒprogressive_formats = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, ϒformats)
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒadaptive_format = τmp1
+						λ.SetItem(ϒadaptive_format, λ.NewStr("url"), λ.Cal(Ωre.ϒsub, λ.NewStr("\\badsegmentlength=\\d+"), λ.NewStr("adsegmentlength=0"), λ.GetItem(ϒadaptive_format, λ.NewStr("url"))))
+						ϒrendition_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+							λ.NewStr("/now/media/playlist/[^/]+/[^/]+/([^/]+)"),
+							λ.GetItem(ϒadaptive_format, λ.NewStr("url")),
+							λ.NewStr("redition id"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						})
+						if λ.IsTrue(ϒrendition_id) {
+							ϒprogressive_format = λ.Cal(λ.GetAttr(ϒadaptive_format, "copy", nil))
+							λ.Cal(λ.GetAttr(ϒprogressive_format, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("url"): λ.Mod(λ.GetAttr(ϒself, "PROGRESSIVE_URL_TEMPLATE", nil), λ.NewTuple(
+									ϒdomain_id,
+									ϒapplication_id,
+									ϒrendition_id,
+									ϒmedia_item_id,
+								)),
+								λ.NewStr("format_id"):  λ.Cal(λ.GetAttr(λ.GetItem(ϒadaptive_format, λ.NewStr("format_id")), "replace", nil), λ.NewStr("hls"), λ.NewStr("http")),
+								λ.NewStr("protocol"):   λ.NewStr("http"),
+								λ.NewStr("preference"): ϒhttp_formats_preference,
+							}))
+							λ.Cal(λ.GetAttr(ϒprogressive_formats, "append", nil), ϒprogressive_format)
+						}
+					}
+					λ.Cal(λ.GetAttr(ϒself, "_check_formats", nil), ϒprogressive_formats, ϒmedia_item_id)
+					λ.Cal(λ.GetAttr(ϒformats, "extend", nil), ϒprogressive_formats)
+					return ϒformats
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): OnceIE__VALID_URL,
+				λ.NewStr("ADAPTIVE_URL_TEMPLATE"): OnceIE_ADAPTIVE_URL_TEMPLATE,
+				λ.NewStr("_VALID_URL"):            OnceIE__VALID_URL,
+				λ.NewStr("_extract_once_formats"): OnceIE__extract_once_formats,
 			})
 		}())
 	})
