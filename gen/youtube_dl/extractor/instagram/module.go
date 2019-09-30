@@ -65,7 +65,7 @@ func init() {
 				InstagramIE__VALID_URL    λ.Object
 				InstagramIE__real_extract λ.Object
 			)
-			InstagramIE__VALID_URL = λ.NewStr("(?P<url>https?://(?:www\\.)?instagram\\.com/p/(?P<id>[^/?#&]+))")
+			InstagramIE__VALID_URL = λ.NewStr("(?P<url>https?://(?:www\\.)?instagram\\.com/(?:p|tv)/(?P<id>[^/?#&]+))")
 			InstagramIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("https://instagram.com/p/aye83DjauH/?foo=bar#abc"),
@@ -141,6 +141,10 @@ func init() {
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"):           λ.NewStr("http://instagram.com/p/9o6LshA7zy/embed/"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://www.instagram.com/tv/aye83DjauH/"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
 			)

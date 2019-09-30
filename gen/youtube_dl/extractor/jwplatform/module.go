@@ -43,7 +43,7 @@ func init() {
 				JWPlatformIE__VALID_URL    λ.Object
 				JWPlatformIE__real_extract λ.Object
 			)
-			JWPlatformIE__VALID_URL = λ.NewStr("(?:https?://(?:content\\.jwplatform|cdn\\.jwplayer)\\.com/(?:(?:feed|player|thumb|preview|video)s|jw6|v2/media)/|jwplatform:)(?P<id>[a-zA-Z0-9]{8})")
+			JWPlatformIE__VALID_URL = λ.NewStr("(?:https?://(?:content\\.jwplatform|cdn\\.jwplayer)\\.com/(?:(?:feed|player|thumb|preview)s|jw6|v2/media)/|jwplatform:)(?P<id>[a-zA-Z0-9]{8})")
 			JWPlatformIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://content.jwplatform.com/players/nPripu9l-ALJ3XQCI.js"),

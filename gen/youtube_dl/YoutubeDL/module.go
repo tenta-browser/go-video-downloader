@@ -123,6 +123,7 @@ func init() {
 		YoutubeDL = λ.Cal(λ.TypeType, λ.NewStr("YoutubeDL"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
 			var (
 				YoutubeDL__NUMERIC_FIELDS             λ.Object
+				YoutubeDL___forced_printings          λ.Object
 				YoutubeDL__bidi_workaround            λ.Object
 				YoutubeDL__calc_cookies               λ.Object
 				YoutubeDL__calc_headers               λ.Object
@@ -972,9 +973,12 @@ func init() {
 								return λ.NewBool(ϒextract_flat == λ.True)
 							}
 						}()) {
-							if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("forcejson"), λ.False)) {
-								λ.Cal(λ.GetAttr(ϒself, "to_stdout", nil), λ.Cal(Ωjson.ϒdumps, ϒie_result))
-							}
+							λ.Call(λ.GetAttr(ϒself, "__forced_printings", nil), λ.NewArgs(
+								ϒie_result,
+								λ.Cal(λ.GetAttr(ϒself, "prepare_filename", nil), ϒie_result),
+							), λ.KWArgs{
+								{Name: "incomplete", Value: λ.True},
+							})
 							return ϒie_result
 						}
 					}
@@ -2122,6 +2126,120 @@ func init() {
 					}
 					return ϒsubs
 				})
+			YoutubeDL___forced_printings = λ.NewFunction("__forced_printings",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "info_dict"},
+					{Name: "filename"},
+					{Name: "incomplete"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒf               λ.Object
+						ϒfilename        = λargs[2]
+						ϒincomplete      = λargs[3]
+						ϒinfo_dict       = λargs[1]
+						ϒprint_mandatory λ.Object
+						ϒprint_optional  λ.Object
+						ϒself            = λargs[0]
+						τmp0             λ.Object
+						τmp1             λ.Object
+					)
+					ϒprint_mandatory = λ.NewFunction("print_mandatory",
+						[]λ.Param{
+							{Name: "field"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒfield = λargs[0]
+							)
+							if λ.IsTrue(func() λ.Object {
+								if λv := λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.Mod(λ.NewStr("force%s"), ϒfield), λ.False); !λ.IsTrue(λv) {
+									return λv
+								} else {
+									return func() λ.Object {
+										if λv := λ.NewBool(!λ.IsTrue(ϒincomplete)); λ.IsTrue(λv) {
+											return λv
+										} else {
+											return λ.NewBool(λ.Cal(λ.GetAttr(ϒinfo_dict, "get", nil), ϒfield) != λ.None)
+										}
+									}()
+								}
+							}()) {
+								λ.Cal(λ.GetAttr(ϒself, "to_stdout", nil), λ.GetItem(ϒinfo_dict, ϒfield))
+							}
+							return λ.None
+						})
+					ϒprint_optional = λ.NewFunction("print_optional",
+						[]λ.Param{
+							{Name: "field"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒfield = λargs[0]
+							)
+							if λ.IsTrue(func() λ.Object {
+								if λv := λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.Mod(λ.NewStr("force%s"), ϒfield), λ.False); !λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.NewBool(λ.Cal(λ.GetAttr(ϒinfo_dict, "get", nil), ϒfield) != λ.None)
+								}
+							}()) {
+								λ.Cal(λ.GetAttr(ϒself, "to_stdout", nil), λ.GetItem(ϒinfo_dict, ϒfield))
+							}
+							return λ.None
+						})
+					λ.Cal(ϒprint_mandatory, λ.NewStr("title"))
+					λ.Cal(ϒprint_mandatory, λ.NewStr("id"))
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("forceurl"), λ.False); !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewBool(!λ.IsTrue(ϒincomplete))
+						}
+					}()) {
+						if λ.IsTrue(λ.NewBool(λ.Cal(λ.GetAttr(ϒinfo_dict, "get", nil), λ.NewStr("requested_formats")) != λ.None)) {
+							τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒinfo_dict, λ.NewStr("requested_formats")))
+							for {
+								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+									break
+								}
+								ϒf = τmp1
+								λ.Cal(λ.GetAttr(ϒself, "to_stdout", nil), λ.Add(λ.GetItem(ϒf, λ.NewStr("url")), λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("play_path"), λ.NewStr(""))))
+							}
+						} else {
+							λ.Cal(λ.GetAttr(ϒself, "to_stdout", nil), λ.Add(λ.GetItem(ϒinfo_dict, λ.NewStr("url")), λ.Cal(λ.GetAttr(ϒinfo_dict, "get", nil), λ.NewStr("play_path"), λ.NewStr(""))))
+						}
+					}
+					λ.Cal(ϒprint_optional, λ.NewStr("thumbnail"))
+					λ.Cal(ϒprint_optional, λ.NewStr("description"))
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("forcefilename"), λ.False); !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewBool(ϒfilename != λ.None)
+						}
+					}()) {
+						λ.Cal(λ.GetAttr(ϒself, "to_stdout", nil), ϒfilename)
+					}
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("forceduration"), λ.False); !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewBool(λ.Cal(λ.GetAttr(ϒinfo_dict, "get", nil), λ.NewStr("duration")) != λ.None)
+						}
+					}()) {
+						λ.Cal(λ.GetAttr(ϒself, "to_stdout", nil), λ.Cal(λ.None, λ.GetItem(ϒinfo_dict, λ.NewStr("duration"))))
+					}
+					λ.Cal(ϒprint_mandatory, λ.NewStr("format"))
+					if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("forcejson"), λ.False)) {
+						λ.Cal(λ.GetAttr(ϒself, "to_stdout", nil), λ.Cal(Ωjson.ϒdumps, ϒinfo_dict))
+					}
+					return λ.None
+				})
 			YoutubeDL_process_info = λ.NewFunction("process_info",
 				[]λ.Param{
 					{Name: "self"},
@@ -2190,9 +2308,6 @@ func init() {
 						}
 					}
 					λ.SetItem(ϒinfo_dict, λ.NewStr("fulltitle"), λ.GetItem(ϒinfo_dict, λ.NewStr("title")))
-					if λ.IsTrue(λ.Gt(λ.Cal(λ.BuiltinLen, λ.GetItem(ϒinfo_dict, λ.NewStr("title"))), λ.NewInt(200))) {
-						λ.SetItem(ϒinfo_dict, λ.NewStr("title"), λ.Add(λ.GetItem(λ.GetItem(ϒinfo_dict, λ.NewStr("title")), λ.NewSlice(λ.None, λ.NewInt(197), λ.None)), λ.NewStr("...")))
-					}
 					if λ.IsTrue(λ.NewBool(!λ.Contains(ϒinfo_dict, λ.NewStr("format")))) {
 						λ.SetItem(ϒinfo_dict, λ.NewStr("format"), λ.GetItem(ϒinfo_dict, λ.NewStr("ext")))
 					}
@@ -2208,68 +2323,12 @@ func init() {
 					τmp0 = λ.Cal(λ.GetAttr(ϒself, "prepare_filename", nil), ϒinfo_dict)
 					λ.SetItem(ϒinfo_dict, λ.NewStr("_filename"), τmp0)
 					ϒfilename = τmp0
-					if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("forcetitle"), λ.False)) {
-						λ.Cal(λ.GetAttr(ϒself, "to_stdout", nil), λ.GetItem(ϒinfo_dict, λ.NewStr("fulltitle")))
-					}
-					if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("forceid"), λ.False)) {
-						λ.Cal(λ.GetAttr(ϒself, "to_stdout", nil), λ.GetItem(ϒinfo_dict, λ.NewStr("id")))
-					}
-					if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("forceurl"), λ.False)) {
-						if λ.IsTrue(λ.NewBool(λ.Cal(λ.GetAttr(ϒinfo_dict, "get", nil), λ.NewStr("requested_formats")) != λ.None)) {
-							τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒinfo_dict, λ.NewStr("requested_formats")))
-							for {
-								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-									break
-								}
-								ϒf = τmp1
-								λ.Cal(λ.GetAttr(ϒself, "to_stdout", nil), λ.Add(λ.GetItem(ϒf, λ.NewStr("url")), λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("play_path"), λ.NewStr(""))))
-							}
-						} else {
-							λ.Cal(λ.GetAttr(ϒself, "to_stdout", nil), λ.Add(λ.GetItem(ϒinfo_dict, λ.NewStr("url")), λ.Cal(λ.GetAttr(ϒinfo_dict, "get", nil), λ.NewStr("play_path"), λ.NewStr(""))))
-						}
-					}
-					if λ.IsTrue(func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("forcethumbnail"), λ.False); !λ.IsTrue(λv) {
-							return λv
-						} else {
-							return λ.NewBool(λ.Cal(λ.GetAttr(ϒinfo_dict, "get", nil), λ.NewStr("thumbnail")) != λ.None)
-						}
-					}()) {
-						λ.Cal(λ.GetAttr(ϒself, "to_stdout", nil), λ.GetItem(ϒinfo_dict, λ.NewStr("thumbnail")))
-					}
-					if λ.IsTrue(func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("forcedescription"), λ.False); !λ.IsTrue(λv) {
-							return λv
-						} else {
-							return λ.NewBool(λ.Cal(λ.GetAttr(ϒinfo_dict, "get", nil), λ.NewStr("description")) != λ.None)
-						}
-					}()) {
-						λ.Cal(λ.GetAttr(ϒself, "to_stdout", nil), λ.GetItem(ϒinfo_dict, λ.NewStr("description")))
-					}
-					if λ.IsTrue(func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("forcefilename"), λ.False); !λ.IsTrue(λv) {
-							return λv
-						} else {
-							return λ.NewBool(ϒfilename != λ.None)
-						}
-					}()) {
-						λ.Cal(λ.GetAttr(ϒself, "to_stdout", nil), ϒfilename)
-					}
-					if λ.IsTrue(func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("forceduration"), λ.False); !λ.IsTrue(λv) {
-							return λv
-						} else {
-							return λ.NewBool(λ.Cal(λ.GetAttr(ϒinfo_dict, "get", nil), λ.NewStr("duration")) != λ.None)
-						}
-					}()) {
-						λ.Cal(λ.GetAttr(ϒself, "to_stdout", nil), λ.Cal(λ.None, λ.GetItem(ϒinfo_dict, λ.NewStr("duration"))))
-					}
-					if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("forceformat"), λ.False)) {
-						λ.Cal(λ.GetAttr(ϒself, "to_stdout", nil), λ.GetItem(ϒinfo_dict, λ.NewStr("format")))
-					}
-					if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("forcejson"), λ.False)) {
-						λ.Cal(λ.GetAttr(ϒself, "to_stdout", nil), λ.Cal(Ωjson.ϒdumps, ϒinfo_dict))
-					}
+					λ.Call(λ.GetAttr(ϒself, "__forced_printings", nil), λ.NewArgs(
+						ϒinfo_dict,
+						ϒfilename,
+					), λ.KWArgs{
+						{Name: "incomplete", Value: λ.False},
+					})
 					if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("simulate"), λ.False)) {
 						return λ.None
 					}
@@ -2964,6 +3023,7 @@ func init() {
 			YoutubeDL_format_resolution = λ.Cal(λ.StaticMethodType, YoutubeDL_format_resolution)
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_NUMERIC_FIELDS"):             YoutubeDL__NUMERIC_FIELDS,
+				λ.NewStr("__forced_printings"):          YoutubeDL___forced_printings,
 				λ.NewStr("_bidi_workaround"):            YoutubeDL__bidi_workaround,
 				λ.NewStr("_calc_cookies"):               YoutubeDL__calc_cookies,
 				λ.NewStr("_calc_headers"):               YoutubeDL__calc_headers,

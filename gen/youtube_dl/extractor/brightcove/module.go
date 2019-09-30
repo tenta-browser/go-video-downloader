@@ -43,10 +43,8 @@ var (
 	ϒcompat_HTTPError             λ.Object
 	ϒcompat_etree_fromstring      λ.Object
 	ϒcompat_parse_qs              λ.Object
-	ϒcompat_str                   λ.Object
 	ϒcompat_urllib_parse_urlparse λ.Object
 	ϒcompat_xml_parse_error       λ.Object
-	ϒdetermine_ext                λ.Object
 	ϒextract_attributes           λ.Object
 	ϒfind_xpath_attr              λ.Object
 	ϒfix_xml_ampersands           λ.Object
@@ -55,6 +53,7 @@ var (
 	ϒjs_to_json                   λ.Object
 	ϒmimetype2ext                 λ.Object
 	ϒparse_iso8601                λ.Object
+	ϒsmuggle_url                  λ.Object
 	ϒunescapeHTML                 λ.Object
 	ϒunsmuggle_url                λ.Object
 	ϒupdate_url_query             λ.Object
@@ -66,11 +65,9 @@ func init() {
 		AdobePassIE = Ωadobepass.AdobePassIE
 		ϒcompat_etree_fromstring = Ωcompat.ϒcompat_etree_fromstring
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
-		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ϒcompat_xml_parse_error = Ωcompat.ϒcompat_xml_parse_error
 		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
-		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
 		ϒextract_attributes = Ωutils.ϒextract_attributes
 		ϒfind_xpath_attr = Ωutils.ϒfind_xpath_attr
@@ -79,6 +76,7 @@ func init() {
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
+		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒunsmuggle_url = Ωutils.ϒunsmuggle_url
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query

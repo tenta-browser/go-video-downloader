@@ -52,11 +52,14 @@ func init() {
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		GDCVaultIE = λ.Cal(λ.TypeType, λ.NewStr("GDCVaultIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				GDCVaultIE__TESTS        λ.Object
-				GDCVaultIE__VALID_URL    λ.Object
-				GDCVaultIE__real_extract λ.Object
+				GDCVaultIE__NETRC_MACHINE λ.Object
+				GDCVaultIE__TESTS         λ.Object
+				GDCVaultIE__VALID_URL     λ.Object
+				GDCVaultIE__login         λ.Object
+				GDCVaultIE__real_extract  λ.Object
 			)
 			GDCVaultIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?gdcvault\\.com/play/(?P<id>\\d+)(?:/(?P<name>[\\w-]+))?")
+			GDCVaultIE__NETRC_MACHINE = λ.NewStr("gdcvault")
 			GDCVaultIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://www.gdcvault.com/play/1019721/Doki-Doki-Universe-Sweet-Simple"),
@@ -137,6 +140,55 @@ func init() {
 					}),
 				}),
 			)
+			GDCVaultIE__login = λ.NewFunction("_login",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "webpage_url"},
+					{Name: "display_id"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒdisplay_id  = λargs[2]
+						ϒlogin_form  λ.Object
+						ϒlogin_url   λ.Object
+						ϒlogout_url  λ.Object
+						ϒmobj        λ.Object
+						ϒpassword    λ.Object
+						ϒrequest     λ.Object
+						ϒself        = λargs[0]
+						ϒstart_page  λ.Object
+						ϒusername    λ.Object
+						ϒwebpage_url = λargs[1]
+						τmp0         λ.Object
+					)
+					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_get_login_info", nil))
+					ϒusername = λ.GetItem(τmp0, λ.NewInt(0))
+					ϒpassword = λ.GetItem(τmp0, λ.NewInt(1))
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.NewBool(ϒusername == λ.None); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewBool(ϒpassword == λ.None)
+						}
+					}()) {
+						λ.Cal(λ.GetAttr(ϒself, "report_warning", nil), λ.Add(λ.Add(λ.NewStr("It looks like "), ϒwebpage_url), λ.NewStr(" requires a login. Try specifying a username and password and try again.")))
+						return λ.None
+					}
+					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.NewStr("(?P<root_url>https?://.*?/).*"), ϒwebpage_url)
+					ϒlogin_url = λ.Add(λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("root_url")), λ.NewStr("api/login.php"))
+					ϒlogout_url = λ.Add(λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("root_url")), λ.NewStr("logout"))
+					ϒlogin_form = λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("email"):    ϒusername,
+						λ.NewStr("password"): ϒpassword,
+					})
+					ϒrequest = λ.Cal(ϒsanitized_Request, ϒlogin_url, λ.Cal(ϒurlencode_postdata, ϒlogin_form))
+					λ.Cal(λ.GetAttr(ϒrequest, "add_header", nil), λ.NewStr("Content-Type"), λ.NewStr("application/x-www-form-urlencoded"))
+					λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒrequest, ϒdisplay_id, λ.NewStr("Logging in"))
+					ϒstart_page = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒwebpage_url, ϒdisplay_id, λ.NewStr("Getting authenticated video page"))
+					λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒlogout_url, ϒdisplay_id, λ.NewStr("Logging out"))
+					return ϒstart_page
+				})
 			GDCVaultIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -233,9 +285,11 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        GDCVaultIE__TESTS,
-				λ.NewStr("_VALID_URL"):    GDCVaultIE__VALID_URL,
-				λ.NewStr("_real_extract"): GDCVaultIE__real_extract,
+				λ.NewStr("_NETRC_MACHINE"): GDCVaultIE__NETRC_MACHINE,
+				λ.NewStr("_TESTS"):         GDCVaultIE__TESTS,
+				λ.NewStr("_VALID_URL"):     GDCVaultIE__VALID_URL,
+				λ.NewStr("_login"):         GDCVaultIE__login,
+				λ.NewStr("_real_extract"):  GDCVaultIE__real_extract,
 			})
 		}())
 	})

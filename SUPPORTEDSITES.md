@@ -15,10 +15,10 @@ Supported sites
  * AZMedien: `www.telezueri.ch`
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
- * Beeg _(adult)_: `beeg.com`
  * Beatport: `beatport.com`
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
+ * BilibiliAudio: `www.bilibili.com`
  * BitChute: `www.bitchute.com`
  * BIQLE: `biqle.ru`
  * BleacherReport: `bleacherreport.com`
@@ -86,7 +86,6 @@ Supported sites
  * Funk: `www.funk.net`
  * FXNetworks: `www.fxnetworks.com`
  * GameInformer: `www.gameinformer.com`
- * GameSpot: `www.gamespot.com`
  * Gaskrank: `www.gaskrank.tv`
  * Gazeta: `www.gazeta.ru`
  * GDCVault: `www.gdcvault.com`
@@ -96,6 +95,7 @@ Supported sites
  * GoogleDrive: `drive.google.com`
  * GPUTechConf: `on-demand.gputechconf.com`
  * HBO: `www.hbo.com`
+ * Heise: `www.heise.de`
  * HistoricFilms: `www.historicfilms.com`
  * HitRecord: `hitrecord.org`
  * HornBunny _(adult)_: `hornbunny.com`
@@ -151,6 +151,7 @@ Supported sites
  * Newgrounds: `www.newgrounds.com`
  * Nexx: `api.nexx.cloud`
  * NHL: `www.nhl.com`
+ * NonkTube _(adult)_: `www.nonktube.com`
  * Noovo: `noovo.ca`
  * NovaEmbed: `media.cms.nova.cz`
  * Nova: `tn.nova.cz`
@@ -165,6 +166,7 @@ Supported sites
  * PacktPub: `www.packtpub.com`
  * PandoraTV: `jp.channel.pandora.tv`
  * ParliamentLiveUK: `parliamentlive.tv`
+ * Patreon: `www.patreon.com`
  * PBS: `www.pbs.org`
  * PearVideo: `www.pearvideo.com`
  * People: `www.people.com`
@@ -176,6 +178,7 @@ Supported sites
  * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
  * Porn91 _(adult)_: `91porn.com`
+ * PornCom _(adult)_: `www.porn.com`
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
@@ -227,7 +230,6 @@ Supported sites
  * ThePlatform: `player.theplatform.com`
  * TheScene: `thescene.com`
  * ThisOldHouse: `www.thisoldhouse.com`
- * TinyPic: `tinypic.com`
  * TMZ: `www.tmz.com`
  * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
  * TNAFlix _(adult)_: `www.tnaflix.com`
@@ -238,7 +240,6 @@ Supported sites
  * Trilulilu: `www.trilulilu.ro`
  * Tube8 _(adult)_: `www.tube8.com`
  * Tumblr: `tatianamaslanydaily.tumblr.com`
- * TunePk: `tune.pk`
  * TVANouvelles: `www.tvanouvelles.ca`
  * TVC: `www.tvc.ru`
  * TVCArticle: `www.tvc.ru`
@@ -268,7 +269,6 @@ Supported sites
  * VidLii: `www.vidlii.com`
  * Vimeo: `vimeo.com`
  * VimeoOndemand: `vimeo.com`
- * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
  * Vine: `vine.co`
  * Viqeo: `cdn.viqeo.tv`
@@ -290,6 +290,7 @@ Supported sites
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
  * Yahoo: `news.yahoo.com`
+ * YinYueTai: `v.yinyuetai.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`
  * YourUpload: `yourupload.com`

@@ -512,7 +512,19 @@ func init() {
 						}
 					}
 					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒdata))) {
-						ϒdata = λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("var\\s+playerParams\\s*=\\s*({.+?})\\s*;\\s*\\n"), ϒinfo_page, λ.NewStr("player params")), ϒvideo_id), λ.NewStr("params")), λ.NewInt(0))
+						ϒdata = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+							λ.NewStr("var\\s+playerParams\\s*=\\s*({.+?})\\s*;\\s*\\n"),
+							ϒinfo_page,
+							λ.NewStr("player params"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.NewStr("{}")},
+						}), ϒvideo_id)
+						if λ.IsTrue(ϒdata) {
+							ϒdata = λ.GetItem(λ.GetItem(ϒdata, λ.NewStr("params")), λ.NewInt(0))
+						}
+					}
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒdata))) {
+						ϒdata = λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<!--\\s*({.+})"), ϒinfo_page, λ.NewStr("payload")), ϒvideo_id), λ.NewStr("payload")), λ.Neg(λ.NewInt(1))), λ.Neg(λ.NewInt(1))), λ.NewStr("player")), λ.NewStr("params")), λ.NewInt(0))
 					}
 					ϒtitle = λ.Cal(ϒunescapeHTML, λ.GetItem(ϒdata, λ.NewStr("md_title")))
 					ϒis_live = λ.Eq(λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("live")), λ.NewInt(2))

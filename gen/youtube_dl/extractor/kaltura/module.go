@@ -58,7 +58,6 @@ func init() {
 			var (
 				KalturaIE__SERVICE_BASE     λ.Object
 				KalturaIE__SERVICE_URL      λ.Object
-				KalturaIE__TESTS            λ.Object
 				KalturaIE__VALID_URL        λ.Object
 				KalturaIE__extract_url      λ.Object
 				KalturaIE__get_video_info   λ.Object
@@ -68,71 +67,6 @@ func init() {
 			KalturaIE__VALID_URL = λ.NewStr("(?x)\n                (?:\n                    kaltura:(?P<partner_id>\\d+):(?P<id>[0-9a-z_]+)|\n                    https?://\n                        (:?(?:www|cdnapi(?:sec)?)\\.)?kaltura\\.com(?::\\d+)?/\n                        (?:\n                            (?:\n                                # flash player\n                                index\\.php/(?:kwidget|extwidget/preview)|\n                                # html5 player\n                                html5/html5lib/[^/]+/mwEmbedFrame\\.php\n                            )\n                        )(?:/(?P<path>[^?]+))?(?:\\?(?P<query>.*))?\n                )\n                ")
 			KalturaIE__SERVICE_URL = λ.NewStr("http://cdnapi.kaltura.com")
 			KalturaIE__SERVICE_BASE = λ.NewStr("/api_v3/index.php")
-			KalturaIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("kaltura:269692:1_1jc2y3e4"),
-					λ.NewStr("md5"): λ.NewStr("3adcbdb3dcc02d647539e53f284ba171"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1_1jc2y3e4"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Straight from the Heart"),
-						λ.NewStr("upload_date"): λ.NewStr("20131219"),
-						λ.NewStr("uploader_id"): λ.NewStr("mlundberg@wolfgangsvault.com"),
-						λ.NewStr("description"): λ.NewStr("The Allman Brothers Band, 12/16/1981"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*/thumbnail/.*"),
-						λ.NewStr("timestamp"):   λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.kaltura.com/index.php/kwidget/cache_st/1300318621/wid/_269692/uiconf_id/3873291/entry_id/1_1jc2y3e4"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://cdnapisec.kaltura.com/index.php/kwidget/wid/_557781/uiconf_id/22845202/entry_id/1_plr1syf3"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://cdnapisec.kaltura.com/html5/html5lib/v2.30.2/mwEmbedFrame.php/p/1337/uiconf_id/20540612/entry_id/1_sf5ovm7u?wid=_243342"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("kaltura:111032:1_cw786r8q"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("kaltura:1926081:0_l5ye1133"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("0_l5ye1133"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("What Can You Do With Python?"),
-						λ.NewStr("upload_date"): λ.NewStr("20160221"),
-						λ.NewStr("uploader_id"): λ.NewStr("stork"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*/thumbnail/.*"),
-						λ.NewStr("timestamp"):   λ.IntType,
-						λ.NewStr("subtitles"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("en"): λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("ext"): λ.NewStr("ttml"),
-							})),
-						}),
-					}),
-					λ.NewStr("skip"): λ.NewStr("Gone. Maybe https://www.safaribooksonline.com/library/tutorials/introduction-to-python-anon/3469/"),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.kaltura.com/index.php/extwidget/preview/partner_id/1770401/uiconf_id/37307382/entry_id/0_58u8kme7/embed/iframe?&flashvars[streamerType]=auto"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.kaltura.com:443/index.php/extwidget/preview/partner_id/1770401/uiconf_id/37307382/entry_id/0_58u8kme7/embed/iframe?&flashvars[streamerType]=auto"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("kaltura:513551:1_66x4rg7o"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			KalturaIE__extract_url = λ.NewFunction("_extract_url",
 				[]λ.Param{
 					{Name: "webpage"},
@@ -669,7 +603,6 @@ func init() {
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_SERVICE_BASE"):     KalturaIE__SERVICE_BASE,
 				λ.NewStr("_SERVICE_URL"):      KalturaIE__SERVICE_URL,
-				λ.NewStr("_TESTS"):            KalturaIE__TESTS,
 				λ.NewStr("_VALID_URL"):        KalturaIE__VALID_URL,
 				λ.NewStr("_extract_url"):      KalturaIE__extract_url,
 				λ.NewStr("_get_video_info"):   KalturaIE__get_video_info,

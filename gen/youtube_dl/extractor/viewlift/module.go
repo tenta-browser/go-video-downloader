@@ -44,6 +44,7 @@ var (
 	ϒjs_to_json                  λ.Object
 	ϒparse_age_limit             λ.Object
 	ϒparse_duration              λ.Object
+	ϒtry_get                     λ.Object
 )
 
 func init() {
@@ -57,11 +58,12 @@ func init() {
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒparse_age_limit = Ωutils.ϒparse_age_limit
 		ϒparse_duration = Ωutils.ϒparse_duration
+		ϒtry_get = Ωutils.ϒtry_get
 		ViewLiftBaseIE = λ.Cal(λ.TypeType, λ.NewStr("ViewLiftBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ViewLiftBaseIE__DOMAINS_REGEX λ.Object
 			)
-			ViewLiftBaseIE__DOMAINS_REGEX = λ.NewStr("(?:snagfilms|snagxtreme|funnyforfree|kiddovid|winnersview|(?:monumental|lax)sportsnetwork|vayafilm)\\.com|hoichoi\\.tv")
+			ViewLiftBaseIE__DOMAINS_REGEX = λ.NewStr("(?:(?:main\\.)?snagfilms|snagxtreme|funnyforfree|kiddovid|winnersview|(?:monumental|lax)sportsnetwork|vayafilm)\\.com|hoichoi\\.tv")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_DOMAINS_REGEX"): ViewLiftBaseIE__DOMAINS_REGEX,
 			})
@@ -79,7 +81,7 @@ func init() {
 			var (
 				ViewLiftIE__VALID_URL λ.Object
 			)
-			ViewLiftIE__VALID_URL = λ.Mod(λ.NewStr("https?://(?:www\\.)?(?P<domain>%s)/(?:films/title|show|(?:news/)?videos?)/(?P<id>[^?#]+)"), λ.GetAttr(ViewLiftBaseIE, "_DOMAINS_REGEX", nil))
+			ViewLiftIE__VALID_URL = λ.Mod(λ.NewStr("https?://(?:www\\.)?(?P<domain>%s)(?:/(?:films/title|show|(?:news/)?videos?))?/(?P<id>[^?#]+)"), λ.GetAttr(ViewLiftBaseIE, "_DOMAINS_REGEX", nil))
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): ViewLiftIE__VALID_URL,
 			})

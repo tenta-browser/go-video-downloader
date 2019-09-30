@@ -57,7 +57,7 @@ func init() {
 				PikselIE__VALID_URL    λ.Object
 				PikselIE__real_extract λ.Object
 			)
-			PikselIE__VALID_URL = λ.NewStr("https?://player\\.piksel\\.com/v/(?P<id>[a-z0-9]+)")
+			PikselIE__VALID_URL = λ.NewStr("https?://player\\.piksel\\.com/v/(?:refid/[^/]+/prefid/)?(?P<id>[a-z0-9_]+)")
 			PikselIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://player.piksel.com/v/ums2867l"),
@@ -82,6 +82,10 @@ func init() {
 						λ.NewStr("upload_date"): λ.NewStr("20170204"),
 					}),
 				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://player.piksel.com/v/refid/nhkworld/prefid/nw_vod_v_en_2019_240_20190823233000_02_1566873477"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
 			)
 			PikselIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -97,6 +101,7 @@ func init() {
 						ϒasset_type  λ.Object
 						ϒcaption     λ.Object
 						ϒcaption_url λ.Object
+						ϒdisplay_id  λ.Object
 						ϒfailure     λ.Object
 						ϒformat_id   λ.Object
 						ϒformats     λ.Object
@@ -115,8 +120,15 @@ func init() {
 						τmp0         λ.Object
 						τmp1         λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
+					ϒvideo_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+						λ.NewStr("data-de-program-uuid=[\\'\"]([a-z0-9]+)"),
+						ϒwebpage,
+						λ.NewStr("program uuid"),
+					), λ.KWArgs{
+						{Name: "default", Value: ϒdisplay_id},
+					})
 					ϒapp_token = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewList(
 						λ.NewStr("clientAPI\\s*:\\s*\"([^\"]+)\""),
 						λ.NewStr("data-de-api-key\\s*=\\s*\"([^\"]+)\""),

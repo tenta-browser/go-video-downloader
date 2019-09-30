@@ -281,40 +281,46 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒaudio_download   λ.Object
-						ϒbitrate          λ.Object
-						ϒbitrate_url      λ.Object
-						ϒdata             λ.Object
-						ϒext_url          λ.Object
-						ϒexternal         λ.Object
-						ϒf                λ.Object
-						ϒfinfo            λ.Object
-						ϒformat_id        λ.Object
-						ϒformats          λ.Object
-						ϒh264_url         λ.Object
-						ϒhttp_url         λ.Object
-						ϒinfo             λ.Object
-						ϒm3u8_format      λ.Object
-						ϒm3u8_formats     λ.Object
-						ϒnative_downloads λ.Object
-						ϒplayer_talk      λ.Object
-						ϒresource         λ.Object
-						ϒresources        λ.Object
-						ϒresources_       λ.Object
-						ϒself             = λargs[0]
-						ϒservice          λ.Object
-						ϒstream_url       λ.Object
-						ϒstreamer         λ.Object
-						ϒtalk_info        λ.Object
-						ϒtitle            λ.Object
-						ϒurl              = λargs[1]
-						ϒvideo_id         λ.Object
-						ϒvideo_name       = λargs[2]
-						ϒwebpage          λ.Object
-						τmp0              λ.Object
-						τmp1              λ.Object
-						τmp2              λ.Object
-						τmp3              λ.Object
+						ϒaudio_download      λ.Object
+						ϒbitrate             λ.Object
+						ϒbitrate_url         λ.Object
+						ϒdata                λ.Object
+						ϒdownloads           λ.Object
+						ϒext_url             λ.Object
+						ϒexternal            λ.Object
+						ϒf                   λ.Object
+						ϒfinfo               λ.Object
+						ϒformat_id           λ.Object
+						ϒformats             λ.Object
+						ϒh264_url            λ.Object
+						ϒhttp_url            λ.Object
+						ϒinfo                λ.Object
+						ϒlang                λ.Object
+						ϒm3u8_format         λ.Object
+						ϒm3u8_formats        λ.Object
+						ϒnative_downloads    λ.Object
+						ϒplayer_talk         λ.Object
+						ϒq                   λ.Object
+						ϒq_url               λ.Object
+						ϒresource            λ.Object
+						ϒresources           λ.Object
+						ϒresources_          λ.Object
+						ϒself                = λargs[0]
+						ϒservice             λ.Object
+						ϒstream_url          λ.Object
+						ϒstreamer            λ.Object
+						ϒsubtitled_download  λ.Object
+						ϒsubtitled_downloads λ.Object
+						ϒtalk_info           λ.Object
+						ϒtitle               λ.Object
+						ϒurl                 = λargs[1]
+						ϒvideo_id            λ.Object
+						ϒvideo_name          = λargs[2]
+						ϒwebpage             λ.Object
+						τmp0                 λ.Object
+						τmp1                 λ.Object
+						τmp2                 λ.Object
+						τmp3                 λ.Object
 					)
 					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_name)
 					ϒinfo = λ.Cal(λ.GetAttr(ϒself, "_extract_info", nil), ϒwebpage)
@@ -337,31 +343,17 @@ func init() {
 					}()
 					ϒtalk_info = λ.GetItem(λ.GetItem(ϒdata, λ.NewStr("talks")), λ.NewInt(0))
 					ϒtitle = λ.Cal(λ.GetAttr(λ.GetItem(ϒtalk_info, λ.NewStr("title")), "strip", nil))
+					ϒdownloads = func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(ϒtalk_info, "get", nil), λ.NewStr("downloads")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+						}
+					}()
 					ϒnative_downloads = func() λ.Object {
-						if λv := λ.Cal(ϒtry_get, ϒtalk_info, λ.NewTuple(
-							λ.NewFunction("<lambda>",
-								[]λ.Param{
-									{Name: "x"},
-								},
-								0, false, false,
-								func(λargs []λ.Object) λ.Object {
-									var (
-										ϒx = λargs[0]
-									)
-									return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("downloads")), λ.NewStr("nativeDownloads"))
-								}),
-							λ.NewFunction("<lambda>",
-								[]λ.Param{
-									{Name: "x"},
-								},
-								0, false, false,
-								func(λargs []λ.Object) λ.Object {
-									var (
-										ϒx = λargs[0]
-									)
-									return λ.GetItem(ϒx, λ.NewStr("nativeDownloads"))
-								}),
-						), λ.DictType); λ.IsTrue(λv) {
+						if λv := λ.Cal(λ.GetAttr(ϒdownloads, "get", nil), λ.NewStr("nativeDownloads")); λ.IsTrue(λv) {
+							return λv
+						} else if λv := λ.Cal(λ.GetAttr(ϒtalk_info, "get", nil), λ.NewStr("nativeDownloads")); λ.IsTrue(λv) {
 							return λv
 						} else {
 							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
@@ -391,13 +383,47 @@ func init() {
 										λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
 											λ.NewStr("url"):       ϒformat_url,
 											λ.NewStr("format_id"): ϒformat_id,
-											λ.NewStr("format"):    ϒformat_id,
 										}))
 									}
 								}
 								return λ.None
 							})
 						})))
+					ϒsubtitled_downloads = func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(ϒdownloads, "get", nil), λ.NewStr("subtitledDownloads")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+						}
+					}()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒsubtitled_downloads, "items", nil)))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						τmp2 = τmp1
+						ϒlang = λ.GetItem(τmp2, λ.NewInt(0))
+						ϒsubtitled_download = λ.GetItem(τmp2, λ.NewInt(1))
+						τmp2 = λ.Cal(λ.BuiltinIter, λ.GetAttr(ϒself, "_NATIVE_FORMATS", nil))
+						for {
+							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+								break
+							}
+							ϒq = τmp3
+							ϒq_url = λ.Cal(λ.GetAttr(ϒsubtitled_download, "get", nil), ϒq)
+							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒq_url))) {
+								continue
+							}
+							λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("url"): ϒq_url,
+								λ.NewStr("format_id"): λ.Mod(λ.NewStr("%s-%s"), λ.NewTuple(
+									ϒq,
+									ϒlang,
+								)),
+								λ.NewStr("language"): ϒlang,
+							}))
+						}
+					}
 					if λ.IsTrue(ϒformats) {
 						τmp0 = λ.Cal(λ.BuiltinIter, ϒformats)
 						for {
@@ -405,7 +431,7 @@ func init() {
 								break
 							}
 							ϒf = τmp1
-							ϒfinfo = λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_NATIVE_FORMATS", nil), "get", nil), λ.GetItem(ϒf, λ.NewStr("format_id")))
+							ϒfinfo = λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_NATIVE_FORMATS", nil), "get", nil), λ.GetItem(λ.Cal(λ.GetAttr(λ.GetItem(ϒf, λ.NewStr("format_id")), "split", nil), λ.NewStr("-")), λ.NewInt(0)))
 							if λ.IsTrue(ϒfinfo) {
 								λ.Cal(λ.GetAttr(ϒf, "update", nil), ϒfinfo)
 							}
@@ -445,72 +471,75 @@ func init() {
 						τmp2 = τmp1
 						ϒformat_id = λ.GetItem(τmp2, λ.NewInt(0))
 						ϒresources = λ.GetItem(τmp2, λ.NewInt(1))
-						if λ.IsTrue(λ.Eq(ϒformat_id, λ.NewStr("h264"))) {
-							τmp2 = λ.Cal(λ.BuiltinIter, ϒresources)
-							for {
-								if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
-									break
-								}
-								ϒresource = τmp3
-								ϒh264_url = λ.Cal(λ.GetAttr(ϒresource, "get", nil), λ.NewStr("file"))
-								if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒh264_url))) {
-									continue
-								}
-								ϒbitrate = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒresource, "get", nil), λ.NewStr("bitrate")))
-								λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("url"): ϒh264_url,
-									λ.NewStr("format_id"): λ.Mod(λ.NewStr("%s-%sk"), λ.NewTuple(
-										ϒformat_id,
-										ϒbitrate,
-									)),
-									λ.NewStr("tbr"): ϒbitrate,
-								}))
-								if λ.IsTrue(λ.Cal(Ωre.ϒsearch, λ.NewStr("\\d+k"), ϒh264_url)) {
-									ϒhttp_url = ϒh264_url
-								}
+						if λ.IsTrue(λ.Eq(ϒformat_id, λ.NewStr("hls"))) {
+							if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒresources, λ.DictType)))) {
+								continue
 							}
+							ϒstream_url = λ.Cal(ϒurl_or_none, λ.Cal(λ.GetAttr(ϒresources, "get", nil), λ.NewStr("stream")))
+							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒstream_url))) {
+								continue
+							}
+							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+								ϒstream_url,
+								ϒvideo_name,
+								λ.NewStr("mp4"),
+							), λ.KWArgs{
+								{Name: "m3u8_id", Value: ϒformat_id},
+								{Name: "fatal", Value: λ.False},
+							}))
 						} else {
-							if λ.IsTrue(λ.Eq(ϒformat_id, λ.NewStr("rtmp"))) {
-								ϒstreamer = λ.Cal(λ.GetAttr(ϒtalk_info, "get", nil), λ.NewStr("streamer"))
-								if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒstreamer))) {
-									continue
-								}
+							if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒresources, λ.ListType)))) {
+								continue
+							}
+							if λ.IsTrue(λ.Eq(ϒformat_id, λ.NewStr("h264"))) {
 								τmp2 = λ.Cal(λ.BuiltinIter, ϒresources)
 								for {
 									if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 										break
 									}
 									ϒresource = τmp3
+									ϒh264_url = λ.Cal(λ.GetAttr(ϒresource, "get", nil), λ.NewStr("file"))
+									if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒh264_url))) {
+										continue
+									}
+									ϒbitrate = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒresource, "get", nil), λ.NewStr("bitrate")))
 									λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("format_id"): λ.Mod(λ.NewStr("%s-%s"), λ.NewTuple(
+										λ.NewStr("url"): ϒh264_url,
+										λ.NewStr("format_id"): λ.Mod(λ.NewStr("%s-%sk"), λ.NewTuple(
 											ϒformat_id,
-											λ.Cal(λ.GetAttr(ϒresource, "get", nil), λ.NewStr("name")),
+											ϒbitrate,
 										)),
-										λ.NewStr("url"):       ϒstreamer,
-										λ.NewStr("play_path"): λ.GetItem(ϒresource, λ.NewStr("file")),
-										λ.NewStr("ext"):       λ.NewStr("flv"),
-										λ.NewStr("width"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒresource, "get", nil), λ.NewStr("width"))),
-										λ.NewStr("height"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒresource, "get", nil), λ.NewStr("height"))),
-										λ.NewStr("tbr"):       λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒresource, "get", nil), λ.NewStr("bitrate"))),
+										λ.NewStr("tbr"): ϒbitrate,
 									}))
+									if λ.IsTrue(λ.Cal(Ωre.ϒsearch, λ.NewStr("\\d+k"), ϒh264_url)) {
+										ϒhttp_url = ϒh264_url
+									}
 								}
 							} else {
-								if λ.IsTrue(λ.Eq(ϒformat_id, λ.NewStr("hls"))) {
-									if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒresources, λ.DictType)))) {
+								if λ.IsTrue(λ.Eq(ϒformat_id, λ.NewStr("rtmp"))) {
+									ϒstreamer = λ.Cal(λ.GetAttr(ϒtalk_info, "get", nil), λ.NewStr("streamer"))
+									if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒstreamer))) {
 										continue
 									}
-									ϒstream_url = λ.Cal(ϒurl_or_none, λ.Cal(λ.GetAttr(ϒresources, "get", nil), λ.NewStr("stream")))
-									if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒstream_url))) {
-										continue
+									τmp2 = λ.Cal(λ.BuiltinIter, ϒresources)
+									for {
+										if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+											break
+										}
+										ϒresource = τmp3
+										λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+											λ.NewStr("format_id"): λ.Mod(λ.NewStr("%s-%s"), λ.NewTuple(
+												ϒformat_id,
+												λ.Cal(λ.GetAttr(ϒresource, "get", nil), λ.NewStr("name")),
+											)),
+											λ.NewStr("url"):       ϒstreamer,
+											λ.NewStr("play_path"): λ.GetItem(ϒresource, λ.NewStr("file")),
+											λ.NewStr("ext"):       λ.NewStr("flv"),
+											λ.NewStr("width"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒresource, "get", nil), λ.NewStr("width"))),
+											λ.NewStr("height"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒresource, "get", nil), λ.NewStr("height"))),
+											λ.NewStr("tbr"):       λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒresource, "get", nil), λ.NewStr("bitrate"))),
+										}))
 									}
-									λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
-										ϒstream_url,
-										ϒvideo_name,
-										λ.NewStr("mp4"),
-									), λ.KWArgs{
-										{Name: "m3u8_id", Value: ϒformat_id},
-										{Name: "fatal", Value: λ.False},
-									}))
 								}
 							}
 						}
