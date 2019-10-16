@@ -84,7 +84,6 @@ import (
 	Ωudn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/udn"
 	Ωustream "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ustream"
 	Ωvbox7 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vbox7"
-	Ωvessel "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vessel"
 	Ωvice "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vice"
 	Ωvidea "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/videa"
 	Ωvideomore "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/videomore"
@@ -172,7 +171,6 @@ var (
 	VShareIE                     λ.Object
 	Vbox7IE                      λ.Object
 	VerystreamIE                 λ.Object
-	VesselIE                     λ.Object
 	ViceIE                       λ.Object
 	VideaIE                      λ.Object
 	VideoPressIE                 λ.Object
@@ -269,7 +267,6 @@ func init() {
 		LiveLeakIE = Ωliveleak.LiveLeakIE
 		ThreeQSDNIE = Ωthreeqsdn.ThreeQSDNIE
 		ThePlatformIE = Ωtheplatform.ThePlatformIE
-		VesselIE = Ωvessel.VesselIE
 		KalturaIE = Ωkaltura.KalturaIE
 		EaglePlatformIE = Ωeagleplatform.EaglePlatformIE
 		FacebookIE = Ωfacebook.FacebookIE

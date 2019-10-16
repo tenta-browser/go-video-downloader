@@ -58,7 +58,6 @@ var (
 	ϒjs_to_json            λ.Object
 	ϒmerge_dicts           λ.Object
 	ϒparse_filesize        λ.Object
-	ϒqualities             λ.Object
 	ϒsanitized_Request     λ.Object
 	ϒsmuggle_url           λ.Object
 	ϒstd_headers           λ.Object
@@ -82,7 +81,6 @@ func init() {
 		ϒmerge_dicts = Ωutils.ϒmerge_dicts
 		NO_DEFAULT = Ωutils.NO_DEFAULT
 		ϒparse_filesize = Ωutils.ϒparse_filesize
-		ϒqualities = Ωutils.ϒqualities
 		RegexNotFoundError = Ωutils.RegexNotFoundError
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
@@ -565,6 +563,7 @@ func init() {
 					}()
 					ϒvideo_uploader_url = λ.Cal(λ.GetAttr(ϒowner, "get", nil), λ.NewStr("url"))
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"): ϒvideo_id,
 						λ.NewStr("title"): func() λ.Object {
 							if λ.IsTrue(ϒis_live) {
 								return λ.Cal(λ.GetAttr(ϒself, "_live_title", nil), ϒvideo_title)
@@ -1464,7 +1463,6 @@ func init() {
 						}
 					}()
 					ϒinfo_dict = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            ϒvideo_id,
 						λ.NewStr("formats"):       ϒformats,
 						λ.NewStr("timestamp"):     λ.Cal(ϒunified_timestamp, ϒtimestamp),
 						λ.NewStr("description"):   ϒvideo_description,
@@ -1630,7 +1628,7 @@ func init() {
 				λ.NewStr("_VALID_URL"): VimeoLikesIE__VALID_URL,
 			})
 		}())
-		VHXEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("VHXEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		VHXEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("VHXEmbedIE"), λ.NewTuple(VimeoBaseInfoExtractor), func() λ.Dict {
 			var (
 				VHXEmbedIE__VALID_URL λ.Object
 			)

@@ -531,6 +531,7 @@ func init() {
 						ϒcid           λ.Object
 						ϒdevice_id     λ.Object
 						ϒdomain_id     λ.Object
+						ϒfind_video    λ.Object
 						ϒformats       λ.Object
 						ϒgeneral       λ.Object
 						ϒmobj          λ.Object
@@ -555,6 +556,48 @@ func init() {
 					}()
 					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
 					ϒvideo = λ.None
+					ϒfind_video = λ.NewFunction("find_video",
+						[]λ.Param{
+							{Name: "result"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒresult = λargs[0]
+								ϒv      λ.Object
+								ϒvid    λ.Object
+								τmp0    λ.Object
+								τmp1    λ.Object
+							)
+							if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒresult, λ.DictType)) {
+								return ϒresult
+							} else {
+								if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒresult, λ.ListType)) {
+									ϒvid = λ.Cal(λ.IntType, ϒvideo_id)
+									τmp0 = λ.Cal(λ.BuiltinIter, ϒresult)
+									for {
+										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+											break
+										}
+										ϒv = τmp1
+										if λ.IsTrue(λ.Eq(λ.Cal(ϒtry_get, ϒv, λ.NewFunction("<lambda>",
+											[]λ.Param{
+												{Name: "x"},
+											},
+											0, false, false,
+											func(λargs []λ.Object) λ.Object {
+												var (
+													ϒx = λargs[0]
+												)
+												return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("general")), λ.NewStr("ID"))
+											}), λ.IntType), ϒvid)) {
+											return ϒv
+										}
+									}
+								}
+							}
+							return λ.None
+						})
 					ϒresponse = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
 						λ.Mod(λ.NewStr("https://arc.nexx.cloud/api/video/%s.json"), ϒvideo_id),
 						ϒvideo_id,
@@ -569,14 +612,8 @@ func init() {
 						}
 					}()) {
 						ϒresult = λ.Cal(λ.GetAttr(ϒresponse, "get", nil), λ.NewStr("result"))
-						if λ.IsTrue(func() λ.Object {
-							if λv := ϒresult; !λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.Cal(λ.BuiltinIsInstance, ϒresult, λ.DictType)
-							}
-						}()) {
-							ϒvideo = ϒresult
+						if λ.IsTrue(ϒresult) {
+							ϒvideo = λ.Cal(ϒfind_video, ϒresult)
 						}
 					}
 					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo))) {
@@ -619,7 +656,7 @@ func init() {
 							ϒdomain_id,
 							ϒsecret,
 						)), "encode", nil), λ.NewStr("utf-8"))), "hexdigest", nil))
-						ϒvideo = λ.Call(λ.GetAttr(ϒself, "_call_api", nil), λ.NewArgs(
+						ϒresult = λ.Call(λ.GetAttr(ϒself, "_call_api", nil), λ.NewArgs(
 							ϒdomain_id,
 							λ.Mod(λ.NewStr("videos/%s/%s"), λ.NewTuple(
 								ϒop,
@@ -643,6 +680,7 @@ func init() {
 								λ.NewStr("X-Request-Token"): ϒrequest_token,
 							})},
 						})
+						ϒvideo = λ.Cal(ϒfind_video, ϒresult)
 					}
 					ϒgeneral = λ.GetItem(ϒvideo, λ.NewStr("general"))
 					ϒtitle = λ.GetItem(ϒgeneral, λ.NewStr("title"))

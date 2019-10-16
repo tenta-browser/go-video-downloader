@@ -25,6 +25,8 @@
 package pornhub
 
 import (
+	Ωfunctools "github.com/tenta-browser/go-video-downloader/gen/functools"
+	Ωoperator "github.com/tenta-browser/go-video-downloader/gen/operator"
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωrequest "github.com/tenta-browser/go-video-downloader/gen/urllib/request"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
@@ -475,7 +477,7 @@ func init() {
 								ϒinp = λ.Cal(Ωre.ϒsub, λ.NewStr("/\\*(?:(?!\\*/).)*?\\*/"), λ.NewStr(""), ϒinp)
 								if λ.IsTrue(λ.NewBool(λ.Contains(ϒinp, λ.NewStr("+")))) {
 									ϒinps = λ.Cal(λ.GetAttr(ϒinp, "split", nil), λ.NewStr("+"))
-									return λ.Cal(λ.GetAttr(λ.None, "reduce", nil), λ.None, λ.Cal(λ.MapIteratorType, ϒparse_js_value, ϒinps))
+									return λ.Cal(Ωfunctools.ϒreduce, Ωoperator.ϒconcat, λ.Cal(λ.MapIteratorType, ϒparse_js_value, ϒinps))
 								}
 								ϒinp = λ.Cal(λ.GetAttr(ϒinp, "strip", nil))
 								if λ.IsTrue(λ.NewBool(λ.Contains(ϒjs_vars, ϒinp))) {

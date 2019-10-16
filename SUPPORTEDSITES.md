@@ -7,7 +7,6 @@ Supported sites
  * AdobeTVVideo: `video.tv.adobe.com`
  * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
- * Aparat: `www.aparat.com`
  * ARDMediathek: `www.ardmediathek.de`
  * ArteTVPlus7: `www.arte.tv`
  * AsianCrush: `www.asiancrush.com`
@@ -23,6 +22,7 @@ Supported sites
  * BIQLE: `biqle.ru`
  * BleacherReport: `bleacherreport.com`
  * BleacherReportCMS: `bleacherreport.com`
+ * BokeCC: `union.bokecc.com`
  * Bpb: `www.bpb.de`
  * BR: `www.br.de`
  * BravoTV: `www.bravotv.com`
@@ -56,6 +56,7 @@ Supported sites
  * Dotsub: `dotsub.com`
  * DrTuber _(adult)_: `www.drtuber.com`
  * DVTV: `video.aktualne.cz`
+ * Dumpert: `www.dumpert.nl`
  * DiscoveryNetworksDe: `www.tlc.de`
  * Disney: `video.disney.com`
  * DigitallySpeaking: `evt.dispeak.com`
@@ -160,6 +161,7 @@ Supported sites
  * Odnoklassniki: `ok.ru`
  * Onet: `onet.tv`
  * OnetChannel: `onet.tv`
+ * OnetPl: `film.onet.pl`
  * Ooyala: `player.ooyala.com`
  * Verystream: `verystream.com`
  * OutsideTV: `www.outsidetv.com`
@@ -170,6 +172,7 @@ Supported sites
  * PBS: `www.pbs.org`
  * PearVideo: `www.pearvideo.com`
  * People: `www.people.com`
+ * PerformGroup: `player.performgroup.com`
  * Photobucket: `media.photobucket.com`
  * Piksel: `player.piksel.com`
  * PlayFM: `www.play.fm`
@@ -182,7 +185,6 @@ Supported sites
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
- * PressTV: `www.presstv.ir`
  * RadioDe: `ndr2.radio.de`
  * RadioJavan: `www.radiojavan.com`
  * Rai: `www.raisport.rai.it`
@@ -201,7 +203,6 @@ Supported sites
  * SBS: `www.sbs.com.au`
  * Screencast: `www.screencast.com`
  * ScreencastOMatic: `screencast-o-matic.com`
- * SenateISVP: `www.senate.gov`
  * SeznamZpravy: `www.seznamzpravy.cz`
  * Sina: `video.sina.com.cn`
  * SkyNews: `news.sky.com`
@@ -239,7 +240,6 @@ Supported sites
  * Toypics _(adult)_: `videos.toypics.net`
  * Trilulilu: `www.trilulilu.ro`
  * Tube8 _(adult)_: `www.tube8.com`
- * Tumblr: `tatianamaslanydaily.tumblr.com`
  * TVANouvelles: `www.tvanouvelles.ca`
  * TVC: `www.tvc.ru`
  * TVCArticle: `www.tvc.ru`

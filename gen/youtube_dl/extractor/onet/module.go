@@ -268,11 +268,26 @@ func init() {
 		}())
 		OnetMVPIE = λ.Cal(λ.TypeType, λ.NewStr("OnetMVPIE"), λ.NewTuple(OnetBaseIE), func() λ.Dict {
 			var (
-				OnetMVPIE__VALID_URL λ.Object
+				OnetMVPIE__VALID_URL    λ.Object
+				OnetMVPIE__real_extract λ.Object
 			)
 			OnetMVPIE__VALID_URL = λ.NewStr("onetmvp:(?P<id>\\d+\\.\\d+)")
+			OnetMVPIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself = λargs[0]
+						ϒurl  = λargs[1]
+					)
+					return λ.Cal(λ.GetAttr(ϒself, "_extract_from_id", nil), λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl))
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): OnetMVPIE__VALID_URL,
+				λ.NewStr("_VALID_URL"):    OnetMVPIE__VALID_URL,
+				λ.NewStr("_real_extract"): OnetMVPIE__real_extract,
 			})
 		}())
 		OnetIE = λ.Cal(λ.TypeType, λ.NewStr("OnetIE"), λ.NewTuple(OnetBaseIE), func() λ.Dict {
@@ -436,11 +451,122 @@ func init() {
 		}())
 		OnetPlIE = λ.Cal(λ.TypeType, λ.NewStr("OnetPlIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				OnetPlIE__VALID_URL λ.Object
+				OnetPlIE_IE_NAME        λ.Object
+				OnetPlIE__TESTS         λ.Object
+				OnetPlIE__VALID_URL     λ.Object
+				OnetPlIE__real_extract  λ.Object
+				OnetPlIE__search_mvp_id λ.Object
 			)
 			OnetPlIE__VALID_URL = λ.NewStr("https?://(?:[^/]+\\.)?(?:onet|businessinsider\\.com|plejada)\\.pl/(?:[^/]+/)+(?P<id>[0-9a-z]+)")
+			OnetPlIE_IE_NAME = λ.NewStr("onet.pl")
+			OnetPlIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://eurosport.onet.pl/zimowe/skoki-narciarskie/ziobro-wygral-kwalifikacje-w-pjongczangu/9ckrly"),
+					λ.NewStr("md5"): λ.NewStr("b94021eb56214c3969380388b6e73cb0"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("1561707.1685479"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Ziobro wygrał kwalifikacje w Pjongczangu"),
+						λ.NewStr("description"): λ.NewStr("md5:61fb0740084d2d702ea96512a03585b4"),
+						λ.NewStr("upload_date"): λ.NewStr("20170214"),
+						λ.NewStr("timestamp"):   λ.NewInt(1487078046),
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://film.onet.pl/pensjonat-nad-rozlewiskiem-relacja-z-planu-serialu/y428n0"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("501235.965429946"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("\"Pensjonat nad rozlewiskiem\": relacja z planu serialu"),
+						λ.NewStr("upload_date"): λ.NewStr("20170622"),
+						λ.NewStr("timestamp"):   λ.NewInt(1498159955),
+					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://film.onet.pl/zwiastuny/ghost-in-the-shell-drugi-zwiastun-pl/5q6yl3"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://moto.onet.pl/jak-wybierane-sa-miejsca-na-fotoradary/6rs04e"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://businessinsider.com.pl/wideo/scenariusz-na-koniec-swiata-wedlug-nasa/dwnqptk"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("http://plejada.pl/weronika-rosati-o-swoim-domniemanym-slubie/n2bq89"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
+			OnetPlIE__search_mvp_id = λ.NewFunction("_search_mvp_id",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "webpage"},
+					{Name: "default", Def: NO_DEFAULT},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒdefault = λargs[2]
+						ϒself    = λargs[0]
+						ϒwebpage = λargs[1]
+					)
+					return λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+						λ.NewStr("data-(?:params-)?mvp=[\"\\'](\\d+\\.\\d+)"),
+						ϒwebpage,
+						λ.NewStr("mvp id"),
+					), λ.KWArgs{
+						{Name: "default", Value: ϒdefault},
+					})
+				})
+			OnetPlIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒmvp_id        λ.Object
+						ϒpulsembed_url λ.Object
+						ϒself          = λargs[0]
+						ϒurl           = λargs[1]
+						ϒvideo_id      λ.Object
+						ϒwebpage       λ.Object
+					)
+					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒmvp_id = λ.Call(λ.GetAttr(ϒself, "_search_mvp_id", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
+						{Name: "default", Value: λ.None},
+					})
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒmvp_id))) {
+						ϒpulsembed_url = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+							λ.NewStr("data-src=([\"\\'])(?P<url>(?:https?:)?//pulsembed\\.eu/.+?)\\1"),
+							ϒwebpage,
+							λ.NewStr("pulsembed url"),
+						), λ.KWArgs{
+							{Name: "group", Value: λ.NewStr("url")},
+						})
+						ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒpulsembed_url, ϒvideo_id, λ.NewStr("Downloading pulsembed webpage"))
+						ϒmvp_id = λ.Cal(λ.GetAttr(ϒself, "_search_mvp_id", nil), ϒwebpage)
+					}
+					return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(
+						λ.Mod(λ.NewStr("onetmvp:%s"), ϒmvp_id),
+						λ.Cal(λ.GetAttr(OnetMVPIE, "ie_key", nil)),
+					), λ.KWArgs{
+						{Name: "video_id", Value: ϒmvp_id},
+					})
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): OnetPlIE__VALID_URL,
+				λ.NewStr("IE_NAME"):        OnetPlIE_IE_NAME,
+				λ.NewStr("_TESTS"):         OnetPlIE__TESTS,
+				λ.NewStr("_VALID_URL"):     OnetPlIE__VALID_URL,
+				λ.NewStr("_real_extract"):  OnetPlIE__real_extract,
+				λ.NewStr("_search_mvp_id"): OnetPlIE__search_mvp_id,
 			})
 		}())
 	})

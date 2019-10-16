@@ -52,7 +52,7 @@ func init() {
 				GfycatIE__VALID_URL    λ.Object
 				GfycatIE__real_extract λ.Object
 			)
-			GfycatIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?gfycat\\.com/(?:ru/|ifr/|gifs/detail/)?(?P<id>[^-/?#]+)")
+			GfycatIE__VALID_URL = λ.NewStr("https?://(?:(?:www|giant|thumbs)\\.)?gfycat\\.com/(?:ru/|ifr/|gifs/detail/)?(?P<id>[^-/?#\\.]+)")
 			GfycatIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://gfycat.com/DeadlyDecisiveGermanpinscher"),
@@ -98,6 +98,14 @@ func init() {
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"):           λ.NewStr("https://gfycat.com/acceptablehappygoluckyharborporpoise-baseball"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://thumbs.gfycat.com/acceptablehappygoluckyharborporpoise-size_restricted.gif"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://giant.gfycat.com/acceptablehappygoluckyharborporpoise.mp4"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
 			)

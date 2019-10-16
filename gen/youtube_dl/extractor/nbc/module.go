@@ -49,7 +49,6 @@ var (
 	ϒcompat_urllib_parse_unquote λ.Object
 	ϒint_or_none                 λ.Object
 	ϒsmuggle_url                 λ.Object
-	ϒtry_get                     λ.Object
 	ϒupdate_url_query            λ.Object
 )
 
@@ -60,7 +59,6 @@ func init() {
 		AdobePassIE = Ωadobepass.AdobePassIE
 		ϒcompat_urllib_parse_unquote = Ωcompat.ϒcompat_urllib_parse_unquote
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
-		ϒtry_get = Ωutils.ϒtry_get
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		ϒint_or_none = Ωutils.ϒint_or_none
 		NBCIE = λ.Cal(λ.TypeType, λ.NewStr("NBCIE"), λ.NewTuple(AdobePassIE), func() λ.Dict {

@@ -356,7 +356,7 @@ func init() {
 			var (
 				TwitchVodIE__VALID_URL λ.Object
 			)
-			TwitchVodIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            (?:(?:www|go|m)\\.)?twitch\\.tv/(?:[^/]+/v(?:ideo)?|videos)/|\n                            player\\.twitch\\.tv/\\?.*?\\bvideo=v\n                        )\n                        (?P<id>\\d+)\n                    ")
+			TwitchVodIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            (?:(?:www|go|m)\\.)?twitch\\.tv/(?:[^/]+/v(?:ideo)?|videos)/|\n                            player\\.twitch\\.tv/\\?.*?\\bvideo=v?\n                        )\n                        (?P<id>\\d+)\n                    ")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): TwitchVodIE__VALID_URL,
 			})

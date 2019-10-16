@@ -35,6 +35,7 @@ var (
 	InfoExtractor    λ.Object
 	RedTubeIE        λ.Object
 	ϒint_or_none     λ.Object
+	ϒmerge_dicts     λ.Object
 	ϒstr_to_int      λ.Object
 	ϒunified_strdate λ.Object
 	ϒurl_or_none     λ.Object
@@ -45,6 +46,7 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒmerge_dicts = Ωutils.ϒmerge_dicts
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		ϒurl_or_none = Ωutils.ϒurl_or_none
@@ -87,12 +89,12 @@ func init() {
 						ϒformat_id   λ.Object
 						ϒformat_url  λ.Object
 						ϒformats     λ.Object
+						ϒinfo        λ.Object
 						ϒmedia       λ.Object
 						ϒmedias      λ.Object
 						ϒself        = λargs[0]
 						ϒsources     λ.Object
 						ϒthumbnail   λ.Object
-						ϒtitle       λ.Object
 						ϒupload_date λ.Object
 						ϒurl         = λargs[1]
 						ϒvideo_id    λ.Object
@@ -133,23 +135,31 @@ func init() {
 							{Name: "expected", Value: λ.True},
 						})))
 					}
-					ϒtitle = func() λ.Object {
-						if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-							λ.NewTuple(
-								λ.NewStr("<h(\\d)[^>]+class=\"(?:video_title_text|videoTitle)[^\"]*\">(?P<title>(?:(?!\\1).)+)</h\\1>"),
-								λ.NewStr("(?:videoTitle|title)\\s*:\\s*([\"\\'])(?P<title>(?:(?!\\1).)+)\\1"),
-							),
-							ϒwebpage,
-							λ.NewStr("title"),
-						), λ.KWArgs{
-							{Name: "group", Value: λ.NewStr("title")},
-							{Name: "default", Value: λ.None},
-						}); λ.IsTrue(λv) {
-							return λv
-						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
-						}
-					}()
+					ϒinfo = λ.Call(λ.GetAttr(ϒself, "_search_json_ld", nil), λ.NewArgs(
+						ϒwebpage,
+						ϒvideo_id,
+					), λ.KWArgs{
+						{Name: "default", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{})},
+					})
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("title"))))) {
+						λ.SetItem(ϒinfo, λ.NewStr("title"), func() λ.Object {
+							if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
+								λ.NewTuple(
+									λ.NewStr("<h(\\d)[^>]+class=\"(?:video_title_text|videoTitle)[^\"]*\">(?P<title>(?:(?!\\1).)+)</h\\1>"),
+									λ.NewStr("(?:videoTitle|title)\\s*:\\s*([\"\\'])(?P<title>(?:(?!\\1).)+)\\1"),
+								),
+								ϒwebpage,
+								λ.NewStr("title"),
+							), λ.KWArgs{
+								{Name: "group", Value: λ.NewStr("title")},
+								{Name: "default", Value: λ.None},
+							}); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
+							}
+						}())
+					}
 					ϒformats = λ.NewList()
 					ϒsources = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 						λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
@@ -233,11 +243,11 @@ func init() {
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
 					ϒthumbnail = λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage)
 					ϒupload_date = λ.Cal(ϒunified_strdate, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<span[^>]+>ADDED ([^<]+)<"),
+						λ.NewStr("<span[^>]+>(?:ADDED|Published on) ([^<]+)<"),
 						ϒwebpage,
 						λ.NewStr("upload date"),
 					), λ.KWArgs{
-						{Name: "fatal", Value: λ.False},
+						{Name: "default", Value: λ.None},
 					}))
 					ϒduration = λ.Cal(ϒint_or_none, func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_og_search_property", nil), λ.NewArgs(
@@ -261,24 +271,24 @@ func init() {
 						λ.NewTuple(
 							λ.NewStr("<div[^>]*>Views</div>\\s*<div[^>]*>\\s*([\\d,.]+)"),
 							λ.NewStr("<span[^>]*>VIEWS</span>\\s*</td>\\s*<td>\\s*([\\d,.]+)"),
+							λ.NewStr("<span[^>]+\\bclass=[\"\\']video_view_count[^>]*>\\s*([\\d,.]+)"),
 						),
 						ϒwebpage,
 						λ.NewStr("view count"),
 					), λ.KWArgs{
-						{Name: "fatal", Value: λ.False},
+						{Name: "default", Value: λ.None},
 					}))
 					ϒage_limit = λ.NewInt(18)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
+					return λ.Cal(ϒmerge_dicts, ϒinfo, λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):          ϒvideo_id,
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       ϒtitle,
 						λ.NewStr("thumbnail"):   ϒthumbnail,
 						λ.NewStr("upload_date"): ϒupload_date,
 						λ.NewStr("duration"):    ϒduration,
 						λ.NewStr("view_count"):  ϒview_count,
 						λ.NewStr("age_limit"):   ϒage_limit,
 						λ.NewStr("formats"):     ϒformats,
-					})
+					}))
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_TESTS"):        RedTubeIE__TESTS,

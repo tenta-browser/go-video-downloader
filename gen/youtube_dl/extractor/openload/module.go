@@ -65,7 +65,7 @@ func init() {
 				OpenloadIE__VALID_URL    λ.Object
 				OpenloadIE__real_extract λ.Object
 			)
-			OpenloadIE__DOMAINS = λ.NewStr("\n                    (?:\n                        openload\\.(?:co|io|link|pw)|\n                        oload\\.(?:tv|best|biz|stream|site|xyz|win|download|cloud|cc|icu|fun|club|info|online|press|pw|life|live|space|services|website|vip)|\n                        oladblock\\.(?:services|xyz|me)|openloed\\.co\n                    )\n                ")
+			OpenloadIE__DOMAINS = λ.NewStr("\n                    (?:\n                        openload\\.(?:co|io|link|pw)|\n                        oload\\.(?:tv|best|biz|stream|site|xyz|win|download|cloud|cc|icu|fun|club|info|online|monster|press|pw|life|live|space|services|website|vip)|\n                        oladblock\\.(?:services|xyz|me)|openloed\\.co\n                    )\n                ")
 			OpenloadIE__VALID_URL = λ.Mod(λ.NewStr("(?x)\n                    https?://\n                        (?P<host>\n                            (?:www\\.)?\n                            %s\n                        )/\n                        (?:f|embed)/\n                        (?P<id>[a-zA-Z0-9-_]+)\n                    "), OpenloadIE__DOMAINS)
 			OpenloadIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{

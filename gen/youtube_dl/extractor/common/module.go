@@ -2925,16 +2925,12 @@ func init() {
 						defer λ.CatchMulti(
 							nil,
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
-								var ϒe λ.Object = λex
-								if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), Ωerror.URLError)) {
-									λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("%s: %s URL is invalid, skipping"), λ.NewTuple(
-										ϒvideo_id,
-										ϒitem,
-									)))
-									λexit, λret = λ.BlockExitReturn, λ.False
-									return
-								}
-								panic(λ.Raise(λex))
+								λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("%s: %s URL is invalid, skipping"), λ.NewTuple(
+									ϒvideo_id,
+									ϒitem,
+								)))
+								λexit, λret = λ.BlockExitReturn, λ.False
+								return
 							}},
 						)
 						λ.Call(λ.GetAttr(ϒself, "_request_webpage", nil), λ.NewArgs(

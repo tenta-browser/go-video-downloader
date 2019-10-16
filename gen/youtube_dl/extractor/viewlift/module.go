@@ -80,10 +80,32 @@ func init() {
 		ViewLiftIE = λ.Cal(λ.TypeType, λ.NewStr("ViewLiftIE"), λ.NewTuple(ViewLiftBaseIE), func() λ.Dict {
 			var (
 				ViewLiftIE__VALID_URL λ.Object
+				ViewLiftIE_suitable   λ.Object
 			)
 			ViewLiftIE__VALID_URL = λ.Mod(λ.NewStr("https?://(?:www\\.)?(?P<domain>%s)(?:/(?:films/title|show|(?:news/)?videos?))?/(?P<id>[^?#]+)"), λ.GetAttr(ViewLiftBaseIE, "_DOMAINS_REGEX", nil))
+			ViewLiftIE_suitable = λ.NewFunction("suitable",
+				[]λ.Param{
+					{Name: "cls"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcls = λargs[0]
+						ϒurl = λargs[1]
+					)
+					return func() λ.Object {
+						if λ.IsTrue(λ.Cal(λ.GetAttr(ViewLiftEmbedIE, "suitable", nil), ϒurl)) {
+							return λ.False
+						} else {
+							return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, ViewLiftIE, ϒcls), "suitable", nil), ϒurl)
+						}
+					}()
+				})
+			ViewLiftIE_suitable = λ.Cal(λ.ClassMethodType, ViewLiftIE_suitable)
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): ViewLiftIE__VALID_URL,
+				λ.NewStr("suitable"):   ViewLiftIE_suitable,
 			})
 		}())
 	})
