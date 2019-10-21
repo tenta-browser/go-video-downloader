@@ -710,6 +710,14 @@ func init() {
 					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
 						panic(λ.Raise(λ.Cal(ExtractorError, λ.NewStr("Cannot find video formats"))))
 					}
+					τmp0 = λ.Cal(λ.BuiltinIter, ϒformats)
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒf = τmp1
+						λ.SetItem(λ.Cal(λ.GetAttr(ϒf, "setdefault", nil), λ.NewStr("http_headers"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), λ.NewStr("User-Agent"), λ.NewStr("facebookexternalhit/1.1"))
+					}
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
 					ϒvideo_title = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 						λ.NewStr("<h2\\s+[^>]*class=\"uiHeaderTitle\"[^>]*>([^<]*)</h2>"),

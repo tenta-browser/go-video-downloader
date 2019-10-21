@@ -2518,7 +2518,7 @@ func init() {
 							ϒsub_lang = λ.GetItem(τmp2, λ.NewInt(0))
 							ϒsub_info = λ.GetItem(τmp2, λ.NewInt(1))
 							ϒsub_format = λ.GetItem(ϒsub_info, λ.NewStr("ext"))
-							ϒsub_filename = λ.Cal(λ.None, ϒfilename, ϒsub_lang, ϒsub_format)
+							ϒsub_filename = λ.Cal(λ.None, ϒfilename, ϒsub_lang, ϒsub_format, λ.Cal(λ.GetAttr(ϒinfo_dict, "get", nil), λ.NewStr("ext")))
 							if λ.IsTrue(func() λ.Object {
 								if λv := λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "params", nil), "get", nil), λ.NewStr("nooverwrites"), λ.False); !λ.IsTrue(λv) {
 									return λv

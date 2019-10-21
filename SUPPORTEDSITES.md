@@ -2,7 +2,6 @@ Supported sites
 ===============
 
  * AbcNewsVideo: `abcnews.go.com`
- * ACast: `www.acast.com`
  * AdobeTV: `tv.adobe.com`
  * AdobeTVVideo: `video.tv.adobe.com`
  * Aol: `www.aol.com`
@@ -10,6 +9,7 @@ Supported sites
  * ARDMediathek: `www.ardmediathek.de`
  * ArteTVPlus7: `www.arte.tv`
  * AsianCrush: `www.asiancrush.com`
+ * AudioBoom: `audioboom.com`
  * Audiomack: `www.audiomack.com`
  * AZMedien: `www.telezueri.ch`
  * Bandcamp: `youtube-dl.bandcamp.com`
@@ -47,6 +47,7 @@ Supported sites
  * CNNArticle: `www.cnn.com`
  * Coub: `coub.com`
  * CondeNast: `video.wired.com`
+ * CONtv: `www.contv.com`
  * Cracked: `www.cracked.com`
  * CtsNews: `news.cts.com.tw`
  * CuriosityStream: `app.curiositystream.com`
@@ -135,7 +136,6 @@ Supported sites
  * MicrosoftVirtualAcademy: `mva.microsoft.com`
  * MLB: `www.mlb.com`
  * Mofosex _(adult)_: `www.mofosex.com`
- * Mojvideo: `www.mojvideo.com`
  * MySpace: `myspace.com`
  * NationalGeographicVideo: `video.nationalgeographic.com`
  * Naver: `tv.naver.com`
@@ -161,7 +161,6 @@ Supported sites
  * Odnoklassniki: `ok.ru`
  * Onet: `onet.tv`
  * OnetChannel: `onet.tv`
- * OnetPl: `film.onet.pl`
  * Ooyala: `player.ooyala.com`
  * Verystream: `verystream.com`
  * OutsideTV: `www.outsidetv.com`
@@ -182,7 +181,6 @@ Supported sites
  * Pokemon: `www.pokemon.com`
  * Porn91 _(adult)_: `91porn.com`
  * PornCom _(adult)_: `www.porn.com`
- * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
  * RadioDe: `ndr2.radio.de`
@@ -203,6 +201,7 @@ Supported sites
  * SBS: `www.sbs.com.au`
  * Screencast: `www.screencast.com`
  * ScreencastOMatic: `screencast-o-matic.com`
+ * SenateISVP: `www.senate.gov`
  * SeznamZpravy: `www.seznamzpravy.cz`
  * Sina: `video.sina.com.cn`
  * SkyNews: `news.sky.com`

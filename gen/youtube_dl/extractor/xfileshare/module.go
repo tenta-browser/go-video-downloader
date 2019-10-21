@@ -25,6 +25,7 @@
 package xfileshare
 
 import (
+	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
@@ -33,20 +34,22 @@ import (
 var (
 	ExtractorError      λ.Object
 	InfoExtractor       λ.Object
-	NO_DEFAULT          λ.Object
 	XFileShareIE        λ.Object
+	ϒcompat_chr         λ.Object
 	ϒdetermine_ext      λ.Object
 	ϒint_or_none        λ.Object
+	ϒjs_to_json         λ.Object
 	ϒurlencode_postdata λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒcompat_chr = Ωcompat.ϒcompat_chr
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
-		NO_DEFAULT = Ωutils.NO_DEFAULT
+		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		XFileShareIE = λ.Cal(λ.TypeType, λ.NewStr("XFileShareIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
@@ -55,48 +58,32 @@ func init() {
 			)
 			XFileShareIE__SITES = λ.NewTuple(
 				λ.NewTuple(
-					λ.NewStr("daclips\\.(?:in|com)"),
-					λ.NewStr("DaClips"),
+					λ.NewStr("clipwatching\\.com"),
+					λ.NewStr("ClipWatching"),
 				),
 				λ.NewTuple(
-					λ.NewStr("filehoot\\.com"),
-					λ.NewStr("FileHoot"),
+					λ.NewStr("gounlimited\\.to"),
+					λ.NewStr("GoUnlimited"),
 				),
 				λ.NewTuple(
-					λ.NewStr("gorillavid\\.(?:in|com)"),
-					λ.NewStr("GorillaVid"),
+					λ.NewStr("govid\\.me"),
+					λ.NewStr("GoVid"),
 				),
 				λ.NewTuple(
-					λ.NewStr("movpod\\.in"),
-					λ.NewStr("MovPod"),
+					λ.NewStr("holavid\\.com"),
+					λ.NewStr("HolaVid"),
 				),
 				λ.NewTuple(
-					λ.NewStr("powerwatch\\.pw"),
-					λ.NewStr("PowerWatch"),
-				),
-				λ.NewTuple(
-					λ.NewStr("rapidvideo\\.ws"),
-					λ.NewStr("Rapidvideo.ws"),
+					λ.NewStr("streamty\\.com"),
+					λ.NewStr("Streamty"),
 				),
 				λ.NewTuple(
 					λ.NewStr("thevideobee\\.to"),
 					λ.NewStr("TheVideoBee"),
 				),
 				λ.NewTuple(
-					λ.NewStr("vidto\\.(?:me|se)"),
-					λ.NewStr("Vidto"),
-				),
-				λ.NewTuple(
-					λ.NewStr("streamin\\.to"),
-					λ.NewStr("Streamin.To"),
-				),
-				λ.NewTuple(
-					λ.NewStr("xvidstage\\.com"),
-					λ.NewStr("XVIDSTAGE"),
-				),
-				λ.NewTuple(
-					λ.NewStr("vidabc\\.com"),
-					λ.NewStr("Vid ABC"),
+					λ.NewStr("uqload\\.com"),
+					λ.NewStr("Uqload"),
 				),
 				λ.NewTuple(
 					λ.NewStr("vidbom\\.com"),
@@ -107,15 +94,23 @@ func init() {
 					λ.NewStr("vidlo"),
 				),
 				λ.NewTuple(
-					λ.NewStr("rapidvideo\\.(?:cool|org)"),
-					λ.NewStr("RapidVideo.TV"),
+					λ.NewStr("vidlocker\\.xyz"),
+					λ.NewStr("VidLocker"),
 				),
 				λ.NewTuple(
-					λ.NewStr("fastvideo\\.me"),
-					λ.NewStr("FastVideo.me"),
+					λ.NewStr("vidshare\\.tv"),
+					λ.NewStr("VidShare"),
+				),
+				λ.NewTuple(
+					λ.NewStr("vup\\.to"),
+					λ.NewStr("VUp"),
+				),
+				λ.NewTuple(
+					λ.NewStr("xvideosharing\\.com"),
+					λ.NewStr("XVideoSharing"),
 				),
 			)
-			XFileShareIE__VALID_URL = λ.Mod(λ.NewStr("https?://(?P<host>(?:www\\.)?(?:%s))/(?:embed-)?(?P<id>[0-9a-zA-Z]+)"), λ.Cal(λ.GetAttr(λ.NewStr("|"), "join", nil), λ.Cal(λ.NewFunction("<generator>",
+			XFileShareIE__VALID_URL = λ.Mod(λ.NewStr("https?://(?:www\\.)?(?P<host>%s)/(?:embed-)?(?P<id>[0-9a-zA-Z]+)"), λ.Cal(λ.GetAttr(λ.NewStr("|"), "join", nil), λ.Cal(λ.NewFunction("<generator>",
 				nil,
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
