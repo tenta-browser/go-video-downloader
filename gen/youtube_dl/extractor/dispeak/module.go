@@ -51,31 +51,11 @@ func init() {
 		ϒxpath_text = Ωutils.ϒxpath_text
 		DigitallySpeakingIE = λ.Cal(λ.TypeType, λ.NewStr("DigitallySpeakingIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				DigitallySpeakingIE__TESTS        λ.Object
 				DigitallySpeakingIE__VALID_URL    λ.Object
 				DigitallySpeakingIE__parse_mp4    λ.Object
 				DigitallySpeakingIE__real_extract λ.Object
 			)
 			DigitallySpeakingIE__VALID_URL = λ.NewStr("https?://(?:s?evt\\.dispeak|events\\.digitallyspeaking)\\.com/(?:[^/]+/)+xml/(?P<id>[^.]+)\\.xml")
-			DigitallySpeakingIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://evt.dispeak.com/ubm/gdc/sf16/xml/840376_BQRC.xml"),
-					λ.NewStr("md5"): λ.NewStr("a8efb6c31ed06ca8739294960b2dbabd"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("840376_BQRC"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("Tenacious Design and The Interface of 'Destiny'"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://events.digitallyspeaking.com/gdc/sf11/xml/12396_1299111843500GMPX.xml"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://sevt.dispeak.com/ubm/gdc/eur10/xml/11256_1282118587281VNIT.xml"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			DigitallySpeakingIE__parse_mp4 = λ.NewFunction("_parse_mp4",
 				[]λ.Param{
 					{Name: "self"},
@@ -215,7 +195,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        DigitallySpeakingIE__TESTS,
 				λ.NewStr("_VALID_URL"):    DigitallySpeakingIE__VALID_URL,
 				λ.NewStr("_parse_mp4"):    DigitallySpeakingIE__parse_mp4,
 				λ.NewStr("_real_extract"): DigitallySpeakingIE__real_extract,

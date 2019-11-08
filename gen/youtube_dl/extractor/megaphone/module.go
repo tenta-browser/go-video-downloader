@@ -43,24 +43,11 @@ func init() {
 		MegaphoneIE = λ.Cal(λ.TypeType, λ.NewStr("MegaphoneIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				MegaphoneIE_IE_NAME       λ.Object
-				MegaphoneIE__TEST         λ.Object
 				MegaphoneIE__VALID_URL    λ.Object
 				MegaphoneIE__real_extract λ.Object
 			)
 			MegaphoneIE_IE_NAME = λ.NewStr("megaphone.fm")
 			MegaphoneIE__VALID_URL = λ.NewStr("https://player\\.megaphone\\.fm/(?P<id>[A-Z0-9]+)")
-			MegaphoneIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://player.megaphone.fm/GLT9749789991?\""),
-				λ.NewStr("md5"): λ.NewStr("4816a0de523eb3e972dc0dda2c191f96"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):        λ.NewStr("GLT9749789991"),
-					λ.NewStr("ext"):       λ.NewStr("mp3"),
-					λ.NewStr("title"):     λ.NewStr("#97 What Kind Of Idiot Gets Phished?"),
-					λ.NewStr("thumbnail"): λ.NewStr("re:^https://.*\\.png.*$"),
-					λ.NewStr("duration"):  λ.NewFloat(1776.26375),
-					λ.NewStr("author"):    λ.NewStr("Reply All"),
-				}),
-			})
 			MegaphoneIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -103,7 +90,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       MegaphoneIE_IE_NAME,
-				λ.NewStr("_TEST"):         MegaphoneIE__TEST,
 				λ.NewStr("_VALID_URL"):    MegaphoneIE__VALID_URL,
 				λ.NewStr("_real_extract"): MegaphoneIE__real_extract,
 			})

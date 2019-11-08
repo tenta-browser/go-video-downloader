@@ -56,57 +56,11 @@ func init() {
 		PandoraTVIE = λ.Cal(λ.TypeType, λ.NewStr("PandoraTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				PandoraTVIE_IE_NAME       λ.Object
-				PandoraTVIE__TESTS        λ.Object
 				PandoraTVIE__VALID_URL    λ.Object
 				PandoraTVIE__real_extract λ.Object
 			)
 			PandoraTVIE_IE_NAME = λ.NewStr("pandora.tv")
 			PandoraTVIE__VALID_URL = λ.NewStr("(?x)\n                        https?://\n                            (?:\n                                (?:www\\.)?pandora\\.tv/view/(?P<user_id>[^/]+)/(?P<id>\\d+)|  # new format\n                                (?:.+?\\.)?channel\\.pandora\\.tv/channel/video\\.ptv\\?|        # old format\n                                m\\.pandora\\.tv/?\\?                                          # mobile\n                            )\n                    ")
-			PandoraTVIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://jp.channel.pandora.tv/channel/video.ptv?c1=&prgid=53294230&ch_userid=mikakim&ref=main&lot=cate_01_2"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("53294230"),
-						λ.NewStr("ext"):         λ.NewStr("flv"),
-						λ.NewStr("title"):       λ.NewStr("頭を撫でてくれる？"),
-						λ.NewStr("description"): λ.NewStr("頭を撫でてくれる？"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(39),
-						λ.NewStr("upload_date"): λ.NewStr("20151218"),
-						λ.NewStr("uploader"):    λ.NewStr("カワイイ動物まとめ"),
-						λ.NewStr("uploader_id"): λ.NewStr("mikakim"),
-						λ.NewStr("view_count"):  λ.IntType,
-						λ.NewStr("like_count"):  λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://channel.pandora.tv/channel/video.ptv?ch_userid=gogoucc&prgid=54721744"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("54721744"),
-						λ.NewStr("ext"):         λ.NewStr("flv"),
-						λ.NewStr("title"):       λ.NewStr("[HD] JAPAN COUNTDOWN 170423"),
-						λ.NewStr("description"): λ.NewStr("[HD] JAPAN COUNTDOWN 170423"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewFloat(1704.9),
-						λ.NewStr("upload_date"): λ.NewStr("20170423"),
-						λ.NewStr("uploader"):    λ.NewStr("GOGO_UCC"),
-						λ.NewStr("uploader_id"): λ.NewStr("gogoucc"),
-						λ.NewStr("view_count"):  λ.IntType,
-						λ.NewStr("like_count"):  λ.IntType,
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.pandora.tv/view/mikakim/53294230#36797454_new"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://m.pandora.tv/?c=view&ch_userid=mikakim&prgid=54600346"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			PandoraTVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -260,7 +214,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       PandoraTVIE_IE_NAME,
-				λ.NewStr("_TESTS"):        PandoraTVIE__TESTS,
 				λ.NewStr("_VALID_URL"):    PandoraTVIE__VALID_URL,
 				λ.NewStr("_real_extract"): PandoraTVIE__real_extract,
 			})

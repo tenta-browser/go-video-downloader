@@ -49,42 +49,11 @@ func init() {
 		NationalGeographicVideoIE = λ.Cal(λ.TypeType, λ.NewStr("NationalGeographicVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				NationalGeographicVideoIE_IE_NAME       λ.Object
-				NationalGeographicVideoIE__TESTS        λ.Object
 				NationalGeographicVideoIE__VALID_URL    λ.Object
 				NationalGeographicVideoIE__real_extract λ.Object
 			)
 			NationalGeographicVideoIE_IE_NAME = λ.NewStr("natgeo:video")
 			NationalGeographicVideoIE__VALID_URL = λ.NewStr("https?://video\\.nationalgeographic\\.com/.*?")
-			NationalGeographicVideoIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://video.nationalgeographic.com/video/news/150210-news-crab-mating-vin?source=featuredvideo"),
-					λ.NewStr("md5"): λ.NewStr("730855d559abbad6b42c2be1fa584917"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("0000014b-70a1-dd8c-af7f-f7b559330001"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Mating Crabs Busted by Sharks"),
-						λ.NewStr("description"): λ.NewStr("md5:16f25aeffdeba55aaa8ec37e093ad8b3"),
-						λ.NewStr("timestamp"):   λ.NewInt(1423523799),
-						λ.NewStr("upload_date"): λ.NewStr("20150209"),
-						λ.NewStr("uploader"):    λ.NewStr("NAGS"),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("ThePlatform")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://video.nationalgeographic.com/wild/when-sharks-attack/the-real-jaws"),
-					λ.NewStr("md5"): λ.NewStr("6a3105eb448c070503b3105fb9b320b5"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("ngc-I0IauNSWznb_UV008GxSbwY35BZvgi2e"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("The Real Jaws"),
-						λ.NewStr("description"): λ.NewStr("md5:8d3e09d9d53a85cd397b4b21b2c77be6"),
-						λ.NewStr("timestamp"):   λ.NewInt(1433772632),
-						λ.NewStr("upload_date"): λ.NewStr("20150608"),
-						λ.NewStr("uploader"):    λ.NewStr("NAGS"),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("ThePlatform")),
-				}),
-			)
 			NationalGeographicVideoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -113,7 +82,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       NationalGeographicVideoIE_IE_NAME,
-				λ.NewStr("_TESTS"):        NationalGeographicVideoIE__TESTS,
 				λ.NewStr("_VALID_URL"):    NationalGeographicVideoIE__VALID_URL,
 				λ.NewStr("_real_extract"): NationalGeographicVideoIE__real_extract,
 			})

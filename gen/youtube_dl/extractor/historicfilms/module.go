@@ -42,23 +42,10 @@ func init() {
 		ϒparse_duration = Ωutils.ϒparse_duration
 		HistoricFilmsIE = λ.Cal(λ.TypeType, λ.NewStr("HistoricFilmsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				HistoricFilmsIE__TEST         λ.Object
 				HistoricFilmsIE__VALID_URL    λ.Object
 				HistoricFilmsIE__real_extract λ.Object
 			)
 			HistoricFilmsIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?historicfilms\\.com/(?:tapes/|play)(?P<id>\\d+)")
-			HistoricFilmsIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.historicfilms.com/tapes/4728"),
-				λ.NewStr("md5"): λ.NewStr("d4a437aec45d8d796a38a215db064e9a"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("4728"),
-					λ.NewStr("ext"):         λ.NewStr("mov"),
-					λ.NewStr("title"):       λ.NewStr("Historic Films: GP-7"),
-					λ.NewStr("description"): λ.NewStr("md5:1a86a0f3ac54024e419aba97210d959a"),
-					λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-					λ.NewStr("duration"):    λ.NewInt(2096),
-				}),
-			})
 			HistoricFilmsIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -108,7 +95,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         HistoricFilmsIE__TEST,
 				λ.NewStr("_VALID_URL"):    HistoricFilmsIE__VALID_URL,
 				λ.NewStr("_real_extract"): HistoricFilmsIE__real_extract,
 			})

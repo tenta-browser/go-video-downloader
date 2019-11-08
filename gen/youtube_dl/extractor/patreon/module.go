@@ -56,65 +56,10 @@ func init() {
 		ϒtry_get = Ωutils.ϒtry_get
 		PatreonIE = λ.Cal(λ.TypeType, λ.NewStr("PatreonIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				PatreonIE__TESTS        λ.Object
 				PatreonIE__VALID_URL    λ.Object
 				PatreonIE__real_extract λ.Object
 			)
 			PatreonIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?patreon\\.com/(?:creation\\?hid=|posts/(?:[\\w-]+-)?)(?P<id>\\d+)")
-			PatreonIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.patreon.com/creation?hid=743933"),
-					λ.NewStr("md5"): λ.NewStr("e25505eec1053a6e6813b8ed369875cc"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("743933"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("title"):       λ.NewStr("Episode 166: David Smalley of Dogma Debate"),
-						λ.NewStr("description"): λ.NewStr("md5:713b08b772cd6271b9f3906683cfacdf"),
-						λ.NewStr("uploader"):    λ.NewStr("Cognitive Dissonance Podcast"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*$"),
-						λ.NewStr("timestamp"):   λ.NewInt(1406473987),
-						λ.NewStr("upload_date"): λ.NewStr("20140727"),
-						λ.NewStr("uploader_id"): λ.NewStr("87145"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.patreon.com/creation?hid=754133"),
-					λ.NewStr("md5"): λ.NewStr("3eb09345bf44bf60451b8b0b81759d0a"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("754133"),
-						λ.NewStr("ext"):       λ.NewStr("mp3"),
-						λ.NewStr("title"):     λ.NewStr("CD 167 Extra"),
-						λ.NewStr("uploader"):  λ.NewStr("Cognitive Dissonance Podcast"),
-						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*$"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("Patron-only content"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.patreon.com/creation?hid=1682498"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("SU4fj_aEMVw"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("I'm on Patreon!"),
-						λ.NewStr("uploader"):    λ.NewStr("TraciJHines"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*$"),
-						λ.NewStr("upload_date"): λ.NewStr("20150211"),
-						λ.NewStr("description"): λ.NewStr("md5:c5a706b1f687817a3de09db1eb93acd4"),
-						λ.NewStr("uploader_id"): λ.NewStr("TraciJHines"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("noplaylist"):    λ.True,
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.patreon.com/posts/episode-166-of-743933"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.patreon.com/posts/743933"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			λ.NewStr("\n    def _login(self):\n        username, password = self._get_login_info()\n        if username is None:\n            return\n\n        login_form = {\n            'redirectUrl': 'http://www.patreon.com/',\n            'email': username,\n            'password': password,\n        }\n\n        request = sanitized_Request(\n            'https://www.patreon.com/processLogin',\n            compat_urllib_parse_urlencode(login_form).encode('utf-8')\n        )\n        login_page = self._download_webpage(request, None, note='Logging in')\n\n        if re.search(r'onLoginFailed', login_page):\n            raise ExtractorError('Unable to login, incorrect username and/or password', expected=True)\n\n    def _real_initialize(self):\n        self._login()\n    ")
 			PatreonIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -255,7 +200,6 @@ func init() {
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        PatreonIE__TESTS,
 				λ.NewStr("_VALID_URL"):    PatreonIE__VALID_URL,
 				λ.NewStr("_real_extract"): PatreonIE__real_extract,
 			})

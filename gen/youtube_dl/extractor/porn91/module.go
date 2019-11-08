@@ -47,23 +47,11 @@ func init() {
 		Porn91IE = λ.Cal(λ.TypeType, λ.NewStr("Porn91IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				Porn91IE_IE_NAME       λ.Object
-				Porn91IE__TEST         λ.Object
 				Porn91IE__VALID_URL    λ.Object
 				Porn91IE__real_extract λ.Object
 			)
 			Porn91IE_IE_NAME = λ.NewStr("91porn")
 			Porn91IE__VALID_URL = λ.NewStr("(?:https?://)(?:www\\.|)91porn\\.com/.+?\\?viewkey=(?P<id>[\\w\\d]+)")
-			Porn91IE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://91porn.com/view_video.php?viewkey=7e42283b4f5ab36da134"),
-				λ.NewStr("md5"): λ.NewStr("7fcdb5349354f40d41689bd0fa8db05a"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):        λ.NewStr("7e42283b4f5ab36da134"),
-					λ.NewStr("title"):     λ.NewStr("18岁大一漂亮学妹，水嫩性感，再爽一次！"),
-					λ.NewStr("ext"):       λ.NewStr("mp4"),
-					λ.NewStr("duration"):  λ.NewInt(431),
-					λ.NewStr("age_limit"): λ.NewInt(18),
-				}),
-			})
 			Porn91IE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -121,7 +109,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       Porn91IE_IE_NAME,
-				λ.NewStr("_TEST"):         Porn91IE__TEST,
 				λ.NewStr("_VALID_URL"):    Porn91IE__VALID_URL,
 				λ.NewStr("_real_extract"): Porn91IE__real_extract,
 			})

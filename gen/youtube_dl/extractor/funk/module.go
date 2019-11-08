@@ -48,29 +48,10 @@ func init() {
 		ϒstr_or_none = Ωutils.ϒstr_or_none
 		FunkIE = λ.Cal(λ.TypeType, λ.NewStr("FunkIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				FunkIE__TESTS        λ.Object
 				FunkIE__VALID_URL    λ.Object
 				FunkIE__real_extract λ.Object
 			)
 			FunkIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?funk\\.net/(?:channel|playlist)/[^/]+/(?P<display_id>[0-9a-z-]+)-(?P<id>\\d+)")
-			FunkIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.funk.net/channel/ba-793/die-lustigsten-instrumente-aus-dem-internet-teil-2-1155821"),
-					λ.NewStr("md5"): λ.NewStr("8dd9d9ab59b4aa4173b3197f2ea48e81"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1155821"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Die LUSTIGSTEN INSTRUMENTE aus dem Internet - Teil 2"),
-						λ.NewStr("description"): λ.NewStr("md5:a691d0413ef4835588c5b03ded670c1f"),
-						λ.NewStr("timestamp"):   λ.NewInt(1514507395),
-						λ.NewStr("upload_date"): λ.NewStr("20171229"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.funk.net/playlist/neuesteVideos/kameras-auf-dem-fusion-festival-1618699"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			FunkIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -105,7 +86,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        FunkIE__TESTS,
 				λ.NewStr("_VALID_URL"):    FunkIE__VALID_URL,
 				λ.NewStr("_real_extract"): FunkIE__real_extract,
 			})

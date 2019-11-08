@@ -55,48 +55,10 @@ func init() {
 		NoovoIE = λ.Cal(λ.TypeType, λ.NewStr("NoovoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				NoovoIE_BRIGHTCOVE_URL_TEMPLATE λ.Object
-				NoovoIE__TESTS                  λ.Object
 				NoovoIE__VALID_URL              λ.Object
 				NoovoIE__real_extract           λ.Object
 			)
 			NoovoIE__VALID_URL = λ.NewStr("https?://(?:[^/]+\\.)?noovo\\.ca/videos/(?P<id>[^/]+/[^/?#&]+)")
-			NoovoIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://noovo.ca/videos/rpm-plus/chrysler-imperial"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("5386045029001"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Chrysler Imperial"),
-						λ.NewStr("description"): λ.NewStr("md5:de3c898d1eb810f3e6243e08c8b4a056"),
-						λ.NewStr("timestamp"):   λ.NewInt(1491399228),
-						λ.NewStr("upload_date"): λ.NewStr("20170405"),
-						λ.NewStr("uploader_id"): λ.NewStr("618566855001"),
-						λ.NewStr("series"):      λ.NewStr("RPM+"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://noovo.ca/videos/l-amour-est-dans-le-pre/episode-13-8"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):             λ.NewStr("5395865725001"),
-						λ.NewStr("title"):          λ.NewStr("Épisode 13 : Les retrouvailles"),
-						λ.NewStr("description"):    λ.NewStr("md5:888c3330f0c1b4476c5bc99a1c040473"),
-						λ.NewStr("ext"):            λ.NewStr("mp4"),
-						λ.NewStr("timestamp"):      λ.NewInt(1492019320),
-						λ.NewStr("upload_date"):    λ.NewStr("20170412"),
-						λ.NewStr("uploader_id"):    λ.NewStr("618566855001"),
-						λ.NewStr("series"):         λ.NewStr("L'amour est dans le pré"),
-						λ.NewStr("season_number"):  λ.NewInt(5),
-						λ.NewStr("episode"):        λ.NewStr("Épisode 13"),
-						λ.NewStr("episode_number"): λ.NewInt(13),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-			)
 			NoovoIE_BRIGHTCOVE_URL_TEMPLATE = λ.NewStr("http://players.brightcove.net/618566855001/default_default/index.html?videoId=%s")
 			NoovoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -284,7 +246,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("BRIGHTCOVE_URL_TEMPLATE"): NoovoIE_BRIGHTCOVE_URL_TEMPLATE,
-				λ.NewStr("_TESTS"):                  NoovoIE__TESTS,
 				λ.NewStr("_VALID_URL"):              NoovoIE__VALID_URL,
 				λ.NewStr("_real_extract"):           NoovoIE__real_extract,
 			})

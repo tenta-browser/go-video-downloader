@@ -42,27 +42,10 @@ func init() {
 		ϒremove_start = Ωutils.ϒremove_start
 		Ir90TvIE = λ.Cal(λ.TypeType, λ.NewStr("Ir90TvIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				Ir90TvIE__TESTS        λ.Object
 				Ir90TvIE__VALID_URL    λ.Object
 				Ir90TvIE__real_extract λ.Object
 			)
 			Ir90TvIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?90tv\\.ir/video/(?P<id>[0-9]+)/.*")
-			Ir90TvIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://90tv.ir/video/95719/%D8%B4%D8%A7%DB%8C%D8%B9%D8%A7%D8%AA-%D9%86%D9%82%D9%84-%D9%88-%D8%A7%D9%86%D8%AA%D9%82%D8%A7%D9%84%D8%A7%D8%AA-%D9%85%D9%87%D9%85-%D9%81%D9%88%D8%AA%D8%A8%D8%A7%D9%84-%D8%A7%D8%B1%D9%88%D9%BE%D8%A7-940218"),
-					λ.NewStr("md5"): λ.NewStr("411dbd94891381960cb9e13daa47a869"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("95719"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("شایعات نقل و انتقالات مهم فوتبال اروپا 94/02/18"),
-						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg$"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.90tv.ir/video/95719/%D8%B4%D8%A7%DB%8C%D8%B9%D8%A7%D8%AA-%D9%86%D9%82%D9%84-%D9%88-%D8%A7%D9%86%D8%AA%D9%82%D8%A7%D9%84%D8%A7%D8%AA-%D9%85%D9%87%D9%85-%D9%81%D9%88%D8%AA%D8%A8%D8%A7%D9%84-%D8%A7%D8%B1%D9%88%D9%BE%D8%A7-940218"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			Ir90TvIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -99,7 +82,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        Ir90TvIE__TESTS,
 				λ.NewStr("_VALID_URL"):    Ir90TvIE__VALID_URL,
 				λ.NewStr("_real_extract"): Ir90TvIE__real_extract,
 			})

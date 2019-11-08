@@ -43,27 +43,10 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		PlaysTVIE = λ.Cal(λ.TypeType, λ.NewStr("PlaysTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				PlaysTVIE__TESTS        λ.Object
 				PlaysTVIE__VALID_URL    λ.Object
 				PlaysTVIE__real_extract λ.Object
 			)
 			PlaysTVIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?plays\\.tv/(?:video|embeds)/(?P<id>[0-9a-f]{18})")
-			PlaysTVIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://plays.tv/video/56af17f56c95335490/when-you-outplay-the-azir-wall"),
-					λ.NewStr("md5"): λ.NewStr("dfeac1198506652b5257a62762cec7bc"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("56af17f56c95335490"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Bjergsen - When you outplay the Azir wall"),
-						λ.NewStr("description"): λ.NewStr("Posted by Bjergsen"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://plays.tv/embeds/56af17f56c95335490"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			PlaysTVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -130,7 +113,6 @@ func init() {
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        PlaysTVIE__TESTS,
 				λ.NewStr("_VALID_URL"):    PlaysTVIE__VALID_URL,
 				λ.NewStr("_real_extract"): PlaysTVIE__real_extract,
 			})

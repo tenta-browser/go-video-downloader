@@ -44,28 +44,11 @@ func init() {
 		Canalc2IE = λ.Cal(λ.TypeType, λ.NewStr("Canalc2IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				Canalc2IE_IE_NAME       λ.Object
-				Canalc2IE__TESTS        λ.Object
 				Canalc2IE__VALID_URL    λ.Object
 				Canalc2IE__real_extract λ.Object
 			)
 			Canalc2IE_IE_NAME = λ.NewStr("canalc2.tv")
 			Canalc2IE__VALID_URL = λ.NewStr("https?://(?:(?:www\\.)?canalc2\\.tv/video/|archives-canalc2\\.u-strasbg\\.fr/video\\.asp\\?.*\\bidVideo=)(?P<id>\\d+)")
-			Canalc2IE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.canalc2.tv/video/12163"),
-					λ.NewStr("md5"): λ.NewStr("060158428b650f896c542dfbb3d6487f"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):       λ.NewStr("12163"),
-						λ.NewStr("ext"):      λ.NewStr("mp4"),
-						λ.NewStr("title"):    λ.NewStr("Terrasses du Numérique"),
-						λ.NewStr("duration"): λ.NewInt(122),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://archives-canalc2.u-strasbg.fr/video.asp?idVideo=11427&voir=oui"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			Canalc2IE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -139,7 +122,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       Canalc2IE_IE_NAME,
-				λ.NewStr("_TESTS"):        Canalc2IE__TESTS,
 				λ.NewStr("_VALID_URL"):    Canalc2IE__VALID_URL,
 				λ.NewStr("_real_extract"): Canalc2IE__real_extract,
 			})

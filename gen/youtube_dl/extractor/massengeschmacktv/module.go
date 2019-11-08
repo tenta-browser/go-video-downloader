@@ -54,21 +54,11 @@ func init() {
 		MassengeschmackTVIE = λ.Cal(λ.TypeType, λ.NewStr("MassengeschmackTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				MassengeschmackTVIE_IE_NAME       λ.Object
-				MassengeschmackTVIE__TEST         λ.Object
 				MassengeschmackTVIE__VALID_URL    λ.Object
 				MassengeschmackTVIE__real_extract λ.Object
 			)
 			MassengeschmackTVIE_IE_NAME = λ.NewStr("massengeschmack.tv")
 			MassengeschmackTVIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?massengeschmack\\.tv/play/(?P<id>[^?&#]+)")
-			MassengeschmackTVIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://massengeschmack.tv/play/fktv202"),
-				λ.NewStr("md5"): λ.NewStr("a9e054db9c2b5a08f0a0527cc201e8d3"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):    λ.NewStr("fktv202"),
-					λ.NewStr("ext"):   λ.NewStr("mp4"),
-					λ.NewStr("title"): λ.NewStr("Fernsehkritik-TV - Folge 202"),
-				}),
-			})
 			MassengeschmackTVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -185,7 +175,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       MassengeschmackTVIE_IE_NAME,
-				λ.NewStr("_TEST"):         MassengeschmackTVIE__TEST,
 				λ.NewStr("_VALID_URL"):    MassengeschmackTVIE__VALID_URL,
 				λ.NewStr("_real_extract"): MassengeschmackTVIE__real_extract,
 			})

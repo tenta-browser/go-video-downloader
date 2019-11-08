@@ -45,57 +45,11 @@ func init() {
 		FoxNewsIE = λ.Cal(λ.TypeType, λ.NewStr("FoxNewsIE"), λ.NewTuple(AMPIE), func() λ.Dict {
 			var (
 				FoxNewsIE_IE_NAME       λ.Object
-				FoxNewsIE__TESTS        λ.Object
 				FoxNewsIE__VALID_URL    λ.Object
 				FoxNewsIE__real_extract λ.Object
 			)
 			FoxNewsIE_IE_NAME = λ.NewStr("foxnews")
 			FoxNewsIE__VALID_URL = λ.NewStr("https?://(?P<host>video\\.(?:insider\\.)?fox(?:news|business)\\.com)/v/(?:video-embed\\.html\\?video_id=)?(?P<id>\\d+)")
-			FoxNewsIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://video.foxnews.com/v/3937480/frozen-in-time/#sp=show-clips"),
-					λ.NewStr("md5"): λ.NewStr("32aaded6ba3ef0d1c04e238d01031e5e"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("3937480"),
-						λ.NewStr("ext"):         λ.NewStr("flv"),
-						λ.NewStr("title"):       λ.NewStr("Frozen in Time"),
-						λ.NewStr("description"): λ.NewStr("16-year-old girl is size of toddler"),
-						λ.NewStr("duration"):    λ.NewInt(265),
-						λ.NewStr("timestamp"):   λ.NewInt(1304411491),
-						λ.NewStr("upload_date"): λ.NewStr("20110503"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://video.foxnews.com/v/3922535568001/rep-luis-gutierrez-on-if-obamas-immigration-plan-is-legal/#sp=show-clips"),
-					λ.NewStr("md5"): λ.NewStr("5846c64a1ea05ec78175421b8323e2df"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("3922535568001"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Rep. Luis Gutierrez on if Obama's immigration plan is legal"),
-						λ.NewStr("description"): λ.NewStr("Congressman discusses president's plan"),
-						λ.NewStr("duration"):    λ.NewInt(292),
-						λ.NewStr("timestamp"):   λ.NewInt(1417662047),
-						λ.NewStr("upload_date"): λ.NewStr("20141204"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://video.foxnews.com/v/video-embed.html?video_id=3937480&d=video.foxnews.com"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://video.foxbusiness.com/v/4442309889001"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://video.insider.foxnews.com/v/video-embed.html?video_id=5099377331001&autoplay=true&share_url=http://insider.foxnews.com/2016/08/25/univ-wisconsin-student-group-pushing-silence-certain-words&share_title=Student%20Group:%20Saying%20%27Politically%20Correct,%27%20%27Trash%27%20and%20%27Lame%27%20Is%20Offensive&share=true"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			FoxNewsIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -123,7 +77,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       FoxNewsIE_IE_NAME,
-				λ.NewStr("_TESTS"):        FoxNewsIE__TESTS,
 				λ.NewStr("_VALID_URL"):    FoxNewsIE__VALID_URL,
 				λ.NewStr("_real_extract"): FoxNewsIE__real_extract,
 			})
@@ -131,46 +84,11 @@ func init() {
 		FoxNewsArticleIE = λ.Cal(λ.TypeType, λ.NewStr("FoxNewsArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				FoxNewsArticleIE_IE_NAME       λ.Object
-				FoxNewsArticleIE__TESTS        λ.Object
 				FoxNewsArticleIE__VALID_URL    λ.Object
 				FoxNewsArticleIE__real_extract λ.Object
 			)
 			FoxNewsArticleIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?:insider\\.)?foxnews\\.com/(?!v)([^/]+/)+(?P<id>[a-z-]+)")
 			FoxNewsArticleIE_IE_NAME = λ.NewStr("foxnews:article")
-			FoxNewsArticleIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.foxnews.com/politics/2016/09/08/buzz-about-bud-clinton-camp-denies-claims-wore-earpiece-at-forum.html"),
-					λ.NewStr("md5"): λ.NewStr("83d44e1aff1433e7a29a7b537d1700b5"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("5116295019001"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Trump and Clinton asked to defend positions on Iraq War"),
-						λ.NewStr("description"): λ.NewStr("Veterans react on 'The Kelly File'"),
-						λ.NewStr("timestamp"):   λ.NewInt(1473301045),
-						λ.NewStr("upload_date"): λ.NewStr("20160908"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.foxnews.com/us/2018/03/09/parkland-survivor-kyle-kashuv-on-meeting-trump-his-app-to-prevent-another-school-shooting.amp.html?__twitter_impression=true"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("5748266721001"),
-						λ.NewStr("ext"):         λ.NewStr("flv"),
-						λ.NewStr("title"):       λ.NewStr("Kyle Kashuv has a positive message for the Trump White House"),
-						λ.NewStr("description"): λ.NewStr("Marjory Stoneman Douglas student disagrees with classmates."),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(229),
-						λ.NewStr("timestamp"):   λ.NewInt(1520594670),
-						λ.NewStr("upload_date"): λ.NewStr("20180309"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://insider.foxnews.com/2016/08/25/univ-wisconsin-student-group-pushing-silence-certain-words"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			FoxNewsArticleIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -202,7 +120,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       FoxNewsArticleIE_IE_NAME,
-				λ.NewStr("_TESTS"):        FoxNewsArticleIE__TESTS,
 				λ.NewStr("_VALID_URL"):    FoxNewsArticleIE__VALID_URL,
 				λ.NewStr("_real_extract"): FoxNewsArticleIE__real_extract,
 			})

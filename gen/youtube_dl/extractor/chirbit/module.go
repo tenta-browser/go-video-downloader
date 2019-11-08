@@ -47,36 +47,11 @@ func init() {
 		ChirbitIE = λ.Cal(λ.TypeType, λ.NewStr("ChirbitIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ChirbitIE_IE_NAME       λ.Object
-				ChirbitIE__TESTS        λ.Object
 				ChirbitIE__VALID_URL    λ.Object
 				ChirbitIE__real_extract λ.Object
 			)
 			ChirbitIE_IE_NAME = λ.NewStr("chirbit")
 			ChirbitIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?chirb\\.it/(?:(?:wp|pl)/|fb_chirbit_player\\.swf\\?key=)?(?P<id>[\\da-zA-Z]+)")
-			ChirbitIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://chirb.it/be2abG"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("be2abG"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("title"):       λ.NewStr("md5:f542ea253f5255240be4da375c6a5d7e"),
-						λ.NewStr("description"): λ.NewStr("md5:f24a4e22a71763e32da5fed59e47c770"),
-						λ.NewStr("duration"):    λ.NewInt(306),
-						λ.NewStr("uploader"):    λ.NewStr("Gerryaudio"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://chirb.it/fb_chirbit_player.swf?key=PrIPv5"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://chirb.it/wp/MN58c2"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			ChirbitIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -139,7 +114,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       ChirbitIE_IE_NAME,
-				λ.NewStr("_TESTS"):        ChirbitIE__TESTS,
 				λ.NewStr("_VALID_URL"):    ChirbitIE__VALID_URL,
 				λ.NewStr("_real_extract"): ChirbitIE__real_extract,
 			})

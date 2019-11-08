@@ -45,61 +45,10 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ScreencastIE = λ.Cal(λ.TypeType, λ.NewStr("ScreencastIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ScreencastIE__TESTS        λ.Object
 				ScreencastIE__VALID_URL    λ.Object
 				ScreencastIE__real_extract λ.Object
 			)
 			ScreencastIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?screencast\\.com/t/(?P<id>[a-zA-Z0-9]+)")
-			ScreencastIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.screencast.com/t/3ZEjQXlT"),
-					λ.NewStr("md5"): λ.NewStr("917df1c13798a3e96211dd1561fded83"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("3ZEjQXlT"),
-						λ.NewStr("ext"):         λ.NewStr("m4v"),
-						λ.NewStr("title"):       λ.NewStr("Color Measurement with Ocean Optics Spectrometers"),
-						λ.NewStr("description"): λ.NewStr("md5:240369cde69d8bed61349a199c5fb153"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.(?:gif|jpg)$"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.screencast.com/t/V2uXehPJa1ZI"),
-					λ.NewStr("md5"): λ.NewStr("e8e4b375a7660a9e7e35c33973410d34"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("V2uXehPJa1ZI"),
-						λ.NewStr("ext"):         λ.NewStr("mov"),
-						λ.NewStr("title"):       λ.NewStr("The Amadeus Spectrometer"),
-						λ.NewStr("description"): λ.NewStr("re:^In this video, our friends at.*To learn more about Amadeus, visit"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.(?:gif|jpg)$"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.screencast.com/t/aAB3iowa"),
-					λ.NewStr("md5"): λ.NewStr("dedb2734ed00c9755761ccaee88527cd"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("aAB3iowa"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Google Earth Export"),
-						λ.NewStr("description"): λ.NewStr("Provides a demo of a CommunityViz export to Google Earth, one of the 3D viewing options."),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.(?:gif|jpg)$"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.screencast.com/t/X3ddTrYh"),
-					λ.NewStr("md5"): λ.NewStr("669ee55ff9c51988b4ebc0877cc8b159"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("X3ddTrYh"),
-						λ.NewStr("ext"):         λ.NewStr("wmv"),
-						λ.NewStr("title"):       λ.NewStr("Toolkit 6 User Group Webinar (2014-03-04) - Default Judgment and First Impression"),
-						λ.NewStr("description"): λ.NewStr("md5:7b9f393bc92af02326a5c5889639eab0"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.(?:gif|jpg)$"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://screencast.com/t/aAB3iowa"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			ScreencastIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -220,7 +169,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        ScreencastIE__TESTS,
 				λ.NewStr("_VALID_URL"):    ScreencastIE__VALID_URL,
 				λ.NewStr("_real_extract"): ScreencastIE__real_extract,
 			})

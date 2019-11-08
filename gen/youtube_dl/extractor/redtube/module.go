@@ -52,30 +52,10 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		RedTubeIE = λ.Cal(λ.TypeType, λ.NewStr("RedTubeIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				RedTubeIE__TESTS        λ.Object
 				RedTubeIE__VALID_URL    λ.Object
 				RedTubeIE__real_extract λ.Object
 			)
 			RedTubeIE__VALID_URL = λ.NewStr("https?://(?:(?:www\\.)?redtube\\.com/|embed\\.redtube\\.com/\\?.*?\\bid=)(?P<id>[0-9]+)")
-			RedTubeIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.redtube.com/66418"),
-					λ.NewStr("md5"): λ.NewStr("fc08071233725f26b8f014dba9590005"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("66418"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Sucked on a toilet"),
-						λ.NewStr("upload_date"): λ.NewStr("20110811"),
-						λ.NewStr("duration"):    λ.NewInt(596),
-						λ.NewStr("view_count"):  λ.IntType,
-						λ.NewStr("age_limit"):   λ.NewInt(18),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://embed.redtube.com/?bgcolor=000000&id=1443286"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			RedTubeIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -291,7 +271,6 @@ func init() {
 					}))
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        RedTubeIE__TESTS,
 				λ.NewStr("_VALID_URL"):    RedTubeIE__VALID_URL,
 				λ.NewStr("_real_extract"): RedTubeIE__real_extract,
 			})

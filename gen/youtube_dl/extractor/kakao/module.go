@@ -52,41 +52,11 @@ func init() {
 		KakaoIE = λ.Cal(λ.TypeType, λ.NewStr("KakaoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				KakaoIE__API_BASE_TMPL λ.Object
-				KakaoIE__TESTS         λ.Object
 				KakaoIE__VALID_URL     λ.Object
 				KakaoIE__real_extract  λ.Object
 			)
 			KakaoIE__VALID_URL = λ.NewStr("https?://(?:play-)?tv\\.kakao\\.com/(?:channel/\\d+|embed/player)/cliplink/(?P<id>\\d+|[^?#&]+@my)")
 			KakaoIE__API_BASE_TMPL = λ.NewStr("http://tv.kakao.com/api/v1/ft/cliplinks/%s/")
-			KakaoIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://tv.kakao.com/channel/2671005/cliplink/301965083"),
-					λ.NewStr("md5"): λ.NewStr("702b2fbdeb51ad82f5c904e8c0766340"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("301965083"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("乃木坂46 バナナマン 「3期生紹介コーナーが始動！顔高低差GPも！」 『乃木坂工事中』"),
-						λ.NewStr("uploader_id"): λ.NewInt(2671005),
-						λ.NewStr("uploader"):    λ.NewStr("그랑그랑이"),
-						λ.NewStr("timestamp"):   λ.NewInt(1488160199),
-						λ.NewStr("upload_date"): λ.NewStr("20170227"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://tv.kakao.com/channel/2653210/cliplink/300103180"),
-					λ.NewStr("md5"): λ.NewStr("a8917742069a4dd442516b86e7d66529"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("300103180"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("description"): λ.NewStr("러블리즈 - Destiny (나의 지구) (Lovelyz - Destiny)\r\n\r\n[쇼! 음악중심] 20160611, 507회"),
-						λ.NewStr("title"):       λ.NewStr("러블리즈 - Destiny (나의 지구) (Lovelyz - Destiny)"),
-						λ.NewStr("uploader_id"): λ.NewInt(2653210),
-						λ.NewStr("uploader"):    λ.NewStr("쇼! 음악중심"),
-						λ.NewStr("timestamp"):   λ.NewInt(1485684628),
-						λ.NewStr("upload_date"): λ.NewStr("20170129"),
-					}),
-				}),
-			)
 			KakaoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -282,7 +252,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_API_BASE_TMPL"): KakaoIE__API_BASE_TMPL,
-				λ.NewStr("_TESTS"):         KakaoIE__TESTS,
 				λ.NewStr("_VALID_URL"):     KakaoIE__VALID_URL,
 				λ.NewStr("_real_extract"):  KakaoIE__real_extract,
 			})

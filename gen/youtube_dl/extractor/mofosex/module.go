@@ -46,33 +46,10 @@ func init() {
 		KeezMoviesIE = Ωkeezmovies.KeezMoviesIE
 		MofosexIE = λ.Cal(λ.TypeType, λ.NewStr("MofosexIE"), λ.NewTuple(KeezMoviesIE), func() λ.Dict {
 			var (
-				MofosexIE__TESTS        λ.Object
 				MofosexIE__VALID_URL    λ.Object
 				MofosexIE__real_extract λ.Object
 			)
 			MofosexIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?mofosex\\.com/videos/(?P<id>\\d+)/(?P<display_id>[^/?#&.]+)\\.html")
-			MofosexIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.mofosex.com/videos/318131/amateur-teen-playing-and-masturbating-318131.html"),
-					λ.NewStr("md5"): λ.NewStr("558fcdafbb63a87c019218d6e49daf8a"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("318131"),
-						λ.NewStr("display_id"):    λ.NewStr("amateur-teen-playing-and-masturbating-318131"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("amateur teen playing and masturbating"),
-						λ.NewStr("thumbnail"):     λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("upload_date"):   λ.NewStr("20121114"),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("like_count"):    λ.IntType,
-						λ.NewStr("dislike_count"): λ.IntType,
-						λ.NewStr("age_limit"):     λ.NewInt(18),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.mofosex.com/videos/5018/japanese-teen-music-video.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			MofosexIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -132,7 +109,6 @@ func init() {
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        MofosexIE__TESTS,
 				λ.NewStr("_VALID_URL"):    MofosexIE__VALID_URL,
 				λ.NewStr("_real_extract"): MofosexIE__real_extract,
 			})

@@ -43,49 +43,11 @@ func init() {
 		Vbox7IE = λ.Cal(λ.TypeType, λ.NewStr("Vbox7IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				Vbox7IE__GEO_COUNTRIES λ.Object
-				Vbox7IE__TESTS         λ.Object
 				Vbox7IE__VALID_URL     λ.Object
 				Vbox7IE__real_extract  λ.Object
 			)
 			Vbox7IE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:[^/]+\\.)?vbox7\\.com/\n                        (?:\n                            play:|\n                            (?:\n                                emb/external\\.php|\n                                player/ext\\.swf\n                            )\\?.*?\\bvid=\n                        )\n                        (?P<id>[\\da-fA-F]+)\n                    ")
 			Vbox7IE__GEO_COUNTRIES = λ.NewList(λ.NewStr("BG"))
-			Vbox7IE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://vbox7.com/play:0946fff23c"),
-					λ.NewStr("md5"): λ.NewStr("a60f9ab3a3a2f013ef9a967d5f7be5bf"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("0946fff23c"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Борисов: Притеснен съм за бъдещето на България"),
-						λ.NewStr("description"): λ.NewStr("По думите му е опасно страната ни да бъде обявена за \"сигурна\""),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("timestamp"):   λ.NewInt(1470982814),
-						λ.NewStr("upload_date"): λ.NewStr("20160812"),
-						λ.NewStr("uploader"):    λ.NewStr("zdraveibulgaria"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("proxy"): λ.NewStr("127.0.0.1:8118"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://vbox7.com/play:249bb972c2"),
-					λ.NewStr("md5"): λ.NewStr("99f65c0c9ef9b682b97313e052734c3f"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("249bb972c2"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("Смях! Чудо - чист за секунди - Скрита камера"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("georestricted"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://vbox7.com/emb/external.php?vid=a240d20f9c&autoplay=1"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://i49.vbox7.com/player/ext.swf?vid=0946fff23c&autoplay=1"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			Vbox7IE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -156,7 +118,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_GEO_COUNTRIES"): Vbox7IE__GEO_COUNTRIES,
-				λ.NewStr("_TESTS"):         Vbox7IE__TESTS,
 				λ.NewStr("_VALID_URL"):     Vbox7IE__VALID_URL,
 				λ.NewStr("_real_extract"):  Vbox7IE__real_extract,
 			})

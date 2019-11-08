@@ -75,34 +75,25 @@ func init() {
 		YoutubeIE = λ.Cal(λ.TypeType, λ.NewStr("YoutubeIE"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {
 			var (
 				YoutubeIE__GEO_BYPASS λ.Object
-				YoutubeIE__TEST       λ.Object
 				YoutubeIE__VALID_URL  λ.Object
 			)
 			YoutubeIE__VALID_URL = λ.Mod(λ.NewStr("(?x)^\n                     (\n                         (?:https?://|//)                                    # http(s):// or protocol-independent URL\n                         (?:(?:(?:(?:\\w+\\.)?[yY][oO][uU][tT][uU][bB][eE](?:-nocookie)?\\.com/|\n                            (?:www\\.)?deturl\\.com/www\\.youtube\\.com/|\n                            (?:www\\.)?pwnyoutube\\.com/|\n                            (?:www\\.)?hooktube\\.com/|\n                            (?:www\\.)?yourepeat\\.com/|\n                            tube\\.majestyc\\.net/|\n                            (?:(?:www|dev)\\.)?invidio\\.us/|\n                            (?:www\\.)?invidiou\\.sh/|\n                            (?:www\\.)?invidious\\.snopyta\\.org/|\n                            (?:www\\.)?invidious\\.kabi\\.tk/|\n                            (?:www\\.)?vid\\.wxzm\\.sx/|\n                            youtube\\.googleapis\\.com/)                        # the various hostnames, with wildcard subdomains\n                         (?:.*?\\#/)?                                          # handle anchor (#/) redirect urls\n                         (?:                                                  # the various things that can precede the ID:\n                             (?:(?:v|embed|e)/(?!videoseries))                # v/ or embed/ or e/\n                             |(?:                                             # or the v= param in all its forms\n                                 (?:(?:watch|movie)(?:_popup)?(?:\\.php)?/?)?  # preceding watch(_popup|.php) or nothing (like /?v=xxxx)\n                                 (?:\\?|\\#!?)                                  # the params delimiter ? or # or #!\n                                 (?:.*?[&;])??                                # any other preceding param (like /?s=tuff&v=xxxx or ?s=tuff&amp;v=V36LpHqtcDY)\n                                 v=\n                             )\n                         ))\n                         |(?:\n                            youtu\\.be|                                        # just youtu.be/xxxx\n                            vid\\.plus|                                        # or vid.plus/xxxx\n                            zwearz\\.com/watch|                                # or zwearz.com/watch/xxxx\n                         )/\n                         |(?:www\\.)?cleanvideosearch\\.com/media/action/yt/watch\\?videoId=\n                         )\n                     )?                                                       # all until now is optional -> you can pass the naked ID\n                     ([0-9A-Za-z_-]{11})                                      # here is it! the YouTube video ID\n                     (?!.*?\\blist=\n                        (?:\n                            %(playlist_id)s|                                  # combined list/video URLs are handled by the playlist IE\n                            WL                                                # WL are handled by the watch later IE\n                        )\n                     )\n                     #(?(1).+)?                                                # if we found the ID, everything can follow\n                     "), λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("playlist_id"): λ.GetAttr(YoutubeBaseInfoExtractor, "_PLAYLIST_ID_RE", nil),
 			}))
 			YoutubeIE__GEO_BYPASS = λ.False
-			YoutubeIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://www.youtube.com/watch?v=MuAGGZNfUkU"),
-			})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_GEO_BYPASS"): YoutubeIE__GEO_BYPASS,
-				λ.NewStr("_TEST"):       YoutubeIE__TEST,
 				λ.NewStr("_VALID_URL"):  YoutubeIE__VALID_URL,
 			})
 		}())
 		YoutubePlaylistIE = λ.Cal(λ.TypeType, λ.NewStr("YoutubePlaylistIE"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {
 			var (
-				YoutubePlaylistIE__TEST         λ.Object
 				YoutubePlaylistIE__VALID_URL    λ.Object
 				YoutubePlaylistIE__real_extract λ.Object
 			)
 			YoutubePlaylistIE__VALID_URL = λ.Mod(λ.NewStr("(?x)(?:\n                        (?:https?://)?\n                        (?:\\w+\\.)?\n                        (?:\n                            (?:\n                                youtube\\.com|\n                                invidio\\.us\n                            )\n                            /\n                            (?:\n                               (?:course|view_play_list|my_playlists|artist|playlist|watch|embed/(?:videoseries|[0-9A-Za-z_-]{11}))\n                               \\? (?:.*?[&;])*? (?:p|a|list)=\n                            |  p/\n                            )|\n                            youtu\\.be/[0-9A-Za-z_-]{11}\\?.*?\\blist=\n                        )\n                        (\n                            (?:PL|LL|EC|UU|FL|RD|UL|TL|OLAK5uy_)?[0-9A-Za-z-_]{10,}\n                            # Top tracks, they can also include dots\n                            |(?:MC)[\\w\\.]*\n                        )\n                        .*\n                     |\n                        (%(playlist_id)s)\n                     )"), λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("playlist_id"): λ.GetAttr(YoutubeBaseInfoExtractor, "_PLAYLIST_ID_RE", nil),
 			}))
-			YoutubePlaylistIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://youtu.be/yeWKywCrFtk?list=PL2qgrgXsNUG5ig9cat4ohreBjYLAPC0J5"),
-			})
 			YoutubePlaylistIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -122,7 +113,6 @@ func init() {
 					return λ.None
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         YoutubePlaylistIE__TEST,
 				λ.NewStr("_VALID_URL"):    YoutubePlaylistIE__VALID_URL,
 				λ.NewStr("_real_extract"): YoutubePlaylistIE__real_extract,
 			})

@@ -49,41 +49,10 @@ func init() {
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ClypIE = λ.Cal(λ.TypeType, λ.NewStr("ClypIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ClypIE__TESTS        λ.Object
 				ClypIE__VALID_URL    λ.Object
 				ClypIE__real_extract λ.Object
 			)
 			ClypIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?clyp\\.it/(?P<id>[a-z0-9]+)")
-			ClypIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://clyp.it/ojz2wfah"),
-					λ.NewStr("md5"): λ.NewStr("1d4961036c41247ecfdcc439c0cddcbb"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("ojz2wfah"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("title"):       λ.NewStr("Krisson80 - bits wip wip"),
-						λ.NewStr("description"): λ.NewStr("#Krisson80BitsWipWip #chiptune\n#wip"),
-						λ.NewStr("duration"):    λ.NewFloat(263.21),
-						λ.NewStr("timestamp"):   λ.NewInt(1443515251),
-						λ.NewStr("upload_date"): λ.NewStr("20150929"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://clyp.it/b04p1odi?token=b0078e077e15835845c528a44417719d"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("b04p1odi"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("title"):       λ.NewStr("GJ! (Reward Edit)"),
-						λ.NewStr("description"): λ.NewStr("Metal Resistance (THE ONE edition)"),
-						λ.NewStr("duration"):    λ.NewFloat(177.789),
-						λ.NewStr("timestamp"):   λ.NewInt(1528241278),
-						λ.NewStr("upload_date"): λ.NewStr("20180605"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-			)
 			ClypIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -174,7 +143,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        ClypIE__TESTS,
 				λ.NewStr("_VALID_URL"):    ClypIE__VALID_URL,
 				λ.NewStr("_real_extract"): ClypIE__real_extract,
 			})

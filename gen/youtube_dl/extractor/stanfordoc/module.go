@@ -48,21 +48,11 @@ func init() {
 		StanfordOpenClassroomIE = λ.Cal(λ.TypeType, λ.NewStr("StanfordOpenClassroomIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				StanfordOpenClassroomIE_IE_NAME       λ.Object
-				StanfordOpenClassroomIE__TEST         λ.Object
 				StanfordOpenClassroomIE__VALID_URL    λ.Object
 				StanfordOpenClassroomIE__real_extract λ.Object
 			)
 			StanfordOpenClassroomIE_IE_NAME = λ.NewStr("stanfordoc")
 			StanfordOpenClassroomIE__VALID_URL = λ.NewStr("https?://openclassroom\\.stanford\\.edu(?P<path>/?|(/MainFolder/(?:HomePage|CoursePage|VideoPage)\\.php([?]course=(?P<course>[^&]+)(&video=(?P<video>[^&]+))?(&.*)?)?))$")
-			StanfordOpenClassroomIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://openclassroom.stanford.edu/MainFolder/VideoPage.php?course=PracticalUnix&video=intro-environment&speed=100"),
-				λ.NewStr("md5"): λ.NewStr("544a9468546059d4e80d76265b0443b8"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):    λ.NewStr("PracticalUnix_intro-environment"),
-					λ.NewStr("ext"):   λ.NewStr("mp4"),
-					λ.NewStr("title"): λ.NewStr("Intro Environment"),
-				}),
-			})
 			StanfordOpenClassroomIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -216,7 +206,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       StanfordOpenClassroomIE_IE_NAME,
-				λ.NewStr("_TEST"):         StanfordOpenClassroomIE__TEST,
 				λ.NewStr("_VALID_URL"):    StanfordOpenClassroomIE__VALID_URL,
 				λ.NewStr("_real_extract"): StanfordOpenClassroomIE__real_extract,
 			})

@@ -45,53 +45,10 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		PokemonIE = λ.Cal(λ.TypeType, λ.NewStr("PokemonIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				PokemonIE__TESTS        λ.Object
 				PokemonIE__VALID_URL    λ.Object
 				PokemonIE__real_extract λ.Object
 			)
 			PokemonIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?pokemon\\.com/[a-z]{2}(?:.*?play=(?P<id>[a-z0-9]{32})|/(?:[^/]+/)+(?P<display_id>[^/?#&]+))")
-			PokemonIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.pokemon.com/us/pokemon-episodes/20_30-the-ol-raise-and-switch/"),
-					λ.NewStr("md5"): λ.NewStr("2fe8eaec69768b25ef898cda9c43062e"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("afe22e30f01c41f49d4f1d9eab5cd9a4"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("The Ol’ Raise and Switch!"),
-						λ.NewStr("description"): λ.NewStr("md5:7db77f7107f98ba88401d3adc80ff7af"),
-						λ.NewStr("timestamp"):   λ.NewInt(1511824728),
-						λ.NewStr("upload_date"): λ.NewStr("20171127"),
-					}),
-					λ.NewStr("add_id"): λ.NewList(λ.NewStr("LimelightMedia")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.pokemon.com/us/pokemon-episodes/pokemon-movies/pokemon-the-rise-of-darkrai-2008"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("99f3bae270bf4e5097274817239ce9c8"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Pokémon: The Rise of Darkrai"),
-						λ.NewStr("description"): λ.NewStr("md5:ea8fbbf942e1e497d54b19025dd57d9d"),
-						λ.NewStr("timestamp"):   λ.NewInt(1417778347),
-						λ.NewStr("upload_date"): λ.NewStr("20141205"),
-					}),
-					λ.NewStr("add_id"): λ.NewList(λ.NewStr("LimelightMedia")),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.pokemon.com/uk/pokemon-episodes/?play=2e8b5c761f1d4a9286165d7748c1ece2"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.pokemon.com/fr/episodes-pokemon/18_09-un-hiver-inattendu/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.pokemon.com/de/pokemon-folgen/01_20-bye-bye-smettbo/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			PokemonIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -157,7 +114,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        PokemonIE__TESTS,
 				λ.NewStr("_VALID_URL"):    PokemonIE__VALID_URL,
 				λ.NewStr("_real_extract"): PokemonIE__real_extract,
 			})

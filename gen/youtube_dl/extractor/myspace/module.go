@@ -48,59 +48,10 @@ func init() {
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		MySpaceIE = λ.Cal(λ.TypeType, λ.NewStr("MySpaceIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				MySpaceIE__TESTS        λ.Object
 				MySpaceIE__VALID_URL    λ.Object
 				MySpaceIE__real_extract λ.Object
 			)
 			MySpaceIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        myspace\\.com/[^/]+/\n                        (?P<mediatype>\n                            video/[^/]+/(?P<video_id>\\d+)|\n                            music/song/[^/?#&]+-(?P<song_id>\\d+)-\\d+(?:[/?#&]|$)\n                        )\n                    ")
-			MySpaceIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://myspace.com/fiveminutestothestage/video/little-big-town/109594919"),
-					λ.NewStr("md5"): λ.NewStr("9c1483c106f4a695c47d2911feed50a7"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("109594919"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Little Big Town"),
-						λ.NewStr("description"): λ.NewStr("This country quartet was all smiles while playing a sold out show at the Pacific Amphitheatre in Orange County, California."),
-						λ.NewStr("uploader"):    λ.NewStr("Five Minutes to the Stage"),
-						λ.NewStr("uploader_id"): λ.NewStr("fiveminutestothestage"),
-						λ.NewStr("timestamp"):   λ.NewInt(1414108751),
-						λ.NewStr("upload_date"): λ.NewStr("20141023"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://myspace.com/killsorrow/music/song/of-weakened-soul...-93388656-103880681"),
-					λ.NewStr("md5"): λ.NewStr("1d7ee4604a3da226dd69a123f748b262"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("93388656"),
-						λ.NewStr("ext"):         λ.NewStr("m4a"),
-						λ.NewStr("title"):       λ.NewStr("Of weakened soul..."),
-						λ.NewStr("uploader"):    λ.NewStr("Killsorrow"),
-						λ.NewStr("uploader_id"): λ.NewStr("killsorrow"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Youtube")),
-					λ.NewStr("url"):    λ.NewStr("https://myspace.com/threedaysgrace/music/song/animal-i-have-become-28400208-28218041"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("xqds0B_meys"),
-						λ.NewStr("ext"):         λ.NewStr("webm"),
-						λ.NewStr("title"):       λ.NewStr("Three Days Grace - Animal I Have Become"),
-						λ.NewStr("description"): λ.NewStr("md5:8bd86b3693e72a077cf863a8530c54bb"),
-						λ.NewStr("uploader"):    λ.NewStr("ThreeDaysGraceVEVO"),
-						λ.NewStr("uploader_id"): λ.NewStr("ThreeDaysGraceVEVO"),
-						λ.NewStr("upload_date"): λ.NewStr("20091002"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://myspace.com/starset2/music/song/first-light-95799905-106964426"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://myspace.com/thelargemouthbassband/music/song/02-pure-eyes.mp3-94422330-105113388"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			MySpaceIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -299,7 +250,6 @@ func init() {
 					return λ.None
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        MySpaceIE__TESTS,
 				λ.NewStr("_VALID_URL"):    MySpaceIE__VALID_URL,
 				λ.NewStr("_real_extract"): MySpaceIE__real_extract,
 			})

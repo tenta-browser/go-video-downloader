@@ -46,52 +46,10 @@ func init() {
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		TVN24IE = λ.Cal(λ.TypeType, λ.NewStr("TVN24IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				TVN24IE__TESTS        λ.Object
 				TVN24IE__VALID_URL    λ.Object
 				TVN24IE__real_extract λ.Object
 			)
 			TVN24IE__VALID_URL = λ.NewStr("https?://(?:(?:[^/]+)\\.)?tvn24(?:bis)?\\.pl/(?:[^/]+/)*(?P<id>[^/]+)")
-			TVN24IE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.tvn24.pl/wiadomosci-z-kraju,3/oredzie-artura-andrusa,702428.html"),
-					λ.NewStr("md5"): λ.NewStr("fbdec753d7bc29d96036808275f2130c"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1584444"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("\"Święta mają być wesołe, dlatego, ludziska, wszyscy pod jemiołę\""),
-						λ.NewStr("description"): λ.NewStr("Wyjątkowe orędzie Artura Andrusa, jednego z gości Szkła kontaktowego."),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:https?://.*[.]jpeg"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://tvnmeteo.tvn24.pl/magazyny/maja-w-ogrodzie,13/odcinki-online,1,4,1,0/pnacza-ptaki-i-iglaki-odc-691-hgtv-odc-29,1771763.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("1771763"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("Pnącza, ptaki i iglaki (odc. 691 /HGTV odc. 29)"),
-						λ.NewStr("thumbnail"): λ.NewStr("re:https?://.*"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://fakty.tvn24.pl/ogladaj-online,60/53-konferencja-bezpieczenstwa-w-monachium,716431.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://sport.tvn24.pl/pilka-nozna,105/ligue-1-kamil-glik-rozcial-glowe-monaco-tylko-remisuje-z-bastia,716522.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://tvn24bis.pl/poranek,146,m/gen-koziej-w-tvn24-bis-wracamy-do-czasow-zimnej-wojny,715660.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.tvn24.pl/magazyn-tvn24/angie-w-jednej-czwartej-polka-od-szarej-myszki-do-cesarzowej-europy,119,2158"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			TVN24IE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -240,7 +198,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        TVN24IE__TESTS,
 				λ.NewStr("_VALID_URL"):    TVN24IE__VALID_URL,
 				λ.NewStr("_real_extract"): TVN24IE__real_extract,
 			})

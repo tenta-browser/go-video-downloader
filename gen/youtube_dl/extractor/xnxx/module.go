@@ -49,34 +49,10 @@ func init() {
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		XNXXIE = λ.Cal(λ.TypeType, λ.NewStr("XNXXIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				XNXXIE__TESTS        λ.Object
 				XNXXIE__VALID_URL    λ.Object
 				XNXXIE__real_extract λ.Object
 			)
 			XNXXIE__VALID_URL = λ.NewStr("https?://(?:video|www)\\.xnxx\\.com/video-?(?P<id>[0-9a-z]+)/")
-			XNXXIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.xnxx.com/video-55awb78/skyrim_test_video"),
-					λ.NewStr("md5"): λ.NewStr("7583e96c15c0f21e9da3453d9920fbba"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("55awb78"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("Skyrim Test Video"),
-						λ.NewStr("thumbnail"):  λ.NewStr("re:^https?://.*\\.jpg"),
-						λ.NewStr("duration"):   λ.NewInt(469),
-						λ.NewStr("view_count"): λ.IntType,
-						λ.NewStr("age_limit"):  λ.NewInt(18),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://video.xnxx.com/video1135332/lida_naked_funny_actress_5_"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.xnxx.com/video-55awb78/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			XNXXIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -207,7 +183,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        XNXXIE__TESTS,
 				λ.NewStr("_VALID_URL"):    XNXXIE__VALID_URL,
 				λ.NewStr("_real_extract"): XNXXIE__real_extract,
 			})

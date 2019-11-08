@@ -50,43 +50,10 @@ func init() {
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		BleacherReportIE = λ.Cal(λ.TypeType, λ.NewStr("BleacherReportIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				BleacherReportIE__TESTS        λ.Object
 				BleacherReportIE__VALID_URL    λ.Object
 				BleacherReportIE__real_extract λ.Object
 			)
 			BleacherReportIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bleacherreport\\.com/articles/(?P<id>\\d+)")
-			BleacherReportIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://bleacherreport.com/articles/2496438-fsu-stat-projections-is-jalen-ramsey-best-defensive-player-in-college-football"),
-					λ.NewStr("md5"): λ.NewStr("a3ffc3dc73afdbc2010f02d98f990f20"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("2496438"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("FSU Stat Projections: Is Jalen Ramsey Best Defensive Player in College Football?"),
-						λ.NewStr("uploader_id"): λ.NewInt(3992341),
-						λ.NewStr("description"): λ.NewStr("CFB, ACC, Florida State"),
-						λ.NewStr("timestamp"):   λ.NewInt(1434380212),
-						λ.NewStr("upload_date"): λ.NewStr("20150615"),
-						λ.NewStr("uploader"):    λ.NewStr("Team Stream Now "),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Ooyala")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://bleacherreport.com/articles/2586817-aussie-golfers-get-fright-of-their-lives-after-being-chased-by-angry-kangaroo"),
-					λ.NewStr("md5"): λ.NewStr("6a5cd403418c7b01719248ca97fb0692"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("2586817"),
-						λ.NewStr("ext"):         λ.NewStr("webm"),
-						λ.NewStr("title"):       λ.NewStr("Aussie Golfers Get Fright of Their Lives After Being Chased by Angry Kangaroo"),
-						λ.NewStr("timestamp"):   λ.NewInt(1446839961),
-						λ.NewStr("uploader"):    λ.NewStr("Sean Fay"),
-						λ.NewStr("description"): λ.NewStr("md5:b1601e2314c4d8eec23b6eafe086a757"),
-						λ.NewStr("uploader_id"): λ.NewInt(6466954),
-						λ.NewStr("upload_date"): λ.NewStr("20151011"),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Youtube")),
-				}),
-			)
 			BleacherReportIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -159,28 +126,16 @@ func init() {
 					return λ.None
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        BleacherReportIE__TESTS,
 				λ.NewStr("_VALID_URL"):    BleacherReportIE__VALID_URL,
 				λ.NewStr("_real_extract"): BleacherReportIE__real_extract,
 			})
 		}())
 		BleacherReportCMSIE = λ.Cal(λ.TypeType, λ.NewStr("BleacherReportCMSIE"), λ.NewTuple(AMPIE), func() λ.Dict {
 			var (
-				BleacherReportCMSIE__TESTS        λ.Object
 				BleacherReportCMSIE__VALID_URL    λ.Object
 				BleacherReportCMSIE__real_extract λ.Object
 			)
 			BleacherReportCMSIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bleacherreport\\.com/video_embed\\?id=(?P<id>[0-9a-f-]{36}|\\d{5})")
-			BleacherReportCMSIE__TESTS = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://bleacherreport.com/video_embed?id=8fd44c2f-3dc5-4821-9118-2c825a98c0e1&library=video-cms"),
-				λ.NewStr("md5"): λ.NewStr("2e4b0a997f9228ffa31fada5c53d1ed1"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("8fd44c2f-3dc5-4821-9118-2c825a98c0e1"),
-					λ.NewStr("ext"):         λ.NewStr("flv"),
-					λ.NewStr("title"):       λ.NewStr("Cena vs. Rollins Would Expose the Heavyweight Division"),
-					λ.NewStr("description"): λ.NewStr("md5:984afb4ade2f9c0db35f3267ed88b36e"),
-				}),
-			}))
 			BleacherReportCMSIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -200,7 +155,6 @@ func init() {
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        BleacherReportCMSIE__TESTS,
 				λ.NewStr("_VALID_URL"):    BleacherReportCMSIE__VALID_URL,
 				λ.NewStr("_real_extract"): BleacherReportCMSIE__real_extract,
 			})

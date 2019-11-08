@@ -44,27 +44,10 @@ func init() {
 		ϒremove_start = Ωutils.ϒremove_start
 		RozhlasIE = λ.Cal(λ.TypeType, λ.NewStr("RozhlasIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				RozhlasIE__TESTS        λ.Object
 				RozhlasIE__VALID_URL    λ.Object
 				RozhlasIE__real_extract λ.Object
 			)
 			RozhlasIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?prehravac\\.rozhlas\\.cz/audio/(?P<id>[0-9]+)")
-			RozhlasIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://prehravac.rozhlas.cz/audio/3421320"),
-					λ.NewStr("md5"): λ.NewStr("504c902dbc9e9a1fd50326eccf02a7e2"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("3421320"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("title"):       λ.NewStr("Echo Pavla Klusáka (30.06.2015 21:00)"),
-						λ.NewStr("description"): λ.NewStr("Osmdesátiny Terryho Rileyho jsou skvělou příležitostí proletět se elektronickými i akustickými díly zakladatatele minimalismu, který je aktivní už přes padesát let"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://prehravac.rozhlas.cz/audio/3421320/embed"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			RozhlasIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -121,7 +104,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        RozhlasIE__TESTS,
 				λ.NewStr("_VALID_URL"):    RozhlasIE__VALID_URL,
 				λ.NewStr("_real_extract"): RozhlasIE__real_extract,
 			})

@@ -55,59 +55,10 @@ func init() {
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		SpiegelIE = λ.Cal(λ.TypeType, λ.NewStr("SpiegelIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				SpiegelIE__TESTS        λ.Object
 				SpiegelIE__VALID_URL    λ.Object
 				SpiegelIE__real_extract λ.Object
 			)
 			SpiegelIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?spiegel\\.de/video/[^/]*-(?P<id>[0-9]+)(?:-embed|-iframe)?(?:\\.html)?(?:#.*)?$")
-			SpiegelIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.spiegel.de/video/vulkan-tungurahua-in-ecuador-ist-wieder-aktiv-video-1259285.html"),
-					λ.NewStr("md5"): λ.NewStr("b57399839d055fccfeb9a0455c439868"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("563747"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Vulkanausbruch in Ecuador: Der \"Feuerschlund\" ist wieder aktiv"),
-						λ.NewStr("description"): λ.NewStr("md5:8029d8310232196eb235d27575a8b9f4"),
-						λ.NewStr("duration"):    λ.NewInt(49),
-						λ.NewStr("upload_date"): λ.NewStr("20130311"),
-						λ.NewStr("timestamp"):   λ.NewInt(1362994320),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.spiegel.de/video/schach-wm-videoanalyse-des-fuenften-spiels-video-1309159.html"),
-					λ.NewStr("md5"): λ.NewStr("5b6c2f4add9d62912ed5fc78a1faed80"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("580988"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Schach-WM in der Videoanalyse: Carlsen nutzt die Fehlgriffe des Titelverteidigers"),
-						λ.NewStr("description"): λ.NewStr("md5:c2322b65e58f385a820c10fa03b2d088"),
-						λ.NewStr("duration"):    λ.NewInt(983),
-						λ.NewStr("upload_date"): λ.NewStr("20131115"),
-						λ.NewStr("timestamp"):   λ.NewInt(1384546642),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.spiegel.de/video/astronaut-alexander-gerst-von-der-iss-station-beantwortet-fragen-video-1519126-embed.html"),
-					λ.NewStr("md5"): λ.NewStr("97b91083a672d72976faa8433430afb9"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("601883"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("description"): λ.NewStr("SPIEGEL ONLINE-Nutzer durften den deutschen Astronauten Alexander Gerst über sein Leben auf der ISS-Station befragen. Hier kommen seine Antworten auf die besten sechs Fragen."),
-						λ.NewStr("title"):       λ.NewStr("Fragen an Astronaut Alexander Gerst: \"Bekommen Sie die Tageszeiten mit?\""),
-						λ.NewStr("upload_date"): λ.NewStr("20140904"),
-						λ.NewStr("timestamp"):   λ.NewInt(1409834160),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.spiegel.de/video/astronaut-alexander-gerst-von-der-iss-station-beantwortet-fragen-video-1519126-iframe.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.spiegel.de/video/spiegel-tv-magazin-ueber-guellekrise-in-schleswig-holstein-video-99012776.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			SpiegelIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -157,7 +108,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        SpiegelIE__TESTS,
 				λ.NewStr("_VALID_URL"):    SpiegelIE__VALID_URL,
 				λ.NewStr("_real_extract"): SpiegelIE__real_extract,
 			})

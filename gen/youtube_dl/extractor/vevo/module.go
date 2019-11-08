@@ -78,7 +78,6 @@ func init() {
 		}())
 		VevoIE = λ.Cal(λ.TypeType, λ.NewStr("VevoIE"), λ.NewTuple(VevoBaseIE), func() λ.Dict {
 			var (
-				VevoIE__TESTS          λ.Object
 				VevoIE__VALID_URL      λ.Object
 				VevoIE__VERSIONS       λ.Object
 				VevoIE__call_api       λ.Object
@@ -87,139 +86,6 @@ func init() {
 			)
 			λ.NewStr("\n    Accepts urls from vevo.com or in the format 'vevo:{id}'\n    (currently used by MTVIE and MySpaceIE)\n    ")
 			VevoIE__VALID_URL = λ.NewStr("(?x)\n        (?:https?://(?:www\\.)?vevo\\.com/watch/(?!playlist|genre)(?:[^/]+/(?:[^/]+/)?)?|\n           https?://cache\\.vevo\\.com/m/html/embed\\.html\\?video=|\n           https?://videoplayer\\.vevo\\.com/embed/embedded\\?videoId=|\n           https?://embed\\.vevo\\.com/.*?[?&]isrc=|\n           vevo:)\n        (?P<id>[^&?#]+)")
-			VevoIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.vevo.com/watch/hurts/somebody-to-die-for/GB1101300280"),
-					λ.NewStr("md5"): λ.NewStr("95ee28ee45e70130e3ab02b0f579ae23"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("GB1101300280"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Hurts - Somebody to Die For"),
-						λ.NewStr("timestamp"):   λ.NewInt(1372057200),
-						λ.NewStr("upload_date"): λ.NewStr("20130624"),
-						λ.NewStr("uploader"):    λ.NewStr("Hurts"),
-						λ.NewStr("track"):       λ.NewStr("Somebody to Die For"),
-						λ.NewStr("artist"):      λ.NewStr("Hurts"),
-						λ.NewStr("genre"):       λ.NewStr("Pop"),
-					}),
-					λ.NewStr("expected_warnings"): λ.NewList(
-						λ.NewStr("Unable to download SMIL file"),
-						λ.NewStr("Unable to download info"),
-					),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("note"): λ.NewStr("v3 SMIL format"),
-					λ.NewStr("url"):  λ.NewStr("http://www.vevo.com/watch/cassadee-pope/i-wish-i-could-break-your-heart/USUV71302923"),
-					λ.NewStr("md5"):  λ.NewStr("f6ab09b034f8c22969020b042e5ac7fc"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("USUV71302923"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Cassadee Pope - I Wish I Could Break Your Heart"),
-						λ.NewStr("timestamp"):   λ.NewInt(1392796919),
-						λ.NewStr("upload_date"): λ.NewStr("20140219"),
-						λ.NewStr("uploader"):    λ.NewStr("Cassadee Pope"),
-						λ.NewStr("track"):       λ.NewStr("I Wish I Could Break Your Heart"),
-						λ.NewStr("artist"):      λ.NewStr("Cassadee Pope"),
-						λ.NewStr("genre"):       λ.NewStr("Country"),
-					}),
-					λ.NewStr("expected_warnings"): λ.NewList(
-						λ.NewStr("Unable to download SMIL file"),
-						λ.NewStr("Unable to download info"),
-					),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("note"): λ.NewStr("Age-limited video"),
-					λ.NewStr("url"):  λ.NewStr("https://www.vevo.com/watch/justin-timberlake/tunnel-vision-explicit/USRV81300282"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("USRV81300282"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Justin Timberlake - Tunnel Vision (Explicit)"),
-						λ.NewStr("age_limit"):   λ.NewInt(18),
-						λ.NewStr("timestamp"):   λ.NewInt(1372888800),
-						λ.NewStr("upload_date"): λ.NewStr("20130703"),
-						λ.NewStr("uploader"):    λ.NewStr("Justin Timberlake"),
-						λ.NewStr("track"):       λ.NewStr("Tunnel Vision (Explicit)"),
-						λ.NewStr("artist"):      λ.NewStr("Justin Timberlake"),
-						λ.NewStr("genre"):       λ.NewStr("Pop"),
-					}),
-					λ.NewStr("expected_warnings"): λ.NewList(
-						λ.NewStr("Unable to download SMIL file"),
-						λ.NewStr("Unable to download info"),
-					),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("note"): λ.NewStr("No video_info"),
-					λ.NewStr("url"):  λ.NewStr("http://www.vevo.com/watch/k-camp-1/Till-I-Die/USUV71503000"),
-					λ.NewStr("md5"):  λ.NewStr("8b83cc492d72fc9cf74a02acee7dc1b0"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("USUV71503000"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("K Camp ft. T.I. - Till I Die"),
-						λ.NewStr("age_limit"):   λ.NewInt(18),
-						λ.NewStr("timestamp"):   λ.NewInt(1449468000),
-						λ.NewStr("upload_date"): λ.NewStr("20151207"),
-						λ.NewStr("uploader"):    λ.NewStr("K Camp"),
-						λ.NewStr("track"):       λ.NewStr("Till I Die"),
-						λ.NewStr("artist"):      λ.NewStr("K Camp"),
-						λ.NewStr("genre"):       λ.NewStr("Hip-Hop"),
-					}),
-					λ.NewStr("expected_warnings"): λ.NewList(
-						λ.NewStr("Unable to download SMIL file"),
-						λ.NewStr("Unable to download info"),
-					),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("note"): λ.NewStr("Featured test"),
-					λ.NewStr("url"):  λ.NewStr("https://www.vevo.com/watch/lemaitre/Wait/USUV71402190"),
-					λ.NewStr("md5"):  λ.NewStr("d28675e5e8805035d949dc5cf161071d"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("USUV71402190"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Lemaitre ft. LoLo - Wait"),
-						λ.NewStr("age_limit"):   λ.NewInt(0),
-						λ.NewStr("timestamp"):   λ.NewInt(1413432000),
-						λ.NewStr("upload_date"): λ.NewStr("20141016"),
-						λ.NewStr("uploader"):    λ.NewStr("Lemaitre"),
-						λ.NewStr("track"):       λ.NewStr("Wait"),
-						λ.NewStr("artist"):      λ.NewStr("Lemaitre"),
-						λ.NewStr("genre"):       λ.NewStr("Electronic"),
-					}),
-					λ.NewStr("expected_warnings"): λ.NewList(
-						λ.NewStr("Unable to download SMIL file"),
-						λ.NewStr("Unable to download info"),
-					),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("note"): λ.NewStr("Only available via webpage"),
-					λ.NewStr("url"):  λ.NewStr("http://www.vevo.com/watch/GBUV71600656"),
-					λ.NewStr("md5"):  λ.NewStr("67e79210613865b66a47c33baa5e37fe"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("GBUV71600656"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("ABC - Viva Love"),
-						λ.NewStr("age_limit"):   λ.NewInt(0),
-						λ.NewStr("timestamp"):   λ.NewInt(1461830400),
-						λ.NewStr("upload_date"): λ.NewStr("20160428"),
-						λ.NewStr("uploader"):    λ.NewStr("ABC"),
-						λ.NewStr("track"):       λ.NewStr("Viva Love"),
-						λ.NewStr("artist"):      λ.NewStr("ABC"),
-						λ.NewStr("genre"):       λ.NewStr("Pop"),
-					}),
-					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("Failed to download video versions info")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.vevo.com/watch/INS171400764"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.vevo.com/watch/boostee/pop-corn-clip-officiel/FR1A91600909"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://embed.vevo.com/?isrc=USH5V1923499&partnerId=4d61b777-8023-4191-9ede-497ed6c24647&partnerAdCode="),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			VevoIE__VERSIONS = λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewInt(0): λ.NewStr("youtube"),
 				λ.NewInt(1): λ.NewStr("level3"),
@@ -555,7 +421,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):          VevoIE__TESTS,
 				λ.NewStr("_VALID_URL"):      VevoIE__VALID_URL,
 				λ.NewStr("_VERSIONS"):       VevoIE__VERSIONS,
 				λ.NewStr("_call_api"):       VevoIE__call_api,

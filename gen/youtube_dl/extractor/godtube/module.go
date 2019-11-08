@@ -45,25 +45,10 @@ func init() {
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		GodTubeIE = λ.Cal(λ.TypeType, λ.NewStr("GodTubeIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				GodTubeIE__TESTS        λ.Object
 				GodTubeIE__VALID_URL    λ.Object
 				GodTubeIE__real_extract λ.Object
 			)
 			GodTubeIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?godtube\\.com/watch/\\?v=(?P<id>[\\da-zA-Z]+)")
-			GodTubeIE__TESTS = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://www.godtube.com/watch/?v=0C0CNNNU"),
-				λ.NewStr("md5"): λ.NewStr("77108c1e4ab58f48031101a1a2119789"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("0C0CNNNU"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Woman at the well."),
-					λ.NewStr("duration"):    λ.NewInt(159),
-					λ.NewStr("timestamp"):   λ.NewInt(1205712000),
-					λ.NewStr("uploader"):    λ.NewStr("beverlybmusic"),
-					λ.NewStr("upload_date"): λ.NewStr("20080317"),
-					λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-				}),
-			}))
 			GodTubeIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -106,7 +91,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        GodTubeIE__TESTS,
 				λ.NewStr("_VALID_URL"):    GodTubeIE__VALID_URL,
 				λ.NewStr("_real_extract"): GodTubeIE__real_extract,
 			})

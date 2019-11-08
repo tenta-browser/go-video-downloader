@@ -46,48 +46,11 @@ func init() {
 		DWIE = λ.Cal(λ.TypeType, λ.NewStr("DWIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				DWIE_IE_NAME       λ.Object
-				DWIE__TESTS        λ.Object
 				DWIE__VALID_URL    λ.Object
 				DWIE__real_extract λ.Object
 			)
 			DWIE_IE_NAME = λ.NewStr("dw")
 			DWIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?dw\\.com/(?:[^/]+/)+(?:av|e)-(?P<id>\\d+)")
-			DWIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.dw.com/en/intelligent-light/av-19112290"),
-					λ.NewStr("md5"): λ.NewStr("7372046e1815c5a534b43f3c3c36e6e9"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("19112290"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Intelligent light"),
-						λ.NewStr("description"): λ.NewStr("md5:90e00d5881719f2a6a5827cb74985af1"),
-						λ.NewStr("upload_date"): λ.NewStr("20160311"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.dw.com/en/worldlink-my-business/av-19111941"),
-					λ.NewStr("md5"): λ.NewStr("2814c9a1321c3a51f8a7aeb067a360dd"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("19111941"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("title"):       λ.NewStr("WorldLink: My business"),
-						λ.NewStr("description"): λ.NewStr("md5:bc9ca6e4e063361e21c920c53af12405"),
-						λ.NewStr("upload_date"): λ.NewStr("20160311"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.dw.com/en/documentaries-welcome-to-the-90s-2016-05-21/e-19220158-9798"),
-					λ.NewStr("md5"): λ.NewStr("56b6214ef463bfb9a3b71aeb886f3cf1"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("19274438"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Welcome to the 90s – Hip Hop"),
-						λ.NewStr("description"): λ.NewStr("Welcome to the 90s - The Golden Decade of Hip Hop"),
-						λ.NewStr("upload_date"): λ.NewStr("20160521"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("Video removed"),
-				}),
-			)
 			DWIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -168,7 +131,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       DWIE_IE_NAME,
-				λ.NewStr("_TESTS"):        DWIE__TESTS,
 				λ.NewStr("_VALID_URL"):    DWIE__VALID_URL,
 				λ.NewStr("_real_extract"): DWIE__real_extract,
 			})

@@ -44,28 +44,10 @@ func init() {
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		RTPIE = λ.Cal(λ.TypeType, λ.NewStr("RTPIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				RTPIE__TESTS        λ.Object
 				RTPIE__VALID_URL    λ.Object
 				RTPIE__real_extract λ.Object
 			)
 			RTPIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?rtp\\.pt/play/p(?P<program_id>[0-9]+)/(?P<id>[^/?#]+)/?")
-			RTPIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.rtp.pt/play/p405/e174042/paixoes-cruzadas"),
-					λ.NewStr("md5"): λ.NewStr("e736ce0c665e459ddb818546220b4ef8"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("e174042"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("title"):       λ.NewStr("Paixões Cruzadas"),
-						λ.NewStr("description"): λ.NewStr("As paixões musicais de António Cartaxo e António Macedo"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.rtp.pt/play/p831/a-quimica-das-coisas"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			RTPIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -152,7 +134,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        RTPIE__TESTS,
 				λ.NewStr("_VALID_URL"):    RTPIE__VALID_URL,
 				λ.NewStr("_real_extract"): RTPIE__real_extract,
 			})

@@ -51,71 +51,10 @@ func init() {
 		ϒurljoin = Ωutils.ϒurljoin
 		NDTVIE = λ.Cal(λ.TypeType, λ.NewStr("NDTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				NDTVIE__TESTS        λ.Object
 				NDTVIE__VALID_URL    λ.Object
 				NDTVIE__real_extract λ.Object
 			)
 			NDTVIE__VALID_URL = λ.NewStr("https?://(?:[^/]+\\.)?ndtv\\.com/(?:[^/]+/)*videos?/?(?:[^/]+/)*[^/?^&]+-(?P<id>\\d+)")
-			NDTVIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://khabar.ndtv.com/video/show/prime-time/prime-time-ill-system-and-poor-education-468818"),
-					λ.NewStr("md5"): λ.NewStr("78efcf3880ef3fd9b83d405ca94a38eb"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("468818"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("प्राइम टाइम: सिस्टम बीमार, स्कूल बदहाल"),
-						λ.NewStr("description"): λ.NewStr("md5:f410512f1b49672e5695dea16ef2731d"),
-						λ.NewStr("upload_date"): λ.NewStr("20170928"),
-						λ.NewStr("duration"):    λ.NewInt(2218),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:https?://.*\\.jpg"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://movies.ndtv.com/videos/cracker-free-diwali-wishes-from-karan-johar-kriti-sanon-other-stars-470304"),
-					λ.NewStr("md5"): λ.NewStr("f1d709352305b44443515ac56b45aa46"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("470304"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Cracker-Free Diwali Wishes From Karan Johar, Kriti Sanon & Other Stars"),
-						λ.NewStr("description"): λ.NewStr("md5:f115bba1adf2f6433fa7c1ade5feb465"),
-						λ.NewStr("upload_date"): λ.NewStr("20171019"),
-						λ.NewStr("duration"):    λ.NewInt(137),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:https?://.*\\.jpg"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.ndtv.com/video/news/news/delhi-s-air-quality-status-report-after-diwali-is-very-poor-470372"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://auto.ndtv.com/videos/the-cnb-daily-october-13-2017-469935"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://sports.ndtv.com/cricket/videos/2nd-t20i-rock-thrown-at-australia-cricket-team-bus-after-win-over-india-469764"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://gadgets.ndtv.com/videos/uncharted-the-lost-legacy-review-465568"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://profit.ndtv.com/videos/news/video-indian-economy-on-very-solid-track-international-monetary-fund-chief-470040"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://food.ndtv.com/video-basil-seeds-coconut-porridge-419083"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://doctor.ndtv.com/videos/top-health-stories-of-the-week-467396"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://swirlster.ndtv.com/video/how-to-make-friends-at-work-469324"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			NDTVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -198,7 +137,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        NDTVIE__TESTS,
 				λ.NewStr("_VALID_URL"):    NDTVIE__VALID_URL,
 				λ.NewStr("_real_extract"): NDTVIE__real_extract,
 			})

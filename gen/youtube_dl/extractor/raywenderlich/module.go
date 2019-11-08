@@ -62,38 +62,11 @@ func init() {
 		ϒurljoin = Ωutils.ϒurljoin
 		RayWenderlichIE = λ.Cal(λ.TypeType, λ.NewStr("RayWenderlichIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				RayWenderlichIE__TESTS            λ.Object
 				RayWenderlichIE__VALID_URL        λ.Object
 				RayWenderlichIE__extract_video_id λ.Object
 				RayWenderlichIE__real_extract     λ.Object
 			)
 			RayWenderlichIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            videos\\.raywenderlich\\.com/courses|\n                            (?:www\\.)?raywenderlich\\.com\n                        )/\n                        (?P<course_id>[^/]+)/lessons/(?P<id>\\d+)\n                    ")
-			RayWenderlichIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.raywenderlich.com/3530-testing-in-ios/lessons/1"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("248377018"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Introduction"),
-						λ.NewStr("description"): λ.NewStr("md5:804d031b3efa9fcb49777d512d74f722"),
-						λ.NewStr("timestamp"):   λ.NewInt(1513906277),
-						λ.NewStr("upload_date"): λ.NewStr("20171222"),
-						λ.NewStr("duration"):    λ.NewInt(133),
-						λ.NewStr("uploader"):    λ.NewStr("Ray Wenderlich"),
-						λ.NewStr("uploader_id"): λ.NewStr("user3304672"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("noplaylist"):    λ.True,
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("add_ie"):            λ.NewList(λ.Cal(λ.GetAttr(VimeoIE, "ie_key", nil))),
-					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("HTTP Error 403: Forbidden")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://videos.raywenderlich.com/courses/105-testing-in-ios/lessons/1"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			RayWenderlichIE__extract_video_id = λ.NewFunction("_extract_video_id",
 				[]λ.Param{
 					{Name: "data"},
@@ -307,7 +280,6 @@ func init() {
 					}))
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):            RayWenderlichIE__TESTS,
 				λ.NewStr("_VALID_URL"):        RayWenderlichIE__VALID_URL,
 				λ.NewStr("_extract_video_id"): RayWenderlichIE__extract_video_id,
 				λ.NewStr("_real_extract"):     RayWenderlichIE__real_extract,

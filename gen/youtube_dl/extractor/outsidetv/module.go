@@ -39,29 +39,10 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		OutsideTVIE = λ.Cal(λ.TypeType, λ.NewStr("OutsideTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				OutsideTVIE__TESTS        λ.Object
 				OutsideTVIE__VALID_URL    λ.Object
 				OutsideTVIE__real_extract λ.Object
 			)
 			OutsideTVIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?outsidetv\\.com/(?:[^/]+/)*?play/[a-zA-Z0-9]{8}/\\d+/\\d+/(?P<id>[a-zA-Z0-9]{8})")
-			OutsideTVIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.outsidetv.com/category/snow/play/ZjQYboH6/1/10/Hdg0jukV/4"),
-					λ.NewStr("md5"): λ.NewStr("192d968fedc10b2f70ec31865ffba0da"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("Hdg0jukV"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Home - Jackson Ep 1 | Arbor Snowboards"),
-						λ.NewStr("description"): λ.NewStr("md5:41a12e94f3db3ca253b04bb1e8d8f4cd"),
-						λ.NewStr("upload_date"): λ.NewStr("20181225"),
-						λ.NewStr("timestamp"):   λ.NewInt(1545742800),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.outsidetv.com/home/play/ZjQYboH6/1/10/Hdg0jukV/4"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			OutsideTVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -78,7 +59,6 @@ func init() {
 					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Add(λ.NewStr("jwplatform:"), ϒjw_media_id), λ.NewStr("JWPlatform"), ϒjw_media_id)
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        OutsideTVIE__TESTS,
 				λ.NewStr("_VALID_URL"):    OutsideTVIE__VALID_URL,
 				λ.NewStr("_real_extract"): OutsideTVIE__real_extract,
 			})

@@ -51,52 +51,10 @@ func init() {
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		NewgroundsIE = λ.Cal(λ.TypeType, λ.NewStr("NewgroundsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				NewgroundsIE__TESTS        λ.Object
 				NewgroundsIE__VALID_URL    λ.Object
 				NewgroundsIE__real_extract λ.Object
 			)
 			NewgroundsIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?newgrounds\\.com/(?:audio/listen|portal/view)/(?P<id>[0-9]+)")
-			NewgroundsIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.newgrounds.com/audio/listen/549479"),
-					λ.NewStr("md5"): λ.NewStr("fe6033d297591288fa1c1f780386f07a"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("549479"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("title"):       λ.NewStr("B7 - BusMode"),
-						λ.NewStr("uploader"):    λ.NewStr("Burn7"),
-						λ.NewStr("timestamp"):   λ.NewInt(1378878540),
-						λ.NewStr("upload_date"): λ.NewStr("20130911"),
-						λ.NewStr("duration"):    λ.NewInt(143),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.newgrounds.com/portal/view/673111"),
-					λ.NewStr("md5"): λ.NewStr("3394735822aab2478c31b1004fe5e5bc"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("673111"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Dancin"),
-						λ.NewStr("uploader"):    λ.NewStr("Squirrelman82"),
-						λ.NewStr("timestamp"):   λ.NewInt(1460256780),
-						λ.NewStr("upload_date"): λ.NewStr("20160410"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.newgrounds.com/portal/view/689400"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("689400"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("ZTV News Episode 8"),
-						λ.NewStr("uploader"):    λ.NewStr("BennettTheSage"),
-						λ.NewStr("timestamp"):   λ.NewInt(1487965140),
-						λ.NewStr("upload_date"): λ.NewStr("20170224"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-			)
 			NewgroundsIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -215,7 +173,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        NewgroundsIE__TESTS,
 				λ.NewStr("_VALID_URL"):    NewgroundsIE__VALID_URL,
 				λ.NewStr("_real_extract"): NewgroundsIE__real_extract,
 			})

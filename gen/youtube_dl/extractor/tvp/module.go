@@ -53,69 +53,11 @@ func init() {
 		TVPIE = λ.Cal(λ.TypeType, λ.NewStr("TVPIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TVPIE_IE_NAME       λ.Object
-				TVPIE__TESTS        λ.Object
 				TVPIE__VALID_URL    λ.Object
 				TVPIE__real_extract λ.Object
 			)
 			TVPIE_IE_NAME = λ.NewStr("tvp")
 			TVPIE__VALID_URL = λ.NewStr("https?://[^/]+\\.tvp\\.(?:pl|info)/(?:video/(?:[^,\\s]*,)*|(?:(?!\\d+/)[^/]+/)*)(?P<id>\\d+)")
-			TVPIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://vod.tvp.pl/video/czas-honoru,i-seria-odc-13,194536"),
-					λ.NewStr("md5"): λ.NewStr("a21eb0aa862f25414430f15fdfb9e76c"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("194536"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Czas honoru, odc. 13 – Władek"),
-						λ.NewStr("description"): λ.NewStr("md5:437f48b93558370b031740546b696e24"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.tvp.pl/there-can-be-anything-so-i-shortened-it/17916176"),
-					λ.NewStr("md5"): λ.NewStr("b0005b542e5b4de643a9690326ab1257"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("17916176"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("TVP Gorzów pokaże filmy studentów z podroży dookoła świata"),
-						λ.NewStr("description"): λ.NewStr("TVP Gorzów pokaże filmy studentów z podroży dookoła świata"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://wiadomosci.tvp.pl/33908820/28092017-1930"),
-					λ.NewStr("md5"): λ.NewStr("84cd3c8aec4840046e5ab712416b73d0"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("33908820"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Wiadomości, 28.09.2017, 19:30"),
-						λ.NewStr("description"): λ.NewStr("Wydanie główne codziennego serwisu informacyjnego."),
-					}),
-					λ.NewStr("skip"): λ.NewStr("HTTP Error 404: Not Found"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://vod.tvp.pl/seriale/obyczajowe/na-sygnale/sezon-2-27-/odc-39/17834272"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://wiadomosci.tvp.pl/25169746/24052016-1200"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://krakow.tvp.pl/25511623/25lecie-mck-wyjatkowe-miejsce-na-mapie-krakowa"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://teleexpress.tvp.pl/25522307/wierni-wzieli-udzial-w-procesjach"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://sport.tvp.pl/25522165/krychowiak-uspokaja-w-sprawie-kontuzji-dwa-tygodnie-to-maksimum"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.tvp.info/25511919/trwa-rewolucja-wladza-zdecydowala-sie-na-pogwalcenie-konstytucji"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			TVPIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -168,7 +110,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       TVPIE_IE_NAME,
-				λ.NewStr("_TESTS"):        TVPIE__TESTS,
 				λ.NewStr("_VALID_URL"):    TVPIE__VALID_URL,
 				λ.NewStr("_real_extract"): TVPIE__real_extract,
 			})
@@ -176,37 +117,11 @@ func init() {
 		TVPEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("TVPEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TVPEmbedIE_IE_NAME       λ.Object
-				TVPEmbedIE__TESTS        λ.Object
 				TVPEmbedIE__VALID_URL    λ.Object
 				TVPEmbedIE__real_extract λ.Object
 			)
 			TVPEmbedIE_IE_NAME = λ.NewStr("tvp:embed")
 			TVPEmbedIE__VALID_URL = λ.NewStr("(?:tvp:|https?://[^/]+\\.tvp\\.(?:pl|info)/sess/tvplayer\\.php\\?.*?object_id=)(?P<id>\\d+)")
-			TVPEmbedIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("tvp:194536"),
-					λ.NewStr("md5"): λ.NewStr("a21eb0aa862f25414430f15fdfb9e76c"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("194536"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("Czas honoru, odc. 13 – Władek"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.tvp.pl/sess/tvplayer.php?object_id=22670268"),
-					λ.NewStr("md5"): λ.NewStr("8c9cd59d16edabf39331f93bf8a766c7"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("22670268"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("Panorama, 07.12.2015, 15:40"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("Transmisja została zakończona lub materiał niedostępny"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("tvp:22670268"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			TVPEmbedIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -387,7 +302,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       TVPEmbedIE_IE_NAME,
-				λ.NewStr("_TESTS"):        TVPEmbedIE__TESTS,
 				λ.NewStr("_VALID_URL"):    TVPEmbedIE__VALID_URL,
 				λ.NewStr("_real_extract"): TVPEmbedIE__real_extract,
 			})

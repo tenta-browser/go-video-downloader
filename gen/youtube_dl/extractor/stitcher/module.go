@@ -49,48 +49,10 @@ func init() {
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		StitcherIE = λ.Cal(λ.TypeType, λ.NewStr("StitcherIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				StitcherIE__TESTS        λ.Object
 				StitcherIE__VALID_URL    λ.Object
 				StitcherIE__real_extract λ.Object
 			)
 			StitcherIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?stitcher\\.com/podcast/(?:[^/]+/)+e/(?:(?P<display_id>[^/#?&]+?)-)?(?P<id>\\d+)(?:[/#?&]|$)")
-			StitcherIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.stitcher.com/podcast/the-talking-machines/e/40789481?autoplay=true"),
-					λ.NewStr("md5"): λ.NewStr("391dd4e021e6edeb7b8e68fbf2e9e940"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("40789481"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("title"):       λ.NewStr("Machine Learning Mastery and Cancer Clusters"),
-						λ.NewStr("description"): λ.NewStr("md5:55163197a44e915a14a1ac3a1de0f2d3"),
-						λ.NewStr("duration"):    λ.NewInt(1604),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.stitcher.com/podcast/panoply/vulture-tv/e/the-rare-hourlong-comedy-plus-40846275?autoplay=true"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("40846275"),
-						λ.NewStr("display_id"):  λ.NewStr("the-rare-hourlong-comedy-plus"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("title"):       λ.NewStr("The CW's 'Crazy Ex-Girlfriend'"),
-						λ.NewStr("description"): λ.NewStr("md5:04f1e2f98eb3f5cbb094cea0f9e19b17"),
-						λ.NewStr("duration"):    λ.NewInt(2235),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.stitcher.com/podcast/marketplace-on-stitcher/e/40910226?autoplay=true"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.stitcher.com/podcast/panoply/getting-in/e/episode-2a-how-many-extracurriculars-should-i-have-40876278?autoplay=true"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			StitcherIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -177,7 +139,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        StitcherIE__TESTS,
 				λ.NewStr("_VALID_URL"):    StitcherIE__VALID_URL,
 				λ.NewStr("_real_extract"): StitcherIE__real_extract,
 			})

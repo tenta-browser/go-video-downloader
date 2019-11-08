@@ -121,7 +121,6 @@ func init() {
 		DailymotionIE = λ.Cal(λ.TypeType, λ.NewStr("DailymotionIE"), λ.NewTuple(DailymotionBaseInfoExtractor), func() λ.Dict {
 			var (
 				DailymotionIE_IE_NAME       λ.Object
-				DailymotionIE__TESTS        λ.Object
 				DailymotionIE__VALID_URL    λ.Object
 				DailymotionIE__check_error  λ.Object
 				DailymotionIE__extract_urls λ.Object
@@ -129,94 +128,6 @@ func init() {
 			)
 			DailymotionIE__VALID_URL = λ.NewStr("(?ix)\n                    https?://\n                        (?:\n                            (?:(?:www|touch)\\.)?dailymotion\\.[a-z]{2,3}/(?:(?:(?:embed|swf|\\#)/)?video|swf)|\n                            (?:www\\.)?lequipe\\.fr/video\n                        )\n                        /(?P<id>[^/?_]+)\n                    ")
 			DailymotionIE_IE_NAME = λ.NewStr("dailymotion")
-			DailymotionIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.dailymotion.com/video/x5kesuj_office-christmas-party-review-jason-bateman-olivia-munn-t-j-miller_news"),
-					λ.NewStr("md5"): λ.NewStr("074b95bdee76b9e3654137aee9c79dfe"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("x5kesuj"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Office Christmas Party Review –  Jason Bateman, Olivia Munn, T.J. Miller"),
-						λ.NewStr("description"): λ.NewStr("Office Christmas Party Review -  Jason Bateman, Olivia Munn, T.J. Miller"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?:.*\\.(?:jpg|png)$"),
-						λ.NewStr("duration"):    λ.NewInt(187),
-						λ.NewStr("timestamp"):   λ.NewInt(1493651285),
-						λ.NewStr("upload_date"): λ.NewStr("20170501"),
-						λ.NewStr("uploader"):    λ.NewStr("Deadline"),
-						λ.NewStr("uploader_id"): λ.NewStr("x1xm8ri"),
-						λ.NewStr("age_limit"):   λ.NewInt(0),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.dailymotion.com/video/x2iuewm_steam-machine-models-pricing-listed-on-steam-store-ign-news_videogames"),
-					λ.NewStr("md5"): λ.NewStr("2137c41a8e78554bb09225b8eb322406"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("x2iuewm"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Steam Machine Models, Pricing Listed on Steam Store - IGN News"),
-						λ.NewStr("description"): λ.NewStr("Several come bundled with the Steam Controller."),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?:.*\\.(?:jpg|png)$"),
-						λ.NewStr("duration"):    λ.NewInt(74),
-						λ.NewStr("timestamp"):   λ.NewInt(1425657362),
-						λ.NewStr("upload_date"): λ.NewStr("20150306"),
-						λ.NewStr("uploader"):    λ.NewStr("IGN"),
-						λ.NewStr("uploader_id"): λ.NewStr("xijv66"),
-						λ.NewStr("age_limit"):   λ.NewInt(0),
-						λ.NewStr("view_count"):  λ.IntType,
-					}),
-					λ.NewStr("skip"): λ.NewStr("video gone"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.dailymotion.com/video/x149uew_katy-perry-roar-official_musi"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("title"):       λ.NewStr("Roar (Official)"),
-						λ.NewStr("id"):          λ.NewStr("USUV71301934"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("uploader"):    λ.NewStr("Katy Perry"),
-						λ.NewStr("upload_date"): λ.NewStr("20130905"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("skip"): λ.NewStr("VEVO is only available in some countries"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.dailymotion.com/video/xyh2zz_leanna-decker-cyber-girl-of-the-year-desires-nude-playboy-plus_redband"),
-					λ.NewStr("md5"): λ.NewStr("0d667a7b9cebecc3c89ee93099c4159d"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("xyh2zz"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("Leanna Decker - Cyber Girl Of The Year Desires Nude [Playboy Plus]"),
-						λ.NewStr("uploader"):  λ.NewStr("HotWaves1012"),
-						λ.NewStr("age_limit"): λ.NewInt(18),
-					}),
-					λ.NewStr("skip"): λ.NewStr("video gone"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.dailymotion.com/video/xhza0o"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.dailymotion.com/video/x20su5f_the-power-of-nightmares-1-the-rise-of-the-politics-of-fear-bbc-2004_news"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.dailymotion.com/swf/video/x3n92nf"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.dailymotion.com/swf/x3ss1m_funny-magic-trick-barry-and-stuart_fun"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.lequipe.fr/video/x791mem"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.lequipe.fr/video/k7MtHciueyTcrFtFKA2"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			DailymotionIE__extract_urls = λ.NewFunction("_extract_urls",
 				[]λ.Param{
 					{Name: "webpage"},
@@ -723,7 +634,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       DailymotionIE_IE_NAME,
-				λ.NewStr("_TESTS"):        DailymotionIE__TESTS,
 				λ.NewStr("_VALID_URL"):    DailymotionIE__VALID_URL,
 				λ.NewStr("_check_error"):  DailymotionIE__check_error,
 				λ.NewStr("_extract_urls"): DailymotionIE__extract_urls,

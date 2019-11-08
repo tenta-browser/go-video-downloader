@@ -45,23 +45,10 @@ func init() {
 		ϒparse_duration = Ωutils.ϒparse_duration
 		MojvideoIE = λ.Cal(λ.TypeType, λ.NewStr("MojvideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				MojvideoIE__TEST         λ.Object
 				MojvideoIE__VALID_URL    λ.Object
 				MojvideoIE__real_extract λ.Object
 			)
 			MojvideoIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?mojvideo\\.com/video-(?P<display_id>[^/]+)/(?P<id>[a-f0-9]+)")
-			MojvideoIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.mojvideo.com/video-v-avtu-pred-mano-rdecelaska-alfi-nipic/3d1ed4497707730b2906"),
-				λ.NewStr("md5"): λ.NewStr("f7fd662cc8ce2be107b0d4f2c0483ae7"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):         λ.NewStr("3d1ed4497707730b2906"),
-					λ.NewStr("display_id"): λ.NewStr("v-avtu-pred-mano-rdecelaska-alfi-nipic"),
-					λ.NewStr("ext"):        λ.NewStr("mp4"),
-					λ.NewStr("title"):      λ.NewStr("V avtu pred mano rdečelaska - Alfi Nipič"),
-					λ.NewStr("thumbnail"):  λ.NewStr("re:^http://.*\\.jpg$"),
-					λ.NewStr("duration"):   λ.NewInt(242),
-				}),
-			})
 			MojvideoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -127,7 +114,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         MojvideoIE__TEST,
 				λ.NewStr("_VALID_URL"):    MojvideoIE__VALID_URL,
 				λ.NewStr("_real_extract"): MojvideoIE__real_extract,
 			})

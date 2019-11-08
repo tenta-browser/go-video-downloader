@@ -118,47 +118,10 @@ func init() {
 			})
 		EscapistIE = λ.Cal(λ.TypeType, λ.NewStr("EscapistIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				EscapistIE__TESTS        λ.Object
 				EscapistIE__VALID_URL    λ.Object
 				EscapistIE__real_extract λ.Object
 			)
 			EscapistIE__VALID_URL = λ.NewStr("https?://?(?:(?:www|v1)\\.)?escapistmagazine\\.com/videos/view/[^/]+/(?P<id>[0-9]+)")
-			EscapistIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.escapistmagazine.com/videos/view/the-escapist-presents/6618-Breaking-Down-Baldurs-Gate"),
-					λ.NewStr("md5"): λ.NewStr("ab3a706c681efca53f0a35f1415cf0d1"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("6618"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("description"): λ.NewStr("Baldur's Gate: Original, Modded or Enhanced Edition? I'll break down what you can expect from the new Baldur's Gate: Enhanced Edition."),
-						λ.NewStr("title"):       λ.NewStr("Breaking Down Baldur's Gate"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(264),
-						λ.NewStr("uploader"):    λ.NewStr("The Escapist"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.escapistmagazine.com/videos/view/zero-punctuation/10044-Evolve-One-vs-Multiplayer"),
-					λ.NewStr("md5"): λ.NewStr("9e8c437b0dbb0387d3bd3255ca77f6bf"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("10044"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("description"): λ.NewStr("This week, Zero Punctuation reviews Evolve."),
-						λ.NewStr("title"):       λ.NewStr("Evolve - One vs Multiplayer"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(304),
-						λ.NewStr("uploader"):    λ.NewStr("The Escapist"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://escapistmagazine.com/videos/view/the-escapist-presents/6618"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://v1.escapistmagazine.com/videos/view/the-escapist-presents/6618-Breaking-Down-Baldurs-Gate"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			EscapistIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -247,7 +210,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        EscapistIE__TESTS,
 				λ.NewStr("_VALID_URL"):    EscapistIE__VALID_URL,
 				λ.NewStr("_real_extract"): EscapistIE__real_extract,
 			})

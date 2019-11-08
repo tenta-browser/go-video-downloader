@@ -46,25 +46,11 @@ func init() {
 		WashingtonPostIE = λ.Cal(λ.TypeType, λ.NewStr("WashingtonPostIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				WashingtonPostIE_IE_NAME       λ.Object
-				WashingtonPostIE__TEST         λ.Object
 				WashingtonPostIE__VALID_URL    λ.Object
 				WashingtonPostIE__real_extract λ.Object
 			)
 			WashingtonPostIE_IE_NAME = λ.NewStr("washingtonpost")
 			WashingtonPostIE__VALID_URL = λ.NewStr("(?:washingtonpost:|https?://(?:www\\.)?washingtonpost\\.com/video/(?:[^/]+/)*)(?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
-			WashingtonPostIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://www.washingtonpost.com/video/c/video/480ba4ee-1ec7-11e6-82c2-a7dcb313287d"),
-				λ.NewStr("md5"): λ.NewStr("6f537e1334b714eb15f9563bd4b9cdfa"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("480ba4ee-1ec7-11e6-82c2-a7dcb313287d"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Egypt finds belongings, debris from plane crash"),
-					λ.NewStr("description"): λ.NewStr("md5:a17ceee432f215a5371388c1f680bd86"),
-					λ.NewStr("upload_date"): λ.NewStr("20160520"),
-					λ.NewStr("uploader"):    λ.NewStr("Reuters"),
-					λ.NewStr("timestamp"):   λ.NewInt(1463778452),
-				}),
-			})
 			WashingtonPostIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -254,7 +240,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       WashingtonPostIE_IE_NAME,
-				λ.NewStr("_TEST"):         WashingtonPostIE__TEST,
 				λ.NewStr("_VALID_URL"):    WashingtonPostIE__VALID_URL,
 				λ.NewStr("_real_extract"): WashingtonPostIE__real_extract,
 			})

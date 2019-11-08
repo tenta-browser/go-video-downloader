@@ -78,7 +78,6 @@ func init() {
 				FacebookIE_IE_NAME                    λ.Object
 				FacebookIE__CHROME_USER_AGENT         λ.Object
 				FacebookIE__NETRC_MACHINE             λ.Object
-				FacebookIE__TESTS                     λ.Object
 				FacebookIE__VALID_URL                 λ.Object
 				FacebookIE__VIDEO_PAGE_TAHOE_TEMPLATE λ.Object
 				FacebookIE__VIDEO_PAGE_TEMPLATE       λ.Object
@@ -93,185 +92,6 @@ func init() {
 			FacebookIE__CHROME_USER_AGENT = λ.NewStr("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36")
 			FacebookIE__VIDEO_PAGE_TEMPLATE = λ.NewStr("https://www.facebook.com/video/video.php?v=%s")
 			FacebookIE__VIDEO_PAGE_TAHOE_TEMPLATE = λ.NewStr("https://www.facebook.com/video/tahoe/async/%s/?chain=true&isvideo=true&payloadtype=primary")
-			FacebookIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.facebook.com/video.php?v=637842556329505&fref=nf"),
-					λ.NewStr("md5"): λ.NewStr("6a40d33c0eccbb1af76cf0485a052659"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("637842556329505"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("re:Did you know Kei Nishikori is the first Asian man to ever reach a Grand Slam"),
-						λ.NewStr("uploader"):    λ.NewStr("Tennis on Facebook"),
-						λ.NewStr("upload_date"): λ.NewStr("20140908"),
-						λ.NewStr("timestamp"):   λ.NewInt(1410199200),
-					}),
-					λ.NewStr("skip"): λ.NewStr("Requires logging in"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.facebook.com/video.php?v=274175099429670"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("274175099429670"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("re:^Asif Nawab Butt posted a video"),
-						λ.NewStr("uploader"):    λ.NewStr("Asif Nawab Butt"),
-						λ.NewStr("upload_date"): λ.NewStr("20140506"),
-						λ.NewStr("timestamp"):   λ.NewInt(1399398998),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*"),
-					}),
-					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("title")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("note"): λ.NewStr("Video with DASH manifest"),
-					λ.NewStr("url"):  λ.NewStr("https://www.facebook.com/video.php?v=957955867617029"),
-					λ.NewStr("md5"):  λ.NewStr("b2c28d528273b323abe5c6ab59f0f030"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("957955867617029"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("When you post epic content on instagram.com/433 8 million followers, this is ..."),
-						λ.NewStr("uploader"):    λ.NewStr("Demy de Zeeuw"),
-						λ.NewStr("upload_date"): λ.NewStr("20160110"),
-						λ.NewStr("timestamp"):   λ.NewInt(1452431627),
-					}),
-					λ.NewStr("skip"): λ.NewStr("Requires logging in"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.facebook.com/maxlayn/posts/10153807558977570"),
-					λ.NewStr("md5"): λ.NewStr("037b1fa7f3c2d02b7a0d7bc16031ecc6"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):       λ.NewStr("544765982287235"),
-						λ.NewStr("ext"):      λ.NewStr("mp4"),
-						λ.NewStr("title"):    λ.NewStr("\"What are you doing running in the snow?\""),
-						λ.NewStr("uploader"): λ.NewStr("FailArmy"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("Video gone"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://m.facebook.com/story.php?story_fbid=1035862816472149&id=116132035111903"),
-					λ.NewStr("md5"): λ.NewStr("1deb90b6ac27f7efcf6d747c8a27f5e3"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):       λ.NewStr("1035862816472149"),
-						λ.NewStr("ext"):      λ.NewStr("mp4"),
-						λ.NewStr("title"):    λ.NewStr("What the Flock Is Going On In New Zealand  Credit: ViralHog"),
-						λ.NewStr("uploader"): λ.NewStr("S. Saint"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("Video gone"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("note"): λ.NewStr("swf params escaped"),
-					λ.NewStr("url"):  λ.NewStr("https://www.facebook.com/barackobama/posts/10153664894881749"),
-					λ.NewStr("md5"):  λ.NewStr("97ba073838964d12c70566e0085c2b91"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("10153664894881749"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Average time to confirm recent Supreme Court nominees: 67 days Longest it's t..."),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*"),
-						λ.NewStr("timestamp"):   λ.NewInt(1456259628),
-						λ.NewStr("upload_date"): λ.NewStr("20160223"),
-						λ.NewStr("uploader"):    λ.NewStr("Barack Obama"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.facebook.com/cnn/videos/10155529876156509/"),
-					λ.NewStr("md5"): λ.NewStr("9571fae53d4165bbbadb17a94651dcdc"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("10155529876156509"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("She survived the holocaust — and years later, she’s getting her citizenship s..."),
-						λ.NewStr("timestamp"):   λ.NewInt(1477818095),
-						λ.NewStr("upload_date"): λ.NewStr("20161030"),
-						λ.NewStr("uploader"):    λ.NewStr("CNN"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*"),
-						λ.NewStr("view_count"):  λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.facebook.com/yaroslav.korpan/videos/1417995061575415/"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1417995061575415"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("md5:1db063d6a8c13faa8da727817339c857"),
-						λ.NewStr("timestamp"):   λ.NewInt(1486648217),
-						λ.NewStr("upload_date"): λ.NewStr("20170209"),
-						λ.NewStr("uploader"):    λ.NewStr("Yaroslav Korpan"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.facebook.com/LaGuiaDelVaron/posts/1072691702860471"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1072691702860471"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("md5:ae2d22a93fbb12dad20dc393a869739d"),
-						λ.NewStr("timestamp"):   λ.NewInt(1477305000),
-						λ.NewStr("upload_date"): λ.NewStr("20161024"),
-						λ.NewStr("uploader"):    λ.NewStr("La Guía Del Varón"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.facebook.com/groups/1024490957622648/permalink/1396382447100162/"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1396382447100162"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("md5:19a428bbde91364e3de815383b54a235"),
-						λ.NewStr("timestamp"):   λ.NewInt(1486035494),
-						λ.NewStr("upload_date"): λ.NewStr("20170202"),
-						λ.NewStr("uploader"):    λ.NewStr("Elisabeth Ahtn"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.facebook.com/video.php?v=10204634152394104"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.facebook.com/amogood/videos/1618742068337349/?fref=nf"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.facebook.com/ChristyClarkForBC/videos/vb.22819070941/10153870694020942/?type=2&theater"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("facebook:544765982287235"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.facebook.com/groups/164828000315060/permalink/764967300301124/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://zh-hk.facebook.com/peoplespower/videos/1135894589806027/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.facebookcorewwwi.onion/video.php?v=274175099429670"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.facebook.com/onlycleverentertainment/videos/1947995502095005/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.facebook.com/WatchESLOne/videos/359649331226507/"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):       λ.NewStr("359649331226507"),
-						λ.NewStr("ext"):      λ.NewStr("mp4"),
-						λ.NewStr("title"):    λ.NewStr("#ESLOne VoD - Birmingham Finals Day#1 Fnatic vs. @Evil Geniuses"),
-						λ.NewStr("uploader"): λ.NewStr("ESL One Dota 2"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-			)
 			FacebookIE__login = λ.NewFunction("_login",
 				[]λ.Param{
 					{Name: "self"},
@@ -890,7 +710,6 @@ func init() {
 				λ.NewStr("IE_NAME"):                    FacebookIE_IE_NAME,
 				λ.NewStr("_CHROME_USER_AGENT"):         FacebookIE__CHROME_USER_AGENT,
 				λ.NewStr("_NETRC_MACHINE"):             FacebookIE__NETRC_MACHINE,
-				λ.NewStr("_TESTS"):                     FacebookIE__TESTS,
 				λ.NewStr("_VALID_URL"):                 FacebookIE__VALID_URL,
 				λ.NewStr("_VIDEO_PAGE_TAHOE_TEMPLATE"): FacebookIE__VIDEO_PAGE_TAHOE_TEMPLATE,
 				λ.NewStr("_VIDEO_PAGE_TEMPLATE"):       FacebookIE__VIDEO_PAGE_TEMPLATE,
@@ -902,34 +721,10 @@ func init() {
 		}())
 		FacebookPluginsVideoIE = λ.Cal(λ.TypeType, λ.NewStr("FacebookPluginsVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				FacebookPluginsVideoIE__TESTS        λ.Object
 				FacebookPluginsVideoIE__VALID_URL    λ.Object
 				FacebookPluginsVideoIE__real_extract λ.Object
 			)
 			FacebookPluginsVideoIE__VALID_URL = λ.NewStr("https?://(?:[\\w-]+\\.)?facebook\\.com/plugins/video\\.php\\?.*?\\bhref=(?P<id>https.+)")
-			FacebookPluginsVideoIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fgov.sg%2Fvideos%2F10154383743583686%2F&show_text=0&width=560"),
-					λ.NewStr("md5"): λ.NewStr("5954e92cdfe51fe5782ae9bda7058a07"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("10154383743583686"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("What to do during the haze?"),
-						λ.NewStr("uploader"):    λ.NewStr("Gov.sg"),
-						λ.NewStr("upload_date"): λ.NewStr("20160826"),
-						λ.NewStr("timestamp"):   λ.NewInt(1472184808),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.Cal(λ.GetAttr(FacebookIE, "ie_key", nil))),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fvideo.php%3Fv%3D10204634152394104"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/gov.sg/videos/10154383743583686/&show_text=0&width=560"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			FacebookPluginsVideoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -944,7 +739,6 @@ func init() {
 					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Cal(ϒcompat_urllib_parse_unquote, λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)), λ.Cal(λ.GetAttr(FacebookIE, "ie_key", nil)))
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        FacebookPluginsVideoIE__TESTS,
 				λ.NewStr("_VALID_URL"):    FacebookPluginsVideoIE__VALID_URL,
 				λ.NewStr("_real_extract"): FacebookPluginsVideoIE__real_extract,
 			})

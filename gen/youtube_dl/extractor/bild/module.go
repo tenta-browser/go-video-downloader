@@ -44,23 +44,10 @@ func init() {
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		BildIE = λ.Cal(λ.TypeType, λ.NewStr("BildIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				BildIE__TEST         λ.Object
 				BildIE__VALID_URL    λ.Object
 				BildIE__real_extract λ.Object
 			)
 			BildIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bild\\.de/(?:[^/]+/)+(?P<display_id>[^/]+)-(?P<id>\\d+)(?:,auto=true)?\\.bild\\.html")
-			BildIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.bild.de/video/clip/apple-ipad-air/das-koennen-die-neuen-ipads-38184146.bild.html"),
-				λ.NewStr("md5"): λ.NewStr("dd495cbd99f2413502a1713a1156ac8a"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("38184146"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Das können die  neuen iPads"),
-					λ.NewStr("description"): λ.NewStr("md5:a4058c4fa2a804ab59c00d7244bbf62f"),
-					λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-					λ.NewStr("duration"):    λ.NewInt(196),
-				}),
-			})
 			BildIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -86,7 +73,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         BildIE__TEST,
 				λ.NewStr("_VALID_URL"):    BildIE__VALID_URL,
 				λ.NewStr("_real_extract"): BildIE__real_extract,
 			})

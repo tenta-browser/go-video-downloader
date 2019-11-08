@@ -51,35 +51,10 @@ func init() {
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		LibsynIE = λ.Cal(λ.TypeType, λ.NewStr("LibsynIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				LibsynIE__TESTS        λ.Object
 				LibsynIE__VALID_URL    λ.Object
 				LibsynIE__real_extract λ.Object
 			)
 			LibsynIE__VALID_URL = λ.NewStr("(?P<mainurl>https?://html5-player\\.libsyn\\.com/embed/episode/id/(?P<id>[0-9]+))")
-			LibsynIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://html5-player.libsyn.com/embed/episode/id/6385796/"),
-					λ.NewStr("md5"): λ.NewStr("2a55e75496c790cdeb058e7e6c087746"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("6385796"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("title"):       λ.NewStr("Champion Minded - Developing a Growth Mindset"),
-						λ.NewStr("upload_date"): λ.NewStr("20180320"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://html5-player.libsyn.com/embed/episode/id/3727166/height/75/width/200/theme/standard/direction/no/autoplay/no/autonext/no/thumbnail/no/preload/no/no_addthis/no/"),
-					λ.NewStr("md5"): λ.NewStr("6c5cb21acd622d754d3b1a92b582ce42"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("3727166"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("title"):       λ.NewStr("Clients From Hell Podcast - How a Sex Toy Company Kickstarted my Freelance Career"),
-						λ.NewStr("upload_date"): λ.NewStr("20150818"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*"),
-					}),
-				}),
-			)
 			LibsynIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -213,7 +188,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        LibsynIE__TESTS,
 				λ.NewStr("_VALID_URL"):    LibsynIE__VALID_URL,
 				λ.NewStr("_real_extract"): LibsynIE__real_extract,
 			})

@@ -48,27 +48,10 @@ func init() {
 		ϒtry_get = Ωutils.ϒtry_get
 		TelegraafIE = λ.Cal(λ.TypeType, λ.NewStr("TelegraafIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				TelegraafIE__TEST         λ.Object
 				TelegraafIE__VALID_URL    λ.Object
 				TelegraafIE__real_extract λ.Object
 			)
 			TelegraafIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?telegraaf\\.nl/video/(?P<id>\\d+)")
-			TelegraafIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://www.telegraaf.nl/video/734366489/historisch-scheepswrak-slaat-na-100-jaar-los"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("gaMItuoSeUg2"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Historisch scheepswrak slaat na 100 jaar los"),
-					λ.NewStr("description"): λ.NewStr("md5:6f53b7c4f55596722ac24d6c0ec00cfb"),
-					λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-					λ.NewStr("duration"):    λ.NewInt(55),
-					λ.NewStr("timestamp"):   λ.NewInt(1572805527),
-					λ.NewStr("upload_date"): λ.NewStr("20191103"),
-				}),
-				λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("skip_download"): λ.True,
-				}),
-			})
 			TelegraafIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -192,7 +175,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         TelegraafIE__TEST,
 				λ.NewStr("_VALID_URL"):    TelegraafIE__VALID_URL,
 				λ.NewStr("_real_extract"): TelegraafIE__real_extract,
 			})

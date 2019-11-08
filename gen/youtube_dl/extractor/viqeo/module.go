@@ -46,32 +46,10 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		ViqeoIE = λ.Cal(λ.TypeType, λ.NewStr("ViqeoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ViqeoIE__TESTS        λ.Object
 				ViqeoIE__VALID_URL    λ.Object
 				ViqeoIE__real_extract λ.Object
 			)
 			ViqeoIE__VALID_URL = λ.NewStr("(?x)\n                        (?:\n                            viqeo:|\n                            https?://cdn\\.viqeo\\.tv/embed/*\\?.*?\\bvid=|\n                            https?://api\\.viqeo\\.tv/v\\d+/data/startup?.*?\\bvideo(?:%5B%5D|\\[\\])=\n                        )\n                        (?P<id>[\\da-f]+)\n                    ")
-			ViqeoIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://cdn.viqeo.tv/embed/?vid=cde96f09d25f39bee837"),
-					λ.NewStr("md5"): λ.NewStr("a169dd1a6426b350dca4296226f21e76"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("cde96f09d25f39bee837"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("cde96f09d25f39bee837"),
-						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):  λ.NewInt(76),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("viqeo:cde96f09d25f39bee837"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://api.viqeo.tv/v1/data/startup?video%5B%5D=71bbec412ade45c3216c&profile=112"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			ViqeoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -177,7 +155,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        ViqeoIE__TESTS,
 				λ.NewStr("_VALID_URL"):    ViqeoIE__VALID_URL,
 				λ.NewStr("_real_extract"): ViqeoIE__real_extract,
 			})

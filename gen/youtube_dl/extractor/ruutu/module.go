@@ -53,68 +53,10 @@ func init() {
 		ϒxpath_text = Ωutils.ϒxpath_text
 		RuutuIE = λ.Cal(λ.TypeType, λ.NewStr("RuutuIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				RuutuIE__TESTS        λ.Object
 				RuutuIE__VALID_URL    λ.Object
 				RuutuIE__real_extract λ.Object
 			)
 			RuutuIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?:ruutu|supla)\\.fi/(?:video|supla)/(?P<id>\\d+)")
-			RuutuIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.ruutu.fi/video/2058907"),
-					λ.NewStr("md5"): λ.NewStr("ab2093f39be1ca8581963451b3c0234f"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("2058907"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Oletko aina halunnut tietää mitä tapahtuu vain hetki ennen lähetystä? - Nyt se selvisi!"),
-						λ.NewStr("description"): λ.NewStr("md5:cfc6ccf0e57a814360df464a91ff67d6"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(114),
-						λ.NewStr("age_limit"):   λ.NewInt(0),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.ruutu.fi/video/2057306"),
-					λ.NewStr("md5"): λ.NewStr("065a10ae4d5b8cfd9d0c3d332465e3d9"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("2057306"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Superpesis: katso koko kausi Ruudussa"),
-						λ.NewStr("description"): λ.NewStr("md5:bfb7336df2a12dc21d18fa696c9f8f23"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(40),
-						λ.NewStr("age_limit"):   λ.NewInt(0),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.supla.fi/supla/2231370"),
-					λ.NewStr("md5"): λ.NewStr("df14e782d49a2c0df03d3be2a54ef949"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("2231370"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Osa 1: Mikael Jungner"),
-						λ.NewStr("description"): λ.NewStr("md5:7d90f358c47542e3072ff65d7b1bcffe"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("age_limit"):   λ.NewInt(0),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.ruutu.fi/video/3193728"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.supla.fi/supla/3382410"),
-					λ.NewStr("md5"): λ.NewStr("b9d7155fed37b2ebf6021d74c4b8e908"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("3382410"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("title"):       λ.NewStr("Mikä ihmeen poltergeist?"),
-						λ.NewStr("description"): λ.NewStr("md5:bbb6963df17dfd0ecd9eb9a61bf14b52"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("age_limit"):   λ.NewInt(0),
-					}),
-					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("HTTP Error 502: Bad Gateway")),
-				}),
-			)
 			RuutuIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -375,7 +317,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        RuutuIE__TESTS,
 				λ.NewStr("_VALID_URL"):    RuutuIE__VALID_URL,
 				λ.NewStr("_real_extract"): RuutuIE__real_extract,
 			})

@@ -49,32 +49,10 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		YouJizzIE = λ.Cal(λ.TypeType, λ.NewStr("YouJizzIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				YouJizzIE__TESTS        λ.Object
 				YouJizzIE__VALID_URL    λ.Object
 				YouJizzIE__real_extract λ.Object
 			)
 			YouJizzIE__VALID_URL = λ.NewStr("https?://(?:\\w+\\.)?youjizz\\.com/videos/(?:[^/#?]*-(?P<id>\\d+)\\.html|embed/(?P<embed_id>\\d+))")
-			YouJizzIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.youjizz.com/videos/zeichentrick-1-2189178.html"),
-					λ.NewStr("md5"): λ.NewStr("b1e1dfaa8bb9537d8b84eeda9cf4acf4"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("2189178"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("Zeichentrick 1"),
-						λ.NewStr("age_limit"): λ.NewInt(18),
-						λ.NewStr("duration"):  λ.NewInt(2874),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.youjizz.com/videos/-2189178.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.youjizz.com/videos/embed/31991001"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			YouJizzIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -201,7 +179,6 @@ func init() {
 					return ϒinfo_dict
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        YouJizzIE__TESTS,
 				λ.NewStr("_VALID_URL"):    YouJizzIE__VALID_URL,
 				λ.NewStr("_real_extract"): YouJizzIE__real_extract,
 			})

@@ -44,22 +44,10 @@ func init() {
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		FczenitIE = λ.Cal(λ.TypeType, λ.NewStr("FczenitIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				FczenitIE__TEST         λ.Object
 				FczenitIE__VALID_URL    λ.Object
 				FczenitIE__real_extract λ.Object
 			)
 			FczenitIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?fc-zenit\\.ru/video/(?P<id>[0-9]+)")
-			FczenitIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://fc-zenit.ru/video/41044/"),
-				λ.NewStr("md5"): λ.NewStr("0e3fab421b455e970fa1aa3891e57df0"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("41044"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Так пишется история: казанский разгром ЦСКА на «Зенит-ТВ»"),
-					λ.NewStr("timestamp"):   λ.NewInt(1462283735),
-					λ.NewStr("upload_date"): λ.NewStr("20160503"),
-				}),
-			})
 			FczenitIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -152,7 +140,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         FczenitIE__TEST,
 				λ.NewStr("_VALID_URL"):    FczenitIE__VALID_URL,
 				λ.NewStr("_real_extract"): FczenitIE__real_extract,
 			})

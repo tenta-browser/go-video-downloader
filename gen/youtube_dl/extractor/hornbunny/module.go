@@ -44,24 +44,10 @@ func init() {
 		ϒparse_duration = Ωutils.ϒparse_duration
 		HornBunnyIE = λ.Cal(λ.TypeType, λ.NewStr("HornBunnyIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				HornBunnyIE__TEST         λ.Object
 				HornBunnyIE__VALID_URL    λ.Object
 				HornBunnyIE__real_extract λ.Object
 			)
 			HornBunnyIE__VALID_URL = λ.NewStr("http?://(?:www\\.)?hornbunny\\.com/videos/(?P<title_dash>[a-z-]+)-(?P<id>\\d+)\\.html")
-			HornBunnyIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://hornbunny.com/videos/panty-slut-jerk-off-instruction-5227.html"),
-				λ.NewStr("md5"): λ.NewStr("e20fd862d1894b67564c96f180f43924"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):         λ.NewStr("5227"),
-					λ.NewStr("ext"):        λ.NewStr("mp4"),
-					λ.NewStr("title"):      λ.NewStr("panty slut jerk off instruction"),
-					λ.NewStr("duration"):   λ.NewInt(550),
-					λ.NewStr("age_limit"):  λ.NewInt(18),
-					λ.NewStr("view_count"): λ.IntType,
-					λ.NewStr("thumbnail"):  λ.NewStr("re:^https?://.*\\.jpg$"),
-				}),
-			})
 			HornBunnyIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -107,7 +93,6 @@ func init() {
 					return ϒinfo_dict
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         HornBunnyIE__TEST,
 				λ.NewStr("_VALID_URL"):    HornBunnyIE__VALID_URL,
 				λ.NewStr("_real_extract"): HornBunnyIE__real_extract,
 			})

@@ -53,41 +53,10 @@ func init() {
 		ϒurljoin = Ωutils.ϒurljoin
 		VidLiiIE = λ.Cal(λ.TypeType, λ.NewStr("VidLiiIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				VidLiiIE__TESTS        λ.Object
 				VidLiiIE__VALID_URL    λ.Object
 				VidLiiIE__real_extract λ.Object
 			)
 			VidLiiIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?vidlii\\.com/(?:watch|embed)\\?.*?\\bv=(?P<id>[0-9A-Za-z_-]{11})")
-			VidLiiIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.vidlii.com/watch?v=tJluaH4BJ3v"),
-					λ.NewStr("md5"): λ.NewStr("9bf7d1e005dfa909b6efb0a1ff5175e2"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):             λ.NewStr("tJluaH4BJ3v"),
-						λ.NewStr("ext"):            λ.NewStr("mp4"),
-						λ.NewStr("title"):          λ.NewStr("Vidlii is against me"),
-						λ.NewStr("description"):    λ.NewStr("md5:fa3f119287a2bfb922623b52b1856145"),
-						λ.NewStr("thumbnail"):      λ.NewStr("re:https://.*.jpg"),
-						λ.NewStr("uploader"):       λ.NewStr("APPle5auc31995"),
-						λ.NewStr("uploader_url"):   λ.NewStr("https://www.vidlii.com/user/APPle5auc31995"),
-						λ.NewStr("upload_date"):    λ.NewStr("20171107"),
-						λ.NewStr("duration"):       λ.NewInt(212),
-						λ.NewStr("view_count"):     λ.IntType,
-						λ.NewStr("comment_count"):  λ.IntType,
-						λ.NewStr("average_rating"): λ.FloatType,
-						λ.NewStr("categories"):     λ.NewList(λ.NewStr("News & Politics")),
-						λ.NewStr("tags"): λ.NewList(
-							λ.NewStr("Vidlii"),
-							λ.NewStr("Jan"),
-							λ.NewStr("Videogames"),
-						),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.vidlii.com/embed?v=tJluaH4BJ3v&a=0"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			VidLiiIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -302,7 +271,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        VidLiiIE__TESTS,
 				λ.NewStr("_VALID_URL"):    VidLiiIE__VALID_URL,
 				λ.NewStr("_real_extract"): VidLiiIE__real_extract,
 			})

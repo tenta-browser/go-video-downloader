@@ -45,22 +45,10 @@ func init() {
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		PearVideoIE = λ.Cal(λ.TypeType, λ.NewStr("PearVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				PearVideoIE__TEST         λ.Object
 				PearVideoIE__VALID_URL    λ.Object
 				PearVideoIE__real_extract λ.Object
 			)
 			PearVideoIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?pearvideo\\.com/video_(?P<id>\\d+)")
-			PearVideoIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.pearvideo.com/video_1076290"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("1076290"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("小浣熊在主人家玻璃上滚石头：没砸"),
-					λ.NewStr("description"): λ.NewStr("md5:01d576b747de71be0ee85eb7cac25f9d"),
-					λ.NewStr("timestamp"):   λ.NewInt(1494275280),
-					λ.NewStr("upload_date"): λ.NewStr("20170508"),
-				}),
-			})
 			PearVideoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -159,7 +147,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         PearVideoIE__TEST,
 				λ.NewStr("_VALID_URL"):    PearVideoIE__VALID_URL,
 				λ.NewStr("_real_extract"): PearVideoIE__real_extract,
 			})

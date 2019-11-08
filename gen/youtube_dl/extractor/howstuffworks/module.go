@@ -50,27 +50,10 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		HowStuffWorksIE = λ.Cal(λ.TypeType, λ.NewStr("HowStuffWorksIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				HowStuffWorksIE__TESTS        λ.Object
 				HowStuffWorksIE__VALID_URL    λ.Object
 				HowStuffWorksIE__real_extract λ.Object
 			)
 			HowStuffWorksIE__VALID_URL = λ.NewStr("https?://[\\da-z-]+\\.(?:howstuffworks|stuff(?:(?:youshould|theydontwantyouto)know|toblowyourmind|momnevertoldyou)|(?:brain|car)stuffshow|fwthinking|geniusstuff)\\.com/(?:[^/]+/)*(?:\\d+-)?(?P<id>.+?)-video\\.htm")
-			HowStuffWorksIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.stufftoblowyourmind.com/videos/optical-illusions-video.htm"),
-					λ.NewStr("md5"): λ.NewStr("76646a5acc0c92bf7cd66751ca5db94d"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("855410"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Your Trickster Brain: Optical Illusions -- Science on the Web"),
-						λ.NewStr("description"): λ.NewStr("md5:e374ff9561f6833ad076a8cc0a5ab2fb"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://shows.howstuffworks.com/more-shows/why-does-balloon-stick-to-hair-video.htm"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			HowStuffWorksIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -180,7 +163,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        HowStuffWorksIE__TESTS,
 				λ.NewStr("_VALID_URL"):    HowStuffWorksIE__VALID_URL,
 				λ.NewStr("_real_extract"): HowStuffWorksIE__real_extract,
 			})

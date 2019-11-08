@@ -43,33 +43,10 @@ func init() {
 		ϒqualities = Ωutils.ϒqualities
 		UnistraIE = λ.Cal(λ.TypeType, λ.NewStr("UnistraIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				UnistraIE__TESTS        λ.Object
 				UnistraIE__VALID_URL    λ.Object
 				UnistraIE__real_extract λ.Object
 			)
 			UnistraIE__VALID_URL = λ.NewStr("https?://utv\\.unistra\\.fr/(?:index|video)\\.php\\?id_video\\=(?P<id>\\d+)")
-			UnistraIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://utv.unistra.fr/video.php?id_video=154"),
-					λ.NewStr("md5"): λ.NewStr("736f605cfdc96724d55bb543ab3ced24"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("154"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("M!ss Yella"),
-						λ.NewStr("description"): λ.NewStr("md5:104892c71bd48e55d70b902736b81bbf"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://utv.unistra.fr/index.php?id_video=437"),
-					λ.NewStr("md5"): λ.NewStr("1ddddd6cccaae76f622ce29b8779636d"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("437"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Prix Louise Weiss 2014"),
-						λ.NewStr("description"): λ.NewStr("md5:cc3a8735f079f4fb6b0b570fc10c135a"),
-					}),
-				}),
-			)
 			UnistraIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -141,7 +118,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        UnistraIE__TESTS,
 				λ.NewStr("_VALID_URL"):    UnistraIE__VALID_URL,
 				λ.NewStr("_real_extract"): UnistraIE__real_extract,
 			})

@@ -47,43 +47,10 @@ func init() {
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		GaskrankIE = λ.Cal(λ.TypeType, λ.NewStr("GaskrankIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				GaskrankIE__TESTS        λ.Object
 				GaskrankIE__VALID_URL    λ.Object
 				GaskrankIE__real_extract λ.Object
 			)
 			GaskrankIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?gaskrank\\.tv/tv/(?P<categories>[^/]+)/(?P<id>[^/]+)\\.htm")
-			GaskrankIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.gaskrank.tv/tv/motorrad-fun/strike-einparken-durch-anfaenger-crash-mit-groesserem-flurschaden.htm"),
-					λ.NewStr("md5"): λ.NewStr("1ae88dbac97887d85ebd1157a95fc4f9"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("201601/26955"),
-						λ.NewStr("ext"):          λ.NewStr("mp4"),
-						λ.NewStr("title"):        λ.NewStr("Strike! Einparken können nur Männer - Flurschaden hält sich in Grenzen *lol*"),
-						λ.NewStr("thumbnail"):    λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("categories"):   λ.NewList(λ.NewStr("motorrad-fun")),
-						λ.NewStr("display_id"):   λ.NewStr("strike-einparken-durch-anfaenger-crash-mit-groesserem-flurschaden"),
-						λ.NewStr("uploader_id"):  λ.NewStr("Bikefun"),
-						λ.NewStr("upload_date"):  λ.NewStr("20170110"),
-						λ.NewStr("uploader_url"): λ.None,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.gaskrank.tv/tv/racing/isle-of-man-tt-2011-michael-du-15920.htm"),
-					λ.NewStr("md5"): λ.NewStr("c33ee32c711bc6c8224bfcbe62b23095"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("201106/15920"),
-						λ.NewStr("ext"):          λ.NewStr("mp4"),
-						λ.NewStr("title"):        λ.NewStr("Isle of Man - Michael Dunlop vs Guy Martin - schwindelig kucken"),
-						λ.NewStr("thumbnail"):    λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("categories"):   λ.NewList(λ.NewStr("racing")),
-						λ.NewStr("display_id"):   λ.NewStr("isle-of-man-tt-2011-michael-du-15920"),
-						λ.NewStr("uploader_id"):  λ.NewStr("IOM"),
-						λ.NewStr("upload_date"):  λ.NewStr("20170523"),
-						λ.NewStr("uploader_url"): λ.NewStr("www.iomtt.com"),
-					}),
-				}),
-			)
 			GaskrankIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -176,7 +143,6 @@ func init() {
 					return ϒentry
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        GaskrankIE__TESTS,
 				λ.NewStr("_VALID_URL"):    GaskrankIE__VALID_URL,
 				λ.NewStr("_real_extract"): GaskrankIE__real_extract,
 			})

@@ -63,93 +63,10 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		InstagramIE = λ.Cal(λ.TypeType, λ.NewStr("InstagramIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				InstagramIE__TESTS        λ.Object
 				InstagramIE__VALID_URL    λ.Object
 				InstagramIE__real_extract λ.Object
 			)
 			InstagramIE__VALID_URL = λ.NewStr("(?P<url>https?://(?:www\\.)?instagram\\.com/(?:p|tv)/(?P<id>[^/?#&]+))")
-			InstagramIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://instagram.com/p/aye83DjauH/?foo=bar#abc"),
-					λ.NewStr("md5"): λ.NewStr("0d2da106a9d2631273e192b372806516"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("aye83DjauH"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("Video by naomipq"),
-						λ.NewStr("description"):   λ.NewStr("md5:1f17f0ab29bd6fe2bfad705f58de3cb8"),
-						λ.NewStr("thumbnail"):     λ.NewStr("re:^https?://.*\\.jpg"),
-						λ.NewStr("timestamp"):     λ.NewInt(1371748545),
-						λ.NewStr("upload_date"):   λ.NewStr("20130620"),
-						λ.NewStr("uploader_id"):   λ.NewStr("naomipq"),
-						λ.NewStr("uploader"):      λ.NewStr("Naomi Leonor Phan-Quang"),
-						λ.NewStr("like_count"):    λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-						λ.NewStr("comments"):      λ.ListType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.instagram.com/p/BA-pQFBG8HZ/?taken-by=britneyspears"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("BA-pQFBG8HZ"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("Video by britneyspears"),
-						λ.NewStr("thumbnail"):     λ.NewStr("re:^https?://.*\\.jpg"),
-						λ.NewStr("timestamp"):     λ.NewInt(1453760977),
-						λ.NewStr("upload_date"):   λ.NewStr("20160125"),
-						λ.NewStr("uploader_id"):   λ.NewStr("britneyspears"),
-						λ.NewStr("uploader"):      λ.NewStr("Britney Spears"),
-						λ.NewStr("like_count"):    λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-						λ.NewStr("comments"):      λ.ListType,
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.instagram.com/p/BQ0eAlwhDrw/"),
-					λ.NewStr("playlist"): λ.NewList(
-						λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("id"):    λ.NewStr("BQ0dSaohpPW"),
-								λ.NewStr("ext"):   λ.NewStr("mp4"),
-								λ.NewStr("title"): λ.NewStr("Video 1"),
-							}),
-						}),
-						λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("id"):    λ.NewStr("BQ0dTpOhuHT"),
-								λ.NewStr("ext"):   λ.NewStr("mp4"),
-								λ.NewStr("title"): λ.NewStr("Video 2"),
-							}),
-						}),
-						λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("id"):    λ.NewStr("BQ0dT7RBFeF"),
-								λ.NewStr("ext"):   λ.NewStr("mp4"),
-								λ.NewStr("title"): λ.NewStr("Video 3"),
-							}),
-						}),
-					),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("BQ0eAlwhDrw"),
-						λ.NewStr("title"):       λ.NewStr("Post by instagram"),
-						λ.NewStr("description"): λ.NewStr("md5:0f9203fc6a2ce4d228da5754bcf54957"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://instagram.com/p/-Cmh1cukG2/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://instagram.com/p/9o6LshA7zy/embed/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.instagram.com/tv/aye83DjauH/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			InstagramIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -484,7 +401,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        InstagramIE__TESTS,
 				λ.NewStr("_VALID_URL"):    InstagramIE__VALID_URL,
 				λ.NewStr("_real_extract"): InstagramIE__real_extract,
 			})

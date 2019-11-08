@@ -59,7 +59,6 @@ func init() {
 		CondeNastIE = λ.Cal(λ.TypeType, λ.NewStr("CondeNastIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CondeNastIE__SITES                λ.Object
-				CondeNastIE__TESTS                λ.Object
 				CondeNastIE__VALID_URL            λ.Object
 				CondeNastIE__extract_video        λ.Object
 				CondeNastIE__extract_video_params λ.Object
@@ -88,52 +87,6 @@ func init() {
 				λ.NewStr("wmagazine"):           λ.NewStr("W Magazine"),
 			})
 			CondeNastIE__VALID_URL = λ.Mod(λ.NewStr("(?x)https?://(?:video|www|player(?:-backend)?)\\.(?:%s)\\.com/\n        (?:\n            (?:\n                embed(?:js)?|\n                (?:script|inline)/video\n            )/(?P<id>[0-9a-f]{24})(?:/(?P<player_id>[0-9a-f]{24}))?(?:.+?\\btarget=(?P<target>[^&]+))?|\n            (?P<type>watch|series|video)/(?P<display_id>[^/?#]+)\n        )"), λ.Cal(λ.GetAttr(λ.NewStr("|"), "join", nil), λ.Cal(λ.GetAttr(CondeNastIE__SITES, "keys", nil))))
-			CondeNastIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://video.wired.com/watch/3d-printed-speakers-lit-with-led"),
-					λ.NewStr("md5"): λ.NewStr("1921f713ed48aabd715691f774c451f7"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("5171b343c2b4c00dd0c1ccb3"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("3D Printed Speakers Lit With LED"),
-						λ.NewStr("description"): λ.NewStr("Check out these beautiful 3D printed LED speakers.  You can't actually buy them, but LumiGeek is working on a board that will let you make you're own."),
-						λ.NewStr("uploader"):    λ.NewStr("wired"),
-						λ.NewStr("upload_date"): λ.NewStr("20130314"),
-						λ.NewStr("timestamp"):   λ.NewInt(1363219200),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://video.gq.com/watch/the-closer-with-keith-olbermann-the-only-true-surprise-trump-s-an-idiot?c=series"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("58d1865bfd2e6126e2000015"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("The Only True Surprise? Trump’s an Idiot"),
-						λ.NewStr("uploader"):    λ.NewStr("gq"),
-						λ.NewStr("upload_date"): λ.NewStr("20170321"),
-						λ.NewStr("timestamp"):   λ.NewInt(1490126427),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://player.cnevids.com/embedjs/55f9cf8b61646d1acf00000c/5511d76261646d5566020000.js"),
-					λ.NewStr("md5"): λ.NewStr("f1a6f9cafb7083bab74a710f65d08999"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("55f9cf8b61646d1acf00000c"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("3D printed TSA Travel Sentry keys really do open TSA locks"),
-						λ.NewStr("uploader"):    λ.NewStr("arstechnica"),
-						λ.NewStr("upload_date"): λ.NewStr("20150916"),
-						λ.NewStr("timestamp"):   λ.NewInt(1442434955),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://player.cnevids.com/inline/video/59138decb57ac36b83000005.js?target=js-cne-player"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://player-backend.cnevids.com/script/video/59138decb57ac36b83000005.js"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			CondeNastIE__extract_video_params = λ.NewFunction("_extract_video_params",
 				[]λ.Param{
 					{Name: "self"},
@@ -375,7 +328,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_SITES"):                CondeNastIE__SITES,
-				λ.NewStr("_TESTS"):                CondeNastIE__TESTS,
 				λ.NewStr("_VALID_URL"):            CondeNastIE__VALID_URL,
 				λ.NewStr("_extract_video"):        CondeNastIE__extract_video,
 				λ.NewStr("_extract_video_params"): CondeNastIE__extract_video_params,

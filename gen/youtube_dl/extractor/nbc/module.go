@@ -79,29 +79,10 @@ func init() {
 		}())
 		NBCSportsVPlayerIE = λ.Cal(λ.TypeType, λ.NewStr("NBCSportsVPlayerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				NBCSportsVPlayerIE__TESTS        λ.Object
 				NBCSportsVPlayerIE__VALID_URL    λ.Object
 				NBCSportsVPlayerIE__real_extract λ.Object
 			)
 			NBCSportsVPlayerIE__VALID_URL = λ.NewStr("https?://vplayer\\.nbcsports\\.com/(?:[^/]+/)+(?P<id>[0-9a-zA-Z_]+)")
-			NBCSportsVPlayerIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://vplayer.nbcsports.com/p/BxmELC/nbcsports_embed/select/9CsDKds0kvHI"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("9CsDKds0kvHI"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("description"): λ.NewStr("md5:df390f70a9ba7c95ff1daace988f0d8d"),
-						λ.NewStr("title"):       λ.NewStr("Tyler Kalinoski hits buzzer-beater to lift Davidson"),
-						λ.NewStr("timestamp"):   λ.NewInt(1426270238),
-						λ.NewStr("upload_date"): λ.NewStr("20150313"),
-						λ.NewStr("uploader"):    λ.NewStr("NBCU-SPORTS"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://vplayer.nbcsports.com/p/BxmELC/nbcsports_embed/select/media/_hqLjQ95yx8Z"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			NBCSportsVPlayerIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -122,7 +103,6 @@ func init() {
 					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒtheplatform_url, λ.NewStr("ThePlatform"))
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        NBCSportsVPlayerIE__TESTS,
 				λ.NewStr("_VALID_URL"):    NBCSportsVPlayerIE__VALID_URL,
 				λ.NewStr("_real_extract"): NBCSportsVPlayerIE__real_extract,
 			})
@@ -147,23 +127,10 @@ func init() {
 		}())
 		CSNNEIE = λ.Cal(λ.TypeType, λ.NewStr("CSNNEIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				CSNNEIE__TEST         λ.Object
 				CSNNEIE__VALID_URL    λ.Object
 				CSNNEIE__real_extract λ.Object
 			)
 			CSNNEIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?csnne\\.com/video/(?P<id>[0-9a-z-]+)")
-			CSNNEIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.csnne.com/video/snc-evening-update-wright-named-red-sox-no-5-starter"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("yvBLLUgQ8WU0"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("SNC evening update: Wright named Red Sox' No. 5 starter."),
-					λ.NewStr("description"): λ.NewStr("md5:1753cfee40d9352b19b4c9b3e589b9e3"),
-					λ.NewStr("timestamp"):   λ.NewInt(1459369979),
-					λ.NewStr("upload_date"): λ.NewStr("20160330"),
-					λ.NewStr("uploader"):    λ.NewStr("NBCU-SPORTS"),
-				}),
-			})
 			CSNNEIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -187,100 +154,16 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         CSNNEIE__TEST,
 				λ.NewStr("_VALID_URL"):    CSNNEIE__VALID_URL,
 				λ.NewStr("_real_extract"): CSNNEIE__real_extract,
 			})
 		}())
 		NBCNewsIE = λ.Cal(λ.TypeType, λ.NewStr("NBCNewsIE"), λ.NewTuple(ThePlatformIE), func() λ.Dict {
 			var (
-				NBCNewsIE__TESTS        λ.Object
 				NBCNewsIE__VALID_URL    λ.Object
 				NBCNewsIE__real_extract λ.Object
 			)
 			NBCNewsIE__VALID_URL = λ.NewStr("(?x)https?://(?:www\\.)?(?:nbcnews|today|msnbc)\\.com/([^/]+/)*(?:.*-)?(?P<id>[^/?]+)")
-			NBCNewsIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.nbcnews.com/watch/nbcnews-com/how-twitter-reacted-to-the-snowden-interview-269389891880"),
-					λ.NewStr("md5"): λ.NewStr("cf4bc9e6ce0130f00f545d80ecedd4bf"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("269389891880"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("How Twitter Reacted To The Snowden Interview"),
-						λ.NewStr("description"): λ.NewStr("md5:65a0bd5d76fe114f3c2727aa3a81fe64"),
-						λ.NewStr("timestamp"):   λ.NewInt(1401363060),
-						λ.NewStr("upload_date"): λ.NewStr("20140529"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.nbcnews.com/feature/dateline-full-episodes/full-episode-family-business-n285156"),
-					λ.NewStr("md5"): λ.NewStr("fdbf39ab73a72df5896b6234ff98518a"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("529953347624"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("FULL EPISODE: Family Business"),
-						λ.NewStr("description"): λ.NewStr("md5:757988edbaae9d7be1d585eb5d55cc04"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("This page is unavailable."),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.nbcnews.com/nightly-news/video/nightly-news-with-brian-williams-full-broadcast-february-4-394064451844"),
-					λ.NewStr("md5"): λ.NewStr("8eb831eca25bfa7d25ddd83e85946548"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("394064451844"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Nightly News with Brian Williams Full Broadcast (February 4)"),
-						λ.NewStr("description"): λ.NewStr("md5:1c10c1eccbe84a26e5debb4381e2d3c5"),
-						λ.NewStr("timestamp"):   λ.NewInt(1423104900),
-						λ.NewStr("upload_date"): λ.NewStr("20150205"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.nbcnews.com/business/autos/volkswagen-11-million-vehicles-could-have-suspect-software-emissions-scandal-n431456"),
-					λ.NewStr("md5"): λ.NewStr("4a8c4cec9e1ded51060bdda36ff0a5c0"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("n431456"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Volkswagen U.S. Chief:  We 'Totally Screwed Up'"),
-						λ.NewStr("description"): λ.NewStr("md5:d22d1281a24f22ea0880741bb4dd6301"),
-						λ.NewStr("upload_date"): λ.NewStr("20150922"),
-						λ.NewStr("timestamp"):   λ.NewInt(1442917800),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.today.com/video/see-the-aurora-borealis-from-space-in-stunning-new-nasa-video-669831235788"),
-					λ.NewStr("md5"): λ.NewStr("118d7ca3f0bea6534f119c68ef539f71"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("669831235788"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("See the aurora borealis from space in stunning new NASA video"),
-						λ.NewStr("description"): λ.NewStr("md5:74752b7358afb99939c5f8bb2d1d04b1"),
-						λ.NewStr("upload_date"): λ.NewStr("20160420"),
-						λ.NewStr("timestamp"):   λ.NewInt(1461152093),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.msnbc.com/all-in-with-chris-hayes/watch/the-chaotic-gop-immigration-vote-314487875924"),
-					λ.NewStr("md5"): λ.NewStr("6d236bf4f3dddc226633ce6e2c3f814d"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("314487875924"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("The chaotic GOP immigration vote"),
-						λ.NewStr("description"): λ.NewStr("The Republican House votes on a border bill that has no chance of getting through the Senate or signed by the President and is drawing criticism from all sides."),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("timestamp"):   λ.NewInt(1406937606),
-						λ.NewStr("upload_date"): λ.NewStr("20140802"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.nbcnews.com/watch/dateline/full-episode--deadly-betrayal-386250819952"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.nbcnews.com/widget/video-embed/701714499682"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			NBCNewsIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -419,7 +302,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        NBCNewsIE__TESTS,
 				λ.NewStr("_VALID_URL"):    NBCNewsIE__VALID_URL,
 				λ.NewStr("_real_extract"): NBCNewsIE__real_extract,
 			})

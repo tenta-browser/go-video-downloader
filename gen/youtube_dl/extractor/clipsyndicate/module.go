@@ -44,28 +44,10 @@ func init() {
 		ϒfix_xml_ampersands = Ωutils.ϒfix_xml_ampersands
 		ClipsyndicateIE = λ.Cal(λ.TypeType, λ.NewStr("ClipsyndicateIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ClipsyndicateIE__TESTS        λ.Object
 				ClipsyndicateIE__VALID_URL    λ.Object
 				ClipsyndicateIE__real_extract λ.Object
 			)
 			ClipsyndicateIE__VALID_URL = λ.NewStr("https?://(?:chic|www)\\.clipsyndicate\\.com/video/play(list/\\d+)?/(?P<id>\\d+)")
-			ClipsyndicateIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.clipsyndicate.com/video/play/4629301/brick_briscoe"),
-					λ.NewStr("md5"): λ.NewStr("4d7d549451bad625e0ff3d7bd56d776c"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("4629301"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("Brick Briscoe"),
-						λ.NewStr("duration"):  λ.NewInt(612),
-						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.+\\.jpg"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://chic.clipsyndicate.com/video/play/5844117/shark_attack"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			ClipsyndicateIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -119,7 +101,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        ClipsyndicateIE__TESTS,
 				λ.NewStr("_VALID_URL"):    ClipsyndicateIE__VALID_URL,
 				λ.NewStr("_real_extract"): ClipsyndicateIE__real_extract,
 			})

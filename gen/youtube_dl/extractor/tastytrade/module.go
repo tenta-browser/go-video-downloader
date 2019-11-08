@@ -42,31 +42,10 @@ func init() {
 		OoyalaIE = Ωooyala.OoyalaIE
 		TastyTradeIE = λ.Cal(λ.TypeType, λ.NewStr("TastyTradeIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				TastyTradeIE__TESTS        λ.Object
 				TastyTradeIE__VALID_URL    λ.Object
 				TastyTradeIE__real_extract λ.Object
 			)
 			TastyTradeIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tastytrade\\.com/tt/shows/[^/]+/episodes/(?P<id>[^/?#&]+)")
-			TastyTradeIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.tastytrade.com/tt/shows/market-measures/episodes/correlation-in-short-volatility-06-28-2017"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("F3bnlzbToeI6pLEfRyrlfooIILUjz4nM"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("A History of Teaming"),
-						λ.NewStr("description"): λ.NewStr("md5:2a9033db8da81f2edffa4c99888140b3"),
-						λ.NewStr("duration"):    λ.NewFloat(422.255),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Ooyala")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.tastytrade.com/tt/shows/daily-dose/episodes/daily-dose-06-30-2017"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			TastyTradeIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -106,7 +85,6 @@ func init() {
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        TastyTradeIE__TESTS,
 				λ.NewStr("_VALID_URL"):    TastyTradeIE__VALID_URL,
 				λ.NewStr("_real_extract"): TastyTradeIE__real_extract,
 			})

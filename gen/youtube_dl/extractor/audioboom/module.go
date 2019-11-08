@@ -44,30 +44,10 @@ func init() {
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		AudioBoomIE = λ.Cal(λ.TypeType, λ.NewStr("AudioBoomIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				AudioBoomIE__TESTS        λ.Object
 				AudioBoomIE__VALID_URL    λ.Object
 				AudioBoomIE__real_extract λ.Object
 			)
 			AudioBoomIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?audioboom\\.com/(?:boos|posts)/(?P<id>[0-9]+)")
-			AudioBoomIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://audioboom.com/posts/7398103-asim-chaudhry"),
-					λ.NewStr("md5"): λ.NewStr("7b00192e593ff227e6a315486979a42d"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("7398103"),
-						λ.NewStr("ext"):          λ.NewStr("mp3"),
-						λ.NewStr("title"):        λ.NewStr("Asim Chaudhry"),
-						λ.NewStr("description"):  λ.NewStr("md5:2f3fef17dacc2595b5362e1d7d3602fc"),
-						λ.NewStr("duration"):     λ.NewFloat(4000.99),
-						λ.NewStr("uploader"):     λ.NewStr("Sue Perkins: An hour or so with..."),
-						λ.NewStr("uploader_url"): λ.NewStr("re:https?://(?:www\\.)?audioboom\\.com/channel/perkins"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://audioboom.com/posts/4279833-3-09-2016-czaban-hour-3?t=0"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			AudioBoomIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -198,7 +178,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        AudioBoomIE__TESTS,
 				λ.NewStr("_VALID_URL"):    AudioBoomIE__VALID_URL,
 				λ.NewStr("_real_extract"): AudioBoomIE__real_extract,
 			})

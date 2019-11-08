@@ -53,55 +53,10 @@ func init() {
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		CamdemyIE = λ.Cal(λ.TypeType, λ.NewStr("CamdemyIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				CamdemyIE__TESTS        λ.Object
 				CamdemyIE__VALID_URL    λ.Object
 				CamdemyIE__real_extract λ.Object
 			)
 			CamdemyIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?camdemy\\.com/media/(?P<id>\\d+)")
-			CamdemyIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.camdemy.com/media/5181/"),
-					λ.NewStr("md5"): λ.NewStr("5a5562b6a98b37873119102e052e311b"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("5181"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Ch1-1 Introduction, Signals (02-23-2012)"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("creator"):     λ.NewStr("ss11spring"),
-						λ.NewStr("duration"):    λ.NewInt(1591),
-						λ.NewStr("upload_date"): λ.NewStr("20130114"),
-						λ.NewStr("view_count"):  λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.camdemy.com/media/13885"),
-					λ.NewStr("md5"): λ.NewStr("4576a3bb2581f86c61044822adbd1249"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("13885"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("EverCam + Camdemy QuickStart"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("description"): λ.NewStr("md5:2a9f989c2b153a2342acee579c6e7db6"),
-						λ.NewStr("creator"):     λ.NewStr("evercam"),
-						λ.NewStr("duration"):    λ.NewInt(318),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.camdemy.com/media/14842"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("2vsYQzNIsJo"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Excel 2013 Tutorial - How to add Password Protection"),
-						λ.NewStr("description"): λ.NewStr("Excel 2013 Tutorial for Beginners - How to add Password Protection"),
-						λ.NewStr("upload_date"): λ.NewStr("20130211"),
-						λ.NewStr("uploader"):    λ.NewStr("Hun Kim"),
-						λ.NewStr("uploader_id"): λ.NewStr("hunkimtutorials"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-			)
 			CamdemyIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -185,7 +140,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        CamdemyIE__TESTS,
 				λ.NewStr("_VALID_URL"):    CamdemyIE__VALID_URL,
 				λ.NewStr("_real_extract"): CamdemyIE__real_extract,
 			})

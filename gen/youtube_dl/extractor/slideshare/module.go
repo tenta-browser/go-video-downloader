@@ -47,20 +47,10 @@ func init() {
 		ϒget_element_by_id = Ωutils.ϒget_element_by_id
 		SlideshareIE = λ.Cal(λ.TypeType, λ.NewStr("SlideshareIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				SlideshareIE__TEST         λ.Object
 				SlideshareIE__VALID_URL    λ.Object
 				SlideshareIE__real_extract λ.Object
 			)
 			SlideshareIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?slideshare\\.net/[^/]+?/(?P<title>.+?)($|\\?)")
-			SlideshareIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.slideshare.net/Dataversity/keynote-presentation-managing-scale-and-complexity"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("25665706"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Managing Scale and Complexity"),
-					λ.NewStr("description"): λ.NewStr("This was a keynote presentation at the NoSQL Now! 2013 Conference & Expo (http://www.nosqlnow.com). This presentation was given by Adrian Cockcroft from Netflix."),
-				}),
-			})
 			SlideshareIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -126,7 +116,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         SlideshareIE__TEST,
 				λ.NewStr("_VALID_URL"):    SlideshareIE__VALID_URL,
 				λ.NewStr("_real_extract"): SlideshareIE__real_extract,
 			})

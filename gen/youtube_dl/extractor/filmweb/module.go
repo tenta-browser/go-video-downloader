@@ -40,24 +40,10 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		FilmwebIE = λ.Cal(λ.TypeType, λ.NewStr("FilmwebIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				FilmwebIE__TEST         λ.Object
 				FilmwebIE__VALID_URL    λ.Object
 				FilmwebIE__real_extract λ.Object
 			)
 			FilmwebIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?filmweb\\.no/(?P<type>trailere|filmnytt)/article(?P<id>\\d+)\\.ece")
-			FilmwebIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.filmweb.no/trailere/article1264921.ece"),
-				λ.NewStr("md5"): λ.NewStr("e353f47df98e557d67edaceda9dece89"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("13033574"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Det som en gang var"),
-					λ.NewStr("upload_date"): λ.NewStr("20160316"),
-					λ.NewStr("timestamp"):   λ.NewInt(1458140101),
-					λ.NewStr("uploader_id"): λ.NewStr("12639966"),
-					λ.NewStr("uploader"):    λ.NewStr("Live Roaldset"),
-				}),
-			})
 			FilmwebIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -99,7 +85,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         FilmwebIE__TEST,
 				λ.NewStr("_VALID_URL"):    FilmwebIE__VALID_URL,
 				λ.NewStr("_real_extract"): FilmwebIE__real_extract,
 			})

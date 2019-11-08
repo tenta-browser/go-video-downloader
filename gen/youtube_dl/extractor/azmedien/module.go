@@ -45,31 +45,10 @@ func init() {
 		AZMedienIE = λ.Cal(λ.TypeType, λ.NewStr("AZMedienIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				AZMedienIE__PARTNER_ID   λ.Object
-				AZMedienIE__TESTS        λ.Object
 				AZMedienIE__VALID_URL    λ.Object
 				AZMedienIE__real_extract λ.Object
 			)
 			AZMedienIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:www\\.)?\n                        (?P<host>\n                            telezueri\\.ch|\n                            telebaern\\.tv|\n                            telem1\\.ch\n                        )/\n                        [^/]+/\n                        (?P<id>\n                            [^/]+-(?P<article_id>\\d+)\n                        )\n                        (?:\n                            \\#video=\n                            (?P<kaltura_id>\n                                [_0-9a-z]+\n                            )\n                        )?\n                    ")
-			AZMedienIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.telezueri.ch/sonntalk/bundesrats-vakanzen-eu-rahmenabkommen-133214569"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1_anruz3wy"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Bundesrats-Vakanzen / EU-Rahmenabkommen"),
-						λ.NewStr("uploader_id"): λ.NewStr("TVOnline"),
-						λ.NewStr("upload_date"): λ.NewStr("20180930"),
-						λ.NewStr("timestamp"):   λ.NewInt(1538328802),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.telebaern.tv/telebaern-news/montag-1-oktober-2018-ganze-sendung-133531189#video=0_7xjo9lf1"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			AZMedienIE__PARTNER_ID = λ.NewStr("1719221")
 			AZMedienIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -125,7 +104,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_PARTNER_ID"):   AZMedienIE__PARTNER_ID,
-				λ.NewStr("_TESTS"):        AZMedienIE__TESTS,
 				λ.NewStr("_VALID_URL"):    AZMedienIE__VALID_URL,
 				λ.NewStr("_real_extract"): AZMedienIE__real_extract,
 			})

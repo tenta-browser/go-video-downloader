@@ -207,62 +207,14 @@ func init() {
 			var (
 				NHLIE_IE_NAME         λ.Object
 				NHLIE__CONTENT_DOMAIN λ.Object
-				NHLIE__TESTS          λ.Object
 				NHLIE__VALID_URL      λ.Object
 			)
 			NHLIE_IE_NAME = λ.NewStr("nhl.com")
 			NHLIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?P<site>nhl|wch2016)\\.com/(?:[^/]+/)*c-(?P<id>\\d+)")
 			NHLIE__CONTENT_DOMAIN = λ.NewStr("nhl.bamcontent.com")
-			NHLIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.nhl.com/video/anisimov-cleans-up-mess/t-277752844/c-43663503"),
-					λ.NewStr("md5"): λ.NewStr("0f7b9a8f986fb4b4eeeece9a56416eaf"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("43663503"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Anisimov cleans up mess"),
-						λ.NewStr("description"): λ.NewStr("md5:a02354acdfe900e940ce40706939ca63"),
-						λ.NewStr("timestamp"):   λ.NewInt(1461288600),
-						λ.NewStr("upload_date"): λ.NewStr("20160422"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.nhl.com/news/dennis-wideman-suspended/c-278258934"),
-					λ.NewStr("md5"): λ.NewStr("1f39f4ea74c1394dea110699a25b366c"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("40784403"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Wideman suspended by NHL"),
-						λ.NewStr("description"): λ.NewStr("Flames defenseman Dennis Wideman was banned 20 games for violation of Rule 40 (Physical Abuse of Officials)"),
-						λ.NewStr("upload_date"): λ.NewStr("20160204"),
-						λ.NewStr("timestamp"):   λ.NewInt(1454544904),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.nhl.com/predators/video/poile-laviolette-on-subban-trade/t-277437416/c-44315003"),
-					λ.NewStr("md5"): λ.NewStr("50b2bb47f405121484dda3ccbea25459"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("44315003"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Poile, Laviolette on Subban trade"),
-						λ.NewStr("description"): λ.NewStr("General manager David Poile and head coach Peter Laviolette share their thoughts on acquiring P.K. Subban from Montreal (06/29/16)"),
-						λ.NewStr("timestamp"):   λ.NewInt(1467242866),
-						λ.NewStr("upload_date"): λ.NewStr("20160629"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.wch2016.com/video/caneur-best-of-game-2-micd-up/t-281230378/c-44983703"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.wch2016.com/news/3-stars-team-europe-vs-team-canada/c-282195068"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):         NHLIE_IE_NAME,
 				λ.NewStr("_CONTENT_DOMAIN"): NHLIE__CONTENT_DOMAIN,
-				λ.NewStr("_TESTS"):          NHLIE__TESTS,
 				λ.NewStr("_VALID_URL"):      NHLIE__VALID_URL,
 			})
 		}())

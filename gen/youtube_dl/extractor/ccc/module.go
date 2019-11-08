@@ -50,34 +50,11 @@ func init() {
 		CCCIE = λ.Cal(λ.TypeType, λ.NewStr("CCCIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CCCIE_IE_NAME       λ.Object
-				CCCIE__TESTS        λ.Object
 				CCCIE__VALID_URL    λ.Object
 				CCCIE__real_extract λ.Object
 			)
 			CCCIE_IE_NAME = λ.NewStr("media.ccc.de")
 			CCCIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?media\\.ccc\\.de/v/(?P<id>[^/?#&]+)")
-			CCCIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://media.ccc.de/v/30C3_-_5443_-_en_-_saal_g_-_201312281830_-_introduction_to_processor_design_-_byterazor#video"),
-					λ.NewStr("md5"): λ.NewStr("3a1eda8f3a29515d27f5adb967d7e740"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1839"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Introduction to Processor Design"),
-						λ.NewStr("creator"):     λ.NewStr("byterazor"),
-						λ.NewStr("description"): λ.NewStr("md5:df55f6d073d4ceae55aae6f2fd98a0ac"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("upload_date"): λ.NewStr("20131228"),
-						λ.NewStr("timestamp"):   λ.NewInt(1388188800),
-						λ.NewStr("duration"):    λ.NewInt(3710),
-						λ.NewStr("tags"):        λ.ListType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://media.ccc.de/v/32c3-7368-shopshifting#download"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			CCCIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -186,7 +163,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       CCCIE_IE_NAME,
-				λ.NewStr("_TESTS"):        CCCIE__TESTS,
 				λ.NewStr("_VALID_URL"):    CCCIE__VALID_URL,
 				λ.NewStr("_real_extract"): CCCIE__real_extract,
 			})

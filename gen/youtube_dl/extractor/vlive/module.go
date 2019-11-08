@@ -64,7 +64,6 @@ func init() {
 			var (
 				VLiveIE_IE_NAME            λ.Object
 				VLiveIE__NETRC_MACHINE     λ.Object
-				VLiveIE__TESTS             λ.Object
 				VLiveIE__VALID_URL         λ.Object
 				VLiveIE__get_common_fields λ.Object
 				VLiveIE__login             λ.Object
@@ -76,46 +75,6 @@ func init() {
 			VLiveIE_IE_NAME = λ.NewStr("vlive")
 			VLiveIE__VALID_URL = λ.NewStr("https?://(?:(?:www|m)\\.)?vlive\\.tv/video/(?P<id>[0-9]+)")
 			VLiveIE__NETRC_MACHINE = λ.NewStr("vlive")
-			VLiveIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.vlive.tv/video/1326"),
-					λ.NewStr("md5"): λ.NewStr("cc7314812855ce56de70a06a27314983"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("1326"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("[V LIVE] Girl's Day's Broadcast"),
-						λ.NewStr("creator"):    λ.NewStr("Girl's Day"),
-						λ.NewStr("view_count"): λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.vlive.tv/video/16937"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("16937"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("[V LIVE] 첸백시 걍방"),
-						λ.NewStr("creator"):    λ.NewStr("EXO"),
-						λ.NewStr("view_count"): λ.IntType,
-						λ.NewStr("subtitles"):  λ.NewStr("mincount:12"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.vlive.tv/video/129100"),
-					λ.NewStr("md5"): λ.NewStr("ca2569453b79d66e5b919e5d308bff6b"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("129100"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("[V LIVE] [BTS+] Run BTS! 2019 - EP.71 :: Behind the scene"),
-						λ.NewStr("creator"):    λ.NewStr("BTS+"),
-						λ.NewStr("view_count"): λ.IntType,
-						λ.NewStr("subtitles"):  λ.NewStr("mincount:10"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("This video is only available for CH+ subscribers"),
-				}),
-			)
 			VLiveIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -513,7 +472,6 @@ func init() {
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):            VLiveIE_IE_NAME,
 				λ.NewStr("_NETRC_MACHINE"):     VLiveIE__NETRC_MACHINE,
-				λ.NewStr("_TESTS"):             VLiveIE__TESTS,
 				λ.NewStr("_VALID_URL"):         VLiveIE__VALID_URL,
 				λ.NewStr("_get_common_fields"): VLiveIE__get_common_fields,
 				λ.NewStr("_login"):             VLiveIE__login,
@@ -535,7 +493,6 @@ func init() {
 		VLivePlaylistIE = λ.Cal(λ.TypeType, λ.NewStr("VLivePlaylistIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				VLivePlaylistIE_IE_NAME             λ.Object
-				VLivePlaylistIE__TESTS              λ.Object
 				VLivePlaylistIE__VALID_URL          λ.Object
 				VLivePlaylistIE__VIDEO_URL_TEMPLATE λ.Object
 				VLivePlaylistIE__build_video_result λ.Object
@@ -544,29 +501,6 @@ func init() {
 			VLivePlaylistIE_IE_NAME = λ.NewStr("vlive:playlist")
 			VLivePlaylistIE__VALID_URL = λ.NewStr("https?://(?:(?:www|m)\\.)?vlive\\.tv/video/(?P<video_id>[0-9]+)/playlist/(?P<id>[0-9]+)")
 			VLivePlaylistIE__VIDEO_URL_TEMPLATE = λ.NewStr("http://www.vlive.tv/video/%s")
-			VLivePlaylistIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.vlive.tv/video/117956/playlist/117963"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("117963"),
-						λ.NewStr("title"): λ.NewStr("아이돌룸(IDOL ROOM) 41회 - (여자)아이들"),
-					}),
-					λ.NewStr("playlist_mincount"): λ.NewInt(10),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.vlive.tv/video/22867/playlist/22912"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("22867"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("[V LIVE] Valentine Day Message from MINA"),
-						λ.NewStr("creator"):    λ.NewStr("TWICE"),
-						λ.NewStr("view_count"): λ.IntType,
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-			)
 			VLivePlaylistIE__build_video_result = λ.NewFunction("_build_video_result",
 				[]λ.Param{
 					{Name: "self"},
@@ -665,7 +599,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):             VLivePlaylistIE_IE_NAME,
-				λ.NewStr("_TESTS"):              VLivePlaylistIE__TESTS,
 				λ.NewStr("_VALID_URL"):          VLivePlaylistIE__VALID_URL,
 				λ.NewStr("_VIDEO_URL_TEMPLATE"): VLivePlaylistIE__VIDEO_URL_TEMPLATE,
 				λ.NewStr("_build_video_result"): VLivePlaylistIE__build_video_result,

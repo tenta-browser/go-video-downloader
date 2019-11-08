@@ -43,30 +43,10 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		PornotubeIE = λ.Cal(λ.TypeType, λ.NewStr("PornotubeIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				PornotubeIE__TEST         λ.Object
 				PornotubeIE__VALID_URL    λ.Object
 				PornotubeIE__real_extract λ.Object
 			)
 			PornotubeIE__VALID_URL = λ.NewStr("https?://(?:\\w+\\.)?pornotube\\.com/(?:[^?#]*?)/video/(?P<id>[0-9]+)")
-			PornotubeIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.pornotube.com/orientation/straight/video/4964/title/weird-hot-and-wet-science"),
-				λ.NewStr("md5"): λ.NewStr("60fc5a4f0d93a97968fc7999d98260c9"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("4964"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("upload_date"): λ.NewStr("20141203"),
-					λ.NewStr("title"):       λ.NewStr("Weird Hot and Wet Science"),
-					λ.NewStr("description"): λ.NewStr("md5:a8304bef7ef06cb4ab476ca6029b01b0"),
-					λ.NewStr("categories"): λ.NewList(
-						λ.NewStr("Adult Humor"),
-						λ.NewStr("Blondes"),
-					),
-					λ.NewStr("uploader"):  λ.NewStr("Alpha Blue Archives"),
-					λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg$"),
-					λ.NewStr("timestamp"): λ.NewInt(1417582800),
-					λ.NewStr("age_limit"): λ.NewInt(18),
-				}),
-			})
 			PornotubeIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -215,7 +195,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         PornotubeIE__TEST,
 				λ.NewStr("_VALID_URL"):    PornotubeIE__VALID_URL,
 				λ.NewStr("_real_extract"): PornotubeIE__real_extract,
 			})

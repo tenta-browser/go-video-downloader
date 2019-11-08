@@ -52,45 +52,12 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		EaglePlatformIE = λ.Cal(λ.TypeType, λ.NewStr("EaglePlatformIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				EaglePlatformIE__TESTS         λ.Object
 				EaglePlatformIE__VALID_URL     λ.Object
 				EaglePlatformIE__download_json λ.Object
 				EaglePlatformIE__get_video_url λ.Object
 				EaglePlatformIE__real_extract  λ.Object
 			)
 			EaglePlatformIE__VALID_URL = λ.NewStr("(?x)\n                    (?:\n                        eagleplatform:(?P<custom_host>[^/]+):|\n                        https?://(?P<host>.+?\\.media\\.eagleplatform\\.com)/index/player\\?.*\\brecord_id=\n                    )\n                    (?P<id>\\d+)\n                ")
-			EaglePlatformIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://lentaru.media.eagleplatform.com/index/player?player=new&record_id=227304&player_template_id=5201"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("227304"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Навальный вышел на свободу"),
-						λ.NewStr("description"): λ.NewStr("md5:d97861ac9ae77377f3f20eaf9d04b4f5"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(87),
-						λ.NewStr("view_count"):  λ.IntType,
-						λ.NewStr("age_limit"):   λ.NewInt(0),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("eagleplatform:media.clipyou.ru:12820"),
-					λ.NewStr("md5"): λ.NewStr("358597369cf8ba56675c1df15e7af624"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("12820"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("'O Sole Mio"),
-						λ.NewStr("thumbnail"):  λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):   λ.NewInt(216),
-						λ.NewStr("view_count"): λ.IntType,
-					}),
-					λ.NewStr("skip"): λ.NewStr("Georestricted"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("eagleplatform:tvrainru.media.eagleplatform.com:582306"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			EaglePlatformIE__download_json = λ.NewFunction("_download_json",
 				[]λ.Param{
 					{Name: "self"},
@@ -319,7 +286,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):         EaglePlatformIE__TESTS,
 				λ.NewStr("_VALID_URL"):     EaglePlatformIE__VALID_URL,
 				λ.NewStr("_download_json"): EaglePlatformIE__download_json,
 				λ.NewStr("_get_video_url"): EaglePlatformIE__get_video_url,

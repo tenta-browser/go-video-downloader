@@ -58,113 +58,12 @@ func init() {
 		DVTVIE = λ.Cal(λ.TypeType, λ.NewStr("DVTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				DVTVIE_IE_NAME               λ.Object
-				DVTVIE__TESTS                λ.Object
 				DVTVIE__VALID_URL            λ.Object
 				DVTVIE__parse_video_metadata λ.Object
 				DVTVIE__real_extract         λ.Object
 			)
 			DVTVIE_IE_NAME = λ.NewStr("dvtv")
 			DVTVIE__VALID_URL = λ.NewStr("https?://video\\.aktualne\\.cz/(?:[^/]+/)+r~(?P<id>[0-9a-f]{32})")
-			DVTVIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://video.aktualne.cz/dvtv/vondra-o-ceskem-stoleti-pri-pohledu-na-havla-mi-bylo-trapne/r~e5efe9ca855511e4833a0025900fea04/"),
-					λ.NewStr("md5"): λ.NewStr("67cb83e4a955d36e1b5d31993134a0c2"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("dc0768de855511e49e4b0025900fea04"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Vondra o Českém století: Při pohledu na Havla mi bylo trapně"),
-						λ.NewStr("duration"):    λ.NewInt(1484),
-						λ.NewStr("upload_date"): λ.NewStr("20141217"),
-						λ.NewStr("timestamp"):   λ.NewInt(1418792400),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://video.aktualne.cz/dvtv/dvtv-16-12-2014-utok-talibanu-boj-o-kliniku-uprchlici/r~973eb3bc854e11e498be002590604f2e/"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("title"): λ.NewStr("DVTV 16. 12. 2014: útok Talibanu, boj o kliniku, uprchlíci"),
-						λ.NewStr("id"):    λ.NewStr("973eb3bc854e11e498be002590604f2e"),
-					}),
-					λ.NewStr("playlist"): λ.NewList(
-						λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("md5"): λ.NewStr("da7ca6be4935532241fa9520b3ad91e4"),
-							λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("id"):          λ.NewStr("b0b40906854d11e4bdad0025900fea04"),
-								λ.NewStr("ext"):         λ.NewStr("mp4"),
-								λ.NewStr("title"):       λ.NewStr("Drtinová Veselovský TV 16. 12. 2014: Témata dne"),
-								λ.NewStr("description"): λ.NewStr("md5:0916925dea8e30fe84222582280b47a0"),
-								λ.NewStr("timestamp"):   λ.NewInt(1418760010),
-								λ.NewStr("upload_date"): λ.NewStr("20141216"),
-							}),
-						}),
-						λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("md5"): λ.NewStr("5f7652a08b05009c1292317b449ffea2"),
-							λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("id"):          λ.NewStr("420ad9ec854a11e4bdad0025900fea04"),
-								λ.NewStr("ext"):         λ.NewStr("mp4"),
-								λ.NewStr("title"):       λ.NewStr("Školní masakr možná změní boj s Talibanem, říká novinářka"),
-								λ.NewStr("description"): λ.NewStr("md5:ff2f9f6de73c73d7cef4f756c1c1af42"),
-								λ.NewStr("timestamp"):   λ.NewInt(1418760010),
-								λ.NewStr("upload_date"): λ.NewStr("20141216"),
-							}),
-						}),
-						λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("md5"): λ.NewStr("498eb9dfa97169f409126c617e2a3d64"),
-							λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("id"):          λ.NewStr("95d35580846a11e4b6d20025900fea04"),
-								λ.NewStr("ext"):         λ.NewStr("mp4"),
-								λ.NewStr("title"):       λ.NewStr("Boj o kliniku: Veřejný zájem, nebo právo na majetek?"),
-								λ.NewStr("description"): λ.NewStr("md5:889fe610a70fee5511dc3326a089188e"),
-								λ.NewStr("timestamp"):   λ.NewInt(1418760010),
-								λ.NewStr("upload_date"): λ.NewStr("20141216"),
-							}),
-						}),
-						λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("md5"): λ.NewStr("b8dc6b744844032dab6ba3781a7274b9"),
-							λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("id"):          λ.NewStr("6fe14d66853511e4833a0025900fea04"),
-								λ.NewStr("ext"):         λ.NewStr("mp4"),
-								λ.NewStr("title"):       λ.NewStr("Pánek: Odmítání syrských uprchlíků je ostudou české vlády"),
-								λ.NewStr("description"): λ.NewStr("md5:544f86de6d20c4815bea11bf2ac3004f"),
-								λ.NewStr("timestamp"):   λ.NewInt(1418760010),
-								λ.NewStr("upload_date"): λ.NewStr("20141216"),
-							}),
-						}),
-					),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://video.aktualne.cz/dvtv/zeman-si-jen-leci-mindraky-sobotku-nenavidi-a-babis-se-mu-te/r~960cdb3a365a11e7a83b0025900fea04/"),
-					λ.NewStr("md5"): λ.NewStr("f8efe9656017da948369aa099788c8ea"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("3c496fec365911e7a6500025900fea04"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Zeman si jen léčí mindráky, Sobotku nenávidí a Babiš se mu teď hodí, tvrdí Kmenta"),
-						λ.NewStr("duration"):    λ.NewInt(1103),
-						λ.NewStr("upload_date"): λ.NewStr("20170511"),
-						λ.NewStr("timestamp"):   λ.NewInt(1494514200),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://video.aktualne.cz/v-cechach-poprve-zazni-zelenkova-zrestaurovana-mse/r~45b4b00483ec11e4883b002590604f2e/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://video.aktualne.cz/dvtv/zive-mistryne-sveta-eva-samkova-po-navratu-ze-sampionatu/r~182654c2288811e990fd0cc47ab5f122/"),
-					λ.NewStr("md5"): λ.NewStr("2e552e483f2414851ca50467054f9d5d"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("8d116360288011e98c840cc47ab5f122"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Živě: Mistryně světa Eva Samková po návratu ze šampionátu"),
-						λ.NewStr("upload_date"): λ.NewStr("20190204"),
-						λ.NewStr("timestamp"):   λ.NewInt(1549289591),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-			)
 			DVTVIE__parse_video_metadata = λ.NewFunction("_parse_video_metadata",
 				[]λ.Param{
 					{Name: "self"},
@@ -390,7 +289,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):               DVTVIE_IE_NAME,
-				λ.NewStr("_TESTS"):                DVTVIE__TESTS,
 				λ.NewStr("_VALID_URL"):            DVTVIE__VALID_URL,
 				λ.NewStr("_parse_video_metadata"): DVTVIE__parse_video_metadata,
 				λ.NewStr("_real_extract"):         DVTVIE__real_extract,

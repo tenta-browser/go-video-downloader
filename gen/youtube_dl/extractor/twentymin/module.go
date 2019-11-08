@@ -45,41 +45,11 @@ func init() {
 		TwentyMinutenIE = λ.Cal(λ.TypeType, λ.NewStr("TwentyMinutenIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TwentyMinutenIE_IE_NAME       λ.Object
-				TwentyMinutenIE__TESTS        λ.Object
 				TwentyMinutenIE__VALID_URL    λ.Object
 				TwentyMinutenIE__real_extract λ.Object
 			)
 			TwentyMinutenIE_IE_NAME = λ.NewStr("20min")
 			TwentyMinutenIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:www\\.)?20min\\.ch/\n                        (?:\n                            videotv/*\\?.*?\\bvid=|\n                            videoplayer/videoplayer\\.html\\?.*?\\bvideoId@\n                        )\n                        (?P<id>\\d+)\n                    ")
-			TwentyMinutenIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.20min.ch/videotv/?vid=469148&cid=2"),
-					λ.NewStr("md5"): λ.NewStr("e7264320db31eed8c38364150c12496e"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("469148"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("85 000 Franken für 15 perfekte Minuten"),
-						λ.NewStr("thumbnail"): λ.NewStr("re:https?://.*\\.jpg$"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.20min.ch/videoplayer/videoplayer.html?params=client@twentyDE|videoId@523629"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("523629"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("So kommen Sie bei Eis und Schnee sicher an"),
-						λ.NewStr("description"): λ.NewStr("md5:117c212f64b25e3d95747e5276863f7d"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:https?://.*\\.jpg$"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.20min.ch/videotv/?cid=44&vid=468738"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			TwentyMinutenIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -186,7 +156,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       TwentyMinutenIE_IE_NAME,
-				λ.NewStr("_TESTS"):        TwentyMinutenIE__TESTS,
 				λ.NewStr("_VALID_URL"):    TwentyMinutenIE__VALID_URL,
 				λ.NewStr("_real_extract"): TwentyMinutenIE__real_extract,
 			})

@@ -159,22 +159,11 @@ func init() {
 		CuriosityStreamIE = λ.Cal(λ.TypeType, λ.NewStr("CuriosityStreamIE"), λ.NewTuple(CuriosityStreamBaseIE), func() λ.Dict {
 			var (
 				CuriosityStreamIE_IE_NAME       λ.Object
-				CuriosityStreamIE__TEST         λ.Object
 				CuriosityStreamIE__VALID_URL    λ.Object
 				CuriosityStreamIE__real_extract λ.Object
 			)
 			CuriosityStreamIE_IE_NAME = λ.NewStr("curiositystream")
 			CuriosityStreamIE__VALID_URL = λ.NewStr("https?://(?:app\\.)?curiositystream\\.com/video/(?P<id>\\d+)")
-			CuriosityStreamIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://app.curiositystream.com/video/2"),
-				λ.NewStr("md5"): λ.NewStr("262bb2f257ff301115f1973540de8983"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("2"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("How Did You Develop The Internet?"),
-					λ.NewStr("description"): λ.NewStr("Vint Cerf, Google's Chief Internet Evangelist, describes how he and Bob Kahn created the internet."),
-				}),
-			})
 			CuriosityStreamIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -326,7 +315,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       CuriosityStreamIE_IE_NAME,
-				λ.NewStr("_TEST"):         CuriosityStreamIE__TEST,
 				λ.NewStr("_VALID_URL"):    CuriosityStreamIE__VALID_URL,
 				λ.NewStr("_real_extract"): CuriosityStreamIE__real_extract,
 			})

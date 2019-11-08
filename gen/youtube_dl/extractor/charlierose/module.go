@@ -43,37 +43,10 @@ func init() {
 		CharlieRoseIE = λ.Cal(λ.TypeType, λ.NewStr("CharlieRoseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CharlieRoseIE__PLAYER_BASE  λ.Object
-				CharlieRoseIE__TESTS        λ.Object
 				CharlieRoseIE__VALID_URL    λ.Object
 				CharlieRoseIE__real_extract λ.Object
 			)
 			CharlieRoseIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?charlierose\\.com/(?:video|episode)(?:s|/player)/(?P<id>\\d+)")
-			CharlieRoseIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://charlierose.com/videos/27996"),
-					λ.NewStr("md5"): λ.NewStr("fda41d49e67d4ce7c2411fd2c4702e09"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("27996"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Remembering Zaha Hadid"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg\\?\\d+"),
-						λ.NewStr("description"): λ.NewStr("We revisit past conversations with Zaha Hadid, in memory of the world renowned Iraqi architect."),
-						λ.NewStr("subtitles"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("en"): λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("ext"): λ.NewStr("vtt"),
-							})),
-						}),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://charlierose.com/videos/27996"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://charlierose.com/episodes/30887?autoplay=true"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			CharlieRoseIE__PLAYER_BASE = λ.NewStr("https://charlierose.com/video/player/%s")
 			CharlieRoseIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -112,7 +85,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_PLAYER_BASE"):  CharlieRoseIE__PLAYER_BASE,
-				λ.NewStr("_TESTS"):        CharlieRoseIE__TESTS,
 				λ.NewStr("_VALID_URL"):    CharlieRoseIE__VALID_URL,
 				λ.NewStr("_real_extract"): CharlieRoseIE__real_extract,
 			})

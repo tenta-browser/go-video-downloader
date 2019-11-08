@@ -39,21 +39,10 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		GPUTechConfIE = λ.Cal(λ.TypeType, λ.NewStr("GPUTechConfIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				GPUTechConfIE__TEST         λ.Object
 				GPUTechConfIE__VALID_URL    λ.Object
 				GPUTechConfIE__real_extract λ.Object
 			)
 			GPUTechConfIE__VALID_URL = λ.NewStr("https?://on-demand\\.gputechconf\\.com/gtc/2015/video/S(?P<id>\\d+)\\.html")
-			GPUTechConfIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://on-demand.gputechconf.com/gtc/2015/video/S5156.html"),
-				λ.NewStr("md5"): λ.NewStr("a8862a00a0fd65b8b43acc5b8e33f798"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):       λ.NewStr("5156"),
-					λ.NewStr("ext"):      λ.NewStr("mp4"),
-					λ.NewStr("title"):    λ.NewStr("Coordinating More Than 3 Million CUDA Threads for Social Network Analysis"),
-					λ.NewStr("duration"): λ.NewInt(1219),
-				}),
-			})
 			GPUTechConfIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -90,7 +79,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         GPUTechConfIE__TEST,
 				λ.NewStr("_VALID_URL"):    GPUTechConfIE__VALID_URL,
 				λ.NewStr("_real_extract"): GPUTechConfIE__real_extract,
 			})

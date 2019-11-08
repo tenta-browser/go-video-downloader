@@ -40,25 +40,10 @@ func init() {
 		NuevoBaseIE = Ωnuevo.NuevoBaseIE
 		LoveHomePornIE = λ.Cal(λ.TypeType, λ.NewStr("LoveHomePornIE"), λ.NewTuple(NuevoBaseIE), func() λ.Dict {
 			var (
-				LoveHomePornIE__TEST         λ.Object
 				LoveHomePornIE__VALID_URL    λ.Object
 				LoveHomePornIE__real_extract λ.Object
 			)
 			LoveHomePornIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?lovehomeporn\\.com/video/(?P<id>\\d+)(?:/(?P<display_id>[^/?#&]+))?")
-			LoveHomePornIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://lovehomeporn.com/video/48483/stunning-busty-brunette-girlfriend-sucking-and-riding-a-big-dick#menu"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):         λ.NewStr("48483"),
-					λ.NewStr("display_id"): λ.NewStr("stunning-busty-brunette-girlfriend-sucking-and-riding-a-big-dick"),
-					λ.NewStr("ext"):        λ.NewStr("mp4"),
-					λ.NewStr("title"):      λ.NewStr("Stunning busty brunette girlfriend sucking and riding a big dick"),
-					λ.NewStr("age_limit"):  λ.NewInt(18),
-					λ.NewStr("duration"):   λ.NewFloat(238.47),
-				}),
-				λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("skip_download"): λ.True,
-				}),
-			})
 			LoveHomePornIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -85,7 +70,6 @@ func init() {
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         LoveHomePornIE__TEST,
 				λ.NewStr("_VALID_URL"):    LoveHomePornIE__VALID_URL,
 				λ.NewStr("_real_extract"): LoveHomePornIE__real_extract,
 			})

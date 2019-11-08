@@ -26,18 +26,23 @@ package runtime
 
 import "fmt"
 
-// slimmingAnalyse toggles run-time symbol usage analysis
-const slimmingAnalyse = true
-
-var usedSymbols = make(map[string]bool)
+var (
+	collect     = true
+	usedSymbols = make(map[string]bool)
+)
 
 // UsedSymbol marks the symbol having the specified name, as used.
 func UsedSymbol(name string, v Object) Object {
-	usedSymbols[name] = true
+	if collect {
+		usedSymbols[name] = true
+	}
 	return v
 }
 
 func usedSymbolDictAttr(dict Dict, attr string) {
+	if !collect {
+		return
+	}
 	tnamei := dict.GetItem(NewStr("__symbol__"))
 	if tnamei == nil {
 		// No symbol will be defined for runtime created types,
@@ -54,6 +59,11 @@ func usedSymbolAttr(t Type, attr Str) {
 		return
 	}
 	usedSymbolDictAttr(t.Dict(), attr.Value())
+}
+
+// CollectUsedSymbols sets whether used symbol collection is enabled.
+func CollectUsedSymbols(c bool) {
+	collect = c
 }
 
 // GetUsedSymbols returns the set of used symbols.

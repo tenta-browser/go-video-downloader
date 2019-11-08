@@ -53,55 +53,10 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		YouPornIE = λ.Cal(λ.TypeType, λ.NewStr("YouPornIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				YouPornIE__TESTS        λ.Object
 				YouPornIE__VALID_URL    λ.Object
 				YouPornIE__real_extract λ.Object
 			)
 			YouPornIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?youporn\\.com/watch/(?P<id>\\d+)/(?P<display_id>[^/?#&]+)")
-			YouPornIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.youporn.com/watch/505835/sex-ed-is-it-safe-to-masturbate-daily/"),
-					λ.NewStr("md5"): λ.NewStr("3744d24c50438cf5b6f6d59feb5055c2"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):             λ.NewStr("505835"),
-						λ.NewStr("display_id"):     λ.NewStr("sex-ed-is-it-safe-to-masturbate-daily"),
-						λ.NewStr("ext"):            λ.NewStr("mp4"),
-						λ.NewStr("title"):          λ.NewStr("Sex Ed: Is It Safe To Masturbate Daily?"),
-						λ.NewStr("description"):    λ.NewStr("Love & Sex Answers: http://bit.ly/DanAndJenn -- Is It Unhealthy To Masturbate Daily?"),
-						λ.NewStr("thumbnail"):      λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("uploader"):       λ.NewStr("Ask Dan And Jennifer"),
-						λ.NewStr("upload_date"):    λ.NewStr("20101217"),
-						λ.NewStr("average_rating"): λ.IntType,
-						λ.NewStr("view_count"):     λ.IntType,
-						λ.NewStr("comment_count"):  λ.IntType,
-						λ.NewStr("categories"):     λ.ListType,
-						λ.NewStr("tags"):           λ.ListType,
-						λ.NewStr("age_limit"):      λ.NewInt(18),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.youporn.com/watch/561726/big-tits-awesome-brunette-on-amazing-webcam-show/?from=related3&al=2&from_id=561726&pos=4"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):             λ.NewStr("561726"),
-						λ.NewStr("display_id"):     λ.NewStr("big-tits-awesome-brunette-on-amazing-webcam-show"),
-						λ.NewStr("ext"):            λ.NewStr("mp4"),
-						λ.NewStr("title"):          λ.NewStr("Big Tits Awesome Brunette On amazing webcam show"),
-						λ.NewStr("description"):    λ.NewStr("http://sweetlivegirls.com Big Tits Awesome Brunette On amazing webcam show.mp4"),
-						λ.NewStr("thumbnail"):      λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("uploader"):       λ.NewStr("Unknown"),
-						λ.NewStr("upload_date"):    λ.NewStr("20110418"),
-						λ.NewStr("average_rating"): λ.IntType,
-						λ.NewStr("view_count"):     λ.IntType,
-						λ.NewStr("comment_count"):  λ.IntType,
-						λ.NewStr("categories"):     λ.ListType,
-						λ.NewStr("tags"):           λ.ListType,
-						λ.NewStr("age_limit"):      λ.NewInt(18),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-			)
 			YouPornIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -403,7 +358,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        YouPornIE__TESTS,
 				λ.NewStr("_VALID_URL"):    YouPornIE__VALID_URL,
 				λ.NewStr("_real_extract"): YouPornIE__real_extract,
 			})

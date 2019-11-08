@@ -52,50 +52,10 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ChilloutzoneIE = λ.Cal(λ.TypeType, λ.NewStr("ChilloutzoneIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ChilloutzoneIE__TESTS        λ.Object
 				ChilloutzoneIE__VALID_URL    λ.Object
 				ChilloutzoneIE__real_extract λ.Object
 			)
 			ChilloutzoneIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?chilloutzone\\.net/video/(?P<id>[\\w|-]+)\\.html")
-			ChilloutzoneIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.chilloutzone.net/video/enemene-meck-alle-katzen-weg.html"),
-					λ.NewStr("md5"): λ.NewStr("a76f3457e813ea0037e5244f509e66d1"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("enemene-meck-alle-katzen-weg"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Enemene Meck - Alle Katzen weg"),
-						λ.NewStr("description"): λ.NewStr("Ist das der Umkehrschluss des Niesenden Panda-Babys?"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("note"): λ.NewStr("Video hosted at YouTube"),
-					λ.NewStr("url"):  λ.NewStr("http://www.chilloutzone.net/video/eine-sekunde-bevor.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1YVQaAgHyRU"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("16 Photos Taken 1 Second Before Disaster"),
-						λ.NewStr("description"): λ.NewStr("md5:58a8fcf6a459fe0a08f54140f0ad1814"),
-						λ.NewStr("uploader"):    λ.NewStr("BuzzFeedVideo"),
-						λ.NewStr("uploader_id"): λ.NewStr("BuzzFeedVideo"),
-						λ.NewStr("upload_date"): λ.NewStr("20131105"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("note"): λ.NewStr("Video hosted at Vimeo"),
-					λ.NewStr("url"):  λ.NewStr("http://www.chilloutzone.net/video/icon-blending.html"),
-					λ.NewStr("md5"):  λ.NewStr("2645c678b8dc4fefcc0e1b60db18dac1"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("85523671"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("The Sunday Times - Icons"),
-						λ.NewStr("description"): λ.NewStr("re:(?s)^Watch the making of - makingoficons.com.{300,}"),
-						λ.NewStr("uploader"):    λ.NewStr("Us"),
-						λ.NewStr("uploader_id"): λ.NewStr("usfilms"),
-						λ.NewStr("upload_date"): λ.NewStr("20140131"),
-					}),
-				}),
-			)
 			ChilloutzoneIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -164,7 +124,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        ChilloutzoneIE__TESTS,
 				λ.NewStr("_VALID_URL"):    ChilloutzoneIE__VALID_URL,
 				λ.NewStr("_real_extract"): ChilloutzoneIE__real_extract,
 			})

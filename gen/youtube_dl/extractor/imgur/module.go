@@ -51,33 +51,10 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ImgurIE = λ.Cal(λ.TypeType, λ.NewStr("ImgurIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ImgurIE__TESTS        λ.Object
 				ImgurIE__VALID_URL    λ.Object
 				ImgurIE__real_extract λ.Object
 			)
 			ImgurIE__VALID_URL = λ.NewStr("https?://(?:i\\.)?imgur\\.com/(?!(?:a|gallery|(?:t(?:opic)?|r)/[^/]+)/)(?P<id>[a-zA-Z0-9]+)")
-			ImgurIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://i.imgur.com/A61SaA1.gifv"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("A61SaA1"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("re:Imgur GIF$|MRW gifv is up and running without any bugs$"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://imgur.com/A61SaA1"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://i.imgur.com/crGpqCV.mp4"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://i.imgur.com/jxBXAMC.gifv"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			ImgurIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -186,7 +163,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        ImgurIE__TESTS,
 				λ.NewStr("_VALID_URL"):    ImgurIE__VALID_URL,
 				λ.NewStr("_real_extract"): ImgurIE__real_extract,
 			})
@@ -194,42 +170,11 @@ func init() {
 		ImgurGalleryIE = λ.Cal(λ.TypeType, λ.NewStr("ImgurGalleryIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ImgurGalleryIE_IE_NAME       λ.Object
-				ImgurGalleryIE__TESTS        λ.Object
 				ImgurGalleryIE__VALID_URL    λ.Object
 				ImgurGalleryIE__real_extract λ.Object
 			)
 			ImgurGalleryIE_IE_NAME = λ.NewStr("imgur:gallery")
 			ImgurGalleryIE__VALID_URL = λ.NewStr("https?://(?:i\\.)?imgur\\.com/(?:gallery|(?:t(?:opic)?|r)/[^/]+)/(?P<id>[a-zA-Z0-9]+)")
-			ImgurGalleryIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://imgur.com/gallery/Q95ko"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("Q95ko"),
-						λ.NewStr("title"): λ.NewStr("Adding faces make every GIF better"),
-					}),
-					λ.NewStr("playlist_count"): λ.NewInt(25),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://imgur.com/topic/Aww/ll5Vk"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://imgur.com/gallery/YcAQlkx"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("YcAQlkx"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("Classic Steve Carell gif...cracks me up everytime....damn the repost downvotes...."),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://imgur.com/topic/Funny/N8rOudd"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://imgur.com/r/aww/VQcQPhM"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			ImgurGalleryIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -276,7 +221,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       ImgurGalleryIE_IE_NAME,
-				λ.NewStr("_TESTS"):        ImgurGalleryIE__TESTS,
 				λ.NewStr("_VALID_URL"):    ImgurGalleryIE__VALID_URL,
 				λ.NewStr("_real_extract"): ImgurGalleryIE__real_extract,
 			})

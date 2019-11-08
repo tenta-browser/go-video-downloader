@@ -104,76 +104,11 @@ func init() {
 			var (
 				TwitterCardIE_IE_NAME       λ.Object
 				TwitterCardIE__API_BASE     λ.Object
-				TwitterCardIE__TESTS        λ.Object
 				TwitterCardIE__VALID_URL    λ.Object
 				TwitterCardIE__real_extract λ.Object
 			)
 			TwitterCardIE_IE_NAME = λ.NewStr("twitter:card")
 			TwitterCardIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?twitter\\.com/i/(?P<path>cards/tfw/v1|videos(?:/tweet)?)/(?P<id>\\d+)")
-			TwitterCardIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://twitter.com/i/cards/tfw/v1/560070183650213889"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("560070183650213889"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("Twitter web player"),
-						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):  λ.NewFloat(30.033),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://twitter.com/i/cards/tfw/v1/623160978427936768"),
-					λ.NewStr("md5"): λ.NewStr("7ee2a553b63d1bccba97fbed97d9e1c8"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("623160978427936768"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("Twitter web player"),
-						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*$"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://twitter.com/i/cards/tfw/v1/654001591733886977"),
-					λ.NewStr("md5"): λ.NewStr("b6d9683dd3f48e340ded81c0e917ad46"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("dq4Oj5quskI"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Ubuntu 11.10 Overview"),
-						λ.NewStr("description"): λ.NewStr("md5:a831e97fa384863d6e26ce48d1c43376"),
-						λ.NewStr("upload_date"): λ.NewStr("20111013"),
-						λ.NewStr("uploader"):    λ.NewStr("OMG! Ubuntu!"),
-						λ.NewStr("uploader_id"): λ.NewStr("omgubuntu"),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Youtube")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://twitter.com/i/cards/tfw/v1/665289828897005568"),
-					λ.NewStr("md5"): λ.NewStr("6dabeaca9e68cbb71c99c322a4b42a11"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("iBb2x00UVlv"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("upload_date"): λ.NewStr("20151113"),
-						λ.NewStr("uploader_id"): λ.NewStr("1189339351084113920"),
-						λ.NewStr("uploader"):    λ.NewStr("ArsenalTerje"),
-						λ.NewStr("title"):       λ.NewStr("Vine by ArsenalTerje"),
-						λ.NewStr("timestamp"):   λ.NewInt(1447451307),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Vine")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://twitter.com/i/videos/tweet/705235433198714880"),
-					λ.NewStr("md5"): λ.NewStr("884812a2adc8aaf6fe52b15ccbfa3b88"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("705235433198714880"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("Twitter web player"),
-						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://twitter.com/i/videos/752274308186120192"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			TwitterCardIE__API_BASE = λ.NewStr("https://api.twitter.com/1.1")
 			TwitterCardIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -405,7 +340,6 @@ func init() {
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       TwitterCardIE_IE_NAME,
 				λ.NewStr("_API_BASE"):     TwitterCardIE__API_BASE,
-				λ.NewStr("_TESTS"):        TwitterCardIE__TESTS,
 				λ.NewStr("_VALID_URL"):    TwitterCardIE__VALID_URL,
 				λ.NewStr("_real_extract"): TwitterCardIE__real_extract,
 			})
@@ -422,22 +356,11 @@ func init() {
 		TwitterAmplifyIE = λ.Cal(λ.TypeType, λ.NewStr("TwitterAmplifyIE"), λ.NewTuple(TwitterBaseIE), func() λ.Dict {
 			var (
 				TwitterAmplifyIE_IE_NAME       λ.Object
-				TwitterAmplifyIE__TEST         λ.Object
 				TwitterAmplifyIE__VALID_URL    λ.Object
 				TwitterAmplifyIE__real_extract λ.Object
 			)
 			TwitterAmplifyIE_IE_NAME = λ.NewStr("twitter:amplify")
 			TwitterAmplifyIE__VALID_URL = λ.NewStr("https?://amp\\.twimg\\.com/v/(?P<id>[0-9a-f\\-]{36})")
-			TwitterAmplifyIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://amp.twimg.com/v/0ba0c3c7-0af3-4c0a-bed5-7efd1ffa2951"),
-				λ.NewStr("md5"): λ.NewStr("7df102d0b9fd7066b86f3159f8e81bf6"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):        λ.NewStr("0ba0c3c7-0af3-4c0a-bed5-7efd1ffa2951"),
-					λ.NewStr("ext"):       λ.NewStr("mp4"),
-					λ.NewStr("title"):     λ.NewStr("Twitter Video"),
-					λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*"),
-				}),
-			})
 			TwitterAmplifyIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -527,7 +450,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       TwitterAmplifyIE_IE_NAME,
-				λ.NewStr("_TEST"):         TwitterAmplifyIE__TEST,
 				λ.NewStr("_VALID_URL"):    TwitterAmplifyIE__VALID_URL,
 				λ.NewStr("_real_extract"): TwitterAmplifyIE__real_extract,
 			})

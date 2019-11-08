@@ -62,35 +62,12 @@ func init() {
 		PacktPubIE = λ.Cal(λ.TypeType, λ.NewStr("PacktPubIE"), λ.NewTuple(PacktPubBaseIE), func() λ.Dict {
 			var (
 				PacktPubIE__NETRC_MACHINE   λ.Object
-				PacktPubIE__TESTS           λ.Object
 				PacktPubIE__TOKEN           λ.Object
 				PacktPubIE__VALID_URL       λ.Object
 				PacktPubIE__real_extract    λ.Object
 				PacktPubIE__real_initialize λ.Object
 			)
 			PacktPubIE__VALID_URL = λ.NewStr("https?://(?:(?:www\\.)?packtpub\\.com/mapt|subscription\\.packtpub\\.com)/video/[^/]+/(?P<course_id>\\d+)/(?P<chapter_id>[^/]+)/(?P<id>[^/]+)(?:/(?P<display_id>[^/?&#]+))?")
-			PacktPubIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.packtpub.com/mapt/video/web-development/9781787122215/20528/20530/Project+Intro"),
-					λ.NewStr("md5"): λ.NewStr("1e74bd6cfd45d7d07666f4684ef58f70"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("20530"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Project Intro"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:(?i)^https?://.*\\.jpg"),
-						λ.NewStr("timestamp"):   λ.NewInt(1490918400),
-						λ.NewStr("upload_date"): λ.NewStr("20170331"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://subscription.packtpub.com/video/web_development/9781787122215/20528/20530/project-intro"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://subscription.packtpub.com/video/programming/9781838988906/p1/video1_1/business-card-project"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			PacktPubIE__NETRC_MACHINE = λ.NewStr("packtpub")
 			PacktPubIE__TOKEN = λ.None
 			PacktPubIE__real_initialize = λ.NewFunction("_real_initialize",
@@ -227,7 +204,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_NETRC_MACHINE"):   PacktPubIE__NETRC_MACHINE,
-				λ.NewStr("_TESTS"):           PacktPubIE__TESTS,
 				λ.NewStr("_TOKEN"):           PacktPubIE__TOKEN,
 				λ.NewStr("_VALID_URL"):       PacktPubIE__VALID_URL,
 				λ.NewStr("_real_extract"):    PacktPubIE__real_extract,

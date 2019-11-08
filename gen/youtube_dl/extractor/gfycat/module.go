@@ -48,67 +48,10 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		GfycatIE = λ.Cal(λ.TypeType, λ.NewStr("GfycatIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				GfycatIE__TESTS        λ.Object
 				GfycatIE__VALID_URL    λ.Object
 				GfycatIE__real_extract λ.Object
 			)
 			GfycatIE__VALID_URL = λ.NewStr("https?://(?:(?:www|giant|thumbs)\\.)?gfycat\\.com/(?:ru/|ifr/|gifs/detail/)?(?P<id>[^-/?#\\.]+)")
-			GfycatIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://gfycat.com/DeadlyDecisiveGermanpinscher"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("DeadlyDecisiveGermanpinscher"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("Ghost in the Shell"),
-						λ.NewStr("timestamp"):     λ.NewInt(1410656006),
-						λ.NewStr("upload_date"):   λ.NewStr("20140914"),
-						λ.NewStr("uploader"):      λ.NewStr("anonymous"),
-						λ.NewStr("duration"):      λ.NewFloat(10.4),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("like_count"):    λ.IntType,
-						λ.NewStr("dislike_count"): λ.IntType,
-						λ.NewStr("categories"):    λ.ListType,
-						λ.NewStr("age_limit"):     λ.NewInt(0),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://gfycat.com/ifr/JauntyTimelyAmazontreeboa"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("JauntyTimelyAmazontreeboa"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("JauntyTimelyAmazontreeboa"),
-						λ.NewStr("timestamp"):     λ.NewInt(1411720126),
-						λ.NewStr("upload_date"):   λ.NewStr("20140926"),
-						λ.NewStr("uploader"):      λ.NewStr("anonymous"),
-						λ.NewStr("duration"):      λ.NewFloat(3.52),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("like_count"):    λ.IntType,
-						λ.NewStr("dislike_count"): λ.IntType,
-						λ.NewStr("categories"):    λ.ListType,
-						λ.NewStr("age_limit"):     λ.NewInt(0),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://gfycat.com/ru/RemarkableDrearyAmurstarfish"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://gfycat.com/gifs/detail/UnconsciousLankyIvorygull"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://gfycat.com/acceptablehappygoluckyharborporpoise-baseball"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://thumbs.gfycat.com/acceptablehappygoluckyharborporpoise-size_restricted.gif"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://giant.gfycat.com/acceptablehappygoluckyharborporpoise.mp4"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			GfycatIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -243,7 +186,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        GfycatIE__TESTS,
 				λ.NewStr("_VALID_URL"):    GfycatIE__VALID_URL,
 				λ.NewStr("_real_extract"): GfycatIE__real_extract,
 			})

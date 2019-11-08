@@ -54,60 +54,10 @@ func init() {
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		XTubeIE = λ.Cal(λ.TypeType, λ.NewStr("XTubeIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				XTubeIE__TESTS        λ.Object
 				XTubeIE__VALID_URL    λ.Object
 				XTubeIE__real_extract λ.Object
 			)
 			XTubeIE__VALID_URL = λ.NewStr("(?x)\n                        (?:\n                            xtube:|\n                            https?://(?:www\\.)?xtube\\.com/(?:watch\\.php\\?.*\\bv=|video-watch/(?:embedded/)?(?P<display_id>[^/]+)-)\n                        )\n                        (?P<id>[^/?&#]+)\n                    ")
-			XTubeIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.xtube.com/watch.php?v=kVTUy_G222_"),
-					λ.NewStr("md5"): λ.NewStr("092fbdd3cbe292c920ef6fc6a8a9cdab"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("kVTUy_G222_"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("strange erotica"),
-						λ.NewStr("description"):   λ.NewStr("contains:an ET kind of thing"),
-						λ.NewStr("uploader"):      λ.NewStr("greenshowers"),
-						λ.NewStr("duration"):      λ.NewInt(450),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-						λ.NewStr("age_limit"):     λ.NewInt(18),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.xtube.com/video-watch/A-Super-Run-Part-1-YT-9299752"),
-					λ.NewStr("md5"): λ.NewStr("a406963eb349dd43692ec54631efd88b"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("9299752"),
-						λ.NewStr("display_id"):    λ.NewStr("A-Super-Run-Part-1-YT"),
-						λ.NewStr("ext"):           λ.NewStr("flv"),
-						λ.NewStr("title"):         λ.NewStr("A Super Run - Part 1 (YT)"),
-						λ.NewStr("description"):   λ.NewStr("md5:ca0d47afff4a9b2942e4b41aa970fd93"),
-						λ.NewStr("uploader"):      λ.NewStr("tshirtguy59"),
-						λ.NewStr("duration"):      λ.NewInt(579),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-						λ.NewStr("age_limit"):     λ.NewInt(18),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.xtube.com/video-watch/strange-erotica-625837"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("xtube:625837"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("xtube:kVTUy_G222_"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.xtube.com/video-watch/embedded/milf-tara-and-teen-shared-and-cum-covered-extreme-bukkake-32203482?embedsize=big"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			XTubeIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -253,7 +203,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        XTubeIE__TESTS,
 				λ.NewStr("_VALID_URL"):    XTubeIE__VALID_URL,
 				λ.NewStr("_real_extract"): XTubeIE__real_extract,
 			})

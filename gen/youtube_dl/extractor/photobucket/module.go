@@ -44,23 +44,10 @@ func init() {
 		ϒcompat_urllib_parse_unquote = Ωcompat.ϒcompat_urllib_parse_unquote
 		PhotobucketIE = λ.Cal(λ.TypeType, λ.NewStr("PhotobucketIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				PhotobucketIE__TEST         λ.Object
 				PhotobucketIE__VALID_URL    λ.Object
 				PhotobucketIE__real_extract λ.Object
 			)
 			PhotobucketIE__VALID_URL = λ.NewStr("https?://(?:[a-z0-9]+\\.)?photobucket\\.com/.*(([\\?\\&]current=)|_)(?P<id>.*)\\.(?P<ext>(flv)|(mp4))")
-			PhotobucketIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://media.photobucket.com/user/rachaneronas/media/TiredofLinkBuildingTryBacklinkMyDomaincom_zpsc0c3b9fa.mp4.html?filters[term]=search&filters[primary]=videos&filters[secondary]=images&sort=1&o=0"),
-				λ.NewStr("md5"): λ.NewStr("7dabfb92b0a31f6c16cebc0f8e60ff99"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("zpsc0c3b9fa"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("timestamp"):   λ.NewInt(1367669341),
-					λ.NewStr("upload_date"): λ.NewStr("20130504"),
-					λ.NewStr("uploader"):    λ.NewStr("rachaneronas"),
-					λ.NewStr("title"):       λ.NewStr("Tired of Link Building? Try BacklinkMyDomain.com!"),
-				}),
-			})
 			PhotobucketIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -97,7 +84,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         PhotobucketIE__TEST,
 				λ.NewStr("_VALID_URL"):    PhotobucketIE__VALID_URL,
 				λ.NewStr("_real_extract"): PhotobucketIE__real_extract,
 			})

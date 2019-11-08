@@ -53,79 +53,10 @@ func init() {
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		DisneyIE = λ.Cal(λ.TypeType, λ.NewStr("DisneyIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				DisneyIE__TESTS        λ.Object
 				DisneyIE__VALID_URL    λ.Object
 				DisneyIE__real_extract λ.Object
 			)
 			DisneyIE__VALID_URL = λ.NewStr("(?x)\n        https?://(?P<domain>(?:[^/]+\\.)?(?:disney\\.[a-z]{2,3}(?:\\.[a-z]{2})?|disney(?:(?:me|latino)\\.com|turkiye\\.com\\.tr|channel\\.de)|(?:starwars|marvelkids)\\.com))/(?:(?:embed/|(?:[^/]+/)+[\\w-]+-)(?P<id>[a-z0-9]{24})|(?:[^/]+/)?(?P<display_id>[^/?#]+))")
-			DisneyIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://video.disney.com/watch/moana-trailer-545ed1857afee5a0ec239977"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("545ed1857afee5a0ec239977"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Moana - Trailer"),
-						λ.NewStr("description"): λ.NewStr("A fun adventure for the entire Family!  Bring home Moana on Digital HD Feb 21 & Blu-ray March 7"),
-						λ.NewStr("upload_date"): λ.NewStr("20170112"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.starwars.com/video/rogue-one-a-star-wars-story-intro-featurette"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("5454e9f4e9804a552e3524c8"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("\"Intro\" Featurette: Rogue One: A Star Wars Story"),
-						λ.NewStr("upload_date"): λ.NewStr("20170104"),
-						λ.NewStr("description"): λ.NewStr("Go behind-the-scenes of Rogue One: A Star Wars Story in this featurette with Director Gareth Edwards and the cast of the film."),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://videos.disneylatino.com/ver/spider-man-de-regreso-a-casa-primer-adelanto-543a33a1850bdcfcca13bae2"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://video.en.disneyme.com/watch/future-worm/robo-carp-2001-544b66002aa7353cdd3f5114"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://video.disneyturkiye.com.tr/izle/7c-7-cuceler/kimin-sesi-zaten-5456f3d015f6b36c8afdd0e2"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://disneyjunior.disney.com/embed/546a4798ddba3d1612e4005d"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.starwars.com/embed/54690d1e6c42e5f09a0fb097"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://spiderman.marvelkids.com/embed/522900d2ced3c565e4cc0677"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://spiderman.marvelkids.com/videos/contest-of-champions-part-four-clip-1"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://disneyjunior.en.disneyme.com/dj/watch-my-friends-tigger-and-pooh-promo"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://disneychannel.de/sehen/soy-luna-folge-118-5518518987ba27f3cc729268"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://disneyjunior.disney.com/galactech-the-galactech-grab-galactech-an-admiral-rescue"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			DisneyIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -367,7 +298,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        DisneyIE__TESTS,
 				λ.NewStr("_VALID_URL"):    DisneyIE__VALID_URL,
 				λ.NewStr("_real_extract"): DisneyIE__real_extract,
 			})

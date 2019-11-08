@@ -50,35 +50,10 @@ func init() {
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		FXNetworksIE = λ.Cal(λ.TypeType, λ.NewStr("FXNetworksIE"), λ.NewTuple(AdobePassIE), func() λ.Dict {
 			var (
-				FXNetworksIE__TESTS        λ.Object
 				FXNetworksIE__VALID_URL    λ.Object
 				FXNetworksIE__real_extract λ.Object
 			)
 			FXNetworksIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?:fxnetworks|simpsonsworld)\\.com/video/(?P<id>\\d+)")
-			FXNetworksIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.fxnetworks.com/video/1032565827847"),
-					λ.NewStr("md5"): λ.NewStr("8d99b97b4aa7a202f55b6ed47ea7e703"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):             λ.NewStr("dRzwHC_MMqIv"),
-						λ.NewStr("ext"):            λ.NewStr("mp4"),
-						λ.NewStr("title"):          λ.NewStr("First Look: Better Things - Season 2"),
-						λ.NewStr("description"):    λ.NewStr("Because real life is like a fart. Watch this FIRST LOOK to see what inspired the new season of Better Things."),
-						λ.NewStr("age_limit"):      λ.NewInt(14),
-						λ.NewStr("uploader"):       λ.NewStr("NEWA-FNG-FX"),
-						λ.NewStr("upload_date"):    λ.NewStr("20170825"),
-						λ.NewStr("timestamp"):      λ.NewInt(1503686274),
-						λ.NewStr("episode_number"): λ.NewInt(0),
-						λ.NewStr("season_number"):  λ.NewInt(2),
-						λ.NewStr("series"):         λ.NewStr("Better Things"),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("ThePlatform")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.simpsonsworld.com/video/716094019682"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			FXNetworksIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -147,7 +122,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        FXNetworksIE__TESTS,
 				λ.NewStr("_VALID_URL"):    FXNetworksIE__VALID_URL,
 				λ.NewStr("_real_extract"): FXNetworksIE__real_extract,
 			})

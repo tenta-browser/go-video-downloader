@@ -47,74 +47,11 @@ func init() {
 		NTVRuIE = λ.Cal(λ.TypeType, λ.NewStr("NTVRuIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				NTVRuIE_IE_NAME       λ.Object
-				NTVRuIE__TESTS        λ.Object
 				NTVRuIE__VALID_URL    λ.Object
 				NTVRuIE__real_extract λ.Object
 			)
 			NTVRuIE_IE_NAME = λ.NewStr("ntv.ru")
 			NTVRuIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?ntv\\.ru/(?:[^/]+/)*(?P<id>[^/?#&]+)")
-			NTVRuIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.ntv.ru/novosti/863142/"),
-					λ.NewStr("md5"): λ.NewStr("ba7ea172a91cb83eb734cad18c10e723"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("746000"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Командующий Черноморским флотом провел переговоры в штабе ВМС Украины"),
-						λ.NewStr("description"): λ.NewStr("Командующий Черноморским флотом провел переговоры в штабе ВМС Украины"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^http://.*\\.jpg"),
-						λ.NewStr("duration"):    λ.NewInt(136),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.ntv.ru/video/novosti/750370/"),
-					λ.NewStr("md5"): λ.NewStr("adecff79691b4d71e25220a191477124"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("750370"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Родные пассажиров пропавшего Boeing не верят в трагический исход"),
-						λ.NewStr("description"): λ.NewStr("Родные пассажиров пропавшего Boeing не верят в трагический исход"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^http://.*\\.jpg"),
-						λ.NewStr("duration"):    λ.NewInt(172),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.ntv.ru/peredacha/segodnya/m23700/o232416"),
-					λ.NewStr("md5"): λ.NewStr("82dbd49b38e3af1d00df16acbeab260c"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("747480"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("«Сегодня». 21 марта 2014 года. 16:00"),
-						λ.NewStr("description"): λ.NewStr("«Сегодня». 21 марта 2014 года. 16:00"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^http://.*\\.jpg"),
-						λ.NewStr("duration"):    λ.NewInt(1496),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.ntv.ru/kino/Koma_film"),
-					λ.NewStr("md5"): λ.NewStr("f825770930937aa7e5aca0dc0d29319a"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1007609"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Остросюжетный фильм «Кома»"),
-						λ.NewStr("description"): λ.NewStr("Остросюжетный фильм «Кома»"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^http://.*\\.jpg"),
-						λ.NewStr("duration"):    λ.NewInt(5592),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.ntv.ru/serial/Delo_vrachey/m31760/o233916/"),
-					λ.NewStr("md5"): λ.NewStr("9320cd0e23f3ea59c330dc744e06ff3b"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("751482"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("«Дело врачей»: «Деревце жизни»"),
-						λ.NewStr("description"): λ.NewStr("«Дело врачей»: «Деревце жизни»"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^http://.*\\.jpg"),
-						λ.NewStr("duration"):    λ.NewInt(2590),
-					}),
-				}),
-			)
 			NTVRuIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -224,7 +161,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       NTVRuIE_IE_NAME,
-				λ.NewStr("_TESTS"):        NTVRuIE__TESTS,
 				λ.NewStr("_VALID_URL"):    NTVRuIE__VALID_URL,
 				λ.NewStr("_real_extract"): NTVRuIE__real_extract,
 			})

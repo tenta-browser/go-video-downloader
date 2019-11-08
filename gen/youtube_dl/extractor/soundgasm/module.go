@@ -42,23 +42,11 @@ func init() {
 		SoundgasmIE = λ.Cal(λ.TypeType, λ.NewStr("SoundgasmIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SoundgasmIE_IE_NAME       λ.Object
-				SoundgasmIE__TEST         λ.Object
 				SoundgasmIE__VALID_URL    λ.Object
 				SoundgasmIE__real_extract λ.Object
 			)
 			SoundgasmIE_IE_NAME = λ.NewStr("soundgasm")
 			SoundgasmIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?soundgasm\\.net/u/(?P<user>[0-9a-zA-Z_-]+)/(?P<display_id>[0-9a-zA-Z_-]+)")
-			SoundgasmIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://soundgasm.net/u/ytdl/Piano-sample"),
-				λ.NewStr("md5"): λ.NewStr("010082a2c802c5275bb00030743e75ad"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("88abd86ea000cafe98f96321b23cc1206cbcbcc9"),
-					λ.NewStr("ext"):         λ.NewStr("m4a"),
-					λ.NewStr("title"):       λ.NewStr("Piano sample"),
-					λ.NewStr("description"): λ.NewStr("Royalty Free Sample Music"),
-					λ.NewStr("uploader"):    λ.NewStr("ytdl"),
-				}),
-			})
 			SoundgasmIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -123,7 +111,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       SoundgasmIE_IE_NAME,
-				λ.NewStr("_TEST"):         SoundgasmIE__TEST,
 				λ.NewStr("_VALID_URL"):    SoundgasmIE__VALID_URL,
 				λ.NewStr("_real_extract"): SoundgasmIE__real_extract,
 			})

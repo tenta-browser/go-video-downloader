@@ -55,72 +55,10 @@ func init() {
 		ϒurl_basename = Ωutils.ϒurl_basename
 		AllocineIE = λ.Cal(λ.TypeType, λ.NewStr("AllocineIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				AllocineIE__TESTS        λ.Object
 				AllocineIE__VALID_URL    λ.Object
 				AllocineIE__real_extract λ.Object
 			)
 			AllocineIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?allocine\\.fr/(?:article|video|film)/(?:fichearticle_gen_carticle=|player_gen_cmedia=|fichefilm_gen_cfilm=|video-)(?P<id>[0-9]+)(?:\\.html)?")
-			AllocineIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.allocine.fr/article/fichearticle_gen_carticle=18635087.html"),
-					λ.NewStr("md5"): λ.NewStr("0c9fcf59a841f65635fa300ac43d8269"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("19546517"),
-						λ.NewStr("display_id"):  λ.NewStr("18635087"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Astérix - Le Domaine des Dieux Teaser VF"),
-						λ.NewStr("description"): λ.NewStr("md5:4a754271d9c6f16c72629a8a993ee884"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:http://.*\\.jpg"),
-						λ.NewStr("duration"):    λ.NewInt(39),
-						λ.NewStr("timestamp"):   λ.NewInt(1404273600),
-						λ.NewStr("upload_date"): λ.NewStr("20140702"),
-						λ.NewStr("view_count"):  λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.allocine.fr/video/player_gen_cmedia=19540403&cfilm=222257.html"),
-					λ.NewStr("md5"): λ.NewStr("d0cdce5d2b9522ce279fdfec07ff16e0"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("19540403"),
-						λ.NewStr("display_id"):  λ.NewStr("19540403"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Planes 2 Bande-annonce VF"),
-						λ.NewStr("description"): λ.NewStr("Regardez la bande annonce du film Planes 2 (Planes 2 Bande-annonce VF). Planes 2, un film de Roberts Gannaway"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:http://.*\\.jpg"),
-						λ.NewStr("duration"):    λ.NewInt(69),
-						λ.NewStr("timestamp"):   λ.NewInt(1385659800),
-						λ.NewStr("upload_date"): λ.NewStr("20131128"),
-						λ.NewStr("view_count"):  λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.allocine.fr/video/player_gen_cmedia=19544709&cfilm=181290.html"),
-					λ.NewStr("md5"): λ.NewStr("101250fb127ef9ca3d73186ff22a47ce"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("19544709"),
-						λ.NewStr("display_id"):  λ.NewStr("19544709"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Dragons 2 - Bande annonce finale VF"),
-						λ.NewStr("description"): λ.NewStr("md5:6cdd2d7c2687d4c6aafe80a35e17267a"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:http://.*\\.jpg"),
-						λ.NewStr("duration"):    λ.NewInt(144),
-						λ.NewStr("timestamp"):   λ.NewInt(1397589900),
-						λ.NewStr("upload_date"): λ.NewStr("20140415"),
-						λ.NewStr("view_count"):  λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.allocine.fr/video/video-19550147/"),
-					λ.NewStr("md5"): λ.NewStr("3566c0668c0235e2d224fd8edb389f67"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("19550147"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Faux Raccord N°123 - Les gaffes de Cliffhanger"),
-						λ.NewStr("description"): λ.NewStr("md5:bc734b83ffa2d8a12188d9eb48bb6354"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:http://.*\\.jpg"),
-					}),
-				}),
-			)
 			AllocineIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -240,7 +178,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        AllocineIE__TESTS,
 				λ.NewStr("_VALID_URL"):    AllocineIE__VALID_URL,
 				λ.NewStr("_real_extract"): AllocineIE__real_extract,
 			})

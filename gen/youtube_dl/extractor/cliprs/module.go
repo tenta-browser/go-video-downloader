@@ -39,24 +39,10 @@ func init() {
 		OnetBaseIE = Ωonet.OnetBaseIE
 		ClipRsIE = λ.Cal(λ.TypeType, λ.NewStr("ClipRsIE"), λ.NewTuple(OnetBaseIE), func() λ.Dict {
 			var (
-				ClipRsIE__TEST         λ.Object
 				ClipRsIE__VALID_URL    λ.Object
 				ClipRsIE__real_extract λ.Object
 			)
 			ClipRsIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?clip\\.rs/(?P<id>[^/]+)/\\d+")
-			ClipRsIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.clip.rs/premijera-frajle-predstavljaju-novi-spot-za-pesmu-moli-me-moli/3732"),
-				λ.NewStr("md5"): λ.NewStr("c412d57815ba07b56f9edc7b5d6a14e5"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("1488842.1399140381"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("PREMIJERA Frajle predstavljaju novi spot za pesmu Moli me, moli"),
-					λ.NewStr("description"): λ.NewStr("md5:56ce2c3b4ab31c5a2e0b17cb9a453026"),
-					λ.NewStr("duration"):    λ.NewInt(229),
-					λ.NewStr("timestamp"):   λ.NewInt(1459850243),
-					λ.NewStr("upload_date"): λ.NewStr("20160405"),
-				}),
-			})
 			ClipRsIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -80,7 +66,6 @@ func init() {
 					return ϒinfo_dict
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         ClipRsIE__TEST,
 				λ.NewStr("_VALID_URL"):    ClipRsIE__VALID_URL,
 				λ.NewStr("_real_extract"): ClipRsIE__real_extract,
 			})

@@ -50,7 +50,6 @@ func init() {
 		BokeCCBaseIE = Ωbokecc.BokeCCBaseIE
 		InfoQIE = λ.Cal(λ.TypeType, λ.NewStr("InfoQIE"), λ.NewTuple(BokeCCBaseIE), func() λ.Dict {
 			var (
-				InfoQIE__TESTS              λ.Object
 				InfoQIE__VALID_URL          λ.Object
 				InfoQIE__extract_cf_auth    λ.Object
 				InfoQIE__extract_http_audio λ.Object
@@ -59,45 +58,6 @@ func init() {
 				InfoQIE__real_extract       λ.Object
 			)
 			InfoQIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?infoq\\.com/(?:[^/]+/)+(?P<id>[^/]+)")
-			InfoQIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.infoq.com/presentations/A-Few-of-My-Favorite-Python-Things"),
-					λ.NewStr("md5"): λ.NewStr("b5ca0e0a8c1fed93b0e65e48e462f9a2"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("A-Few-of-My-Favorite-Python-Things"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("description"): λ.NewStr("Mike Pirnat presents some tips and tricks, standard libraries and third party packages that make programming in Python a richer experience."),
-						λ.NewStr("title"):       λ.NewStr("A Few of My Favorite [Python] Things"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.infoq.com/fr/presentations/changez-avis-sur-javascript"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.infoq.com/cn/presentations/openstack-continued-delivery"),
-					λ.NewStr("md5"): λ.NewStr("4918d0cca1497f2244572caf626687ef"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("openstack-continued-delivery"),
-						λ.NewStr("title"):       λ.NewStr("OpenStack持续交付之路"),
-						λ.NewStr("ext"):         λ.NewStr("flv"),
-						λ.NewStr("description"): λ.NewStr("md5:308d981fb28fa42f49f9568322c683ff"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.infoq.com/presentations/Simple-Made-Easy"),
-					λ.NewStr("md5"): λ.NewStr("0e34642d4d9ef44bf86f66f6399672db"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("Simple-Made-Easy"),
-						λ.NewStr("title"):       λ.NewStr("Simple Made Easy"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("description"): λ.NewStr("md5:3e0e213a8bbd074796ef89ea35ada25b"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("format"): λ.NewStr("bestaudio"),
-					}),
-				}),
-			)
 			InfoQIE__extract_rtmp_video = λ.NewFunction("_extract_rtmp_video",
 				[]λ.Param{
 					{Name: "self"},
@@ -237,7 +197,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):              InfoQIE__TESTS,
 				λ.NewStr("_VALID_URL"):          InfoQIE__VALID_URL,
 				λ.NewStr("_extract_cf_auth"):    InfoQIE__extract_cf_auth,
 				λ.NewStr("_extract_http_audio"): InfoQIE__extract_http_audio,

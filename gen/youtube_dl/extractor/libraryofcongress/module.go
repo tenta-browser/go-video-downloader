@@ -50,61 +50,11 @@ func init() {
 		LibraryOfCongressIE = λ.Cal(λ.TypeType, λ.NewStr("LibraryOfCongressIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				LibraryOfCongressIE_IE_NAME       λ.Object
-				LibraryOfCongressIE__TESTS        λ.Object
 				LibraryOfCongressIE__VALID_URL    λ.Object
 				LibraryOfCongressIE__real_extract λ.Object
 			)
 			LibraryOfCongressIE_IE_NAME = λ.NewStr("loc")
 			LibraryOfCongressIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?loc\\.gov/(?:item/|today/cyberlc/feature_wdesc\\.php\\?.*\\brec=)(?P<id>[0-9a-z_.]+)")
-			LibraryOfCongressIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://loc.gov/item/90716351/"),
-					λ.NewStr("md5"): λ.NewStr("6ec0ae8f07f86731b1b2ff70f046210a"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("90716351"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("Pa's trip to Mars"),
-						λ.NewStr("duration"):   λ.NewInt(0),
-						λ.NewStr("view_count"): λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.loc.gov/today/cyberlc/feature_wdesc.php?rec=5578"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("5578"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("Help! Preservation Training Needs Here, There & Everywhere"),
-						λ.NewStr("duration"):   λ.NewInt(3765),
-						λ.NewStr("view_count"): λ.IntType,
-						λ.NewStr("subtitles"):  λ.NewStr("mincount:1"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.loc.gov/item/78710669/"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("78710669"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("La vie et la passion de Jesus-Christ"),
-						λ.NewStr("duration"):   λ.NewInt(0),
-						λ.NewStr("view_count"): λ.IntType,
-						λ.NewStr("formats"):    λ.NewStr("mincount:4"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.loc.gov/item/ihas.200197114/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.loc.gov/item/afc1981005_afs20503/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			LibraryOfCongressIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -249,7 +199,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       LibraryOfCongressIE_IE_NAME,
-				λ.NewStr("_TESTS"):        LibraryOfCongressIE__TESTS,
 				λ.NewStr("_VALID_URL"):    LibraryOfCongressIE__VALID_URL,
 				λ.NewStr("_real_extract"): LibraryOfCongressIE__real_extract,
 			})

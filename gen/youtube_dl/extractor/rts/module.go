@@ -54,101 +54,10 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		RTSIE = λ.Cal(λ.TypeType, λ.NewStr("RTSIE"), λ.NewTuple(SRGSSRIE), func() λ.Dict {
 			var (
-				RTSIE__TESTS        λ.Object
 				RTSIE__VALID_URL    λ.Object
 				RTSIE__real_extract λ.Object
 			)
 			RTSIE__VALID_URL = λ.NewStr("rts:(?P<rts_id>\\d+)|https?://(?:.+?\\.)?rts\\.ch/(?:[^/]+/){2,}(?P<id>[0-9]+)-(?P<display_id>.+?)\\.html")
-			RTSIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.rts.ch/archives/tv/divers/3449373-les-enfants-terribles.html"),
-					λ.NewStr("md5"): λ.NewStr("ff7f8450a90cf58dacb64e29707b4a8e"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("3449373"),
-						λ.NewStr("display_id"):  λ.NewStr("les-enfants-terribles"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("duration"):    λ.NewInt(1488),
-						λ.NewStr("title"):       λ.NewStr("Les Enfants Terribles"),
-						λ.NewStr("description"): λ.NewStr("France Pommier et sa soeur Luce Feral, les deux filles de ce groupe de 5."),
-						λ.NewStr("uploader"):    λ.NewStr("Divers"),
-						λ.NewStr("upload_date"): λ.NewStr("19680921"),
-						λ.NewStr("timestamp"):   λ.Neg(λ.NewInt(40280400)),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.image"),
-						λ.NewStr("view_count"):  λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.rts.ch/emissions/passe-moi-les-jumelles/5624067-entre-ciel-et-mer.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("5624065"),
-						λ.NewStr("title"): λ.NewStr("Passe-moi les jumelles"),
-					}),
-					λ.NewStr("playlist_mincount"): λ.NewInt(4),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.rts.ch/video/sport/hockey/5745975-1-2-kloten-fribourg-5-2-second-but-pour-gotteron-par-kwiatowski.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("5745975"),
-						λ.NewStr("display_id"):  λ.NewStr("1-2-kloten-fribourg-5-2-second-but-pour-gotteron-par-kwiatowski"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("duration"):    λ.NewInt(48),
-						λ.NewStr("title"):       λ.NewStr("1/2, Kloten - Fribourg (5-2): second but pour Gottéron par Kwiatowski"),
-						λ.NewStr("description"): λ.NewStr("Hockey - Playoff"),
-						λ.NewStr("uploader"):    λ.NewStr("Hockey"),
-						λ.NewStr("upload_date"): λ.NewStr("20140403"),
-						λ.NewStr("timestamp"):   λ.NewInt(1396556882),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.image"),
-						λ.NewStr("view_count"):  λ.IntType,
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("skip"): λ.NewStr("Blocked outside Switzerland"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.rts.ch/video/info/journal-continu/5745356-londres-cachee-par-un-epais-smog.html"),
-					λ.NewStr("md5"): λ.NewStr("1bae984fe7b1f78e94abc74e802ed99f"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("5745356"),
-						λ.NewStr("display_id"):  λ.NewStr("londres-cachee-par-un-epais-smog"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("duration"):    λ.NewInt(33),
-						λ.NewStr("title"):       λ.NewStr("Londres cachée par un épais smog"),
-						λ.NewStr("description"): λ.NewStr("Un important voile de smog recouvre Londres depuis mercredi, provoqué par la pollution et du sable du Sahara."),
-						λ.NewStr("uploader"):    λ.NewStr("L'actu en vidéo"),
-						λ.NewStr("upload_date"): λ.NewStr("20140403"),
-						λ.NewStr("timestamp"):   λ.NewInt(1396537322),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.image"),
-						λ.NewStr("view_count"):  λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.rts.ch/audio/couleur3/programmes/la-belle-video-de-stephane-laurenceau/5706148-urban-hippie-de-damien-krisl-03-04-2014.html"),
-					λ.NewStr("md5"): λ.NewStr("dd8ef6a22dff163d063e2a52bc8adcae"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("5706148"),
-						λ.NewStr("display_id"):  λ.NewStr("urban-hippie-de-damien-krisl-03-04-2014"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("duration"):    λ.NewInt(123),
-						λ.NewStr("title"):       λ.NewStr("\"Urban Hippie\", de Damien Krisl"),
-						λ.NewStr("description"): λ.NewStr("Des Hippies super glam."),
-						λ.NewStr("upload_date"): λ.NewStr("20140403"),
-						λ.NewStr("timestamp"):   λ.NewInt(1396551600),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.rts.ch/sport/hockey/6693917-hockey-davos-decroche-son-31e-titre-de-champion-de-suisse.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("6693917"),
-						λ.NewStr("title"): λ.NewStr("Hockey: Davos décroche son 31e titre de champion de Suisse"),
-					}),
-					λ.NewStr("playlist_mincount"): λ.NewInt(5),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://pages.rts.ch/emissions/passe-moi-les-jumelles/5624065-entre-ciel-et-mer.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			RTSIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -445,7 +354,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        RTSIE__TESTS,
 				λ.NewStr("_VALID_URL"):    RTSIE__VALID_URL,
 				λ.NewStr("_real_extract"): RTSIE__real_extract,
 			})

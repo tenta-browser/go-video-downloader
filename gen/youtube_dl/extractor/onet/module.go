@@ -302,31 +302,11 @@ func init() {
 		OnetIE = λ.Cal(λ.TypeType, λ.NewStr("OnetIE"), λ.NewTuple(OnetBaseIE), func() λ.Dict {
 			var (
 				OnetIE_IE_NAME       λ.Object
-				OnetIE__TESTS        λ.Object
 				OnetIE__VALID_URL    λ.Object
 				OnetIE__real_extract λ.Object
 			)
 			OnetIE__VALID_URL = λ.Add(λ.GetAttr(OnetBaseIE, "_URL_BASE_RE", nil), λ.NewStr("[a-z]+/(?P<display_id>[0-9a-z-]+)/(?P<id>[0-9a-z]+)"))
 			OnetIE_IE_NAME = λ.NewStr("onet.tv")
-			OnetIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://onet.tv/k/openerfestival/open-er-festival-2016-najdziwniejsze-wymagania-gwiazd/qbpyqc"),
-					λ.NewStr("md5"): λ.NewStr("436102770fb095c75b8bb0392d3da9ff"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("qbpyqc"),
-						λ.NewStr("display_id"):  λ.NewStr("open-er-festival-2016-najdziwniejsze-wymagania-gwiazd"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Open'er Festival 2016: najdziwniejsze wymagania gwiazd"),
-						λ.NewStr("description"): λ.NewStr("Trzy samochody, których nigdy nie użyto, prywatne spa, hotel dekorowany czarnym suknem czy nielegalne używki. Organizatorzy koncertów i festiwali muszą stawać przed nie lada wyzwaniem zapraszając gwia..."),
-						λ.NewStr("upload_date"): λ.NewStr("20160705"),
-						λ.NewStr("timestamp"):   λ.NewInt(1467721580),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://onet100.vod.pl/k/openerfestival/open-er-festival-2016-najdziwniejsze-wymagania-gwiazd/qbpyqc"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			OnetIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -360,7 +340,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       OnetIE_IE_NAME,
-				λ.NewStr("_TESTS"):        OnetIE__TESTS,
 				λ.NewStr("_VALID_URL"):    OnetIE__VALID_URL,
 				λ.NewStr("_real_extract"): OnetIE__real_extract,
 			})
@@ -368,27 +347,11 @@ func init() {
 		OnetChannelIE = λ.Cal(λ.TypeType, λ.NewStr("OnetChannelIE"), λ.NewTuple(OnetBaseIE), func() λ.Dict {
 			var (
 				OnetChannelIE_IE_NAME       λ.Object
-				OnetChannelIE__TESTS        λ.Object
 				OnetChannelIE__VALID_URL    λ.Object
 				OnetChannelIE__real_extract λ.Object
 			)
 			OnetChannelIE__VALID_URL = λ.Add(λ.GetAttr(OnetBaseIE, "_URL_BASE_RE", nil), λ.NewStr("(?P<id>[a-z]+)(?:[?#]|$)"))
 			OnetChannelIE_IE_NAME = λ.NewStr("onet.tv:channel")
-			OnetChannelIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://onet.tv/k/openerfestival"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("openerfestival"),
-						λ.NewStr("title"):       λ.NewStr("Open'er Festival"),
-						λ.NewStr("description"): λ.NewStr("Tak było na Open'er Festival 2016! Oglądaj nasze reportaże i wywiady z artystami."),
-					}),
-					λ.NewStr("playlist_mincount"): λ.NewInt(35),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://onet100.vod.pl/k/openerfestival"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			OnetChannelIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -465,7 +428,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       OnetChannelIE_IE_NAME,
-				λ.NewStr("_TESTS"):        OnetChannelIE__TESTS,
 				λ.NewStr("_VALID_URL"):    OnetChannelIE__VALID_URL,
 				λ.NewStr("_real_extract"): OnetChannelIE__real_extract,
 			})

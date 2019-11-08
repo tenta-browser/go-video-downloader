@@ -52,44 +52,10 @@ func init() {
 		ϒget_element_by_id = Ωutils.ϒget_element_by_id
 		VeeHDIE = λ.Cal(λ.TypeType, λ.NewStr("VeeHDIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				VeeHDIE__TESTS        λ.Object
 				VeeHDIE__VALID_URL    λ.Object
 				VeeHDIE__real_extract λ.Object
 			)
 			VeeHDIE__VALID_URL = λ.NewStr("https?://veehd\\.com/video/(?P<id>\\d+)")
-			VeeHDIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://veehd.com/video/4639434_Solar-Sinter"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("4639434"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Solar Sinter"),
-						λ.NewStr("uploader_id"): λ.NewStr("VideoEyes"),
-						λ.NewStr("description"): λ.NewStr("md5:46a840e8692ddbaffb5f81d9885cb457"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("Video deleted"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://veehd.com/video/4905758_Elysian-Fields-Channeling"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("4905758"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Elysian Fields - Channeling"),
-						λ.NewStr("description"): λ.NewStr("md5:360e4e95fdab58aefbea0f2a19e5604b"),
-						λ.NewStr("uploader_id"): λ.NewStr("spotted"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://veehd.com/video/2046729_2012-2009-DivX-Trailer"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("2046729"),
-						λ.NewStr("ext"):         λ.NewStr("avi"),
-						λ.NewStr("title"):       λ.NewStr("2012 (2009) DivX Trailer"),
-						λ.NewStr("description"): λ.NewStr("md5:75435ee95255e6a9838ac6f6f3a2396b"),
-						λ.NewStr("uploader_id"): λ.NewStr("Movie_Trailers"),
-					}),
-				}),
-			)
 			VeeHDIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -177,7 +143,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        VeeHDIE__TESTS,
 				λ.NewStr("_VALID_URL"):    VeeHDIE__VALID_URL,
 				λ.NewStr("_real_extract"): VeeHDIE__real_extract,
 			})

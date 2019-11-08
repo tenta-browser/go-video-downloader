@@ -45,33 +45,10 @@ func init() {
 		KeezMoviesIE = Ωkeezmovies.KeezMoviesIE
 		Tube8IE = λ.Cal(λ.TypeType, λ.NewStr("Tube8IE"), λ.NewTuple(KeezMoviesIE), func() λ.Dict {
 			var (
-				Tube8IE__TESTS        λ.Object
 				Tube8IE__VALID_URL    λ.Object
 				Tube8IE__real_extract λ.Object
 			)
 			Tube8IE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tube8\\.com/(?:[^/]+/)+(?P<display_id>[^/]+)/(?P<id>\\d+)")
-			Tube8IE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.tube8.com/teen/kasia-music-video/229795/"),
-					λ.NewStr("md5"): λ.NewStr("65e20c48e6abff62ed0c3965fff13a39"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("229795"),
-						λ.NewStr("display_id"):  λ.NewStr("kasia-music-video"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("description"): λ.NewStr("hot teen Kasia grinding"),
-						λ.NewStr("uploader"):    λ.NewStr("unknown"),
-						λ.NewStr("title"):       λ.NewStr("Kasia music video"),
-						λ.NewStr("age_limit"):   λ.NewInt(18),
-						λ.NewStr("duration"):    λ.NewInt(230),
-						λ.NewStr("categories"):  λ.NewList(λ.NewStr("Teen")),
-						λ.NewStr("tags"):        λ.NewList(λ.NewStr("dancing")),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.tube8.com/shemale/teen/blonde-cd-gets-kidnapped-by-two-blacks-and-punished-for-being-a-slutty-girl/19569151/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			Tube8IE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -205,7 +182,6 @@ func init() {
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        Tube8IE__TESTS,
 				λ.NewStr("_VALID_URL"):    Tube8IE__VALID_URL,
 				λ.NewStr("_real_extract"): Tube8IE__real_extract,
 			})

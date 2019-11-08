@@ -40,28 +40,10 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		TheSceneIE = λ.Cal(λ.TypeType, λ.NewStr("TheSceneIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				TheSceneIE__TEST         λ.Object
 				TheSceneIE__VALID_URL    λ.Object
 				TheSceneIE__real_extract λ.Object
 			)
 			TheSceneIE__VALID_URL = λ.NewStr("https?://thescene\\.com/watch/[^/]+/(?P<id>[^/#?]+)")
-			TheSceneIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://thescene.com/watch/vogue/narciso-rodriguez-spring-2013-ready-to-wear"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("520e8faac2b4c00e3c6e5f43"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Narciso Rodriguez: Spring 2013 Ready-to-Wear"),
-					λ.NewStr("display_id"):  λ.NewStr("narciso-rodriguez-spring-2013-ready-to-wear"),
-					λ.NewStr("duration"):    λ.NewInt(127),
-					λ.NewStr("series"):      λ.NewStr("Style.com Fashion Shows"),
-					λ.NewStr("season"):      λ.NewStr("Ready To Wear Spring 2013"),
-					λ.NewStr("tags"):        λ.ListType,
-					λ.NewStr("categories"):  λ.ListType,
-					λ.NewStr("upload_date"): λ.NewStr("20120913"),
-					λ.NewStr("timestamp"):   λ.NewInt(1347512400),
-					λ.NewStr("uploader"):    λ.NewStr("vogue"),
-				}),
-			})
 			TheSceneIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -87,7 +69,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         TheSceneIE__TEST,
 				λ.NewStr("_VALID_URL"):    TheSceneIE__VALID_URL,
 				λ.NewStr("_real_extract"): TheSceneIE__real_extract,
 			})

@@ -364,78 +364,10 @@ func init() {
 			AdobePassIE,
 		), func() λ.Dict {
 			var (
-				ThePlatformIE__TESTS        λ.Object
 				ThePlatformIE__VALID_URL    λ.Object
 				ThePlatformIE__real_extract λ.Object
 			)
 			ThePlatformIE__VALID_URL = λ.NewStr("(?x)\n        (?:https?://(?:link|player)\\.theplatform\\.com/[sp]/(?P<provider_id>[^/]+)/\n           (?:(?:(?:[^/]+/)+select/)?(?P<media>media/(?:guid/\\d+/)?)?|(?P<config>(?:[^/\\?]+/(?:swf|config)|onsite)/select/))?\n         |theplatform:)(?P<id>[^/\\?&]+)")
-			ThePlatformIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://link.theplatform.com/s/dJ5BDC/e9I_cZgTgIPd/meta.smil?format=smil&Tracking=true&mbr=true"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("e9I_cZgTgIPd"),
-						λ.NewStr("ext"):         λ.NewStr("flv"),
-						λ.NewStr("title"):       λ.NewStr("Blackberry's big, bold Z30"),
-						λ.NewStr("description"): λ.NewStr("The Z30 is Blackberry's biggest, baddest mobile messaging device yet."),
-						λ.NewStr("duration"):    λ.NewInt(247),
-						λ.NewStr("timestamp"):   λ.NewInt(1383239700),
-						λ.NewStr("upload_date"): λ.NewStr("20131031"),
-						λ.NewStr("uploader"):    λ.NewStr("CBSI-NEW"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("skip"): λ.NewStr("404 Not Found"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://link.theplatform.com/s/kYEXFC/22d_qsQ6MIRT"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("22d_qsQ6MIRT"),
-						λ.NewStr("ext"):         λ.NewStr("flv"),
-						λ.NewStr("description"): λ.NewStr("md5:ac330c9258c04f9d7512cf26b9595409"),
-						λ.NewStr("title"):       λ.NewStr("Tesla Model S: A second step towards a cleaner motoring future"),
-						λ.NewStr("timestamp"):   λ.NewInt(1426176191),
-						λ.NewStr("upload_date"): λ.NewStr("20150312"),
-						λ.NewStr("uploader"):    λ.NewStr("CBSI-NEW"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://player.theplatform.com/p/D6x-PC/pulse_preview/embed/select/media/yMBg9E8KFxZD"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("yMBg9E8KFxZD"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("description"): λ.NewStr("md5:644ad9188d655b742f942bf2e06b002d"),
-						λ.NewStr("title"):       λ.NewStr("HIGHLIGHTS: USA bag first ever series Cup win"),
-						λ.NewStr("uploader"):    λ.NewStr("EGSM"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://player.theplatform.com/p/NnzsPC/widget/select/media/4Y0TlYUr_ZT7"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://player.theplatform.com/p/2E2eJC/nbcNewsOffsite?guid=tdy_or_siri_150701"),
-					λ.NewStr("md5"): λ.NewStr("fb96bb3d85118930a5b055783a3bd992"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("tdy_or_siri_150701"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("iPhone Siri’s sassy response to a math question has people talking"),
-						λ.NewStr("description"): λ.NewStr("md5:a565d1deadd5086f3331d57298ec6333"),
-						λ.NewStr("duration"):    λ.NewFloat(83.0),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("timestamp"):   λ.NewInt(1435752600),
-						λ.NewStr("upload_date"): λ.NewStr("20150701"),
-						λ.NewStr("uploader"):    λ.NewStr("NBCU-NEWS"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://player.theplatform.com/p/NnzsPC/onsite_universal/select/media/guid/2410887629/2928790?fwsitesection=nbc_the_blacklist_video_library&autoPlay=true&carouselID=137781"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			ThePlatformIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -584,7 +516,6 @@ func init() {
 					return ϒret
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        ThePlatformIE__TESTS,
 				λ.NewStr("_VALID_URL"):    ThePlatformIE__VALID_URL,
 				λ.NewStr("_real_extract"): ThePlatformIE__real_extract,
 			})

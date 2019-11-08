@@ -49,29 +49,10 @@ func init() {
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		NetzkinoIE = λ.Cal(λ.TypeType, λ.NewStr("NetzkinoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				NetzkinoIE__TEST         λ.Object
 				NetzkinoIE__VALID_URL    λ.Object
 				NetzkinoIE__real_extract λ.Object
 			)
 			NetzkinoIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?netzkino\\.de/\\#!/(?P<category>[^/]+)/(?P<id>[^/]+)")
-			NetzkinoIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.netzkino.de/#!/scifikino/rakete-zum-mond"),
-				λ.NewStr("md5"): λ.NewStr("92a3f8b76f8d7220acce5377ea5d4873"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("rakete-zum-mond"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Rakete zum Mond (Endstation Mond, Destination Moon)"),
-					λ.NewStr("comments"):    λ.NewStr("mincount:3"),
-					λ.NewStr("description"): λ.NewStr("md5:1eddeacc7e62d5a25a2d1a7290c64a28"),
-					λ.NewStr("upload_date"): λ.NewStr("20120813"),
-					λ.NewStr("thumbnail"):   λ.NewStr("re:https?://.*\\.jpg$"),
-					λ.NewStr("timestamp"):   λ.NewInt(1344858571),
-					λ.NewStr("age_limit"):   λ.NewInt(12),
-				}),
-				λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("skip_download"): λ.NewStr("Download only works from Germany"),
-				}),
-			})
 			NetzkinoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -226,7 +207,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         NetzkinoIE__TEST,
 				λ.NewStr("_VALID_URL"):    NetzkinoIE__VALID_URL,
 				λ.NewStr("_real_extract"): NetzkinoIE__real_extract,
 			})

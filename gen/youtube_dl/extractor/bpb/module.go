@@ -45,21 +45,10 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		BpbIE = λ.Cal(λ.TypeType, λ.NewStr("BpbIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				BpbIE__TEST         λ.Object
 				BpbIE__VALID_URL    λ.Object
 				BpbIE__real_extract λ.Object
 			)
 			BpbIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bpb\\.de/mediathek/(?P<id>[0-9]+)/")
-			BpbIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.bpb.de/mediathek/297/joachim-gauck-zu-1989-und-die-erinnerung-an-die-ddr"),
-				λ.NewStr("md5"): λ.NewStr("c4f84c8a8044ca9ff68bb8441d300b3f"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("297"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Joachim Gauck zu 1989 und die Erinnerung an die DDR"),
-					λ.NewStr("description"): λ.NewStr("Joachim Gauck, erster Beauftragter für die Stasi-Unterlagen, spricht auf dem Geschichtsforum über die friedliche Revolution 1989 und eine \"gewisse Traurigkeit\" im Umgang mit der DDR-Vergangenheit."),
-				}),
-			})
 			BpbIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -138,7 +127,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         BpbIE__TEST,
 				λ.NewStr("_VALID_URL"):    BpbIE__VALID_URL,
 				λ.NewStr("_real_extract"): BpbIE__real_extract,
 			})

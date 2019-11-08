@@ -40,27 +40,10 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		JeuxVideoIE = λ.Cal(λ.TypeType, λ.NewStr("JeuxVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				JeuxVideoIE__TESTS        λ.Object
 				JeuxVideoIE__VALID_URL    λ.Object
 				JeuxVideoIE__real_extract λ.Object
 			)
 			JeuxVideoIE__VALID_URL = λ.NewStr("https?://.*?\\.jeuxvideo\\.com/.*/(.*?)\\.htm")
-			JeuxVideoIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.jeuxvideo.com/reportages-videos-jeux/0004/00046170/tearaway-playstation-vita-gc-2013-tearaway-nous-presente-ses-papiers-d-identite-00115182.htm"),
-					λ.NewStr("md5"): λ.NewStr("046e491afb32a8aaac1f44dd4ddd54ee"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("114765"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Tearaway : GC 2013 : Tearaway nous présente ses papiers d'identité"),
-						λ.NewStr("description"): λ.NewStr("Lorsque les développeurs de LittleBigPlanet proposent un nouveau titre, on ne peut que s'attendre à un résultat original et fort attrayant."),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.jeuxvideo.com/videos/chroniques/434220/l-histoire-du-jeu-video-la-saturn.htm"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			JeuxVideoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -127,7 +110,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        JeuxVideoIE__TESTS,
 				λ.NewStr("_VALID_URL"):    JeuxVideoIE__VALID_URL,
 				λ.NewStr("_real_extract"): JeuxVideoIE__real_extract,
 			})

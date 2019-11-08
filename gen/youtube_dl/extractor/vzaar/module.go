@@ -51,35 +51,10 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		VzaarIE = λ.Cal(λ.TypeType, λ.NewStr("VzaarIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				VzaarIE__TESTS        λ.Object
 				VzaarIE__VALID_URL    λ.Object
 				VzaarIE__real_extract λ.Object
 			)
 			VzaarIE__VALID_URL = λ.NewStr("https?://(?:(?:www|view)\\.)?vzaar\\.com/(?:videos/)?(?P<id>\\d+)")
-			VzaarIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://vzaar.com/videos/1152805"),
-					λ.NewStr("md5"): λ.NewStr("bde5ddfeb104a6c56a93a06b04901dbf"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("1152805"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("sample video (public)"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://view.vzaar.com/27272/player"),
-					λ.NewStr("md5"): λ.NewStr("3b50012ac9bbce7f445550d54e0508f2"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("27272"),
-						λ.NewStr("ext"):   λ.NewStr("mp3"),
-						λ.NewStr("title"): λ.NewStr("MP3"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://view.vzaar.com/20313539/download"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			VzaarIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -192,7 +167,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        VzaarIE__TESTS,
 				λ.NewStr("_VALID_URL"):    VzaarIE__VALID_URL,
 				λ.NewStr("_real_extract"): VzaarIE__real_extract,
 			})

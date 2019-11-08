@@ -54,22 +54,10 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		NovaEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("NovaEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				NovaEmbedIE__TEST         λ.Object
 				NovaEmbedIE__VALID_URL    λ.Object
 				NovaEmbedIE__real_extract λ.Object
 			)
 			NovaEmbedIE__VALID_URL = λ.NewStr("https?://media\\.cms\\.nova\\.cz/embed/(?P<id>[^/?#&]+)")
-			NovaEmbedIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://media.cms.nova.cz/embed/8o0n0r?autoplay=1"),
-				λ.NewStr("md5"): λ.NewStr("b3834f6de5401baabf31ed57456463f7"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):        λ.NewStr("8o0n0r"),
-					λ.NewStr("ext"):       λ.NewStr("mp4"),
-					λ.NewStr("title"):     λ.NewStr("2180. díl"),
-					λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg"),
-					λ.NewStr("duration"):  λ.NewInt(2578),
-				}),
-			})
 			NovaEmbedIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -215,80 +203,16 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         NovaEmbedIE__TEST,
 				λ.NewStr("_VALID_URL"):    NovaEmbedIE__VALID_URL,
 				λ.NewStr("_real_extract"): NovaEmbedIE__real_extract,
 			})
 		}())
 		NovaIE = λ.Cal(λ.TypeType, λ.NewStr("NovaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				NovaIE__TESTS        λ.Object
 				NovaIE__VALID_URL    λ.Object
 				NovaIE__real_extract λ.Object
 			)
 			NovaIE__VALID_URL = λ.NewStr("https?://(?:[^.]+\\.)?(?P<site>tv(?:noviny)?|tn|novaplus|vymena|fanda|krasna|doma|prask)\\.nova\\.cz/(?:[^/]+/)+(?P<id>[^/]+?)(?:\\.html|/|$)")
-			NovaIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://tn.nova.cz/clanek/tajemstvi-ukryte-v-podzemi-specialni-nemocnice-v-prazske-krci.html#player_13260"),
-					λ.NewStr("md5"): λ.NewStr("1dd7b9d5ea27bc361f110cd855a19bd3"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1757139"),
-						λ.NewStr("display_id"):  λ.NewStr("tajemstvi-ukryte-v-podzemi-specialni-nemocnice-v-prazske-krci"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Podzemní nemocnice v pražské Krči"),
-						λ.NewStr("description"): λ.NewStr("md5:f0a42dd239c26f61c28f19e62d20ef53"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.(?:jpg)"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://fanda.nova.cz/clanek/fun-and-games/krvavy-epos-zaklinac-3-divoky-hon-vychazi-vyhrajte-ho-pro-sebe.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1753621"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Zaklínač 3: Divoký hon"),
-						λ.NewStr("description"): λ.NewStr("re:.*Pokud se stejně jako my nemůžete.*"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:https?://.*\\.jpg(\\?.*)?"),
-						λ.NewStr("upload_date"): λ.NewStr("20150521"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://novaplus.nova.cz/porad/ulice/epizoda/18760-2180-dil"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("8o0n0r"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("2180. díl"),
-						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg"),
-						λ.NewStr("duration"):  λ.NewInt(2578),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.Cal(λ.GetAttr(NovaEmbedIE, "ie_key", nil))),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://sport.tn.nova.cz/clanek/sport/hokej/nhl/zivot-jde-dal-hodnotil-po-vyrazeni-z-playoff-jiri-sekac.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://fanda.nova.cz/clanek/fun-and-games/krvavy-epos-zaklinac-3-divoky-hon-vychazi-vyhrajte-ho-pro-sebe.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://doma.nova.cz/clanek/zdravi/prijdte-se-zapsat-do-registru-kostni-drene-jiz-ve-stredu-3-cervna.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://prask.nova.cz/clanek/novinky/co-si-na-sobe-nase-hvezdy-nechaly-pojistit.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://tv.nova.cz/clanek/novinky/zivot-je-zivot-bondovsky-trailer.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			NovaIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -485,7 +409,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        NovaIE__TESTS,
 				λ.NewStr("_VALID_URL"):    NovaIE__VALID_URL,
 				λ.NewStr("_real_extract"): NovaIE__real_extract,
 			})

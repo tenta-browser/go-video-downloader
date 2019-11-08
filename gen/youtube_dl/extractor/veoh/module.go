@@ -46,58 +46,10 @@ func init() {
 		ϒqualities = Ωutils.ϒqualities
 		VeohIE = λ.Cal(λ.TypeType, λ.NewStr("VeohIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				VeohIE__TESTS        λ.Object
 				VeohIE__VALID_URL    λ.Object
 				VeohIE__real_extract λ.Object
 			)
 			VeohIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?veoh\\.com/(?:watch|embed|iphone/#_Watch)/(?P<id>(?:v|e|yapi-)[\\da-zA-Z]+)")
-			VeohIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.veoh.com/watch/v56314296nk7Zdmz3"),
-					λ.NewStr("md5"): λ.NewStr("9e7ecc0fd8bbee7a69fe38953aeebd30"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("v56314296nk7Zdmz3"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Straight Backs Are Stronger"),
-						λ.NewStr("uploader"):    λ.NewStr("LUMOback"),
-						λ.NewStr("description"): λ.NewStr("At LUMOback, we believe straight backs are stronger.  The LUMOback Posture & Movement Sensor:  It gently vibrates when you slouch, inspiring improved posture and mobility.  Use the app to track your data and improve your posture over time. "),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.veoh.com/embed/v56314296nk7Zdmz3"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.veoh.com/watch/v27701988pbTc4wzN?h1=Chile+workers+cover+up+to+avoid+skin+damage"),
-					λ.NewStr("md5"): λ.NewStr("4a6ff84b87d536a6a71e6aa6c0ad07fa"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("27701988"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Chile workers cover up to avoid skin damage"),
-						λ.NewStr("description"): λ.NewStr("md5:2bd151625a60a32822873efc246ba20d"),
-						λ.NewStr("uploader"):    λ.NewStr("afp-news"),
-						λ.NewStr("duration"):    λ.NewInt(123),
-					}),
-					λ.NewStr("skip"): λ.NewStr("This video has been deleted."),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):  λ.NewStr("http://www.veoh.com/watch/v69525809F6Nc4frX"),
-					λ.NewStr("md5"):  λ.NewStr("4fde7b9e33577bab2f2f8f260e30e979"),
-					λ.NewStr("note"): λ.NewStr("Embedded ooyala video"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("69525809"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Doctors Alter Plan For Preteen's Weight Loss Surgery"),
-						λ.NewStr("description"): λ.NewStr("md5:f5a11c51f8fb51d2315bca0937526891"),
-						λ.NewStr("uploader"):    λ.NewStr("newsy-videos"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("This video has been deleted."),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.veoh.com/watch/e152215AJxZktGS"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			VeohIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -171,7 +123,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        VeohIE__TESTS,
 				λ.NewStr("_VALID_URL"):    VeohIE__VALID_URL,
 				λ.NewStr("_real_extract"): VeohIE__real_extract,
 			})

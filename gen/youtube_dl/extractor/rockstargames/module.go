@@ -44,30 +44,10 @@ func init() {
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		RockstarGamesIE = λ.Cal(λ.TypeType, λ.NewStr("RockstarGamesIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				RockstarGamesIE__TESTS        λ.Object
 				RockstarGamesIE__VALID_URL    λ.Object
 				RockstarGamesIE__real_extract λ.Object
 			)
 			RockstarGamesIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?rockstargames\\.com/videos(?:/video/|#?/?\\?.*\\bvideo=)(?P<id>\\d+)")
-			RockstarGamesIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.rockstargames.com/videos/video/11544/"),
-					λ.NewStr("md5"): λ.NewStr("03b5caa6e357a4bd50e3143fc03e5733"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("11544"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Further Adventures in Finance and Felony Trailer"),
-						λ.NewStr("description"): λ.NewStr("md5:6d31f55f30cb101b5476c4a379e324a3"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("timestamp"):   λ.NewInt(1464876000),
-						λ.NewStr("upload_date"): λ.NewStr("20160602"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.rockstargames.com/videos#/?video=48"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			RockstarGamesIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -146,7 +126,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        RockstarGamesIE__TESTS,
 				λ.NewStr("_VALID_URL"):    RockstarGamesIE__VALID_URL,
 				λ.NewStr("_real_extract"): RockstarGamesIE__real_extract,
 			})

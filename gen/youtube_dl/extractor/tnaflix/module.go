@@ -491,34 +491,12 @@ func init() {
 		}())
 		TNAFlixNetworkEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("TNAFlixNetworkEmbedIE"), λ.NewTuple(TNAFlixNetworkBaseIE), func() λ.Dict {
 			var (
-				TNAFlixNetworkEmbedIE__TESTS       λ.Object
 				TNAFlixNetworkEmbedIE__TITLE_REGEX λ.Object
 				TNAFlixNetworkEmbedIE__VALID_URL   λ.Object
 			)
 			TNAFlixNetworkEmbedIE__VALID_URL = λ.NewStr("https?://player\\.(?:tna|emp)flix\\.com/video/(?P<id>\\d+)")
 			TNAFlixNetworkEmbedIE__TITLE_REGEX = λ.NewStr("<title>([^<]+)</title>")
-			TNAFlixNetworkEmbedIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://player.tnaflix.com/video/6538"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("6538"),
-						λ.NewStr("display_id"): λ.NewStr("6538"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("Educational xxx video"),
-						λ.NewStr("thumbnail"):  λ.NewStr("re:https?://.*\\.jpg$"),
-						λ.NewStr("age_limit"):  λ.NewInt(18),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://player.empflix.com/video/33051"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):       TNAFlixNetworkEmbedIE__TESTS,
 				λ.NewStr("_TITLE_REGEX"): TNAFlixNetworkEmbedIE__TITLE_REGEX,
 				λ.NewStr("_VALID_URL"):   TNAFlixNetworkEmbedIE__VALID_URL,
 			})
@@ -540,50 +518,12 @@ func init() {
 		}())
 		TNAFlixIE = λ.Cal(λ.TypeType, λ.NewStr("TNAFlixIE"), λ.NewTuple(TNAEMPFlixBaseIE), func() λ.Dict {
 			var (
-				TNAFlixIE__TESTS       λ.Object
 				TNAFlixIE__TITLE_REGEX λ.Object
 				TNAFlixIE__VALID_URL   λ.Object
 			)
 			TNAFlixIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tnaflix\\.com/[^/]+/(?P<display_id>[^/]+)/video(?P<id>\\d+)")
 			TNAFlixIE__TITLE_REGEX = λ.NewStr("<title>(.+?) - (?:TNAFlix Porn Videos|TNAFlix\\.com)</title>")
-			TNAFlixIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.tnaflix.com/porn-stars/Carmella-Decesare-striptease/video553878"),
-					λ.NewStr("md5"): λ.NewStr("7e569419fe6d69543d01e6be22f5f7c4"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("553878"),
-						λ.NewStr("display_id"): λ.NewStr("Carmella-Decesare-striptease"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("Carmella Decesare - striptease"),
-						λ.NewStr("thumbnail"):  λ.NewStr("re:https?://.*\\.jpg$"),
-						λ.NewStr("duration"):   λ.NewInt(91),
-						λ.NewStr("age_limit"):  λ.NewInt(18),
-						λ.NewStr("categories"): λ.NewList(λ.NewStr("Porn Stars")),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.tnaflix.com/teen-porn/Educational-xxx-video/video6538"),
-					λ.NewStr("md5"): λ.NewStr("0f5d4d490dbfd117b8607054248a07c0"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("6538"),
-						λ.NewStr("display_id"):  λ.NewStr("Educational-xxx-video"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Educational xxx video"),
-						λ.NewStr("description"): λ.NewStr("md5:b4fab8f88a8621c8fabd361a173fe5b8"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(164),
-						λ.NewStr("age_limit"):   λ.NewInt(18),
-						λ.NewStr("uploader"):    λ.NewStr("bobwhite39"),
-						λ.NewStr("categories"):  λ.ListType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.tnaflix.com/amateur-porn/bunzHD-Ms.Donk/video358632"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):       TNAFlixIE__TESTS,
 				λ.NewStr("_TITLE_REGEX"): TNAFlixIE__TITLE_REGEX,
 				λ.NewStr("_VALID_URL"):   TNAFlixIE__VALID_URL,
 			})
@@ -591,48 +531,14 @@ func init() {
 		EMPFlixIE = λ.Cal(λ.TypeType, λ.NewStr("EMPFlixIE"), λ.NewTuple(TNAEMPFlixBaseIE), func() λ.Dict {
 			var (
 				EMPFlixIE__HOST        λ.Object
-				EMPFlixIE__TESTS       λ.Object
 				EMPFlixIE__VALID_URL   λ.Object
 				EMPFlixIE__VKEY_SUFFIX λ.Object
 			)
 			EMPFlixIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?empflix\\.com/(?:videos/(?P<display_id>.+?)-|[^/]+/(?P<display_id_2>[^/]+)/video)(?P<id>[0-9]+)")
 			EMPFlixIE__HOST = λ.NewStr("emp")
 			EMPFlixIE__VKEY_SUFFIX = λ.NewStr("-1")
-			EMPFlixIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.empflix.com/videos/Amateur-Finger-Fuck-33051.html"),
-					λ.NewStr("md5"): λ.NewStr("bc30d48b91a7179448a0bda465114676"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("33051"),
-						λ.NewStr("display_id"):  λ.NewStr("Amateur-Finger-Fuck"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Amateur Finger Fuck"),
-						λ.NewStr("description"): λ.NewStr("Amateur solo finger fucking."),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(83),
-						λ.NewStr("age_limit"):   λ.NewInt(18),
-						λ.NewStr("uploader"):    λ.NewStr("cwbike"),
-						λ.NewStr("categories"): λ.NewList(
-							λ.NewStr("Amateur"),
-							λ.NewStr("Anal"),
-							λ.NewStr("Fisting"),
-							λ.NewStr("Home made"),
-							λ.NewStr("Solo"),
-						),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.empflix.com/videos/[AROMA][ARMD-718]-Aoi-Yoshino-Sawa-25826.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.empflix.com/amateur-porn/Amateur-Finger-Fuck/video33051"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_HOST"):        EMPFlixIE__HOST,
-				λ.NewStr("_TESTS"):       EMPFlixIE__TESTS,
 				λ.NewStr("_VALID_URL"):   EMPFlixIE__VALID_URL,
 				λ.NewStr("_VKEY_SUFFIX"): EMPFlixIE__VKEY_SUFFIX,
 			})
@@ -642,7 +548,6 @@ func init() {
 				MovieFapIE__AVERAGE_RATING_REGEX λ.Object
 				MovieFapIE__CATEGORIES_REGEX     λ.Object
 				MovieFapIE__COMMENT_COUNT_REGEX  λ.Object
-				MovieFapIE__TESTS                λ.Object
 				MovieFapIE__VALID_URL            λ.Object
 				MovieFapIE__VIEW_COUNT_REGEX     λ.Object
 			)
@@ -651,57 +556,10 @@ func init() {
 			MovieFapIE__COMMENT_COUNT_REGEX = λ.NewStr("<span[^>]+id=\"comCount\"[^>]*>([\\d,.]+)</span>")
 			MovieFapIE__AVERAGE_RATING_REGEX = λ.NewStr("Current Rating\\s*<br>\\s*<strong>([\\d.]+)</strong>")
 			MovieFapIE__CATEGORIES_REGEX = λ.NewStr("(?s)<div[^>]+id=\"vid_info\"[^>]*>\\s*<div[^>]*>.+?</div>(.*?)<br>")
-			MovieFapIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.moviefap.com/videos/be9867c9416c19f54a4a/experienced-milf-amazing-handjob.html"),
-					λ.NewStr("md5"): λ.NewStr("26624b4e2523051b550067d547615906"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):             λ.NewStr("be9867c9416c19f54a4a"),
-						λ.NewStr("display_id"):     λ.NewStr("experienced-milf-amazing-handjob"),
-						λ.NewStr("ext"):            λ.NewStr("mp4"),
-						λ.NewStr("title"):          λ.NewStr("Experienced MILF Amazing Handjob"),
-						λ.NewStr("description"):    λ.NewStr("Experienced MILF giving an Amazing Handjob"),
-						λ.NewStr("thumbnail"):      λ.NewStr("re:https?://.*\\.jpg$"),
-						λ.NewStr("age_limit"):      λ.NewInt(18),
-						λ.NewStr("uploader"):       λ.NewStr("darvinfred06"),
-						λ.NewStr("view_count"):     λ.IntType,
-						λ.NewStr("comment_count"):  λ.IntType,
-						λ.NewStr("average_rating"): λ.FloatType,
-						λ.NewStr("categories"): λ.NewList(
-							λ.NewStr("Amateur"),
-							λ.NewStr("Masturbation"),
-							λ.NewStr("Mature"),
-							λ.NewStr("Flashing"),
-						),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.moviefap.com/videos/e5da0d3edce5404418f5/jeune-couple-russe.html"),
-					λ.NewStr("md5"): λ.NewStr("fa56683e291fc80635907168a743c9ad"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):             λ.NewStr("e5da0d3edce5404418f5"),
-						λ.NewStr("display_id"):     λ.NewStr("jeune-couple-russe"),
-						λ.NewStr("ext"):            λ.NewStr("flv"),
-						λ.NewStr("title"):          λ.NewStr("Jeune Couple Russe"),
-						λ.NewStr("description"):    λ.NewStr("Amateur"),
-						λ.NewStr("thumbnail"):      λ.NewStr("re:https?://.*\\.jpg$"),
-						λ.NewStr("age_limit"):      λ.NewInt(18),
-						λ.NewStr("uploader"):       λ.NewStr("whiskeyjar"),
-						λ.NewStr("view_count"):     λ.IntType,
-						λ.NewStr("comment_count"):  λ.IntType,
-						λ.NewStr("average_rating"): λ.FloatType,
-						λ.NewStr("categories"): λ.NewList(
-							λ.NewStr("Amateur"),
-							λ.NewStr("Teen"),
-						),
-					}),
-				}),
-			)
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_AVERAGE_RATING_REGEX"): MovieFapIE__AVERAGE_RATING_REGEX,
 				λ.NewStr("_CATEGORIES_REGEX"):     MovieFapIE__CATEGORIES_REGEX,
 				λ.NewStr("_COMMENT_COUNT_REGEX"):  MovieFapIE__COMMENT_COUNT_REGEX,
-				λ.NewStr("_TESTS"):                MovieFapIE__TESTS,
 				λ.NewStr("_VALID_URL"):            MovieFapIE__VALID_URL,
 				λ.NewStr("_VIEW_COUNT_REGEX"):     MovieFapIE__VIEW_COUNT_REGEX,
 			})

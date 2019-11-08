@@ -39,30 +39,10 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		Formula1IE = λ.Cal(λ.TypeType, λ.NewStr("Formula1IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				Formula1IE__TESTS        λ.Object
 				Formula1IE__VALID_URL    λ.Object
 				Formula1IE__real_extract λ.Object
 			)
 			Formula1IE__VALID_URL = λ.NewStr("https?://(?:www\\.)?formula1\\.com/(?:content/fom-website/)?en/video/\\d{4}/\\d{1,2}/(?P<id>.+?)\\.html")
-			Formula1IE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.formula1.com/content/fom-website/en/video/2016/5/Race_highlights_-_Spain_2016.html"),
-					λ.NewStr("md5"): λ.NewStr("8c79e54be72078b26b89e0e111c0502b"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("JvYXJpMzE6pArfHWm5ARp5AiUmD-gibV"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("Race highlights - Spain 2016"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Ooyala")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.formula1.com/en/video/2016/5/Race_highlights_-_Spain_2016.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			Formula1IE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -83,7 +63,6 @@ func init() {
 					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("ooyala:%s"), ϒooyala_embed_code), λ.NewStr("Ooyala"), ϒooyala_embed_code)
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        Formula1IE__TESTS,
 				λ.NewStr("_VALID_URL"):    Formula1IE__VALID_URL,
 				λ.NewStr("_real_extract"): Formula1IE__real_extract,
 			})

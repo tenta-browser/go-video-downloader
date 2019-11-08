@@ -59,103 +59,12 @@ func init() {
 		}())
 		TagesschauIE = λ.Cal(λ.TypeType, λ.NewStr("TagesschauIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				TagesschauIE__TESTS           λ.Object
 				TagesschauIE__VALID_URL       λ.Object
 				TagesschauIE__extract_formats λ.Object
 				TagesschauIE__real_extract    λ.Object
 				TagesschauIE_suitable         λ.Object
 			)
 			TagesschauIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tagesschau\\.de/(?P<path>[^/]+/(?:[^/]+/)*?(?P<id>[^/#?]+?(?:-?[0-9]+)?))(?:~_?[^/#?]+?)?\\.html")
-			TagesschauIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.tagesschau.de/multimedia/video/video-102143.html"),
-					λ.NewStr("md5"): λ.NewStr("f7c27a0eff3bfe8c7727e65f8fe1b1e6"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("video-102143"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Regierungsumbildung in Athen: Neue Minister in Griechenland vereidigt"),
-						λ.NewStr("description"): λ.NewStr("18.07.2015 20:10 Uhr"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?:.*\\.jpg$"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.tagesschau.de/multimedia/sendung/ts-5727.html"),
-					λ.NewStr("md5"): λ.NewStr("3c54c1f6243d279b706bde660ceec633"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("ts-5727"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Sendung: tagesschau \t04.12.2014 20:00 Uhr"),
-						λ.NewStr("description"): λ.NewStr("md5:695c01bfd98b7e313c501386327aea59"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?:.*\\.jpg$"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.tagesschau.de/multimedia/audio/audio-29417.html"),
-					λ.NewStr("md5"): λ.NewStr("76e6eec6ebd40740671cf0a2c88617e5"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("audio-29417"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("title"):       λ.NewStr("Trabi - Bye, bye Rennpappe"),
-						λ.NewStr("description"): λ.NewStr("md5:8687dda862cbbe2cfb2df09b56341317"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?:.*\\.jpg$"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.tagesschau.de/inland/bnd-303.html"),
-					λ.NewStr("md5"): λ.NewStr("e0916c623e85fc1d2b26b78f299d3958"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("bnd-303"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("title"):       λ.NewStr("Viele Baustellen für neuen BND-Chef"),
-						λ.NewStr("description"): λ.NewStr("md5:1e69a54be3e1255b2b07cdbce5bcd8b4"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?:.*\\.jpg$"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.tagesschau.de/inland/afd-parteitag-135.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("afd-parteitag-135"),
-						λ.NewStr("title"): λ.NewStr("Möchtegern-Underdog mit Machtanspruch"),
-					}),
-					λ.NewStr("playlist_count"): λ.NewInt(2),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.tagesschau.de/multimedia/sendung/tsg-3771.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.tagesschau.de/multimedia/sendung/tt-3827.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.tagesschau.de/multimedia/sendung/nm-3475.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.tagesschau.de/multimedia/sendung/weltspiegel-3167.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.tagesschau.de/multimedia/tsvorzwanzig-959.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.tagesschau.de/multimedia/sendung/bab/bab-3299~_bab-sendung-209.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.tagesschau.de/multimedia/video/video-102303~_bab-sendung-211.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.tagesschau.de/100sekunden/index.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.tagesschau.de/wirtschaft/faq-freihandelszone-eu-usa-101.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			TagesschauIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -379,7 +288,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):           TagesschauIE__TESTS,
 				λ.NewStr("_VALID_URL"):       TagesschauIE__VALID_URL,
 				λ.NewStr("_extract_formats"): TagesschauIE__extract_formats,
 				λ.NewStr("_real_extract"):    TagesschauIE__real_extract,

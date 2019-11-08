@@ -195,110 +195,10 @@ func init() {
 		}())
 		VoxMediaIE = λ.Cal(λ.TypeType, λ.NewStr("VoxMediaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				VoxMediaIE__TESTS        λ.Object
 				VoxMediaIE__VALID_URL    λ.Object
 				VoxMediaIE__real_extract λ.Object
 			)
 			VoxMediaIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?:(?:theverge|vox|sbnation|eater|polygon|curbed|racked|funnyordie)\\.com|recode\\.net)/(?:[^/]+/)*(?P<id>[^/?]+)")
-			VoxMediaIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.theverge.com/2014/6/27/5849272/material-world-how-google-discovered-what-software-is-made-of"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("j4mLW6x17VM"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Material world: how Google discovered what software is made of"),
-						λ.NewStr("description"): λ.NewStr("md5:dfc17e7715e3b542d66e33a109861382"),
-						λ.NewStr("upload_date"): λ.NewStr("20190710"),
-						λ.NewStr("uploader_id"): λ.NewStr("TheVerge"),
-						λ.NewStr("uploader"):    λ.NewStr("The Verge"),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Youtube")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.theverge.com/2014/10/21/7025853/google-nexus-6-hands-on-photos-video-android-phablet"),
-					λ.NewStr("md5"): λ.NewStr("4c8f4a0937752b437c3ebc0ed24802b5"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("Gy8Md3Eky38"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("The Nexus 6: hands-on with Google's phablet"),
-						λ.NewStr("description"): λ.NewStr("md5:d9f0216e5fb932dd2033d6db37ac3f1d"),
-						λ.NewStr("uploader_id"): λ.NewStr("TheVerge"),
-						λ.NewStr("upload_date"): λ.NewStr("20141021"),
-						λ.NewStr("uploader"):    λ.NewStr("The Verge"),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Youtube")),
-					λ.NewStr("skip"):   λ.NewStr("similar to the previous test"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.vox.com/2016/3/31/11336640/mississippi-lgbt-religious-freedom-bill"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("YCjDnX-Xzhg"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Mississippi's laws are so bad that its anti-LGBTQ law isn't needed to allow discrimination"),
-						λ.NewStr("description"): λ.NewStr("md5:fc1317922057de31cd74bce91eb1c66c"),
-						λ.NewStr("uploader_id"): λ.NewStr("voxdotcom"),
-						λ.NewStr("upload_date"): λ.NewStr("20150915"),
-						λ.NewStr("uploader"):    λ.NewStr("Vox"),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Youtube")),
-					λ.NewStr("skip"):   λ.NewStr("similar to the previous test"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.vox.com/2016/3/24/11291692/robot-dance"),
-					λ.NewStr("md5"): λ.NewStr("83b3080489fb103941e549352d3e0977"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("FcNHTJU1ufM"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("How \"the robot\" became the greatest novelty dance of all time"),
-						λ.NewStr("description"): λ.NewStr("md5:b081c0d588b8b2085870cda55e6da176"),
-						λ.NewStr("upload_date"): λ.NewStr("20160324"),
-						λ.NewStr("uploader_id"): λ.NewStr("voxdotcom"),
-						λ.NewStr("uploader"):    λ.NewStr("Vox"),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Youtube")),
-					λ.NewStr("skip"):   λ.NewStr("Page no longer contain videos"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.sbnation.com/college-football-recruiting/2015/2/3/7970291/national-signing-day-rationalizations-itll-be-ok-itll-be-ok"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("national-signing-day-rationalizations-itll-be-ok-itll-be-ok"),
-						λ.NewStr("title"):       λ.NewStr("25 lies you will tell yourself on National Signing Day"),
-						λ.NewStr("description"): λ.NewStr("It's the most self-delusional time of the year, and everyone's gonna tell the same lies together!"),
-					}),
-					λ.NewStr("playlist"): λ.NewList(
-						λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("md5"): λ.NewStr("721fededf2ab74ae4176c8c8cbfe092e"),
-							λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("id"):          λ.NewStr("p3cThlMjE61VDi_SD9JlIteSNPWVDBB9"),
-								λ.NewStr("ext"):         λ.NewStr("mp4"),
-								λ.NewStr("title"):       λ.NewStr("Buddy Hield vs Steph Curry (and the world)"),
-								λ.NewStr("description"): λ.NewStr("Let’s dissect only the most important Final Four storylines."),
-							}),
-						}),
-						λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("md5"): λ.NewStr("bf0c5cc115636af028be1bab79217ea9"),
-							λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("id"):          λ.NewStr("BmbmVjMjE6esPHxdALGubTrouQ0jYLHj"),
-								λ.NewStr("ext"):         λ.NewStr("mp4"),
-								λ.NewStr("title"):       λ.NewStr("Chasing Cinderella 2016: Syracuse basketball"),
-								λ.NewStr("description"): λ.NewStr("md5:e02d56b026d51aa32c010676765a690d"),
-							}),
-						}),
-					),
-					λ.NewStr("skip"): λ.NewStr("Page no longer contain videos"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.recode.net/2014/6/17/11628066/post-post-pc-ceo-the-full-code-conference-video-of-microsofts-satya"),
-					λ.NewStr("md5"): λ.NewStr("2dbc77b8b0bff1894c2fce16eded637d"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1231c973d"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Post-Post-PC CEO: The Full Code Conference Video of Microsoft's Satya Nadella"),
-						λ.NewStr("description"): λ.NewStr("The longtime veteran was chosen earlier this year as the software giant's third leader in its history."),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("VoxMediaVolume")),
-				}),
-			)
 			VoxMediaIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -427,7 +327,6 @@ func init() {
 					return λ.None
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        VoxMediaIE__TESTS,
 				λ.NewStr("_VALID_URL"):    VoxMediaIE__VALID_URL,
 				λ.NewStr("_real_extract"): VoxMediaIE__real_extract,
 			})

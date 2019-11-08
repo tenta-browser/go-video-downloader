@@ -142,34 +142,10 @@ func init() {
 		}())
 		BilibiliAudioIE = λ.Cal(λ.TypeType, λ.NewStr("BilibiliAudioIE"), λ.NewTuple(BilibiliAudioBaseIE), func() λ.Dict {
 			var (
-				BilibiliAudioIE__TEST         λ.Object
 				BilibiliAudioIE__VALID_URL    λ.Object
 				BilibiliAudioIE__real_extract λ.Object
 			)
 			BilibiliAudioIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bilibili\\.com/audio/au(?P<id>\\d+)")
-			BilibiliAudioIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://www.bilibili.com/audio/au1003142"),
-				λ.NewStr("md5"): λ.NewStr("fec4987014ec94ef9e666d4d158ad03b"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):            λ.NewStr("1003142"),
-					λ.NewStr("ext"):           λ.NewStr("m4a"),
-					λ.NewStr("title"):         λ.NewStr("【tsukimi】YELLOW / 神山羊"),
-					λ.NewStr("artist"):        λ.NewStr("tsukimi"),
-					λ.NewStr("comment_count"): λ.IntType,
-					λ.NewStr("description"):   λ.NewStr("YELLOW的mp3版！"),
-					λ.NewStr("duration"):      λ.NewInt(183),
-					λ.NewStr("subtitles"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("origin"): λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("ext"): λ.NewStr("lrc"),
-						})),
-					}),
-					λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.+\\.jpg"),
-					λ.NewStr("timestamp"):   λ.NewInt(1564836614),
-					λ.NewStr("upload_date"): λ.NewStr("20190803"),
-					λ.NewStr("uploader"):    λ.NewStr("tsukimi-つきみぐー"),
-					λ.NewStr("view_count"):  λ.IntType,
-				}),
-			})
 			BilibiliAudioIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -229,7 +205,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         BilibiliAudioIE__TEST,
 				λ.NewStr("_VALID_URL"):    BilibiliAudioIE__VALID_URL,
 				λ.NewStr("_real_extract"): BilibiliAudioIE__real_extract,
 			})

@@ -56,96 +56,12 @@ func init() {
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		NexxIE = λ.Cal(λ.TypeType, λ.NewStr("NexxIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				NexxIE__TESTS                 λ.Object
 				NexxIE__VALID_URL             λ.Object
 				NexxIE__extract_azure_formats λ.Object
 				NexxIE__extract_free_formats  λ.Object
 				NexxIE__real_extract          λ.Object
 			)
 			NexxIE__VALID_URL = λ.NewStr("(?x)\n                        (?:\n                            https?://api\\.nexx(?:\\.cloud|cdn\\.com)/v3/(?P<domain_id>\\d+)/videos/byid/|\n                            nexx:(?:(?P<domain_id_s>\\d+):)?|\n                            https?://arc\\.nexx\\.cloud/api/video/\n                        )\n                        (?P<id>\\d+)\n                    ")
-			NexxIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://api.nexx.cloud/v3/748/videos/byid/128907"),
-					λ.NewStr("md5"): λ.NewStr("31899fd683de49ad46f4ee67e53e83fe"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("128907"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Stiftung Warentest"),
-						λ.NewStr("alt_title"):   λ.NewStr("Wie ein Test abläuft"),
-						λ.NewStr("description"): λ.NewStr("md5:d1ddb1ef63de721132abd38639cc2fd2"),
-						λ.NewStr("creator"):     λ.NewStr("SPIEGEL TV"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(2509),
-						λ.NewStr("timestamp"):   λ.NewInt(1384264416),
-						λ.NewStr("upload_date"): λ.NewStr("20131112"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://api.nexx.cloud/v3/741/videos/byid/247858"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):             λ.NewStr("247858"),
-						λ.NewStr("ext"):            λ.NewStr("mp4"),
-						λ.NewStr("title"):          λ.NewStr("Return of the Golden Child (OV)"),
-						λ.NewStr("description"):    λ.NewStr("md5:5d969537509a92b733de21bae249dc63"),
-						λ.NewStr("release_year"):   λ.NewInt(2017),
-						λ.NewStr("thumbnail"):      λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):       λ.NewInt(1397),
-						λ.NewStr("timestamp"):      λ.NewInt(1495033267),
-						λ.NewStr("upload_date"):    λ.NewStr("20170517"),
-						λ.NewStr("episode_number"): λ.NewInt(2),
-						λ.NewStr("season_number"):  λ.NewInt(2),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("skip"): λ.NewStr("HTTP Error 404: Not Found"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("nexx:741:1269984"),
-					λ.NewStr("md5"): λ.NewStr("c714b5b238b2958dc8d5642addba6886"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1269984"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("1 TAG ohne KLO... wortwörtlich! 😑"),
-						λ.NewStr("alt_title"):   λ.NewStr("1 TAG ohne KLO... wortwörtlich! 😑"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(607),
-						λ.NewStr("timestamp"):   λ.NewInt(1518614955),
-						λ.NewStr("upload_date"): λ.NewStr("20180214"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("nexx:747:1533779"),
-					λ.NewStr("md5"): λ.NewStr("6bf6883912b82b7069fb86c2297e9893"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1533779"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Aufregung um ausgebrochene Raubtiere"),
-						λ.NewStr("alt_title"):   λ.NewStr("Eifel-Zoo"),
-						λ.NewStr("description"): λ.NewStr("md5:f21375c91c74ad741dcb164c427999d2"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(111),
-						λ.NewStr("timestamp"):   λ.NewInt(1527874460),
-						λ.NewStr("upload_date"): λ.NewStr("20180601"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://api.nexxcdn.com/v3/748/videos/byid/128907"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("nexx:748:128907"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("nexx:128907"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://arc.nexx.cloud/api/video/128907.json"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			NexxIE__extract_free_formats = λ.NewFunction("_extract_free_formats",
 				[]λ.Param{
 					{Name: "self"},
@@ -749,7 +665,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):                 NexxIE__TESTS,
 				λ.NewStr("_VALID_URL"):             NexxIE__VALID_URL,
 				λ.NewStr("_extract_azure_formats"): NexxIE__extract_azure_formats,
 				λ.NewStr("_extract_free_formats"):  NexxIE__extract_free_formats,

@@ -51,25 +51,10 @@ func init() {
 		ϒurljoin = Ωutils.ϒurljoin
 		RadioJavanIE = λ.Cal(λ.TypeType, λ.NewStr("RadioJavanIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				RadioJavanIE__TEST         λ.Object
 				RadioJavanIE__VALID_URL    λ.Object
 				RadioJavanIE__real_extract λ.Object
 			)
 			RadioJavanIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?radiojavan\\.com/videos/video/(?P<id>[^/]+)/?")
-			RadioJavanIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.radiojavan.com/videos/video/chaartaar-ashoobam"),
-				λ.NewStr("md5"): λ.NewStr("e85208ffa3ca8b83534fca9fe19af95b"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):            λ.NewStr("chaartaar-ashoobam"),
-					λ.NewStr("ext"):           λ.NewStr("mp4"),
-					λ.NewStr("title"):         λ.NewStr("Chaartaar - Ashoobam"),
-					λ.NewStr("thumbnail"):     λ.NewStr("re:^https?://.*\\.jpe?g$"),
-					λ.NewStr("upload_date"):   λ.NewStr("20150215"),
-					λ.NewStr("view_count"):    λ.IntType,
-					λ.NewStr("like_count"):    λ.IntType,
-					λ.NewStr("dislike_count"): λ.IntType,
-				}),
-			})
 			RadioJavanIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -171,7 +156,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         RadioJavanIE__TEST,
 				λ.NewStr("_VALID_URL"):    RadioJavanIE__VALID_URL,
 				λ.NewStr("_real_extract"): RadioJavanIE__real_extract,
 			})

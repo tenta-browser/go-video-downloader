@@ -49,7 +49,6 @@ func init() {
 			var (
 				CanalplusIE__GEO_COUNTRIES       λ.Object
 				CanalplusIE__SITE_ID_MAP         λ.Object
-				CanalplusIE__TESTS               λ.Object
 				CanalplusIE__VALID_URL           λ.Object
 				CanalplusIE__VIDEO_INFO_TEMPLATE λ.Object
 				CanalplusIE__real_extract        λ.Object
@@ -61,31 +60,6 @@ func init() {
 				λ.NewStr("piwiplus"): λ.NewStr("teletoon"),
 			})
 			CanalplusIE__GEO_COUNTRIES = λ.NewList(λ.NewStr("FR"))
-			CanalplusIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.mycanal.fr/d17-emissions/lolywood/p/1397061"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1397061"),
-						λ.NewStr("display_id"):  λ.NewStr("lolywood"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Euro 2016 : Je préfère te prévenir - Lolywood - Episode 34"),
-						λ.NewStr("description"): λ.NewStr("md5:7d97039d455cb29cdba0d652a0efaa5e"),
-						λ.NewStr("upload_date"): λ.NewStr("20160602"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.piwiplus.fr/videos-piwi/pid1405-le-labyrinthe-boing-super-ranger.html?vid=1108190"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1108190"),
-						λ.NewStr("display_id"):  λ.NewStr("pid1405-le-labyrinthe-boing-super-ranger"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("BOING SUPER RANGER - Ep : Le labyrinthe"),
-						λ.NewStr("description"): λ.NewStr("md5:4cea7a37153be42c1ba2c1d3064376ff"),
-						λ.NewStr("upload_date"): λ.NewStr("20140724"),
-					}),
-					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("HTTP Error 403: Forbidden")),
-				}),
-			)
 			CanalplusIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -247,7 +221,6 @@ func init() {
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_GEO_COUNTRIES"):       CanalplusIE__GEO_COUNTRIES,
 				λ.NewStr("_SITE_ID_MAP"):         CanalplusIE__SITE_ID_MAP,
-				λ.NewStr("_TESTS"):               CanalplusIE__TESTS,
 				λ.NewStr("_VALID_URL"):           CanalplusIE__VALID_URL,
 				λ.NewStr("_VIDEO_INFO_TEMPLATE"): CanalplusIE__VIDEO_INFO_TEMPLATE,
 				λ.NewStr("_real_extract"):        CanalplusIE__real_extract,

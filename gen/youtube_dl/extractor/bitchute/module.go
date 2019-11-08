@@ -46,33 +46,10 @@ func init() {
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		BitChuteIE = λ.Cal(λ.TypeType, λ.NewStr("BitChuteIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				BitChuteIE__TESTS        λ.Object
 				BitChuteIE__VALID_URL    λ.Object
 				BitChuteIE__real_extract λ.Object
 			)
 			BitChuteIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bitchute\\.com/(?:video|embed|torrent/[^/]+)/(?P<id>[^/?#&]+)")
-			BitChuteIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.bitchute.com/video/szoMrox2JEI/"),
-					λ.NewStr("md5"): λ.NewStr("66c4a70e6bfc40dcb6be3eb1d74939eb"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("szoMrox2JEI"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Fuck bitches get money"),
-						λ.NewStr("description"): λ.NewStr("md5:3f21f6fb5b1d17c3dee9cf6b5fe60b3a"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("uploader"):    λ.NewStr("Victoria X Rave"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.bitchute.com/embed/lbb5G1hjPhw/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.bitchute.com/torrent/Zee5BE49045h/szoMrox2JEI.webtorrent"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			BitChuteIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -202,7 +179,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        BitChuteIE__TESTS,
 				λ.NewStr("_VALID_URL"):    BitChuteIE__VALID_URL,
 				λ.NewStr("_real_extract"): BitChuteIE__real_extract,
 			})

@@ -45,92 +45,11 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		RUTVIE = λ.Cal(λ.TypeType, λ.NewStr("RUTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				RUTVIE__TESTS        λ.Object
 				RUTVIE__VALID_URL    λ.Object
 				RUTVIE__extract_url  λ.Object
 				RUTVIE__real_extract λ.Object
 			)
 			RUTVIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:test)?player\\.(?:rutv\\.ru|vgtrk\\.com)/\n                        (?P<path>\n                            flash\\d+v/container\\.swf\\?id=|\n                            iframe/(?P<type>swf|video|live)/id/|\n                            index/iframe/cast_id/\n                        )\n                        (?P<id>\\d+)\n                    ")
-			RUTVIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://player.rutv.ru/flash2v/container.swf?id=774471&sid=kultura&fbv=true&isPlay=true&ssl=false&i=560&acc_video_id=episode_id/972347/video_id/978186/brand_id/31724"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("774471"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Монологи на все времена"),
-						λ.NewStr("description"): λ.NewStr("md5:18d8b5e6a41fb1faa53819471852d5d5"),
-						λ.NewStr("duration"):    λ.NewInt(2906),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://player.vgtrk.com/flash2v/container.swf?id=774016&sid=russiatv&fbv=true&isPlay=true&ssl=false&i=560&acc_video_id=episode_id/972098/video_id/977760/brand_id/57638"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("774016"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Чужой в семье Сталина"),
-						λ.NewStr("description"): λ.NewStr(""),
-						λ.NewStr("duration"):    λ.NewInt(2539),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://player.rutv.ru/iframe/swf/id/766888/sid/hitech/?acc_video_id=4000"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("766888"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Вести.net: интернет-гиганты начали перетягивание программных \"одеял\""),
-						λ.NewStr("description"): λ.NewStr("md5:65ddd47f9830c4f42ed6475f8730c995"),
-						λ.NewStr("duration"):    λ.NewInt(279),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://player.rutv.ru/iframe/video/id/771852/start_zoom/true/showZoomBtn/false/sid/russiatv/?acc_video_id=episode_id/970443/video_id/975648/brand_id/5169"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("771852"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Прямой эфир. Жертвы загадочной болезни: смерть от старости в 17 лет"),
-						λ.NewStr("description"): λ.NewStr("md5:b81c8c55247a4bd996b43ce17395b2d8"),
-						λ.NewStr("duration"):    λ.NewInt(3096),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://player.rutv.ru/iframe/live/id/51499/showZoomBtn/false/isPlay/true/sid/sochi2014"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("51499"),
-						λ.NewStr("ext"):         λ.NewStr("flv"),
-						λ.NewStr("title"):       λ.NewStr("Сочи-2014. Биатлон. Индивидуальная гонка. Мужчины "),
-						λ.NewStr("description"): λ.NewStr("md5:9e0ed5c9d2fa1efbfdfed90c9a6d179c"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("Translation has finished"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://player.rutv.ru/iframe/live/id/21/showZoomBtn/false/isPlay/true/"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):      λ.NewStr("21"),
-						λ.NewStr("ext"):     λ.NewStr("mp4"),
-						λ.NewStr("title"):   λ.NewStr("re:^Россия 24. Прямой эфир [0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}$"),
-						λ.NewStr("is_live"): λ.True,
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://testplayer.vgtrk.com/iframe/live/id/19201/showZoomBtn/false/isPlay/true/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			RUTVIE__extract_url = λ.NewFunction("_extract_url",
 				[]λ.Param{
 					{Name: "cls"},
@@ -336,7 +255,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        RUTVIE__TESTS,
 				λ.NewStr("_VALID_URL"):    RUTVIE__VALID_URL,
 				λ.NewStr("_extract_url"):  RUTVIE__extract_url,
 				λ.NewStr("_real_extract"): RUTVIE__real_extract,

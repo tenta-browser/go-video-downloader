@@ -57,44 +57,10 @@ func init() {
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		IzleseneIE = λ.Cal(λ.TypeType, λ.NewStr("IzleseneIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				IzleseneIE__TESTS        λ.Object
 				IzleseneIE__VALID_URL    λ.Object
 				IzleseneIE__real_extract λ.Object
 			)
 			IzleseneIE__VALID_URL = λ.NewStr("(?x)\n        https?://(?:(?:www|m)\\.)?izlesene\\.com/\n        (?:video|embedplayer)/(?:[^/]+/)?(?P<id>[0-9]+)\n        ")
-			IzleseneIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.izlesene.com/video/sevincten-cildirtan-dogum-gunu-hediyesi/7599694"),
-					λ.NewStr("md5"): λ.NewStr("4384f9f0ea65086734b881085ee05ac2"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("7599694"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Sevinçten Çıldırtan Doğum Günü Hediyesi"),
-						λ.NewStr("description"): λ.NewStr("md5:253753e2655dde93f59f74b572454f6d"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-						λ.NewStr("uploader_id"): λ.NewStr("pelikzzle"),
-						λ.NewStr("timestamp"):   λ.IntType,
-						λ.NewStr("upload_date"): λ.NewStr("20140702"),
-						λ.NewStr("duration"):    λ.NewFloat(95.395),
-						λ.NewStr("age_limit"):   λ.NewInt(0),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.izlesene.com/video/tarkan-dortmund-2006-konseri/17997"),
-					λ.NewStr("md5"): λ.NewStr("97f09b6872bffa284cb7fa4f6910cb72"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("17997"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Tarkan Dortmund 2006 Konseri"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https://.*\\.jpg"),
-						λ.NewStr("uploader_id"): λ.NewStr("parlayankiz"),
-						λ.NewStr("timestamp"):   λ.IntType,
-						λ.NewStr("upload_date"): λ.NewStr("20061112"),
-						λ.NewStr("duration"):    λ.NewFloat(253.666),
-						λ.NewStr("age_limit"):   λ.NewInt(0),
-					}),
-				}),
-			)
 			IzleseneIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -228,7 +194,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        IzleseneIE__TESTS,
 				λ.NewStr("_VALID_URL"):    IzleseneIE__VALID_URL,
 				λ.NewStr("_real_extract"): IzleseneIE__real_extract,
 			})

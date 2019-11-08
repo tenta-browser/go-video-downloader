@@ -50,36 +50,10 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		PlayvidIE = λ.Cal(λ.TypeType, λ.NewStr("PlayvidIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				PlayvidIE__TESTS        λ.Object
 				PlayvidIE__VALID_URL    λ.Object
 				PlayvidIE__real_extract λ.Object
 			)
 			PlayvidIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?playvid\\.com/watch(\\?v=|/)(?P<id>.+?)(?:#|$)")
-			PlayvidIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.playvid.com/watch/RnmBNgtrrJu"),
-					λ.NewStr("md5"): λ.NewStr("ffa2f6b2119af359f544388d8c01eb6c"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("RnmBNgtrrJu"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("md5:9256d01c6317e3f703848b5906880dc8"),
-						λ.NewStr("duration"):  λ.NewInt(82),
-						λ.NewStr("age_limit"): λ.NewInt(18),
-					}),
-					λ.NewStr("skip"): λ.NewStr("Video removed due to ToS"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.playvid.com/watch/hwb0GpNkzgH"),
-					λ.NewStr("md5"): λ.NewStr("39d49df503ad7b8f23a4432cbf046477"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("hwb0GpNkzgH"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("Ellen Euro Cutie Blond Takes a Sexy Survey Get Facial in The Park"),
-						λ.NewStr("age_limit"): λ.NewInt(18),
-						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg$"),
-					}),
-				}),
-			)
 			PlayvidIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -179,7 +153,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        PlayvidIE__TESTS,
 				λ.NewStr("_VALID_URL"):    PlayvidIE__VALID_URL,
 				λ.NewStr("_real_extract"): PlayvidIE__real_extract,
 			})

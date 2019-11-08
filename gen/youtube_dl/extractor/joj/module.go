@@ -49,35 +49,10 @@ func init() {
 		ϒtry_get = Ωutils.ϒtry_get
 		JojIE = λ.Cal(λ.TypeType, λ.NewStr("JojIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				JojIE__TESTS        λ.Object
 				JojIE__VALID_URL    λ.Object
 				JojIE__real_extract λ.Object
 			)
 			JojIE__VALID_URL = λ.NewStr("(?x)\n                    (?:\n                        joj:|\n                        https?://media\\.joj\\.sk/embed/\n                    )\n                    (?P<id>[^/?#^]+)\n                ")
-			JojIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://media.joj.sk/embed/a388ec4c-6019-4a4a-9312-b1bee194e932"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("a388ec4c-6019-4a4a-9312-b1bee194e932"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("NOVÉ BÝVANIE"),
-						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):  λ.NewInt(3118),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://media.joj.sk/embed/9i1cxv"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("joj:a388ec4c-6019-4a4a-9312-b1bee194e932"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("joj:9i1cxv"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			JojIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -236,7 +211,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        JojIE__TESTS,
 				λ.NewStr("_VALID_URL"):    JojIE__VALID_URL,
 				λ.NewStr("_real_extract"): JojIE__real_extract,
 			})

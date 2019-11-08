@@ -46,43 +46,10 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		BeatportIE = λ.Cal(λ.TypeType, λ.NewStr("BeatportIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				BeatportIE__TESTS        λ.Object
 				BeatportIE__VALID_URL    λ.Object
 				BeatportIE__real_extract λ.Object
 			)
 			BeatportIE__VALID_URL = λ.NewStr("https?://(?:www\\.|pro\\.)?beatport\\.com/track/(?P<display_id>[^/]+)/(?P<id>[0-9]+)")
-			BeatportIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://beatport.com/track/synesthesia-original-mix/5379371"),
-					λ.NewStr("md5"): λ.NewStr("b3c34d8639a2f6a7f734382358478887"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("5379371"),
-						λ.NewStr("display_id"): λ.NewStr("synesthesia-original-mix"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("Froxic - Synesthesia (Original Mix)"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://beatport.com/track/love-and-war-original-mix/3756896"),
-					λ.NewStr("md5"): λ.NewStr("e44c3025dfa38c6577fbaeb43da43514"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("3756896"),
-						λ.NewStr("display_id"): λ.NewStr("love-and-war-original-mix"),
-						λ.NewStr("ext"):        λ.NewStr("mp3"),
-						λ.NewStr("title"):      λ.NewStr("Wolfgang Gartner - Love & War (Original Mix)"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://beatport.com/track/birds-original-mix/4991738"),
-					λ.NewStr("md5"): λ.NewStr("a1fd8e8046de3950fd039304c186c05f"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("4991738"),
-						λ.NewStr("display_id"): λ.NewStr("birds-original-mix"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("Tos, Middle Milk, Mumblin' Johnsson - Birds (Original Mix)"),
-					}),
-				}),
-			)
 			BeatportIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -253,7 +220,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        BeatportIE__TESTS,
 				λ.NewStr("_VALID_URL"):    BeatportIE__VALID_URL,
 				λ.NewStr("_real_extract"): BeatportIE__real_extract,
 			})

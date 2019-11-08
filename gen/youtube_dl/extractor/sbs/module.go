@@ -44,36 +44,10 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		SBSIE = λ.Cal(λ.TypeType, λ.NewStr("SBSIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				SBSIE__TESTS        λ.Object
 				SBSIE__VALID_URL    λ.Object
 				SBSIE__real_extract λ.Object
 			)
 			SBSIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?sbs\\.com\\.au/(?:ondemand|news)/video/(?:single/)?(?P<id>[0-9]+)")
-			SBSIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.sbs.com.au/ondemand/video/single/320403011771/?source=drupal&vertical=thefeed"),
-					λ.NewStr("md5"): λ.NewStr("3150cf278965eeabb5b4cea1c963fe0a"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("320403011771"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Dingo Conservation (The Feed)"),
-						λ.NewStr("description"): λ.NewStr("md5:f250a9856fca50d22dec0b5b8015f8a5"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:http://.*\\.jpg"),
-						λ.NewStr("duration"):    λ.NewInt(308),
-						λ.NewStr("timestamp"):   λ.NewInt(1408613220),
-						λ.NewStr("upload_date"): λ.NewStr("20140821"),
-						λ.NewStr("uploader"):    λ.NewStr("SBSC"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.sbs.com.au/ondemand/video/320403011771/Dingo-Conservation-The-Feed"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.sbs.com.au/news/video/471395907773/The-Feed-July-9"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			SBSIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -149,7 +123,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        SBSIE__TESTS,
 				λ.NewStr("_VALID_URL"):    SBSIE__VALID_URL,
 				λ.NewStr("_real_extract"): SBSIE__real_extract,
 			})

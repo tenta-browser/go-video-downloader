@@ -70,7 +70,6 @@ func init() {
 			var (
 				LivestreamIE_IE_NAME             λ.Object
 				LivestreamIE__API_URL_TEMPLATE   λ.Object
-				LivestreamIE__TESTS              λ.Object
 				LivestreamIE__VALID_URL          λ.Object
 				LivestreamIE__extract_event      λ.Object
 				LivestreamIE__extract_video_info λ.Object
@@ -79,47 +78,6 @@ func init() {
 			)
 			LivestreamIE_IE_NAME = λ.NewStr("livestream")
 			LivestreamIE__VALID_URL = λ.NewStr("https?://(?:new\\.)?livestream\\.com/(?:accounts/(?P<account_id>\\d+)|(?P<account_name>[^/]+))/(?:events/(?P<event_id>\\d+)|(?P<event_name>[^/]+))(?:/videos/(?P<id>\\d+))?")
-			LivestreamIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://new.livestream.com/CoheedandCambria/WebsterHall/videos/4719370"),
-					λ.NewStr("md5"): λ.NewStr("53274c76ba7754fb0e8d072716f2292b"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("4719370"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Live from Webster Hall NYC"),
-						λ.NewStr("timestamp"):   λ.NewInt(1350008072),
-						λ.NewStr("upload_date"): λ.NewStr("20121012"),
-						λ.NewStr("duration"):    λ.NewFloat(5968.0),
-						λ.NewStr("like_count"):  λ.IntType,
-						λ.NewStr("view_count"):  λ.IntType,
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^http://.*\\.jpg$"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://new.livestream.com/tedx/cityenglish"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("title"): λ.NewStr("TEDCity2.0 (English)"),
-						λ.NewStr("id"):    λ.NewStr("2245590"),
-					}),
-					λ.NewStr("playlist_mincount"): λ.NewInt(4),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://new.livestream.com/chess24/tatasteelchess"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("title"): λ.NewStr("Tata Steel Chess"),
-						λ.NewStr("id"):    λ.NewStr("3705884"),
-					}),
-					λ.NewStr("playlist_mincount"): λ.NewInt(60),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://new.livestream.com/accounts/362/events/3557232/videos/67864563/player?autoPlay=false&height=360&mute=false&width=640"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://livestream.com/bsww/concacafbeachsoccercampeonato2015"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			LivestreamIE__API_URL_TEMPLATE = λ.NewStr("http://livestream.com/api/accounts/%s/events/%s")
 			LivestreamIE__parse_smil_formats = λ.NewFunction("_parse_smil_formats",
 				[]λ.Param{
@@ -477,7 +435,6 @@ func init() {
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):             LivestreamIE_IE_NAME,
 				λ.NewStr("_API_URL_TEMPLATE"):   LivestreamIE__API_URL_TEMPLATE,
-				λ.NewStr("_TESTS"):              LivestreamIE__TESTS,
 				λ.NewStr("_VALID_URL"):          LivestreamIE__VALID_URL,
 				λ.NewStr("_extract_event"):      LivestreamIE__extract_event,
 				λ.NewStr("_extract_video_info"): LivestreamIE__extract_video_info,

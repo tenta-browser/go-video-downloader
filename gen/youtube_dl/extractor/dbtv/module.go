@@ -40,37 +40,10 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		DBTVIE = λ.Cal(λ.TypeType, λ.NewStr("DBTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				DBTVIE__TESTS        λ.Object
 				DBTVIE__VALID_URL    λ.Object
 				DBTVIE__real_extract λ.Object
 			)
 			DBTVIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?dagbladet\\.no/video/(?:(?:embed|(?P<display_id>[^/]+))/)?(?P<id>[0-9A-Za-z_-]{11}|[a-zA-Z0-9]{8})")
-			DBTVIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.dagbladet.no/video/PynxJnNWChE/"),
-					λ.NewStr("md5"): λ.NewStr("b8f850ba1860adbda668d367f9b77699"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("PynxJnNWChE"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Skulle teste ut fornøyelsespark, men kollegaen var bare opptatt av bikinikroppen"),
-						λ.NewStr("description"): λ.NewStr("md5:49cc8370e7d66e8a2ef15c3b4631fd3f"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:https?://.*\\.jpg"),
-						λ.NewStr("upload_date"): λ.NewStr("20160916"),
-						λ.NewStr("duration"):    λ.NewInt(69),
-						λ.NewStr("uploader_id"): λ.NewStr("UCk5pvsyZJoYJBd7_oFPTlRQ"),
-						λ.NewStr("uploader"):    λ.NewStr("Dagbladet"),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Youtube")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.dagbladet.no/video/embed/xlGmyIeN9Jo/?autoplay=false"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.dagbladet.no/video/truer-iran-bor-passe-dere/PalfB2Cw"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			DBTVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -108,7 +81,6 @@ func init() {
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        DBTVIE__TESTS,
 				λ.NewStr("_VALID_URL"):    DBTVIE__VALID_URL,
 				λ.NewStr("_real_extract"): DBTVIE__real_extract,
 			})

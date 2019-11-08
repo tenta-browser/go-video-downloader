@@ -50,63 +50,10 @@ func init() {
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		VineIE = λ.Cal(λ.TypeType, λ.NewStr("VineIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				VineIE__TESTS        λ.Object
 				VineIE__VALID_URL    λ.Object
 				VineIE__real_extract λ.Object
 			)
 			VineIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?vine\\.co/(?:v|oembed)/(?P<id>\\w+)")
-			VineIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://vine.co/v/b9KOOWX7HUx"),
-					λ.NewStr("md5"): λ.NewStr("2f36fed6235b16da96ce9b4dc890940d"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("b9KOOWX7HUx"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("Chicken."),
-						λ.NewStr("alt_title"):     λ.NewStr("Vine by Jack"),
-						λ.NewStr("timestamp"):     λ.NewInt(1368997951),
-						λ.NewStr("upload_date"):   λ.NewStr("20130519"),
-						λ.NewStr("uploader"):      λ.NewStr("Jack"),
-						λ.NewStr("uploader_id"):   λ.NewStr("76"),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("like_count"):    λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-						λ.NewStr("repost_count"):  λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://vine.co/v/e192BnZnZ9V"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("e192BnZnZ9V"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("ยิ้ม~ เขิน~ อาย~ น่าร้ากอ้ะ >//< @n_whitewo @orlameena #lovesicktheseries  #lovesickseason2"),
-						λ.NewStr("alt_title"):     λ.NewStr("Vine by Pimry_zaa"),
-						λ.NewStr("timestamp"):     λ.NewInt(1436057405),
-						λ.NewStr("upload_date"):   λ.NewStr("20150705"),
-						λ.NewStr("uploader"):      λ.NewStr("Pimry_zaa"),
-						λ.NewStr("uploader_id"):   λ.NewStr("1135760698325307392"),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("like_count"):    λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-						λ.NewStr("repost_count"):  λ.IntType,
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://vine.co/v/MYxVapFvz2z"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://vine.co/v/bxVjBbZlPUH"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://vine.co/oembed/MYxVapFvz2z.json"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			VineIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -242,7 +189,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        VineIE__TESTS,
 				λ.NewStr("_VALID_URL"):    VineIE__VALID_URL,
 				λ.NewStr("_real_extract"): VineIE__real_extract,
 			})

@@ -126,23 +126,10 @@ func init() {
 		}())
 		SkyNewsIE = λ.Cal(λ.TypeType, λ.NewStr("SkyNewsIE"), λ.NewTuple(SkyBaseIE), func() λ.Dict {
 			var (
-				SkyNewsIE__TEST      λ.Object
 				SkyNewsIE__VALID_URL λ.Object
 			)
 			SkyNewsIE__VALID_URL = λ.NewStr("https?://news\\.sky\\.com/video/[0-9a-z-]+-(?P<id>[0-9]+)")
-			SkyNewsIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://news.sky.com/video/russian-plane-inspected-after-deadly-fire-11712962"),
-				λ.NewStr("md5"): λ.NewStr("d6327e581473cea9976a3236ded370cd"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("1ua21xaDE6lCtZDmbYfl8kwsKLooJbNM"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Russian plane inspected after deadly fire"),
-					λ.NewStr("description"): λ.NewStr("The Russian Investigative Committee has released video of the wreckage of a passenger plane which caught fire near Moscow."),
-				}),
-				λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Ooyala")),
-			})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):      SkyNewsIE__TEST,
 				λ.NewStr("_VALID_URL"): SkyNewsIE__VALID_URL,
 			})
 		}())

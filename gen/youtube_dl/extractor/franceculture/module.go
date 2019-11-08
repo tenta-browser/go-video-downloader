@@ -46,24 +46,10 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		FranceCultureIE = λ.Cal(λ.TypeType, λ.NewStr("FranceCultureIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				FranceCultureIE__TEST         λ.Object
 				FranceCultureIE__VALID_URL    λ.Object
 				FranceCultureIE__real_extract λ.Object
 			)
 			FranceCultureIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?franceculture\\.fr/emissions/(?:[^/]+/)*(?P<id>[^/?#&]+)")
-			FranceCultureIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.franceculture.fr/emissions/carnet-nomade/rendez-vous-au-pays-des-geeks"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("rendez-vous-au-pays-des-geeks"),
-					λ.NewStr("display_id"):  λ.NewStr("rendez-vous-au-pays-des-geeks"),
-					λ.NewStr("ext"):         λ.NewStr("mp3"),
-					λ.NewStr("title"):       λ.NewStr("Rendez-vous au pays des geeks"),
-					λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-					λ.NewStr("upload_date"): λ.NewStr("20140301"),
-					λ.NewStr("timestamp"):   λ.NewInt(1393642916),
-					λ.NewStr("vcodec"):      λ.NewStr("none"),
-				}),
-			})
 			FranceCultureIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -138,7 +124,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         FranceCultureIE__TEST,
 				λ.NewStr("_VALID_URL"):    FranceCultureIE__VALID_URL,
 				λ.NewStr("_real_extract"): FranceCultureIE__real_extract,
 			})

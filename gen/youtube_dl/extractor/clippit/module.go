@@ -45,26 +45,10 @@ func init() {
 		ϒqualities = Ωutils.ϒqualities
 		ClippitIE = λ.Cal(λ.TypeType, λ.NewStr("ClippitIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ClippitIE__TEST         λ.Object
 				ClippitIE__VALID_URL    λ.Object
 				ClippitIE__real_extract λ.Object
 			)
 			ClippitIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?clippituser\\.tv/c/(?P<id>[a-z]+)")
-			ClippitIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://www.clippituser.tv/c/evmgm"),
-				λ.NewStr("md5"): λ.NewStr("963ae7a59a2ec4572ab8bf2f2d2c5f09"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):           λ.NewStr("evmgm"),
-					λ.NewStr("ext"):          λ.NewStr("mp4"),
-					λ.NewStr("title"):        λ.NewStr("Bye bye Brutus. #BattleBots  - Clippit"),
-					λ.NewStr("uploader"):     λ.NewStr("lizllove"),
-					λ.NewStr("uploader_url"): λ.NewStr("https://www.clippituser.tv/p/lizllove"),
-					λ.NewStr("timestamp"):    λ.NewInt(1472183818),
-					λ.NewStr("upload_date"):  λ.NewStr("20160826"),
-					λ.NewStr("description"):  λ.NewStr("BattleBots | ABC"),
-					λ.NewStr("thumbnail"):    λ.NewStr("re:^https?://.*\\.jpg$"),
-				}),
-			})
 			ClippitIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -169,7 +153,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         ClippitIE__TEST,
 				λ.NewStr("_VALID_URL"):    ClippitIE__VALID_URL,
 				λ.NewStr("_real_extract"): ClippitIE__real_extract,
 			})

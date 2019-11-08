@@ -61,83 +61,11 @@ func init() {
 		DaumIE = λ.Cal(λ.TypeType, λ.NewStr("DaumIE"), λ.NewTuple(DaumBaseIE), func() λ.Dict {
 			var (
 				DaumIE_IE_NAME       λ.Object
-				DaumIE__TESTS        λ.Object
 				DaumIE__VALID_URL    λ.Object
 				DaumIE__real_extract λ.Object
 			)
 			DaumIE__VALID_URL = λ.NewStr("https?://(?:(?:m\\.)?tvpot\\.daum\\.net/v/|videofarm\\.daum\\.net/controller/player/VodPlayer\\.swf\\?vid=)(?P<id>[^?#&]+)")
 			DaumIE_IE_NAME = λ.NewStr("daum.net")
-			DaumIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://tvpot.daum.net/v/vab4dyeDBysyBssyukBUjBz"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("vab4dyeDBysyBssyukBUjBz"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("마크 헌트 vs 안토니오 실바"),
-						λ.NewStr("description"):   λ.NewStr("Mark Hunt vs Antonio Silva"),
-						λ.NewStr("upload_date"):   λ.NewStr("20131217"),
-						λ.NewStr("thumbnail"):     λ.NewStr("re:^https?://.*\\.(?:jpg|png)"),
-						λ.NewStr("duration"):      λ.NewInt(2117),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-						λ.NewStr("uploader_id"):   λ.NewInt(186139),
-						λ.NewStr("uploader"):      λ.NewStr("콘간지"),
-						λ.NewStr("timestamp"):     λ.NewInt(1387310323),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://m.tvpot.daum.net/v/65139429"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("65139429"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("1297회, '아빠 아들로 태어나길 잘 했어' 민수, 감동의 눈물[아빠 어디가] 20150118"),
-						λ.NewStr("description"):   λ.NewStr("md5:79794514261164ff27e36a21ad229fc5"),
-						λ.NewStr("upload_date"):   λ.NewStr("20150118"),
-						λ.NewStr("thumbnail"):     λ.NewStr("re:^https?://.*\\.(?:jpg|png)"),
-						λ.NewStr("duration"):      λ.NewInt(154),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-						λ.NewStr("uploader"):      λ.NewStr("MBC 예능"),
-						λ.NewStr("uploader_id"):   λ.NewInt(132251),
-						λ.NewStr("timestamp"):     λ.NewInt(1421604228),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://tvpot.daum.net/v/07dXWRka62Y%24"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://videofarm.daum.net/controller/player/VodPlayer.swf?vid=vwIpVpCQsT8%24&ref="),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("vwIpVpCQsT8$"),
-						λ.NewStr("ext"):           λ.NewStr("flv"),
-						λ.NewStr("title"):         λ.NewStr("01-Korean War ( Trouble on the horizon )"),
-						λ.NewStr("description"):   λ.NewStr("Korean War 01\r\nTrouble on the horizon\r\n전쟁의 먹구름"),
-						λ.NewStr("upload_date"):   λ.NewStr("20080223"),
-						λ.NewStr("thumbnail"):     λ.NewStr("re:^https?://.*\\.(?:jpg|png)"),
-						λ.NewStr("duration"):      λ.NewInt(249),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-						λ.NewStr("uploader"):      λ.NewStr("까칠한 墮落始祖 황비홍님의"),
-						λ.NewStr("uploader_id"):   λ.NewInt(560824),
-						λ.NewStr("timestamp"):     λ.NewInt(1203770745),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://tvpot.daum.net/v/s3794Uf1NZeZ1qMpGpeqeRU"),
-					λ.NewStr("md5"): λ.NewStr("a8917742069a4dd442516b86e7d66529"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("s3794Uf1NZeZ1qMpGpeqeRU"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("러블리즈 - Destiny (나의 지구) (Lovelyz - Destiny)"),
-						λ.NewStr("description"): λ.NewStr("러블리즈 - Destiny (나의 지구) (Lovelyz - Destiny)\r\n\r\n[쇼! 음악중심] 20160611, 507회"),
-						λ.NewStr("upload_date"): λ.NewStr("20170129"),
-						λ.NewStr("uploader"):    λ.NewStr("쇼! 음악중심"),
-						λ.NewStr("uploader_id"): λ.NewInt(2653210),
-						λ.NewStr("timestamp"):   λ.NewInt(1485684628),
-					}),
-				}),
-			)
 			DaumIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -160,7 +88,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       DaumIE_IE_NAME,
-				λ.NewStr("_TESTS"):        DaumIE__TESTS,
 				λ.NewStr("_VALID_URL"):    DaumIE__VALID_URL,
 				λ.NewStr("_real_extract"): DaumIE__real_extract,
 			})
@@ -168,7 +95,6 @@ func init() {
 		DaumClipIE = λ.Cal(λ.TypeType, λ.NewStr("DaumClipIE"), λ.NewTuple(DaumBaseIE), func() λ.Dict {
 			var (
 				DaumClipIE_IE_NAME       λ.Object
-				DaumClipIE__TESTS        λ.Object
 				DaumClipIE__URL_TEMPLATE λ.Object
 				DaumClipIE__VALID_URL    λ.Object
 				DaumClipIE__real_extract λ.Object
@@ -177,28 +103,6 @@ func init() {
 			DaumClipIE__VALID_URL = λ.NewStr("https?://(?:m\\.)?tvpot\\.daum\\.net/(?:clip/ClipView.(?:do|tv)|mypot/View.do)\\?.*?clipid=(?P<id>\\d+)")
 			DaumClipIE_IE_NAME = λ.NewStr("daum.net:clip")
 			DaumClipIE__URL_TEMPLATE = λ.NewStr("http://tvpot.daum.net/clip/ClipView.do?clipid=%s")
-			DaumClipIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://tvpot.daum.net/clip/ClipView.do?clipid=52554690"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("52554690"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("DOTA 2GETHER 시즌2 6회 - 2부"),
-						λ.NewStr("description"): λ.NewStr("DOTA 2GETHER 시즌2 6회 - 2부"),
-						λ.NewStr("upload_date"): λ.NewStr("20130831"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.(?:jpg|png)"),
-						λ.NewStr("duration"):    λ.NewInt(3868),
-						λ.NewStr("view_count"):  λ.IntType,
-						λ.NewStr("uploader"):    λ.NewStr("GOMeXP"),
-						λ.NewStr("uploader_id"): λ.NewInt(6667),
-						λ.NewStr("timestamp"):   λ.NewInt(1377911092),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://m.tvpot.daum.net/clip/ClipView.tv?clipid=54999425"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			DaumClipIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -242,7 +146,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       DaumClipIE_IE_NAME,
-				λ.NewStr("_TESTS"):        DaumClipIE__TESTS,
 				λ.NewStr("_URL_TEMPLATE"): DaumClipIE__URL_TEMPLATE,
 				λ.NewStr("_VALID_URL"):    DaumClipIE__VALID_URL,
 				λ.NewStr("_real_extract"): DaumClipIE__real_extract,
@@ -360,7 +263,6 @@ func init() {
 		DaumPlaylistIE = λ.Cal(λ.TypeType, λ.NewStr("DaumPlaylistIE"), λ.NewTuple(DaumListIE), func() λ.Dict {
 			var (
 				DaumPlaylistIE_IE_NAME       λ.Object
-				DaumPlaylistIE__TESTS        λ.Object
 				DaumPlaylistIE__URL_TEMPLATE λ.Object
 				DaumPlaylistIE__VALID_URL    λ.Object
 				DaumPlaylistIE__real_extract λ.Object
@@ -369,31 +271,6 @@ func init() {
 			DaumPlaylistIE__VALID_URL = λ.NewStr("https?://(?:m\\.)?tvpot\\.daum\\.net/mypot/(?:View\\.do|Top\\.tv)\\?.*?playlistid=(?P<id>[0-9]+)")
 			DaumPlaylistIE_IE_NAME = λ.NewStr("daum.net:playlist")
 			DaumPlaylistIE__URL_TEMPLATE = λ.NewStr("http://tvpot.daum.net/mypot/View.do?playlistid=%s")
-			DaumPlaylistIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("note"): λ.NewStr("Playlist url with clipid"),
-					λ.NewStr("url"):  λ.NewStr("http://tvpot.daum.net/mypot/View.do?playlistid=6213966&clipid=73806844"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("6213966"),
-						λ.NewStr("title"): λ.NewStr("Woorissica Official"),
-					}),
-					λ.NewStr("playlist_mincount"): λ.NewInt(181),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("note"): λ.NewStr("Playlist url with clipid - noplaylist"),
-					λ.NewStr("url"):  λ.NewStr("http://tvpot.daum.net/mypot/View.do?playlistid=6213966&clipid=73806844"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("73806844"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("151017 Airport"),
-						λ.NewStr("upload_date"): λ.NewStr("20160117"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("noplaylist"):    λ.True,
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-			)
 			DaumPlaylistIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -442,7 +319,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       DaumPlaylistIE_IE_NAME,
-				λ.NewStr("_TESTS"):        DaumPlaylistIE__TESTS,
 				λ.NewStr("_URL_TEMPLATE"): DaumPlaylistIE__URL_TEMPLATE,
 				λ.NewStr("_VALID_URL"):    DaumPlaylistIE__VALID_URL,
 				λ.NewStr("_real_extract"): DaumPlaylistIE__real_extract,
@@ -452,53 +328,11 @@ func init() {
 		DaumUserIE = λ.Cal(λ.TypeType, λ.NewStr("DaumUserIE"), λ.NewTuple(DaumListIE), func() λ.Dict {
 			var (
 				DaumUserIE_IE_NAME       λ.Object
-				DaumUserIE__TESTS        λ.Object
 				DaumUserIE__VALID_URL    λ.Object
 				DaumUserIE__real_extract λ.Object
 			)
 			DaumUserIE__VALID_URL = λ.NewStr("https?://(?:m\\.)?tvpot\\.daum\\.net/mypot/(?:View|Top)\\.(?:do|tv)\\?.*?ownerid=(?P<id>[0-9a-zA-Z]+)")
 			DaumUserIE_IE_NAME = λ.NewStr("daum.net:user")
-			DaumUserIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://tvpot.daum.net/mypot/View.do?ownerid=o2scDLIVbHc0"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("o2scDLIVbHc0"),
-						λ.NewStr("title"): λ.NewStr("마이 리틀 텔레비전"),
-					}),
-					λ.NewStr("playlist_mincount"): λ.NewInt(213),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://tvpot.daum.net/mypot/View.do?ownerid=o2scDLIVbHc0&clipid=73801156"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("73801156"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("[미공개] 김구라, 오만석이 부릅니다 '오케피' - 마이 리틀 텔레비전 20160116"),
-						λ.NewStr("upload_date"): λ.NewStr("20160117"),
-						λ.NewStr("description"): λ.NewStr("md5:5e91d2d6747f53575badd24bd62b9f36"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("noplaylist"):    λ.True,
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("note"): λ.NewStr("Playlist url has ownerid and playlistid, playlistid takes precedence"),
-					λ.NewStr("url"):  λ.NewStr("http://tvpot.daum.net/mypot/View.do?ownerid=o2scDLIVbHc0&playlistid=6196631"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("6196631"),
-						λ.NewStr("title"): λ.NewStr("마이 리틀 텔레비전 - 20160109"),
-					}),
-					λ.NewStr("playlist_count"): λ.NewInt(11),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://tvpot.daum.net/mypot/Top.do?ownerid=o2scDLIVbHc0"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://m.tvpot.daum.net/mypot/Top.tv?ownerid=45x1okb1If50&playlistid=3569733"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			DaumUserIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -534,7 +368,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       DaumUserIE_IE_NAME,
-				λ.NewStr("_TESTS"):        DaumUserIE__TESTS,
 				λ.NewStr("_VALID_URL"):    DaumUserIE__VALID_URL,
 				λ.NewStr("_real_extract"): DaumUserIE__real_extract,
 			})

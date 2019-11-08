@@ -52,47 +52,11 @@ func init() {
 		ImdbIE = λ.Cal(λ.TypeType, λ.NewStr("ImdbIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ImdbIE_IE_NAME       λ.Object
-				ImdbIE__TESTS        λ.Object
 				ImdbIE__VALID_URL    λ.Object
 				ImdbIE__real_extract λ.Object
 			)
 			ImdbIE_IE_NAME = λ.NewStr("imdb")
 			ImdbIE__VALID_URL = λ.NewStr("https?://(?:www|m)\\.imdb\\.com/(?:video|title|list).+?[/-]vi(?P<id>\\d+)")
-			ImdbIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.imdb.com/video/imdb/vi2524815897"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("2524815897"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("No. 2 from Ice Age: Continental Drift (2012)"),
-						λ.NewStr("description"): λ.NewStr("md5:87bd0bdc61e351f21f20d2d7441cb4e7"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.imdb.com/video/_/vi2524815897"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.imdb.com/title/tt1667889/?ref_=ext_shr_eml_vi#lb-vi2524815897"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.imdb.com/title/tt1667889/#lb-vi2524815897"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.imdb.com/videoplayer/vi1562949145"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.imdb.com/title/tt4218696/videoplayer/vi2608641561"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.imdb.com/list/ls009921623/videoplayer/vi260482329"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			ImdbIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -202,7 +166,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       ImdbIE_IE_NAME,
-				λ.NewStr("_TESTS"):        ImdbIE__TESTS,
 				λ.NewStr("_VALID_URL"):    ImdbIE__VALID_URL,
 				λ.NewStr("_real_extract"): ImdbIE__real_extract,
 			})

@@ -39,30 +39,10 @@ func init() {
 		NuevoBaseIE = Ωnuevo.NuevoBaseIE
 		NonkTubeIE = λ.Cal(λ.TypeType, λ.NewStr("NonkTubeIE"), λ.NewTuple(NuevoBaseIE), func() λ.Dict {
 			var (
-				NonkTubeIE__TESTS        λ.Object
 				NonkTubeIE__VALID_URL    λ.Object
 				NonkTubeIE__real_extract λ.Object
 			)
 			NonkTubeIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?nonktube\\.com/(?:(?:video|embed)/|media/nuevo/embed\\.php\\?.*?\\bid=)(?P<id>\\d+)")
-			NonkTubeIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.nonktube.com/video/118636/sensual-wife-uncensored-fucked-in-hairy-pussy-and-facialized"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("118636"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("Sensual Wife Uncensored Fucked In Hairy Pussy And Facialized"),
-						λ.NewStr("age_limit"): λ.NewInt(18),
-						λ.NewStr("duration"):  λ.NewFloat(1150.98),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.nonktube.com/embed/118636"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			NonkTubeIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -90,7 +70,6 @@ func init() {
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        NonkTubeIE__TESTS,
 				λ.NewStr("_VALID_URL"):    NonkTubeIE__VALID_URL,
 				λ.NewStr("_real_extract"): NonkTubeIE__real_extract,
 			})

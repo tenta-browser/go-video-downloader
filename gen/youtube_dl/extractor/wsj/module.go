@@ -47,39 +47,10 @@ func init() {
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		WSJIE = λ.Cal(λ.TypeType, λ.NewStr("WSJIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				WSJIE__TESTS        λ.Object
 				WSJIE__VALID_URL    λ.Object
 				WSJIE__real_extract λ.Object
 			)
 			WSJIE__VALID_URL = λ.NewStr("(?x)\n                        (?:\n                            https?://video-api\\.wsj\\.com/api-video/player/iframe\\.html\\?.*?\\bguid=|\n                            https?://(?:www\\.)?(?:wsj|barrons)\\.com/video/(?:[^/]+/)+|\n                            wsj:\n                        )\n                        (?P<id>[a-fA-F0-9-]{36})\n                    ")
-			WSJIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://video-api.wsj.com/api-video/player/iframe.html?guid=1BD01A4C-BFE8-40A5-A42F-8A8AF9898B1A"),
-					λ.NewStr("md5"): λ.NewStr("e230a5bb249075e40793b655a54a02e4"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1BD01A4C-BFE8-40A5-A42F-8A8AF9898B1A"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("upload_date"): λ.NewStr("20150202"),
-						λ.NewStr("uploader_id"): λ.NewStr("jdesai"),
-						λ.NewStr("creator"):     λ.NewStr("jdesai"),
-						λ.NewStr("categories"):  λ.ListType,
-						λ.NewStr("duration"):    λ.NewInt(90),
-						λ.NewStr("title"):       λ.NewStr("Bills Coach Rex Ryan Updates His Old Jets Tattoo"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.wsj.com/video/can-alphabet-build-a-smarter-city/359DDAA8-9AC1-489C-82E6-0429C1E430E0.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.barrons.com/video/capitalism-deserves-more-respect-from-millennials/F301217E-6F46-43AE-B8D2-B7180D642EE9.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.wsj.com/video/series/a-brief-history-of/the-modern-cell-carrier-how-we-got-here/980E2187-401D-48A1-B82B-1486CEE06CB9"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			WSJIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -194,28 +165,16 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        WSJIE__TESTS,
 				λ.NewStr("_VALID_URL"):    WSJIE__VALID_URL,
 				λ.NewStr("_real_extract"): WSJIE__real_extract,
 			})
 		}())
 		WSJArticleIE = λ.Cal(λ.TypeType, λ.NewStr("WSJArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				WSJArticleIE__TEST         λ.Object
 				WSJArticleIE__VALID_URL    λ.Object
 				WSJArticleIE__real_extract λ.Object
 			)
 			WSJArticleIE__VALID_URL = λ.NewStr("(?i)https?://(?:www\\.)?wsj\\.com/articles/(?P<id>[^/?#&]+)")
-			WSJArticleIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://www.wsj.com/articles/dont-like-china-no-pandas-for-you-1490366939?"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("4B13FA62-1D8C-45DB-8EA1-4105CB20B362"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("upload_date"): λ.NewStr("20170221"),
-					λ.NewStr("uploader_id"): λ.NewStr("ralcaraz"),
-					λ.NewStr("title"):       λ.NewStr("Bao Bao the Panda Leaves for China"),
-				}),
-			})
 			WSJArticleIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -236,7 +195,6 @@ func init() {
 					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("wsj:%s"), ϒvideo_id), λ.Cal(λ.GetAttr(WSJIE, "ie_key", nil)), ϒvideo_id)
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         WSJArticleIE__TEST,
 				λ.NewStr("_VALID_URL"):    WSJArticleIE__VALID_URL,
 				λ.NewStr("_real_extract"): WSJArticleIE__real_extract,
 			})

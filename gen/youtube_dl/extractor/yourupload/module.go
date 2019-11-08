@@ -42,31 +42,10 @@ func init() {
 		ϒurljoin = Ωutils.ϒurljoin
 		YourUploadIE = λ.Cal(λ.TypeType, λ.NewStr("YourUploadIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				YourUploadIE__TESTS        λ.Object
 				YourUploadIE__VALID_URL    λ.Object
 				YourUploadIE__real_extract λ.Object
 			)
 			YourUploadIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?:yourupload\\.com/(?:watch|embed)|embed\\.yourupload\\.com)/(?P<id>[A-Za-z0-9]+)")
-			YourUploadIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://yourupload.com/watch/14i14h"),
-					λ.NewStr("md5"): λ.NewStr("5e2c63385454c557f97c4c4131a393cd"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("14i14h"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("BigBuckBunny_320x180.mp4"),
-						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpe?g"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.yourupload.com/embed/14i14h"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://embed.yourupload.com/14i14h"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			YourUploadIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -103,7 +82,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        YourUploadIE__TESTS,
 				λ.NewStr("_VALID_URL"):    YourUploadIE__VALID_URL,
 				λ.NewStr("_real_extract"): YourUploadIE__real_extract,
 			})

@@ -40,39 +40,10 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		GazetaIE = λ.Cal(λ.TypeType, λ.NewStr("GazetaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				GazetaIE__TESTS        λ.Object
 				GazetaIE__VALID_URL    λ.Object
 				GazetaIE__real_extract λ.Object
 			)
 			GazetaIE__VALID_URL = λ.NewStr("(?P<url>https?://(?:www\\.)?gazeta\\.ru/(?:[^/]+/)?video/(?:main/)*(?:\\d{4}/\\d{2}/\\d{2}/)?(?P<id>[A-Za-z0-9-_.]+)\\.s?html)")
-			GazetaIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.gazeta.ru/video/main/zadaite_vopros_vladislavu_yurevichu.shtml"),
-					λ.NewStr("md5"): λ.NewStr("d49c9bdc6e5a7888f27475dc215ee789"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("205566"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("«70–80 процентов гражданских в Донецке на грани голода»"),
-						λ.NewStr("description"): λ.NewStr("md5:38617526050bd17b234728e7f9620a71"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("video not found"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.gazeta.ru/lifestyle/video/2015/03/08/master-klass_krasivoi_byt._delaem_vesennii_makiyazh.shtml"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.gazeta.ru/video/main/main/2015/06/22/platit_ili_ne_platit_po_isku_yukosa.shtml"),
-					λ.NewStr("md5"): λ.NewStr("37f19f78355eb2f4256ee1688359f24c"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("252048"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("\"Если по иску ЮКОСа придется платить, это будет большой удар по бюджету\""),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("EaglePlatform")),
-				}),
-			)
 			GazetaIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -97,7 +68,6 @@ func init() {
 					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("eagleplatform:gazeta.media.eagleplatform.com:%s"), ϒvideo_id), λ.NewStr("EaglePlatform"))
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        GazetaIE__TESTS,
 				λ.NewStr("_VALID_URL"):    GazetaIE__VALID_URL,
 				λ.NewStr("_real_extract"): GazetaIE__real_extract,
 			})

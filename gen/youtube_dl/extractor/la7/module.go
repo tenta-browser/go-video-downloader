@@ -45,41 +45,11 @@ func init() {
 		LA7IE = λ.Cal(λ.TypeType, λ.NewStr("LA7IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				LA7IE_IE_NAME       λ.Object
-				LA7IE__TESTS        λ.Object
 				LA7IE__VALID_URL    λ.Object
 				LA7IE__real_extract λ.Object
 			)
 			LA7IE_IE_NAME = λ.NewStr("la7.it")
 			LA7IE__VALID_URL = λ.NewStr("(?x)(https?://)?(?:\n        (?:www\\.)?la7\\.it/([^/]+)/(?:rivedila7|video)/|\n        tg\\.la7\\.it/repliche-tgla7\\?id=\n    )(?P<id>.+)")
-			LA7IE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.la7.it/crozza/video/inccool8-02-10-2015-163722"),
-					λ.NewStr("md5"): λ.NewStr("8b613ffc0c4bf9b9e377169fc19c214c"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("0_42j6wd36"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Inc.Cool8"),
-						λ.NewStr("description"): λ.NewStr("Benvenuti nell'incredibile mondo della INC. COOL. 8. dove “INC.” sta per “Incorporated” “COOL” sta per “fashion” ed Eight sta per il gesto  atletico"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*"),
-						λ.NewStr("uploader_id"): λ.NewStr("kdla7pillole@iltrovatore.it"),
-						λ.NewStr("timestamp"):   λ.NewInt(1443814869),
-						λ.NewStr("upload_date"): λ.NewStr("20151002"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://tg.la7.it/repliche-tgla7?id=189080"),
-					λ.NewStr("md5"): λ.NewStr("6b0d8888d286e39870208dfeceaf456b"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("189080"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("TG LA7"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.la7.it/omnibus/rivedila7/omnibus-news-02-07-2016-189077"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			LA7IE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -121,7 +91,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       LA7IE_IE_NAME,
-				λ.NewStr("_TESTS"):        LA7IE__TESTS,
 				λ.NewStr("_VALID_URL"):    LA7IE__VALID_URL,
 				λ.NewStr("_real_extract"): LA7IE__real_extract,
 			})

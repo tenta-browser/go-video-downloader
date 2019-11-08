@@ -48,35 +48,10 @@ func init() {
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		ManyVidsIE = λ.Cal(λ.TypeType, λ.NewStr("ManyVidsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ManyVidsIE__TESTS        λ.Object
 				ManyVidsIE__VALID_URL    λ.Object
 				ManyVidsIE__real_extract λ.Object
 			)
 			ManyVidsIE__VALID_URL = λ.NewStr("(?i)https?://(?:www\\.)?manyvids\\.com/video/(?P<id>\\d+)")
-			ManyVidsIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.manyvids.com/Video/133957/everthing-about-me/"),
-					λ.NewStr("md5"): λ.NewStr("03f11bb21c52dd12a05be21a5c7dcc97"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("133957"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("everthing about me (Preview)"),
-						λ.NewStr("view_count"): λ.IntType,
-						λ.NewStr("like_count"): λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.manyvids.com/Video/935718/MY-FACE-REVEAL/"),
-					λ.NewStr("md5"): λ.NewStr("f3e8f7086409e9b470e2643edb96bdcc"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("935718"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("MY FACE REVEAL"),
-						λ.NewStr("view_count"): λ.IntType,
-						λ.NewStr("like_count"): λ.IntType,
-					}),
-				}),
-			)
 			ManyVidsIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -216,7 +191,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        ManyVidsIE__TESTS,
 				λ.NewStr("_VALID_URL"):    ManyVidsIE__VALID_URL,
 				λ.NewStr("_real_extract"): ManyVidsIE__real_extract,
 			})

@@ -62,20 +62,10 @@ func init() {
 		}())
 		WeiboMobileIE = λ.Cal(λ.TypeType, λ.NewStr("WeiboMobileIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				WeiboMobileIE__TEST         λ.Object
 				WeiboMobileIE__VALID_URL    λ.Object
 				WeiboMobileIE__real_extract λ.Object
 			)
 			WeiboMobileIE__VALID_URL = λ.NewStr("https?://m\\.weibo\\.cn/status/(?P<id>[0-9]+)(\\?.+)?")
-			WeiboMobileIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://m.weibo.cn/status/4189191225395228?wm=3333_2001&sourcetype=weixin&featurecode=newtitle&from=singlemessage&isappinstalled=0"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):       λ.NewStr("4189191225395228"),
-					λ.NewStr("ext"):      λ.NewStr("mp4"),
-					λ.NewStr("title"):    λ.NewStr("午睡当然是要甜甜蜜蜜的啦"),
-					λ.NewStr("uploader"): λ.NewStr("柴犬柴犬"),
-				}),
-			})
 			WeiboMobileIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -125,7 +115,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         WeiboMobileIE__TEST,
 				λ.NewStr("_VALID_URL"):    WeiboMobileIE__VALID_URL,
 				λ.NewStr("_real_extract"): WeiboMobileIE__real_extract,
 			})

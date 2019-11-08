@@ -56,31 +56,11 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		KeezMoviesIE = λ.Cal(λ.TypeType, λ.NewStr("KeezMoviesIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				KeezMoviesIE__TESTS        λ.Object
 				KeezMoviesIE__VALID_URL    λ.Object
 				KeezMoviesIE__extract_info λ.Object
 				KeezMoviesIE__real_extract λ.Object
 			)
 			KeezMoviesIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?keezmovies\\.com/video/(?:(?P<display_id>[^/]+)-)?(?P<id>\\d+)")
-			KeezMoviesIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.keezmovies.com/video/arab-wife-want-it-so-bad-i-see-she-thirsty-and-has-tiny-money-18070681"),
-					λ.NewStr("md5"): λ.NewStr("2ac69cdb882055f71d82db4311732a1a"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("18070681"),
-						λ.NewStr("display_id"): λ.NewStr("arab-wife-want-it-so-bad-i-see-she-thirsty-and-has-tiny-money"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("Arab wife want it so bad I see she thirsty and has tiny money."),
-						λ.NewStr("thumbnail"):  λ.None,
-						λ.NewStr("view_count"): λ.IntType,
-						λ.NewStr("age_limit"):  λ.NewInt(18),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.keezmovies.com/video/18070681"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			KeezMoviesIE__extract_info = λ.NewFunction("_extract_info",
 				[]λ.Param{
 					{Name: "self"},
@@ -324,7 +304,6 @@ func init() {
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        KeezMoviesIE__TESTS,
 				λ.NewStr("_VALID_URL"):    KeezMoviesIE__VALID_URL,
 				λ.NewStr("_extract_info"): KeezMoviesIE__extract_info,
 				λ.NewStr("_real_extract"): KeezMoviesIE__real_extract,

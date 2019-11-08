@@ -40,29 +40,11 @@ func init() {
 		ParliamentLiveUKIE = λ.Cal(λ.TypeType, λ.NewStr("ParliamentLiveUKIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ParliamentLiveUKIE_IE_NAME       λ.Object
-				ParliamentLiveUKIE__TESTS        λ.Object
 				ParliamentLiveUKIE__VALID_URL    λ.Object
 				ParliamentLiveUKIE__real_extract λ.Object
 			)
 			ParliamentLiveUKIE_IE_NAME = λ.NewStr("parliamentlive.tv")
 			ParliamentLiveUKIE__VALID_URL = λ.NewStr("(?i)https?://(?:www\\.)?parliamentlive\\.tv/Event/Index/(?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
-			ParliamentLiveUKIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://parliamentlive.tv/Event/Index/c1e9d44d-fd6c-4263-b50f-97ed26cc998b"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1_af9nv9ym"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Home Affairs Committee"),
-						λ.NewStr("uploader_id"): λ.NewStr("FFMPEG-01"),
-						λ.NewStr("timestamp"):   λ.NewInt(1422696664),
-						λ.NewStr("upload_date"): λ.NewStr("20150131"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://parliamentlive.tv/event/index/3f24936f-130f-40bf-9a5d-b3d6479da6a4"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			ParliamentLiveUKIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -97,7 +79,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       ParliamentLiveUKIE_IE_NAME,
-				λ.NewStr("_TESTS"):        ParliamentLiveUKIE__TESTS,
 				λ.NewStr("_VALID_URL"):    ParliamentLiveUKIE__VALID_URL,
 				λ.NewStr("_real_extract"): ParliamentLiveUKIE__real_extract,
 			})

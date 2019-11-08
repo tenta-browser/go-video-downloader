@@ -45,83 +45,10 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ViddlerIE = λ.Cal(λ.TypeType, λ.NewStr("ViddlerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ViddlerIE__TESTS        λ.Object
 				ViddlerIE__VALID_URL    λ.Object
 				ViddlerIE__real_extract λ.Object
 			)
 			ViddlerIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?viddler\\.com/(?:v|embed|player)/(?P<id>[a-z0-9]+)(?:.+?\\bsecret=(\\d+))?")
-			ViddlerIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.viddler.com/v/43903784"),
-					λ.NewStr("md5"): λ.NewStr("9eee21161d2c7f5b39690c3e325fab2f"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("43903784"),
-						λ.NewStr("ext"):           λ.NewStr("mov"),
-						λ.NewStr("title"):         λ.NewStr("Video Made Easy"),
-						λ.NewStr("description"):   λ.NewStr("md5:6a697ebd844ff3093bd2e82c37b409cd"),
-						λ.NewStr("uploader"):      λ.NewStr("viddler"),
-						λ.NewStr("timestamp"):     λ.NewInt(1335371429),
-						λ.NewStr("upload_date"):   λ.NewStr("20120425"),
-						λ.NewStr("duration"):      λ.NewFloat(100.89),
-						λ.NewStr("thumbnail"):     λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-						λ.NewStr("categories"): λ.NewList(
-							λ.NewStr("video content"),
-							λ.NewStr("high quality video"),
-							λ.NewStr("video made easy"),
-							λ.NewStr("how to produce video with limited resources"),
-							λ.NewStr("viddler"),
-						),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.viddler.com/v/4d03aad9/"),
-					λ.NewStr("md5"): λ.NewStr("f12c5a7fa839c47a79363bfdf69404fb"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("4d03aad9"),
-						λ.NewStr("ext"):           λ.NewStr("ts"),
-						λ.NewStr("title"):         λ.NewStr("WALL-TO-GORTAT"),
-						λ.NewStr("upload_date"):   λ.NewStr("20150126"),
-						λ.NewStr("uploader"):      λ.NewStr("deadspin"),
-						λ.NewStr("timestamp"):     λ.NewInt(1422285291),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.viddler.com/player/221ebbbd/0/"),
-					λ.NewStr("md5"): λ.NewStr("740511f61d3d1bb71dc14a0fe01a1c10"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("221ebbbd"),
-						λ.NewStr("ext"):           λ.NewStr("mov"),
-						λ.NewStr("title"):         λ.NewStr("LETeens-Grammar-snack-third-conditional"),
-						λ.NewStr("description"):   λ.NewStr(" "),
-						λ.NewStr("upload_date"):   λ.NewStr("20140929"),
-						λ.NewStr("uploader"):      λ.NewStr("BCLETeens"),
-						λ.NewStr("timestamp"):     λ.NewInt(1411997190),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.viddler.com/v/890c0985?secret=34051570"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("890c0985"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("Complete Property Training - Traineeships"),
-						λ.NewStr("description"):   λ.NewStr(" "),
-						λ.NewStr("upload_date"):   λ.NewStr("20130606"),
-						λ.NewStr("uploader"):      λ.NewStr("TiffanyBowtell"),
-						λ.NewStr("timestamp"):     λ.NewInt(1370496993),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-			)
 			ViddlerIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -245,7 +172,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        ViddlerIE__TESTS,
 				λ.NewStr("_VALID_URL"):    ViddlerIE__VALID_URL,
 				λ.NewStr("_real_extract"): ViddlerIE__real_extract,
 			})

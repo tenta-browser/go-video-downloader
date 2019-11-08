@@ -190,35 +190,14 @@ func init() {
 			var (
 				SverigesRadioPublicationIE_IE_NAME     λ.Object
 				SverigesRadioPublicationIE__AUDIO_TYPE λ.Object
-				SverigesRadioPublicationIE__TESTS      λ.Object
 				SverigesRadioPublicationIE__VALID_URL  λ.Object
 			)
 			SverigesRadioPublicationIE_IE_NAME = λ.NewStr("sverigesradio:publication")
 			SverigesRadioPublicationIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?sverigesradio\\.se/sida/(?:artikel|gruppsida)\\.aspx\\?.*?\\bartikel=(?P<id>[0-9]+)")
-			SverigesRadioPublicationIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://sverigesradio.se/sida/artikel.aspx?programid=83&artikel=7038546"),
-					λ.NewStr("md5"): λ.NewStr("6a4917e1923fccb080e5a206a5afa542"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("7038546"),
-						λ.NewStr("ext"):         λ.NewStr("m4a"),
-						λ.NewStr("duration"):    λ.NewInt(132),
-						λ.NewStr("series"):      λ.NewStr("Nyheter (Ekot)"),
-						λ.NewStr("title"):       λ.NewStr("Esa Teittinen: Sanningen har inte kommit fram"),
-						λ.NewStr("description"): λ.NewStr("md5:daf7ce66a8f0a53d5465a5984d3839df"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://sverigesradio.se/sida/gruppsida.aspx?programid=3304&grupp=6247&artikel=7146887"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			SverigesRadioPublicationIE__AUDIO_TYPE = λ.NewStr("publication")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):     SverigesRadioPublicationIE_IE_NAME,
 				λ.NewStr("_AUDIO_TYPE"): SverigesRadioPublicationIE__AUDIO_TYPE,
-				λ.NewStr("_TESTS"):      SverigesRadioPublicationIE__TESTS,
 				λ.NewStr("_VALID_URL"):  SverigesRadioPublicationIE__VALID_URL,
 			})
 		}())
@@ -226,29 +205,14 @@ func init() {
 			var (
 				SverigesRadioEpisodeIE_IE_NAME     λ.Object
 				SverigesRadioEpisodeIE__AUDIO_TYPE λ.Object
-				SverigesRadioEpisodeIE__TEST       λ.Object
 				SverigesRadioEpisodeIE__VALID_URL  λ.Object
 			)
 			SverigesRadioEpisodeIE_IE_NAME = λ.NewStr("sverigesradio:episode")
 			SverigesRadioEpisodeIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?sverigesradio\\.se/(?:sida/)?avsnitt/(?P<id>[0-9]+)")
-			SverigesRadioEpisodeIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://sverigesradio.se/avsnitt/1140922?programid=1300"),
-				λ.NewStr("md5"): λ.NewStr("20dc4d8db24228f846be390b0c59a07c"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("1140922"),
-					λ.NewStr("ext"):         λ.NewStr("mp3"),
-					λ.NewStr("duration"):    λ.NewInt(3307),
-					λ.NewStr("series"):      λ.NewStr("Konflikt"),
-					λ.NewStr("title"):       λ.NewStr("Metoo och valen"),
-					λ.NewStr("description"): λ.NewStr("md5:fcb5c1f667f00badcc702b196f10a27e"),
-					λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-				}),
-			})
 			SverigesRadioEpisodeIE__AUDIO_TYPE = λ.NewStr("episode")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):     SverigesRadioEpisodeIE_IE_NAME,
 				λ.NewStr("_AUDIO_TYPE"): SverigesRadioEpisodeIE__AUDIO_TYPE,
-				λ.NewStr("_TEST"):       SverigesRadioEpisodeIE__TEST,
 				λ.NewStr("_VALID_URL"):  SverigesRadioEpisodeIE__VALID_URL,
 			})
 		}())

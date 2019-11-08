@@ -46,50 +46,10 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		StreamableIE = λ.Cal(λ.TypeType, λ.NewStr("StreamableIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				StreamableIE__TESTS        λ.Object
 				StreamableIE__VALID_URL    λ.Object
 				StreamableIE__real_extract λ.Object
 			)
 			StreamableIE__VALID_URL = λ.NewStr("https?://streamable\\.com/(?:[es]/)?(?P<id>\\w+)")
-			StreamableIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://streamable.com/dnd1"),
-					λ.NewStr("md5"): λ.NewStr("3e3bc5ca088b48c2d436529b64397fef"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("dnd1"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Mikel Oiarzabal scores to make it 0-3 for La Real against Espanyol"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:https?://.*\\.jpg$"),
-						λ.NewStr("uploader"):    λ.NewStr("teabaker"),
-						λ.NewStr("timestamp"):   λ.NewFloat(1454964157.35115),
-						λ.NewStr("upload_date"): λ.NewStr("20160208"),
-						λ.NewStr("duration"):    λ.NewFloat(61.516),
-						λ.NewStr("view_count"):  λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://streamable.com/moo"),
-					λ.NewStr("md5"): λ.NewStr("2cf6923639b87fba3279ad0df3a64e73"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("moo"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("\"Please don't eat me!\""),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:https?://.*\\.jpg$"),
-						λ.NewStr("timestamp"):   λ.NewInt(1426115495),
-						λ.NewStr("upload_date"): λ.NewStr("20150311"),
-						λ.NewStr("duration"):    λ.NewInt(12),
-						λ.NewStr("view_count"):  λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://streamable.com/e/dnd1"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://streamable.com/s/okkqk/drxjds"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			StreamableIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -162,7 +122,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        StreamableIE__TESTS,
 				λ.NewStr("_VALID_URL"):    StreamableIE__VALID_URL,
 				λ.NewStr("_real_extract"): StreamableIE__real_extract,
 			})

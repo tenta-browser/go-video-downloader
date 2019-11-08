@@ -50,33 +50,10 @@ func init() {
 		ϒtry_get = Ωutils.ϒtry_get
 		JamendoIE = λ.Cal(λ.TypeType, λ.NewStr("JamendoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				JamendoIE__TESTS        λ.Object
 				JamendoIE__VALID_URL    λ.Object
 				JamendoIE__real_extract λ.Object
 			)
 			JamendoIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            licensing\\.jamendo\\.com/[^/]+|\n                            (?:www\\.)?jamendo\\.com\n                        )\n                        /track/(?P<id>[0-9]+)(?:/(?P<display_id>[^/?#&]+))?\n                    ")
-			JamendoIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.jamendo.com/track/196219/stories-from-emona-i"),
-					λ.NewStr("md5"): λ.NewStr("6e9e82ed6db98678f171c25a8ed09ffd"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("196219"),
-						λ.NewStr("display_id"):  λ.NewStr("stories-from-emona-i"),
-						λ.NewStr("ext"):         λ.NewStr("flac"),
-						λ.NewStr("title"):       λ.NewStr("Maya Filipič - Stories from Emona I"),
-						λ.NewStr("artist"):      λ.NewStr("Maya Filipič"),
-						λ.NewStr("track"):       λ.NewStr("Stories from Emona I"),
-						λ.NewStr("duration"):    λ.NewInt(210),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-						λ.NewStr("timestamp"):   λ.NewInt(1217438117),
-						λ.NewStr("upload_date"): λ.NewStr("20080730"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://licensing.jamendo.com/en/track/1496667/energetic-rock"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			JamendoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -305,7 +282,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        JamendoIE__TESTS,
 				λ.NewStr("_VALID_URL"):    JamendoIE__VALID_URL,
 				λ.NewStr("_real_extract"): JamendoIE__real_extract,
 			})

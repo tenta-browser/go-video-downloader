@@ -40,26 +40,11 @@ func init() {
 		RadioDeIE = λ.Cal(λ.TypeType, λ.NewStr("RadioDeIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				RadioDeIE_IE_NAME       λ.Object
-				RadioDeIE__TEST         λ.Object
 				RadioDeIE__VALID_URL    λ.Object
 				RadioDeIE__real_extract λ.Object
 			)
 			RadioDeIE_IE_NAME = λ.NewStr("radio.de")
 			RadioDeIE__VALID_URL = λ.NewStr("https?://(?P<id>.+?)\\.(?:radio\\.(?:de|at|fr|pt|es|pl|it)|rad\\.io)")
-			RadioDeIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://ndr2.radio.de/"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("ndr2"),
-					λ.NewStr("ext"):         λ.NewStr("mp3"),
-					λ.NewStr("title"):       λ.NewStr("re:^NDR 2 [0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}$"),
-					λ.NewStr("description"): λ.NewStr("md5:591c49c702db1a33751625ebfb67f273"),
-					λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.png"),
-					λ.NewStr("is_live"):     λ.True,
-				}),
-				λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("skip_download"): λ.True,
-				}),
-			})
 			RadioDeIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -139,7 +124,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       RadioDeIE_IE_NAME,
-				λ.NewStr("_TEST"):         RadioDeIE__TEST,
 				λ.NewStr("_VALID_URL"):    RadioDeIE__VALID_URL,
 				λ.NewStr("_real_extract"): RadioDeIE__real_extract,
 			})

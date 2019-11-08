@@ -49,30 +49,10 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		SunPornoIE = λ.Cal(λ.TypeType, λ.NewStr("SunPornoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				SunPornoIE__TESTS        λ.Object
 				SunPornoIE__VALID_URL    λ.Object
 				SunPornoIE__real_extract λ.Object
 			)
 			SunPornoIE__VALID_URL = λ.NewStr("https?://(?:(?:www\\.)?sunporno\\.com/videos|embeds\\.sunporno\\.com/embed)/(?P<id>\\d+)")
-			SunPornoIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.sunporno.com/videos/807778/"),
-					λ.NewStr("md5"): λ.NewStr("507887e29033502f29dba69affeebfc9"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("807778"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("md5:0a400058e8105d39e35c35e7c5184164"),
-						λ.NewStr("description"): λ.NewStr("md5:a31241990e1bd3a64e72ae99afb325fb"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(302),
-						λ.NewStr("age_limit"):   λ.NewInt(18),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://embeds.sunporno.com/embed/807778"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			SunPornoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -166,7 +146,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        SunPornoIE__TESTS,
 				λ.NewStr("_VALID_URL"):    SunPornoIE__VALID_URL,
 				λ.NewStr("_real_extract"): SunPornoIE__real_extract,
 			})

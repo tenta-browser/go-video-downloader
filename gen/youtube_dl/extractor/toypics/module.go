@@ -40,22 +40,10 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ToypicsIE = λ.Cal(λ.TypeType, λ.NewStr("ToypicsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ToypicsIE__TEST         λ.Object
 				ToypicsIE__VALID_URL    λ.Object
 				ToypicsIE__real_extract λ.Object
 			)
 			ToypicsIE__VALID_URL = λ.NewStr("https?://videos\\.toypics\\.net/view/(?P<id>[0-9]+)")
-			ToypicsIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://videos.toypics.net/view/514/chancebulged,-2-1/"),
-				λ.NewStr("md5"): λ.NewStr("16e806ad6d6f58079d210fe30985e08b"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):        λ.NewStr("514"),
-					λ.NewStr("ext"):       λ.NewStr("mp4"),
-					λ.NewStr("title"):     λ.NewStr("Chance-Bulge'd, 2"),
-					λ.NewStr("age_limit"): λ.NewInt(18),
-					λ.NewStr("uploader"):  λ.NewStr("kidsune"),
-				}),
-			})
 			ToypicsIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -95,7 +83,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         ToypicsIE__TEST,
 				λ.NewStr("_VALID_URL"):    ToypicsIE__VALID_URL,
 				λ.NewStr("_real_extract"): ToypicsIE__real_extract,
 			})

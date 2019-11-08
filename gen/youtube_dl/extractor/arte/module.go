@@ -290,21 +290,11 @@ func init() {
 		ArteTVPlus7IE = λ.Cal(λ.TypeType, λ.NewStr("ArteTVPlus7IE"), λ.NewTuple(ArteTVBaseIE), func() λ.Dict {
 			var (
 				ArteTVPlus7IE_IE_NAME       λ.Object
-				ArteTVPlus7IE__TESTS        λ.Object
 				ArteTVPlus7IE__VALID_URL    λ.Object
 				ArteTVPlus7IE__real_extract λ.Object
 			)
 			ArteTVPlus7IE_IE_NAME = λ.NewStr("arte.tv:+7")
 			ArteTVPlus7IE__VALID_URL = λ.NewStr("https?://(?:www\\.)?arte\\.tv/(?P<lang>fr|de|en|es|it|pl)/videos/(?P<id>\\d{6}-\\d{3}-[AF])")
-			ArteTVPlus7IE__TESTS = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://www.arte.tv/en/videos/088501-000-A/mexico-stealing-petrol-to-survive/"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("088501-000-A"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Mexico: Stealing Petrol to Survive"),
-					λ.NewStr("upload_date"): λ.NewStr("20190628"),
-				}),
-			}))
 			ArteTVPlus7IE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -329,7 +319,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       ArteTVPlus7IE_IE_NAME,
-				λ.NewStr("_TESTS"):        ArteTVPlus7IE__TESTS,
 				λ.NewStr("_VALID_URL"):    ArteTVPlus7IE__VALID_URL,
 				λ.NewStr("_real_extract"): ArteTVPlus7IE__real_extract,
 			})

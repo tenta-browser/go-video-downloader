@@ -47,23 +47,10 @@ func init() {
 		GolemIE = λ.Cal(λ.TypeType, λ.NewStr("GolemIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				GolemIE__PREFIX       λ.Object
-				GolemIE__TEST         λ.Object
 				GolemIE__VALID_URL    λ.Object
 				GolemIE__real_extract λ.Object
 			)
 			GolemIE__VALID_URL = λ.NewStr("^https?://video\\.golem\\.de/.+?/(?P<id>.+?)/")
-			GolemIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://video.golem.de/handy/14095/iphone-6-und-6-plus-test.html"),
-				λ.NewStr("md5"): λ.NewStr("c1a2c0a3c863319651c7c992c5ee29bf"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):        λ.NewStr("14095"),
-					λ.NewStr("format_id"): λ.NewStr("high"),
-					λ.NewStr("ext"):       λ.NewStr("mp4"),
-					λ.NewStr("title"):     λ.NewStr("iPhone 6 und 6 Plus - Test"),
-					λ.NewStr("duration"):  λ.NewFloat(300.44),
-					λ.NewStr("filesize"):  λ.NewInt(65309548),
-				}),
-			})
 			GolemIE__PREFIX = λ.NewStr("http://video.golem.de")
 			GolemIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -135,7 +122,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_PREFIX"):       GolemIE__PREFIX,
-				λ.NewStr("_TEST"):         GolemIE__TEST,
 				λ.NewStr("_VALID_URL"):    GolemIE__VALID_URL,
 				λ.NewStr("_real_extract"): GolemIE__real_extract,
 			})

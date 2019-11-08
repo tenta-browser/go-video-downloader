@@ -44,24 +44,10 @@ func init() {
 		TVANouvellesIE = λ.Cal(λ.TypeType, λ.NewStr("TVANouvellesIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TVANouvellesIE_BRIGHTCOVE_URL_TEMPLATE λ.Object
-				TVANouvellesIE__TEST                   λ.Object
 				TVANouvellesIE__VALID_URL              λ.Object
 				TVANouvellesIE__real_extract           λ.Object
 			)
 			TVANouvellesIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tvanouvelles\\.ca/videos/(?P<id>\\d+)")
-			TVANouvellesIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.tvanouvelles.ca/videos/5117035533001"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("5117035533001"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("L’industrie du taxi dénonce l’entente entre Québec et Uber: explications"),
-					λ.NewStr("description"): λ.NewStr("md5:479653b7c8cf115747bf5118066bd8b3"),
-					λ.NewStr("uploader_id"): λ.NewStr("1741764581"),
-					λ.NewStr("timestamp"):   λ.NewInt(1473352030),
-					λ.NewStr("upload_date"): λ.NewStr("20160908"),
-				}),
-				λ.NewStr("add_ie"): λ.NewList(λ.NewStr("BrightcoveNew")),
-			})
 			TVANouvellesIE_BRIGHTCOVE_URL_TEMPLATE = λ.NewStr("http://players.brightcove.net/1741764581/default_default/index.html?videoId=%s")
 			TVANouvellesIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -80,7 +66,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("BRIGHTCOVE_URL_TEMPLATE"): TVANouvellesIE_BRIGHTCOVE_URL_TEMPLATE,
-				λ.NewStr("_TEST"):                   TVANouvellesIE__TEST,
 				λ.NewStr("_VALID_URL"):              TVANouvellesIE__VALID_URL,
 				λ.NewStr("_real_extract"):           TVANouvellesIE__real_extract,
 			})

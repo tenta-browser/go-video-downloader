@@ -58,44 +58,10 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		EpornerIE = λ.Cal(λ.TypeType, λ.NewStr("EpornerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				EpornerIE__TESTS        λ.Object
 				EpornerIE__VALID_URL    λ.Object
 				EpornerIE__real_extract λ.Object
 			)
 			EpornerIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?eporner\\.com/(?:hd-porn|embed)/(?P<id>\\w+)(?:/(?P<display_id>[\\w-]+))?")
-			EpornerIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.eporner.com/hd-porn/95008/Infamous-Tiffany-Teen-Strip-Tease-Video/"),
-					λ.NewStr("md5"): λ.NewStr("39d486f046212d8e1b911c52ab4691f8"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("qlDUmNsj6VS"),
-						λ.NewStr("display_id"):  λ.NewStr("Infamous-Tiffany-Teen-Strip-Tease-Video"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Infamous Tiffany Teen Strip Tease Video"),
-						λ.NewStr("description"): λ.NewStr("md5:764f39abf932daafa37485eb46efa152"),
-						λ.NewStr("timestamp"):   λ.NewInt(1232520922),
-						λ.NewStr("upload_date"): λ.NewStr("20090121"),
-						λ.NewStr("duration"):    λ.NewInt(1838),
-						λ.NewStr("view_count"):  λ.IntType,
-						λ.NewStr("age_limit"):   λ.NewInt(18),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("proxy"): λ.NewStr("127.0.0.1:8118"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.eporner.com/hd-porn/3YRUtzMcWn0/Star-Wars-XXX-Parody/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.eporner.com/hd-porn/3YRUtzMcWn0"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.eporner.com/hd-porn/3YRUtzMcWn0"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			EpornerIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -306,7 +272,6 @@ func init() {
 					}))
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        EpornerIE__TESTS,
 				λ.NewStr("_VALID_URL"):    EpornerIE__VALID_URL,
 				λ.NewStr("_real_extract"): EpornerIE__real_extract,
 			})

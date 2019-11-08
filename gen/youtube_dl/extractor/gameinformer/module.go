@@ -50,37 +50,10 @@ func init() {
 		GameInformerIE = λ.Cal(λ.TypeType, λ.NewStr("GameInformerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				GameInformerIE_BRIGHTCOVE_URL_TEMPLATE λ.Object
-				GameInformerIE__TESTS                  λ.Object
 				GameInformerIE__VALID_URL              λ.Object
 				GameInformerIE__real_extract           λ.Object
 			)
 			GameInformerIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?gameinformer\\.com/(?:[^/]+/)*(?P<id>[^.?&#]+)")
-			GameInformerIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.gameinformer.com/b/features/archive/2015/09/26/replay-animal-crossing.aspx"),
-					λ.NewStr("md5"): λ.NewStr("292f26da1ab4beb4c9099f1304d2b071"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("4515472681001"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Replay - Animal Crossing"),
-						λ.NewStr("description"): λ.NewStr("md5:2e211891b215c85d061adc7a4dd2d930"),
-						λ.NewStr("timestamp"):   λ.NewInt(1443457610),
-						λ.NewStr("upload_date"): λ.NewStr("20150928"),
-						λ.NewStr("uploader_id"): λ.NewStr("694940074001"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.gameinformer.com/video-feature/new-gameplay-today/2019/07/09/new-gameplay-today-streets-of-rogue"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("6057111913001"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("New Gameplay Today – Streets Of Rogue"),
-						λ.NewStr("timestamp"):   λ.NewInt(1562699001),
-						λ.NewStr("upload_date"): λ.NewStr("20190709"),
-						λ.NewStr("uploader_id"): λ.NewStr("694940074001"),
-					}),
-				}),
-			)
 			GameInformerIE_BRIGHTCOVE_URL_TEMPLATE = λ.NewStr("http://players.brightcove.net/694940074001/default_default/index.html?videoId=%s")
 			GameInformerIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -122,7 +95,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("BRIGHTCOVE_URL_TEMPLATE"): GameInformerIE_BRIGHTCOVE_URL_TEMPLATE,
-				λ.NewStr("_TESTS"):                  GameInformerIE__TESTS,
 				λ.NewStr("_VALID_URL"):              GameInformerIE__VALID_URL,
 				λ.NewStr("_real_extract"):           GameInformerIE__real_extract,
 			})

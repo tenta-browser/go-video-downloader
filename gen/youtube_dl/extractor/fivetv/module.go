@@ -43,66 +43,10 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		FiveTVIE = λ.Cal(λ.TypeType, λ.NewStr("FiveTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				FiveTVIE__TESTS        λ.Object
 				FiveTVIE__VALID_URL    λ.Object
 				FiveTVIE__real_extract λ.Object
 			)
 			FiveTVIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:www\\.)?5-tv\\.ru/\n                        (?:\n                            (?:[^/]+/)+(?P<id>\\d+)|\n                            (?P<path>[^/?#]+)(?:[/?#])?\n                        )\n                    ")
-			FiveTVIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://5-tv.ru/news/96814/"),
-					λ.NewStr("md5"): λ.NewStr("bbff554ad415ecf5416a2f48c22d9283"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("96814"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Россияне выбрали имя для общенациональной платежной системы"),
-						λ.NewStr("description"): λ.NewStr("md5:a8aa13e2b7ad36789e9f77a74b6de660"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(180),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://5-tv.ru/video/1021729/"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1021729"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("3D принтер"),
-						λ.NewStr("description"): λ.NewStr("md5:d76c736d29ef7ec5c0cf7d7c65ffcb41"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(180),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.5-tv.ru/glavnoe/#itemDetails"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("glavnoe"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("re:^Итоги недели с \\d+ по \\d+ \\w+ \\d{4} года$"),
-						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg$"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("redirect to «Известия. Главное» project page"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.5-tv.ru/glavnoe/broadcasts/508645/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://5-tv.ru/films/1507502/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://5-tv.ru/programs/broadcast/508713/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://5-tv.ru/angel/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.5-tv.ru/schedule/?iframe=true&width=900&height=450"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			FiveTVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -163,7 +107,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        FiveTVIE__TESTS,
 				λ.NewStr("_VALID_URL"):    FiveTVIE__VALID_URL,
 				λ.NewStr("_real_extract"): FiveTVIE__real_extract,
 			})

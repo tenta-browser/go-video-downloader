@@ -44,59 +44,10 @@ func init() {
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		ElPaisIE = λ.Cal(λ.TypeType, λ.NewStr("ElPaisIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ElPaisIE__TESTS        λ.Object
 				ElPaisIE__VALID_URL    λ.Object
 				ElPaisIE__real_extract λ.Object
 			)
 			ElPaisIE__VALID_URL = λ.NewStr("https?://(?:[^.]+\\.)?elpais\\.com/.*/(?P<id>[^/#?]+)\\.html(?:$|[?#])")
-			ElPaisIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://blogs.elpais.com/la-voz-de-inaki/2014/02/tiempo-nuevo-recetas-viejas.html"),
-					λ.NewStr("md5"): λ.NewStr("98406f301f19562170ec071b83433d55"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("tiempo-nuevo-recetas-viejas"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Tiempo nuevo, recetas viejas"),
-						λ.NewStr("description"): λ.NewStr("De lunes a viernes, a partir de las ocho de la mañana, Iñaki Gabilondo nos cuenta su visión de la actualidad nacional e internacional."),
-						λ.NewStr("upload_date"): λ.NewStr("20140206"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://elcomidista.elpais.com/elcomidista/2016/02/24/articulo/1456340311_668921.html#?id_externo_nwl=newsletter_diaria20160303t"),
-					λ.NewStr("md5"): λ.NewStr("3bd5b09509f3519d7d9e763179b013de"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1456340311_668921"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Cómo hacer el mejor café con cafetera italiana"),
-						λ.NewStr("description"): λ.NewStr("Que sí, que las cápsulas son cómodas. Pero si le pides algo más a la vida, quizá deberías aprender a usar bien la cafetera italiana. No tienes más que ver este vídeo y seguir sus siete normas básicas."),
-						λ.NewStr("upload_date"): λ.NewStr("20160303"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://elpais.com/elpais/2017/01/26/ciencia/1485456786_417876.html"),
-					λ.NewStr("md5"): λ.NewStr("9c79923a118a067e1a45789e1e0b0f9c"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1485456786_417876"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Hallado un barco de la antigua Roma que naufragó en Baleares hace 1.800 años"),
-						λ.NewStr("description"): λ.NewStr("La nave portaba cientos de ánforas y se hundió cerca de la isla de Cabrera por razones desconocidas"),
-						λ.NewStr("upload_date"): λ.NewStr("20170127"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://epv.elpais.com/epv/2017/02/14/programa_la_voz_de_inaki/1487062137_075943.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1487062137_075943"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Disyuntivas"),
-						λ.NewStr("description"): λ.NewStr("md5:a0fb1485c4a6a8a917e6f93878e66218"),
-						λ.NewStr("upload_date"): λ.NewStr("20170214"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-			)
 			ElPaisIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -201,7 +152,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        ElPaisIE__TESTS,
 				λ.NewStr("_VALID_URL"):    ElPaisIE__VALID_URL,
 				λ.NewStr("_real_extract"): ElPaisIE__real_extract,
 			})

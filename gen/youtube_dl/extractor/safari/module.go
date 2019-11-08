@@ -195,47 +195,12 @@ func init() {
 			var (
 				SafariIE_IE_NAME       λ.Object
 				SafariIE__PARTNER_ID   λ.Object
-				SafariIE__TESTS        λ.Object
 				SafariIE__UICONF_ID    λ.Object
 				SafariIE__VALID_URL    λ.Object
 				SafariIE__real_extract λ.Object
 			)
 			SafariIE_IE_NAME = λ.NewStr("safari")
 			SafariIE__VALID_URL = λ.NewStr("(?x)\n                        https?://\n                            (?:www\\.)?(?:safaribooksonline|(?:learning\\.)?oreilly)\\.com/\n                            (?:\n                                library/view/[^/]+/(?P<course_id>[^/]+)/(?P<part>[^/?\\#&]+)\\.html|\n                                videos/[^/]+/[^/]+/(?P<reference_id>[^-]+-[^/?\\#&]+)\n                            )\n                    ")
-			SafariIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.safaribooksonline.com/library/view/hadoop-fundamentals-livelessons/9780133392838/part00.html"),
-					λ.NewStr("md5"): λ.NewStr("dcc5a425e79f2564148652616af1f2a3"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("0_qbqx90ic"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Introduction to Hadoop Fundamentals LiveLessons"),
-						λ.NewStr("timestamp"):   λ.NewInt(1437758058),
-						λ.NewStr("upload_date"): λ.NewStr("20150724"),
-						λ.NewStr("uploader_id"): λ.NewStr("stork"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.safaribooksonline.com/library/view/create-a-nodejs/100000006A0210/part00.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.safaribooksonline.com/library/view/learning-path-red/9780134664057/RHCE_Introduction.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.safaribooksonline.com/videos/python-programming-language/9780134217314/9780134217314-PYMC_13_00"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://learning.oreilly.com/videos/hadoop-fundamentals-livelessons/9780133392838/9780133392838-00_SeriesIntro"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.oreilly.com/library/view/hadoop-fundamentals-livelessons/9780133392838/00_SeriesIntro.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			SafariIE__PARTNER_ID = λ.NewStr("1926081")
 			SafariIE__UICONF_ID = λ.NewStr("29375172")
 			SafariIE__real_extract = λ.NewFunction("_real_extract",
@@ -331,7 +296,6 @@ func init() {
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       SafariIE_IE_NAME,
 				λ.NewStr("_PARTNER_ID"):   SafariIE__PARTNER_ID,
-				λ.NewStr("_TESTS"):        SafariIE__TESTS,
 				λ.NewStr("_UICONF_ID"):    SafariIE__UICONF_ID,
 				λ.NewStr("_VALID_URL"):    SafariIE__VALID_URL,
 				λ.NewStr("_real_extract"): SafariIE__real_extract,

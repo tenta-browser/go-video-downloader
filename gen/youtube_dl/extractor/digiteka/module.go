@@ -43,45 +43,10 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		DigitekaIE = λ.Cal(λ.TypeType, λ.NewStr("DigitekaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				DigitekaIE__TESTS        λ.Object
 				DigitekaIE__VALID_URL    λ.Object
 				DigitekaIE__real_extract λ.Object
 			)
 			DigitekaIE__VALID_URL = λ.NewStr("(?x)\n        https?://(?:www\\.)?(?:digiteka\\.net|ultimedia\\.com)/\n        (?:\n            deliver/\n            (?P<embed_type>\n                generic|\n                musique\n            )\n            (?:/[^/]+)*/\n            (?:\n                src|\n                article\n            )|\n            default/index/video\n            (?P<site_type>\n                generic|\n                music\n            )\n            /id\n        )/(?P<id>[\\d+a-z]+)")
-			DigitekaIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.ultimedia.com/default/index/videogeneric/id/s8uk0r"),
-					λ.NewStr("md5"): λ.NewStr("276a0e49de58c7e85d32b057837952a2"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("s8uk0r"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Loi sur la fin de vie: le texte prévoit un renforcement des directives anticipées"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-						λ.NewStr("duration"):    λ.NewInt(74),
-						λ.NewStr("upload_date"): λ.NewStr("20150317"),
-						λ.NewStr("timestamp"):   λ.NewInt(1426604939),
-						λ.NewStr("uploader_id"): λ.NewStr("3fszv"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.ultimedia.com/default/index/videomusic/id/xvpfp8"),
-					λ.NewStr("md5"): λ.NewStr("2ea3513813cf230605c7e2ffe7eca61c"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("xvpfp8"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Two - C'est La Vie (clip)"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-						λ.NewStr("duration"):    λ.NewInt(233),
-						λ.NewStr("upload_date"): λ.NewStr("20150224"),
-						λ.NewStr("timestamp"):   λ.NewInt(1424760500),
-						λ.NewStr("uploader_id"): λ.NewStr("3rfzk"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.digiteka.net/deliver/generic/iframe/mdtk/01637594/src/lqm3kl/zone/1/showtitle/1/autoplay/yes"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			DigitekaIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -158,7 +123,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        DigitekaIE__TESTS,
 				λ.NewStr("_VALID_URL"):    DigitekaIE__VALID_URL,
 				λ.NewStr("_real_extract"): DigitekaIE__real_extract,
 			})

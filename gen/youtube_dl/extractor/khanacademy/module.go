@@ -44,38 +44,11 @@ func init() {
 		KhanAcademyIE = λ.Cal(λ.TypeType, λ.NewStr("KhanAcademyIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				KhanAcademyIE_IE_NAME       λ.Object
-				KhanAcademyIE__TESTS        λ.Object
 				KhanAcademyIE__VALID_URL    λ.Object
 				KhanAcademyIE__real_extract λ.Object
 			)
 			KhanAcademyIE__VALID_URL = λ.NewStr("^https?://(?:(?:www|api)\\.)?khanacademy\\.org/(?P<key>[^/]+)/(?:[^/]+/){,2}(?P<id>[^?#/]+)(?:$|[?#])")
 			KhanAcademyIE_IE_NAME = λ.NewStr("KhanAcademy")
-			KhanAcademyIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.khanacademy.org/video/one-time-pad"),
-					λ.NewStr("md5"): λ.NewStr("7b391cce85e758fb94f763ddc1bbb979"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("one-time-pad"),
-						λ.NewStr("ext"):         λ.NewStr("webm"),
-						λ.NewStr("title"):       λ.NewStr("The one-time pad"),
-						λ.NewStr("description"): λ.NewStr("The perfect cipher"),
-						λ.NewStr("duration"):    λ.NewInt(176),
-						λ.NewStr("uploader"):    λ.NewStr("Brit Cruise"),
-						λ.NewStr("uploader_id"): λ.NewStr("khanacademy"),
-						λ.NewStr("upload_date"): λ.NewStr("20120411"),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Youtube")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.khanacademy.org/math/applied-math/cryptography"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("cryptography"),
-						λ.NewStr("title"):       λ.NewStr("Journey into cryptography"),
-						λ.NewStr("description"): λ.NewStr("How have humans protected their secret messages through history? What has changed today?"),
-					}),
-					λ.NewStr("playlist_mincount"): λ.NewInt(3),
-				}),
-			)
 			KhanAcademyIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -155,7 +128,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       KhanAcademyIE_IE_NAME,
-				λ.NewStr("_TESTS"):        KhanAcademyIE__TESTS,
 				λ.NewStr("_VALID_URL"):    KhanAcademyIE__VALID_URL,
 				λ.NewStr("_real_extract"): KhanAcademyIE__real_extract,
 			})

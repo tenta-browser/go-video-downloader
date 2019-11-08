@@ -49,36 +49,10 @@ func init() {
 		ϒremove_start = Ωutils.ϒremove_start
 		Varzesh3IE = λ.Cal(λ.TypeType, λ.NewStr("Varzesh3IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				Varzesh3IE__TESTS        λ.Object
 				Varzesh3IE__VALID_URL    λ.Object
 				Varzesh3IE__real_extract λ.Object
 			)
 			Varzesh3IE__VALID_URL = λ.NewStr("https?://(?:www\\.)?video\\.varzesh3\\.com/(?:[^/]+/)+(?P<id>[^/]+)/?")
-			Varzesh3IE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://video.varzesh3.com/germany/bundesliga/5-%D9%88%D8%A7%DA%A9%D9%86%D8%B4-%D8%A8%D8%B1%D8%AA%D8%B1-%D8%AF%D8%B1%D9%88%D8%A7%D8%B2%D9%87%E2%80%8C%D8%A8%D8%A7%D9%86%D8%A7%D9%86%D8%9B%D9%87%D9%81%D8%AA%D9%87-26-%D8%A8%D9%88%D9%86%D8%AF%D8%B3/"),
-					λ.NewStr("md5"): λ.NewStr("2a933874cb7dce4366075281eb49e855"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("76337"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("۵ واکنش برتر دروازه‌بانان؛هفته ۲۶ بوندسلیگا"),
-						λ.NewStr("description"): λ.NewStr("فصل ۲۰۱۵-۲۰۱۴"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("HTTP 404 Error"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://video.varzesh3.com/video/112785/%D8%AF%D9%84%D9%87-%D8%B9%D9%84%DB%8C%D8%9B-%D8%B3%D8%AA%D8%A7%D8%B1%D9%87-%D9%86%D9%88%D8%B8%D9%87%D9%88%D8%B1-%D9%84%DB%8C%DA%AF-%D8%A8%D8%B1%D8%AA%D8%B1-%D8%AC%D8%B2%DB%8C%D8%B1%D9%87"),
-					λ.NewStr("md5"): λ.NewStr("841b7cd3afbc76e61708d94e53a4a4e7"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("112785"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("دله علی؛ ستاره نوظهور لیگ برتر جزیره"),
-						λ.NewStr("description"): λ.NewStr("فوتبال 120"),
-					}),
-					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("description")),
-				}),
-			)
 			Varzesh3IE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -152,7 +126,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        Varzesh3IE__TESTS,
 				λ.NewStr("_VALID_URL"):    Varzesh3IE__VALID_URL,
 				λ.NewStr("_real_extract"): Varzesh3IE__real_extract,
 			})

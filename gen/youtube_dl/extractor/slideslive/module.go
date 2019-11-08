@@ -42,30 +42,10 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		SlidesLiveIE = λ.Cal(λ.TypeType, λ.NewStr("SlidesLiveIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				SlidesLiveIE__TESTS        λ.Object
 				SlidesLiveIE__VALID_URL    λ.Object
 				SlidesLiveIE__real_extract λ.Object
 			)
 			SlidesLiveIE__VALID_URL = λ.NewStr("https?://slideslive\\.com/(?P<id>[0-9]+)")
-			SlidesLiveIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://slideslive.com/38902413/gcc-ia16-backend"),
-					λ.NewStr("md5"): λ.NewStr("b29fcd6c6952d0c79c5079b0e7a07e6f"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("LMtgR8ba0b0"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("38902413: external video"),
-						λ.NewStr("description"): λ.NewStr("3890241320170925-9-1yd6ech.mp4"),
-						λ.NewStr("uploader"):    λ.NewStr("SlidesLive Administrator"),
-						λ.NewStr("uploader_id"): λ.NewStr("UC62SdArr41t_-_fX40QCLRw"),
-						λ.NewStr("upload_date"): λ.NewStr("20170925"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://slideslive.com/38903721/magic-a-scientific-resurrection-of-an-esoteric-legend"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			SlidesLiveIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -107,7 +87,6 @@ func init() {
 					return λ.None
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        SlidesLiveIE__TESTS,
 				λ.NewStr("_VALID_URL"):    SlidesLiveIE__VALID_URL,
 				λ.NewStr("_real_extract"): SlidesLiveIE__real_extract,
 			})

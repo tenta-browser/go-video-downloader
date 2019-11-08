@@ -680,7 +680,6 @@ func init() {
 		VimeoIE = λ.Cal(λ.TypeType, λ.NewStr("VimeoIE"), λ.NewTuple(VimeoBaseInfoExtractor), func() λ.Dict {
 			var (
 				VimeoIE_IE_NAME                       λ.Object
-				VimeoIE__TESTS                        λ.Object
 				VimeoIE__VALID_URL                    λ.Object
 				VimeoIE__extract_url                  λ.Object
 				VimeoIE__extract_urls                 λ.Object
@@ -692,212 +691,6 @@ func init() {
 			λ.NewStr("Information extractor for vimeo.com.")
 			VimeoIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            (?:\n                                www|\n                                (?P<player>player)\n                            )\n                            \\.\n                        )?\n                        vimeo(?P<pro>pro)?\\.com/\n                        (?!(?:channels|album|showcase)/[^/?#]+/?(?:$|[?#])|[^/]+/review/|ondemand/)\n                        (?:.*?/)?\n                        (?:\n                            (?:\n                                play_redirect_hls|\n                                moogaloop\\.swf)\\?clip_id=\n                            )?\n                        (?:videos?/)?\n                        (?P<id>[0-9]+)\n                        (?:/[\\da-f]+)?\n                        /?(?:[?&].*)?(?:[#].*)?$\n                    ")
 			VimeoIE_IE_NAME = λ.NewStr("vimeo")
-			VimeoIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://vimeo.com/56015672#at=0"),
-					λ.NewStr("md5"): λ.NewStr("8879b6cc097e987f02484baf890129e5"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("56015672"),
-						λ.NewStr("ext"):          λ.NewStr("mp4"),
-						λ.NewStr("title"):        λ.NewStr("youtube-dl test video - ★ \" ' 幸 / \\ ä ↭ 𝕐"),
-						λ.NewStr("description"):  λ.NewStr("md5:509a9ad5c9bf97c60faee9203aca4479"),
-						λ.NewStr("timestamp"):    λ.NewInt(1355990239),
-						λ.NewStr("upload_date"):  λ.NewStr("20121220"),
-						λ.NewStr("uploader_url"): λ.NewStr("re:https?://(?:www\\.)?vimeo\\.com/user7108434"),
-						λ.NewStr("uploader_id"):  λ.NewStr("user7108434"),
-						λ.NewStr("uploader"):     λ.NewStr("Filippo Valsorda"),
-						λ.NewStr("duration"):     λ.NewInt(10),
-						λ.NewStr("license"):      λ.NewStr("by-sa"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):  λ.NewStr("http://vimeopro.com/openstreetmapus/state-of-the-map-us-2013/video/68093876"),
-					λ.NewStr("md5"):  λ.NewStr("3b5ca6aa22b60dfeeadf50b72e44ed82"),
-					λ.NewStr("note"): λ.NewStr("Vimeo Pro video (#1197)"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("68093876"),
-						λ.NewStr("ext"):          λ.NewStr("mp4"),
-						λ.NewStr("uploader_url"): λ.NewStr("re:https?://(?:www\\.)?vimeo\\.com/openstreetmapus"),
-						λ.NewStr("uploader_id"):  λ.NewStr("openstreetmapus"),
-						λ.NewStr("uploader"):     λ.NewStr("OpenStreetMap US"),
-						λ.NewStr("title"):        λ.NewStr("Andy Allan - Putting the Carto into OpenStreetMap Cartography"),
-						λ.NewStr("description"):  λ.NewStr("md5:fd69a7b8d8c34a4e1d2ec2e4afd6ec30"),
-						λ.NewStr("duration"):     λ.NewInt(1595),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):  λ.NewStr("http://player.vimeo.com/video/54469442"),
-					λ.NewStr("md5"):  λ.NewStr("619b811a4417aa4abe78dc653becf511"),
-					λ.NewStr("note"): λ.NewStr("Videos that embed the url in the player page"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("54469442"),
-						λ.NewStr("ext"):          λ.NewStr("mp4"),
-						λ.NewStr("title"):        λ.NewStr("Kathy Sierra: Building the minimum Badass User, Business of Software 2012"),
-						λ.NewStr("uploader"):     λ.NewStr("The BLN & Business of Software"),
-						λ.NewStr("uploader_url"): λ.NewStr("re:https?://(?:www\\.)?vimeo\\.com/theblnbusinessofsoftware"),
-						λ.NewStr("uploader_id"):  λ.NewStr("theblnbusinessofsoftware"),
-						λ.NewStr("duration"):     λ.NewInt(3610),
-						λ.NewStr("description"):  λ.None,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):  λ.NewStr("http://vimeo.com/68375962"),
-					λ.NewStr("md5"):  λ.NewStr("aaf896bdb7ddd6476df50007a0ac0ae7"),
-					λ.NewStr("note"): λ.NewStr("Video protected with password"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("68375962"),
-						λ.NewStr("ext"):          λ.NewStr("mp4"),
-						λ.NewStr("title"):        λ.NewStr("youtube-dl password protected test video"),
-						λ.NewStr("timestamp"):    λ.NewInt(1371200155),
-						λ.NewStr("upload_date"):  λ.NewStr("20130614"),
-						λ.NewStr("uploader_url"): λ.NewStr("re:https?://(?:www\\.)?vimeo\\.com/user18948128"),
-						λ.NewStr("uploader_id"):  λ.NewStr("user18948128"),
-						λ.NewStr("uploader"):     λ.NewStr("Jaime Marquínez Ferrándiz"),
-						λ.NewStr("duration"):     λ.NewInt(10),
-						λ.NewStr("description"):  λ.NewStr("md5:dca3ea23adb29ee387127bc4ddfce63f"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("videopassword"): λ.NewStr("youtube-dl"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://vimeo.com/channels/keypeele/75629013"),
-					λ.NewStr("md5"): λ.NewStr("2f86a05afe9d7abc0b9126d229bbe15d"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("75629013"),
-						λ.NewStr("ext"):          λ.NewStr("mp4"),
-						λ.NewStr("title"):        λ.NewStr("Key & Peele: Terrorist Interrogation"),
-						λ.NewStr("description"):  λ.NewStr("md5:8678b246399b070816b12313e8b4eb5c"),
-						λ.NewStr("uploader_url"): λ.NewStr("re:https?://(?:www\\.)?vimeo\\.com/atencio"),
-						λ.NewStr("uploader_id"):  λ.NewStr("atencio"),
-						λ.NewStr("uploader"):     λ.NewStr("Peter Atencio"),
-						λ.NewStr("channel_id"):   λ.NewStr("keypeele"),
-						λ.NewStr("channel_url"):  λ.NewStr("re:https?://(?:www\\.)?vimeo\\.com/channels/keypeele"),
-						λ.NewStr("timestamp"):    λ.NewInt(1380339469),
-						λ.NewStr("upload_date"):  λ.NewStr("20130928"),
-						λ.NewStr("duration"):     λ.NewInt(187),
-					}),
-					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("Unable to download JSON metadata")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):  λ.NewStr("http://vimeo.com/76979871"),
-					λ.NewStr("note"): λ.NewStr("Video with subtitles"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("76979871"),
-						λ.NewStr("ext"):          λ.NewStr("mp4"),
-						λ.NewStr("title"):        λ.NewStr("The New Vimeo Player (You Know, For Videos)"),
-						λ.NewStr("description"):  λ.NewStr("md5:2ec900bf97c3f389378a96aee11260ea"),
-						λ.NewStr("timestamp"):    λ.NewInt(1381846109),
-						λ.NewStr("upload_date"):  λ.NewStr("20131015"),
-						λ.NewStr("uploader_url"): λ.NewStr("re:https?://(?:www\\.)?vimeo\\.com/staff"),
-						λ.NewStr("uploader_id"):  λ.NewStr("staff"),
-						λ.NewStr("uploader"):     λ.NewStr("Vimeo Staff"),
-						λ.NewStr("duration"):     λ.NewInt(62),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):  λ.NewStr("https://player.vimeo.com/video/98044508"),
-					λ.NewStr("note"): λ.NewStr("The js code contains assignments to the same variable as the config"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("98044508"),
-						λ.NewStr("ext"):          λ.NewStr("mp4"),
-						λ.NewStr("title"):        λ.NewStr("Pier Solar OUYA Official Trailer"),
-						λ.NewStr("uploader"):     λ.NewStr("Tulio Gonçalves"),
-						λ.NewStr("uploader_url"): λ.NewStr("re:https?://(?:www\\.)?vimeo\\.com/user28849593"),
-						λ.NewStr("uploader_id"):  λ.NewStr("user28849593"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://vimeo.com/33951933"),
-					λ.NewStr("md5"): λ.NewStr("53c688fa95a55bf4b7293d37a89c5c53"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("33951933"),
-						λ.NewStr("ext"):          λ.NewStr("mp4"),
-						λ.NewStr("title"):        λ.NewStr("FOX CLASSICS - Forever Classic ID - A Full Minute"),
-						λ.NewStr("uploader"):     λ.NewStr("The DMCI"),
-						λ.NewStr("uploader_url"): λ.NewStr("re:https?://(?:www\\.)?vimeo\\.com/dmci"),
-						λ.NewStr("uploader_id"):  λ.NewStr("dmci"),
-						λ.NewStr("timestamp"):    λ.NewInt(1324343742),
-						λ.NewStr("upload_date"):  λ.NewStr("20111220"),
-						λ.NewStr("description"):  λ.NewStr("md5:ae23671e82d05415868f7ad1aec21147"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://vimeo.com/channels/tributes/6213729"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("6213729"),
-						λ.NewStr("ext"):          λ.NewStr("mp4"),
-						λ.NewStr("title"):        λ.NewStr("Vimeo Tribute: The Shining"),
-						λ.NewStr("uploader"):     λ.NewStr("Casey Donahue"),
-						λ.NewStr("uploader_url"): λ.NewStr("re:https?://(?:www\\.)?vimeo\\.com/caseydonahue"),
-						λ.NewStr("uploader_id"):  λ.NewStr("caseydonahue"),
-						λ.NewStr("channel_url"):  λ.NewStr("re:https?://(?:www\\.)?vimeo\\.com/channels/tributes"),
-						λ.NewStr("channel_id"):   λ.NewStr("tributes"),
-						λ.NewStr("timestamp"):    λ.NewInt(1250886430),
-						λ.NewStr("upload_date"):  λ.NewStr("20090821"),
-						λ.NewStr("description"):  λ.NewStr("md5:bdbf314014e58713e6e5b66eb252f4a6"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("Unable to download JSON metadata")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://vimeo.com/73445910"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("73445910"),
-						λ.NewStr("ext"):          λ.NewStr("mp4"),
-						λ.NewStr("title"):        λ.NewStr("The Reluctant Revolutionary"),
-						λ.NewStr("uploader"):     λ.NewStr("10Ft Films"),
-						λ.NewStr("uploader_url"): λ.NewStr("re:https?://(?:www\\.)?vimeo\\.com/tenfootfilms"),
-						λ.NewStr("uploader_id"):  λ.NewStr("tenfootfilms"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://player.vimeo.com/video/68375962"),
-					λ.NewStr("md5"): λ.NewStr("aaf896bdb7ddd6476df50007a0ac0ae7"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("68375962"),
-						λ.NewStr("ext"):          λ.NewStr("mp4"),
-						λ.NewStr("title"):        λ.NewStr("youtube-dl password protected test video"),
-						λ.NewStr("uploader_url"): λ.NewStr("re:https?://(?:www\\.)?vimeo\\.com/user18948128"),
-						λ.NewStr("uploader_id"):  λ.NewStr("user18948128"),
-						λ.NewStr("uploader"):     λ.NewStr("Jaime Marquínez Ferrándiz"),
-						λ.NewStr("duration"):     λ.NewInt(10),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("videopassword"): λ.NewStr("youtube-dl"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://vimeo.com/moogaloop.swf?clip_id=2539741"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://vimeo.com/109815029"),
-					λ.NewStr("note"):          λ.NewStr("Video not completely processed, \"failed\" seed status"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://vimeo.com/groups/travelhd/videos/22439234"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://vimeo.com/album/2632481/video/79010983"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://vimeo.com/7809605"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://vimeo.com/160743502/abd0e13fb4"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			VimeoIE__smuggle_referrer = λ.NewFunction("_smuggle_referrer",
 				[]λ.Param{
 					{Name: "url"},
@@ -1479,7 +1272,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):                       VimeoIE_IE_NAME,
-				λ.NewStr("_TESTS"):                        VimeoIE__TESTS,
 				λ.NewStr("_VALID_URL"):                    VimeoIE__VALID_URL,
 				λ.NewStr("_extract_url"):                  VimeoIE__extract_url,
 				λ.NewStr("_extract_urls"):                 VimeoIE__extract_urls,
@@ -1492,55 +1284,11 @@ func init() {
 		VimeoOndemandIE = λ.Cal(λ.TypeType, λ.NewStr("VimeoOndemandIE"), λ.NewTuple(VimeoBaseInfoExtractor), func() λ.Dict {
 			var (
 				VimeoOndemandIE_IE_NAME       λ.Object
-				VimeoOndemandIE__TESTS        λ.Object
 				VimeoOndemandIE__VALID_URL    λ.Object
 				VimeoOndemandIE__real_extract λ.Object
 			)
 			VimeoOndemandIE_IE_NAME = λ.NewStr("vimeo:ondemand")
 			VimeoOndemandIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?vimeo\\.com/ondemand/(?P<id>[^/?#&]+)")
-			VimeoOndemandIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://vimeo.com/ondemand/20704"),
-					λ.NewStr("md5"): λ.NewStr("c424deda8c7f73c1dfb3edd7630e2f35"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("105442900"),
-						λ.NewStr("ext"):          λ.NewStr("mp4"),
-						λ.NewStr("title"):        λ.NewStr("המעבדה - במאי יותם פלדמן"),
-						λ.NewStr("uploader"):     λ.NewStr("גם סרטים"),
-						λ.NewStr("uploader_url"): λ.NewStr("re:https?://(?:www\\.)?vimeo\\.com/gumfilms"),
-						λ.NewStr("uploader_id"):  λ.NewStr("gumfilms"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("format"): λ.NewStr("best[protocol=https]"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://vimeo.com/ondemand/36938/126682985"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("126682985"),
-						λ.NewStr("ext"):          λ.NewStr("mp4"),
-						λ.NewStr("title"):        λ.NewStr("Rävlock, rätt läte på rätt plats"),
-						λ.NewStr("uploader"):     λ.NewStr("Lindroth & Norin"),
-						λ.NewStr("uploader_url"): λ.NewStr("re:https?://(?:www\\.)?vimeo\\.com/user14430847"),
-						λ.NewStr("uploader_id"):  λ.NewStr("user14430847"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://vimeo.com/ondemand/nazmaalik"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://vimeo.com/ondemand/141692381"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://vimeo.com/ondemand/thelastcolony/150274832"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			VimeoOndemandIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -1560,7 +1308,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       VimeoOndemandIE_IE_NAME,
-				λ.NewStr("_TESTS"):        VimeoOndemandIE__TESTS,
 				λ.NewStr("_VALID_URL"):    VimeoOndemandIE__VALID_URL,
 				λ.NewStr("_real_extract"): VimeoOndemandIE__real_extract,
 			})

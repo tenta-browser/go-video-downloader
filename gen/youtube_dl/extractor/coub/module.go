@@ -50,43 +50,10 @@ func init() {
 		ϒqualities = Ωutils.ϒqualities
 		CoubIE = λ.Cal(λ.TypeType, λ.NewStr("CoubIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				CoubIE__TESTS        λ.Object
 				CoubIE__VALID_URL    λ.Object
 				CoubIE__real_extract λ.Object
 			)
 			CoubIE__VALID_URL = λ.NewStr("(?:coub:|https?://(?:coub\\.com/(?:view|embed|coubs)/|c-cdn\\.coub\\.com/fb-player\\.swf\\?.*\\bcoub(?:ID|id)=))(?P<id>[\\da-z]+)")
-			CoubIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://coub.com/view/5u5n1"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("5u5n1"),
-						λ.NewStr("ext"):          λ.NewStr("mp4"),
-						λ.NewStr("title"):        λ.NewStr("The Matrix Moonwalk"),
-						λ.NewStr("thumbnail"):    λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):     λ.NewFloat(4.6),
-						λ.NewStr("timestamp"):    λ.NewInt(1428527772),
-						λ.NewStr("upload_date"):  λ.NewStr("20150408"),
-						λ.NewStr("uploader"):     λ.NewStr("Artyom Loskutnikov"),
-						λ.NewStr("uploader_id"):  λ.NewStr("artyom.loskutnikov"),
-						λ.NewStr("view_count"):   λ.IntType,
-						λ.NewStr("like_count"):   λ.IntType,
-						λ.NewStr("repost_count"): λ.IntType,
-						λ.NewStr("age_limit"):    λ.NewInt(0),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://c-cdn.coub.com/fb-player.swf?bot_type=vk&coubID=7w5a4"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("coub:5u5n1"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://coub.com/view/237d5l5h"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			CoubIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -277,7 +244,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        CoubIE__TESTS,
 				λ.NewStr("_VALID_URL"):    CoubIE__VALID_URL,
 				λ.NewStr("_real_extract"): CoubIE__real_extract,
 			})

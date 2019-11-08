@@ -46,47 +46,10 @@ func init() {
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		TriluliluIE = λ.Cal(λ.TypeType, λ.NewStr("TriluliluIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				TriluliluIE__TESTS        λ.Object
 				TriluliluIE__VALID_URL    λ.Object
 				TriluliluIE__real_extract λ.Object
 			)
 			TriluliluIE__VALID_URL = λ.NewStr("https?://(?:(?:www|m)\\.)?trilulilu\\.ro/(?:[^/]+/)?(?P<id>[^/#\\?]+)")
-			TriluliluIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.trilulilu.ro/big-buck-bunny-1"),
-					λ.NewStr("md5"): λ.NewStr("68da087b676a6196a413549212f60cc6"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("ae2899e124140b"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("Big Buck Bunny"),
-						λ.NewStr("description"):   λ.NewStr(":) pentru copilul din noi"),
-						λ.NewStr("uploader_id"):   λ.NewStr("chipy"),
-						λ.NewStr("upload_date"):   λ.NewStr("20120304"),
-						λ.NewStr("timestamp"):     λ.NewInt(1330830647),
-						λ.NewStr("uploader"):      λ.NewStr("chipy"),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("like_count"):    λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.trilulilu.ro/adena-ft-morreti-inocenta"),
-					λ.NewStr("md5"): λ.NewStr("929dfb8729dc71750463af88bbbbf4a4"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("f299710e3c91c5"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("Adena ft. Morreti - Inocenta"),
-						λ.NewStr("description"):   λ.NewStr("pop music"),
-						λ.NewStr("uploader_id"):   λ.NewStr("VEVOmixt"),
-						λ.NewStr("upload_date"):   λ.NewStr("20151204"),
-						λ.NewStr("uploader"):      λ.NewStr("VEVOmixt"),
-						λ.NewStr("timestamp"):     λ.NewInt(1449187937),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("like_count"):    λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-					}),
-				}),
-			)
 			TriluliluIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -176,7 +139,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        TriluliluIE__TESTS,
 				λ.NewStr("_VALID_URL"):    TriluliluIE__VALID_URL,
 				λ.NewStr("_real_extract"): TriluliluIE__real_extract,
 			})

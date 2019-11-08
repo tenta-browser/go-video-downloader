@@ -45,22 +45,10 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		TVCIE = λ.Cal(λ.TypeType, λ.NewStr("TVCIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				TVCIE__TEST         λ.Object
 				TVCIE__VALID_URL    λ.Object
 				TVCIE__real_extract λ.Object
 			)
 			TVCIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tvc\\.ru/video/iframe/id/(?P<id>\\d+)")
-			TVCIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.tvc.ru/video/iframe/id/74622/isPlay/false/id_stat/channel/?acc_video_id=/channel/brand/id/17/show/episodes/episode_id/39702"),
-				λ.NewStr("md5"): λ.NewStr("bbc5ff531d1e90e856f60fc4b3afd708"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):        λ.NewStr("74622"),
-					λ.NewStr("ext"):       λ.NewStr("mp4"),
-					λ.NewStr("title"):     λ.NewStr("События. \"События\". Эфир от 22.05.2015 14:30"),
-					λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg$"),
-					λ.NewStr("duration"):  λ.NewInt(1122),
-				}),
-			})
 			TVCIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -118,53 +106,16 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         TVCIE__TEST,
 				λ.NewStr("_VALID_URL"):    TVCIE__VALID_URL,
 				λ.NewStr("_real_extract"): TVCIE__real_extract,
 			})
 		}())
 		TVCArticleIE = λ.Cal(λ.TypeType, λ.NewStr("TVCArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				TVCArticleIE__TESTS        λ.Object
 				TVCArticleIE__VALID_URL    λ.Object
 				TVCArticleIE__real_extract λ.Object
 			)
 			TVCArticleIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tvc\\.ru/(?!video/iframe/id/)(?P<id>[^?#]+)")
-			TVCArticleIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.tvc.ru/channel/brand/id/29/show/episodes/episode_id/39702/"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("74622"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("События. \"События\". Эфир от 22.05.2015 14:30"),
-						λ.NewStr("description"): λ.NewStr("md5:ad7aa7db22903f983e687b8a3e98c6dd"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(1122),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.tvc.ru/news/show/id/69944"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("75399"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Эксперты: в столице встал вопрос о максимально безопасных остановках"),
-						λ.NewStr("description"): λ.NewStr("md5:f2098f71e21f309e89f69b525fd9846e"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(278),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.tvc.ru/channel/brand/id/47/show/episodes#"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("2185"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Ещё не поздно. Эфир от 03.08.2013"),
-						λ.NewStr("description"): λ.NewStr("md5:51fae9f3f8cfe67abce014e428e5b027"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(3316),
-					}),
-				}),
-			)
 			TVCArticleIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -188,7 +139,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        TVCArticleIE__TESTS,
 				λ.NewStr("_VALID_URL"):    TVCArticleIE__VALID_URL,
 				λ.NewStr("_real_extract"): TVCArticleIE__real_extract,
 			})

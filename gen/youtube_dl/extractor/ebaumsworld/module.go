@@ -39,21 +39,10 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		EbaumsWorldIE = λ.Cal(λ.TypeType, λ.NewStr("EbaumsWorldIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				EbaumsWorldIE__TEST         λ.Object
 				EbaumsWorldIE__VALID_URL    λ.Object
 				EbaumsWorldIE__real_extract λ.Object
 			)
 			EbaumsWorldIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?ebaumsworld\\.com/videos/[^/]+/(?P<id>\\d+)")
-			EbaumsWorldIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.ebaumsworld.com/videos/a-giant-python-opens-the-door/83367677/"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("83367677"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("A Giant Python Opens The Door"),
-					λ.NewStr("description"): λ.NewStr("This is how nightmares start..."),
-					λ.NewStr("uploader"):    λ.NewStr("jihadpizza"),
-				}),
-			})
 			EbaumsWorldIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -81,7 +70,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         EbaumsWorldIE__TEST,
 				λ.NewStr("_VALID_URL"):    EbaumsWorldIE__VALID_URL,
 				λ.NewStr("_real_extract"): EbaumsWorldIE__real_extract,
 			})

@@ -43,24 +43,11 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		PerformGroupIE = λ.Cal(λ.TypeType, λ.NewStr("PerformGroupIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				PerformGroupIE__TESTS        λ.Object
 				PerformGroupIE__VALID_URL    λ.Object
 				PerformGroupIE__call_api     λ.Object
 				PerformGroupIE__real_extract λ.Object
 			)
 			PerformGroupIE__VALID_URL = λ.NewStr("https?://player\\.performgroup\\.com/eplayer(?:/eplayer\\.html|\\.js)#/?(?P<id>[0-9a-f]{26})\\.(?P<auth_token>[0-9a-z]{26})")
-			PerformGroupIE__TESTS = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://player.performgroup.com/eplayer/eplayer.html#d478c41c5d192f56b9aa859de8.1w4crrej5w14e1ed4s1ce4ykab"),
-				λ.NewStr("md5"): λ.NewStr("259cb03d142e2e52471e8837ecacb29f"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("xgrwobuzumes1lwjxtcdpwgxd"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Liga MX: Keine Einsicht nach Horrorfoul"),
-					λ.NewStr("description"): λ.NewStr("md5:7cd3b459c82725b021e046ab10bf1c5b"),
-					λ.NewStr("timestamp"):   λ.NewInt(1511533477),
-					λ.NewStr("upload_date"): λ.NewStr("20171124"),
-				}),
-			}))
 			PerformGroupIE__call_api = λ.NewFunction("_call_api",
 				[]λ.Param{
 					{Name: "self"},
@@ -195,7 +182,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        PerformGroupIE__TESTS,
 				λ.NewStr("_VALID_URL"):    PerformGroupIE__VALID_URL,
 				λ.NewStr("_call_api"):     PerformGroupIE__call_api,
 				λ.NewStr("_real_extract"): PerformGroupIE__real_extract,

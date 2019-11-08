@@ -45,36 +45,12 @@ func init() {
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ToonGogglesIE = λ.Cal(λ.TypeType, λ.NewStr("ToonGogglesIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ToonGogglesIE__TESTS              λ.Object
 				ToonGogglesIE__VALID_URL          λ.Object
 				ToonGogglesIE__call_api           λ.Object
 				ToonGogglesIE__parse_episode_data λ.Object
 				ToonGogglesIE__real_extract       λ.Object
 			)
 			ToonGogglesIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?toongoggles\\.com/shows/(?P<show_id>\\d+)(?:/[^/]+/episodes/(?P<episode_id>\\d+))?")
-			ToonGogglesIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.toongoggles.com/shows/217143/bernard-season-2/episodes/217147/football"),
-					λ.NewStr("md5"): λ.NewStr("18289fc2b951eff6b953a9d8f01e6831"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("217147"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Football"),
-						λ.NewStr("uploader_id"): λ.NewStr("1"),
-						λ.NewStr("description"): λ.NewStr("Bernard decides to play football in order to be better than Lloyd and tries to beat him no matter how, he even cheats."),
-						λ.NewStr("upload_date"): λ.NewStr("20160718"),
-						λ.NewStr("timestamp"):   λ.NewInt(1468879330),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.toongoggles.com/shows/227759/om-nom-stories-around-the-world"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("227759"),
-						λ.NewStr("title"): λ.NewStr("Om Nom Stories Around The World"),
-					}),
-					λ.NewStr("playlist_mincount"): λ.NewInt(11),
-				}),
-			)
 			ToonGogglesIE__call_api = λ.NewFunction("_call_api",
 				[]λ.Param{
 					{Name: "self"},
@@ -180,7 +156,6 @@ func init() {
 					return λ.None
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):              ToonGogglesIE__TESTS,
 				λ.NewStr("_VALID_URL"):          ToonGogglesIE__VALID_URL,
 				λ.NewStr("_call_api"):           ToonGogglesIE__call_api,
 				λ.NewStr("_parse_episode_data"): ToonGogglesIE__parse_episode_data,

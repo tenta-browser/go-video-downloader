@@ -47,39 +47,10 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		BIQLEIE = λ.Cal(λ.TypeType, λ.NewStr("BIQLEIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				BIQLEIE__TESTS        λ.Object
 				BIQLEIE__VALID_URL    λ.Object
 				BIQLEIE__real_extract λ.Object
 			)
 			BIQLEIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?biqle\\.(?:com|org|ru)/watch/(?P<id>-?\\d+_\\d+)")
-			BIQLEIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://biqle.ru/watch/-115995369_456239081"),
-					λ.NewStr("md5"): λ.NewStr("97af5a06ee4c29bbf9c001bdb1cf5c06"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("8v4f-avW-VI"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("PASSE-PARTOUT - L'ete c'est fait pour jouer"),
-						λ.NewStr("description"): λ.NewStr("Passe-Partout"),
-						λ.NewStr("uploader_id"): λ.NewStr("mrsimpsonstef3"),
-						λ.NewStr("uploader"):    λ.NewStr("Phanolito"),
-						λ.NewStr("upload_date"): λ.NewStr("20120822"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://biqle.org/watch/-44781847_168547604"),
-					λ.NewStr("md5"): λ.NewStr("7f24e72af1db0edf7c1aaba513174f97"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("-44781847_168547604"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Ребенок в шоке от автоматической мойки"),
-						λ.NewStr("timestamp"):   λ.NewInt(1396633454),
-						λ.NewStr("uploader"):    λ.NewStr("Dmitry Kotov"),
-						λ.NewStr("upload_date"): λ.NewStr("20140404"),
-						λ.NewStr("uploader_id"): λ.NewStr("47850140"),
-					}),
-				}),
-			)
 			BIQLEIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -205,7 +176,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        BIQLEIE__TESTS,
 				λ.NewStr("_VALID_URL"):    BIQLEIE__VALID_URL,
 				λ.NewStr("_real_extract"): BIQLEIE__real_extract,
 			})

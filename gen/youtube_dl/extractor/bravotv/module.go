@@ -47,30 +47,10 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		BravoTVIE = λ.Cal(λ.TypeType, λ.NewStr("BravoTVIE"), λ.NewTuple(AdobePassIE), func() λ.Dict {
 			var (
-				BravoTVIE__TESTS        λ.Object
 				BravoTVIE__VALID_URL    λ.Object
 				BravoTVIE__real_extract λ.Object
 			)
 			BravoTVIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bravotv\\.com/(?:[^/]+/)+(?P<id>[^/?#]+)")
-			BravoTVIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.bravotv.com/top-chef/season-16/episode-15/videos/the-top-chef-season-16-winner-is"),
-					λ.NewStr("md5"): λ.NewStr("e34684cfea2a96cd2ee1ef3a60909de9"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("epL0pmK1kQlT"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("The Top Chef Season 16 Winner Is..."),
-						λ.NewStr("description"): λ.NewStr("Find out who takes the title of Top Chef!"),
-						λ.NewStr("uploader"):    λ.NewStr("NBCU-BRAV"),
-						λ.NewStr("upload_date"): λ.NewStr("20190314"),
-						λ.NewStr("timestamp"):   λ.NewInt(1552591860),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.bravotv.com/below-deck/season-3/ep-14-reunion-part-1"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			BravoTVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -160,7 +140,6 @@ func init() {
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        BravoTVIE__TESTS,
 				λ.NewStr("_VALID_URL"):    BravoTVIE__VALID_URL,
 				λ.NewStr("_real_extract"): BravoTVIE__real_extract,
 			})

@@ -62,42 +62,11 @@ func init() {
 		TeamTreeHouseIE = λ.Cal(λ.TypeType, λ.NewStr("TeamTreeHouseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TeamTreeHouseIE__NETRC_MACHINE   λ.Object
-				TeamTreeHouseIE__TESTS           λ.Object
 				TeamTreeHouseIE__VALID_URL       λ.Object
 				TeamTreeHouseIE__real_extract    λ.Object
 				TeamTreeHouseIE__real_initialize λ.Object
 			)
 			TeamTreeHouseIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?teamtreehouse\\.com/library/(?P<id>[^/]+)")
-			TeamTreeHouseIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://teamtreehouse.com/library/introduction-to-user-authentication-in-php"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("introduction-to-user-authentication-in-php"),
-						λ.NewStr("title"):       λ.NewStr("Introduction to User Authentication in PHP"),
-						λ.NewStr("description"): λ.NewStr("md5:405d7b4287a159b27ddf30ca72b5b053"),
-					}),
-					λ.NewStr("playlist_mincount"): λ.NewInt(24),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://teamtreehouse.com/library/deploying-a-react-app"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("deploying-a-react-app"),
-						λ.NewStr("title"):       λ.NewStr("Deploying a React App"),
-						λ.NewStr("description"): λ.NewStr("md5:10a82e3ddff18c14ac13581c9b8e5921"),
-					}),
-					λ.NewStr("playlist_mincount"): λ.NewInt(4),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://teamtreehouse.com/library/application-overview-2"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("application-overview-2"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Application Overview"),
-						λ.NewStr("description"): λ.NewStr("md5:4b0a234385c27140a4378de5f1e15127"),
-					}),
-					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("This is just a preview")),
-				}),
-			)
 			TeamTreeHouseIE__NETRC_MACHINE = λ.NewStr("teamtreehouse")
 			TeamTreeHouseIE__real_initialize = λ.NewFunction("_real_initialize",
 				[]λ.Param{
@@ -292,7 +261,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_NETRC_MACHINE"):   TeamTreeHouseIE__NETRC_MACHINE,
-				λ.NewStr("_TESTS"):           TeamTreeHouseIE__TESTS,
 				λ.NewStr("_VALID_URL"):       TeamTreeHouseIE__VALID_URL,
 				λ.NewStr("_real_extract"):    TeamTreeHouseIE__real_extract,
 				λ.NewStr("_real_initialize"): TeamTreeHouseIE__real_initialize,

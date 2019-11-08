@@ -44,23 +44,10 @@ func init() {
 		ϒstr_or_none = Ωutils.ϒstr_or_none
 		ReverbNationIE = λ.Cal(λ.TypeType, λ.NewStr("ReverbNationIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ReverbNationIE__TESTS        λ.Object
 				ReverbNationIE__VALID_URL    λ.Object
 				ReverbNationIE__real_extract λ.Object
 			)
 			ReverbNationIE__VALID_URL = λ.NewStr("^https?://(?:www\\.)?reverbnation\\.com/.*?/song/(?P<id>\\d+).*?$")
-			ReverbNationIE__TESTS = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.reverbnation.com/alkilados/song/16965047-mona-lisa"),
-				λ.NewStr("md5"): λ.NewStr("c0aaf339bcee189495fdf5a8c8ba8645"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("16965047"),
-					λ.NewStr("ext"):         λ.NewStr("mp3"),
-					λ.NewStr("title"):       λ.NewStr("MONA LISA"),
-					λ.NewStr("uploader"):    λ.NewStr("ALKILADOS"),
-					λ.NewStr("uploader_id"): λ.NewStr("216429"),
-					λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-				}),
-			}))
 			ReverbNationIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -118,7 +105,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        ReverbNationIE__TESTS,
 				λ.NewStr("_VALID_URL"):    ReverbNationIE__VALID_URL,
 				λ.NewStr("_real_extract"): ReverbNationIE__real_extract,
 			})

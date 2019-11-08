@@ -44,35 +44,10 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		CONtvIE = λ.Cal(λ.TypeType, λ.NewStr("CONtvIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				CONtvIE__TESTS        λ.Object
 				CONtvIE__VALID_URL    λ.Object
 				CONtvIE__real_extract λ.Object
 			)
 			CONtvIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?contv\\.com/details-movie/(?P<id>[^/]+)")
-			CONtvIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.contv.com/details-movie/CEG10022949/days-of-thrills-&-laughter"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("CEG10022949"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Days Of Thrills & Laughter"),
-						λ.NewStr("description"): λ.NewStr("md5:5d6b3d0b1829bb93eb72898c734802eb"),
-						λ.NewStr("upload_date"): λ.NewStr("20180703"),
-						λ.NewStr("timestamp"):   λ.NewFloat(1530634789.61),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.contv.com/details-movie/CLIP-show_fotld_bts/fight-of-the-living-dead:-behind-the-scenes-bites"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("CLIP-show_fotld_bts"),
-						λ.NewStr("title"): λ.NewStr("Fight of the Living Dead: Behind the Scenes Bites"),
-					}),
-					λ.NewStr("playlist_mincount"): λ.NewInt(7),
-				}),
-			)
 			CONtvIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -236,7 +211,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        CONtvIE__TESTS,
 				λ.NewStr("_VALID_URL"):    CONtvIE__VALID_URL,
 				λ.NewStr("_real_extract"): CONtvIE__real_extract,
 			})

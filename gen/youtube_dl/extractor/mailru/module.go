@@ -268,29 +268,11 @@ func init() {
 		MailRuMusicIE = λ.Cal(λ.TypeType, λ.NewStr("MailRuMusicIE"), λ.NewTuple(MailRuMusicSearchBaseIE), func() λ.Dict {
 			var (
 				MailRuMusicIE_IE_NAME       λ.Object
-				MailRuMusicIE__TESTS        λ.Object
 				MailRuMusicIE__VALID_URL    λ.Object
 				MailRuMusicIE__real_extract λ.Object
 			)
 			MailRuMusicIE_IE_NAME = λ.NewStr("mailru:music")
 			MailRuMusicIE__VALID_URL = λ.NewStr("https?://my\\.mail\\.ru/music/songs/[^/?#&]+-(?P<id>[\\da-f]+)")
-			MailRuMusicIE__TESTS = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://my.mail.ru/music/songs/%D0%BC8%D0%BB8%D1%82%D1%85-l-a-h-luciferian-aesthetics-of-herrschaft-single-2017-4e31f7125d0dfaef505d947642366893"),
-				λ.NewStr("md5"): λ.NewStr("0f8c22ef8c5d665b13ac709e63025610"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("4e31f7125d0dfaef505d947642366893"),
-					λ.NewStr("ext"):         λ.NewStr("mp3"),
-					λ.NewStr("title"):       λ.NewStr("L.A.H. (Luciferian Aesthetics of Herrschaft) single, 2017 - М8Л8ТХ"),
-					λ.NewStr("uploader"):    λ.NewStr("Игорь Мудрый"),
-					λ.NewStr("uploader_id"): λ.NewStr("1459196328"),
-					λ.NewStr("duration"):    λ.NewInt(280),
-					λ.NewStr("view_count"):  λ.IntType,
-					λ.NewStr("vcodec"):      λ.NewStr("none"),
-					λ.NewStr("abr"):         λ.NewInt(320),
-					λ.NewStr("track"):       λ.NewStr("L.A.H. (Luciferian Aesthetics of Herrschaft) single, 2017"),
-					λ.NewStr("artist"):      λ.NewStr("М8Л8ТХ"),
-				}),
-			}))
 			MailRuMusicIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -341,7 +323,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       MailRuMusicIE_IE_NAME,
-				λ.NewStr("_TESTS"):        MailRuMusicIE__TESTS,
 				λ.NewStr("_VALID_URL"):    MailRuMusicIE__VALID_URL,
 				λ.NewStr("_real_extract"): MailRuMusicIE__real_extract,
 			})

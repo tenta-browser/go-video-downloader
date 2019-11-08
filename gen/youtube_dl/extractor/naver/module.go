@@ -46,39 +46,10 @@ func init() {
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		NaverIE = λ.Cal(λ.TypeType, λ.NewStr("NaverIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				NaverIE__TESTS        λ.Object
 				NaverIE__VALID_URL    λ.Object
 				NaverIE__real_extract λ.Object
 			)
 			NaverIE__VALID_URL = λ.NewStr("https?://(?:m\\.)?tv(?:cast)?\\.naver\\.com/v/(?P<id>\\d+)")
-			NaverIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://tv.naver.com/v/81652"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("81652"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("[9월 모의고사 해설강의][수학_김상희] 수학 A형 16~20번"),
-						λ.NewStr("description"): λ.NewStr("합격불변의 법칙 메가스터디 | 메가스터디 수학 김상희 선생님이 9월 모의고사 수학A형 16번에서 20번까지 해설강의를 공개합니다."),
-						λ.NewStr("upload_date"): λ.NewStr("20130903"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://tv.naver.com/v/395837"),
-					λ.NewStr("md5"): λ.NewStr("638ed4c12012c458fefcddfd01f173cd"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("395837"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("9년이 지나도 아픈 기억, 전효성의 아버지"),
-						λ.NewStr("description"): λ.NewStr("md5:5bf200dcbf4b66eb1b350d1eb9c753f7"),
-						λ.NewStr("upload_date"): λ.NewStr("20150519"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("Georestricted"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://tvcast.naver.com/v/81652"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			NaverIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -318,7 +289,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        NaverIE__TESTS,
 				λ.NewStr("_VALID_URL"):    NaverIE__VALID_URL,
 				λ.NewStr("_real_extract"): NaverIE__real_extract,
 			})

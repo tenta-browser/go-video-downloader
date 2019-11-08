@@ -45,30 +45,10 @@ func init() {
 		ϒcompat_urllib_parse_unquote = Ωcompat.ϒcompat_urllib_parse_unquote
 		BigflixIE = λ.Cal(λ.TypeType, λ.NewStr("BigflixIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				BigflixIE__TESTS        λ.Object
 				BigflixIE__VALID_URL    λ.Object
 				BigflixIE__real_extract λ.Object
 			)
 			BigflixIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bigflix\\.com/.+/(?P<id>[0-9]+)")
-			BigflixIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.bigflix.com/Tamil-movies/Drama-movies/Madarasapatinam/16070"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("16070"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Madarasapatinam"),
-						λ.NewStr("description"): λ.NewStr("md5:9f0470b26a4ba8e824c823b5d95c2f6b"),
-						λ.NewStr("formats"):     λ.NewStr("mincount:2"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.bigflix.com/Malayalam-movies/Drama-movies/Indian-Rupee/15967"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			BigflixIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -173,7 +153,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        BigflixIE__TESTS,
 				λ.NewStr("_VALID_URL"):    BigflixIE__VALID_URL,
 				λ.NewStr("_real_extract"): BigflixIE__real_extract,
 			})

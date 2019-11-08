@@ -39,29 +39,10 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		PeopleIE = λ.Cal(λ.TypeType, λ.NewStr("PeopleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				PeopleIE__TEST         λ.Object
 				PeopleIE__VALID_URL    λ.Object
 				PeopleIE__real_extract λ.Object
 			)
 			PeopleIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?people\\.com/people/videos/0,,(?P<id>\\d+),00\\.html")
-			PeopleIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.people.com/people/videos/0,,20995451,00.html"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("ref:20995451"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Astronaut Love Triangle Victim Speaks Out: “The Crime in 2007 Hasn’t Defined Us”"),
-					λ.NewStr("description"): λ.NewStr("Colleen Shipman speaks to PEOPLE for the first time about life after the attack"),
-					λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-					λ.NewStr("duration"):    λ.NewFloat(246.318),
-					λ.NewStr("timestamp"):   λ.NewInt(1458720585),
-					λ.NewStr("upload_date"): λ.NewStr("20160323"),
-					λ.NewStr("uploader_id"): λ.NewStr("416418724"),
-				}),
-				λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("skip_download"): λ.True,
-				}),
-				λ.NewStr("add_ie"): λ.NewList(λ.NewStr("BrightcoveNew")),
-			})
 			PeopleIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -76,7 +57,6 @@ func init() {
 					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://players.brightcove.net/416418724/default_default/index.html?videoId=ref:%s"), λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)), λ.NewStr("BrightcoveNew"))
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         PeopleIE__TEST,
 				λ.NewStr("_VALID_URL"):    PeopleIE__VALID_URL,
 				λ.NewStr("_real_extract"): PeopleIE__real_extract,
 			})

@@ -40,27 +40,10 @@ func init() {
 		HBOBaseIE = Ωhbo.HBOBaseIE
 		CinemaxIE = λ.Cal(λ.TypeType, λ.NewStr("CinemaxIE"), λ.NewTuple(HBOBaseIE), func() λ.Dict {
 			var (
-				CinemaxIE__TESTS        λ.Object
 				CinemaxIE__VALID_URL    λ.Object
 				CinemaxIE__real_extract λ.Object
 			)
 			CinemaxIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?cinemax\\.com/(?P<path>[^/]+/video/[0-9a-z-]+-(?P<id>\\d+))")
-			CinemaxIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.cinemax.com/warrior/video/s1-ep-1-recap-20126903"),
-					λ.NewStr("md5"): λ.NewStr("82e0734bba8aa7ef526c9dd00cf35a05"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("20126903"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("S1 Ep 1: Recap"),
-					}),
-					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("Unknown MIME type application/mp4 in DASH manifest")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.cinemax.com/warrior/video/s1-ep-1-recap-20126903.embed"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			CinemaxIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -84,7 +67,6 @@ func init() {
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        CinemaxIE__TESTS,
 				λ.NewStr("_VALID_URL"):    CinemaxIE__VALID_URL,
 				λ.NewStr("_real_extract"): CinemaxIE__real_extract,
 			})

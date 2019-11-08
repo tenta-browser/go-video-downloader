@@ -51,30 +51,10 @@ func init() {
 		ϒtry_get = Ωutils.ϒtry_get
 		HitRecordIE = λ.Cal(λ.TypeType, λ.NewStr("HitRecordIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				HitRecordIE__TEST         λ.Object
 				HitRecordIE__VALID_URL    λ.Object
 				HitRecordIE__real_extract λ.Object
 			)
 			HitRecordIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?hitrecord\\.org/records/(?P<id>\\d+)")
-			HitRecordIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://hitrecord.org/records/2954362"),
-				λ.NewStr("md5"): λ.NewStr("fe1cdc2023bce0bbb95c39c57426aa71"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):            λ.NewStr("2954362"),
-					λ.NewStr("ext"):           λ.NewStr("mp4"),
-					λ.NewStr("title"):         λ.NewStr("A Very Different World (HITRECORD x ACLU)"),
-					λ.NewStr("description"):   λ.NewStr("md5:e62defaffab5075a5277736bead95a3d"),
-					λ.NewStr("duration"):      λ.NewFloat(139.327),
-					λ.NewStr("timestamp"):     λ.NewInt(1471557582),
-					λ.NewStr("upload_date"):   λ.NewStr("20160818"),
-					λ.NewStr("uploader"):      λ.NewStr("Zuzi.C12"),
-					λ.NewStr("uploader_id"):   λ.NewStr("362811"),
-					λ.NewStr("view_count"):    λ.IntType,
-					λ.NewStr("like_count"):    λ.IntType,
-					λ.NewStr("comment_count"): λ.IntType,
-					λ.NewStr("tags"):          λ.ListType,
-				}),
-			})
 			HitRecordIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -177,7 +157,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         HitRecordIE__TEST,
 				λ.NewStr("_VALID_URL"):    HitRecordIE__VALID_URL,
 				λ.NewStr("_real_extract"): HitRecordIE__real_extract,
 			})

@@ -141,39 +141,11 @@ func init() {
 		LyndaIE = λ.Cal(λ.TypeType, λ.NewStr("LyndaIE"), λ.NewTuple(LyndaBaseIE), func() λ.Dict {
 			var (
 				LyndaIE_IE_NAME       λ.Object
-				LyndaIE__TESTS        λ.Object
 				LyndaIE__VALID_URL    λ.Object
 				LyndaIE__real_extract λ.Object
 			)
 			LyndaIE_IE_NAME = λ.NewStr("lynda")
 			LyndaIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:www\\.)?(?:lynda\\.com|educourse\\.ga)/\n                        (?:\n                            (?:[^/]+/){2,3}(?P<course_id>\\d+)|\n                            player/embed\n                        )/\n                        (?P<id>\\d+)\n                    ")
-			LyndaIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.lynda.com/Bootstrap-tutorials/Using-exercise-files/110885/114408-4.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):       λ.NewStr("114408"),
-						λ.NewStr("ext"):      λ.NewStr("mp4"),
-						λ.NewStr("title"):    λ.NewStr("Using the exercise files"),
-						λ.NewStr("duration"): λ.NewInt(68),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.lynda.com/player/embed/133770?tr=foo=1;bar=g;fizz=rt&fs=0"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://educourse.ga/Bootstrap-tutorials/Using-exercise-files/110885/114408-4.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.lynda.com/de/Graphic-Design-tutorials/Willkommen-Grundlagen-guten-Gestaltung/393570/393572-4.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.lynda.com/ASP-NET-tutorials/What-you-should-know/5034180/2811512-4.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			LyndaIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -405,7 +377,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       LyndaIE_IE_NAME,
-				λ.NewStr("_TESTS"):        LyndaIE__TESTS,
 				λ.NewStr("_VALID_URL"):    LyndaIE__VALID_URL,
 				λ.NewStr("_real_extract"): LyndaIE__real_extract,
 			})

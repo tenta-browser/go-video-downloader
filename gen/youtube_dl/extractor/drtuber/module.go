@@ -49,43 +49,10 @@ func init() {
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		DrTuberIE = λ.Cal(λ.TypeType, λ.NewStr("DrTuberIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				DrTuberIE__TESTS        λ.Object
 				DrTuberIE__VALID_URL    λ.Object
 				DrTuberIE__real_extract λ.Object
 			)
 			DrTuberIE__VALID_URL = λ.NewStr("https?://(?:(?:www|m)\\.)?drtuber\\.com/(?:video|embed)/(?P<id>\\d+)(?:/(?P<display_id>[\\w-]+))?")
-			DrTuberIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.drtuber.com/video/1740434/hot-perky-blonde-naked-golf"),
-					λ.NewStr("md5"): λ.NewStr("93e680cf2536ad0dfb7e74d94a89facd"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("1740434"),
-						λ.NewStr("display_id"):    λ.NewStr("hot-perky-blonde-naked-golf"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("hot perky blonde naked golf"),
-						λ.NewStr("like_count"):    λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-						λ.NewStr("categories"): λ.NewList(
-							λ.NewStr("Babe"),
-							λ.NewStr("Blonde"),
-							λ.NewStr("Erotic"),
-							λ.NewStr("Outdoor"),
-							λ.NewStr("Softcore"),
-							λ.NewStr("Solo"),
-						),
-						λ.NewStr("thumbnail"): λ.NewStr("re:https?://.*\\.jpg$"),
-						λ.NewStr("age_limit"): λ.NewInt(18),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.drtuber.com/embed/489939"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://m.drtuber.com/video/3893529/lingerie-blowjob-from-beautiful-teen"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			DrTuberIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -242,7 +209,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        DrTuberIE__TESTS,
 				λ.NewStr("_VALID_URL"):    DrTuberIE__VALID_URL,
 				λ.NewStr("_real_extract"): DrTuberIE__real_extract,
 			})

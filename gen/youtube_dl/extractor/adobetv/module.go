@@ -72,25 +72,10 @@ func init() {
 		}())
 		AdobeTVIE = λ.Cal(λ.TypeType, λ.NewStr("AdobeTVIE"), λ.NewTuple(AdobeTVBaseIE), func() λ.Dict {
 			var (
-				AdobeTVIE__TEST         λ.Object
 				AdobeTVIE__VALID_URL    λ.Object
 				AdobeTVIE__real_extract λ.Object
 			)
 			AdobeTVIE__VALID_URL = λ.NewStr("https?://tv\\.adobe\\.com/(?:(?P<language>fr|de|es|jp)/)?watch/(?P<show_urlname>[^/]+)/(?P<id>[^/]+)")
-			AdobeTVIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://tv.adobe.com/watch/the-complete-picture-with-julieanne-kost/quick-tip-how-to-draw-a-circle-around-an-object-in-photoshop/"),
-				λ.NewStr("md5"): λ.NewStr("9bc5727bcdd55251f35ad311ca74fa1e"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("10981"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Quick Tip - How to Draw a Circle Around an Object in Photoshop"),
-					λ.NewStr("description"): λ.NewStr("md5:99ec318dc909d7ba2a1f2b038f7d2311"),
-					λ.NewStr("thumbnail"):   λ.NewStr("re:https?://.*\\.jpg$"),
-					λ.NewStr("upload_date"): λ.NewStr("20110914"),
-					λ.NewStr("duration"):    λ.NewInt(60),
-					λ.NewStr("view_count"):  λ.IntType,
-				}),
-			})
 			AdobeTVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -168,7 +153,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         AdobeTVIE__TEST,
 				λ.NewStr("_VALID_URL"):    AdobeTVIE__VALID_URL,
 				λ.NewStr("_real_extract"): AdobeTVIE__real_extract,
 			})
@@ -197,22 +181,10 @@ func init() {
 		}())
 		AdobeTVVideoIE = λ.Cal(λ.TypeType, λ.NewStr("AdobeTVVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				AdobeTVVideoIE__TEST         λ.Object
 				AdobeTVVideoIE__VALID_URL    λ.Object
 				AdobeTVVideoIE__real_extract λ.Object
 			)
 			AdobeTVVideoIE__VALID_URL = λ.NewStr("https?://video\\.tv\\.adobe\\.com/v/(?P<id>\\d+)")
-			AdobeTVVideoIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://video.tv.adobe.com/v/2456/"),
-				λ.NewStr("md5"): λ.NewStr("43662b577c018ad707a63766462b1e87"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("2456"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("New experience with Acrobat DC"),
-					λ.NewStr("description"): λ.NewStr("New experience with Acrobat DC"),
-					λ.NewStr("duration"):    λ.NewFloat(248.667),
-				}),
-			})
 			AdobeTVVideoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -324,7 +296,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         AdobeTVVideoIE__TEST,
 				λ.NewStr("_VALID_URL"):    AdobeTVVideoIE__VALID_URL,
 				λ.NewStr("_real_extract"): AdobeTVVideoIE__real_extract,
 			})

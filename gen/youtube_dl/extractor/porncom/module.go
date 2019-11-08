@@ -50,33 +50,10 @@ func init() {
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		PornComIE = λ.Cal(λ.TypeType, λ.NewStr("PornComIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				PornComIE__TESTS        λ.Object
 				PornComIE__VALID_URL    λ.Object
 				PornComIE__real_extract λ.Object
 			)
 			PornComIE__VALID_URL = λ.NewStr("https?://(?:[a-zA-Z]+\\.)?porn\\.com/videos/(?:(?P<display_id>[^/]+)-)?(?P<id>\\d+)")
-			PornComIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.porn.com/videos/teen-grabs-a-dildo-and-fucks-her-pussy-live-on-1hottie-i-rec-2603339"),
-					λ.NewStr("md5"): λ.NewStr("3f30ce76267533cd12ba999263156de7"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("2603339"),
-						λ.NewStr("display_id"): λ.NewStr("teen-grabs-a-dildo-and-fucks-her-pussy-live-on-1hottie-i-rec"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("Teen grabs a dildo and fucks her pussy live on 1hottie, I rec"),
-						λ.NewStr("thumbnail"):  λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):   λ.NewInt(551),
-						λ.NewStr("view_count"): λ.IntType,
-						λ.NewStr("age_limit"):  λ.NewInt(18),
-						λ.NewStr("categories"): λ.ListType,
-						λ.NewStr("tags"):       λ.ListType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://se.porn.com/videos/marsha-may-rides-seth-on-top-of-his-thick-cock-2658067"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			PornComIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -273,7 +250,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        PornComIE__TESTS,
 				λ.NewStr("_VALID_URL"):    PornComIE__VALID_URL,
 				λ.NewStr("_real_extract"): PornComIE__real_extract,
 			})

@@ -45,33 +45,10 @@ func init() {
 		ϒtry_get = Ωutils.ϒtry_get
 		ThisOldHouseIE = λ.Cal(λ.TypeType, λ.NewStr("ThisOldHouseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ThisOldHouseIE__TESTS        λ.Object
 				ThisOldHouseIE__VALID_URL    λ.Object
 				ThisOldHouseIE__real_extract λ.Object
 			)
 			ThisOldHouseIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?thisoldhouse\\.com/(?:watch|how-to|tv-episode)/(?P<id>[^/?#]+)")
-			ThisOldHouseIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.thisoldhouse.com/how-to/how-to-build-storage-bench"),
-					λ.NewStr("md5"): λ.NewStr("568acf9ca25a639f0c4ff905826b662f"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("2REGtUDQ"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("How to Build a Storage Bench"),
-						λ.NewStr("description"): λ.NewStr("In the workshop, Tom Silva and Kevin O'Connor build a storage bench for an entryway."),
-						λ.NewStr("timestamp"):   λ.NewInt(1442548800),
-						λ.NewStr("upload_date"): λ.NewStr("20150918"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.thisoldhouse.com/watch/arlington-arts-crafts-arts-and-crafts-class-begins"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.thisoldhouse.com/tv-episode/ask-toh-shelf-rough-electric"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			ThisOldHouseIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -123,7 +100,6 @@ func init() {
 					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Add(λ.NewStr("jwplatform:"), ϒvideo_id), λ.NewStr("JWPlatform"), ϒvideo_id)
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        ThisOldHouseIE__TESTS,
 				λ.NewStr("_VALID_URL"):    ThisOldHouseIE__VALID_URL,
 				λ.NewStr("_real_extract"): ThisOldHouseIE__real_extract,
 			})

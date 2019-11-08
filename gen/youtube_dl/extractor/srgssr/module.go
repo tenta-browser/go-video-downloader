@@ -321,73 +321,10 @@ func init() {
 		}())
 		SRGSSRPlayIE = λ.Cal(λ.TypeType, λ.NewStr("SRGSSRPlayIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				SRGSSRPlayIE__TESTS        λ.Object
 				SRGSSRPlayIE__VALID_URL    λ.Object
 				SRGSSRPlayIE__real_extract λ.Object
 			)
 			SRGSSRPlayIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:(?:www|play)\\.)?\n                        (?P<bu>srf|rts|rsi|rtr|swissinfo)\\.ch/play/(?:tv|radio)/\n                        (?:\n                            [^/]+/(?P<type>video|audio)/[^?]+|\n                            popup(?P<type_2>video|audio)player\n                        )\n                        \\?id=(?P<id>[0-9a-f\\-]{36}|\\d+)\n                    ")
-			SRGSSRPlayIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.srf.ch/play/tv/10vor10/video/snowden-beantragt-asyl-in-russland?id=28e1a57d-5b76-4399-8ab3-9097f071e6c5"),
-					λ.NewStr("md5"): λ.NewStr("da6b5b3ac9fa4761a942331cef20fcb3"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("28e1a57d-5b76-4399-8ab3-9097f071e6c5"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("upload_date"): λ.NewStr("20130701"),
-						λ.NewStr("title"):       λ.NewStr("Snowden beantragt Asyl in Russland"),
-						λ.NewStr("timestamp"):   λ.NewInt(1372713995),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.srf.ch/play/tv/top-gear/video/jaguar-xk120-shadow-und-tornado-dampflokomotive?id=677f5829-e473-4823-ac83-a1087fe97faa"),
-					λ.NewStr("md5"): λ.NewStr("0a274ce38fda48c53c01890651985bc6"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("677f5829-e473-4823-ac83-a1087fe97faa"),
-						λ.NewStr("ext"):         λ.NewStr("flv"),
-						λ.NewStr("upload_date"): λ.NewStr("20130710"),
-						λ.NewStr("title"):       λ.NewStr("Jaguar XK120, Shadow und Tornado-Dampflokomotive"),
-						λ.NewStr("description"): λ.NewStr("md5:88604432b60d5a38787f152dec89cd56"),
-						λ.NewStr("timestamp"):   λ.NewInt(1373493600),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.rtr.ch/play/radio/actualitad/audio/saira-tujetsch-tuttina-cuntinuar-cun-sedrun-muster-turissem?id=63cb0778-27f8-49af-9284-8c7a8c6d15fc"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("63cb0778-27f8-49af-9284-8c7a8c6d15fc"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("upload_date"): λ.NewStr("20151013"),
-						λ.NewStr("title"):       λ.NewStr("Saira: Tujetsch - tuttina cuntinuar cun Sedrun Mustér Turissem"),
-						λ.NewStr("timestamp"):   λ.NewInt(1444750398),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.rts.ch/play/tv/-/video/le-19h30?id=6348260"),
-					λ.NewStr("md5"): λ.NewStr("67a2a9ae4e8e62a68d0e9820cc9782df"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("6348260"),
-						λ.NewStr("display_id"):  λ.NewStr("6348260"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("duration"):    λ.NewInt(1796),
-						λ.NewStr("title"):       λ.NewStr("Le 19h30"),
-						λ.NewStr("description"): λ.NewStr(""),
-						λ.NewStr("uploader"):    λ.NewStr("19h30"),
-						λ.NewStr("upload_date"): λ.NewStr("20141201"),
-						λ.NewStr("timestamp"):   λ.NewInt(1417458600),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.image"),
-						λ.NewStr("view_count"):  λ.IntType,
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.srf.ch/play/tv/popupvideoplayer?id=c4dba0ca-e75b-43b2-a34f-f708a4932e01"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			SRGSSRPlayIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -420,7 +357,6 @@ func init() {
 					)), λ.NewStr("SRGSSR"))
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        SRGSSRPlayIE__TESTS,
 				λ.NewStr("_VALID_URL"):    SRGSSRPlayIE__VALID_URL,
 				λ.NewStr("_real_extract"): SRGSSRPlayIE__real_extract,
 			})

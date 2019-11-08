@@ -59,31 +59,10 @@ func init() {
 		ϒurljoin = Ωutils.ϒurljoin
 		VideoPressIE = λ.Cal(λ.TypeType, λ.NewStr("VideoPressIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				VideoPressIE__TESTS        λ.Object
 				VideoPressIE__VALID_URL    λ.Object
 				VideoPressIE__real_extract λ.Object
 			)
 			VideoPressIE__VALID_URL = λ.NewStr("https?://videopress\\.com/embed/(?P<id>[\\da-zA-Z]+)")
-			VideoPressIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://videopress.com/embed/kUJmAcSf"),
-					λ.NewStr("md5"): λ.NewStr("706956a6c875873d51010921310e4bc6"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("kUJmAcSf"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("VideoPress Demo"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-						λ.NewStr("duration"):    λ.NewFloat(634.6),
-						λ.NewStr("timestamp"):   λ.NewInt(1434983935),
-						λ.NewStr("upload_date"): λ.NewStr("20150622"),
-						λ.NewStr("age_limit"):   λ.NewInt(0),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://videopress.com/embed/iH3gstfZ"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			VideoPressIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -223,7 +202,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        VideoPressIE__TESTS,
 				λ.NewStr("_VALID_URL"):    VideoPressIE__VALID_URL,
 				λ.NewStr("_real_extract"): VideoPressIE__real_extract,
 			})

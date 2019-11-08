@@ -45,53 +45,10 @@ func init() {
 		YoutubeIE = Ωyoutube.YoutubeIE
 		CtsNewsIE = λ.Cal(λ.TypeType, λ.NewStr("CtsNewsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				CtsNewsIE__TESTS        λ.Object
 				CtsNewsIE__VALID_URL    λ.Object
 				CtsNewsIE__real_extract λ.Object
 			)
 			CtsNewsIE__VALID_URL = λ.NewStr("https?://news\\.cts\\.com\\.tw/[a-z]+/[a-z]+/\\d+/(?P<id>\\d+)\\.html")
-			CtsNewsIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://news.cts.com.tw/cts/international/201501/201501291578109.html"),
-					λ.NewStr("md5"): λ.NewStr("a9875cb790252b08431186d741beaabe"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("201501291578109"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("以色列.真主黨交火 3人死亡 - 華視新聞網"),
-						λ.NewStr("description"): λ.NewStr("以色列和黎巴嫩真主黨，爆發五年最嚴重衝突，雙方砲轟交火，兩名以軍死亡，還有一名西班牙籍的聯合國維和人員也不幸罹難。大陸陝西、河南、安徽、江蘇和湖北五個省份出現大暴雪，嚴重影響陸空交通，不過九華山卻出現..."),
-						λ.NewStr("timestamp"):   λ.NewInt(1422528540),
-						λ.NewStr("upload_date"): λ.NewStr("20150129"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://news.cts.com.tw/cts/international/201309/201309031304098.html"),
-					λ.NewStr("md5"): λ.NewStr("3aee7e0df7cdff94e43581f54c22619e"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("201309031304098"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("韓國31歲童顏男 貌如十多歲小孩 - 華視新聞網"),
-						λ.NewStr("description"): λ.NewStr("越有年紀的人，越希望看起來年輕一點，而南韓卻有一位31歲的男子，看起來像是11、12歲的小孩，身..."),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("timestamp"):   λ.NewInt(1378205880),
-						λ.NewStr("upload_date"): λ.NewStr("20130903"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://news.cts.com.tw/cts/money/201501/201501291578003.html"),
-					λ.NewStr("md5"): λ.NewStr("e4726b2ccd70ba2c319865e28f0a91d1"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("OVbfO7d0_hQ"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("iPhone6熱銷 蘋果財報亮眼"),
-						λ.NewStr("description"): λ.NewStr("md5:f395d4f485487bb0f992ed2c4b07aa7d"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("upload_date"): λ.NewStr("20150128"),
-						λ.NewStr("uploader_id"): λ.NewStr("TBSCTS"),
-						λ.NewStr("uploader"):    λ.NewStr("中華電視公司"),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Youtube")),
-				}),
-			)
 			CtsNewsIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -163,7 +120,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        CtsNewsIE__TESTS,
 				λ.NewStr("_VALID_URL"):    CtsNewsIE__VALID_URL,
 				λ.NewStr("_real_extract"): CtsNewsIE__real_extract,
 			})

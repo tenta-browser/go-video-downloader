@@ -491,37 +491,11 @@ func init() {
 		TwitchClipsIE = λ.Cal(λ.TypeType, λ.NewStr("TwitchClipsIE"), λ.NewTuple(TwitchBaseIE), func() λ.Dict {
 			var (
 				TwitchClipsIE_IE_NAME       λ.Object
-				TwitchClipsIE__TESTS        λ.Object
 				TwitchClipsIE__VALID_URL    λ.Object
 				TwitchClipsIE__real_extract λ.Object
 			)
 			TwitchClipsIE_IE_NAME = λ.NewStr("twitch:clips")
 			TwitchClipsIE__VALID_URL = λ.NewStr("https?://(?:clips\\.twitch\\.tv/(?:[^/]+/)*|(?:www\\.)?twitch\\.tv/[^/]+/clip/)(?P<id>[^/?#&]+)")
-			TwitchClipsIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://clips.twitch.tv/FaintLightGullWholeWheat"),
-					λ.NewStr("md5"): λ.NewStr("761769e1eafce0ffebfb4089cb3847cd"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("42850523"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("EA Play 2016 Live from the Novo Theatre"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-						λ.NewStr("timestamp"):   λ.NewInt(1465767393),
-						λ.NewStr("upload_date"): λ.NewStr("20160612"),
-						λ.NewStr("creator"):     λ.NewStr("EA"),
-						λ.NewStr("uploader"):    λ.NewStr("stereotype_"),
-						λ.NewStr("uploader_id"): λ.NewStr("43566419"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://clips.twitch.tv/rflegendary/UninterestedBeeDAESuppy"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.twitch.tv/sergeynixon/clip/StormyThankfulSproutFutureMan"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			TwitchClipsIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -671,7 +645,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       TwitchClipsIE_IE_NAME,
-				λ.NewStr("_TESTS"):        TwitchClipsIE__TESTS,
 				λ.NewStr("_VALID_URL"):    TwitchClipsIE__VALID_URL,
 				λ.NewStr("_real_extract"): TwitchClipsIE__real_extract,
 			})

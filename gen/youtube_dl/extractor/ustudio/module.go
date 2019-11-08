@@ -58,23 +58,11 @@ func init() {
 		UstudioEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("UstudioEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				UstudioEmbedIE_IE_NAME       λ.Object
-				UstudioEmbedIE__TEST         λ.Object
 				UstudioEmbedIE__VALID_URL    λ.Object
 				UstudioEmbedIE__real_extract λ.Object
 			)
 			UstudioEmbedIE_IE_NAME = λ.NewStr("ustudio:embed")
 			UstudioEmbedIE__VALID_URL = λ.NewStr("https?://(?:(?:app|embed)\\.)?ustudio\\.com/embed/(?P<uid>[^/]+)/(?P<id>[^/]+)")
-			UstudioEmbedIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://app.ustudio.com/embed/DeN7VdYRDKhP/Uw7G1kMCe65T"),
-				λ.NewStr("md5"): λ.NewStr("47c0be52a09b23a7f40de9469cec58f4"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("Uw7G1kMCe65T"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("5 Things IT Should Know About Video"),
-					λ.NewStr("description"): λ.NewStr("md5:93d32650884b500115e158c5677d25ad"),
-					λ.NewStr("uploader_id"): λ.NewStr("DeN7VdYRDKhP"),
-				}),
-			})
 			UstudioEmbedIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -177,7 +165,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       UstudioEmbedIE_IE_NAME,
-				λ.NewStr("_TEST"):         UstudioEmbedIE__TEST,
 				λ.NewStr("_VALID_URL"):    UstudioEmbedIE__VALID_URL,
 				λ.NewStr("_real_extract"): UstudioEmbedIE__real_extract,
 			})

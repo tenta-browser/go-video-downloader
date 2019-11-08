@@ -48,37 +48,10 @@ func init() {
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		CrackedIE = λ.Cal(λ.TypeType, λ.NewStr("CrackedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				CrackedIE__TESTS        λ.Object
 				CrackedIE__VALID_URL    λ.Object
 				CrackedIE__real_extract λ.Object
 			)
 			CrackedIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?cracked\\.com/video_(?P<id>\\d+)_[\\da-z-]+\\.html")
-			CrackedIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.cracked.com/video_19070_if-animal-actors-got-e21-true-hollywood-stories.html"),
-					λ.NewStr("md5"): λ.NewStr("89b90b9824e3806ca95072c4d78f13f7"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("19070"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("If Animal Actors Got E! True Hollywood Stories"),
-						λ.NewStr("timestamp"):   λ.NewInt(1404954000),
-						λ.NewStr("upload_date"): λ.NewStr("20140710"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.cracked.com/video_19006_4-plot-holes-you-didnt-notice-in-your-favorite-movies.html"),
-					λ.NewStr("md5"): λ.NewStr("ccd52866b50bde63a6ef3b35016ba8c7"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("EjI00A3rZD0"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("4 Plot Holes You Didn't Notice in Your Favorite Movies - The Spit Take"),
-						λ.NewStr("description"): λ.NewStr("md5:c603708c718b796fe6079e2b3351ffc7"),
-						λ.NewStr("upload_date"): λ.NewStr("20140725"),
-						λ.NewStr("uploader_id"): λ.NewStr("Cracked"),
-						λ.NewStr("uploader"):    λ.NewStr("Cracked"),
-					}),
-				}),
-			)
 			CrackedIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -172,7 +145,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        CrackedIE__TESTS,
 				λ.NewStr("_VALID_URL"):    CrackedIE__VALID_URL,
 				λ.NewStr("_real_extract"): CrackedIE__real_extract,
 			})

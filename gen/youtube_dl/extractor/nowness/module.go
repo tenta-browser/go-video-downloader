@@ -161,59 +161,11 @@ func init() {
 		NownessIE = λ.Cal(λ.TypeType, λ.NewStr("NownessIE"), λ.NewTuple(NownessBaseIE), func() λ.Dict {
 			var (
 				NownessIE_IE_NAME       λ.Object
-				NownessIE__TESTS        λ.Object
 				NownessIE__VALID_URL    λ.Object
 				NownessIE__real_extract λ.Object
 			)
 			NownessIE_IE_NAME = λ.NewStr("nowness")
 			NownessIE__VALID_URL = λ.NewStr("https?://(?:(?:www|cn)\\.)?nowness\\.com/(?:story|(?:series|category)/[^/]+)/(?P<id>[^/]+?)(?:$|[?#])")
-			NownessIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.nowness.com/story/candor-the-art-of-gesticulation"),
-					λ.NewStr("md5"): λ.NewStr("068bc0202558c2e391924cb8cc470676"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("2520295746001"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Candor: The Art of Gesticulation"),
-						λ.NewStr("description"): λ.NewStr("Candor: The Art of Gesticulation"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-						λ.NewStr("timestamp"):   λ.NewInt(1446745676),
-						λ.NewStr("upload_date"): λ.NewStr("20151105"),
-						λ.NewStr("uploader_id"): λ.NewStr("2385340575001"),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("BrightcoveNew")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://cn.nowness.com/story/kasper-bjorke-ft-jaakko-eino-kalevi-tnr"),
-					λ.NewStr("md5"): λ.NewStr("e79cf125e387216f86b2e0a5b5c63aa3"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("3716354522001"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Kasper Bjørke ft. Jaakko Eino Kalevi: TNR"),
-						λ.NewStr("description"): λ.NewStr("Kasper Bjørke ft. Jaakko Eino Kalevi: TNR"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-						λ.NewStr("timestamp"):   λ.NewInt(1407315371),
-						λ.NewStr("upload_date"): λ.NewStr("20140806"),
-						λ.NewStr("uploader_id"): λ.NewStr("2385340575001"),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("BrightcoveNew")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.nowness.com/series/nowness-picks/jean-luc-godard-supercut"),
-					λ.NewStr("md5"): λ.NewStr("9a5a6a8edf806407e411296ab6bc2a49"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("130020913"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Bleu, Blanc, Rouge - A Godard Supercut"),
-						λ.NewStr("description"): λ.NewStr("md5:f0ea5f1857dffca02dbd37875d742cec"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-						λ.NewStr("upload_date"): λ.NewStr("20150607"),
-						λ.NewStr("uploader"):    λ.NewStr("Cinema Sem Lei"),
-						λ.NewStr("uploader_id"): λ.NewStr("cinemasemlei"),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Vimeo")),
-				}),
-			)
 			NownessIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -234,7 +186,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       NownessIE_IE_NAME,
-				λ.NewStr("_TESTS"):        NownessIE__TESTS,
 				λ.NewStr("_VALID_URL"):    NownessIE__VALID_URL,
 				λ.NewStr("_real_extract"): NownessIE__real_extract,
 			})

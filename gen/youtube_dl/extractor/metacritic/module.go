@@ -43,34 +43,10 @@ func init() {
 		ϒfix_xml_ampersands = Ωutils.ϒfix_xml_ampersands
 		MetacriticIE = λ.Cal(λ.TypeType, λ.NewStr("MetacriticIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				MetacriticIE__TESTS        λ.Object
 				MetacriticIE__VALID_URL    λ.Object
 				MetacriticIE__real_extract λ.Object
 			)
 			MetacriticIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?metacritic\\.com/.+?/trailers/(?P<id>\\d+)")
-			MetacriticIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.metacritic.com/game/playstation-4/infamous-second-son/trailers/3698222"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("3698222"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("inFamous: Second Son - inSide Sucker Punch: Smoke & Mirrors"),
-						λ.NewStr("description"): λ.NewStr("Take a peak behind-the-scenes to see how Sucker Punch brings smoke into the universe of inFAMOUS Second Son on the PS4."),
-						λ.NewStr("duration"):    λ.NewInt(221),
-					}),
-					λ.NewStr("skip"): λ.NewStr("Not providing trailers anymore"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.metacritic.com/game/playstation-4/tales-from-the-borderlands-a-telltale-game-series/trailers/5740315"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("5740315"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Tales from the Borderlands - Finale: The Vault of the Traveler"),
-						λ.NewStr("description"): λ.NewStr("In the final episode of the season, all hell breaks loose. Jack is now in control of Helios' systems, and he's ready to reclaim his rightful place as king of Hyperion (with or without you)."),
-						λ.NewStr("duration"):    λ.NewInt(114),
-					}),
-				}),
-			)
 			MetacriticIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -160,7 +136,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        MetacriticIE__TESTS,
 				λ.NewStr("_VALID_URL"):    MetacriticIE__VALID_URL,
 				λ.NewStr("_real_extract"): MetacriticIE__real_extract,
 			})

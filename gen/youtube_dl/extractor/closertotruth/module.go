@@ -40,51 +40,10 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		CloserToTruthIE = λ.Cal(λ.TypeType, λ.NewStr("CloserToTruthIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				CloserToTruthIE__TESTS        λ.Object
 				CloserToTruthIE__VALID_URL    λ.Object
 				CloserToTruthIE__real_extract λ.Object
 			)
 			CloserToTruthIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?closertotruth\\.com/(?:[^/]+/)*(?P<id>[^/?#&]+)")
-			CloserToTruthIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://closertotruth.com/series/solutions-the-mind-body-problem#video-3688"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("0_zof1ktre"),
-						λ.NewStr("display_id"):  λ.NewStr("solutions-the-mind-body-problem"),
-						λ.NewStr("ext"):         λ.NewStr("mov"),
-						λ.NewStr("title"):       λ.NewStr("Solutions to the Mind-Body Problem?"),
-						λ.NewStr("upload_date"): λ.NewStr("20140221"),
-						λ.NewStr("timestamp"):   λ.NewInt(1392956007),
-						λ.NewStr("uploader_id"): λ.NewStr("CTTXML"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://closertotruth.com/episodes/how-do-brains-work"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("0_iuxai6g6"),
-						λ.NewStr("display_id"):  λ.NewStr("how-do-brains-work"),
-						λ.NewStr("ext"):         λ.NewStr("mov"),
-						λ.NewStr("title"):       λ.NewStr("How do Brains Work?"),
-						λ.NewStr("upload_date"): λ.NewStr("20140221"),
-						λ.NewStr("timestamp"):   λ.NewInt(1392956024),
-						λ.NewStr("uploader_id"): λ.NewStr("CTTXML"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://closertotruth.com/interviews/1725"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("1725"),
-						λ.NewStr("title"): λ.NewStr("AyaFr-002"),
-					}),
-					λ.NewStr("playlist_mincount"): λ.NewInt(2),
-				}),
-			)
 			CloserToTruthIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -165,7 +124,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        CloserToTruthIE__TESTS,
 				λ.NewStr("_VALID_URL"):    CloserToTruthIE__VALID_URL,
 				λ.NewStr("_real_extract"): CloserToTruthIE__real_extract,
 			})

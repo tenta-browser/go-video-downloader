@@ -55,7 +55,6 @@ func init() {
 				VGTVIE__APP_NAME_TO_VENDOR λ.Object
 				VGTVIE__GEO_BYPASS         λ.Object
 				VGTVIE__HOST_TO_APPNAME    λ.Object
-				VGTVIE__TESTS              λ.Object
 				VGTVIE__VALID_URL          λ.Object
 				VGTVIE__real_extract       λ.Object
 			)
@@ -82,103 +81,6 @@ func init() {
 				λ.Cal(λ.GetAttr(λ.NewStr("|"), "join", nil), λ.Cal(λ.GetAttr(VGTVIE__HOST_TO_APPNAME, "keys", nil))),
 				λ.Cal(λ.GetAttr(λ.NewStr("|"), "join", nil), λ.Cal(λ.GetAttr(VGTVIE__APP_NAME_TO_VENDOR, "keys", nil))),
 			))
-			VGTVIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.vgtv.no/#!/video/84196/hevnen-er-soet-episode-10-abu"),
-					λ.NewStr("md5"): λ.NewStr("b8be7a234cebb840c0d512c78013e02f"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("84196"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Hevnen er søt: Episode 10 - Abu"),
-						λ.NewStr("description"): λ.NewStr("md5:e25e4badb5f544b04341e14abdc72234"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-						λ.NewStr("duration"):    λ.NewFloat(648.0),
-						λ.NewStr("timestamp"):   λ.NewInt(1404626400),
-						λ.NewStr("upload_date"): λ.NewStr("20140706"),
-						λ.NewStr("view_count"):  λ.IntType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.vgtv.no/#!/live/100764/opptak-vgtv-foelger-em-kvalifiseringen"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("100764"),
-						λ.NewStr("ext"):         λ.NewStr("flv"),
-						λ.NewStr("title"):       λ.NewStr("OPPTAK: VGTV følger EM-kvalifiseringen"),
-						λ.NewStr("description"): λ.NewStr("md5:3772d9c0dc2dff92a886b60039a7d4d3"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-						λ.NewStr("duration"):    λ.NewFloat(9103.0),
-						λ.NewStr("timestamp"):   λ.NewInt(1410113864),
-						λ.NewStr("upload_date"): λ.NewStr("20140907"),
-						λ.NewStr("view_count"):  λ.IntType,
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("skip"): λ.NewStr("Video is no longer available"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.vgtv.no/#!/live/113063/direkte-v75-fra-solvalla"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("113063"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("V75 fra Solvalla 30.05.15"),
-						λ.NewStr("description"): λ.NewStr("md5:b3743425765355855f88e096acc93231"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg"),
-						λ.NewStr("duration"):    λ.NewInt(25966),
-						λ.NewStr("timestamp"):   λ.NewInt(1432975582),
-						λ.NewStr("upload_date"): λ.NewStr("20150530"),
-						λ.NewStr("view_count"):  λ.IntType,
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.aftenposten.no/webtv/#!/video/21039/trailer-sweatshop-i-can-t-take-any-more"),
-					λ.NewStr("md5"): λ.NewStr("fd828cd29774a729bf4d4425fe192972"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("21039"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("TRAILER: «SWEATSHOP» - I can´t take any more"),
-						λ.NewStr("description"): λ.NewStr("md5:21891f2b0dd7ec2f78d84a50e54f8238"),
-						λ.NewStr("duration"):    λ.NewInt(66),
-						λ.NewStr("timestamp"):   λ.NewInt(1417002452),
-						λ.NewStr("upload_date"): λ.NewStr("20141126"),
-						λ.NewStr("view_count"):  λ.IntType,
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.bt.no/tv/#!/video/100250/norling-dette-er-forskjellen-paa-1-divisjon-og-eliteserien"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://ap.vgtv.no/webtv#!/video/111084/de-nye-bysyklene-lettere-bedre-gir-stoerre-hjul-og-feste-til-mobil"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.vgtv.no/#!/video/127205/inside-the-mind-of-favela-funk"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://tv.aftonbladet.se/abtv/articles/36015"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.aftonbladet.se/tv/a/36015"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("abtv:140026"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.vgtv.no/video/84196/hevnen-er-soet-episode-10-abu"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			VGTVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -368,7 +270,6 @@ func init() {
 				λ.NewStr("_APP_NAME_TO_VENDOR"): VGTVIE__APP_NAME_TO_VENDOR,
 				λ.NewStr("_GEO_BYPASS"):         VGTVIE__GEO_BYPASS,
 				λ.NewStr("_HOST_TO_APPNAME"):    VGTVIE__HOST_TO_APPNAME,
-				λ.NewStr("_TESTS"):              VGTVIE__TESTS,
 				λ.NewStr("_VALID_URL"):          VGTVIE__VALID_URL,
 				λ.NewStr("_real_extract"):       VGTVIE__real_extract,
 			})

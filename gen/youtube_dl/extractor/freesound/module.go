@@ -49,25 +49,10 @@ func init() {
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		FreesoundIE = λ.Cal(λ.TypeType, λ.NewStr("FreesoundIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				FreesoundIE__TEST         λ.Object
 				FreesoundIE__VALID_URL    λ.Object
 				FreesoundIE__real_extract λ.Object
 			)
 			FreesoundIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?freesound\\.org/people/[^/]+/sounds/(?P<id>[^/]+)")
-			FreesoundIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.freesound.org/people/miklovan/sounds/194503/"),
-				λ.NewStr("md5"): λ.NewStr("12280ceb42c81f19a515c745eae07650"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("194503"),
-					λ.NewStr("ext"):         λ.NewStr("mp3"),
-					λ.NewStr("title"):       λ.NewStr("gulls in the city.wav"),
-					λ.NewStr("description"): λ.NewStr("the sounds of seagulls in the city"),
-					λ.NewStr("duration"):    λ.NewFloat(130.233),
-					λ.NewStr("uploader"):    λ.NewStr("miklovan"),
-					λ.NewStr("upload_date"): λ.NewStr("20130715"),
-					λ.NewStr("tags"):        λ.ListType,
-				}),
-			})
 			FreesoundIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -177,7 +162,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         FreesoundIE__TEST,
 				λ.NewStr("_VALID_URL"):    FreesoundIE__VALID_URL,
 				λ.NewStr("_real_extract"): FreesoundIE__real_extract,
 			})

@@ -55,40 +55,10 @@ func init() {
 		ϒclean_html = Ωutils.ϒclean_html
 		SinaIE = λ.Cal(λ.TypeType, λ.NewStr("SinaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				SinaIE__TESTS        λ.Object
 				SinaIE__VALID_URL    λ.Object
 				SinaIE__real_extract λ.Object
 			)
 			SinaIE__VALID_URL = λ.NewStr("(?x)https?://(?:.*?\\.)?video\\.sina\\.com\\.cn/\n                        (?:\n                            (?:view/|.*\\#)(?P<video_id>\\d+)|\n                            .+?/(?P<pseudo_id>[^/?#]+)(?:\\.s?html)|\n                            # This is used by external sites like Weibo\n                            api/sinawebApi/outplay.php/(?P<token>.+?)\\.swf\n                        )\n                  ")
-			SinaIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://video.sina.com.cn/news/spj/topvideoes20160504/?opsubject_id=top1#250576622"),
-					λ.NewStr("md5"): λ.NewStr("d38433e2fc886007729735650ae4b3e9"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("250576622"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("现场:克鲁兹宣布退选 特朗普将稳获提名"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://video.sina.com.cn/v/b/101314253-1290078633.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("101314253"),
-						λ.NewStr("ext"):   λ.NewStr("flv"),
-						λ.NewStr("title"): λ.NewStr("军方提高对朝情报监视级别"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("the page does not exist or has been deleted"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://video.sina.com.cn/view/250587748.html"),
-					λ.NewStr("md5"): λ.NewStr("3d1807a25c775092aab3bc157fff49b4"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("250587748"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("瞬间泪目：8年前汶川地震珍贵视频首曝光"),
-					}),
-				}),
-			)
 			SinaIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -216,7 +186,6 @@ func init() {
 					return λ.None
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        SinaIE__TESTS,
 				λ.NewStr("_VALID_URL"):    SinaIE__VALID_URL,
 				λ.NewStr("_real_extract"): SinaIE__real_extract,
 			})

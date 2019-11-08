@@ -45,79 +45,10 @@ func init() {
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		SapoIE = λ.Cal(λ.TypeType, λ.NewStr("SapoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				SapoIE__TESTS        λ.Object
 				SapoIE__VALID_URL    λ.Object
 				SapoIE__real_extract λ.Object
 			)
 			SapoIE__VALID_URL = λ.NewStr("https?://(?:(?:v2|www)\\.)?videos\\.sapo\\.(?:pt|cv|ao|mz|tl)/(?P<id>[\\da-zA-Z]{20})")
-			SapoIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):  λ.NewStr("http://videos.sapo.pt/UBz95kOtiWYUMTA5Ghfi"),
-					λ.NewStr("md5"):  λ.NewStr("79ee523f6ecb9233ac25075dee0eda83"),
-					λ.NewStr("note"): λ.NewStr("SD video"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("UBz95kOtiWYUMTA5Ghfi"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Benfica - Marcas na Hitória"),
-						λ.NewStr("description"): λ.NewStr("md5:c9082000a128c3fd57bf0299e1367f22"),
-						λ.NewStr("duration"):    λ.NewInt(264),
-						λ.NewStr("uploader"):    λ.NewStr("tiago_1988"),
-						λ.NewStr("upload_date"): λ.NewStr("20080229"),
-						λ.NewStr("categories"): λ.NewList(
-							λ.NewStr("benfica"),
-							λ.NewStr("cabral"),
-							λ.NewStr("desporto"),
-							λ.NewStr("futebol"),
-							λ.NewStr("geovanni"),
-							λ.NewStr("hooijdonk"),
-							λ.NewStr("joao"),
-							λ.NewStr("karel"),
-							λ.NewStr("lisboa"),
-							λ.NewStr("miccoli"),
-						),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):  λ.NewStr("http://videos.sapo.pt/IyusNAZ791ZdoCY5H5IF"),
-					λ.NewStr("md5"):  λ.NewStr("90a2f283cfb49193fe06e861613a72aa"),
-					λ.NewStr("note"): λ.NewStr("HD video"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("IyusNAZ791ZdoCY5H5IF"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Codebits VII - Report"),
-						λ.NewStr("description"): λ.NewStr("md5:6448d6fd81ce86feac05321f354dbdc8"),
-						λ.NewStr("duration"):    λ.NewInt(144),
-						λ.NewStr("uploader"):    λ.NewStr("codebits"),
-						λ.NewStr("upload_date"): λ.NewStr("20140427"),
-						λ.NewStr("categories"): λ.NewList(
-							λ.NewStr("codebits"),
-							λ.NewStr("codebits2014"),
-						),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):  λ.NewStr("http://v2.videos.sapo.pt/yLqjzPtbTimsn2wWBKHz"),
-					λ.NewStr("md5"):  λ.NewStr("e5aa7cc0bdc6db9b33df1a48e49a15ac"),
-					λ.NewStr("note"): λ.NewStr("v2 video"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("yLqjzPtbTimsn2wWBKHz"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Hipnose Condicionativa 4"),
-						λ.NewStr("description"): λ.NewStr("md5:ef0481abf8fb4ae6f525088a6dadbc40"),
-						λ.NewStr("duration"):    λ.NewInt(692),
-						λ.NewStr("uploader"):    λ.NewStr("sapozen"),
-						λ.NewStr("upload_date"): λ.NewStr("20090609"),
-						λ.NewStr("categories"): λ.NewList(
-							λ.NewStr("condicionativa"),
-							λ.NewStr("heloisa"),
-							λ.NewStr("hipnose"),
-							λ.NewStr("miranda"),
-							λ.NewStr("sapo"),
-							λ.NewStr("zen"),
-						),
-					}),
-				}),
-			)
 			SapoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -207,7 +138,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        SapoIE__TESTS,
 				λ.NewStr("_VALID_URL"):    SapoIE__VALID_URL,
 				λ.NewStr("_real_extract"): SapoIE__real_extract,
 			})

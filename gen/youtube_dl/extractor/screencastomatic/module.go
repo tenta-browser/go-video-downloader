@@ -42,23 +42,10 @@ func init() {
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ScreencastOMaticIE = λ.Cal(λ.TypeType, λ.NewStr("ScreencastOMaticIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ScreencastOMaticIE__TEST         λ.Object
 				ScreencastOMaticIE__VALID_URL    λ.Object
 				ScreencastOMaticIE__real_extract λ.Object
 			)
 			ScreencastOMaticIE__VALID_URL = λ.NewStr("https?://screencast-o-matic\\.com/watch/(?P<id>[0-9a-zA-Z]+)")
-			ScreencastOMaticIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://screencast-o-matic.com/watch/c2lD3BeOPl"),
-				λ.NewStr("md5"): λ.NewStr("483583cb80d92588f15ccbedd90f0c18"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("c2lD3BeOPl"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Welcome to 3-4 Philosophy @ DECV!"),
-					λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-					λ.NewStr("description"): λ.NewStr("as the title says! also: some general info re 1) VCE philosophy and 2) distance learning."),
-					λ.NewStr("duration"):    λ.NewFloat(369.163),
-				}),
-			})
 			ScreencastOMaticIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -95,7 +82,6 @@ func init() {
 					return ϒinfo_dict
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         ScreencastOMaticIE__TEST,
 				λ.NewStr("_VALID_URL"):    ScreencastOMaticIE__VALID_URL,
 				λ.NewStr("_real_extract"): ScreencastOMaticIE__real_extract,
 			})

@@ -62,109 +62,11 @@ func init() {
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		OdnoklassnikiIE = λ.Cal(λ.TypeType, λ.NewStr("OdnoklassnikiIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				OdnoklassnikiIE__TESTS        λ.Object
 				OdnoklassnikiIE__VALID_URL    λ.Object
 				OdnoklassnikiIE__extract_url  λ.Object
 				OdnoklassnikiIE__real_extract λ.Object
 			)
 			OdnoklassnikiIE__VALID_URL = λ.NewStr("(?x)\n                https?://\n                    (?:(?:www|m|mobile)\\.)?\n                    (?:odnoklassniki|ok)\\.ru/\n                    (?:\n                        video(?:embed)?/|\n                        web-api/video/moviePlayer/|\n                        live/|\n                        dk\\?.*?st\\.mvId=\n                    )\n                    (?P<id>[\\d-]+)\n                ")
-			OdnoklassnikiIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://ok.ru/video/20079905452"),
-					λ.NewStr("md5"): λ.NewStr("0b62089b479e06681abaaca9d204f152"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("20079905452"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Культура меняет нас (прекрасный ролик!))"),
-						λ.NewStr("duration"):    λ.NewInt(100),
-						λ.NewStr("upload_date"): λ.NewStr("20141207"),
-						λ.NewStr("uploader_id"): λ.NewStr("330537914540"),
-						λ.NewStr("uploader"):    λ.NewStr("Виталий Добровольский"),
-						λ.NewStr("like_count"):  λ.IntType,
-						λ.NewStr("age_limit"):   λ.NewInt(0),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://ok.ru/video/63567059965189-0?fromTime=5"),
-					λ.NewStr("md5"): λ.NewStr("6ff470ea2dd51d5d18c295a355b0b6bc"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("63567059965189-0"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Девушка без комплексов ..."),
-						λ.NewStr("duration"):    λ.NewInt(191),
-						λ.NewStr("upload_date"): λ.NewStr("20150518"),
-						λ.NewStr("uploader_id"): λ.NewStr("534380003155"),
-						λ.NewStr("uploader"):    λ.NewStr("☭ Андрей Мещанинов ☭"),
-						λ.NewStr("like_count"):  λ.IntType,
-						λ.NewStr("age_limit"):   λ.NewInt(0),
-						λ.NewStr("start_time"):  λ.NewInt(5),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://ok.ru/video/64211978996595-1"),
-					λ.NewStr("md5"): λ.NewStr("2f206894ffb5dbfcce2c5a14b909eea5"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("V_VztHT5BzY"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Космическая среда от 26 августа 2015"),
-						λ.NewStr("description"): λ.NewStr("md5:848eb8b85e5e3471a3a803dae1343ed0"),
-						λ.NewStr("duration"):    λ.NewInt(440),
-						λ.NewStr("upload_date"): λ.NewStr("20150826"),
-						λ.NewStr("uploader_id"): λ.NewStr("tvroscosmos"),
-						λ.NewStr("uploader"):    λ.NewStr("Телестудия Роскосмоса"),
-						λ.NewStr("age_limit"):   λ.NewInt(0),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://ok.ru/video/62036049272859-0"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("62036049272859-0"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("МУЗЫКА     ДОЖДЯ ."),
-						λ.NewStr("description"): λ.NewStr("md5:6f1867132bd96e33bf53eda1091e8ed0"),
-						λ.NewStr("upload_date"): λ.NewStr("20120106"),
-						λ.NewStr("uploader_id"): λ.NewStr("473534735899"),
-						λ.NewStr("uploader"):    λ.NewStr("МARINA D"),
-						λ.NewStr("age_limit"):   λ.NewInt(0),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("skip"): λ.NewStr("Video has not been found"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://ok.ru/web-api/video/moviePlayer/20079905452"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.ok.ru/video/20648036891"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.ok.ru/videoembed/20648036891"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://m.ok.ru/video/20079905452"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://mobile.ok.ru/video/20079905452"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.ok.ru/live/484531969818"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://m.ok.ru/dk?st.cmd=movieLayer&st.discId=863789452017&st.retLoc=friend&st.rtu=%2Fdk%3Fst.cmd%3DfriendMovies%26st.mode%3Down%26st.mrkId%3D%257B%2522uploadedMovieMarker%2522%253A%257B%2522marker%2522%253A%25221519410114503%2522%252C%2522hasMore%2522%253Atrue%257D%252C%2522sharedMovieMarker%2522%253A%257B%2522marker%2522%253Anull%252C%2522hasMore%2522%253Afalse%257D%257D%26st.friendId%3D561722190321%26st.frwd%3Don%26_prevCmd%3DfriendMovies%26tkn%3D7257&st.discType=MOVIE&st.mvId=863789452017&_prevCmd=friendMovies&tkn=3648#lst#"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://ok.ru/video/954886983203"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			OdnoklassnikiIE__extract_url = λ.NewFunction("_extract_url",
 				[]λ.Param{
 					{Name: "webpage"},
@@ -428,7 +330,6 @@ func init() {
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        OdnoklassnikiIE__TESTS,
 				λ.NewStr("_VALID_URL"):    OdnoklassnikiIE__VALID_URL,
 				λ.NewStr("_extract_url"):  OdnoklassnikiIE__extract_url,
 				λ.NewStr("_real_extract"): OdnoklassnikiIE__real_extract,

@@ -50,21 +50,10 @@ func init() {
 		ϒxpath_text = Ωutils.ϒxpath_text
 		MySpassIE = λ.Cal(λ.TypeType, λ.NewStr("MySpassIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				MySpassIE__TEST         λ.Object
 				MySpassIE__VALID_URL    λ.Object
 				MySpassIE__real_extract λ.Object
 			)
 			MySpassIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?myspass\\.de/([^/]+/)*(?P<id>\\d+)")
-			MySpassIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.myspass.de/myspass/shows/tvshows/absolute-mehrheit/Absolute-Mehrheit-vom-17022013-Die-Highlights-Teil-2--/11741/"),
-				λ.NewStr("md5"): λ.NewStr("0b49f4844a068f8b33f4b7c88405862b"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("11741"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("description"): λ.NewStr("Wer kann in die Fußstapfen von Wolfgang Kubicki treten und die Mehrheit der Zuschauer hinter sich versammeln? Wird vielleicht sogar die Absolute Mehrheit geknackt und der Jackpot von 200.000 Euro mit nach Hause genommen?"),
-					λ.NewStr("title"):       λ.NewStr("17.02.2013 - Die Highlights, Teil 2"),
-				}),
-			})
 			MySpassIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -121,7 +110,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         MySpassIE__TEST,
 				λ.NewStr("_VALID_URL"):    MySpassIE__VALID_URL,
 				λ.NewStr("_real_extract"): MySpassIE__real_extract,
 			})

@@ -51,27 +51,10 @@ func init() {
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		DailyMailIE = λ.Cal(λ.TypeType, λ.NewStr("DailyMailIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				DailyMailIE__TESTS        λ.Object
 				DailyMailIE__VALID_URL    λ.Object
 				DailyMailIE__real_extract λ.Object
 			)
 			DailyMailIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?dailymail\\.co\\.uk/(?:video/[^/]+/video-|embed/video/)(?P<id>[0-9]+)")
-			DailyMailIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.dailymail.co.uk/video/tvshowbiz/video-1295863/The-Mountain-appears-sparkling-water-ad-Heavy-Bubbles.html"),
-					λ.NewStr("md5"): λ.NewStr("f6129624562251f628296c3a9ffde124"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1295863"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("The Mountain appears in sparkling water ad for 'Heavy Bubbles'"),
-						λ.NewStr("description"): λ.NewStr("md5:a93d74b6da172dd5dc4d973e0b766a84"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.dailymail.co.uk/embed/video/1295863.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			DailyMailIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -207,7 +190,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        DailyMailIE__TESTS,
 				λ.NewStr("_VALID_URL"):    DailyMailIE__VALID_URL,
 				λ.NewStr("_real_extract"): DailyMailIE__real_extract,
 			})

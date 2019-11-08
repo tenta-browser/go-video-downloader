@@ -45,27 +45,10 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		XXXYMoviesIE = λ.Cal(λ.TypeType, λ.NewStr("XXXYMoviesIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				XXXYMoviesIE__TEST         λ.Object
 				XXXYMoviesIE__VALID_URL    λ.Object
 				XXXYMoviesIE__real_extract λ.Object
 			)
 			XXXYMoviesIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?xxxymovies\\.com/videos/(?P<id>\\d+)/(?P<display_id>[^/]+)")
-			XXXYMoviesIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://xxxymovies.com/videos/138669/ecstatic-orgasm-sofcore/"),
-				λ.NewStr("md5"): λ.NewStr("810b1bdbbffff89dd13bdb369fe7be4b"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):            λ.NewStr("138669"),
-					λ.NewStr("display_id"):    λ.NewStr("ecstatic-orgasm-sofcore"),
-					λ.NewStr("ext"):           λ.NewStr("mp4"),
-					λ.NewStr("title"):         λ.NewStr("Ecstatic Orgasm Sofcore"),
-					λ.NewStr("duration"):      λ.NewInt(931),
-					λ.NewStr("categories"):    λ.ListType,
-					λ.NewStr("view_count"):    λ.IntType,
-					λ.NewStr("like_count"):    λ.IntType,
-					λ.NewStr("dislike_count"): λ.IntType,
-					λ.NewStr("age_limit"):     λ.NewInt(18),
-				}),
-			})
 			XXXYMoviesIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -157,7 +140,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         XXXYMoviesIE__TEST,
 				λ.NewStr("_VALID_URL"):    XXXYMoviesIE__VALID_URL,
 				λ.NewStr("_real_extract"): XXXYMoviesIE__real_extract,
 			})

@@ -46,89 +46,10 @@ func init() {
 		ϒremove_start = Ωutils.ϒremove_start
 		NBAIE = λ.Cal(λ.TypeType, λ.NewStr("NBAIE"), λ.NewTuple(TurnerBaseIE), func() λ.Dict {
 			var (
-				NBAIE__TESTS        λ.Object
 				NBAIE__VALID_URL    λ.Object
 				NBAIE__real_extract λ.Object
 			)
 			NBAIE__VALID_URL = λ.NewStr("https?://(?:watch\\.|www\\.)?nba\\.com/(?P<path>(?:[^/]+/)+(?P<id>[^?]*?))/?(?:/index\\.html)?(?:\\?.*)?$")
-			NBAIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.nba.com/video/games/nets/2012/12/04/0021200253-okc-bkn-recap.nba/index.html"),
-					λ.NewStr("md5"): λ.NewStr("9e7729d3010a9c71506fd1248f74e4f4"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("0021200253-okc-bkn-recap"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Thunder vs. Nets"),
-						λ.NewStr("description"): λ.NewStr("Kevin Durant scores 32 points and dishes out six assists as the Thunder beat the Nets in Brooklyn."),
-						λ.NewStr("duration"):    λ.NewInt(181),
-						λ.NewStr("timestamp"):   λ.NewInt(1354638466),
-						λ.NewStr("upload_date"): λ.NewStr("20121204"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.nba.com/video/games/hornets/2014/12/05/0021400276-nyk-cha-play5.nba/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://watch.nba.com/video/channels/playoffs/2015/05/20/0041400301-cle-atl-recap.nba"),
-					λ.NewStr("md5"): λ.NewStr("b2b39b81cf28615ae0c3360a3f9668c4"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("channels/playoffs/2015/05/20/0041400301-cle-atl-recap.nba"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Hawks vs. Cavaliers Game 1"),
-						λ.NewStr("description"): λ.NewStr("md5:8094c3498d35a9bd6b1a8c396a071b4d"),
-						λ.NewStr("duration"):    λ.NewInt(228),
-						λ.NewStr("timestamp"):   λ.NewInt(1432134543),
-						λ.NewStr("upload_date"): λ.NewStr("20150520"),
-					}),
-					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("Unable to download f4m manifest")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.nba.com/clippers/news/doc-rivers-were-not-trading-blake"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("teams/clippers/2016/02/17/1455672027478-Doc_Feb16_720.mov-297324"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Practice: Doc Rivers - 2/16/16"),
-						λ.NewStr("description"): λ.NewStr("Head Coach Doc Rivers addresses the media following practice."),
-						λ.NewStr("upload_date"): λ.NewStr("20160216"),
-						λ.NewStr("timestamp"):   λ.NewInt(1455672000),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("Unable to download f4m manifest")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.nba.com/timberwolves/wiggins-shootaround#"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("timberwolves"),
-						λ.NewStr("title"): λ.NewStr("Shootaround Access - Dec. 12 | Andrew Wiggins"),
-					}),
-					λ.NewStr("playlist_count"): λ.NewInt(30),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("playlist_items"): λ.NewStr("1-30"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.nba.com/timberwolves/wiggins-shootaround#"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("teams/timberwolves/2014/12/12/Wigginsmp4-3462601"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Shootaround Access - Dec. 12 | Andrew Wiggins"),
-						λ.NewStr("description"): λ.NewStr("Wolves rookie Andrew Wiggins addresses the media after Friday's shootaround."),
-						λ.NewStr("upload_date"): λ.NewStr("20141212"),
-						λ.NewStr("timestamp"):   λ.NewInt(1418418600),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("noplaylist"):    λ.True,
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("Unable to download f4m manifest")),
-				}),
-			)
 			NBAIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -172,7 +93,6 @@ func init() {
 					}))
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        NBAIE__TESTS,
 				λ.NewStr("_VALID_URL"):    NBAIE__VALID_URL,
 				λ.NewStr("_real_extract"): NBAIE__real_extract,
 			})

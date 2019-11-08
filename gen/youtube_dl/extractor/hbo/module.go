@@ -313,22 +313,11 @@ func init() {
 		HBOIE = λ.Cal(λ.TypeType, λ.NewStr("HBOIE"), λ.NewTuple(HBOBaseIE), func() λ.Dict {
 			var (
 				HBOIE_IE_NAME       λ.Object
-				HBOIE__TEST         λ.Object
 				HBOIE__VALID_URL    λ.Object
 				HBOIE__real_extract λ.Object
 			)
 			HBOIE_IE_NAME = λ.NewStr("hbo")
 			HBOIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?hbo\\.com/(?:video|embed)(?:/[^/]+)*/(?P<id>[^/?#]+)")
-			HBOIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://www.hbo.com/video/game-of-thrones/seasons/season-8/videos/trailer"),
-				λ.NewStr("md5"): λ.NewStr("8126210656f433c452a21367f9ad85b3"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):    λ.NewStr("22113301"),
-					λ.NewStr("ext"):   λ.NewStr("mp4"),
-					λ.NewStr("title"): λ.NewStr("Game of Thrones - Trailer"),
-				}),
-				λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("Unknown MIME type application/mp4 in DASH manifest")),
-			})
 			HBOIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -350,7 +339,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       HBOIE_IE_NAME,
-				λ.NewStr("_TEST"):         HBOIE__TEST,
 				λ.NewStr("_VALID_URL"):    HBOIE__VALID_URL,
 				λ.NewStr("_real_extract"): HBOIE__real_extract,
 			})

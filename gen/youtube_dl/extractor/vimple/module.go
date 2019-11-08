@@ -118,32 +118,10 @@ func init() {
 		}())
 		VimpleIE = λ.Cal(λ.TypeType, λ.NewStr("VimpleIE"), λ.NewTuple(SprutoBaseIE), func() λ.Dict {
 			var (
-				VimpleIE__TESTS        λ.Object
 				VimpleIE__VALID_URL    λ.Object
 				VimpleIE__real_extract λ.Object
 			)
 			VimpleIE__VALID_URL = λ.NewStr("https?://(?:player\\.vimple\\.(?:ru|co)/iframe|vimple\\.(?:ru|co))/(?P<id>[\\da-f-]{32,36})")
-			VimpleIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://vimple.ru/c0f6b1687dcd4000a97ebe70068039cf"),
-					λ.NewStr("md5"): λ.NewStr("2e750a330ed211d3fd41821c6ad9a279"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("c0f6b168-7dcd-4000-a97e-be70068039cf"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("Sunset"),
-						λ.NewStr("duration"):  λ.NewInt(20),
-						λ.NewStr("thumbnail"): λ.NewStr("re:https?://.*?\\.jpg"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://player.vimple.ru/iframe/52e1beec-1314-4a83-aeac-c61562eadbf9"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://vimple.co/04506a053f124483b8fb05ed73899f19"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			VimpleIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -164,7 +142,6 @@ func init() {
 					return λ.Cal(λ.GetAttr(ϒself, "_extract_spruto", nil), ϒspruto, ϒvideo_id)
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        VimpleIE__TESTS,
 				λ.NewStr("_VALID_URL"):    VimpleIE__VALID_URL,
 				λ.NewStr("_real_extract"): VimpleIE__real_extract,
 			})

@@ -46,92 +46,10 @@ func init() {
 		RUTVIE = Ωrutv.RUTVIE
 		VestiIE = λ.Cal(λ.TypeType, λ.NewStr("VestiIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				VestiIE__TESTS        λ.Object
 				VestiIE__VALID_URL    λ.Object
 				VestiIE__real_extract λ.Object
 			)
 			VestiIE__VALID_URL = λ.NewStr("https?://(?:.+?\\.)?vesti\\.ru/(?P<id>.+)")
-			VestiIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.vesti.ru/videos?vid=575582&cid=1"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("765035"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Вести.net: биткоины в России не являются законными"),
-						λ.NewStr("description"): λ.NewStr("md5:d4bb3859dc1177b28a94c5014c35a36b"),
-						λ.NewStr("duration"):    λ.NewInt(302),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.vesti.ru/doc.html?id=1349233"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("773865"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Участники митинга штурмуют Донецкую областную администрацию"),
-						λ.NewStr("description"): λ.NewStr("md5:1a160e98b3195379b4c849f2f4958009"),
-						λ.NewStr("duration"):    λ.NewInt(210),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.vesti.ru/only_video.html?vid=576180"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("766048"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("США заморозило, Британию затопило"),
-						λ.NewStr("description"): λ.NewStr("md5:f0ed0695ec05aed27c56a70a58dc4cc1"),
-						λ.NewStr("duration"):    λ.NewInt(87),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://hitech.vesti.ru/news/view/id/4000"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("766888"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Вести.net: интернет-гиганты начали перетягивание программных \"одеял\""),
-						λ.NewStr("description"): λ.NewStr("md5:65ddd47f9830c4f42ed6475f8730c995"),
-						λ.NewStr("duration"):    λ.NewInt(279),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://sochi2014.vesti.ru/video/index/video_id/766403"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("766403"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("XXII зимние Олимпийские игры. Российские хоккеисты стартовали на Олимпиаде с победы"),
-						λ.NewStr("description"): λ.NewStr("md5:55805dfd35763a890ff50fa9e35e31b3"),
-						λ.NewStr("duration"):    λ.NewInt(271),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("skip"): λ.NewStr("Blocked outside Russia"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://sochi2014.vesti.ru/live/play/live_id/301"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("51499"),
-						λ.NewStr("ext"):         λ.NewStr("flv"),
-						λ.NewStr("title"):       λ.NewStr("Сочи-2014. Биатлон. Индивидуальная гонка. Мужчины "),
-						λ.NewStr("description"): λ.NewStr("md5:9e0ed5c9d2fa1efbfdfed90c9a6d179c"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("skip"): λ.NewStr("Translation has finished"),
-				}),
-			)
 			VestiIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -165,7 +83,6 @@ func init() {
 					return λ.None
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        VestiIE__TESTS,
 				λ.NewStr("_VALID_URL"):    VestiIE__VALID_URL,
 				λ.NewStr("_real_extract"): VestiIE__real_extract,
 			})

@@ -384,103 +384,11 @@ func init() {
 		}())
 		RaiIE = λ.Cal(λ.TypeType, λ.NewStr("RaiIE"), λ.NewTuple(RaiBaseIE), func() λ.Dict {
 			var (
-				RaiIE__TESTS                   λ.Object
 				RaiIE__VALID_URL               λ.Object
 				RaiIE__extract_from_content_id λ.Object
 				RaiIE__real_extract            λ.Object
 			)
 			RaiIE__VALID_URL = λ.Mod(λ.NewStr("https?://[^/]+\\.(?:rai\\.(?:it|tv)|rainews\\.it)/.+?-(?P<id>%s)(?:-.+?)?\\.html"), λ.GetAttr(RaiBaseIE, "_UUID_RE", nil))
-			RaiIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.raisport.rai.it/dl/raiSport/media/rassegna-stampa-04a9f4bd-b563-40cf-82a6-aad3529cb4a9.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("04a9f4bd-b563-40cf-82a6-aad3529cb4a9"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("TG PRIMO TEMPO"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(1758),
-						λ.NewStr("upload_date"): λ.NewStr("20140612"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.rainews.it/dl/rainews/media/Weekend-al-cinema-da-Hollywood-arriva-il-thriller-di-Tate-Taylor-La-ragazza-del-treno-1632c009-c843-4836-bb65-80c33084a64b.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1632c009-c843-4836-bb65-80c33084a64b"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Weekend al cinema, da Hollywood arriva il thriller di Tate Taylor \"La ragazza del treno\""),
-						λ.NewStr("description"): λ.NewStr("I film in uscita questa settimana."),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.png$"),
-						λ.NewStr("duration"):    λ.NewInt(833),
-						λ.NewStr("upload_date"): λ.NewStr("20161103"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.rai.it/dl/RaiTV/programmi/media/ContentItem-efb17665-691c-45d5-a60c-5301333cbb0c.html"),
-					λ.NewStr("md5"): λ.NewStr("11959b4e44fa74de47011b5799490adf"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("efb17665-691c-45d5-a60c-5301333cbb0c"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("TG1 ore 20:00 del 03/11/2016"),
-						λ.NewStr("description"): λ.NewStr("TG1 edizione integrale ore 20:00 del giorno 03/11/2016"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):    λ.NewInt(2214),
-						λ.NewStr("upload_date"): λ.NewStr("20161103"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.report.rai.it/dl/Report/puntata/ContentItem-0c7a664b-d0f4-4b2c-8835-3f82e46f433e.html"),
-					λ.NewStr("md5"): λ.NewStr("2dd727e61114e1ee9c47f0da6914e178"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("59d69d28-6bb6-409d-a4b5-ed44096560af"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Il pacco"),
-						λ.NewStr("description"): λ.NewStr("md5:4b1afae1364115ce5d78ed83cd2e5b3a"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("upload_date"): λ.NewStr("20141221"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.tg1.rai.it/dl/tg1/2010/edizioni/ContentSet-9b6e0cba-4bef-4aef-8cf0-9f7f665b7dfb-tg1.html?item=undefined"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("c2187016-8484-4e3a-8ac8-35e475b07303"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("re:TG1 ore \\d{2}:\\d{2} del \\d{2}/\\d{2}/\\d{4}"),
-						λ.NewStr("duration"):    λ.NewInt(2274),
-						λ.NewStr("upload_date"): λ.NewStr("20170401"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("Changes daily"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.rai.tv/dl/RaiTV/dirette/PublishingBlock-1912dbbf-3f96-44c3-b4cf-523681fbacbc.html?channel=EuroNews"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("1912dbbf-3f96-44c3-b4cf-523681fbacbc"),
-						λ.NewStr("ext"):   λ.NewStr("flv"),
-						λ.NewStr("title"): λ.NewStr("EuroNews"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.rainews.it/dl/rainews/live/ContentItem-3156f2f2-dc70-4953-8e2f-70d7489d4ce9.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("3156f2f2-dc70-4953-8e2f-70d7489d4ce9"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("La diretta di Rainews24"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.rai.it/dl/RaiTV/programmi/media/ContentItem-b63a4089-ac28-48cf-bca5-9f5b5bc46df5.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.rainews.it/tgr/marche/notiziari/video/2019/02/ContentItem-6ba945a2-889c-4a80-bdeb-8489c70a8db9.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			RaiIE__extract_from_content_id = λ.NewFunction("_extract_from_content_id",
 				[]λ.Param{
 					{Name: "self"},
@@ -677,7 +585,6 @@ func init() {
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):                   RaiIE__TESTS,
 				λ.NewStr("_VALID_URL"):               RaiIE__VALID_URL,
 				λ.NewStr("_extract_from_content_id"): RaiIE__extract_from_content_id,
 				λ.NewStr("_real_extract"):            RaiIE__real_extract,

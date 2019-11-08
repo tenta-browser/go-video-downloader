@@ -165,111 +165,11 @@ func init() {
 		}())
 		PornHubIE = λ.Cal(λ.TypeType, λ.NewStr("PornHubIE"), λ.NewTuple(PornHubBaseIE), func() λ.Dict {
 			var (
-				PornHubIE__TESTS         λ.Object
 				PornHubIE__VALID_URL     λ.Object
 				PornHubIE__extract_count λ.Object
 				PornHubIE__real_extract  λ.Object
 			)
 			PornHubIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            (?:[^/]+\\.)?(?P<host>pornhub\\.(?:com|net))/(?:(?:view_video\\.php|video/show)\\?viewkey=|embed/)|\n                            (?:www\\.)?thumbzilla\\.com/video/\n                        )\n                        (?P<id>[\\da-z]+)\n                    ")
-			PornHubIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.pornhub.com/view_video.php?viewkey=648719015"),
-					λ.NewStr("md5"): λ.NewStr("1e19b41231a02eba417839222ac9d58e"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("648719015"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("Seductive Indian beauty strips down and fingers her pink pussy"),
-						λ.NewStr("uploader"):      λ.NewStr("Babes"),
-						λ.NewStr("upload_date"):   λ.NewStr("20130628"),
-						λ.NewStr("duration"):      λ.NewInt(361),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("like_count"):    λ.IntType,
-						λ.NewStr("dislike_count"): λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-						λ.NewStr("age_limit"):     λ.NewInt(18),
-						λ.NewStr("tags"):          λ.ListType,
-						λ.NewStr("categories"):    λ.ListType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.pornhub.com/view_video.php?viewkey=1331683002"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("1331683002"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("重庆婷婷女王足交"),
-						λ.NewStr("uploader"):      λ.NewStr("Unknown"),
-						λ.NewStr("upload_date"):   λ.NewStr("20150213"),
-						λ.NewStr("duration"):      λ.NewInt(1753),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("like_count"):    λ.IntType,
-						λ.NewStr("dislike_count"): λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-						λ.NewStr("age_limit"):     λ.NewInt(18),
-						λ.NewStr("tags"):          λ.ListType,
-						λ.NewStr("categories"):    λ.ListType,
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.pornhub.com/view_video.php?viewkey=ph5af5fef7c2aa7"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("ph5af5fef7c2aa7"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("BFFS - Cute Teen Girls Share Cock On the Floor"),
-						λ.NewStr("uploader"):      λ.NewStr("BFFs"),
-						λ.NewStr("duration"):      λ.NewInt(622),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("like_count"):    λ.IntType,
-						λ.NewStr("dislike_count"): λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-						λ.NewStr("age_limit"):     λ.NewInt(18),
-						λ.NewStr("tags"):          λ.ListType,
-						λ.NewStr("categories"):    λ.ListType,
-						λ.NewStr("subtitles"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("en"): λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("ext"): λ.NewStr("srt"),
-							})),
-						}),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.pornhub.com/view_video.php?viewkey=ph557bbb6676d2d"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://fr.pornhub.com/view_video.php?viewkey=ph55ca2f9760862"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.pornhub.com/view_video.php?viewkey=788152859"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.pornhub.com/view_video.php?viewkey=ph572716d15a111"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.pornhub.com/view_video.php?viewkey=ph56fd731fce6b7"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.thumbzilla.com/video/ph56c6114abd99a/horny-girlfriend-sex"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.pornhub.com/video/show?viewkey=648719015"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.pornhub.net/view_video.php?viewkey=203640933"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			PornHubIE__extract_count = λ.NewFunction("_extract_count",
 				[]λ.Param{
 					{Name: "self"},
@@ -631,7 +531,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):         PornHubIE__TESTS,
 				λ.NewStr("_VALID_URL"):     PornHubIE__VALID_URL,
 				λ.NewStr("_extract_count"): PornHubIE__extract_count,
 				λ.NewStr("_real_extract"):  PornHubIE__real_extract,

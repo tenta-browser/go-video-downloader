@@ -24,9 +24,6 @@
 
 package runtime
 
-// slimmingAnalyse toggles run-time symbol usage analysis
-const slimmingAnalyse = false
-
 // UsedSymbol marks the symbol having the specified name, as used.
 func UsedSymbol(name string, v Object) Object {
 	return v
@@ -36,6 +33,10 @@ func usedSymbolDictAttr(dict Dict, attr string) {
 }
 
 func usedSymbolAttr(t Type, attr Str) {
+}
+
+// CollectUsedSymbols sets whether used symbol collection is enabled.
+func CollectUsedSymbols(c bool) {
 }
 
 // GetUsedSymbols returns the set of used symbols.

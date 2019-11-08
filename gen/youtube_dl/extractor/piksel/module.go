@@ -53,40 +53,10 @@ func init() {
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		PikselIE = λ.Cal(λ.TypeType, λ.NewStr("PikselIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				PikselIE__TESTS        λ.Object
 				PikselIE__VALID_URL    λ.Object
 				PikselIE__real_extract λ.Object
 			)
 			PikselIE__VALID_URL = λ.NewStr("https?://player\\.piksel\\.com/v/(?:refid/[^/]+/prefid/)?(?P<id>[a-z0-9_]+)")
-			PikselIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://player.piksel.com/v/ums2867l"),
-					λ.NewStr("md5"): λ.NewStr("34e34c8d89dc2559976a6079db531e85"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("ums2867l"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("GX-005 with Caption"),
-						λ.NewStr("timestamp"):   λ.NewInt(1481335659),
-						λ.NewStr("upload_date"): λ.NewStr("20161210"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://player.piksel.com/v/v80kqp41"),
-					λ.NewStr("md5"): λ.NewStr("753ddcd8cc8e4fa2dda4b7be0e77744d"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("v80kqp41"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("WAW- State of Washington vs. Donald J. Trump, et al"),
-						λ.NewStr("description"): λ.NewStr("State of Washington vs. Donald J. Trump, et al, Case Number 17-CV-00141-JLR, TRO Hearing, Civil Rights Case, 02/3/2017, 1:00 PM (PST), Seattle Federal Courthouse, Seattle, WA, Judge James L. Robart presiding."),
-						λ.NewStr("timestamp"):   λ.NewInt(1486171129),
-						λ.NewStr("upload_date"): λ.NewStr("20170204"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://player.piksel.com/v/refid/nhkworld/prefid/nw_vod_v_en_2019_240_20190823233000_02_1566873477"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			PikselIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -233,7 +203,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        PikselIE__TESTS,
 				λ.NewStr("_VALID_URL"):    PikselIE__VALID_URL,
 				λ.NewStr("_real_extract"): PikselIE__real_extract,
 			})

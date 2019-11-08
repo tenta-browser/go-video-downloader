@@ -49,35 +49,11 @@ func init() {
 			var (
 				IvideonIE_IE_NAME       λ.Object
 				IvideonIE__QUALITIES    λ.Object
-				IvideonIE__TESTS        λ.Object
 				IvideonIE__VALID_URL    λ.Object
 				IvideonIE__real_extract λ.Object
 			)
 			IvideonIE_IE_NAME = λ.NewStr("ivideon")
 			IvideonIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?ivideon\\.com/tv/(?:[^/]+/)*camera/(?P<id>\\d+-[\\da-f]+)/(?P<camera_id>\\d+)")
-			IvideonIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.ivideon.com/tv/camera/100-916ca13b5c4ad9f564266424a026386d/0/"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("100-916ca13b5c4ad9f564266424a026386d"),
-						λ.NewStr("ext"):         λ.NewStr("flv"),
-						λ.NewStr("title"):       λ.NewStr("re:^Касса [0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}$"),
-						λ.NewStr("description"): λ.NewStr("Основное предназначение - запись действий кассиров. Плюс общий вид."),
-						λ.NewStr("is_live"):     λ.True,
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.ivideon.com/tv/camera/100-c4ee4cb9ede885cf62dfbe93d7b53783/589824/?lang=ru"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.ivideon.com/tv/map/22.917923/-31.816406/16/camera/100-e7bc16c7d4b5bbd633fd5350b66dfa9a/0"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			IvideonIE__QUALITIES = λ.NewTuple(
 				λ.NewStr("low"),
 				λ.NewStr("mid"),
@@ -223,7 +199,6 @@ func init() {
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       IvideonIE_IE_NAME,
 				λ.NewStr("_QUALITIES"):    IvideonIE__QUALITIES,
-				λ.NewStr("_TESTS"):        IvideonIE__TESTS,
 				λ.NewStr("_VALID_URL"):    IvideonIE__VALID_URL,
 				λ.NewStr("_real_extract"): IvideonIE__real_extract,
 			})

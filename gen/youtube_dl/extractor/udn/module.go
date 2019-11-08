@@ -49,35 +49,11 @@ func init() {
 		UDNEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("UDNEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				UDNEmbedIE__PROTOCOL_RELATIVE_VALID_URL λ.Object
-				UDNEmbedIE__TESTS                       λ.Object
 				UDNEmbedIE__VALID_URL                   λ.Object
 				UDNEmbedIE__real_extract                λ.Object
 			)
 			UDNEmbedIE__PROTOCOL_RELATIVE_VALID_URL = λ.NewStr("//video\\.udn\\.com/(?:embed|play)/news/(?P<id>\\d+)")
 			UDNEmbedIE__VALID_URL = λ.Add(λ.NewStr("https?:"), UDNEmbedIE__PROTOCOL_RELATIVE_VALID_URL)
-			UDNEmbedIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://video.udn.com/embed/news/300040"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("300040"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("生物老師男變女 全校挺\"做自己\""),
-						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg$"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("Failed to parse JSON Expecting value")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://video.udn.com/embed/news/300040"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://video.udn.com/play/news/303776"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			UDNEmbedIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -202,7 +178,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_PROTOCOL_RELATIVE_VALID_URL"): UDNEmbedIE__PROTOCOL_RELATIVE_VALID_URL,
-				λ.NewStr("_TESTS"):                       UDNEmbedIE__TESTS,
 				λ.NewStr("_VALID_URL"):                   UDNEmbedIE__VALID_URL,
 				λ.NewStr("_real_extract"):                UDNEmbedIE__real_extract,
 			})

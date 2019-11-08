@@ -53,32 +53,11 @@ func init() {
 			var (
 				FlickrIE__API_BASE_URL λ.Object
 				FlickrIE__LICENSES     λ.Object
-				FlickrIE__TEST         λ.Object
 				FlickrIE__VALID_URL    λ.Object
 				FlickrIE__call_api     λ.Object
 				FlickrIE__real_extract λ.Object
 			)
 			FlickrIE__VALID_URL = λ.NewStr("https?://(?:www\\.|secure\\.)?flickr\\.com/photos/[\\w\\-_@]+/(?P<id>\\d+)")
-			FlickrIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.flickr.com/photos/forestwander-nature-pictures/5645318632/in/photostream/"),
-				λ.NewStr("md5"): λ.NewStr("164fe3fa6c22e18d448d4d5af2330f31"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):            λ.NewStr("5645318632"),
-					λ.NewStr("ext"):           λ.NewStr("mpg"),
-					λ.NewStr("description"):   λ.NewStr("Waterfalls in the Springtime at Dark Hollow Waterfalls. These are located just off of Skyline Drive in Virginia. They are only about 6/10 of a mile hike but it is a pretty steep hill and a good climb back up."),
-					λ.NewStr("title"):         λ.NewStr("Dark Hollow Waterfalls"),
-					λ.NewStr("duration"):      λ.NewInt(19),
-					λ.NewStr("timestamp"):     λ.NewInt(1303528740),
-					λ.NewStr("upload_date"):   λ.NewStr("20110423"),
-					λ.NewStr("uploader_id"):   λ.NewStr("10922353@N03"),
-					λ.NewStr("uploader"):      λ.NewStr("Forest Wander"),
-					λ.NewStr("uploader_url"):  λ.NewStr("https://www.flickr.com/photos/forestwander-nature-pictures/"),
-					λ.NewStr("comment_count"): λ.IntType,
-					λ.NewStr("view_count"):    λ.IntType,
-					λ.NewStr("tags"):          λ.ListType,
-					λ.NewStr("license"):       λ.NewStr("Attribution-ShareAlike"),
-				}),
-			})
 			FlickrIE__API_BASE_URL = λ.NewStr("https://api.flickr.com/services/rest?")
 			FlickrIE__LICENSES = λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("0"):  λ.NewStr("All Rights Reserved"),
@@ -248,7 +227,6 @@ func init() {
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_API_BASE_URL"): FlickrIE__API_BASE_URL,
 				λ.NewStr("_LICENSES"):     FlickrIE__LICENSES,
-				λ.NewStr("_TEST"):         FlickrIE__TEST,
 				λ.NewStr("_VALID_URL"):    FlickrIE__VALID_URL,
 				λ.NewStr("_call_api"):     FlickrIE__call_api,
 				λ.NewStr("_real_extract"): FlickrIE__real_extract,

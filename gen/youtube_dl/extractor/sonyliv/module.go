@@ -43,33 +43,10 @@ func init() {
 		SonyLIVIE = λ.Cal(λ.TypeType, λ.NewStr("SonyLIVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SonyLIVIE_BRIGHTCOVE_URL_TEMPLATE λ.Object
-				SonyLIVIE__TESTS                  λ.Object
 				SonyLIVIE__VALID_URL              λ.Object
 				SonyLIVIE__real_extract           λ.Object
 			)
 			SonyLIVIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?sonyliv\\.com/details/[^/]+/(?P<id>\\d+)")
-			SonyLIVIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.sonyliv.com/details/episodes/5024612095001/Ep.-1---Achaari-Cheese-Toast---Bachelor's-Delight"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("title"):       λ.NewStr("Ep. 1 - Achaari Cheese Toast - Bachelor's Delight"),
-						λ.NewStr("id"):          λ.NewStr("ref:5024612095001"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("upload_date"): λ.NewStr("20170923"),
-						λ.NewStr("description"): λ.NewStr("md5:7f28509a148d5be9d0782b4d5106410d"),
-						λ.NewStr("uploader_id"): λ.NewStr("5182475815001"),
-						λ.NewStr("timestamp"):   λ.NewInt(1506200547),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("BrightcoveNew")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.sonyliv.com/details/full%20movie/4951168986001/Sei-Raat-(Bangla)"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			SonyLIVIE_BRIGHTCOVE_URL_TEMPLATE = λ.NewStr("http://players.brightcove.net/5182475815001/default_default/index.html?videoId=ref:%s")
 			SonyLIVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -91,7 +68,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("BRIGHTCOVE_URL_TEMPLATE"): SonyLIVIE_BRIGHTCOVE_URL_TEMPLATE,
-				λ.NewStr("_TESTS"):                  SonyLIVIE__TESTS,
 				λ.NewStr("_VALID_URL"):              SonyLIVIE__VALID_URL,
 				λ.NewStr("_real_extract"):           SonyLIVIE__real_extract,
 			})

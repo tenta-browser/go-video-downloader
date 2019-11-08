@@ -40,20 +40,10 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		TentaIE = λ.Cal(λ.TypeType, λ.NewStr("TentaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				TentaIE__TESTS        λ.Object
 				TentaIE__VALID_URL    λ.Object
 				TentaIE__real_extract λ.Object
 			)
 			TentaIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tenta\\.com/how-to-download-videos")
-			TentaIE__TESTS = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://tenta.com/how-to-download-videos"),
-				λ.NewStr("md5"): λ.NewStr("815a64f01f7ebfb1607220396f3ffa7d"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):    λ.NewStr("howto"),
-					λ.NewStr("ext"):   λ.NewStr("mp4"),
-					λ.NewStr("title"): λ.NewStr("How To Download Videos & Save Securely | Tenta VPN Browser"),
-				}),
-			}))
 			TentaIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -83,7 +73,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        TentaIE__TESTS,
 				λ.NewStr("_VALID_URL"):    TentaIE__VALID_URL,
 				λ.NewStr("_real_extract"): TentaIE__real_extract,
 			})

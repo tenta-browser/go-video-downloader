@@ -114,19 +114,10 @@ func init() {
 		}())
 		BokeCCIE = λ.Cal(λ.TypeType, λ.NewStr("BokeCCIE"), λ.NewTuple(BokeCCBaseIE), func() λ.Dict {
 			var (
-				BokeCCIE__TESTS        λ.Object
 				BokeCCIE__VALID_URL    λ.Object
 				BokeCCIE__real_extract λ.Object
 			)
 			BokeCCIE__VALID_URL = λ.NewStr("https?://union\\.bokecc\\.com/playvideo\\.bo\\?(?P<query>.*)")
-			BokeCCIE__TESTS = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://union.bokecc.com/playvideo.bo?vid=E0ABAE9D4F509B189C33DC5901307461&uid=FE644790DE9D154A"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):    λ.NewStr("FE644790DE9D154A_E0ABAE9D4F509B189C33DC5901307461"),
-					λ.NewStr("ext"):   λ.NewStr("flv"),
-					λ.NewStr("title"): λ.NewStr("BokeCC Video"),
-				}),
-			}))
 			BokeCCIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -165,7 +156,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        BokeCCIE__TESTS,
 				λ.NewStr("_VALID_URL"):    BokeCCIE__VALID_URL,
 				λ.NewStr("_real_extract"): BokeCCIE__real_extract,
 			})

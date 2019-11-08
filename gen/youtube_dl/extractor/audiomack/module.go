@@ -53,35 +53,11 @@ func init() {
 		AudiomackIE = λ.Cal(λ.TypeType, λ.NewStr("AudiomackIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				AudiomackIE_IE_NAME       λ.Object
-				AudiomackIE__TESTS        λ.Object
 				AudiomackIE__VALID_URL    λ.Object
 				AudiomackIE__real_extract λ.Object
 			)
 			AudiomackIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?audiomack\\.com/song/(?P<id>[\\w/-]+)")
 			AudiomackIE_IE_NAME = λ.NewStr("audiomack")
-			AudiomackIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.audiomack.com/song/roosh-williams/extraordinary"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):       λ.NewStr("310086"),
-						λ.NewStr("ext"):      λ.NewStr("mp3"),
-						λ.NewStr("uploader"): λ.NewStr("Roosh Williams"),
-						λ.NewStr("title"):    λ.NewStr("Extraordinary"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Soundcloud")),
-					λ.NewStr("url"):    λ.NewStr("http://www.audiomack.com/song/hip-hop-daily/black-mamba-freestyle"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("258901379"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("description"): λ.NewStr("mamba day freestyle for the legend Kobe Bryant "),
-						λ.NewStr("title"):       λ.NewStr("Black Mamba Freestyle [Prod. By Danny Wolf]"),
-						λ.NewStr("uploader"):    λ.NewStr("ILOVEMAKONNEN"),
-						λ.NewStr("upload_date"): λ.NewStr("20160414"),
-					}),
-				}),
-			)
 			AudiomackIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -123,7 +99,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       AudiomackIE_IE_NAME,
-				λ.NewStr("_TESTS"):        AudiomackIE__TESTS,
 				λ.NewStr("_VALID_URL"):    AudiomackIE__VALID_URL,
 				λ.NewStr("_real_extract"): AudiomackIE__real_extract,
 			})

@@ -55,87 +55,11 @@ func init() {
 		ϒqualities = Ωutils.ϒqualities
 		TeamcocoIE = λ.Cal(λ.TypeType, λ.NewStr("TeamcocoIE"), λ.NewTuple(TurnerBaseIE), func() λ.Dict {
 			var (
-				TeamcocoIE__TESTS        λ.Object
 				TeamcocoIE__VALID_URL    λ.Object
 				TeamcocoIE__graphql_call λ.Object
 				TeamcocoIE__real_extract λ.Object
 			)
 			TeamcocoIE__VALID_URL = λ.NewStr("https?://(?:\\w+\\.)?teamcoco\\.com/(?P<id>([^/]+/)*[^/?#]+)")
-			TeamcocoIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://teamcoco.com/video/mary-kay-remote"),
-					λ.NewStr("md5"): λ.NewStr("55d532f81992f5c92046ad02fec34d7d"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("80187"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Conan Becomes A Mary Kay Beauty Consultant"),
-						λ.NewStr("description"): λ.NewStr("Mary Kay is perhaps the most trusted name in female beauty, so of course Conan is a natural choice to sell their products."),
-						λ.NewStr("duration"):    λ.NewFloat(495.0),
-						λ.NewStr("upload_date"): λ.NewStr("20140402"),
-						λ.NewStr("timestamp"):   λ.NewInt(1396407600),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://teamcoco.com/video/louis-ck-interview-george-w-bush"),
-					λ.NewStr("md5"): λ.NewStr("cde9ba0fa3506f5f017ce11ead928f9a"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("19705"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("description"): λ.NewStr("Louis C.K. got starstruck by George W. Bush, so what? Part one."),
-						λ.NewStr("title"):       λ.NewStr("Louis C.K. Interview Pt. 1 11/3/11"),
-						λ.NewStr("duration"):    λ.NewInt(288),
-						λ.NewStr("upload_date"): λ.NewStr("20111104"),
-						λ.NewStr("timestamp"):   λ.NewInt(1320405840),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://teamcoco.com/video/timothy-olyphant-drinking-whiskey"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("88748"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Timothy Olyphant Raises A Toast To “Justified”"),
-						λ.NewStr("description"): λ.NewStr("md5:15501f23f020e793aeca761205e42c24"),
-						λ.NewStr("upload_date"): λ.NewStr("20150415"),
-						λ.NewStr("timestamp"):   λ.NewInt(1429088400),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://teamcoco.com/video/full-episode-mon-6-1-joel-mchale-jake-tapper-and-musical-guest-courtney-barnett?playlist=x;eyJ0eXBlIjoidGFnIiwiaWQiOjl9"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("89341"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Full Episode - Mon. 6/1 - Joel McHale, Jake Tapper, And Musical Guest Courtney Barnett"),
-						λ.NewStr("description"): λ.NewStr("Guests: Joel McHale, Jake Tapper, And Musical Guest Courtney Barnett"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("skip"): λ.NewStr("This video is no longer available."),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://teamcoco.com/video/the-conan-audiencey-awards-for-04/25/18"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://teamcoco.com/italy/conan-jordan-schlansky-hit-the-streets-of-florence"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://teamcoco.com/haiti/conan-s-haitian-history-lesson"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://teamcoco.com/israel/conan-hits-the-streets-beaches-of-tel-aviv"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://conan25.teamcoco.com/video/ice-cube-kevin-hart-conan-share-lyft"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			TeamcocoIE__graphql_call = λ.NewFunction("_graphql_call",
 				[]λ.Param{
 					{Name: "self"},
@@ -329,7 +253,6 @@ func init() {
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        TeamcocoIE__TESTS,
 				λ.NewStr("_VALID_URL"):    TeamcocoIE__VALID_URL,
 				λ.NewStr("_graphql_call"): TeamcocoIE__graphql_call,
 				λ.NewStr("_real_extract"): TeamcocoIE__real_extract,

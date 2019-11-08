@@ -71,64 +71,10 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		BandcampIE = λ.Cal(λ.TypeType, λ.NewStr("BandcampIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				BandcampIE__TESTS        λ.Object
 				BandcampIE__VALID_URL    λ.Object
 				BandcampIE__real_extract λ.Object
 			)
 			BandcampIE__VALID_URL = λ.NewStr("https?://[^/]+\\.bandcamp\\.com/track/(?P<title>[^/?#&]+)")
-			BandcampIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://youtube-dl.bandcamp.com/track/youtube-dl-test-song"),
-					λ.NewStr("md5"): λ.NewStr("c557841d5e50261777a6585648adf439"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):       λ.NewStr("1812978515"),
-						λ.NewStr("ext"):      λ.NewStr("mp3"),
-						λ.NewStr("title"):    λ.NewStr("youtube-dl  \"'/\\ä↭ - youtube-dl test song \"'/\\ä↭"),
-						λ.NewStr("duration"): λ.NewFloat(9.8485),
-					}),
-					λ.NewStr("_skip"): λ.NewStr("There is a limit of 200 free downloads / month for the test song"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://benprunty.bandcamp.com/track/lanius-battle"),
-					λ.NewStr("md5"): λ.NewStr("853e35bf34aa1d6fe2615ae612564b36"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("2650410135"),
-						λ.NewStr("ext"):          λ.NewStr("aiff"),
-						λ.NewStr("title"):        λ.NewStr("Ben Prunty - Lanius (Battle)"),
-						λ.NewStr("thumbnail"):    λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("uploader"):     λ.NewStr("Ben Prunty"),
-						λ.NewStr("timestamp"):    λ.NewInt(1396508491),
-						λ.NewStr("upload_date"):  λ.NewStr("20140403"),
-						λ.NewStr("release_date"): λ.NewStr("20140403"),
-						λ.NewStr("duration"):     λ.NewFloat(260.877),
-						λ.NewStr("track"):        λ.NewStr("Lanius (Battle)"),
-						λ.NewStr("track_number"): λ.NewInt(1),
-						λ.NewStr("track_id"):     λ.NewStr("2650410135"),
-						λ.NewStr("artist"):       λ.NewStr("Ben Prunty"),
-						λ.NewStr("album"):        λ.NewStr("FTL: Advanced Edition Soundtrack"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://relapsealumni.bandcamp.com/track/hail-to-fire"),
-					λ.NewStr("md5"): λ.NewStr("fec12ff55e804bb7f7ebeb77a800c8b7"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("2584466013"),
-						λ.NewStr("ext"):          λ.NewStr("mp3"),
-						λ.NewStr("title"):        λ.NewStr("Mastodon - Hail to Fire"),
-						λ.NewStr("thumbnail"):    λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("uploader"):     λ.NewStr("Mastodon"),
-						λ.NewStr("timestamp"):    λ.NewInt(1322005399),
-						λ.NewStr("upload_date"):  λ.NewStr("20111122"),
-						λ.NewStr("release_date"): λ.NewStr("20040207"),
-						λ.NewStr("duration"):     λ.NewFloat(120.79),
-						λ.NewStr("track"):        λ.NewStr("Hail to Fire"),
-						λ.NewStr("track_number"): λ.NewInt(5),
-						λ.NewStr("track_id"):     λ.NewStr("2584466013"),
-						λ.NewStr("artist"):       λ.NewStr("Mastodon"),
-						λ.NewStr("album"):        λ.NewStr("Call of the Mastodon"),
-					}),
-				}),
-			)
 			BandcampIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -459,7 +405,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        BandcampIE__TESTS,
 				λ.NewStr("_VALID_URL"):    BandcampIE__VALID_URL,
 				λ.NewStr("_real_extract"): BandcampIE__real_extract,
 			})
@@ -504,34 +449,11 @@ func init() {
 		BandcampWeeklyIE = λ.Cal(λ.TypeType, λ.NewStr("BandcampWeeklyIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				BandcampWeeklyIE_IE_NAME       λ.Object
-				BandcampWeeklyIE__TESTS        λ.Object
 				BandcampWeeklyIE__VALID_URL    λ.Object
 				BandcampWeeklyIE__real_extract λ.Object
 			)
 			BandcampWeeklyIE_IE_NAME = λ.NewStr("Bandcamp:weekly")
 			BandcampWeeklyIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bandcamp\\.com/?\\?(?:.*?&)?show=(?P<id>\\d+)")
-			BandcampWeeklyIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://bandcamp.com/?show=224"),
-					λ.NewStr("md5"): λ.NewStr("b00df799c733cf7e0c567ed187dea0fd"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):             λ.NewStr("224"),
-						λ.NewStr("ext"):            λ.NewStr("opus"),
-						λ.NewStr("title"):          λ.NewStr("BC Weekly April 4th 2017 - Magic Moments"),
-						λ.NewStr("description"):    λ.NewStr("md5:5d48150916e8e02d030623a48512c874"),
-						λ.NewStr("duration"):       λ.NewFloat(5829.77),
-						λ.NewStr("release_date"):   λ.NewStr("20170404"),
-						λ.NewStr("series"):         λ.NewStr("Bandcamp Weekly"),
-						λ.NewStr("episode"):        λ.NewStr("Magic Moments"),
-						λ.NewStr("episode_number"): λ.NewInt(208),
-						λ.NewStr("episode_id"):     λ.NewStr("224"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://bandcamp.com/?blah/blah@&show=228"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			BandcampWeeklyIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -701,7 +623,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       BandcampWeeklyIE_IE_NAME,
-				λ.NewStr("_TESTS"):        BandcampWeeklyIE__TESTS,
 				λ.NewStr("_VALID_URL"):    BandcampWeeklyIE__VALID_URL,
 				λ.NewStr("_real_extract"): BandcampWeeklyIE__real_extract,
 			})

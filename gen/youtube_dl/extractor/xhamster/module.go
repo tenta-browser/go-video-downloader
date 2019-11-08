@@ -67,98 +67,11 @@ func init() {
 		XHamsterIE = λ.Cal(λ.TypeType, λ.NewStr("XHamsterIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				XHamsterIE__DOMAINS      λ.Object
-				XHamsterIE__TESTS        λ.Object
 				XHamsterIE__VALID_URL    λ.Object
 				XHamsterIE__real_extract λ.Object
 			)
 			XHamsterIE__DOMAINS = λ.NewStr("(?:xhamster\\.(?:com|one|desi)|xhms\\.pro|xhamster[27]\\.com)")
 			XHamsterIE__VALID_URL = λ.Mod(λ.NewStr("(?x)\n                    https?://\n                        (?:.+?\\.)?%s/\n                        (?:\n                            movies/(?P<id>\\d+)/(?P<display_id>[^/]*)\\.html|\n                            videos/(?P<display_id_2>[^/]*)-(?P<id_2>\\d+)\n                        )\n                    "), XHamsterIE__DOMAINS)
-			XHamsterIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://xhamster.com/videos/femaleagent-shy-beauty-takes-the-bait-1509445"),
-					λ.NewStr("md5"): λ.NewStr("98b4687efb1ffd331c4197854dc09e8f"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1509445"),
-						λ.NewStr("display_id"):  λ.NewStr("femaleagent-shy-beauty-takes-the-bait"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("FemaleAgent Shy beauty takes the bait"),
-						λ.NewStr("timestamp"):   λ.NewInt(1350194821),
-						λ.NewStr("upload_date"): λ.NewStr("20121014"),
-						λ.NewStr("uploader"):    λ.NewStr("Ruseful2011"),
-						λ.NewStr("duration"):    λ.NewInt(893),
-						λ.NewStr("age_limit"):   λ.NewInt(18),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://xhamster.com/videos/britney-spears-sexy-booty-2221348?hd="),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("2221348"),
-						λ.NewStr("display_id"):  λ.NewStr("britney-spears-sexy-booty"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Britney Spears  Sexy Booty"),
-						λ.NewStr("timestamp"):   λ.NewInt(1379123460),
-						λ.NewStr("upload_date"): λ.NewStr("20130914"),
-						λ.NewStr("uploader"):    λ.NewStr("jojo747400"),
-						λ.NewStr("duration"):    λ.NewInt(200),
-						λ.NewStr("age_limit"):   λ.NewInt(18),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://xhamster.com/movies/5667973/.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("5667973"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("...."),
-						λ.NewStr("timestamp"):   λ.NewInt(1454948101),
-						λ.NewStr("upload_date"): λ.NewStr("20160208"),
-						λ.NewStr("uploader"):    λ.NewStr("parejafree"),
-						λ.NewStr("duration"):    λ.NewInt(72),
-						λ.NewStr("age_limit"):   λ.NewInt(18),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://m.xhamster.com/videos/cute-teen-jacqueline-solo-masturbation-8559111"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://xhamster.com/movies/2272726/amber_slayed_by_the_knight.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://it.xhamster.com/movies/7263980/la_mia_vicina.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://pt.xhamster.com/videos/euro-pedal-pumping-7937821"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://xhamster.one/videos/femaleagent-shy-beauty-takes-the-bait-1509445"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://xhamster.desi/videos/femaleagent-shy-beauty-takes-the-bait-1509445"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://xhamster2.com/videos/femaleagent-shy-beauty-takes-the-bait-1509445"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://xhamster.com/movies/1509445/femaleagent_shy_beauty_takes_the_bait.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://xhamster.com/movies/2221348/britney_spears_sexy_booty.html?hd"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			XHamsterIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -584,31 +497,16 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_DOMAINS"):      XHamsterIE__DOMAINS,
-				λ.NewStr("_TESTS"):        XHamsterIE__TESTS,
 				λ.NewStr("_VALID_URL"):    XHamsterIE__VALID_URL,
 				λ.NewStr("_real_extract"): XHamsterIE__real_extract,
 			})
 		}())
 		XHamsterEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("XHamsterEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				XHamsterEmbedIE__TEST         λ.Object
 				XHamsterEmbedIE__VALID_URL    λ.Object
 				XHamsterEmbedIE__real_extract λ.Object
 			)
 			XHamsterEmbedIE__VALID_URL = λ.Mod(λ.NewStr("https?://(?:.+?\\.)?%s/xembed\\.php\\?video=(?P<id>\\d+)"), λ.GetAttr(XHamsterIE, "_DOMAINS", nil))
-			XHamsterEmbedIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://xhamster.com/xembed.php?video=3328539"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("3328539"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Pen Masturbation"),
-					λ.NewStr("timestamp"):   λ.NewInt(1406581861),
-					λ.NewStr("upload_date"): λ.NewStr("20140728"),
-					λ.NewStr("uploader"):    λ.NewStr("ManyakisArt"),
-					λ.NewStr("duration"):    λ.NewInt(5),
-					λ.NewStr("age_limit"):   λ.NewInt(18),
-				}),
-			})
 			XHamsterEmbedIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -645,7 +543,6 @@ func init() {
 					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒvideo_url, λ.NewStr("XHamster"))
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         XHamsterEmbedIE__TEST,
 				λ.NewStr("_VALID_URL"):    XHamsterEmbedIE__VALID_URL,
 				λ.NewStr("_real_extract"): XHamsterEmbedIE__real_extract,
 			})

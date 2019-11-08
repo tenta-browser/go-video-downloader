@@ -51,29 +51,11 @@ func init() {
 		PlayFMIE = λ.Cal(λ.TypeType, λ.NewStr("PlayFMIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				PlayFMIE_IE_NAME       λ.Object
-				PlayFMIE__TEST         λ.Object
 				PlayFMIE__VALID_URL    λ.Object
 				PlayFMIE__real_extract λ.Object
 			)
 			PlayFMIE_IE_NAME = λ.NewStr("play.fm")
 			PlayFMIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?play\\.fm/(?P<slug>(?:[^/]+/)+(?P<id>[^/]+))/?(?:$|[?#])")
-			PlayFMIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://www.play.fm/dan-drastic/sven-tasnadi-leipzig-electronic-music-batofar-paris-fr-2014-07-12"),
-				λ.NewStr("md5"): λ.NewStr("c505f8307825a245d0c7ad1850001f22"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):            λ.NewStr("71276"),
-					λ.NewStr("ext"):           λ.NewStr("mp3"),
-					λ.NewStr("title"):         λ.NewStr("Sven Tasnadi - LEIPZIG ELECTRONIC MUSIC @ Batofar (Paris,FR) - 2014-07-12"),
-					λ.NewStr("description"):   λ.NewStr(""),
-					λ.NewStr("duration"):      λ.NewInt(5627),
-					λ.NewStr("timestamp"):     λ.NewInt(1406033781),
-					λ.NewStr("upload_date"):   λ.NewStr("20140722"),
-					λ.NewStr("uploader"):      λ.NewStr("Dan Drastic"),
-					λ.NewStr("uploader_id"):   λ.NewStr("71170"),
-					λ.NewStr("view_count"):    λ.IntType,
-					λ.NewStr("comment_count"): λ.IntType,
-				}),
-			})
 			PlayFMIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -168,7 +150,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       PlayFMIE_IE_NAME,
-				λ.NewStr("_TEST"):         PlayFMIE__TEST,
 				λ.NewStr("_VALID_URL"):    PlayFMIE__VALID_URL,
 				λ.NewStr("_real_extract"): PlayFMIE__real_extract,
 			})

@@ -42,43 +42,10 @@ func init() {
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		KickStarterIE = λ.Cal(λ.TypeType, λ.NewStr("KickStarterIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				KickStarterIE__TESTS        λ.Object
 				KickStarterIE__VALID_URL    λ.Object
 				KickStarterIE__real_extract λ.Object
 			)
 			KickStarterIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?kickstarter\\.com/projects/(?P<id>[^/]*)/.*")
-			KickStarterIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.kickstarter.com/projects/1404461844/intersection-the-story-of-josh-grant/description"),
-					λ.NewStr("md5"): λ.NewStr("c81addca81327ffa66c642b5d8b08cab"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1404461844"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Intersection: The Story of Josh Grant by Kyle Cowling"),
-						λ.NewStr("description"): λ.NewStr("A unique motocross documentary that examines the life and mind of one of sports most elite athletes: Josh Grant."),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("note"): λ.NewStr("Embedded video (not using the native kickstarter video service)"),
-					λ.NewStr("url"):  λ.NewStr("https://www.kickstarter.com/projects/597507018/pebble-e-paper-watch-for-iphone-and-android/posts/659178"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("78704821"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("uploader_id"): λ.NewStr("pebble"),
-						λ.NewStr("uploader"):    λ.NewStr("Pebble Technology"),
-						λ.NewStr("title"):       λ.NewStr("Pebble iOS Notifications"),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Vimeo")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.kickstarter.com/projects/1420158244/power-drive-2000/widget/video.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("1420158244"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("Power Drive 2000"),
-					}),
-				}),
-			)
 			KickStarterIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -138,7 +105,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        KickStarterIE__TESTS,
 				λ.NewStr("_VALID_URL"):    KickStarterIE__VALID_URL,
 				λ.NewStr("_real_extract"): KickStarterIE__real_extract,
 			})

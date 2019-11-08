@@ -118,33 +118,11 @@ func init() {
 		GenerationWhatIE = λ.Cal(λ.TypeType, λ.NewStr("GenerationWhatIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				GenerationWhatIE_IE_NAME       λ.Object
-				GenerationWhatIE__TESTS        λ.Object
 				GenerationWhatIE__VALID_URL    λ.Object
 				GenerationWhatIE__real_extract λ.Object
 			)
 			GenerationWhatIE_IE_NAME = λ.NewStr("france2.fr:generation-what")
 			GenerationWhatIE__VALID_URL = λ.NewStr("https?://generation-what\\.francetv\\.fr/[^/]+/video/(?P<id>[^/?#&]+)")
-			GenerationWhatIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://generation-what.francetv.fr/portrait/video/present-arms"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("wtvKYUG45iw"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Generation What - Garde à vous - FRA"),
-						λ.NewStr("uploader"):    λ.NewStr("Generation What"),
-						λ.NewStr("uploader_id"): λ.NewStr("UCHH9p1eetWCgt4kXBYCb3_w"),
-						λ.NewStr("upload_date"): λ.NewStr("20160411"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Youtube")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://generation-what.francetv.fr/europe/video/present-arms"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			GenerationWhatIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -169,7 +147,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       GenerationWhatIE_IE_NAME,
-				λ.NewStr("_TESTS"):        GenerationWhatIE__TESTS,
 				λ.NewStr("_VALID_URL"):    GenerationWhatIE__VALID_URL,
 				λ.NewStr("_real_extract"): GenerationWhatIE__real_extract,
 			})

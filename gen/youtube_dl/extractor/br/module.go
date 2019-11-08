@@ -56,77 +56,12 @@ func init() {
 		ϒxpath_text = Ωutils.ϒxpath_text
 		BRIE = λ.Cal(λ.TypeType, λ.NewStr("BRIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				BRIE__TESTS              λ.Object
 				BRIE__VALID_URL          λ.Object
 				BRIE__extract_formats    λ.Object
 				BRIE__extract_thumbnails λ.Object
 				BRIE__real_extract       λ.Object
 			)
 			BRIE__VALID_URL = λ.NewStr("(?P<base_url>https?://(?:www\\.)?br(?:-klassik)?\\.de)/(?:[a-z0-9\\-_]+/)+(?P<id>[a-z0-9\\-_]+)\\.html")
-			BRIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.br.de/mediathek/video/sendungen/abendschau/betriebliche-altersvorsorge-104.html"),
-					λ.NewStr("md5"): λ.NewStr("83a0477cf0b8451027eb566d88b51106"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("48f656ef-287e-486f-be86-459122db22cc"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Die böse Überraschung"),
-						λ.NewStr("description"): λ.NewStr("md5:ce9ac81b466ce775b8018f6801b48ac9"),
-						λ.NewStr("duration"):    λ.NewInt(180),
-						λ.NewStr("uploader"):    λ.NewStr("Reinhard Weber"),
-						λ.NewStr("upload_date"): λ.NewStr("20150422"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("404 not found"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.br.de/nachrichten/oberbayern/inhalt/muenchner-polizeipraesident-schreiber-gestorben-100.html"),
-					λ.NewStr("md5"): λ.NewStr("af3a3a4aa43ff0ce6a89504c67f427ef"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("a4b83e34-123d-4b81-9f4e-c0d3121a4e05"),
-						λ.NewStr("ext"):         λ.NewStr("flv"),
-						λ.NewStr("title"):       λ.NewStr("Manfred Schreiber ist tot"),
-						λ.NewStr("description"): λ.NewStr("md5:b454d867f2a9fc524ebe88c3f5092d97"),
-						λ.NewStr("duration"):    λ.NewInt(26),
-					}),
-					λ.NewStr("skip"): λ.NewStr("404 not found"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.br-klassik.de/audio/peeping-tom-premierenkritik-dance-festival-muenchen-100.html"),
-					λ.NewStr("md5"): λ.NewStr("8b5b27c0b090f3b35eac4ab3f7a73d3d"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("74c603c9-26d3-48bb-b85b-079aeed66e0b"),
-						λ.NewStr("ext"):         λ.NewStr("aac"),
-						λ.NewStr("title"):       λ.NewStr("Kurzweilig und sehr bewegend"),
-						λ.NewStr("description"): λ.NewStr("md5:0351996e3283d64adeb38ede91fac54e"),
-						λ.NewStr("duration"):    λ.NewInt(296),
-					}),
-					λ.NewStr("skip"): λ.NewStr("404 not found"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.br.de/radio/bayern1/service/team/videos/team-video-erdelt100.html"),
-					λ.NewStr("md5"): λ.NewStr("dbab0aef2e047060ea7a21fc1ce1078a"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("6ba73750-d405-45d3-861d-1ce8c524e059"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Umweltbewusster Häuslebauer"),
-						λ.NewStr("description"): λ.NewStr("md5:d52dae9792d00226348c1dbb13c9bae2"),
-						λ.NewStr("duration"):    λ.NewInt(116),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.br.de/fernsehen/br-alpha/sendungen/kant-fuer-anfaenger/kritik-der-reinen-vernunft/kant-kritik-01-metaphysik100.html"),
-					λ.NewStr("md5"): λ.NewStr("23bca295f1650d698f94fc570977dae3"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("d982c9ce-8648-4753-b358-98abb8aec43d"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Folge 1 - Metaphysik"),
-						λ.NewStr("description"): λ.NewStr("md5:bb659990e9e59905c3d41e369db1fbe3"),
-						λ.NewStr("duration"):    λ.NewInt(893),
-						λ.NewStr("uploader"):    λ.NewStr("Eva Maria Steimle"),
-						λ.NewStr("upload_date"): λ.NewStr("20170208"),
-					}),
-				}),
-			)
 			BRIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -338,7 +273,6 @@ func init() {
 					return ϒthumbnails
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):              BRIE__TESTS,
 				λ.NewStr("_VALID_URL"):          BRIE__VALID_URL,
 				λ.NewStr("_extract_formats"):    BRIE__extract_formats,
 				λ.NewStr("_extract_thumbnails"): BRIE__extract_thumbnails,

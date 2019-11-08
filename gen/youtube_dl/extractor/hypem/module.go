@@ -42,23 +42,10 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		HypemIE = λ.Cal(λ.TypeType, λ.NewStr("HypemIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				HypemIE__TEST         λ.Object
 				HypemIE__VALID_URL    λ.Object
 				HypemIE__real_extract λ.Object
 			)
 			HypemIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?hypem\\.com/track/(?P<id>[0-9a-z]{5})")
-			HypemIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://hypem.com/track/1v6ga/BODYWORK+-+TAME"),
-				λ.NewStr("md5"): λ.NewStr("b9cc91b5af8995e9f0c1cee04c575828"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("1v6ga"),
-					λ.NewStr("ext"):         λ.NewStr("mp3"),
-					λ.NewStr("title"):       λ.NewStr("Tame"),
-					λ.NewStr("uploader"):    λ.NewStr("BODYWORK"),
-					λ.NewStr("timestamp"):   λ.NewInt(1371810457),
-					λ.NewStr("upload_date"): λ.NewStr("20130621"),
-				}),
-			})
 			HypemIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -104,7 +91,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         HypemIE__TEST,
 				λ.NewStr("_VALID_URL"):    HypemIE__VALID_URL,
 				λ.NewStr("_real_extract"): HypemIE__real_extract,
 			})

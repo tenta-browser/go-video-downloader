@@ -65,41 +65,11 @@ func init() {
 		PuhuTVIE = λ.Cal(λ.TypeType, λ.NewStr("PuhuTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				PuhuTVIE_IE_NAME       λ.Object
-				PuhuTVIE__TESTS        λ.Object
 				PuhuTVIE__VALID_URL    λ.Object
 				PuhuTVIE__real_extract λ.Object
 			)
 			PuhuTVIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?puhutv\\.com/(?P<id>[^/?#&]+)-izle")
 			PuhuTVIE_IE_NAME = λ.NewStr("puhutv")
-			PuhuTVIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://puhutv.com/sut-kardesler-izle"),
-					λ.NewStr("md5"): λ.NewStr("a347470371d56e1585d1b2c8dab01c96"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           λ.NewStr("5085"),
-						λ.NewStr("display_id"):   λ.NewStr("sut-kardesler"),
-						λ.NewStr("ext"):          λ.NewStr("mp4"),
-						λ.NewStr("title"):        λ.NewStr("Süt Kardeşler"),
-						λ.NewStr("description"):  λ.NewStr("md5:ca09da25b7e57cbb5a9280d6e48d17aa"),
-						λ.NewStr("thumbnail"):    λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("duration"):     λ.NewFloat(4832.44),
-						λ.NewStr("creator"):      λ.NewStr("Arzu Film"),
-						λ.NewStr("timestamp"):    λ.NewInt(1561062602),
-						λ.NewStr("upload_date"):  λ.NewStr("20190620"),
-						λ.NewStr("release_year"): λ.NewInt(1976),
-						λ.NewStr("view_count"):   λ.IntType,
-						λ.NewStr("tags"):         λ.ListType,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://puhutv.com/jet-sosyete-1-bolum-izle"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://puhutv.com/dip-1-bolum-izle"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			PuhuTVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -469,7 +439,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       PuhuTVIE_IE_NAME,
-				λ.NewStr("_TESTS"):        PuhuTVIE__TESTS,
 				λ.NewStr("_VALID_URL"):    PuhuTVIE__VALID_URL,
 				λ.NewStr("_real_extract"): PuhuTVIE__real_extract,
 			})

@@ -54,80 +54,10 @@ func init() {
 		ϒparse_duration = Ωutils.ϒparse_duration
 		XVideosIE = λ.Cal(λ.TypeType, λ.NewStr("XVideosIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				XVideosIE__TESTS        λ.Object
 				XVideosIE__VALID_URL    λ.Object
 				XVideosIE__real_extract λ.Object
 			)
 			XVideosIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            (?:[^/]+\\.)?xvideos2?\\.com/video|\n                            (?:www\\.)?xvideos\\.es/video|\n                            flashservice\\.xvideos\\.com/embedframe/|\n                            static-hw\\.xvideos\\.com/swf/xv-player\\.swf\\?.*?\\bid_video=\n                        )\n                        (?P<id>[0-9]+)\n                    ")
-			XVideosIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.xvideos.com/video4588838/biker_takes_his_girl"),
-					λ.NewStr("md5"): λ.NewStr("14cea69fcb84db54293b1e971466c2e1"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("4588838"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("Biker Takes his Girl"),
-						λ.NewStr("duration"):  λ.NewInt(108),
-						λ.NewStr("age_limit"): λ.NewInt(18),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://flashservice.xvideos.com/embedframe/4588838"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://static-hw.xvideos.com/swf/xv-player.swf?id_video=4588838"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://xvideos.com/video4588838/biker_takes_his_girl"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://xvideos.com/video4588838/biker_takes_his_girl"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://xvideos.es/video4588838/biker_takes_his_girl"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.xvideos.es/video4588838/biker_takes_his_girl"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://xvideos.es/video4588838/biker_takes_his_girl"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.xvideos.es/video4588838/biker_takes_his_girl"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://fr.xvideos.com/video4588838/biker_takes_his_girl"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://fr.xvideos.com/video4588838/biker_takes_his_girl"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://it.xvideos.com/video4588838/biker_takes_his_girl"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://it.xvideos.com/video4588838/biker_takes_his_girl"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://de.xvideos.com/video4588838/biker_takes_his_girl"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://de.xvideos.com/video4588838/biker_takes_his_girl"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			XVideosIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -296,7 +226,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        XVideosIE__TESTS,
 				λ.NewStr("_VALID_URL"):    XVideosIE__VALID_URL,
 				λ.NewStr("_real_extract"): XVideosIE__real_extract,
 			})

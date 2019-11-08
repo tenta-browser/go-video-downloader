@@ -44,22 +44,10 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		VideosZIE = λ.Cal(λ.TypeType, λ.NewStr("VideosZIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				VideosZIE__TEST         λ.Object
 				VideosZIE__VALID_URL    λ.Object
 				VideosZIE__real_extract λ.Object
 			)
 			VideosZIE__VALID_URL = λ.NewStr("https?://(?:www\\.|m\\.|)videosz\\.com/[a-z]+/[a-z]+/(?P<id>[0-9]+)_")
-			VideosZIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.videosz.com/us/scene/91296_i-want-to-be-a-dream-girl-66"),
-				λ.NewStr("md5"): λ.NewStr("4fab13db1a962d421cc17c86b9f21830"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("91296"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("age_limit"):   λ.NewInt(17),
-					λ.NewStr("title"):       λ.NewStr("I Want To Be A Dream Girl 66 Scene 1"),
-					λ.NewStr("description"): λ.NewStr("I Want To Be A Dream Girl 66 Scene 1"),
-				}),
-			})
 			VideosZIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -124,7 +112,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         VideosZIE__TEST,
 				λ.NewStr("_VALID_URL"):    VideosZIE__VALID_URL,
 				λ.NewStr("_real_extract"): VideosZIE__real_extract,
 			})

@@ -116,33 +116,11 @@ func init() {
 		MicrosoftVirtualAcademyIE = λ.Cal(λ.TypeType, λ.NewStr("MicrosoftVirtualAcademyIE"), λ.NewTuple(MicrosoftVirtualAcademyBaseIE), func() λ.Dict {
 			var (
 				MicrosoftVirtualAcademyIE_IE_NAME       λ.Object
-				MicrosoftVirtualAcademyIE__TESTS        λ.Object
 				MicrosoftVirtualAcademyIE__VALID_URL    λ.Object
 				MicrosoftVirtualAcademyIE__real_extract λ.Object
 			)
 			MicrosoftVirtualAcademyIE_IE_NAME = λ.NewStr("mva")
 			MicrosoftVirtualAcademyIE__VALID_URL = λ.Mod(λ.NewStr("(?:%s:|https?://(?:mva\\.microsoft|(?:www\\.)?microsoftvirtualacademy)\\.com/[^/]+/training-courses/[^/?#&]+-)(?P<course_id>\\d+)(?::|\\?l=)(?P<id>[\\da-zA-Z]+_\\d+)"), MicrosoftVirtualAcademyIE_IE_NAME)
-			MicrosoftVirtualAcademyIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://mva.microsoft.com/en-US/training-courses/microsoft-azure-fundamentals-virtual-machines-11788?l=gfVXISmEB_6804984382"),
-					λ.NewStr("md5"): λ.NewStr("7826c44fc31678b12ad8db11f6b5abb9"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):      λ.NewStr("gfVXISmEB_6804984382"),
-						λ.NewStr("ext"):     λ.NewStr("mp4"),
-						λ.NewStr("title"):   λ.NewStr("Course Introduction"),
-						λ.NewStr("formats"): λ.NewStr("mincount:3"),
-						λ.NewStr("subtitles"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("en"): λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("ext"): λ.NewStr("ttml"),
-							})),
-						}),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("mva:11788:gfVXISmEB_6804984382"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			MicrosoftVirtualAcademyIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -307,7 +285,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       MicrosoftVirtualAcademyIE_IE_NAME,
-				λ.NewStr("_TESTS"):        MicrosoftVirtualAcademyIE__TESTS,
 				λ.NewStr("_VALID_URL"):    MicrosoftVirtualAcademyIE__VALID_URL,
 				λ.NewStr("_real_extract"): MicrosoftVirtualAcademyIE__real_extract,
 			})

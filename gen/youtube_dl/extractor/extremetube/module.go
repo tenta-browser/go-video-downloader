@@ -42,37 +42,10 @@ func init() {
 		KeezMoviesIE = Ωkeezmovies.KeezMoviesIE
 		ExtremeTubeIE = λ.Cal(λ.TypeType, λ.NewStr("ExtremeTubeIE"), λ.NewTuple(KeezMoviesIE), func() λ.Dict {
 			var (
-				ExtremeTubeIE__TESTS        λ.Object
 				ExtremeTubeIE__VALID_URL    λ.Object
 				ExtremeTubeIE__real_extract λ.Object
 			)
 			ExtremeTubeIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?extremetube\\.com/(?:[^/]+/)?video/(?P<id>[^/#?&]+)")
-			ExtremeTubeIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.extremetube.com/video/music-video-14-british-euro-brit-european-cumshots-swallow-652431"),
-					λ.NewStr("md5"): λ.NewStr("92feaafa4b58e82f261e5419f39c60cb"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("music-video-14-british-euro-brit-european-cumshots-swallow-652431"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("Music Video 14 british euro brit european cumshots swallow"),
-						λ.NewStr("uploader"):   λ.NewStr("anonim"),
-						λ.NewStr("view_count"): λ.IntType,
-						λ.NewStr("age_limit"):  λ.NewInt(18),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.extremetube.com/gay/video/abcde-1234"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.extremetube.com/video/latina-slut-fucked-by-fat-black-dick"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.extremetube.com/video/652431"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			ExtremeTubeIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -116,7 +89,6 @@ func init() {
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        ExtremeTubeIE__TESTS,
 				λ.NewStr("_VALID_URL"):    ExtremeTubeIE__VALID_URL,
 				λ.NewStr("_real_extract"): ExtremeTubeIE__real_extract,
 			})

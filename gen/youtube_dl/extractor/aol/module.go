@@ -53,77 +53,11 @@ func init() {
 		AolIE = λ.Cal(λ.TypeType, λ.NewStr("AolIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				AolIE_IE_NAME       λ.Object
-				AolIE__TESTS        λ.Object
 				AolIE__VALID_URL    λ.Object
 				AolIE__real_extract λ.Object
 			)
 			AolIE_IE_NAME = λ.NewStr("aol.com")
 			AolIE__VALID_URL = λ.NewStr("(?:aol-video:|https?://(?:www\\.)?aol\\.(?:com|ca|co\\.uk|de|jp)/video/(?:[^/]+/)*)(?P<id>[0-9a-f]+)")
-			AolIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.aol.com/video/view/u-s--official-warns-of-largest-ever-irs-phone-scam/518167793/"),
-					λ.NewStr("md5"): λ.NewStr("18ef68f48740e86ae94b98da815eec42"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("518167793"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("U.S. Official Warns Of 'Largest Ever' IRS Phone Scam"),
-						λ.NewStr("description"): λ.NewStr("A major phone scam has cost thousands of taxpayers more than $1 million, with less than a month until income tax returns are due to the IRS."),
-						λ.NewStr("timestamp"):   λ.NewInt(1395405060),
-						λ.NewStr("upload_date"): λ.NewStr("20140321"),
-						λ.NewStr("uploader"):    λ.NewStr("Newsy Studio"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.aol.com/video/view/netflix-is-raising-rates/5707d6b8e4b090497b04f706/"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("5707d6b8e4b090497b04f706"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Netflix is Raising Rates"),
-						λ.NewStr("description"): λ.NewStr("Netflix is rewarding millions of it’s long-standing members with an increase in cost. Veuer’s Carly Figueroa has more."),
-						λ.NewStr("upload_date"): λ.NewStr("20160408"),
-						λ.NewStr("timestamp"):   λ.NewInt(1460123280),
-						λ.NewStr("uploader"):    λ.NewStr("Veuer"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.aol.com/video/view/park-bench-season-2-trailer/559a1b9be4b0c3bfad3357a7/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.aol.com/video/view/donald-trump-spokeswoman-tones-down-megyn-kelly-attacks/519442220/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("aol-video:5707d6b8e4b090497b04f706"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.aol.com/video/playlist/PL8245/5ca79d19d21f1a04035db606/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.aol.ca/video/view/u-s-woman-s-family-arrested-for-murder-first-pinned-on-panhandler-police/5c7ccf45bc03931fa04b2fe1/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.aol.co.uk/video/view/-one-dead-and-22-hurt-in-bus-crash-/5cb3a6f3d21f1a072b457347/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.aol.de/video/view/eva-braun-privataufnahmen-von-hitlers-geliebter-werden-digitalisiert/5cb2d49de98ab54c113d3d5d/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.aol.jp/video/playlist/5a28e936a1334d000137da0c/5a28f3151e642219fde19831/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			AolIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -231,7 +165,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       AolIE_IE_NAME,
-				λ.NewStr("_TESTS"):        AolIE__TESTS,
 				λ.NewStr("_VALID_URL"):    AolIE__VALID_URL,
 				λ.NewStr("_real_extract"): AolIE__real_extract,
 			})

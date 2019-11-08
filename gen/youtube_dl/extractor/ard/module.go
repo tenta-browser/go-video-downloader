@@ -71,7 +71,6 @@ func init() {
 		ARDMediathekIE = λ.Cal(λ.TypeType, λ.NewStr("ARDMediathekIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ARDMediathekIE_IE_NAME             λ.Object
-				ARDMediathekIE__TESTS              λ.Object
 				ARDMediathekIE__VALID_URL          λ.Object
 				ARDMediathekIE__extract_formats    λ.Object
 				ARDMediathekIE__extract_media_info λ.Object
@@ -80,41 +79,6 @@ func init() {
 			)
 			ARDMediathekIE_IE_NAME = λ.NewStr("ARD:mediathek")
 			ARDMediathekIE__VALID_URL = λ.NewStr("^https?://(?:(?:(?:www|classic)\\.)?ardmediathek\\.de|mediathek\\.(?:daserste|rbb-online)\\.de|one\\.ard\\.de)/(?:.*/)(?P<video_id>[0-9]+|[^0-9][^/\\?]+)[^/\\?]*(?:\\?.*)?")
-			ARDMediathekIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.ardmediathek.de/tv/S%C3%9CDLICHT/Was-ist-die-Kunst-der-Zukunft-liebe-Ann/BR-Fernsehen/Video?bcastId=34633636&documentId=44726822"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("44726822"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Was ist die Kunst der Zukunft, liebe Anna McCarthy?"),
-						λ.NewStr("description"): λ.NewStr("md5:4ada28b3e3b5df01647310e41f3a62f5"),
-						λ.NewStr("duration"):    λ.NewInt(1740),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://one.ard.de/tv/Mord-mit-Aussicht/Mord-mit-Aussicht-6-39-T%C3%B6dliche-Nach/ONE/Video?bcastId=46384294&documentId=55586872"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.ardmediathek.de/tv/WDR-H%C3%B6rspiel-Speicher/Tod-eines-Fu%C3%9Fballers/WDR-3/Audio-Podcast?documentId=28488308&bcastId=23074086"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://mediathek.daserste.de/sendungen_a-z/328454_anne-will/22429276_vertrauen-ist-gut-spionieren-ist-besser-geht"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://mediathek.rbb-online.de/radio/Hörspiel/Vor-dem-Fest/kulturradio/Audio?documentId=30796318&topRessort=radio&bcastId=9839158"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://classic.ardmediathek.de/tv/Panda-Gorilla-Co/Panda-Gorilla-Co-Folge-274/Das-Erste/Video?bcastId=16355486&documentId=58234698"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			ARDMediathekIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -504,7 +468,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):             ARDMediathekIE_IE_NAME,
-				λ.NewStr("_TESTS"):              ARDMediathekIE__TESTS,
 				λ.NewStr("_VALID_URL"):          ARDMediathekIE__VALID_URL,
 				λ.NewStr("_extract_formats"):    ARDMediathekIE__extract_formats,
 				λ.NewStr("_extract_media_info"): ARDMediathekIE__extract_media_info,

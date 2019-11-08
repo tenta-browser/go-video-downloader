@@ -44,36 +44,10 @@ func init() {
 		ϒqualities = Ωutils.ϒqualities
 		DumpertIE = λ.Cal(λ.TypeType, λ.NewStr("DumpertIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				DumpertIE__TESTS        λ.Object
 				DumpertIE__VALID_URL    λ.Object
 				DumpertIE__real_extract λ.Object
 			)
 			DumpertIE__VALID_URL = λ.NewStr("(?P<protocol>https?)://(?:(?:www|legacy)\\.)?dumpert\\.nl/(?:mediabase|embed|item)/(?P<id>[0-9]+[/_][0-9a-zA-Z]+)")
-			DumpertIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.dumpert.nl/item/6646981_951bc60f"),
-					λ.NewStr("md5"): λ.NewStr("1b9318d7d5054e7dcb9dc7654f21d643"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("6646981/951bc60f"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Ik heb nieuws voor je"),
-						λ.NewStr("description"): λ.NewStr("Niet schrikken hoor"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.dumpert.nl/embed/6675421_dc440fe7"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://legacy.dumpert.nl/mediabase/6646981/951bc60f"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://legacy.dumpert.nl/embed/6675421/dc440fe7"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			DumpertIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -213,7 +187,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        DumpertIE__TESTS,
 				λ.NewStr("_VALID_URL"):    DumpertIE__VALID_URL,
 				λ.NewStr("_real_extract"): DumpertIE__real_extract,
 			})

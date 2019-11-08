@@ -50,20 +50,10 @@ func init() {
 		ϒremove_end = Ωutils.ϒremove_end
 		VuClipIE = λ.Cal(λ.TypeType, λ.NewStr("VuClipIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				VuClipIE__TEST         λ.Object
 				VuClipIE__VALID_URL    λ.Object
 				VuClipIE__real_extract λ.Object
 			)
 			VuClipIE__VALID_URL = λ.NewStr("https?://(?:m\\.)?vuclip\\.com/w\\?.*?cid=(?P<id>[0-9]+)")
-			VuClipIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://m.vuclip.com/w?cid=1129900602&bu=8589892792&frm=w&z=34801&op=0&oc=843169247&section=recommend"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):       λ.NewStr("1129900602"),
-					λ.NewStr("ext"):      λ.NewStr("3gp"),
-					λ.NewStr("title"):    λ.NewStr("Top 10 TV Convicts"),
-					λ.NewStr("duration"): λ.NewInt(733),
-				}),
-			})
 			VuClipIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -143,7 +133,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         VuClipIE__TEST,
 				λ.NewStr("_VALID_URL"):    VuClipIE__VALID_URL,
 				λ.NewStr("_real_extract"): VuClipIE__real_extract,
 			})

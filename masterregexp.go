@@ -380,31 +380,31 @@ func init() {
 			`id_video=)(?:[0-9]+))|(?:https?://(?:www\.)?xxxymovies\.com/videos/(?:\d+)/(?:[^` +
 			`/]+))|(?:(?:https?://(?:(?:[a-zA-Z]{2}(?:-[a-zA-Z]{2})?|malaysia)\.)?(?:[\da-zA-` +
 			`Z_-]+\.)?yahoo\.com/(?:[^/]+/)*(?:[^?&#]*-[0-9]+(?:-[a-z]+)?)\.html))|(?:https?:` +
-			`//v\.yinyuetai\.com/video(?:/h5)?/(?:[0-9]+))|(?:https?://(?:\w+\.)?youjizz\.com` +
-			`/videos/(?:[^/#?]*-(?:\d+)\.html|embed/(?:\d+)))|(?:https?://(?:www\.)?youporn\.` +
-			`com/watch/(?:\d+)/(?:[^/?#&]+))|(?:https?://(?:www\.)?(?:yourupload\.com/(?:watc` +
-			`h|embed)|embed\.yourupload\.com)/(?:[A-Za-z0-9]+))|(?:^((?:https?://|//)(?:(?:(?` +
-			`:(?:\w+\.)?[yY][oO][uU][tT][uU][bB][eE](?:-nocookie)?\.com/|(?:www\.)?deturl\.co` +
-			`m/www\.youtube\.com/|(?:www\.)?pwnyoutube\.com/|(?:www\.)?hooktube\.com/|(?:www\` +
-			`.)?yourepeat\.com/|tube\.majestyc\.net/|(?:(?:www|dev)\.)?invidio\.us/|(?:(?:www` +
-			`|no)\.)?invidiou\.sh/|(?:(?:www|fi|de)\.)?invidious\.snopyta\.org/|(?:www\.)?inv` +
-			`idious\.kabi\.tk/|(?:www\.)?invidious\.13ad\.de/|(?:www\.)?invidious\.mastodon\.` +
-			`host/|(?:www\.)?invidious\.nixnet\.xyz/|(?:www\.)?invidious\.drycat\.fr/|(?:www\` +
-			`.)?tube\.poal\.co/|(?:www\.)?vid\.wxzm\.sx/|(?:www\.)?yt\.elukerio\.org/|(?:www\` +
-			`.)?yt\.lelux\.fi/|(?:www\.)?kgg2m7yk5aybusll\.onion/|(?:www\.)?qklhadlycap4cnod\` +
-			`.onion/|(?:www\.)?axqzx4s6s54s32yentfqojs3x5i7faxza6xo3ehd4bzzsg2ii4fv2iid\.onio` +
-			`n/|(?:www\.)?c7hqkpkpemu6e7emz5b4vyz7idjgdvgaaa3dyimmeojqbgpea3xqjoid\.onion/|(?` +
-			`:www\.)?fz253lmuao3strwbfbmx46yu7acac2jz27iwtorgmbqlkurlclmancad\.onion/|(?:www\` +
-			`.)?invidious\.l4qlywnpwqsluw65ts7md3khrivpirse744un3x7mlskqauz5pyuzgqd\.onion/|(` +
-			`?:www\.)?owxfohz4kjyv25fvlqilyxast7inivgiktls3th44jhk3ej3i7ya\.b32\.i2p/|youtube` +
-			`\.googleapis\.com/)(?:.*?\#/)?(?:(?:(?:v|embed|e)/(?!videoseries))|(?:(?:(?:watc` +
-			`h|movie)(?:_popup)?(?:\.php)?/?)?(?:\?|\#!?)(?:.*?[&;])??v=)))|(?:youtu\.be|vid\` +
-			`.plus|zwearz\.com/watch|)/|(?:www\.)?cleanvideosearch\.com/media/action/yt/watch` +
-			`\?videoId=))?([0-9A-Za-z_-]{11})(?!.*?\blist=(?:(?:PL|LL|EC|UU|FL|RD|UL|TL|OLAK5` +
-			`uy_)[0-9A-Za-z-_]{10,}|WL)))|(?:(?:(?:https?://)?(?:\w+\.)?(?:(?:youtube\.com|in` +
-			`vidio\.us)/(?:(?:course|view_play_list|my_playlists|artist|playlist|watch|embed/` +
-			`(?:videoseries|[0-9A-Za-z_-]{11}))\?(?:.*?[&;])*?(?:p|a|list)=|p/)|youtu\.be/[0-` +
-			`9A-Za-z_-]{11}\?.*?\blist=)((?:PL|LL|EC|UU|FL|RD|UL|TL|OLAK5uy_)?[0-9A-Za-z-_]{1` +
-			`0,}|(?:MC)[\w\.]*).*|((?:PL|LL|EC|UU|FL|RD|UL|TL|OLAK5uy_)[0-9A-Za-z-_]{10,})))`,
+			`//(?:\w+\.)?youjizz\.com/videos/(?:[^/#?]*-(?:\d+)\.html|embed/(?:\d+)))|(?:http` +
+			`s?://(?:www\.)?youporn\.com/watch/(?:\d+)/(?:[^/?#&]+))|(?:https?://(?:www\.)?(?` +
+			`:yourupload\.com/(?:watch|embed)|embed\.yourupload\.com)/(?:[A-Za-z0-9]+))|(?:^(` +
+			`(?:https?://|//)(?:(?:(?:(?:\w+\.)?[yY][oO][uU][tT][uU][bB][eE](?:-nocookie)?\.c` +
+			`om/|(?:www\.)?deturl\.com/www\.youtube\.com/|(?:www\.)?pwnyoutube\.com/|(?:www\.` +
+			`)?hooktube\.com/|(?:www\.)?yourepeat\.com/|tube\.majestyc\.net/|(?:(?:www|dev)\.` +
+			`)?invidio\.us/|(?:(?:www|no)\.)?invidiou\.sh/|(?:(?:www|fi|de)\.)?invidious\.sno` +
+			`pyta\.org/|(?:www\.)?invidious\.kabi\.tk/|(?:www\.)?invidious\.13ad\.de/|(?:www\` +
+			`.)?invidious\.mastodon\.host/|(?:www\.)?invidious\.nixnet\.xyz/|(?:www\.)?invidi` +
+			`ous\.drycat\.fr/|(?:www\.)?tube\.poal\.co/|(?:www\.)?vid\.wxzm\.sx/|(?:www\.)?yt` +
+			`\.elukerio\.org/|(?:www\.)?yt\.lelux\.fi/|(?:www\.)?kgg2m7yk5aybusll\.onion/|(?:` +
+			`www\.)?qklhadlycap4cnod\.onion/|(?:www\.)?axqzx4s6s54s32yentfqojs3x5i7faxza6xo3e` +
+			`hd4bzzsg2ii4fv2iid\.onion/|(?:www\.)?c7hqkpkpemu6e7emz5b4vyz7idjgdvgaaa3dyimmeoj` +
+			`qbgpea3xqjoid\.onion/|(?:www\.)?fz253lmuao3strwbfbmx46yu7acac2jz27iwtorgmbqlkurl` +
+			`clmancad\.onion/|(?:www\.)?invidious\.l4qlywnpwqsluw65ts7md3khrivpirse744un3x7ml` +
+			`skqauz5pyuzgqd\.onion/|(?:www\.)?owxfohz4kjyv25fvlqilyxast7inivgiktls3th44jhk3ej` +
+			`3i7ya\.b32\.i2p/|youtube\.googleapis\.com/)(?:.*?\#/)?(?:(?:(?:v|embed|e)/(?!vid` +
+			`eoseries))|(?:(?:(?:watch|movie)(?:_popup)?(?:\.php)?/?)?(?:\?|\#!?)(?:.*?[&;])?` +
+			`?v=)))|(?:youtu\.be|vid\.plus|zwearz\.com/watch|)/|(?:www\.)?cleanvideosearch\.c` +
+			`om/media/action/yt/watch\?videoId=))?([0-9A-Za-z_-]{11})(?!.*?\blist=(?:(?:PL|LL` +
+			`|EC|UU|FL|RD|UL|TL|OLAK5uy_)[0-9A-Za-z-_]{10,}|WL)))|(?:(?:(?:https?://)?(?:\w+\` +
+			`.)?(?:(?:youtube\.com|invidio\.us)/(?:(?:course|view_play_list|my_playlists|arti` +
+			`st|playlist|watch|embed/(?:videoseries|[0-9A-Za-z_-]{11}))\?(?:.*?[&;])*?(?:p|a|` +
+			`list)=|p/)|youtu\.be/[0-9A-Za-z_-]{11}\?.*?\blist=)((?:PL|LL|EC|UU|FL|RD|UL|TL|O` +
+			`LAK5uy_)?[0-9A-Za-z-_]{10,}|(?:MC)[\w\.]*).*|((?:PL|LL|EC|UU|FL|RD|UL|TL|OLAK5uy` +
+			`_)[0-9A-Za-z-_]{10,})))`,
 	}
 }

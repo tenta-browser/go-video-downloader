@@ -53,93 +53,12 @@ func init() {
 		GDCVaultIE = λ.Cal(λ.TypeType, λ.NewStr("GDCVaultIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				GDCVaultIE__NETRC_MACHINE λ.Object
-				GDCVaultIE__TESTS         λ.Object
 				GDCVaultIE__VALID_URL     λ.Object
 				GDCVaultIE__login         λ.Object
 				GDCVaultIE__real_extract  λ.Object
 			)
 			GDCVaultIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?gdcvault\\.com/play/(?P<id>\\d+)(?:/(?P<name>[\\w-]+))?")
 			GDCVaultIE__NETRC_MACHINE = λ.NewStr("gdcvault")
-			GDCVaultIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.gdcvault.com/play/1019721/Doki-Doki-Universe-Sweet-Simple"),
-					λ.NewStr("md5"): λ.NewStr("7ce8388f544c88b7ac11c7ab1b593704"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("201311826596_AWNY"),
-						λ.NewStr("display_id"): λ.NewStr("Doki-Doki-Universe-Sweet-Simple"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("Doki-Doki Universe: Sweet, Simple and Genuine (GDC Next 10)"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.gdcvault.com/play/1015683/Embracing-the-Dark-Art-of"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("201203272_1330951438328RSXR"),
-						λ.NewStr("display_id"): λ.NewStr("Embracing-the-Dark-Art-of"),
-						λ.NewStr("ext"):        λ.NewStr("flv"),
-						λ.NewStr("title"):      λ.NewStr("Embracing the Dark Art of Mathematical Modeling in AI"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.gdcvault.com/play/1015301/Thexder-Meets-Windows-95-or"),
-					λ.NewStr("md5"): λ.NewStr("a5eb77996ef82118afbbe8e48731b98e"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("1015301"),
-						λ.NewStr("display_id"): λ.NewStr("Thexder-Meets-Windows-95-or"),
-						λ.NewStr("ext"):        λ.NewStr("flv"),
-						λ.NewStr("title"):      λ.NewStr("Thexder Meets Windows 95, or Writing Great Games in the Windows 95 Environment"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("Requires login"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://gdcvault.com/play/1020791/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://gdcvault.com/play/1023460/Tenacious-Design-and-The-Interface"),
-					λ.NewStr("md5"): λ.NewStr("a8efb6c31ed06ca8739294960b2dbabd"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("840376_BQRC"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("display_id"): λ.NewStr("Tenacious-Design-and-The-Interface"),
-						λ.NewStr("title"):      λ.NewStr("Tenacious Design and The Interface of 'Destiny'"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.gdcvault.com/play/1014631/Classic-Game-Postmortem-PAC"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("12396_1299111843500GMPX"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("How to Create a Good Game - From My Experience of Designing Pac-Man"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.gdcvault.com/play/1435/An-American-engine-in-Tokyo"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.NewStr("9350_1238021887562UHXB"),
-						λ.NewStr("display_id"): λ.NewStr("An-American-engine-in-Tokyo"),
-						λ.NewStr("ext"):        λ.NewStr("mp4"),
-						λ.NewStr("title"):      λ.NewStr("An American Engine in Tokyo:/nThe collaboration of Epic Games and Square Enix/nFor THE LAST REMINANT"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.gdcvault.com/play/1026180/Mastering-the-Apex-of-Scaling"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("0_h1fg8j3p"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Mastering the Apex of Scaling Game Servers (Presented by Multiplay)"),
-						λ.NewStr("timestamp"):   λ.NewInt(1554401811),
-						λ.NewStr("upload_date"): λ.NewStr("20190404"),
-						λ.NewStr("uploader_id"): λ.NewStr("joe@blazestreaming.com"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("format"): λ.NewStr("mp4-408"),
-					}),
-				}),
-			)
 			GDCVaultIE__login = λ.NewFunction("_login",
 				[]λ.Param{
 					{Name: "self"},
@@ -286,7 +205,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_NETRC_MACHINE"): GDCVaultIE__NETRC_MACHINE,
-				λ.NewStr("_TESTS"):         GDCVaultIE__TESTS,
 				λ.NewStr("_VALID_URL"):     GDCVaultIE__VALID_URL,
 				λ.NewStr("_login"):         GDCVaultIE__login,
 				λ.NewStr("_real_extract"):  GDCVaultIE__real_extract,

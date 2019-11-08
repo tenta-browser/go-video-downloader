@@ -50,24 +50,11 @@ func init() {
 		TFOIE = λ.Cal(λ.TypeType, λ.NewStr("TFOIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TFOIE__GEO_COUNTRIES λ.Object
-				TFOIE__TEST          λ.Object
 				TFOIE__VALID_URL     λ.Object
 				TFOIE__real_extract  λ.Object
 			)
 			TFOIE__GEO_COUNTRIES = λ.NewList(λ.NewStr("CA"))
 			TFOIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tfo\\.org/(?:en|fr)/(?:[^/]+/){2}(?P<id>\\d+)")
-			TFOIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.tfo.org/en/universe/tfo-247/100463871/video-game-hackathon"),
-				λ.NewStr("md5"): λ.NewStr("47c987d0515561114cf03d1226a9d4c7"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("100463871"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Video Game Hackathon"),
-					λ.NewStr("description"): λ.NewStr("md5:558afeba217c6c8d96c60e5421795c07"),
-					λ.NewStr("upload_date"): λ.NewStr("20160212"),
-					λ.NewStr("timestamp"):   λ.NewInt(1455310233),
-				}),
-			})
 			TFOIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -124,7 +111,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_GEO_COUNTRIES"): TFOIE__GEO_COUNTRIES,
-				λ.NewStr("_TEST"):          TFOIE__TEST,
 				λ.NewStr("_VALID_URL"):     TFOIE__VALID_URL,
 				λ.NewStr("_real_extract"):  TFOIE__real_extract,
 			})

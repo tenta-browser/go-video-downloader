@@ -58,83 +58,10 @@ func init() {
 		ϒxpath_text = Ωutils.ϒxpath_text
 		HeiseIE = λ.Cal(λ.TypeType, λ.NewStr("HeiseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				HeiseIE__TESTS        λ.Object
 				HeiseIE__VALID_URL    λ.Object
 				HeiseIE__real_extract λ.Object
 			)
 			HeiseIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?heise\\.de/(?:[^/]+/)+[^/]+-(?P<id>[0-9]+)\\.html")
-			HeiseIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.heise.de/video/artikel/Podcast-c-t-uplink-3-3-Owncloud-Tastaturen-Peilsender-Smartphone-2404147.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1_kkrq94sm"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Podcast: c't uplink 3.3 – Owncloud / Tastaturen / Peilsender Smartphone"),
-						λ.NewStr("timestamp"):   λ.NewInt(1512734959),
-						λ.NewStr("upload_date"): λ.NewStr("20171208"),
-						λ.NewStr("description"): λ.NewStr("md5:c934cbfb326c669c2bcabcbe3d3fcd20"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.heise.de/newsticker/meldung/Netflix-In-20-Jahren-vom-Videoverleih-zum-TV-Revolutionaer-3814130.html"),
-					λ.NewStr("md5"): λ.NewStr("e403d2b43fea8e405e88e3f8623909f1"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("6kmWbXleKW4"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("NEU IM SEPTEMBER | Netflix"),
-						λ.NewStr("description"): λ.NewStr("md5:2131f3c7525e540d5fd841de938bd452"),
-						λ.NewStr("upload_date"): λ.NewStr("20170830"),
-						λ.NewStr("uploader"):    λ.NewStr("Netflix Deutschland, Österreich und Schweiz"),
-						λ.NewStr("uploader_id"): λ.NewStr("netflixdach"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.heise.de/video/artikel/nachgehakt-Wie-sichert-das-c-t-Tool-Restric-tor-Windows-10-ab-3700244.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1_ntrmio2s"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("nachgehakt: Wie sichert das c't-Tool Restric'tor Windows 10 ab?"),
-						λ.NewStr("description"): λ.NewStr("md5:47e8ffb6c46d85c92c310a512d6db271"),
-						λ.NewStr("timestamp"):   λ.NewInt(1512470717),
-						λ.NewStr("upload_date"): λ.NewStr("20171205"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.heise.de/ct/artikel/c-t-uplink-20-8-Staubsaugerroboter-Xiaomi-Vacuum-2-AR-Brille-Meta-2-und-Android-rooten-3959893.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1_59mk80sf"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("c't uplink 20.8: Staubsaugerroboter Xiaomi Vacuum 2, AR-Brille Meta 2 und Android rooten"),
-						λ.NewStr("description"): λ.NewStr("md5:f50fe044d3371ec73a8f79fcebd74afc"),
-						λ.NewStr("timestamp"):   λ.NewInt(1517567237),
-						λ.NewStr("upload_date"): λ.NewStr("20180202"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.heise.de/ct/artikel/c-t-uplink-3-3-Owncloud-Tastaturen-Peilsender-Smartphone-2403911.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.heise.de/newsticker/meldung/c-t-uplink-Owncloud-Tastaturen-Peilsender-Smartphone-2404251.html?wt_mc=rss.ho.beitrag.atom"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.heise.de/ct/ausgabe/2016-12-Spiele-3214137.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			HeiseIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -325,7 +252,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        HeiseIE__TESTS,
 				λ.NewStr("_VALID_URL"):    HeiseIE__VALID_URL,
 				λ.NewStr("_real_extract"): HeiseIE__real_extract,
 			})

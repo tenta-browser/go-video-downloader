@@ -42,22 +42,10 @@ func init() {
 		ϒmonth_by_name = Ωutils.ϒmonth_by_name
 		FranceInterIE = λ.Cal(λ.TypeType, λ.NewStr("FranceInterIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				FranceInterIE__TEST         λ.Object
 				FranceInterIE__VALID_URL    λ.Object
 				FranceInterIE__real_extract λ.Object
 			)
 			FranceInterIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?franceinter\\.fr/emissions/(?P<id>[^?#]+)")
-			FranceInterIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://www.franceinter.fr/emissions/affaires-sensibles/affaires-sensibles-07-septembre-2016"),
-				λ.NewStr("md5"): λ.NewStr("9e54d7bdb6fdc02a841007f8a975c094"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("affaires-sensibles/affaires-sensibles-07-septembre-2016"),
-					λ.NewStr("ext"):         λ.NewStr("mp3"),
-					λ.NewStr("title"):       λ.NewStr("Affaire Cahuzac : le contentieux du compte en Suisse"),
-					λ.NewStr("description"): λ.NewStr("md5:401969c5d318c061f86bda1fa359292b"),
-					λ.NewStr("upload_date"): λ.NewStr("20160907"),
-				}),
-			})
 			FranceInterIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -124,7 +112,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         FranceInterIE__TEST,
 				λ.NewStr("_VALID_URL"):    FranceInterIE__VALID_URL,
 				λ.NewStr("_real_extract"): FranceInterIE__real_extract,
 			})

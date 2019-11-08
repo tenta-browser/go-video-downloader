@@ -50,24 +50,10 @@ func init() {
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		GiantBombIE = λ.Cal(λ.TypeType, λ.NewStr("GiantBombIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				GiantBombIE__TEST         λ.Object
 				GiantBombIE__VALID_URL    λ.Object
 				GiantBombIE__real_extract λ.Object
 			)
 			GiantBombIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?giantbomb\\.com/videos/(?P<display_id>[^/]+)/(?P<id>\\d+-\\d+)")
-			GiantBombIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.giantbomb.com/videos/quick-look-destiny-the-dark-below/2300-9782/"),
-				λ.NewStr("md5"): λ.NewStr("c8ea694254a59246a42831155dec57ac"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("2300-9782"),
-					λ.NewStr("display_id"):  λ.NewStr("quick-look-destiny-the-dark-below"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Quick Look: Destiny: The Dark Below"),
-					λ.NewStr("description"): λ.NewStr("md5:0aa3aaf2772a41b91d44c63f30dfad24"),
-					λ.NewStr("duration"):    λ.NewInt(2399),
-					λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-				}),
-			})
 			GiantBombIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -172,7 +158,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         GiantBombIE__TEST,
 				λ.NewStr("_VALID_URL"):    GiantBombIE__VALID_URL,
 				λ.NewStr("_real_extract"): GiantBombIE__real_extract,
 			})

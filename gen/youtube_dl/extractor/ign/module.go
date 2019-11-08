@@ -50,7 +50,6 @@ func init() {
 				IGNIE_IE_NAME           λ.Object
 				IGNIE__API_URL_TEMPLATE λ.Object
 				IGNIE__EMBED_RE         λ.Object
-				IGNIE__TESTS            λ.Object
 				IGNIE__VALID_URL        λ.Object
 				IGNIE__find_video_id    λ.Object
 				IGNIE__get_video_info   λ.Object
@@ -61,79 +60,6 @@ func init() {
 			IGNIE_IE_NAME = λ.NewStr("ign.com")
 			IGNIE__API_URL_TEMPLATE = λ.NewStr("http://apis.ign.com/video/v3/videos/%s")
 			IGNIE__EMBED_RE = λ.NewStr("<iframe[^>]+?[\"\\']((?:https?:)?//.+?\\.ign\\.com.+?/embed.+?)[\"\\']")
-			IGNIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.ign.com/videos/2013/06/05/the-last-of-us-review"),
-					λ.NewStr("md5"): λ.NewStr("febda82c4bafecd2d44b6e1a18a595f8"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("8f862beef863986b2785559b9e1aa599"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("The Last of Us Review"),
-						λ.NewStr("description"): λ.NewStr("md5:c8946d4260a4d43a00d5ae8ed998870c"),
-						λ.NewStr("timestamp"):   λ.NewInt(1370440800),
-						λ.NewStr("upload_date"): λ.NewStr("20130605"),
-						λ.NewStr("uploader_id"): λ.NewStr("cberidon@ign.com"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://me.ign.com/en/feature/15775/100-little-things-in-gta-5-that-will-blow-your-mind"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"): λ.NewStr("100-little-things-in-gta-5-that-will-blow-your-mind"),
-					}),
-					λ.NewStr("playlist"): λ.NewList(
-						λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("id"):          λ.NewStr("5ebbd138523268b93c9141af17bec937"),
-								λ.NewStr("ext"):         λ.NewStr("mp4"),
-								λ.NewStr("title"):       λ.NewStr("GTA 5 Video Review"),
-								λ.NewStr("description"): λ.NewStr("Rockstar drops the mic on this generation of games. Watch our review of the masterly Grand Theft Auto V."),
-								λ.NewStr("timestamp"):   λ.NewInt(1379339880),
-								λ.NewStr("upload_date"): λ.NewStr("20130916"),
-								λ.NewStr("uploader_id"): λ.NewStr("danieljkrupa@gmail.com"),
-							}),
-						}),
-						λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("id"):          λ.NewStr("638672ee848ae4ff108df2a296418ee2"),
-								λ.NewStr("ext"):         λ.NewStr("mp4"),
-								λ.NewStr("title"):       λ.NewStr("26 Twisted Moments from GTA 5 in Slow Motion"),
-								λ.NewStr("description"): λ.NewStr("The twisted beauty of GTA 5 in stunning slow motion."),
-								λ.NewStr("timestamp"):   λ.NewInt(1386878820),
-								λ.NewStr("upload_date"): λ.NewStr("20131212"),
-								λ.NewStr("uploader_id"): λ.NewStr("togilvie@ign.com"),
-							}),
-						}),
-					),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.ign.com/articles/2014/08/15/rewind-theater-wild-trailer-gamescom-2014?watch"),
-					λ.NewStr("md5"): λ.NewStr("618fedb9c901fd086f6f093564ef8558"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("078fdd005f6d3c02f63d795faa1b984f"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Rewind Theater - Wild Trailer Gamescom 2014"),
-						λ.NewStr("description"): λ.NewStr("Brian and Jared explore Michel Ancel's captivating new preview."),
-						λ.NewStr("timestamp"):   λ.NewInt(1408047180),
-						λ.NewStr("upload_date"): λ.NewStr("20140814"),
-						λ.NewStr("uploader_id"): λ.NewStr("jamesduggan1990@gmail.com"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://me.ign.com/en/videos/112203/video/how-hitman-aims-to-be-different-than-every-other-s"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://me.ign.com/ar/angry-birds-2/106533/video/lrd-ldyy-lwl-lfylm-angry-birds"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.ign.com/articles/2017/06/08/new-ducktales-short-donalds-birthday-doesnt-go-as-planned"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			IGNIE__find_video_id = λ.NewFunction("_find_video_id",
 				[]λ.Param{
 					{Name: "self"},
@@ -343,7 +269,6 @@ func init() {
 				λ.NewStr("IE_NAME"):           IGNIE_IE_NAME,
 				λ.NewStr("_API_URL_TEMPLATE"): IGNIE__API_URL_TEMPLATE,
 				λ.NewStr("_EMBED_RE"):         IGNIE__EMBED_RE,
-				λ.NewStr("_TESTS"):            IGNIE__TESTS,
 				λ.NewStr("_VALID_URL"):        IGNIE__VALID_URL,
 				λ.NewStr("_find_video_id"):    IGNIE__find_video_id,
 				λ.NewStr("_get_video_info"):   IGNIE__get_video_info,

@@ -48,37 +48,11 @@ func init() {
 		AbcNewsVideoIE = λ.Cal(λ.TypeType, λ.NewStr("AbcNewsVideoIE"), λ.NewTuple(AMPIE), func() λ.Dict {
 			var (
 				AbcNewsVideoIE_IE_NAME       λ.Object
-				AbcNewsVideoIE__TESTS        λ.Object
 				AbcNewsVideoIE__VALID_URL    λ.Object
 				AbcNewsVideoIE__real_extract λ.Object
 			)
 			AbcNewsVideoIE_IE_NAME = λ.NewStr("abcnews:video")
 			AbcNewsVideoIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            abcnews\\.go\\.com/\n                            (?:\n                                [^/]+/video/(?P<display_id>[0-9a-z-]+)-|\n                                video/embed\\?.*?\\bid=\n                            )|\n                            fivethirtyeight\\.abcnews\\.go\\.com/video/embed/\\d+/\n                        )\n                        (?P<id>\\d+)\n                    ")
-			AbcNewsVideoIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://abcnews.go.com/ThisWeek/video/week-exclusive-irans-foreign-minister-zarif-20411932"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("20411932"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("display_id"):  λ.NewStr("week-exclusive-irans-foreign-minister-zarif"),
-						λ.NewStr("title"):       λ.NewStr("'This Week' Exclusive: Iran's Foreign Minister Zarif"),
-						λ.NewStr("description"): λ.NewStr("George Stephanopoulos goes one-on-one with Iranian Foreign Minister Dr. Javad Zarif."),
-						λ.NewStr("duration"):    λ.NewInt(180),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://abcnews.go.com/video/embed?id=46979033"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://abcnews.go.com/2020/video/2020-husband-stands-teacher-jail-student-affairs-26119478"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			AbcNewsVideoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -106,7 +80,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       AbcNewsVideoIE_IE_NAME,
-				λ.NewStr("_TESTS"):        AbcNewsVideoIE__TESTS,
 				λ.NewStr("_VALID_URL"):    AbcNewsVideoIE__VALID_URL,
 				λ.NewStr("_real_extract"): AbcNewsVideoIE__real_extract,
 			})

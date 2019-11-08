@@ -50,48 +50,10 @@ func init() {
 		ϒxpath_text = Ωutils.ϒxpath_text
 		VideaIE = λ.Cal(λ.TypeType, λ.NewStr("VideaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				VideaIE__TESTS        λ.Object
 				VideaIE__VALID_URL    λ.Object
 				VideaIE__real_extract λ.Object
 			)
 			VideaIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        videa(?:kid)?\\.hu/\n                        (?:\n                            videok/(?:[^/]+/)*[^?#&]+-|\n                            player\\?.*?\\bv=|\n                            player/v/\n                        )\n                        (?P<id>[^?#&]+)\n                    ")
-			VideaIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://videa.hu/videok/allatok/az-orult-kigyasz-285-kigyot-kigyo-8YfIAjxwWGwT8HVQ"),
-					λ.NewStr("md5"): λ.NewStr("97a7af41faeaffd9f1fc864a7c7e7603"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("8YfIAjxwWGwT8HVQ"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("Az őrült kígyász 285 kígyót enged szabadon"),
-						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*"),
-						λ.NewStr("duration"):  λ.NewInt(21),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://videa.hu/videok/origo/jarmuvek/supercars-elozes-jAHDWfWSJH5XuFhH"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://videa.hu/player?v=8YfIAjxwWGwT8HVQ"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://videa.hu/player/v/8YfIAjxwWGwT8HVQ?autoplay=1"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://videakid.hu/videok/origo/jarmuvek/supercars-elozes-jAHDWfWSJH5XuFhH"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://videakid.hu/player?v=8YfIAjxwWGwT8HVQ"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://videakid.hu/player/v/8YfIAjxwWGwT8HVQ?autoplay=1"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			VideaIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -203,7 +165,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        VideaIE__TESTS,
 				λ.NewStr("_VALID_URL"):    VideaIE__VALID_URL,
 				λ.NewStr("_real_extract"): VideaIE__real_extract,
 			})

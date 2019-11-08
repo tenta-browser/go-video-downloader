@@ -50,35 +50,10 @@ func init() {
 		ϒxpath_text = Ωutils.ϒxpath_text
 		InaIE = λ.Cal(λ.TypeType, λ.NewStr("InaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				InaIE__TESTS        λ.Object
 				InaIE__VALID_URL    λ.Object
 				InaIE__real_extract λ.Object
 			)
 			InaIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?ina\\.fr/(?:video|audio)/(?P<id>[A-Z0-9_]+)")
-			InaIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.ina.fr/video/I12055569/francois-hollande-je-crois-que-c-est-clair-video.html"),
-					λ.NewStr("md5"): λ.NewStr("a667021bf2b41f8dc6049479d9bb38a3"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("I12055569"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("François Hollande \"Je crois que c'est clair\""),
-						λ.NewStr("description"): λ.NewStr("md5:3f09eb072a06cb286b8f7e4f77109663"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.ina.fr/video/S806544_001/don-d-organes-des-avancees-mais-d-importants-besoins-video.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.ina.fr/audio/P16173408"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.ina.fr/video/P16173408-video.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			InaIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -226,7 +201,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        InaIE__TESTS,
 				λ.NewStr("_VALID_URL"):    InaIE__VALID_URL,
 				λ.NewStr("_real_extract"): InaIE__real_extract,
 			})

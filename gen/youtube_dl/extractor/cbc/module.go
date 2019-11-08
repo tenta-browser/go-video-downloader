@@ -110,54 +110,11 @@ func init() {
 		CBCPlayerIE = λ.Cal(λ.TypeType, λ.NewStr("CBCPlayerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CBCPlayerIE_IE_NAME       λ.Object
-				CBCPlayerIE__TESTS        λ.Object
 				CBCPlayerIE__VALID_URL    λ.Object
 				CBCPlayerIE__real_extract λ.Object
 			)
 			CBCPlayerIE_IE_NAME = λ.NewStr("cbc.ca:player")
 			CBCPlayerIE__VALID_URL = λ.NewStr("(?:cbcplayer:|https?://(?:www\\.)?cbc\\.ca/(?:player/play/|i/caffeine/syndicate/\\?mediaId=))(?P<id>\\d+)")
-			CBCPlayerIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.cbc.ca/player/play/2683190193"),
-					λ.NewStr("md5"): λ.NewStr("64d25f841ddf4ddb28a235338af32e2c"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("2683190193"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Gerry Runs a Sweat Shop"),
-						λ.NewStr("description"): λ.NewStr("md5:b457e1c01e8ff408d9d801c1c2cd29b0"),
-						λ.NewStr("timestamp"):   λ.NewInt(1455071400),
-						λ.NewStr("upload_date"): λ.NewStr("20160210"),
-						λ.NewStr("uploader"):    λ.NewStr("CBCC-NEW"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("Geo-restricted to Canada"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.cbc.ca/player/play/2657631896"),
-					λ.NewStr("md5"): λ.NewStr("e5e708c34ae6fca156aafe17c43e8b75"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("2657631896"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("title"):       λ.NewStr("CBC Montreal is organizing its first ever community hackathon!"),
-						λ.NewStr("description"): λ.NewStr("The modern technology we tend to depend on so heavily, is never without it's share of hiccups and headaches. Next weekend - CBC Montreal will be getting members of the public for its first Hackathon."),
-						λ.NewStr("timestamp"):   λ.NewInt(1425704400),
-						λ.NewStr("upload_date"): λ.NewStr("20150307"),
-						λ.NewStr("uploader"):    λ.NewStr("CBCC-NEW"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.cbc.ca/player/play/2164402062"),
-					λ.NewStr("md5"): λ.NewStr("33fcd8f6719b9dd60a5e73adcb83b9f6"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("2164402062"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Cancer survivor four times over"),
-						λ.NewStr("description"): λ.NewStr("Tim Mayer has beaten three different forms of cancer four times in five years."),
-						λ.NewStr("timestamp"):   λ.NewInt(1320410746),
-						λ.NewStr("upload_date"): λ.NewStr("20111104"),
-						λ.NewStr("uploader"):    λ.NewStr("CBCC-NEW"),
-					}),
-				}),
-			)
 			CBCPlayerIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -182,7 +139,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       CBCPlayerIE_IE_NAME,
-				λ.NewStr("_TESTS"):        CBCPlayerIE__TESTS,
 				λ.NewStr("_VALID_URL"):    CBCPlayerIE__VALID_URL,
 				λ.NewStr("_real_extract"): CBCPlayerIE__real_extract,
 			})

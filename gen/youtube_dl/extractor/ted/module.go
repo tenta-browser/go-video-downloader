@@ -58,7 +58,6 @@ func init() {
 			var (
 				TEDIE_IE_NAME               λ.Object
 				TEDIE__NATIVE_FORMATS       λ.Object
-				TEDIE__TESTS                λ.Object
 				TEDIE__VALID_URL            λ.Object
 				TEDIE__extract_info         λ.Object
 				TEDIE__get_subtitles        λ.Object
@@ -68,97 +67,6 @@ func init() {
 			)
 			TEDIE_IE_NAME = λ.NewStr("ted")
 			TEDIE__VALID_URL = λ.NewStr("(?x)\n        (?P<proto>https?://)\n        (?P<type>www|embed(?:-ssl)?)(?P<urlmain>\\.ted\\.com/\n        (\n            (?P<type_playlist>playlists(?:/(?P<playlist_id>\\d+))?) # We have a playlist\n            |\n            ((?P<type_talk>talks)) # We have a simple talk\n            |\n            (?P<type_watch>watch)/[^/]+/[^/]+\n        )\n        (/lang/(.*?))? # The url may contain the language\n        /(?P<name>[\\w-]+) # Here goes the name and then \".html\"\n        .*)$\n        ")
-			TEDIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.ted.com/talks/dan_dennett_on_our_consciousness.html"),
-					λ.NewStr("md5"): λ.NewStr("b0ce2b05ca215042124fbc9e3886493a"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("102"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("The illusion of consciousness"),
-						λ.NewStr("description"):   λ.NewStr("Philosopher Dan Dennett makes a compelling argument that not only don't we understand our own consciousness, but that half the time our brains are actively fooling us."),
-						λ.NewStr("uploader"):      λ.NewStr("Dan Dennett"),
-						λ.NewStr("width"):         λ.NewInt(853),
-						λ.NewStr("duration"):      λ.NewInt(1308),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-						λ.NewStr("tags"):          λ.ListType,
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.ted.com/talks/vishal_sikka_the_beauty_and_power_of_algorithms"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("6069"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("The beauty and power of algorithms"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.+\\.jpg"),
-						λ.NewStr("description"): λ.NewStr("md5:734e352710fb00d840ab87ae31aaf688"),
-						λ.NewStr("uploader"):    λ.NewStr("Vishal Sikka"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.ted.com/talks/gabby_giffords_and_mark_kelly_be_passionate_be_courageous_be_your_best"),
-					λ.NewStr("md5"): λ.NewStr("e6b9617c01a7970ceac8bb2c92c346c0"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1972"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Be passionate. Be courageous. Be your best."),
-						λ.NewStr("uploader"):    λ.NewStr("Gabby Giffords and Mark Kelly"),
-						λ.NewStr("description"): λ.NewStr("md5:5174aed4d0f16021b704120360f72b92"),
-						λ.NewStr("duration"):    λ.NewInt(1128),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.ted.com/playlists/who_are_the_hackers"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("10"),
-						λ.NewStr("title"):       λ.NewStr("Who are the hackers?"),
-						λ.NewStr("description"): λ.NewStr("md5:49a0dbe8fb76d81a0e64b4a80af7f15a"),
-					}),
-					λ.NewStr("playlist_mincount"): λ.NewInt(6),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):    λ.NewStr("https://www.ted.com/talks/douglas_adams_parrots_the_universe_and_everything"),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("Youtube")),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("_ZG8HBuDjgc"),
-						λ.NewStr("ext"):         λ.NewStr("webm"),
-						λ.NewStr("title"):       λ.NewStr("Douglas Adams: Parrots the Universe and Everything"),
-						λ.NewStr("description"): λ.NewStr("md5:01ad1e199c49ac640cb1196c0e9016af"),
-						λ.NewStr("uploader"):    λ.NewStr("University of California Television (UCTV)"),
-						λ.NewStr("uploader_id"): λ.NewStr("UCtelevision"),
-						λ.NewStr("upload_date"): λ.NewStr("20080522"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.ted.com/talks/tom_thum_the_orchestra_in_my_mouth"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.NewStr("1792"),
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.NewStr("The orchestra in my mouth"),
-						λ.NewStr("description"):   λ.NewStr("md5:5d1d78650e2f8dfcbb8ebee2951ac29a"),
-						λ.NewStr("uploader"):      λ.NewStr("Tom Thum"),
-						λ.NewStr("view_count"):    λ.IntType,
-						λ.NewStr("comment_count"): λ.IntType,
-						λ.NewStr("tags"):          λ.ListType,
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-			)
 			TEDIE__NATIVE_FORMATS = λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("low"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("width"):  λ.NewInt(320),
@@ -746,7 +654,6 @@ func init() {
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):               TEDIE_IE_NAME,
 				λ.NewStr("_NATIVE_FORMATS"):       TEDIE__NATIVE_FORMATS,
-				λ.NewStr("_TESTS"):                TEDIE__TESTS,
 				λ.NewStr("_VALID_URL"):            TEDIE__VALID_URL,
 				λ.NewStr("_extract_info"):         TEDIE__extract_info,
 				λ.NewStr("_get_subtitles"):        TEDIE__get_subtitles,

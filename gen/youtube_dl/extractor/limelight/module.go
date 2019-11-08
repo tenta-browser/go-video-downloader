@@ -571,48 +571,11 @@ func init() {
 				LimelightMediaIE_IE_NAME                λ.Object
 				LimelightMediaIE__API_PATH              λ.Object
 				LimelightMediaIE__PLAYLIST_SERVICE_PATH λ.Object
-				LimelightMediaIE__TESTS                 λ.Object
 				LimelightMediaIE__VALID_URL             λ.Object
 				LimelightMediaIE__real_extract          λ.Object
 			)
 			LimelightMediaIE_IE_NAME = λ.NewStr("limelight")
 			LimelightMediaIE__VALID_URL = λ.NewStr("(?x)\n                        (?:\n                            limelight:media:|\n                            https?://\n                                (?:\n                                    link\\.videoplatform\\.limelight\\.com/media/|\n                                    assets\\.delvenetworks\\.com/player/loader\\.swf\n                                )\n                                \\?.*?\\bmediaId=\n                        )\n                        (?P<id>[a-z0-9]{32})\n                    ")
-			LimelightMediaIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://link.videoplatform.limelight.com/media/?mediaId=3ffd040b522b4485b6d84effc750cd86"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("3ffd040b522b4485b6d84effc750cd86"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("HaP and the HB Prince Trailer"),
-						λ.NewStr("description"): λ.NewStr("md5:8005b944181778e313d95c1237ddb640"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpeg$"),
-						λ.NewStr("duration"):    λ.NewFloat(144.23),
-						λ.NewStr("timestamp"):   λ.NewInt(1244136834),
-						λ.NewStr("upload_date"): λ.NewStr("20090604"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("limelight:media:a3e00274d4564ec4a9b29b9466432335"),
-					λ.NewStr("md5"): λ.NewStr("2fa3bad9ac321e23860ca23bc2c69e3d"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("a3e00274d4564ec4a9b29b9466432335"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("3Play Media Overview Video"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpeg$"),
-						λ.NewStr("duration"):    λ.NewFloat(78.101),
-						λ.NewStr("timestamp"):   λ.NewInt(1338929955),
-						λ.NewStr("upload_date"): λ.NewStr("20120605"),
-						λ.NewStr("subtitles"):   λ.NewStr("mincount:9"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://assets.delvenetworks.com/player/loader.swf?mediaId=8018a574f08d416e95ceaccae4ba0452"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			LimelightMediaIE__PLAYLIST_SERVICE_PATH = λ.NewStr("media")
 			LimelightMediaIE__API_PATH = λ.NewStr("media")
 			LimelightMediaIE__real_extract = λ.NewFunction("_real_extract",
@@ -649,7 +612,6 @@ func init() {
 				λ.NewStr("IE_NAME"):                LimelightMediaIE_IE_NAME,
 				λ.NewStr("_API_PATH"):              LimelightMediaIE__API_PATH,
 				λ.NewStr("_PLAYLIST_SERVICE_PATH"): LimelightMediaIE__PLAYLIST_SERVICE_PATH,
-				λ.NewStr("_TESTS"):                 LimelightMediaIE__TESTS,
 				λ.NewStr("_VALID_URL"):             LimelightMediaIE__VALID_URL,
 				λ.NewStr("_real_extract"):          LimelightMediaIE__real_extract,
 			})

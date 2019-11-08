@@ -45,42 +45,11 @@ func init() {
 		PodomaticIE = λ.Cal(λ.TypeType, λ.NewStr("PodomaticIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				PodomaticIE_IE_NAME       λ.Object
-				PodomaticIE__TESTS        λ.Object
 				PodomaticIE__VALID_URL    λ.Object
 				PodomaticIE__real_extract λ.Object
 			)
 			PodomaticIE_IE_NAME = λ.NewStr("podomatic")
 			PodomaticIE__VALID_URL = λ.NewStr("(?x)\n                    (?P<proto>https?)://\n                        (?:\n                            (?P<channel>[^.]+)\\.podomatic\\.com/entry|\n                            (?:www\\.)?podomatic\\.com/podcasts/(?P<channel_2>[^/]+)/episodes\n                        )/\n                        (?P<id>[^/?#&]+)\n                ")
-			PodomaticIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://scienceteachingtips.podomatic.com/entry/2009-01-02T16_03_35-08_00"),
-					λ.NewStr("md5"): λ.NewStr("84bb855fcf3429e6bf72460e1eed782d"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("2009-01-02T16_03_35-08_00"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("uploader"):    λ.NewStr("Science Teaching Tips"),
-						λ.NewStr("uploader_id"): λ.NewStr("scienceteachingtips"),
-						λ.NewStr("title"):       λ.NewStr("64.  When the Moon Hits Your Eye"),
-						λ.NewStr("duration"):    λ.NewInt(446),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://ostbahnhof.podomatic.com/entry/2013-11-15T16_31_21-08_00"),
-					λ.NewStr("md5"): λ.NewStr("d2cf443931b6148e27638650e2638297"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("2013-11-15T16_31_21-08_00"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("uploader"):    λ.NewStr("Ostbahnhof / Techno Mix"),
-						λ.NewStr("uploader_id"): λ.NewStr("ostbahnhof"),
-						λ.NewStr("title"):       λ.NewStr("Einunddreizig"),
-						λ.NewStr("duration"):    λ.NewInt(3799),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.podomatic.com/podcasts/scienceteachingtips/episodes/2009-01-02T16_03_35-08_00"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			PodomaticIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -142,7 +111,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       PodomaticIE_IE_NAME,
-				λ.NewStr("_TESTS"):        PodomaticIE__TESTS,
 				λ.NewStr("_VALID_URL"):    PodomaticIE__VALID_URL,
 				λ.NewStr("_real_extract"): PodomaticIE__real_extract,
 			})

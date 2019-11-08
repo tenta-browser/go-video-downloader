@@ -53,37 +53,10 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		CCMAIE = λ.Cal(λ.TypeType, λ.NewStr("CCMAIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				CCMAIE__TESTS        λ.Object
 				CCMAIE__VALID_URL    λ.Object
 				CCMAIE__real_extract λ.Object
 			)
 			CCMAIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?ccma\\.cat/(?:[^/]+/)*?(?P<type>video|audio)/(?P<id>\\d+)")
-			CCMAIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.ccma.cat/tv3/alacarta/lespot-de-la-marato-de-tv3/lespot-de-la-marato-de-tv3/video/5630208/"),
-					λ.NewStr("md5"): λ.NewStr("7296ca43977c8ea4469e719c609b0871"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("5630208"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("L'espot de La Marató de TV3"),
-						λ.NewStr("description"): λ.NewStr("md5:f12987f320e2f6e988e9908e4fe97765"),
-						λ.NewStr("timestamp"):   λ.NewInt(1470918540),
-						λ.NewStr("upload_date"): λ.NewStr("20160811"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.ccma.cat/catradio/alacarta/programa/el-consell-de-savis-analitza-el-derbi/audio/943685/"),
-					λ.NewStr("md5"): λ.NewStr("fa3e38f269329a278271276330261425"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("943685"),
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("title"):       λ.NewStr("El Consell de Savis analitza el derbi"),
-						λ.NewStr("description"): λ.NewStr("md5:e2a3648145f3241cb9c6b4b624033e53"),
-						λ.NewStr("upload_date"): λ.NewStr("20171205"),
-						λ.NewStr("timestamp"):   λ.NewInt(1512507300),
-					}),
-				}),
-			)
 			CCMAIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -216,7 +189,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        CCMAIE__TESTS,
 				λ.NewStr("_VALID_URL"):    CCMAIE__VALID_URL,
 				λ.NewStr("_real_extract"): CCMAIE__real_extract,
 			})

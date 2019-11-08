@@ -51,43 +51,11 @@ func init() {
 		FazIE = λ.Cal(λ.TypeType, λ.NewStr("FazIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				FazIE_IE_NAME       λ.Object
-				FazIE__TESTS        λ.Object
 				FazIE__VALID_URL    λ.Object
 				FazIE__real_extract λ.Object
 			)
 			FazIE_IE_NAME = λ.NewStr("faz.net")
 			FazIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?faz\\.net/(?:[^/]+/)*.*?-(?P<id>\\d+)\\.html")
-			FazIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.faz.net/multimedia/videos/stockholm-chemie-nobelpreis-fuer-drei-amerikanische-forscher-12610585.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("12610585"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Stockholm: Chemie-Nobelpreis für drei amerikanische Forscher"),
-						λ.NewStr("description"): λ.NewStr("md5:1453fbf9a0d041d985a47306192ea253"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.faz.net/aktuell/politik/berlin-gabriel-besteht-zerreissprobe-ueber-datenspeicherung-13659345.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.faz.net/berlin-gabriel-besteht-zerreissprobe-ueber-datenspeicherung-13659345.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.faz.net/-13659345.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.faz.net/aktuell/politik/-13659345.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://www.faz.net/foobarblafasel-13659345.html"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			FazIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -191,7 +159,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       FazIE_IE_NAME,
-				λ.NewStr("_TESTS"):        FazIE__TESTS,
 				λ.NewStr("_VALID_URL"):    FazIE__VALID_URL,
 				λ.NewStr("_real_extract"): FazIE__real_extract,
 			})

@@ -40,20 +40,10 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		EchoMskIE = λ.Cal(λ.TypeType, λ.NewStr("EchoMskIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				EchoMskIE__TEST         λ.Object
 				EchoMskIE__VALID_URL    λ.Object
 				EchoMskIE__real_extract λ.Object
 			)
 			EchoMskIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?echo\\.msk\\.ru/sounds/(?P<id>\\d+)")
-			EchoMskIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://www.echo.msk.ru/sounds/1464134.html"),
-				λ.NewStr("md5"): λ.NewStr("2e44b3b78daff5b458e4dbc37f191f7c"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):    λ.NewStr("1464134"),
-					λ.NewStr("ext"):   λ.NewStr("mp3"),
-					λ.NewStr("title"): λ.NewStr("Особое мнение - 29 декабря 2014, 19:08"),
-				}),
-			})
 			EchoMskIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -98,7 +88,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TEST"):         EchoMskIE__TEST,
 				λ.NewStr("_VALID_URL"):    EchoMskIE__VALID_URL,
 				λ.NewStr("_real_extract"): EchoMskIE__real_extract,
 			})

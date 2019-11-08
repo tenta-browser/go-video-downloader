@@ -58,56 +58,10 @@ func init() {
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		SpankBangIE = λ.Cal(λ.TypeType, λ.NewStr("SpankBangIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				SpankBangIE__TESTS        λ.Object
 				SpankBangIE__VALID_URL    λ.Object
 				SpankBangIE__real_extract λ.Object
 			)
 			SpankBangIE__VALID_URL = λ.NewStr("https?://(?:[^/]+\\.)?spankbang\\.com/(?P<id>[\\da-z]+)/(?:video|play|embed)\\b")
-			SpankBangIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://spankbang.com/3vvn/video/fantasy+solo"),
-					λ.NewStr("md5"): λ.NewStr("1cc433e1d6aa14bc376535b8679302f7"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("3vvn"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("fantasy solo"),
-						λ.NewStr("description"): λ.NewStr("dillion harper masturbates on a bed"),
-						λ.NewStr("thumbnail"):   λ.NewStr("re:^https?://.*\\.jpg$"),
-						λ.NewStr("uploader"):    λ.NewStr("silly2587"),
-						λ.NewStr("timestamp"):   λ.NewInt(1422571989),
-						λ.NewStr("upload_date"): λ.NewStr("20150129"),
-						λ.NewStr("age_limit"):   λ.NewInt(18),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://spankbang.com/1vt0/video/solvane+gangbang"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://spankbang.com/lklg/video/sex+with+anyone+wedding+edition+2"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://m.spankbang.com/1o2de/video/can+t+remember+her+name"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://spankbang.com/1vwqx/video/jade+kush+solo+4k"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://m.spankbang.com/3vvn/play/fantasy+solo/480p/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://m.spankbang.com/3vvn/play"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://spankbang.com/2y3td/embed/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			SpankBangIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -304,7 +258,6 @@ func init() {
 					}), ϒinfo)
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        SpankBangIE__TESTS,
 				λ.NewStr("_VALID_URL"):    SpankBangIE__VALID_URL,
 				λ.NewStr("_real_extract"): SpankBangIE__real_extract,
 			})

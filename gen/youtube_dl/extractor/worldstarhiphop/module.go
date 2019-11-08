@@ -39,26 +39,10 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		WorldStarHipHopIE = λ.Cal(λ.TypeType, λ.NewStr("WorldStarHipHopIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				WorldStarHipHopIE__TESTS        λ.Object
 				WorldStarHipHopIE__VALID_URL    λ.Object
 				WorldStarHipHopIE__real_extract λ.Object
 			)
 			WorldStarHipHopIE__VALID_URL = λ.NewStr("https?://(?:www|m)\\.worldstar(?:candy|hiphop)\\.com/(?:videos|android)/video\\.php\\?.*?\\bv=(?P<id>[^&]+)")
-			WorldStarHipHopIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.worldstarhiphop.com/videos/video.php?v=wshh6a7q1ny0G34ZwuIO"),
-					λ.NewStr("md5"): λ.NewStr("9d04de741161603bf7071bbf4e883186"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("wshh6a7q1ny0G34ZwuIO"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("KO Of The Week: MMA Fighter Gets Knocked Out By Swift Head Kick!"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("http://m.worldstarhiphop.com/android/video.php?v=wshh6a7q1ny0G34ZwuIO"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			WorldStarHipHopIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -93,7 +77,6 @@ func init() {
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        WorldStarHipHopIE__TESTS,
 				λ.NewStr("_VALID_URL"):    WorldStarHipHopIE__VALID_URL,
 				λ.NewStr("_real_extract"): WorldStarHipHopIE__real_extract,
 			})

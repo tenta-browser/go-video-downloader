@@ -39,27 +39,10 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		EngadgetIE = λ.Cal(λ.TypeType, λ.NewStr("EngadgetIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				EngadgetIE__TESTS        λ.Object
 				EngadgetIE__VALID_URL    λ.Object
 				EngadgetIE__real_extract λ.Object
 			)
 			EngadgetIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?engadget\\.com/video/(?P<id>[^/?#]+)")
-			EngadgetIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://www.engadget.com/video/518153925/"),
-					λ.NewStr("md5"): λ.NewStr("c6820d4828a5064447a4d9fc73f312c9"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("518153925"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("Samsung Galaxy Tab Pro 8.4 Review"),
-					}),
-					λ.NewStr("add_ie"): λ.NewList(λ.NewStr("FiveMin")),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.engadget.com/video/57a28462134aa15a39f0421a/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			EngadgetIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -76,7 +59,6 @@ func init() {
 					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("aol-video:%s"), ϒvideo_id))
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):        EngadgetIE__TESTS,
 				λ.NewStr("_VALID_URL"):    EngadgetIE__VALID_URL,
 				λ.NewStr("_real_extract"): EngadgetIE__real_extract,
 			})

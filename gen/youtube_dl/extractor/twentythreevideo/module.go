@@ -44,25 +44,11 @@ func init() {
 		TwentyThreeVideoIE = λ.Cal(λ.TypeType, λ.NewStr("TwentyThreeVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TwentyThreeVideoIE_IE_NAME       λ.Object
-				TwentyThreeVideoIE__TEST         λ.Object
 				TwentyThreeVideoIE__VALID_URL    λ.Object
 				TwentyThreeVideoIE__real_extract λ.Object
 			)
 			TwentyThreeVideoIE_IE_NAME = λ.NewStr("23video")
 			TwentyThreeVideoIE__VALID_URL = λ.NewStr("https?://video\\.(?P<domain>twentythree\\.net|23video\\.com|filmweb\\.no)/v\\.ihtml/player\\.html\\?(?P<query>.*?\\bphoto(?:_|%5f)id=(?P<id>\\d+).*)")
-			TwentyThreeVideoIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("https://video.twentythree.net/v.ihtml/player.html?showDescriptions=0&source=site&photo%5fid=20448876&autoPlay=1"),
-				λ.NewStr("md5"): λ.NewStr("75fcf216303eb1dae9920d651f85ced4"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("20448876"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Video Marketing Minute: Personalized Video"),
-					λ.NewStr("timestamp"):   λ.NewInt(1513855354),
-					λ.NewStr("upload_date"): λ.NewStr("20171221"),
-					λ.NewStr("uploader_id"): λ.NewStr("12258964"),
-					λ.NewStr("uploader"):    λ.NewStr("Rasmus Bysted"),
-				}),
-			})
 			TwentyThreeVideoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -203,7 +189,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       TwentyThreeVideoIE_IE_NAME,
-				λ.NewStr("_TEST"):         TwentyThreeVideoIE__TEST,
 				λ.NewStr("_VALID_URL"):    TwentyThreeVideoIE__VALID_URL,
 				λ.NewStr("_real_extract"): TwentyThreeVideoIE__real_extract,
 			})

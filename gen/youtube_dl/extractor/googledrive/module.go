@@ -52,50 +52,10 @@ func init() {
 		GoogleDriveIE = λ.Cal(λ.TypeType, λ.NewStr("GoogleDriveIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				GoogleDriveIE__FORMATS_EXT  λ.Object
-				GoogleDriveIE__TESTS        λ.Object
 				GoogleDriveIE__VALID_URL    λ.Object
 				GoogleDriveIE__real_extract λ.Object
 			)
 			GoogleDriveIE__VALID_URL = λ.NewStr("(?x)\n                        https?://\n                            (?:\n                                (?:docs|drive)\\.google\\.com/\n                                (?:\n                                    (?:uc|open)\\?.*?id=|\n                                    file/d/\n                                )|\n                                video\\.google\\.com/get_player\\?.*?docid=\n                            )\n                            (?P<id>[a-zA-Z0-9_-]{28,})\n                    ")
-			GoogleDriveIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://drive.google.com/file/d/0ByeS4oOUV-49Zzh4R1J6R09zazQ/edit?pli=1"),
-					λ.NewStr("md5"): λ.NewStr("5c602afbbf2c1db91831f5d82f678554"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):       λ.NewStr("0ByeS4oOUV-49Zzh4R1J6R09zazQ"),
-						λ.NewStr("ext"):      λ.NewStr("mp4"),
-						λ.NewStr("title"):    λ.NewStr("Big Buck Bunny.mp4"),
-						λ.NewStr("duration"): λ.NewInt(45),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://drive.google.com/file/d/0B-vUyvmDLdWDcEt4WjBqcmI2XzQ/view"),
-					λ.NewStr("md5"): λ.NewStr("bfbd670d03a470bb1e6d4a257adec12e"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    λ.NewStr("0B-vUyvmDLdWDcEt4WjBqcmI2XzQ"),
-						λ.NewStr("ext"):   λ.NewStr("mp4"),
-						λ.NewStr("title"): λ.NewStr("Annabelle Creation (2017)- Z.V1 [TH].MP4"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://drive.google.com/file/d/1ENcQ_jeCuj7y19s66_Ou9dRP4GKGsodiDQ/edit"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):       λ.NewStr("1ENcQ_jeCuj7y19s66_Ou9dRP4GKGsodiDQ"),
-						λ.NewStr("ext"):      λ.NewStr("mp4"),
-						λ.NewStr("title"):    λ.NewStr("Andreea Banica feat Smiley - Hooky Song (Official Video).mp4"),
-						λ.NewStr("duration"): λ.NewInt(189),
-					}),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://drive.google.com/open?id=0B2fjwgkl1A_CX083Tkowdmt6d28"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://drive.google.com/uc?id=0B2fjwgkl1A_CX083Tkowdmt6d28"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			GoogleDriveIE__FORMATS_EXT = λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("5"):  λ.NewStr("flv"),
 				λ.NewStr("6"):  λ.NewStr("flv"),
@@ -345,7 +305,6 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_FORMATS_EXT"):  GoogleDriveIE__FORMATS_EXT,
-				λ.NewStr("_TESTS"):        GoogleDriveIE__TESTS,
 				λ.NewStr("_VALID_URL"):    GoogleDriveIE__VALID_URL,
 				λ.NewStr("_real_extract"): GoogleDriveIE__real_extract,
 			})

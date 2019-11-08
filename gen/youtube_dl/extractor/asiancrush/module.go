@@ -47,52 +47,12 @@ func init() {
 		ϒextract_attributes = Ωutils.ϒextract_attributes
 		AsianCrushIE = λ.Cal(λ.TypeType, λ.NewStr("AsianCrushIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				AsianCrushIE__TESTS          λ.Object
 				AsianCrushIE__VALID_URL      λ.Object
 				AsianCrushIE__VALID_URL_BASE λ.Object
 				AsianCrushIE__real_extract   λ.Object
 			)
 			AsianCrushIE__VALID_URL_BASE = λ.NewStr("https?://(?:www\\.)?(?P<host>(?:(?:asiancrush|yuyutv|midnightpulp)\\.com|cocoro\\.tv))")
 			AsianCrushIE__VALID_URL = λ.Mod(λ.NewStr("%s/video/(?:[^/]+/)?0+(?P<id>\\d+)v\\b"), AsianCrushIE__VALID_URL_BASE)
-			AsianCrushIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.asiancrush.com/video/012869v/women-who-flirt/"),
-					λ.NewStr("md5"): λ.NewStr("c3b740e48d0ba002a42c0b72857beae6"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1_y4tmjm5r"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Women Who Flirt"),
-						λ.NewStr("description"): λ.NewStr("md5:7e986615808bcfb11756eb503a751487"),
-						λ.NewStr("timestamp"):   λ.NewInt(1496936429),
-						λ.NewStr("upload_date"): λ.NewStr("20170608"),
-						λ.NewStr("uploader_id"): λ.NewStr("craig@crifkin.com"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.asiancrush.com/video/she-was-pretty/011886v-pretty-episode-3/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.yuyutv.com/video/013886v/the-act-of-killing/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.yuyutv.com/video/peep-show/013922v-warring-factions/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.midnightpulp.com/video/010400v/drifters/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.midnightpulp.com/video/mononoke/016378v-zashikiwarashi-part-1/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://www.cocoro.tv/video/the-wonderful-wizard-of-oz/008878v-the-wonderful-wizard-of-oz-ep01/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
 			AsianCrushIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -188,7 +148,6 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TESTS"):          AsianCrushIE__TESTS,
 				λ.NewStr("_VALID_URL"):      AsianCrushIE__VALID_URL,
 				λ.NewStr("_VALID_URL_BASE"): AsianCrushIE__VALID_URL_BASE,
 				λ.NewStr("_real_extract"):   AsianCrushIE__real_extract,
