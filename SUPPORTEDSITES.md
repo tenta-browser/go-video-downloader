@@ -30,6 +30,7 @@ Supported sites
  * Canalplus: `www.piwiplus.fr`
  * Canalc2: `www.canalc2.tv`
  * CBCPlayer: `www.cbc.ca`
+ * CCC: `media.ccc.de`
  * CCMA: `www.ccma.cat`
  * CCTV: `sports.cntv.cn`
  * CharlieRose: `charlierose.com`

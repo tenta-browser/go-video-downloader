@@ -35,6 +35,7 @@ var (
 )
 
 type (
+	newFn          func(Type, Args, KWArgs) Object
 	methodFn       func(Object, Args, KWArgs) Object
 	getAttributeFn func(Object, Str) Object
 	setAttrFn      func(Object, Str, Object)
@@ -49,8 +50,7 @@ type (
 )
 
 type typeSlots struct {
-	// type (TODO add slot wrapping/unwrapping for New)
-	New  func(Type, Args, KWArgs) Object
+	New  newFn
 	Init methodFn
 	Call methodFn
 
@@ -158,6 +158,17 @@ func (slots *typeSlots) makeFunctions(t Type) map[string]Function {
 		}
 		var funcFn func(Args, KWArgs) Object
 		switch slotFn := slotField.Interface().(type) {
+		case newFn:
+			funcFn = func(args Args, kwArgs KWArgs) Object {
+				var checkArgs Args
+				if len(args) > 0 {
+					checkArgs = args[:1]
+				} else {
+					checkArgs = args
+				}
+				checkFunctionArgs(slotName, checkArgs, nil, TypeType)
+				return slotFn(args[0].(Type), args[1:], kwArgs)
+			}
 		case methodFn:
 			funcFn = func(args Args, kwArgs KWArgs) Object {
 				var checkArgs Args
@@ -238,6 +249,13 @@ func (slots *typeSlots) fillSlots(dict Dict) {
 			usedSymbolDictAttr(dict, slotName)
 		}
 		switch {
+		case slotIsType(newFn(nil)):
+			slotFn = newFn(func(t Type, args Args, kwArgs KWArgs) Object {
+				usedSymbol()
+				callArgs := Args{t}
+				callArgs = append(callArgs, args...)
+				return Call(dictFunc, callArgs, kwArgs)
+			})
 		case slotIsType(methodFn(nil)):
 			slotFn = methodFn(func(o Object, args Args, kwArgs KWArgs) Object {
 				usedSymbol()

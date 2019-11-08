@@ -29,17 +29,18 @@ import (
 )
 
 var (
-	ϒadd     λ.Object
-	ϒand_    λ.Object
-	ϒconcat  λ.Object
-	ϒlshift  λ.Object
-	ϒmod     λ.Object
-	ϒmul     λ.Object
-	ϒor_     λ.Object
-	ϒrshift  λ.Object
-	ϒsub     λ.Object
-	ϒtruediv λ.Object
-	ϒxor     λ.Object
+	ϒadd        λ.Object
+	ϒand_       λ.Object
+	ϒconcat     λ.Object
+	ϒitemgetter λ.Object
+	ϒlshift     λ.Object
+	ϒmod        λ.Object
+	ϒmul        λ.Object
+	ϒor_        λ.Object
+	ϒrshift     λ.Object
+	ϒsub        λ.Object
+	ϒtruediv    λ.Object
+	ϒxor        λ.Object
 )
 
 func init() {
@@ -193,5 +194,80 @@ func init() {
 				}
 				return λ.Add(ϒa, ϒb)
 			})
+		ϒitemgetter = λ.Cal(λ.TypeType, λ.NewStr("itemgetter"), λ.NewTuple(), func() λ.Dict {
+			var (
+				ϒitemgetter___init__ λ.Object
+			)
+			ϒitemgetter___init__ = λ.NewFunction("__init__",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "item"},
+				},
+				0, true, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒfunc  λ.Object
+						ϒitem  = λargs[1]
+						ϒitems = λargs[2]
+						ϒself  = λargs[0]
+						τmp0   λ.Object
+					)
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒitems))) {
+						λ.SetAttr(ϒself, "_items", λ.NewTuple(ϒitem))
+						ϒfunc = λ.NewFunction("func",
+							[]λ.Param{
+								{Name: "obj"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒobj = λargs[0]
+								)
+								return λ.GetItem(ϒobj, ϒitem)
+							})
+						λ.SetAttr(ϒself, "_call", ϒfunc)
+					} else {
+						τmp0 = λ.Add(λ.NewTuple(ϒitem), ϒitems)
+						λ.SetAttr(ϒself, "_items", τmp0)
+						ϒitems = τmp0
+						ϒfunc = λ.NewFunction("func",
+							[]λ.Param{
+								{Name: "obj"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒobj = λargs[0]
+								)
+								return λ.Cal(λ.TupleType, λ.Cal(λ.NewFunction("<generator>",
+									nil,
+									0, false, false,
+									func(λargs []λ.Object) λ.Object {
+										return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
+											var (
+												ϒi   λ.Object
+												τmp0 λ.Object
+												τmp1 λ.Object
+											)
+											τmp0 = λ.Cal(λ.BuiltinIter, ϒitems)
+											for {
+												if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+													break
+												}
+												ϒi = τmp1
+												λgy.Yield(λ.GetItem(ϒobj, ϒi))
+											}
+											return λ.None
+										})
+									})))
+							})
+						λ.SetAttr(ϒself, "_call", ϒfunc)
+					}
+					return λ.None
+				})
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("__init__"): ϒitemgetter___init__,
+			})
+		}())
 	})
 }

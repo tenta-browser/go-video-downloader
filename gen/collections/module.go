@@ -25,15 +25,19 @@
 package collections
 
 import (
+	Ωoperator "github.com/tenta-browser/go-video-downloader/gen/operator"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
+	ϒ_itemgetter λ.Object
 	ϒdefaultdict λ.Object
+	ϒnamedtuple  λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
+		ϒ_itemgetter = Ωoperator.ϒitemgetter
 		ϒdefaultdict = λ.Cal(λ.TypeType, λ.NewStr("defaultdict"), λ.NewTuple(λ.DictType), func() λ.Dict {
 			var (
 				ϒdefaultdict___getitem__ λ.Object
@@ -99,5 +103,140 @@ func init() {
 				λ.NewStr("__init__"):    ϒdefaultdict___init__,
 			})
 		}())
+		ϒnamedtuple = λ.NewFunction("namedtuple",
+			[]λ.Param{
+				{Name: "typename"},
+				{Name: "field_names"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒ__new__         λ.Object
+					ϒ__repr__        λ.Object
+					ϒ_asdict         λ.Object
+					ϒ_make           λ.Object
+					ϒclass_namespace λ.Object
+					ϒfield_names     = λargs[1]
+					ϒindex           λ.Object
+					ϒname            λ.Object
+					ϒrepr_fmt        λ.Object
+					ϒresult          λ.Object
+					ϒseen            λ.Object
+					ϒtypename        = λargs[0]
+					τmp0             λ.Object
+					τmp1             λ.Object
+					τmp2             λ.Object
+				)
+				if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒfield_names, λ.StrType)) {
+					ϒfield_names = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒfield_names, "replace", nil), λ.NewStr(","), λ.NewStr(" ")), "split", nil))
+				}
+				ϒfield_names = λ.Cal(λ.ListType, λ.Cal(λ.MapIteratorType, λ.StrType, ϒfield_names))
+				ϒseen = λ.Cal(λ.SetType)
+				τmp0 = λ.Cal(λ.BuiltinIter, ϒfield_names)
+				for {
+					if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+						break
+					}
+					ϒname = τmp1
+					if λ.IsTrue(λ.NewBool(λ.Contains(ϒseen, ϒname))) {
+						panic(λ.Raise(λ.Cal(λ.ValueErrorType, λ.Cal(λ.GetAttr(λ.NewStr("Encountered duplicate field name: {!r}"), "format", nil), ϒname))))
+					}
+					λ.Cal(λ.GetAttr(ϒseen, "add", nil), ϒname)
+				}
+				ϒrepr_fmt = λ.Add(λ.Add(λ.NewStr("("), λ.Cal(λ.GetAttr(λ.NewStr(", "), "join", nil), λ.Cal(λ.NewFunction("<generator>",
+					nil,
+					0, false, false,
+					func(λargs []λ.Object) λ.Object {
+						return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
+							var (
+								ϒname λ.Object
+								τmp0  λ.Object
+								τmp1  λ.Object
+							)
+							τmp0 = λ.Cal(λ.BuiltinIter, ϒfield_names)
+							for {
+								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+									break
+								}
+								ϒname = τmp1
+								λgy.Yield(λ.Cal(λ.GetAttr(λ.NewStr("{}=%r"), "format", nil), ϒname))
+							}
+							return λ.None
+						})
+					})))), λ.NewStr(")"))
+				ϒ_make = λ.NewFunction("_make",
+					[]λ.Param{
+						{Name: "cls"},
+						{Name: "iterable"},
+					},
+					0, false, false,
+					func(λargs []λ.Object) λ.Object {
+						var (
+							ϒcls      = λargs[0]
+							ϒiterable = λargs[1]
+							ϒresult   λ.Object
+						)
+						ϒresult = λ.Cal(λ.GetAttr(λ.TupleType, "__new__", nil), ϒcls, ϒiterable)
+						if λ.IsTrue(λ.Ne(λ.Cal(λ.BuiltinLen, ϒresult), λ.Cal(λ.BuiltinLen, ϒfield_names))) {
+							panic(λ.Raise(λ.Cal(λ.TypeErrorType, λ.Cal(λ.GetAttr(λ.NewStr("Expected {} arguments, got {}"), "format", nil), λ.Cal(λ.BuiltinLen, ϒfield_names), λ.Cal(λ.BuiltinLen, ϒresult)))))
+						}
+						return ϒresult
+					})
+				ϒ_make = λ.Cal(λ.ClassMethodType, ϒ_make)
+				ϒ__new__ = λ.NewFunction("__new__",
+					[]λ.Param{
+						{Name: "cls"},
+					},
+					0, true, false,
+					func(λargs []λ.Object) λ.Object {
+						var (
+							ϒargs = λargs[1]
+							ϒcls  = λargs[0]
+						)
+						return λ.Cal(λ.GetAttr(ϒcls, "_make", nil), ϒargs)
+					})
+				ϒ__repr__ = λ.NewFunction("__repr__",
+					[]λ.Param{
+						{Name: "self"},
+					},
+					0, false, false,
+					func(λargs []λ.Object) λ.Object {
+						var (
+							ϒself = λargs[0]
+						)
+						return λ.Add(λ.GetAttr(λ.GetAttr(ϒself, "__class__", nil), "__name__", nil), λ.Mod(ϒrepr_fmt, ϒself))
+					})
+				ϒ_asdict = λ.NewFunction("_asdict",
+					[]λ.Param{
+						{Name: "self"},
+					},
+					0, false, false,
+					func(λargs []λ.Object) λ.Object {
+						var (
+							ϒself = λargs[0]
+						)
+						λ.NewStr("Return a new dict which maps field names to their values.")
+						return λ.Cal(λ.DictType, λ.Cal(λ.ZipIteratorType, λ.GetAttr(ϒself, "_fields", nil), ϒself))
+					})
+				ϒclass_namespace = λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("_fields"):  ϒfield_names,
+					λ.NewStr("__new__"):  ϒ__new__,
+					λ.NewStr("_make"):    ϒ_make,
+					λ.NewStr("__repr__"): ϒ__repr__,
+					λ.NewStr("_asdict"):  ϒ_asdict,
+				})
+				τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.EnumerateIteratorType, ϒfield_names))
+				for {
+					if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+						break
+					}
+					τmp2 = τmp1
+					ϒindex = λ.GetItem(τmp2, λ.NewInt(0))
+					ϒname = λ.GetItem(τmp2, λ.NewInt(1))
+					λ.SetItem(ϒclass_namespace, ϒname, λ.Cal(λ.PropertyType, λ.Cal(ϒ_itemgetter, ϒindex)))
+				}
+				ϒresult = λ.Cal(λ.TypeType, ϒtypename, λ.NewTuple(λ.TupleType), ϒclass_namespace)
+				return ϒresult
+			})
 	})
 }

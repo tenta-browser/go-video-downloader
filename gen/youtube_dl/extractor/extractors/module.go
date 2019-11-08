@@ -51,6 +51,7 @@ import (
 	Ωcanalc2 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/canalc2"
 	Ωcanalplus "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/canalplus"
 	Ωcbc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/cbc"
+	Ωccc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ccc"
 	Ωccma "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ccma"
 	Ωcctv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/cctv"
 	Ωcharlierose "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/charlierose"
@@ -324,6 +325,7 @@ var (
 	BpbIE                      λ.Object
 	BravoTVIE                  λ.Object
 	CBCPlayerIE                λ.Object
+	CCCIE                      λ.Object
 	CCMAIE                     λ.Object
 	CCTVIE                     λ.Object
 	CNNArticleIE               λ.Object
@@ -630,6 +632,7 @@ func init() {
 		CanalplusIE = Ωcanalplus.CanalplusIE
 		Canalc2IE = Ωcanalc2.Canalc2IE
 		CBCPlayerIE = Ωcbc.CBCPlayerIE
+		CCCIE = Ωccc.CCCIE
 		CCMAIE = Ωccma.CCMAIE
 		CCTVIE = Ωcctv.CCTVIE
 		CharlieRoseIE = Ωcharlierose.CharlieRoseIE
@@ -929,6 +932,7 @@ func init() {
 			CanalplusIE,
 			Canalc2IE,
 			CBCPlayerIE,
+			CCCIE,
 			CCMAIE,
 			CCTVIE,
 			CharlieRoseIE,

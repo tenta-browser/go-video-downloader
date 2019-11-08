@@ -38,7 +38,13 @@ func UsedSymbol(name string, v Object) Object {
 }
 
 func usedSymbolDictAttr(dict Dict, attr string) {
-	tname := dict.GetItem(NewStr("__symbol__")).(Str).Value()
+	tnamei := dict.GetItem(NewStr("__symbol__"))
+	if tnamei == nil {
+		// No symbol will be defined for runtime created types,
+		// for example using namedtuple.
+		return
+	}
+	tname := tnamei.(Str).Value()
 	name := fmt.Sprintf("%s.%s", tname, attr)
 	usedSymbols[name] = true
 }
