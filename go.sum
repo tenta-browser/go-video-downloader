@@ -1,0 +1,13 @@
+github.com/beevik/etree v1.1.0 h1:T0xke/WvNtMoCqgzPhkX2r4rjY3GDZFi+FjpRZY2Jbs=
+github.com/beevik/etree v1.1.0/go.mod h1:r8Aw8JqVegEf0w2fDnATrX9VpkMcyFeM0FhwO62wh+A=
+github.com/gijsbers/go-pcre v0.0.0-20161214203829-a84f3096ab3c h1:o5z/Stj4aWUiDiCVFdEOgXcwNF+Z7mQSlvDTaWBK98Q=
+github.com/gijsbers/go-pcre v0.0.0-20161214203829-a84f3096ab3c/go.mod h1:Bd83Kcti1U5OMXYYTjilhd6os+l6AmlTMVbDtaBvycQ=
+github.com/tenta-browser/go-pcre-matcher v0.0.0-20181119152944-9985a9d97d9b h1:wQF51pdIuqHNis1FyV0L+7LTmxhzQMXurcmjuSgjI/s=
+github.com/tenta-browser/go-pcre-matcher v0.0.0-20181119152944-9985a9d97d9b/go.mod h1:dJEwXhaz7izqvt5yzLC2q+y0zJUwDOFc7GS5iS7I9jU=
+golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
+golang.org/x/net v0.0.0-20190827160401-ba9fcec4b297 h1:k7pJ2yAPLPgbskkFdhRCsA77k2fySZ1zf2zCjvQCiIM=
+golang.org/x/net v0.0.0-20190827160401-ba9fcec4b297/go.mod h1:z5CRVTTTmAJ677TzLLGU+0bjPO0LkuOLi4/5GtJWs/s=
+golang.org/x/net v0.0.0-20191108063844-7e6e90b9ea88 h1:Duq71GDCs3Cs8n6cRINv6SutZHHvYwzL28LBv73RiNU=
+golang.org/x/net v0.0.0-20191108063844-7e6e90b9ea88/go.mod h1:z5CRVTTTmAJ677TzLLGU+0bjPO0LkuOLi4/5GtJWs/s=
+golang.org/x/sys v0.0.0-20190215142949-d0b11bdaac8a/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
+golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=

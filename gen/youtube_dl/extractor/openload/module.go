@@ -26,7 +26,6 @@ package openload
 
 import (
 	Ωbrowser "github.com/tenta-browser/go-video-downloader/gen/lib/browser"
-	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
@@ -61,237 +60,26 @@ func init() {
 		}())
 		OpenloadIE = λ.Cal(λ.TypeType, λ.NewStr("OpenloadIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				OpenloadIE__DOMAINS      λ.Object
-				OpenloadIE__VALID_URL    λ.Object
-				OpenloadIE__real_extract λ.Object
+				OpenloadIE__DOMAINS   λ.Object
+				OpenloadIE__VALID_URL λ.Object
 			)
 			OpenloadIE__DOMAINS = λ.NewStr("\n                    (?:\n                        openload\\.(?:co|io|link|pw)|\n                        oload\\.(?:tv|best|biz|stream|site|xyz|win|download|cloud|cc|icu|fun|club|info|online|monster|press|pw|life|live|space|services|website|vip)|\n                        oladblock\\.(?:services|xyz|me)|openloed\\.co\n                    )\n                ")
 			OpenloadIE__VALID_URL = λ.Mod(λ.NewStr("(?x)\n                    https?://\n                        (?P<host>\n                            (?:www\\.)?\n                            %s\n                        )/\n                        (?:f|embed)/\n                        (?P<id>[a-zA-Z0-9-_]+)\n                    "), OpenloadIE__DOMAINS)
-			OpenloadIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒdecoded_id  λ.Object
-						ϒelement_id  λ.Object
-						ϒentries     λ.Object
-						ϒentry       λ.Object
-						ϒhost        λ.Object
-						ϒlast        λ.Object
-						ϒmobj        λ.Object
-						ϒpage_url    λ.Object
-						ϒpath        λ.Object
-						ϒself        = λargs[0]
-						ϒsubtitles   λ.Object
-						ϒtitle       λ.Object
-						ϒurl         = λargs[1]
-						ϒurl_pattern λ.Object
-						ϒvideo_id    λ.Object
-						ϒvideo_url   λ.Object
-						ϒwebpage     λ.Object
-						τmp0         λ.Object
-						τmp1         λ.Object
-					)
-					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒhost = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("host"))
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-					ϒurl_pattern = λ.Mod(λ.NewStr("https://%s/%%s/%s/"), λ.NewTuple(
-						ϒhost,
-						ϒvideo_id,
-					))
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-						λ.GetAttr(ϒself, "_EMBED_WORD", nil),
-						λ.GetAttr(ϒself, "_STREAM_WORD", nil),
-					))
-					for {
-						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-							break
-						}
-						ϒpath = τmp1
-						ϒpage_url = λ.Mod(ϒurl_pattern, ϒpath)
-						ϒlast = λ.Eq(ϒpath, λ.GetAttr(ϒself, "_STREAM_WORD", nil))
-						ϒwebpage = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
-							ϒpage_url,
-							ϒvideo_id,
-							λ.Mod(λ.NewStr("Downloading %s webpage"), ϒpath),
-						), λ.KWArgs{
-							{Name: "fatal", Value: ϒlast},
-						})
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒwebpage))) {
-							continue
-						}
-						if λ.IsTrue(func() λ.Object {
-							if λv := λ.NewBool(λ.Contains(ϒwebpage, λ.NewStr("File not found"))); λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.NewBool(λ.Contains(ϒwebpage, λ.NewStr("deleted by the owner")))
-							}
-						}()) {
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒlast))) {
-								continue
-							}
-							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("File not found")), λ.KWArgs{
-								{Name: "expected", Value: λ.True},
-								{Name: "video_id", Value: ϒvideo_id},
-							})))
-						}
-						break
-					}
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_extract_decrypted_page", nil), ϒpage_url, ϒwebpage, ϒvideo_id)
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetAttr(ϒself, "_URL_IDS", nil))
-					for {
-						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-							break
-						}
-						ϒelement_id = τmp1
-						ϒdecoded_id = λ.Cal(ϒget_element_by_id, ϒelement_id, ϒwebpage)
-						if λ.IsTrue(ϒdecoded_id) {
-							break
-						}
-					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒdecoded_id))) {
-						ϒdecoded_id = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewTuple(
-							λ.NewStr(">\\s*([\\w-]+~\\d{10,}~\\d+\\.\\d+\\.0\\.0~[\\w-]+)\\s*<"),
-							λ.NewStr(">\\s*([\\w~-]+~\\d+\\.\\d+\\.\\d+\\.\\d+~[\\w~-]+)"),
-							λ.NewStr(">\\s*([\\w-]+~\\d{10,}~(?:[a-f\\d]+:){2}:~[\\w-]+)\\s*<"),
-							λ.NewStr(">\\s*([\\w~-]+~[a-f0-9:]+~[\\w~-]+)\\s*<"),
-							λ.NewStr(">\\s*([\\w~-]+~[a-f0-9:]+~[\\w~-]+)"),
-						), ϒwebpage, λ.NewStr("stream URL"))
-					}
-					ϒvideo_url = λ.Mod(λ.NewStr("https://%s/%s/%s?mime=true"), λ.NewTuple(
-						ϒhost,
-						λ.GetAttr(ϒself, "_REDIR_WORD", nil),
-						ϒdecoded_id,
-					))
-					ϒtitle = func() λ.Object {
-						if λv := λ.Call(λ.GetAttr(ϒself, "_og_search_title", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
-							{Name: "default", Value: λ.None},
-						}); λ.IsTrue(λv) {
-							return λv
-						} else if λv := λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("<span[^>]+class=[\"\\']title[\"\\'][^>]*>([^<]+)"),
-							ϒwebpage,
-							λ.NewStr("title"),
-						), λ.KWArgs{
-							{Name: "default", Value: λ.None},
-						}); λ.IsTrue(λv) {
-							return λv
-						} else {
-							return λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
-								λ.NewStr("description"),
-								ϒwebpage,
-								λ.NewStr("title"),
-							), λ.KWArgs{
-								{Name: "fatal", Value: λ.True},
-							})
-						}
-					}()
-					ϒentries = λ.Cal(λ.GetAttr(ϒself, "_parse_html5_media_entries", nil), ϒpage_url, ϒwebpage, ϒvideo_id)
-					ϒentry = func() λ.Object {
-						if λ.IsTrue(ϒentries) {
-							return λ.GetItem(ϒentries, λ.NewInt(0))
-						} else {
-							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
-						}
-					}()
-					ϒsubtitles = λ.Cal(λ.GetAttr(ϒentry, "get", nil), λ.NewStr("subtitles"))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    ϒvideo_id,
-						λ.NewStr("title"): ϒtitle,
-						λ.NewStr("thumbnail"): func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒentry, "get", nil), λ.NewStr("thumbnail")); λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.Call(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
-									{Name: "default", Value: λ.None},
-								})
-							}
-						}(),
-						λ.NewStr("url"): ϒvideo_url,
-						λ.NewStr("ext"): func() λ.Object {
-							if λv := λ.Cal(ϒdetermine_ext, ϒtitle, λ.None); λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.Cal(ϒdetermine_ext, ϒurl, λ.NewStr("mp4"))
-							}
-						}(),
-						λ.NewStr("subtitles"): ϒsubtitles,
-					})
-				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_DOMAINS"):      OpenloadIE__DOMAINS,
-				λ.NewStr("_VALID_URL"):    OpenloadIE__VALID_URL,
-				λ.NewStr("_real_extract"): OpenloadIE__real_extract,
+				λ.NewStr("_DOMAINS"):   OpenloadIE__DOMAINS,
+				λ.NewStr("_VALID_URL"): OpenloadIE__VALID_URL,
 			})
 		}())
 		VerystreamIE = λ.Cal(λ.TypeType, λ.NewStr("VerystreamIE"), λ.NewTuple(OpenloadIE), func() λ.Dict {
 			var (
-				VerystreamIE_IE_NAME                 λ.Object
-				VerystreamIE__DOMAINS                λ.Object
-				VerystreamIE__EMBED_WORD             λ.Object
-				VerystreamIE__REDIR_WORD             λ.Object
-				VerystreamIE__STREAM_WORD            λ.Object
-				VerystreamIE__TESTS                  λ.Object
-				VerystreamIE__URL_IDS                λ.Object
-				VerystreamIE__VALID_URL              λ.Object
-				VerystreamIE__extract_decrypted_page λ.Object
+				VerystreamIE__DOMAINS   λ.Object
+				VerystreamIE__VALID_URL λ.Object
 			)
-			VerystreamIE_IE_NAME = λ.NewStr("verystream")
 			VerystreamIE__DOMAINS = λ.NewStr("(?:verystream\\.com|woof\\.tube)")
 			VerystreamIE__VALID_URL = λ.Mod(λ.NewStr("(?x)\n                    https?://\n                        (?P<host>\n                            (?:www\\.)?\n                            %s\n                        )/\n                        (?:stream|e)/\n                        (?P<id>[a-zA-Z0-9-_]+)\n                    "), VerystreamIE__DOMAINS)
-			VerystreamIE__EMBED_WORD = λ.NewStr("e")
-			VerystreamIE__STREAM_WORD = λ.NewStr("stream")
-			VerystreamIE__REDIR_WORD = λ.NewStr("gettoken")
-			VerystreamIE__URL_IDS = λ.NewTuple(λ.NewStr("videolink"))
-			VerystreamIE__TESTS = λ.NewList(
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://verystream.com/stream/c1GWQ9ngBBx/"),
-					λ.NewStr("md5"): λ.NewStr("d3e8c5628ccb9970b65fd65269886795"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        λ.NewStr("c1GWQ9ngBBx"),
-						λ.NewStr("ext"):       λ.NewStr("mp4"),
-						λ.NewStr("title"):     λ.NewStr("Big Buck Bunny.mp4"),
-						λ.NewStr("thumbnail"): λ.NewStr("re:^https?://.*\\.jpg$"),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://verystream.com/e/c1GWQ9ngBBx/"),
-					λ.NewStr("only_matching"): λ.True,
-				}),
-			)
-			VerystreamIE__extract_decrypted_page = λ.NewFunction("_extract_decrypted_page",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "page_url"},
-					{Name: "webpage"},
-					{Name: "video_id"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒpage_url = λargs[1]
-						ϒself     = λargs[0]
-						ϒvideo_id = λargs[3]
-						ϒwebpage  = λargs[2]
-					)
-					_ = ϒpage_url
-					_ = ϒself
-					_ = ϒvideo_id
-					return ϒwebpage
-				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):                 VerystreamIE_IE_NAME,
-				λ.NewStr("_DOMAINS"):                VerystreamIE__DOMAINS,
-				λ.NewStr("_EMBED_WORD"):             VerystreamIE__EMBED_WORD,
-				λ.NewStr("_REDIR_WORD"):             VerystreamIE__REDIR_WORD,
-				λ.NewStr("_STREAM_WORD"):            VerystreamIE__STREAM_WORD,
-				λ.NewStr("_TESTS"):                  VerystreamIE__TESTS,
-				λ.NewStr("_URL_IDS"):                VerystreamIE__URL_IDS,
-				λ.NewStr("_VALID_URL"):              VerystreamIE__VALID_URL,
-				λ.NewStr("_extract_decrypted_page"): VerystreamIE__extract_decrypted_page,
+				λ.NewStr("_DOMAINS"):   VerystreamIE__DOMAINS,
+				λ.NewStr("_VALID_URL"): VerystreamIE__VALID_URL,
 			})
 		}())
 	})

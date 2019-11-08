@@ -50,6 +50,7 @@ import (
 	Ωjoj "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/joj"
 	Ωjwplatform "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/jwplatform"
 	Ωkaltura "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/kaltura"
+	Ωkinja "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/kinja"
 	Ωlimelight "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/limelight"
 	Ωliveleak "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/liveleak"
 	Ωmediaset "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mediaset"
@@ -58,6 +59,7 @@ import (
 	Ωmyvi "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/myvi"
 	Ωnbc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nbc"
 	Ωnexx "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nexx"
+	Ωodnoklassniki "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/odnoklassniki"
 	Ωonionstudios "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/onionstudios"
 	Ωooyala "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ooyala"
 	Ωopenload "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/openload"
@@ -133,6 +135,7 @@ var (
 	JojIE                        λ.Object
 	KNOWN_EXTENSIONS             λ.Object
 	KalturaIE                    λ.Object
+	KinjaEmbedIE                 λ.Object
 	LimelightBaseIE              λ.Object
 	LiveLeakIE                   λ.Object
 	MTVServicesEmbeddedIE        λ.Object
@@ -142,6 +145,7 @@ var (
 	NBCSportsVPlayerIE           λ.Object
 	NexxEmbedIE                  λ.Object
 	NexxIE                       λ.Object
+	OdnoklassnikiIE              λ.Object
 	OnionStudiosIE               λ.Object
 	OoyalaIE                     λ.Object
 	OpenloadIE                   λ.Object
@@ -156,7 +160,7 @@ var (
 	SVTIE                        λ.Object
 	SenateISVPIE                 λ.Object
 	SmotriIE                     λ.Object
-	SoundcloudIE                 λ.Object
+	SoundcloudEmbedIE            λ.Object
 	SportBoxIE                   λ.Object
 	SpringboardPlatformIE        λ.Object
 	TNAFlixNetworkEmbedIE        λ.Object
@@ -270,7 +274,7 @@ func init() {
 		KalturaIE = Ωkaltura.KalturaIE
 		EaglePlatformIE = Ωeagleplatform.EaglePlatformIE
 		FacebookIE = Ωfacebook.FacebookIE
-		SoundcloudIE = Ωsoundcloud.SoundcloudIE
+		SoundcloudEmbedIE = Ωsoundcloud.SoundcloudEmbedIE
 		TuneInBaseIE = Ωtunein.TuneInBaseIE
 		Vbox7IE = Ωvbox7.Vbox7IE
 		DBTVIE = Ωdbtv.DBTVIE
@@ -304,5 +308,7 @@ func init() {
 		ViqeoIE = Ωviqeo.ViqeoIE
 		ExpressenIE = Ωexpressen.ExpressenIE
 		ZypeIE = Ωzype.ZypeIE
+		OdnoklassnikiIE = Ωodnoklassniki.OdnoklassnikiIE
+		KinjaEmbedIE = Ωkinja.KinjaEmbedIE
 	})
 }

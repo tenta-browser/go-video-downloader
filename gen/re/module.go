@@ -31,7 +31,6 @@ import (
 
 var (
 	DOTALL        λ.Object
-	MULTILINE     λ.Object
 	Match         λ.Object
 	MatchIterator λ.Object
 	Pattern       λ.Object
@@ -51,7 +50,6 @@ func init() {
 		τmp0 = Ωre.FlagIgnoreCase
 
 		τmp0 = Ωre.FlagMultiline
-		MULTILINE = τmp0
 
 		τmp0 = Ωre.FlagDotAll
 		DOTALL = τmp0

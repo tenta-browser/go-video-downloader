@@ -3319,6 +3319,7 @@ func init() {
 					{Name: "errnote", Def: λ.None},
 					{Name: "fatal", Def: λ.True},
 					{Name: "live", Def: λ.False},
+					{Name: "headers", Def: λ.NewDictWithTable(map[λ.Object]λ.Object{})},
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
@@ -3327,6 +3328,7 @@ func init() {
 						ϒerrnote        = λargs[8]
 						ϒext            = λargs[3]
 						ϒfatal          = λargs[9]
+						ϒheaders        = λargs[11]
 						ϒlive           = λargs[10]
 						ϒm3u8_doc       λ.Object
 						ϒm3u8_id        = λargs[6]
@@ -3358,6 +3360,7 @@ func init() {
 							}
 						}()},
 						{Name: "fatal", Value: ϒfatal},
+						{Name: "headers", Value: ϒheaders},
 					})
 					if λ.IsTrue(λ.NewBool(ϒres == λ.False)) {
 						return λ.NewList()
@@ -4188,6 +4191,7 @@ func init() {
 					{Name: "errnote", Def: λ.None},
 					{Name: "fatal", Def: λ.True},
 					{Name: "formats_dict", Def: λ.NewDictWithTable(map[λ.Object]λ.Object{})},
+					{Name: "headers", Def: λ.NewDictWithTable(map[λ.Object]λ.Object{})},
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
@@ -4195,6 +4199,7 @@ func init() {
 						ϒerrnote      = λargs[5]
 						ϒfatal        = λargs[6]
 						ϒformats_dict = λargs[7]
+						ϒheaders      = λargs[8]
 						ϒmpd_base_url λ.Object
 						ϒmpd_doc      λ.Object
 						ϒmpd_id       = λargs[3]
@@ -4225,6 +4230,7 @@ func init() {
 							}
 						}()},
 						{Name: "fatal", Value: ϒfatal},
+						{Name: "headers", Value: ϒheaders},
 					})
 					if λ.IsTrue(λ.NewBool(ϒres == λ.False)) {
 						return λ.NewList()

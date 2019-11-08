@@ -28,6 +28,7 @@ import (
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωdailymotion "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dailymotion"
+	Ωodnoklassniki "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/odnoklassniki"
 	Ωpladform "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pladform"
 	Ωvimeo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vimeo"
 	Ωyoutube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youtube"
@@ -39,6 +40,7 @@ var (
 	DailymotionIE         λ.Object
 	ExtractorError        λ.Object
 	InfoExtractor         λ.Object
+	OdnoklassnikiIE       λ.Object
 	PladformIE            λ.Object
 	VKBaseIE              λ.Object
 	VKIE                  λ.Object
@@ -50,7 +52,6 @@ var (
 	ϒget_element_by_class λ.Object
 	ϒint_or_none          λ.Object
 	ϒorderedSet           λ.Object
-	ϒremove_start         λ.Object
 	ϒstr_or_none          λ.Object
 	ϒstr_to_int           λ.Object
 	ϒunescapeHTML         λ.Object
@@ -67,7 +68,6 @@ func init() {
 		ϒget_element_by_class = Ωutils.ϒget_element_by_class
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒorderedSet = Ωutils.ϒorderedSet
-		ϒremove_start = Ωutils.ϒremove_start
 		ϒstr_or_none = Ωutils.ϒstr_or_none
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
@@ -75,14 +75,16 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		DailymotionIE = Ωdailymotion.DailymotionIE
+		OdnoklassnikiIE = Ωodnoklassniki.OdnoklassnikiIE
 		PladformIE = Ωpladform.PladformIE
 		VimeoIE = Ωvimeo.VimeoIE
 		YoutubeIE = Ωyoutube.YoutubeIE
 		VKBaseIE = λ.Cal(λ.TypeType, λ.NewStr("VKBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				VKBaseIE__NETRC_MACHINE   λ.Object
-				VKBaseIE__login           λ.Object
-				VKBaseIE__real_initialize λ.Object
+				VKBaseIE__NETRC_MACHINE    λ.Object
+				VKBaseIE__download_payload λ.Object
+				VKBaseIE__login            λ.Object
+				VKBaseIE__real_initialize  λ.Object
 			)
 			VKBaseIE__NETRC_MACHINE = λ.NewStr("vk")
 			VKBaseIE__login = λ.NewFunction("_login",
@@ -141,10 +143,55 @@ func init() {
 					λ.Cal(λ.GetAttr(ϒself, "_login", nil))
 					return λ.None
 				})
+			VKBaseIE__download_payload = λ.NewFunction("_download_payload",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "path"},
+					{Name: "video_id"},
+					{Name: "data"},
+					{Name: "fatal", Def: λ.True},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcode     λ.Object
+						ϒdata     = λargs[3]
+						ϒfatal    = λargs[4]
+						ϒpath     = λargs[1]
+						ϒpayload  λ.Object
+						ϒself     = λargs[0]
+						ϒvideo_id = λargs[2]
+						τmp0      λ.Object
+					)
+					λ.SetItem(ϒdata, λ.NewStr("al"), λ.NewInt(1))
+					τmp0 = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.Mod(λ.NewStr("https://vk.com/%s.php"), ϒpath),
+						ϒvideo_id,
+					), λ.KWArgs{
+						{Name: "data", Value: λ.Cal(ϒurlencode_postdata, ϒdata)},
+						{Name: "fatal", Value: ϒfatal},
+						{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("X-Requested-With"): λ.NewStr("XMLHttpRequest"),
+						})},
+					}), λ.NewStr("payload"))
+					ϒcode = λ.GetItem(τmp0, λ.NewInt(0))
+					ϒpayload = λ.GetItem(τmp0, λ.NewInt(1))
+					if λ.IsTrue(λ.Eq(ϒcode, λ.NewStr("3"))) {
+						λ.Cal(λ.GetAttr(ϒself, "raise_login_required", nil))
+					} else {
+						if λ.IsTrue(λ.Eq(ϒcode, λ.NewStr("8"))) {
+							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Cal(ϒclean_html, λ.GetItem(λ.GetItem(ϒpayload, λ.NewInt(0)), λ.NewSlice(λ.NewInt(1), λ.Neg(λ.NewInt(1)), λ.None)))), λ.KWArgs{
+								{Name: "expected", Value: λ.True},
+							})))
+						}
+					}
+					return ϒpayload
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_NETRC_MACHINE"):   VKBaseIE__NETRC_MACHINE,
-				λ.NewStr("_login"):           VKBaseIE__login,
-				λ.NewStr("_real_initialize"): VKBaseIE__real_initialize,
+				λ.NewStr("_NETRC_MACHINE"):    VKBaseIE__NETRC_MACHINE,
+				λ.NewStr("_download_payload"): VKBaseIE__download_payload,
+				λ.NewStr("_login"):            VKBaseIE__login,
+				λ.NewStr("_real_initialize"):  VKBaseIE__real_initialize,
 			})
 		}())
 		VKIE = λ.Cal(λ.TypeType, λ.NewStr("VKIE"), λ.NewTuple(VKBaseIE), func() λ.Dict {
@@ -173,7 +220,6 @@ func init() {
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://vk.com/video205387401_165548505"),
-					λ.NewStr("md5"): λ.NewStr("6c0aeb2e90396ba97035b9cbde548700"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):          λ.NewStr("205387401_165548505"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
@@ -187,18 +233,18 @@ func init() {
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("note"): λ.NewStr("Embedded video"),
-					λ.NewStr("url"):  λ.NewStr("http://vk.com/video_ext.php?oid=32194266&id=162925554&hash=7d8c2e0d5e05aeaa&hd=1"),
-					λ.NewStr("md5"):  λ.NewStr("c7ce8f1f87bec05b3de07fdeafe21a0a"),
+					λ.NewStr("url"):  λ.NewStr("https://vk.com/video_ext.php?oid=-77521&id=162222515&hash=87b046504ccd8bfa"),
+					λ.NewStr("md5"):  λ.NewStr("7babad3b85ea2e91948005b1b8b0cb84"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("32194266_162925554"),
+						λ.NewStr("id"):          λ.NewStr("-77521_162222515"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("uploader"):    λ.NewStr("Vladimir Gavrin"),
-						λ.NewStr("title"):       λ.NewStr("Lin Dan"),
-						λ.NewStr("duration"):    λ.NewInt(101),
-						λ.NewStr("upload_date"): λ.NewStr("20120730"),
-						λ.NewStr("view_count"):  λ.IntType,
+						λ.NewStr("uploader"):    λ.NewStr("re:(?:Noize MC|Alexander Ilyashenko).*"),
+						λ.NewStr("title"):       λ.NewStr("ProtivoGunz - Хуёвая песня"),
+						λ.NewStr("duration"):    λ.NewInt(195),
+						λ.NewStr("upload_date"): λ.NewStr("20120212"),
+						λ.NewStr("timestamp"):   λ.NewInt(1329049880),
+						λ.NewStr("uploader_id"): λ.NewStr("-77521"),
 					}),
-					λ.NewStr("skip"): λ.NewStr("This video has been removed from public access."),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"):  λ.NewStr("http://vk.com/video-8871596_164049491"),
@@ -213,18 +259,19 @@ func init() {
 						λ.NewStr("upload_date"): λ.NewStr("20121218"),
 						λ.NewStr("view_count"):  λ.IntType,
 					}),
-					λ.NewStr("skip"): λ.NewStr("Requires vk account credentials"),
+					λ.NewStr("skip"): λ.NewStr("Removed"),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://vk.com/hd_kino_mania?z=video-43215063_168067957%2F15c66b9b533119788d"),
-					λ.NewStr("md5"): λ.NewStr("4d7a5ef8cf114dfa09577e57b2993202"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):          λ.NewStr("-43215063_168067957"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("uploader"):    λ.NewStr("Киномания - лучшее из мира кино"),
+						λ.NewStr("uploader"):    λ.NewStr("Bro Mazter"),
 						λ.NewStr("title"):       λ.NewStr(" "),
 						λ.NewStr("duration"):    λ.NewInt(7291),
 						λ.NewStr("upload_date"): λ.NewStr("20140328"),
+						λ.NewStr("uploader_id"): λ.NewStr("223413403"),
+						λ.NewStr("timestamp"):   λ.NewInt(1396018030),
 					}),
 					λ.NewStr("skip"): λ.NewStr("Requires vk account credentials"),
 				}),
@@ -240,7 +287,7 @@ func init() {
 						λ.NewStr("upload_date"): λ.NewStr("20140626"),
 						λ.NewStr("view_count"):  λ.IntType,
 					}),
-					λ.NewStr("skip"): λ.NewStr("Only works from Russia"),
+					λ.NewStr("skip"): λ.NewStr("Removed"),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("https://vk.com/video30481095_171201961?list=8764ae2d21f14088d4"),
@@ -314,6 +361,9 @@ func init() {
 						λ.NewStr("uploader_id"): λ.NewStr("-387766"),
 						λ.NewStr("timestamp"):   λ.NewInt(1475137527),
 					}),
+					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("skip_download"): λ.True,
+					}),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"):           λ.NewStr("https://vk.com/video-140332_456239111"),
@@ -352,117 +402,139 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ERRORS            λ.Object
-						ERROR_COPYRIGHT   λ.Object
-						ϒdailymotion_urls λ.Object
-						ϒdata             λ.Object
-						ϒerror_message    λ.Object
-						ϒerror_msg        λ.Object
-						ϒerror_re         λ.Object
-						ϒformat_id        λ.Object
-						ϒformat_url       λ.Object
-						ϒformats          λ.Object
-						ϒheight           λ.Object
-						ϒinfo_page        λ.Object
-						ϒinfo_url         λ.Object
-						ϒis_live          λ.Object
-						ϒlist_id          λ.Object
-						ϒm_opts           λ.Object
-						ϒm_opts_url       λ.Object
-						ϒm_rutube         λ.Object
-						ϒmobj             λ.Object
-						ϒopts_url         λ.Object
-						ϒpladform_url     λ.Object
-						ϒrutube_url       λ.Object
-						ϒself             = λargs[0]
-						ϒtimestamp        λ.Object
-						ϒtitle            λ.Object
-						ϒurl              = λargs[1]
-						ϒvideo_id         λ.Object
-						ϒview_count       λ.Object
-						ϒvimeo_url        λ.Object
-						ϒyoutube_url      λ.Object
-						τmp0              λ.Object
-						τmp1              λ.Object
-						τmp2              λ.Object
+						ERRORS             λ.Object
+						ERROR_COPYRIGHT    λ.Object
+						ϒdailymotion_urls  λ.Object
+						ϒdata              λ.Object
+						ϒerror_message     λ.Object
+						ϒerror_msg         λ.Object
+						ϒerror_re          λ.Object
+						ϒformat_id         λ.Object
+						ϒformat_url        λ.Object
+						ϒformats           λ.Object
+						ϒheight            λ.Object
+						ϒinfo_page         λ.Object
+						ϒis_live           λ.Object
+						ϒlist_id           λ.Object
+						ϒm_opts            λ.Object
+						ϒm_opts_url        λ.Object
+						ϒm_rutube          λ.Object
+						ϒmobj              λ.Object
+						ϒmv_data           λ.Object
+						ϒodnoklassniki_url λ.Object
+						ϒopts              λ.Object
+						ϒopts_url          λ.Object
+						ϒpayload           λ.Object
+						ϒpladform_url      λ.Object
+						ϒplayer            λ.Object
+						ϒrutube_url        λ.Object
+						ϒself              = λargs[0]
+						ϒtimestamp         λ.Object
+						ϒtitle             λ.Object
+						ϒurl               = λargs[1]
+						ϒvideo_id          λ.Object
+						ϒview_count        λ.Object
+						ϒvimeo_url         λ.Object
+						ϒyoutube_url       λ.Object
+						τmp0               λ.Object
+						τmp1               λ.Object
+						τmp2               λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
 					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("videoid"))
+					ϒmv_data = λ.NewDictWithTable(map[λ.Object]λ.Object{})
 					if λ.IsTrue(ϒvideo_id) {
-						ϒinfo_url = λ.Add(λ.NewStr("https://vk.com/al_video.php?act=show_inline&al=1&video="), ϒvideo_id)
+						ϒdata = λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("act"):   λ.NewStr("show_inline"),
+							λ.NewStr("video"): ϒvideo_id,
+						})
 						ϒlist_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("list_id"))
 						if λ.IsTrue(ϒlist_id) {
-							τmp0 = λ.IAdd(ϒinfo_url, λ.Mod(λ.NewStr("&list=%s"), ϒlist_id))
-							ϒinfo_url = τmp0
+							λ.SetItem(ϒdata, λ.NewStr("list"), ϒlist_id)
 						}
+						ϒpayload = λ.Cal(λ.GetAttr(ϒself, "_download_payload", nil), λ.NewStr("al_video"), ϒvideo_id, ϒdata)
+						ϒinfo_page = λ.GetItem(ϒpayload, λ.NewInt(1))
+						ϒopts = λ.GetItem(ϒpayload, λ.Neg(λ.NewInt(1)))
+						ϒmv_data = func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(ϒopts, "get", nil), λ.NewStr("mvData")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+							}
+						}()
+						ϒplayer = func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(ϒopts, "get", nil), λ.NewStr("player")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+							}
+						}()
 					} else {
-						ϒinfo_url = λ.Add(λ.NewStr("http://vk.com/video_ext.php?"), λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("embed_query")))
 						ϒvideo_id = λ.Mod(λ.NewStr("%s_%s"), λ.NewTuple(
 							λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("oid")),
 							λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id")),
 						))
-					}
-					ϒinfo_page = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒinfo_url, ϒvideo_id)
-					ϒerror_message = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewList(
-							λ.NewStr("(?s)<!><div[^>]+class=\"video_layer_message\"[^>]*>(.+?)</div>"),
-							λ.NewStr("(?s)<div[^>]+id=\"video_ext_msg\"[^>]*>(.+?)</div>"),
-						),
-						ϒinfo_page,
-						λ.NewStr("error message"),
-					), λ.KWArgs{
-						{Name: "default", Value: λ.None},
-					})
-					if λ.IsTrue(ϒerror_message) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(ϒerror_message), λ.KWArgs{
-							{Name: "expected", Value: λ.True},
-						})))
-					}
-					if λ.IsTrue(λ.Cal(Ωre.ϒsearch, λ.NewStr("<!>/login\\.php\\?.*\\bact=security_check"), ϒinfo_page)) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("You are trying to log in from an unusual location. You should confirm ownership at vk.com to log in with this IP.")), λ.KWArgs{
-							{Name: "expected", Value: λ.True},
-						})))
-					}
-					ERROR_COPYRIGHT = λ.NewStr("Video %s has been removed from public access due to rightholder complaint.")
-					ERRORS = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr(">Видеозапись .*? была изъята из публичного доступа в связи с обращением правообладателя.<"): ERROR_COPYRIGHT,
-						λ.NewStr(">The video .*? was removed from public access by request of the copyright holder.<"):        ERROR_COPYRIGHT,
-						λ.NewStr("<!>Please log in or <"):        λ.NewStr("Video %s is only available for registered users, use --username and --password options to provide account credentials."),
-						λ.NewStr("<!>Unknown error"):             λ.NewStr("Video %s does not exist."),
-						λ.NewStr("<!>Видео временно недоступно"): λ.NewStr("Video %s is temporarily unavailable."),
-						λ.NewStr("<!>Access denied"):             λ.NewStr("Access denied to video %s."),
-						λ.NewStr("<!>Видеозапись недоступна, так как её автор был заблокирован."):              λ.NewStr("Video %s is no longer available, because its author has been blocked."),
-						λ.NewStr("<!>This video is no longer available, because its author has been blocked."): λ.NewStr("Video %s is no longer available, because its author has been blocked."),
-						λ.NewStr("<!>This video is no longer available, because it has been deleted."):         λ.NewStr("Video %s is no longer available, because it has been deleted."),
-						λ.NewStr("<!>The video .+? is not available in your region."):                          λ.NewStr("Video %s is not available in your region."),
-					})
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ERRORS, "items", nil)))
-					for {
-						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-							break
-						}
-						τmp2 = τmp1
-						ϒerror_re = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒerror_msg = λ.GetItem(τmp2, λ.NewInt(1))
-						if λ.IsTrue(λ.Cal(Ωre.ϒsearch, ϒerror_re, ϒinfo_page)) {
-							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(ϒerror_msg, ϒvideo_id)), λ.KWArgs{
+						ϒinfo_page = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Add(λ.NewStr("http://vk.com/video_ext.php?"), λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("embed_query"))), ϒvideo_id)
+						ϒerror_message = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
+							λ.NewList(
+								λ.NewStr("(?s)<!><div[^>]+class=\"video_layer_message\"[^>]*>(.+?)</div>"),
+								λ.NewStr("(?s)<div[^>]+id=\"video_ext_msg\"[^>]*>(.+?)</div>"),
+							),
+							ϒinfo_page,
+							λ.NewStr("error message"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						})
+						if λ.IsTrue(ϒerror_message) {
+							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(ϒerror_message), λ.KWArgs{
 								{Name: "expected", Value: λ.True},
 							})))
 						}
+						if λ.IsTrue(λ.Cal(Ωre.ϒsearch, λ.NewStr("<!>/login\\.php\\?.*\\bact=security_check"), ϒinfo_page)) {
+							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("You are trying to log in from an unusual location. You should confirm ownership at vk.com to log in with this IP.")), λ.KWArgs{
+								{Name: "expected", Value: λ.True},
+							})))
+						}
+						ERROR_COPYRIGHT = λ.NewStr("Video %s has been removed from public access due to rightholder complaint.")
+						ERRORS = λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr(">Видеозапись .*? была изъята из публичного доступа в связи с обращением правообладателя.<"): ERROR_COPYRIGHT,
+							λ.NewStr(">The video .*? was removed from public access by request of the copyright holder.<"):        ERROR_COPYRIGHT,
+							λ.NewStr("<!>Please log in or <"):        λ.NewStr("Video %s is only available for registered users, use --username and --password options to provide account credentials."),
+							λ.NewStr("<!>Unknown error"):             λ.NewStr("Video %s does not exist."),
+							λ.NewStr("<!>Видео временно недоступно"): λ.NewStr("Video %s is temporarily unavailable."),
+							λ.NewStr("<!>Access denied"):             λ.NewStr("Access denied to video %s."),
+							λ.NewStr("<!>Видеозапись недоступна, так как её автор был заблокирован."):              λ.NewStr("Video %s is no longer available, because its author has been blocked."),
+							λ.NewStr("<!>This video is no longer available, because its author has been blocked."): λ.NewStr("Video %s is no longer available, because its author has been blocked."),
+							λ.NewStr("<!>This video is no longer available, because it has been deleted."):         λ.NewStr("Video %s is no longer available, because it has been deleted."),
+							λ.NewStr("<!>The video .+? is not available in your region."):                          λ.NewStr("Video %s is not available in your region."),
+						})
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ERRORS, "items", nil)))
+						for {
+							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+								break
+							}
+							τmp2 = τmp1
+							ϒerror_re = λ.GetItem(τmp2, λ.NewInt(0))
+							ϒerror_msg = λ.GetItem(τmp2, λ.NewInt(1))
+							if λ.IsTrue(λ.Cal(Ωre.ϒsearch, ϒerror_re, ϒinfo_page)) {
+								panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(ϒerror_msg, ϒvideo_id)), λ.KWArgs{
+									{Name: "expected", Value: λ.True},
+								})))
+							}
+						}
+						ϒplayer = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("var\\s+playerParams\\s*=\\s*({.+?})\\s*;\\s*\\n"), ϒinfo_page, λ.NewStr("player params")), ϒvideo_id)
 					}
 					ϒyoutube_url = λ.Cal(λ.GetAttr(YoutubeIE, "_extract_url", nil), ϒinfo_page)
 					if λ.IsTrue(ϒyoutube_url) {
-						return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(ϒyoutube_url), λ.KWArgs{
-							{Name: "ie", Value: λ.Cal(λ.GetAttr(YoutubeIE, "ie_key", nil))},
-						})
+						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒyoutube_url, λ.Cal(λ.GetAttr(YoutubeIE, "ie_key", nil)))
 					}
 					ϒvimeo_url = λ.Cal(λ.GetAttr(VimeoIE, "_extract_url", nil), ϒurl, ϒinfo_page)
 					if λ.IsTrue(λ.NewBool(ϒvimeo_url != λ.None)) {
-						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒvimeo_url)
+						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒvimeo_url, λ.Cal(λ.GetAttr(VimeoIE, "ie_key", nil)))
 					}
 					ϒpladform_url = λ.Cal(λ.GetAttr(PladformIE, "_extract_url", nil), ϒinfo_page)
 					if λ.IsTrue(ϒpladform_url) {
-						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒpladform_url)
+						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒpladform_url, λ.Cal(λ.GetAttr(PladformIE, "ie_key", nil)))
 					}
 					ϒm_rutube = λ.Cal(Ωre.ϒsearch, λ.NewStr("\\ssrc=\"((?:https?:)?//rutube\\.ru\\\\?/(?:video|play)\\\\?/embed(?:.*?))\\\\?\""), ϒinfo_page)
 					if λ.IsTrue(λ.NewBool(ϒm_rutube != λ.None)) {
@@ -472,6 +544,10 @@ func init() {
 					ϒdailymotion_urls = λ.Cal(λ.GetAttr(DailymotionIE, "_extract_urls", nil), ϒinfo_page)
 					if λ.IsTrue(ϒdailymotion_urls) {
 						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.GetItem(ϒdailymotion_urls, λ.NewInt(0)), λ.Cal(λ.GetAttr(DailymotionIE, "ie_key", nil)))
+					}
+					ϒodnoklassniki_url = λ.Cal(λ.GetAttr(OdnoklassnikiIE, "_extract_url", nil), ϒinfo_page)
+					if λ.IsTrue(ϒodnoklassniki_url) {
+						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒodnoklassniki_url, λ.Cal(λ.GetAttr(OdnoklassnikiIE, "ie_key", nil)))
 					}
 					ϒm_opts = λ.Cal(Ωre.ϒsearch, λ.NewStr("(?s)var\\s+opts\\s*=\\s*({.+?});"), ϒinfo_page)
 					if λ.IsTrue(ϒm_opts) {
@@ -484,48 +560,7 @@ func init() {
 							return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒopts_url)
 						}
 					}
-					ϒdata = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
-						λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("var\\s+vars\\s*=\\s*({.+?});"),
-							ϒinfo_page,
-							λ.NewStr("vars"),
-						), λ.KWArgs{
-							{Name: "default", Value: λ.NewStr("{}")},
-						}),
-						ϒvideo_id,
-					), λ.KWArgs{
-						{Name: "fatal", Value: λ.False},
-					})
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒdata))) {
-						ϒdata = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewList(
-								λ.NewStr("<!json>\\s*({.+?})\\s*<!>"),
-								λ.NewStr("<!json>\\s*({.+})"),
-							),
-							ϒinfo_page,
-							λ.NewStr("json"),
-						), λ.KWArgs{
-							{Name: "default", Value: λ.NewStr("{}")},
-						}), ϒvideo_id)
-						if λ.IsTrue(ϒdata) {
-							ϒdata = λ.GetItem(λ.GetItem(λ.GetItem(ϒdata, λ.NewStr("player")), λ.NewStr("params")), λ.NewInt(0))
-						}
-					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒdata))) {
-						ϒdata = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("var\\s+playerParams\\s*=\\s*({.+?})\\s*;\\s*\\n"),
-							ϒinfo_page,
-							λ.NewStr("player params"),
-						), λ.KWArgs{
-							{Name: "default", Value: λ.NewStr("{}")},
-						}), ϒvideo_id)
-						if λ.IsTrue(ϒdata) {
-							ϒdata = λ.GetItem(λ.GetItem(ϒdata, λ.NewStr("params")), λ.NewInt(0))
-						}
-					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒdata))) {
-						ϒdata = λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<!--\\s*({.+})"), ϒinfo_page, λ.NewStr("payload")), ϒvideo_id), λ.NewStr("payload")), λ.Neg(λ.NewInt(1))), λ.Neg(λ.NewInt(1))), λ.NewStr("player")), λ.NewStr("params")), λ.NewInt(0))
-					}
+					ϒdata = λ.GetItem(λ.GetItem(ϒplayer, λ.NewStr("params")), λ.NewInt(0))
 					ϒtitle = λ.Cal(ϒunescapeHTML, λ.GetItem(ϒdata, λ.NewStr("md_title")))
 					ϒis_live = λ.Eq(λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("live")), λ.NewInt(2))
 					if λ.IsTrue(ϒis_live) {
@@ -625,17 +660,29 @@ func init() {
 					}
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            ϒvideo_id,
-						λ.NewStr("formats"):       ϒformats,
-						λ.NewStr("title"):         ϒtitle,
-						λ.NewStr("thumbnail"):     λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("jpg")),
-						λ.NewStr("uploader"):      λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("md_author")),
-						λ.NewStr("uploader_id"):   λ.Cal(ϒstr_or_none, λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("author_id"))),
-						λ.NewStr("duration"):      λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("duration")),
+						λ.NewStr("id"):        ϒvideo_id,
+						λ.NewStr("formats"):   ϒformats,
+						λ.NewStr("title"):     ϒtitle,
+						λ.NewStr("thumbnail"): λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("jpg")),
+						λ.NewStr("uploader"):  λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("md_author")),
+						λ.NewStr("uploader_id"): λ.Cal(ϒstr_or_none, func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("author_id")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Cal(λ.GetAttr(ϒmv_data, "get", nil), λ.NewStr("authorId"))
+							}
+						}()),
+						λ.NewStr("duration"): λ.Cal(ϒint_or_none, func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("duration")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Cal(λ.GetAttr(ϒmv_data, "get", nil), λ.NewStr("duration"))
+							}
+						}()),
 						λ.NewStr("timestamp"):     ϒtimestamp,
 						λ.NewStr("view_count"):    ϒview_count,
-						λ.NewStr("like_count"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("liked"))),
-						λ.NewStr("dislike_count"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("nolikes"))),
+						λ.NewStr("like_count"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒmv_data, "get", nil), λ.NewStr("likes"))),
+						λ.NewStr("comment_count"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒmv_data, "get", nil), λ.NewStr("commcount"))),
 						λ.NewStr("is_live"):       ϒis_live,
 					})
 				})

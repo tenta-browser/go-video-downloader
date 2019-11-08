@@ -452,6 +452,8 @@ func init() {
 						ϒserver_js_data                λ.Object
 						ϒsrc                           λ.Object
 						ϒsrc_type                      λ.Object
+						ϒsubtitles                     λ.Object
+						ϒsubtitles_src                 λ.Object
 						ϒtahoe_data                    λ.Object
 						ϒtahoe_js_data                 λ.Object
 						ϒthumbnail                     λ.Object
@@ -630,6 +632,7 @@ func init() {
 					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_data))) {
 						panic(λ.Raise(λ.Cal(ExtractorError, λ.NewStr("Cannot parse data"))))
 					}
+					ϒsubtitles = λ.NewDictWithTable(map[λ.Object]λ.Object{})
 					ϒformats = λ.NewList()
 					τmp0 = λ.Cal(λ.BuiltinIter, ϒvideo_data)
 					for {
@@ -705,6 +708,12 @@ func init() {
 						ϒdash_manifest = λ.Cal(λ.GetAttr(λ.GetItem(ϒf, λ.NewInt(0)), "get", nil), λ.NewStr("dash_manifest"))
 						if λ.IsTrue(ϒdash_manifest) {
 							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Cal(λ.GetAttr(ϒself, "_parse_mpd_formats", nil), λ.Cal(ϒcompat_etree_fromstring, λ.Cal(ϒcompat_urllib_parse_unquote_plus, ϒdash_manifest))))
+						}
+						ϒsubtitles_src = λ.Cal(λ.GetAttr(λ.GetItem(ϒf, λ.NewInt(0)), "get", nil), λ.NewStr("subtitles_src"))
+						if λ.IsTrue(ϒsubtitles_src) {
+							λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒsubtitles, "setdefault", nil), λ.NewStr("en"), λ.NewList()), "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("url"): ϒsubtitles_src,
+							}))
 						}
 					}
 					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
@@ -792,6 +801,7 @@ func init() {
 						λ.NewStr("timestamp"):  ϒtimestamp,
 						λ.NewStr("thumbnail"):  ϒthumbnail,
 						λ.NewStr("view_count"): ϒview_count,
+						λ.NewStr("subtitles"):  ϒsubtitles,
 					})
 					return λ.NewTuple(
 						ϒwebpage,

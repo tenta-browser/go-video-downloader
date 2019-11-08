@@ -624,7 +624,7 @@ func init() {
 						ϒembed_page,
 						λ.NewStr("video info"),
 					), λ.KWArgs{
-						{Name: "flags", Value: Ωre.MULTILINE},
+						{Name: "flags", Value: λ.None},
 					}), ϒvideo_id)
 					λ.Cal(λ.GetAttr(ϒself, "_check_error", nil), ϒinfo)
 					ϒformats = λ.NewList()

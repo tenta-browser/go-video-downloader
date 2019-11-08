@@ -67,9 +67,11 @@ func init() {
 		ϒurl_basename = Ωutils.ϒurl_basename
 		OnetBaseIE = λ.Cal(λ.TypeType, λ.NewStr("OnetBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
+				OnetBaseIE__URL_BASE_RE     λ.Object
 				OnetBaseIE__extract_from_id λ.Object
 				OnetBaseIE__search_mvp_id   λ.Object
 			)
+			OnetBaseIE__URL_BASE_RE = λ.NewStr("https?://(?:(?:www\\.)?onet\\.tv|onet100\\.vod\\.pl)/[a-z]/")
 			OnetBaseIE__search_mvp_id = λ.NewFunction("_search_mvp_id",
 				[]λ.Param{
 					{Name: "self"},
@@ -105,8 +107,10 @@ func init() {
 						ϒf            λ.Object
 						ϒformat_id    λ.Object
 						ϒformat_list  λ.Object
+						ϒformat_type  λ.Object
 						ϒformats      λ.Object
 						ϒformats_dict λ.Object
+						ϒhttp_f       λ.Object
 						ϒmeta         λ.Object
 						ϒresponse     λ.Object
 						ϒself         = λargs[0]
@@ -154,7 +158,7 @@ func init() {
 							break
 						}
 						τmp2 = τmp1
-						_ = λ.GetItem(τmp2, λ.NewInt(0))
+						ϒformat_type = λ.GetItem(τmp2, λ.NewInt(0))
 						ϒformats_dict = λ.GetItem(τmp2, λ.NewInt(1))
 						if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒformats_dict, λ.DictType)))) {
 							continue
@@ -181,7 +185,7 @@ func init() {
 									continue
 								}
 								ϒext = λ.Cal(ϒdetermine_ext, ϒvideo_url)
-								if λ.IsTrue(λ.Eq(ϒformat_id, λ.NewStr("ism"))) {
+								if λ.IsTrue(λ.Cal(λ.GetAttr(ϒformat_id, "startswith", nil), λ.NewStr("ism"))) {
 									λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_ism_formats", nil), λ.NewArgs(
 										ϒvideo_url,
 										ϒvideo_id,
@@ -199,14 +203,33 @@ func init() {
 											{Name: "fatal", Value: λ.False},
 										}))
 									} else {
-										λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-											λ.NewStr("url"):       ϒvideo_url,
-											λ.NewStr("format_id"): ϒformat_id,
-											λ.NewStr("height"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("vertical_resolution"))),
-											λ.NewStr("width"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("horizontal_resolution"))),
-											λ.NewStr("abr"):       λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("audio_bitrate"))),
-											λ.NewStr("vbr"):       λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("video_bitrate"))),
-										}))
+										if λ.IsTrue(λ.Cal(λ.GetAttr(ϒformat_id, "startswith", nil), λ.NewStr("hls"))) {
+											λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+												ϒvideo_url,
+												ϒvideo_id,
+												λ.NewStr("mp4"),
+												λ.NewStr("m3u8_native"),
+											), λ.KWArgs{
+												{Name: "m3u8_id", Value: λ.NewStr("hls")},
+												{Name: "fatal", Value: λ.False},
+											}))
+										} else {
+											ϒhttp_f = λ.NewDictWithTable(map[λ.Object]λ.Object{
+												λ.NewStr("url"):       ϒvideo_url,
+												λ.NewStr("format_id"): ϒformat_id,
+												λ.NewStr("abr"):       λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("audio_bitrate"))),
+											})
+											if λ.IsTrue(λ.Eq(ϒformat_type, λ.NewStr("audio"))) {
+												λ.SetItem(ϒhttp_f, λ.NewStr("vcodec"), λ.NewStr("none"))
+											} else {
+												λ.Cal(λ.GetAttr(ϒhttp_f, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+													λ.NewStr("height"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("vertical_resolution"))),
+													λ.NewStr("width"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("horizontal_resolution"))),
+													λ.NewStr("vbr"):    λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("video_bitrate"))),
+												}))
+											}
+											λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒhttp_f)
+										}
 									}
 								}
 							}
@@ -262,6 +285,7 @@ func init() {
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_URL_BASE_RE"):     OnetBaseIE__URL_BASE_RE,
 				λ.NewStr("_extract_from_id"): OnetBaseIE__extract_from_id,
 				λ.NewStr("_search_mvp_id"):   OnetBaseIE__search_mvp_id,
 			})
@@ -278,25 +302,31 @@ func init() {
 		OnetIE = λ.Cal(λ.TypeType, λ.NewStr("OnetIE"), λ.NewTuple(OnetBaseIE), func() λ.Dict {
 			var (
 				OnetIE_IE_NAME       λ.Object
-				OnetIE__TEST         λ.Object
+				OnetIE__TESTS        λ.Object
 				OnetIE__VALID_URL    λ.Object
 				OnetIE__real_extract λ.Object
 			)
-			OnetIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?onet\\.tv/[a-z]/[a-z]+/(?P<display_id>[0-9a-z-]+)/(?P<id>[0-9a-z]+)")
+			OnetIE__VALID_URL = λ.Add(λ.GetAttr(OnetBaseIE, "_URL_BASE_RE", nil), λ.NewStr("[a-z]+/(?P<display_id>[0-9a-z-]+)/(?P<id>[0-9a-z]+)"))
 			OnetIE_IE_NAME = λ.NewStr("onet.tv")
-			OnetIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://onet.tv/k/openerfestival/open-er-festival-2016-najdziwniejsze-wymagania-gwiazd/qbpyqc"),
-				λ.NewStr("md5"): λ.NewStr("e3ffbf47590032ac3f27249204173d50"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("qbpyqc"),
-					λ.NewStr("display_id"):  λ.NewStr("open-er-festival-2016-najdziwniejsze-wymagania-gwiazd"),
-					λ.NewStr("ext"):         λ.NewStr("mp4"),
-					λ.NewStr("title"):       λ.NewStr("Open'er Festival 2016: najdziwniejsze wymagania gwiazd"),
-					λ.NewStr("description"): λ.NewStr("Trzy samochody, których nigdy nie użyto, prywatne spa, hotel dekorowany czarnym suknem czy nielegalne używki. Organizatorzy koncertów i festiwali muszą stawać przed nie lada wyzwaniem zapraszając gwia..."),
-					λ.NewStr("upload_date"): λ.NewStr("20160705"),
-					λ.NewStr("timestamp"):   λ.NewInt(1467721580),
+			OnetIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://onet.tv/k/openerfestival/open-er-festival-2016-najdziwniejsze-wymagania-gwiazd/qbpyqc"),
+					λ.NewStr("md5"): λ.NewStr("436102770fb095c75b8bb0392d3da9ff"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("qbpyqc"),
+						λ.NewStr("display_id"):  λ.NewStr("open-er-festival-2016-najdziwniejsze-wymagania-gwiazd"),
+						λ.NewStr("ext"):         λ.NewStr("mp4"),
+						λ.NewStr("title"):       λ.NewStr("Open'er Festival 2016: najdziwniejsze wymagania gwiazd"),
+						λ.NewStr("description"): λ.NewStr("Trzy samochody, których nigdy nie użyto, prywatne spa, hotel dekorowany czarnym suknem czy nielegalne używki. Organizatorzy koncertów i festiwali muszą stawać przed nie lada wyzwaniem zapraszając gwia..."),
+						λ.NewStr("upload_date"): λ.NewStr("20160705"),
+						λ.NewStr("timestamp"):   λ.NewInt(1467721580),
+					}),
 				}),
-			})
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://onet100.vod.pl/k/openerfestival/open-er-festival-2016-najdziwniejsze-wymagania-gwiazd/qbpyqc"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
 			OnetIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -330,7 +360,7 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       OnetIE_IE_NAME,
-				λ.NewStr("_TEST"):         OnetIE__TEST,
+				λ.NewStr("_TESTS"):        OnetIE__TESTS,
 				λ.NewStr("_VALID_URL"):    OnetIE__VALID_URL,
 				λ.NewStr("_real_extract"): OnetIE__real_extract,
 			})
@@ -338,21 +368,27 @@ func init() {
 		OnetChannelIE = λ.Cal(λ.TypeType, λ.NewStr("OnetChannelIE"), λ.NewTuple(OnetBaseIE), func() λ.Dict {
 			var (
 				OnetChannelIE_IE_NAME       λ.Object
-				OnetChannelIE__TEST         λ.Object
+				OnetChannelIE__TESTS        λ.Object
 				OnetChannelIE__VALID_URL    λ.Object
 				OnetChannelIE__real_extract λ.Object
 			)
-			OnetChannelIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?onet\\.tv/[a-z]/(?P<id>[a-z]+)(?:[?#]|$)")
+			OnetChannelIE__VALID_URL = λ.Add(λ.GetAttr(OnetBaseIE, "_URL_BASE_RE", nil), λ.NewStr("(?P<id>[a-z]+)(?:[?#]|$)"))
 			OnetChannelIE_IE_NAME = λ.NewStr("onet.tv:channel")
-			OnetChannelIE__TEST = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("url"): λ.NewStr("http://onet.tv/k/openerfestival"),
-				λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("id"):          λ.NewStr("openerfestival"),
-					λ.NewStr("title"):       λ.NewStr("Open'er Festival Live"),
-					λ.NewStr("description"): λ.NewStr("Dziękujemy, że oglądaliście transmisje. Zobaczcie nasze relacje i wywiady z artystami."),
+			OnetChannelIE__TESTS = λ.NewList(
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"): λ.NewStr("http://onet.tv/k/openerfestival"),
+					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          λ.NewStr("openerfestival"),
+						λ.NewStr("title"):       λ.NewStr("Open'er Festival"),
+						λ.NewStr("description"): λ.NewStr("Tak było na Open'er Festival 2016! Oglądaj nasze reportaże i wywiady z artystami."),
+					}),
+					λ.NewStr("playlist_mincount"): λ.NewInt(35),
 				}),
-				λ.NewStr("playlist_mincount"): λ.NewInt(46),
-			})
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://onet100.vod.pl/k/openerfestival"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+			)
 			OnetChannelIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -401,7 +437,7 @@ func init() {
 						ϒchannel_id,
 						ϒvideo_name,
 					)))
-					ϒmatches = λ.Cal(Ωre.ϒfindall, λ.NewStr("<a[^>]+href=[\\'\"](https?://(?:www\\.)?onet\\.tv/[a-z]/[a-z]+/[0-9a-z-]+/[0-9a-z]+)"), ϒwebpage)
+					ϒmatches = λ.Cal(Ωre.ϒfindall, λ.Mod(λ.NewStr("<a[^>]+href=[\\'\"](%s[a-z]+/[0-9a-z-]+/[0-9a-z]+)"), λ.GetAttr(ϒself, "_URL_BASE_RE", nil)), ϒwebpage)
 					ϒentries = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -429,7 +465,7 @@ func init() {
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       OnetChannelIE_IE_NAME,
-				λ.NewStr("_TEST"):         OnetChannelIE__TEST,
+				λ.NewStr("_TESTS"):        OnetChannelIE__TESTS,
 				λ.NewStr("_VALID_URL"):    OnetChannelIE__VALID_URL,
 				λ.NewStr("_real_extract"): OnetChannelIE__real_extract,
 			})

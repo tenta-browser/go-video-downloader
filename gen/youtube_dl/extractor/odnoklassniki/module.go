@@ -25,6 +25,7 @@
 package odnoklassniki
 
 import (
+	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
@@ -63,6 +64,7 @@ func init() {
 			var (
 				OdnoklassnikiIE__TESTS        λ.Object
 				OdnoklassnikiIE__VALID_URL    λ.Object
+				OdnoklassnikiIE__extract_url  λ.Object
 				OdnoklassnikiIE__real_extract λ.Object
 			)
 			OdnoklassnikiIE__VALID_URL = λ.NewStr("(?x)\n                https?://\n                    (?:(?:www|m|mobile)\\.)?\n                    (?:odnoklassniki|ok)\\.ru/\n                    (?:\n                        video(?:embed)?/|\n                        web-api/video/moviePlayer/|\n                        live/|\n                        dk\\?.*?st\\.mvId=\n                    )\n                    (?P<id>[\\d-]+)\n                ")
@@ -163,6 +165,23 @@ func init() {
 					λ.NewStr("only_matching"): λ.True,
 				}),
 			)
+			OdnoklassnikiIE__extract_url = λ.NewFunction("_extract_url",
+				[]λ.Param{
+					{Name: "webpage"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒmobj    λ.Object
+						ϒwebpage = λargs[0]
+					)
+					ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("<iframe[^>]+src=([\"\\'])(?P<url>(?:https?:)?//(?:odnoklassniki|ok)\\.ru/videoembed/.+?)\\1"), ϒwebpage)
+					if λ.IsTrue(ϒmobj) {
+						return λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("url"))
+					}
+					return λ.None
+				})
+			OdnoklassnikiIE__extract_url = λ.Cal(λ.StaticMethodType, OdnoklassnikiIE__extract_url)
 			OdnoklassnikiIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -411,6 +430,7 @@ func init() {
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_TESTS"):        OdnoklassnikiIE__TESTS,
 				λ.NewStr("_VALID_URL"):    OdnoklassnikiIE__VALID_URL,
+				λ.NewStr("_extract_url"):  OdnoklassnikiIE__extract_url,
 				λ.NewStr("_real_extract"): OdnoklassnikiIE__real_extract,
 			})
 		}())

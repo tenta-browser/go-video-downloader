@@ -35,9 +35,9 @@ var (
 	ExtractorError           λ.Object
 	HEADRequest              λ.Object
 	InfoExtractor            λ.Object
-	MTV81IE                  λ.Object
 	MTVDEIE                  λ.Object
 	MTVIE                    λ.Object
+	MTVJapanIE               λ.Object
 	MTVServicesEmbeddedIE    λ.Object
 	MTVServicesInfoExtractor λ.Object
 	MTVVideoIE               λ.Object
@@ -96,13 +96,13 @@ func init() {
 				λ.NewStr("_VALID_URL"): MTVIE__VALID_URL,
 			})
 		}())
-		MTV81IE = λ.Cal(λ.TypeType, λ.NewStr("MTV81IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		MTVJapanIE = λ.Cal(λ.TypeType, λ.NewStr("MTVJapanIE"), λ.NewTuple(MTVServicesInfoExtractor), func() λ.Dict {
 			var (
-				MTV81IE__VALID_URL λ.Object
+				MTVJapanIE__VALID_URL λ.Object
 			)
-			MTV81IE__VALID_URL = λ.NewStr("https?://(?:www\\.)?mtv81\\.com/videos/(?P<id>[^/?#.]+)")
+			MTVJapanIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?mtvjapan\\.com/videos/(?P<id>[0-9a-z]+)")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): MTV81IE__VALID_URL,
+				λ.NewStr("_VALID_URL"): MTVJapanIE__VALID_URL,
 			})
 		}())
 		MTVVideoIE = λ.Cal(λ.TypeType, λ.NewStr("MTVVideoIE"), λ.NewTuple(MTVServicesInfoExtractor), func() λ.Dict {
@@ -118,7 +118,7 @@ func init() {
 			var (
 				MTVDEIE__VALID_URL λ.Object
 			)
-			MTVDEIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?mtv\\.de/(?:artists|shows|news)/(?:[^/]+/)*(?P<id>\\d+)-[^/#?]+/*(?:[#?].*)?$")
+			MTVDEIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?mtv\\.de/(?:musik/videoclips|folgen|news)/(?P<id>[0-9a-z]+)")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): MTVDEIE__VALID_URL,
 			})

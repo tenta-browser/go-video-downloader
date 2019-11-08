@@ -25,23 +25,17 @@
 package yahoo
 
 import (
-	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
-	Ωparse "github.com/tenta-browser/go-video-downloader/gen/urllib/parse"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωbrightcove "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/brightcove"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
-	Ωnbc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nbc"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	BrightcoveLegacyIE  λ.Object
 	BrightcoveNewIE     λ.Object
-	ExtractorError      λ.Object
 	InfoExtractor       λ.Object
-	NBCSportsVPlayerIE  λ.Object
 	SearchInfoExtractor λ.Object
 	YahooGyaOIE         λ.Object
 	YahooGyaOPlayerIE   λ.Object
@@ -49,13 +43,11 @@ var (
 	YahooJapanNewsIE    λ.Object
 	ϒclean_html         λ.Object
 	ϒcompat_str         λ.Object
-	ϒdetermine_ext      λ.Object
-	ϒextract_attributes λ.Object
 	ϒint_or_none        λ.Object
 	ϒmimetype2ext       λ.Object
+	ϒparse_iso8601      λ.Object
 	ϒsmuggle_url        λ.Object
 	ϒtry_get            λ.Object
-	ϒunescapeHTML       λ.Object
 	ϒurl_or_none        λ.Object
 )
 
@@ -65,27 +57,20 @@ func init() {
 		SearchInfoExtractor = Ωcommon.SearchInfoExtractor
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒclean_html = Ωutils.ϒclean_html
-		ϒdetermine_ext = Ωutils.ϒdetermine_ext
-		ExtractorError = Ωutils.ExtractorError
-		ϒextract_attributes = Ωutils.ϒextract_attributes
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
+		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		ϒtry_get = Ωutils.ϒtry_get
-		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒurl_or_none = Ωutils.ϒurl_or_none
-		BrightcoveLegacyIE = Ωbrightcove.BrightcoveLegacyIE
 		BrightcoveNewIE = Ωbrightcove.BrightcoveNewIE
-		NBCSportsVPlayerIE = Ωnbc.NBCSportsVPlayerIE
 		YahooIE = λ.Cal(λ.TypeType, λ.NewStr("YahooIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				YahooIE__TESTS        λ.Object
 				YahooIE__VALID_URL    λ.Object
-				YahooIE__extract_info λ.Object
-				YahooIE__get_info     λ.Object
 				YahooIE__real_extract λ.Object
 			)
-			YahooIE__VALID_URL = λ.NewStr("(?P<host>https?://(?:(?P<country>[a-zA-Z]{2})\\.)?[\\da-zA-Z_-]+\\.yahoo\\.com)/(?:[^/]+/)*(?:(?P<display_id>.+)?-)?(?P<id>[0-9]+)(?:-[a-z]+)?(?:\\.html)?")
+			YahooIE__VALID_URL = λ.NewStr("(?P<url>https?://(?:(?P<country>[a-zA-Z]{2}(?:-[a-zA-Z]{2})?|malaysia)\\.)?(?:[\\da-zA-Z_-]+\\.)?yahoo\\.com/(?:[^/]+/)*(?P<id>[^?&#]*-[0-9]+(?:-[a-z]+)?)\\.html)")
 			YahooIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://screen.yahoo.com/julian-smith-travis-legg-watch-214727115.html"),
@@ -95,19 +80,9 @@ func init() {
 						λ.NewStr("title"):       λ.NewStr("Julian Smith & Travis Legg Watch Julian Smith"),
 						λ.NewStr("description"): λ.NewStr("Julian and Travis watch Julian Smith"),
 						λ.NewStr("duration"):    λ.NewInt(6863),
+						λ.NewStr("timestamp"):   λ.NewInt(1369812016),
+						λ.NewStr("upload_date"): λ.NewStr("20130529"),
 					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("http://screen.yahoo.com/wired/codefellas-s1-ep12-cougar-lies-103000935.html"),
-					λ.NewStr("md5"): λ.NewStr("251af144a19ebc4a033e8ba91ac726bb"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("d1dedf8c-d58c-38c3-8963-e899929ae0a9"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Codefellas - The Cougar Lies with Spanish Moss"),
-						λ.NewStr("description"): λ.NewStr("md5:66b627ab0a282b26352136ca96ce73c1"),
-						λ.NewStr("duration"):    λ.NewInt(151),
-					}),
-					λ.NewStr("skip"): λ.NewStr("HTTP Error 404"),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("https://screen.yahoo.com/community/community-sizzle-reel-203225340.html?format=embed"),
@@ -118,17 +93,8 @@ func init() {
 						λ.NewStr("title"):       λ.NewStr("Yahoo Saves 'Community'"),
 						λ.NewStr("description"): λ.NewStr("md5:4d4145af2fd3de00cbb6c1d664105053"),
 						λ.NewStr("duration"):    λ.NewInt(170),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://tw.news.yahoo.com/%E6%95%A2%E5%95%8F%E5%B8%82%E9%95%B7%20%E9%BB%83%E7%A7%80%E9%9C%9C%E6%89%B9%E8%B3%B4%E6%B8%85%E5%BE%B7%20%E9%9D%9E%E5%B8%B8%E9%AB%98%E5%82%B2-034024051.html"),
-					λ.NewStr("md5"): λ.NewStr("45c024bad51e63e9b6f6fad7a43a8c23"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("cac903b3-fcf4-3c14-b632-643ab541712f"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("敢問市長／黃秀霜批賴清德「非常高傲」"),
-						λ.NewStr("description"): λ.NewStr("直言台南沒捷運 交通居五都之末"),
-						λ.NewStr("duration"):    λ.NewInt(396),
+						λ.NewStr("timestamp"):   λ.NewInt(1406838636),
+						λ.NewStr("upload_date"): λ.NewStr("20140731"),
 					}),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -140,47 +106,9 @@ func init() {
 						λ.NewStr("title"):       λ.NewStr("Cute Raccoon Freed From Drain Using Angle Grinder"),
 						λ.NewStr("description"): λ.NewStr("md5:f66c890e1490f4910a9953c941dee944"),
 						λ.NewStr("duration"):    λ.NewInt(97),
+						λ.NewStr("timestamp"):   λ.NewInt(1414489862),
+						λ.NewStr("upload_date"): λ.NewStr("20141028"),
 					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://ca.sports.yahoo.com/video/program-makes-hockey-more-affordable-013127711.html"),
-					λ.NewStr("md5"): λ.NewStr("57e06440778b1828a6079d2f744212c4"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("c9fa2a36-0d4d-3937-b8f6-cc0fb1881e73"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Program that makes hockey more affordable not offered in Manitoba"),
-						λ.NewStr("description"): λ.NewStr("md5:c54a609f4c078d92b74ffb9bf1f496f4"),
-						λ.NewStr("duration"):    λ.NewInt(121),
-					}),
-					λ.NewStr("skip"): λ.NewStr("Video gone"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://ca.finance.yahoo.com/news/hackers-sony-more-trouble-well-154609075.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"): λ.NewStr("154609075"),
-					}),
-					λ.NewStr("playlist"): λ.NewList(
-						λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("md5"): λ.NewStr("000887d0dc609bc3a47c974151a40fb8"),
-							λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("id"):          λ.NewStr("e624c4bc-3389-34de-9dfc-025f74943409"),
-								λ.NewStr("ext"):         λ.NewStr("mp4"),
-								λ.NewStr("title"):       λ.NewStr("'The Interview' TV Spot: War"),
-								λ.NewStr("description"): λ.NewStr("The Interview"),
-								λ.NewStr("duration"):    λ.NewInt(30),
-							}),
-						}),
-						λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("md5"): λ.NewStr("81bc74faf10750fe36e4542f9a184c66"),
-							λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("id"):          λ.NewStr("1fc8ada0-718e-3abe-a450-bf31f246d1a9"),
-								λ.NewStr("ext"):         λ.NewStr("mp4"),
-								λ.NewStr("title"):       λ.NewStr("'The Interview' TV Spot: Guys"),
-								λ.NewStr("description"): λ.NewStr("The Interview"),
-								λ.NewStr("duration"):    λ.NewInt(30),
-							}),
-						}),
-					),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://news.yahoo.com/video/china-moses-crazy-blues-104538833.html"),
@@ -191,29 +119,21 @@ func init() {
 						λ.NewStr("title"):       λ.NewStr("China Moses Is Crazy About the Blues"),
 						λ.NewStr("description"): λ.NewStr("md5:9900ab8cd5808175c7b3fe55b979bed0"),
 						λ.NewStr("duration"):    λ.NewInt(128),
+						λ.NewStr("timestamp"):   λ.NewInt(1385722202),
+						λ.NewStr("upload_date"): λ.NewStr("20131129"),
 					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://in.lifestyle.yahoo.com/video/connect-dots-dark-side-virgo-090247395.html"),
-					λ.NewStr("md5"): λ.NewStr("d9a083ccf1379127bf25699d67e4791b"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("52aeeaa3-b3d1-30d8-9ef8-5d0cf05efb7c"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Connect the Dots: Dark Side of Virgo"),
-						λ.NewStr("description"): λ.NewStr("md5:1428185051cfd1949807ad4ff6d3686a"),
-						λ.NewStr("duration"):    λ.NewInt(201),
-					}),
-					λ.NewStr("skip"): λ.NewStr("Domain name in.lifestyle.yahoo.com gone"),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("https://www.yahoo.com/movies/v/true-story-trailer-173000497.html"),
-					λ.NewStr("md5"): λ.NewStr("989396ae73d20c6f057746fb226aa215"),
+					λ.NewStr("md5"): λ.NewStr("2a9752f74cb898af5d1083ea9f661b58"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):          λ.NewStr("071c4013-ce30-3a93-a5b2-e0413cd4a9d1"),
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
 						λ.NewStr("title"):       λ.NewStr("'True Story' Trailer"),
 						λ.NewStr("description"): λ.NewStr("True Story"),
 						λ.NewStr("duration"):    λ.NewInt(150),
+						λ.NewStr("timestamp"):   λ.NewInt(1418919206),
+						λ.NewStr("upload_date"): λ.NewStr("20141218"),
 					}),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -241,43 +161,16 @@ func init() {
 					λ.NewStr("url"): λ.NewStr("https://screen.yahoo.com/community/communitary-community-episode-1-ladders-154501237.html"),
 					λ.NewStr("md5"): λ.NewStr("4fbafb9c9b6f07aa8f870629f6671b35"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("1f32853c-a271-3eef-8cb6-f6d6872cb504"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Communitary - Community Episode 1: Ladders"),
-						λ.NewStr("description"): λ.NewStr("md5:8fc39608213295748e1e289807838c97"),
-						λ.NewStr("duration"):    λ.NewInt(1646),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.yahoo.com/movies/the-stars-of-daddys-home-have-very-different-212843197.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("40eda9c8-8e5f-3552-8745-830f67d0c737"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Will Ferrell & Mark Wahlberg Are Pro-Spanking"),
-						λ.NewStr("description"): λ.NewStr("While they play feuding fathers in 'Daddy's Home,' star Will Ferrell & Mark Wahlberg share their true feelings on parenthood."),
-					}),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.yahoo.com/music/livenation/event/galactic-2016"),
-					λ.NewStr("md5"): λ.NewStr("dac0c72d502bc5facda80c9e6d5c98db"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("a6015640-e9e5-3efb-bb60-05589a183919"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("description"): λ.NewStr("Galactic"),
-						λ.NewStr("title"):       λ.NewStr("Dolla Diva (feat. Maggie Koerner)"),
-					}),
-					λ.NewStr("skip"): λ.NewStr("redirect to https://www.yahoo.com/music"),
-				}),
-				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://www.yahoo.com/movies/video/true-story-trailer-173000497.html"),
-					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("071c4013-ce30-3a93-a5b2-e0413cd4a9d1"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("'True Story' Trailer"),
-						λ.NewStr("description"): λ.NewStr("True Story"),
-					}),
-					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
+						λ.NewStr("id"):             λ.NewStr("1f32853c-a271-3eef-8cb6-f6d6872cb504"),
+						λ.NewStr("ext"):            λ.NewStr("mp4"),
+						λ.NewStr("title"):          λ.NewStr("Communitary - Community Episode 1: Ladders"),
+						λ.NewStr("description"):    λ.NewStr("md5:8fc39608213295748e1e289807838c97"),
+						λ.NewStr("duration"):       λ.NewInt(1646),
+						λ.NewStr("timestamp"):      λ.NewInt(1440436550),
+						λ.NewStr("upload_date"):    λ.NewStr("20150824"),
+						λ.NewStr("series"):         λ.NewStr("Communitary"),
+						λ.NewStr("season_number"):  λ.NewInt(6),
+						λ.NewStr("episode_number"): λ.NewInt(1),
 					}),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -287,28 +180,58 @@ func init() {
 						λ.NewStr("ext"):         λ.NewStr("mp4"),
 						λ.NewStr("title"):       λ.NewStr("單車天使 - 中文版預"),
 						λ.NewStr("description"): λ.NewStr("中文版預"),
+						λ.NewStr("timestamp"):   λ.NewInt(1476696196),
+						λ.NewStr("upload_date"): λ.NewStr("20161017"),
 					}),
 					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("skip_download"): λ.True,
 					}),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"): λ.NewStr("https://au.tv.yahoo.com/plus7/sunrise/-/watch/37083565/clown-entertainers-say-it-is-hurting-their-business/"),
+					λ.NewStr("url"): λ.NewStr("https://www.yahoo.com/entertainment/gwen-stefani-reveals-the-pop-hit-she-passed-on-assigns-it-to-her-voice-contestant-instead-033045672.html"),
 					λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.NewStr("5575377707001"),
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       λ.NewStr("Clown entertainers say 'It' is hurting their business"),
-						λ.NewStr("description"): λ.NewStr("Stephen King s horror film has much to answer for. Jelby and Mr Loopy the Clowns join us."),
-						λ.NewStr("timestamp"):   λ.NewInt(1505341164),
-						λ.NewStr("upload_date"): λ.NewStr("20170913"),
-						λ.NewStr("uploader_id"): λ.NewStr("2376984109001"),
+						λ.NewStr("id"):          λ.NewStr("46c5d95a-528f-3d03-b732-732fcadd51de"),
+						λ.NewStr("title"):       λ.NewStr("Gwen Stefani reveals the pop hit she passed on, assigns it to her 'Voice' contestant instead"),
+						λ.NewStr("description"): λ.NewStr("Gwen decided not to record this hit herself, but she decided it was the perfect fit for Kyndall Inskeep."),
 					}),
+					λ.NewStr("playlist"): λ.NewList(
+						λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("id"):          λ.NewStr("966d4262-4fd1-3aaa-b45b-049ca6e38ba6"),
+								λ.NewStr("ext"):         λ.NewStr("mp4"),
+								λ.NewStr("title"):       λ.NewStr("Gwen Stefani reveals she turned down one of Sia's best songs"),
+								λ.NewStr("description"): λ.NewStr("On \"The Voice\" Tuesday, Gwen Stefani told Taylor Swift which Sia hit was almost hers."),
+								λ.NewStr("timestamp"):   λ.NewInt(1572406500),
+								λ.NewStr("upload_date"): λ.NewStr("20191030"),
+							}),
+						}),
+						λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("info_dict"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("id"):          λ.NewStr("352CFDOQrKg"),
+								λ.NewStr("ext"):         λ.NewStr("mp4"),
+								λ.NewStr("title"):       λ.NewStr("Kyndal Inskeep \"Performs the Hell Out of\" Sia's \"Elastic Heart\" - The Voice Knockouts 2019"),
+								λ.NewStr("description"): λ.NewStr("md5:35b61e94c2ae214bc965ff4245f80d11"),
+								λ.NewStr("uploader"):    λ.NewStr("The Voice"),
+								λ.NewStr("uploader_id"): λ.NewStr("NBCTheVoice"),
+								λ.NewStr("upload_date"): λ.NewStr("20191029"),
+							}),
+						}),
+					),
 					λ.NewStr("params"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("skip_download"): λ.True,
+						λ.NewStr("playlistend"): λ.NewInt(2),
 					}),
+					λ.NewStr("expected_warnings"): λ.NewList(λ.NewStr("HTTP Error 404")),
 				}),
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("url"):           λ.NewStr("https://au.tv.yahoo.com/plus7/sunrise/-/watch/37263964/sunrise-episode-wed-27-sep/"),
+					λ.NewStr("url"):           λ.NewStr("https://malaysia.news.yahoo.com/video/bystanders-help-ontario-policeman-bust-190932818.html"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://es-us.noticias.yahoo.com/es-la-puerta-irrompible-que-110539379.html"),
+					λ.NewStr("only_matching"): λ.True,
+				}),
+				λ.NewDictWithTable(map[λ.Object]λ.Object{
+					λ.NewStr("url"):           λ.NewStr("https://www.yahoo.com/entertainment/v/longtime-cbs-news-60-minutes-032036500-cbs.html"),
 					λ.NewStr("only_matching"): λ.True,
 				}),
 			)
@@ -320,423 +243,303 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						CONTENT_ID_REGEXES     λ.Object
-						ϒaccount_id            λ.Object
-						ϒalias                 λ.Object
-						ϒalias_info            λ.Object
-						ϒattr                  λ.Object
-						ϒbc_url                λ.Object
-						ϒbrightcove_id         λ.Object
-						ϒbrightcove_iframe     λ.Object
-						ϒbrightcove_url_result λ.Object
-						ϒconfig                λ.Object
-						ϒconfig_json           λ.Object
-						ϒdisplay_id            λ.Object
-						ϒentries               λ.Object
-						ϒhost                  λ.Object
-						ϒidx                   λ.Object
-						ϒiframe_url            λ.Object
-						ϒiframe_urls           λ.Object
-						ϒinfo                  λ.Object
-						ϒitems                 λ.Object
-						ϒitems_json            λ.Object
-						ϒmobj                  λ.Object
-						ϒnbc_sports_url        λ.Object
-						ϒpage_id               λ.Object
-						ϒparsed_src            λ.Object
-						ϒqs                    λ.Object
-						ϒsapi                  λ.Object
-						ϒself                  = λargs[0]
-						ϒsrc                   λ.Object
-						ϒurl                   = λargs[1]
-						ϒurlh                  λ.Object
-						ϒvideo_id              λ.Object
-						ϒwebpage               λ.Object
-						τmp0                   λ.Object
-						τmp1                   λ.Object
-						τmp2                   λ.Object
+						ϒapi_base      λ.Object
+						ϒcc            λ.Object
+						ϒcc_url        λ.Object
+						ϒcontent       λ.Object
+						ϒcountry       λ.Object
+						ϒcover         λ.Object
+						ϒcover_url     λ.Object
+						ϒdisplay_id    λ.Object
+						ϒe             λ.Object
+						ϒentries       λ.Object
+						ϒfmt           λ.Object
+						ϒfmts          λ.Object
+						ϒformats       λ.Object
+						ϒhost          λ.Object
+						ϒi             λ.Object
+						ϒiframe_url    λ.Object
+						ϒis_live       λ.Object
+						ϒitem          λ.Object
+						ϒmedia_obj     λ.Object
+						ϒmsg           λ.Object
+						ϒpath          λ.Object
+						ϒs             λ.Object
+						ϒs_url         λ.Object
+						ϒself          = λargs[0]
+						ϒseries_info   λ.Object
+						ϒstreaming_url λ.Object
+						ϒsubtitles     λ.Object
+						ϒtbr           λ.Object
+						ϒthumb         λ.Object
+						ϒthumb_url     λ.Object
+						ϒthumbnails    λ.Object
+						ϒtitle         λ.Object
+						ϒurl           = λargs[1]
+						ϒurls          λ.Object
+						ϒuuid          λ.Object
+						ϒvideo         λ.Object
+						ϒvideo_id      λ.Object
+						τmp0           λ.Object
+						τmp1           λ.Object
+						τmp2           λ.Object
+						τmp3           λ.Object
 					)
-					_ = ϒidx
-					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒpage_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-					ϒdisplay_id = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("display_id")); λ.IsTrue(λv) {
-							return λv
-						} else {
-							return ϒpage_id
-						}
-					}()
-					ϒhost = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("host"))
-					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_download_webpage_handle", nil), ϒurl, ϒdisplay_id)
-					ϒwebpage = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒurlh = λ.GetItem(τmp0, λ.NewInt(1))
-					if λ.IsTrue(λ.NewBool(λ.Contains(λ.Cal(λ.GetAttr(ϒurlh, "geturl", nil)), λ.NewStr("err=404")))) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("Video gone")), λ.KWArgs{
-							{Name: "expected", Value: λ.True},
-						})))
+					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
+					ϒurl = λ.GetItem(τmp0, λ.NewInt(0))
+					ϒcountry = λ.GetItem(τmp0, λ.NewInt(1))
+					ϒdisplay_id = λ.GetItem(τmp0, λ.NewInt(2))
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒcountry))) {
+						ϒcountry = λ.NewStr("us")
+					} else {
+						ϒcountry = λ.GetItem(λ.Cal(λ.GetAttr(ϒcountry, "split", nil), λ.NewStr("-")), λ.NewInt(0))
 					}
-					ϒentries = λ.NewList()
-					ϒiframe_urls = λ.Cal(Ωre.ϒfindall, λ.NewStr("<iframe[^>]+src=\"(/video/.+?-\\d+\\.html\\?format=embed.*?)\""), ϒwebpage)
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.EnumerateIteratorType, ϒiframe_urls))
+					ϒapi_base = λ.Mod(λ.NewStr("https://%s.yahoo.com/_td/api/resource/"), ϒcountry)
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.EnumerateIteratorType, λ.NewList(
+						λ.Add(λ.NewStr("url="), ϒurl),
+						λ.Add(λ.NewStr("ymedia-alias="), ϒdisplay_id),
+					)))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒidx = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒiframe_url = λ.GetItem(τmp2, λ.NewInt(1))
-						λ.Cal(λ.GetAttr(ϒentries, "append", nil), λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Add(ϒhost, ϒiframe_url), λ.NewStr("Yahoo")))
-					}
-					if λ.IsTrue(ϒentries) {
-						return λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), ϒentries, ϒpage_id)
-					}
-					ϒnbc_sports_url = λ.Cal(λ.GetAttr(NBCSportsVPlayerIE, "_extract_url", nil), ϒwebpage)
-					if λ.IsTrue(ϒnbc_sports_url) {
-						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒnbc_sports_url, λ.Cal(λ.GetAttr(NBCSportsVPlayerIE, "ie_key", nil)))
-					}
-					ϒbc_url = λ.Cal(λ.GetAttr(BrightcoveLegacyIE, "_extract_brightcove_url", nil), ϒwebpage)
-					if λ.IsTrue(ϒbc_url) {
-						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒbc_url, λ.Cal(λ.GetAttr(BrightcoveLegacyIE, "ie_key", nil)))
-					}
-					ϒbrightcove_url_result = λ.NewFunction("brightcove_url_result",
-						[]λ.Param{
-							{Name: "bc_url"},
-						},
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							var (
-								ϒbc_url = λargs[0]
-							)
-							return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Cal(ϒsmuggle_url, ϒbc_url, λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("geo_countries"): λ.NewList(λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("country"))),
-							})), λ.Cal(λ.GetAttr(BrightcoveNewIE, "ie_key", nil)))
-						})
-					ϒbc_url = λ.Cal(λ.GetAttr(BrightcoveNewIE, "_extract_url", nil), ϒself, ϒwebpage)
-					if λ.IsTrue(ϒbc_url) {
-						return λ.Cal(ϒbrightcove_url_result, ϒbc_url)
-					}
-					ϒbrightcove_iframe = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("(<iframe[^>]+data-video-id=[\"\\']\\d+[^>]+>)"),
-						ϒwebpage,
-						λ.NewStr("brightcove iframe"),
-					), λ.KWArgs{
-						{Name: "default", Value: λ.None},
-					})
-					if λ.IsTrue(ϒbrightcove_iframe) {
-						ϒattr = λ.Cal(ϒextract_attributes, ϒbrightcove_iframe)
-						ϒsrc = λ.Cal(λ.GetAttr(ϒattr, "get", nil), λ.NewStr("src"))
-						if λ.IsTrue(ϒsrc) {
-							ϒparsed_src = λ.Cal(Ωparse.ϒurlparse, ϒsrc)
-							ϒqs = λ.Cal(Ωparse.ϒparse_qs, λ.GetAttr(ϒparsed_src, "query", nil))
-							ϒaccount_id = λ.GetItem(λ.Cal(λ.GetAttr(ϒqs, "get", nil), λ.NewStr("accountId"), λ.NewList(λ.NewStr("2376984109001"))), λ.NewInt(0))
-							ϒbrightcove_id = func() λ.Object {
-								if λv := λ.Cal(λ.GetAttr(ϒattr, "get", nil), λ.NewStr("data-video-id")); λ.IsTrue(λv) {
-									return λv
-								} else {
-									return λ.GetItem(λ.Cal(λ.GetAttr(ϒqs, "get", nil), λ.NewStr("videoId"), λ.NewList(λ.None)), λ.NewInt(0))
-								}
-							}()
-							if λ.IsTrue(func() λ.Object {
-								if λv := ϒaccount_id; !λ.IsTrue(λv) {
-									return λv
-								} else {
-									return ϒbrightcove_id
-								}
-							}()) {
-								return λ.Cal(ϒbrightcove_url_result, λ.Mod(λ.NewStr("http://players.brightcove.net/%s/default_default/index.html?videoId=%s"), λ.NewTuple(
-									ϒaccount_id,
-									ϒbrightcove_id,
-								)))
-							}
-						}
-					}
-					ϒconfig_json = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("window\\.Af\\.bootstrap\\[[^\\]]+\\]\\s*=\\s*({.*?\"applet_type\"\\s*:\\s*\"td-applet-videoplayer\".*?});(?:</script>|$)"),
-						ϒwebpage,
-						λ.NewStr("videoplayer applet"),
-					), λ.KWArgs{
-						{Name: "default", Value: λ.None},
-					})
-					if λ.IsTrue(ϒconfig_json) {
-						ϒconfig = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
-							ϒconfig_json,
+						ϒi = λ.GetItem(τmp2, λ.NewInt(0))
+						ϒuuid = λ.GetItem(τmp2, λ.NewInt(1))
+						ϒcontent = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+							λ.Add(ϒapi_base, λ.Mod(λ.NewStr("content;getDetailView=true;uuids=[\"%s\"]"), ϒuuid)),
 							ϒdisplay_id,
+							λ.NewStr("Downloading content JSON metadata"),
 						), λ.KWArgs{
-							{Name: "fatal", Value: λ.False},
+							{Name: "fatal", Value: λ.Eq(ϒi, λ.NewInt(1))},
 						})
-						if λ.IsTrue(ϒconfig) {
-							ϒsapi = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("models"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("applet_model"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("data"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("sapi"))
-							if λ.IsTrue(func() λ.Object {
-								if λv := ϒsapi; !λ.IsTrue(λv) {
-									return λv
-								} else {
-									return λ.NewBool(λ.Contains(ϒsapi, λ.NewStr("query")))
-								}
-							}()) {
-								ϒinfo = λ.Cal(λ.GetAttr(ϒself, "_extract_info", nil), ϒdisplay_id, ϒsapi, ϒwebpage)
-								λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), λ.GetItem(ϒinfo, λ.NewStr("formats")))
-								return ϒinfo
-							}
-						}
-					}
-					ϒitems_json = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("mediaItems: ({.*?})$"),
-						ϒwebpage,
-						λ.NewStr("items"),
-					), λ.KWArgs{
-						{Name: "flags", Value: Ωre.MULTILINE},
-						{Name: "default", Value: λ.None},
-					})
-					if λ.IsTrue(λ.NewBool(ϒitems_json == λ.None)) {
-						ϒalias = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("\"aliases\":{\"video\":\"(.*?)\""),
-							ϒwebpage,
-							λ.NewStr("alias"),
-						), λ.KWArgs{
-							{Name: "default", Value: λ.None},
-						})
-						if λ.IsTrue(λ.NewBool(ϒalias != λ.None)) {
-							ϒalias_info = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("https://www.yahoo.com/_td/api/resource/VideoService.videos;video_aliases=[\"%s\"]"), ϒalias), ϒdisplay_id, λ.NewStr("Downloading alias info"))
-							ϒvideo_id = λ.GetItem(λ.GetItem(ϒalias_info, λ.NewInt(0)), λ.NewStr("id"))
-						} else {
-							CONTENT_ID_REGEXES = λ.NewList(
-								λ.NewStr("YUI\\.namespace\\(\"Media\"\\)\\.CONTENT_ID\\s*=\\s*\"([^\"]+)\""),
-								λ.NewStr("root\\.App\\.Cache\\.context\\.videoCache\\.curVideo = \\{\"([^\"]+)\""),
-								λ.NewStr("\"first_videoid\"\\s*:\\s*\"([^\"]+)\""),
-								λ.Mod(λ.NewStr("%s[^}]*\"ccm_id\"\\s*:\\s*\"([^\"]+)\""), λ.Cal(Ωre.ϒescape, ϒpage_id)),
-								λ.NewStr("<article[^>]data-uuid=[\"\\']([^\"\\']+)"),
-								λ.NewStr("<meta[^<>]+yahoo://article/view\\?.*\\buuid=([^&\"\\']+)"),
-								λ.NewStr("<meta[^<>]+[\"\\']ytwnews://cavideo/(?:[^/]+/)+([\\da-fA-F-]+)[&\"\\']"),
-							)
-							ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), CONTENT_ID_REGEXES, ϒwebpage, λ.NewStr("content ID"))
-						}
-					} else {
-						ϒitems = λ.Cal(Ωjson.ϒloads, ϒitems_json)
-						ϒinfo = λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒitems, λ.NewStr("mediaItems")), λ.NewStr("query")), λ.NewStr("results")), λ.NewStr("mediaObj")), λ.NewInt(0))
-						ϒvideo_id = λ.GetItem(ϒinfo, λ.NewStr("id"))
-					}
-					return λ.Cal(λ.GetAttr(ϒself, "_get_info", nil), ϒvideo_id, ϒdisplay_id, ϒwebpage)
-				})
-			YahooIE__extract_info = λ.NewFunction("_extract_info",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "display_id"},
-					{Name: "query"},
-					{Name: "webpage"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒcc_json         λ.Object
-						ϒclosed_caption  λ.Object
-						ϒclosed_captions λ.Object
-						ϒdisplay_id      = λargs[1]
-						ϒfmt             λ.Object
-						ϒformat_info     λ.Object
-						ϒformat_url      λ.Object
-						ϒformats         λ.Object
-						ϒhost            λ.Object
-						ϒinfo            λ.Object
-						ϒlang            λ.Object
-						ϒmeta            λ.Object
-						ϒmsg             λ.Object
-						ϒpath            λ.Object
-						ϒquery           = λargs[2]
-						ϒs               λ.Object
-						ϒself            = λargs[0]
-						ϒsubtitles       λ.Object
-						ϒtbr             λ.Object
-						ϒvideo_id        λ.Object
-						ϒwebpage         = λargs[3]
-						τmp0             λ.Object
-						τmp1             λ.Object
-						τmp2             λ.Object
-					)
-					ϒinfo = λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒquery, λ.NewStr("query")), λ.NewStr("results")), λ.NewStr("mediaObj")), λ.NewInt(0))
-					ϒmeta = λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("meta"))
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("id"))
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒmeta))) {
-						ϒmsg = λ.Cal(λ.GetAttr(λ.GetItem(ϒinfo, λ.NewStr("status")), "get", nil), λ.NewStr("msg"))
-						if λ.IsTrue(ϒmsg) {
-							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("%s returned error: %s"), λ.NewTuple(
-								λ.GetAttr(ϒself, "IE_NAME", nil),
-								ϒmsg,
-							))), λ.KWArgs{
-								{Name: "expected", Value: λ.True},
-							})))
-						}
-						panic(λ.Raise(λ.Cal(ExtractorError, λ.NewStr("Unable to extract media object meta"))))
-					}
-					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒinfo, λ.NewStr("streams")))
-					for {
-						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+						if λ.IsTrue(ϒcontent) {
+							ϒitem = λ.GetItem(λ.GetItem(ϒcontent, λ.NewStr("items")), λ.NewInt(0))
 							break
 						}
-						ϒs = τmp1
-						ϒtbr = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("bitrate")))
-						ϒformat_info = λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("width"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("width"))),
-							λ.NewStr("height"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("height"))),
-							λ.NewStr("tbr"):    ϒtbr,
-						})
-						ϒhost = λ.GetItem(ϒs, λ.NewStr("host"))
-						ϒpath = λ.GetItem(ϒs, λ.NewStr("path"))
-						if λ.IsTrue(λ.Cal(λ.GetAttr(ϒhost, "startswith", nil), λ.NewStr("rtmp"))) {
-							ϒfmt = λ.NewStr("rtmp")
-							λ.Cal(λ.GetAttr(ϒformat_info, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("url"):       ϒhost,
-								λ.NewStr("play_path"): ϒpath,
-								λ.NewStr("ext"):       λ.NewStr("flv"),
-							}))
-						} else {
-							if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("format")), λ.NewStr("m3u8_playlist"))) {
-								ϒfmt = λ.NewStr("hls")
-								λ.Cal(λ.GetAttr(ϒformat_info, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("protocol"): λ.NewStr("m3u8_native"),
-									λ.NewStr("ext"):      λ.NewStr("mp4"),
-								}))
-							} else {
-								τmp2 = λ.Cal(ϒdetermine_ext, ϒpath)
-								ϒfmt = τmp2
-								λ.SetItem(ϒformat_info, λ.NewStr("ext"), τmp2)
-							}
-							ϒformat_url = λ.Cal(Ωparse.ϒurljoin, ϒhost, ϒpath)
-							λ.SetItem(ϒformat_info, λ.NewStr("url"), ϒformat_url)
-						}
-						λ.SetItem(ϒformat_info, λ.NewStr("format_id"), λ.Add(ϒfmt, func() λ.Object {
-							if λ.IsTrue(ϒtbr) {
-								return λ.Mod(λ.NewStr("-%d"), ϒtbr)
-							} else {
-								return λ.NewStr("")
-							}
-						}()))
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒformat_info)
 					}
-					ϒclosed_captions = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("\"closedcaptions\":(\\[[^\\]]+\\])"),
-						ϒwebpage,
-						λ.NewStr("closed captions"),
-					), λ.KWArgs{
-						{Name: "default", Value: λ.NewStr("[]")},
-					})
-					ϒcc_json = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
-						ϒclosed_captions,
-						ϒvideo_id,
-					), λ.KWArgs{
-						{Name: "fatal", Value: λ.False},
-					})
-					ϒsubtitles = λ.NewDictWithTable(map[λ.Object]λ.Object{})
-					if λ.IsTrue(ϒcc_json) {
-						τmp0 = λ.Cal(λ.BuiltinIter, ϒcc_json)
+					if λ.IsTrue(λ.Ne(λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("type")), λ.NewStr("video"))) {
+						ϒentries = λ.NewList()
+						ϒcover = func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("cover")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+							}
+						}()
+						if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒcover, "get", nil), λ.NewStr("type")), λ.NewStr("yvideo"))) {
+							ϒcover_url = λ.Cal(λ.GetAttr(ϒcover, "get", nil), λ.NewStr("url"))
+							if λ.IsTrue(ϒcover_url) {
+								λ.Cal(λ.GetAttr(ϒentries, "append", nil), λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒcover_url, λ.NewStr("Yahoo"), λ.Cal(λ.GetAttr(ϒcover, "get", nil), λ.NewStr("uuid"))))
+							}
+						}
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("body"), λ.NewList()))
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
-							ϒclosed_caption = τmp1
-							ϒlang = λ.GetItem(ϒclosed_caption, λ.NewStr("lang"))
-							if λ.IsTrue(λ.NewBool(!λ.Contains(ϒsubtitles, ϒlang))) {
-								λ.SetItem(ϒsubtitles, ϒlang, λ.NewList())
+							ϒe = τmp1
+							if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("type")), λ.NewStr("videoIframe"))) {
+								ϒiframe_url = λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("url"))
+								if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒiframe_url))) {
+									continue
+								}
+								λ.Cal(λ.GetAttr(ϒentries, "append", nil), λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒiframe_url))
 							}
-							λ.Cal(λ.GetAttr(λ.GetItem(ϒsubtitles, ϒlang), "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("url"): λ.GetItem(ϒclosed_caption, λ.NewStr("url")),
-								λ.NewStr("ext"): λ.Cal(ϒmimetype2ext, λ.GetItem(ϒclosed_caption, λ.NewStr("content_type"))),
-							}))
 						}
+						return λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), ϒentries, λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("uuid")), λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("title")), λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("summary")))
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("display_id"):  ϒdisplay_id,
-						λ.NewStr("title"):       λ.Cal(ϒunescapeHTML, λ.GetItem(ϒmeta, λ.NewStr("title"))),
-						λ.NewStr("formats"):     ϒformats,
-						λ.NewStr("description"): λ.Cal(ϒclean_html, λ.GetItem(ϒmeta, λ.NewStr("description"))),
-						λ.NewStr("thumbnail"): func() λ.Object {
-							if λ.IsTrue(λ.Cal(λ.GetAttr(ϒmeta, "get", nil), λ.NewStr("thumbnail"))) {
-								return λ.GetItem(ϒmeta, λ.NewStr("thumbnail"))
-							} else {
-								return λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage)
-							}
-						}(),
-						λ.NewStr("duration"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒmeta, "get", nil), λ.NewStr("duration"))),
-						λ.NewStr("subtitles"): ϒsubtitles,
-					})
-				})
-			YahooIE__get_info = λ.NewFunction("_get_info",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "video_id"},
-					{Name: "display_id"},
-					{Name: "webpage"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒdisplay_id   = λargs[2]
-						ϒfmt          λ.Object
-						ϒformats      λ.Object
-						ϒinfo         λ.Object
-						ϒquery_result λ.Object
-						ϒregion       λ.Object
-						ϒself         = λargs[0]
-						ϒvideo_id     = λargs[1]
-						ϒwebpage      = λargs[3]
-						τmp0          λ.Object
-						τmp1          λ.Object
-					)
-					ϒregion = λ.Cal(λ.GetAttr(λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("\\\\?\"region\\\\?\"\\s*:\\s*\\\\?\"([^\"]+?)\\\\?\""),
-						ϒwebpage,
-						λ.NewStr("region"),
-					), λ.KWArgs{
-						{Name: "fatal", Value: λ.False},
-						{Name: "default", Value: λ.NewStr("US")},
-					}), "upper", nil))
+					ϒvideo_id = λ.GetItem(ϒitem, λ.NewStr("uuid"))
+					ϒvideo = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Add(ϒapi_base, λ.Mod(λ.NewStr("VideoService.videos;view=full;video_ids=[\"%s\"]"), ϒvideo_id)), ϒvideo_id, λ.NewStr("Downloading video JSON metadata")), λ.NewInt(0))
+					ϒtitle = λ.GetItem(ϒvideo, λ.NewStr("title"))
+					if λ.IsTrue(λ.Eq(ϒcountry, λ.NewStr("malaysia"))) {
+						ϒcountry = λ.NewStr("my")
+					}
+					ϒis_live = λ.Eq(λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("live_state")), λ.NewStr("live"))
+					ϒfmts = func() λ.Object {
+						if λ.IsTrue(ϒis_live) {
+							return λ.NewTuple(λ.NewStr("m3u8"))
+						} else {
+							return λ.NewTuple(
+								λ.NewStr("webm"),
+								λ.NewStr("mp4"),
+							)
+						}
+					}()
+					ϒurls = λ.NewList()
 					ϒformats = λ.NewList()
-					ϒinfo = λ.NewDictWithTable(map[λ.Object]λ.Object{})
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-						λ.NewStr("webm"),
-						λ.NewStr("mp4"),
-					))
+					ϒsubtitles = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+					τmp0 = λ.Cal(λ.BuiltinIter, ϒfmts)
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒfmt = τmp1
-						ϒquery_result = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-							λ.Add(λ.NewStr("https://video.media.yql.yahoo.com/v1/video/sapi/streams/"), ϒvideo_id),
-							ϒdisplay_id,
-							λ.Mod(λ.NewStr("Downloading %s video info"), ϒfmt),
-						), λ.KWArgs{
-							{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("protocol"): λ.NewStr("http"),
-								λ.NewStr("region"):   ϒregion,
-								λ.NewStr("format"):   ϒfmt,
-							})},
-						})
-						ϒinfo = λ.Cal(λ.GetAttr(ϒself, "_extract_info", nil), ϒdisplay_id, ϒquery_result, ϒwebpage)
-						λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.GetItem(ϒinfo, λ.NewStr("formats")))
-					}
-					λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
-						λ.Mod(λ.NewStr("http://video.media.yql.yahoo.com/v1/hls/%s?region=%s"), λ.NewTuple(
+						ϒmedia_obj = λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+							λ.Add(λ.NewStr("https://video-api.yql.yahoo.com/v1/video/sapi/streams/"), ϒvideo_id),
 							ϒvideo_id,
-							ϒregion,
-						)),
-						ϒvideo_id,
-						λ.NewStr("mp4"),
-						λ.NewStr("m3u8_native"),
-					), λ.KWArgs{
-						{Name: "m3u8_id", Value: λ.NewStr("hls")},
-						{Name: "fatal", Value: λ.False},
-					}))
+							λ.Mod(λ.NewStr("Downloading %s JSON metadata"), ϒfmt),
+						), λ.KWArgs{
+							{Name: "headers", Value: λ.Cal(λ.GetAttr(ϒself, "geo_verification_headers", nil))},
+							{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("format"): ϒfmt,
+								λ.NewStr("region"): λ.Cal(λ.GetAttr(ϒcountry, "upper", nil)),
+							})},
+						}), λ.NewStr("query")), λ.NewStr("results")), λ.NewStr("mediaObj")), λ.NewInt(0))
+						ϒmsg = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒmedia_obj, "get", nil), λ.NewStr("status"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("msg"))
+						τmp2 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒmedia_obj, "get", nil), λ.NewStr("streams"), λ.NewList()))
+						for {
+							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+								break
+							}
+							ϒs = τmp3
+							ϒhost = λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("host"))
+							ϒpath = λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("path"))
+							if λ.IsTrue(func() λ.Object {
+								if λv := λ.NewBool(!λ.IsTrue(ϒhost)); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.NewBool(!λ.IsTrue(ϒpath))
+								}
+							}()) {
+								continue
+							}
+							ϒs_url = λ.Add(ϒhost, ϒpath)
+							if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("format")), λ.NewStr("m3u8"))) {
+								λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+									ϒs_url,
+									ϒvideo_id,
+									λ.NewStr("mp4"),
+								), λ.KWArgs{
+									{Name: "m3u8_id", Value: λ.NewStr("hls")},
+									{Name: "fatal", Value: λ.False},
+								}))
+								continue
+							}
+							ϒtbr = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("bitrate")))
+							λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("url"): ϒs_url,
+								λ.NewStr("format_id"): λ.Add(ϒfmt, func() λ.Object {
+									if λ.IsTrue(ϒtbr) {
+										return λ.Mod(λ.NewStr("-%d"), ϒtbr)
+									} else {
+										return λ.NewStr("")
+									}
+								}()),
+								λ.NewStr("width"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("width"))),
+								λ.NewStr("height"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("height"))),
+								λ.NewStr("tbr"):    ϒtbr,
+								λ.NewStr("fps"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("framerate"))),
+							}))
+						}
+						τmp2 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒmedia_obj, "get", nil), λ.NewStr("closedcaptions"), λ.NewList()))
+						for {
+							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+								break
+							}
+							ϒcc = τmp3
+							ϒcc_url = λ.Cal(λ.GetAttr(ϒcc, "get", nil), λ.NewStr("url"))
+							if λ.IsTrue(func() λ.Object {
+								if λv := λ.NewBool(!λ.IsTrue(ϒcc_url)); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.NewBool(λ.Contains(ϒurls, ϒcc_url))
+								}
+							}()) {
+								continue
+							}
+							λ.Cal(λ.GetAttr(ϒurls, "append", nil), ϒcc_url)
+							λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒsubtitles, "setdefault", nil), func() λ.Object {
+								if λv := λ.Cal(λ.GetAttr(ϒcc, "get", nil), λ.NewStr("lang")); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.NewStr("en-US")
+								}
+							}(), λ.NewList()), "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("url"): ϒcc_url,
+								λ.NewStr("ext"): λ.Cal(ϒmimetype2ext, λ.Cal(λ.GetAttr(ϒcc, "get", nil), λ.NewStr("content_type"))),
+							}))
+						}
+					}
+					ϒstreaming_url = λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("streaming_url"))
+					if λ.IsTrue(func() λ.Object {
+						if λv := ϒstreaming_url; !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewBool(!λ.IsTrue(ϒis_live))
+						}
+					}()) {
+						λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+							ϒstreaming_url,
+							ϒvideo_id,
+							λ.NewStr("mp4"),
+							λ.NewStr("m3u8_native"),
+						), λ.KWArgs{
+							{Name: "m3u8_id", Value: λ.NewStr("hls")},
+							{Name: "fatal", Value: λ.False},
+						}))
+					}
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.NewBool(!λ.IsTrue(ϒformats)); !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Eq(ϒmsg, λ.NewStr("geo restricted"))
+						}
+					}()) {
+						λ.Cal(λ.GetAttr(ϒself, "raise_geo_restricted", nil))
+					}
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					λ.SetItem(ϒinfo, λ.NewStr("formats"), ϒformats)
-					return ϒinfo
+					ϒthumbnails = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("thumbnails"), λ.NewList()))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒthumb = τmp1
+						ϒthumb_url = λ.Cal(λ.GetAttr(ϒthumb, "get", nil), λ.NewStr("url"))
+						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒthumb_url))) {
+							continue
+						}
+						λ.Cal(λ.GetAttr(ϒthumbnails, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("id"):     λ.Cal(λ.GetAttr(ϒthumb, "get", nil), λ.NewStr("tag")),
+							λ.NewStr("url"):    λ.Cal(λ.GetAttr(ϒthumb, "get", nil), λ.NewStr("url")),
+							λ.NewStr("width"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒthumb, "get", nil), λ.NewStr("width"))),
+							λ.NewStr("height"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒthumb, "get", nil), λ.NewStr("height"))),
+						}))
+					}
+					ϒseries_info = func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("series_info")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+						}
+					}()
+					return λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"): ϒvideo_id,
+						λ.NewStr("title"): func() λ.Object {
+							if λ.IsTrue(ϒis_live) {
+								return λ.Cal(λ.GetAttr(ϒself, "_live_title", nil), ϒtitle)
+							} else {
+								return ϒtitle
+							}
+						}(),
+						λ.NewStr("formats"):        ϒformats,
+						λ.NewStr("display_id"):     ϒdisplay_id,
+						λ.NewStr("thumbnails"):     ϒthumbnails,
+						λ.NewStr("description"):    λ.Cal(ϒclean_html, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("description"))),
+						λ.NewStr("timestamp"):      λ.Cal(ϒparse_iso8601, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("publish_time"))),
+						λ.NewStr("subtitles"):      ϒsubtitles,
+						λ.NewStr("duration"):       λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("duration"))),
+						λ.NewStr("view_count"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("view_count"))),
+						λ.NewStr("is_live"):        ϒis_live,
+						λ.NewStr("series"):         λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("show_name")),
+						λ.NewStr("season_number"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒseries_info, "get", nil), λ.NewStr("season_number"))),
+						λ.NewStr("episode_number"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒseries_info, "get", nil), λ.NewStr("episode_number"))),
+					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_TESTS"):        YahooIE__TESTS,
 				λ.NewStr("_VALID_URL"):    YahooIE__VALID_URL,
-				λ.NewStr("_extract_info"): YahooIE__extract_info,
-				λ.NewStr("_get_info"):     YahooIE__get_info,
 				λ.NewStr("_real_extract"): YahooIE__real_extract,
 			})
 		}())

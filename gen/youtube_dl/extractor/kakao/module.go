@@ -36,6 +36,7 @@ var (
 	KakaoIE            λ.Object
 	ϒcompat_str        λ.Object
 	ϒint_or_none       λ.Object
+	ϒstrip_or_none     λ.Object
 	ϒunified_timestamp λ.Object
 	ϒupdate_url_query  λ.Object
 )
@@ -45,17 +46,18 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		KakaoIE = λ.Cal(λ.TypeType, λ.NewStr("KakaoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				KakaoIE__API_BASE     λ.Object
-				KakaoIE__TESTS        λ.Object
-				KakaoIE__VALID_URL    λ.Object
-				KakaoIE__real_extract λ.Object
+				KakaoIE__API_BASE_TMPL λ.Object
+				KakaoIE__TESTS         λ.Object
+				KakaoIE__VALID_URL     λ.Object
+				KakaoIE__real_extract  λ.Object
 			)
-			KakaoIE__VALID_URL = λ.NewStr("https?://tv\\.kakao\\.com/channel/(?P<channel>\\d+)/cliplink/(?P<id>\\d+)")
-			KakaoIE__API_BASE = λ.NewStr("http://tv.kakao.com/api/v1/ft/cliplinks")
+			KakaoIE__VALID_URL = λ.NewStr("https?://(?:play-)?tv\\.kakao\\.com/(?:channel/\\d+|embed/player)/cliplink/(?P<id>\\d+|[^?#&]+@my)")
+			KakaoIE__API_BASE_TMPL = λ.NewStr("http://tv.kakao.com/api/v1/ft/cliplinks/%s/")
 			KakaoIE__TESTS = λ.NewList(
 				λ.NewDictWithTable(map[λ.Object]λ.Object{
 					λ.NewStr("url"): λ.NewStr("http://tv.kakao.com/channel/2671005/cliplink/301965083"),
@@ -79,7 +81,7 @@ func init() {
 						λ.NewStr("description"): λ.NewStr("러블리즈 - Destiny (나의 지구) (Lovelyz - Destiny)\r\n\r\n[쇼! 음악중심] 20160611, 507회"),
 						λ.NewStr("title"):       λ.NewStr("러블리즈 - Destiny (나의 지구) (Lovelyz - Destiny)"),
 						λ.NewStr("uploader_id"): λ.NewInt(2653210),
-						λ.NewStr("uploader"):    λ.NewStr("쇼 음악중심"),
+						λ.NewStr("uploader"):    λ.NewStr("쇼! 음악중심"),
 						λ.NewStr("timestamp"):   λ.NewInt(1485684628),
 						λ.NewStr("upload_date"): λ.NewStr("20170129"),
 					}),
@@ -93,9 +95,10 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						QUERY_COMMON   λ.Object
+						ϒapi_base      λ.Object
 						ϒclip          λ.Object
 						ϒclip_link     λ.Object
+						ϒdisplay_id    λ.Object
 						ϒfmt           λ.Object
 						ϒfmt_url       λ.Object
 						ϒfmt_url_json  λ.Object
@@ -104,11 +107,9 @@ func init() {
 						ϒplayer_header λ.Object
 						ϒprofile_name  λ.Object
 						ϒquery         λ.Object
-						ϒraw           λ.Object
 						ϒself          = λargs[0]
 						ϒthumb         λ.Object
 						ϒthumbs        λ.Object
-						ϒtid           λ.Object
 						ϒtitle         λ.Object
 						ϒtop_thumbnail λ.Object
 						ϒurl           = λargs[1]
@@ -120,6 +121,8 @@ func init() {
 					)
 					_ = τmp3
 					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒvideo_id, "rstrip", nil), λ.NewStr("@my"))
+					ϒapi_base = λ.Mod(λ.GetAttr(ϒself, "_API_BASE_TMPL", nil), ϒvideo_id)
 					ϒplayer_header = λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("Referer"): λ.Cal(ϒupdate_url_query, λ.Mod(λ.NewStr("http://tv.kakao.com/embed/player/cliplink/%s"), ϒvideo_id), λ.NewDictWithTable(map[λ.Object]λ.Object{
 							λ.NewStr("service"):  λ.NewStr("kakao_tv"),
@@ -128,22 +131,45 @@ func init() {
 							λ.NewStr("wmode"):    λ.NewStr("transparent"),
 						})),
 					})
-					QUERY_COMMON = λ.NewDictWithTable(map[λ.Object]λ.Object{
+					ϒquery = λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("player"):  λ.NewStr("monet_html5"),
 						λ.NewStr("referer"): ϒurl,
 						λ.NewStr("uuid"):    λ.NewStr(""),
 						λ.NewStr("service"): λ.NewStr("kakao_tv"),
 						λ.NewStr("section"): λ.NewStr(""),
 						λ.NewStr("dteType"): λ.NewStr("PC"),
-					})
-					ϒquery = λ.Cal(λ.GetAttr(QUERY_COMMON, "copy", nil))
-					λ.SetItem(ϒquery, λ.NewStr("fields"), λ.NewStr("clipLink,clip,channel,hasPlusFriend,-service,-tagList"))
-					ϒimpress = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Mod(λ.NewStr("%s/%s/impress"), λ.NewTuple(
-							λ.GetAttr(ϒself, "_API_BASE", nil),
-							ϒvideo_id,
+						λ.NewStr("fields"): λ.Cal(λ.GetAttr(λ.NewStr(","), "join", nil), λ.NewList(
+							λ.NewStr("-*"),
+							λ.NewStr("tid"),
+							λ.NewStr("clipLink"),
+							λ.NewStr("displayTitle"),
+							λ.NewStr("clip"),
+							λ.NewStr("title"),
+							λ.NewStr("description"),
+							λ.NewStr("channelId"),
+							λ.NewStr("createTime"),
+							λ.NewStr("duration"),
+							λ.NewStr("playCount"),
+							λ.NewStr("likeCount"),
+							λ.NewStr("commentCount"),
+							λ.NewStr("tagList"),
+							λ.NewStr("channel"),
+							λ.NewStr("name"),
+							λ.NewStr("clipChapterThumbnailList"),
+							λ.NewStr("thumbnailUrl"),
+							λ.NewStr("timeInSec"),
+							λ.NewStr("isDefault"),
+							λ.NewStr("videoOutputList"),
+							λ.NewStr("width"),
+							λ.NewStr("height"),
+							λ.NewStr("kbps"),
+							λ.NewStr("profile"),
+							λ.NewStr("label"),
 						)),
-						ϒvideo_id,
+					})
+					ϒimpress = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.Add(ϒapi_base, λ.NewStr("impress")),
+						ϒdisplay_id,
 						λ.NewStr("Downloading video info"),
 					), λ.KWArgs{
 						{Name: "query", Value: ϒquery},
@@ -158,25 +184,9 @@ func init() {
 							return λ.Cal(λ.GetAttr(ϒclip_link, "get", nil), λ.NewStr("displayTitle"))
 						}
 					}()
-					ϒtid = λ.Cal(λ.GetAttr(ϒimpress, "get", nil), λ.NewStr("tid"), λ.NewStr(""))
-					ϒquery = λ.Cal(λ.GetAttr(QUERY_COMMON, "copy", nil))
-					λ.Cal(λ.GetAttr(ϒquery, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("tid"):     ϒtid,
-						λ.NewStr("profile"): λ.NewStr("HIGH"),
-					}))
-					ϒraw = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Mod(λ.NewStr("%s/%s/raw"), λ.NewTuple(
-							λ.GetAttr(ϒself, "_API_BASE", nil),
-							ϒvideo_id,
-						)),
-						ϒvideo_id,
-						λ.NewStr("Downloading video formats info"),
-					), λ.KWArgs{
-						{Name: "query", Value: ϒquery},
-						{Name: "headers", Value: ϒplayer_header},
-					})
+					λ.SetItem(ϒquery, λ.NewStr("tid"), λ.Cal(λ.GetAttr(ϒimpress, "get", nil), λ.NewStr("tid"), λ.NewStr("")))
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒraw, "get", nil), λ.NewStr("outputList"), λ.NewList()))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("videoOutputList"), λ.NewList()))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
@@ -190,20 +200,20 @@ func init() {
 								}},
 							)
 							ϒprofile_name = λ.GetItem(ϒfmt, λ.NewStr("profile"))
+							if λ.IsTrue(λ.Eq(ϒprofile_name, λ.NewStr("AUDIO"))) {
+								λexit = λ.BlockExitContinue
+								return
+							}
+							λ.Cal(λ.GetAttr(ϒquery, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("profile"): ϒprofile_name,
+								λ.NewStr("fields"):  λ.NewStr("-*,url"),
+							}))
 							ϒfmt_url_json = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-								λ.Mod(λ.NewStr("%s/%s/raw/videolocation"), λ.NewTuple(
-									λ.GetAttr(ϒself, "_API_BASE", nil),
-									ϒvideo_id,
-								)),
-								ϒvideo_id,
+								λ.Add(ϒapi_base, λ.NewStr("raw/videolocation")),
+								ϒdisplay_id,
 								λ.Mod(λ.NewStr("Downloading video URL for profile %s"), ϒprofile_name),
 							), λ.KWArgs{
-								{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("service"): λ.NewStr("kakao_tv"),
-									λ.NewStr("section"): λ.NewStr(""),
-									λ.NewStr("tid"):     ϒtid,
-									λ.NewStr("profile"): ϒprofile_name,
-								})},
+								{Name: "query", Value: ϒquery},
 								{Name: "headers", Value: ϒplayer_header},
 								{Name: "fatal", Value: λ.False},
 							})
@@ -219,6 +229,7 @@ func init() {
 								λ.NewStr("height"):      λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfmt, "get", nil), λ.NewStr("height"))),
 								λ.NewStr("format_note"): λ.Cal(λ.GetAttr(ϒfmt, "get", nil), λ.NewStr("label")),
 								λ.NewStr("filesize"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfmt, "get", nil), λ.NewStr("filesize"))),
+								λ.NewStr("tbr"):         λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfmt, "get", nil), λ.NewStr("kbps"))),
 							}))
 							return λ.BlockExitNormally, nil
 						}()
@@ -254,9 +265,9 @@ func init() {
 						}))
 					}
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            ϒvideo_id,
+						λ.NewStr("id"):            ϒdisplay_id,
 						λ.NewStr("title"):         ϒtitle,
-						λ.NewStr("description"):   λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("description")),
+						λ.NewStr("description"):   λ.Cal(ϒstrip_or_none, λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("description"))),
 						λ.NewStr("uploader"):      λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒclip_link, "get", nil), λ.NewStr("channel"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("name")),
 						λ.NewStr("uploader_id"):   λ.Cal(λ.GetAttr(ϒclip_link, "get", nil), λ.NewStr("channelId")),
 						λ.NewStr("thumbnails"):    ϒthumbs,
@@ -266,13 +277,14 @@ func init() {
 						λ.NewStr("like_count"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("likeCount"))),
 						λ.NewStr("comment_count"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("commentCount"))),
 						λ.NewStr("formats"):       ϒformats,
+						λ.NewStr("tags"):          λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("tagList")),
 					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_API_BASE"):     KakaoIE__API_BASE,
-				λ.NewStr("_TESTS"):        KakaoIE__TESTS,
-				λ.NewStr("_VALID_URL"):    KakaoIE__VALID_URL,
-				λ.NewStr("_real_extract"): KakaoIE__real_extract,
+				λ.NewStr("_API_BASE_TMPL"): KakaoIE__API_BASE_TMPL,
+				λ.NewStr("_TESTS"):         KakaoIE__TESTS,
+				λ.NewStr("_VALID_URL"):     KakaoIE__VALID_URL,
+				λ.NewStr("_real_extract"):  KakaoIE__real_extract,
 			})
 		}())
 	})

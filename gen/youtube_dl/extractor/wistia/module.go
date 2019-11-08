@@ -50,7 +50,7 @@ func init() {
 			var (
 				WistiaIE__VALID_URL λ.Object
 			)
-			WistiaIE__VALID_URL = λ.NewStr("(?:wistia:|https?://(?:fast\\.)?wistia\\.(?:net|com)/embed/(?:iframe|medias)/)(?P<id>[a-z0-9]+)")
+			WistiaIE__VALID_URL = λ.NewStr("(?:wistia:|https?://(?:fast\\.)?wistia\\.(?:net|com)/embed/(?:iframe|medias)/)(?P<id>[a-z0-9]{10})")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): WistiaIE__VALID_URL,
 			})
