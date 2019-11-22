@@ -30,6 +30,6 @@ import (
 
 func init() {
 	λ.InitModule(func() {
-		λ.NewStr("Placeholder")
+
 	})
 }

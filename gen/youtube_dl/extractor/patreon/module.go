@@ -60,7 +60,6 @@ func init() {
 				PatreonIE__real_extract λ.Object
 			)
 			PatreonIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?patreon\\.com/(?:creation\\?hid=|posts/(?:[\\w-]+-)?)(?P<id>\\d+)")
-			λ.NewStr("\n    def _login(self):\n        username, password = self._get_login_info()\n        if username is None:\n            return\n\n        login_form = {\n            'redirectUrl': 'http://www.patreon.com/',\n            'email': username,\n            'password': password,\n        }\n\n        request = sanitized_Request(\n            'https://www.patreon.com/processLogin',\n            compat_urllib_parse_urlencode(login_form).encode('utf-8')\n        )\n        login_page = self._download_webpage(request, None, note='Logging in')\n\n        if re.search(r'onLoginFailed', login_page):\n            raise ExtractorError('Unable to login, incorrect username and/or password', expected=True)\n\n    def _real_initialize(self):\n        self._login()\n    ")
 			PatreonIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},

@@ -55,11 +55,13 @@ func init() {
 		ϒqualities = Ωutils.ϒqualities
 		TeamcocoIE = λ.Cal(λ.TypeType, λ.NewStr("TeamcocoIE"), λ.NewTuple(TurnerBaseIE), func() λ.Dict {
 			var (
+				TeamcocoIE__RECORD_TEMPL λ.Object
 				TeamcocoIE__VALID_URL    λ.Object
 				TeamcocoIE__graphql_call λ.Object
 				TeamcocoIE__real_extract λ.Object
 			)
 			TeamcocoIE__VALID_URL = λ.NewStr("https?://(?:\\w+\\.)?teamcoco\\.com/(?P<id>([^/]+/)*[^/?#]+)")
+			TeamcocoIE__RECORD_TEMPL = λ.NewStr("id\n        title\n        teaser\n        publishOn\n        thumb {\n          preview\n        }\n        tags {\n          name\n        }\n        duration\n        turnerMediaId\n        turnerMediaAuthToken")
 			TeamcocoIE__graphql_call = λ.NewFunction("_graphql_call",
 				[]λ.Param{
 					{Name: "self"},
@@ -100,7 +102,7 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒd             λ.Object
+						ϒchild         λ.Object
 						ϒdisplay_id    λ.Object
 						ϒext           λ.Object
 						ϒformat_id     λ.Object
@@ -119,16 +121,20 @@ func init() {
 						ϒvideo_sources λ.Object
 						τmp0           λ.Object
 						τmp1           λ.Object
-						τmp2           λ.Object
 					)
 					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒresponse = λ.Cal(λ.GetAttr(ϒself, "_graphql_call", nil), λ.NewStr("{\n  %s(slug: \"%s\") {\n    ... on RecordSlug {\n      record {\n        id\n        title\n        teaser\n        publishOn\n        thumb {\n          preview\n        }\n        file {\n          url\n        }\n        tags {\n          name\n        }\n        duration\n        turnerMediaId\n        turnerMediaAuthToken\n      }\n    }\n    ... on NotFoundSlug {\n      status\n    }\n  }\n}"), λ.NewStr("Slug"), ϒdisplay_id)
+					ϒresponse = λ.Cal(λ.GetAttr(ϒself, "_graphql_call", nil), λ.Mod(λ.NewStr("{\n  %%s(slug: \"%%s\") {\n    ... on RecordSlug {\n      record {\n        %s\n      }\n    }\n    ... on PageSlug {\n      child {\n        id\n      }\n    }\n    ... on NotFoundSlug {\n      status\n    }\n  }\n}"), λ.GetAttr(ϒself, "_RECORD_TEMPL", nil)), λ.NewStr("Slug"), ϒdisplay_id)
 					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒresponse, "get", nil), λ.NewStr("status"))) {
 						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("This video is no longer available.")), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
-					ϒrecord = λ.GetItem(ϒresponse, λ.NewStr("record"))
+					ϒchild = λ.Cal(λ.GetAttr(ϒresponse, "get", nil), λ.NewStr("child"))
+					if λ.IsTrue(ϒchild) {
+						ϒrecord = λ.Cal(λ.GetAttr(ϒself, "_graphql_call", nil), λ.Mod(λ.NewStr("{\n  %%s(id: \"%%s\") {\n    ... on Video {\n      %s\n    }\n  }\n}"), λ.GetAttr(ϒself, "_RECORD_TEMPL", nil)), λ.NewStr("Record"), λ.GetItem(ϒchild, λ.NewStr("id")))
+					} else {
+						ϒrecord = λ.GetItem(ϒresponse, λ.NewStr("record"))
+					}
 					ϒvideo_id = λ.GetItem(ϒrecord, λ.NewStr("id"))
 					ϒinfo = λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):          ϒvideo_id,
@@ -149,33 +155,9 @@ func init() {
 							λ.NewStr("accessTokenType"): λ.NewStr("jws"),
 						})))
 					} else {
-						ϒd = func() λ.Object {
-							if λv := λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-								λ.Add(λ.NewStr("https://teamcoco.com/_truman/d/"), ϒvideo_id),
-								ϒvideo_id,
-							), λ.KWArgs{
-								{Name: "fatal", Value: λ.False},
-							}); λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.NewDictWithTable(map[λ.Object]λ.Object{})
-							}
-						}()
-						ϒvideo_sources = func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒd, "get", nil), λ.NewStr("meta")); λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.NewDictWithTable(map[λ.Object]λ.Object{})
-							}
-						}()
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_sources))) {
-							ϒvideo_sources = func() λ.Object {
-								if λv := λ.Cal(λ.GetAttr(ϒself, "_graphql_call", nil), λ.NewStr("{\n  %s(id: \"%s\") {\n    src\n  }\n}"), λ.NewStr("RecordVideoSource"), ϒvideo_id); λ.IsTrue(λv) {
-									return λv
-								} else {
-									return λ.NewDictWithTable(map[λ.Object]λ.Object{})
-								}
-							}()
+						ϒvideo_sources = λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Add(λ.NewStr("https://teamcoco.com/_truman/d/"), ϒvideo_id), ϒvideo_id), λ.NewStr("meta")), λ.NewStr("src"))
+						if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒvideo_sources, λ.DictType)) {
+							ϒvideo_sources = λ.Cal(λ.GetAttr(ϒvideo_sources, "values", nil))
 						}
 						ϒformats = λ.NewList()
 						ϒget_quality = λ.Cal(ϒqualities, λ.NewList(
@@ -184,14 +166,12 @@ func init() {
 							λ.NewStr("hd"),
 							λ.NewStr("uhd"),
 						))
-						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvideo_sources, "get", nil), λ.NewStr("src"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "items", nil)))
+						τmp0 = λ.Cal(λ.BuiltinIter, ϒvideo_sources)
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
-							τmp2 = τmp1
-							ϒformat_id = λ.GetItem(τmp2, λ.NewInt(0))
-							ϒsrc = λ.GetItem(τmp2, λ.NewInt(1))
+							ϒsrc = τmp1
 							if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒsrc, λ.DictType)))) {
 								continue
 							}
@@ -199,6 +179,7 @@ func init() {
 							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒsrc_url))) {
 								continue
 							}
+							ϒformat_id = λ.Cal(λ.GetAttr(ϒsrc, "get", nil), λ.NewStr("label"))
 							ϒext = λ.Cal(ϒdetermine_ext, ϒsrc_url, λ.Cal(ϒmimetype2ext, λ.Cal(λ.GetAttr(ϒsrc, "get", nil), λ.NewStr("type"))))
 							if λ.IsTrue(func() λ.Object {
 								if λv := λ.Eq(ϒformat_id, λ.NewStr("hls")); λ.IsTrue(λv) {
@@ -238,21 +219,13 @@ func init() {
 								}))
 							}
 						}
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
-							ϒformats = λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
-								λ.GetItem(λ.GetItem(ϒrecord, λ.NewStr("file")), λ.NewStr("url")),
-								ϒvideo_id,
-								λ.NewStr("mp4"),
-							), λ.KWArgs{
-								{Name: "fatal", Value: λ.False},
-							})
-						}
 						λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
 						λ.SetItem(ϒinfo, λ.NewStr("formats"), ϒformats)
 					}
 					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_RECORD_TEMPL"): TeamcocoIE__RECORD_TEMPL,
 				λ.NewStr("_VALID_URL"):    TeamcocoIE__VALID_URL,
 				λ.NewStr("_graphql_call"): TeamcocoIE__graphql_call,
 				λ.NewStr("_real_extract"): TeamcocoIE__real_extract,

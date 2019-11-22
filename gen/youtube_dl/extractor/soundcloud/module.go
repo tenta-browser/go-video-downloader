@@ -86,7 +86,6 @@ func init() {
 			var (
 				SoundcloudIE__VALID_URL λ.Object
 			)
-			λ.NewStr("Information extractor for soundcloud.com\n       To access the media, the uid of the song and a stream token\n       must be extracted from the page source and the script must make\n       a request to media.soundcloud.com/crossdomain.xml. Then\n       the media can be grabbed by requesting from an url composed\n       of the stream token and uid\n     ")
 			SoundcloudIE__VALID_URL = λ.NewStr("(?x)^(?:https?://)?\n                    (?:(?:(?:www\\.|m\\.)?soundcloud\\.com/\n                            (?!stations/track)\n                            (?P<uploader>[\\w\\d-]+)/\n                            (?!(?:tracks|albums|sets(?:/.+?)?|reposts|likes|spotlight)/?(?:$|[?#]))\n                            (?P<title>[\\w\\d-]+)/?\n                            (?P<token>[^?]+?)?(?:[?].*)?$)\n                       |(?:api(?:-v2)?\\.soundcloud\\.com/tracks/(?P<track_id>\\d+)\n                          (?:/?\\?secret_token=(?P<secret_token>[^&]+))?)\n                    )\n                    ")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): SoundcloudIE__VALID_URL,

@@ -85,7 +85,6 @@ func init() {
 						ϒrequest λ.Object
 						ϒurl     = λargs[0]
 					)
-					λ.NewStr("Build a request with the family filter disabled")
 					ϒrequest = λ.Cal(ϒsanitized_Request, ϒurl)
 					λ.Cal(λ.GetAttr(ϒrequest, "add_header", nil), λ.NewStr("Cookie"), λ.NewStr("family_filter=off; ff=off"))
 					return ϒrequest

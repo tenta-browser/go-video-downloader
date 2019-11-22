@@ -101,7 +101,6 @@ func init() {
 						ϒurls    λ.Object
 						ϒwebpage = λargs[1]
 					)
-					λ.NewStr("Try to extract the brightcove url from the webpage, returns None\n        if it can't be found\n        ")
 					ϒurls = λ.Cal(λ.GetAttr(ϒcls, "_extract_brightcove_urls", nil), ϒwebpage)
 					return func() λ.Object {
 						if λ.IsTrue(ϒurls) {
@@ -126,7 +125,6 @@ func init() {
 						ϒurl_m   λ.Object
 						ϒwebpage = λargs[1]
 					)
-					λ.NewStr("Return a list of all Brightcove URLs from the webpage ")
 					ϒurl_m = λ.Cal(Ωre.ϒsearch, λ.NewStr("(?x)\n                <meta\\s+\n                    (?:property|itemprop)=([\\'\"])(?:og:video|embedURL)\\1[^>]+\n                    content=([\\'\"])(?P<url>https?://(?:secure|c)\\.brightcove.com/(?:(?!\\2).)+)\\2\n            "), ϒwebpage)
 					if λ.IsTrue(ϒurl_m) {
 						ϒurl = λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒurl_m, "group", nil), λ.NewStr("url")))

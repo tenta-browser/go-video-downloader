@@ -58,10 +58,77 @@ func init() {
 			var (
 				NexxIE__VALID_URL             λ.Object
 				NexxIE__extract_azure_formats λ.Object
+				NexxIE__extract_domain_id     λ.Object
 				NexxIE__extract_free_formats  λ.Object
+				NexxIE__extract_url           λ.Object
+				NexxIE__extract_urls          λ.Object
 				NexxIE__real_extract          λ.Object
 			)
 			NexxIE__VALID_URL = λ.NewStr("(?x)\n                        (?:\n                            https?://api\\.nexx(?:\\.cloud|cdn\\.com)/v3/(?P<domain_id>\\d+)/videos/byid/|\n                            nexx:(?:(?P<domain_id_s>\\d+):)?|\n                            https?://arc\\.nexx\\.cloud/api/video/\n                        )\n                        (?P<id>\\d+)\n                    ")
+			NexxIE__extract_domain_id = λ.NewFunction("_extract_domain_id",
+				[]λ.Param{
+					{Name: "webpage"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒmobj    λ.Object
+						ϒwebpage = λargs[0]
+					)
+					ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("<script\\b[^>]+\\bsrc=[\"\\'](?:https?:)?//(?:require|arc)\\.nexx(?:\\.cloud|cdn\\.com)/(?:sdk/)?(?P<id>\\d+)"), ϒwebpage)
+					return func() λ.Object {
+						if λ.IsTrue(ϒmobj) {
+							return λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
+						} else {
+							return λ.None
+						}
+					}()
+				})
+			NexxIE__extract_domain_id = λ.Cal(λ.StaticMethodType, NexxIE__extract_domain_id)
+			NexxIE__extract_urls = λ.NewFunction("_extract_urls",
+				[]λ.Param{
+					{Name: "webpage"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒdomain_id λ.Object
+						ϒentries   λ.Object
+						ϒvideo_id  λ.Object
+						ϒwebpage   = λargs[0]
+						τmp0       λ.Object
+						τmp1       λ.Object
+					)
+					ϒentries = λ.NewList()
+					ϒdomain_id = λ.Cal(λ.GetAttr(NexxIE, "_extract_domain_id", nil), ϒwebpage)
+					if λ.IsTrue(ϒdomain_id) {
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.NewStr("(?is)onPLAYReady.+?_play\\.(?:init|(?:control\\.)?addPlayer)\\s*\\(.+?\\s*,\\s*[\"\\']?(\\d+)"), ϒwebpage))
+						for {
+							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+								break
+							}
+							ϒvideo_id = τmp1
+							λ.Cal(λ.GetAttr(ϒentries, "append", nil), λ.Mod(λ.NewStr("https://api.nexx.cloud/v3/%s/videos/byid/%s"), λ.NewTuple(
+								ϒdomain_id,
+								ϒvideo_id,
+							)))
+						}
+					}
+					return ϒentries
+				})
+			NexxIE__extract_urls = λ.Cal(λ.StaticMethodType, NexxIE__extract_urls)
+			NexxIE__extract_url = λ.NewFunction("_extract_url",
+				[]λ.Param{
+					{Name: "webpage"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒwebpage = λargs[0]
+					)
+					return λ.GetItem(λ.Cal(λ.GetAttr(NexxIE, "_extract_urls", nil), ϒwebpage), λ.NewInt(0))
+				})
+			NexxIE__extract_url = λ.Cal(λ.StaticMethodType, NexxIE__extract_url)
 			NexxIE__extract_free_formats = λ.NewFunction("_extract_free_formats",
 				[]λ.Param{
 					{Name: "self"},
@@ -667,17 +734,41 @@ func init() {
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"):             NexxIE__VALID_URL,
 				λ.NewStr("_extract_azure_formats"): NexxIE__extract_azure_formats,
+				λ.NewStr("_extract_domain_id"):     NexxIE__extract_domain_id,
 				λ.NewStr("_extract_free_formats"):  NexxIE__extract_free_formats,
+				λ.NewStr("_extract_url"):           NexxIE__extract_url,
+				λ.NewStr("_extract_urls"):          NexxIE__extract_urls,
 				λ.NewStr("_real_extract"):          NexxIE__real_extract,
 			})
 		}())
 		NexxEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("NexxEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				NexxEmbedIE__VALID_URL λ.Object
+				NexxEmbedIE__VALID_URL    λ.Object
+				NexxEmbedIE__real_extract λ.Object
 			)
-			NexxEmbedIE__VALID_URL = λ.NewStr("https?://embed\\.nexx(?:\\.cloud|cdn\\.com)/\\d+/(?P<id>[^/?#&]+)")
+			NexxEmbedIE__VALID_URL = λ.NewStr("https?://embed\\.nexx(?:\\.cloud|cdn\\.com)/\\d+/(?:video/)?(?P<id>[^/?#&]+)")
+			NexxEmbedIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒembed_id λ.Object
+						ϒself     = λargs[0]
+						ϒurl      = λargs[1]
+						ϒwebpage  λ.Object
+					)
+					ϒembed_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒembed_id)
+					return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(λ.Cal(λ.GetAttr(NexxIE, "_extract_url", nil), ϒwebpage)), λ.KWArgs{
+						{Name: "ie", Value: λ.Cal(λ.GetAttr(NexxIE, "ie_key", nil))},
+					})
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): NexxEmbedIE__VALID_URL,
+				λ.NewStr("_VALID_URL"):    NexxEmbedIE__VALID_URL,
+				λ.NewStr("_real_extract"): NexxEmbedIE__real_extract,
 			})
 		}())
 	})

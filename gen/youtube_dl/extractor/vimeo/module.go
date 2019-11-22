@@ -688,7 +688,6 @@ func init() {
 				VimeoIE__smuggle_referrer             λ.Object
 				VimeoIE__verify_player_video_password λ.Object
 			)
-			λ.NewStr("Information extractor for vimeo.com.")
 			VimeoIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            (?:\n                                www|\n                                (?P<player>player)\n                            )\n                            \\.\n                        )?\n                        vimeo(?P<pro>pro)?\\.com/\n                        (?!(?:channels|album|showcase)/[^/?#]+/?(?:$|[?#])|[^/]+/review/|ondemand/)\n                        (?:.*?/)?\n                        (?:\n                            (?:\n                                play_redirect_hls|\n                                moogaloop\\.swf)\\?clip_id=\n                            )?\n                        (?:videos?/)?\n                        (?P<id>[0-9]+)\n                        (?:/[\\da-f]+)?\n                        /?(?:[?&].*)?(?:[#].*)?$\n                    ")
 			VimeoIE_IE_NAME = λ.NewStr("vimeo")
 			VimeoIE__smuggle_referrer = λ.NewFunction("_smuggle_referrer",

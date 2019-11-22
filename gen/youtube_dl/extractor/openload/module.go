@@ -55,7 +55,7 @@ func init() {
 		ϒstd_headers = Ωutils.ϒstd_headers
 		BrowserWrapper = Ωbrowser.BrowserWrapper
 		PhantomJSwrapper = λ.Cal(λ.TypeType, λ.NewStr("PhantomJSwrapper"), λ.NewTuple(BrowserWrapper), func() λ.Dict {
-			λ.NewStr("PhantomJS wrapper class\n\n    This class is experimental.\n    ")
+
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 		}())
 		OpenloadIE = λ.Cal(λ.TypeType, λ.NewStr("OpenloadIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

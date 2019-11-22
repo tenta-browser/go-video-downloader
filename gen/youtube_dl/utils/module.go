@@ -1903,7 +1903,6 @@ func init() {
 				)
 				_ = τmp0
 				_ = τmp1
-				λ.NewStr("Get preferred encoding.\n\n    Returns the best encoding scheme for the system, based on\n    locale.getpreferredencoding() and some further tweaks.\n    ")
 				τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
 					defer λ.CatchMulti(
 						nil,
@@ -1937,7 +1936,6 @@ func init() {
 						ϒval   = λargs[3]
 						ϒxpath = λargs[1]
 					)
-					λ.NewStr(" Find the xpath xpath[@key=val] ")
 					if !λ.IsTrue(λ.Cal(Ωre.ϒmatch, λ.NewStr("^[a-zA-Z_-]+$"), ϒkey)) {
 						panic(λ.Raise(λ.Cal(λ.AssertionErrorType)))
 					}
@@ -2236,7 +2234,6 @@ func init() {
 					ϒhtml = λargs[1]
 					ϒid   = λargs[0]
 				)
-				λ.NewStr("Return the content of the tag with the specified ID in the passed HTML document")
 				return λ.Cal(ϒget_element_by_attribute, λ.NewStr("id"), ϒid, ϒhtml)
 			})
 		ϒget_element_by_class = λ.NewFunction("get_element_by_class",
@@ -2251,7 +2248,6 @@ func init() {
 					ϒhtml       = λargs[1]
 					ϒretval     λ.Object
 				)
-				λ.NewStr("Return the content of the first tag with the specified class in the passed HTML document")
 				ϒretval = λ.Cal(ϒget_elements_by_class, ϒclass_name, ϒhtml)
 				return func() λ.Object {
 					if λ.IsTrue(ϒretval) {
@@ -2297,7 +2293,6 @@ func init() {
 					ϒclass_name = λargs[0]
 					ϒhtml       = λargs[1]
 				)
-				λ.NewStr("Return the content of all tags with the specified class in the passed HTML document as a list")
 				return λ.Call(ϒget_elements_by_attribute, λ.NewArgs(
 					λ.NewStr("class"),
 					λ.Mod(λ.NewStr("[^\\'\"]*\\b%s\\b[^\\'\"]*"), λ.Cal(Ωre.ϒescape, ϒclass_name)),
@@ -2326,7 +2321,6 @@ func init() {
 					τmp0          λ.Object
 					τmp1          λ.Object
 				)
-				λ.NewStr("Return the content of the tag with the specified attribute in the passed HTML document")
 				ϒvalue = func() λ.Object {
 					if λ.IsTrue(ϒescape_value) {
 						return λ.Cal(Ωre.ϒescape, ϒvalue)
@@ -2363,7 +2357,6 @@ func init() {
 				HTMLAttributeParser___init__        λ.Object
 				HTMLAttributeParser_handle_starttag λ.Object
 			)
-			λ.NewStr("Trivial HTML parser to gather the attributes for a single element")
 			HTMLAttributeParser___init__ = λ.NewFunction("__init__",
 				[]λ.Param{
 					{Name: "self"},
@@ -2413,7 +2406,6 @@ func init() {
 				)
 				_ = τmp0
 				_ = τmp1
-				λ.NewStr("Given a string for an HTML element such as\n    <el\n         a=\"foo\" B=\"bar\" c=\"&98;az\" d=boz\n         empty= noval entity=\"&amp;\"\n         sq='\"' dq=\"'\"\n    >\n    Decode and return a dictionary of attributes.\n    {\n        'a': 'foo', 'b': 'bar', c: 'baz', d: 'boz',\n        'empty': '', 'noval': None, 'entity': '&',\n        'sq': '\"', 'dq': '''\n    }.\n    NB HTMLParser is stricter in Python 2.6 & 3.2 than in later versions,\n    but the cases in the unit test will work for all of 2.6, 2.7, 3.2-3.5.\n    ")
 				ϒparser = λ.Cal(HTMLAttributeParser)
 				τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
 					defer λ.CatchMulti(
@@ -2437,7 +2429,6 @@ func init() {
 				var (
 					ϒhtml = λargs[0]
 				)
-				λ.NewStr("Clean an HTML snippet into a readable string")
 				if λ.IsTrue(λ.NewBool(ϒhtml == λ.None)) {
 					return ϒhtml
 				}
@@ -2463,7 +2454,6 @@ func init() {
 					ϒresult         λ.Object
 					ϒs              = λargs[0]
 				)
-				λ.NewStr("Sanitizes a string so it could be used as part of a filename.\n    If restricted is set, use a stricter subset of allowed characters.\n    Set is_id if this is not an arbitrary string, but an ID that should be kept\n    if possible.\n    ")
 				ϒreplace_insane = λ.NewFunction("replace_insane",
 					[]λ.Param{
 						{Name: "char"},
@@ -2592,7 +2582,6 @@ func init() {
 					ϒsanitized_path λ.Object
 					τmp0            λ.Object
 				)
-				λ.NewStr("Sanitizes and normalizes path on Windows")
 				if λ.IsTrue(λ.Ne(Ωsys.ϒplatform, λ.NewStr("win32"))) {
 					return ϒs
 				}
@@ -2736,7 +2725,6 @@ func init() {
 					τmp0      λ.Object
 					τmp1      λ.Object
 				)
-				λ.NewStr(" Remove all duplicates from the input iterable ")
 				ϒres = λ.NewList()
 				τmp0 = λ.Cal(λ.BuiltinIter, ϒiterable)
 				for {
@@ -2765,7 +2753,6 @@ func init() {
 					τmp0                   λ.Object
 					τmp1                   λ.Object
 				)
-				λ.NewStr("Transforms an HTML entity to a character.")
 				ϒentity = λ.GetItem(ϒentity_with_semicolon, λ.NewSlice(λ.None, λ.Neg(λ.NewInt(1)), λ.None))
 				if λ.IsTrue(λ.NewBool(λ.Contains(Ωentities.ϒname2codepoint, ϒentity))) {
 					return λ.Cal(ϒcompat_chr, λ.GetItem(Ωentities.ϒname2codepoint, ϒentity))
@@ -2848,7 +2835,6 @@ func init() {
 				return ϒmsg
 			})
 		YoutubeDLError = λ.Cal(λ.TypeType, λ.NewStr("YoutubeDLError"), λ.NewTuple(λ.ExceptionType), func() λ.Dict {
-			λ.NewStr("Base exception for YoutubeDL errors.")
 			// pass
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 		}())
@@ -2857,7 +2843,6 @@ func init() {
 				ExtractorError___init__         λ.Object
 				ExtractorError_format_traceback λ.Object
 			)
-			λ.NewStr("Error during info extraction.")
 			ExtractorError___init__ = λ.NewFunction("__init__",
 				[]λ.Param{
 					{Name: "self"},
@@ -2878,7 +2863,6 @@ func init() {
 						ϒvideo_id = λargs[5]
 						τmp0      λ.Object
 					)
-					λ.NewStr(" tb, if given, is the original traceback (so that it can be printed out).\n        If expected is set, this is a normal error message and most likely not a bug in youtube-dl.\n        ")
 					if λ.IsTrue(λ.NewBool(λ.Contains(λ.NewTuple(
 						Ωerror.URLError,
 						λ.None,
@@ -2924,19 +2908,17 @@ func init() {
 			})
 		}())
 		RegexNotFoundError = λ.Cal(λ.TypeType, λ.NewStr("RegexNotFoundError"), λ.NewTuple(ExtractorError), func() λ.Dict {
-			λ.NewStr("Error when a regex didn't match")
 			// pass
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 		}())
 		GeoRestrictedError = λ.Cal(λ.TypeType, λ.NewStr("GeoRestrictedError"), λ.NewTuple(ExtractorError), func() λ.Dict {
-			λ.NewStr("Geographic restriction Error exception.\n\n    This exception may be thrown when a video is not available from your\n    geographic location due to geographic restrictions imposed by a website.\n    ")
+
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 		}())
 		DownloadError = λ.Cal(λ.TypeType, λ.NewStr("DownloadError"), λ.NewTuple(YoutubeDLError), func() λ.Dict {
 			var (
 				DownloadError___init__ λ.Object
 			)
-			λ.NewStr("Download Error exception.\n\n    This exception may be thrown by FileDownloader objects if they are not\n    configured to continue on errors. They will contain the appropriate\n    error message.\n    ")
 			DownloadError___init__ = λ.NewFunction("__init__",
 				[]λ.Param{
 					{Name: "self"},
@@ -2950,7 +2932,6 @@ func init() {
 						ϒmsg      = λargs[1]
 						ϒself     = λargs[0]
 					)
-					λ.NewStr(" exc_info, if given, is the original exception that caused the trouble (as returned by sys.exc_info()). ")
 					λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, DownloadError, ϒself), "__init__", nil), ϒmsg)
 					λ.SetAttr(ϒself, "exc_info", ϒexc_info)
 					return λ.None
@@ -2960,16 +2941,14 @@ func init() {
 			})
 		}())
 		PostProcessingError = λ.Cal(λ.TypeType, λ.NewStr("PostProcessingError"), λ.NewTuple(YoutubeDLError), func() λ.Dict {
-			λ.NewStr("Post Processing exception.\n\n    This exception may be raised by PostProcessor's .run() method to\n    indicate an error in the postprocessing task.\n    ")
+
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 		}())
 		MaxDownloadsReached = λ.Cal(λ.TypeType, λ.NewStr("MaxDownloadsReached"), λ.NewTuple(YoutubeDLError), func() λ.Dict {
-			λ.NewStr(" --max-downloads limit has been reached. ")
 			// pass
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 		}())
 		UnavailableVideoError = λ.Cal(λ.TypeType, λ.NewStr("UnavailableVideoError"), λ.NewTuple(YoutubeDLError), func() λ.Dict {
-			λ.NewStr("Unavailable Format exception.\n\n    This exception will be thrown when a video is requested\n    in a format that is not available for that video.\n    ")
 			// pass
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 		}())
@@ -2989,7 +2968,6 @@ func init() {
 				_ = ϒdate_str
 				_ = ϒdelimiter
 				_ = ϒtimezone
-				λ.NewStr(" Return a UNIX timestamp from the given date ")
 				return λ.NewInt(0)
 			})
 		ϒunified_strdate = λ.NewFunction("unified_strdate",
@@ -3099,7 +3077,6 @@ func init() {
 					ϒurl   = λargs[0]
 					τmp0   λ.Object
 				)
-				λ.NewStr(" Pass additional data in a URL for internal use. ")
 				τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.NewDictWithTable(map[λ.Object]λ.Object{}))
 				ϒurl = λ.GetItem(τmp0, λ.NewInt(0))
 				ϒidata = λ.GetItem(τmp0, λ.NewInt(1))
@@ -3356,7 +3333,6 @@ func init() {
 					τmp0         λ.Object
 					τmp1         λ.Object
 				)
-				λ.NewStr(" Return the number of a month by (locale-independently) English name ")
 				ϒmonth_names = λ.Cal(λ.GetAttr(MONTH_NAMES, "get", nil), ϒlang, λ.GetItem(MONTH_NAMES, λ.NewStr("en")))
 				τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
 					defer λ.CatchMulti(
@@ -3384,7 +3360,6 @@ func init() {
 				var (
 					ϒxml_str = λargs[0]
 				)
-				λ.NewStr("Replace all the '&' by '&amp;' in XML")
 				return λ.Cal(Ωre.ϒsub, λ.NewStr("&(?!amp;|lt;|gt;|apos;|quot;|#x[0-9a-fA-F]{,4};|#[0-9]{,4};)"), λ.NewStr("&amp;"), ϒxml_str)
 			})
 		ϒremove_start = λ.NewFunction("remove_start",
@@ -3641,7 +3616,6 @@ func init() {
 				var (
 					ϒint_str = λargs[0]
 				)
-				λ.NewStr(" A more relaxed version of int_or_none ")
 				if λ.IsTrue(λ.NewBool(ϒint_str == λ.None)) {
 					return λ.None
 				}
@@ -4366,7 +4340,6 @@ func init() {
 					ϒq           λ.Object
 					ϒquality_ids = λargs[0]
 				)
-				λ.NewStr(" Get a numeric quality value out of a list of possible values ")
 				ϒq = λ.NewFunction("q",
 					[]λ.Param{
 						{Name: "qid"},
@@ -4410,7 +4383,6 @@ func init() {
 					ϒlength  = λargs[1]
 					ϒs       = λargs[0]
 				)
-				λ.NewStr(" Add ellipses to overly long strings ")
 				if λ.IsTrue(λ.NewBool(ϒs == λ.None)) {
 					return λ.None
 				}
@@ -4424,7 +4396,6 @@ func init() {
 			nil,
 			0, false, false,
 			func(λargs []λ.Object) λ.Object {
-				λ.NewStr(" Returns if youtube-dl can be updated with -U ")
 				return λ.False
 			})
 		ϒerror_to_compat_str = λ.NewFunction("error_to_compat_str",
@@ -4856,7 +4827,6 @@ func init() {
 						τmp1        λ.Object
 						τmp2        λ.Object
 					)
-					λ.NewStr("Convert language code from ISO 639-2/T to ISO 639-1")
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.GetAttr(ϒcls, "_lang_map", nil), "items", nil)))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {

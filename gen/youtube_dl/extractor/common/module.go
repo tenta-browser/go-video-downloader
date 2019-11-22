@@ -245,7 +245,6 @@ func init() {
 				InfoExtractor_url_result                   λ.Object
 				InfoExtractor_working                      λ.Object
 			)
-			λ.NewStr("Information Extractor class.\n\n    Information extractors are the classes that, given a URL, extract\n    information about the video (or videos) the URL refers to. This\n    information includes the real video URL, the video title, author and\n    others. The information is stored in a dictionary which is then\n    passed to the YoutubeDL. The YoutubeDL processes this\n    information possibly downloading the video to the file system, among\n    other possible outcomes.\n\n    The type field determines the type of the result.\n    By far the most common value (and the default if _type is missing) is\n    \"video\", which indicates a single video.\n\n    For a video, the dictionaries must include the following fields:\n\n    id:             Video identifier.\n    title:          Video title, unescaped.\n\n    Additionally, it must contain either a formats entry or a url one:\n\n    formats:        A list of dictionaries for each format available, ordered\n                    from worst to best quality.\n\n                    Potential fields:\n                    * url        The mandatory URL representing the media:\n                                   for plain file media - HTTP URL of this file,\n                                   for RTMP - RTMP URL,\n                                   for HLS - URL of the M3U8 media playlist,\n                                   for HDS - URL of the F4M manifest,\n                                   for DASH\n                                     - HTTP URL to plain file media (in case of\n                                       unfragmented media)\n                                     - URL of the MPD manifest or base URL\n                                       representing the media if MPD manifest\n                                       is parsed from a string (in case of\n                                       fragmented media)\n                                   for MSS - URL of the ISM manifest.\n                    * manifest_url\n                                 The URL of the manifest file in case of\n                                 fragmented media:\n                                   for HLS - URL of the M3U8 master playlist,\n                                   for HDS - URL of the F4M manifest,\n                                   for DASH - URL of the MPD manifest,\n                                   for MSS - URL of the ISM manifest.\n                    * ext        Will be calculated from URL if missing\n                    * format     A human-readable description of the format\n                                 (\"mp4 container with h264/opus\").\n                                 Calculated from the format_id, width, height.\n                                 and format_note fields if missing.\n                    * format_id  A short description of the format\n                                 (\"mp4_h264_opus\" or \"19\").\n                                Technically optional, but strongly recommended.\n                    * format_note Additional info about the format\n                                 (\"3D\" or \"DASH video\")\n                    * width      Width of the video, if known\n                    * height     Height of the video, if known\n                    * resolution Textual description of width and height\n                    * tbr        Average bitrate of audio and video in KBit/s\n                    * abr        Average audio bitrate in KBit/s\n                    * acodec     Name of the audio codec in use\n                    * asr        Audio sampling rate in Hertz\n                    * vbr        Average video bitrate in KBit/s\n                    * fps        Frame rate\n                    * vcodec     Name of the video codec in use\n                    * container  Name of the container format\n                    * filesize   The number of bytes, if known in advance\n                    * filesize_approx  An estimate for the number of bytes\n                    * player_url SWF Player URL (used for rtmpdump).\n                    * protocol   The protocol that will be used for the actual\n                                 download, lower-case.\n                                 \"http\", \"https\", \"rtsp\", \"rtmp\", \"rtmpe\",\n                                 \"m3u8\", \"m3u8_native\" or \"http_dash_segments\".\n                    * fragment_base_url\n                                 Base URL for fragments. Each fragment's path\n                                 value (if present) will be relative to\n                                 this URL.\n                    * fragments  A list of fragments of a fragmented media.\n                                 Each fragment entry must contain either an url\n                                 or a path. If an url is present it should be\n                                 considered by a client. Otherwise both path and\n                                 fragment_base_url must be present. Here is\n                                 the list of all potential fields:\n                                 * \"url\" - fragment's URL\n                                 * \"path\" - fragment's path relative to\n                                            fragment_base_url\n                                 * \"duration\" (optional, int or float)\n                                 * \"filesize\" (optional, int)\n                    * preference Order number of this format. If this field is\n                                 present and not None, the formats get sorted\n                                 by this field, regardless of all other values.\n                                 -1 for default (order by other properties),\n                                 -2 or smaller for less than default.\n                                 < -1000 to hide the format (if there is\n                                    another one which is strictly better)\n                    * language   Language code, e.g. \"de\" or \"en-US\".\n                    * language_preference  Is this in the language mentioned in\n                                 the URL?\n                                 10 if it's what the URL is about,\n                                 -1 for default (don't know),\n                                 -10 otherwise, other values reserved for now.\n                    * quality    Order number of the video quality of this\n                                 format, irrespective of the file format.\n                                 -1 for default (order by other properties),\n                                 -2 or smaller for less than default.\n                    * source_preference  Order number for this video source\n                                  (quality takes higher priority)\n                                 -1 for default (order by other properties),\n                                 -2 or smaller for less than default.\n                    * http_headers  A dictionary of additional HTTP headers\n                                 to add to the request.\n                    * stretched_ratio  If given and not 1, indicates that the\n                                 video's pixels are not square.\n                                 width : height ratio as float.\n                    * no_resume  The server does not support resuming the\n                                 (HTTP or RTMP) download. Boolean.\n                    * downloader_options  A dictionary of downloader options as\n                                 described in FileDownloader\n\n    url:            Final video URL.\n    ext:            Video filename extension.\n    format:         The video format, defaults to ext (used for --get-format)\n    player_url:     SWF Player URL (used for rtmpdump).\n\n    The following fields are optional:\n\n    alt_title:      A secondary title of the video.\n    display_id      An alternative identifier for the video, not necessarily\n                    unique, but available before title. Typically, id is\n                    something like \"4234987\", title \"Dancing naked mole rats\",\n                    and display_id \"dancing-naked-mole-rats\"\n    thumbnails:     A list of dictionaries, with the following entries:\n                        * \"id\" (optional, string) - Thumbnail format ID\n                        * \"url\"\n                        * \"preference\" (optional, int) - quality of the image\n                        * \"width\" (optional, int)\n                        * \"height\" (optional, int)\n                        * \"resolution\" (optional, string \"{width}x{height}\",\n                                        deprecated)\n                        * \"filesize\" (optional, int)\n    thumbnail:      Full URL to a video thumbnail image.\n    description:    Full video description.\n    uploader:       Full name of the video uploader.\n    license:        License name the video is licensed under.\n    creator:        The creator of the video.\n    release_date:   The date (YYYYMMDD) when the video was released.\n    timestamp:      UNIX timestamp of the moment the video became available.\n    upload_date:    Video upload date (YYYYMMDD).\n                    If not explicitly set, calculated from timestamp.\n    uploader_id:    Nickname or id of the video uploader.\n    uploader_url:   Full URL to a personal webpage of the video uploader.\n    channel:        Full name of the channel the video is uploaded on.\n                    Note that channel fields may or may not repeat uploader\n                    fields. This depends on a particular extractor.\n    channel_id:     Id of the channel.\n    channel_url:    Full URL to a channel webpage.\n    location:       Physical location where the video was filmed.\n    subtitles:      The available subtitles as a dictionary in the format\n                    {tag: subformats}. \"tag\" is usually a language code, and\n                    \"subformats\" is a list sorted from lower to higher\n                    preference, each element is a dictionary with the \"ext\"\n                    entry and one of:\n                        * \"data\": The subtitles file contents\n                        * \"url\": A URL pointing to the subtitles file\n                    \"ext\" will be calculated from URL if missing\n    automatic_captions: Like 'subtitles', used by the YoutubeIE for\n                    automatically generated captions\n    duration:       Length of the video in seconds, as an integer or float.\n    view_count:     How many users have watched the video on the platform.\n    like_count:     Number of positive ratings of the video\n    dislike_count:  Number of negative ratings of the video\n    repost_count:   Number of reposts of the video\n    average_rating: Average rating give by users, the scale used depends on the webpage\n    comment_count:  Number of comments on the video\n    comments:       A list of comments, each with one or more of the following\n                    properties (all but one of text or html optional):\n                        * \"author\" - human-readable name of the comment author\n                        * \"author_id\" - user ID of the comment author\n                        * \"id\" - Comment ID\n                        * \"html\" - Comment as HTML\n                        * \"text\" - Plain text of the comment\n                        * \"timestamp\" - UNIX timestamp of comment\n                        * \"parent\" - ID of the comment this one is replying to.\n                                     Set to \"root\" to indicate that this is a\n                                     comment to the original video.\n    age_limit:      Age restriction for the video, as an integer (years)\n    webpage_url:    The URL to the video webpage, if given to youtube-dl it\n                    should allow to get the same result again. (It will be set\n                    by YoutubeDL if it's missing)\n    categories:     A list of categories that the video falls in, for example\n                    [\"Sports\", \"Berlin\"]\n    tags:           A list of tags assigned to the video, e.g. [\"sweden\", \"pop music\"]\n    is_live:        True, False, or None (=unknown). Whether this video is a\n                    live stream that goes on instead of a fixed-length video.\n    start_time:     Time in seconds where the reproduction should start, as\n                    specified in the URL.\n    end_time:       Time in seconds where the reproduction should end, as\n                    specified in the URL.\n    chapters:       A list of dictionaries, with the following entries:\n                        * \"start_time\" - The start time of the chapter in seconds\n                        * \"end_time\" - The end time of the chapter in seconds\n                        * \"title\" (optional, string)\n\n    The following fields should only be used when the video belongs to some logical\n    chapter or section:\n\n    chapter:        Name or title of the chapter the video belongs to.\n    chapter_number: Number of the chapter the video belongs to, as an integer.\n    chapter_id:     Id of the chapter the video belongs to, as a unicode string.\n\n    The following fields should only be used when the video is an episode of some\n    series, programme or podcast:\n\n    series:         Title of the series or programme the video episode belongs to.\n    season:         Title of the season the video episode belongs to.\n    season_number:  Number of the season the video episode belongs to, as an integer.\n    season_id:      Id of the season the video episode belongs to, as a unicode string.\n    episode:        Title of the video episode. Unlike mandatory video title field,\n                    this field should denote the exact title of the video episode\n                    without any kind of decoration.\n    episode_number: Number of the video episode within a season, as an integer.\n    episode_id:     Id of the video episode, as a unicode string.\n\n    The following fields should only be used when the media is a track or a part of\n    a music album:\n\n    track:          Title of the track.\n    track_number:   Number of the track within an album or a disc, as an integer.\n    track_id:       Id of the track (useful in case of custom indexing, e.g. 6.iii),\n                    as a unicode string.\n    artist:         Artist(s) of the track.\n    genre:          Genre(s) of the track.\n    album:          Title of the album the track belongs to.\n    album_type:     Type of the album (e.g. \"Demo\", \"Full-length\", \"Split\", \"Compilation\", etc).\n    album_artist:   List of all artists appeared on the album (e.g.\n                    \"Ash Borer / Fell Voices\" or \"Various Artists\", useful for splits\n                    and compilations).\n    disc_number:    Number of the disc or other physical medium the track belongs to,\n                    as an integer.\n    release_year:   Year (YYYY) when the album was released.\n\n    Unless mentioned otherwise, the fields should be Unicode strings.\n\n    Unless mentioned otherwise, None is equivalent to absence of information.\n\n\n    _type \"playlist\" indicates multiple videos.\n    There must be a key \"entries\", which is a list, an iterable, or a PagedList\n    object, each element of which is a valid dictionary by this specification.\n\n    Additionally, playlists can have \"id\", \"title\", \"description\", \"uploader\",\n    \"uploader_id\", \"uploader_url\" attributes with the same semantics as videos\n    (see above).\n\n\n    _type \"multi_video\" indicates that there are multiple videos that\n    form a single show, for examples multiple acts of an opera or TV episode.\n    It must have an entries key like a playlist and contain all the keys\n    required for a video at the same time.\n\n\n    _type \"url\" indicates that the video must be extracted from another\n    location, possibly by a different extractor. Its only required key is:\n    \"url\" - the next URL to extract.\n    The key \"ie_key\" can be set to the class name (minus the trailing \"IE\",\n    e.g. \"Youtube\") if the extractor class is known in advance.\n    Additionally, the dictionary may have any properties of the resolved entity\n    known in advance, for example \"title\" if the title of the referred video is\n    known ahead of time.\n\n\n    _type \"url_transparent\" entities have the same specification as \"url\", but\n    indicate that the given additional information is more precise than the one\n    associated with the resolved URL.\n    This is useful when a site employs a video service that hosts the video and\n    its technical metadata, but that video service does not embed a useful\n    title, description etc.\n\n\n    Subclasses of this one should re-define the _real_initialize() and\n    _real_extract() methods and define a _VALID_URL regexp.\n    Probably, they should also be added to the list of extractors.\n\n    _GEO_BYPASS attribute may be set to False in order to disable\n    geo restriction bypass mechanisms for a particular extractor.\n    Though it won't disable explicit geo restriction bypass based on\n    country code provided with geo_bypass_country.\n\n    _GEO_COUNTRIES attribute may contain a list of presumably geo unrestricted\n    countries for this extractor. One of these countries will be used by\n    geo restriction bypass mechanism right away in order to bypass\n    geo restriction, of course, if the mechanism is not disabled.\n\n    _GEO_IP_BLOCKS attribute may contain a list of presumably geo unrestricted\n    IP blocks in CIDR notation for this extractor. One of these IP blocks\n    will be used by geo restriction bypass mechanism similarly\n    to _GEO_COUNTRIES.\n\n    Finally, the _WORKING attribute should be set to False for broken IEs\n    in order to warn the users and skip the tests.\n    ")
 			InfoExtractor__ready = λ.False
 			InfoExtractor__downloader = λ.None
 			InfoExtractor__x_forwarded_for_ip = λ.None
@@ -264,7 +263,6 @@ func init() {
 						ϒdownloader = λargs[1]
 						ϒself       = λargs[0]
 					)
-					λ.NewStr("Constructor. Receives an optional downloader.")
 					λ.SetAttr(ϒself, "_ready", λ.False)
 					λ.SetAttr(ϒself, "_x_forwarded_for_ip", λ.None)
 					λ.Cal(λ.GetAttr(ϒself, "set_downloader", nil), ϒdownloader)
@@ -281,7 +279,6 @@ func init() {
 						ϒcls = λargs[0]
 						ϒurl = λargs[1]
 					)
-					λ.NewStr("Receives a URL and returns True if suitable for this IE.")
 					if λ.IsTrue(λ.NewBool(!λ.Contains(λ.GetAttr(ϒcls, "__dict__", nil), λ.NewStr("_VALID_URL_RE")))) {
 						λ.SetAttr(ϒcls, "_VALID_URL_RE", λ.Cal(Ωre.ϒcompile, λ.GetAttr(ϒcls, "_VALID_URL", nil)))
 					}
@@ -319,7 +316,6 @@ func init() {
 					var (
 						ϒcls = λargs[0]
 					)
-					λ.NewStr("Getter method for _WORKING.")
 					return λ.GetAttr(ϒcls, "_WORKING", nil)
 				})
 			InfoExtractor_working = λ.Cal(λ.ClassMethodType, InfoExtractor_working)
@@ -332,7 +328,6 @@ func init() {
 					var (
 						ϒself = λargs[0]
 					)
-					λ.NewStr("Initializes an instance (authentication, etc).")
 					λ.Cal(λ.GetAttr(ϒself, "_initialize_geo_bypass", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("countries"): λ.GetAttr(ϒself, "_GEO_COUNTRIES", nil),
 						λ.NewStr("ip_blocks"): λ.GetAttr(ϒself, "_GEO_IP_BLOCKS", nil),
@@ -358,7 +353,6 @@ func init() {
 						ϒip_blocks          λ.Object
 						ϒself               = λargs[0]
 					)
-					λ.NewStr("\n        Initialize geo restriction bypass mechanism.\n\n        This method is used to initialize geo bypass mechanism based on faking\n        X-Forwarded-For HTTP header. A random country from provided country list\n        is selected and a random IP belonging to this country is generated. This\n        IP will be passed as X-Forwarded-For HTTP header in all subsequent\n        HTTP requests.\n\n        This method will be used for initial geo bypass mechanism initialization\n        during the instance initialization with _GEO_COUNTRIES and\n        _GEO_IP_BLOCKS.\n\n        You may also manually call it from extractor's code if geo bypass\n        information is not available beforehand (e.g. obtained during\n        extraction) or due to some other reason. In this case you should pass\n        this information in geo bypass context passed as first argument. It may\n        contain following fields:\n\n        countries:  List of geo unrestricted countries (similar\n                    to _GEO_COUNTRIES)\n        ip_blocks:  List of geo unrestricted IP blocks in CIDR notation\n                    (similar to _GEO_IP_BLOCKS)\n\n        ")
 					if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.GetAttr(ϒself, "_x_forwarded_for_ip", nil)))) {
 						if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("geo_bypass"), λ.True)))) {
 							return λ.None
@@ -437,7 +431,6 @@ func init() {
 						τmp4       λ.Object
 						τmp5       λ.Object
 					)
-					λ.NewStr("Extracts URL information and returns it in list of dicts.")
 					τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
 						defer λ.CatchMulti(
 							nil,
@@ -514,7 +507,6 @@ func init() {
 						ϒdownloader = λargs[1]
 						ϒself       = λargs[0]
 					)
-					λ.NewStr("Sets the downloader for this IE.")
 					λ.SetAttr(ϒself, "_downloader", ϒdownloader)
 					return λ.None
 				})
@@ -528,7 +520,6 @@ func init() {
 						ϒself = λargs[0]
 					)
 					_ = ϒself
-					λ.NewStr("Real initialization process. Redefine in subclasses.")
 					// pass
 					return λ.None
 				})
@@ -541,7 +532,6 @@ func init() {
 					var (
 						ϒcls = λargs[0]
 					)
-					λ.NewStr("A string for getting the InfoExtractor with get_info_extractor")
 					return λ.Cal(ϒcompat_str, λ.GetItem(λ.GetAttr(ϒcls, "__name__", nil), λ.NewSlice(λ.None, λ.Neg(λ.NewInt(2)), λ.None)))
 				})
 			InfoExtractor_ie_key = λ.Cal(λ.ClassMethodType, InfoExtractor_ie_key)
@@ -625,7 +615,6 @@ func init() {
 						τmp0             λ.Object
 						τmp1             λ.Object
 					)
-					λ.NewStr("\n        Return the response handle.\n\n        See _download_webpage docstring for arguments specification.\n        ")
 					if λ.IsTrue(λ.NewBool(ϒnote == λ.None)) {
 						λ.Cal(λ.GetAttr(ϒself, "report_download_webpage", nil), ϒvideo_id)
 					} else {
@@ -746,7 +735,6 @@ func init() {
 						ϒurlh            λ.Object
 						ϒvideo_id        = λargs[2]
 					)
-					λ.NewStr("\n        Return a tuple (page content as string, URL handle).\n\n        See _download_webpage docstring for arguments specification.\n        ")
 					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒurl_or_request, λ.NewTuple(
 						ϒcompat_str,
 						λ.StrType,
@@ -1036,7 +1024,6 @@ func init() {
 						τmp2             λ.Object
 					)
 					_ = τmp0
-					λ.NewStr("\n        Return the data of the page as a string.\n\n        Arguments:\n        url_or_request -- plain text URL as a string or\n            a compat_urllib_request.Requestobject\n        video_id -- Video/playlist/item identifier (string)\n\n        Keyword arguments:\n        note -- note printed before downloading (string)\n        errnote -- note printed in case of an error (string)\n        fatal -- flag denoting whether error should be considered fatal,\n            i.e. whether it should cause ExtractionError to be raised,\n            otherwise a warning will be reported and extraction continued\n        tries -- number of tries\n        timeout -- sleep interval between tries\n        encoding -- encoding for a page content decoding, guessed automatically\n            when not explicitly specified\n        data -- POST data (bytes)\n        headers -- HTTP headers (dict)\n        query -- URL query (dict)\n        expected_status -- allows to accept failed HTTP requests (non 2xx\n            status code) by explicitly specifying a set of accepted status\n            codes. Can be any of the following entities:\n                - an integer type specifying an exact failed status code to\n                  accept\n                - a list or a tuple of integer types specifying a list of\n                  failed status codes to accept\n                - a callable accepting an actual failed status code and\n                  returning True if it should be accepted\n            Note that this argument does not affect success status codes (2xx)\n            which are always accepted.\n        ")
 					ϒsuccess = λ.False
 					ϒtry_count = λ.NewInt(0)
 					for λ.IsTrue(λ.NewBool(ϒsuccess == λ.False)) {
@@ -1115,7 +1102,6 @@ func init() {
 						ϒxml_string       λ.Object
 						τmp0              λ.Object
 					)
-					λ.NewStr("\n        Return a tuple (xml as an compat_etree_Element, URL handle).\n\n        See _download_webpage docstring for arguments specification.\n        ")
 					ϒres = λ.Call(λ.GetAttr(ϒself, "_download_webpage_handle", nil), λ.NewArgs(
 						ϒurl_or_request,
 						ϒvideo_id,
@@ -1178,7 +1164,6 @@ func init() {
 						ϒurl_or_request   = λargs[1]
 						ϒvideo_id         = λargs[2]
 					)
-					λ.NewStr("\n        Return the xml as an compat_etree_Element.\n\n        See _download_webpage docstring for arguments specification.\n        ")
 					ϒres = λ.Call(λ.GetAttr(ϒself, "_download_xml_handle", nil), λ.NewArgs(
 						ϒurl_or_request,
 						ϒvideo_id,
@@ -1283,7 +1268,6 @@ func init() {
 						ϒvideo_id         = λargs[2]
 						τmp0              λ.Object
 					)
-					λ.NewStr("\n        Return a tuple (JSON object, URL handle).\n\n        See _download_webpage docstring for arguments specification.\n        ")
 					ϒres = λ.Call(λ.GetAttr(ϒself, "_download_webpage_handle", nil), λ.NewArgs(
 						ϒurl_or_request,
 						ϒvideo_id,
@@ -1346,7 +1330,6 @@ func init() {
 						ϒurl_or_request   = λargs[1]
 						ϒvideo_id         = λargs[2]
 					)
-					λ.NewStr("\n        Return the JSON object as a dict.\n\n        See _download_webpage docstring for arguments specification.\n        ")
 					ϒres = λ.Call(λ.GetAttr(ϒself, "_download_json_handle", nil), λ.NewArgs(
 						ϒurl_or_request,
 						ϒvideo_id,
@@ -1455,7 +1438,6 @@ func init() {
 						ϒmsg  = λargs[1]
 						ϒself = λargs[0]
 					)
-					λ.NewStr("Print msg to screen, prefixing it with '[ie_name]'")
 					λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "to_screen", nil), λ.Mod(λ.NewStr("[%s] %s"), λ.NewTuple(
 						λ.GetAttr(ϒself, "IE_NAME", nil),
 						ϒmsg,
@@ -1473,7 +1455,6 @@ func init() {
 						ϒid_or_name = λargs[1]
 						ϒself       = λargs[0]
 					)
-					λ.NewStr("Report information extraction.")
 					λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("%s: Extracting information"), ϒid_or_name))
 					return λ.None
 				})
@@ -1488,7 +1469,6 @@ func init() {
 						ϒself     = λargs[0]
 						ϒvideo_id = λargs[1]
 					)
-					λ.NewStr("Report webpage download.")
 					λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("%s: Downloading webpage"), ϒvideo_id))
 					return λ.None
 				})
@@ -1508,7 +1488,6 @@ func init() {
 						ϒvideo_info  λ.Object
 						ϒvideo_title = λargs[3]
 					)
-					λ.NewStr("Returns a URL that points to a page that should be processed")
 					ϒvideo_info = λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("_type"):  λ.NewStr("url"),
 						λ.NewStr("url"):    ϒurl,
@@ -1539,7 +1518,6 @@ func init() {
 						ϒplaylist_title       = λargs[2]
 						ϒvideo_info           λ.Object
 					)
-					λ.NewStr("Returns a playlist")
 					ϒvideo_info = λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("_type"):   λ.NewStr("playlist"),
 						λ.NewStr("entries"): ϒentries,
@@ -1584,7 +1562,6 @@ func init() {
 						τmp0     λ.Object
 						τmp1     λ.Object
 					)
-					λ.NewStr("\n        Perform a regex search on the given string, using a single or a list of\n        patterns returning the first matching group.\n        In case of failure return a default value or raise a WARNING or a\n        RegexNotFoundError, depending on fatal, specifying the field name.\n        ")
 					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒpattern, λ.NewTuple(
 						λ.StrType,
 						ϒcompat_str,
@@ -1683,7 +1660,6 @@ func init() {
 						ϒself    = λargs[0]
 						ϒstring  = λargs[2]
 					)
-					λ.NewStr("\n        Like _search_regex, but strips HTML tags and unescapes entities.\n        ")
 					ϒres = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), ϒpattern, ϒstring, ϒname, ϒdefault, ϒfatal, ϒflags, ϒgroup)
 					if λ.IsTrue(ϒres) {
 						return λ.Cal(λ.GetAttr(λ.Cal(ϒclean_html, ϒres), "strip", nil))
@@ -1765,7 +1741,6 @@ func init() {
 						ϒusername_option   = λargs[1]
 						τmp0               λ.Object
 					)
-					λ.NewStr("\n        Get the login info as (username, password)\n        First look for the manually specified credentials using username_option\n        and password_option as keys in params dictionary. If no such credentials\n        available look in the netrc file using the netrc_machine or _NETRC_MACHINE\n        value.\n        If there's no info available, return (None, None)\n        ")
 					if λ.IsTrue(λ.NewBool(λ.GetAttr(ϒself, "_downloader", nil) == λ.None)) {
 						return λ.NewTuple(
 							λ.None,
@@ -2958,7 +2933,6 @@ func init() {
 					var (
 						ϒself = λargs[0]
 					)
-					λ.NewStr(" Either \"http:\" or \"https:\", depending on the user's preferences ")
 					return func() λ.Object {
 						if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("prefer_insecure"), λ.False)) {
 							return λ.NewStr("http:")
@@ -3013,16 +2987,22 @@ func init() {
 						})},
 					{Name: "fatal", Def: λ.True},
 					{Name: "m3u8_id", Def: λ.None},
+					{Name: "data", Def: λ.None},
+					{Name: "headers", Def: λ.NewDictWithTable(map[λ.Object]λ.Object{})},
+					{Name: "query", Def: λ.NewDictWithTable(map[λ.Object]λ.Object{})},
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
+						ϒdata             = λargs[8]
 						ϒf4m_id           = λargs[4]
 						ϒfatal            = λargs[6]
+						ϒheaders          = λargs[9]
 						ϒm3u8_id          = λargs[7]
 						ϒmanifest         λ.Object
 						ϒmanifest_url     = λargs[1]
 						ϒpreference       = λargs[3]
+						ϒquery            = λargs[10]
 						ϒself             = λargs[0]
 						ϒtransform_source = λargs[5]
 						ϒvideo_id         = λargs[2]
@@ -3035,6 +3015,9 @@ func init() {
 					), λ.KWArgs{
 						{Name: "transform_source", Value: ϒtransform_source},
 						{Name: "fatal", Value: ϒfatal},
+						{Name: "data", Value: ϒdata},
+						{Name: "headers", Value: ϒheaders},
+						{Name: "query", Value: ϒquery},
 					})
 					if λ.IsTrue(λ.NewBool(ϒmanifest == λ.False)) {
 						return λ.NewList()
@@ -3319,22 +3302,26 @@ func init() {
 					{Name: "errnote", Def: λ.None},
 					{Name: "fatal", Def: λ.True},
 					{Name: "live", Def: λ.False},
+					{Name: "data", Def: λ.None},
 					{Name: "headers", Def: λ.NewDictWithTable(map[λ.Object]λ.Object{})},
+					{Name: "query", Def: λ.NewDictWithTable(map[λ.Object]λ.Object{})},
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
+						ϒdata           = λargs[11]
 						ϒentry_protocol = λargs[4]
 						ϒerrnote        = λargs[8]
 						ϒext            = λargs[3]
 						ϒfatal          = λargs[9]
-						ϒheaders        = λargs[11]
+						ϒheaders        = λargs[12]
 						ϒlive           = λargs[10]
 						ϒm3u8_doc       λ.Object
 						ϒm3u8_id        = λargs[6]
 						ϒm3u8_url       = λargs[1]
 						ϒnote           = λargs[7]
 						ϒpreference     = λargs[5]
+						ϒquery          = λargs[13]
 						ϒres            λ.Object
 						ϒself           = λargs[0]
 						ϒurlh           λ.Object
@@ -3360,7 +3347,9 @@ func init() {
 							}
 						}()},
 						{Name: "fatal", Value: ϒfatal},
+						{Name: "data", Value: ϒdata},
 						{Name: "headers", Value: ϒheaders},
+						{Name: "query", Value: ϒquery},
 					})
 					if λ.IsTrue(λ.NewBool(ϒres == λ.False)) {
 						return λ.NewList()
@@ -4191,20 +4180,24 @@ func init() {
 					{Name: "errnote", Def: λ.None},
 					{Name: "fatal", Def: λ.True},
 					{Name: "formats_dict", Def: λ.NewDictWithTable(map[λ.Object]λ.Object{})},
+					{Name: "data", Def: λ.None},
 					{Name: "headers", Def: λ.NewDictWithTable(map[λ.Object]λ.Object{})},
+					{Name: "query", Def: λ.NewDictWithTable(map[λ.Object]λ.Object{})},
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
+						ϒdata         = λargs[8]
 						ϒerrnote      = λargs[5]
 						ϒfatal        = λargs[6]
 						ϒformats_dict = λargs[7]
-						ϒheaders      = λargs[8]
+						ϒheaders      = λargs[9]
 						ϒmpd_base_url λ.Object
 						ϒmpd_doc      λ.Object
 						ϒmpd_id       = λargs[3]
 						ϒmpd_url      = λargs[1]
 						ϒnote         = λargs[4]
+						ϒquery        = λargs[10]
 						ϒres          λ.Object
 						ϒself         = λargs[0]
 						ϒurlh         λ.Object
@@ -4230,7 +4223,9 @@ func init() {
 							}
 						}()},
 						{Name: "fatal", Value: ϒfatal},
+						{Name: "data", Value: ϒdata},
 						{Name: "headers", Value: ϒheaders},
+						{Name: "query", Value: ϒquery},
 					})
 					if λ.IsTrue(λ.NewBool(ϒres == λ.False)) {
 						return λ.NewList()
@@ -4328,7 +4323,6 @@ func init() {
 					)
 					_ = ϒnum
 					_ = ϒr
-					λ.NewStr("\n        Parse formats from MPD manifest.\n        References:\n         1. MPEG-DASH Standard, ISO/IEC 23009-1:2014(E),\n            http://standards.iso.org/ittf/PubliclyAvailableStandards/c065274_ISO_IEC_23009-1_2014.zip\n         2. https://en.wikipedia.org/wiki/Dynamic_Adaptive_Streaming_over_HTTP\n        ")
 					if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒmpd_doc, "get", nil), λ.NewStr("type")), λ.NewStr("dynamic"))) {
 						return λ.NewList()
 					}
@@ -4932,16 +4926,22 @@ func init() {
 					{Name: "note", Def: λ.None},
 					{Name: "errnote", Def: λ.None},
 					{Name: "fatal", Def: λ.True},
+					{Name: "data", Def: λ.None},
+					{Name: "headers", Def: λ.NewDictWithTable(map[λ.Object]λ.Object{})},
+					{Name: "query", Def: λ.NewDictWithTable(map[λ.Object]λ.Object{})},
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
+						ϒdata     = λargs[7]
 						ϒerrnote  = λargs[5]
 						ϒfatal    = λargs[6]
+						ϒheaders  = λargs[8]
 						ϒism_doc  λ.Object
 						ϒism_id   = λargs[3]
 						ϒism_url  = λargs[1]
 						ϒnote     = λargs[4]
+						ϒquery    = λargs[9]
 						ϒres      λ.Object
 						ϒself     = λargs[0]
 						ϒurlh     λ.Object
@@ -4967,6 +4967,9 @@ func init() {
 							}
 						}()},
 						{Name: "fatal", Value: ϒfatal},
+						{Name: "data", Value: ϒdata},
+						{Name: "headers", Value: ϒheaders},
+						{Name: "query", Value: ϒquery},
 					})
 					if λ.IsTrue(λ.NewBool(ϒres == λ.False)) {
 						return λ.NewList()
@@ -5023,7 +5026,6 @@ func init() {
 						τmp7                   λ.Object
 						τmp8                   λ.Object
 					)
-					λ.NewStr("\n        Parse formats from ISM manifest.\n        References:\n         1. [MS-SSTR]: Smooth Streaming Protocol,\n            https://msdn.microsoft.com/en-us/library/ff469518.aspx\n        ")
 					if λ.IsTrue(func() λ.Object {
 						if λv := λ.Eq(λ.Cal(λ.GetAttr(ϒism_doc, "get", nil), λ.NewStr("IsLive")), λ.NewStr("TRUE")); λ.IsTrue(λv) {
 							return λv
@@ -5743,7 +5745,7 @@ func init() {
 									return λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("title"))
 								}
 							}()),
-							λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("description")),
+							λ.NewStr("description"): λ.Cal(ϒclean_html, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("description"))),
 							λ.NewStr("thumbnail"):   λ.Cal(ϒurljoin, ϒbase_url, λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("image")))),
 							λ.NewStr("timestamp"):   λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("pubdate"))),
 							λ.NewStr("duration"): λ.Cal(ϒfloat_or_none, func() λ.Object {
@@ -5970,7 +5972,6 @@ func init() {
 						ϒself = λargs[0]
 					)
 					_ = ϒself
-					λ.NewStr(" Generate the title for a live video ")
 					return ϒname
 				})
 			InfoExtractor__int = λ.NewFunction("_int",
@@ -6090,7 +6091,6 @@ func init() {
 						ϒself = λargs[0]
 						ϒurl  = λargs[1]
 					)
-					λ.NewStr(" Return a compat_cookies.SimpleCookie with the cookies for the url ")
 					ϒreq = λ.Cal(ϒsanitized_Request, ϒurl)
 					λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "cookiejar", nil), "add_cookie_header", nil), ϒreq)
 					return λ.Cal(Ωcookies.SimpleCookie, λ.Cal(λ.GetAttr(ϒreq, "get_header", nil), λ.NewStr("Cookie")))
@@ -6132,7 +6132,6 @@ func init() {
 						ϒsubtitle_list1 = λargs[0]
 						ϒsubtitle_list2 = λargs[1]
 					)
-					λ.NewStr(" Merge subtitle items for one language. Items with duplicated URLs\n        will be dropped. ")
 					ϒlist1_urls = λ.Cal(λ.SetType, λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -6198,7 +6197,6 @@ func init() {
 						τmp0            λ.Object
 						τmp1            λ.Object
 					)
-					λ.NewStr(" Merge two subtitle dictionaries, language by language. ")
 					ϒret = λ.Cal(λ.DictType, ϒsubtitle_dict1)
 					τmp0 = λ.Cal(λ.BuiltinIter, ϒsubtitle_dict2)
 					for {
@@ -6381,7 +6379,6 @@ func init() {
 				SearchInfoExtractor__make_valid_url λ.Object
 				SearchInfoExtractor_suitable        λ.Object
 			)
-			λ.NewStr("\n    Base class for paged search queries extractors.\n    They accept URLs in the format _SEARCH_KEY(|all|[0-9]):{query}\n    Instances should define _SEARCH_KEY and _MAX_RESULTS.\n    ")
 			SearchInfoExtractor__make_valid_url = λ.NewFunction("_make_valid_url",
 				[]λ.Param{
 					{Name: "cls"},

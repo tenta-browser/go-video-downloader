@@ -149,7 +149,6 @@ func init() {
 						τmp0              λ.Object
 						τmp1              λ.Object
 					)
-					λ.NewStr("Returns the videos of the playlist")
 					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒname, λ.NewStr("Downloading playlist webpage"))
 					ϒplaylist_entries = λ.NewList()
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.NewStr("(?s)<[^>]+data-ga-context=[\"\\']playlist[\"\\'][^>]*>"), ϒwebpage))

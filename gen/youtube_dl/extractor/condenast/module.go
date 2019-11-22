@@ -64,7 +64,6 @@ func init() {
 				CondeNastIE__extract_video_params λ.Object
 				CondeNastIE__real_extract         λ.Object
 			)
-			λ.NewStr("\n    Condé Nast is a media group, some of its sites use a custom HTML5 player\n    that works the same in all of them.\n    ")
 			CondeNastIE__SITES = λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("allure"):              λ.NewStr("Allure"),
 				λ.NewStr("architecturaldigest"): λ.NewStr("Architectural Digest"),

@@ -2,13 +2,13 @@ Supported sites
 ===============
 
  * AbcNewsVideo: `abcnews.go.com`
+ * ACast: `www.acast.com`
  * AdobeTV: `tv.adobe.com`
  * AdobeTVVideo: `video.tv.adobe.com`
  * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
  * ARDMediathek: `www.ardmediathek.de`
  * ArteTVPlus7: `www.arte.tv`
- * AsianCrush: `www.asiancrush.com`
  * AudioBoom: `audioboom.com`
  * Audiomack: `www.audiomack.com`
  * AZMedien: `www.telezueri.ch`
@@ -18,7 +18,6 @@ Supported sites
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
- * BitChute: `www.bitchute.com`
  * BIQLE: `biqle.ru`
  * BleacherReport: `bleacherreport.com`
  * BleacherReportCMS: `bleacherreport.com`
@@ -156,6 +155,7 @@ Supported sites
  * Netzkino: `www.netzkino.de`
  * Newgrounds: `www.newgrounds.com`
  * Nexx: `api.nexx.cloud`
+ * NexxEmbed: `embed.nexx.cloud`
  * NHL: `www.nhl.com`
  * NonkTube _(adult)_: `www.nonktube.com`
  * Noovo: `noovo.ca`
@@ -252,10 +252,8 @@ Supported sites
  * TwentyMinuten: `www.20min.ch`
  * TwentyThreeVideo: `video.twentythree.net`
  * TwitchClips: `clips.twitch.tv`
- * TwitterCard: `twitter.com`
  * TwitterAmplify: `amp.twimg.com`
  * UDNEmbed: `video.udn.com`
- * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
  * UstudioEmbed: `app.ustudio.com`
  * Varzesh3: `video.varzesh3.com`
@@ -270,6 +268,7 @@ Supported sites
  * VideoPress: `videopress.com`
  * VideosZ _(adult)_: `www.videosz.com`
  * VidLii: `www.vidlii.com`
+ * ViewLift: `www.snagfilms.com`
  * Vimeo: `vimeo.com`
  * VimeoOndemand: `vimeo.com`
  * Vimple: `vimple.ru`
@@ -293,6 +292,7 @@ Supported sites
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
  * Yahoo: `screen.yahoo.com`
+ * YinYueTai: `v.yinyuetai.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`
  * YourUpload: `yourupload.com`

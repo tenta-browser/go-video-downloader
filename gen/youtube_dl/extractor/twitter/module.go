@@ -26,6 +26,7 @@ package twitter
 
 import (
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
+	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωperiscope "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/periscope"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
@@ -33,38 +34,113 @@ import (
 )
 
 var (
-	ExtractorError   λ.Object
-	InfoExtractor    λ.Object
-	PeriscopeIE      λ.Object
-	TwitterAmplifyIE λ.Object
-	TwitterBaseIE    λ.Object
-	TwitterCardIE    λ.Object
-	TwitterIE        λ.Object
-	ϒdetermine_ext   λ.Object
-	ϒdict_get        λ.Object
-	ϒfloat_or_none   λ.Object
-	ϒint_or_none     λ.Object
-	ϒremove_end      λ.Object
-	ϒtry_get         λ.Object
-	ϒxpath_text      λ.Object
+	ExtractorError                λ.Object
+	InfoExtractor                 λ.Object
+	PeriscopeBaseIE               λ.Object
+	PeriscopeIE                   λ.Object
+	TwitterAmplifyIE              λ.Object
+	TwitterBaseIE                 λ.Object
+	TwitterBroadcastIE            λ.Object
+	TwitterCardIE                 λ.Object
+	TwitterIE                     λ.Object
+	ϒcompat_HTTPError             λ.Object
+	ϒcompat_parse_qs              λ.Object
+	ϒcompat_urllib_parse_unquote  λ.Object
+	ϒcompat_urllib_parse_urlparse λ.Object
+	ϒdict_get                     λ.Object
+	ϒfloat_or_none                λ.Object
+	ϒint_or_none                  λ.Object
+	ϒstrip_or_none                λ.Object
+	ϒtry_get                      λ.Object
+	ϒunified_timestamp            λ.Object
+	ϒupdate_url_query             λ.Object
+	ϒxpath_text                   λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒdetermine_ext = Ωutils.ϒdetermine_ext
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
+		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
+		ϒcompat_urllib_parse_unquote = Ωcompat.ϒcompat_urllib_parse_unquote
+		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ϒdict_get = Ωutils.ϒdict_get
 		ExtractorError = Ωutils.ExtractorError
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ϒremove_end = Ωutils.ϒremove_end
 		ϒtry_get = Ωutils.ϒtry_get
+		ϒstrip_or_none = Ωutils.ϒstrip_or_none
+		ϒunified_timestamp = Ωutils.ϒunified_timestamp
+		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		ϒxpath_text = Ωutils.ϒxpath_text
+		PeriscopeBaseIE = Ωperiscope.PeriscopeBaseIE
 		PeriscopeIE = Ωperiscope.PeriscopeIE
 		TwitterBaseIE = λ.Cal(λ.TypeType, λ.NewStr("TwitterBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				TwitterBaseIE__extract_formats_from_vmap_url λ.Object
+				TwitterBaseIE__BASE_REGEX                     λ.Object
+				TwitterBaseIE__extract_formats_from_vmap_url  λ.Object
+				TwitterBaseIE__extract_variant_formats        λ.Object
+				TwitterBaseIE__search_dimensions_in_video_url λ.Object
 			)
+			TwitterBaseIE__BASE_REGEX = λ.NewStr("https?://(?:(?:www|m(?:obile)?)\\.)?twitter\\.com/")
+			TwitterBaseIE__extract_variant_formats = λ.NewFunction("_extract_variant_formats",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "variant"},
+					{Name: "video_id"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒf           λ.Object
+						ϒself        = λargs[0]
+						ϒtbr         λ.Object
+						ϒvariant     = λargs[1]
+						ϒvariant_url λ.Object
+						ϒvideo_id    = λargs[2]
+					)
+					ϒvariant_url = λ.Cal(λ.GetAttr(ϒvariant, "get", nil), λ.NewStr("url"))
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvariant_url))) {
+						return λ.NewList()
+					} else {
+						if λ.IsTrue(λ.NewBool(λ.Contains(ϒvariant_url, λ.NewStr(".m3u8")))) {
+							return λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+								ϒvariant_url,
+								ϒvideo_id,
+								λ.NewStr("mp4"),
+								λ.NewStr("m3u8_native"),
+							), λ.KWArgs{
+								{Name: "m3u8_id", Value: λ.NewStr("hls")},
+								{Name: "fatal", Value: λ.False},
+							})
+						} else {
+							ϒtbr = func() λ.Object {
+								if λv := λ.Cal(ϒint_or_none, λ.Cal(ϒdict_get, ϒvariant, λ.NewTuple(
+									λ.NewStr("bitrate"),
+									λ.NewStr("bit_rate"),
+								)), λ.NewInt(1000)); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.None
+								}
+							}()
+							ϒf = λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("url"): ϒvariant_url,
+								λ.NewStr("format_id"): λ.Add(λ.NewStr("http"), func() λ.Object {
+									if λ.IsTrue(ϒtbr) {
+										return λ.Mod(λ.NewStr("-%d"), ϒtbr)
+									} else {
+										return λ.NewStr("")
+									}
+								}()),
+								λ.NewStr("tbr"): ϒtbr,
+							})
+							λ.Cal(λ.GetAttr(ϒself, "_search_dimensions_in_video_url", nil), ϒf, ϒvariant_url)
+							return λ.NewList(ϒf)
+						}
+					}
+					return λ.None
+				})
 			TwitterBaseIE__extract_formats_from_vmap_url = λ.NewFunction("_extract_formats_from_vmap_url",
 				[]λ.Param{
 					{Name: "self"},
@@ -74,281 +150,81 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒself      = λargs[0]
-						ϒvideo_id  = λargs[2]
-						ϒvideo_url λ.Object
-						ϒvmap_data λ.Object
-						ϒvmap_url  = λargs[1]
-					)
-					ϒvmap_data = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), ϒvmap_url, ϒvideo_id)
-					ϒvideo_url = λ.Cal(λ.GetAttr(λ.Cal(ϒxpath_text, ϒvmap_data, λ.NewStr(".//MediaFile")), "strip", nil))
-					if λ.IsTrue(λ.Eq(λ.Cal(ϒdetermine_ext, ϒvideo_url), λ.NewStr("m3u8"))) {
-						return λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
-							ϒvideo_url,
-							ϒvideo_id,
-						), λ.KWArgs{
-							{Name: "ext", Value: λ.NewStr("mp4")},
-							{Name: "m3u8_id", Value: λ.NewStr("hls")},
-							{Name: "entry_protocol", Value: λ.NewStr("m3u8_native")},
-						})
-					}
-					return λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("url"): ϒvideo_url,
-					}))
-				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_extract_formats_from_vmap_url"): TwitterBaseIE__extract_formats_from_vmap_url,
-			})
-		}())
-		TwitterCardIE = λ.Cal(λ.TypeType, λ.NewStr("TwitterCardIE"), λ.NewTuple(TwitterBaseIE), func() λ.Dict {
-			var (
-				TwitterCardIE_IE_NAME       λ.Object
-				TwitterCardIE__API_BASE     λ.Object
-				TwitterCardIE__VALID_URL    λ.Object
-				TwitterCardIE__real_extract λ.Object
-			)
-			TwitterCardIE_IE_NAME = λ.NewStr("twitter:card")
-			TwitterCardIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?twitter\\.com/i/(?P<path>cards/tfw/v1|videos(?:/tweet)?)/(?P<id>\\d+)")
-			TwitterCardIE__API_BASE = λ.NewStr("https://api.twitter.com/1.1")
-			TwitterCardIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒconfig        λ.Object
-						ϒct0           λ.Object
-						ϒduration      λ.Object
-						ϒentity        λ.Object
-						ϒf             λ.Object
 						ϒformats       λ.Object
-						ϒguest_token   λ.Object
-						ϒheaders       λ.Object
-						ϒiframe_url    λ.Object
-						ϒmedia_info    λ.Object
-						ϒpath          λ.Object
-						ϒperiscope_url λ.Object
-						ϒplayback_url  λ.Object
 						ϒself          = λargs[0]
-						ϒthumbnail     λ.Object
-						ϒtitle         λ.Object
-						ϒtrack         λ.Object
-						ϒu             λ.Object
-						ϒurl           = λargs[1]
 						ϒurls          λ.Object
-						ϒusername      λ.Object
-						ϒvideo_id      λ.Object
+						ϒvideo_id      = λargs[2]
 						ϒvideo_url     λ.Object
-						ϒvmap_url      λ.Object
-						ϒwebpage       λ.Object
+						ϒvideo_variant λ.Object
+						ϒvmap_data     λ.Object
+						ϒvmap_url      = λargs[1]
 						τmp0           λ.Object
 						τmp1           λ.Object
-						τmp2           λ.Object
-						τmp3           λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒsearch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
-					ϒpath = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒconfig = λ.None
+					ϒvmap_data = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), ϒvmap_url, ϒvideo_id)
 					ϒformats = λ.NewList()
-					ϒduration = λ.None
-					ϒurls = λ.NewList(ϒurl)
-					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒpath, "startswith", nil), λ.NewStr("cards/"))) {
-						λ.Cal(λ.GetAttr(ϒurls, "append", nil), λ.Add(λ.NewStr("https://twitter.com/i/videos/"), ϒvideo_id))
-					}
-					τmp0 = λ.Cal(λ.BuiltinIter, ϒurls)
+					ϒurls = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒvmap_data, "findall", nil), λ.NewStr(".//{http://twitter.com/schema/videoVMapV2.xsd}videoVariant")))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						ϒu = τmp1
-						ϒwebpage = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
-							ϒu,
-							ϒvideo_id,
-						), λ.KWArgs{
-							{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("Referer"): λ.NewStr("https://twitter.com/"),
-							})},
-						})
-						ϒiframe_url = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-							λ.NewStr("<iframe[^>]+src=\"((?:https?:)?//(?:www\\.youtube\\.com/embed/[^\"]+|(?:www\\.)?vine\\.co/v/\\w+/card))\""),
-							ϒwebpage,
-							λ.NewStr("video iframe"),
-						), λ.KWArgs{
-							{Name: "default", Value: λ.None},
-						})
-						if λ.IsTrue(ϒiframe_url) {
-							return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒiframe_url)
-						}
-						ϒconfig = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-							λ.NewStr("data-(?:player-)?config=\"([^\"]+)\""),
-							ϒwebpage,
-							λ.NewStr("data player config"),
-						), λ.KWArgs{
-							{Name: "default", Value: λ.NewStr("{}")},
-						}), ϒvideo_id)
-						if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("source_type")), λ.NewStr("vine"))) {
-							return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.GetItem(ϒconfig, λ.NewStr("player_url")), λ.NewStr("Vine"))
-						}
-						ϒperiscope_url = λ.Cal(λ.GetAttr(PeriscopeIE, "_extract_url", nil), ϒwebpage)
-						if λ.IsTrue(ϒperiscope_url) {
-							return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒperiscope_url, λ.Cal(λ.GetAttr(PeriscopeIE, "ie_key", nil)))
-						}
-						ϒvideo_url = func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("video_url")); λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.Cal(λ.GetAttr(λ.GetItem(λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("playlist"), λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{}))), λ.NewInt(0)), "get", nil), λ.NewStr("source"))
-							}
-						}()
-						if λ.IsTrue(ϒvideo_url) {
-							if λ.IsTrue(λ.Eq(λ.Cal(ϒdetermine_ext, ϒvideo_url), λ.NewStr("m3u8"))) {
-								λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
-									ϒvideo_url,
-									ϒvideo_id,
-								), λ.KWArgs{
-									{Name: "ext", Value: λ.NewStr("mp4")},
-									{Name: "m3u8_id", Value: λ.NewStr("hls")},
-								}))
-							} else {
-								ϒf = λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("url"): ϒvideo_url,
-								})
-								λ.Cal(λ.GetAttr(ϒself, "_search_dimensions_in_video_url", nil), ϒf, ϒvideo_url)
-								λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)
-							}
-						}
-						ϒvmap_url = func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("vmapUrl")); λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("vmap_url"))
-							}
-						}()
-						if λ.IsTrue(ϒvmap_url) {
-							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Cal(λ.GetAttr(ϒself, "_extract_formats_from_vmap_url", nil), ϒvmap_url, ϒvideo_id))
-						}
-						ϒmedia_info = λ.None
-						τmp2 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("status"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("entities"), λ.NewList()))
-						for {
-							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
-								break
-							}
-							ϒentity = τmp3
-							if λ.IsTrue(λ.NewBool(λ.Contains(ϒentity, λ.NewStr("mediaInfo")))) {
-								ϒmedia_info = λ.GetItem(ϒentity, λ.NewStr("mediaInfo"))
-							}
-						}
-						if λ.IsTrue(ϒmedia_info) {
-							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Cal(λ.GetAttr(ϒself, "_parse_media_info", nil), ϒmedia_info, ϒvideo_id))
-							ϒduration = λ.Call(ϒfloat_or_none, λ.NewArgs(λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒmedia_info, "get", nil), λ.NewStr("duration"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("nanos"))), λ.KWArgs{
-								{Name: "scale", Value: λ.NewFloat(1000000000.0)},
-							})
-						}
-						ϒusername = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("user"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("screen_name"))
-						if λ.IsTrue(ϒusername) {
-							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Cal(λ.GetAttr(ϒself, "_extract_mobile_formats", nil), ϒusername, ϒvideo_id))
-						}
-						if λ.IsTrue(ϒformats) {
-							ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<title>([^<]+)</title>"), ϒwebpage, λ.NewStr("title"))
-							ϒthumbnail = func() λ.Object {
-								if λv := λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("posterImageUrl")); λ.IsTrue(λv) {
-									return λv
-								} else {
-									return λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("image_src"))
-								}
-							}()
-							ϒduration = func() λ.Object {
-								if λv := λ.Call(ϒfloat_or_none, λ.NewArgs(λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("duration"))), λ.KWArgs{
-									{Name: "scale", Value: λ.NewInt(1000)},
-								}); λ.IsTrue(λv) {
-									return λv
-								} else {
-									return ϒduration
-								}
-							}()
-							break
-						}
+						ϒvideo_variant = τmp1
+						λ.SetItem(λ.GetAttr(ϒvideo_variant, "attrib", nil), λ.NewStr("url"), λ.Cal(ϒcompat_urllib_parse_unquote, λ.GetItem(λ.GetAttr(ϒvideo_variant, "attrib", nil), λ.NewStr("url"))))
+						λ.Cal(λ.GetAttr(ϒurls, "append", nil), λ.GetItem(λ.GetAttr(ϒvideo_variant, "attrib", nil), λ.NewStr("url")))
+						λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Cal(λ.GetAttr(ϒself, "_extract_variant_formats", nil), λ.GetAttr(ϒvideo_variant, "attrib", nil), ϒvideo_id))
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
-						ϒheaders = λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("Authorization"): λ.NewStr("Bearer AAAAAAAAAAAAAAAAAAAAAPYXBAAAAAAACLXUNDekMxqa8h%2F40K4moUkGsoc%3DTYfbDKbT3jJPCEVnMYqilB28NHfOPqkca3qaAxGfsyKCs0wRbw"),
-							λ.NewStr("Referer"):       ϒurl,
-						})
-						ϒct0 = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒself, "_get_cookies", nil), ϒurl), "get", nil), λ.NewStr("ct0"))
-						if λ.IsTrue(ϒct0) {
-							λ.SetItem(ϒheaders, λ.NewStr("csrf_token"), λ.GetAttr(ϒct0, "value", nil))
-						}
-						ϒguest_token = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-							λ.Mod(λ.NewStr("%s/guest/activate.json"), λ.GetAttr(ϒself, "_API_BASE", nil)),
-							ϒvideo_id,
-							λ.NewStr("Downloading guest token"),
-						), λ.KWArgs{
-							{Name: "data", Value: λ.NewBytes()},
-							{Name: "headers", Value: ϒheaders},
-						}), λ.NewStr("guest_token"))
-						λ.SetItem(ϒheaders, λ.NewStr("x-guest-token"), ϒguest_token)
-						λ.Cal(λ.GetAttr(ϒself, "_set_cookie", nil), λ.NewStr("api.twitter.com"), λ.NewStr("gt"), ϒguest_token)
-						ϒconfig = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-							λ.Mod(λ.NewStr("%s/videos/tweet/config/%s.json"), λ.NewTuple(
-								λ.GetAttr(ϒself, "_API_BASE", nil),
-								ϒvideo_id,
-							)),
-							ϒvideo_id,
-						), λ.KWArgs{
-							{Name: "headers", Value: ϒheaders},
-						})
-						ϒtrack = λ.GetItem(ϒconfig, λ.NewStr("track"))
-						ϒvmap_url = λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("vmapUrl"))
-						if λ.IsTrue(ϒvmap_url) {
-							ϒformats = λ.Cal(λ.GetAttr(ϒself, "_extract_formats_from_vmap_url", nil), ϒvmap_url, ϒvideo_id)
-						} else {
-							ϒplayback_url = λ.GetItem(ϒtrack, λ.NewStr("playbackUrl"))
-							if λ.IsTrue(λ.Eq(λ.Cal(ϒdetermine_ext, ϒplayback_url), λ.NewStr("m3u8"))) {
-								ϒformats = λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
-									ϒplayback_url,
-									ϒvideo_id,
-									λ.NewStr("mp4"),
-								), λ.KWArgs{
-									{Name: "entry_protocol", Value: λ.NewStr("m3u8_native")},
-									{Name: "m3u8_id", Value: λ.NewStr("hls")},
-								})
-							} else {
-								ϒformats = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("url"): ϒplayback_url,
-								}))
-							}
-						}
-						ϒtitle = λ.NewStr("Twitter web player")
-						ϒthumbnail = λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("posterImage"))
-						ϒduration = λ.Call(ϒfloat_or_none, λ.NewArgs(λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("durationMs"))), λ.KWArgs{
-							{Name: "scale", Value: λ.NewInt(1000)},
-						})
+					ϒvideo_url = λ.Cal(ϒstrip_or_none, λ.Cal(ϒxpath_text, ϒvmap_data, λ.NewStr(".//MediaFile")))
+					if λ.IsTrue(λ.NewBool(!λ.Contains(ϒurls, ϒvideo_url))) {
+						λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Cal(λ.GetAttr(ϒself, "_extract_variant_formats", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("url"): ϒvideo_url,
+						}), ϒvideo_id))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_remove_duplicate_formats", nil), ϒformats)
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("title"):     ϒtitle,
-						λ.NewStr("thumbnail"): ϒthumbnail,
-						λ.NewStr("duration"):  ϒduration,
-						λ.NewStr("formats"):   ϒformats,
-					})
+					return ϒformats
 				})
+			TwitterBaseIE__search_dimensions_in_video_url = λ.NewFunction("_search_dimensions_in_video_url",
+				[]λ.Param{
+					{Name: "a_format"},
+					{Name: "video_url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒa_format  = λargs[0]
+						ϒm         λ.Object
+						ϒvideo_url = λargs[1]
+					)
+					ϒm = λ.Cal(Ωre.ϒsearch, λ.NewStr("/(?P<width>\\d+)x(?P<height>\\d+)/"), ϒvideo_url)
+					if λ.IsTrue(ϒm) {
+						λ.Cal(λ.GetAttr(ϒa_format, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("width"):  λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("width"))),
+							λ.NewStr("height"): λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("height"))),
+						}))
+					}
+					return λ.None
+				})
+			TwitterBaseIE__search_dimensions_in_video_url = λ.Cal(λ.StaticMethodType, TwitterBaseIE__search_dimensions_in_video_url)
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       TwitterCardIE_IE_NAME,
-				λ.NewStr("_API_BASE"):     TwitterCardIE__API_BASE,
-				λ.NewStr("_VALID_URL"):    TwitterCardIE__VALID_URL,
-				λ.NewStr("_real_extract"): TwitterCardIE__real_extract,
+				λ.NewStr("_BASE_REGEX"):                     TwitterBaseIE__BASE_REGEX,
+				λ.NewStr("_extract_formats_from_vmap_url"):  TwitterBaseIE__extract_formats_from_vmap_url,
+				λ.NewStr("_extract_variant_formats"):        TwitterBaseIE__extract_variant_formats,
+				λ.NewStr("_search_dimensions_in_video_url"): TwitterBaseIE__search_dimensions_in_video_url,
 			})
 		}())
-		TwitterIE = λ.Cal(λ.TypeType, λ.NewStr("TwitterIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TwitterCardIE = λ.Cal(λ.TypeType, λ.NewStr("TwitterCardIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+			var (
+				TwitterCardIE__VALID_URL λ.Object
+			)
+			TwitterCardIE__VALID_URL = λ.Add(λ.GetAttr(TwitterBaseIE, "_BASE_REGEX", nil), λ.NewStr("i/(?:cards/tfw/v1|videos(?:/tweet)?)/(?P<id>\\d+)"))
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_VALID_URL"): TwitterCardIE__VALID_URL,
+			})
+		}())
+		TwitterIE = λ.Cal(λ.TypeType, λ.NewStr("TwitterIE"), λ.NewTuple(TwitterBaseIE), func() λ.Dict {
 			var (
 				TwitterIE__VALID_URL λ.Object
 			)
-			TwitterIE__VALID_URL = λ.NewStr("https?://(?:www\\.|m\\.|mobile\\.)?twitter\\.com/(?:i/web|(?P<user_id>[^/]+))/status/(?P<id>\\d+)")
+			TwitterIE__VALID_URL = λ.Add(λ.GetAttr(TwitterBaseIE, "_BASE_REGEX", nil), λ.NewStr("(?:(?:i/web|[^/]+)/status|statuses)/(?P<id>\\d+)"))
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): TwitterIE__VALID_URL,
 			})
@@ -452,6 +328,18 @@ func init() {
 				λ.NewStr("IE_NAME"):       TwitterAmplifyIE_IE_NAME,
 				λ.NewStr("_VALID_URL"):    TwitterAmplifyIE__VALID_URL,
 				λ.NewStr("_real_extract"): TwitterAmplifyIE__real_extract,
+			})
+		}())
+		TwitterBroadcastIE = λ.Cal(λ.TypeType, λ.NewStr("TwitterBroadcastIE"), λ.NewTuple(
+			TwitterBaseIE,
+			PeriscopeBaseIE,
+		), func() λ.Dict {
+			var (
+				TwitterBroadcastIE__VALID_URL λ.Object
+			)
+			TwitterBroadcastIE__VALID_URL = λ.Add(λ.GetAttr(TwitterBaseIE, "_BASE_REGEX", nil), λ.NewStr("i/broadcasts/(?P<id>[0-9a-zA-Z]{13})"))
+			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_VALID_URL"): TwitterBroadcastIE__VALID_URL,
 			})
 		}())
 	})

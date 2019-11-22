@@ -84,7 +84,6 @@ func init() {
 				VevoIE__initialize_api λ.Object
 				VevoIE__real_extract   λ.Object
 			)
-			λ.NewStr("\n    Accepts urls from vevo.com or in the format 'vevo:{id}'\n    (currently used by MTVIE and MySpaceIE)\n    ")
 			VevoIE__VALID_URL = λ.NewStr("(?x)\n        (?:https?://(?:www\\.)?vevo\\.com/watch/(?!playlist|genre)(?:[^/]+/(?:[^/]+/)?)?|\n           https?://cache\\.vevo\\.com/m/html/embed\\.html\\?video=|\n           https?://videoplayer\\.vevo\\.com/embed/embedded\\?videoId=|\n           https?://embed\\.vevo\\.com/.*?[?&]isrc=|\n           vevo:)\n        (?P<id>[^&?#]+)")
 			VevoIE__VERSIONS = λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewInt(0): λ.NewStr("youtube"),

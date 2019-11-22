@@ -187,7 +187,6 @@ func init() {
 					ϒb   = λargs[1]
 					ϒmsg λ.Object
 				)
-				λ.NewStr("Same as a + b, for a and b sequences.")
 				if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinHasAttr, ϒa, λ.NewStr("__getitem__"))))) {
 					ϒmsg = λ.Mod(λ.NewStr("'%s' object can't be concatenated"), λ.GetAttr(λ.Cal(λ.TypeType, ϒa), "__name__", nil))
 					panic(λ.Raise(λ.Cal(λ.TypeErrorType, ϒmsg)))

@@ -373,7 +373,7 @@ func init() {
 					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_data))) {
 						ϒserver_js_data = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 							λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.NewStr("bigPipe\\.onPageletArrive\\(({.+?})\\)\\s*;\\s*}\\s*\\)\\s*,\\s*[\"\\']onPageletArrive\\s+(?:stream_pagelet|pagelet_group_mall|permalink_video_pagelet)"),
+								λ.NewStr("bigPipe\\.onPageletArrive\\(({.+?})\\)\\s*;\\s*}\\s*\\)\\s*,\\s*[\"\\']onPageletArrive\\s+(?:pagelet_group_mall|permalink_video_pagelet|hyperfeed_story_id_\\d+)"),
 								ϒwebpage,
 								λ.NewStr("js data"),
 							), λ.KWArgs{

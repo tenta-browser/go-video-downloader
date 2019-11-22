@@ -55,7 +55,6 @@ func init() {
 				IGNIE__get_video_info   λ.Object
 				IGNIE__real_extract     λ.Object
 			)
-			λ.NewStr("\n    Extractor for some of the IGN sites, like www.ign.com, es.ign.com de.ign.com.\n    Some videos of it.ign.com are also supported\n    ")
 			IGNIE__VALID_URL = λ.NewStr("https?://.+?\\.ign\\.com/(?:[^/]+/)?(?P<type>videos|show_videos|articles|feature|(?:[^/]+/\\d+/video))(/.+)?/(?P<name_or_id>.+)")
 			IGNIE_IE_NAME = λ.NewStr("ign.com")
 			IGNIE__API_URL_TEMPLATE = λ.NewStr("http://apis.ign.com/video/v3/videos/%s")

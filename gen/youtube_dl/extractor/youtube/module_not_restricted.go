@@ -152,7 +152,6 @@ func init() {
 				YoutubeBaseInfoExtractor__real_initialize         λ.Object
 				YoutubeBaseInfoExtractor__set_language            λ.Object
 			)
-			λ.NewStr("Provide base functions for Youtube extractors")
 			YoutubeBaseInfoExtractor__NETRC_MACHINE = λ.NewStr("youtube")
 			YoutubeBaseInfoExtractor__LOGIN_REQUIRED = λ.False
 			YoutubeBaseInfoExtractor__PLAYLIST_ID_RE = λ.NewStr("(?:PL|LL|EC|UU|FL|RD|UL|TL|OLAK5uy_)[0-9A-Za-z-_]{10,}")
@@ -211,7 +210,6 @@ func init() {
 						ϒwarn                 λ.Object
 						τmp0                  λ.Object
 					)
-					λ.NewStr("\n        Attempt to log in to YouTube.\n        True is returned if successful or skipped.\n        False is returned if login failed.\n\n        If _LOGIN_REQUIRED is set and no authentication was provided, an error is raised.\n        ")
 					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_get_login_info", nil))
 					ϒusername = λ.GetItem(τmp0, λ.NewInt(0))
 					ϒpassword = λ.GetItem(τmp0, λ.NewInt(1))
@@ -1437,7 +1435,6 @@ func init() {
 						ϒself     = λargs[0]
 						ϒvideo_id = λargs[1]
 					)
-					λ.NewStr("Report attempt to download video info webpage.")
 					λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("%s: Downloading video info webpage"), ϒvideo_id))
 					return λ.None
 				})
@@ -1453,7 +1450,6 @@ func init() {
 						ϒself        = λargs[0]
 					)
 					_ = ϒself
-					λ.NewStr(" Return a string representation of a signature ")
 					return λ.Cal(λ.GetAttr(λ.NewStr("."), "join", nil), λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -1682,7 +1678,6 @@ func init() {
 						τmp1        λ.Object
 					)
 					_ = ϒage_gate
-					λ.NewStr("Turn the encrypted s field into a working signature")
 					if λ.IsTrue(λ.NewBool(ϒplayer_url == λ.None)) {
 						panic(λ.Raise(λ.Cal(ExtractorError, λ.NewStr("Cannot decrypt signature without player_url"))))
 					}
@@ -4220,7 +4215,7 @@ func init() {
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 		}())
 		YoutubeFeedsInfoExtractor = λ.Cal(λ.TypeType, λ.NewStr("YoutubeFeedsInfoExtractor"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {
-			λ.NewStr("\n    Base class for feed extractors\n    Subclasses must define the _FEED_NAME and _PLAYLIST_TITLE properties.\n    ")
+
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 		}())
 		YoutubeWatchLaterIE = λ.Cal(λ.TypeType, λ.NewStr("YoutubeWatchLaterIE"), λ.NewTuple(YoutubePlaylistIE), func() λ.Dict {

@@ -25,7 +25,6 @@
 package periscope
 
 import (
-	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
@@ -53,30 +52,11 @@ func init() {
 		}())
 		PeriscopeIE = λ.Cal(λ.TypeType, λ.NewStr("PeriscopeIE"), λ.NewTuple(PeriscopeBaseIE), func() λ.Dict {
 			var (
-				PeriscopeIE__VALID_URL   λ.Object
-				PeriscopeIE__extract_url λ.Object
+				PeriscopeIE__VALID_URL λ.Object
 			)
 			PeriscopeIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?:periscope|pscp)\\.tv/[^/]+/(?P<id>[^/?#]+)")
-			PeriscopeIE__extract_url = λ.NewFunction("_extract_url",
-				[]λ.Param{
-					{Name: "webpage"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒmobj    λ.Object
-						ϒwebpage = λargs[0]
-					)
-					ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("<iframe[^>]+src=([\\'\"])(?P<url>(?:https?:)?//(?:www\\.)?(?:periscope|pscp)\\.tv/(?:(?!\\1).)+)\\1"), ϒwebpage)
-					if λ.IsTrue(ϒmobj) {
-						return λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("url"))
-					}
-					return λ.None
-				})
-			PeriscopeIE__extract_url = λ.Cal(λ.StaticMethodType, PeriscopeIE__extract_url)
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):   PeriscopeIE__VALID_URL,
-				λ.NewStr("_extract_url"): PeriscopeIE__extract_url,
+				λ.NewStr("_VALID_URL"): PeriscopeIE__VALID_URL,
 			})
 		}())
 		PeriscopeUserIE = λ.Cal(λ.TypeType, λ.NewStr("PeriscopeUserIE"), λ.NewTuple(PeriscopeBaseIE), func() λ.Dict {

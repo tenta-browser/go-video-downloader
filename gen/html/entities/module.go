@@ -42,7 +42,6 @@ var (
 
 func init() {
 	λ.InitModule(func() {
-		λ.NewStr("HTML character entity references.")
 		ϒname2codepoint = λ.NewDictWithTable(map[λ.Object]λ.Object{
 			λ.NewStr("AElig"):    λ.NewInt(198),
 			λ.NewStr("Aacute"):   λ.NewInt(193),

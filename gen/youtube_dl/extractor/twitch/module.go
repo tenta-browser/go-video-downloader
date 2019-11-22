@@ -495,7 +495,7 @@ func init() {
 				TwitchClipsIE__real_extract λ.Object
 			)
 			TwitchClipsIE_IE_NAME = λ.NewStr("twitch:clips")
-			TwitchClipsIE__VALID_URL = λ.NewStr("https?://(?:clips\\.twitch\\.tv/(?:[^/]+/)*|(?:www\\.)?twitch\\.tv/[^/]+/clip/)(?P<id>[^/?#&]+)")
+			TwitchClipsIE__VALID_URL = λ.NewStr("https?://(?:clips\\.twitch\\.tv/(?:embed\\?.*?\\bclip=|(?:[^/]+/)*)|(?:www\\.)?twitch\\.tv/[^/]+/clip/)(?P<id>[^/?#&]+)")
 			TwitchClipsIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},

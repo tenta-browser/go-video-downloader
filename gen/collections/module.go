@@ -215,7 +215,6 @@ func init() {
 						var (
 							ϒself = λargs[0]
 						)
-						λ.NewStr("Return a new dict which maps field names to their values.")
 						return λ.Cal(λ.DictType, λ.Cal(λ.ZipIteratorType, λ.GetAttr(ϒself, "_fields", nil), ϒself))
 					})
 				ϒclass_namespace = λ.NewDictWithTable(map[λ.Object]λ.Object{

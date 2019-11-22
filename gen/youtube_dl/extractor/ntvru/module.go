@@ -31,19 +31,21 @@ import (
 )
 
 var (
-	InfoExtractor λ.Object
-	NTVRuIE       λ.Object
-	ϒclean_html   λ.Object
-	ϒint_or_none  λ.Object
-	ϒxpath_text   λ.Object
+	InfoExtractor  λ.Object
+	NTVRuIE        λ.Object
+	ϒint_or_none   λ.Object
+	ϒstrip_or_none λ.Object
+	ϒunescapeHTML  λ.Object
+	ϒxpath_text    λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒclean_html = Ωutils.ϒclean_html
-		ϒxpath_text = Ωutils.ϒxpath_text
 		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒstrip_or_none = Ωutils.ϒstrip_or_none
+		ϒunescapeHTML = Ωutils.ϒunescapeHTML
+		ϒxpath_text = Ωutils.ϒxpath_text
 		NTVRuIE = λ.Cal(λ.TypeType, λ.NewStr("NTVRuIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				NTVRuIE_IE_NAME       λ.Object
@@ -60,25 +62,19 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒdescription λ.Object
-						ϒduration    λ.Object
-						ϒfile_       λ.Object
-						ϒformat_id   λ.Object
-						ϒformats     λ.Object
-						ϒplayer      λ.Object
-						ϒself        = λargs[0]
-						ϒsize        λ.Object
-						ϒthumbnail   λ.Object
-						ϒtitle       λ.Object
-						ϒtoken       λ.Object
-						ϒurl         = λargs[1]
-						ϒvideo       λ.Object
-						ϒvideo_id    λ.Object
-						ϒvideo_url   λ.Object
-						ϒview_count  λ.Object
-						ϒwebpage     λ.Object
-						τmp0         λ.Object
-						τmp1         λ.Object
+						ϒfile_     λ.Object
+						ϒformat_id λ.Object
+						ϒformats   λ.Object
+						ϒplayer    λ.Object
+						ϒself      = λargs[0]
+						ϒtitle     λ.Object
+						ϒurl       = λargs[1]
+						ϒvideo     λ.Object
+						ϒvideo_id  λ.Object
+						ϒvideo_url λ.Object
+						ϒwebpage   λ.Object
+						τmp0       λ.Object
+						τmp1       λ.Object
 					)
 					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
 					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
@@ -104,20 +100,14 @@ func init() {
 						ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.GetAttr(ϒself, "_VIDEO_ID_REGEXES", nil), ϒwebpage, λ.NewStr("video id"))
 					}
 					ϒplayer = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), λ.Mod(λ.NewStr("http://www.ntv.ru/vi%s/"), ϒvideo_id), ϒvideo_id, λ.NewStr("Downloading video XML"))
-					ϒtitle = λ.Cal(ϒclean_html, λ.Call(ϒxpath_text, λ.NewArgs(
+					ϒtitle = λ.Cal(ϒstrip_or_none, λ.Cal(ϒunescapeHTML, λ.Call(ϒxpath_text, λ.NewArgs(
 						ϒplayer,
 						λ.NewStr("./data/title"),
 						λ.NewStr("title"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.True},
-					}))
-					ϒdescription = λ.Cal(ϒclean_html, λ.Cal(ϒxpath_text, ϒplayer, λ.NewStr("./data/description"), λ.NewStr("description")))
+					})))
 					ϒvideo = λ.Cal(λ.GetAttr(ϒplayer, "find", nil), λ.NewStr("./data/video"))
-					ϒvideo_id = λ.Cal(ϒxpath_text, ϒvideo, λ.NewStr("./id"), λ.NewStr("video id"))
-					ϒthumbnail = λ.Cal(ϒxpath_text, ϒvideo, λ.NewStr("./splash"), λ.NewStr("thumbnail"))
-					ϒduration = λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒvideo, λ.NewStr("./totaltime"), λ.NewStr("duration")))
-					ϒview_count = λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒvideo, λ.NewStr("./views"), λ.NewStr("view count")))
-					ϒtoken = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewStr("http://stat.ntv.ru/services/access/token"), ϒvideo_id, λ.NewStr("Downloading access token"))
 					ϒformats = λ.NewList()
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewList(
 						λ.NewStr(""),
@@ -129,33 +119,30 @@ func init() {
 							break
 						}
 						ϒformat_id = τmp1
-						ϒfile_ = λ.Cal(λ.GetAttr(ϒvideo, "find", nil), λ.Mod(λ.NewStr("./%sfile"), ϒformat_id))
-						if λ.IsTrue(λ.NewBool(ϒfile_ == λ.None)) {
+						ϒfile_ = λ.Cal(ϒxpath_text, ϒvideo, λ.Mod(λ.NewStr("./%sfile"), ϒformat_id))
+						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒfile_))) {
 							continue
 						}
-						ϒsize = λ.Cal(λ.GetAttr(ϒvideo, "find", nil), λ.Mod(λ.NewStr("./%ssize"), ϒformat_id))
+						if λ.IsTrue(λ.Cal(λ.GetAttr(ϒfile_, "startswith", nil), λ.NewStr("//"))) {
+							ϒfile_ = λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), ϒfile_)
+						} else {
+							if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒfile_, "startswith", nil), λ.NewStr("http"))))) {
+								ϒfile_ = λ.Add(λ.NewStr("http://media.ntv.ru/vod/"), ϒfile_)
+							}
+						}
 						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"): λ.Mod(λ.NewStr("http://media2.ntv.ru/vod/%s&tok=%s"), λ.NewTuple(
-								λ.GetAttr(ϒfile_, "text", nil),
-								ϒtoken,
-							)),
-							λ.NewStr("filesize"): λ.Cal(ϒint_or_none, func() λ.Object {
-								if λ.IsTrue(λ.NewBool(ϒsize != λ.None)) {
-									return λ.GetAttr(ϒsize, "text", nil)
-								} else {
-									return λ.None
-								}
-							}()),
+							λ.NewStr("url"):      ϒfile_,
+							λ.NewStr("filesize"): λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒvideo, λ.Mod(λ.NewStr("./%ssize"), ϒformat_id))),
 						}))
 					}
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
+						λ.NewStr("id"):          λ.Cal(ϒxpath_text, ϒvideo, λ.NewStr("./id")),
 						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("thumbnail"):   ϒthumbnail,
-						λ.NewStr("duration"):    ϒduration,
-						λ.NewStr("view_count"):  ϒview_count,
+						λ.NewStr("description"): λ.Cal(ϒstrip_or_none, λ.Cal(ϒunescapeHTML, λ.Cal(ϒxpath_text, ϒplayer, λ.NewStr("./data/description")))),
+						λ.NewStr("thumbnail"):   λ.Cal(ϒxpath_text, ϒvideo, λ.NewStr("./splash")),
+						λ.NewStr("duration"):    λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒvideo, λ.NewStr("./totaltime"))),
+						λ.NewStr("view_count"):  λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒvideo, λ.NewStr("./views"))),
 						λ.NewStr("formats"):     ϒformats,
 					})
 				})
