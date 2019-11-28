@@ -62,7 +62,6 @@ import (
 	Ωodnoklassniki "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/odnoklassniki"
 	Ωonionstudios "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/onionstudios"
 	Ωooyala "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ooyala"
-	Ωopenload "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/openload"
 	Ωpeertube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/peertube"
 	Ωpiksel "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/piksel"
 	Ωpladform "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pladform"
@@ -148,7 +147,6 @@ var (
 	OdnoklassnikiIE              λ.Object
 	OnionStudiosIE               λ.Object
 	OoyalaIE                     λ.Object
-	OpenloadIE                   λ.Object
 	PeerTubeIE                   λ.Object
 	PikselIE                     λ.Object
 	PladformIE                   λ.Object
@@ -174,7 +172,6 @@ var (
 	UstreamIE                    λ.Object
 	VShareIE                     λ.Object
 	Vbox7IE                      λ.Object
-	VerystreamIE                 λ.Object
 	ViceIE                       λ.Object
 	VideaIE                      λ.Object
 	VideoPressIE                 λ.Object
@@ -282,8 +279,6 @@ func init() {
 		VideaIE = Ωvidea.VideaIE
 		TwentyMinutenIE = Ωtwentymin.TwentyMinutenIE
 		UstreamIE = Ωustream.UstreamIE
-		OpenloadIE = Ωopenload.OpenloadIE
-		VerystreamIE = Ωopenload.VerystreamIE
 		VideoPressIE = Ωvideopress.VideoPressIE
 		RutubeIE = Ωrutube.RutubeIE
 		LimelightBaseIE = Ωlimelight.LimelightBaseIE

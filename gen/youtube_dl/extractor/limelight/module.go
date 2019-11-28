@@ -26,7 +26,6 @@ package limelight
 
 import (
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
-	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
@@ -39,7 +38,6 @@ var (
 	LimelightChannelIE     λ.Object
 	LimelightChannelListIE λ.Object
 	LimelightMediaIE       λ.Object
-	ϒcompat_HTTPError      λ.Object
 	ϒdetermine_ext         λ.Object
 	ϒfloat_or_none         λ.Object
 	ϒint_or_none           λ.Object
@@ -51,7 +49,6 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
@@ -102,7 +99,7 @@ func init() {
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 								var ϒe λ.Object = λex
 								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
+									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
 										return λv
 									} else {
 										return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.NewInt(403))

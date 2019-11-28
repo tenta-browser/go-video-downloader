@@ -25,6 +25,7 @@
 package digiteka
 
 import (
+	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
@@ -42,11 +43,88 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		DigitekaIE = λ.Cal(λ.TypeType, λ.NewStr("DigitekaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				DigitekaIE__VALID_URL λ.Object
+				DigitekaIE__VALID_URL    λ.Object
+				DigitekaIE__real_extract λ.Object
 			)
 			DigitekaIE__VALID_URL = λ.NewStr("(?x)\n        https?://(?:www\\.)?(?:digiteka\\.net|ultimedia\\.com)/\n        (?:\n            deliver/\n            (?P<embed_type>\n                generic|\n                musique\n            )\n            (?:/[^/]+)*/\n            (?:\n                src|\n                article\n            )|\n            default/index/video\n            (?P<site_type>\n                generic|\n                music\n            )\n            /id\n        )/(?P<id>[\\d+a-z]+)")
+			DigitekaIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒdeliver_info λ.Object
+						ϒduration     λ.Object
+						ϒformats      λ.Object
+						ϒjwconf       λ.Object
+						ϒmobj         λ.Object
+						ϒself         = λargs[0]
+						ϒsource       λ.Object
+						ϒthumbnail    λ.Object
+						ϒtimestamp    λ.Object
+						ϒtitle        λ.Object
+						ϒuploader_id  λ.Object
+						ϒurl          = λargs[1]
+						ϒvideo_id     λ.Object
+						ϒvideo_type   λ.Object
+						ϒyt_id        λ.Object
+						τmp0          λ.Object
+						τmp1          λ.Object
+					)
+					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
+					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
+					ϒvideo_type = func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("embed_type")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("site_type"))
+						}
+					}()
+					if λ.IsTrue(λ.Eq(ϒvideo_type, λ.NewStr("music"))) {
+						ϒvideo_type = λ.NewStr("musique")
+					}
+					ϒdeliver_info = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("http://www.ultimedia.com/deliver/video?video=%s&topic=%s"), λ.NewTuple(
+						ϒvideo_id,
+						ϒvideo_type,
+					)), ϒvideo_id)
+					ϒyt_id = λ.Cal(λ.GetAttr(ϒdeliver_info, "get", nil), λ.NewStr("yt_id"))
+					if λ.IsTrue(ϒyt_id) {
+						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒyt_id, λ.NewStr("Youtube"))
+					}
+					ϒjwconf = λ.GetItem(ϒdeliver_info, λ.NewStr("jwconf"))
+					ϒformats = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(λ.GetItem(λ.GetItem(ϒjwconf, λ.NewStr("playlist")), λ.NewInt(0)), λ.NewStr("sources")))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒsource = τmp1
+						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("url"):       λ.GetItem(ϒsource, λ.NewStr("file")),
+							λ.NewStr("format_id"): λ.Cal(λ.GetAttr(ϒsource, "get", nil), λ.NewStr("label")),
+						}))
+					}
+					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					ϒtitle = λ.GetItem(ϒdeliver_info, λ.NewStr("title"))
+					ϒthumbnail = λ.Cal(λ.GetAttr(ϒjwconf, "get", nil), λ.NewStr("image"))
+					ϒduration = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒdeliver_info, "get", nil), λ.NewStr("duration")))
+					ϒtimestamp = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒdeliver_info, "get", nil), λ.NewStr("release_time")))
+					ϒuploader_id = λ.Cal(λ.GetAttr(ϒdeliver_info, "get", nil), λ.NewStr("owner_id"))
+					return λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):          ϒvideo_id,
+						λ.NewStr("title"):       ϒtitle,
+						λ.NewStr("thumbnail"):   ϒthumbnail,
+						λ.NewStr("duration"):    ϒduration,
+						λ.NewStr("timestamp"):   ϒtimestamp,
+						λ.NewStr("uploader_id"): ϒuploader_id,
+						λ.NewStr("formats"):     ϒformats,
+					})
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): DigitekaIE__VALID_URL,
+				λ.NewStr("_VALID_URL"):    DigitekaIE__VALID_URL,
+				λ.NewStr("_real_extract"): DigitekaIE__real_extract,
 			})
 		}())
 	})

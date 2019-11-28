@@ -52,6 +52,7 @@ var (
 	NO_DEFAULT                     λ.Object
 	RegexNotFoundError             λ.Object
 	SearchInfoExtractor            λ.Object
+	ϒage_restricted                λ.Object
 	ϒbase_url                      λ.Object
 	ϒbug_reports_message           λ.Object
 	ϒclean_html                    λ.Object
@@ -111,6 +112,7 @@ func init() {
 		ϒget_base_url = Ωf4m.ϒget_base_url
 		ϒremove_encrypted_media = Ωf4m.ϒremove_encrypted_media
 		NO_DEFAULT = Ωutils.NO_DEFAULT
+		ϒage_restricted = Ωutils.ϒage_restricted
 		ϒbase_url = Ωutils.ϒbase_url
 		ϒbug_reports_message = Ωutils.ϒbug_reports_message
 		ϒclean_html = Ωutils.ϒclean_html
@@ -3396,6 +3398,7 @@ func init() {
 						ϒformat_url        λ.Object
 						ϒformats           λ.Object
 						ϒgroups            λ.Object
+						ϒhttp_f            λ.Object
 						ϒlast_stream_inf   λ.Object
 						ϒline              λ.Object
 						ϒlive              = λargs[7]
@@ -3405,6 +3408,7 @@ func init() {
 						ϒmanifest_url      λ.Object
 						ϒmobj              λ.Object
 						ϒpreference        = λargs[5]
+						ϒprogressive_uri   λ.Object
 						ϒresolution        λ.Object
 						ϒself              = λargs[0]
 						ϒstream_name       λ.Object
@@ -3676,6 +3680,17 @@ func init() {
 									}
 								}
 								λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)
+								ϒprogressive_uri = λ.Cal(λ.GetAttr(ϒlast_stream_inf, "get", nil), λ.NewStr("PROGRESSIVE-URI"))
+								if λ.IsTrue(ϒprogressive_uri) {
+									ϒhttp_f = λ.Cal(λ.GetAttr(ϒf, "copy", nil))
+									λ.DelItem(ϒhttp_f, λ.NewStr("manifest_url"))
+									λ.Cal(λ.GetAttr(ϒhttp_f, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λ.NewStr("format_id"): λ.Cal(λ.GetAttr(λ.GetItem(ϒf, λ.NewStr("format_id")), "replace", nil), λ.NewStr("hls-"), λ.NewStr("http-")),
+										λ.NewStr("protocol"):  λ.NewStr("http"),
+										λ.NewStr("url"):       ϒprogressive_uri,
+									}))
+									λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒhttp_f)
+								}
 								ϒlast_stream_inf = λ.NewDictWithTable(map[λ.Object]λ.Object{})
 							}
 						}

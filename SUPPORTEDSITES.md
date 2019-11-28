@@ -9,6 +9,7 @@ Supported sites
  * Allocine: `www.allocine.fr`
  * ARDMediathek: `www.ardmediathek.de`
  * ArteTVPlus7: `www.arte.tv`
+ * AsianCrush: `www.asiancrush.com`
  * AudioBoom: `audioboom.com`
  * Audiomack: `www.audiomack.com`
  * AZMedien: `www.telezueri.ch`
@@ -18,6 +19,7 @@ Supported sites
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
+ * BitChute: `www.bitchute.com`
  * BIQLE: `biqle.ru`
  * BleacherReport: `bleacherreport.com`
  * BleacherReportCMS: `bleacherreport.com`
@@ -113,7 +115,6 @@ Supported sites
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
  * Instagram: `instagram.com`
- * Ir90Tv: `90tv.ir`
  * Ivideon: `www.ivideon.com`
  * Izlesene: `www.izlesene.com`
  * Jamendo: `www.jamendo.com`
@@ -179,7 +180,6 @@ Supported sites
  * PerformGroup: `player.performgroup.com`
  * Photobucket: `media.photobucket.com`
  * Piksel: `player.piksel.com`
- * PlayFM: `www.play.fm`
  * PlaysTV: `plays.tv`
  * Playvid _(adult)_: `www.playvid.com`
  * Podomatic: `scienceteachingtips.podomatic.com`
@@ -254,6 +254,7 @@ Supported sites
  * TwitchClips: `clips.twitch.tv`
  * TwitterAmplify: `amp.twimg.com`
  * UDNEmbed: `video.udn.com`
+ * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
  * UstudioEmbed: `app.ustudio.com`
  * Varzesh3: `video.varzesh3.com`
@@ -271,13 +272,13 @@ Supported sites
  * ViewLift: `www.snagfilms.com`
  * Vimeo: `vimeo.com`
  * VimeoOndemand: `vimeo.com`
+ * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
  * Vine: `vine.co`
  * Viqeo: `cdn.viqeo.tv`
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * VLivePlaylist: `www.vlive.tv`
- * VoxMedia: `www.recode.net`
  * VuClip: `m.vuclip.com`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`

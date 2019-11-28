@@ -56,6 +56,7 @@ var (
 	PostProcessingError    λ.Object
 	UnavailableVideoError  λ.Object
 	YoutubeDL              λ.Object
+	ϒage_restricted        λ.Object
 	ϒascii_letters         λ.Object
 	ϒcompat_basestring     λ.Object
 	ϒcompat_http_client    λ.Object
@@ -89,6 +90,7 @@ func init() {
 		ϒcompat_kwargs = Ωcompat.ϒcompat_kwargs
 		ϒcompat_numeric_types = Ωcompat.ϒcompat_numeric_types
 		ϒcompat_str = Ωcompat.ϒcompat_str
+		ϒage_restricted = Ωutils.ϒage_restricted
 		DEFAULT_OUTTMPL = Ωutils.DEFAULT_OUTTMPL
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒdetermine_protocol = Ωutils.ϒdetermine_protocol

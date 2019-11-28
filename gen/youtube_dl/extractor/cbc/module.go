@@ -32,36 +32,34 @@ import (
 )
 
 var (
-	CBCIE             λ.Object
-	CBCOlympicsIE     λ.Object
-	CBCPlayerIE       λ.Object
-	CBCWatchBaseIE    λ.Object
-	CBCWatchIE        λ.Object
-	CBCWatchVideoIE   λ.Object
-	ExtractorError    λ.Object
-	InfoExtractor     λ.Object
-	ϒcompat_HTTPError λ.Object
-	ϒcompat_str       λ.Object
-	ϒfind_xpath_attr  λ.Object
-	ϒint_or_none      λ.Object
-	ϒjs_to_json       λ.Object
-	ϒorderedSet       λ.Object
-	ϒparse_age_limit  λ.Object
-	ϒparse_duration   λ.Object
-	ϒparse_iso8601    λ.Object
-	ϒsmuggle_url      λ.Object
-	ϒstrip_or_none    λ.Object
-	ϒtry_get          λ.Object
-	ϒxpath_element    λ.Object
-	ϒxpath_text       λ.Object
-	ϒxpath_with_ns    λ.Object
+	CBCIE            λ.Object
+	CBCOlympicsIE    λ.Object
+	CBCPlayerIE      λ.Object
+	CBCWatchBaseIE   λ.Object
+	CBCWatchIE       λ.Object
+	CBCWatchVideoIE  λ.Object
+	ExtractorError   λ.Object
+	InfoExtractor    λ.Object
+	ϒcompat_str      λ.Object
+	ϒfind_xpath_attr λ.Object
+	ϒint_or_none     λ.Object
+	ϒjs_to_json      λ.Object
+	ϒorderedSet      λ.Object
+	ϒparse_age_limit λ.Object
+	ϒparse_duration  λ.Object
+	ϒparse_iso8601   λ.Object
+	ϒsmuggle_url     λ.Object
+	ϒstrip_or_none   λ.Object
+	ϒtry_get         λ.Object
+	ϒxpath_element   λ.Object
+	ϒxpath_text      λ.Object
+	ϒxpath_with_ns   λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_str = Ωcompat.ϒcompat_str
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		ϒtry_get = Ωutils.ϒtry_get

@@ -65,6 +65,7 @@ var (
 	UnavailableVideoError             λ.Object
 	YoutubeDLError                    λ.Object
 	ϒ_htmlentity_transform            λ.Object
+	ϒage_restricted                   λ.Object
 	ϒbase_url                         λ.Object
 	ϒbool_or_none                     λ.Object
 	ϒbug_reports_message              λ.Object
@@ -1845,13 +1846,16 @@ func init() {
 			λ.NewStr("%B %d %Y"),
 			λ.NewStr("%B %dst %Y"),
 			λ.NewStr("%B %dnd %Y"),
+			λ.NewStr("%B %drd %Y"),
 			λ.NewStr("%B %dth %Y"),
 			λ.NewStr("%b %d %Y"),
 			λ.NewStr("%b %dst %Y"),
 			λ.NewStr("%b %dnd %Y"),
+			λ.NewStr("%b %drd %Y"),
 			λ.NewStr("%b %dth %Y"),
 			λ.NewStr("%b %dst %Y %I:%M"),
 			λ.NewStr("%b %dnd %Y %I:%M"),
+			λ.NewStr("%b %drd %Y %I:%M"),
 			λ.NewStr("%b %dth %Y %I:%M"),
 			λ.NewStr("%Y %m %d"),
 			λ.NewStr("%Y-%m-%d"),
@@ -4578,6 +4582,25 @@ func init() {
 					})
 				}
 				return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			})
+		ϒage_restricted = λ.NewFunction("age_restricted",
+			[]λ.Param{
+				{Name: "content_limit"},
+				{Name: "age_limit"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒage_limit     = λargs[1]
+					ϒcontent_limit = λargs[0]
+				)
+				if λ.IsTrue(λ.NewBool(ϒage_limit == λ.None)) {
+					return λ.False
+				}
+				if λ.IsTrue(λ.NewBool(ϒcontent_limit == λ.None)) {
+					return λ.False
+				}
+				return λ.Lt(ϒage_limit, ϒcontent_limit)
 			})
 		ϒdetermine_protocol = λ.NewFunction("determine_protocol",
 			[]λ.Param{

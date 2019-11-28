@@ -27,60 +27,27 @@ package openload
 import (
 	Ωbrowser "github.com/tenta-browser/go-video-downloader/gen/lib/browser"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
-	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	BrowserWrapper     λ.Object
-	ExtractorError     λ.Object
-	InfoExtractor      λ.Object
-	OpenloadIE         λ.Object
-	PhantomJSwrapper   λ.Object
-	VerystreamIE       λ.Object
-	ϒcompat_kwargs     λ.Object
-	ϒdetermine_ext     λ.Object
-	ϒget_element_by_id λ.Object
-	ϒstd_headers       λ.Object
+	BrowserWrapper   λ.Object
+	ExtractorError   λ.Object
+	PhantomJSwrapper λ.Object
+	ϒcompat_kwargs   λ.Object
+	ϒstd_headers     λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
-		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_kwargs = Ωcompat.ϒcompat_kwargs
-		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
-		ϒget_element_by_id = Ωutils.ϒget_element_by_id
 		ϒstd_headers = Ωutils.ϒstd_headers
 		BrowserWrapper = Ωbrowser.BrowserWrapper
 		PhantomJSwrapper = λ.Cal(λ.TypeType, λ.NewStr("PhantomJSwrapper"), λ.NewTuple(BrowserWrapper), func() λ.Dict {
 
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
-		}())
-		OpenloadIE = λ.Cal(λ.TypeType, λ.NewStr("OpenloadIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
-			var (
-				OpenloadIE__DOMAINS   λ.Object
-				OpenloadIE__VALID_URL λ.Object
-			)
-			OpenloadIE__DOMAINS = λ.NewStr("\n                    (?:\n                        openload\\.(?:co|io|link|pw)|\n                        oload\\.(?:tv|best|biz|stream|site|xyz|win|download|cloud|cc|icu|fun|club|info|online|monster|press|pw|life|live|space|services|website|vip)|\n                        oladblock\\.(?:services|xyz|me)|openloed\\.co\n                    )\n                ")
-			OpenloadIE__VALID_URL = λ.Mod(λ.NewStr("(?x)\n                    https?://\n                        (?P<host>\n                            (?:www\\.)?\n                            %s\n                        )/\n                        (?:f|embed)/\n                        (?P<id>[a-zA-Z0-9-_]+)\n                    "), OpenloadIE__DOMAINS)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_DOMAINS"):   OpenloadIE__DOMAINS,
-				λ.NewStr("_VALID_URL"): OpenloadIE__VALID_URL,
-			})
-		}())
-		VerystreamIE = λ.Cal(λ.TypeType, λ.NewStr("VerystreamIE"), λ.NewTuple(OpenloadIE), func() λ.Dict {
-			var (
-				VerystreamIE__DOMAINS   λ.Object
-				VerystreamIE__VALID_URL λ.Object
-			)
-			VerystreamIE__DOMAINS = λ.NewStr("(?:verystream\\.com|woof\\.tube)")
-			VerystreamIE__VALID_URL = λ.Mod(λ.NewStr("(?x)\n                    https?://\n                        (?P<host>\n                            (?:www\\.)?\n                            %s\n                        )/\n                        (?:stream|e)/\n                        (?P<id>[a-zA-Z0-9-_]+)\n                    "), VerystreamIE__DOMAINS)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_DOMAINS"):   VerystreamIE__DOMAINS,
-				λ.NewStr("_VALID_URL"): VerystreamIE__VALID_URL,
-			})
 		}())
 	})
 }
