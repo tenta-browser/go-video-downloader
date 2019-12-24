@@ -60,7 +60,6 @@ var (
 	PagedList                         λ.Object
 	PostProcessingError               λ.Object
 	RegexNotFoundError                λ.Object
-	TV_PARENTAL_GUIDELINES            λ.Object
 	US_RATINGS                        λ.Object
 	UnavailableVideoError             λ.Object
 	YoutubeDLError                    λ.Object
@@ -77,6 +76,7 @@ var (
 	ϒcompat_etree_fromstring          λ.Object
 	ϒcompat_html_entities_html5       λ.Object
 	ϒcompat_http_client               λ.Object
+	ϒcompat_integer_types             λ.Object
 	ϒcompat_kwargs                    λ.Object
 	ϒcompat_parse_qs                  λ.Object
 	ϒcompat_str                       λ.Object
@@ -165,6 +165,7 @@ func init() {
 		ϒcompat_etree_fromstring = Ωcompat.ϒcompat_etree_fromstring
 		ϒcompat_html_entities_html5 = Ωcompat.ϒcompat_html_entities_html5
 		ϒcompat_http_client = Ωcompat.ϒcompat_http_client
+		ϒcompat_integer_types = Ωcompat.ϒcompat_integer_types
 		ϒcompat_kwargs = Ωcompat.ϒcompat_kwargs
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒcompat_str = Ωcompat.ϒcompat_str
@@ -3620,11 +3621,15 @@ func init() {
 				var (
 					ϒint_str = λargs[0]
 				)
-				if λ.IsTrue(λ.NewBool(ϒint_str == λ.None)) {
-					return λ.None
+				if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒint_str, ϒcompat_integer_types)) {
+					return ϒint_str
+				} else {
+					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒint_str, ϒcompat_str)) {
+						ϒint_str = λ.Cal(Ωre.ϒsub, λ.NewStr("[,\\.\\+]"), λ.NewStr(""), ϒint_str)
+						return λ.Cal(ϒint_or_none, ϒint_str)
+					}
 				}
-				ϒint_str = λ.Cal(Ωre.ϒsub, λ.NewStr("[,\\.\\+]"), λ.NewStr(""), ϒint_str)
-				return λ.Cal(λ.IntType, ϒint_str)
+				return λ.None
 			})
 		ϒfloat_or_none = λ.NewFunction("float_or_none",
 			[]λ.Param{
@@ -4132,14 +4137,6 @@ func init() {
 			λ.NewStr("R"):     λ.NewInt(16),
 			λ.NewStr("NC"):    λ.NewInt(18),
 		})
-		TV_PARENTAL_GUIDELINES = λ.NewDictWithTable(map[λ.Object]λ.Object{
-			λ.NewStr("TV-Y"):  λ.NewInt(0),
-			λ.NewStr("TV-Y7"): λ.NewInt(7),
-			λ.NewStr("TV-G"):  λ.NewInt(0),
-			λ.NewStr("TV-PG"): λ.NewInt(0),
-			λ.NewStr("TV-14"): λ.NewInt(14),
-			λ.NewStr("TV-MA"): λ.NewInt(17),
-		})
 		ϒparse_age_limit = λ.NewFunction("parse_age_limit",
 			[]λ.Param{
 				{Name: "s"},
@@ -4191,7 +4188,7 @@ func init() {
 								τmp0 λ.Object
 								τmp1 λ.Object
 							)
-							τmp0 = λ.Cal(λ.BuiltinIter, TV_PARENTAL_GUIDELINES)
+							τmp0 = λ.Cal(λ.BuiltinIter, λ.None)
 							for {
 								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 									break
@@ -4203,7 +4200,7 @@ func init() {
 						})
 					})))), ϒs)
 				if λ.IsTrue(ϒm) {
-					return λ.GetItem(TV_PARENTAL_GUIDELINES, λ.Add(λ.NewStr("TV-"), λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewInt(1))))
+					return λ.GetItem(λ.None, λ.Add(λ.NewStr("TV-"), λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewInt(1))))
 				}
 				return λ.None
 			})

@@ -25,6 +25,7 @@
 package mediaset
 
 import (
+	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωtheplatform "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/theplatform"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
@@ -53,11 +54,249 @@ func init() {
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		MediasetIE = λ.Cal(λ.TypeType, λ.NewStr("MediasetIE"), λ.NewTuple(ThePlatformBaseIE), func() λ.Dict {
 			var (
-				MediasetIE__VALID_URL λ.Object
+				MediasetIE__TP_TLD             λ.Object
+				MediasetIE__VALID_URL          λ.Object
+				MediasetIE__parse_smil_formats λ.Object
+				MediasetIE__real_extract       λ.Object
 			)
+			MediasetIE__TP_TLD = λ.NewStr("eu")
 			MediasetIE__VALID_URL = λ.NewStr("(?x)\n                    (?:\n                        mediaset:|\n                        https?://\n                            (?:(?:www|static3)\\.)?mediasetplay\\.mediaset\\.it/\n                            (?:\n                                (?:video|on-demand)/(?:[^/]+/)+[^/]+_|\n                                player/index\\.html\\?.*?\\bprogramGuid=\n                            )\n                    )(?P<id>[0-9A-Z]{16,})\n                    ")
+			MediasetIE__parse_smil_formats = λ.NewFunction("_parse_smil_formats",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "smil"},
+					{Name: "smil_url"},
+					{Name: "video_id"},
+					{Name: "namespace", Def: λ.None},
+					{Name: "f4m_params", Def: λ.None},
+					{Name: "transform_rtmp_url", Def: λ.None},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒf4m_params         = λargs[5]
+						ϒnamespace          = λargs[4]
+						ϒself               = λargs[0]
+						ϒsmil               = λargs[1]
+						ϒsmil_url           = λargs[2]
+						ϒtransform_rtmp_url = λargs[6]
+						ϒvideo              λ.Object
+						ϒvideo_id           = λargs[3]
+						τmp0                λ.Object
+						τmp1                λ.Object
+					)
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒsmil, "findall", nil), λ.Cal(λ.GetAttr(ϒself, "_xpath_ns", nil), λ.NewStr(".//video"), ϒnamespace)))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒvideo = τmp1
+						λ.SetItem(λ.GetAttr(ϒvideo, "attrib", nil), λ.NewStr("src"), λ.Cal(Ωre.ϒsub, λ.NewStr("(https?://vod05)t(-mediaset-it\\.akamaized\\.net/.+?.mpd)\\?.+"), λ.NewStr("\\1\\2"), λ.GetItem(λ.GetAttr(ϒvideo, "attrib", nil), λ.NewStr("src"))))
+					}
+					return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, MediasetIE, ϒself), "_parse_smil_formats", nil), ϒsmil, ϒsmil_url, ϒvideo_id, ϒnamespace, ϒf4m_params, ϒtransform_rtmp_url)
+				})
+			MediasetIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒasset_type   λ.Object
+						ϒf            λ.Object
+						ϒfeed_data    λ.Object
+						ϒfields       λ.Object
+						ϒfirst_e      λ.Object
+						ϒformats      λ.Object
+						ϒguid         λ.Object
+						ϒinfo         λ.Object
+						ϒpublish_info λ.Object
+						ϒrepls        λ.Object
+						ϒself         = λargs[0]
+						ϒsubtitles    λ.Object
+						ϒtempl        λ.Object
+						ϒtp_f         λ.Object
+						ϒtp_formats   λ.Object
+						ϒtp_path      λ.Object
+						ϒtp_subtitles λ.Object
+						ϒurl          = λargs[1]
+						τmp0          λ.Object
+						τmp1          λ.Object
+						τmp2          λ.Object
+						τmp3          λ.Object
+						τmp4          λ.Object
+						τmp5          λ.Object
+						τmp6          λ.Object
+					)
+					ϒguid = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒtp_path = λ.Add(λ.NewStr("PR1GhC/media/guid/2702976343/"), ϒguid)
+					ϒinfo = λ.Cal(λ.GetAttr(ϒself, "_extract_theplatform_metadata", nil), ϒtp_path, ϒguid)
+					ϒformats = λ.NewList()
+					ϒsubtitles = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+					ϒfirst_e = λ.None
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+						λ.NewStr("SD"),
+						λ.NewStr("HD"),
+					))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒasset_type = τmp1
+						τmp2 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+							λ.NewStr("MPEG4"),
+							λ.NewStr("MPEG-DASH+none"),
+							λ.NewStr("M3U+none"),
+						))
+						for {
+							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+								break
+							}
+							ϒf = τmp3
+							τmp4, τmp5 = func() (λexit λ.Object, λret λ.Object) {
+								defer λ.CatchMulti(
+									nil,
+									&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
+										var ϒe λ.Object = λex
+										if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒfirst_e))) {
+											ϒfirst_e = ϒe
+										}
+										λexit = λ.BlockExitBreak
+										return
+									}},
+								)
+								τmp6 = λ.Cal(λ.GetAttr(ϒself, "_extract_theplatform_smil", nil), λ.Cal(ϒupdate_url_query, λ.Mod(λ.NewStr("http://link.theplatform.%s/s/%s"), λ.NewTuple(
+									λ.GetAttr(ϒself, "_TP_TLD", nil),
+									ϒtp_path,
+								)), λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λ.NewStr("mbr"):        λ.NewStr("true"),
+									λ.NewStr("formats"):    ϒf,
+									λ.NewStr("assetTypes"): ϒasset_type,
+								})), ϒguid, λ.Mod(λ.NewStr("Downloading %s %s SMIL data"), λ.NewTuple(
+									λ.GetItem(λ.Cal(λ.GetAttr(ϒf, "split", nil), λ.NewStr("+")), λ.NewInt(0)),
+									ϒasset_type,
+								)))
+								ϒtp_formats = λ.GetItem(τmp6, λ.NewInt(0))
+								ϒtp_subtitles = λ.GetItem(τmp6, λ.NewInt(1))
+								return λ.BlockExitNormally, nil
+							}()
+							if τmp4 == λ.BlockExitBreak {
+								break
+							}
+							τmp5 = λ.Cal(λ.BuiltinIter, ϒtp_formats)
+							for {
+								if τmp4 = λ.NextDefault(τmp5, λ.AfterLast); τmp4 == λ.AfterLast {
+									break
+								}
+								ϒtp_f = τmp4
+								λ.SetItem(ϒtp_f, λ.NewStr("quality"), func() λ.Object {
+									if λ.IsTrue(λ.Eq(ϒasset_type, λ.NewStr("HD"))) {
+										return λ.NewInt(1)
+									} else {
+										return λ.NewInt(0)
+									}
+								}())
+							}
+							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), ϒtp_formats)
+							ϒsubtitles = λ.Cal(λ.GetAttr(ϒself, "_merge_subtitles", nil), ϒsubtitles, ϒtp_subtitles)
+						}
+					}
+					if λ.IsTrue(func() λ.Object {
+						if λv := ϒfirst_e; !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewBool(!λ.IsTrue(ϒformats))
+						}
+					}()) {
+						panic(λ.Raise(ϒfirst_e))
+					}
+					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					ϒfields = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+						λ.NewTuple(
+							λ.NewStr("tvSeason%sNumber"),
+							λ.NewTuple(
+								λ.NewStr(""),
+								λ.NewStr("Episode"),
+							),
+						),
+						λ.NewTuple(
+							λ.NewStr("mediasetprogram$%s"),
+							λ.NewTuple(
+								λ.NewStr("brandTitle"),
+								λ.NewStr("numberOfViews"),
+								λ.NewStr("publishInfo"),
+							),
+						),
+					))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						τmp2 = τmp1
+						ϒtempl = λ.GetItem(τmp2, λ.NewInt(0))
+						ϒrepls = λ.GetItem(τmp2, λ.NewInt(1))
+						λ.Cal(λ.GetAttr(ϒfields, "extend", nil), λ.Cal(λ.NewFunction("<generator>",
+							nil,
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
+									var (
+										ϒrepl λ.Object
+										τmp0  λ.Object
+										τmp1  λ.Object
+									)
+									τmp0 = λ.Cal(λ.BuiltinIter, ϒrepls)
+									for {
+										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+											break
+										}
+										ϒrepl = τmp1
+										λgy.Yield(λ.Mod(ϒtempl, ϒrepl))
+									}
+									return λ.None
+								})
+							})))
+					}
+					ϒfeed_data = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.Add(λ.NewStr("https://feed.entertainment.tv.theplatform.eu/f/PR1GhC/mediaset-prod-all-programs/guid/-/"), ϒguid),
+						ϒguid,
+					), λ.KWArgs{
+						{Name: "fatal", Value: λ.False},
+						{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("fields"): λ.Cal(λ.GetAttr(λ.NewStr(","), "join", nil), ϒfields),
+						})},
+					})
+					if λ.IsTrue(ϒfeed_data) {
+						ϒpublish_info = func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(ϒfeed_data, "get", nil), λ.NewStr("mediasetprogram$publishInfo")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+							}
+						}()
+						λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("episode_number"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfeed_data, "get", nil), λ.NewStr("tvSeasonEpisodeNumber"))),
+							λ.NewStr("season_number"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfeed_data, "get", nil), λ.NewStr("tvSeasonNumber"))),
+							λ.NewStr("series"):         λ.Cal(λ.GetAttr(ϒfeed_data, "get", nil), λ.NewStr("mediasetprogram$brandTitle")),
+							λ.NewStr("uploader"):       λ.Cal(λ.GetAttr(ϒpublish_info, "get", nil), λ.NewStr("description")),
+							λ.NewStr("uploader_id"):    λ.Cal(λ.GetAttr(ϒpublish_info, "get", nil), λ.NewStr("channel")),
+							λ.NewStr("view_count"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfeed_data, "get", nil), λ.NewStr("mediasetprogram$numberOfViews"))),
+						}))
+					}
+					λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):        ϒguid,
+						λ.NewStr("formats"):   ϒformats,
+						λ.NewStr("subtitles"): ϒsubtitles,
+					}))
+					return ϒinfo
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): MediasetIE__VALID_URL,
+				λ.NewStr("_TP_TLD"):             MediasetIE__TP_TLD,
+				λ.NewStr("_VALID_URL"):          MediasetIE__VALID_URL,
+				λ.NewStr("_parse_smil_formats"): MediasetIE__parse_smil_formats,
+				λ.NewStr("_real_extract"):       MediasetIE__real_extract,
 			})
 		}())
 	})

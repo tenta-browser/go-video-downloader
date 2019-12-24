@@ -63,17 +63,22 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒf          λ.Object
-						ϒformats    λ.Object
-						ϒm3u8_url   λ.Object
-						ϒself       = λargs[0]
-						ϒsource_url λ.Object
-						ϒtitle      λ.Object
-						ϒurl        = λargs[1]
-						ϒusp        λ.Object
-						ϒvideo_data λ.Object
-						ϒvideo_guid λ.Object
-						ϒvideo_id   λ.Object
+						ϒf            λ.Object
+						ϒformats      λ.Object
+						ϒhls_aes      λ.Object
+						ϒm3u8_formats λ.Object
+						ϒqs           λ.Object
+						ϒself         = λargs[0]
+						ϒsource_url   λ.Object
+						ϒtitle        λ.Object
+						ϒurl          = λargs[1]
+						ϒurl_templ    λ.Object
+						ϒusp          λ.Object
+						ϒvideo_data   λ.Object
+						ϒvideo_guid   λ.Object
+						ϒvideo_id     λ.Object
+						τmp0          λ.Object
+						τmp1          λ.Object
 					)
 					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
 					ϒvideo_data = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("http://view.vzaar.com/v2/%s/video"), ϒvideo_id), ϒvideo_id)
@@ -88,8 +93,9 @@ func init() {
 					ϒsource_url = λ.Cal(ϒurl_or_none, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("sourceUrl")))
 					if λ.IsTrue(ϒsource_url) {
 						ϒf = λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):       ϒsource_url,
-							λ.NewStr("format_id"): λ.NewStr("http"),
+							λ.NewStr("url"):        ϒsource_url,
+							λ.NewStr("format_id"):  λ.NewStr("http"),
+							λ.NewStr("preference"): λ.NewInt(1),
 						})
 						if λ.IsTrue(λ.NewBool(λ.Contains(ϒsource_url, λ.NewStr("audio")))) {
 							λ.Cal(λ.GetAttr(ϒf, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -109,16 +115,16 @@ func init() {
 					ϒvideo_guid = λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("guid"))
 					ϒusp = λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("usp"))
 					if λ.IsTrue(func() λ.Object {
-						if λv := λ.Cal(λ.BuiltinIsInstance, ϒvideo_guid, ϒcompat_str); !λ.IsTrue(λv) {
+						if λv := λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("uspEnabled")); !λ.IsTrue(λv) {
+							return λv
+						} else if λv := λ.Cal(λ.BuiltinIsInstance, ϒvideo_guid, ϒcompat_str); !λ.IsTrue(λv) {
 							return λv
 						} else {
 							return λ.Cal(λ.BuiltinIsInstance, ϒusp, λ.DictType)
 						}
 					}()) {
-						ϒm3u8_url = λ.Add(λ.Mod(λ.NewStr("http://fable.vzaar.com/v4/usp/%s/%s.ism/.m3u8?"), λ.NewTuple(
-							ϒvideo_guid,
-							ϒvideo_id,
-						)), λ.Cal(λ.GetAttr(λ.NewStr("&"), "join", nil), λ.Cal(λ.NewFunction("<generator>",
+						ϒhls_aes = λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("hlsAes"))
+						ϒqs = λ.Cal(λ.GetAttr(λ.NewStr("&"), "join", nil), λ.Cal(λ.NewFunction("<generator>",
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
@@ -145,16 +151,44 @@ func init() {
 									}
 									return λ.None
 								})
-							}))))
-						λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
-							ϒm3u8_url,
+							})))
+						ϒurl_templ = λ.Mod(λ.NewStr("http://%%s.vzaar.com/v5/usp%s/%s/%s.ism%%s?"), λ.NewTuple(
+							func() λ.Object {
+								if λ.IsTrue(ϒhls_aes) {
+									return λ.NewStr("aes")
+								} else {
+									return λ.NewStr("")
+								}
+							}(),
+							ϒvideo_guid,
+							ϒvideo_id,
+						))
+						ϒm3u8_formats = λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+							λ.Add(λ.Mod(ϒurl_templ, λ.NewTuple(
+								λ.NewStr("fable"),
+								λ.NewStr("/.m3u8"),
+							)), ϒqs),
 							ϒvideo_id,
 							λ.NewStr("mp4"),
+							λ.NewStr("m3u8_native"),
 						), λ.KWArgs{
-							{Name: "entry_protocol", Value: λ.NewStr("m3u8_native")},
 							{Name: "m3u8_id", Value: λ.NewStr("hls")},
 							{Name: "fatal", Value: λ.False},
-						}))
+						})
+						if λ.IsTrue(ϒhls_aes) {
+							τmp0 = λ.Cal(λ.BuiltinIter, ϒm3u8_formats)
+							for {
+								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+									break
+								}
+								ϒf = τmp1
+								λ.SetItem(ϒf, λ.NewStr("_decryption_key_url"), λ.Add(λ.Mod(ϒurl_templ, λ.NewTuple(
+									λ.NewStr("goose"),
+									λ.NewStr(""),
+								)), ϒqs))
+							}
+						}
+						λ.Cal(λ.GetAttr(ϒformats, "extend", nil), ϒm3u8_formats)
 					}
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{

@@ -486,11 +486,164 @@ func init() {
 		}())
 		ARDBetaMediathekIE = λ.Cal(λ.TypeType, λ.NewStr("ARDBetaMediathekIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ARDBetaMediathekIE__VALID_URL λ.Object
+				ARDBetaMediathekIE__VALID_URL    λ.Object
+				ARDBetaMediathekIE__real_extract λ.Object
 			)
 			ARDBetaMediathekIE__VALID_URL = λ.NewStr("https://(?:beta|www)\\.ardmediathek\\.de/[^/]+/(?:player|live)/(?P<video_id>[a-zA-Z0-9]+)(?:/(?P<display_id>[^/?#]+))?")
+			ARDBetaMediathekIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒdata         λ.Object
+						ϒdata_json    λ.Object
+						ϒdisplay_id   λ.Object
+						ϒext          λ.Object
+						ϒformat_url   λ.Object
+						ϒformats      λ.Object
+						ϒgeoblocked   λ.Object
+						ϒmobj         λ.Object
+						ϒquality      λ.Object
+						ϒres          λ.Object
+						ϒself         = λargs[0]
+						ϒsubtitle_url λ.Object
+						ϒsubtitles    λ.Object
+						ϒurl          = λargs[1]
+						ϒvideo_id     λ.Object
+						ϒwebpage      λ.Object
+						ϒwidget       λ.Object
+						τmp0          λ.Object
+						τmp1          λ.Object
+					)
+					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
+					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("video_id"))
+					ϒdisplay_id = func() λ.Object {
+						if λv := λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("display_id")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return ϒvideo_id
+						}
+					}()
+					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
+					ϒdata_json = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("window\\.__APOLLO_STATE__\\s*=\\s*(\\{.*);\\n"), ϒwebpage, λ.NewStr("json"))
+					ϒdata = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), ϒdata_json, ϒdisplay_id)
+					ϒres = λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):         ϒvideo_id,
+						λ.NewStr("display_id"): ϒdisplay_id,
+					})
+					ϒformats = λ.NewList()
+					ϒsubtitles = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+					ϒgeoblocked = λ.False
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒdata, "values", nil)))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒwidget = τmp1
+						if λ.IsTrue(λ.NewBool(λ.Cal(λ.GetAttr(ϒwidget, "get", nil), λ.NewStr("_geoblocked")) == λ.True)) {
+							ϒgeoblocked = λ.True
+						}
+						if λ.IsTrue(λ.NewBool(λ.Contains(ϒwidget, λ.NewStr("_duration")))) {
+							λ.SetItem(ϒres, λ.NewStr("duration"), λ.Cal(ϒint_or_none, λ.GetItem(ϒwidget, λ.NewStr("_duration"))))
+						}
+						if λ.IsTrue(λ.NewBool(λ.Contains(ϒwidget, λ.NewStr("clipTitle")))) {
+							λ.SetItem(ϒres, λ.NewStr("title"), λ.GetItem(ϒwidget, λ.NewStr("clipTitle")))
+						}
+						if λ.IsTrue(λ.NewBool(λ.Contains(ϒwidget, λ.NewStr("_previewImage")))) {
+							λ.SetItem(ϒres, λ.NewStr("thumbnail"), λ.GetItem(ϒwidget, λ.NewStr("_previewImage")))
+						}
+						if λ.IsTrue(λ.NewBool(λ.Contains(ϒwidget, λ.NewStr("broadcastedOn")))) {
+							λ.SetItem(ϒres, λ.NewStr("timestamp"), λ.Cal(ϒunified_timestamp, λ.GetItem(ϒwidget, λ.NewStr("broadcastedOn"))))
+						}
+						if λ.IsTrue(λ.NewBool(λ.Contains(ϒwidget, λ.NewStr("synopsis")))) {
+							λ.SetItem(ϒres, λ.NewStr("description"), λ.GetItem(ϒwidget, λ.NewStr("synopsis")))
+						}
+						ϒsubtitle_url = λ.Cal(ϒurl_or_none, λ.Cal(λ.GetAttr(ϒwidget, "get", nil), λ.NewStr("_subtitleUrl")))
+						if λ.IsTrue(ϒsubtitle_url) {
+							λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒsubtitles, "setdefault", nil), λ.NewStr("de"), λ.NewList()), "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("ext"): λ.NewStr("ttml"),
+								λ.NewStr("url"): ϒsubtitle_url,
+							}))
+						}
+						if λ.IsTrue(λ.NewBool(λ.Contains(ϒwidget, λ.NewStr("_quality")))) {
+							ϒformat_url = λ.Cal(ϒurl_or_none, λ.Cal(ϒtry_get, ϒwidget, λ.NewFunction("<lambda>",
+								[]λ.Param{
+									{Name: "x"},
+								},
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									var (
+										ϒx = λargs[0]
+									)
+									return λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.NewStr("_stream")), λ.NewStr("json")), λ.NewInt(0))
+								})))
+							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformat_url))) {
+								continue
+							}
+							ϒext = λ.Cal(ϒdetermine_ext, ϒformat_url)
+							if λ.IsTrue(λ.Eq(ϒext, λ.NewStr("f4m"))) {
+								λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_f4m_formats", nil), λ.NewArgs(
+									λ.Add(ϒformat_url, λ.NewStr("?hdcore=3.11.0")),
+									ϒvideo_id,
+								), λ.KWArgs{
+									{Name: "f4m_id", Value: λ.NewStr("hds")},
+									{Name: "fatal", Value: λ.False},
+								}))
+							} else {
+								if λ.IsTrue(λ.Eq(ϒext, λ.NewStr("m3u8"))) {
+									λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+										ϒformat_url,
+										ϒvideo_id,
+										λ.NewStr("mp4"),
+									), λ.KWArgs{
+										{Name: "m3u8_id", Value: λ.NewStr("hls")},
+										{Name: "fatal", Value: λ.False},
+									}))
+								} else {
+									if λ.IsTrue(ϒgeoblocked) {
+										continue
+									}
+									ϒquality = λ.Cal(ϒstr_or_none, λ.Cal(λ.GetAttr(ϒwidget, "get", nil), λ.NewStr("_quality")))
+									λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+										λ.NewStr("format_id"): func() λ.Object {
+											if λ.IsTrue(ϒquality) {
+												return λ.Add(λ.NewStr("http-"), ϒquality)
+											} else {
+												return λ.NewStr("http")
+											}
+										}(),
+										λ.NewStr("url"):        ϒformat_url,
+										λ.NewStr("preference"): λ.NewInt(10),
+									}))
+								}
+							}
+						}
+					}
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.NewBool(!λ.IsTrue(ϒformats)); !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return ϒgeoblocked
+						}
+					}()) {
+						λ.Call(λ.GetAttr(ϒself, "raise_geo_restricted", nil), nil, λ.KWArgs{
+							{Name: "msg", Value: λ.NewStr("This video is not available due to geoblocking")},
+							{Name: "countries", Value: λ.NewList(λ.NewStr("DE"))},
+						})
+					}
+					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Cal(λ.GetAttr(ϒres, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("subtitles"): ϒsubtitles,
+						λ.NewStr("formats"):   ϒformats,
+					}))
+					return ϒres
+				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): ARDBetaMediathekIE__VALID_URL,
+				λ.NewStr("_VALID_URL"):    ARDBetaMediathekIE__VALID_URL,
+				λ.NewStr("_real_extract"): ARDBetaMediathekIE__real_extract,
 			})
 		}())
 	})

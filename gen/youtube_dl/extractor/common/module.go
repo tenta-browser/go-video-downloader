@@ -59,6 +59,7 @@ var (
 	ϒcompat_etree_Element          λ.Object
 	ϒcompat_etree_fromstring       λ.Object
 	ϒcompat_http_client            λ.Object
+	ϒcompat_integer_types          λ.Object
 	ϒcompat_str                    λ.Object
 	ϒcompat_urllib_parse_unquote   λ.Object
 	ϒcompat_urllib_parse_urlencode λ.Object
@@ -104,6 +105,7 @@ func init() {
 	λ.InitModule(func() {
 		ϒcompat_etree_Element = Ωcompat.ϒcompat_etree_Element
 		ϒcompat_etree_fromstring = Ωcompat.ϒcompat_etree_fromstring
+		ϒcompat_integer_types = Ωcompat.ϒcompat_integer_types
 		ϒcompat_http_client = Ωcompat.ϒcompat_http_client
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒcompat_urllib_parse_unquote = Ωcompat.ϒcompat_urllib_parse_unquote
@@ -566,7 +568,7 @@ func init() {
 					if λ.IsTrue(λ.NewBool(ϒexpected_status == λ.None)) {
 						return λ.False
 					}
-					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒexpected_status, λ.None)) {
+					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒexpected_status, ϒcompat_integer_types)) {
 						return λ.Eq(λ.GetAttr(ϒerr, "code", nil), ϒexpected_status)
 					} else {
 						if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒexpected_status, λ.NewTuple(

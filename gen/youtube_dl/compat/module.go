@@ -43,6 +43,7 @@ var (
 	ϒcompat_etree_fromstring          λ.Object
 	ϒcompat_html_entities_html5       λ.Object
 	ϒcompat_http_client               λ.Object
+	ϒcompat_integer_types             λ.Object
 	ϒcompat_kwargs                    λ.Object
 	ϒcompat_numeric_types             λ.Object
 	ϒcompat_parse_qs                  λ.Object
@@ -62,6 +63,7 @@ func init() {
 		ϒcompat_HTMLParseError = Ωparser.HTMLParseError
 		ϒcompat_str = λ.StrType
 		ϒcompat_basestring = λ.StrType
+		ϒcompat_integer_types = λ.NewTuple(λ.IntType)
 		ϒcompat_numeric_types = λ.NewTuple(
 			λ.IntType,
 			λ.FloatType,

@@ -77,7 +77,7 @@ func init() {
 			var (
 				SoundcloudEmbedIE__VALID_URL λ.Object
 			)
-			SoundcloudEmbedIE__VALID_URL = λ.NewStr("https?://(?:w|player|p)\\.soundcloud\\.com/player/?.*?url=(?P<id>.*)")
+			SoundcloudEmbedIE__VALID_URL = λ.NewStr("https?://(?:w|player|p)\\.soundcloud\\.com/player/?.*?\\burl=(?P<id>.+)")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): SoundcloudEmbedIE__VALID_URL,
 			})

@@ -56,12 +56,10 @@ var (
 	ϒcompat_str                    λ.Object
 	ϒcompat_urllib_parse_urlencode λ.Object
 	ϒcompat_urllib_parse_urlparse  λ.Object
-	ϒfloat_or_none                 λ.Object
 	ϒint_or_none                   λ.Object
 	ϒorderedSet                    λ.Object
 	ϒparse_duration                λ.Object
 	ϒparse_iso8601                 λ.Object
-	ϒqualities                     λ.Object
 	ϒtry_get                       λ.Object
 	ϒunified_timestamp             λ.Object
 	ϒupdate_url_query              λ.Object
@@ -79,12 +77,10 @@ func init() {
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ϒclean_html = Ωutils.ϒclean_html
 		ExtractorError = Ωutils.ExtractorError
-		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
-		ϒqualities = Ωutils.ϒqualities
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
@@ -92,79 +88,15 @@ func init() {
 		ϒurljoin = Ωutils.ϒurljoin
 		TwitchBaseIE = λ.Cal(λ.TypeType, λ.NewStr("TwitchBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				TwitchBaseIE__API_BASE        λ.Object
 				TwitchBaseIE__CLIENT_ID       λ.Object
 				TwitchBaseIE__NETRC_MACHINE   λ.Object
 				TwitchBaseIE__VALID_URL_BASE  λ.Object
-				TwitchBaseIE__call_api        λ.Object
-				TwitchBaseIE__handle_error    λ.Object
 				TwitchBaseIE__login           λ.Object
 				TwitchBaseIE__real_initialize λ.Object
 			)
 			TwitchBaseIE__VALID_URL_BASE = λ.NewStr("https?://(?:(?:www|go|m)\\.)?twitch\\.tv")
-			TwitchBaseIE__API_BASE = λ.NewStr("https://api.twitch.tv")
 			TwitchBaseIE__CLIENT_ID = λ.NewStr("kimne78kx3ncx6brgo4mv6wki5h1ko")
 			TwitchBaseIE__NETRC_MACHINE = λ.NewStr("twitch")
-			TwitchBaseIE__handle_error = λ.NewFunction("_handle_error",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "response"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒerror    λ.Object
-						ϒresponse = λargs[1]
-						ϒself     = λargs[0]
-					)
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒresponse, λ.DictType)))) {
-						return λ.None
-					}
-					ϒerror = λ.Cal(λ.GetAttr(ϒresponse, "get", nil), λ.NewStr("error"))
-					if λ.IsTrue(ϒerror) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("%s returned error: %s - %s"), λ.NewTuple(
-							λ.GetAttr(ϒself, "IE_NAME", nil),
-							ϒerror,
-							λ.Cal(λ.GetAttr(ϒresponse, "get", nil), λ.NewStr("message")),
-						))), λ.KWArgs{
-							{Name: "expected", Value: λ.True},
-						})))
-					}
-					return λ.None
-				})
-			TwitchBaseIE__call_api = λ.NewFunction("_call_api",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "path"},
-					{Name: "item_id"},
-				},
-				0, true, true,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒargs     = λargs[3]
-						ϒheaders  λ.Object
-						ϒitem_id  = λargs[2]
-						ϒkwargs   = λargs[4]
-						ϒpath     = λargs[1]
-						ϒresponse λ.Object
-						ϒself     = λargs[0]
-					)
-					ϒheaders = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒkwargs, "get", nil), λ.NewStr("headers"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "copy", nil))
-					λ.SetItem(ϒheaders, λ.NewStr("Client-ID"), λ.GetAttr(ϒself, "_CLIENT_ID", nil))
-					λ.SetItem(ϒkwargs, λ.NewStr("headers"), ϒheaders)
-					ϒresponse = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(λ.Unpack(
-						λ.Mod(λ.NewStr("%s/%s"), λ.NewTuple(
-							λ.GetAttr(ϒself, "_API_BASE", nil),
-							ϒpath,
-						)),
-						ϒitem_id,
-						λ.AsStarred(ϒargs),
-					)...), λ.KWArgs{
-						{Name: "", Value: λ.Cal(ϒcompat_kwargs, ϒkwargs)},
-					})
-					λ.Cal(λ.GetAttr(ϒself, "_handle_error", nil), ϒresponse)
-					return ϒresponse
-				})
 			TwitchBaseIE__real_initialize = λ.NewFunction("_real_initialize",
 				[]λ.Param{
 					{Name: "self"},
@@ -320,12 +252,9 @@ func init() {
 					return λ.None
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_API_BASE"):        TwitchBaseIE__API_BASE,
 				λ.NewStr("_CLIENT_ID"):       TwitchBaseIE__CLIENT_ID,
 				λ.NewStr("_NETRC_MACHINE"):   TwitchBaseIE__NETRC_MACHINE,
 				λ.NewStr("_VALID_URL_BASE"):  TwitchBaseIE__VALID_URL_BASE,
-				λ.NewStr("_call_api"):        TwitchBaseIE__call_api,
-				λ.NewStr("_handle_error"):    TwitchBaseIE__handle_error,
 				λ.NewStr("_login"):           TwitchBaseIE__login,
 				λ.NewStr("_real_initialize"): TwitchBaseIE__real_initialize,
 			})
@@ -504,28 +433,40 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒclip            λ.Object
-						ϒformats         λ.Object
-						ϒinfo            λ.Object
-						ϒoption          λ.Object
-						ϒquality_key     λ.Object
-						ϒself            = λargs[0]
-						ϒsource          λ.Object
-						ϒstatus          λ.Object
-						ϒthumbnail_id    λ.Object
-						ϒthumbnail_url   λ.Object
-						ϒthumbnails      λ.Object
-						ϒthumbnails_dict λ.Object
-						ϒurl             = λargs[1]
-						ϒvideo_id        λ.Object
-						τmp0             λ.Object
-						τmp1             λ.Object
-						τmp2             λ.Object
+						ϒclip          λ.Object
+						ϒformats       λ.Object
+						ϒmobj          λ.Object
+						ϒoption        λ.Object
+						ϒself          = λargs[0]
+						ϒsource        λ.Object
+						ϒthumb         λ.Object
+						ϒthumbnail_id  λ.Object
+						ϒthumbnail_url λ.Object
+						ϒthumbnails    λ.Object
+						ϒurl           = λargs[1]
+						ϒvideo_id      λ.Object
+						τmp0           λ.Object
+						τmp1           λ.Object
 					)
 					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒstatus = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("https://clips.twitch.tv/api/v2/clips/%s/status"), ϒvideo_id), ϒvideo_id)
+					ϒclip = λ.GetItem(λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.NewStr("https://gql.twitch.tv/gql"),
+						ϒvideo_id,
+					), λ.KWArgs{
+						{Name: "data", Value: λ.Cal(λ.GetAttr(λ.Cal(Ωjson.ϒdumps, λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("query"): λ.Mod(λ.NewStr("{\n  clip(slug: \"%s\") {\n    broadcaster {\n      displayName\n    }\n    createdAt\n    curator {\n      displayName\n      id\n    }\n    durationSeconds\n    id\n    tiny: thumbnailURL(width: 86, height: 45)\n    small: thumbnailURL(width: 260, height: 147)\n    medium: thumbnailURL(width: 480, height: 272)\n    title\n    videoQualities {\n      frameRate\n      quality\n      sourceURL\n    }\n    viewCount\n  }\n}"), ϒvideo_id),
+						})), "encode", nil))},
+						{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("Client-ID"): λ.GetAttr(ϒself, "_CLIENT_ID", nil),
+						})},
+					}), λ.NewStr("data")), λ.NewStr("clip"))
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒclip))) {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("This clip is no longer available")), λ.KWArgs{
+							{Name: "expected", Value: λ.True},
+						})))
+					}
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒstatus, λ.NewStr("quality_options")))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("videoQualities"), λ.NewList()))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
@@ -534,7 +475,7 @@ func init() {
 						if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒoption, λ.DictType)))) {
 							continue
 						}
-						ϒsource = λ.Cal(ϒurl_or_none, λ.Cal(λ.GetAttr(ϒoption, "get", nil), λ.NewStr("source")))
+						ϒsource = λ.Cal(ϒurl_or_none, λ.Cal(λ.GetAttr(ϒoption, "get", nil), λ.NewStr("sourceURL")))
 						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒsource))) {
 							continue
 						}
@@ -542,106 +483,92 @@ func init() {
 							λ.NewStr("url"):       ϒsource,
 							λ.NewStr("format_id"): λ.Cal(λ.GetAttr(ϒoption, "get", nil), λ.NewStr("quality")),
 							λ.NewStr("height"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒoption, "get", nil), λ.NewStr("quality"))),
-							λ.NewStr("fps"):       λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒoption, "get", nil), λ.NewStr("frame_rate"))),
+							λ.NewStr("fps"):       λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒoption, "get", nil), λ.NewStr("frameRate"))),
 						}))
 					}
 					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					ϒinfo = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("formats"): ϒformats,
-					})
-					ϒclip = λ.Call(λ.GetAttr(ϒself, "_call_api", nil), λ.NewArgs(
-						λ.Mod(λ.NewStr("kraken/clips/%s"), ϒvideo_id),
-						ϒvideo_id,
-					), λ.KWArgs{
-						{Name: "fatal", Value: λ.False},
-						{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("Accept"): λ.NewStr("application/vnd.twitchtv.v5+json"),
-						})},
-					})
-					if λ.IsTrue(ϒclip) {
-						ϒquality_key = λ.Cal(ϒqualities, λ.NewTuple(
-							λ.NewStr("tiny"),
-							λ.NewStr("small"),
-							λ.NewStr("medium"),
-						))
-						ϒthumbnails = λ.NewList()
-						ϒthumbnails_dict = λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("thumbnails"))
-						if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒthumbnails_dict, λ.DictType)) {
-							τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒthumbnails_dict, "items", nil)))
-							for {
-								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-									break
-								}
-								τmp2 = τmp1
-								ϒthumbnail_id = λ.GetItem(τmp2, λ.NewInt(0))
-								ϒthumbnail_url = λ.GetItem(τmp2, λ.NewInt(1))
-								λ.Cal(λ.GetAttr(ϒthumbnails, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("id"):         ϒthumbnail_id,
-									λ.NewStr("url"):        ϒthumbnail_url,
-									λ.NewStr("preference"): λ.Cal(ϒquality_key, ϒthumbnail_id),
-								}))
-							}
+					ϒthumbnails = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+						λ.NewStr("tiny"),
+						λ.NewStr("small"),
+						λ.NewStr("medium"),
+					))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
 						}
-						λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("id"): func() λ.Object {
-								if λv := λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("tracking_id")); λ.IsTrue(λv) {
-									return λv
-								} else {
-									return ϒvideo_id
-								}
-							}(),
-							λ.NewStr("title"): func() λ.Object {
-								if λv := λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("title")); λ.IsTrue(λv) {
-									return λv
-								} else {
-									return ϒvideo_id
-								}
-							}(),
-							λ.NewStr("duration"):   λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("duration"))),
-							λ.NewStr("views"):      λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("views"))),
-							λ.NewStr("timestamp"):  λ.Cal(ϒunified_timestamp, λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("created_at"))),
-							λ.NewStr("thumbnails"): ϒthumbnails,
-							λ.NewStr("creator"): λ.Cal(ϒtry_get, ϒclip, λ.NewFunction("<lambda>",
-								[]λ.Param{
-									{Name: "x"},
-								},
-								0, false, false,
-								func(λargs []λ.Object) λ.Object {
-									var (
-										ϒx = λargs[0]
-									)
-									return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("broadcaster")), λ.NewStr("display_name"))
-								}), ϒcompat_str),
-							λ.NewStr("uploader"): λ.Cal(ϒtry_get, ϒclip, λ.NewFunction("<lambda>",
-								[]λ.Param{
-									{Name: "x"},
-								},
-								0, false, false,
-								func(λargs []λ.Object) λ.Object {
-									var (
-										ϒx = λargs[0]
-									)
-									return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("curator")), λ.NewStr("display_name"))
-								}), ϒcompat_str),
-							λ.NewStr("uploader_id"): λ.Cal(ϒtry_get, ϒclip, λ.NewFunction("<lambda>",
-								[]λ.Param{
-									{Name: "x"},
-								},
-								0, false, false,
-								func(λargs []λ.Object) λ.Object {
-									var (
-										ϒx = λargs[0]
-									)
-									return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("curator")), λ.NewStr("id"))
-								}), ϒcompat_str),
-						}))
-					} else {
-						λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("title"): ϒvideo_id,
-							λ.NewStr("id"):    ϒvideo_id,
-						}))
+						ϒthumbnail_id = τmp1
+						ϒthumbnail_url = λ.Cal(λ.GetAttr(ϒclip, "get", nil), ϒthumbnail_id)
+						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒthumbnail_url))) {
+							continue
+						}
+						ϒthumb = λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("id"):  ϒthumbnail_id,
+							λ.NewStr("url"): ϒthumbnail_url,
+						})
+						ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("-(\\d+)x(\\d+)\\."), ϒthumbnail_url)
+						if λ.IsTrue(ϒmobj) {
+							λ.Cal(λ.GetAttr(ϒthumb, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("height"): λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewInt(2))),
+								λ.NewStr("width"):  λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewInt(1))),
+							}))
+						}
+						λ.Cal(λ.GetAttr(ϒthumbnails, "append", nil), ϒthumb)
 					}
-					return ϒinfo
+					return λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"): func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("id")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return ϒvideo_id
+							}
+						}(),
+						λ.NewStr("title"): func() λ.Object {
+							if λv := λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("title")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return ϒvideo_id
+							}
+						}(),
+						λ.NewStr("formats"):    ϒformats,
+						λ.NewStr("duration"):   λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("durationSeconds"))),
+						λ.NewStr("views"):      λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("viewCount"))),
+						λ.NewStr("timestamp"):  λ.Cal(ϒunified_timestamp, λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("createdAt"))),
+						λ.NewStr("thumbnails"): ϒthumbnails,
+						λ.NewStr("creator"): λ.Cal(ϒtry_get, ϒclip, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("broadcaster")), λ.NewStr("displayName"))
+							}), ϒcompat_str),
+						λ.NewStr("uploader"): λ.Cal(ϒtry_get, ϒclip, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("curator")), λ.NewStr("displayName"))
+							}), ϒcompat_str),
+						λ.NewStr("uploader_id"): λ.Cal(ϒtry_get, ϒclip, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("curator")), λ.NewStr("id"))
+							}), ϒcompat_str),
+					})
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):       TwitchClipsIE_IE_NAME,

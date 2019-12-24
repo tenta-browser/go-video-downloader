@@ -2,17 +2,18 @@ Supported sites
 ===============
 
  * AbcNewsVideo: `abcnews.go.com`
- * ACast: `www.acast.com`
+ * ABCOTVS: `abc7news.com`
+ * AdobeTVEmbed: `tv.adobe.com`
  * AdobeTV: `tv.adobe.com`
  * AdobeTVVideo: `video.tv.adobe.com`
  * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
+ * ARDBetaMediathek: `beta.ardmediathek.de`
  * ARDMediathek: `www.ardmediathek.de`
  * ArteTVPlus7: `www.arte.tv`
  * AsianCrush: `www.asiancrush.com`
  * AudioBoom: `audioboom.com`
  * Audiomack: `www.audiomack.com`
- * AZMedien: `www.telezueri.ch`
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
  * Beatport: `beatport.com`
@@ -90,7 +91,6 @@ Supported sites
  * GenerationWhat: `generation-what.francetv.fr`
  * Freesound: `www.freesound.org`
  * Funk: `www.funk.net`
- * FXNetworks: `www.fxnetworks.com`
  * GameInformer: `www.gameinformer.com`
  * Gaskrank: `www.gaskrank.tv`
  * Gazeta: `www.gazeta.ru`
@@ -106,7 +106,6 @@ Supported sites
  * HistoricFilms: `www.historicfilms.com`
  * HitRecord: `hitrecord.org`
  * HornBunny _(adult)_: `hornbunny.com`
- * HowStuffWorks: `www.stufftoblowyourmind.com`
  * Hypem: `hypem.com`
  * IGN: `www.ign.com`
  * Imdb: `www.imdb.com`
@@ -115,6 +114,7 @@ Supported sites
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
  * Instagram: `instagram.com`
+ * Ir90Tv: `90tv.ir`
  * Ivideon: `www.ivideon.com`
  * Izlesene: `www.izlesene.com`
  * Jamendo: `www.jamendo.com`
@@ -125,7 +125,6 @@ Supported sites
  * KeezMovies _(adult)_: `www.keezmovies.com`
  * KhanAcademy: `www.khanacademy.org`
  * KickStarter: `www.kickstarter.com`
- * LA7: `www.la7.it`
  * LibraryOfCongress: `loc.gov`
  * Libsyn: `html5-player.libsyn.com`
  * LimelightMedia: `link.videoplatform.limelight.com`
@@ -135,6 +134,7 @@ Supported sites
  * MailRuMusic: `my.mail.ru`
  * ManyVids: `www.manyvids.com`
  * MassengeschmackTV: `massengeschmack.tv`
+ * Mediaset: `www.mediasetplay.mediaset.it`
  * Megaphone: `player.megaphone.fm`
  * Metacritic: `www.metacritic.com`
  * MicrosoftVirtualAcademy: `mva.microsoft.com`
@@ -159,8 +159,6 @@ Supported sites
  * NexxEmbed: `embed.nexx.cloud`
  * NHL: `www.nhl.com`
  * NonkTube _(adult)_: `www.nonktube.com`
- * Noovo: `noovo.ca`
- * NovaEmbed: `media.cms.nova.cz`
  * Nova: `tn.nova.cz`
  * Nowness: `www.nowness.com`
  * NTVRu: `www.ntv.ru`
@@ -180,12 +178,10 @@ Supported sites
  * PerformGroup: `player.performgroup.com`
  * Photobucket: `media.photobucket.com`
  * Piksel: `player.piksel.com`
- * PlaysTV: `plays.tv`
+ * PlayFM: `www.play.fm`
  * Playvid _(adult)_: `www.playvid.com`
  * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
- * Porn91 _(adult)_: `91porn.com`
- * PornCom _(adult)_: `www.porn.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
  * PuhuTV: `puhutv.com`
@@ -214,7 +210,6 @@ Supported sites
  * SlidesLive: `slideslive.com`
  * SonyLIV: `www.sonyliv.com`
  * Soundgasm: `soundgasm.net`
- * SpankBang _(adult)_: `spankbang.com`
  * Spiegel: `www.spiegel.de`
  * Stitcher: `www.stitcher.com`
  * SRGSSRPlay: `www.rts.ch`
@@ -226,6 +221,7 @@ Supported sites
  * Tagesschau: `www.tagesschau.de`
  * TastyTrade: `www.tastytrade.com`
  * TDSLifeway: `tds.lifeway.com`
+ * TeachingChannel: `www.teachingchannel.org`
  * Teamcoco: `teamcoco.com`
  * TeamTreeHouse: `teamtreehouse.com`
  * TED: `www.ted.com`
@@ -269,7 +265,6 @@ Supported sites
  * VideoPress: `videopress.com`
  * VideosZ _(adult)_: `www.videosz.com`
  * VidLii: `www.vidlii.com`
- * ViewLift: `www.snagfilms.com`
  * Vimeo: `vimeo.com`
  * VimeoOndemand: `vimeo.com`
  * VimeoReview: `vimeo.com`
@@ -293,7 +288,6 @@ Supported sites
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
  * Yahoo: `screen.yahoo.com`
- * YinYueTai: `v.yinyuetai.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`
  * YourUpload: `yourupload.com`

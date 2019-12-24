@@ -504,7 +504,7 @@ func init() {
 			var (
 				VKUserVideosIE__VALID_URL λ.Object
 			)
-			VKUserVideosIE__VALID_URL = λ.NewStr("https?://(?:(?:m|new)\\.)?vk\\.com/videos(?P<id>-?[0-9]+)(?!\\?.*\\bz=video)(?:[/?#&]|$)")
+			VKUserVideosIE__VALID_URL = λ.NewStr("https?://(?:(?:m|new)\\.)?vk\\.com/videos(?P<id>-?[0-9]+)(?!\\?.*\\bz=video)(?:[/?#&](?:.*?\\bsection=(?P<section>\\w+))?|$)")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): VKUserVideosIE__VALID_URL,
 			})

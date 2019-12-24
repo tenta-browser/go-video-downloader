@@ -31,15 +31,15 @@ import (
 )
 
 var (
-	ExtractorError λ.Object
-	InfoExtractor  λ.Object
-	SlidesLiveIE   λ.Object
+	InfoExtractor λ.Object
+	SlidesLiveIE  λ.Object
+	ϒsmuggle_url  λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ExtractorError = Ωutils.ExtractorError
+		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		SlidesLiveIE = λ.Cal(λ.TypeType, λ.NewStr("SlidesLiveIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SlidesLiveIE__VALID_URL    λ.Object
@@ -54,37 +54,47 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
+						ϒinfo         λ.Object
 						ϒself         = λargs[0]
+						ϒservice_id   λ.Object
 						ϒservice_name λ.Object
 						ϒurl          = λargs[1]
 						ϒvideo_data   λ.Object
 						ϒvideo_id     λ.Object
-						ϒyt_video_id  λ.Object
 					)
 					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒvideo_data = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						ϒurl,
-						ϒvideo_id,
-					), λ.KWArgs{
-						{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("Accept"): λ.NewStr("application/json"),
-						})},
-					})
+					ϒvideo_data = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Add(λ.NewStr("https://ben.slideslive.com/player/"), ϒvideo_id), ϒvideo_id)
 					ϒservice_name = λ.Cal(λ.GetAttr(λ.GetItem(ϒvideo_data, λ.NewStr("video_service_name")), "lower", nil))
-					if λ.IsTrue(λ.Eq(ϒservice_name, λ.NewStr("youtube"))) {
-						ϒyt_video_id = λ.GetItem(ϒvideo_data, λ.NewStr("video_service_id"))
-						return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(
-							ϒyt_video_id,
-							λ.NewStr("Youtube"),
-						), λ.KWArgs{
-							{Name: "video_id", Value: ϒyt_video_id},
-						})
-					} else {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Cal(λ.GetAttr(λ.NewStr("Unsupported service name: {0}"), "format", nil), ϒservice_name)), λ.KWArgs{
-							{Name: "expected", Value: λ.True},
-						})))
+					if !λ.IsTrue(λ.NewBool(λ.Contains(λ.NewTuple(
+						λ.NewStr("url"),
+						λ.NewStr("vimeo"),
+						λ.NewStr("youtube"),
+					), ϒservice_name))) {
+						panic(λ.Raise(λ.Cal(λ.AssertionErrorType)))
 					}
-					return λ.None
+					ϒservice_id = λ.GetItem(ϒvideo_data, λ.NewStr("video_service_id"))
+					ϒinfo = λ.NewDictWithTable(map[λ.Object]λ.Object{
+						λ.NewStr("id"):        ϒvideo_id,
+						λ.NewStr("thumbnail"): λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("thumbnail")),
+						λ.NewStr("url"):       ϒservice_id,
+					})
+					if λ.IsTrue(λ.Eq(ϒservice_name, λ.NewStr("url"))) {
+						λ.SetItem(ϒinfo, λ.NewStr("title"), λ.GetItem(ϒvideo_data, λ.NewStr("title")))
+					} else {
+						λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("_type"):  λ.NewStr("url_transparent"),
+							λ.NewStr("ie_key"): λ.Cal(λ.GetAttr(ϒservice_name, "capitalize", nil)),
+							λ.NewStr("title"):  λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("title")),
+						}))
+						if λ.IsTrue(λ.Eq(ϒservice_name, λ.NewStr("vimeo"))) {
+							λ.SetItem(ϒinfo, λ.NewStr("url"), λ.Cal(ϒsmuggle_url, λ.Add(λ.NewStr("https://player.vimeo.com/video/"), ϒservice_id), λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("http_headers"): λ.NewDictWithTable(map[λ.Object]λ.Object{
+									λ.NewStr("Referer"): ϒurl,
+								}),
+							})))
+						}
+					}
+					return ϒinfo
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"):    SlidesLiveIE__VALID_URL,
