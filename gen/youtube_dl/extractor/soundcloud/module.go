@@ -46,7 +46,9 @@ var (
 	SoundcloudSetIE               λ.Object
 	SoundcloudTrackStationIE      λ.Object
 	SoundcloudUserIE              λ.Object
+	ϒcompat_kwargs                λ.Object
 	ϒcompat_str                   λ.Object
+	ϒerror_to_compat_str          λ.Object
 	ϒfloat_or_none                λ.Object
 	ϒint_or_none                  λ.Object
 	ϒmimetype2ext                 λ.Object
@@ -61,7 +63,9 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		SearchInfoExtractor = Ωcommon.SearchInfoExtractor
+		ϒcompat_kwargs = Ωcompat.ϒcompat_kwargs
 		ϒcompat_str = Ωcompat.ϒcompat_str
+		ϒerror_to_compat_str = Ωutils.ϒerror_to_compat_str
 		ExtractorError = Ωutils.ExtractorError
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		HEADRequest = Ωutils.HEADRequest

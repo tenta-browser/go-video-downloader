@@ -39,6 +39,7 @@ import (
 var (
 	ExtractorError             λ.Object
 	InfoExtractor              λ.Object
+	NO_DEFAULT                 λ.Object
 	PhantomJSwrapper           λ.Object
 	PornHubBaseIE              λ.Object
 	PornHubIE                  λ.Object
@@ -64,6 +65,7 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
+		NO_DEFAULT = Ωutils.NO_DEFAULT
 		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒremove_quotes = Ωutils.ϒremove_quotes
 		ϒstr_to_int = Ωutils.ϒstr_to_int
@@ -199,41 +201,41 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒassignments       λ.Object
-						ϒassn              λ.Object
+						FORMAT_PREFIXES    λ.Object
+						ϒadd_video_url     λ.Object
 						ϒcomment_count     λ.Object
 						ϒdefinition        λ.Object
 						ϒdislike_count     λ.Object
 						ϒdl_webpage        λ.Object
 						ϒduration          λ.Object
 						ϒerror_msg         λ.Object
+						ϒext               λ.Object
+						ϒextract_js_vars   λ.Object
 						ϒextract_list      λ.Object
 						ϒflashvars         λ.Object
+						ϒformat_url        λ.Object
 						ϒformats           λ.Object
 						ϒheight            λ.Object
 						ϒhost              λ.Object
 						ϒjs_vars           λ.Object
+						ϒkey               λ.Object
 						ϒlike_count        λ.Object
 						ϒmedia_definitions λ.Object
 						ϒmobj              λ.Object
-						ϒparse_js_value    λ.Object
 						ϒself              = λargs[0]
 						ϒsubtitle_url      λ.Object
 						ϒsubtitles         λ.Object
 						ϒtbr               λ.Object
 						ϒthumbnail         λ.Object
 						ϒtitle             λ.Object
-						ϒtv_webpage        λ.Object
 						ϒupload_date       λ.Object
 						ϒurl               = λargs[1]
-						ϒvalue             λ.Object
 						ϒvideo_id          λ.Object
 						ϒvideo_uploader    λ.Object
 						ϒvideo_url         λ.Object
 						ϒvideo_urls        λ.Object
 						ϒvideo_urls_set    λ.Object
 						ϒview_count        λ.Object
-						ϒvname             λ.Object
 						ϒwebpage           λ.Object
 						τmp0               λ.Object
 						τmp1               λ.Object
@@ -358,55 +360,163 @@ func init() {
 						ϒthumbnail = λ.GetItem(τmp0, λ.NewInt(0))
 						ϒduration = λ.GetItem(τmp0, λ.NewInt(1))
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_urls))) {
-						ϒtv_webpage = λ.Cal(ϒdl_webpage, λ.NewStr("tv"))
-						ϒassignments = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("(var.+?mediastring.+?)</script>"), ϒtv_webpage, λ.NewStr("encoded url")), "split", nil), λ.NewStr(";"))
-						ϒjs_vars = λ.NewDictWithTable(map[λ.Object]λ.Object{})
-						ϒparse_js_value = λ.NewFunction("parse_js_value",
-							[]λ.Param{
-								{Name: "inp"},
-							},
-							0, false, false,
-							func(λargs []λ.Object) λ.Object {
-								var (
-									ϒinp  = λargs[0]
-									ϒinps λ.Object
-								)
-								ϒinp = λ.Cal(Ωre.ϒsub, λ.NewStr("/\\*(?:(?!\\*/).)*?\\*/"), λ.NewStr(""), ϒinp)
-								if λ.IsTrue(λ.NewBool(λ.Contains(ϒinp, λ.NewStr("+")))) {
-									ϒinps = λ.Cal(λ.GetAttr(ϒinp, "split", nil), λ.NewStr("+"))
-									return λ.Cal(Ωfunctools.ϒreduce, Ωoperator.ϒconcat, λ.Cal(λ.MapIteratorType, ϒparse_js_value, ϒinps))
-								}
-								ϒinp = λ.Cal(λ.GetAttr(ϒinp, "strip", nil))
-								if λ.IsTrue(λ.NewBool(λ.Contains(ϒjs_vars, ϒinp))) {
-									return λ.GetItem(ϒjs_vars, ϒinp)
-								}
-								return λ.Cal(ϒremove_quotes, ϒinp)
+					ϒextract_js_vars = λ.NewFunction("extract_js_vars",
+						[]λ.Param{
+							{Name: "webpage"},
+							{Name: "pattern"},
+							{Name: "default", Def: NO_DEFAULT},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒassignments    λ.Object
+								ϒassn           λ.Object
+								ϒdefault        = λargs[2]
+								ϒjs_vars        λ.Object
+								ϒparse_js_value λ.Object
+								ϒpattern        = λargs[1]
+								ϒvalue          λ.Object
+								ϒvname          λ.Object
+								ϒwebpage        = λargs[0]
+								τmp0            λ.Object
+								τmp1            λ.Object
+								τmp2            λ.Object
+							)
+							ϒassignments = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+								ϒpattern,
+								ϒwebpage,
+								λ.NewStr("encoded url"),
+							), λ.KWArgs{
+								{Name: "default", Value: ϒdefault},
 							})
-						τmp0 = λ.Cal(λ.BuiltinIter, ϒassignments)
-						for {
-							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-								break
+							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒassignments))) {
+								return λ.NewDictWithTable(map[λ.Object]λ.Object{})
 							}
-							ϒassn = τmp1
-							ϒassn = λ.Cal(λ.GetAttr(ϒassn, "strip", nil))
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒassn))) {
-								continue
+							ϒassignments = λ.Cal(λ.GetAttr(ϒassignments, "split", nil), λ.NewStr(";"))
+							ϒjs_vars = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+							ϒparse_js_value = λ.NewFunction("parse_js_value",
+								[]λ.Param{
+									{Name: "inp"},
+								},
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									var (
+										ϒinp  = λargs[0]
+										ϒinps λ.Object
+									)
+									ϒinp = λ.Cal(Ωre.ϒsub, λ.NewStr("/\\*(?:(?!\\*/).)*?\\*/"), λ.NewStr(""), ϒinp)
+									if λ.IsTrue(λ.NewBool(λ.Contains(ϒinp, λ.NewStr("+")))) {
+										ϒinps = λ.Cal(λ.GetAttr(ϒinp, "split", nil), λ.NewStr("+"))
+										return λ.Cal(Ωfunctools.ϒreduce, Ωoperator.ϒconcat, λ.Cal(λ.MapIteratorType, ϒparse_js_value, ϒinps))
+									}
+									ϒinp = λ.Cal(λ.GetAttr(ϒinp, "strip", nil))
+									if λ.IsTrue(λ.NewBool(λ.Contains(ϒjs_vars, ϒinp))) {
+										return λ.GetItem(ϒjs_vars, ϒinp)
+									}
+									return λ.Cal(ϒremove_quotes, ϒinp)
+								})
+							τmp0 = λ.Cal(λ.BuiltinIter, ϒassignments)
+							for {
+								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+									break
+								}
+								ϒassn = τmp1
+								ϒassn = λ.Cal(λ.GetAttr(ϒassn, "strip", nil))
+								if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒassn))) {
+									continue
+								}
+								ϒassn = λ.Cal(Ωre.ϒsub, λ.NewStr("var\\s+"), λ.NewStr(""), ϒassn)
+								τmp2 = λ.Cal(λ.GetAttr(ϒassn, "split", nil), λ.NewStr("="), λ.NewInt(1))
+								ϒvname = λ.GetItem(τmp2, λ.NewInt(0))
+								ϒvalue = λ.GetItem(τmp2, λ.NewInt(1))
+								λ.SetItem(ϒjs_vars, ϒvname, λ.Cal(ϒparse_js_value, ϒvalue))
 							}
-							ϒassn = λ.Cal(Ωre.ϒsub, λ.NewStr("var\\s+"), λ.NewStr(""), ϒassn)
-							τmp2 = λ.Cal(λ.GetAttr(ϒassn, "split", nil), λ.NewStr("="), λ.NewInt(1))
-							ϒvname = λ.GetItem(τmp2, λ.NewInt(0))
-							ϒvalue = λ.GetItem(τmp2, λ.NewInt(1))
-							λ.SetItem(ϒjs_vars, ϒvname, λ.Cal(ϒparse_js_value, ϒvalue))
-						}
-						ϒvideo_url = λ.GetItem(ϒjs_vars, λ.NewStr("mediastring"))
-						if λ.IsTrue(λ.NewBool(!λ.Contains(ϒvideo_urls_set, ϒvideo_url))) {
+							return ϒjs_vars
+						})
+					ϒadd_video_url = λ.NewFunction("add_video_url",
+						[]λ.Param{
+							{Name: "video_url"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒv_url     λ.Object
+								ϒvideo_url = λargs[0]
+							)
+							ϒv_url = λ.Cal(ϒurl_or_none, ϒvideo_url)
+							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒv_url))) {
+								return λ.None
+							}
+							if λ.IsTrue(λ.NewBool(λ.Contains(ϒvideo_urls_set, ϒv_url))) {
+								return λ.None
+							}
 							λ.Cal(λ.GetAttr(ϒvideo_urls, "append", nil), λ.NewTuple(
-								ϒvideo_url,
+								ϒv_url,
 								λ.None,
 							))
-							λ.Cal(λ.GetAttr(ϒvideo_urls_set, "add", nil), ϒvideo_url)
+							λ.Cal(λ.GetAttr(ϒvideo_urls_set, "add", nil), ϒv_url)
+							return λ.None
+						})
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_urls))) {
+						FORMAT_PREFIXES = λ.NewTuple(
+							λ.NewStr("media"),
+							λ.NewStr("quality"),
+						)
+						ϒjs_vars = λ.Call(ϒextract_js_vars, λ.NewArgs(
+							ϒwebpage,
+							λ.Mod(λ.NewStr("(var\\s+(?:%s)_.+)"), λ.Cal(λ.GetAttr(λ.NewStr("|"), "join", nil), FORMAT_PREFIXES)),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						})
+						if λ.IsTrue(ϒjs_vars) {
+							τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒjs_vars, "items", nil)))
+							for {
+								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+									break
+								}
+								τmp2 = τmp1
+								ϒkey = λ.GetItem(τmp2, λ.NewInt(0))
+								ϒformat_url = λ.GetItem(τmp2, λ.NewInt(1))
+								if λ.IsTrue(λ.Cal(λ.BuiltinAny, λ.Cal(λ.NewFunction("<generator>",
+									nil,
+									0, false, false,
+									func(λargs []λ.Object) λ.Object {
+										return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
+											var (
+												ϒp   λ.Object
+												τmp0 λ.Object
+												τmp1 λ.Object
+											)
+											τmp0 = λ.Cal(λ.BuiltinIter, FORMAT_PREFIXES)
+											for {
+												if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+													break
+												}
+												ϒp = τmp1
+												λgy.Yield(λ.Cal(λ.GetAttr(ϒkey, "startswith", nil), ϒp))
+											}
+											return λ.None
+										})
+									})))) {
+									λ.Cal(ϒadd_video_url, ϒformat_url)
+								}
+							}
 						}
+						if λ.IsTrue(func() λ.Object {
+							if λv := λ.NewBool(!λ.IsTrue(ϒvideo_urls)); !λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Cal(Ωre.ϒsearch, λ.NewStr("<[^>]+\\bid=[\"\\']lockedPlayer"), ϒwebpage)
+							}
+						}()) {
+							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("Video %s is locked"), ϒvideo_id)), λ.KWArgs{
+								{Name: "expected", Value: λ.True},
+							})))
+						}
+					}
+					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_urls))) {
+						ϒjs_vars = λ.Cal(ϒextract_js_vars, λ.Cal(ϒdl_webpage, λ.NewStr("tv")), λ.NewStr("(var.+?mediastring.+?)</script>"))
+						λ.Cal(ϒadd_video_url, λ.GetItem(ϒjs_vars, λ.NewStr("mediastring")))
 					}
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfinditer, λ.NewStr("<a[^>]+\\bclass=[\"\\']downloadBtn\\b[^>]+\\bhref=([\"\\'])(?P<url>(?:(?!\\1).)+)\\1"), ϒwebpage))
 					for {
@@ -445,7 +555,8 @@ func init() {
 								ϒupload_date = λ.Cal(λ.GetAttr(ϒupload_date, "replace", nil), λ.NewStr("/"), λ.NewStr(""))
 							}
 						}
-						if λ.IsTrue(λ.Eq(λ.Cal(ϒdetermine_ext, ϒvideo_url), λ.NewStr("mpd"))) {
+						ϒext = λ.Cal(ϒdetermine_ext, ϒvideo_url)
+						if λ.IsTrue(λ.Eq(ϒext, λ.NewStr("mpd"))) {
 							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_mpd_formats", nil), λ.NewArgs(
 								ϒvideo_url,
 								ϒvideo_id,
@@ -454,6 +565,19 @@ func init() {
 								{Name: "fatal", Value: λ.False},
 							}))
 							continue
+						} else {
+							if λ.IsTrue(λ.Eq(ϒext, λ.NewStr("m3u8"))) {
+								λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+									ϒvideo_url,
+									ϒvideo_id,
+									λ.NewStr("mp4"),
+								), λ.KWArgs{
+									{Name: "entry_protocol", Value: λ.NewStr("m3u8_native")},
+									{Name: "m3u8_id", Value: λ.NewStr("hls")},
+									{Name: "fatal", Value: λ.False},
+								}))
+								continue
+							}
 						}
 						ϒtbr = λ.None
 						ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("(?P<height>\\d+)[pP]?_(?P<tbr>\\d+)[kK]"), ϒvideo_url)

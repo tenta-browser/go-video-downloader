@@ -666,30 +666,33 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒaccount_id    λ.Object
-						ϒapi_url       λ.Object
-						ϒcatalog       λ.Object
-						ϒcontent_type  λ.Object
-						ϒcustom_fields λ.Object
-						ϒembed         λ.Object
-						ϒerrors        λ.Object
-						ϒheaders       λ.Object
-						ϒjson_data     λ.Object
-						ϒmessage       λ.Object
-						ϒplayer_id     λ.Object
-						ϒpolicy_key    λ.Object
-						ϒreferrer      λ.Object
-						ϒself          = λargs[0]
-						ϒsmuggled_data λ.Object
-						ϒtve_token     λ.Object
-						ϒurl           = λargs[1]
-						ϒvideo_id      λ.Object
-						ϒwebpage       λ.Object
-						τmp0           λ.Object
-						τmp1           λ.Object
+						ϒaccount_id           λ.Object
+						ϒapi_url              λ.Object
+						ϒcontent_type         λ.Object
+						ϒcustom_fields        λ.Object
+						ϒembed                λ.Object
+						ϒerrors               λ.Object
+						ϒextract_policy_key   λ.Object
+						ϒheaders              λ.Object
+						ϒjson_data            λ.Object
+						ϒmessage              λ.Object
+						ϒplayer_id            λ.Object
+						ϒpolicy_key           λ.Object
+						ϒpolicy_key_extracted λ.Object
+						ϒpolicy_key_id        λ.Object
+						ϒreferrer             λ.Object
+						ϒself                 = λargs[0]
+						ϒsmuggled_data        λ.Object
+						ϒstore_pk             λ.Object
+						ϒtve_token            λ.Object
+						ϒurl                  = λargs[1]
+						ϒvideo_id             λ.Object
+						τmp0                  λ.Object
+						τmp1                  λ.Object
+						τmp2                  λ.Object
+						τmp3                  λ.Object
 					)
-					_ = τmp0
-					_ = τmp1
+					_ = τmp3
 					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.NewDictWithTable(map[λ.Object]λ.Object{}))
 					ϒurl = λ.GetItem(τmp0, λ.NewInt(0))
 					ϒsmuggled_data = λ.GetItem(τmp0, λ.NewInt(1))
@@ -703,47 +706,74 @@ func init() {
 					ϒembed = λ.GetItem(τmp0, λ.NewInt(2))
 					ϒcontent_type = λ.GetItem(τmp0, λ.NewInt(3))
 					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(4))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.NewStr("http://players.brightcove.net/%s/%s_%s/index.min.js"), λ.NewTuple(
+					ϒpolicy_key_id = λ.Mod(λ.NewStr("%s_%s"), λ.NewTuple(
 						ϒaccount_id,
 						ϒplayer_id,
-						ϒembed,
-					)), ϒvideo_id)
-					ϒpolicy_key = λ.None
-					ϒcatalog = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("catalog\\(({.+?})\\);"),
-						ϒwebpage,
-						λ.NewStr("catalog"),
-					), λ.KWArgs{
-						{Name: "default", Value: λ.None},
-					})
-					if λ.IsTrue(ϒcatalog) {
-						ϒcatalog = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
-							λ.Cal(ϒjs_to_json, ϒcatalog),
-							ϒvideo_id,
-						), λ.KWArgs{
-							{Name: "fatal", Value: λ.False},
+					))
+					ϒpolicy_key = λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "cache", nil), "load", nil), λ.NewStr("brightcove"), ϒpolicy_key_id)
+					ϒpolicy_key_extracted = λ.False
+					ϒstore_pk = λ.NewFunction("<lambda>",
+						[]λ.Param{
+							{Name: "x"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒx = λargs[0]
+							)
+							return λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "cache", nil), "store", nil), λ.NewStr("brightcove"), ϒpolicy_key_id, ϒx)
 						})
-						if λ.IsTrue(ϒcatalog) {
-							ϒpolicy_key = λ.Cal(λ.GetAttr(ϒcatalog, "get", nil), λ.NewStr("policyKey"))
-						}
-					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒpolicy_key))) {
-						ϒpolicy_key = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("policyKey\\s*:\\s*([\"\\'])(?P<pk>.+?)\\1"),
-							ϒwebpage,
-							λ.NewStr("policy key"),
-						), λ.KWArgs{
-							{Name: "group", Value: λ.NewStr("pk")},
+					ϒextract_policy_key = λ.NewFunction("extract_policy_key",
+						nil,
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒcatalog    λ.Object
+								ϒpolicy_key λ.Object
+								ϒwebpage    λ.Object
+							)
+							ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.NewStr("http://players.brightcove.net/%s/%s_%s/index.min.js"), λ.NewTuple(
+								ϒaccount_id,
+								ϒplayer_id,
+								ϒembed,
+							)), ϒvideo_id)
+							ϒpolicy_key = λ.None
+							ϒcatalog = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+								λ.NewStr("catalog\\(({.+?})\\);"),
+								ϒwebpage,
+								λ.NewStr("catalog"),
+							), λ.KWArgs{
+								{Name: "default", Value: λ.None},
+							})
+							if λ.IsTrue(ϒcatalog) {
+								ϒcatalog = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
+									λ.Cal(ϒjs_to_json, ϒcatalog),
+									ϒvideo_id,
+								), λ.KWArgs{
+									{Name: "fatal", Value: λ.False},
+								})
+								if λ.IsTrue(ϒcatalog) {
+									ϒpolicy_key = λ.Cal(λ.GetAttr(ϒcatalog, "get", nil), λ.NewStr("policyKey"))
+								}
+							}
+							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒpolicy_key))) {
+								ϒpolicy_key = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+									λ.NewStr("policyKey\\s*:\\s*([\"\\'])(?P<pk>.+?)\\1"),
+									ϒwebpage,
+									λ.NewStr("policy key"),
+								), λ.KWArgs{
+									{Name: "group", Value: λ.NewStr("pk")},
+								})
+							}
+							λ.Cal(ϒstore_pk, ϒpolicy_key)
+							return ϒpolicy_key
 						})
-					}
 					ϒapi_url = λ.Mod(λ.NewStr("https://edge.api.brightcove.com/playback/v1/accounts/%s/%ss/%s"), λ.NewTuple(
 						ϒaccount_id,
 						ϒcontent_type,
 						ϒvideo_id,
 					))
-					ϒheaders = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("Accept"): λ.Mod(λ.NewStr("application/json;pk=%s"), ϒpolicy_key),
-					})
+					ϒheaders = λ.NewDictWithTable(map[λ.Object]λ.Object{})
 					ϒreferrer = λ.Cal(λ.GetAttr(ϒsmuggled_data, "get", nil), λ.NewStr("referrer"))
 					if λ.IsTrue(ϒreferrer) {
 						λ.Cal(λ.GetAttr(ϒheaders, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
@@ -751,46 +781,82 @@ func init() {
 							λ.NewStr("Origin"):  λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒsearch, λ.NewStr("https?://[^/]+"), ϒreferrer), "group", nil), λ.NewInt(0)),
 						}))
 					}
-					τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
-						defer λ.CatchMulti(
-							nil,
-							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
-								var ϒe λ.Object = λex
-								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
-										return λv
-									} else {
-										return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.NewInt(403))
-									}
-								}()) {
-									ϒjson_data = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "read", nil)), "decode", nil)), ϒvideo_id), λ.NewInt(0))
-									ϒmessage = func() λ.Object {
-										if λv := λ.Cal(λ.GetAttr(ϒjson_data, "get", nil), λ.NewStr("message")); λ.IsTrue(λv) {
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.RangeType, λ.NewInt(2)))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						_ = τmp1
+						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒpolicy_key))) {
+							ϒpolicy_key = λ.Cal(ϒextract_policy_key)
+							ϒpolicy_key_extracted = λ.True
+						}
+						λ.SetItem(ϒheaders, λ.NewStr("Accept"), λ.Mod(λ.NewStr("application/json;pk=%s"), ϒpolicy_key))
+						τmp2, τmp3 = func() (λexit λ.Object, λret λ.Object) {
+							defer λ.CatchMulti(
+								nil,
+								&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
+									var ϒe λ.Object = λex
+									if λ.IsTrue(func() λ.Object {
+										if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
 											return λv
 										} else {
-											return λ.GetItem(ϒjson_data, λ.NewStr("error_code"))
+											return λ.NewBool(λ.Contains(λ.NewTuple(
+												λ.NewInt(401),
+												λ.NewInt(403),
+											), λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil)))
 										}
-									}()
-									if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒjson_data, "get", nil), λ.NewStr("error_subcode")), λ.NewStr("CLIENT_GEO"))) {
-										λ.Call(λ.GetAttr(ϒself, "raise_geo_restricted", nil), nil, λ.KWArgs{
-											{Name: "msg", Value: ϒmessage},
-										})
+									}()) {
+										ϒjson_data = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "read", nil)), "decode", nil)), ϒvideo_id), λ.NewInt(0))
+										ϒmessage = func() λ.Object {
+											if λv := λ.Cal(λ.GetAttr(ϒjson_data, "get", nil), λ.NewStr("message")); λ.IsTrue(λv) {
+												return λv
+											} else {
+												return λ.GetItem(ϒjson_data, λ.NewStr("error_code"))
+											}
+										}()
+										if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒjson_data, "get", nil), λ.NewStr("error_subcode")), λ.NewStr("CLIENT_GEO"))) {
+											λ.Call(λ.GetAttr(ϒself, "raise_geo_restricted", nil), nil, λ.KWArgs{
+												{Name: "msg", Value: ϒmessage},
+											})
+										} else {
+											if λ.IsTrue(func() λ.Object {
+												if λv := λ.Eq(λ.Cal(λ.GetAttr(ϒjson_data, "get", nil), λ.NewStr("error_code")), λ.NewStr("INVALID_POLICY_KEY")); !λ.IsTrue(λv) {
+													return λv
+												} else {
+													return λ.NewBool(!λ.IsTrue(ϒpolicy_key_extracted))
+												}
+											}()) {
+												ϒpolicy_key = λ.None
+												λ.Cal(ϒstore_pk, λ.None)
+												λexit = λ.BlockExitContinue
+												return
+											}
+										}
+										panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(ϒmessage), λ.KWArgs{
+											{Name: "expected", Value: λ.True},
+										})))
 									}
-									panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(ϒmessage), λ.KWArgs{
-										{Name: "expected", Value: λ.True},
-									})))
-								}
-								panic(λ.Raise(λex))
-							}},
-						)
-						ϒjson_data = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-							ϒapi_url,
-							ϒvideo_id,
-						), λ.KWArgs{
-							{Name: "headers", Value: ϒheaders},
-						})
-						return λ.BlockExitNormally, nil
-					}()
+									panic(λ.Raise(λex))
+								}},
+							)
+							ϒjson_data = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+								ϒapi_url,
+								ϒvideo_id,
+							), λ.KWArgs{
+								{Name: "headers", Value: ϒheaders},
+							})
+							λexit = λ.BlockExitBreak
+							return
+							return λ.BlockExitNormally, nil
+						}()
+						if τmp2 == λ.BlockExitBreak {
+							break
+						}
+						if τmp2 == λ.BlockExitContinue {
+							continue
+						}
+					}
 					ϒerrors = λ.Cal(λ.GetAttr(ϒjson_data, "get", nil), λ.NewStr("errors"))
 					if λ.IsTrue(func() λ.Object {
 						if λv := ϒerrors; !λ.IsTrue(λv) {

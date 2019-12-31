@@ -57,7 +57,7 @@ func init() {
 			var (
 				MailRuIE__VALID_URL λ.Object
 			)
-			MailRuIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:(?:www|m)\\.)?my\\.mail\\.ru/\n                        (?:\n                            video/.*\\#video=/?(?P<idv1>(?:[^/]+/){3}\\d+)|\n                            (?:(?P<idv2prefix>(?:[^/]+/){2})video/(?P<idv2suffix>[^/]+/\\d+))\\.html|\n                            (?:video/embed|\\+/video/meta)/(?P<metaid>\\d+)\n                        )\n                    ")
+			MailRuIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:(?:www|m)\\.)?my\\.mail\\.ru/+\n                        (?:\n                            video/.*\\#video=/?(?P<idv1>(?:[^/]+/){3}\\d+)|\n                            (?:(?P<idv2prefix>(?:[^/]+/+){2})video/(?P<idv2suffix>[^/]+/\\d+))\\.html|\n                            (?:video/embed|\\+/video/meta)/(?P<metaid>\\d+)\n                        )\n                    ")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): MailRuIE__VALID_URL,
 			})
@@ -272,7 +272,7 @@ func init() {
 				MailRuMusicIE__real_extract λ.Object
 			)
 			MailRuMusicIE_IE_NAME = λ.NewStr("mailru:music")
-			MailRuMusicIE__VALID_URL = λ.NewStr("https?://my\\.mail\\.ru/music/songs/[^/?#&]+-(?P<id>[\\da-f]+)")
+			MailRuMusicIE__VALID_URL = λ.NewStr("https?://my\\.mail\\.ru/+music/+songs/+[^/?#&]+-(?P<id>[\\da-f]+)")
 			MailRuMusicIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -331,7 +331,7 @@ func init() {
 			var (
 				MailRuMusicSearchIE__VALID_URL λ.Object
 			)
-			MailRuMusicSearchIE__VALID_URL = λ.NewStr("https?://my\\.mail\\.ru/music/search/(?P<id>[^/?#&]+)")
+			MailRuMusicSearchIE__VALID_URL = λ.NewStr("https?://my\\.mail\\.ru/+music/+search/+(?P<id>[^/?#&]+)")
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("_VALID_URL"): MailRuMusicSearchIE__VALID_URL,
 			})

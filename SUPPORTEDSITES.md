@@ -3,6 +3,7 @@ Supported sites
 
  * AbcNewsVideo: `abcnews.go.com`
  * ABCOTVS: `abc7news.com`
+ * ACast: `www.acast.com`
  * AdobeTVEmbed: `tv.adobe.com`
  * AdobeTV: `tv.adobe.com`
  * AdobeTVVideo: `video.tv.adobe.com`
@@ -90,6 +91,7 @@ Supported sites
  * FranceInter: `www.franceinter.fr`
  * GenerationWhat: `generation-what.francetv.fr`
  * Freesound: `www.freesound.org`
+ * Freespeech: `www.freespeech.org`
  * Funk: `www.funk.net`
  * GameInformer: `www.gameinformer.com`
  * Gaskrank: `www.gaskrank.tv`
@@ -108,7 +110,6 @@ Supported sites
  * HornBunny _(adult)_: `hornbunny.com`
  * Hypem: `hypem.com`
  * IGN: `www.ign.com`
- * Imdb: `www.imdb.com`
  * Imgur: `i.imgur.com`
  * ImgurGallery: `imgur.com`
  * Ina: `www.ina.fr`
@@ -182,9 +183,9 @@ Supported sites
  * Playvid _(adult)_: `www.playvid.com`
  * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
+ * Porn91 _(adult)_: `91porn.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
- * PuhuTV: `puhutv.com`
  * RadioDe: `ndr2.radio.de`
  * RadioJavan: `www.radiojavan.com`
  * Rai: `www.raisport.rai.it`
@@ -210,6 +211,7 @@ Supported sites
  * SlidesLive: `slideslive.com`
  * SonyLIV: `www.sonyliv.com`
  * Soundgasm: `soundgasm.net`
+ * SpankBang _(adult)_: `spankbang.com`
  * Spiegel: `www.spiegel.de`
  * Stitcher: `www.stitcher.com`
  * SRGSSRPlay: `www.rts.ch`
@@ -221,7 +223,6 @@ Supported sites
  * Tagesschau: `www.tagesschau.de`
  * TastyTrade: `www.tastytrade.com`
  * TDSLifeway: `tds.lifeway.com`
- * TeachingChannel: `www.teachingchannel.org`
  * Teamcoco: `teamcoco.com`
  * TeamTreeHouse: `teamtreehouse.com`
  * TED: `www.ted.com`
