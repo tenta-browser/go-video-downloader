@@ -43,6 +43,8 @@ var (
 	ϒint_or_none   λ.Object
 	ϒparse_iso8601 λ.Object
 	ϒqualities     λ.Object
+	ϒtry_get       λ.Object
+	ϒurljoin       λ.Object
 )
 
 func init() {
@@ -52,6 +54,8 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒqualities = Ωutils.ϒqualities
+		ϒtry_get = Ωutils.ϒtry_get
+		ϒurljoin = Ωutils.ϒurljoin
 		NDRBaseIE = λ.Cal(λ.TypeType, λ.NewStr("NDRBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				NDRBaseIE__real_extract λ.Object
@@ -189,31 +193,35 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒconfig      λ.Object
-						ϒduration    λ.Object
-						ϒext         λ.Object
-						ϒf           λ.Object
-						ϒff          λ.Object
-						ϒformat_id   λ.Object
-						ϒformats     λ.Object
-						ϒlive        λ.Object
-						ϒmobj        λ.Object
-						ϒplaylist    λ.Object
-						ϒppjson      λ.Object
-						ϒquality     λ.Object
-						ϒquality_key λ.Object
-						ϒself        = λargs[0]
-						ϒsrc         λ.Object
-						ϒthumbnails  λ.Object
-						ϒtitle       λ.Object
-						ϒtype_       λ.Object
-						ϒupload_date λ.Object
-						ϒuploader    λ.Object
-						ϒurl         = λargs[1]
-						ϒvideo_id    λ.Object
-						τmp0         λ.Object
-						τmp1         λ.Object
-						τmp2         λ.Object
+						ϒconfig        λ.Object
+						ϒduration      λ.Object
+						ϒext           λ.Object
+						ϒf             λ.Object
+						ϒff            λ.Object
+						ϒformat_id     λ.Object
+						ϒformats       λ.Object
+						ϒlive          λ.Object
+						ϒmobj          λ.Object
+						ϒplaylist      λ.Object
+						ϒposter        λ.Object
+						ϒppjson        λ.Object
+						ϒquality       λ.Object
+						ϒquality_key   λ.Object
+						ϒself          = λargs[0]
+						ϒsrc           λ.Object
+						ϒthumbnail     λ.Object
+						ϒthumbnail_id  λ.Object
+						ϒthumbnail_url λ.Object
+						ϒthumbnails    λ.Object
+						ϒtitle         λ.Object
+						ϒtype_         λ.Object
+						ϒupload_date   λ.Object
+						ϒuploader      λ.Object
+						ϒurl           = λargs[1]
+						ϒvideo_id      λ.Object
+						τmp0           λ.Object
+						τmp1           λ.Object
+						τmp2           λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
 					ϒvideo_id = func() λ.Object {
@@ -312,43 +320,48 @@ func init() {
 					ϒuploader = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒppjson, "get", nil), λ.NewStr("config"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("branding"))
 					ϒupload_date = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒppjson, "get", nil), λ.NewStr("config"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("publicationDate"))
 					ϒduration = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("duration")))
-					ϒthumbnails = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
-						nil,
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
+					ϒthumbnails = λ.NewList()
+					ϒposter = func() λ.Object {
+						if λv := λ.Cal(ϒtry_get, ϒconfig, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
 								var (
-									ϒthumbnail    λ.Object
-									ϒthumbnail_id λ.Object
-									τmp0          λ.Object
-									τmp1          λ.Object
-									τmp2          λ.Object
+									ϒx = λargs[0]
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("poster"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "items", nil)))
-								for {
-									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-										break
-									}
-									τmp2 = τmp1
-									ϒthumbnail_id = λ.GetItem(τmp2, λ.NewInt(0))
-									ϒthumbnail = λ.GetItem(τmp2, λ.NewInt(1))
-									if λ.IsTrue(λ.Cal(λ.GetAttr(ϒthumbnail, "get", nil), λ.NewStr("src"))) {
-										λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-											λ.NewStr("id"): func() λ.Object {
-												if λv := λ.Cal(λ.GetAttr(ϒthumbnail, "get", nil), λ.NewStr("quality")); λ.IsTrue(λv) {
-													return λv
-												} else {
-													return ϒthumbnail_id
-												}
-											}(),
-											λ.NewStr("url"):        λ.GetItem(ϒthumbnail, λ.NewStr("src")),
-											λ.NewStr("preference"): λ.Cal(ϒquality_key, λ.Cal(λ.GetAttr(ϒthumbnail, "get", nil), λ.NewStr("quality"))),
-										}))
-									}
+								return λ.GetItem(ϒx, λ.NewStr("poster"))
+							}), λ.DictType); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+						}
+					}()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒposter, "items", nil)))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						τmp2 = τmp1
+						ϒthumbnail_id = λ.GetItem(τmp2, λ.NewInt(0))
+						ϒthumbnail = λ.GetItem(τmp2, λ.NewInt(1))
+						ϒthumbnail_url = λ.Cal(ϒurljoin, ϒurl, λ.Cal(λ.GetAttr(ϒthumbnail, "get", nil), λ.NewStr("src")))
+						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒthumbnail_url))) {
+							continue
+						}
+						λ.Cal(λ.GetAttr(ϒthumbnails, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
+							λ.NewStr("id"): func() λ.Object {
+								if λv := λ.Cal(λ.GetAttr(ϒthumbnail, "get", nil), λ.NewStr("quality")); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return ϒthumbnail_id
 								}
-								return λ.None
-							})
-						})))
+							}(),
+							λ.NewStr("url"):        ϒthumbnail_url,
+							λ.NewStr("preference"): λ.Cal(ϒquality_key, λ.Cal(λ.GetAttr(ϒthumbnail, "get", nil), λ.NewStr("quality"))),
+						}))
+					}
 					return λ.NewDictWithTable(map[λ.Object]λ.Object{
 						λ.NewStr("id"):      ϒvideo_id,
 						λ.NewStr("title"):   ϒtitle,

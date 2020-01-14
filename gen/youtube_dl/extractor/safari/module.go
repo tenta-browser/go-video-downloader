@@ -283,6 +283,9 @@ func init() {
 							λ.NewStr("Unable to download kaltura session JSON"),
 						), λ.KWArgs{
 							{Name: "fatal", Value: λ.False},
+							{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
+								λ.NewStr("Accept"): λ.NewStr("application/json"),
+							})},
 						})
 						if λ.IsTrue(ϒkaltura_session) {
 							ϒsession = λ.Cal(λ.GetAttr(ϒkaltura_session, "get", nil), λ.NewStr("session"))

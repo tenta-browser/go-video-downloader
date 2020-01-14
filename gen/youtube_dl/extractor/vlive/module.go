@@ -28,39 +28,36 @@ import (
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
+	Ωnaver "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/naver"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	ExtractorError                 λ.Object
-	InfoExtractor                  λ.Object
-	VLiveChannelIE                 λ.Object
-	VLiveIE                        λ.Object
-	VLivePlaylistIE                λ.Object
-	ϒcompat_str                    λ.Object
-	ϒcompat_urllib_parse_urlencode λ.Object
-	ϒdict_get                      λ.Object
-	ϒfloat_or_none                 λ.Object
-	ϒint_or_none                   λ.Object
-	ϒremove_start                  λ.Object
-	ϒtry_get                       λ.Object
-	ϒurlencode_postdata            λ.Object
+	ExtractorError      λ.Object
+	InfoExtractor       λ.Object
+	NaverBaseIE         λ.Object
+	VLiveChannelIE      λ.Object
+	VLiveIE             λ.Object
+	VLivePlaylistIE     λ.Object
+	ϒcompat_str         λ.Object
+	ϒmerge_dicts        λ.Object
+	ϒremove_start       λ.Object
+	ϒtry_get            λ.Object
+	ϒurlencode_postdata λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒcompat_urllib_parse_urlencode = Ωcompat.ϒcompat_urllib_parse_urlencode
+		NaverBaseIE = Ωnaver.NaverBaseIE
 		ϒcompat_str = Ωcompat.ϒcompat_str
-		ϒdict_get = Ωutils.ϒdict_get
 		ExtractorError = Ωutils.ExtractorError
-		ϒfloat_or_none = Ωutils.ϒfloat_or_none
-		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒmerge_dicts = Ωutils.ϒmerge_dicts
 		ϒremove_start = Ωutils.ϒremove_start
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
-		VLiveIE = λ.Cal(λ.TypeType, λ.NewStr("VLiveIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		VLiveIE = λ.Cal(λ.TypeType, λ.NewStr("VLiveIE"), λ.NewTuple(NaverBaseIE), func() λ.Dict {
 			var (
 				VLiveIE_IE_NAME            λ.Object
 				VLiveIE__NETRC_MACHINE     λ.Object
@@ -358,22 +355,14 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒcaption       λ.Object
-						ϒformats       λ.Object
-						ϒinfo          λ.Object
 						ϒinit_page     λ.Object
 						ϒkey           = λargs[4]
-						ϒlang          λ.Object
 						ϒlong_video_id = λargs[3]
-						ϒplayinfo      λ.Object
 						ϒself          = λargs[0]
-						ϒsubtitles     λ.Object
 						ϒvideo_id      = λargs[1]
 						ϒvideo_info    λ.Object
-						ϒview_count    λ.Object
 						ϒwebpage       = λargs[2]
 						τmp0           λ.Object
-						τmp1           λ.Object
 					)
 					if λ.IsTrue(λ.NewBool(λ.Contains(λ.NewTuple(
 						ϒlong_video_id,
@@ -394,80 +383,7 @@ func init() {
 						ϒlong_video_id = λ.GetItem(τmp0, λ.NewInt(0))
 						ϒkey = λ.GetItem(τmp0, λ.NewInt(1))
 					}
-					ϒplayinfo = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("http://global.apis.naver.com/rmcnmv/rmcnmv/vod_play_videoInfo.json?%s"), λ.Cal(ϒcompat_urllib_parse_urlencode, λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("videoId"): ϒlong_video_id,
-						λ.NewStr("key"):     ϒkey,
-						λ.NewStr("ptc"):     λ.NewStr("http"),
-						λ.NewStr("doct"):    λ.NewStr("json"),
-						λ.NewStr("cpt"):     λ.NewStr("vtt"),
-					}))), ϒvideo_id)
-					ϒformats = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
-						nil,
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
-								var (
-									ϒvid λ.Object
-									τmp0 λ.Object
-									τmp1 λ.Object
-								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒplayinfo, "get", nil), λ.NewStr("videos"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("list"), λ.NewList()))
-								for {
-									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-										break
-									}
-									ϒvid = τmp1
-									if λ.IsTrue(λ.Cal(λ.GetAttr(ϒvid, "get", nil), λ.NewStr("source"))) {
-										λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-											λ.NewStr("url"):       λ.GetItem(ϒvid, λ.NewStr("source")),
-											λ.NewStr("format_id"): λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvid, "get", nil), λ.NewStr("encodingOption"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("name")),
-											λ.NewStr("abr"):       λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvid, "get", nil), λ.NewStr("bitrate"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("audio"))),
-											λ.NewStr("vbr"):       λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvid, "get", nil), λ.NewStr("bitrate"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("video"))),
-											λ.NewStr("width"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvid, "get", nil), λ.NewStr("encodingOption"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("width"))),
-											λ.NewStr("height"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvid, "get", nil), λ.NewStr("encodingOption"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("height"))),
-											λ.NewStr("filesize"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvid, "get", nil), λ.NewStr("size"))),
-										}))
-									}
-								}
-								return λ.None
-							})
-						})))
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					ϒview_count = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒplayinfo, "get", nil), λ.NewStr("meta"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("count")))
-					ϒsubtitles = λ.NewDictWithTable(map[λ.Object]λ.Object{})
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒplayinfo, "get", nil), λ.NewStr("captions"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("list"), λ.NewList()))
-					for {
-						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-							break
-						}
-						ϒcaption = τmp1
-						ϒlang = λ.Cal(ϒdict_get, ϒcaption, λ.NewTuple(
-							λ.NewStr("locale"),
-							λ.NewStr("language"),
-							λ.NewStr("country"),
-							λ.NewStr("label"),
-						))
-						if λ.IsTrue(func() λ.Object {
-							if λv := ϒlang; !λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.Cal(λ.GetAttr(ϒcaption, "get", nil), λ.NewStr("source"))
-							}
-						}()) {
-							λ.SetItem(ϒsubtitles, ϒlang, λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("ext"): λ.NewStr("vtt"),
-								λ.NewStr("url"): λ.GetItem(ϒcaption, λ.NewStr("source")),
-							})))
-						}
-					}
-					ϒinfo = λ.Cal(λ.GetAttr(ϒself, "_get_common_fields", nil), ϒwebpage)
-					λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         ϒvideo_id,
-						λ.NewStr("formats"):    ϒformats,
-						λ.NewStr("view_count"): ϒview_count,
-						λ.NewStr("subtitles"):  ϒsubtitles,
-					}))
-					return ϒinfo
+					return λ.Cal(ϒmerge_dicts, λ.Cal(λ.GetAttr(ϒself, "_get_common_fields", nil), ϒwebpage), λ.Cal(λ.GetAttr(ϒself, "_extract_video_info", nil), ϒvideo_id, ϒlong_video_id, ϒkey))
 				})
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
 				λ.NewStr("IE_NAME"):            VLiveIE_IE_NAME,

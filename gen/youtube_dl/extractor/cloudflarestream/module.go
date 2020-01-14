@@ -39,10 +39,23 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		CloudflareStreamIE = λ.Cal(λ.TypeType, λ.NewStr("CloudflareStreamIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
+				CloudflareStreamIE__DOMAIN_RE λ.Object
+				CloudflareStreamIE__EMBED_RE  λ.Object
+				CloudflareStreamIE__ID_RE     λ.Object
 				CloudflareStreamIE__VALID_URL λ.Object
 			)
-			CloudflareStreamIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            (?:watch\\.)?(?:cloudflarestream\\.com|videodelivery\\.net)/|\n                            embed\\.(?:cloudflarestream\\.com|videodelivery\\.net)/embed/[^/]+\\.js\\?.*?\\bvideo=\n                        )\n                        (?P<id>[\\da-f]+)\n                    ")
+			CloudflareStreamIE__DOMAIN_RE = λ.NewStr("(?:cloudflarestream\\.com|(?:videodelivery|bytehighway)\\.net)")
+			CloudflareStreamIE__EMBED_RE = λ.Mod(λ.NewStr("embed\\.%s/embed/[^/]+\\.js\\?.*?\\bvideo="), CloudflareStreamIE__DOMAIN_RE)
+			CloudflareStreamIE__ID_RE = λ.NewStr("[\\da-f]{32}|[\\w-]+\\.[\\w-]+\\.[\\w-]+")
+			CloudflareStreamIE__VALID_URL = λ.Mod(λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            (?:watch\\.)?%s/|\n                            %s\n                        )\n                        (?P<id>%s)\n                    "), λ.NewTuple(
+				CloudflareStreamIE__DOMAIN_RE,
+				CloudflareStreamIE__EMBED_RE,
+				CloudflareStreamIE__ID_RE,
+			))
 			return λ.NewDictWithTable(map[λ.Object]λ.Object{
+				λ.NewStr("_DOMAIN_RE"): CloudflareStreamIE__DOMAIN_RE,
+				λ.NewStr("_EMBED_RE"):  CloudflareStreamIE__EMBED_RE,
+				λ.NewStr("_ID_RE"):     CloudflareStreamIE__ID_RE,
 				λ.NewStr("_VALID_URL"): CloudflareStreamIE__VALID_URL,
 			})
 		}())

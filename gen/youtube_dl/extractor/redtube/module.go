@@ -64,6 +64,7 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
+						ERRORS       λ.Object
 						ϒage_limit   λ.Object
 						ϒduration    λ.Object
 						ϒformat_id   λ.Object
@@ -72,6 +73,8 @@ func init() {
 						ϒinfo        λ.Object
 						ϒmedia       λ.Object
 						ϒmedias      λ.Object
+						ϒmessage     λ.Object
+						ϒpatterns    λ.Object
 						ϒself        = λargs[0]
 						ϒsources     λ.Object
 						ϒthumbnail   λ.Object
@@ -87,33 +90,59 @@ func init() {
 					)
 					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
 					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.NewStr("http://www.redtube.com/%s"), ϒvideo_id), ϒvideo_id)
-					if λ.IsTrue(λ.Cal(λ.BuiltinAny, λ.Cal(λ.NewFunction("<generator>",
-						nil,
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
-								var (
-									ϒs   λ.Object
-									τmp0 λ.Object
-									τmp1 λ.Object
-								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.NewList(
-									λ.NewStr("video-deleted-info"),
-									λ.NewStr(">This video has been removed"),
-								))
-								for {
-									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-										break
+					ERRORS = λ.NewTuple(
+						λ.NewTuple(
+							λ.NewTuple(
+								λ.NewStr("video-deleted-info"),
+								λ.NewStr(">This video has been removed"),
+							),
+							λ.NewStr("has been removed"),
+						),
+						λ.NewTuple(
+							λ.NewTuple(
+								λ.NewStr("private_video_text"),
+								λ.NewStr(">This video is private"),
+								λ.NewStr(">Send a friend request to its owner to be able to view it"),
+							),
+							λ.NewStr("is private"),
+						),
+					)
+					τmp0 = λ.Cal(λ.BuiltinIter, ERRORS)
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						τmp2 = τmp1
+						ϒpatterns = λ.GetItem(τmp2, λ.NewInt(0))
+						ϒmessage = λ.GetItem(τmp2, λ.NewInt(1))
+						if λ.IsTrue(λ.Cal(λ.BuiltinAny, λ.Cal(λ.NewFunction("<generator>",
+							nil,
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
+									var (
+										ϒp   λ.Object
+										τmp0 λ.Object
+										τmp1 λ.Object
+									)
+									τmp0 = λ.Cal(λ.BuiltinIter, ϒpatterns)
+									for {
+										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+											break
+										}
+										ϒp = τmp1
+										λgy.Yield(λ.NewBool(λ.Contains(ϒwebpage, ϒp)))
 									}
-									ϒs = τmp1
-									λgy.Yield(λ.NewBool(λ.Contains(ϒwebpage, ϒs)))
-								}
-								return λ.None
-							})
-						})))) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("Video %s has been removed"), ϒvideo_id)), λ.KWArgs{
-							{Name: "expected", Value: λ.True},
-						})))
+									return λ.None
+								})
+							})))) {
+							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("Video %s %s"), λ.NewTuple(
+								ϒvideo_id,
+								ϒmessage,
+							))), λ.KWArgs{
+								{Name: "expected", Value: λ.True},
+							})))
+						}
 					}
 					ϒinfo = λ.Call(λ.GetAttr(ϒself, "_search_json_ld", nil), λ.NewArgs(
 						ϒwebpage,

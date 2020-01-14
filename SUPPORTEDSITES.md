@@ -18,7 +18,6 @@ Supported sites
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
  * Beatport: `beatport.com`
- * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
  * BitChute: `www.bitchute.com`
@@ -61,6 +60,7 @@ Supported sites
  * DaumPlaylist: `tvpot.daum.net`
  * DaumUser: `tvpot.daum.net`
  * DBTV: `www.dagbladet.no`
+ * DctpTv: `www.dctp.tv`
  * Dotsub: `dotsub.com`
  * DrTuber _(adult)_: `www.drtuber.com`
  * DVTV: `video.aktualne.cz`
@@ -110,6 +110,7 @@ Supported sites
  * HornBunny _(adult)_: `hornbunny.com`
  * Hypem: `hypem.com`
  * IGN: `www.ign.com`
+ * Imdb: `www.imdb.com`
  * Imgur: `i.imgur.com`
  * ImgurGallery: `imgur.com`
  * Ina: `www.ina.fr`
@@ -172,7 +173,6 @@ Supported sites
  * PacktPub: `www.packtpub.com`
  * PandoraTV: `jp.channel.pandora.tv`
  * ParliamentLiveUK: `parliamentlive.tv`
- * Patreon: `www.patreon.com`
  * PBS: `www.pbs.org`
  * PearVideo: `www.pearvideo.com`
  * People: `www.people.com`
@@ -194,7 +194,6 @@ Supported sites
  * ReverbNation: `www.reverbnation.com`
  * RockstarGames: `www.rockstargames.com`
  * Rozhlas: `prehravac.rozhlas.cz`
- * RTP: `www.rtp.pt`
  * RTS: `www.rts.ch`
  * RUTV: `player.rutv.ru`
  * Ruutu: `www.ruutu.fi`
@@ -212,7 +211,6 @@ Supported sites
  * SonyLIV: `www.sonyliv.com`
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
- * Spiegel: `www.spiegel.de`
  * Stitcher: `www.stitcher.com`
  * SRGSSRPlay: `www.rts.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
@@ -250,17 +248,16 @@ Supported sites
  * TwentyThreeVideo: `video.twentythree.net`
  * TwitchClips: `clips.twitch.tv`
  * TwitterAmplify: `amp.twimg.com`
- * UDNEmbed: `video.udn.com`
  * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
  * UstudioEmbed: `app.ustudio.com`
  * Varzesh3: `video.varzesh3.com`
  * Vbox7: `vbox7.com`
- * VeeHD: `veehd.com`
  * Veoh: `www.veoh.com`
  * Vesti: `www.vesti.ru`
  * Vevo _(adult)_: `www.vevo.com`
  * VGTV: `www.vgtv.no`
+ * ViceArticle: `www.vice.com`
  * Viddler: `www.viddler.com`
  * Videa: `videa.hu`
  * VideoPress: `videopress.com`
