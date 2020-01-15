@@ -46,12 +46,12 @@ func init() {
 		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
-		BitChuteIE = λ.Cal(λ.TypeType, λ.NewStr("BitChuteIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		BitChuteIE = λ.Cal(λ.TypeType, λ.StrLiteral("BitChuteIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				BitChuteIE__VALID_URL    λ.Object
 				BitChuteIE__real_extract λ.Object
 			)
-			BitChuteIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bitchute\\.com/(?:video|embed|torrent/[^/]+)/(?P<id>[^/?#&]+)")
+			BitChuteIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?bitchute\\.com/(?:video|embed|torrent/[^/]+)/(?P<id>[^/?#&]+)")
 			BitChuteIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -75,49 +75,49 @@ func init() {
 						τmp0         λ.Object
 						τmp1         λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒwebpage = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
-						λ.Mod(λ.NewStr("https://www.bitchute.com/video/%s"), ϒvideo_id),
+						λ.Mod(λ.StrLiteral("https://www.bitchute.com/video/%s"), ϒvideo_id),
 						ϒvideo_id,
 					), λ.KWArgs{
-						{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("User-Agent"): λ.NewStr("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.57 Safari/537.36"),
+						{Name: "headers", Value: λ.DictLiteral(map[string]string{
+							"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.57 Safari/537.36",
 						})},
 					})
 					ϒtitle = func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 							λ.NewTuple(
-								λ.NewStr("<[^>]+\\bid=[\"\\']video-title[^>]+>([^<]+)"),
-								λ.NewStr("<title>([^<]+)"),
+								λ.StrLiteral("<[^>]+\\bid=[\"\\']video-title[^>]+>([^<]+)"),
+								λ.StrLiteral("<title>([^<]+)"),
 							),
 							ϒwebpage,
-							λ.NewStr("title"),
+							λ.StrLiteral("title"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}); λ.IsTrue(λv) {
 							return λv
 						} else if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
-							λ.NewStr("description"),
+							λ.StrLiteral("description"),
 							ϒwebpage,
-							λ.NewStr("title"),
+							λ.StrLiteral("title"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_og_search_description", nil), ϒwebpage)
+							return λ.Calm(ϒself, "_og_search_description", ϒwebpage)
 						}
 					}()
 					ϒformat_urls = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfinditer, λ.NewStr("addWebSeed\\s*\\(\\s*([\"\\'])(?P<url>(?:(?!\\1).)+)\\1"), ϒwebpage))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfinditer, λ.StrLiteral("addWebSeed\\s*\\(\\s*([\"\\'])(?P<url>(?:(?!\\1).)+)\\1"), ϒwebpage))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒmobj = τmp1
-						λ.Cal(λ.GetAttr(ϒformat_urls, "append", nil), λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("url")))
+						λ.Calm(ϒformat_urls, "append", λ.Calm(ϒmobj, "group", λ.StrLiteral("url")))
 					}
-					λ.Cal(λ.GetAttr(ϒformat_urls, "extend", nil), λ.Cal(Ωre.ϒfindall, λ.NewStr("as=(https?://[^&\"\\']+)"), ϒwebpage))
+					λ.Calm(ϒformat_urls, "extend", λ.Cal(Ωre.ϒfindall, λ.StrLiteral("as=(https?://[^&\"\\']+)"), ϒwebpage))
 					ϒformats = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -134,22 +134,22 @@ func init() {
 										break
 									}
 									ϒformat_url = τmp1
-									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("url"): ϒformat_url,
+									λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+										"url": ϒformat_url,
 									}))
 								}
 								return λ.None
 							})
 						})))
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
-						ϒformats = λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_html5_media_entries", nil), ϒurl, ϒwebpage, ϒvideo_id), λ.NewInt(0)), λ.NewStr("formats"))
+					if !λ.IsTrue(ϒformats) {
+						ϒformats = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_parse_html5_media_entries", ϒurl, ϒwebpage, ϒvideo_id), λ.IntLiteral(0)), λ.StrLiteral("formats"))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_check_formats", nil), ϒformats, ϒvideo_id)
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_check_formats", ϒformats, ϒvideo_id)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒdescription = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("(?s)<div\\b[^>]+\\bclass=[\"\\']full hidden[^>]+>(.+?)</div>"),
+						λ.StrLiteral("(?s)<div\\b[^>]+\\bclass=[\"\\']full hidden[^>]+>(.+?)</div>"),
 						ϒwebpage,
-						λ.NewStr("description"),
+						λ.StrLiteral("description"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
@@ -159,48 +159,48 @@ func init() {
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewStr("twitter:image:src"), ϒwebpage, λ.NewStr("thumbnail"))
+							return λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("twitter:image:src"), ϒwebpage, λ.StrLiteral("thumbnail"))
 						}
 					}()
 					ϒuploader = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 						λ.NewTuple(
-							λ.NewStr("(?s)<div class=[\"\\']channel-banner.*?<p\\b[^>]+\\bclass=[\"\\']name[^>]+>(.+?)</p>"),
-							λ.NewStr("(?s)<p\\b[^>]+\\bclass=[\"\\']video-author[^>]+>(.+?)</p>"),
+							λ.StrLiteral("(?s)<div class=[\"\\']channel-banner.*?<p\\b[^>]+\\bclass=[\"\\']name[^>]+>(.+?)</p>"),
+							λ.StrLiteral("(?s)<p\\b[^>]+\\bclass=[\"\\']video-author[^>]+>(.+?)</p>"),
 						),
 						ϒwebpage,
-						λ.NewStr("uploader"),
+						λ.StrLiteral("uploader"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
 					ϒupload_date = λ.Cal(ϒunified_strdate, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("class=[\"\\']video-publish-date[^>]+>[^<]+ at \\d+:\\d+ UTC on (.+?)\\."),
+						λ.StrLiteral("class=[\"\\']video-publish-date[^>]+>[^<]+ at \\d+:\\d+ UTC on (.+?)\\."),
 						ϒwebpage,
-						λ.NewStr("upload date"),
+						λ.StrLiteral("upload date"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("thumbnail"):   ϒthumbnail,
-						λ.NewStr("uploader"):    ϒuploader,
-						λ.NewStr("upload_date"): ϒupload_date,
-						λ.NewStr("formats"):     ϒformats,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"thumbnail":   ϒthumbnail,
+						"uploader":    ϒuploader,
+						"upload_date": ϒupload_date,
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    BitChuteIE__VALID_URL,
-				λ.NewStr("_real_extract"): BitChuteIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    BitChuteIE__VALID_URL,
+				"_real_extract": BitChuteIE__real_extract,
 			})
 		}())
-		BitChuteChannelIE = λ.Cal(λ.TypeType, λ.NewStr("BitChuteChannelIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		BitChuteChannelIE = λ.Cal(λ.TypeType, λ.StrLiteral("BitChuteChannelIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				BitChuteChannelIE__VALID_URL λ.Object
 			)
-			BitChuteChannelIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bitchute\\.com/channel/(?P<id>[^/?#&]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): BitChuteChannelIE__VALID_URL,
+			BitChuteChannelIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?bitchute\\.com/channel/(?P<id>[^/?#&]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": BitChuteChannelIE__VALID_URL,
 			})
 		}())
 	})

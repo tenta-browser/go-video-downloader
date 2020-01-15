@@ -37,14 +37,14 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ParliamentLiveUKIE = λ.Cal(λ.TypeType, λ.NewStr("ParliamentLiveUKIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ParliamentLiveUKIE = λ.Cal(λ.TypeType, λ.StrLiteral("ParliamentLiveUKIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ParliamentLiveUKIE_IE_NAME       λ.Object
 				ParliamentLiveUKIE__VALID_URL    λ.Object
 				ParliamentLiveUKIE__real_extract λ.Object
 			)
-			ParliamentLiveUKIE_IE_NAME = λ.NewStr("parliamentlive.tv")
-			ParliamentLiveUKIE__VALID_URL = λ.NewStr("(?i)https?://(?:www\\.)?parliamentlive\\.tv/Event/Index/(?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
+			ParliamentLiveUKIE_IE_NAME = λ.StrLiteral("parliamentlive.tv")
+			ParliamentLiveUKIE__VALID_URL = λ.StrLiteral("(?i)https?://(?:www\\.)?parliamentlive\\.tv/Event/Index/(?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
 			ParliamentLiveUKIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -61,26 +61,26 @@ func init() {
 						ϒwebpage       λ.Object
 						ϒwidget_config λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Add(λ.NewStr("http://vodplayer.parliamentlive.tv/?mid="), ϒvideo_id), ϒvideo_id)
-					ϒwidget_config = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("(?s)kWidgetConfig\\s*=\\s*({.+});"), ϒwebpage, λ.NewStr("kaltura widget config")), ϒvideo_id)
-					ϒkaltura_url = λ.Mod(λ.NewStr("kaltura:%s:%s"), λ.NewTuple(
-						λ.GetItem(λ.GetItem(ϒwidget_config, λ.NewStr("wid")), λ.NewSlice(λ.NewInt(1), λ.None, λ.None)),
-						λ.GetItem(ϒwidget_config, λ.NewStr("entry_id")),
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", λ.Add(λ.StrLiteral("http://vodplayer.parliamentlive.tv/?mid="), ϒvideo_id), ϒvideo_id)
+					ϒwidget_config = λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("(?s)kWidgetConfig\\s*=\\s*({.+});"), ϒwebpage, λ.StrLiteral("kaltura widget config")), ϒvideo_id)
+					ϒkaltura_url = λ.Mod(λ.StrLiteral("kaltura:%s:%s"), λ.NewTuple(
+						λ.GetItem(λ.GetItem(ϒwidget_config, λ.StrLiteral("wid")), λ.NewSlice(λ.IntLiteral(1), λ.None, λ.None)),
+						λ.GetItem(ϒwidget_config, λ.StrLiteral("entry_id")),
 					))
-					ϒevent_title = λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Add(λ.NewStr("http://parliamentlive.tv/Event/GetShareVideo/"), ϒvideo_id), ϒvideo_id), λ.NewStr("event")), λ.NewStr("title"))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):       λ.NewStr("url_transparent"),
-						λ.NewStr("title"):       ϒevent_title,
-						λ.NewStr("description"): λ.NewStr(""),
-						λ.NewStr("url"):         ϒkaltura_url,
-						λ.NewStr("ie_key"):      λ.NewStr("Kaltura"),
+					ϒevent_title = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_download_json", λ.Add(λ.StrLiteral("http://parliamentlive.tv/Event/GetShareVideo/"), ϒvideo_id), ϒvideo_id), λ.StrLiteral("event")), λ.StrLiteral("title"))
+					return λ.DictLiteral(map[string]λ.Object{
+						"_type":       λ.StrLiteral("url_transparent"),
+						"title":       ϒevent_title,
+						"description": λ.StrLiteral(""),
+						"url":         ϒkaltura_url,
+						"ie_key":      λ.StrLiteral("Kaltura"),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       ParliamentLiveUKIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    ParliamentLiveUKIE__VALID_URL,
-				λ.NewStr("_real_extract"): ParliamentLiveUKIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       ParliamentLiveUKIE_IE_NAME,
+				"_VALID_URL":    ParliamentLiveUKIE__VALID_URL,
+				"_real_extract": ParliamentLiveUKIE__real_extract,
 			})
 		}())
 	})

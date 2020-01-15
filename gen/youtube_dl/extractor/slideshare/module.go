@@ -45,12 +45,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ExtractorError = Ωutils.ExtractorError
 		ϒget_element_by_id = Ωutils.ϒget_element_by_id
-		SlideshareIE = λ.Cal(λ.TypeType, λ.NewStr("SlideshareIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SlideshareIE = λ.Cal(λ.TypeType, λ.StrLiteral("SlideshareIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SlideshareIE__VALID_URL    λ.Object
 				SlideshareIE__real_extract λ.Object
 			)
-			SlideshareIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?slideshare\\.net/[^/]+?/(?P<title>.+?)($|\\?)")
+			SlideshareIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?slideshare\\.net/[^/]+?/(?P<title>.+?)($|\\?)")
 			SlideshareIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -73,51 +73,51 @@ func init() {
 						ϒwebpage        λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒpage_title = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("title"))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒpage_title)
-					ϒslideshare_obj = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("\\$\\.extend\\(.*?slideshare_object,\\s*(\\{.*?\\})\\);"), ϒwebpage, λ.NewStr("slideshare object"))
+					ϒpage_title = λ.Calm(ϒmobj, "group", λ.StrLiteral("title"))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒpage_title)
+					ϒslideshare_obj = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("\\$\\.extend\\(.*?slideshare_object,\\s*(\\{.*?\\})\\);"), ϒwebpage, λ.StrLiteral("slideshare object"))
 					ϒinfo = λ.Cal(Ωjson.ϒloads, ϒslideshare_obj)
-					if λ.IsTrue(λ.Ne(λ.GetItem(λ.GetItem(ϒinfo, λ.NewStr("slideshow")), λ.NewStr("type")), λ.NewStr("video"))) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("Webpage type is \"%s\": only video extraction is supported for Slideshare"), λ.GetItem(λ.GetItem(ϒinfo, λ.NewStr("slideshow")), λ.NewStr("type")))), λ.KWArgs{
+					if λ.IsTrue(λ.Ne(λ.GetItem(λ.GetItem(ϒinfo, λ.StrLiteral("slideshow")), λ.StrLiteral("type")), λ.StrLiteral("video"))) {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("Webpage type is \"%s\": only video extraction is supported for Slideshare"), λ.GetItem(λ.GetItem(ϒinfo, λ.StrLiteral("slideshow")), λ.StrLiteral("type")))), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
-					ϒdoc = λ.GetItem(ϒinfo, λ.NewStr("doc"))
-					ϒbucket = λ.GetItem(λ.GetItem(ϒinfo, λ.NewStr("jsplayer")), λ.NewStr("video_bucket"))
-					ϒext = λ.GetItem(λ.GetItem(ϒinfo, λ.NewStr("jsplayer")), λ.NewStr("video_extension"))
-					ϒvideo_url = λ.Cal(Ωparse.ϒurljoin, ϒbucket, λ.Add(λ.Add(ϒdoc, λ.NewStr("-SD.")), ϒext))
+					ϒdoc = λ.GetItem(ϒinfo, λ.StrLiteral("doc"))
+					ϒbucket = λ.GetItem(λ.GetItem(ϒinfo, λ.StrLiteral("jsplayer")), λ.StrLiteral("video_bucket"))
+					ϒext = λ.GetItem(λ.GetItem(ϒinfo, λ.StrLiteral("jsplayer")), λ.StrLiteral("video_extension"))
+					ϒvideo_url = λ.Cal(Ωparse.ϒurljoin, ϒbucket, λ.Add(λ.Add(ϒdoc, λ.StrLiteral("-SD.")), ϒext))
 					ϒdescription = func() λ.Object {
-						if λv := λ.Cal(ϒget_element_by_id, λ.NewStr("slideshow-description-paragraph"), ϒwebpage); λ.IsTrue(λv) {
+						if λv := λ.Cal(ϒget_element_by_id, λ.StrLiteral("slideshow-description-paragraph"), ϒwebpage); λ.IsTrue(λv) {
 							return λv
 						} else {
 							return λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-								λ.NewStr("(?s)<p[^>]+itemprop=\"description\"[^>]*>(.+?)</p>"),
+								λ.StrLiteral("(?s)<p[^>]+itemprop=\"description\"[^>]*>(.+?)</p>"),
 								ϒwebpage,
-								λ.NewStr("description"),
+								λ.StrLiteral("description"),
 							), λ.KWArgs{
 								{Name: "fatal", Value: λ.False},
 							})
 						}
 					}()
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):     λ.NewStr("video"),
-						λ.NewStr("id"):        λ.GetItem(λ.GetItem(ϒinfo, λ.NewStr("slideshow")), λ.NewStr("id")),
-						λ.NewStr("title"):     λ.GetItem(λ.GetItem(ϒinfo, λ.NewStr("slideshow")), λ.NewStr("title")),
-						λ.NewStr("ext"):       ϒext,
-						λ.NewStr("url"):       ϒvideo_url,
-						λ.NewStr("thumbnail"): λ.GetItem(λ.GetItem(ϒinfo, λ.NewStr("slideshow")), λ.NewStr("pin_image_url")),
-						λ.NewStr("description"): func() λ.Object {
+					return λ.DictLiteral(map[string]λ.Object{
+						"_type":     λ.StrLiteral("video"),
+						"id":        λ.GetItem(λ.GetItem(ϒinfo, λ.StrLiteral("slideshow")), λ.StrLiteral("id")),
+						"title":     λ.GetItem(λ.GetItem(ϒinfo, λ.StrLiteral("slideshow")), λ.StrLiteral("title")),
+						"ext":       ϒext,
+						"url":       ϒvideo_url,
+						"thumbnail": λ.GetItem(λ.GetItem(ϒinfo, λ.StrLiteral("slideshow")), λ.StrLiteral("pin_image_url")),
+						"description": func() λ.Object {
 							if λ.IsTrue(ϒdescription) {
-								return λ.Cal(λ.GetAttr(ϒdescription, "strip", nil))
+								return λ.Calm(ϒdescription, "strip")
 							} else {
 								return λ.None
 							}
 						}(),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    SlideshareIE__VALID_URL,
-				λ.NewStr("_real_extract"): SlideshareIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    SlideshareIE__VALID_URL,
+				"_real_extract": SlideshareIE__real_extract,
 			})
 		}())
 	})

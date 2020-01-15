@@ -38,12 +38,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		CloserToTruthIE = λ.Cal(λ.TypeType, λ.NewStr("CloserToTruthIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		CloserToTruthIE = λ.Cal(λ.TypeType, λ.StrLiteral("CloserToTruthIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CloserToTruthIE__VALID_URL    λ.Object
 				CloserToTruthIE__real_extract λ.Object
 			)
-			CloserToTruthIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?closertotruth\\.com/(?:[^/]+/)*(?P<id>[^/?#&]+)")
+			CloserToTruthIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?closertotruth\\.com/(?:[^/]+/)*(?P<id>[^/?#&]+)")
 			CloserToTruthIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -66,66 +66,66 @@ func init() {
 						τmp0        λ.Object
 						τmp1        λ.Object
 					)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
-					ϒpartner_id = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<script[^>]+src=[\"\\'].*?\\b(?:partner_id|p)/(\\d+)"), ϒwebpage, λ.NewStr("kaltura partner_id"))
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<title>(.+?)\\s*\\|\\s*.+?</title>"), ϒwebpage, λ.NewStr("video title"))
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
+					ϒpartner_id = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<script[^>]+src=[\"\\'].*?\\b(?:partner_id|p)/(\\d+)"), ϒwebpage, λ.StrLiteral("kaltura partner_id"))
+					ϒtitle = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<title>(.+?)\\s*\\|\\s*.+?</title>"), ϒwebpage, λ.StrLiteral("video title"))
 					ϒselect = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("(?s)<select[^>]+id=\"select-version\"[^>]*>(.+?)</select>"),
+						λ.StrLiteral("(?s)<select[^>]+id=\"select-version\"[^>]*>(.+?)</select>"),
 						ϒwebpage,
-						λ.NewStr("select version"),
+						λ.StrLiteral("select version"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
 					if λ.IsTrue(ϒselect) {
 						ϒentry_ids = λ.Cal(λ.SetType)
 						ϒentries = λ.NewList()
-						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfinditer, λ.NewStr("<option[^>]+value=([\"\\'])(?P<id>[0-9a-z_]+)(?:#.+?)?\\1[^>]*>(?P<title>[^<]+)"), ϒwebpage))
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfinditer, λ.StrLiteral("<option[^>]+value=([\"\\'])(?P<id>[0-9a-z_]+)(?:#.+?)?\\1[^>]*>(?P<title>[^<]+)"), ϒwebpage))
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
 							ϒmobj = τmp1
-							ϒentry_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-							if λ.IsTrue(λ.NewBool(λ.Contains(ϒentry_ids, ϒentry_id))) {
+							ϒentry_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
+							if λ.Contains(ϒentry_ids, ϒentry_id) {
 								continue
 							}
-							λ.Cal(λ.GetAttr(ϒentry_ids, "add", nil), ϒentry_id)
-							λ.Cal(λ.GetAttr(ϒentries, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("_type"): λ.NewStr("url_transparent"),
-								λ.NewStr("url"): λ.Mod(λ.NewStr("kaltura:%s:%s"), λ.NewTuple(
+							λ.Calm(ϒentry_ids, "add", ϒentry_id)
+							λ.Calm(ϒentries, "append", λ.DictLiteral(map[string]λ.Object{
+								"_type": λ.StrLiteral("url_transparent"),
+								"url": λ.Mod(λ.StrLiteral("kaltura:%s:%s"), λ.NewTuple(
 									ϒpartner_id,
 									ϒentry_id,
 								)),
-								λ.NewStr("ie_key"): λ.NewStr("Kaltura"),
-								λ.NewStr("title"):  λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("title")),
+								"ie_key": λ.StrLiteral("Kaltura"),
+								"title":  λ.Calm(ϒmobj, "group", λ.StrLiteral("title")),
 							}))
 						}
 						if λ.IsTrue(ϒentries) {
-							return λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), ϒentries, ϒdisplay_id, ϒtitle)
+							return λ.Calm(ϒself, "playlist_result", ϒentries, ϒdisplay_id, ϒtitle)
 						}
 					}
 					ϒentry_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<a[^>]+id=([\"\\'])embed-kaltura\\1[^>]+data-kaltura=([\"\\'])(?P<id>[0-9a-z_]+)\\2"),
+						λ.StrLiteral("<a[^>]+id=([\"\\'])embed-kaltura\\1[^>]+data-kaltura=([\"\\'])(?P<id>[0-9a-z_]+)\\2"),
 						ϒwebpage,
-						λ.NewStr("kaltura entry_id"),
+						λ.StrLiteral("kaltura entry_id"),
 					), λ.KWArgs{
-						{Name: "group", Value: λ.NewStr("id")},
+						{Name: "group", Value: λ.StrLiteral("id")},
 					})
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):      λ.NewStr("url_transparent"),
-						λ.NewStr("display_id"): ϒdisplay_id,
-						λ.NewStr("url"): λ.Mod(λ.NewStr("kaltura:%s:%s"), λ.NewTuple(
+					return λ.DictLiteral(map[string]λ.Object{
+						"_type":      λ.StrLiteral("url_transparent"),
+						"display_id": ϒdisplay_id,
+						"url": λ.Mod(λ.StrLiteral("kaltura:%s:%s"), λ.NewTuple(
 							ϒpartner_id,
 							ϒentry_id,
 						)),
-						λ.NewStr("ie_key"): λ.NewStr("Kaltura"),
-						λ.NewStr("title"):  ϒtitle,
+						"ie_key": λ.StrLiteral("Kaltura"),
+						"title":  ϒtitle,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    CloserToTruthIE__VALID_URL,
-				λ.NewStr("_real_extract"): CloserToTruthIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    CloserToTruthIE__VALID_URL,
+				"_real_extract": CloserToTruthIE__real_extract,
 			})
 		}())
 	})

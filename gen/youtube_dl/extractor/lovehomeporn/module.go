@@ -38,12 +38,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		NuevoBaseIE = Ωnuevo.NuevoBaseIE
-		LoveHomePornIE = λ.Cal(λ.TypeType, λ.NewStr("LoveHomePornIE"), λ.NewTuple(NuevoBaseIE), func() λ.Dict {
+		LoveHomePornIE = λ.Cal(λ.TypeType, λ.StrLiteral("LoveHomePornIE"), λ.NewTuple(NuevoBaseIE), func() λ.Dict {
 			var (
 				LoveHomePornIE__VALID_URL    λ.Object
 				LoveHomePornIE__real_extract λ.Object
 			)
-			LoveHomePornIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?lovehomeporn\\.com/video/(?P<id>\\d+)(?:/(?P<display_id>[^/?#&]+))?")
+			LoveHomePornIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?lovehomeporn\\.com/video/(?P<id>\\d+)(?:/(?P<display_id>[^/?#&]+))?")
 			LoveHomePornIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -60,18 +60,18 @@ func init() {
 						ϒvideo_id   λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("display_id"))
-					ϒinfo = λ.Cal(λ.GetAttr(ϒself, "_extract_nuevo", nil), λ.Mod(λ.NewStr("http://lovehomeporn.com/media/nuevo/config.php?key=%s"), ϒvideo_id), ϒvideo_id)
-					λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("display_id"): ϒdisplay_id,
-						λ.NewStr("age_limit"):  λ.NewInt(18),
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
+					ϒdisplay_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("display_id"))
+					ϒinfo = λ.Calm(ϒself, "_extract_nuevo", λ.Mod(λ.StrLiteral("http://lovehomeporn.com/media/nuevo/config.php?key=%s"), ϒvideo_id), ϒvideo_id)
+					λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
+						"display_id": ϒdisplay_id,
+						"age_limit":  λ.IntLiteral(18),
 					}))
 					return ϒinfo
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    LoveHomePornIE__VALID_URL,
-				λ.NewStr("_real_extract"): LoveHomePornIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    LoveHomePornIE__VALID_URL,
+				"_real_extract": LoveHomePornIE__real_extract,
 			})
 		}())
 	})

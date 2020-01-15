@@ -44,12 +44,12 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
-		StreamableIE = λ.Cal(λ.TypeType, λ.NewStr("StreamableIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		StreamableIE = λ.Cal(λ.TypeType, λ.StrLiteral("StreamableIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				StreamableIE__VALID_URL    λ.Object
 				StreamableIE__real_extract λ.Object
 			)
-			StreamableIE__VALID_URL = λ.NewStr("https?://streamable\\.com/(?:[es]/)?(?P<id>\\w+)")
+			StreamableIE__VALID_URL = λ.StrLiteral("https?://streamable\\.com/(?:[es]/)?(?P<id>\\w+)")
 			StreamableIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -71,59 +71,59 @@ func init() {
 						τmp1      λ.Object
 						τmp2      λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒvideo = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("https://ajax.streamable.com/videos/%s"), ϒvideo_id), ϒvideo_id)
-					ϒstatus = λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("status"))
-					if λ.IsTrue(λ.Ne(ϒstatus, λ.NewInt(2))) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("This video is currently unavailable. It may still be uploading or processing.")), λ.KWArgs{
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒvideo = λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("https://ajax.streamable.com/videos/%s"), ϒvideo_id), ϒvideo_id)
+					ϒstatus = λ.Calm(ϒvideo, "get", λ.StrLiteral("status"))
+					if λ.IsTrue(λ.Ne(ϒstatus, λ.IntLiteral(2))) {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("This video is currently unavailable. It may still be uploading or processing.")), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
 					ϒtitle = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("reddit_title")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒvideo, "get", λ.StrLiteral("reddit_title")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.GetItem(ϒvideo, λ.NewStr("title"))
+							return λ.GetItem(ϒvideo, λ.StrLiteral("title"))
 						}
 					}()
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.GetItem(ϒvideo, λ.NewStr("files")), "items", nil)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.GetItem(ϒvideo, λ.StrLiteral("files")), "items"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒkey = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒinfo = λ.GetItem(τmp2, λ.NewInt(1))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("url"))))) {
+						ϒkey = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒinfo = λ.GetItem(τmp2, λ.IntLiteral(1))
+						if !λ.IsTrue(λ.Calm(ϒinfo, "get", λ.StrLiteral("url"))) {
 							continue
 						}
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("format_id"): ϒkey,
-							λ.NewStr("url"):       λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.GetItem(ϒinfo, λ.NewStr("url"))),
-							λ.NewStr("width"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("width"))),
-							λ.NewStr("height"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("height"))),
-							λ.NewStr("filesize"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("size"))),
-							λ.NewStr("fps"):       λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("framerate"))),
-							λ.NewStr("vbr"):       λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("bitrate")), λ.NewInt(1000)),
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"format_id": ϒkey,
+							"url":       λ.Calm(ϒself, "_proto_relative_url", λ.GetItem(ϒinfo, λ.StrLiteral("url"))),
+							"width":     λ.Cal(ϒint_or_none, λ.Calm(ϒinfo, "get", λ.StrLiteral("width"))),
+							"height":    λ.Cal(ϒint_or_none, λ.Calm(ϒinfo, "get", λ.StrLiteral("height"))),
+							"filesize":  λ.Cal(ϒint_or_none, λ.Calm(ϒinfo, "get", λ.StrLiteral("size"))),
+							"fps":       λ.Cal(ϒint_or_none, λ.Calm(ϒinfo, "get", λ.StrLiteral("framerate"))),
+							"vbr":       λ.Cal(ϒfloat_or_none, λ.Calm(ϒinfo, "get", λ.StrLiteral("bitrate")), λ.IntLiteral(1000)),
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("description")),
-						λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("thumbnail_url"))),
-						λ.NewStr("uploader"):    λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("owner"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("user_name")),
-						λ.NewStr("timestamp"):   λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("date_added"))),
-						λ.NewStr("duration"):    λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("duration"))),
-						λ.NewStr("view_count"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("plays"))),
-						λ.NewStr("formats"):     ϒformats,
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       ϒtitle,
+						"description": λ.Calm(ϒvideo, "get", λ.StrLiteral("description")),
+						"thumbnail":   λ.Calm(ϒself, "_proto_relative_url", λ.Calm(ϒvideo, "get", λ.StrLiteral("thumbnail_url"))),
+						"uploader":    λ.Calm(λ.Calm(ϒvideo, "get", λ.StrLiteral("owner"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("user_name")),
+						"timestamp":   λ.Cal(ϒfloat_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("date_added"))),
+						"duration":    λ.Cal(ϒfloat_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("duration"))),
+						"view_count":  λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("plays"))),
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    StreamableIE__VALID_URL,
-				λ.NewStr("_real_extract"): StreamableIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    StreamableIE__VALID_URL,
+				"_real_extract": StreamableIE__real_extract,
 			})
 		}())
 	})

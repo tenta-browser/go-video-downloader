@@ -37,14 +37,14 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		TDSLifewayIE = λ.Cal(λ.TypeType, λ.NewStr("TDSLifewayIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TDSLifewayIE = λ.Cal(λ.TypeType, λ.StrLiteral("TDSLifewayIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TDSLifewayIE_BRIGHTCOVE_URL_TEMPLATE λ.Object
 				TDSLifewayIE__VALID_URL              λ.Object
 				TDSLifewayIE__real_extract           λ.Object
 			)
-			TDSLifewayIE__VALID_URL = λ.NewStr("https?://tds\\.lifeway\\.com/v1/trainingdeliverysystem/courses/(?P<id>\\d+)/index\\.html")
-			TDSLifewayIE_BRIGHTCOVE_URL_TEMPLATE = λ.NewStr("http://players.brightcove.net/2034960640001/default_default/index.html?videoId=%s")
+			TDSLifewayIE__VALID_URL = λ.StrLiteral("https?://tds\\.lifeway\\.com/v1/trainingdeliverysystem/courses/(?P<id>\\d+)/index\\.html")
+			TDSLifewayIE_BRIGHTCOVE_URL_TEMPLATE = λ.StrLiteral("http://players.brightcove.net/2034960640001/default_default/index.html?videoId=%s")
 			TDSLifewayIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -57,13 +57,13 @@ func init() {
 						ϒself          = λargs[0]
 						ϒurl           = λargs[1]
 					)
-					ϒbrightcove_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.GetAttr(ϒself, "BRIGHTCOVE_URL_TEMPLATE", nil), ϒbrightcove_id), λ.NewStr("BrightcoveNew"), ϒbrightcove_id)
+					ϒbrightcove_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					return λ.Calm(ϒself, "url_result", λ.Mod(λ.GetAttr(ϒself, "BRIGHTCOVE_URL_TEMPLATE", nil), ϒbrightcove_id), λ.StrLiteral("BrightcoveNew"), ϒbrightcove_id)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("BRIGHTCOVE_URL_TEMPLATE"): TDSLifewayIE_BRIGHTCOVE_URL_TEMPLATE,
-				λ.NewStr("_VALID_URL"):              TDSLifewayIE__VALID_URL,
-				λ.NewStr("_real_extract"):           TDSLifewayIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"BRIGHTCOVE_URL_TEMPLATE": TDSLifewayIE_BRIGHTCOVE_URL_TEMPLATE,
+				"_VALID_URL":              TDSLifewayIE__VALID_URL,
+				"_real_extract":           TDSLifewayIE__real_extract,
 			})
 		}())
 	})

@@ -40,13 +40,13 @@ func init() {
 	λ.InitModule(func() {
 		MaxUInt = Ωmath.MaxUInt
 		ϒversion_info = λ.NewTuple(
-			λ.NewInt(3),
-			λ.NewInt(7),
-			λ.NewInt(0),
-			λ.NewStr("final"),
-			λ.NewInt(0),
+			λ.IntLiteral(3),
+			λ.IntLiteral(7),
+			λ.IntLiteral(0),
+			λ.StrLiteral("final"),
+			λ.IntLiteral(0),
 		)
-		ϒplatform = λ.NewStr("linux")
+		ϒplatform = λ.StrLiteral("linux")
 		ϒexc_info = λ.NewFunction("exc_info",
 			nil,
 			0, false, false,

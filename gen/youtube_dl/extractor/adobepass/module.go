@@ -51,7 +51,7 @@ func init() {
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ExtractorError = Ωutils.ExtractorError
 		NO_DEFAULT = Ωutils.NO_DEFAULT
-		AdobePassIE = λ.Cal(λ.TypeType, λ.NewStr("AdobePassIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		AdobePassIE = λ.Cal(λ.TypeType, λ.StrLiteral("AdobePassIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				AdobePassIE__download_webpage_handle λ.Object
 			)
@@ -67,15 +67,15 @@ func init() {
 						ϒkwargs  = λargs[2]
 						ϒself    = λargs[0]
 					)
-					ϒheaders = λ.Cal(λ.GetAttr(ϒself, "geo_verification_headers", nil))
-					λ.Cal(λ.GetAttr(ϒheaders, "update", nil), λ.Cal(λ.GetAttr(ϒkwargs, "get", nil), λ.NewStr("headers"), λ.NewDictWithTable(map[λ.Object]λ.Object{})))
-					λ.SetItem(ϒkwargs, λ.NewStr("headers"), ϒheaders)
+					ϒheaders = λ.Calm(ϒself, "geo_verification_headers")
+					λ.Calm(ϒheaders, "update", λ.Calm(ϒkwargs, "get", λ.StrLiteral("headers"), λ.DictLiteral(map[λ.Object]λ.Object{})))
+					λ.SetItem(ϒkwargs, λ.StrLiteral("headers"), ϒheaders)
 					return λ.Call(λ.GetAttr(λ.Cal(λ.SuperType, AdobePassIE, ϒself), "_download_webpage_handle", nil), λ.NewArgs(λ.Unpack(λ.AsStarred(ϒargs))...), λ.KWArgs{
 						{Name: "", Value: λ.Cal(ϒcompat_kwargs, ϒkwargs)},
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_download_webpage_handle"): AdobePassIE__download_webpage_handle,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_download_webpage_handle": AdobePassIE__download_webpage_handle,
 			})
 		}())
 	})

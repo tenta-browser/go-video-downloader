@@ -43,12 +43,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒqualities = Ωutils.ϒqualities
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
-		PearVideoIE = λ.Cal(λ.TypeType, λ.NewStr("PearVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		PearVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("PearVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				PearVideoIE__VALID_URL    λ.Object
 				PearVideoIE__real_extract λ.Object
 			)
-			PearVideoIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?pearvideo\\.com/video_(?P<id>\\d+)")
+			PearVideoIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?pearvideo\\.com/video_(?P<id>\\d+)")
 			PearVideoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -67,16 +67,16 @@ func init() {
 						ϒvideo_id    λ.Object
 						ϒwebpage     λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
 					ϒquality = λ.Cal(ϒqualities, λ.NewTuple(
-						λ.NewStr("ldflv"),
-						λ.NewStr("ld"),
-						λ.NewStr("sdflv"),
-						λ.NewStr("sd"),
-						λ.NewStr("hdflv"),
-						λ.NewStr("hd"),
-						λ.NewStr("src"),
+						λ.StrLiteral("ldflv"),
+						λ.StrLiteral("ld"),
+						λ.StrLiteral("sdflv"),
+						λ.StrLiteral("sd"),
+						λ.StrLiteral("hdflv"),
+						λ.StrLiteral("hd"),
+						λ.StrLiteral("src"),
 					))
 					ϒformats = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
@@ -88,67 +88,67 @@ func init() {
 									τmp0  λ.Object
 									τmp1  λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfinditer, λ.NewStr("(?P<id>[a-zA-Z]+)Url\\s*=\\s*([\"\\'])(?P<url>(?:https?:)?//.+?)\\2"), ϒwebpage))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfinditer, λ.StrLiteral("(?P<id>[a-zA-Z]+)Url\\s*=\\s*([\"\\'])(?P<url>(?:https?:)?//.+?)\\2"), ϒwebpage))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									ϒmobj = τmp1
-									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("url"):       λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("url")),
-										λ.NewStr("format_id"): λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id")),
-										λ.NewStr("quality"):   λ.Cal(ϒquality, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))),
+									λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+										"url":       λ.Calm(ϒmobj, "group", λ.StrLiteral("url")),
+										"format_id": λ.Calm(ϒmobj, "group", λ.StrLiteral("id")),
+										"quality":   λ.Cal(ϒquality, λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))),
 									}))
 								}
 								return λ.None
 							})
 						})))
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒtitle = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
 						λ.NewTuple(
-							λ.NewStr("<h1[^>]+\\bclass=([\"\\'])video-tt\\1[^>]*>(?P<value>[^<]+)"),
-							λ.NewStr("<[^>]+\\bdata-title=([\"\\'])(?P<value>(?:(?!\\1).)+)\\1"),
+							λ.StrLiteral("<h1[^>]+\\bclass=([\"\\'])video-tt\\1[^>]*>(?P<value>[^<]+)"),
+							λ.StrLiteral("<[^>]+\\bdata-title=([\"\\'])(?P<value>(?:(?!\\1).)+)\\1"),
 						),
 						ϒwebpage,
-						λ.NewStr("title"),
+						λ.StrLiteral("title"),
 					), λ.KWArgs{
-						{Name: "group", Value: λ.NewStr("value")},
+						{Name: "group", Value: λ.StrLiteral("value")},
 					})
 					ϒdescription = func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
 							λ.NewTuple(
-								λ.NewStr("<div[^>]+\\bclass=([\"\\'])summary\\1[^>]*>(?P<value>[^<]+)"),
-								λ.NewStr("<[^>]+\\bdata-summary=([\"\\'])(?P<value>(?:(?!\\1).)+)\\1"),
+								λ.StrLiteral("<div[^>]+\\bclass=([\"\\'])summary\\1[^>]*>(?P<value>[^<]+)"),
+								λ.StrLiteral("<[^>]+\\bdata-summary=([\"\\'])(?P<value>(?:(?!\\1).)+)\\1"),
 							),
 							ϒwebpage,
-							λ.NewStr("description"),
+							λ.StrLiteral("description"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
-							{Name: "group", Value: λ.NewStr("value")},
+							{Name: "group", Value: λ.StrLiteral("value")},
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewStr("Description"), ϒwebpage)
+							return λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("Description"), ϒwebpage)
 						}
 					}()
 					ϒtimestamp = λ.Cal(ϒunified_timestamp, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<div[^>]+\\bclass=[\"\\']date[\"\\'][^>]*>([^<]+)"),
+						λ.StrLiteral("<div[^>]+\\bclass=[\"\\']date[\"\\'][^>]*>([^<]+)"),
 						ϒwebpage,
-						λ.NewStr("timestamp"),
+						λ.StrLiteral("timestamp"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("timestamp"):   ϒtimestamp,
-						λ.NewStr("formats"):     ϒformats,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"timestamp":   ϒtimestamp,
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    PearVideoIE__VALID_URL,
-				λ.NewStr("_real_extract"): PearVideoIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    PearVideoIE__VALID_URL,
+				"_real_extract": PearVideoIE__real_extract,
 			})
 		}())
 	})

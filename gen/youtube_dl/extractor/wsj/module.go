@@ -45,12 +45,12 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒunified_strdate = Ωutils.ϒunified_strdate
-		WSJIE = λ.Cal(λ.TypeType, λ.NewStr("WSJIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		WSJIE = λ.Cal(λ.TypeType, λ.StrLiteral("WSJIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				WSJIE__VALID_URL    λ.Object
 				WSJIE__real_extract λ.Object
 			)
-			WSJIE__VALID_URL = λ.NewStr("(?x)\n                        (?:\n                            https?://video-api\\.wsj\\.com/api-video/player/iframe\\.html\\?.*?\\bguid=|\n                            https?://(?:www\\.)?(?:wsj|barrons)\\.com/video/(?:[^/]+/)+|\n                            wsj:\n                        )\n                        (?P<id>[a-fA-F0-9-]{36})\n                    ")
+			WSJIE__VALID_URL = λ.StrLiteral("(?x)\n                        (?:\n                            https?://video-api\\.wsj\\.com/api-video/player/iframe\\.html\\?.*?\\bguid=|\n                            https?://(?:www\\.)?(?:wsj|barrons)\\.com/video/(?:[^/]+/)+|\n                            wsj:\n                        )\n                        (?P<id>[a-fA-F0-9-]{36})\n                    ")
 			WSJIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -73,108 +73,108 @@ func init() {
 						τmp0      λ.Object
 						τmp1      λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒinfo = λ.GetItem(λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.NewStr("http://video-api.wsj.com/api-video/find_all_videos.asp"),
+						λ.StrLiteral("http://video-api.wsj.com/api-video/find_all_videos.asp"),
 						ϒvideo_id,
 					), λ.KWArgs{
-						{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("type"):  λ.NewStr("guid"),
-							λ.NewStr("count"): λ.NewInt(1),
-							λ.NewStr("query"): ϒvideo_id,
-							λ.NewStr("fields"): λ.Cal(λ.GetAttr(λ.NewStr(","), "join", nil), λ.NewTuple(
-								λ.NewStr("type"),
-								λ.NewStr("hls"),
-								λ.NewStr("videoMP4List"),
-								λ.NewStr("thumbnailList"),
-								λ.NewStr("author"),
-								λ.NewStr("description"),
-								λ.NewStr("name"),
-								λ.NewStr("duration"),
-								λ.NewStr("videoURL"),
-								λ.NewStr("titletag"),
-								λ.NewStr("formattedCreationDate"),
-								λ.NewStr("keywords"),
-								λ.NewStr("editor"),
+						{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
+							"type":  λ.StrLiteral("guid"),
+							"count": λ.IntLiteral(1),
+							"query": ϒvideo_id,
+							"fields": λ.Calm(λ.StrLiteral(","), "join", λ.NewTuple(
+								λ.StrLiteral("type"),
+								λ.StrLiteral("hls"),
+								λ.StrLiteral("videoMP4List"),
+								λ.StrLiteral("thumbnailList"),
+								λ.StrLiteral("author"),
+								λ.StrLiteral("description"),
+								λ.StrLiteral("name"),
+								λ.StrLiteral("duration"),
+								λ.StrLiteral("videoURL"),
+								λ.StrLiteral("titletag"),
+								λ.StrLiteral("formattedCreationDate"),
+								λ.StrLiteral("keywords"),
+								λ.StrLiteral("editor"),
 							)),
 						})},
-					}), λ.NewStr("items")), λ.NewInt(0))
-					ϒtitle = λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("name"), λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("titletag")))
+					}), λ.StrLiteral("items")), λ.IntLiteral(0))
+					ϒtitle = λ.Calm(ϒinfo, "get", λ.StrLiteral("name"), λ.Calm(ϒinfo, "get", λ.StrLiteral("titletag")))
 					ϒformats = λ.NewList()
-					ϒf4m_url = λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("videoURL"))
+					ϒf4m_url = λ.Calm(ϒinfo, "get", λ.StrLiteral("videoURL"))
 					if λ.IsTrue(ϒf4m_url) {
-						λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_f4m_formats", nil), λ.NewArgs(
+						λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_f4m_formats", nil), λ.NewArgs(
 							ϒf4m_url,
 							ϒvideo_id,
 						), λ.KWArgs{
-							{Name: "f4m_id", Value: λ.NewStr("hds")},
+							{Name: "f4m_id", Value: λ.StrLiteral("hds")},
 							{Name: "fatal", Value: λ.False},
 						}))
 					}
-					ϒm3u8_url = λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("hls"))
+					ϒm3u8_url = λ.Calm(ϒinfo, "get", λ.StrLiteral("hls"))
 					if λ.IsTrue(ϒm3u8_url) {
-						λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
-							λ.GetItem(ϒinfo, λ.NewStr("hls")),
+						λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+							λ.GetItem(ϒinfo, λ.StrLiteral("hls")),
 							ϒvideo_id,
 						), λ.KWArgs{
-							{Name: "ext", Value: λ.NewStr("mp4")},
-							{Name: "entry_protocol", Value: λ.NewStr("m3u8_native")},
-							{Name: "m3u8_id", Value: λ.NewStr("hls")},
+							{Name: "ext", Value: λ.StrLiteral("mp4")},
+							{Name: "entry_protocol", Value: λ.StrLiteral("m3u8_native")},
+							{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
 							{Name: "fatal", Value: λ.False},
 						}))
 					}
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("videoMP4List"), λ.NewList()))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒinfo, "get", λ.StrLiteral("videoMP4List"), λ.NewList()))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒv = τmp1
-						ϒmp4_url = λ.Cal(λ.GetAttr(ϒv, "get", nil), λ.NewStr("url"))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒmp4_url))) {
+						ϒmp4_url = λ.Calm(ϒv, "get", λ.StrLiteral("url"))
+						if !λ.IsTrue(ϒmp4_url) {
 							continue
 						}
-						ϒtbr = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒv, "get", nil), λ.NewStr("bitrate")))
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"): ϒmp4_url,
-							λ.NewStr("format_id"): λ.Add(λ.NewStr("http"), func() λ.Object {
+						ϒtbr = λ.Cal(ϒint_or_none, λ.Calm(ϒv, "get", λ.StrLiteral("bitrate")))
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"url": ϒmp4_url,
+							"format_id": λ.Add(λ.StrLiteral("http"), func() λ.Object {
 								if λ.IsTrue(ϒtbr) {
-									return λ.Mod(λ.NewStr("-%d"), ϒtbr)
+									return λ.Mod(λ.StrLiteral("-%d"), ϒtbr)
 								} else {
-									return λ.NewStr("")
+									return λ.StrLiteral("")
 								}
 							}()),
-							λ.NewStr("tbr"):    ϒtbr,
-							λ.NewStr("width"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒv, "get", nil), λ.NewStr("width"))),
-							λ.NewStr("height"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒv, "get", nil), λ.NewStr("height"))),
-							λ.NewStr("fps"):    λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒv, "get", nil), λ.NewStr("fps"))),
+							"tbr":    ϒtbr,
+							"width":  λ.Cal(ϒint_or_none, λ.Calm(ϒv, "get", λ.StrLiteral("width"))),
+							"height": λ.Cal(ϒint_or_none, λ.Calm(ϒv, "get", λ.StrLiteral("height"))),
+							"fps":    λ.Cal(ϒfloat_or_none, λ.Calm(ϒv, "get", λ.StrLiteral("fps"))),
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("formats"):     ϒformats,
-						λ.NewStr("thumbnails"):  λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("thumbnailList")),
-						λ.NewStr("creator"):     λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("author")),
-						λ.NewStr("uploader_id"): λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("editor")),
-						λ.NewStr("duration"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("duration"))),
-						λ.NewStr("upload_date"): λ.Call(ϒunified_strdate, λ.NewArgs(λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("formattedCreationDate"))), λ.KWArgs{
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"formats":     ϒformats,
+						"thumbnails":  λ.Calm(ϒinfo, "get", λ.StrLiteral("thumbnailList")),
+						"creator":     λ.Calm(ϒinfo, "get", λ.StrLiteral("author")),
+						"uploader_id": λ.Calm(ϒinfo, "get", λ.StrLiteral("editor")),
+						"duration":    λ.Cal(ϒint_or_none, λ.Calm(ϒinfo, "get", λ.StrLiteral("duration"))),
+						"upload_date": λ.Call(ϒunified_strdate, λ.NewArgs(λ.Calm(ϒinfo, "get", λ.StrLiteral("formattedCreationDate"))), λ.KWArgs{
 							{Name: "day_first", Value: λ.False},
 						}),
-						λ.NewStr("title"):      ϒtitle,
-						λ.NewStr("categories"): λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("keywords")),
+						"title":      ϒtitle,
+						"categories": λ.Calm(ϒinfo, "get", λ.StrLiteral("keywords")),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    WSJIE__VALID_URL,
-				λ.NewStr("_real_extract"): WSJIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    WSJIE__VALID_URL,
+				"_real_extract": WSJIE__real_extract,
 			})
 		}())
-		WSJArticleIE = λ.Cal(λ.TypeType, λ.NewStr("WSJArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		WSJArticleIE = λ.Cal(λ.TypeType, λ.StrLiteral("WSJArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				WSJArticleIE__VALID_URL    λ.Object
 				WSJArticleIE__real_extract λ.Object
 			)
-			WSJArticleIE__VALID_URL = λ.NewStr("(?i)https?://(?:www\\.)?wsj\\.com/articles/(?P<id>[^/?#&]+)")
+			WSJArticleIE__VALID_URL = λ.StrLiteral("(?i)https?://(?:www\\.)?wsj\\.com/articles/(?P<id>[^/?#&]+)")
 			WSJArticleIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -189,14 +189,14 @@ func init() {
 						ϒvideo_id   λ.Object
 						ϒwebpage    λ.Object
 					)
-					ϒarticle_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒarticle_id)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("data-src=[\"\\']([a-fA-F0-9-]{36})"), ϒwebpage, λ.NewStr("video id"))
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("wsj:%s"), ϒvideo_id), λ.Cal(λ.GetAttr(WSJIE, "ie_key", nil)), ϒvideo_id)
+					ϒarticle_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒarticle_id)
+					ϒvideo_id = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("data-src=[\"\\']([a-fA-F0-9-]{36})"), ϒwebpage, λ.StrLiteral("video id"))
+					return λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("wsj:%s"), ϒvideo_id), λ.Calm(WSJIE, "ie_key"), ϒvideo_id)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    WSJArticleIE__VALID_URL,
-				λ.NewStr("_real_extract"): WSJArticleIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    WSJArticleIE__VALID_URL,
+				"_real_extract": WSJArticleIE__real_extract,
 			})
 		}())
 	})

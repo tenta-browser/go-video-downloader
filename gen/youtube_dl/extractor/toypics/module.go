@@ -38,12 +38,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ToypicsIE = λ.Cal(λ.TypeType, λ.NewStr("ToypicsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ToypicsIE = λ.Cal(λ.TypeType, λ.StrLiteral("ToypicsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ToypicsIE__VALID_URL    λ.Object
 				ToypicsIE__real_extract λ.Object
 			)
-			ToypicsIE__VALID_URL = λ.NewStr("https?://videos\\.toypics\\.net/view/(?P<id>[0-9]+)")
+			ToypicsIE__VALID_URL = λ.StrLiteral("https?://videos\\.toypics\\.net/view/(?P<id>[0-9]+)")
 			ToypicsIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -60,40 +60,40 @@ func init() {
 						ϒvideo_id λ.Object
 						ϒwebpage  λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒformats = λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_html5_media_entries", nil), ϒurl, ϒwebpage, ϒvideo_id), λ.NewInt(0)), λ.NewStr("formats"))
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewList(
-						λ.NewStr("<h1[^>]+class=[\"\\']view-video-title[^>]+>([^<]+)</h"),
-						λ.NewStr("<title>([^<]+) - Toypics</title>"),
-					), ϒwebpage, λ.NewStr("title"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒformats = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_parse_html5_media_entries", ϒurl, ϒwebpage, ϒvideo_id), λ.IntLiteral(0)), λ.StrLiteral("formats"))
+					ϒtitle = λ.Calm(ϒself, "_html_search_regex", λ.NewList(
+						λ.StrLiteral("<h1[^>]+class=[\"\\']view-video-title[^>]+>([^<]+)</h"),
+						λ.StrLiteral("<title>([^<]+) - Toypics</title>"),
+					), ϒwebpage, λ.StrLiteral("title"))
 					ϒuploader = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("More videos from <strong>([^<]+)</strong>"),
+						λ.StrLiteral("More videos from <strong>([^<]+)</strong>"),
 						ϒwebpage,
-						λ.NewStr("uploader"),
+						λ.StrLiteral("uploader"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("formats"):   ϒformats,
-						λ.NewStr("title"):     ϒtitle,
-						λ.NewStr("uploader"):  ϒuploader,
-						λ.NewStr("age_limit"): λ.NewInt(18),
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒvideo_id,
+						"formats":   ϒformats,
+						"title":     ϒtitle,
+						"uploader":  ϒuploader,
+						"age_limit": λ.IntLiteral(18),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    ToypicsIE__VALID_URL,
-				λ.NewStr("_real_extract"): ToypicsIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    ToypicsIE__VALID_URL,
+				"_real_extract": ToypicsIE__real_extract,
 			})
 		}())
-		ToypicsUserIE = λ.Cal(λ.TypeType, λ.NewStr("ToypicsUserIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ToypicsUserIE = λ.Cal(λ.TypeType, λ.StrLiteral("ToypicsUserIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ToypicsUserIE__VALID_URL λ.Object
 			)
-			ToypicsUserIE__VALID_URL = λ.NewStr("https?://videos\\.toypics\\.net/(?!view)(?P<id>[^/?#&]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): ToypicsUserIE__VALID_URL,
+			ToypicsUserIE__VALID_URL = λ.StrLiteral("https?://videos\\.toypics\\.net/(?!view)(?P<id>[^/?#&]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": ToypicsUserIE__VALID_URL,
 			})
 		}())
 	})

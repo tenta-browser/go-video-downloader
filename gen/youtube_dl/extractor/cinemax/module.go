@@ -38,12 +38,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		HBOBaseIE = Ωhbo.HBOBaseIE
-		CinemaxIE = λ.Cal(λ.TypeType, λ.NewStr("CinemaxIE"), λ.NewTuple(HBOBaseIE), func() λ.Dict {
+		CinemaxIE = λ.Cal(λ.TypeType, λ.StrLiteral("CinemaxIE"), λ.NewTuple(HBOBaseIE), func() λ.Dict {
 			var (
 				CinemaxIE__VALID_URL    λ.Object
 				CinemaxIE__real_extract λ.Object
 			)
-			CinemaxIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?cinemax\\.com/(?P<path>[^/]+/video/[0-9a-z-]+-(?P<id>\\d+))")
+			CinemaxIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?cinemax\\.com/(?P<path>[^/]+/video/[0-9a-z-]+-(?P<id>\\d+))")
 			CinemaxIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -59,16 +59,16 @@ func init() {
 						ϒvideo_id λ.Object
 						τmp0      λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
-					ϒpath = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒinfo = λ.Cal(λ.GetAttr(ϒself, "_extract_info", nil), λ.Mod(λ.NewStr("https://www.cinemax.com/%s.xml"), ϒpath), ϒvideo_id)
-					λ.SetItem(ϒinfo, λ.NewStr("id"), ϒvideo_id)
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒpath = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒinfo = λ.Calm(ϒself, "_extract_info", λ.Mod(λ.StrLiteral("https://www.cinemax.com/%s.xml"), ϒpath), ϒvideo_id)
+					λ.SetItem(ϒinfo, λ.StrLiteral("id"), ϒvideo_id)
 					return ϒinfo
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    CinemaxIE__VALID_URL,
-				λ.NewStr("_real_extract"): CinemaxIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    CinemaxIE__VALID_URL,
+				"_real_extract": CinemaxIE__real_extract,
 			})
 		}())
 	})

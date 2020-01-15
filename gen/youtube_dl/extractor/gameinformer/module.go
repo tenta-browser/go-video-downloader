@@ -47,14 +47,14 @@ func init() {
 		ϒclean_html = Ωutils.ϒclean_html
 		ϒget_element_by_class = Ωutils.ϒget_element_by_class
 		ϒget_element_by_id = Ωutils.ϒget_element_by_id
-		GameInformerIE = λ.Cal(λ.TypeType, λ.NewStr("GameInformerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		GameInformerIE = λ.Cal(λ.TypeType, λ.StrLiteral("GameInformerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				GameInformerIE_BRIGHTCOVE_URL_TEMPLATE λ.Object
 				GameInformerIE__VALID_URL              λ.Object
 				GameInformerIE__real_extract           λ.Object
 			)
-			GameInformerIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?gameinformer\\.com/(?:[^/]+/)*(?P<id>[^.?&#]+)")
-			GameInformerIE_BRIGHTCOVE_URL_TEMPLATE = λ.NewStr("http://players.brightcove.net/694940074001/default_default/index.html?videoId=%s")
+			GameInformerIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?gameinformer\\.com/(?:[^/]+/)*(?P<id>[^.?&#]+)")
+			GameInformerIE_BRIGHTCOVE_URL_TEMPLATE = λ.StrLiteral("http://players.brightcove.net/694940074001/default_default/index.html?videoId=%s")
 			GameInformerIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -70,33 +70,33 @@ func init() {
 						ϒurl            = λargs[1]
 						ϒwebpage        λ.Object
 					)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒwebpage = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
 						ϒurl,
 						ϒdisplay_id,
 					), λ.KWArgs{
-						{Name: "headers", Value: λ.Cal(λ.GetAttr(ϒself, "geo_verification_headers", nil))},
+						{Name: "headers", Value: λ.Calm(ϒself, "geo_verification_headers")},
 					})
 					ϒbrightcove_id = λ.Cal(ϒclean_html, func() λ.Object {
-						if λv := λ.Cal(ϒget_element_by_class, λ.NewStr("field--name-field-brightcove-video-id"), ϒwebpage); λ.IsTrue(λv) {
+						if λv := λ.Cal(ϒget_element_by_class, λ.StrLiteral("field--name-field-brightcove-video-id"), ϒwebpage); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(ϒget_element_by_id, λ.NewStr("video-source-content"), ϒwebpage)
+							return λ.Cal(ϒget_element_by_id, λ.StrLiteral("video-source-content"), ϒwebpage)
 						}
 					}())
 					ϒbrightcove_url = func() λ.Object {
 						if λ.IsTrue(ϒbrightcove_id) {
 							return λ.Mod(λ.GetAttr(ϒself, "BRIGHTCOVE_URL_TEMPLATE", nil), ϒbrightcove_id)
 						} else {
-							return λ.Cal(λ.GetAttr(BrightcoveNewIE, "_extract_url", nil), ϒself, ϒwebpage)
+							return λ.Calm(BrightcoveNewIE, "_extract_url", ϒself, ϒwebpage)
 						}
 					}()
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒbrightcove_url, λ.NewStr("BrightcoveNew"), ϒbrightcove_id)
+					return λ.Calm(ϒself, "url_result", ϒbrightcove_url, λ.StrLiteral("BrightcoveNew"), ϒbrightcove_id)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("BRIGHTCOVE_URL_TEMPLATE"): GameInformerIE_BRIGHTCOVE_URL_TEMPLATE,
-				λ.NewStr("_VALID_URL"):              GameInformerIE__VALID_URL,
-				λ.NewStr("_real_extract"):           GameInformerIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"BRIGHTCOVE_URL_TEMPLATE": GameInformerIE_BRIGHTCOVE_URL_TEMPLATE,
+				"_VALID_URL":              GameInformerIE__VALID_URL,
+				"_real_extract":           GameInformerIE__real_extract,
 			})
 		}())
 	})

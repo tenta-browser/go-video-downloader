@@ -48,12 +48,12 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒremove_end = Ωutils.ϒremove_end
-		VuClipIE = λ.Cal(λ.TypeType, λ.NewStr("VuClipIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		VuClipIE = λ.Cal(λ.TypeType, λ.StrLiteral("VuClipIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				VuClipIE__VALID_URL    λ.Object
 				VuClipIE__real_extract λ.Object
 			)
-			VuClipIE__VALID_URL = λ.NewStr("https?://(?:m\\.)?vuclip\\.com/w\\?.*?cid=(?P<id>[0-9]+)")
+			VuClipIE__VALID_URL = λ.StrLiteral("https?://(?:m\\.)?vuclip\\.com/w\\?.*?cid=(?P<id>[0-9]+)")
 			VuClipIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -75,28 +75,28 @@ func init() {
 						ϒvideo_url  λ.Object
 						ϒwebpage    λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒad_m = λ.Cal(Ωre.ϒsearch, λ.NewStr("value=\"No.*?\" onClick=\"location.href='([^\"']+)'\""), ϒwebpage)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒad_m = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("value=\"No.*?\" onClick=\"location.href='([^\"']+)'\""), ϒwebpage)
 					if λ.IsTrue(ϒad_m) {
 						ϒurlr = λ.Cal(ϒcompat_urllib_parse_urlparse, ϒurl)
-						ϒadfree_url = λ.Add(λ.Add(λ.Add(λ.GetAttr(ϒurlr, "scheme", nil), λ.NewStr("://")), λ.GetAttr(ϒurlr, "netloc", nil)), λ.Cal(λ.GetAttr(ϒad_m, "group", nil), λ.NewInt(1)))
+						ϒadfree_url = λ.Add(λ.Add(λ.Add(λ.GetAttr(ϒurlr, "scheme", nil), λ.StrLiteral("://")), λ.GetAttr(ϒurlr, "netloc", nil)), λ.Calm(ϒad_m, "group", λ.IntLiteral(1)))
 						ϒwebpage = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
 							ϒadfree_url,
 							ϒvideo_id,
 						), λ.KWArgs{
-							{Name: "note", Value: λ.NewStr("Download post-ad page")},
+							{Name: "note", Value: λ.StrLiteral("Download post-ad page")},
 						})
 					}
 					ϒerror_msg = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<p class=\"message\">(.*?)</p>"),
+						λ.StrLiteral("<p class=\"message\">(.*?)</p>"),
 						ϒwebpage,
-						λ.NewStr("error message"),
+						λ.StrLiteral("error message"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
 					if λ.IsTrue(ϒerror_msg) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("%s said: %s"), λ.NewTuple(
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("%s said: %s"), λ.NewTuple(
 							λ.GetAttr(ϒself, "IE_NAME", nil),
 							ϒerror_msg,
 						))), λ.KWArgs{
@@ -104,37 +104,37 @@ func init() {
 						})))
 					}
 					ϒvideo_url = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<a[^>]+href=\"([^\"]+)\"[^>]*><img[^>]+src=\"[^\"]*/play\\.gif"),
+						λ.StrLiteral("<a[^>]+href=\"([^\"]+)\"[^>]*><img[^>]+src=\"[^\"]*/play\\.gif"),
 						ϒwebpage,
-						λ.NewStr("video URL"),
+						λ.StrLiteral("video URL"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
 					if λ.IsTrue(ϒvideo_url) {
-						ϒformats = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"): ϒvideo_url,
+						ϒformats = λ.NewList(λ.DictLiteral(map[string]λ.Object{
+							"url": ϒvideo_url,
 						}))
 					} else {
-						ϒformats = λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_html5_media_entries", nil), ϒurl, ϒwebpage, ϒvideo_id), λ.NewInt(0)), λ.NewStr("formats"))
+						ϒformats = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_parse_html5_media_entries", ϒurl, ϒwebpage, ϒvideo_id), λ.IntLiteral(0)), λ.StrLiteral("formats"))
 					}
-					ϒtitle = λ.Cal(ϒremove_end, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<title>(.*?)-\\s*Vuclip</title>"), ϒwebpage, λ.NewStr("title")), "strip", nil)), λ.NewStr(" - Video"))
+					ϒtitle = λ.Cal(ϒremove_end, λ.Calm(λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("<title>(.*?)-\\s*Vuclip</title>"), ϒwebpage, λ.StrLiteral("title")), "strip"), λ.StrLiteral(" - Video"))
 					ϒduration = λ.Cal(ϒparse_duration, λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("[(>]([0-9]+:[0-9]+)(?:<span|\\))"),
+						λ.StrLiteral("[(>]([0-9]+:[0-9]+)(?:<span|\\))"),
 						ϒwebpage,
-						λ.NewStr("duration"),
+						λ.StrLiteral("duration"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):       ϒvideo_id,
-						λ.NewStr("formats"):  ϒformats,
-						λ.NewStr("title"):    ϒtitle,
-						λ.NewStr("duration"): ϒduration,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":       ϒvideo_id,
+						"formats":  ϒformats,
+						"title":    ϒtitle,
+						"duration": ϒduration,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    VuClipIE__VALID_URL,
-				λ.NewStr("_real_extract"): VuClipIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    VuClipIE__VALID_URL,
+				"_real_extract": VuClipIE__real_extract,
 			})
 		}())
 	})

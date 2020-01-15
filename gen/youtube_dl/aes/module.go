@@ -42,28 +42,28 @@ func init() {
 		ϒcompat_b64decode = Ωcompat.ϒcompat_b64decode
 		MIX_COLUMN_MATRIX = λ.NewTuple(
 			λ.NewTuple(
-				λ.NewInt(2),
-				λ.NewInt(3),
-				λ.NewInt(1),
-				λ.NewInt(1),
+				λ.IntLiteral(2),
+				λ.IntLiteral(3),
+				λ.IntLiteral(1),
+				λ.IntLiteral(1),
 			),
 			λ.NewTuple(
-				λ.NewInt(1),
-				λ.NewInt(2),
-				λ.NewInt(3),
-				λ.NewInt(1),
+				λ.IntLiteral(1),
+				λ.IntLiteral(2),
+				λ.IntLiteral(3),
+				λ.IntLiteral(1),
 			),
 			λ.NewTuple(
-				λ.NewInt(1),
-				λ.NewInt(1),
-				λ.NewInt(2),
-				λ.NewInt(3),
+				λ.IntLiteral(1),
+				λ.IntLiteral(1),
+				λ.IntLiteral(2),
+				λ.IntLiteral(3),
 			),
 			λ.NewTuple(
-				λ.NewInt(3),
-				λ.NewInt(1),
-				λ.NewInt(1),
-				λ.NewInt(2),
+				λ.IntLiteral(3),
+				λ.IntLiteral(1),
+				λ.IntLiteral(1),
+				λ.IntLiteral(2),
 			),
 		)
 	})

@@ -53,14 +53,14 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
-		ACastIE = λ.Cal(λ.TypeType, λ.NewStr("ACastIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ACastIE = λ.Cal(λ.TypeType, λ.StrLiteral("ACastIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ACastIE_IE_NAME       λ.Object
 				ACastIE__VALID_URL    λ.Object
 				ACastIE__real_extract λ.Object
 			)
-			ACastIE_IE_NAME = λ.NewStr("acast")
-			ACastIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            (?:(?:embed|www)\\.)?acast\\.com/|\n                            play\\.acast\\.com/s/\n                        )\n                        (?P<channel>[^/]+)/(?P<id>[^/#?]+)\n                    ")
+			ACastIE_IE_NAME = λ.StrLiteral("acast")
+			ACastIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\n                            (?:(?:embed|www)\\.)?acast\\.com/|\n                            play\\.acast\\.com/s/\n                        )\n                        (?P<channel>[^/]+)/(?P<id>[^/#?]+)\n                    ")
 			ACastIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -81,71 +81,71 @@ func init() {
 						ϒurl         = λargs[1]
 						τmp0         λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
-					ϒchannel = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒdisplay_id = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒs = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("https://feeder.acast.com/api/v1/shows/%s/episodes/%s"), λ.NewTuple(
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒchannel = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒs = λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("https://feeder.acast.com/api/v1/shows/%s/episodes/%s"), λ.NewTuple(
 						ϒchannel,
 						ϒdisplay_id,
 					)), ϒdisplay_id)
-					ϒmedia_url = λ.GetItem(ϒs, λ.NewStr("url"))
-					if λ.IsTrue(λ.Cal(Ωre.ϒsearch, λ.NewStr("[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}"), ϒdisplay_id)) {
-						ϒepisode_url = λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("episodeUrl"))
+					ϒmedia_url = λ.GetItem(ϒs, λ.StrLiteral("url"))
+					if λ.IsTrue(λ.Cal(Ωre.ϒsearch, λ.StrLiteral("[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}"), ϒdisplay_id)) {
+						ϒepisode_url = λ.Calm(ϒs, "get", λ.StrLiteral("episodeUrl"))
 						if λ.IsTrue(ϒepisode_url) {
 							ϒdisplay_id = ϒepisode_url
 						} else {
-							τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), λ.GetItem(ϒs, λ.NewStr("link"))), "groups", nil))
-							ϒchannel = λ.GetItem(τmp0, λ.NewInt(0))
-							ϒdisplay_id = λ.GetItem(τmp0, λ.NewInt(1))
+							τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), λ.GetItem(ϒs, λ.StrLiteral("link"))), "groups")
+							ϒchannel = λ.GetItem(τmp0, λ.IntLiteral(0))
+							ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 						}
 					}
-					ϒcast_data = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("https://play-api.acast.com/splash/%s/%s"), λ.NewTuple(
+					ϒcast_data = λ.GetItem(λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("https://play-api.acast.com/splash/%s/%s"), λ.NewTuple(
 						ϒchannel,
 						ϒdisplay_id,
-					)), ϒdisplay_id), λ.NewStr("result"))
-					ϒe = λ.GetItem(ϒcast_data, λ.NewStr("episode"))
+					)), ϒdisplay_id), λ.StrLiteral("result"))
+					ϒe = λ.GetItem(ϒcast_data, λ.StrLiteral("episode"))
 					ϒtitle = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("name")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒe, "get", λ.StrLiteral("name")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.GetItem(ϒs, λ.NewStr("title"))
+							return λ.GetItem(ϒs, λ.StrLiteral("title"))
 						}
 					}()
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         λ.Cal(ϒcompat_str, λ.GetItem(ϒe, λ.NewStr("id"))),
-						λ.NewStr("display_id"): ϒdisplay_id,
-						λ.NewStr("url"):        ϒmedia_url,
-						λ.NewStr("title"):      ϒtitle,
-						λ.NewStr("description"): func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("summary")); λ.IsTrue(λv) {
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":         λ.Cal(ϒcompat_str, λ.GetItem(ϒe, λ.StrLiteral("id"))),
+						"display_id": ϒdisplay_id,
+						"url":        ϒmedia_url,
+						"title":      ϒtitle,
+						"description": func() λ.Object {
+							if λv := λ.Calm(ϒe, "get", λ.StrLiteral("summary")); λ.IsTrue(λv) {
 								return λv
 							} else {
 								return λ.Cal(ϒclean_html, func() λ.Object {
-									if λv := λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("description")); λ.IsTrue(λv) {
+									if λv := λ.Calm(ϒe, "get", λ.StrLiteral("description")); λ.IsTrue(λv) {
 										return λv
 									} else {
-										return λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("description"))
+										return λ.Calm(ϒs, "get", λ.StrLiteral("description"))
 									}
 								}())
 							}
 						}(),
-						λ.NewStr("thumbnail"): λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("image")),
-						λ.NewStr("timestamp"): λ.Cal(ϒunified_timestamp, func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("publishingDate")); λ.IsTrue(λv) {
+						"thumbnail": λ.Calm(ϒe, "get", λ.StrLiteral("image")),
+						"timestamp": λ.Cal(ϒunified_timestamp, func() λ.Object {
+							if λv := λ.Calm(ϒe, "get", λ.StrLiteral("publishingDate")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("publishDate"))
+								return λ.Calm(ϒs, "get", λ.StrLiteral("publishDate"))
 							}
 						}()),
-						λ.NewStr("duration"): λ.Cal(ϒfloat_or_none, func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("duration")); λ.IsTrue(λv) {
+						"duration": λ.Cal(ϒfloat_or_none, func() λ.Object {
+							if λv := λ.Calm(ϒe, "get", λ.StrLiteral("duration")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(ϒs, "get", nil), λ.NewStr("duration"))
+								return λ.Calm(ϒs, "get", λ.StrLiteral("duration"))
 							}
 						}()),
-						λ.NewStr("filesize"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("contentLength"))),
-						λ.NewStr("creator"): λ.Cal(ϒtry_get, ϒcast_data, λ.NewFunction("<lambda>",
+						"filesize": λ.Cal(ϒint_or_none, λ.Calm(ϒe, "get", λ.StrLiteral("contentLength"))),
+						"creator": λ.Cal(ϒtry_get, ϒcast_data, λ.NewFunction("<lambda>",
 							[]λ.Param{
 								{Name: "x"},
 							},
@@ -154,9 +154,9 @@ func init() {
 								var (
 									ϒx = λargs[0]
 								)
-								return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("show")), λ.NewStr("author"))
+								return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("show")), λ.StrLiteral("author"))
 							}), ϒcompat_str),
-						λ.NewStr("series"): λ.Cal(ϒtry_get, ϒcast_data, λ.NewFunction("<lambda>",
+						"series": λ.Cal(ϒtry_get, ϒcast_data, λ.NewFunction("<lambda>",
 							[]λ.Param{
 								{Name: "x"},
 							},
@@ -165,25 +165,25 @@ func init() {
 								var (
 									ϒx = λargs[0]
 								)
-								return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("show")), λ.NewStr("name"))
+								return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("show")), λ.StrLiteral("name"))
 							}), ϒcompat_str),
-						λ.NewStr("season_number"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("seasonNumber"))),
-						λ.NewStr("episode"):        ϒtitle,
-						λ.NewStr("episode_number"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("episodeNumber"))),
+						"season_number":  λ.Cal(ϒint_or_none, λ.Calm(ϒe, "get", λ.StrLiteral("seasonNumber"))),
+						"episode":        ϒtitle,
+						"episode_number": λ.Cal(ϒint_or_none, λ.Calm(ϒe, "get", λ.StrLiteral("episodeNumber"))),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       ACastIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    ACastIE__VALID_URL,
-				λ.NewStr("_real_extract"): ACastIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       ACastIE_IE_NAME,
+				"_VALID_URL":    ACastIE__VALID_URL,
+				"_real_extract": ACastIE__real_extract,
 			})
 		}())
-		ACastChannelIE = λ.Cal(λ.TypeType, λ.NewStr("ACastChannelIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ACastChannelIE = λ.Cal(λ.TypeType, λ.StrLiteral("ACastChannelIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ACastChannelIE__VALID_URL λ.Object
 				ACastChannelIE_suitable   λ.Object
 			)
-			ACastChannelIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            (?:www\\.)?acast\\.com/|\n                            play\\.acast\\.com/s/\n                        )\n                        (?P<id>[^/#?]+)\n                    ")
+			ACastChannelIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\n                            (?:www\\.)?acast\\.com/|\n                            play\\.acast\\.com/s/\n                        )\n                        (?P<id>[^/#?]+)\n                    ")
 			ACastChannelIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -196,17 +196,17 @@ func init() {
 						ϒurl = λargs[1]
 					)
 					return func() λ.Object {
-						if λ.IsTrue(λ.Cal(λ.GetAttr(ACastIE, "suitable", nil), ϒurl)) {
+						if λ.IsTrue(λ.Calm(ACastIE, "suitable", ϒurl)) {
 							return λ.False
 						} else {
-							return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, ACastChannelIE, ϒcls), "suitable", nil), ϒurl)
+							return λ.Calm(λ.Cal(λ.SuperType, ACastChannelIE, ϒcls), "suitable", ϒurl)
 						}
 					}()
 				})
 			ACastChannelIE_suitable = λ.Cal(λ.ClassMethodType, ACastChannelIE_suitable)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): ACastChannelIE__VALID_URL,
-				λ.NewStr("suitable"):   ACastChannelIE_suitable,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": ACastChannelIE__VALID_URL,
+				"suitable":   ACastChannelIE_suitable,
 			})
 		}())
 	})

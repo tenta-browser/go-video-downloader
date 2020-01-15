@@ -44,13 +44,13 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒurl_or_none = Ωutils.ϒurl_or_none
-		APAIE = λ.Cal(λ.TypeType, λ.NewStr("APAIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		APAIE = λ.Cal(λ.TypeType, λ.StrLiteral("APAIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				APAIE__VALID_URL λ.Object
 			)
-			APAIE__VALID_URL = λ.NewStr("https?://[^/]+\\.apa\\.at/embed/(?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): APAIE__VALID_URL,
+			APAIE__VALID_URL = λ.StrLiteral("https?://[^/]+\\.apa\\.at/embed/(?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": APAIE__VALID_URL,
 			})
 		}())
 	})

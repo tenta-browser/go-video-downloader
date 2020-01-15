@@ -49,13 +49,13 @@ func init() {
 		ϒparse_age_limit = Ωutils.ϒparse_age_limit
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
-		IndavideoEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("IndavideoEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		IndavideoEmbedIE = λ.Cal(λ.TypeType, λ.StrLiteral("IndavideoEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				IndavideoEmbedIE__VALID_URL λ.Object
 			)
-			IndavideoEmbedIE__VALID_URL = λ.NewStr("https?://(?:(?:embed\\.)?indavideo\\.hu/player/video/|assets\\.indavideo\\.hu/swf/player\\.swf\\?.*\\b(?:v(?:ID|id))=)(?P<id>[\\da-f]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): IndavideoEmbedIE__VALID_URL,
+			IndavideoEmbedIE__VALID_URL = λ.StrLiteral("https?://(?:(?:embed\\.)?indavideo\\.hu/player/video/|assets\\.indavideo\\.hu/swf/player\\.swf\\?.*\\b(?:v(?:ID|id))=)(?P<id>[\\da-f]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": IndavideoEmbedIE__VALID_URL,
 			})
 		}())
 	})

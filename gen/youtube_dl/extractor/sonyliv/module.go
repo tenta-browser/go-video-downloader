@@ -40,14 +40,14 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
-		SonyLIVIE = λ.Cal(λ.TypeType, λ.NewStr("SonyLIVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SonyLIVIE = λ.Cal(λ.TypeType, λ.StrLiteral("SonyLIVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SonyLIVIE_BRIGHTCOVE_URL_TEMPLATE λ.Object
 				SonyLIVIE__VALID_URL              λ.Object
 				SonyLIVIE__real_extract           λ.Object
 			)
-			SonyLIVIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?sonyliv\\.com/details/[^/]+/(?P<id>\\d+)")
-			SonyLIVIE_BRIGHTCOVE_URL_TEMPLATE = λ.NewStr("http://players.brightcove.net/5182475815001/default_default/index.html?videoId=ref:%s")
+			SonyLIVIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?sonyliv\\.com/details/[^/]+/(?P<id>\\d+)")
+			SonyLIVIE_BRIGHTCOVE_URL_TEMPLATE = λ.StrLiteral("http://players.brightcove.net/5182475815001/default_default/index.html?videoId=ref:%s")
 			SonyLIVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -60,16 +60,16 @@ func init() {
 						ϒself          = λargs[0]
 						ϒurl           = λargs[1]
 					)
-					ϒbrightcove_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Cal(ϒsmuggle_url, λ.Mod(λ.GetAttr(ϒself, "BRIGHTCOVE_URL_TEMPLATE", nil), ϒbrightcove_id), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("geo_countries"): λ.NewList(λ.NewStr("IN")),
-						λ.NewStr("referrer"):      ϒurl,
-					})), λ.NewStr("BrightcoveNew"), ϒbrightcove_id)
+					ϒbrightcove_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					return λ.Calm(ϒself, "url_result", λ.Cal(ϒsmuggle_url, λ.Mod(λ.GetAttr(ϒself, "BRIGHTCOVE_URL_TEMPLATE", nil), ϒbrightcove_id), λ.DictLiteral(map[string]λ.Object{
+						"geo_countries": λ.NewList(λ.StrLiteral("IN")),
+						"referrer":      ϒurl,
+					})), λ.StrLiteral("BrightcoveNew"), ϒbrightcove_id)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("BRIGHTCOVE_URL_TEMPLATE"): SonyLIVIE_BRIGHTCOVE_URL_TEMPLATE,
-				λ.NewStr("_VALID_URL"):              SonyLIVIE__VALID_URL,
-				λ.NewStr("_real_extract"):           SonyLIVIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"BRIGHTCOVE_URL_TEMPLATE": SonyLIVIE_BRIGHTCOVE_URL_TEMPLATE,
+				"_VALID_URL":              SonyLIVIE__VALID_URL,
+				"_real_extract":           SonyLIVIE__real_extract,
 			})
 		}())
 	})

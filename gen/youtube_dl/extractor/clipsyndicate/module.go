@@ -42,12 +42,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒfind_xpath_attr = Ωutils.ϒfind_xpath_attr
 		ϒfix_xml_ampersands = Ωutils.ϒfix_xml_ampersands
-		ClipsyndicateIE = λ.Cal(λ.TypeType, λ.NewStr("ClipsyndicateIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ClipsyndicateIE = λ.Cal(λ.TypeType, λ.StrLiteral("ClipsyndicateIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ClipsyndicateIE__VALID_URL    λ.Object
 				ClipsyndicateIE__real_extract λ.Object
 			)
-			ClipsyndicateIE__VALID_URL = λ.NewStr("https?://(?:chic|www)\\.clipsyndicate\\.com/video/play(list/\\d+)?/(?P<id>\\d+)")
+			ClipsyndicateIE__VALID_URL = λ.StrLiteral("https?://(?:chic|www)\\.clipsyndicate\\.com/video/play(list/\\d+)?/(?P<id>\\d+)")
 			ClipsyndicateIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -65,17 +65,17 @@ func init() {
 						ϒurl        = λargs[1]
 						ϒvideo_id   λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒjs_player = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.NewStr("http://eplayer.clipsyndicate.com/embed/player.js?va_id=%s"), ϒvideo_id), ϒvideo_id, λ.NewStr("Downlaoding player"))
-					ϒflvars = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("flvars: \"(.*?)\""), ϒjs_player, λ.NewStr("flvars"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒjs_player = λ.Calm(ϒself, "_download_webpage", λ.Mod(λ.StrLiteral("http://eplayer.clipsyndicate.com/embed/player.js?va_id=%s"), ϒvideo_id), ϒvideo_id, λ.StrLiteral("Downlaoding player"))
+					ϒflvars = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("flvars: \"(.*?)\""), ϒjs_player, λ.StrLiteral("flvars"))
 					ϒpdoc = λ.Call(λ.GetAttr(ϒself, "_download_xml", nil), λ.NewArgs(
-						λ.Mod(λ.NewStr("http://eplayer.clipsyndicate.com/osmf/playlist?%s"), ϒflvars),
+						λ.Mod(λ.StrLiteral("http://eplayer.clipsyndicate.com/osmf/playlist?%s"), ϒflvars),
 						ϒvideo_id,
-						λ.NewStr("Downloading video info"),
+						λ.StrLiteral("Downloading video info"),
 					), λ.KWArgs{
 						{Name: "transform_source", Value: ϒfix_xml_ampersands},
 					})
-					ϒtrack_doc = λ.Cal(λ.GetAttr(ϒpdoc, "find", nil), λ.NewStr("trackList/track"))
+					ϒtrack_doc = λ.Calm(ϒpdoc, "find", λ.StrLiteral("trackList/track"))
 					ϒfind_param = λ.NewFunction("find_param",
 						[]λ.Param{
 							{Name: "name"},
@@ -86,23 +86,23 @@ func init() {
 								ϒname = λargs[0]
 								ϒnode λ.Object
 							)
-							ϒnode = λ.Cal(ϒfind_xpath_attr, ϒtrack_doc, λ.NewStr(".//param"), λ.NewStr("name"), ϒname)
-							if λ.IsTrue(λ.NewBool(ϒnode != λ.None)) {
-								return λ.GetItem(λ.GetAttr(ϒnode, "attrib", nil), λ.NewStr("value"))
+							ϒnode = λ.Cal(ϒfind_xpath_attr, ϒtrack_doc, λ.StrLiteral(".//param"), λ.StrLiteral("name"), ϒname)
+							if ϒnode != λ.None {
+								return λ.GetItem(λ.GetAttr(ϒnode, "attrib", nil), λ.StrLiteral("value"))
 							}
 							return λ.None
 						})
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("title"):     λ.Cal(ϒfind_param, λ.NewStr("title")),
-						λ.NewStr("url"):       λ.GetAttr(λ.Cal(λ.GetAttr(ϒtrack_doc, "find", nil), λ.NewStr("location")), "text", nil),
-						λ.NewStr("thumbnail"): λ.Cal(ϒfind_param, λ.NewStr("thumbnail")),
-						λ.NewStr("duration"):  λ.Cal(λ.IntType, λ.Cal(ϒfind_param, λ.NewStr("duration"))),
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒvideo_id,
+						"title":     λ.Cal(ϒfind_param, λ.StrLiteral("title")),
+						"url":       λ.GetAttr(λ.Calm(ϒtrack_doc, "find", λ.StrLiteral("location")), "text", nil),
+						"thumbnail": λ.Cal(ϒfind_param, λ.StrLiteral("thumbnail")),
+						"duration":  λ.Cal(λ.IntType, λ.Cal(ϒfind_param, λ.StrLiteral("duration"))),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    ClipsyndicateIE__VALID_URL,
-				λ.NewStr("_real_extract"): ClipsyndicateIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    ClipsyndicateIE__VALID_URL,
+				"_real_extract": ClipsyndicateIE__real_extract,
 			})
 		}())
 	})

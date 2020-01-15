@@ -59,12 +59,12 @@ func init() {
 		ϒstd_headers = Ωutils.ϒstd_headers
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒurl_or_none = Ωutils.ϒurl_or_none
-		InstagramIE = λ.Cal(λ.TypeType, λ.NewStr("InstagramIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		InstagramIE = λ.Cal(λ.TypeType, λ.StrLiteral("InstagramIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				InstagramIE__VALID_URL    λ.Object
 				InstagramIE__real_extract λ.Object
 			)
-			InstagramIE__VALID_URL = λ.NewStr("(?P<url>https?://(?:www\\.)?instagram\\.com/(?:p|tv)/(?P<id>[^/?#&]+))")
+			InstagramIE__VALID_URL = λ.StrLiteral("(?P<url>https?://(?:www\\.)?instagram\\.com/(?:p|tv)/(?P<id>[^/?#&]+))")
 			InstagramIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -104,28 +104,28 @@ func init() {
 						τmp2            λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-					ϒurl = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("url"))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					τmp0 = λ.Mul(λ.NewList(λ.None), λ.NewInt(11))
-					ϒvideo_url = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒdescription = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒthumbnail = λ.GetItem(τmp0, λ.NewInt(2))
-					ϒtimestamp = λ.GetItem(τmp0, λ.NewInt(3))
-					ϒuploader = λ.GetItem(τmp0, λ.NewInt(4))
-					ϒuploader_id = λ.GetItem(τmp0, λ.NewInt(5))
-					ϒlike_count = λ.GetItem(τmp0, λ.NewInt(6))
-					ϒcomment_count = λ.GetItem(τmp0, λ.NewInt(7))
-					ϒcomments = λ.GetItem(τmp0, λ.NewInt(8))
-					ϒheight = λ.GetItem(τmp0, λ.NewInt(9))
-					ϒwidth = λ.GetItem(τmp0, λ.NewInt(10))
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
+					ϒurl = λ.Calm(ϒmobj, "group", λ.StrLiteral("url"))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					τmp0 = λ.Mul(λ.NewList(λ.None), λ.IntLiteral(11))
+					ϒvideo_url = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒdescription = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒthumbnail = λ.GetItem(τmp0, λ.IntLiteral(2))
+					ϒtimestamp = λ.GetItem(τmp0, λ.IntLiteral(3))
+					ϒuploader = λ.GetItem(τmp0, λ.IntLiteral(4))
+					ϒuploader_id = λ.GetItem(τmp0, λ.IntLiteral(5))
+					ϒlike_count = λ.GetItem(τmp0, λ.IntLiteral(6))
+					ϒcomment_count = λ.GetItem(τmp0, λ.IntLiteral(7))
+					ϒcomments = λ.GetItem(τmp0, λ.IntLiteral(8))
+					ϒheight = λ.GetItem(τmp0, λ.IntLiteral(9))
+					ϒwidth = λ.GetItem(τmp0, λ.IntLiteral(10))
 					ϒshared_data = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 						λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("window\\._sharedData\\s*=\\s*({.+?});"),
+							λ.StrLiteral("window\\._sharedData\\s*=\\s*({.+?});"),
 							ϒwebpage,
-							λ.NewStr("shared data"),
+							λ.StrLiteral("shared data"),
 						), λ.KWArgs{
-							{Name: "default", Value: λ.NewStr("{}")},
+							{Name: "default", Value: λ.StrLiteral("{}")},
 						}),
 						ϒvideo_id,
 					), λ.KWArgs{
@@ -142,7 +142,7 @@ func init() {
 									var (
 										ϒx = λargs[0]
 									)
-									return λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.NewStr("entry_data")), λ.NewStr("PostPage")), λ.NewInt(0)), λ.NewStr("graphql")), λ.NewStr("shortcode_media"))
+									return λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("entry_data")), λ.StrLiteral("PostPage")), λ.IntLiteral(0)), λ.StrLiteral("graphql")), λ.StrLiteral("shortcode_media"))
 								}),
 							λ.NewFunction("<lambda>",
 								[]λ.Param{
@@ -153,13 +153,13 @@ func init() {
 									var (
 										ϒx = λargs[0]
 									)
-									return λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.NewStr("entry_data")), λ.NewStr("PostPage")), λ.NewInt(0)), λ.NewStr("media"))
+									return λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("entry_data")), λ.StrLiteral("PostPage")), λ.IntLiteral(0)), λ.StrLiteral("media"))
 								}),
 						), λ.DictType)
 						if λ.IsTrue(ϒmedia) {
-							ϒvideo_url = λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("video_url"))
-							ϒheight = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("dimensions"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("height")))
-							ϒwidth = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("dimensions"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("width")))
+							ϒvideo_url = λ.Calm(ϒmedia, "get", λ.StrLiteral("video_url"))
+							ϒheight = λ.Cal(ϒint_or_none, λ.Calm(λ.Calm(ϒmedia, "get", λ.StrLiteral("dimensions"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("height")))
+							ϒwidth = λ.Cal(ϒint_or_none, λ.Calm(λ.Calm(ϒmedia, "get", λ.StrLiteral("dimensions"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("width")))
 							ϒdescription = func() λ.Object {
 								if λv := λ.Cal(ϒtry_get, ϒmedia, λ.NewFunction("<lambda>",
 									[]λ.Param{
@@ -170,23 +170,23 @@ func init() {
 										var (
 											ϒx = λargs[0]
 										)
-										return λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.NewStr("edge_media_to_caption")), λ.NewStr("edges")), λ.NewInt(0)), λ.NewStr("node")), λ.NewStr("text"))
+										return λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("edge_media_to_caption")), λ.StrLiteral("edges")), λ.IntLiteral(0)), λ.StrLiteral("node")), λ.StrLiteral("text"))
 									}), ϒcompat_str); λ.IsTrue(λv) {
 									return λv
 								} else {
-									return λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("caption"))
+									return λ.Calm(ϒmedia, "get", λ.StrLiteral("caption"))
 								}
 							}()
-							ϒthumbnail = λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("display_src"))
+							ϒthumbnail = λ.Calm(ϒmedia, "get", λ.StrLiteral("display_src"))
 							ϒtimestamp = λ.Cal(ϒint_or_none, func() λ.Object {
-								if λv := λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("taken_at_timestamp")); λ.IsTrue(λv) {
+								if λv := λ.Calm(ϒmedia, "get", λ.StrLiteral("taken_at_timestamp")); λ.IsTrue(λv) {
 									return λv
 								} else {
-									return λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("date"))
+									return λ.Calm(ϒmedia, "get", λ.StrLiteral("date"))
 								}
 							}())
-							ϒuploader = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("owner"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("full_name"))
-							ϒuploader_id = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("owner"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("username"))
+							ϒuploader = λ.Calm(λ.Calm(ϒmedia, "get", λ.StrLiteral("owner"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("full_name"))
+							ϒuploader_id = λ.Calm(λ.Calm(ϒmedia, "get", λ.StrLiteral("owner"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("username"))
 							ϒget_count = λ.NewFunction("get_count",
 								[]λ.Param{
 									{Name: "key"},
@@ -208,7 +208,7 @@ func init() {
 												var (
 													ϒx = λargs[0]
 												)
-												return λ.GetItem(λ.GetItem(ϒx, λ.Mod(λ.NewStr("edge_media_%s"), ϒkey)), λ.NewStr("count"))
+												return λ.GetItem(λ.GetItem(ϒx, λ.Mod(λ.StrLiteral("edge_media_%s"), ϒkey)), λ.StrLiteral("count"))
 											}),
 										λ.NewFunction("<lambda>",
 											[]λ.Param{
@@ -219,12 +219,12 @@ func init() {
 												var (
 													ϒx = λargs[0]
 												)
-												return λ.GetItem(λ.GetItem(ϒx, λ.Mod(λ.NewStr("%ss"), ϒkind)), λ.NewStr("count"))
+												return λ.GetItem(λ.GetItem(ϒx, λ.Mod(λ.StrLiteral("%ss"), ϒkind)), λ.StrLiteral("count"))
 											}),
 									)))
 								})
-							ϒlike_count = λ.Cal(ϒget_count, λ.NewStr("preview_like"), λ.NewStr("like"))
-							ϒcomment_count = λ.Cal(ϒget_count, λ.NewStr("to_comment"), λ.NewStr("comment"))
+							ϒlike_count = λ.Cal(ϒget_count, λ.StrLiteral("preview_like"), λ.StrLiteral("like"))
+							ϒcomment_count = λ.Cal(ϒget_count, λ.StrLiteral("to_comment"), λ.StrLiteral("comment"))
 							ϒcomments = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 								nil,
 								0, false, false,
@@ -235,26 +235,26 @@ func init() {
 											τmp0     λ.Object
 											τmp1     λ.Object
 										)
-										τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("comments"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("nodes"), λ.NewList()))
+										τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.Calm(ϒmedia, "get", λ.StrLiteral("comments"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("nodes"), λ.NewList()))
 										for {
 											if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 												break
 											}
 											ϒcomment = τmp1
-											if λ.IsTrue(λ.Cal(λ.GetAttr(ϒcomment, "get", nil), λ.NewStr("text"))) {
-												λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-													λ.NewStr("author"):    λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒcomment, "get", nil), λ.NewStr("user"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("username")),
-													λ.NewStr("author_id"): λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒcomment, "get", nil), λ.NewStr("user"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("id")),
-													λ.NewStr("id"):        λ.Cal(λ.GetAttr(ϒcomment, "get", nil), λ.NewStr("id")),
-													λ.NewStr("text"):      λ.Cal(λ.GetAttr(ϒcomment, "get", nil), λ.NewStr("text")),
-													λ.NewStr("timestamp"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒcomment, "get", nil), λ.NewStr("created_at"))),
+											if λ.IsTrue(λ.Calm(ϒcomment, "get", λ.StrLiteral("text"))) {
+												λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+													"author":    λ.Calm(λ.Calm(ϒcomment, "get", λ.StrLiteral("user"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("username")),
+													"author_id": λ.Calm(λ.Calm(ϒcomment, "get", λ.StrLiteral("user"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("id")),
+													"id":        λ.Calm(ϒcomment, "get", λ.StrLiteral("id")),
+													"text":      λ.Calm(ϒcomment, "get", λ.StrLiteral("text")),
+													"timestamp": λ.Cal(ϒint_or_none, λ.Calm(ϒcomment, "get", λ.StrLiteral("created_at"))),
 												}))
 											}
 										}
 										return λ.None
 									})
 								})))
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_url))) {
+							if !λ.IsTrue(ϒvideo_url) {
 								ϒedges = func() λ.Object {
 									if λv := λ.Cal(ϒtry_get, ϒmedia, λ.NewFunction("<lambda>",
 										[]λ.Param{
@@ -265,7 +265,7 @@ func init() {
 											var (
 												ϒx = λargs[0]
 											)
-											return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("edge_sidecar_to_children")), λ.NewStr("edges"))
+											return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("edge_sidecar_to_children")), λ.StrLiteral("edges"))
 										}), λ.ListType); λ.IsTrue(λv) {
 										return λv
 									} else {
@@ -275,15 +275,15 @@ func init() {
 								if λ.IsTrue(ϒedges) {
 									ϒentries = λ.NewList()
 									τmp0 = λ.Cal(λ.BuiltinIter, λ.Call(λ.EnumerateIteratorType, λ.NewArgs(ϒedges), λ.KWArgs{
-										{Name: "start", Value: λ.NewInt(1)},
+										{Name: "start", Value: λ.IntLiteral(1)},
 									}))
 									for {
 										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 											break
 										}
 										τmp2 = τmp1
-										ϒedge_num = λ.GetItem(τmp2, λ.NewInt(0))
-										ϒedge = λ.GetItem(τmp2, λ.NewInt(1))
+										ϒedge_num = λ.GetItem(τmp2, λ.IntLiteral(0))
+										ϒedge = λ.GetItem(τmp2, λ.IntLiteral(1))
 										ϒnode = λ.Cal(ϒtry_get, ϒedge, λ.NewFunction("<lambda>",
 											[]λ.Param{
 												{Name: "x"},
@@ -293,27 +293,27 @@ func init() {
 												var (
 													ϒx = λargs[0]
 												)
-												return λ.GetItem(ϒx, λ.NewStr("node"))
+												return λ.GetItem(ϒx, λ.StrLiteral("node"))
 											}), λ.DictType)
-										if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒnode))) {
+										if !λ.IsTrue(ϒnode) {
 											continue
 										}
-										ϒnode_video_url = λ.Cal(ϒurl_or_none, λ.Cal(λ.GetAttr(ϒnode, "get", nil), λ.NewStr("video_url")))
-										if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒnode_video_url))) {
+										ϒnode_video_url = λ.Cal(ϒurl_or_none, λ.Calm(ϒnode, "get", λ.StrLiteral("video_url")))
+										if !λ.IsTrue(ϒnode_video_url) {
 											continue
 										}
-										λ.Cal(λ.GetAttr(ϒentries, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-											λ.NewStr("id"): func() λ.Object {
-												if λv := λ.Cal(λ.GetAttr(ϒnode, "get", nil), λ.NewStr("shortcode")); λ.IsTrue(λv) {
+										λ.Calm(ϒentries, "append", λ.DictLiteral(map[string]λ.Object{
+											"id": func() λ.Object {
+												if λv := λ.Calm(ϒnode, "get", λ.StrLiteral("shortcode")); λ.IsTrue(λv) {
 													return λv
 												} else {
-													return λ.GetItem(ϒnode, λ.NewStr("id"))
+													return λ.GetItem(ϒnode, λ.StrLiteral("id"))
 												}
 											}(),
-											λ.NewStr("title"):     λ.Mod(λ.NewStr("Video %d"), ϒedge_num),
-											λ.NewStr("url"):       ϒnode_video_url,
-											λ.NewStr("thumbnail"): λ.Cal(λ.GetAttr(ϒnode, "get", nil), λ.NewStr("display_url")),
-											λ.NewStr("width"): λ.Cal(ϒint_or_none, λ.Cal(ϒtry_get, ϒnode, λ.NewFunction("<lambda>",
+											"title":     λ.Mod(λ.StrLiteral("Video %d"), ϒedge_num),
+											"url":       ϒnode_video_url,
+											"thumbnail": λ.Calm(ϒnode, "get", λ.StrLiteral("display_url")),
+											"width": λ.Cal(ϒint_or_none, λ.Cal(ϒtry_get, ϒnode, λ.NewFunction("<lambda>",
 												[]λ.Param{
 													{Name: "x"},
 												},
@@ -322,9 +322,9 @@ func init() {
 													var (
 														ϒx = λargs[0]
 													)
-													return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("dimensions")), λ.NewStr("width"))
+													return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("dimensions")), λ.StrLiteral("width"))
 												}))),
-											λ.NewStr("height"): λ.Cal(ϒint_or_none, λ.Cal(ϒtry_get, ϒnode, λ.NewFunction("<lambda>",
+											"height": λ.Cal(ϒint_or_none, λ.Cal(ϒtry_get, ϒnode, λ.NewFunction("<lambda>",
 												[]λ.Param{
 													{Name: "x"},
 												},
@@ -333,14 +333,14 @@ func init() {
 													var (
 														ϒx = λargs[0]
 													)
-													return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("dimensions")), λ.NewStr("height"))
+													return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("dimensions")), λ.StrLiteral("height"))
 												}))),
-											λ.NewStr("view_count"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒnode, "get", nil), λ.NewStr("video_view_count"))),
+											"view_count": λ.Cal(ϒint_or_none, λ.Calm(ϒnode, "get", λ.StrLiteral("video_view_count"))),
 										}))
 									}
-									return λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), ϒentries, ϒvideo_id, func() λ.Object {
+									return λ.Calm(ϒself, "playlist_result", ϒentries, ϒvideo_id, func() λ.Object {
 										if λ.IsTrue(ϒuploader_id) {
-											return λ.Mod(λ.NewStr("Post by %s"), ϒuploader_id)
+											return λ.Mod(λ.StrLiteral("Post by %s"), ϒuploader_id)
 										} else {
 											return λ.None
 										}
@@ -349,80 +349,80 @@ func init() {
 							}
 						}
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_url))) {
+					if !λ.IsTrue(ϒvideo_url) {
 						ϒvideo_url = λ.Call(λ.GetAttr(ϒself, "_og_search_video_url", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 							{Name: "secure", Value: λ.False},
 						})
 					}
-					ϒformats = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("url"):    ϒvideo_url,
-						λ.NewStr("width"):  ϒwidth,
-						λ.NewStr("height"): ϒheight,
+					ϒformats = λ.NewList(λ.DictLiteral(map[string]λ.Object{
+						"url":    ϒvideo_url,
+						"width":  ϒwidth,
+						"height": ϒheight,
 					}))
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒuploader_id))) {
+					if !λ.IsTrue(ϒuploader_id) {
 						ϒuploader_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("\"owner\"\\s*:\\s*{\\s*\"username\"\\s*:\\s*\"(.+?)\""),
+							λ.StrLiteral("\"owner\"\\s*:\\s*{\\s*\"username\"\\s*:\\s*\"(.+?)\""),
 							ϒwebpage,
-							λ.NewStr("uploader id"),
+							λ.StrLiteral("uploader id"),
 						), λ.KWArgs{
 							{Name: "fatal", Value: λ.False},
 						})
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒdescription))) {
+					if !λ.IsTrue(ϒdescription) {
 						ϒdescription = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("\"caption\"\\s*:\\s*\"(.+?)\""),
+							λ.StrLiteral("\"caption\"\\s*:\\s*\"(.+?)\""),
 							ϒwebpage,
-							λ.NewStr("description"),
+							λ.StrLiteral("description"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
-						if λ.IsTrue(λ.NewBool(ϒdescription != λ.None)) {
+						if ϒdescription != λ.None {
 							ϒdescription = λ.Cal(ϒlowercase_escape, ϒdescription)
 						}
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒthumbnail))) {
-						ϒthumbnail = λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage)
+					if !λ.IsTrue(ϒthumbnail) {
+						ϒthumbnail = λ.Calm(ϒself, "_og_search_thumbnail", ϒwebpage)
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            ϒvideo_id,
-						λ.NewStr("formats"):       ϒformats,
-						λ.NewStr("ext"):           λ.NewStr("mp4"),
-						λ.NewStr("title"):         λ.Mod(λ.NewStr("Video by %s"), ϒuploader_id),
-						λ.NewStr("description"):   ϒdescription,
-						λ.NewStr("thumbnail"):     ϒthumbnail,
-						λ.NewStr("timestamp"):     ϒtimestamp,
-						λ.NewStr("uploader_id"):   ϒuploader_id,
-						λ.NewStr("uploader"):      ϒuploader,
-						λ.NewStr("like_count"):    ϒlike_count,
-						λ.NewStr("comment_count"): ϒcomment_count,
-						λ.NewStr("comments"):      ϒcomments,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":            ϒvideo_id,
+						"formats":       ϒformats,
+						"ext":           λ.StrLiteral("mp4"),
+						"title":         λ.Mod(λ.StrLiteral("Video by %s"), ϒuploader_id),
+						"description":   ϒdescription,
+						"thumbnail":     ϒthumbnail,
+						"timestamp":     ϒtimestamp,
+						"uploader_id":   ϒuploader_id,
+						"uploader":      ϒuploader,
+						"like_count":    ϒlike_count,
+						"comment_count": ϒcomment_count,
+						"comments":      ϒcomments,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    InstagramIE__VALID_URL,
-				λ.NewStr("_real_extract"): InstagramIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    InstagramIE__VALID_URL,
+				"_real_extract": InstagramIE__real_extract,
 			})
 		}())
-		InstagramPlaylistIE = λ.Cal(λ.TypeType, λ.NewStr("InstagramPlaylistIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		InstagramPlaylistIE = λ.Cal(λ.TypeType, λ.StrLiteral("InstagramPlaylistIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
-		InstagramUserIE = λ.Cal(λ.TypeType, λ.NewStr("InstagramUserIE"), λ.NewTuple(InstagramPlaylistIE), func() λ.Dict {
+		InstagramUserIE = λ.Cal(λ.TypeType, λ.StrLiteral("InstagramUserIE"), λ.NewTuple(InstagramPlaylistIE), func() λ.Dict {
 			var (
 				InstagramUserIE__VALID_URL λ.Object
 			)
-			InstagramUserIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?instagram\\.com/(?P<id>[^/]{2,})/?(?:$|[?#])")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): InstagramUserIE__VALID_URL,
+			InstagramUserIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?instagram\\.com/(?P<id>[^/]{2,})/?(?:$|[?#])")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": InstagramUserIE__VALID_URL,
 			})
 		}())
-		InstagramTagIE = λ.Cal(λ.TypeType, λ.NewStr("InstagramTagIE"), λ.NewTuple(InstagramPlaylistIE), func() λ.Dict {
+		InstagramTagIE = λ.Cal(λ.TypeType, λ.StrLiteral("InstagramTagIE"), λ.NewTuple(InstagramPlaylistIE), func() λ.Dict {
 			var (
 				InstagramTagIE__VALID_URL λ.Object
 			)
-			InstagramTagIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?instagram\\.com/explore/tags/(?P<id>[^/]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): InstagramTagIE__VALID_URL,
+			InstagramTagIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?instagram\\.com/explore/tags/(?P<id>[^/]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": InstagramTagIE__VALID_URL,
 			})
 		}())
 	})

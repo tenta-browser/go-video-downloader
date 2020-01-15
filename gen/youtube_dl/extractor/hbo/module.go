@@ -50,47 +50,47 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒurljoin = Ωutils.ϒurljoin
-		HBOBaseIE = λ.Cal(λ.TypeType, λ.NewStr("HBOBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		HBOBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("HBOBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				HBOBaseIE__FORMATS_INFO λ.Object
 				HBOBaseIE__extract_info λ.Object
 			)
-			HBOBaseIE__FORMATS_INFO = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("pro7"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("width"):  λ.NewInt(1280),
-					λ.NewStr("height"): λ.NewInt(720),
+			HBOBaseIE__FORMATS_INFO = λ.DictLiteral(map[string]λ.Object{
+				"pro7": λ.DictLiteral(map[string]int{
+					"width":  1280,
+					"height": 720,
 				}),
-				λ.NewStr("1920"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("width"):  λ.NewInt(1280),
-					λ.NewStr("height"): λ.NewInt(720),
+				"1920": λ.DictLiteral(map[string]int{
+					"width":  1280,
+					"height": 720,
 				}),
-				λ.NewStr("pro6"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("width"):  λ.NewInt(768),
-					λ.NewStr("height"): λ.NewInt(432),
+				"pro6": λ.DictLiteral(map[string]int{
+					"width":  768,
+					"height": 432,
 				}),
-				λ.NewStr("640"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("width"):  λ.NewInt(768),
-					λ.NewStr("height"): λ.NewInt(432),
+				"640": λ.DictLiteral(map[string]int{
+					"width":  768,
+					"height": 432,
 				}),
-				λ.NewStr("pro5"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("width"):  λ.NewInt(640),
-					λ.NewStr("height"): λ.NewInt(360),
+				"pro5": λ.DictLiteral(map[string]int{
+					"width":  640,
+					"height": 360,
 				}),
-				λ.NewStr("highwifi"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("width"):  λ.NewInt(640),
-					λ.NewStr("height"): λ.NewInt(360),
+				"highwifi": λ.DictLiteral(map[string]int{
+					"width":  640,
+					"height": 360,
 				}),
-				λ.NewStr("high3g"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("width"):  λ.NewInt(640),
-					λ.NewStr("height"): λ.NewInt(360),
+				"high3g": λ.DictLiteral(map[string]int{
+					"width":  640,
+					"height": 360,
 				}),
-				λ.NewStr("medwifi"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("width"):  λ.NewInt(400),
-					λ.NewStr("height"): λ.NewInt(224),
+				"medwifi": λ.DictLiteral(map[string]int{
+					"width":  400,
+					"height": 224,
 				}),
-				λ.NewStr("med3g"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("width"):  λ.NewInt(400),
-					λ.NewStr("height"): λ.NewInt(224),
+				"med3g": λ.DictLiteral(map[string]int{
+					"width":  400,
+					"height": 224,
 				}),
 			})
 			HBOBaseIE__extract_info = λ.NewFunction("_extract_info",
@@ -131,90 +131,90 @@ func init() {
 						τmp2           λ.Object
 						τmp3           λ.Object
 					)
-					ϒvideo_data = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), ϒurl, ϒdisplay_id)
+					ϒvideo_data = λ.Calm(ϒself, "_download_xml", ϒurl, ϒdisplay_id)
 					ϒvideo_id = λ.Call(ϒxpath_text, λ.NewArgs(
 						ϒvideo_data,
-						λ.NewStr("id"),
+						λ.StrLiteral("id"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.True},
 					})
 					τmp0 = λ.Call(ϒxpath_text, λ.NewArgs(
 						ϒvideo_data,
-						λ.NewStr("title"),
+						λ.StrLiteral("title"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.True},
 					})
 					ϒepisode_title = τmp0
 					ϒtitle = τmp0
-					ϒseries = λ.Cal(ϒxpath_text, ϒvideo_data, λ.NewStr("program"))
+					ϒseries = λ.Cal(ϒxpath_text, ϒvideo_data, λ.StrLiteral("program"))
 					if λ.IsTrue(ϒseries) {
-						ϒtitle = λ.Mod(λ.NewStr("%s - %s"), λ.NewTuple(
+						ϒtitle = λ.Mod(λ.StrLiteral("%s - %s"), λ.NewTuple(
 							ϒseries,
 							ϒtitle,
 						))
 					}
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(ϒxpath_element, ϒvideo_data, λ.NewStr("videos"), λ.NewStr("sources"), λ.True))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(ϒxpath_element, ϒvideo_data, λ.StrLiteral("videos"), λ.StrLiteral("sources"), λ.True))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒsource = τmp1
-						if λ.IsTrue(λ.Eq(λ.GetAttr(ϒsource, "tag", nil), λ.NewStr("size"))) {
-							ϒpath = λ.Cal(ϒxpath_text, ϒsource, λ.NewStr(".//path"))
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒpath))) {
+						if λ.IsTrue(λ.Eq(λ.GetAttr(ϒsource, "tag", nil), λ.StrLiteral("size"))) {
+							ϒpath = λ.Cal(ϒxpath_text, ϒsource, λ.StrLiteral(".//path"))
+							if !λ.IsTrue(ϒpath) {
 								continue
 							}
-							ϒwidth = λ.Cal(λ.GetAttr(λ.GetAttr(ϒsource, "attrib", nil), "get", nil), λ.NewStr("width"))
-							ϒformat_info = λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_FORMATS_INFO", nil), "get", nil), ϒwidth, λ.NewDictWithTable(map[λ.Object]λ.Object{}))
-							ϒheight = λ.Cal(λ.GetAttr(ϒformat_info, "get", nil), λ.NewStr("height"))
-							ϒfmt = λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("url"): ϒpath,
-								λ.NewStr("format_id"): λ.Mod(λ.NewStr("http%s"), func() λ.Object {
+							ϒwidth = λ.Calm(λ.GetAttr(ϒsource, "attrib", nil), "get", λ.StrLiteral("width"))
+							ϒformat_info = λ.Calm(λ.GetAttr(ϒself, "_FORMATS_INFO", nil), "get", ϒwidth, λ.DictLiteral(map[λ.Object]λ.Object{}))
+							ϒheight = λ.Calm(ϒformat_info, "get", λ.StrLiteral("height"))
+							ϒfmt = λ.DictLiteral(map[string]λ.Object{
+								"url": ϒpath,
+								"format_id": λ.Mod(λ.StrLiteral("http%s"), func() λ.Object {
 									if λ.IsTrue(ϒheight) {
-										return λ.Mod(λ.NewStr("-%dp"), ϒheight)
+										return λ.Mod(λ.StrLiteral("-%dp"), ϒheight)
 									} else {
-										return λ.NewStr("")
+										return λ.StrLiteral("")
 									}
 								}()),
-								λ.NewStr("width"):  λ.Cal(λ.GetAttr(ϒformat_info, "get", nil), λ.NewStr("width")),
-								λ.NewStr("height"): ϒheight,
+								"width":  λ.Calm(ϒformat_info, "get", λ.StrLiteral("width")),
+								"height": ϒheight,
 							})
-							ϒrtmp = λ.Cal(Ωre.ϒsearch, λ.NewStr("^(?P<url>rtmpe?://[^/]+/(?P<app>.+))/(?P<playpath>mp4:.+)$"), ϒpath)
+							ϒrtmp = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("^(?P<url>rtmpe?://[^/]+/(?P<app>.+))/(?P<playpath>mp4:.+)$"), ϒpath)
 							if λ.IsTrue(ϒrtmp) {
-								λ.Cal(λ.GetAttr(ϒfmt, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("url"):       λ.Cal(λ.GetAttr(ϒrtmp, "group", nil), λ.NewStr("url")),
-									λ.NewStr("play_path"): λ.Cal(λ.GetAttr(ϒrtmp, "group", nil), λ.NewStr("playpath")),
-									λ.NewStr("app"):       λ.Cal(λ.GetAttr(ϒrtmp, "group", nil), λ.NewStr("app")),
-									λ.NewStr("ext"):       λ.NewStr("flv"),
-									λ.NewStr("format_id"): λ.Cal(λ.GetAttr(λ.GetItem(ϒfmt, λ.NewStr("format_id")), "replace", nil), λ.NewStr("http"), λ.NewStr("rtmp")),
+								λ.Calm(ϒfmt, "update", λ.DictLiteral(map[string]λ.Object{
+									"url":       λ.Calm(ϒrtmp, "group", λ.StrLiteral("url")),
+									"play_path": λ.Calm(ϒrtmp, "group", λ.StrLiteral("playpath")),
+									"app":       λ.Calm(ϒrtmp, "group", λ.StrLiteral("app")),
+									"ext":       λ.StrLiteral("flv"),
+									"format_id": λ.Calm(λ.GetItem(ϒfmt, λ.StrLiteral("format_id")), "replace", λ.StrLiteral("http"), λ.StrLiteral("rtmp")),
 								}))
 							}
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒfmt)
+							λ.Calm(ϒformats, "append", ϒfmt)
 						} else {
 							ϒvideo_url = λ.GetAttr(ϒsource, "text", nil)
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_url))) {
+							if !λ.IsTrue(ϒvideo_url) {
 								continue
 							}
-							if λ.IsTrue(λ.Eq(λ.GetAttr(ϒsource, "tag", nil), λ.NewStr("tarball"))) {
-								λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
-									λ.Cal(λ.GetAttr(ϒvideo_url, "replace", nil), λ.NewStr(".tar"), λ.NewStr("/base_index_w8.m3u8")),
+							if λ.IsTrue(λ.Eq(λ.GetAttr(ϒsource, "tag", nil), λ.StrLiteral("tarball"))) {
+								λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+									λ.Calm(ϒvideo_url, "replace", λ.StrLiteral(".tar"), λ.StrLiteral("/base_index_w8.m3u8")),
 									ϒvideo_id,
-									λ.NewStr("mp4"),
-									λ.NewStr("m3u8_native"),
+									λ.StrLiteral("mp4"),
+									λ.StrLiteral("m3u8_native"),
 								), λ.KWArgs{
-									{Name: "m3u8_id", Value: λ.NewStr("hls")},
+									{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
 									{Name: "fatal", Value: λ.False},
 								}))
 							} else {
-								if λ.IsTrue(λ.Eq(λ.GetAttr(ϒsource, "tag", nil), λ.NewStr("hls"))) {
+								if λ.IsTrue(λ.Eq(λ.GetAttr(ϒsource, "tag", nil), λ.StrLiteral("hls"))) {
 									ϒm3u8_formats = λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
-										λ.Cal(λ.GetAttr(ϒvideo_url, "replace", nil), λ.NewStr(".tar"), λ.NewStr("/base_index.m3u8")),
+										λ.Calm(ϒvideo_url, "replace", λ.StrLiteral(".tar"), λ.StrLiteral("/base_index.m3u8")),
 										ϒvideo_id,
-										λ.NewStr("mp4"),
-										λ.NewStr("m3u8_native"),
+										λ.StrLiteral("mp4"),
+										λ.StrLiteral("m3u8_native"),
 									), λ.KWArgs{
-										{Name: "m3u8_id", Value: λ.NewStr("hls")},
+										{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
 										{Name: "fatal", Value: λ.False},
 									})
 									τmp2 = λ.Cal(λ.BuiltinIter, ϒm3u8_formats)
@@ -224,100 +224,100 @@ func init() {
 										}
 										ϒf = τmp3
 										if λ.IsTrue(func() λ.Object {
-											if λv := λ.Eq(λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("vcodec")), λ.NewStr("none")); !λ.IsTrue(λv) {
+											if λv := λ.Eq(λ.Calm(ϒf, "get", λ.StrLiteral("vcodec")), λ.StrLiteral("none")); !λ.IsTrue(λv) {
 												return λv
 											} else {
-												return λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("tbr"))))
+												return λ.NewBool(!λ.IsTrue(λ.Calm(ϒf, "get", λ.StrLiteral("tbr"))))
 											}
 										}()) {
-											λ.SetItem(ϒf, λ.NewStr("tbr"), λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-												λ.NewStr("-(\\d+)k/"),
-												λ.GetItem(ϒf, λ.NewStr("url")),
-												λ.NewStr("tbr"),
+											λ.SetItem(ϒf, λ.StrLiteral("tbr"), λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+												λ.StrLiteral("-(\\d+)k/"),
+												λ.GetItem(ϒf, λ.StrLiteral("url")),
+												λ.StrLiteral("tbr"),
 											), λ.KWArgs{
 												{Name: "default", Value: λ.None},
 											})))
 										}
 									}
-									λ.Cal(λ.GetAttr(ϒformats, "extend", nil), ϒm3u8_formats)
+									λ.Calm(ϒformats, "extend", ϒm3u8_formats)
 								} else {
-									if λ.IsTrue(λ.Eq(λ.GetAttr(ϒsource, "tag", nil), λ.NewStr("dash"))) {
-										λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_mpd_formats", nil), λ.NewArgs(
-											λ.Cal(λ.GetAttr(ϒvideo_url, "replace", nil), λ.NewStr(".tar"), λ.NewStr("/manifest.mpd")),
+									if λ.IsTrue(λ.Eq(λ.GetAttr(ϒsource, "tag", nil), λ.StrLiteral("dash"))) {
+										λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_mpd_formats", nil), λ.NewArgs(
+											λ.Calm(ϒvideo_url, "replace", λ.StrLiteral(".tar"), λ.StrLiteral("/manifest.mpd")),
 											ϒvideo_id,
 										), λ.KWArgs{
-											{Name: "mpd_id", Value: λ.NewStr("dash")},
+											{Name: "mpd_id", Value: λ.StrLiteral("dash")},
 											{Name: "fatal", Value: λ.False},
 										}))
 									} else {
-										ϒformat_info = λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_FORMATS_INFO", nil), "get", nil), λ.GetAttr(ϒsource, "tag", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{}))
-										λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-											λ.NewStr("format_id"): λ.Mod(λ.NewStr("http-%s"), λ.GetAttr(ϒsource, "tag", nil)),
-											λ.NewStr("url"):       ϒvideo_url,
-											λ.NewStr("width"):     λ.Cal(λ.GetAttr(ϒformat_info, "get", nil), λ.NewStr("width")),
-											λ.NewStr("height"):    λ.Cal(λ.GetAttr(ϒformat_info, "get", nil), λ.NewStr("height")),
+										ϒformat_info = λ.Calm(λ.GetAttr(ϒself, "_FORMATS_INFO", nil), "get", λ.GetAttr(ϒsource, "tag", nil), λ.DictLiteral(map[λ.Object]λ.Object{}))
+										λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+											"format_id": λ.Mod(λ.StrLiteral("http-%s"), λ.GetAttr(ϒsource, "tag", nil)),
+											"url":       ϒvideo_url,
+											"width":     λ.Calm(ϒformat_info, "get", λ.StrLiteral("width")),
+											"height":    λ.Calm(ϒformat_info, "get", λ.StrLiteral("height")),
 										}))
 									}
 								}
 							}
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒthumbnails = λ.NewList()
-					ϒcard_sizes = λ.Cal(ϒxpath_element, ϒvideo_data, λ.NewStr("titleCardSizes"))
-					if λ.IsTrue(λ.NewBool(ϒcard_sizes != λ.None)) {
+					ϒcard_sizes = λ.Cal(ϒxpath_element, ϒvideo_data, λ.StrLiteral("titleCardSizes"))
+					if ϒcard_sizes != λ.None {
 						τmp0 = λ.Cal(λ.BuiltinIter, ϒcard_sizes)
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
 							ϒsize = τmp1
-							ϒpath = λ.Cal(ϒxpath_text, ϒsize, λ.NewStr("path"))
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒpath))) {
+							ϒpath = λ.Cal(ϒxpath_text, ϒsize, λ.StrLiteral("path"))
+							if !λ.IsTrue(ϒpath) {
 								continue
 							}
-							ϒwidth = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒsize, "get", nil), λ.NewStr("width")))
-							λ.Cal(λ.GetAttr(ϒthumbnails, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("id"):    ϒwidth,
-								λ.NewStr("url"):   ϒpath,
-								λ.NewStr("width"): ϒwidth,
+							ϒwidth = λ.Cal(ϒint_or_none, λ.Calm(ϒsize, "get", λ.StrLiteral("width")))
+							λ.Calm(ϒthumbnails, "append", λ.DictLiteral(map[string]λ.Object{
+								"id":    ϒwidth,
+								"url":   ϒpath,
+								"width": ϒwidth,
 							}))
 						}
 					}
 					ϒsubtitles = λ.None
-					ϒcaption_url = λ.Cal(ϒxpath_text, ϒvideo_data, λ.NewStr("captionUrl"))
+					ϒcaption_url = λ.Cal(ϒxpath_text, ϒvideo_data, λ.StrLiteral("captionUrl"))
 					if λ.IsTrue(ϒcaption_url) {
-						ϒsubtitles = λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("en"): λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("url"): ϒcaption_url,
-								λ.NewStr("ext"): λ.NewStr("ttml"),
+						ϒsubtitles = λ.DictLiteral(map[string]λ.Object{
+							"en": λ.NewList(λ.DictLiteral(map[string]λ.Object{
+								"url": ϒcaption_url,
+								"ext": λ.StrLiteral("ttml"),
 							})),
 						})
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         ϒvideo_id,
-						λ.NewStr("title"):      ϒtitle,
-						λ.NewStr("duration"):   λ.Cal(ϒparse_duration, λ.Cal(ϒxpath_text, ϒvideo_data, λ.NewStr("duration/tv14"))),
-						λ.NewStr("series"):     ϒseries,
-						λ.NewStr("episode"):    ϒepisode_title,
-						λ.NewStr("formats"):    ϒformats,
-						λ.NewStr("thumbnails"): ϒthumbnails,
-						λ.NewStr("subtitles"):  ϒsubtitles,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":         ϒvideo_id,
+						"title":      ϒtitle,
+						"duration":   λ.Cal(ϒparse_duration, λ.Cal(ϒxpath_text, ϒvideo_data, λ.StrLiteral("duration/tv14"))),
+						"series":     ϒseries,
+						"episode":    ϒepisode_title,
+						"formats":    ϒformats,
+						"thumbnails": ϒthumbnails,
+						"subtitles":  ϒsubtitles,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_FORMATS_INFO"): HBOBaseIE__FORMATS_INFO,
-				λ.NewStr("_extract_info"): HBOBaseIE__extract_info,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_FORMATS_INFO": HBOBaseIE__FORMATS_INFO,
+				"_extract_info": HBOBaseIE__extract_info,
 			})
 		}())
-		HBOIE = λ.Cal(λ.TypeType, λ.NewStr("HBOIE"), λ.NewTuple(HBOBaseIE), func() λ.Dict {
+		HBOIE = λ.Cal(λ.TypeType, λ.StrLiteral("HBOIE"), λ.NewTuple(HBOBaseIE), func() λ.Dict {
 			var (
 				HBOIE_IE_NAME       λ.Object
 				HBOIE__VALID_URL    λ.Object
 				HBOIE__real_extract λ.Object
 			)
-			HBOIE_IE_NAME = λ.NewStr("hbo")
-			HBOIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?hbo\\.com/(?:video|embed)(?:/[^/]+)*/(?P<id>[^/?#]+)")
+			HBOIE_IE_NAME = λ.StrLiteral("hbo")
+			HBOIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?hbo\\.com/(?:video|embed)(?:/[^/]+)*/(?P<id>[^/?#]+)")
 			HBOIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -332,15 +332,15 @@ func init() {
 						ϒurl           = λargs[1]
 						ϒwebpage       λ.Object
 					)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
-					ϒlocation_path = λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("data-state=\"({.+?})\""), ϒwebpage, λ.NewStr("state")), ϒdisplay_id), λ.NewStr("video")), λ.NewStr("locationUrl"))
-					return λ.Cal(λ.GetAttr(ϒself, "_extract_info", nil), λ.Cal(ϒurljoin, ϒurl, ϒlocation_path), ϒdisplay_id)
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
+					ϒlocation_path = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("data-state=\"({.+?})\""), ϒwebpage, λ.StrLiteral("state")), ϒdisplay_id), λ.StrLiteral("video")), λ.StrLiteral("locationUrl"))
+					return λ.Calm(ϒself, "_extract_info", λ.Cal(ϒurljoin, ϒurl, ϒlocation_path), ϒdisplay_id)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       HBOIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    HBOIE__VALID_URL,
-				λ.NewStr("_real_extract"): HBOIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       HBOIE_IE_NAME,
+				"_VALID_URL":    HBOIE__VALID_URL,
+				"_real_extract": HBOIE__real_extract,
 			})
 		}())
 	})

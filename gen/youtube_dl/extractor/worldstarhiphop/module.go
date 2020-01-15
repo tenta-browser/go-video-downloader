@@ -37,12 +37,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		WorldStarHipHopIE = λ.Cal(λ.TypeType, λ.NewStr("WorldStarHipHopIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		WorldStarHipHopIE = λ.Cal(λ.TypeType, λ.StrLiteral("WorldStarHipHopIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				WorldStarHipHopIE__VALID_URL    λ.Object
 				WorldStarHipHopIE__real_extract λ.Object
 			)
-			WorldStarHipHopIE__VALID_URL = λ.NewStr("https?://(?:www|m)\\.worldstar(?:candy|hiphop)\\.com/(?:videos|android)/video\\.php\\?.*?\\bv=(?P<id>[^&]+)")
+			WorldStarHipHopIE__VALID_URL = λ.StrLiteral("https?://(?:www|m)\\.worldstar(?:candy|hiphop)\\.com/(?:videos|android)/video\\.php\\?.*?\\bv=(?P<id>[^&]+)")
 			WorldStarHipHopIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -59,26 +59,26 @@ func init() {
 						ϒvideo_id λ.Object
 						ϒwebpage  λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒentries = λ.Cal(λ.GetAttr(ϒself, "_parse_html5_media_entries", nil), ϒurl, ϒwebpage, ϒvideo_id)
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒentries))) {
-						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒurl, λ.NewStr("Generic"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒentries = λ.Calm(ϒself, "_parse_html5_media_entries", ϒurl, ϒwebpage, ϒvideo_id)
+					if !λ.IsTrue(ϒentries) {
+						return λ.Calm(ϒself, "url_result", ϒurl, λ.StrLiteral("Generic"))
 					}
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewList(
-						λ.NewStr("(?s)<div class=\"content-heading\">\\s*<h1>(.*?)</h1>"),
-						λ.NewStr("<span[^>]+class=\"tc-sp-pinned-title\">(.*)</span>"),
-					), ϒwebpage, λ.NewStr("title"))
-					ϒinfo = λ.GetItem(ϒentries, λ.NewInt(0))
-					λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    ϒvideo_id,
-						λ.NewStr("title"): ϒtitle,
+					ϒtitle = λ.Calm(ϒself, "_html_search_regex", λ.NewList(
+						λ.StrLiteral("(?s)<div class=\"content-heading\">\\s*<h1>(.*?)</h1>"),
+						λ.StrLiteral("<span[^>]+class=\"tc-sp-pinned-title\">(.*)</span>"),
+					), ϒwebpage, λ.StrLiteral("title"))
+					ϒinfo = λ.GetItem(ϒentries, λ.IntLiteral(0))
+					λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
+						"id":    ϒvideo_id,
+						"title": ϒtitle,
 					}))
 					return ϒinfo
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    WorldStarHipHopIE__VALID_URL,
-				λ.NewStr("_real_extract"): WorldStarHipHopIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    WorldStarHipHopIE__VALID_URL,
+				"_real_extract": WorldStarHipHopIE__real_extract,
 			})
 		}())
 	})

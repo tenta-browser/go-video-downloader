@@ -42,12 +42,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		ExtractorError = Ωutils.ExtractorError
-		SBSIE = λ.Cal(λ.TypeType, λ.NewStr("SBSIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SBSIE = λ.Cal(λ.TypeType, λ.StrLiteral("SBSIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SBSIE__VALID_URL    λ.Object
 				SBSIE__real_extract λ.Object
 			)
-			SBSIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?sbs\\.com\\.au/(?:ondemand|news)/video/(?:single/)?(?P<id>[0-9]+)")
+			SBSIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?sbs\\.com\\.au/(?:ondemand|news)/video/(?:single/)?(?P<id>[0-9]+)")
 			SBSIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -67,64 +67,64 @@ func init() {
 						ϒvideo_data      λ.Object
 						ϒvideo_id        λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒplayer_params = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("http://www.sbs.com.au/api/video_pdkvars/id/%s?form=json"), ϒvideo_id), ϒvideo_id)
-					ϒerror = λ.Cal(λ.GetAttr(ϒplayer_params, "get", nil), λ.NewStr("error"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒplayer_params = λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("http://www.sbs.com.au/api/video_pdkvars/id/%s?form=json"), ϒvideo_id), ϒvideo_id)
+					ϒerror = λ.Calm(ϒplayer_params, "get", λ.StrLiteral("error"))
 					if λ.IsTrue(ϒerror) {
-						ϒerror_message = λ.NewStr("Sorry, The video you are looking for does not exist.")
+						ϒerror_message = λ.StrLiteral("Sorry, The video you are looking for does not exist.")
 						ϒvideo_data = func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒerror, "get", nil), λ.NewStr("results")); λ.IsTrue(λv) {
+							if λv := λ.Calm(ϒerror, "get", λ.StrLiteral("results")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+								return λ.DictLiteral(map[λ.Object]λ.Object{})
 							}
 						}()
-						ϒerror_code = λ.Cal(λ.GetAttr(ϒerror, "get", nil), λ.NewStr("errorCode"))
-						if λ.IsTrue(λ.Eq(ϒerror_code, λ.NewStr("ComingSoon"))) {
-							ϒerror_message = λ.Mod(λ.NewStr("%s is not yet available."), λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("title"), λ.NewStr("")))
+						ϒerror_code = λ.Calm(ϒerror, "get", λ.StrLiteral("errorCode"))
+						if λ.IsTrue(λ.Eq(ϒerror_code, λ.StrLiteral("ComingSoon"))) {
+							ϒerror_message = λ.Mod(λ.StrLiteral("%s is not yet available."), λ.Calm(ϒvideo_data, "get", λ.StrLiteral("title"), λ.StrLiteral("")))
 						} else {
-							if λ.IsTrue(λ.NewBool(λ.Contains(λ.NewTuple(
-								λ.NewStr("Forbidden"),
-								λ.NewStr("intranetAccessOnly"),
-							), ϒerror_code))) {
-								ϒerror_message = λ.NewStr("Sorry, This video cannot be accessed via this website")
+							if λ.Contains(λ.NewTuple(
+								λ.StrLiteral("Forbidden"),
+								λ.StrLiteral("intranetAccessOnly"),
+							), ϒerror_code) {
+								ϒerror_message = λ.StrLiteral("Sorry, This video cannot be accessed via this website")
 							} else {
-								if λ.IsTrue(λ.Eq(ϒerror_code, λ.NewStr("Expired"))) {
-									ϒerror_message = λ.Mod(λ.NewStr("Sorry, %s is no longer available."), λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("title"), λ.NewStr("")))
+								if λ.IsTrue(λ.Eq(ϒerror_code, λ.StrLiteral("Expired"))) {
+									ϒerror_message = λ.Mod(λ.StrLiteral("Sorry, %s is no longer available."), λ.Calm(ϒvideo_data, "get", λ.StrLiteral("title"), λ.StrLiteral("")))
 								}
 							}
 						}
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("%s said: %s"), λ.NewTuple(
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("%s said: %s"), λ.NewTuple(
 							λ.GetAttr(ϒself, "IE_NAME", nil),
 							ϒerror_message,
 						))), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
-					ϒurls = λ.GetItem(ϒplayer_params, λ.NewStr("releaseUrls"))
+					ϒurls = λ.GetItem(ϒplayer_params, λ.StrLiteral("releaseUrls"))
 					ϒtheplatform_url = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒurls, "get", nil), λ.NewStr("progressive")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒurls, "get", λ.StrLiteral("progressive")); λ.IsTrue(λv) {
 							return λv
-						} else if λv := λ.Cal(λ.GetAttr(ϒurls, "get", nil), λ.NewStr("html")); λ.IsTrue(λv) {
+						} else if λv := λ.Calm(ϒurls, "get", λ.StrLiteral("html")); λ.IsTrue(λv) {
 							return λv
-						} else if λv := λ.Cal(λ.GetAttr(ϒurls, "get", nil), λ.NewStr("standard")); λ.IsTrue(λv) {
+						} else if λv := λ.Calm(ϒurls, "get", λ.StrLiteral("standard")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.GetItem(ϒplayer_params, λ.NewStr("relatedItemsURL"))
+							return λ.GetItem(ϒplayer_params, λ.StrLiteral("relatedItemsURL"))
 						}
 					}()
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):  λ.NewStr("url_transparent"),
-						λ.NewStr("ie_key"): λ.NewStr("ThePlatform"),
-						λ.NewStr("id"):     ϒvideo_id,
-						λ.NewStr("url"): λ.Cal(ϒsmuggle_url, λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), ϒtheplatform_url), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("force_smil_url"): λ.True,
+					return λ.DictLiteral(map[string]λ.Object{
+						"_type":  λ.StrLiteral("url_transparent"),
+						"ie_key": λ.StrLiteral("ThePlatform"),
+						"id":     ϒvideo_id,
+						"url": λ.Cal(ϒsmuggle_url, λ.Calm(ϒself, "_proto_relative_url", ϒtheplatform_url), λ.DictLiteral(map[string]λ.Object{
+							"force_smil_url": λ.True,
 						})),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    SBSIE__VALID_URL,
-				λ.NewStr("_real_extract"): SBSIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    SBSIE__VALID_URL,
+				"_real_extract": SBSIE__real_extract,
 			})
 		}())
 	})

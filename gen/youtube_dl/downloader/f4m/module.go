@@ -70,10 +70,10 @@ func init() {
 							ϒe = λargs[0]
 						)
 						return func() λ.Object {
-							if λv := λ.NewBool(!λ.Contains(λ.GetAttr(ϒe, "attrib", nil), λ.NewStr("drmAdditionalHeaderId"))); !λ.IsTrue(λv) {
+							if λv := λ.NewBool(!λ.Contains(λ.GetAttr(ϒe, "attrib", nil), λ.StrLiteral("drmAdditionalHeaderId"))); !λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.NewBool(!λ.Contains(λ.GetAttr(ϒe, "attrib", nil), λ.NewStr("drmAdditionalHeaderSetId")))
+								return λ.NewBool(!λ.Contains(λ.GetAttr(ϒe, "attrib", nil), λ.StrLiteral("drmAdditionalHeaderSetId")))
 							}
 						}()
 					}), ϒmedia))
@@ -81,7 +81,7 @@ func init() {
 		ϒ_add_ns = λ.NewFunction("_add_ns",
 			[]λ.Param{
 				{Name: "prop"},
-				{Name: "ver", Def: λ.NewInt(1)},
+				{Name: "ver", Def: λ.IntLiteral(1)},
 			},
 			0, false, false,
 			func(λargs []λ.Object) λ.Object {
@@ -89,7 +89,7 @@ func init() {
 					ϒprop = λargs[0]
 					ϒver  = λargs[1]
 				)
-				return λ.Mod(λ.NewStr("{http://ns.adobe.com/f4m/%d.0}%s"), λ.NewTuple(
+				return λ.Mod(λ.StrLiteral("{http://ns.adobe.com/f4m/%d.0}%s"), λ.NewTuple(
 					ϒver,
 					ϒprop,
 				))
@@ -107,15 +107,15 @@ func init() {
 				ϒbase_url = λ.Call(ϒxpath_text, λ.NewArgs(
 					ϒmanifest,
 					λ.NewList(
-						λ.Cal(ϒ_add_ns, λ.NewStr("baseURL")),
-						λ.Cal(ϒ_add_ns, λ.NewStr("baseURL"), λ.NewInt(2)),
+						λ.Cal(ϒ_add_ns, λ.StrLiteral("baseURL")),
+						λ.Cal(ϒ_add_ns, λ.StrLiteral("baseURL"), λ.IntLiteral(2)),
 					),
-					λ.NewStr("base URL"),
+					λ.StrLiteral("base URL"),
 				), λ.KWArgs{
 					{Name: "default", Value: λ.None},
 				})
 				if λ.IsTrue(ϒbase_url) {
-					ϒbase_url = λ.Cal(λ.GetAttr(ϒbase_url, "strip", nil))
+					ϒbase_url = λ.Calm(ϒbase_url, "strip")
 				}
 				return ϒbase_url
 			})

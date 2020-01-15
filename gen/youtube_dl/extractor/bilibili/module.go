@@ -65,21 +65,21 @@ func init() {
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒunsmuggle_url = Ωutils.ϒunsmuggle_url
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
-		BiliBiliIE = λ.Cal(λ.TypeType, λ.NewStr("BiliBiliIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		BiliBiliIE = λ.Cal(λ.TypeType, λ.StrLiteral("BiliBiliIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				BiliBiliIE__VALID_URL λ.Object
 			)
-			BiliBiliIE__VALID_URL = λ.NewStr("https?://(?:www\\.|bangumi\\.|)bilibili\\.(?:tv|com)/(?:video/av|anime/(?P<anime_id>\\d+)/play#)(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): BiliBiliIE__VALID_URL,
+			BiliBiliIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.|bangumi\\.|)bilibili\\.(?:tv|com)/(?:video/av|anime/(?P<anime_id>\\d+)/play#)(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": BiliBiliIE__VALID_URL,
 			})
 		}())
-		BiliBiliBangumiIE = λ.Cal(λ.TypeType, λ.NewStr("BiliBiliBangumiIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		BiliBiliBangumiIE = λ.Cal(λ.TypeType, λ.StrLiteral("BiliBiliBangumiIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				BiliBiliBangumiIE__VALID_URL λ.Object
 				BiliBiliBangumiIE_suitable   λ.Object
 			)
-			BiliBiliBangumiIE__VALID_URL = λ.NewStr("https?://bangumi\\.bilibili\\.com/anime/(?P<id>\\d+)")
+			BiliBiliBangumiIE__VALID_URL = λ.StrLiteral("https?://bangumi\\.bilibili\\.com/anime/(?P<id>\\d+)")
 			BiliBiliBangumiIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -92,20 +92,20 @@ func init() {
 						ϒurl = λargs[1]
 					)
 					return func() λ.Object {
-						if λ.IsTrue(λ.Cal(λ.GetAttr(BiliBiliIE, "suitable", nil), ϒurl)) {
+						if λ.IsTrue(λ.Calm(BiliBiliIE, "suitable", ϒurl)) {
 							return λ.False
 						} else {
-							return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, BiliBiliBangumiIE, ϒcls), "suitable", nil), ϒurl)
+							return λ.Calm(λ.Cal(λ.SuperType, BiliBiliBangumiIE, ϒcls), "suitable", ϒurl)
 						}
 					}()
 				})
 			BiliBiliBangumiIE_suitable = λ.Cal(λ.ClassMethodType, BiliBiliBangumiIE_suitable)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): BiliBiliBangumiIE__VALID_URL,
-				λ.NewStr("suitable"):   BiliBiliBangumiIE_suitable,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": BiliBiliBangumiIE__VALID_URL,
+				"suitable":   BiliBiliBangumiIE_suitable,
 			})
 		}())
-		BilibiliAudioBaseIE = λ.Cal(λ.TypeType, λ.NewStr("BilibiliAudioBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		BilibiliAudioBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("BilibiliAudioBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				BilibiliAudioBaseIE__call_api λ.Object
 			)
@@ -124,28 +124,28 @@ func init() {
 						ϒself  = λargs[0]
 						ϒsid   = λargs[2]
 					)
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒquery))) {
-						ϒquery = λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("sid"): ϒsid,
+					if !λ.IsTrue(ϒquery) {
+						ϒquery = λ.DictLiteral(map[string]λ.Object{
+							"sid": ϒsid,
 						})
 					}
 					return λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Add(λ.NewStr("https://www.bilibili.com/audio/music-service-c/web/"), ϒpath),
+						λ.Add(λ.StrLiteral("https://www.bilibili.com/audio/music-service-c/web/"), ϒpath),
 						ϒsid,
 					), λ.KWArgs{
 						{Name: "query", Value: ϒquery},
-					}), λ.NewStr("data"))
+					}), λ.StrLiteral("data"))
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_call_api"): BilibiliAudioBaseIE__call_api,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_call_api": BilibiliAudioBaseIE__call_api,
 			})
 		}())
-		BilibiliAudioIE = λ.Cal(λ.TypeType, λ.NewStr("BilibiliAudioIE"), λ.NewTuple(BilibiliAudioBaseIE), func() λ.Dict {
+		BilibiliAudioIE = λ.Cal(λ.TypeType, λ.StrLiteral("BilibiliAudioIE"), λ.NewTuple(BilibiliAudioBaseIE), func() λ.Dict {
 			var (
 				BilibiliAudioIE__VALID_URL    λ.Object
 				BilibiliAudioIE__real_extract λ.Object
 			)
-			BilibiliAudioIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bilibili\\.com/audio/au(?P<id>\\d+)")
+			BilibiliAudioIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?bilibili\\.com/audio/au(?P<id>\\d+)")
 			BilibiliAudioIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -165,57 +165,57 @@ func init() {
 						ϒtitle     λ.Object
 						ϒurl       = λargs[1]
 					)
-					ϒau_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒplay_data = λ.Cal(λ.GetAttr(ϒself, "_call_api", nil), λ.NewStr("url"), ϒau_id)
-					ϒformats = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("url"):      λ.GetItem(λ.GetItem(ϒplay_data, λ.NewStr("cdns")), λ.NewInt(0)),
-						λ.NewStr("filesize"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒplay_data, "get", nil), λ.NewStr("size"))),
+					ϒau_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒplay_data = λ.Calm(ϒself, "_call_api", λ.StrLiteral("url"), ϒau_id)
+					ϒformats = λ.NewList(λ.DictLiteral(map[string]λ.Object{
+						"url":      λ.GetItem(λ.GetItem(ϒplay_data, λ.StrLiteral("cdns")), λ.IntLiteral(0)),
+						"filesize": λ.Cal(ϒint_or_none, λ.Calm(ϒplay_data, "get", λ.StrLiteral("size"))),
 					}))
-					ϒsong = λ.Cal(λ.GetAttr(ϒself, "_call_api", nil), λ.NewStr("song/info"), ϒau_id)
-					ϒtitle = λ.GetItem(ϒsong, λ.NewStr("title"))
+					ϒsong = λ.Calm(ϒself, "_call_api", λ.StrLiteral("song/info"), ϒau_id)
+					ϒtitle = λ.GetItem(ϒsong, λ.StrLiteral("title"))
 					ϒstatistic = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒsong, "get", nil), λ.NewStr("statistic")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒsong, "get", λ.StrLiteral("statistic")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
 						}
 					}()
 					ϒsubtitles = λ.None
-					ϒlyric = λ.Cal(λ.GetAttr(ϒsong, "get", nil), λ.NewStr("lyric"))
+					ϒlyric = λ.Calm(ϒsong, "get", λ.StrLiteral("lyric"))
 					if λ.IsTrue(ϒlyric) {
-						ϒsubtitles = λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("origin"): λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("url"): ϒlyric,
+						ϒsubtitles = λ.DictLiteral(map[string]λ.Object{
+							"origin": λ.NewList(λ.DictLiteral(map[string]λ.Object{
+								"url": ϒlyric,
 							})),
 						})
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            ϒau_id,
-						λ.NewStr("title"):         ϒtitle,
-						λ.NewStr("formats"):       ϒformats,
-						λ.NewStr("artist"):        λ.Cal(λ.GetAttr(ϒsong, "get", nil), λ.NewStr("author")),
-						λ.NewStr("comment_count"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒstatistic, "get", nil), λ.NewStr("comment"))),
-						λ.NewStr("description"):   λ.Cal(λ.GetAttr(ϒsong, "get", nil), λ.NewStr("intro")),
-						λ.NewStr("duration"):      λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒsong, "get", nil), λ.NewStr("duration"))),
-						λ.NewStr("subtitles"):     ϒsubtitles,
-						λ.NewStr("thumbnail"):     λ.Cal(λ.GetAttr(ϒsong, "get", nil), λ.NewStr("cover")),
-						λ.NewStr("timestamp"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒsong, "get", nil), λ.NewStr("passtime"))),
-						λ.NewStr("uploader"):      λ.Cal(λ.GetAttr(ϒsong, "get", nil), λ.NewStr("uname")),
-						λ.NewStr("view_count"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒstatistic, "get", nil), λ.NewStr("play"))),
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":            ϒau_id,
+						"title":         ϒtitle,
+						"formats":       ϒformats,
+						"artist":        λ.Calm(ϒsong, "get", λ.StrLiteral("author")),
+						"comment_count": λ.Cal(ϒint_or_none, λ.Calm(ϒstatistic, "get", λ.StrLiteral("comment"))),
+						"description":   λ.Calm(ϒsong, "get", λ.StrLiteral("intro")),
+						"duration":      λ.Cal(ϒint_or_none, λ.Calm(ϒsong, "get", λ.StrLiteral("duration"))),
+						"subtitles":     ϒsubtitles,
+						"thumbnail":     λ.Calm(ϒsong, "get", λ.StrLiteral("cover")),
+						"timestamp":     λ.Cal(ϒint_or_none, λ.Calm(ϒsong, "get", λ.StrLiteral("passtime"))),
+						"uploader":      λ.Calm(ϒsong, "get", λ.StrLiteral("uname")),
+						"view_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒstatistic, "get", λ.StrLiteral("play"))),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    BilibiliAudioIE__VALID_URL,
-				λ.NewStr("_real_extract"): BilibiliAudioIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    BilibiliAudioIE__VALID_URL,
+				"_real_extract": BilibiliAudioIE__real_extract,
 			})
 		}())
-		BilibiliAudioAlbumIE = λ.Cal(λ.TypeType, λ.NewStr("BilibiliAudioAlbumIE"), λ.NewTuple(BilibiliAudioBaseIE), func() λ.Dict {
+		BilibiliAudioAlbumIE = λ.Cal(λ.TypeType, λ.StrLiteral("BilibiliAudioAlbumIE"), λ.NewTuple(BilibiliAudioBaseIE), func() λ.Dict {
 			var (
 				BilibiliAudioAlbumIE__VALID_URL λ.Object
 			)
-			BilibiliAudioAlbumIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bilibili\\.com/audio/am(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): BilibiliAudioAlbumIE__VALID_URL,
+			BilibiliAudioAlbumIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?bilibili\\.com/audio/am(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": BilibiliAudioAlbumIE__VALID_URL,
 			})
 		}())
 	})

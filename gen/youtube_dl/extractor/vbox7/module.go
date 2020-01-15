@@ -40,14 +40,14 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ExtractorError = Ωutils.ExtractorError
-		Vbox7IE = λ.Cal(λ.TypeType, λ.NewStr("Vbox7IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		Vbox7IE = λ.Cal(λ.TypeType, λ.StrLiteral("Vbox7IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				Vbox7IE__GEO_COUNTRIES λ.Object
 				Vbox7IE__VALID_URL     λ.Object
 				Vbox7IE__real_extract  λ.Object
 			)
-			Vbox7IE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:[^/]+\\.)?vbox7\\.com/\n                        (?:\n                            play:|\n                            (?:\n                                emb/external\\.php|\n                                player/ext\\.swf\n                            )\\?.*?\\bvid=\n                        )\n                        (?P<id>[\\da-fA-F]+)\n                    ")
-			Vbox7IE__GEO_COUNTRIES = λ.NewList(λ.NewStr("BG"))
+			Vbox7IE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:[^/]+\\.)?vbox7\\.com/\n                        (?:\n                            play:|\n                            (?:\n                                emb/external\\.php|\n                                player/ext\\.swf\n                            )\\?.*?\\bvid=\n                        )\n                        (?P<id>[\\da-fA-F]+)\n                    ")
+			Vbox7IE__GEO_COUNTRIES = λ.NewList(λ.StrLiteral("BG"))
 			Vbox7IE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -67,59 +67,59 @@ func init() {
 						ϒvideo_url λ.Object
 						ϒwebpage   λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒresponse = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("https://www.vbox7.com/ajax/video/nextvideo.php?vid=%s"), ϒvideo_id), ϒvideo_id)
-					if λ.IsTrue(λ.NewBool(λ.Contains(ϒresponse, λ.NewStr("error")))) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("%s said: %s"), λ.NewTuple(
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒresponse = λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("https://www.vbox7.com/ajax/video/nextvideo.php?vid=%s"), ϒvideo_id), ϒvideo_id)
+					if λ.Contains(ϒresponse, λ.StrLiteral("error")) {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("%s said: %s"), λ.NewTuple(
 							λ.GetAttr(ϒself, "IE_NAME", nil),
-							λ.GetItem(ϒresponse, λ.NewStr("error")),
+							λ.GetItem(ϒresponse, λ.StrLiteral("error")),
 						))), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
-					ϒvideo = λ.GetItem(ϒresponse, λ.NewStr("options"))
-					ϒtitle = λ.GetItem(ϒvideo, λ.NewStr("title"))
-					ϒvideo_url = λ.GetItem(ϒvideo, λ.NewStr("src"))
-					if λ.IsTrue(λ.NewBool(λ.Contains(ϒvideo_url, λ.NewStr("/na.mp4")))) {
+					ϒvideo = λ.GetItem(ϒresponse, λ.StrLiteral("options"))
+					ϒtitle = λ.GetItem(ϒvideo, λ.StrLiteral("title"))
+					ϒvideo_url = λ.GetItem(ϒvideo, λ.StrLiteral("src"))
+					if λ.Contains(ϒvideo_url, λ.StrLiteral("/na.mp4")) {
 						λ.Call(λ.GetAttr(ϒself, "raise_geo_restricted", nil), nil, λ.KWArgs{
 							{Name: "countries", Value: λ.GetAttr(ϒself, "_GEO_COUNTRIES", nil)},
 						})
 					}
-					ϒuploader = λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("uploader"))
+					ϒuploader = λ.Calm(ϒvideo, "get", λ.StrLiteral("uploader"))
 					ϒwebpage = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
-						λ.Mod(λ.NewStr("http://vbox7.com/play:%s"), ϒvideo_id),
+						λ.Mod(λ.StrLiteral("http://vbox7.com/play:%s"), ϒvideo_id),
 						ϒvideo_id,
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.None},
 					})
-					ϒinfo = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+					ϒinfo = λ.DictLiteral(map[λ.Object]λ.Object{})
 					if λ.IsTrue(ϒwebpage) {
 						ϒinfo = λ.Call(λ.GetAttr(ϒself, "_search_json_ld", nil), λ.NewArgs(
-							λ.Cal(λ.GetAttr(ϒwebpage, "replace", nil), λ.NewStr("\"/*@context\""), λ.NewStr("\"@context\"")),
+							λ.Calm(ϒwebpage, "replace", λ.StrLiteral("\"/*@context\""), λ.StrLiteral("\"@context\"")),
 							ϒvideo_id,
 						), λ.KWArgs{
 							{Name: "fatal", Value: λ.False},
 						})
 					}
-					λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):       ϒvideo_id,
-						λ.NewStr("title"):    ϒtitle,
-						λ.NewStr("url"):      ϒvideo_url,
-						λ.NewStr("uploader"): ϒuploader,
-						λ.NewStr("thumbnail"): λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("thumbnail")); λ.IsTrue(λv) {
+					λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
+						"id":       ϒvideo_id,
+						"title":    ϒtitle,
+						"url":      ϒvideo_url,
+						"uploader": ϒuploader,
+						"thumbnail": λ.Calm(ϒself, "_proto_relative_url", func() λ.Object {
+							if λv := λ.Calm(ϒinfo, "get", λ.StrLiteral("thumbnail")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage)
+								return λ.Calm(ϒself, "_og_search_thumbnail", ϒwebpage)
 							}
-						}(), λ.NewStr("http:")),
+						}(), λ.StrLiteral("http:")),
 					}))
 					return ϒinfo
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_GEO_COUNTRIES"): Vbox7IE__GEO_COUNTRIES,
-				λ.NewStr("_VALID_URL"):     Vbox7IE__VALID_URL,
-				λ.NewStr("_real_extract"):  Vbox7IE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_GEO_COUNTRIES": Vbox7IE__GEO_COUNTRIES,
+				"_VALID_URL":     Vbox7IE__VALID_URL,
+				"_real_extract":  Vbox7IE__real_extract,
 			})
 		}())
 	})

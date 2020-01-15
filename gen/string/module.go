@@ -42,14 +42,14 @@ var (
 
 func init() {
 	λ.InitModule(func() {
-		ϒwhitespace = λ.NewStr(" \t\n\r")
-		ϒlowercase = λ.NewStr("abcdefghijklmnopqrstuvwxyz")
-		ϒuppercase = λ.NewStr("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+		ϒwhitespace = λ.StrLiteral(" \t\n\r")
+		ϒlowercase = λ.StrLiteral("abcdefghijklmnopqrstuvwxyz")
+		ϒuppercase = λ.StrLiteral("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 		ϒletters = λ.Add(ϒlowercase, ϒuppercase)
 		ϒascii_lowercase = ϒlowercase
 		ϒascii_uppercase = ϒuppercase
 		ϒascii_letters = λ.Add(ϒascii_lowercase, ϒascii_uppercase)
-		ϒdigits = λ.NewStr("0123456789")
-		ϒpunctuation = λ.NewStr("!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~")
+		ϒdigits = λ.StrLiteral("0123456789")
+		ϒpunctuation = λ.StrLiteral("!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~")
 	})
 }

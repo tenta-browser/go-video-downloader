@@ -43,14 +43,14 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_duration = Ωutils.ϒparse_duration
-		ToonGogglesIE = λ.Cal(λ.TypeType, λ.NewStr("ToonGogglesIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ToonGogglesIE = λ.Cal(λ.TypeType, λ.StrLiteral("ToonGogglesIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ToonGogglesIE__VALID_URL          λ.Object
 				ToonGogglesIE__call_api           λ.Object
 				ToonGogglesIE__parse_episode_data λ.Object
 				ToonGogglesIE__real_extract       λ.Object
 			)
-			ToonGogglesIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?toongoggles\\.com/shows/(?P<show_id>\\d+)(?:/[^/]+/episodes/(?P<episode_id>\\d+))?")
+			ToonGogglesIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?toongoggles\\.com/shows/(?P<show_id>\\d+)(?:/[^/]+/episodes/(?P<episode_id>\\d+))?")
 			ToonGogglesIE__call_api = λ.NewFunction("_call_api",
 				[]λ.Param{
 					{Name: "self"},
@@ -66,14 +66,14 @@ func init() {
 						ϒquery   = λargs[3]
 						ϒself    = λargs[0]
 					)
-					λ.Cal(λ.GetAttr(ϒquery, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("for_ng"):    λ.NewInt(1),
-						λ.NewStr("for_web"):   λ.NewInt(1),
-						λ.NewStr("show_meta"): λ.NewInt(1),
-						λ.NewStr("version"):   λ.NewFloat(7.0),
+					λ.Calm(ϒquery, "update", λ.DictLiteral(map[string]λ.Object{
+						"for_ng":    λ.IntLiteral(1),
+						"for_web":   λ.IntLiteral(1),
+						"show_meta": λ.IntLiteral(1),
+						"version":   λ.FloatLiteral(7.0),
 					}))
 					return λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Add(λ.NewStr("http://api.toongoggles.com/"), ϒaction),
+						λ.Add(λ.StrLiteral("http://api.toongoggles.com/"), ϒaction),
 						ϒpage_id,
 					), λ.KWArgs{
 						{Name: "query", Value: ϒquery},
@@ -92,22 +92,22 @@ func init() {
 						ϒtitle        λ.Object
 					)
 					_ = ϒself
-					ϒtitle = λ.GetItem(ϒepisode_data, λ.NewStr("episode_name"))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):          λ.NewStr("url_transparent"),
-						λ.NewStr("id"):             λ.GetItem(ϒepisode_data, λ.NewStr("episode_id")),
-						λ.NewStr("title"):          ϒtitle,
-						λ.NewStr("url"):            λ.Add(λ.NewStr("kaltura:513551:"), λ.GetItem(ϒepisode_data, λ.NewStr("entry_id"))),
-						λ.NewStr("thumbnail"):      λ.Cal(λ.GetAttr(ϒepisode_data, "get", nil), λ.NewStr("thumbnail_url")),
-						λ.NewStr("description"):    λ.Cal(λ.GetAttr(ϒepisode_data, "get", nil), λ.NewStr("description")),
-						λ.NewStr("duration"):       λ.Cal(ϒparse_duration, λ.Cal(λ.GetAttr(ϒepisode_data, "get", nil), λ.NewStr("hms"))),
-						λ.NewStr("series"):         λ.Cal(λ.GetAttr(ϒepisode_data, "get", nil), λ.NewStr("show_name")),
-						λ.NewStr("season_number"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒepisode_data, "get", nil), λ.NewStr("season_num"))),
-						λ.NewStr("episode_id"):     λ.Cal(λ.GetAttr(ϒepisode_data, "get", nil), λ.NewStr("episode_id")),
-						λ.NewStr("episode"):        ϒtitle,
-						λ.NewStr("episode_number"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒepisode_data, "get", nil), λ.NewStr("episode_num"))),
-						λ.NewStr("categories"):     λ.Cal(λ.GetAttr(ϒepisode_data, "get", nil), λ.NewStr("categories")),
-						λ.NewStr("ie_key"):         λ.NewStr("Kaltura"),
+					ϒtitle = λ.GetItem(ϒepisode_data, λ.StrLiteral("episode_name"))
+					return λ.DictLiteral(map[string]λ.Object{
+						"_type":          λ.StrLiteral("url_transparent"),
+						"id":             λ.GetItem(ϒepisode_data, λ.StrLiteral("episode_id")),
+						"title":          ϒtitle,
+						"url":            λ.Add(λ.StrLiteral("kaltura:513551:"), λ.GetItem(ϒepisode_data, λ.StrLiteral("entry_id"))),
+						"thumbnail":      λ.Calm(ϒepisode_data, "get", λ.StrLiteral("thumbnail_url")),
+						"description":    λ.Calm(ϒepisode_data, "get", λ.StrLiteral("description")),
+						"duration":       λ.Cal(ϒparse_duration, λ.Calm(ϒepisode_data, "get", λ.StrLiteral("hms"))),
+						"series":         λ.Calm(ϒepisode_data, "get", λ.StrLiteral("show_name")),
+						"season_number":  λ.Cal(ϒint_or_none, λ.Calm(ϒepisode_data, "get", λ.StrLiteral("season_num"))),
+						"episode_id":     λ.Calm(ϒepisode_data, "get", λ.StrLiteral("episode_id")),
+						"episode":        ϒtitle,
+						"episode_number": λ.Cal(ϒint_or_none, λ.Calm(ϒepisode_data, "get", λ.StrLiteral("episode_num"))),
+						"categories":     λ.Calm(ϒepisode_data, "get", λ.StrLiteral("categories")),
+						"ie_key":         λ.StrLiteral("Kaltura"),
 					})
 				})
 			ToonGogglesIE__real_extract = λ.NewFunction("_real_extract",
@@ -128,38 +128,38 @@ func init() {
 						τmp0          λ.Object
 						τmp1          λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
-					ϒshow_id = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒepisode_id = λ.GetItem(τmp0, λ.NewInt(1))
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒshow_id = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒepisode_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if λ.IsTrue(ϒepisode_id) {
-						ϒepisode_data = λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_call_api", nil), λ.NewStr("search"), ϒepisode_id, λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("filter"): λ.NewStr("episode"),
-							λ.NewStr("id"):     ϒepisode_id,
-						})), λ.NewStr("objects")), λ.NewInt(0))
-						return λ.Cal(λ.GetAttr(ϒself, "_parse_episode_data", nil), ϒepisode_data)
+						ϒepisode_data = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_call_api", λ.StrLiteral("search"), ϒepisode_id, λ.DictLiteral(map[string]λ.Object{
+							"filter": λ.StrLiteral("episode"),
+							"id":     ϒepisode_id,
+						})), λ.StrLiteral("objects")), λ.IntLiteral(0))
+						return λ.Calm(ϒself, "_parse_episode_data", ϒepisode_data)
 					} else {
-						ϒshow_data = λ.Cal(λ.GetAttr(ϒself, "_call_api", nil), λ.NewStr("getepisodesbyshow"), ϒshow_id, λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("max"):    λ.NewInt(1000000000),
-							λ.NewStr("showid"): ϒshow_id,
+						ϒshow_data = λ.Calm(ϒself, "_call_api", λ.StrLiteral("getepisodesbyshow"), ϒshow_id, λ.DictLiteral(map[string]λ.Object{
+							"max":    λ.IntLiteral(1000000000),
+							"showid": ϒshow_id,
 						}))
 						ϒentries = λ.NewList()
-						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒshow_data, "get", nil), λ.NewStr("objects"), λ.NewList()))
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒshow_data, "get", λ.StrLiteral("objects"), λ.NewList()))
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
 							ϒepisode_data = τmp1
-							λ.Cal(λ.GetAttr(ϒentries, "append", nil), λ.Cal(λ.GetAttr(ϒself, "_parse_episode_data", nil), ϒepisode_data))
+							λ.Calm(ϒentries, "append", λ.Calm(ϒself, "_parse_episode_data", ϒepisode_data))
 						}
-						return λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), ϒentries, ϒshow_id, λ.Cal(λ.GetAttr(ϒshow_data, "get", nil), λ.NewStr("show_name")))
+						return λ.Calm(ϒself, "playlist_result", ϒentries, ϒshow_id, λ.Calm(ϒshow_data, "get", λ.StrLiteral("show_name")))
 					}
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):          ToonGogglesIE__VALID_URL,
-				λ.NewStr("_call_api"):           ToonGogglesIE__call_api,
-				λ.NewStr("_parse_episode_data"): ToonGogglesIE__parse_episode_data,
-				λ.NewStr("_real_extract"):       ToonGogglesIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":          ToonGogglesIE__VALID_URL,
+				"_call_api":           ToonGogglesIE__call_api,
+				"_parse_episode_data": ToonGogglesIE__parse_episode_data,
+				"_real_extract":       ToonGogglesIE__real_extract,
 			})
 		}())
 	})

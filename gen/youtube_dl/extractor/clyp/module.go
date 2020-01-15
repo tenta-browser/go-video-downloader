@@ -47,12 +47,12 @@ func init() {
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
-		ClypIE = λ.Cal(λ.TypeType, λ.NewStr("ClypIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ClypIE = λ.Cal(λ.TypeType, λ.StrLiteral("ClypIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ClypIE__VALID_URL    λ.Object
 				ClypIE__real_extract λ.Object
 			)
-			ClypIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?clyp\\.it/(?P<id>[a-z0-9]+)")
+			ClypIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?clyp\\.it/(?P<id>[a-z0-9]+)")
 			ClypIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -82,23 +82,23 @@ func init() {
 						τmp2         λ.Object
 						τmp3         λ.Object
 					)
-					ϒaudio_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒaudio_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒqs = λ.Cal(ϒcompat_parse_qs, λ.GetAttr(λ.Cal(ϒcompat_urllib_parse_urlparse, ϒurl), "query", nil))
-					ϒtoken = λ.GetItem(λ.Cal(λ.GetAttr(ϒqs, "get", nil), λ.NewStr("token"), λ.NewList(λ.None)), λ.NewInt(0))
-					ϒquery = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+					ϒtoken = λ.GetItem(λ.Calm(ϒqs, "get", λ.StrLiteral("token"), λ.NewList(λ.None)), λ.IntLiteral(0))
+					ϒquery = λ.DictLiteral(map[λ.Object]λ.Object{})
 					if λ.IsTrue(ϒtoken) {
-						λ.SetItem(ϒquery, λ.NewStr("token"), ϒtoken)
+						λ.SetItem(ϒquery, λ.StrLiteral("token"), ϒtoken)
 					}
 					ϒmetadata = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Mod(λ.NewStr("https://api.clyp.it/%s"), ϒaudio_id),
+						λ.Mod(λ.StrLiteral("https://api.clyp.it/%s"), ϒaudio_id),
 						ϒaudio_id,
 					), λ.KWArgs{
 						{Name: "query", Value: ϒquery},
 					})
 					ϒformats = λ.NewList()
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-						λ.NewStr(""),
-						λ.NewStr("Secure"),
+						λ.StrLiteral(""),
+						λ.StrLiteral("Secure"),
 					))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
@@ -106,45 +106,45 @@ func init() {
 						}
 						ϒsecure = τmp1
 						τmp2 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-							λ.NewStr("Ogg"),
-							λ.NewStr("Mp3"),
+							λ.StrLiteral("Ogg"),
+							λ.StrLiteral("Mp3"),
 						))
 						for {
 							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 								break
 							}
 							ϒext = τmp3
-							ϒformat_id = λ.Mod(λ.NewStr("%s%s"), λ.NewTuple(
+							ϒformat_id = λ.Mod(λ.StrLiteral("%s%s"), λ.NewTuple(
 								ϒsecure,
 								ϒext,
 							))
-							ϒformat_url = λ.Cal(λ.GetAttr(ϒmetadata, "get", nil), λ.Mod(λ.NewStr("%sUrl"), ϒformat_id))
+							ϒformat_url = λ.Calm(ϒmetadata, "get", λ.Mod(λ.StrLiteral("%sUrl"), ϒformat_id))
 							if λ.IsTrue(ϒformat_url) {
-								λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("url"):       ϒformat_url,
-									λ.NewStr("format_id"): ϒformat_id,
-									λ.NewStr("vcodec"):    λ.NewStr("none"),
+								λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+									"url":       ϒformat_url,
+									"format_id": ϒformat_id,
+									"vcodec":    λ.StrLiteral("none"),
 								}))
 							}
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					ϒtitle = λ.GetItem(ϒmetadata, λ.NewStr("Title"))
-					ϒdescription = λ.Cal(λ.GetAttr(ϒmetadata, "get", nil), λ.NewStr("Description"))
-					ϒduration = λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒmetadata, "get", nil), λ.NewStr("Duration")))
-					ϒtimestamp = λ.Cal(ϒunified_timestamp, λ.Cal(λ.GetAttr(ϒmetadata, "get", nil), λ.NewStr("DateCreated")))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒaudio_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("duration"):    ϒduration,
-						λ.NewStr("timestamp"):   ϒtimestamp,
-						λ.NewStr("formats"):     ϒformats,
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒtitle = λ.GetItem(ϒmetadata, λ.StrLiteral("Title"))
+					ϒdescription = λ.Calm(ϒmetadata, "get", λ.StrLiteral("Description"))
+					ϒduration = λ.Cal(ϒfloat_or_none, λ.Calm(ϒmetadata, "get", λ.StrLiteral("Duration")))
+					ϒtimestamp = λ.Cal(ϒunified_timestamp, λ.Calm(ϒmetadata, "get", λ.StrLiteral("DateCreated")))
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒaudio_id,
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"duration":    ϒduration,
+						"timestamp":   ϒtimestamp,
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    ClypIE__VALID_URL,
-				λ.NewStr("_real_extract"): ClypIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    ClypIE__VALID_URL,
+				"_real_extract": ClypIE__real_extract,
 			})
 		}())
 	})

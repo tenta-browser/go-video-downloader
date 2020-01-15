@@ -47,7 +47,7 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒunsmuggle_url = Ωutils.ϒunsmuggle_url
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
-		SenateISVPIE = λ.Cal(λ.TypeType, λ.NewStr("SenateISVPIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SenateISVPIE = λ.Cal(λ.TypeType, λ.StrLiteral("SenateISVPIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SenateISVPIE__COMM_MAP          λ.Object
 				SenateISVPIE__VALID_URL         λ.Object
@@ -56,162 +56,162 @@ func init() {
 			)
 			SenateISVPIE__COMM_MAP = λ.NewList(
 				λ.NewList(
-					λ.NewStr("ag"),
-					λ.NewStr("76440"),
-					λ.NewStr("http://ag-f.akamaihd.net"),
+					λ.StrLiteral("ag"),
+					λ.StrLiteral("76440"),
+					λ.StrLiteral("http://ag-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("aging"),
-					λ.NewStr("76442"),
-					λ.NewStr("http://aging-f.akamaihd.net"),
+					λ.StrLiteral("aging"),
+					λ.StrLiteral("76442"),
+					λ.StrLiteral("http://aging-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("approps"),
-					λ.NewStr("76441"),
-					λ.NewStr("http://approps-f.akamaihd.net"),
+					λ.StrLiteral("approps"),
+					λ.StrLiteral("76441"),
+					λ.StrLiteral("http://approps-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("armed"),
-					λ.NewStr("76445"),
-					λ.NewStr("http://armed-f.akamaihd.net"),
+					λ.StrLiteral("armed"),
+					λ.StrLiteral("76445"),
+					λ.StrLiteral("http://armed-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("banking"),
-					λ.NewStr("76446"),
-					λ.NewStr("http://banking-f.akamaihd.net"),
+					λ.StrLiteral("banking"),
+					λ.StrLiteral("76446"),
+					λ.StrLiteral("http://banking-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("budget"),
-					λ.NewStr("76447"),
-					λ.NewStr("http://budget-f.akamaihd.net"),
+					λ.StrLiteral("budget"),
+					λ.StrLiteral("76447"),
+					λ.StrLiteral("http://budget-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("cecc"),
-					λ.NewStr("76486"),
-					λ.NewStr("http://srs-f.akamaihd.net"),
+					λ.StrLiteral("cecc"),
+					λ.StrLiteral("76486"),
+					λ.StrLiteral("http://srs-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("commerce"),
-					λ.NewStr("80177"),
-					λ.NewStr("http://commerce1-f.akamaihd.net"),
+					λ.StrLiteral("commerce"),
+					λ.StrLiteral("80177"),
+					λ.StrLiteral("http://commerce1-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("csce"),
-					λ.NewStr("75229"),
-					λ.NewStr("http://srs-f.akamaihd.net"),
+					λ.StrLiteral("csce"),
+					λ.StrLiteral("75229"),
+					λ.StrLiteral("http://srs-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("dpc"),
-					λ.NewStr("76590"),
-					λ.NewStr("http://dpc-f.akamaihd.net"),
+					λ.StrLiteral("dpc"),
+					λ.StrLiteral("76590"),
+					λ.StrLiteral("http://dpc-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("energy"),
-					λ.NewStr("76448"),
-					λ.NewStr("http://energy-f.akamaihd.net"),
+					λ.StrLiteral("energy"),
+					λ.StrLiteral("76448"),
+					λ.StrLiteral("http://energy-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("epw"),
-					λ.NewStr("76478"),
-					λ.NewStr("http://epw-f.akamaihd.net"),
+					λ.StrLiteral("epw"),
+					λ.StrLiteral("76478"),
+					λ.StrLiteral("http://epw-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("ethics"),
-					λ.NewStr("76449"),
-					λ.NewStr("http://ethics-f.akamaihd.net"),
+					λ.StrLiteral("ethics"),
+					λ.StrLiteral("76449"),
+					λ.StrLiteral("http://ethics-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("finance"),
-					λ.NewStr("76450"),
-					λ.NewStr("http://finance-f.akamaihd.net"),
+					λ.StrLiteral("finance"),
+					λ.StrLiteral("76450"),
+					λ.StrLiteral("http://finance-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("foreign"),
-					λ.NewStr("76451"),
-					λ.NewStr("http://foreign-f.akamaihd.net"),
+					λ.StrLiteral("foreign"),
+					λ.StrLiteral("76451"),
+					λ.StrLiteral("http://foreign-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("govtaff"),
-					λ.NewStr("76453"),
-					λ.NewStr("http://govtaff-f.akamaihd.net"),
+					λ.StrLiteral("govtaff"),
+					λ.StrLiteral("76453"),
+					λ.StrLiteral("http://govtaff-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("help"),
-					λ.NewStr("76452"),
-					λ.NewStr("http://help-f.akamaihd.net"),
+					λ.StrLiteral("help"),
+					λ.StrLiteral("76452"),
+					λ.StrLiteral("http://help-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("indian"),
-					λ.NewStr("76455"),
-					λ.NewStr("http://indian-f.akamaihd.net"),
+					λ.StrLiteral("indian"),
+					λ.StrLiteral("76455"),
+					λ.StrLiteral("http://indian-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("intel"),
-					λ.NewStr("76456"),
-					λ.NewStr("http://intel-f.akamaihd.net"),
+					λ.StrLiteral("intel"),
+					λ.StrLiteral("76456"),
+					λ.StrLiteral("http://intel-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("intlnarc"),
-					λ.NewStr("76457"),
-					λ.NewStr("http://intlnarc-f.akamaihd.net"),
+					λ.StrLiteral("intlnarc"),
+					λ.StrLiteral("76457"),
+					λ.StrLiteral("http://intlnarc-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("jccic"),
-					λ.NewStr("85180"),
-					λ.NewStr("http://jccic-f.akamaihd.net"),
+					λ.StrLiteral("jccic"),
+					λ.StrLiteral("85180"),
+					λ.StrLiteral("http://jccic-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("jec"),
-					λ.NewStr("76458"),
-					λ.NewStr("http://jec-f.akamaihd.net"),
+					λ.StrLiteral("jec"),
+					λ.StrLiteral("76458"),
+					λ.StrLiteral("http://jec-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("judiciary"),
-					λ.NewStr("76459"),
-					λ.NewStr("http://judiciary-f.akamaihd.net"),
+					λ.StrLiteral("judiciary"),
+					λ.StrLiteral("76459"),
+					λ.StrLiteral("http://judiciary-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("rpc"),
-					λ.NewStr("76591"),
-					λ.NewStr("http://rpc-f.akamaihd.net"),
+					λ.StrLiteral("rpc"),
+					λ.StrLiteral("76591"),
+					λ.StrLiteral("http://rpc-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("rules"),
-					λ.NewStr("76460"),
-					λ.NewStr("http://rules-f.akamaihd.net"),
+					λ.StrLiteral("rules"),
+					λ.StrLiteral("76460"),
+					λ.StrLiteral("http://rules-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("saa"),
-					λ.NewStr("76489"),
-					λ.NewStr("http://srs-f.akamaihd.net"),
+					λ.StrLiteral("saa"),
+					λ.StrLiteral("76489"),
+					λ.StrLiteral("http://srs-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("smbiz"),
-					λ.NewStr("76461"),
-					λ.NewStr("http://smbiz-f.akamaihd.net"),
+					λ.StrLiteral("smbiz"),
+					λ.StrLiteral("76461"),
+					λ.StrLiteral("http://smbiz-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("srs"),
-					λ.NewStr("75229"),
-					λ.NewStr("http://srs-f.akamaihd.net"),
+					λ.StrLiteral("srs"),
+					λ.StrLiteral("75229"),
+					λ.StrLiteral("http://srs-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("uscc"),
-					λ.NewStr("76487"),
-					λ.NewStr("http://srs-f.akamaihd.net"),
+					λ.StrLiteral("uscc"),
+					λ.StrLiteral("76487"),
+					λ.StrLiteral("http://srs-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("vetaff"),
-					λ.NewStr("76462"),
-					λ.NewStr("http://vetaff-f.akamaihd.net"),
+					λ.StrLiteral("vetaff"),
+					λ.StrLiteral("76462"),
+					λ.StrLiteral("http://vetaff-f.akamaihd.net"),
 				),
 				λ.NewList(
-					λ.NewStr("arch"),
-					λ.NewStr(""),
-					λ.NewStr("http://ussenate-f.akamaihd.net/"),
+					λ.StrLiteral("arch"),
+					λ.StrLiteral(""),
+					λ.StrLiteral("http://ussenate-f.akamaihd.net/"),
 				),
 			)
-			SenateISVPIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?senate\\.gov/isvp/?\\?(?P<qs>.+)")
+			SenateISVPIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?senate\\.gov/isvp/?\\?(?P<qs>.+)")
 			SenateISVPIE__get_info_for_comm = λ.NewFunction("_get_info_for_comm",
 				[]λ.Param{
 					{Name: "self"},
@@ -232,8 +232,8 @@ func init() {
 							break
 						}
 						ϒentry = τmp1
-						if λ.IsTrue(λ.Eq(λ.GetItem(ϒentry, λ.NewInt(0)), ϒcommittee)) {
-							return λ.GetItem(ϒentry, λ.NewSlice(λ.NewInt(1), λ.None, λ.None))
+						if λ.IsTrue(λ.Eq(λ.GetItem(ϒentry, λ.IntLiteral(0)), ϒcommittee)) {
+							return λ.GetItem(ϒentry, λ.NewSlice(λ.IntLiteral(1), λ.None, λ.None))
 						}
 					}
 					return λ.None
@@ -271,119 +271,119 @@ func init() {
 						τmp1           λ.Object
 						τmp2           λ.Object
 					)
-					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.NewDictWithTable(map[λ.Object]λ.Object{}))
-					ϒurl = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒsmuggled_data = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒqs = λ.Cal(ϒcompat_parse_qs, λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "group", nil), λ.NewStr("qs")))
+					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{}))
+					ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒsmuggled_data = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒqs = λ.Cal(ϒcompat_parse_qs, λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "group", λ.StrLiteral("qs")))
 					if λ.IsTrue(func() λ.Object {
-						if λv := λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒqs, "get", nil), λ.NewStr("filename")))); λ.IsTrue(λv) {
+						if λv := λ.NewBool(!λ.IsTrue(λ.Calm(ϒqs, "get", λ.StrLiteral("filename")))); λ.IsTrue(λv) {
 							return λv
-						} else if λv := λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒqs, "get", nil), λ.NewStr("type")))); λ.IsTrue(λv) {
+						} else if λv := λ.NewBool(!λ.IsTrue(λ.Calm(ϒqs, "get", λ.StrLiteral("type")))); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒqs, "get", nil), λ.NewStr("comm"))))
+							return λ.NewBool(!λ.IsTrue(λ.Calm(ϒqs, "get", λ.StrLiteral("comm"))))
 						}
 					}()) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("Invalid URL")), λ.KWArgs{
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("Invalid URL")), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
-					ϒvideo_id = λ.Cal(Ωre.ϒsub, λ.NewStr(".mp4$"), λ.NewStr(""), λ.GetItem(λ.GetItem(ϒqs, λ.NewStr("filename")), λ.NewInt(0)))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒsmuggled_data, "get", nil), λ.NewStr("force_title"))) {
-						ϒtitle = λ.GetItem(ϒsmuggled_data, λ.NewStr("force_title"))
+					ϒvideo_id = λ.Cal(Ωre.ϒsub, λ.StrLiteral(".mp4$"), λ.StrLiteral(""), λ.GetItem(λ.GetItem(ϒqs, λ.StrLiteral("filename")), λ.IntLiteral(0)))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					if λ.IsTrue(λ.Calm(ϒsmuggled_data, "get", λ.StrLiteral("force_title"))) {
+						ϒtitle = λ.GetItem(ϒsmuggled_data, λ.StrLiteral("force_title"))
 					} else {
-						ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<title>([^<]+)</title>"), ϒwebpage, ϒvideo_id)
+						ϒtitle = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("<title>([^<]+)</title>"), ϒwebpage, ϒvideo_id)
 					}
-					ϒposter = λ.Cal(λ.GetAttr(ϒqs, "get", nil), λ.NewStr("poster"))
+					ϒposter = λ.Calm(ϒqs, "get", λ.StrLiteral("poster"))
 					ϒthumbnail = func() λ.Object {
 						if λ.IsTrue(ϒposter) {
-							return λ.GetItem(ϒposter, λ.NewInt(0))
+							return λ.GetItem(ϒposter, λ.IntLiteral(0))
 						} else {
 							return λ.None
 						}
 					}()
-					ϒvideo_type = λ.GetItem(λ.GetItem(ϒqs, λ.NewStr("type")), λ.NewInt(0))
+					ϒvideo_type = λ.GetItem(λ.GetItem(ϒqs, λ.StrLiteral("type")), λ.IntLiteral(0))
 					ϒcommittee = func() λ.Object {
-						if λ.IsTrue(λ.Eq(ϒvideo_type, λ.NewStr("arch"))) {
+						if λ.IsTrue(λ.Eq(ϒvideo_type, λ.StrLiteral("arch"))) {
 							return ϒvideo_type
 						} else {
-							return λ.GetItem(λ.GetItem(ϒqs, λ.NewStr("comm")), λ.NewInt(0))
+							return λ.GetItem(λ.GetItem(ϒqs, λ.StrLiteral("comm")), λ.IntLiteral(0))
 						}
 					}()
-					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_get_info_for_comm", nil), ϒcommittee)
-					ϒstream_num = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒdomain = λ.GetItem(τmp0, λ.NewInt(1))
+					τmp0 = λ.Calm(ϒself, "_get_info_for_comm", ϒcommittee)
+					ϒstream_num = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒdomain = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒformats = λ.NewList()
-					if λ.IsTrue(λ.Eq(ϒvideo_type, λ.NewStr("arch"))) {
+					if λ.IsTrue(λ.Eq(ϒvideo_type, λ.StrLiteral("arch"))) {
 						ϒfilename = func() λ.Object {
-							if λ.IsTrue(λ.NewBool(λ.Contains(ϒvideo_id, λ.NewStr(".")))) {
+							if λ.Contains(ϒvideo_id, λ.StrLiteral(".")) {
 								return ϒvideo_id
 							} else {
-								return λ.Add(ϒvideo_id, λ.NewStr(".mp4"))
+								return λ.Add(ϒvideo_id, λ.StrLiteral(".mp4"))
 							}
 						}()
-						ϒformats = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"): λ.Add(λ.Cal(Ωparse.ϒurljoin, ϒdomain, ϒfilename), λ.NewStr("?v=3.1.0&fp=&r=&g=")),
+						ϒformats = λ.NewList(λ.DictLiteral(map[string]λ.Object{
+							"url": λ.Add(λ.Cal(Ωparse.ϒurljoin, ϒdomain, ϒfilename), λ.StrLiteral("?v=3.1.0&fp=&r=&g=")),
 						}))
 					} else {
-						ϒhdcore_sign = λ.NewStr("hdcore=3.1.0")
+						ϒhdcore_sign = λ.StrLiteral("hdcore=3.1.0")
 						ϒurl_params = λ.NewTuple(
 							ϒdomain,
 							ϒvideo_id,
 							ϒstream_num,
 						)
-						ϒf4m_url = λ.Add(λ.Mod(λ.NewStr("%s/z/%s_1@%s/manifest.f4m?"), ϒurl_params), ϒhdcore_sign)
-						ϒm3u8_url = λ.Mod(λ.NewStr("%s/i/%s_1@%s/master.m3u8"), ϒurl_params)
+						ϒf4m_url = λ.Add(λ.Mod(λ.StrLiteral("%s/z/%s_1@%s/manifest.f4m?"), ϒurl_params), ϒhdcore_sign)
+						ϒm3u8_url = λ.Mod(λ.StrLiteral("%s/i/%s_1@%s/master.m3u8"), ϒurl_params)
 						τmp0 = λ.Cal(λ.BuiltinIter, λ.Call(λ.GetAttr(ϒself, "_extract_f4m_formats", nil), λ.NewArgs(
 							ϒf4m_url,
 							ϒvideo_id,
 						), λ.KWArgs{
-							{Name: "f4m_id", Value: λ.NewStr("f4m")},
+							{Name: "f4m_id", Value: λ.StrLiteral("f4m")},
 						}))
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
 							ϒentry = τmp1
-							λ.Cal(λ.GetAttr(ϒentry, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("extra_param_to_segment_url"): ϒhdcore_sign,
+							λ.Calm(ϒentry, "update", λ.DictLiteral(map[string]λ.Object{
+								"extra_param_to_segment_url": ϒhdcore_sign,
 							}))
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒentry)
+							λ.Calm(ϒformats, "append", ϒentry)
 						}
 						τmp0 = λ.Cal(λ.BuiltinIter, λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
 							ϒm3u8_url,
 							ϒvideo_id,
 						), λ.KWArgs{
-							{Name: "ext", Value: λ.NewStr("mp4")},
-							{Name: "m3u8_id", Value: λ.NewStr("m3u8")},
+							{Name: "ext", Value: λ.StrLiteral("mp4")},
+							{Name: "m3u8_id", Value: λ.StrLiteral("m3u8")},
 						}))
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
 							ϒentry = τmp1
-							ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("(?P<tag>(?:-p|-b)).m3u8"), λ.GetItem(ϒentry, λ.NewStr("url")))
+							ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("(?P<tag>(?:-p|-b)).m3u8"), λ.GetItem(ϒentry, λ.StrLiteral("url")))
 							if λ.IsTrue(ϒmobj) {
-								τmp2 = λ.IAdd(λ.GetItem(ϒentry, λ.NewStr("format_id")), λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("tag")))
-								λ.SetItem(ϒentry, λ.NewStr("format_id"), τmp2)
+								τmp2 = λ.IAdd(λ.GetItem(ϒentry, λ.StrLiteral("format_id")), λ.Calm(ϒmobj, "group", λ.StrLiteral("tag")))
+								λ.SetItem(ϒentry, λ.StrLiteral("format_id"), τmp2)
 							}
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒentry)
+							λ.Calm(ϒformats, "append", ϒentry)
 						}
-						λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+						λ.Calm(ϒself, "_sort_formats", ϒformats)
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("title"):     ϒtitle,
-						λ.NewStr("formats"):   ϒformats,
-						λ.NewStr("thumbnail"): ϒthumbnail,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒvideo_id,
+						"title":     ϒtitle,
+						"formats":   ϒformats,
+						"thumbnail": ϒthumbnail,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_COMM_MAP"):          SenateISVPIE__COMM_MAP,
-				λ.NewStr("_VALID_URL"):         SenateISVPIE__VALID_URL,
-				λ.NewStr("_get_info_for_comm"): SenateISVPIE__get_info_for_comm,
-				λ.NewStr("_real_extract"):      SenateISVPIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_COMM_MAP":          SenateISVPIE__COMM_MAP,
+				"_VALID_URL":         SenateISVPIE__VALID_URL,
+				"_get_info_for_comm": SenateISVPIE__get_info_for_comm,
+				"_real_extract":      SenateISVPIE__real_extract,
 			})
 		}())
 	})

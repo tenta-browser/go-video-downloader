@@ -47,12 +47,12 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒtry_get = Ωutils.ϒtry_get
-		JojIE = λ.Cal(λ.TypeType, λ.NewStr("JojIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		JojIE = λ.Cal(λ.TypeType, λ.StrLiteral("JojIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				JojIE__VALID_URL    λ.Object
 				JojIE__real_extract λ.Object
 			)
-			JojIE__VALID_URL = λ.NewStr("(?x)\n                    (?:\n                        joj:|\n                        https?://media\\.joj\\.sk/embed/\n                    )\n                    (?P<id>[^/?#^]+)\n                ")
+			JojIE__VALID_URL = λ.StrLiteral("(?x)\n                    (?:\n                        joj:|\n                        https?://media\\.joj\\.sk/embed/\n                    )\n                    (?P<id>[^/?#^]+)\n                ")
 			JojIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -79,32 +79,32 @@ func init() {
 						τmp0        λ.Object
 						τmp1        λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.NewStr("https://media.joj.sk/embed/%s"), ϒvideo_id), ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", λ.Mod(λ.StrLiteral("https://media.joj.sk/embed/%s"), ϒvideo_id), ϒvideo_id)
 					ϒtitle = func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
 							λ.NewTuple(
-								λ.NewStr("videoTitle\\s*:\\s*([\"\\'])(?P<title>(?:(?!\\1).)+)\\1"),
-								λ.NewStr("<title>(?P<title>[^<]+)"),
+								λ.StrLiteral("videoTitle\\s*:\\s*([\"\\'])(?P<title>(?:(?!\\1).)+)\\1"),
+								λ.StrLiteral("<title>(?P<title>[^<]+)"),
 							),
 							ϒwebpage,
-							λ.NewStr("title"),
+							λ.StrLiteral("title"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
-							{Name: "group", Value: λ.NewStr("title")},
+							{Name: "group", Value: λ.StrLiteral("title")},
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
+							return λ.Calm(ϒself, "_og_search_title", ϒwebpage)
 						}
 					}()
 					ϒbitrates = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 						λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("(?s)(?:src|bitrates)\\s*=\\s*({.+?});"),
+							λ.StrLiteral("(?s)(?:src|bitrates)\\s*=\\s*({.+?});"),
 							ϒwebpage,
-							λ.NewStr("bitrates"),
+							λ.StrLiteral("bitrates"),
 						), λ.KWArgs{
-							{Name: "default", Value: λ.NewStr("{}")},
+							{Name: "default", Value: λ.StrLiteral("{}")},
 						}),
 						ϒvideo_id,
 					), λ.KWArgs{
@@ -122,7 +122,7 @@ func init() {
 								var (
 									ϒx = λargs[0]
 								)
-								return λ.GetItem(ϒx, λ.NewStr("mp4"))
+								return λ.GetItem(ϒx, λ.StrLiteral("mp4"))
 							}), λ.ListType); λ.IsTrue(λv) {
 							return λv
 						} else {
@@ -136,49 +136,49 @@ func init() {
 						ϒformat_url = τmp1
 						if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒformat_url, ϒcompat_str)) {
 							ϒheight = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.NewStr("(\\d+)[pP]\\."),
+								λ.StrLiteral("(\\d+)[pP]\\."),
 								ϒformat_url,
-								λ.NewStr("height"),
+								λ.StrLiteral("height"),
 							), λ.KWArgs{
 								{Name: "default", Value: λ.None},
 							})
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("url"): ϒformat_url,
-								λ.NewStr("format_id"): func() λ.Object {
+							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+								"url": ϒformat_url,
+								"format_id": func() λ.Object {
 									if λ.IsTrue(ϒheight) {
-										return λ.Mod(λ.NewStr("%sp"), ϒheight)
+										return λ.Mod(λ.StrLiteral("%sp"), ϒheight)
 									} else {
 										return λ.None
 									}
 								}(),
-								λ.NewStr("height"): λ.Cal(λ.IntType, ϒheight),
+								"height": λ.Cal(λ.IntType, ϒheight),
 							}))
 						}
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
-						ϒplaylist = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), λ.Mod(λ.NewStr("https://media.joj.sk/services/Video.php?clip=%s"), ϒvideo_id), ϒvideo_id)
-						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒplaylist, "findall", nil), λ.NewStr("./files/file")))
+					if !λ.IsTrue(ϒformats) {
+						ϒplaylist = λ.Calm(ϒself, "_download_xml", λ.Mod(λ.StrLiteral("https://media.joj.sk/services/Video.php?clip=%s"), ϒvideo_id), ϒvideo_id)
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒplaylist, "findall", λ.StrLiteral("./files/file")))
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
 							ϒfile_el = τmp1
-							ϒpath = λ.Cal(λ.GetAttr(ϒfile_el, "get", nil), λ.NewStr("path"))
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒpath))) {
+							ϒpath = λ.Calm(ϒfile_el, "get", λ.StrLiteral("path"))
+							if !λ.IsTrue(ϒpath) {
 								continue
 							}
 							ϒformat_id = func() λ.Object {
-								if λv := λ.Cal(λ.GetAttr(ϒfile_el, "get", nil), λ.NewStr("id")); λ.IsTrue(λv) {
+								if λv := λ.Calm(ϒfile_el, "get", λ.StrLiteral("id")); λ.IsTrue(λv) {
 									return λv
 								} else {
-									return λ.Cal(λ.GetAttr(ϒfile_el, "get", nil), λ.NewStr("label"))
+									return λ.Calm(ϒfile_el, "get", λ.StrLiteral("label"))
 								}
 							}()
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("url"):       λ.Mod(λ.NewStr("http://n16.joj.sk/storage/%s"), λ.Cal(λ.GetAttr(ϒpath, "replace", nil), λ.NewStr("dat/"), λ.NewStr(""), λ.NewInt(1))),
-								λ.NewStr("format_id"): ϒformat_id,
-								λ.NewStr("height"): λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-									λ.NewStr("(\\d+)[pP]"),
+							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+								"url":       λ.Mod(λ.StrLiteral("http://n16.joj.sk/storage/%s"), λ.Calm(ϒpath, "replace", λ.StrLiteral("dat/"), λ.StrLiteral(""), λ.IntLiteral(1))),
+								"format_id": ϒformat_id,
+								"height": λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+									λ.StrLiteral("(\\d+)[pP]"),
 									func() λ.Object {
 										if λv := ϒformat_id; λ.IsTrue(λv) {
 											return λv
@@ -186,33 +186,33 @@ func init() {
 											return ϒpath
 										}
 									}(),
-									λ.NewStr("height"),
+									λ.StrLiteral("height"),
 								), λ.KWArgs{
 									{Name: "default", Value: λ.None},
 								})),
 							}))
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					ϒthumbnail = λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒthumbnail = λ.Calm(ϒself, "_og_search_thumbnail", ϒwebpage)
 					ϒduration = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("videoDuration\\s*:\\s*(\\d+)"),
+						λ.StrLiteral("videoDuration\\s*:\\s*(\\d+)"),
 						ϒwebpage,
-						λ.NewStr("duration"),
+						λ.StrLiteral("duration"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("title"):     ϒtitle,
-						λ.NewStr("thumbnail"): ϒthumbnail,
-						λ.NewStr("duration"):  ϒduration,
-						λ.NewStr("formats"):   ϒformats,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒvideo_id,
+						"title":     ϒtitle,
+						"thumbnail": ϒthumbnail,
+						"duration":  ϒduration,
+						"formats":   ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    JojIE__VALID_URL,
-				λ.NewStr("_real_extract"): JojIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    JojIE__VALID_URL,
+				"_real_extract": JojIE__real_extract,
 			})
 		}())
 	})

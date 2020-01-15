@@ -41,21 +41,21 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		SprutoBaseIE = Ωvimple.SprutoBaseIE
-		MyviIE = λ.Cal(λ.TypeType, λ.NewStr("MyviIE"), λ.NewTuple(SprutoBaseIE), func() λ.Dict {
+		MyviIE = λ.Cal(λ.TypeType, λ.StrLiteral("MyviIE"), λ.NewTuple(SprutoBaseIE), func() λ.Dict {
 			var (
 				MyviIE__VALID_URL λ.Object
 			)
-			MyviIE__VALID_URL = λ.NewStr("(?x)\n                        (?:\n                            https?://\n                                (?:www\\.)?\n                                myvi\\.\n                                (?:\n                                    (?:ru/player|tv)/\n                                    (?:\n                                        (?:\n                                            embed/html|\n                                            flash|\n                                            api/Video/Get\n                                        )/|\n                                        content/preloader\\.swf\\?.*\\bid=\n                                    )|\n                                    ru/watch/\n                                )|\n                            myvi:\n                        )\n                        (?P<id>[\\da-zA-Z_-]+)\n                    ")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): MyviIE__VALID_URL,
+			MyviIE__VALID_URL = λ.StrLiteral("(?x)\n                        (?:\n                            https?://\n                                (?:www\\.)?\n                                myvi\\.\n                                (?:\n                                    (?:ru/player|tv)/\n                                    (?:\n                                        (?:\n                                            embed/html|\n                                            flash|\n                                            api/Video/Get\n                                        )/|\n                                        content/preloader\\.swf\\?.*\\bid=\n                                    )|\n                                    ru/watch/\n                                )|\n                            myvi:\n                        )\n                        (?P<id>[\\da-zA-Z_-]+)\n                    ")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": MyviIE__VALID_URL,
 			})
 		}())
-		MyviEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("MyviEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		MyviEmbedIE = λ.Cal(λ.TypeType, λ.StrLiteral("MyviEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				MyviEmbedIE__VALID_URL λ.Object
 				MyviEmbedIE_suitable   λ.Object
 			)
-			MyviEmbedIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?myvi\\.tv/(?:[^?]+\\?.*?\\bv=|embed/)(?P<id>[\\da-z]+)")
+			MyviEmbedIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?myvi\\.tv/(?:[^?]+\\?.*?\\bv=|embed/)(?P<id>[\\da-z]+)")
 			MyviEmbedIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -68,17 +68,17 @@ func init() {
 						ϒurl = λargs[1]
 					)
 					return func() λ.Object {
-						if λ.IsTrue(λ.Cal(λ.GetAttr(MyviIE, "suitable", nil), ϒurl)) {
+						if λ.IsTrue(λ.Calm(MyviIE, "suitable", ϒurl)) {
 							return λ.False
 						} else {
-							return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, MyviEmbedIE, ϒcls), "suitable", nil), ϒurl)
+							return λ.Calm(λ.Cal(λ.SuperType, MyviEmbedIE, ϒcls), "suitable", ϒurl)
 						}
 					}()
 				})
 			MyviEmbedIE_suitable = λ.Cal(λ.ClassMethodType, MyviEmbedIE_suitable)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): MyviEmbedIE__VALID_URL,
-				λ.NewStr("suitable"):   MyviEmbedIE_suitable,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": MyviEmbedIE__VALID_URL,
+				"suitable":   MyviEmbedIE_suitable,
 			})
 		}())
 	})

@@ -38,7 +38,7 @@ var (
 func init() {
 	λ.InitModule(func() {
 		ϒ_itemgetter = Ωoperator.ϒitemgetter
-		ϒdefaultdict = λ.Cal(λ.TypeType, λ.NewStr("defaultdict"), λ.NewTuple(λ.DictType), func() λ.Dict {
+		ϒdefaultdict = λ.Cal(λ.TypeType, λ.StrLiteral("defaultdict"), λ.NewTuple(λ.DictType), func() λ.Dict {
 			var (
 				ϒdefaultdict___getitem__ λ.Object
 				ϒdefaultdict___init__    λ.Object
@@ -81,7 +81,7 @@ func init() {
 							nil,
 							&λ.Catcher{λ.KeyErrorType, func(λex λ.BaseException) {
 								if λ.IsTrue(λ.GetAttr(ϒself, "default_factory", nil)) {
-									ϒval = λ.Cal(λ.GetAttr(ϒself, "default_factory", nil))
+									ϒval = λ.Calm(ϒself, "default_factory")
 									λ.SetItem(ϒself, ϒkey, ϒval)
 									λexit, λret = λ.BlockExitReturn, ϒval
 									return
@@ -89,7 +89,7 @@ func init() {
 								panic(λ.Raise(λex))
 							}},
 						)
-						λexit, λret = λ.BlockExitReturn, λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, ϒdefaultdict, ϒself), "__getitem__", nil), ϒkey)
+						λexit, λret = λ.BlockExitReturn, λ.Calm(λ.Cal(λ.SuperType, ϒdefaultdict, ϒself), "__getitem__", ϒkey)
 						return
 						return λ.BlockExitNormally, nil
 					}()
@@ -98,9 +98,9 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__getitem__"): ϒdefaultdict___getitem__,
-				λ.NewStr("__init__"):    ϒdefaultdict___init__,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__getitem__": ϒdefaultdict___getitem__,
+				"__init__":    ϒdefaultdict___init__,
 			})
 		}())
 		ϒnamedtuple = λ.NewFunction("namedtuple",
@@ -128,7 +128,7 @@ func init() {
 					τmp2             λ.Object
 				)
 				if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒfield_names, λ.StrType)) {
-					ϒfield_names = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒfield_names, "replace", nil), λ.NewStr(","), λ.NewStr(" ")), "split", nil))
+					ϒfield_names = λ.Calm(λ.Calm(ϒfield_names, "replace", λ.StrLiteral(","), λ.StrLiteral(" ")), "split")
 				}
 				ϒfield_names = λ.Cal(λ.ListType, λ.Cal(λ.MapIteratorType, λ.StrType, ϒfield_names))
 				ϒseen = λ.Cal(λ.SetType)
@@ -138,12 +138,12 @@ func init() {
 						break
 					}
 					ϒname = τmp1
-					if λ.IsTrue(λ.NewBool(λ.Contains(ϒseen, ϒname))) {
-						panic(λ.Raise(λ.Cal(λ.ValueErrorType, λ.Cal(λ.GetAttr(λ.NewStr("Encountered duplicate field name: {!r}"), "format", nil), ϒname))))
+					if λ.Contains(ϒseen, ϒname) {
+						panic(λ.Raise(λ.Cal(λ.ValueErrorType, λ.Calm(λ.StrLiteral("Encountered duplicate field name: {!r}"), "format", ϒname))))
 					}
-					λ.Cal(λ.GetAttr(ϒseen, "add", nil), ϒname)
+					λ.Calm(ϒseen, "add", ϒname)
 				}
-				ϒrepr_fmt = λ.Add(λ.Add(λ.NewStr("("), λ.Cal(λ.GetAttr(λ.NewStr(", "), "join", nil), λ.Cal(λ.NewFunction("<generator>",
+				ϒrepr_fmt = λ.Add(λ.Add(λ.StrLiteral("("), λ.Calm(λ.StrLiteral(", "), "join", λ.Cal(λ.NewFunction("<generator>",
 					nil,
 					0, false, false,
 					func(λargs []λ.Object) λ.Object {
@@ -159,11 +159,11 @@ func init() {
 									break
 								}
 								ϒname = τmp1
-								λgy.Yield(λ.Cal(λ.GetAttr(λ.NewStr("{}=%r"), "format", nil), ϒname))
+								λgy.Yield(λ.Calm(λ.StrLiteral("{}=%r"), "format", ϒname))
 							}
 							return λ.None
 						})
-					})))), λ.NewStr(")"))
+					})))), λ.StrLiteral(")"))
 				ϒ_make = λ.NewFunction("_make",
 					[]λ.Param{
 						{Name: "cls"},
@@ -176,9 +176,9 @@ func init() {
 							ϒiterable = λargs[1]
 							ϒresult   λ.Object
 						)
-						ϒresult = λ.Cal(λ.GetAttr(λ.TupleType, "__new__", nil), ϒcls, ϒiterable)
+						ϒresult = λ.Calm(λ.TupleType, "__new__", ϒcls, ϒiterable)
 						if λ.IsTrue(λ.Ne(λ.Cal(λ.BuiltinLen, ϒresult), λ.Cal(λ.BuiltinLen, ϒfield_names))) {
-							panic(λ.Raise(λ.Cal(λ.TypeErrorType, λ.Cal(λ.GetAttr(λ.NewStr("Expected {} arguments, got {}"), "format", nil), λ.Cal(λ.BuiltinLen, ϒfield_names), λ.Cal(λ.BuiltinLen, ϒresult)))))
+							panic(λ.Raise(λ.Cal(λ.TypeErrorType, λ.Calm(λ.StrLiteral("Expected {} arguments, got {}"), "format", λ.Cal(λ.BuiltinLen, ϒfield_names), λ.Cal(λ.BuiltinLen, ϒresult)))))
 						}
 						return ϒresult
 					})
@@ -193,7 +193,7 @@ func init() {
 							ϒargs = λargs[1]
 							ϒcls  = λargs[0]
 						)
-						return λ.Cal(λ.GetAttr(ϒcls, "_make", nil), ϒargs)
+						return λ.Calm(ϒcls, "_make", ϒargs)
 					})
 				ϒ__repr__ = λ.NewFunction("__repr__",
 					[]λ.Param{
@@ -217,12 +217,12 @@ func init() {
 						)
 						return λ.Cal(λ.DictType, λ.Cal(λ.ZipIteratorType, λ.GetAttr(ϒself, "_fields", nil), ϒself))
 					})
-				ϒclass_namespace = λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("_fields"):  ϒfield_names,
-					λ.NewStr("__new__"):  ϒ__new__,
-					λ.NewStr("_make"):    ϒ_make,
-					λ.NewStr("__repr__"): ϒ__repr__,
-					λ.NewStr("_asdict"):  ϒ_asdict,
+				ϒclass_namespace = λ.DictLiteral(map[string]λ.Object{
+					"_fields":  ϒfield_names,
+					"__new__":  ϒ__new__,
+					"_make":    ϒ_make,
+					"__repr__": ϒ__repr__,
+					"_asdict":  ϒ_asdict,
 				})
 				τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.EnumerateIteratorType, ϒfield_names))
 				for {
@@ -230,8 +230,8 @@ func init() {
 						break
 					}
 					τmp2 = τmp1
-					ϒindex = λ.GetItem(τmp2, λ.NewInt(0))
-					ϒname = λ.GetItem(τmp2, λ.NewInt(1))
+					ϒindex = λ.GetItem(τmp2, λ.IntLiteral(0))
+					ϒname = λ.GetItem(τmp2, λ.IntLiteral(1))
 					λ.SetItem(ϒclass_namespace, ϒname, λ.Cal(λ.PropertyType, λ.Cal(ϒ_itemgetter, ϒindex)))
 				}
 				ϒresult = λ.Cal(λ.TypeType, ϒtypename, λ.NewTuple(λ.TupleType), ϒclass_namespace)

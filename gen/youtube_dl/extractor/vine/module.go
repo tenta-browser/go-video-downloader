@@ -48,12 +48,12 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
-		VineIE = λ.Cal(λ.TypeType, λ.NewStr("VineIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		VineIE = λ.Cal(λ.TypeType, λ.StrLiteral("VineIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				VineIE__VALID_URL    λ.Object
 				VineIE__real_extract λ.Object
 			)
-			VineIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?vine\\.co/(?:v|oembed)/(?P<id>\\w+)")
+			VineIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?vine\\.co/(?:v|oembed)/(?P<id>\\w+)")
 			VineIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -77,8 +77,8 @@ func init() {
 						τmp1        λ.Object
 						τmp2        λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒdata = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("https://archive.vine.co/posts/%s.json"), ϒvideo_id), ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒdata = λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("https://archive.vine.co/posts/%s.json"), ϒvideo_id), ϒvideo_id)
 					ϒvideo_url = λ.NewFunction("video_url",
 						[]λ.Param{
 							{Name: "kind"},
@@ -93,15 +93,15 @@ func init() {
 								τmp1        λ.Object
 							)
 							τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-								λ.NewStr("Url"),
-								λ.NewStr("URL"),
+								λ.StrLiteral("Url"),
+								λ.StrLiteral("URL"),
 							))
 							for {
 								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 									break
 								}
 								ϒurl_suffix = τmp1
-								ϒformat_url = λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.Mod(λ.NewStr("video%s%s"), λ.NewTuple(
+								ϒformat_url = λ.Calm(ϒdata, "get", λ.Mod(λ.StrLiteral("video%s%s"), λ.NewTuple(
 									ϒkind,
 									ϒurl_suffix,
 								)))
@@ -113,92 +113,92 @@ func init() {
 						})
 					ϒformats = λ.NewList()
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.EnumerateIteratorType, λ.NewTuple(
-						λ.NewStr("low"),
-						λ.NewStr(""),
-						λ.NewStr("dash"),
+						λ.StrLiteral("low"),
+						λ.StrLiteral(""),
+						λ.StrLiteral("dash"),
 					)))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒquality = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒformat_id = λ.GetItem(τmp2, λ.NewInt(1))
-						ϒformat_url = λ.Cal(ϒvideo_url, λ.Cal(λ.GetAttr(ϒformat_id, "capitalize", nil)))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformat_url))) {
+						ϒquality = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(1))
+						ϒformat_url = λ.Cal(ϒvideo_url, λ.Calm(ϒformat_id, "capitalize"))
+						if !λ.IsTrue(ϒformat_url) {
 							continue
 						}
 						if λ.IsTrue(func() λ.Object {
-							if λv := λ.Eq(ϒformat_id, λ.NewStr("dash")); !λ.IsTrue(λv) {
+							if λv := λ.Eq(ϒformat_id, λ.StrLiteral("dash")); !λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Eq(λ.Cal(ϒdetermine_ext, ϒformat_url), λ.NewStr("mpd"))
+								return λ.Eq(λ.Cal(ϒdetermine_ext, ϒformat_url), λ.StrLiteral("mpd"))
 							}
 						}()) {
-							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_mpd_formats", nil), λ.NewArgs(
+							λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_mpd_formats", nil), λ.NewArgs(
 								ϒformat_url,
 								ϒvideo_id,
 							), λ.KWArgs{
-								{Name: "mpd_id", Value: λ.NewStr("dash")},
+								{Name: "mpd_id", Value: λ.StrLiteral("dash")},
 								{Name: "fatal", Value: λ.False},
 							}))
 						} else {
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("url"): ϒformat_url,
-								λ.NewStr("format_id"): func() λ.Object {
+							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+								"url": ϒformat_url,
+								"format_id": func() λ.Object {
 									if λv := ϒformat_id; λ.IsTrue(λv) {
 										return λv
 									} else {
-										return λ.NewStr("standard")
+										return λ.StrLiteral("standard")
 									}
 								}(),
-								λ.NewStr("quality"): ϒquality,
+								"quality": ϒquality,
 							}))
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					ϒusername = λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("username"))
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒusername = λ.Calm(ϒdata, "get", λ.StrLiteral("username"))
 					ϒalt_title = func() λ.Object {
 						if λ.IsTrue(ϒusername) {
-							return λ.Mod(λ.NewStr("Vine by %s"), ϒusername)
+							return λ.Mod(λ.StrLiteral("Vine by %s"), ϒusername)
 						} else {
 							return λ.None
 						}
 					}()
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"): ϒvideo_id,
-						λ.NewStr("title"): func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("description")); λ.IsTrue(λv) {
+					return λ.DictLiteral(map[string]λ.Object{
+						"id": ϒvideo_id,
+						"title": func() λ.Object {
+							if λv := λ.Calm(ϒdata, "get", λ.StrLiteral("description")); λ.IsTrue(λv) {
 								return λv
 							} else if λv := ϒalt_title; λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.NewStr("Vine video")
+								return λ.StrLiteral("Vine video")
 							}
 						}(),
-						λ.NewStr("alt_title"):     ϒalt_title,
-						λ.NewStr("thumbnail"):     λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("thumbnailUrl")),
-						λ.NewStr("timestamp"):     λ.Cal(ϒunified_timestamp, λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("created"))),
-						λ.NewStr("uploader"):      ϒusername,
-						λ.NewStr("uploader_id"):   λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("userIdStr")),
-						λ.NewStr("view_count"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("loops"))),
-						λ.NewStr("like_count"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("likes"))),
-						λ.NewStr("comment_count"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("comments"))),
-						λ.NewStr("repost_count"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("reposts"))),
-						λ.NewStr("formats"):       ϒformats,
+						"alt_title":     ϒalt_title,
+						"thumbnail":     λ.Calm(ϒdata, "get", λ.StrLiteral("thumbnailUrl")),
+						"timestamp":     λ.Cal(ϒunified_timestamp, λ.Calm(ϒdata, "get", λ.StrLiteral("created"))),
+						"uploader":      ϒusername,
+						"uploader_id":   λ.Calm(ϒdata, "get", λ.StrLiteral("userIdStr")),
+						"view_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒdata, "get", λ.StrLiteral("loops"))),
+						"like_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒdata, "get", λ.StrLiteral("likes"))),
+						"comment_count": λ.Cal(ϒint_or_none, λ.Calm(ϒdata, "get", λ.StrLiteral("comments"))),
+						"repost_count":  λ.Cal(ϒint_or_none, λ.Calm(ϒdata, "get", λ.StrLiteral("reposts"))),
+						"formats":       ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    VineIE__VALID_URL,
-				λ.NewStr("_real_extract"): VineIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    VineIE__VALID_URL,
+				"_real_extract": VineIE__real_extract,
 			})
 		}())
-		VineUserIE = λ.Cal(λ.TypeType, λ.NewStr("VineUserIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		VineUserIE = λ.Cal(λ.TypeType, λ.StrLiteral("VineUserIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				VineUserIE__VALID_URL λ.Object
 				VineUserIE_suitable   λ.Object
 			)
-			VineUserIE__VALID_URL = λ.NewStr("https?://vine\\.co/(?P<u>u/)?(?P<user>[^/]+)")
+			VineUserIE__VALID_URL = λ.StrLiteral("https?://vine\\.co/(?P<u>u/)?(?P<user>[^/]+)")
 			VineUserIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -211,17 +211,17 @@ func init() {
 						ϒurl = λargs[1]
 					)
 					return func() λ.Object {
-						if λ.IsTrue(λ.Cal(λ.GetAttr(VineIE, "suitable", nil), ϒurl)) {
+						if λ.IsTrue(λ.Calm(VineIE, "suitable", ϒurl)) {
 							return λ.False
 						} else {
-							return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, VineUserIE, ϒcls), "suitable", nil), ϒurl)
+							return λ.Calm(λ.Cal(λ.SuperType, VineUserIE, ϒcls), "suitable", ϒurl)
 						}
 					}()
 				})
 			VineUserIE_suitable = λ.Cal(λ.ClassMethodType, VineUserIE_suitable)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): VineUserIE__VALID_URL,
-				λ.NewStr("suitable"):   VineUserIE_suitable,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": VineUserIE__VALID_URL,
+				"suitable":   VineUserIE_suitable,
 			})
 		}())
 	})

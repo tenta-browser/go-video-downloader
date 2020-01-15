@@ -46,12 +46,12 @@ func init() {
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒqualities = Ωutils.ϒqualities
 		ExtractorError = Ωutils.ExtractorError
-		GfycatIE = λ.Cal(λ.TypeType, λ.NewStr("GfycatIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		GfycatIE = λ.Cal(λ.TypeType, λ.StrLiteral("GfycatIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				GfycatIE__VALID_URL    λ.Object
 				GfycatIE__real_extract λ.Object
 			)
-			GfycatIE__VALID_URL = λ.NewStr("https?://(?:(?:www|giant|thumbs)\\.)?gfycat\\.com/(?:ru/|ifr/|gifs/detail/)?(?P<id>[^-/?#\\.]+)")
+			GfycatIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|giant|thumbs)\\.)?gfycat\\.com/(?:ru/|ifr/|gifs/detail/)?(?P<id>[^-/?#\\.]+)")
 			GfycatIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -87,38 +87,38 @@ func init() {
 						τmp0           λ.Object
 						τmp1           λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒgfy = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("https://api.gfycat.com/v1/gfycats/%s"), ϒvideo_id), ϒvideo_id, λ.NewStr("Downloading video info"))
-					if λ.IsTrue(λ.NewBool(λ.Contains(ϒgfy, λ.NewStr("error")))) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Add(λ.NewStr("Gfycat said: "), λ.GetItem(ϒgfy, λ.NewStr("error")))), λ.KWArgs{
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒgfy = λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("https://api.gfycat.com/v1/gfycats/%s"), ϒvideo_id), ϒvideo_id, λ.StrLiteral("Downloading video info"))
+					if λ.Contains(ϒgfy, λ.StrLiteral("error")) {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Add(λ.StrLiteral("Gfycat said: "), λ.GetItem(ϒgfy, λ.StrLiteral("error")))), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
-					ϒgfy = λ.GetItem(ϒgfy, λ.NewStr("gfyItem"))
+					ϒgfy = λ.GetItem(ϒgfy, λ.StrLiteral("gfyItem"))
 					ϒtitle = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒgfy, "get", nil), λ.NewStr("title")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒgfy, "get", λ.StrLiteral("title")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.GetItem(ϒgfy, λ.NewStr("gfyName"))
+							return λ.GetItem(ϒgfy, λ.StrLiteral("gfyName"))
 						}
 					}()
-					ϒdescription = λ.Cal(λ.GetAttr(ϒgfy, "get", nil), λ.NewStr("description"))
-					ϒtimestamp = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒgfy, "get", nil), λ.NewStr("createDate")))
-					ϒuploader = λ.Cal(λ.GetAttr(ϒgfy, "get", nil), λ.NewStr("userName"))
-					ϒview_count = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒgfy, "get", nil), λ.NewStr("views")))
-					ϒlike_count = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒgfy, "get", nil), λ.NewStr("likes")))
-					ϒdislike_count = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒgfy, "get", nil), λ.NewStr("dislikes")))
+					ϒdescription = λ.Calm(ϒgfy, "get", λ.StrLiteral("description"))
+					ϒtimestamp = λ.Cal(ϒint_or_none, λ.Calm(ϒgfy, "get", λ.StrLiteral("createDate")))
+					ϒuploader = λ.Calm(ϒgfy, "get", λ.StrLiteral("userName"))
+					ϒview_count = λ.Cal(ϒint_or_none, λ.Calm(ϒgfy, "get", λ.StrLiteral("views")))
+					ϒlike_count = λ.Cal(ϒint_or_none, λ.Calm(ϒgfy, "get", λ.StrLiteral("likes")))
+					ϒdislike_count = λ.Cal(ϒint_or_none, λ.Calm(ϒgfy, "get", λ.StrLiteral("dislikes")))
 					ϒage_limit = func() λ.Object {
-						if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒgfy, "get", nil), λ.NewStr("nsfw")), λ.NewStr("1"))) {
-							return λ.NewInt(18)
+						if λ.IsTrue(λ.Eq(λ.Calm(ϒgfy, "get", λ.StrLiteral("nsfw")), λ.StrLiteral("1"))) {
+							return λ.IntLiteral(18)
 						} else {
-							return λ.NewInt(0)
+							return λ.IntLiteral(0)
 						}
 					}()
-					ϒwidth = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒgfy, "get", nil), λ.NewStr("width")))
-					ϒheight = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒgfy, "get", nil), λ.NewStr("height")))
-					ϒfps = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒgfy, "get", nil), λ.NewStr("frameRate")))
-					ϒnum_frames = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒgfy, "get", nil), λ.NewStr("numFrames")))
+					ϒwidth = λ.Cal(ϒint_or_none, λ.Calm(ϒgfy, "get", λ.StrLiteral("width")))
+					ϒheight = λ.Cal(ϒint_or_none, λ.Calm(ϒgfy, "get", λ.StrLiteral("height")))
+					ϒfps = λ.Cal(ϒint_or_none, λ.Calm(ϒgfy, "get", λ.StrLiteral("frameRate")))
+					ϒnum_frames = λ.Cal(ϒint_or_none, λ.Calm(ϒgfy, "get", λ.StrLiteral("numFrames")))
 					ϒduration = func() λ.Object {
 						if λ.IsTrue(func() λ.Object {
 							if λv := ϒnum_frames; !λ.IsTrue(λv) {
@@ -133,18 +133,18 @@ func init() {
 						}
 					}()
 					ϒcategories = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒgfy, "get", nil), λ.NewStr("tags")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒgfy, "get", λ.StrLiteral("tags")); λ.IsTrue(λv) {
 							return λv
-						} else if λv := λ.Cal(λ.GetAttr(ϒgfy, "get", nil), λ.NewStr("extraLemmas")); λ.IsTrue(λv) {
+						} else if λv := λ.Calm(ϒgfy, "get", λ.StrLiteral("extraLemmas")); λ.IsTrue(λv) {
 							return λv
 						} else {
 							return λ.NewList()
 						}
 					}()
 					FORMATS = λ.NewTuple(
-						λ.NewStr("gif"),
-						λ.NewStr("webm"),
-						λ.NewStr("mp4"),
+						λ.StrLiteral("gif"),
+						λ.StrLiteral("webm"),
+						λ.StrLiteral("mp4"),
 					)
 					ϒquality = λ.Cal(ϒqualities, FORMATS)
 					ϒformats = λ.NewList()
@@ -154,40 +154,40 @@ func init() {
 							break
 						}
 						ϒformat_id = τmp1
-						ϒvideo_url = λ.Cal(λ.GetAttr(ϒgfy, "get", nil), λ.Mod(λ.NewStr("%sUrl"), ϒformat_id))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_url))) {
+						ϒvideo_url = λ.Calm(ϒgfy, "get", λ.Mod(λ.StrLiteral("%sUrl"), ϒformat_id))
+						if !λ.IsTrue(ϒvideo_url) {
 							continue
 						}
-						ϒfilesize = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒgfy, "get", nil), λ.Mod(λ.NewStr("%sSize"), ϒformat_id)))
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):       ϒvideo_url,
-							λ.NewStr("format_id"): ϒformat_id,
-							λ.NewStr("width"):     ϒwidth,
-							λ.NewStr("height"):    ϒheight,
-							λ.NewStr("fps"):       ϒfps,
-							λ.NewStr("filesize"):  ϒfilesize,
-							λ.NewStr("quality"):   λ.Cal(ϒquality, ϒformat_id),
+						ϒfilesize = λ.Cal(ϒint_or_none, λ.Calm(ϒgfy, "get", λ.Mod(λ.StrLiteral("%sSize"), ϒformat_id)))
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":       ϒvideo_url,
+							"format_id": ϒformat_id,
+							"width":     ϒwidth,
+							"height":    ϒheight,
+							"fps":       ϒfps,
+							"filesize":  ϒfilesize,
+							"quality":   λ.Cal(ϒquality, ϒformat_id),
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            ϒvideo_id,
-						λ.NewStr("title"):         ϒtitle,
-						λ.NewStr("description"):   ϒdescription,
-						λ.NewStr("timestamp"):     ϒtimestamp,
-						λ.NewStr("uploader"):      ϒuploader,
-						λ.NewStr("duration"):      ϒduration,
-						λ.NewStr("view_count"):    ϒview_count,
-						λ.NewStr("like_count"):    ϒlike_count,
-						λ.NewStr("dislike_count"): ϒdislike_count,
-						λ.NewStr("categories"):    ϒcategories,
-						λ.NewStr("age_limit"):     ϒage_limit,
-						λ.NewStr("formats"):       ϒformats,
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":            ϒvideo_id,
+						"title":         ϒtitle,
+						"description":   ϒdescription,
+						"timestamp":     ϒtimestamp,
+						"uploader":      ϒuploader,
+						"duration":      ϒduration,
+						"view_count":    ϒview_count,
+						"like_count":    ϒlike_count,
+						"dislike_count": ϒdislike_count,
+						"categories":    ϒcategories,
+						"age_limit":     ϒage_limit,
+						"formats":       ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    GfycatIE__VALID_URL,
-				λ.NewStr("_real_extract"): GfycatIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    GfycatIE__VALID_URL,
+				"_real_extract": GfycatIE__real_extract,
 			})
 		}())
 	})

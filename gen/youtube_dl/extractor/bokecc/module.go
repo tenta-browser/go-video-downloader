@@ -45,7 +45,7 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ExtractorError = Ωutils.ExtractorError
-		BokeCCBaseIE = λ.Cal(λ.TypeType, λ.NewStr("BokeCCBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		BokeCCBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("BokeCCBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				BokeCCBaseIE__extract_bokecc_formats λ.Object
 			)
@@ -69,16 +69,16 @@ func init() {
 						ϒwebpage           = λargs[1]
 					)
 					ϒplayer_params_str = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<(?:script|embed)[^>]+src=(?P<q>[\"\\'])(?:https?:)?//p\\.bokecc\\.com/(?:player|flash/player\\.swf)\\?(?P<query>.+?)(?P=q)"),
+						λ.StrLiteral("<(?:script|embed)[^>]+src=(?P<q>[\"\\'])(?:https?:)?//p\\.bokecc\\.com/(?:player|flash/player\\.swf)\\?(?P<query>.+?)(?P=q)"),
 						ϒwebpage,
-						λ.NewStr("player params"),
+						λ.StrLiteral("player params"),
 					), λ.KWArgs{
-						{Name: "group", Value: λ.NewStr("query")},
+						{Name: "group", Value: λ.StrLiteral("query")},
 					})
 					ϒplayer_params = λ.Cal(ϒcompat_parse_qs, ϒplayer_params_str)
-					ϒinfo_xml = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), λ.Mod(λ.NewStr("http://p.bokecc.com/servlet/playinfo?uid=%s&vid=%s&m=1"), λ.NewTuple(
-						λ.GetItem(λ.GetItem(ϒplayer_params, λ.NewStr("siteid")), λ.NewInt(0)),
-						λ.GetItem(λ.GetItem(ϒplayer_params, λ.NewStr("vid")), λ.NewInt(0)),
+					ϒinfo_xml = λ.Calm(ϒself, "_download_xml", λ.Mod(λ.StrLiteral("http://p.bokecc.com/servlet/playinfo?uid=%s&vid=%s&m=1"), λ.NewTuple(
+						λ.GetItem(λ.GetItem(ϒplayer_params, λ.StrLiteral("siteid")), λ.IntLiteral(0)),
+						λ.GetItem(λ.GetItem(ϒplayer_params, λ.StrLiteral("vid")), λ.IntLiteral(0)),
 					)), ϒvideo_id)
 					ϒformats = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
@@ -90,34 +90,34 @@ func init() {
 									τmp0     λ.Object
 									τmp1     λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒinfo_xml, "findall", nil), λ.NewStr("./video/quality")))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒinfo_xml, "findall", λ.StrLiteral("./video/quality")))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									ϒquality = τmp1
-									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("format_id"):  ϒformat_id,
-										λ.NewStr("url"):        λ.GetItem(λ.GetAttr(λ.Cal(λ.GetAttr(ϒquality, "find", nil), λ.NewStr("./copy")), "attrib", nil), λ.NewStr("playurl")),
-										λ.NewStr("preference"): λ.Cal(λ.IntType, λ.GetItem(λ.GetAttr(ϒquality, "attrib", nil), λ.NewStr("value"))),
+									λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+										"format_id":  ϒformat_id,
+										"url":        λ.GetItem(λ.GetAttr(λ.Calm(ϒquality, "find", λ.StrLiteral("./copy")), "attrib", nil), λ.StrLiteral("playurl")),
+										"preference": λ.Cal(λ.IntType, λ.GetItem(λ.GetAttr(ϒquality, "attrib", nil), λ.StrLiteral("value"))),
 									}))
 								}
 								return λ.None
 							})
 						})))
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					return ϒformats
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_extract_bokecc_formats"): BokeCCBaseIE__extract_bokecc_formats,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_extract_bokecc_formats": BokeCCBaseIE__extract_bokecc_formats,
 			})
 		}())
-		BokeCCIE = λ.Cal(λ.TypeType, λ.NewStr("BokeCCIE"), λ.NewTuple(BokeCCBaseIE), func() λ.Dict {
+		BokeCCIE = λ.Cal(λ.TypeType, λ.StrLiteral("BokeCCIE"), λ.NewTuple(BokeCCBaseIE), func() λ.Dict {
 			var (
 				BokeCCIE__VALID_URL    λ.Object
 				BokeCCIE__real_extract λ.Object
 			)
-			BokeCCIE__VALID_URL = λ.NewStr("https?://union\\.bokecc\\.com/playvideo\\.bo\\?(?P<query>.*)")
+			BokeCCIE__VALID_URL = λ.StrLiteral("https?://union\\.bokecc\\.com/playvideo\\.bo\\?(?P<query>.*)")
 			BokeCCIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -132,32 +132,32 @@ func init() {
 						ϒvideo_id λ.Object
 						ϒwebpage  λ.Object
 					)
-					ϒqs = λ.Cal(ϒcompat_parse_qs, λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "group", nil), λ.NewStr("query")))
+					ϒqs = λ.Cal(ϒcompat_parse_qs, λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "group", λ.StrLiteral("query")))
 					if λ.IsTrue(func() λ.Object {
-						if λv := λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒqs, "get", nil), λ.NewStr("vid")))); λ.IsTrue(λv) {
+						if λv := λ.NewBool(!λ.IsTrue(λ.Calm(ϒqs, "get", λ.StrLiteral("vid")))); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒqs, "get", nil), λ.NewStr("uid"))))
+							return λ.NewBool(!λ.IsTrue(λ.Calm(ϒqs, "get", λ.StrLiteral("uid"))))
 						}
 					}()) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("Invalid URL")), λ.KWArgs{
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("Invalid URL")), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
-					ϒvideo_id = λ.Mod(λ.NewStr("%s_%s"), λ.NewTuple(
-						λ.GetItem(λ.GetItem(ϒqs, λ.NewStr("uid")), λ.NewInt(0)),
-						λ.GetItem(λ.GetItem(ϒqs, λ.NewStr("vid")), λ.NewInt(0)),
+					ϒvideo_id = λ.Mod(λ.StrLiteral("%s_%s"), λ.NewTuple(
+						λ.GetItem(λ.GetItem(ϒqs, λ.StrLiteral("uid")), λ.IntLiteral(0)),
+						λ.GetItem(λ.GetItem(ϒqs, λ.StrLiteral("vid")), λ.IntLiteral(0)),
 					))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):      ϒvideo_id,
-						λ.NewStr("title"):   λ.NewStr("BokeCC Video"),
-						λ.NewStr("formats"): λ.Cal(λ.GetAttr(ϒself, "_extract_bokecc_formats", nil), ϒwebpage, ϒvideo_id),
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":      ϒvideo_id,
+						"title":   λ.StrLiteral("BokeCC Video"),
+						"formats": λ.Calm(ϒself, "_extract_bokecc_formats", ϒwebpage, ϒvideo_id),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    BokeCCIE__VALID_URL,
-				λ.NewStr("_real_extract"): BokeCCIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    BokeCCIE__VALID_URL,
+				"_real_extract": BokeCCIE__real_extract,
 			})
 		}())
 	})

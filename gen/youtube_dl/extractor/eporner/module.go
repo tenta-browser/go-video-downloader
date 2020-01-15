@@ -56,12 +56,12 @@ func init() {
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		ϒurl_or_none = Ωutils.ϒurl_or_none
-		EpornerIE = λ.Cal(λ.TypeType, λ.NewStr("EpornerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		EpornerIE = λ.Cal(λ.TypeType, λ.StrLiteral("EpornerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				EpornerIE__VALID_URL    λ.Object
 				EpornerIE__real_extract λ.Object
 			)
-			EpornerIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?eporner\\.com/(?:hd-porn|embed)/(?P<id>\\w+)(?:/(?P<display_id>[\\w-]+))?")
+			EpornerIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?eporner\\.com/(?:hd-porn|embed)/(?P<id>\\w+)(?:/(?P<display_id>[\\w-]+))?")
 			EpornerIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -100,26 +100,26 @@ func init() {
 						τmp4          λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
 					ϒdisplay_id = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("display_id")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒmobj, "group", λ.StrLiteral("display_id")); λ.IsTrue(λv) {
 							return λv
 						} else {
 							return ϒvideo_id
 						}
 					}()
-					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_download_webpage_handle", nil), ϒurl, ϒdisplay_id)
-					ϒwebpage = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒurlh = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), λ.Cal(ϒcompat_str, λ.Cal(λ.GetAttr(ϒurlh, "geturl", nil))))
-					ϒhash = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("hash\\s*:\\s*[\"\\']([\\da-f]{32})"), ϒwebpage, λ.NewStr("hash"))
+					τmp0 = λ.Calm(ϒself, "_download_webpage_handle", ϒurl, ϒdisplay_id)
+					ϒwebpage = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", λ.Cal(ϒcompat_str, λ.Calm(ϒurlh, "geturl")))
+					ϒhash = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("hash\\s*:\\s*[\"\\']([\\da-f]{32})"), ϒwebpage, λ.StrLiteral("hash"))
 					ϒtitle = func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_og_search_title", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<title>(.+?) - EPORNER"), ϒwebpage, λ.NewStr("title"))
+							return λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("<title>(.+?) - EPORNER"), ϒwebpage, λ.StrLiteral("title"))
 						}
 					}()
 					ϒcalc_hash = λ.NewFunction("calc_hash",
@@ -131,7 +131,7 @@ func init() {
 							var (
 								ϒs = λargs[0]
 							)
-							return λ.Cal(λ.GetAttr(λ.NewStr(""), "join", nil), λ.Cal(λ.NewFunction("<generator>",
+							return λ.Calm(λ.StrLiteral(""), "join", λ.Cal(λ.NewFunction("<generator>",
 								nil,
 								0, false, false,
 								func(λargs []λ.Object) λ.Object {
@@ -141,139 +141,139 @@ func init() {
 											τmp0 λ.Object
 											τmp1 λ.Object
 										)
-										τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.RangeType, λ.NewInt(0), λ.NewInt(32), λ.NewInt(8)))
+										τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.RangeType, λ.IntLiteral(0), λ.IntLiteral(32), λ.IntLiteral(8)))
 										for {
 											if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 												break
 											}
 											ϒlb = τmp1
-											λgy.Yield(λ.Cal(ϒencode_base_n, λ.Cal(λ.IntType, λ.GetItem(ϒs, λ.NewSlice(ϒlb, λ.Add(ϒlb, λ.NewInt(8)), λ.None)), λ.NewInt(16)), λ.NewInt(36)))
+											λgy.Yield(λ.Cal(ϒencode_base_n, λ.Cal(λ.IntType, λ.GetItem(ϒs, λ.NewSlice(ϒlb, λ.Add(ϒlb, λ.IntLiteral(8)), λ.None)), λ.IntLiteral(16)), λ.IntLiteral(36)))
 										}
 										return λ.None
 									})
 								})))
 						})
 					ϒvideo = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Mod(λ.NewStr("http://www.eporner.com/xhr/video/%s"), ϒvideo_id),
+						λ.Mod(λ.StrLiteral("http://www.eporner.com/xhr/video/%s"), ϒvideo_id),
 						ϒdisplay_id,
 					), λ.KWArgs{
-						{Name: "note", Value: λ.NewStr("Downloading video JSON")},
-						{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("hash"):     λ.Cal(ϒcalc_hash, ϒhash),
-							λ.NewStr("device"):   λ.NewStr("generic"),
-							λ.NewStr("domain"):   λ.NewStr("www.eporner.com"),
-							λ.NewStr("fallback"): λ.NewStr("false"),
+						{Name: "note", Value: λ.StrLiteral("Downloading video JSON")},
+						{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
+							"hash":     λ.Cal(ϒcalc_hash, ϒhash),
+							"device":   λ.StrLiteral("generic"),
+							"domain":   λ.StrLiteral("www.eporner.com"),
+							"fallback": λ.StrLiteral("false"),
 						})},
 					})
-					if λ.IsTrue(λ.NewBool(λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("available")) == λ.False)) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("%s said: %s"), λ.NewTuple(
+					if λ.Calm(ϒvideo, "get", λ.StrLiteral("available")) == λ.False {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("%s said: %s"), λ.NewTuple(
 							λ.GetAttr(ϒself, "IE_NAME", nil),
-							λ.GetItem(ϒvideo, λ.NewStr("message")),
+							λ.GetItem(ϒvideo, λ.StrLiteral("message")),
 						))), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
-					ϒsources = λ.GetItem(ϒvideo, λ.NewStr("sources"))
+					ϒsources = λ.GetItem(ϒvideo, λ.StrLiteral("sources"))
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒsources, "items", nil)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒsources, "items"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒkind = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒformats_dict = λ.GetItem(τmp2, λ.NewInt(1))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒformats_dict, λ.DictType)))) {
+						ϒkind = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒformats_dict = λ.GetItem(τmp2, λ.IntLiteral(1))
+						if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒformats_dict, λ.DictType)) {
 							continue
 						}
-						τmp2 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒformats_dict, "items", nil)))
+						τmp2 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒformats_dict, "items"))
 						for {
 							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 								break
 							}
 							τmp4 = τmp3
-							ϒformat_id = λ.GetItem(τmp4, λ.NewInt(0))
-							ϒformat_dict = λ.GetItem(τmp4, λ.NewInt(1))
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒformat_dict, λ.DictType)))) {
+							ϒformat_id = λ.GetItem(τmp4, λ.IntLiteral(0))
+							ϒformat_dict = λ.GetItem(τmp4, λ.IntLiteral(1))
+							if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒformat_dict, λ.DictType)) {
 								continue
 							}
-							ϒsrc = λ.Cal(ϒurl_or_none, λ.Cal(λ.GetAttr(ϒformat_dict, "get", nil), λ.NewStr("src")))
+							ϒsrc = λ.Cal(ϒurl_or_none, λ.Calm(ϒformat_dict, "get", λ.StrLiteral("src")))
 							if λ.IsTrue(func() λ.Object {
 								if λv := λ.NewBool(!λ.IsTrue(ϒsrc)); λ.IsTrue(λv) {
 									return λv
 								} else {
-									return λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒsrc, "startswith", nil), λ.NewStr("http"))))
+									return λ.NewBool(!λ.IsTrue(λ.Calm(ϒsrc, "startswith", λ.StrLiteral("http"))))
 								}
 							}()) {
 								continue
 							}
-							if λ.IsTrue(λ.Eq(ϒkind, λ.NewStr("hls"))) {
-								λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+							if λ.IsTrue(λ.Eq(ϒkind, λ.StrLiteral("hls"))) {
+								λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
 									ϒsrc,
 									ϒdisplay_id,
-									λ.NewStr("mp4"),
+									λ.StrLiteral("mp4"),
 								), λ.KWArgs{
-									{Name: "entry_protocol", Value: λ.NewStr("m3u8_native")},
+									{Name: "entry_protocol", Value: λ.StrLiteral("m3u8_native")},
 									{Name: "m3u8_id", Value: ϒkind},
 									{Name: "fatal", Value: λ.False},
 								}))
 							} else {
 								ϒheight = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-									λ.NewStr("(\\d+)[pP]"),
+									λ.StrLiteral("(\\d+)[pP]"),
 									ϒformat_id,
-									λ.NewStr("height"),
+									λ.StrLiteral("height"),
 								), λ.KWArgs{
 									{Name: "default", Value: λ.None},
 								}))
 								ϒfps = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-									λ.NewStr("(\\d+)fps"),
+									λ.StrLiteral("(\\d+)fps"),
 									ϒformat_id,
-									λ.NewStr("fps"),
+									λ.StrLiteral("fps"),
 								), λ.KWArgs{
 									{Name: "default", Value: λ.None},
 								}))
-								λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("url"):       ϒsrc,
-									λ.NewStr("format_id"): ϒformat_id,
-									λ.NewStr("height"):    ϒheight,
-									λ.NewStr("fps"):       ϒfps,
+								λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+									"url":       ϒsrc,
+									"format_id": ϒformat_id,
+									"height":    ϒheight,
+									"fps":       ϒfps,
 								}))
 							}
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒjson_ld = λ.Call(λ.GetAttr(ϒself, "_search_json_ld", nil), λ.NewArgs(
 						ϒwebpage,
 						ϒdisplay_id,
 					), λ.KWArgs{
-						{Name: "default", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{})},
+						{Name: "default", Value: λ.DictLiteral(map[λ.Object]λ.Object{})},
 					})
 					ϒduration = λ.Cal(ϒparse_duration, λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
-						λ.NewStr("duration"),
+						λ.StrLiteral("duration"),
 						ϒwebpage,
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					}))
 					ϒview_count = λ.Cal(ϒstr_to_int, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("id=\"cinemaviews\">\\s*([0-9,]+)\\s*<small>views"),
+						λ.StrLiteral("id=\"cinemaviews\">\\s*([0-9,]+)\\s*<small>views"),
 						ϒwebpage,
-						λ.NewStr("view count"),
+						λ.StrLiteral("view count"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
-					return λ.Cal(ϒmerge_dicts, ϒjson_ld, λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         ϒvideo_id,
-						λ.NewStr("display_id"): ϒdisplay_id,
-						λ.NewStr("title"):      ϒtitle,
-						λ.NewStr("duration"):   ϒduration,
-						λ.NewStr("view_count"): ϒview_count,
-						λ.NewStr("formats"):    ϒformats,
-						λ.NewStr("age_limit"):  λ.NewInt(18),
+					return λ.Cal(ϒmerge_dicts, ϒjson_ld, λ.DictLiteral(map[string]λ.Object{
+						"id":         ϒvideo_id,
+						"display_id": ϒdisplay_id,
+						"title":      ϒtitle,
+						"duration":   ϒduration,
+						"view_count": ϒview_count,
+						"formats":    ϒformats,
+						"age_limit":  λ.IntLiteral(18),
 					}))
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    EpornerIE__VALID_URL,
-				λ.NewStr("_real_extract"): EpornerIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    EpornerIE__VALID_URL,
+				"_real_extract": EpornerIE__real_extract,
 			})
 		}())
 	})

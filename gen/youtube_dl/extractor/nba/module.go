@@ -44,12 +44,12 @@ func init() {
 		TurnerBaseIE = Ωturner.TurnerBaseIE
 		ϒcompat_urllib_parse_urlencode = Ωcompat.ϒcompat_urllib_parse_urlencode
 		ϒremove_start = Ωutils.ϒremove_start
-		NBAIE = λ.Cal(λ.TypeType, λ.NewStr("NBAIE"), λ.NewTuple(TurnerBaseIE), func() λ.Dict {
+		NBAIE = λ.Cal(λ.TypeType, λ.StrLiteral("NBAIE"), λ.NewTuple(TurnerBaseIE), func() λ.Dict {
 			var (
 				NBAIE__VALID_URL    λ.Object
 				NBAIE__real_extract λ.Object
 			)
-			NBAIE__VALID_URL = λ.NewStr("https?://(?:watch\\.|www\\.)?nba\\.com/(?P<path>(?:[^/]+/)+(?P<id>[^?]*?))/?(?:/index\\.html)?(?:\\?.*)?$")
+			NBAIE__VALID_URL = λ.StrLiteral("https?://(?:watch\\.|www\\.)?nba\\.com/(?P<path>(?:[^/]+/)+(?P<id>[^?]*?))/?(?:/index\\.html)?(?:\\?.*)?$")
 			NBAIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -66,35 +66,35 @@ func init() {
 						ϒwebpage   λ.Object
 						τmp0       λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
-					ϒpath = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(1))
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒpath = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒorig_path = ϒpath
-					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒpath, "startswith", nil), λ.NewStr("nba/"))) {
-						ϒpath = λ.GetItem(ϒpath, λ.NewSlice(λ.NewInt(3), λ.None, λ.None))
+					if λ.IsTrue(λ.Calm(ϒpath, "startswith", λ.StrLiteral("nba/"))) {
+						ϒpath = λ.GetItem(ϒpath, λ.NewSlice(λ.IntLiteral(3), λ.None, λ.None))
 					}
-					if λ.IsTrue(λ.NewBool(!λ.Contains(ϒpath, λ.NewStr("video/")))) {
-						ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-						ϒpath = λ.Cal(ϒremove_start, λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("data-videoid=\"([^\"]+)\""), ϒwebpage, λ.NewStr("video id")), λ.NewStr("/"))
-						if λ.IsTrue(λ.Eq(ϒpath, λ.NewStr("{{id}}"))) {
-							return λ.Cal(λ.GetAttr(ϒself, "_extract_playlist", nil), ϒorig_path, ϒvideo_id, ϒwebpage)
+					if !λ.Contains(ϒpath, λ.StrLiteral("video/")) {
+						ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+						ϒpath = λ.Cal(ϒremove_start, λ.Calm(ϒself, "_search_regex", λ.StrLiteral("data-videoid=\"([^\"]+)\""), ϒwebpage, λ.StrLiteral("video id")), λ.StrLiteral("/"))
+						if λ.IsTrue(λ.Eq(ϒpath, λ.StrLiteral("{{id}}"))) {
+							return λ.Calm(ϒself, "_extract_playlist", ϒorig_path, ϒvideo_id, ϒwebpage)
 						}
-						if λ.IsTrue(λ.Cal(λ.GetAttr(ϒpath, "startswith", nil), λ.NewStr("video/teams"))) {
-							ϒpath = λ.Add(λ.NewStr("video/channels/proxy/"), λ.GetItem(ϒpath, λ.NewSlice(λ.NewInt(6), λ.None, λ.None)))
+						if λ.IsTrue(λ.Calm(ϒpath, "startswith", λ.StrLiteral("video/teams"))) {
+							ϒpath = λ.Add(λ.StrLiteral("video/channels/proxy/"), λ.GetItem(ϒpath, λ.NewSlice(λ.IntLiteral(6), λ.None, λ.None)))
 						}
 					}
-					return λ.Cal(λ.GetAttr(ϒself, "_extract_cvp_info", nil), λ.Mod(λ.NewStr("http://www.nba.com/%s.xml"), ϒpath), ϒvideo_id, λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("default"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("media_src"): λ.NewStr("http://nba.cdn.turner.com/nba/big"),
+					return λ.Calm(ϒself, "_extract_cvp_info", λ.Mod(λ.StrLiteral("http://www.nba.com/%s.xml"), ϒpath), ϒvideo_id, λ.DictLiteral(map[string]λ.Object{
+						"default": λ.DictLiteral(map[string]string{
+							"media_src": "http://nba.cdn.turner.com/nba/big",
 						}),
-						λ.NewStr("m3u8"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("media_src"): λ.NewStr("http://nbavod-f.akamaihd.net"),
+						"m3u8": λ.DictLiteral(map[string]string{
+							"media_src": "http://nbavod-f.akamaihd.net",
 						}),
 					}))
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    NBAIE__VALID_URL,
-				λ.NewStr("_real_extract"): NBAIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    NBAIE__VALID_URL,
+				"_real_extract": NBAIE__real_extract,
 			})
 		}())
 	})

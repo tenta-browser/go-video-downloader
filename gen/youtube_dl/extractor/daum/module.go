@@ -49,23 +49,23 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒcompat_urllib_parse_unquote = Ωcompat.ϒcompat_urllib_parse_unquote
-		DaumBaseIE = λ.Cal(λ.TypeType, λ.NewStr("DaumBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		DaumBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("DaumBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				DaumBaseIE__KAKAO_EMBED_BASE λ.Object
 			)
-			DaumBaseIE__KAKAO_EMBED_BASE = λ.NewStr("http://tv.kakao.com/embed/player/cliplink/")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_KAKAO_EMBED_BASE"): DaumBaseIE__KAKAO_EMBED_BASE,
+			DaumBaseIE__KAKAO_EMBED_BASE = λ.StrLiteral("http://tv.kakao.com/embed/player/cliplink/")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_KAKAO_EMBED_BASE": DaumBaseIE__KAKAO_EMBED_BASE,
 			})
 		}())
-		DaumIE = λ.Cal(λ.TypeType, λ.NewStr("DaumIE"), λ.NewTuple(DaumBaseIE), func() λ.Dict {
+		DaumIE = λ.Cal(λ.TypeType, λ.StrLiteral("DaumIE"), λ.NewTuple(DaumBaseIE), func() λ.Dict {
 			var (
 				DaumIE_IE_NAME       λ.Object
 				DaumIE__VALID_URL    λ.Object
 				DaumIE__real_extract λ.Object
 			)
-			DaumIE__VALID_URL = λ.NewStr("https?://(?:(?:m\\.)?tvpot\\.daum\\.net/v/|videofarm\\.daum\\.net/controller/player/VodPlayer\\.swf\\?vid=)(?P<id>[^?#&]+)")
-			DaumIE_IE_NAME = λ.NewStr("daum.net")
+			DaumIE__VALID_URL = λ.StrLiteral("https?://(?:(?:m\\.)?tvpot\\.daum\\.net/v/|videofarm\\.daum\\.net/controller/player/VodPlayer\\.swf\\?vid=)(?P<id>[^?#&]+)")
+			DaumIE_IE_NAME = λ.StrLiteral("daum.net")
 			DaumIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -79,20 +79,20 @@ func init() {
 						ϒvideo_id λ.Object
 						τmp0      λ.Object
 					)
-					ϒvideo_id = λ.Cal(ϒcompat_urllib_parse_unquote, λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl))
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒvideo_id, "isdigit", nil))))) {
-						τmp0 = λ.IAdd(ϒvideo_id, λ.NewStr("@my"))
+					ϒvideo_id = λ.Cal(ϒcompat_urllib_parse_unquote, λ.Calm(ϒself, "_match_id", ϒurl))
+					if !λ.IsTrue(λ.Calm(ϒvideo_id, "isdigit")) {
+						τmp0 = λ.IAdd(ϒvideo_id, λ.StrLiteral("@my"))
 						ϒvideo_id = τmp0
 					}
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Add(λ.GetAttr(ϒself, "_KAKAO_EMBED_BASE", nil), ϒvideo_id), λ.NewStr("Kakao"), ϒvideo_id)
+					return λ.Calm(ϒself, "url_result", λ.Add(λ.GetAttr(ϒself, "_KAKAO_EMBED_BASE", nil), ϒvideo_id), λ.StrLiteral("Kakao"), ϒvideo_id)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       DaumIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    DaumIE__VALID_URL,
-				λ.NewStr("_real_extract"): DaumIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       DaumIE_IE_NAME,
+				"_VALID_URL":    DaumIE__VALID_URL,
+				"_real_extract": DaumIE__real_extract,
 			})
 		}())
-		DaumClipIE = λ.Cal(λ.TypeType, λ.NewStr("DaumClipIE"), λ.NewTuple(DaumBaseIE), func() λ.Dict {
+		DaumClipIE = λ.Cal(λ.TypeType, λ.StrLiteral("DaumClipIE"), λ.NewTuple(DaumBaseIE), func() λ.Dict {
 			var (
 				DaumClipIE_IE_NAME       λ.Object
 				DaumClipIE__URL_TEMPLATE λ.Object
@@ -100,9 +100,9 @@ func init() {
 				DaumClipIE__real_extract λ.Object
 				DaumClipIE_suitable      λ.Object
 			)
-			DaumClipIE__VALID_URL = λ.NewStr("https?://(?:m\\.)?tvpot\\.daum\\.net/(?:clip/ClipView.(?:do|tv)|mypot/View.do)\\?.*?clipid=(?P<id>\\d+)")
-			DaumClipIE_IE_NAME = λ.NewStr("daum.net:clip")
-			DaumClipIE__URL_TEMPLATE = λ.NewStr("http://tvpot.daum.net/clip/ClipView.do?clipid=%s")
+			DaumClipIE__VALID_URL = λ.StrLiteral("https?://(?:m\\.)?tvpot\\.daum\\.net/(?:clip/ClipView.(?:do|tv)|mypot/View.do)\\?.*?clipid=(?P<id>\\d+)")
+			DaumClipIE_IE_NAME = λ.StrLiteral("daum.net:clip")
+			DaumClipIE__URL_TEMPLATE = λ.StrLiteral("http://tvpot.daum.net/clip/ClipView.do?clipid=%s")
 			DaumClipIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -116,15 +116,15 @@ func init() {
 					)
 					return func() λ.Object {
 						if λ.IsTrue(func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(DaumPlaylistIE, "suitable", nil), ϒurl); λ.IsTrue(λv) {
+							if λv := λ.Calm(DaumPlaylistIE, "suitable", ϒurl); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(DaumUserIE, "suitable", nil), ϒurl)
+								return λ.Calm(DaumUserIE, "suitable", ϒurl)
 							}
 						}()) {
 							return λ.False
 						} else {
-							return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, DaumClipIE, ϒcls), "suitable", nil), ϒurl)
+							return λ.Calm(λ.Cal(λ.SuperType, DaumClipIE, ϒcls), "suitable", ϒurl)
 						}
 					}()
 				})
@@ -141,18 +141,18 @@ func init() {
 						ϒurl      = λargs[1]
 						ϒvideo_id λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Add(λ.GetAttr(ϒself, "_KAKAO_EMBED_BASE", nil), ϒvideo_id), λ.NewStr("Kakao"), ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					return λ.Calm(ϒself, "url_result", λ.Add(λ.GetAttr(ϒself, "_KAKAO_EMBED_BASE", nil), ϒvideo_id), λ.StrLiteral("Kakao"), ϒvideo_id)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       DaumClipIE_IE_NAME,
-				λ.NewStr("_URL_TEMPLATE"): DaumClipIE__URL_TEMPLATE,
-				λ.NewStr("_VALID_URL"):    DaumClipIE__VALID_URL,
-				λ.NewStr("_real_extract"): DaumClipIE__real_extract,
-				λ.NewStr("suitable"):      DaumClipIE_suitable,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       DaumClipIE_IE_NAME,
+				"_URL_TEMPLATE": DaumClipIE__URL_TEMPLATE,
+				"_VALID_URL":    DaumClipIE__VALID_URL,
+				"_real_extract": DaumClipIE__real_extract,
+				"suitable":      DaumClipIE_suitable,
 			})
 		}())
-		DaumListIE = λ.Cal(λ.TypeType, λ.NewStr("DaumListIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		DaumListIE = λ.Cal(λ.TypeType, λ.StrLiteral("DaumListIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				DaumListIE__check_clip  λ.Object
 				DaumListIE__get_entries λ.Object
@@ -178,18 +178,18 @@ func init() {
 					)
 					ϒname = λ.None
 					ϒentries = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωitertools.ϒcount, λ.NewInt(1)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωitertools.ϒcount, λ.IntLiteral(1)))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒpagenum = τmp1
-						ϒlist_info = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("http://tvpot.daum.net/mypot/json/GetClipInfo.do?size=48&init=true&order=date&page=%d&%s=%s"), λ.NewTuple(
+						ϒlist_info = λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("http://tvpot.daum.net/mypot/json/GetClipInfo.do?size=48&init=true&order=date&page=%d&%s=%s"), λ.NewTuple(
 							ϒpagenum,
 							ϒlist_id_type,
 							ϒlist_id,
-						)), ϒlist_id, λ.Mod(λ.NewStr("Downloading list info - %s"), ϒpagenum))
-						λ.Cal(λ.GetAttr(ϒentries, "extend", nil), λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+						)), ϒlist_id, λ.Mod(λ.StrLiteral("Downloading list info - %s"), ϒpagenum))
+						λ.Calm(ϒentries, "extend", λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
@@ -199,27 +199,27 @@ func init() {
 										τmp0  λ.Object
 										τmp1  λ.Object
 									)
-									τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒlist_info, λ.NewStr("clip_list")))
+									τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒlist_info, λ.StrLiteral("clip_list")))
 									for {
 										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 											break
 										}
 										ϒclip = τmp1
-										λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://tvpot.daum.net/v/%s"), λ.GetItem(ϒclip, λ.NewStr("vid")))))
+										λgy.Yield(λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("http://tvpot.daum.net/v/%s"), λ.GetItem(ϒclip, λ.StrLiteral("vid")))))
 									}
 									return λ.None
 								})
 							}))))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒname))) {
+						if !λ.IsTrue(ϒname) {
 							ϒname = func() λ.Object {
-								if λv := λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒlist_info, "get", nil), λ.NewStr("playlist_bean"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("name")); λ.IsTrue(λv) {
+								if λv := λ.Calm(λ.Calm(ϒlist_info, "get", λ.StrLiteral("playlist_bean"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("name")); λ.IsTrue(λv) {
 									return λv
 								} else {
-									return λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒlist_info, "get", nil), λ.NewStr("potInfo"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("name"))
+									return λ.Calm(λ.Calm(ϒlist_info, "get", λ.StrLiteral("potInfo"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("name"))
 								}
 							}()
 						}
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒlist_info, "get", nil), λ.NewStr("has_more"))))) {
+						if !λ.IsTrue(λ.Calm(ϒlist_info, "get", λ.StrLiteral("has_more"))) {
 							break
 						}
 					}
@@ -244,23 +244,23 @@ func init() {
 						ϒurl        = λargs[1]
 					)
 					ϒquery_dict = λ.Cal(ϒcompat_parse_qs, λ.GetAttr(λ.Cal(Ωparse.ϒurlparse, ϒurl), "query", nil))
-					if λ.IsTrue(λ.NewBool(λ.Contains(ϒquery_dict, λ.NewStr("clipid")))) {
-						ϒclip_id = λ.GetItem(λ.GetItem(ϒquery_dict, λ.NewStr("clipid")), λ.NewInt(0))
-						if λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("noplaylist"))) {
-							λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("Downloading just video %s because of --no-playlist"), ϒclip_id))
-							return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.GetAttr(DaumClipIE, "_URL_TEMPLATE", nil), ϒclip_id), λ.NewStr("DaumClip"))
+					if λ.Contains(ϒquery_dict, λ.StrLiteral("clipid")) {
+						ϒclip_id = λ.GetItem(λ.GetItem(ϒquery_dict, λ.StrLiteral("clipid")), λ.IntLiteral(0))
+						if λ.IsTrue(λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("noplaylist"))) {
+							λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("Downloading just video %s because of --no-playlist"), ϒclip_id))
+							return λ.Calm(ϒself, "url_result", λ.Mod(λ.GetAttr(DaumClipIE, "_URL_TEMPLATE", nil), ϒclip_id), λ.StrLiteral("DaumClip"))
 						} else {
-							λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("Downloading playlist %s - add --no-playlist to just download video"), ϒlist_id))
+							λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("Downloading playlist %s - add --no-playlist to just download video"), ϒlist_id))
 						}
 					}
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_check_clip"):  DaumListIE__check_clip,
-				λ.NewStr("_get_entries"): DaumListIE__get_entries,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_check_clip":  DaumListIE__check_clip,
+				"_get_entries": DaumListIE__get_entries,
 			})
 		}())
-		DaumPlaylistIE = λ.Cal(λ.TypeType, λ.NewStr("DaumPlaylistIE"), λ.NewTuple(DaumListIE), func() λ.Dict {
+		DaumPlaylistIE = λ.Cal(λ.TypeType, λ.StrLiteral("DaumPlaylistIE"), λ.NewTuple(DaumListIE), func() λ.Dict {
 			var (
 				DaumPlaylistIE_IE_NAME       λ.Object
 				DaumPlaylistIE__URL_TEMPLATE λ.Object
@@ -268,9 +268,9 @@ func init() {
 				DaumPlaylistIE__real_extract λ.Object
 				DaumPlaylistIE_suitable      λ.Object
 			)
-			DaumPlaylistIE__VALID_URL = λ.NewStr("https?://(?:m\\.)?tvpot\\.daum\\.net/mypot/(?:View\\.do|Top\\.tv)\\?.*?playlistid=(?P<id>[0-9]+)")
-			DaumPlaylistIE_IE_NAME = λ.NewStr("daum.net:playlist")
-			DaumPlaylistIE__URL_TEMPLATE = λ.NewStr("http://tvpot.daum.net/mypot/View.do?playlistid=%s")
+			DaumPlaylistIE__VALID_URL = λ.StrLiteral("https?://(?:m\\.)?tvpot\\.daum\\.net/mypot/(?:View\\.do|Top\\.tv)\\?.*?playlistid=(?P<id>[0-9]+)")
+			DaumPlaylistIE_IE_NAME = λ.StrLiteral("daum.net:playlist")
+			DaumPlaylistIE__URL_TEMPLATE = λ.StrLiteral("http://tvpot.daum.net/mypot/View.do?playlistid=%s")
 			DaumPlaylistIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -283,10 +283,10 @@ func init() {
 						ϒurl = λargs[1]
 					)
 					return func() λ.Object {
-						if λ.IsTrue(λ.Cal(λ.GetAttr(DaumUserIE, "suitable", nil), ϒurl)) {
+						if λ.IsTrue(λ.Calm(DaumUserIE, "suitable", ϒurl)) {
 							return λ.False
 						} else {
-							return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, DaumPlaylistIE, ϒcls), "suitable", nil), ϒurl)
+							return λ.Calm(λ.Cal(λ.SuperType, DaumPlaylistIE, ϒcls), "suitable", ϒurl)
 						}
 					}()
 				})
@@ -307,32 +307,32 @@ func init() {
 						ϒurl         = λargs[1]
 						τmp0         λ.Object
 					)
-					ϒlist_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒclip_result = λ.Cal(λ.GetAttr(ϒself, "_check_clip", nil), ϒurl, ϒlist_id)
+					ϒlist_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒclip_result = λ.Calm(ϒself, "_check_clip", ϒurl, ϒlist_id)
 					if λ.IsTrue(ϒclip_result) {
 						return ϒclip_result
 					}
-					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_get_entries", nil), ϒlist_id, λ.NewStr("playlistid"))
-					ϒname = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒentries = λ.GetItem(τmp0, λ.NewInt(1))
-					return λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), ϒentries, ϒlist_id, ϒname)
+					τmp0 = λ.Calm(ϒself, "_get_entries", ϒlist_id, λ.StrLiteral("playlistid"))
+					ϒname = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒentries = λ.GetItem(τmp0, λ.IntLiteral(1))
+					return λ.Calm(ϒself, "playlist_result", ϒentries, ϒlist_id, ϒname)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       DaumPlaylistIE_IE_NAME,
-				λ.NewStr("_URL_TEMPLATE"): DaumPlaylistIE__URL_TEMPLATE,
-				λ.NewStr("_VALID_URL"):    DaumPlaylistIE__VALID_URL,
-				λ.NewStr("_real_extract"): DaumPlaylistIE__real_extract,
-				λ.NewStr("suitable"):      DaumPlaylistIE_suitable,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       DaumPlaylistIE_IE_NAME,
+				"_URL_TEMPLATE": DaumPlaylistIE__URL_TEMPLATE,
+				"_VALID_URL":    DaumPlaylistIE__VALID_URL,
+				"_real_extract": DaumPlaylistIE__real_extract,
+				"suitable":      DaumPlaylistIE_suitable,
 			})
 		}())
-		DaumUserIE = λ.Cal(λ.TypeType, λ.NewStr("DaumUserIE"), λ.NewTuple(DaumListIE), func() λ.Dict {
+		DaumUserIE = λ.Cal(λ.TypeType, λ.StrLiteral("DaumUserIE"), λ.NewTuple(DaumListIE), func() λ.Dict {
 			var (
 				DaumUserIE_IE_NAME       λ.Object
 				DaumUserIE__VALID_URL    λ.Object
 				DaumUserIE__real_extract λ.Object
 			)
-			DaumUserIE__VALID_URL = λ.NewStr("https?://(?:m\\.)?tvpot\\.daum\\.net/mypot/(?:View|Top)\\.(?:do|tv)\\?.*?ownerid=(?P<id>[0-9a-zA-Z]+)")
-			DaumUserIE_IE_NAME = λ.NewStr("daum.net:user")
+			DaumUserIE__VALID_URL = λ.StrLiteral("https?://(?:m\\.)?tvpot\\.daum\\.net/mypot/(?:View|Top)\\.(?:do|tv)\\?.*?ownerid=(?P<id>[0-9a-zA-Z]+)")
+			DaumUserIE_IE_NAME = λ.StrLiteral("daum.net:user")
 			DaumUserIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -351,25 +351,25 @@ func init() {
 						ϒurl         = λargs[1]
 						τmp0         λ.Object
 					)
-					ϒlist_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒclip_result = λ.Cal(λ.GetAttr(ϒself, "_check_clip", nil), ϒurl, ϒlist_id)
+					ϒlist_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒclip_result = λ.Calm(ϒself, "_check_clip", ϒurl, ϒlist_id)
 					if λ.IsTrue(ϒclip_result) {
 						return ϒclip_result
 					}
 					ϒquery_dict = λ.Cal(ϒcompat_parse_qs, λ.GetAttr(λ.Cal(Ωparse.ϒurlparse, ϒurl), "query", nil))
-					if λ.IsTrue(λ.NewBool(λ.Contains(ϒquery_dict, λ.NewStr("playlistid")))) {
-						ϒplaylist_id = λ.GetItem(λ.GetItem(ϒquery_dict, λ.NewStr("playlistid")), λ.NewInt(0))
-						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.GetAttr(DaumPlaylistIE, "_URL_TEMPLATE", nil), ϒplaylist_id), λ.NewStr("DaumPlaylist"))
+					if λ.Contains(ϒquery_dict, λ.StrLiteral("playlistid")) {
+						ϒplaylist_id = λ.GetItem(λ.GetItem(ϒquery_dict, λ.StrLiteral("playlistid")), λ.IntLiteral(0))
+						return λ.Calm(ϒself, "url_result", λ.Mod(λ.GetAttr(DaumPlaylistIE, "_URL_TEMPLATE", nil), ϒplaylist_id), λ.StrLiteral("DaumPlaylist"))
 					}
-					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_get_entries", nil), ϒlist_id, λ.NewStr("ownerid"))
-					ϒname = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒentries = λ.GetItem(τmp0, λ.NewInt(1))
-					return λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), ϒentries, ϒlist_id, ϒname)
+					τmp0 = λ.Calm(ϒself, "_get_entries", ϒlist_id, λ.StrLiteral("ownerid"))
+					ϒname = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒentries = λ.GetItem(τmp0, λ.IntLiteral(1))
+					return λ.Calm(ϒself, "playlist_result", ϒentries, ϒlist_id, ϒname)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       DaumUserIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    DaumUserIE__VALID_URL,
-				λ.NewStr("_real_extract"): DaumUserIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       DaumUserIE_IE_NAME,
+				"_VALID_URL":    DaumUserIE__VALID_URL,
+				"_real_extract": DaumUserIE__real_extract,
 			})
 		}())
 	})

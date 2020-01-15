@@ -53,12 +53,12 @@ func init() {
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒurl_basename = Ωutils.ϒurl_basename
-		AllocineIE = λ.Cal(λ.TypeType, λ.NewStr("AllocineIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		AllocineIE = λ.Cal(λ.TypeType, λ.StrLiteral("AllocineIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				AllocineIE__VALID_URL    λ.Object
 				AllocineIE__real_extract λ.Object
 			)
-			AllocineIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?allocine\\.fr/(?:article|video|film)/(?:fichearticle_gen_carticle=|player_gen_cmedia=|fichefilm_gen_cfilm=|video-)(?P<id>[0-9]+)(?:\\.html)?")
+			AllocineIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?allocine\\.fr/(?:article|video|film)/(?:fichearticle_gen_carticle=|player_gen_cmedia=|fichefilm_gen_cfilm=|video-)(?P<id>[0-9]+)(?:\\.html)?")
 			AllocineIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -90,42 +90,42 @@ func init() {
 						τmp1        λ.Object
 						τmp2        λ.Object
 					)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
 					ϒformats = λ.NewList()
 					ϒquality = λ.Cal(ϒqualities, λ.NewList(
-						λ.NewStr("ld"),
-						λ.NewStr("md"),
-						λ.NewStr("hd"),
+						λ.StrLiteral("ld"),
+						λ.StrLiteral("md"),
+						λ.StrLiteral("hd"),
 					))
 					ϒmodel = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("data-model=\"([^\"]+)\""),
+						λ.StrLiteral("data-model=\"([^\"]+)\""),
 						ϒwebpage,
-						λ.NewStr("data model"),
+						λ.StrLiteral("data model"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
 					if λ.IsTrue(ϒmodel) {
-						ϒmodel_data = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), ϒmodel, ϒdisplay_id)
-						ϒvideo = λ.GetItem(λ.GetItem(ϒmodel_data, λ.NewStr("videos")), λ.NewInt(0))
-						ϒtitle = λ.GetItem(ϒvideo, λ.NewStr("title"))
-						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.GetItem(ϒvideo, λ.NewStr("sources")), "values", nil)))
+						ϒmodel_data = λ.Calm(ϒself, "_parse_json", ϒmodel, ϒdisplay_id)
+						ϒvideo = λ.GetItem(λ.GetItem(ϒmodel_data, λ.StrLiteral("videos")), λ.IntLiteral(0))
+						ϒtitle = λ.GetItem(ϒvideo, λ.StrLiteral("title"))
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.GetItem(ϒvideo, λ.StrLiteral("sources")), "values"))
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
 							ϒvideo_url = τmp1
-							τmp2 = λ.GetItem(λ.Cal(λ.GetAttr(λ.Cal(ϒurl_basename, ϒvideo_url), "split", nil), λ.NewStr("_")), λ.NewSlice(λ.None, λ.NewInt(2), λ.None))
-							ϒvideo_id = λ.GetItem(τmp2, λ.NewInt(0))
-							ϒformat_id = λ.GetItem(τmp2, λ.NewInt(1))
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("format_id"): ϒformat_id,
-								λ.NewStr("quality"):   λ.Cal(ϒquality, ϒformat_id),
-								λ.NewStr("url"):       ϒvideo_url,
+							τmp2 = λ.GetItem(λ.Calm(λ.Cal(ϒurl_basename, ϒvideo_url), "split", λ.StrLiteral("_")), λ.NewSlice(λ.None, λ.IntLiteral(2), λ.None))
+							ϒvideo_id = λ.GetItem(τmp2, λ.IntLiteral(0))
+							ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(1))
+							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+								"format_id": ϒformat_id,
+								"quality":   λ.Cal(ϒquality, ϒformat_id),
+								"url":       ϒvideo_url,
 							}))
 						}
-						ϒduration = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("duration")))
-						ϒview_count = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("view_count")))
+						ϒduration = λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("duration")))
+						ϒview_count = λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("view_count")))
 						ϒtimestamp = λ.Cal(ϒunified_timestamp, λ.Cal(ϒtry_get, ϒvideo, λ.NewFunction("<lambda>",
 							[]λ.Param{
 								{Name: "x"},
@@ -135,51 +135,51 @@ func init() {
 								var (
 									ϒx = λargs[0]
 								)
-								return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("added_at")), λ.NewStr("date"))
+								return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("added_at")), λ.StrLiteral("date"))
 							}), ϒcompat_str))
 					} else {
 						ϒvideo_id = ϒdisplay_id
-						ϒmedia_data = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("http://www.allocine.fr/ws/AcVisiondataV5.ashx?media=%s"), ϒvideo_id), ϒdisplay_id)
-						ϒtitle = λ.Cal(ϒremove_end, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("(?s)<title>(.+?)</title>"), ϒwebpage, λ.NewStr("title")), "strip", nil)), λ.NewStr(" - AlloCiné"))
-						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.GetItem(ϒmedia_data, λ.NewStr("video")), "items", nil)))
+						ϒmedia_data = λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("http://www.allocine.fr/ws/AcVisiondataV5.ashx?media=%s"), ϒvideo_id), ϒdisplay_id)
+						ϒtitle = λ.Cal(ϒremove_end, λ.Calm(λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("(?s)<title>(.+?)</title>"), ϒwebpage, λ.StrLiteral("title")), "strip"), λ.StrLiteral(" - AlloCiné"))
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.GetItem(ϒmedia_data, λ.StrLiteral("video")), "items"))
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
 							τmp2 = τmp1
-							ϒkey = λ.GetItem(τmp2, λ.NewInt(0))
-							ϒvalue = λ.GetItem(τmp2, λ.NewInt(1))
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒkey, "endswith", nil), λ.NewStr("Path"))))) {
+							ϒkey = λ.GetItem(τmp2, λ.IntLiteral(0))
+							ϒvalue = λ.GetItem(τmp2, λ.IntLiteral(1))
+							if !λ.IsTrue(λ.Calm(ϒkey, "endswith", λ.StrLiteral("Path"))) {
 								continue
 							}
-							ϒformat_id = λ.GetItem(ϒkey, λ.NewSlice(λ.None, λ.Neg(λ.Cal(λ.BuiltinLen, λ.NewStr("Path"))), λ.None))
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("format_id"): ϒformat_id,
-								λ.NewStr("quality"):   λ.Cal(ϒquality, ϒformat_id),
-								λ.NewStr("url"):       ϒvalue,
+							ϒformat_id = λ.GetItem(ϒkey, λ.NewSlice(λ.None, λ.Neg(λ.Cal(λ.BuiltinLen, λ.StrLiteral("Path"))), λ.None))
+							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+								"format_id": ϒformat_id,
+								"quality":   λ.Cal(ϒquality, ϒformat_id),
+								"url":       ϒvalue,
 							}))
 						}
-						τmp0 = λ.Mul(λ.NewList(λ.None), λ.NewInt(3))
-						ϒduration = λ.GetItem(τmp0, λ.NewInt(0))
-						ϒview_count = λ.GetItem(τmp0, λ.NewInt(1))
-						ϒtimestamp = λ.GetItem(τmp0, λ.NewInt(2))
+						τmp0 = λ.Mul(λ.NewList(λ.None), λ.IntLiteral(3))
+						ϒduration = λ.GetItem(τmp0, λ.IntLiteral(0))
+						ϒview_count = λ.GetItem(τmp0, λ.IntLiteral(1))
+						ϒtimestamp = λ.GetItem(τmp0, λ.IntLiteral(2))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("display_id"):  ϒdisplay_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒself, "_og_search_description", nil), ϒwebpage),
-						λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage),
-						λ.NewStr("duration"):    ϒduration,
-						λ.NewStr("timestamp"):   ϒtimestamp,
-						λ.NewStr("view_count"):  ϒview_count,
-						λ.NewStr("formats"):     ϒformats,
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"display_id":  ϒdisplay_id,
+						"title":       ϒtitle,
+						"description": λ.Calm(ϒself, "_og_search_description", ϒwebpage),
+						"thumbnail":   λ.Calm(ϒself, "_og_search_thumbnail", ϒwebpage),
+						"duration":    ϒduration,
+						"timestamp":   ϒtimestamp,
+						"view_count":  ϒview_count,
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    AllocineIE__VALID_URL,
-				λ.NewStr("_real_extract"): AllocineIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    AllocineIE__VALID_URL,
+				"_real_extract": AllocineIE__real_extract,
 			})
 		}())
 	})

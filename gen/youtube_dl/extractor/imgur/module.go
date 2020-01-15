@@ -49,12 +49,12 @@ func init() {
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
 		ExtractorError = Ωutils.ExtractorError
-		ImgurIE = λ.Cal(λ.TypeType, λ.NewStr("ImgurIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ImgurIE = λ.Cal(λ.TypeType, λ.StrLiteral("ImgurIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ImgurIE__VALID_URL    λ.Object
 				ImgurIE__real_extract λ.Object
 			)
-			ImgurIE__VALID_URL = λ.NewStr("https?://(?:i\\.)?imgur\\.com/(?!(?:a|gallery|(?:t(?:opic)?|r)/[^/]+)/)(?P<id>[a-zA-Z0-9]+)")
+			ImgurIE__VALID_URL = λ.StrLiteral("https?://(?:i\\.)?imgur\\.com/(?!(?:a|gallery|(?:t(?:opic)?|r)/[^/]+)/)(?P<id>[a-zA-Z0-9]+)")
 			ImgurIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -77,56 +77,56 @@ func init() {
 						τmp0            λ.Object
 						τmp1            λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Call(λ.GetAttr(λ.NewStr("https://i.imgur.com/{id}.gifv"), "format", nil), nil, λ.KWArgs{
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", λ.Call(λ.GetAttr(λ.StrLiteral("https://i.imgur.com/{id}.gifv"), "format", nil), nil, λ.KWArgs{
 						{Name: "id", Value: ϒvideo_id},
 					}), ϒvideo_id)
 					ϒwidth = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_og_search_property", nil), λ.NewArgs(
-						λ.NewStr("video:width"),
+						λ.StrLiteral("video:width"),
 						ϒwebpage,
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					}))
 					ϒheight = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_og_search_property", nil), λ.NewArgs(
-						λ.NewStr("video:height"),
+						λ.StrLiteral("video:height"),
 						ϒwebpage,
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					}))
 					ϒvideo_elements = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("(?s)<div class=\"video-elements\">(.*?)</div>"),
+						λ.StrLiteral("(?s)<div class=\"video-elements\">(.*?)</div>"),
 						ϒwebpage,
-						λ.NewStr("video elements"),
+						λ.StrLiteral("video elements"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_elements))) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("No sources found for video %s. Maybe an image?"), ϒvideo_id)), λ.KWArgs{
+					if !λ.IsTrue(ϒvideo_elements) {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("No sources found for video %s. Maybe an image?"), ϒvideo_id)), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfinditer, λ.NewStr("<source\\s+src=\"(?P<src>[^\"]+)\"\\s+type=\"(?P<type>[^\"]+)\""), ϒvideo_elements))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfinditer, λ.StrLiteral("<source\\s+src=\"(?P<src>[^\"]+)\"\\s+type=\"(?P<type>[^\"]+)\""), ϒvideo_elements))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒm = τmp1
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("format_id"): λ.GetItem(λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("type")), "partition", nil), λ.NewStr("/")), λ.NewInt(2)),
-							λ.NewStr("url"):       λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("src"))),
-							λ.NewStr("ext"):       λ.Cal(ϒmimetype2ext, λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("type"))),
-							λ.NewStr("width"):     ϒwidth,
-							λ.NewStr("height"):    ϒheight,
-							λ.NewStr("http_headers"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("User-Agent"): λ.NewStr("youtube-dl (like wget)"),
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"format_id": λ.GetItem(λ.Calm(λ.Calm(ϒm, "group", λ.StrLiteral("type")), "partition", λ.StrLiteral("/")), λ.IntLiteral(2)),
+							"url":       λ.Calm(ϒself, "_proto_relative_url", λ.Calm(ϒm, "group", λ.StrLiteral("src"))),
+							"ext":       λ.Cal(ϒmimetype2ext, λ.Calm(ϒm, "group", λ.StrLiteral("type"))),
+							"width":     ϒwidth,
+							"height":    ϒheight,
+							"http_headers": λ.DictLiteral(map[string]string{
+								"User-Agent": "youtube-dl (like wget)",
 							}),
 						}))
 					}
 					ϒgif_json = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("(?s)var\\s+videoItem\\s*=\\s*(\\{.*?\\})"),
+						λ.StrLiteral("(?s)var\\s+videoItem\\s*=\\s*(\\{.*?\\})"),
 						ϒwebpage,
-						λ.NewStr("GIF code"),
+						λ.StrLiteral("GIF code"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
@@ -137,44 +137,44 @@ func init() {
 						), λ.KWArgs{
 							{Name: "transform_source", Value: ϒjs_to_json},
 						})
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("format_id"):  λ.NewStr("gif"),
-							λ.NewStr("preference"): λ.Neg(λ.NewInt(10)),
-							λ.NewStr("width"):      ϒwidth,
-							λ.NewStr("height"):     ϒheight,
-							λ.NewStr("ext"):        λ.NewStr("gif"),
-							λ.NewStr("acodec"):     λ.NewStr("none"),
-							λ.NewStr("vcodec"):     λ.NewStr("gif"),
-							λ.NewStr("container"):  λ.NewStr("gif"),
-							λ.NewStr("url"):        λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.GetItem(ϒgifd, λ.NewStr("gifUrl"))),
-							λ.NewStr("filesize"):   λ.Cal(λ.GetAttr(ϒgifd, "get", nil), λ.NewStr("size")),
-							λ.NewStr("http_headers"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("User-Agent"): λ.NewStr("youtube-dl (like wget)"),
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"format_id":  λ.StrLiteral("gif"),
+							"preference": λ.Neg(λ.IntLiteral(10)),
+							"width":      ϒwidth,
+							"height":     ϒheight,
+							"ext":        λ.StrLiteral("gif"),
+							"acodec":     λ.StrLiteral("none"),
+							"vcodec":     λ.StrLiteral("gif"),
+							"container":  λ.StrLiteral("gif"),
+							"url":        λ.Calm(ϒself, "_proto_relative_url", λ.GetItem(ϒgifd, λ.StrLiteral("gifUrl"))),
+							"filesize":   λ.Calm(ϒgifd, "get", λ.StrLiteral("size")),
+							"http_headers": λ.DictLiteral(map[string]string{
+								"User-Agent": "youtube-dl (like wget)",
 							}),
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):      ϒvideo_id,
-						λ.NewStr("formats"): ϒformats,
-						λ.NewStr("title"): λ.Call(λ.GetAttr(ϒself, "_og_search_title", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":      ϒvideo_id,
+						"formats": ϒformats,
+						"title": λ.Call(λ.GetAttr(ϒself, "_og_search_title", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 							{Name: "default", Value: ϒvideo_id},
 						}),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    ImgurIE__VALID_URL,
-				λ.NewStr("_real_extract"): ImgurIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    ImgurIE__VALID_URL,
+				"_real_extract": ImgurIE__real_extract,
 			})
 		}())
-		ImgurGalleryIE = λ.Cal(λ.TypeType, λ.NewStr("ImgurGalleryIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ImgurGalleryIE = λ.Cal(λ.TypeType, λ.StrLiteral("ImgurGalleryIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ImgurGalleryIE_IE_NAME       λ.Object
 				ImgurGalleryIE__VALID_URL    λ.Object
 				ImgurGalleryIE__real_extract λ.Object
 			)
-			ImgurGalleryIE_IE_NAME = λ.NewStr("imgur:gallery")
-			ImgurGalleryIE__VALID_URL = λ.NewStr("https?://(?:i\\.)?imgur\\.com/(?:gallery|(?:t(?:opic)?|r)/[^/]+)/(?P<id>[a-zA-Z0-9]+)")
+			ImgurGalleryIE_IE_NAME = λ.StrLiteral("imgur:gallery")
+			ImgurGalleryIE__VALID_URL = λ.StrLiteral("https?://(?:i\\.)?imgur\\.com/(?:gallery|(?:t(?:opic)?|r)/[^/]+)/(?P<id>[a-zA-Z0-9]+)")
 			ImgurGalleryIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -189,9 +189,9 @@ func init() {
 						ϒself       = λargs[0]
 						ϒurl        = λargs[1]
 					)
-					ϒgallery_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒdata = λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("https://imgur.com/gallery/%s.json"), ϒgallery_id), ϒgallery_id), λ.NewStr("data")), λ.NewStr("image"))
-					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("is_album"))) {
+					ϒgallery_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒdata = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("https://imgur.com/gallery/%s.json"), ϒgallery_id), ϒgallery_id), λ.StrLiteral("data")), λ.StrLiteral("image"))
+					if λ.IsTrue(λ.Calm(ϒdata, "get", λ.StrLiteral("is_album"))) {
 						ϒentries = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 							nil,
 							0, false, false,
@@ -202,36 +202,36 @@ func init() {
 										τmp0   λ.Object
 										τmp1   λ.Object
 									)
-									τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(λ.GetItem(ϒdata, λ.NewStr("album_images")), λ.NewStr("images")))
+									τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(λ.GetItem(ϒdata, λ.StrLiteral("album_images")), λ.StrLiteral("images")))
 									for {
 										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 											break
 										}
 										ϒimage = τmp1
-										if λ.IsTrue(λ.Cal(λ.GetAttr(ϒimage, "get", nil), λ.NewStr("hash"))) {
-											λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://imgur.com/%s"), λ.GetItem(ϒimage, λ.NewStr("hash"))), λ.Cal(λ.GetAttr(ImgurIE, "ie_key", nil)), λ.GetItem(ϒimage, λ.NewStr("hash"))))
+										if λ.IsTrue(λ.Calm(ϒimage, "get", λ.StrLiteral("hash"))) {
+											λgy.Yield(λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("http://imgur.com/%s"), λ.GetItem(ϒimage, λ.StrLiteral("hash"))), λ.Calm(ImgurIE, "ie_key"), λ.GetItem(ϒimage, λ.StrLiteral("hash"))))
 										}
 									}
 									return λ.None
 								})
 							})))
-						return λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), ϒentries, ϒgallery_id, λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("title")), λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("description")))
+						return λ.Calm(ϒself, "playlist_result", ϒentries, ϒgallery_id, λ.Calm(ϒdata, "get", λ.StrLiteral("title")), λ.Calm(ϒdata, "get", λ.StrLiteral("description")))
 					}
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://imgur.com/%s"), ϒgallery_id), λ.Cal(λ.GetAttr(ImgurIE, "ie_key", nil)), ϒgallery_id)
+					return λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("http://imgur.com/%s"), ϒgallery_id), λ.Calm(ImgurIE, "ie_key"), ϒgallery_id)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       ImgurGalleryIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    ImgurGalleryIE__VALID_URL,
-				λ.NewStr("_real_extract"): ImgurGalleryIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       ImgurGalleryIE_IE_NAME,
+				"_VALID_URL":    ImgurGalleryIE__VALID_URL,
+				"_real_extract": ImgurGalleryIE__real_extract,
 			})
 		}())
-		ImgurAlbumIE = λ.Cal(λ.TypeType, λ.NewStr("ImgurAlbumIE"), λ.NewTuple(ImgurGalleryIE), func() λ.Dict {
+		ImgurAlbumIE = λ.Cal(λ.TypeType, λ.StrLiteral("ImgurAlbumIE"), λ.NewTuple(ImgurGalleryIE), func() λ.Dict {
 			var (
 				ImgurAlbumIE__VALID_URL λ.Object
 			)
-			ImgurAlbumIE__VALID_URL = λ.NewStr("https?://(?:i\\.)?imgur\\.com/a/(?P<id>[a-zA-Z0-9]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): ImgurAlbumIE__VALID_URL,
+			ImgurAlbumIE__VALID_URL = λ.StrLiteral("https?://(?:i\\.)?imgur\\.com/a/(?P<id>[a-zA-Z0-9]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": ImgurAlbumIE__VALID_URL,
 			})
 		}())
 	})

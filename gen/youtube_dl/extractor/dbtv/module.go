@@ -38,12 +38,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		DBTVIE = λ.Cal(λ.TypeType, λ.NewStr("DBTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		DBTVIE = λ.Cal(λ.TypeType, λ.StrLiteral("DBTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				DBTVIE__VALID_URL    λ.Object
 				DBTVIE__real_extract λ.Object
 			)
-			DBTVIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?dagbladet\\.no/video/(?:(?:embed|(?P<display_id>[^/]+))/)?(?P<id>[0-9A-Za-z_-]{11}|[a-zA-Z0-9]{8})")
+			DBTVIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?dagbladet\\.no/video/(?:(?:embed|(?P<display_id>[^/]+))/)?(?P<id>[0-9A-Za-z_-]{11}|[a-zA-Z0-9]{8})")
 			DBTVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -59,30 +59,30 @@ func init() {
 						ϒvideo_id   λ.Object
 						τmp0        λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
-					ϒdisplay_id = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒinfo = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):      λ.NewStr("url_transparent"),
-						λ.NewStr("id"):         ϒvideo_id,
-						λ.NewStr("display_id"): ϒdisplay_id,
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒinfo = λ.DictLiteral(map[string]λ.Object{
+						"_type":      λ.StrLiteral("url_transparent"),
+						"id":         ϒvideo_id,
+						"display_id": ϒdisplay_id,
 					})
-					if λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒvideo_id), λ.NewInt(11))) {
-						λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):    ϒvideo_id,
-							λ.NewStr("ie_key"): λ.NewStr("Youtube"),
+					if λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒvideo_id), λ.IntLiteral(11))) {
+						λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
+							"url":    ϒvideo_id,
+							"ie_key": λ.StrLiteral("Youtube"),
 						}))
 					} else {
-						λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):    λ.Add(λ.NewStr("jwplatform:"), ϒvideo_id),
-							λ.NewStr("ie_key"): λ.NewStr("JWPlatform"),
+						λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
+							"url":    λ.Add(λ.StrLiteral("jwplatform:"), ϒvideo_id),
+							"ie_key": λ.StrLiteral("JWPlatform"),
 						}))
 					}
 					return ϒinfo
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    DBTVIE__VALID_URL,
-				λ.NewStr("_real_extract"): DBTVIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    DBTVIE__VALID_URL,
+				"_real_extract": DBTVIE__real_extract,
 			})
 		}())
 	})

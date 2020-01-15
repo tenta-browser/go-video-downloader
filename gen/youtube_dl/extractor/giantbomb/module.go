@@ -48,12 +48,12 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒqualities = Ωutils.ϒqualities
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
-		GiantBombIE = λ.Cal(λ.TypeType, λ.NewStr("GiantBombIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		GiantBombIE = λ.Cal(λ.TypeType, λ.StrLiteral("GiantBombIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				GiantBombIE__VALID_URL    λ.Object
 				GiantBombIE__real_extract λ.Object
 			)
-			GiantBombIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?giantbomb\\.com/videos/(?P<display_id>[^/]+)/(?P<id>\\d+-\\d+)")
+			GiantBombIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?giantbomb\\.com/videos/(?P<display_id>[^/]+)/(?P<id>\\d+-\\d+)")
 			GiantBombIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -85,81 +85,81 @@ func init() {
 						τmp2         λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("display_id"))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
-					ϒdescription = λ.Cal(λ.GetAttr(ϒself, "_og_search_description", nil), ϒwebpage)
-					ϒthumbnail = λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage)
-					ϒvideo = λ.Cal(Ωjson.ϒloads, λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("data-video=\"([^\"]+)\""), ϒwebpage, λ.NewStr("data-video"))))
-					ϒduration = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("lengthSeconds")))
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
+					ϒdisplay_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("display_id"))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
+					ϒtitle = λ.Calm(ϒself, "_og_search_title", ϒwebpage)
+					ϒdescription = λ.Calm(ϒself, "_og_search_description", ϒwebpage)
+					ϒthumbnail = λ.Calm(ϒself, "_og_search_thumbnail", ϒwebpage)
+					ϒvideo = λ.Cal(Ωjson.ϒloads, λ.Cal(ϒunescapeHTML, λ.Calm(ϒself, "_search_regex", λ.StrLiteral("data-video=\"([^\"]+)\""), ϒwebpage, λ.StrLiteral("data-video"))))
+					ϒduration = λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("lengthSeconds")))
 					ϒquality = λ.Cal(ϒqualities, λ.NewList(
-						λ.NewStr("f4m_low"),
-						λ.NewStr("progressive_low"),
-						λ.NewStr("f4m_high"),
-						λ.NewStr("progressive_high"),
-						λ.NewStr("f4m_hd"),
-						λ.NewStr("progressive_hd"),
+						λ.StrLiteral("f4m_low"),
+						λ.StrLiteral("progressive_low"),
+						λ.StrLiteral("f4m_high"),
+						λ.StrLiteral("progressive_high"),
+						λ.StrLiteral("f4m_hd"),
+						λ.StrLiteral("progressive_hd"),
 					))
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.GetItem(ϒvideo, λ.NewStr("videoStreams")), "items", nil)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.GetItem(ϒvideo, λ.StrLiteral("videoStreams")), "items"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒformat_id = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒvideo_url = λ.GetItem(τmp2, λ.NewInt(1))
-						if λ.IsTrue(λ.Eq(ϒformat_id, λ.NewStr("f4m_stream"))) {
+						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒvideo_url = λ.GetItem(τmp2, λ.IntLiteral(1))
+						if λ.IsTrue(λ.Eq(ϒformat_id, λ.StrLiteral("f4m_stream"))) {
 							continue
 						}
 						ϒext = λ.Cal(ϒdetermine_ext, ϒvideo_url)
-						if λ.IsTrue(λ.Eq(ϒext, λ.NewStr("f4m"))) {
-							ϒf4m_formats = λ.Cal(λ.GetAttr(ϒself, "_extract_f4m_formats", nil), λ.Add(ϒvideo_url, λ.NewStr("?hdcore=3.3.1")), ϒdisplay_id)
+						if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("f4m"))) {
+							ϒf4m_formats = λ.Calm(ϒself, "_extract_f4m_formats", λ.Add(ϒvideo_url, λ.StrLiteral("?hdcore=3.3.1")), ϒdisplay_id)
 							if λ.IsTrue(ϒf4m_formats) {
-								λ.SetItem(λ.GetItem(ϒf4m_formats, λ.NewInt(0)), λ.NewStr("quality"), λ.Cal(ϒquality, ϒformat_id))
-								λ.Cal(λ.GetAttr(ϒformats, "extend", nil), ϒf4m_formats)
+								λ.SetItem(λ.GetItem(ϒf4m_formats, λ.IntLiteral(0)), λ.StrLiteral("quality"), λ.Cal(ϒquality, ϒformat_id))
+								λ.Calm(ϒformats, "extend", ϒf4m_formats)
 							}
 						} else {
-							if λ.IsTrue(λ.Eq(ϒext, λ.NewStr("m3u8"))) {
-								λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+							if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("m3u8"))) {
+								λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
 									ϒvideo_url,
 									ϒdisplay_id,
 								), λ.KWArgs{
-									{Name: "ext", Value: λ.NewStr("mp4")},
-									{Name: "entry_protocol", Value: λ.NewStr("m3u8_native")},
-									{Name: "m3u8_id", Value: λ.NewStr("hls")},
+									{Name: "ext", Value: λ.StrLiteral("mp4")},
+									{Name: "entry_protocol", Value: λ.StrLiteral("m3u8_native")},
+									{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
 									{Name: "fatal", Value: λ.False},
 								}))
 							} else {
-								λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("url"):       ϒvideo_url,
-									λ.NewStr("format_id"): ϒformat_id,
-									λ.NewStr("quality"):   λ.Cal(ϒquality, ϒformat_id),
+								λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+									"url":       ϒvideo_url,
+									"format_id": ϒformat_id,
+									"quality":   λ.Cal(ϒquality, ϒformat_id),
 								}))
 							}
 						}
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
-						ϒyoutube_id = λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("youtubeID"))
+					if !λ.IsTrue(ϒformats) {
+						ϒyoutube_id = λ.Calm(ϒvideo, "get", λ.StrLiteral("youtubeID"))
 						if λ.IsTrue(ϒyoutube_id) {
-							return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒyoutube_id, λ.NewStr("Youtube"))
+							return λ.Calm(ϒself, "url_result", ϒyoutube_id, λ.StrLiteral("Youtube"))
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("display_id"):  ϒdisplay_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("thumbnail"):   ϒthumbnail,
-						λ.NewStr("duration"):    ϒduration,
-						λ.NewStr("formats"):     ϒformats,
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"display_id":  ϒdisplay_id,
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"thumbnail":   ϒthumbnail,
+						"duration":    ϒduration,
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    GiantBombIE__VALID_URL,
-				λ.NewStr("_real_extract"): GiantBombIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    GiantBombIE__VALID_URL,
+				"_real_extract": GiantBombIE__real_extract,
 			})
 		}())
 	})

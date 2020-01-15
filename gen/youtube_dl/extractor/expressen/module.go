@@ -46,13 +46,13 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
-		ExpressenIE = λ.Cal(λ.TypeType, λ.NewStr("ExpressenIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ExpressenIE = λ.Cal(λ.TypeType, λ.StrLiteral("ExpressenIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ExpressenIE__VALID_URL λ.Object
 			)
-			ExpressenIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:www\\.)?expressen\\.se/\n                        (?:(?:tvspelare/video|videoplayer/embed)/)?\n                        tv/(?:[^/]+/)*\n                        (?P<id>[^/?#&]+)\n                    ")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): ExpressenIE__VALID_URL,
+			ExpressenIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:www\\.)?expressen\\.se/\n                        (?:(?:tvspelare/video|videoplayer/embed)/)?\n                        tv/(?:[^/]+/)*\n                        (?P<id>[^/?#&]+)\n                    ")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": ExpressenIE__VALID_URL,
 			})
 		}())
 	})

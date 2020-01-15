@@ -48,12 +48,12 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
-		BleacherReportIE = λ.Cal(λ.TypeType, λ.NewStr("BleacherReportIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		BleacherReportIE = λ.Cal(λ.TypeType, λ.StrLiteral("BleacherReportIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				BleacherReportIE__VALID_URL    λ.Object
 				BleacherReportIE__real_extract λ.Object
 			)
-			BleacherReportIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bleacherreport\\.com/articles/(?P<id>\\d+)")
+			BleacherReportIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?bleacherreport\\.com/articles/(?P<id>\\d+)")
 			BleacherReportIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -72,70 +72,70 @@ func init() {
 						ϒvideo         λ.Object
 						ϒvideo_type    λ.Object
 					)
-					ϒarticle_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒarticle_data = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("http://api.bleacherreport.com/api/v1/articles/%s"), ϒarticle_id), ϒarticle_id), λ.NewStr("article"))
+					ϒarticle_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒarticle_data = λ.GetItem(λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("http://api.bleacherreport.com/api/v1/articles/%s"), ϒarticle_id), ϒarticle_id), λ.StrLiteral("article"))
 					ϒthumbnails = λ.NewList()
-					ϒprimary_photo = λ.Cal(λ.GetAttr(ϒarticle_data, "get", nil), λ.NewStr("primaryPhoto"))
+					ϒprimary_photo = λ.Calm(ϒarticle_data, "get", λ.StrLiteral("primaryPhoto"))
 					if λ.IsTrue(ϒprimary_photo) {
-						ϒthumbnails = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):    λ.GetItem(ϒprimary_photo, λ.NewStr("url")),
-							λ.NewStr("width"):  λ.Cal(λ.GetAttr(ϒprimary_photo, "get", nil), λ.NewStr("width")),
-							λ.NewStr("height"): λ.Cal(λ.GetAttr(ϒprimary_photo, "get", nil), λ.NewStr("height")),
+						ϒthumbnails = λ.NewList(λ.DictLiteral(map[string]λ.Object{
+							"url":    λ.GetItem(ϒprimary_photo, λ.StrLiteral("url")),
+							"width":  λ.Calm(ϒprimary_photo, "get", λ.StrLiteral("width")),
+							"height": λ.Calm(ϒprimary_photo, "get", λ.StrLiteral("height")),
 						}))
 					}
-					ϒinfo = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):         λ.NewStr("url_transparent"),
-						λ.NewStr("id"):            ϒarticle_id,
-						λ.NewStr("title"):         λ.GetItem(ϒarticle_data, λ.NewStr("title")),
-						λ.NewStr("uploader"):      λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒarticle_data, "get", nil), λ.NewStr("author"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("name")),
-						λ.NewStr("uploader_id"):   λ.Cal(λ.GetAttr(ϒarticle_data, "get", nil), λ.NewStr("authorId")),
-						λ.NewStr("timestamp"):     λ.Cal(ϒparse_iso8601, λ.Cal(λ.GetAttr(ϒarticle_data, "get", nil), λ.NewStr("createdAt"))),
-						λ.NewStr("thumbnails"):    ϒthumbnails,
-						λ.NewStr("comment_count"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒarticle_data, "get", nil), λ.NewStr("commentsCount"))),
-						λ.NewStr("view_count"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒarticle_data, "get", nil), λ.NewStr("hitCount"))),
+					ϒinfo = λ.DictLiteral(map[string]λ.Object{
+						"_type":         λ.StrLiteral("url_transparent"),
+						"id":            ϒarticle_id,
+						"title":         λ.GetItem(ϒarticle_data, λ.StrLiteral("title")),
+						"uploader":      λ.Calm(λ.Calm(ϒarticle_data, "get", λ.StrLiteral("author"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("name")),
+						"uploader_id":   λ.Calm(ϒarticle_data, "get", λ.StrLiteral("authorId")),
+						"timestamp":     λ.Cal(ϒparse_iso8601, λ.Calm(ϒarticle_data, "get", λ.StrLiteral("createdAt"))),
+						"thumbnails":    ϒthumbnails,
+						"comment_count": λ.Cal(ϒint_or_none, λ.Calm(ϒarticle_data, "get", λ.StrLiteral("commentsCount"))),
+						"view_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒarticle_data, "get", λ.StrLiteral("hitCount"))),
 					})
-					ϒvideo = λ.Cal(λ.GetAttr(ϒarticle_data, "get", nil), λ.NewStr("video"))
+					ϒvideo = λ.Calm(ϒarticle_data, "get", λ.StrLiteral("video"))
 					if λ.IsTrue(ϒvideo) {
-						ϒvideo_type = λ.GetItem(ϒvideo, λ.NewStr("type"))
-						if λ.IsTrue(λ.NewBool(λ.Contains(λ.NewTuple(
-							λ.NewStr("cms.bleacherreport.com"),
-							λ.NewStr("vid.bleacherreport.com"),
-						), ϒvideo_type))) {
-							λ.SetItem(ϒinfo, λ.NewStr("url"), λ.Mod(λ.NewStr("http://bleacherreport.com/video_embed?id=%s"), λ.GetItem(ϒvideo, λ.NewStr("id"))))
+						ϒvideo_type = λ.GetItem(ϒvideo, λ.StrLiteral("type"))
+						if λ.Contains(λ.NewTuple(
+							λ.StrLiteral("cms.bleacherreport.com"),
+							λ.StrLiteral("vid.bleacherreport.com"),
+						), ϒvideo_type) {
+							λ.SetItem(ϒinfo, λ.StrLiteral("url"), λ.Mod(λ.StrLiteral("http://bleacherreport.com/video_embed?id=%s"), λ.GetItem(ϒvideo, λ.StrLiteral("id"))))
 						} else {
-							if λ.IsTrue(λ.Eq(ϒvideo_type, λ.NewStr("ooyala.com"))) {
-								λ.SetItem(ϒinfo, λ.NewStr("url"), λ.Mod(λ.NewStr("ooyala:%s"), λ.GetItem(ϒvideo, λ.NewStr("id"))))
+							if λ.IsTrue(λ.Eq(ϒvideo_type, λ.StrLiteral("ooyala.com"))) {
+								λ.SetItem(ϒinfo, λ.StrLiteral("url"), λ.Mod(λ.StrLiteral("ooyala:%s"), λ.GetItem(ϒvideo, λ.StrLiteral("id"))))
 							} else {
-								if λ.IsTrue(λ.Eq(ϒvideo_type, λ.NewStr("youtube.com"))) {
-									λ.SetItem(ϒinfo, λ.NewStr("url"), λ.GetItem(ϒvideo, λ.NewStr("id")))
+								if λ.IsTrue(λ.Eq(ϒvideo_type, λ.StrLiteral("youtube.com"))) {
+									λ.SetItem(ϒinfo, λ.StrLiteral("url"), λ.GetItem(ϒvideo, λ.StrLiteral("id")))
 								} else {
-									if λ.IsTrue(λ.Eq(ϒvideo_type, λ.NewStr("vine.co"))) {
-										λ.SetItem(ϒinfo, λ.NewStr("url"), λ.Mod(λ.NewStr("https://vine.co/v/%s"), λ.GetItem(ϒvideo, λ.NewStr("id"))))
+									if λ.IsTrue(λ.Eq(ϒvideo_type, λ.StrLiteral("vine.co"))) {
+										λ.SetItem(ϒinfo, λ.StrLiteral("url"), λ.Mod(λ.StrLiteral("https://vine.co/v/%s"), λ.GetItem(ϒvideo, λ.StrLiteral("id"))))
 									} else {
-										λ.SetItem(ϒinfo, λ.NewStr("url"), λ.Add(ϒvideo_type, λ.GetItem(ϒvideo, λ.NewStr("id"))))
+										λ.SetItem(ϒinfo, λ.StrLiteral("url"), λ.Add(ϒvideo_type, λ.GetItem(ϒvideo, λ.StrLiteral("id"))))
 									}
 								}
 							}
 						}
 						return ϒinfo
 					} else {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("no video in the article")), λ.KWArgs{
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("no video in the article")), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    BleacherReportIE__VALID_URL,
-				λ.NewStr("_real_extract"): BleacherReportIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    BleacherReportIE__VALID_URL,
+				"_real_extract": BleacherReportIE__real_extract,
 			})
 		}())
-		BleacherReportCMSIE = λ.Cal(λ.TypeType, λ.NewStr("BleacherReportCMSIE"), λ.NewTuple(AMPIE), func() λ.Dict {
+		BleacherReportCMSIE = λ.Cal(λ.TypeType, λ.StrLiteral("BleacherReportCMSIE"), λ.NewTuple(AMPIE), func() λ.Dict {
 			var (
 				BleacherReportCMSIE__VALID_URL    λ.Object
 				BleacherReportCMSIE__real_extract λ.Object
 			)
-			BleacherReportCMSIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bleacherreport\\.com/video_embed\\?id=(?P<id>[0-9a-f-]{36}|\\d{5})")
+			BleacherReportCMSIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?bleacherreport\\.com/video_embed\\?id=(?P<id>[0-9a-f-]{36}|\\d{5})")
 			BleacherReportCMSIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -149,14 +149,14 @@ func init() {
 						ϒurl      = λargs[1]
 						ϒvideo_id λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒinfo = λ.Cal(λ.GetAttr(ϒself, "_extract_feed_info", nil), λ.Mod(λ.NewStr("http://vid.bleacherreport.com/videos/%s.akamai"), ϒvideo_id))
-					λ.SetItem(ϒinfo, λ.NewStr("id"), ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒinfo = λ.Calm(ϒself, "_extract_feed_info", λ.Mod(λ.StrLiteral("http://vid.bleacherreport.com/videos/%s.akamai"), ϒvideo_id))
+					λ.SetItem(ϒinfo, λ.StrLiteral("id"), ϒvideo_id)
 					return ϒinfo
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    BleacherReportCMSIE__VALID_URL,
-				λ.NewStr("_real_extract"): BleacherReportCMSIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    BleacherReportCMSIE__VALID_URL,
+				"_real_extract": BleacherReportCMSIE__real_extract,
 			})
 		}())
 	})

@@ -44,14 +44,14 @@ var (
 func init() {
 	λ.InitModule(func() {
 		RegisterExtractor = Ωlib.RegisterExtractor
-		ϒextractorDict = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+		ϒextractorDict = λ.DictLiteral(map[λ.Object]λ.Object{})
 		τmp0 = λ.Cal(λ.BuiltinIter, Ωextractors.ϒ__ALL__)
 		for {
 			if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 				break
 			}
 			ϒklass = τmp1
-			ϒkey = λ.Cal(λ.GetAttr(ϒklass, "ie_key", nil))
+			ϒkey = λ.Calm(ϒklass, "ie_key")
 			λ.Cal(RegisterExtractor, ϒkey, ϒklass)
 			λ.SetItem(ϒextractorDict, ϒkey, ϒklass)
 		}
@@ -70,7 +70,7 @@ func init() {
 				var (
 					ϒie_name = λargs[0]
 				)
-				return λ.Cal(λ.GetAttr(ϒextractorDict, "get", nil), ϒie_name)
+				return λ.Calm(ϒextractorDict, "get", ϒie_name)
 			})
 	})
 }

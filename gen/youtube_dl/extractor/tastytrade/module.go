@@ -40,12 +40,12 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		OoyalaIE = Ωooyala.OoyalaIE
-		TastyTradeIE = λ.Cal(λ.TypeType, λ.NewStr("TastyTradeIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TastyTradeIE = λ.Cal(λ.TypeType, λ.StrLiteral("TastyTradeIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TastyTradeIE__VALID_URL    λ.Object
 				TastyTradeIE__real_extract λ.Object
 			)
-			TastyTradeIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tastytrade\\.com/tt/shows/[^/]+/episodes/(?P<id>[^/?#&]+)")
+			TastyTradeIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?tastytrade\\.com/tt/shows/[^/]+/episodes/(?P<id>[^/?#&]+)")
 			TastyTradeIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -61,14 +61,14 @@ func init() {
 						ϒurl         = λargs[1]
 						ϒwebpage     λ.Object
 					)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
 					ϒooyala_code = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("data-media-id=([\"\\'])(?P<code>(?:(?!\\1).)+)\\1"),
+						λ.StrLiteral("data-media-id=([\"\\'])(?P<code>(?:(?!\\1).)+)\\1"),
 						ϒwebpage,
-						λ.NewStr("ooyala code"),
+						λ.StrLiteral("ooyala code"),
 					), λ.KWArgs{
-						{Name: "group", Value: λ.NewStr("code")},
+						{Name: "group", Value: λ.StrLiteral("code")},
 					})
 					ϒinfo = λ.Call(λ.GetAttr(ϒself, "_search_json_ld", nil), λ.NewArgs(
 						ϒwebpage,
@@ -76,17 +76,17 @@ func init() {
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
-					λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):      λ.NewStr("url_transparent"),
-						λ.NewStr("ie_key"):     λ.Cal(λ.GetAttr(OoyalaIE, "ie_key", nil)),
-						λ.NewStr("url"):        λ.Mod(λ.NewStr("ooyala:%s"), ϒooyala_code),
-						λ.NewStr("display_id"): ϒdisplay_id,
+					λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
+						"_type":      λ.StrLiteral("url_transparent"),
+						"ie_key":     λ.Calm(OoyalaIE, "ie_key"),
+						"url":        λ.Mod(λ.StrLiteral("ooyala:%s"), ϒooyala_code),
+						"display_id": ϒdisplay_id,
 					}))
 					return ϒinfo
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    TastyTradeIE__VALID_URL,
-				λ.NewStr("_real_extract"): TastyTradeIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    TastyTradeIE__VALID_URL,
+				"_real_extract": TastyTradeIE__real_extract,
 			})
 		}())
 	})

@@ -123,7 +123,6 @@ import (
 	Ωhornbunny "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/hornbunny"
 	Ωhypem "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/hypem"
 	Ωign "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ign"
-	Ωimdb "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/imdb"
 	Ωimgur "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/imgur"
 	Ωina "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ina"
 	Ωinfoq "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/infoq"
@@ -249,6 +248,7 @@ import (
 	Ωtwentythreevideo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twentythreevideo"
 	Ωtwitch "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twitch"
 	Ωtwitter "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twitter"
+	Ωudn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/udn"
 	Ωunistra "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/unistra"
 	Ωustudio "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ustudio"
 	Ωvarzesh3 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/varzesh3"
@@ -278,11 +278,13 @@ import (
 	Ωxhamster "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xhamster"
 	Ωxnxx "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xnxx"
 	Ωxtube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xtube"
+	Ωxuite "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xuite"
 	Ωxvideos "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xvideos"
 	Ωxxxymovies "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xxxymovies"
 	Ωyahoo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yahoo"
 	Ωyoujizz "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youjizz"
 	Ωyouporn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youporn"
+	Ωyourporn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yourporn"
 	Ωyourupload "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yourupload"
 	Ωyoutube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youtube"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
@@ -401,7 +403,6 @@ var (
 	HornBunnyIE                λ.Object
 	HypemIE                    λ.Object
 	IGNIE                      λ.Object
-	ImdbIE                     λ.Object
 	ImgurGalleryIE             λ.Object
 	ImgurIE                    λ.Object
 	InaIE                      λ.Object
@@ -538,6 +539,7 @@ var (
 	TwentyThreeVideoIE         λ.Object
 	TwitchClipsIE              λ.Object
 	TwitterAmplifyIE           λ.Object
+	UDNEmbedIE                 λ.Object
 	UnistraIE                  λ.Object
 	UstudioEmbedIE             λ.Object
 	VGTVIE                     λ.Object
@@ -566,6 +568,7 @@ var (
 	WSJArticleIE               λ.Object
 	WSJIE                      λ.Object
 	WashingtonPostIE           λ.Object
+	WeiboIE                    λ.Object
 	WeiboMobileIE              λ.Object
 	WorldStarHipHopIE          λ.Object
 	XHamsterEmbedIE            λ.Object
@@ -574,9 +577,11 @@ var (
 	XTubeIE                    λ.Object
 	XVideosIE                  λ.Object
 	XXXYMoviesIE               λ.Object
+	XuiteIE                    λ.Object
 	YahooIE                    λ.Object
 	YouJizzIE                  λ.Object
 	YouPornIE                  λ.Object
+	YourPornIE                 λ.Object
 	YourUploadIE               λ.Object
 	YoutubeIE                  λ.Object
 	YoutubePlaylistIE          λ.Object
@@ -694,7 +699,6 @@ func init() {
 		HornBunnyIE = Ωhornbunny.HornBunnyIE
 		HypemIE = Ωhypem.HypemIE
 		IGNIE = Ωign.IGNIE
-		ImdbIE = Ωimdb.ImdbIE
 		ImgurIE = Ωimgur.ImgurIE
 		ImgurGalleryIE = Ωimgur.ImgurGalleryIE
 		InaIE = Ωina.InaIE
@@ -833,6 +837,7 @@ func init() {
 		TwentyThreeVideoIE = Ωtwentythreevideo.TwentyThreeVideoIE
 		TwitchClipsIE = Ωtwitch.TwitchClipsIE
 		TwitterAmplifyIE = Ωtwitter.TwitterAmplifyIE
+		UDNEmbedIE = Ωudn.UDNEmbedIE
 		DigitekaIE = Ωdigiteka.DigitekaIE
 		UnistraIE = Ωunistra.UnistraIE
 		UstudioEmbedIE = Ωustudio.UstudioEmbedIE
@@ -860,6 +865,7 @@ func init() {
 		VuClipIE = Ωvuclip.VuClipIE
 		VzaarIE = Ωvzaar.VzaarIE
 		WashingtonPostIE = Ωwashingtonpost.WashingtonPostIE
+		WeiboIE = Ωweibo.WeiboIE
 		WeiboMobileIE = Ωweibo.WeiboMobileIE
 		WorldStarHipHopIE = Ωworldstarhiphop.WorldStarHipHopIE
 		WSJIE = Ωwsj.WSJIE
@@ -868,11 +874,13 @@ func init() {
 		XHamsterEmbedIE = Ωxhamster.XHamsterEmbedIE
 		XNXXIE = Ωxnxx.XNXXIE
 		XTubeIE = Ωxtube.XTubeIE
+		XuiteIE = Ωxuite.XuiteIE
 		XVideosIE = Ωxvideos.XVideosIE
 		XXXYMoviesIE = Ωxxxymovies.XXXYMoviesIE
 		YahooIE = Ωyahoo.YahooIE
 		YouJizzIE = Ωyoujizz.YouJizzIE
 		YouPornIE = Ωyouporn.YouPornIE
+		YourPornIE = Ωyourporn.YourPornIE
 		YourUploadIE = Ωyourupload.YourUploadIE
 		YoutubeIE = Ωyoutube.YoutubeIE
 		YoutubePlaylistIE = Ωyoutube.YoutubePlaylistIE
@@ -986,7 +994,6 @@ func init() {
 			HornBunnyIE,
 			HypemIE,
 			IGNIE,
-			ImdbIE,
 			ImgurIE,
 			ImgurGalleryIE,
 			InaIE,
@@ -1125,6 +1132,7 @@ func init() {
 			TwentyThreeVideoIE,
 			TwitchClipsIE,
 			TwitterAmplifyIE,
+			UDNEmbedIE,
 			DigitekaIE,
 			UnistraIE,
 			UstudioEmbedIE,
@@ -1152,6 +1160,7 @@ func init() {
 			VuClipIE,
 			VzaarIE,
 			WashingtonPostIE,
+			WeiboIE,
 			WeiboMobileIE,
 			WorldStarHipHopIE,
 			WSJIE,
@@ -1160,11 +1169,13 @@ func init() {
 			XHamsterEmbedIE,
 			XNXXIE,
 			XTubeIE,
+			XuiteIE,
 			XVideosIE,
 			XXXYMoviesIE,
 			YahooIE,
 			YouJizzIE,
 			YouPornIE,
+			YourPornIE,
 			YourUploadIE,
 			YoutubeIE,
 			YoutubePlaylistIE,

@@ -43,13 +43,13 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_chr = Ωcompat.ϒcompat_chr
 		ExtractorError = Ωutils.ExtractorError
-		VShareIE = λ.Cal(λ.TypeType, λ.NewStr("VShareIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		VShareIE = λ.Cal(λ.TypeType, λ.StrLiteral("VShareIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				VShareIE__VALID_URL λ.Object
 			)
-			VShareIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?vshare\\.io/[dv]/(?P<id>[^/?#&]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): VShareIE__VALID_URL,
+			VShareIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?vshare\\.io/[dv]/(?P<id>[^/?#&]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": VShareIE__VALID_URL,
 			})
 		}())
 	})

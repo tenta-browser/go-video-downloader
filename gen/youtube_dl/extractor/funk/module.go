@@ -46,12 +46,12 @@ func init() {
 		NexxIE = Ωnexx.NexxIE
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒstr_or_none = Ωutils.ϒstr_or_none
-		FunkIE = λ.Cal(λ.TypeType, λ.NewStr("FunkIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		FunkIE = λ.Cal(λ.TypeType, λ.StrLiteral("FunkIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				FunkIE__VALID_URL    λ.Object
 				FunkIE__real_extract λ.Object
 			)
-			FunkIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?funk\\.net/(?:channel|playlist)/[^/]+/(?P<display_id>[0-9a-z-]+)-(?P<id>\\d+)")
+			FunkIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?funk\\.net/(?:channel|playlist)/[^/]+/(?P<display_id>[0-9a-z-]+)-(?P<id>\\d+)")
 			FunkIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -67,27 +67,27 @@ func init() {
 						ϒvideo      λ.Object
 						τmp0        λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
-					ϒdisplay_id = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒnexx_id = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒvideo = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Add(λ.NewStr("https://www.funk.net/api/v4.0/videos/"), ϒnexx_id), ϒnexx_id)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):       λ.NewStr("url_transparent"),
-						λ.NewStr("url"):         λ.Add(λ.NewStr("nexx:741:"), ϒnexx_id),
-						λ.NewStr("ie_key"):      λ.Cal(λ.GetAttr(NexxIE, "ie_key", nil)),
-						λ.NewStr("id"):          ϒnexx_id,
-						λ.NewStr("title"):       λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("title")),
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("description")),
-						λ.NewStr("duration"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("duration"))),
-						λ.NewStr("channel_id"):  λ.Cal(ϒstr_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("channelId"))),
-						λ.NewStr("display_id"):  ϒdisplay_id,
-						λ.NewStr("tags"):        λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("tags")),
-						λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("imageUrlLandscape")),
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒnexx_id = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒvideo = λ.Calm(ϒself, "_download_json", λ.Add(λ.StrLiteral("https://www.funk.net/api/v4.0/videos/"), ϒnexx_id), ϒnexx_id)
+					return λ.DictLiteral(map[string]λ.Object{
+						"_type":       λ.StrLiteral("url_transparent"),
+						"url":         λ.Add(λ.StrLiteral("nexx:741:"), ϒnexx_id),
+						"ie_key":      λ.Calm(NexxIE, "ie_key"),
+						"id":          ϒnexx_id,
+						"title":       λ.Calm(ϒvideo, "get", λ.StrLiteral("title")),
+						"description": λ.Calm(ϒvideo, "get", λ.StrLiteral("description")),
+						"duration":    λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("duration"))),
+						"channel_id":  λ.Cal(ϒstr_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("channelId"))),
+						"display_id":  ϒdisplay_id,
+						"tags":        λ.Calm(ϒvideo, "get", λ.StrLiteral("tags")),
+						"thumbnail":   λ.Calm(ϒvideo, "get", λ.StrLiteral("imageUrlLandscape")),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    FunkIE__VALID_URL,
-				λ.NewStr("_real_extract"): FunkIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    FunkIE__VALID_URL,
+				"_real_extract": FunkIE__real_extract,
 			})
 		}())
 	})

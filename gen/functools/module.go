@@ -53,7 +53,7 @@ func init() {
 					τmp1         λ.Object
 				)
 				ϒit = λ.Cal(λ.BuiltinIter, ϒiterable)
-				if λ.IsTrue(λ.NewBool(ϒinitializer == λ.None)) {
+				if ϒinitializer == λ.None {
 					ϒvalue = λ.Cal(λ.BuiltinNext, ϒit)
 				} else {
 					ϒvalue = ϒinitializer

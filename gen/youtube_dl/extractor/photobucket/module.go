@@ -42,12 +42,12 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_urllib_parse_unquote = Ωcompat.ϒcompat_urllib_parse_unquote
-		PhotobucketIE = λ.Cal(λ.TypeType, λ.NewStr("PhotobucketIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		PhotobucketIE = λ.Cal(λ.TypeType, λ.StrLiteral("PhotobucketIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				PhotobucketIE__VALID_URL    λ.Object
 				PhotobucketIE__real_extract λ.Object
 			)
-			PhotobucketIE__VALID_URL = λ.NewStr("https?://(?:[a-z0-9]+\\.)?photobucket\\.com/.*(([\\?\\&]current=)|_)(?P<id>.*)\\.(?P<ext>(flv)|(mp4))")
+			PhotobucketIE__VALID_URL = λ.StrLiteral("https?://(?:[a-z0-9]+\\.)?photobucket\\.com/.*(([\\?\\&]current=)|_)(?P<id>.*)\\.(?P<ext>(flv)|(mp4))")
 			PhotobucketIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -66,26 +66,26 @@ func init() {
 						ϒwebpage         λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-					ϒvideo_extension = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("ext"))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					λ.Cal(λ.GetAttr(ϒself, "report_extraction", nil), ϒvideo_id)
-					ϒinfo_json = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("Pb\\.Data\\.Shared\\.put\\(Pb\\.Data\\.Shared\\.MEDIA, (.*?)\\);"), ϒwebpage, λ.NewStr("info json"))
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
+					ϒvideo_extension = λ.Calm(ϒmobj, "group", λ.StrLiteral("ext"))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					λ.Calm(ϒself, "report_extraction", ϒvideo_id)
+					ϒinfo_json = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("Pb\\.Data\\.Shared\\.put\\(Pb\\.Data\\.Shared\\.MEDIA, (.*?)\\);"), ϒwebpage, λ.StrLiteral("info json"))
 					ϒinfo = λ.Cal(Ωjson.ϒloads, ϒinfo_json)
-					ϒurl = λ.Cal(ϒcompat_urllib_parse_unquote, λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("file=(.+\\.mp4)"), λ.GetItem(λ.GetItem(ϒinfo, λ.NewStr("linkcodes")), λ.NewStr("html")), λ.NewStr("url")))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("url"):       ϒurl,
-						λ.NewStr("uploader"):  λ.GetItem(ϒinfo, λ.NewStr("username")),
-						λ.NewStr("timestamp"): λ.GetItem(ϒinfo, λ.NewStr("creationDate")),
-						λ.NewStr("title"):     λ.GetItem(ϒinfo, λ.NewStr("title")),
-						λ.NewStr("ext"):       ϒvideo_extension,
-						λ.NewStr("thumbnail"): λ.GetItem(ϒinfo, λ.NewStr("thumbUrl")),
+					ϒurl = λ.Cal(ϒcompat_urllib_parse_unquote, λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("file=(.+\\.mp4)"), λ.GetItem(λ.GetItem(ϒinfo, λ.StrLiteral("linkcodes")), λ.StrLiteral("html")), λ.StrLiteral("url")))
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒvideo_id,
+						"url":       ϒurl,
+						"uploader":  λ.GetItem(ϒinfo, λ.StrLiteral("username")),
+						"timestamp": λ.GetItem(ϒinfo, λ.StrLiteral("creationDate")),
+						"title":     λ.GetItem(ϒinfo, λ.StrLiteral("title")),
+						"ext":       ϒvideo_extension,
+						"thumbnail": λ.GetItem(ϒinfo, λ.StrLiteral("thumbUrl")),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    PhotobucketIE__VALID_URL,
-				λ.NewStr("_real_extract"): PhotobucketIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    PhotobucketIE__VALID_URL,
+				"_real_extract": PhotobucketIE__real_extract,
 			})
 		}())
 	})

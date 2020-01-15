@@ -40,12 +40,12 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
-		SlidesLiveIE = λ.Cal(λ.TypeType, λ.NewStr("SlidesLiveIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SlidesLiveIE = λ.Cal(λ.TypeType, λ.StrLiteral("SlidesLiveIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SlidesLiveIE__VALID_URL    λ.Object
 				SlidesLiveIE__real_extract λ.Object
 			)
-			SlidesLiveIE__VALID_URL = λ.NewStr("https?://slideslive\\.com/(?P<id>[0-9]+)")
+			SlidesLiveIE__VALID_URL = λ.StrLiteral("https?://slideslive\\.com/(?P<id>[0-9]+)")
 			SlidesLiveIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -62,43 +62,43 @@ func init() {
 						ϒvideo_data   λ.Object
 						ϒvideo_id     λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒvideo_data = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Add(λ.NewStr("https://ben.slideslive.com/player/"), ϒvideo_id), ϒvideo_id)
-					ϒservice_name = λ.Cal(λ.GetAttr(λ.GetItem(ϒvideo_data, λ.NewStr("video_service_name")), "lower", nil))
-					if !λ.IsTrue(λ.NewBool(λ.Contains(λ.NewTuple(
-						λ.NewStr("url"),
-						λ.NewStr("vimeo"),
-						λ.NewStr("youtube"),
-					), ϒservice_name))) {
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒvideo_data = λ.Calm(ϒself, "_download_json", λ.Add(λ.StrLiteral("https://ben.slideslive.com/player/"), ϒvideo_id), ϒvideo_id)
+					ϒservice_name = λ.Calm(λ.GetItem(ϒvideo_data, λ.StrLiteral("video_service_name")), "lower")
+					if !λ.Contains(λ.NewTuple(
+						λ.StrLiteral("url"),
+						λ.StrLiteral("vimeo"),
+						λ.StrLiteral("youtube"),
+					), ϒservice_name) {
 						panic(λ.Raise(λ.Cal(λ.AssertionErrorType)))
 					}
-					ϒservice_id = λ.GetItem(ϒvideo_data, λ.NewStr("video_service_id"))
-					ϒinfo = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("thumbnail"): λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("thumbnail")),
-						λ.NewStr("url"):       ϒservice_id,
+					ϒservice_id = λ.GetItem(ϒvideo_data, λ.StrLiteral("video_service_id"))
+					ϒinfo = λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒvideo_id,
+						"thumbnail": λ.Calm(ϒvideo_data, "get", λ.StrLiteral("thumbnail")),
+						"url":       ϒservice_id,
 					})
-					if λ.IsTrue(λ.Eq(ϒservice_name, λ.NewStr("url"))) {
-						λ.SetItem(ϒinfo, λ.NewStr("title"), λ.GetItem(ϒvideo_data, λ.NewStr("title")))
+					if λ.IsTrue(λ.Eq(ϒservice_name, λ.StrLiteral("url"))) {
+						λ.SetItem(ϒinfo, λ.StrLiteral("title"), λ.GetItem(ϒvideo_data, λ.StrLiteral("title")))
 					} else {
-						λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("_type"):  λ.NewStr("url_transparent"),
-							λ.NewStr("ie_key"): λ.Cal(λ.GetAttr(ϒservice_name, "capitalize", nil)),
-							λ.NewStr("title"):  λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("title")),
+						λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
+							"_type":  λ.StrLiteral("url_transparent"),
+							"ie_key": λ.Calm(ϒservice_name, "capitalize"),
+							"title":  λ.Calm(ϒvideo_data, "get", λ.StrLiteral("title")),
 						}))
-						if λ.IsTrue(λ.Eq(ϒservice_name, λ.NewStr("vimeo"))) {
-							λ.SetItem(ϒinfo, λ.NewStr("url"), λ.Cal(ϒsmuggle_url, λ.Add(λ.NewStr("https://player.vimeo.com/video/"), ϒservice_id), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("http_headers"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("Referer"): ϒurl,
+						if λ.IsTrue(λ.Eq(ϒservice_name, λ.StrLiteral("vimeo"))) {
+							λ.SetItem(ϒinfo, λ.StrLiteral("url"), λ.Cal(ϒsmuggle_url, λ.Add(λ.StrLiteral("https://player.vimeo.com/video/"), ϒservice_id), λ.DictLiteral(map[string]λ.Object{
+								"http_headers": λ.DictLiteral(map[string]λ.Object{
+									"Referer": ϒurl,
 								}),
 							})))
 						}
 					}
 					return ϒinfo
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    SlidesLiveIE__VALID_URL,
-				λ.NewStr("_real_extract"): SlidesLiveIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    SlidesLiveIE__VALID_URL,
+				"_real_extract": SlidesLiveIE__real_extract,
 			})
 		}())
 	})

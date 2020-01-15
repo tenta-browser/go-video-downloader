@@ -38,12 +38,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		TMZIE = λ.Cal(λ.TypeType, λ.NewStr("TMZIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TMZIE = λ.Cal(λ.TypeType, λ.StrLiteral("TMZIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TMZIE__VALID_URL    λ.Object
 				TMZIE__real_extract λ.Object
 			)
-			TMZIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tmz\\.com/videos/(?P<id>[^/?#]+)")
+			TMZIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?tmz\\.com/videos/(?P<id>[^/?#]+)")
 			TMZIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -56,21 +56,21 @@ func init() {
 						ϒurl      = λargs[1]
 						ϒvideo_id λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl), "replace", nil), λ.NewStr("-"), λ.NewStr("_"))
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("kaltura:591531:%s"), ϒvideo_id), λ.NewStr("Kaltura"), ϒvideo_id)
+					ϒvideo_id = λ.Calm(λ.Calm(ϒself, "_match_id", ϒurl), "replace", λ.StrLiteral("-"), λ.StrLiteral("_"))
+					return λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("kaltura:591531:%s"), ϒvideo_id), λ.StrLiteral("Kaltura"), ϒvideo_id)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    TMZIE__VALID_URL,
-				λ.NewStr("_real_extract"): TMZIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    TMZIE__VALID_URL,
+				"_real_extract": TMZIE__real_extract,
 			})
 		}())
-		TMZArticleIE = λ.Cal(λ.TypeType, λ.NewStr("TMZArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TMZArticleIE = λ.Cal(λ.TypeType, λ.StrLiteral("TMZArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TMZArticleIE__VALID_URL λ.Object
 			)
-			TMZArticleIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tmz\\.com/\\d{4}/\\d{2}/\\d{2}/(?P<id>[^/]+)/?")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): TMZArticleIE__VALID_URL,
+			TMZArticleIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?tmz\\.com/\\d{4}/\\d{2}/\\d{2}/(?P<id>[^/]+)/?")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": TMZArticleIE__VALID_URL,
 			})
 		}())
 	})

@@ -45,9 +45,9 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒstd_headers = Ωutils.ϒstd_headers
 		BrowserWrapper = Ωbrowser.BrowserWrapper
-		PhantomJSwrapper = λ.Cal(λ.TypeType, λ.NewStr("PhantomJSwrapper"), λ.NewTuple(BrowserWrapper), func() λ.Dict {
+		PhantomJSwrapper = λ.Cal(λ.TypeType, λ.StrLiteral("PhantomJSwrapper"), λ.NewTuple(BrowserWrapper), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
 	})
 }

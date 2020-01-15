@@ -67,19 +67,19 @@ func init() {
 					τmp1    λ.Object
 					τmp2    λ.Object
 				)
-				ϒa = λ.NewStr("")
-				ϒi = λ.NewStr("")
-				ϒr = λ.NewStr("")
-				for λ.IsTrue(λ.Lt(λ.Cal(λ.BuiltinLen, ϒa), λ.TrueDiv(λ.Cal(λ.BuiltinLen, ϒstring), λ.NewInt(2)))) {
+				ϒa = λ.StrLiteral("")
+				ϒi = λ.StrLiteral("")
+				ϒr = λ.StrLiteral("")
+				for λ.IsTrue(λ.Lt(λ.Cal(λ.BuiltinLen, ϒa), λ.TrueDiv(λ.Cal(λ.BuiltinLen, ϒstring), λ.IntLiteral(2)))) {
 					τmp0 = λ.IAdd(ϒa, ϒkey)
 					ϒa = τmp0
 				}
-				ϒa = λ.GetItem(ϒa, λ.NewSlice(λ.NewInt(0), λ.Cal(λ.IntType, λ.TrueDiv(λ.Cal(λ.BuiltinLen, ϒstring), λ.NewInt(2))), λ.None))
-				ϒt = λ.NewInt(0)
+				ϒa = λ.GetItem(ϒa, λ.NewSlice(λ.IntLiteral(0), λ.Cal(λ.IntType, λ.TrueDiv(λ.Cal(λ.BuiltinLen, ϒstring), λ.IntLiteral(2))), λ.None))
+				ϒt = λ.IntLiteral(0)
 				for λ.IsTrue(λ.Lt(ϒt, λ.Cal(λ.BuiltinLen, ϒstring))) {
-					τmp0 = λ.IAdd(ϒi, λ.Cal(λ.BuiltinChr, λ.Cal(λ.IntType, λ.Add(λ.GetItem(ϒstring, ϒt), λ.GetItem(ϒstring, λ.Add(ϒt, λ.NewInt(1)))), λ.NewInt(16))))
+					τmp0 = λ.IAdd(ϒi, λ.Cal(λ.BuiltinChr, λ.Cal(λ.IntType, λ.Add(λ.GetItem(ϒstring, ϒt), λ.GetItem(ϒstring, λ.Add(ϒt, λ.IntLiteral(1)))), λ.IntLiteral(16))))
 					ϒi = τmp0
-					τmp0 = λ.IAdd(ϒt, λ.NewInt(2))
+					τmp0 = λ.IAdd(ϒt, λ.IntLiteral(2))
 					ϒt = τmp0
 				}
 				ϒicko = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
@@ -109,19 +109,19 @@ func init() {
 						break
 					}
 					τmp2 = τmp1
-					ϒt = λ.GetItem(τmp2, λ.NewInt(0))
-					ϒc = λ.GetItem(τmp2, λ.NewInt(1))
+					ϒt = λ.GetItem(τmp2, λ.IntLiteral(0))
+					ϒc = λ.GetItem(τmp2, λ.IntLiteral(1))
 					τmp2 = λ.IAdd(ϒr, λ.Cal(λ.BuiltinChr, λ.Xor(λ.Cal(λ.BuiltinOrd, ϒc), λ.Cal(λ.BuiltinOrd, λ.GetItem(ϒicko, ϒt)))))
 					ϒr = τmp2
 				}
 				return ϒr
 			})
-		EscapistIE = λ.Cal(λ.TypeType, λ.NewStr("EscapistIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		EscapistIE = λ.Cal(λ.TypeType, λ.StrLiteral("EscapistIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				EscapistIE__VALID_URL    λ.Object
 				EscapistIE__real_extract λ.Object
 			)
-			EscapistIE__VALID_URL = λ.NewStr("https?://?(?:(?:www|v1)\\.)?escapistmagazine\\.com/videos/view/[^/]+/(?P<id>[0-9]+)")
+			EscapistIE__VALID_URL = λ.StrLiteral("https?://?(?:(?:www|v1)\\.)?escapistmagazine\\.com/videos/view/[^/]+/(?P<id>[0-9]+)")
 			EscapistIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -142,27 +142,27 @@ func init() {
 						ϒvideo_id   λ.Object
 						ϒwebpage    λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒims_video = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("imsVideo\\.play\\(({.+?})\\);"), ϒwebpage, λ.NewStr("imsVideo")), ϒvideo_id)
-					ϒvideo_id = λ.GetItem(ϒims_video, λ.NewStr("videoID"))
-					ϒkey = λ.GetItem(ϒims_video, λ.NewStr("hash"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒims_video = λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("imsVideo\\.play\\(({.+?})\\);"), ϒwebpage, λ.StrLiteral("imsVideo")), ϒvideo_id)
+					ϒvideo_id = λ.GetItem(ϒims_video, λ.StrLiteral("videoID"))
+					ϒkey = λ.GetItem(ϒims_video, λ.StrLiteral("hash"))
 					ϒconfig = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
-						λ.NewStr("http://www.escapistmagazine.com/videos/vidconfig.php"),
+						λ.StrLiteral("http://www.escapistmagazine.com/videos/vidconfig.php"),
 						ϒvideo_id,
-						λ.NewStr("Downloading video config"),
+						λ.StrLiteral("Downloading video config"),
 					), λ.KWArgs{
-						{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("Referer"): ϒurl,
+						{Name: "headers", Value: λ.DictLiteral(map[string]λ.Object{
+							"Referer": ϒurl,
 						})},
-						{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("videoID"): ϒvideo_id,
-							λ.NewStr("hash"):    ϒkey,
+						{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
+							"videoID": ϒvideo_id,
+							"hash":    ϒkey,
 						})},
 					})
-					ϒdata = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(ϒ_decrypt_config, ϒkey, ϒconfig), ϒvideo_id)
-					ϒvideo_data = λ.GetItem(ϒdata, λ.NewStr("videoData"))
-					ϒtitle = λ.Cal(ϒclean_html, λ.GetItem(ϒvideo_data, λ.NewStr("title")))
+					ϒdata = λ.Calm(ϒself, "_parse_json", λ.Cal(ϒ_decrypt_config, ϒkey, ϒconfig), ϒvideo_id)
+					ϒvideo_data = λ.GetItem(ϒdata, λ.StrLiteral("videoData"))
+					ϒtitle = λ.Cal(ϒclean_html, λ.GetItem(ϒvideo_data, λ.StrLiteral("title")))
 					ϒformats = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -173,45 +173,45 @@ func init() {
 									τmp0   λ.Object
 									τmp1   λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(λ.GetItem(ϒdata, λ.NewStr("files")), λ.NewStr("videos")))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(λ.GetItem(ϒdata, λ.StrLiteral("files")), λ.StrLiteral("videos")))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									ϒvideo = τmp1
-									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("url"): λ.GetItem(ϒvideo, λ.NewStr("src")),
-										λ.NewStr("format_id"): λ.Mod(λ.NewStr("%s-%sp"), λ.NewTuple(
-											λ.Cal(ϒdetermine_ext, λ.GetItem(ϒvideo, λ.NewStr("src"))),
-											λ.GetItem(ϒvideo, λ.NewStr("res")),
+									λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+										"url": λ.GetItem(ϒvideo, λ.StrLiteral("src")),
+										"format_id": λ.Mod(λ.StrLiteral("%s-%sp"), λ.NewTuple(
+											λ.Cal(ϒdetermine_ext, λ.GetItem(ϒvideo, λ.StrLiteral("src"))),
+											λ.GetItem(ϒvideo, λ.StrLiteral("res")),
 										)),
-										λ.NewStr("height"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("res"))),
+										"height": λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("res"))),
 									}))
 								}
 								return λ.None
 							})
 						})))
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):      ϒvideo_id,
-						λ.NewStr("formats"): ϒformats,
-						λ.NewStr("title"):   ϒtitle,
-						λ.NewStr("thumbnail"): func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage); λ.IsTrue(λv) {
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":      ϒvideo_id,
+						"formats": ϒformats,
+						"title":   ϒtitle,
+						"thumbnail": func() λ.Object {
+							if λv := λ.Calm(ϒself, "_og_search_thumbnail", ϒwebpage); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("poster"))
+								return λ.Calm(ϒdata, "get", λ.StrLiteral("poster"))
 							}
 						}(),
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒself, "_og_search_description", nil), ϒwebpage),
-						λ.NewStr("duration"):    λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("duration")), λ.NewInt(1000)),
-						λ.NewStr("uploader"):    λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("publisher")),
-						λ.NewStr("series"):      λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("show")),
+						"description": λ.Calm(ϒself, "_og_search_description", ϒwebpage),
+						"duration":    λ.Cal(ϒfloat_or_none, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("duration")), λ.IntLiteral(1000)),
+						"uploader":    λ.Calm(ϒvideo_data, "get", λ.StrLiteral("publisher")),
+						"series":      λ.Calm(ϒvideo_data, "get", λ.StrLiteral("show")),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    EscapistIE__VALID_URL,
-				λ.NewStr("_real_extract"): EscapistIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    EscapistIE__VALID_URL,
+				"_real_extract": EscapistIE__real_extract,
 			})
 		}())
 	})

@@ -50,15 +50,15 @@ func init() {
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
-		GDCVaultIE = λ.Cal(λ.TypeType, λ.NewStr("GDCVaultIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		GDCVaultIE = λ.Cal(λ.TypeType, λ.StrLiteral("GDCVaultIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				GDCVaultIE__NETRC_MACHINE λ.Object
 				GDCVaultIE__VALID_URL     λ.Object
 				GDCVaultIE__login         λ.Object
 				GDCVaultIE__real_extract  λ.Object
 			)
-			GDCVaultIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?gdcvault\\.com/play/(?P<id>\\d+)(?:/(?P<name>[\\w-]+))?")
-			GDCVaultIE__NETRC_MACHINE = λ.NewStr("gdcvault")
+			GDCVaultIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?gdcvault\\.com/play/(?P<id>\\d+)(?:/(?P<name>[\\w-]+))?")
+			GDCVaultIE__NETRC_MACHINE = λ.StrLiteral("gdcvault")
 			GDCVaultIE__login = λ.NewFunction("_login",
 				[]λ.Param{
 					{Name: "self"},
@@ -81,9 +81,9 @@ func init() {
 						ϒwebpage_url = λargs[1]
 						τmp0         λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_get_login_info", nil))
-					ϒusername = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒpassword = λ.GetItem(τmp0, λ.NewInt(1))
+					τmp0 = λ.Calm(ϒself, "_get_login_info")
+					ϒusername = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if λ.IsTrue(func() λ.Object {
 						if λv := λ.NewBool(ϒusername == λ.None); λ.IsTrue(λv) {
 							return λv
@@ -91,21 +91,21 @@ func init() {
 							return λ.NewBool(ϒpassword == λ.None)
 						}
 					}()) {
-						λ.Cal(λ.GetAttr(ϒself, "report_warning", nil), λ.Add(λ.Add(λ.NewStr("It looks like "), ϒwebpage_url), λ.NewStr(" requires a login. Try specifying a username and password and try again.")))
+						λ.Calm(ϒself, "report_warning", λ.Add(λ.Add(λ.StrLiteral("It looks like "), ϒwebpage_url), λ.StrLiteral(" requires a login. Try specifying a username and password and try again.")))
 						return λ.None
 					}
-					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.NewStr("(?P<root_url>https?://.*?/).*"), ϒwebpage_url)
-					ϒlogin_url = λ.Add(λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("root_url")), λ.NewStr("api/login.php"))
-					ϒlogout_url = λ.Add(λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("root_url")), λ.NewStr("logout"))
-					ϒlogin_form = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("email"):    ϒusername,
-						λ.NewStr("password"): ϒpassword,
+					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.StrLiteral("(?P<root_url>https?://.*?/).*"), ϒwebpage_url)
+					ϒlogin_url = λ.Add(λ.Calm(ϒmobj, "group", λ.StrLiteral("root_url")), λ.StrLiteral("api/login.php"))
+					ϒlogout_url = λ.Add(λ.Calm(ϒmobj, "group", λ.StrLiteral("root_url")), λ.StrLiteral("logout"))
+					ϒlogin_form = λ.DictLiteral(map[string]λ.Object{
+						"email":    ϒusername,
+						"password": ϒpassword,
 					})
 					ϒrequest = λ.Cal(ϒsanitized_Request, ϒlogin_url, λ.Cal(ϒurlencode_postdata, ϒlogin_form))
-					λ.Cal(λ.GetAttr(ϒrequest, "add_header", nil), λ.NewStr("Content-Type"), λ.NewStr("application/x-www-form-urlencoded"))
-					λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒrequest, ϒdisplay_id, λ.NewStr("Logging in"))
-					ϒstart_page = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒwebpage_url, ϒdisplay_id, λ.NewStr("Getting authenticated video page"))
-					λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒlogout_url, ϒdisplay_id, λ.NewStr("Logging out"))
+					λ.Calm(ϒrequest, "add_header", λ.StrLiteral("Content-Type"), λ.StrLiteral("application/x-www-form-urlencoded"))
+					λ.Calm(ϒself, "_download_webpage", ϒrequest, ϒdisplay_id, λ.StrLiteral("Logging in"))
+					ϒstart_page = λ.Calm(ϒself, "_download_webpage", ϒwebpage_url, ϒdisplay_id, λ.StrLiteral("Getting authenticated video page"))
+					λ.Calm(ϒself, "_download_webpage", ϒlogout_url, ϒdisplay_id, λ.StrLiteral("Logging out"))
 					return ϒstart_page
 				})
 			GDCVaultIE__real_extract = λ.NewFunction("_real_extract",
@@ -134,9 +134,9 @@ func init() {
 						ϒxml_root    λ.Object
 						τmp0         λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
-					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒname = λ.GetItem(τmp0, λ.NewInt(1))
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒname = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒdisplay_id = func() λ.Object {
 						if λv := ϒname; λ.IsTrue(λv) {
 							return λv
@@ -144,70 +144,70 @@ func init() {
 							return ϒvideo_id
 						}
 					}()
-					ϒwebpage_url = λ.Add(λ.NewStr("http://www.gdcvault.com/play/"), ϒvideo_id)
-					ϒstart_page = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒwebpage_url, ϒdisplay_id)
+					ϒwebpage_url = λ.Add(λ.StrLiteral("http://www.gdcvault.com/play/"), ϒvideo_id)
+					ϒstart_page = λ.Calm(ϒself, "_download_webpage", ϒwebpage_url, ϒdisplay_id)
 					ϒdirect_url = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("s1\\.addVariable\\(\"file\",\\s*encodeURIComponent\\(\"(/[^\"]+)\"\\)\\);"),
+						λ.StrLiteral("s1\\.addVariable\\(\"file\",\\s*encodeURIComponent\\(\"(/[^\"]+)\"\\)\\);"),
 						ϒstart_page,
-						λ.NewStr("url"),
+						λ.StrLiteral("url"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
 					if λ.IsTrue(ϒdirect_url) {
-						ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<td><strong>Session Name:?</strong></td>\\s*<td>(.*?)</td>"), ϒstart_page, λ.NewStr("title"))
-						ϒvideo_url = λ.Add(λ.NewStr("http://www.gdcvault.com"), ϒdirect_url)
-						ϒvideo_url = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒself, "_request_webpage", nil), λ.Cal(HEADRequest, ϒvideo_url), ϒvideo_id), "geturl", nil))
-						return λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("id"):         ϒvideo_id,
-							λ.NewStr("display_id"): ϒdisplay_id,
-							λ.NewStr("url"):        ϒvideo_url,
-							λ.NewStr("title"):      ϒtitle,
+						ϒtitle = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("<td><strong>Session Name:?</strong></td>\\s*<td>(.*?)</td>"), ϒstart_page, λ.StrLiteral("title"))
+						ϒvideo_url = λ.Add(λ.StrLiteral("http://www.gdcvault.com"), ϒdirect_url)
+						ϒvideo_url = λ.Calm(λ.Calm(ϒself, "_request_webpage", λ.Cal(HEADRequest, ϒvideo_url), ϒvideo_id), "geturl")
+						return λ.DictLiteral(map[string]λ.Object{
+							"id":         ϒvideo_id,
+							"display_id": ϒdisplay_id,
+							"url":        ϒvideo_url,
+							"title":      ϒtitle,
 						})
 					}
-					ϒembed_url = λ.Cal(λ.GetAttr(KalturaIE, "_extract_url", nil), ϒstart_page)
+					ϒembed_url = λ.Calm(KalturaIE, "_extract_url", ϒstart_page)
 					if λ.IsTrue(ϒembed_url) {
-						ϒembed_url = λ.Cal(ϒsmuggle_url, ϒembed_url, λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("source_url"): ϒurl,
+						ϒembed_url = λ.Cal(ϒsmuggle_url, ϒembed_url, λ.DictLiteral(map[string]λ.Object{
+							"source_url": ϒurl,
 						}))
-						ϒie_key = λ.NewStr("Kaltura")
+						ϒie_key = λ.StrLiteral("Kaltura")
 					} else {
-						PLAYER_REGEX = λ.NewStr("<iframe src=\"(?P<xml_root>.+?)/(?:gdc-)?player.*?\\.html.*?\".*?</iframe>")
+						PLAYER_REGEX = λ.StrLiteral("<iframe src=\"(?P<xml_root>.+?)/(?:gdc-)?player.*?\\.html.*?\".*?</iframe>")
 						ϒxml_root = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 							PLAYER_REGEX,
 							ϒstart_page,
-							λ.NewStr("xml root"),
+							λ.StrLiteral("xml root"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
-						if λ.IsTrue(λ.NewBool(ϒxml_root == λ.None)) {
-							ϒlogin_res = λ.Cal(λ.GetAttr(ϒself, "_login", nil), ϒwebpage_url, ϒdisplay_id)
-							if λ.IsTrue(λ.NewBool(ϒlogin_res == λ.None)) {
-								λ.Cal(λ.GetAttr(ϒself, "report_warning", nil), λ.NewStr("Could not login."))
+						if ϒxml_root == λ.None {
+							ϒlogin_res = λ.Calm(ϒself, "_login", ϒwebpage_url, ϒdisplay_id)
+							if ϒlogin_res == λ.None {
+								λ.Calm(ϒself, "report_warning", λ.StrLiteral("Could not login."))
 							} else {
 								ϒstart_page = ϒlogin_res
-								ϒxml_root = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), PLAYER_REGEX, ϒstart_page, λ.NewStr("xml root"))
+								ϒxml_root = λ.Calm(ϒself, "_html_search_regex", PLAYER_REGEX, ϒstart_page, λ.StrLiteral("xml root"))
 							}
 						}
-						ϒxml_name = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<iframe src=\".*?\\?xml(?:=|URL=xml/)(.+?\\.xml).*?\".*?</iframe>"), ϒstart_page, λ.NewStr("xml filename"))
-						ϒembed_url = λ.Mod(λ.NewStr("%s/xml/%s"), λ.NewTuple(
+						ϒxml_name = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("<iframe src=\".*?\\?xml(?:=|URL=xml/)(.+?\\.xml).*?\".*?</iframe>"), ϒstart_page, λ.StrLiteral("xml filename"))
+						ϒembed_url = λ.Mod(λ.StrLiteral("%s/xml/%s"), λ.NewTuple(
 							ϒxml_root,
 							ϒxml_name,
 						))
-						ϒie_key = λ.NewStr("DigitallySpeaking")
+						ϒie_key = λ.StrLiteral("DigitallySpeaking")
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):      λ.NewStr("url_transparent"),
-						λ.NewStr("id"):         ϒvideo_id,
-						λ.NewStr("display_id"): ϒdisplay_id,
-						λ.NewStr("url"):        ϒembed_url,
-						λ.NewStr("ie_key"):     ϒie_key,
+					return λ.DictLiteral(map[string]λ.Object{
+						"_type":      λ.StrLiteral("url_transparent"),
+						"id":         ϒvideo_id,
+						"display_id": ϒdisplay_id,
+						"url":        ϒembed_url,
+						"ie_key":     ϒie_key,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_NETRC_MACHINE"): GDCVaultIE__NETRC_MACHINE,
-				λ.NewStr("_VALID_URL"):     GDCVaultIE__VALID_URL,
-				λ.NewStr("_login"):         GDCVaultIE__login,
-				λ.NewStr("_real_extract"):  GDCVaultIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_NETRC_MACHINE": GDCVaultIE__NETRC_MACHINE,
+				"_VALID_URL":     GDCVaultIE__VALID_URL,
+				"_login":         GDCVaultIE__login,
+				"_real_extract":  GDCVaultIE__real_extract,
 			})
 		}())
 	})

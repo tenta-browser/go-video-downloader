@@ -53,14 +53,14 @@ func init() {
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
-		PandoraTVIE = λ.Cal(λ.TypeType, λ.NewStr("PandoraTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		PandoraTVIE = λ.Cal(λ.TypeType, λ.StrLiteral("PandoraTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				PandoraTVIE_IE_NAME       λ.Object
 				PandoraTVIE__VALID_URL    λ.Object
 				PandoraTVIE__real_extract λ.Object
 			)
-			PandoraTVIE_IE_NAME = λ.NewStr("pandora.tv")
-			PandoraTVIE__VALID_URL = λ.NewStr("(?x)\n                        https?://\n                            (?:\n                                (?:www\\.)?pandora\\.tv/view/(?P<user_id>[^/]+)/(?P<id>\\d+)|  # new format\n                                (?:.+?\\.)?channel\\.pandora\\.tv/channel/video\\.ptv\\?|        # old format\n                                m\\.pandora\\.tv/?\\?                                          # mobile\n                            )\n                    ")
+			PandoraTVIE_IE_NAME = λ.StrLiteral("pandora.tv")
+			PandoraTVIE__VALID_URL = λ.StrLiteral("(?x)\n                        https?://\n                            (?:\n                                (?:www\\.)?pandora\\.tv/view/(?P<user_id>[^/]+)/(?P<id>\\d+)|  # new format\n                                (?:.+?\\.)?channel\\.pandora\\.tv/channel/video\\.ptv\\?|        # old format\n                                m\\.pandora\\.tv/?\\?                                          # mobile\n                            )\n                    ")
 			PandoraTVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -87,8 +87,8 @@ func init() {
 						τmp2        λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒuser_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("user_id"))
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
+					ϒuser_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("user_id"))
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
 					if λ.IsTrue(func() λ.Object {
 						if λv := λ.NewBool(!λ.IsTrue(ϒuser_id)); λ.IsTrue(λv) {
 							return λv
@@ -97,8 +97,8 @@ func init() {
 						}
 					}()) {
 						ϒqs = λ.Cal(Ωparse.ϒparse_qs, λ.GetAttr(λ.Cal(Ωparse.ϒurlparse, ϒurl), "query", nil))
-						ϒvideo_id = λ.GetItem(λ.Cal(λ.GetAttr(ϒqs, "get", nil), λ.NewStr("prgid"), λ.NewList(λ.None)), λ.NewInt(0))
-						ϒuser_id = λ.GetItem(λ.Cal(λ.GetAttr(ϒqs, "get", nil), λ.NewStr("ch_userid"), λ.NewList(λ.None)), λ.NewInt(0))
+						ϒvideo_id = λ.GetItem(λ.Calm(ϒqs, "get", λ.StrLiteral("prgid"), λ.NewList(λ.None)), λ.IntLiteral(0))
+						ϒuser_id = λ.GetItem(λ.Calm(ϒqs, "get", λ.StrLiteral("ch_userid"), λ.NewList(λ.None)), λ.IntLiteral(0))
 						if λ.IsTrue(λ.Cal(λ.BuiltinAny, λ.Cal(λ.NewFunction("<generator>",
 							nil,
 							0, false, false,
@@ -123,99 +123,99 @@ func init() {
 									return λ.None
 								})
 							})))) {
-							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("Invalid URL")), λ.KWArgs{
+							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("Invalid URL")), λ.KWArgs{
 								{Name: "expected", Value: λ.True},
 							})))
 						}
 					}
-					ϒdata = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("http://m.pandora.tv/?c=view&m=viewJsonApi&ch_userid=%s&prgid=%s"), λ.NewTuple(
+					ϒdata = λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("http://m.pandora.tv/?c=view&m=viewJsonApi&ch_userid=%s&prgid=%s"), λ.NewTuple(
 						ϒuser_id,
 						ϒvideo_id,
 					)), ϒvideo_id)
-					ϒinfo = λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒdata, λ.NewStr("data")), λ.NewStr("rows")), λ.NewStr("vod_play_info")), λ.NewStr("result"))
+					ϒinfo = λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒdata, λ.StrLiteral("data")), λ.StrLiteral("rows")), λ.StrLiteral("vod_play_info")), λ.StrLiteral("result"))
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒinfo, "items", nil)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒinfo, "items"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒformat_id = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒformat_url = λ.GetItem(τmp2, λ.NewInt(1))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformat_url))) {
+						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒformat_url = λ.GetItem(τmp2, λ.IntLiteral(1))
+						if !λ.IsTrue(ϒformat_url) {
 							continue
 						}
 						ϒheight = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("^v(\\d+)[Uu]rl$"),
+							λ.StrLiteral("^v(\\d+)[Uu]rl$"),
 							ϒformat_id,
-							λ.NewStr("height"),
+							λ.StrLiteral("height"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒheight))) {
+						if !λ.IsTrue(ϒheight) {
 							continue
 						}
 						ϒplay_url = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-							λ.NewStr("http://m.pandora.tv/?c=api&m=play_url"),
+							λ.StrLiteral("http://m.pandora.tv/?c=api&m=play_url"),
 							ϒvideo_id,
 						), λ.KWArgs{
-							{Name: "data", Value: λ.Cal(ϒurlencode_postdata, λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("prgid"):   ϒvideo_id,
-								λ.NewStr("runtime"): λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("runtime")),
-								λ.NewStr("vod_url"): ϒformat_url,
+							{Name: "data", Value: λ.Cal(ϒurlencode_postdata, λ.DictLiteral(map[string]λ.Object{
+								"prgid":   ϒvideo_id,
+								"runtime": λ.Calm(ϒinfo, "get", λ.StrLiteral("runtime")),
+								"vod_url": ϒformat_url,
 							}))},
-							{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("Origin"):       ϒurl,
-								λ.NewStr("Content-Type"): λ.NewStr("application/x-www-form-urlencoded"),
+							{Name: "headers", Value: λ.DictLiteral(map[string]λ.Object{
+								"Origin":       ϒurl,
+								"Content-Type": λ.StrLiteral("application/x-www-form-urlencoded"),
 							})},
 						})
-						ϒformat_url = λ.Cal(λ.GetAttr(ϒplay_url, "get", nil), λ.NewStr("url"))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformat_url))) {
+						ϒformat_url = λ.Calm(ϒplay_url, "get", λ.StrLiteral("url"))
+						if !λ.IsTrue(ϒformat_url) {
 							continue
 						}
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("format_id"): λ.Mod(λ.NewStr("%sp"), ϒheight),
-							λ.NewStr("url"):       ϒformat_url,
-							λ.NewStr("height"):    λ.Cal(λ.IntType, ϒheight),
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"format_id": λ.Mod(λ.StrLiteral("%sp"), ϒheight),
+							"url":       ϒformat_url,
+							"height":    λ.Cal(λ.IntType, ϒheight),
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       λ.GetItem(ϒinfo, λ.NewStr("subject")),
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("body")),
-						λ.NewStr("thumbnail"): func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("thumbnail")); λ.IsTrue(λv) {
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       λ.GetItem(ϒinfo, λ.StrLiteral("subject")),
+						"description": λ.Calm(ϒinfo, "get", λ.StrLiteral("body")),
+						"thumbnail": func() λ.Object {
+							if λv := λ.Calm(ϒinfo, "get", λ.StrLiteral("thumbnail")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("poster"))
+								return λ.Calm(ϒinfo, "get", λ.StrLiteral("poster"))
 							}
 						}(),
-						λ.NewStr("duration"): func() λ.Object {
-							if λv := λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("runtime")), λ.NewInt(1000)); λ.IsTrue(λv) {
+						"duration": func() λ.Object {
+							if λv := λ.Cal(ϒfloat_or_none, λ.Calm(ϒinfo, "get", λ.StrLiteral("runtime")), λ.IntLiteral(1000)); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(ϒparse_duration, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("time")))
+								return λ.Cal(ϒparse_duration, λ.Calm(ϒinfo, "get", λ.StrLiteral("time")))
 							}
 						}(),
-						λ.NewStr("upload_date"): func() λ.Object {
-							if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("fid")), ϒcompat_str)) {
-								return λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(λ.GetItem(ϒinfo, λ.NewStr("fid")), "split", nil), λ.NewStr("/")), λ.Neg(λ.NewInt(1))), λ.NewSlice(λ.None, λ.NewInt(8), λ.None))
+						"upload_date": func() λ.Object {
+							if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, λ.Calm(ϒinfo, "get", λ.StrLiteral("fid")), ϒcompat_str)) {
+								return λ.GetItem(λ.GetItem(λ.Calm(λ.GetItem(ϒinfo, λ.StrLiteral("fid")), "split", λ.StrLiteral("/")), λ.Neg(λ.IntLiteral(1))), λ.NewSlice(λ.None, λ.IntLiteral(8), λ.None))
 							} else {
 								return λ.None
 							}
 						}(),
-						λ.NewStr("uploader"):    λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("nickname")),
-						λ.NewStr("uploader_id"): λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("upload_userid")),
-						λ.NewStr("view_count"):  λ.Cal(ϒstr_to_int, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("hit"))),
-						λ.NewStr("like_count"):  λ.Cal(ϒstr_to_int, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("likecnt"))),
-						λ.NewStr("formats"):     ϒformats,
+						"uploader":    λ.Calm(ϒinfo, "get", λ.StrLiteral("nickname")),
+						"uploader_id": λ.Calm(ϒinfo, "get", λ.StrLiteral("upload_userid")),
+						"view_count":  λ.Cal(ϒstr_to_int, λ.Calm(ϒinfo, "get", λ.StrLiteral("hit"))),
+						"like_count":  λ.Cal(ϒstr_to_int, λ.Calm(ϒinfo, "get", λ.StrLiteral("likecnt"))),
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       PandoraTVIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    PandoraTVIE__VALID_URL,
-				λ.NewStr("_real_extract"): PandoraTVIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       PandoraTVIE_IE_NAME,
+				"_VALID_URL":    PandoraTVIE__VALID_URL,
+				"_real_extract": PandoraTVIE__real_extract,
 			})
 		}())
 	})

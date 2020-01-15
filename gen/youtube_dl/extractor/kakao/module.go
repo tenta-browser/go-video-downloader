@@ -49,14 +49,14 @@ func init() {
 		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
-		KakaoIE = λ.Cal(λ.TypeType, λ.NewStr("KakaoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		KakaoIE = λ.Cal(λ.TypeType, λ.StrLiteral("KakaoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				KakaoIE__API_BASE_TMPL λ.Object
 				KakaoIE__VALID_URL     λ.Object
 				KakaoIE__real_extract  λ.Object
 			)
-			KakaoIE__VALID_URL = λ.NewStr("https?://(?:play-)?tv\\.kakao\\.com/(?:channel/\\d+|embed/player)/cliplink/(?P<id>\\d+|[^?#&]+@my)")
-			KakaoIE__API_BASE_TMPL = λ.NewStr("http://tv.kakao.com/api/v1/ft/cliplinks/%s/")
+			KakaoIE__VALID_URL = λ.StrLiteral("https?://(?:play-)?tv\\.kakao\\.com/(?:channel/\\d+|embed/player)/cliplink/(?P<id>\\d+|[^?#&]+@my)")
+			KakaoIE__API_BASE_TMPL = λ.StrLiteral("http://tv.kakao.com/api/v1/ft/cliplinks/%s/")
 			KakaoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -90,73 +90,73 @@ func init() {
 						τmp3           λ.Object
 					)
 					_ = τmp3
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒvideo_id, "rstrip", nil), λ.NewStr("@my"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒdisplay_id = λ.Calm(ϒvideo_id, "rstrip", λ.StrLiteral("@my"))
 					ϒapi_base = λ.Mod(λ.GetAttr(ϒself, "_API_BASE_TMPL", nil), ϒvideo_id)
-					ϒplayer_header = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("Referer"): λ.Cal(ϒupdate_url_query, λ.Mod(λ.NewStr("http://tv.kakao.com/embed/player/cliplink/%s"), ϒvideo_id), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("service"):  λ.NewStr("kakao_tv"),
-							λ.NewStr("autoplay"): λ.NewStr("1"),
-							λ.NewStr("profile"):  λ.NewStr("HIGH"),
-							λ.NewStr("wmode"):    λ.NewStr("transparent"),
+					ϒplayer_header = λ.DictLiteral(map[string]λ.Object{
+						"Referer": λ.Cal(ϒupdate_url_query, λ.Mod(λ.StrLiteral("http://tv.kakao.com/embed/player/cliplink/%s"), ϒvideo_id), λ.DictLiteral(map[string]string{
+							"service":  "kakao_tv",
+							"autoplay": "1",
+							"profile":  "HIGH",
+							"wmode":    "transparent",
 						})),
 					})
-					ϒquery = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("player"):  λ.NewStr("monet_html5"),
-						λ.NewStr("referer"): ϒurl,
-						λ.NewStr("uuid"):    λ.NewStr(""),
-						λ.NewStr("service"): λ.NewStr("kakao_tv"),
-						λ.NewStr("section"): λ.NewStr(""),
-						λ.NewStr("dteType"): λ.NewStr("PC"),
-						λ.NewStr("fields"): λ.Cal(λ.GetAttr(λ.NewStr(","), "join", nil), λ.NewList(
-							λ.NewStr("-*"),
-							λ.NewStr("tid"),
-							λ.NewStr("clipLink"),
-							λ.NewStr("displayTitle"),
-							λ.NewStr("clip"),
-							λ.NewStr("title"),
-							λ.NewStr("description"),
-							λ.NewStr("channelId"),
-							λ.NewStr("createTime"),
-							λ.NewStr("duration"),
-							λ.NewStr("playCount"),
-							λ.NewStr("likeCount"),
-							λ.NewStr("commentCount"),
-							λ.NewStr("tagList"),
-							λ.NewStr("channel"),
-							λ.NewStr("name"),
-							λ.NewStr("clipChapterThumbnailList"),
-							λ.NewStr("thumbnailUrl"),
-							λ.NewStr("timeInSec"),
-							λ.NewStr("isDefault"),
-							λ.NewStr("videoOutputList"),
-							λ.NewStr("width"),
-							λ.NewStr("height"),
-							λ.NewStr("kbps"),
-							λ.NewStr("profile"),
-							λ.NewStr("label"),
+					ϒquery = λ.DictLiteral(map[string]λ.Object{
+						"player":  λ.StrLiteral("monet_html5"),
+						"referer": ϒurl,
+						"uuid":    λ.StrLiteral(""),
+						"service": λ.StrLiteral("kakao_tv"),
+						"section": λ.StrLiteral(""),
+						"dteType": λ.StrLiteral("PC"),
+						"fields": λ.Calm(λ.StrLiteral(","), "join", λ.NewList(
+							λ.StrLiteral("-*"),
+							λ.StrLiteral("tid"),
+							λ.StrLiteral("clipLink"),
+							λ.StrLiteral("displayTitle"),
+							λ.StrLiteral("clip"),
+							λ.StrLiteral("title"),
+							λ.StrLiteral("description"),
+							λ.StrLiteral("channelId"),
+							λ.StrLiteral("createTime"),
+							λ.StrLiteral("duration"),
+							λ.StrLiteral("playCount"),
+							λ.StrLiteral("likeCount"),
+							λ.StrLiteral("commentCount"),
+							λ.StrLiteral("tagList"),
+							λ.StrLiteral("channel"),
+							λ.StrLiteral("name"),
+							λ.StrLiteral("clipChapterThumbnailList"),
+							λ.StrLiteral("thumbnailUrl"),
+							λ.StrLiteral("timeInSec"),
+							λ.StrLiteral("isDefault"),
+							λ.StrLiteral("videoOutputList"),
+							λ.StrLiteral("width"),
+							λ.StrLiteral("height"),
+							λ.StrLiteral("kbps"),
+							λ.StrLiteral("profile"),
+							λ.StrLiteral("label"),
 						)),
 					})
 					ϒimpress = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Add(ϒapi_base, λ.NewStr("impress")),
+						λ.Add(ϒapi_base, λ.StrLiteral("impress")),
 						ϒdisplay_id,
-						λ.NewStr("Downloading video info"),
+						λ.StrLiteral("Downloading video info"),
 					), λ.KWArgs{
 						{Name: "query", Value: ϒquery},
 						{Name: "headers", Value: ϒplayer_header},
 					})
-					ϒclip_link = λ.GetItem(ϒimpress, λ.NewStr("clipLink"))
-					ϒclip = λ.GetItem(ϒclip_link, λ.NewStr("clip"))
+					ϒclip_link = λ.GetItem(ϒimpress, λ.StrLiteral("clipLink"))
+					ϒclip = λ.GetItem(ϒclip_link, λ.StrLiteral("clip"))
 					ϒtitle = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("title")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒclip, "get", λ.StrLiteral("title")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒclip_link, "get", nil), λ.NewStr("displayTitle"))
+							return λ.Calm(ϒclip_link, "get", λ.StrLiteral("displayTitle"))
 						}
 					}()
-					λ.SetItem(ϒquery, λ.NewStr("tid"), λ.Cal(λ.GetAttr(ϒimpress, "get", nil), λ.NewStr("tid"), λ.NewStr("")))
+					λ.SetItem(ϒquery, λ.StrLiteral("tid"), λ.Calm(ϒimpress, "get", λ.StrLiteral("tid"), λ.StrLiteral("")))
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("videoOutputList"), λ.NewList()))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒclip, "get", λ.StrLiteral("videoOutputList"), λ.NewList()))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
@@ -169,37 +169,37 @@ func init() {
 									// pass
 								}},
 							)
-							ϒprofile_name = λ.GetItem(ϒfmt, λ.NewStr("profile"))
-							if λ.IsTrue(λ.Eq(ϒprofile_name, λ.NewStr("AUDIO"))) {
+							ϒprofile_name = λ.GetItem(ϒfmt, λ.StrLiteral("profile"))
+							if λ.IsTrue(λ.Eq(ϒprofile_name, λ.StrLiteral("AUDIO"))) {
 								λexit = λ.BlockExitContinue
 								return
 							}
-							λ.Cal(λ.GetAttr(ϒquery, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("profile"): ϒprofile_name,
-								λ.NewStr("fields"):  λ.NewStr("-*,url"),
+							λ.Calm(ϒquery, "update", λ.DictLiteral(map[string]λ.Object{
+								"profile": ϒprofile_name,
+								"fields":  λ.StrLiteral("-*,url"),
 							}))
 							ϒfmt_url_json = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-								λ.Add(ϒapi_base, λ.NewStr("raw/videolocation")),
+								λ.Add(ϒapi_base, λ.StrLiteral("raw/videolocation")),
 								ϒdisplay_id,
-								λ.Mod(λ.NewStr("Downloading video URL for profile %s"), ϒprofile_name),
+								λ.Mod(λ.StrLiteral("Downloading video URL for profile %s"), ϒprofile_name),
 							), λ.KWArgs{
 								{Name: "query", Value: ϒquery},
 								{Name: "headers", Value: ϒplayer_header},
 								{Name: "fatal", Value: λ.False},
 							})
-							if λ.IsTrue(λ.NewBool(ϒfmt_url_json == λ.None)) {
+							if ϒfmt_url_json == λ.None {
 								λexit = λ.BlockExitContinue
 								return
 							}
-							ϒfmt_url = λ.GetItem(ϒfmt_url_json, λ.NewStr("url"))
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("url"):         ϒfmt_url,
-								λ.NewStr("format_id"):   ϒprofile_name,
-								λ.NewStr("width"):       λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfmt, "get", nil), λ.NewStr("width"))),
-								λ.NewStr("height"):      λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfmt, "get", nil), λ.NewStr("height"))),
-								λ.NewStr("format_note"): λ.Cal(λ.GetAttr(ϒfmt, "get", nil), λ.NewStr("label")),
-								λ.NewStr("filesize"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfmt, "get", nil), λ.NewStr("filesize"))),
-								λ.NewStr("tbr"):         λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfmt, "get", nil), λ.NewStr("kbps"))),
+							ϒfmt_url = λ.GetItem(ϒfmt_url_json, λ.StrLiteral("url"))
+							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+								"url":         ϒfmt_url,
+								"format_id":   ϒprofile_name,
+								"width":       λ.Cal(ϒint_or_none, λ.Calm(ϒfmt, "get", λ.StrLiteral("width"))),
+								"height":      λ.Cal(ϒint_or_none, λ.Calm(ϒfmt, "get", λ.StrLiteral("height"))),
+								"format_note": λ.Calm(ϒfmt, "get", λ.StrLiteral("label")),
+								"filesize":    λ.Cal(ϒint_or_none, λ.Calm(ϒfmt, "get", λ.StrLiteral("filesize"))),
+								"tbr":         λ.Cal(ϒint_or_none, λ.Calm(ϒfmt, "get", λ.StrLiteral("kbps"))),
 							}))
 							return λ.BlockExitNormally, nil
 						}()
@@ -207,53 +207,53 @@ func init() {
 							continue
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒthumbs = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("clipChapterThumbnailList"), λ.NewList()))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒclip, "get", λ.StrLiteral("clipChapterThumbnailList"), λ.NewList()))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒthumb = τmp1
-						λ.Cal(λ.GetAttr(ϒthumbs, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"): λ.Cal(λ.GetAttr(ϒthumb, "get", nil), λ.NewStr("thumbnailUrl")),
-							λ.NewStr("id"):  λ.Cal(ϒcompat_str, λ.Cal(λ.GetAttr(ϒthumb, "get", nil), λ.NewStr("timeInSec"))),
-							λ.NewStr("preference"): func() λ.Object {
-								if λ.IsTrue(λ.Cal(λ.GetAttr(ϒthumb, "get", nil), λ.NewStr("isDefault"))) {
-									return λ.Neg(λ.NewInt(1))
+						λ.Calm(ϒthumbs, "append", λ.DictLiteral(map[string]λ.Object{
+							"url": λ.Calm(ϒthumb, "get", λ.StrLiteral("thumbnailUrl")),
+							"id":  λ.Cal(ϒcompat_str, λ.Calm(ϒthumb, "get", λ.StrLiteral("timeInSec"))),
+							"preference": func() λ.Object {
+								if λ.IsTrue(λ.Calm(ϒthumb, "get", λ.StrLiteral("isDefault"))) {
+									return λ.Neg(λ.IntLiteral(1))
 								} else {
-									return λ.NewInt(0)
+									return λ.IntLiteral(0)
 								}
 							}(),
 						}))
 					}
-					ϒtop_thumbnail = λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("thumbnailUrl"))
+					ϒtop_thumbnail = λ.Calm(ϒclip, "get", λ.StrLiteral("thumbnailUrl"))
 					if λ.IsTrue(ϒtop_thumbnail) {
-						λ.Cal(λ.GetAttr(ϒthumbs, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):        ϒtop_thumbnail,
-							λ.NewStr("preference"): λ.NewInt(10),
+						λ.Calm(ϒthumbs, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":        ϒtop_thumbnail,
+							"preference": λ.IntLiteral(10),
 						}))
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            ϒdisplay_id,
-						λ.NewStr("title"):         ϒtitle,
-						λ.NewStr("description"):   λ.Cal(ϒstrip_or_none, λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("description"))),
-						λ.NewStr("uploader"):      λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒclip_link, "get", nil), λ.NewStr("channel"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("name")),
-						λ.NewStr("uploader_id"):   λ.Cal(λ.GetAttr(ϒclip_link, "get", nil), λ.NewStr("channelId")),
-						λ.NewStr("thumbnails"):    ϒthumbs,
-						λ.NewStr("timestamp"):     λ.Cal(ϒunified_timestamp, λ.Cal(λ.GetAttr(ϒclip_link, "get", nil), λ.NewStr("createTime"))),
-						λ.NewStr("duration"):      λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("duration"))),
-						λ.NewStr("view_count"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("playCount"))),
-						λ.NewStr("like_count"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("likeCount"))),
-						λ.NewStr("comment_count"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("commentCount"))),
-						λ.NewStr("formats"):       ϒformats,
-						λ.NewStr("tags"):          λ.Cal(λ.GetAttr(ϒclip, "get", nil), λ.NewStr("tagList")),
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":            ϒdisplay_id,
+						"title":         ϒtitle,
+						"description":   λ.Cal(ϒstrip_or_none, λ.Calm(ϒclip, "get", λ.StrLiteral("description"))),
+						"uploader":      λ.Calm(λ.Calm(ϒclip_link, "get", λ.StrLiteral("channel"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("name")),
+						"uploader_id":   λ.Calm(ϒclip_link, "get", λ.StrLiteral("channelId")),
+						"thumbnails":    ϒthumbs,
+						"timestamp":     λ.Cal(ϒunified_timestamp, λ.Calm(ϒclip_link, "get", λ.StrLiteral("createTime"))),
+						"duration":      λ.Cal(ϒint_or_none, λ.Calm(ϒclip, "get", λ.StrLiteral("duration"))),
+						"view_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒclip, "get", λ.StrLiteral("playCount"))),
+						"like_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒclip, "get", λ.StrLiteral("likeCount"))),
+						"comment_count": λ.Cal(ϒint_or_none, λ.Calm(ϒclip, "get", λ.StrLiteral("commentCount"))),
+						"formats":       ϒformats,
+						"tags":          λ.Calm(ϒclip, "get", λ.StrLiteral("tagList")),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_API_BASE_TMPL"): KakaoIE__API_BASE_TMPL,
-				λ.NewStr("_VALID_URL"):     KakaoIE__VALID_URL,
-				λ.NewStr("_real_extract"):  KakaoIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_API_BASE_TMPL": KakaoIE__API_BASE_TMPL,
+				"_VALID_URL":     KakaoIE__VALID_URL,
+				"_real_extract":  KakaoIE__real_extract,
 			})
 		}())
 	})

@@ -43,14 +43,14 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒunified_strdate = Ωutils.ϒunified_strdate
-		DWIE = λ.Cal(λ.TypeType, λ.NewStr("DWIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		DWIE = λ.Cal(λ.TypeType, λ.StrLiteral("DWIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				DWIE_IE_NAME       λ.Object
 				DWIE__VALID_URL    λ.Object
 				DWIE__real_extract λ.Object
 			)
-			DWIE_IE_NAME = λ.NewStr("dw")
-			DWIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?dw\\.com/(?:[^/]+/)+(?:av|e)-(?P<id>\\d+)")
+			DWIE_IE_NAME = λ.StrLiteral("dw")
+			DWIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?dw\\.com/(?:[^/]+/)+(?:av|e)-(?P<id>\\d+)")
 			DWIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -68,26 +68,26 @@ func init() {
 						ϒurl           = λargs[1]
 						ϒwebpage       λ.Object
 					)
-					ϒmedia_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒmedia_id)
-					ϒhidden_inputs = λ.Cal(λ.GetAttr(ϒself, "_hidden_inputs", nil), ϒwebpage)
-					ϒtitle = λ.GetItem(ϒhidden_inputs, λ.NewStr("media_title"))
+					ϒmedia_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒmedia_id)
+					ϒhidden_inputs = λ.Calm(ϒself, "_hidden_inputs", ϒwebpage)
+					ϒtitle = λ.GetItem(ϒhidden_inputs, λ.StrLiteral("media_title"))
 					ϒmedia_id = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒhidden_inputs, "get", nil), λ.NewStr("media_id")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒhidden_inputs, "get", λ.StrLiteral("media_id")); λ.IsTrue(λv) {
 							return λv
 						} else {
 							return ϒmedia_id
 						}
 					}()
 					if λ.IsTrue(func() λ.Object {
-						if λv := λ.Eq(λ.Cal(λ.GetAttr(ϒhidden_inputs, "get", nil), λ.NewStr("player_type")), λ.NewStr("video")); !λ.IsTrue(λv) {
+						if λv := λ.Eq(λ.Calm(ϒhidden_inputs, "get", λ.StrLiteral("player_type")), λ.StrLiteral("video")); !λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Eq(λ.Cal(λ.GetAttr(ϒhidden_inputs, "get", nil), λ.NewStr("stream_file")), λ.NewStr("1"))
+							return λ.Eq(λ.Calm(ϒhidden_inputs, "get", λ.StrLiteral("stream_file")), λ.StrLiteral("1"))
 						}
 					}()) {
 						ϒformats = λ.Call(λ.GetAttr(ϒself, "_extract_smil_formats", nil), λ.NewArgs(
-							λ.Mod(λ.NewStr("http://www.dw.com/smil/v-%s"), ϒmedia_id),
+							λ.Mod(λ.StrLiteral("http://www.dw.com/smil/v-%s"), ϒmedia_id),
 							ϒmedia_id,
 						), λ.KWArgs{
 							{Name: "transform_source", Value: λ.NewFunction("<lambda>",
@@ -99,49 +99,49 @@ func init() {
 									var (
 										ϒs = λargs[0]
 									)
-									return λ.Cal(λ.GetAttr(ϒs, "replace", nil), λ.NewStr("rtmp://tv-od.dw.de/flash/"), λ.NewStr("http://tv-download.dw.de/dwtv_video/flv/"))
+									return λ.Calm(ϒs, "replace", λ.StrLiteral("rtmp://tv-od.dw.de/flash/"), λ.StrLiteral("http://tv-download.dw.de/dwtv_video/flv/"))
 								})},
 						})
-						λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+						λ.Calm(ϒself, "_sort_formats", ϒformats)
 					} else {
-						ϒformats = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"): λ.GetItem(ϒhidden_inputs, λ.NewStr("file_name")),
+						ϒformats = λ.NewList(λ.DictLiteral(map[string]λ.Object{
+							"url": λ.GetItem(ϒhidden_inputs, λ.StrLiteral("file_name")),
 						}))
 					}
-					ϒupload_date = λ.Cal(λ.GetAttr(ϒhidden_inputs, "get", nil), λ.NewStr("display_date"))
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒupload_date))) {
+					ϒupload_date = λ.Calm(ϒhidden_inputs, "get", λ.StrLiteral("display_date"))
+					if !λ.IsTrue(ϒupload_date) {
 						ϒupload_date = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-							λ.NewStr("<span[^>]+class=\"date\">([0-9.]+)\\s*\\|"),
+							λ.StrLiteral("<span[^>]+class=\"date\">([0-9.]+)\\s*\\|"),
 							ϒwebpage,
-							λ.NewStr("upload date"),
+							λ.StrLiteral("upload date"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
 						ϒupload_date = λ.Cal(ϒunified_strdate, ϒupload_date)
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒmedia_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒself, "_og_search_description", nil), ϒwebpage),
-						λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒhidden_inputs, "get", nil), λ.NewStr("preview_image")),
-						λ.NewStr("duration"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒhidden_inputs, "get", nil), λ.NewStr("file_duration"))),
-						λ.NewStr("upload_date"): ϒupload_date,
-						λ.NewStr("formats"):     ϒformats,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒmedia_id,
+						"title":       ϒtitle,
+						"description": λ.Calm(ϒself, "_og_search_description", ϒwebpage),
+						"thumbnail":   λ.Calm(ϒhidden_inputs, "get", λ.StrLiteral("preview_image")),
+						"duration":    λ.Cal(ϒint_or_none, λ.Calm(ϒhidden_inputs, "get", λ.StrLiteral("file_duration"))),
+						"upload_date": ϒupload_date,
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       DWIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    DWIE__VALID_URL,
-				λ.NewStr("_real_extract"): DWIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       DWIE_IE_NAME,
+				"_VALID_URL":    DWIE__VALID_URL,
+				"_real_extract": DWIE__real_extract,
 			})
 		}())
-		DWArticleIE = λ.Cal(λ.TypeType, λ.NewStr("DWArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		DWArticleIE = λ.Cal(λ.TypeType, λ.StrLiteral("DWArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				DWArticleIE__VALID_URL λ.Object
 			)
-			DWArticleIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?dw\\.com/(?:[^/]+/)+a-(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): DWArticleIE__VALID_URL,
+			DWArticleIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?dw\\.com/(?:[^/]+/)+a-(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": DWArticleIE__VALID_URL,
 			})
 		}())
 	})

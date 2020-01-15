@@ -58,7 +58,7 @@ func init() {
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
-		DailymotionBaseInfoExtractor = λ.Cal(λ.TypeType, λ.NewStr("DailymotionBaseInfoExtractor"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		DailymotionBaseInfoExtractor = λ.Cal(λ.TypeType, λ.StrLiteral("DailymotionBaseInfoExtractor"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				DailymotionBaseInfoExtractor__FAMILY_FILTER           λ.Object
 				DailymotionBaseInfoExtractor__HEADERS                 λ.Object
@@ -70,11 +70,11 @@ func init() {
 				DailymotionBaseInfoExtractor__set_dailymotion_cookie  λ.Object
 			)
 			DailymotionBaseInfoExtractor__FAMILY_FILTER = λ.None
-			DailymotionBaseInfoExtractor__HEADERS = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("Content-Type"): λ.NewStr("application/json"),
-				λ.NewStr("Origin"):       λ.NewStr("https://www.dailymotion.com"),
+			DailymotionBaseInfoExtractor__HEADERS = λ.DictLiteral(map[string]string{
+				"Content-Type": "application/json",
+				"Origin":       "https://www.dailymotion.com",
 			})
-			DailymotionBaseInfoExtractor__NETRC_MACHINE = λ.NewStr("dailymotion")
+			DailymotionBaseInfoExtractor__NETRC_MACHINE = λ.StrLiteral("dailymotion")
 			DailymotionBaseInfoExtractor__get_dailymotion_cookies = λ.NewFunction("_get_dailymotion_cookies",
 				[]λ.Param{
 					{Name: "self"},
@@ -84,7 +84,7 @@ func init() {
 					var (
 						ϒself = λargs[0]
 					)
-					return λ.Cal(λ.GetAttr(ϒself, "_get_cookies", nil), λ.NewStr("https://www.dailymotion.com/"))
+					return λ.Calm(ϒself, "_get_cookies", λ.StrLiteral("https://www.dailymotion.com/"))
 				})
 			DailymotionBaseInfoExtractor__get_cookie_value = λ.NewFunction("_get_cookie_value",
 				[]λ.Param{
@@ -99,7 +99,7 @@ func init() {
 						ϒname    = λargs[1]
 					)
 					_ = ϒname
-					ϒcookie = λ.Cal(λ.GetAttr(ϒcookies, "get", nil), λ.NewStr("name"))
+					ϒcookie = λ.Calm(ϒcookies, "get", λ.StrLiteral("name"))
 					if λ.IsTrue(ϒcookie) {
 						return λ.GetAttr(ϒcookie, "value", nil)
 					}
@@ -119,7 +119,7 @@ func init() {
 						ϒself  = λargs[0]
 						ϒvalue = λargs[2]
 					)
-					λ.Cal(λ.GetAttr(ϒself, "_set_cookie", nil), λ.NewStr("www.dailymotion.com"), ϒname, ϒvalue)
+					λ.Calm(ϒself, "_set_cookie", λ.StrLiteral("www.dailymotion.com"), ϒname, ϒvalue)
 					return λ.None
 				})
 			DailymotionBaseInfoExtractor__real_initialize = λ.NewFunction("_real_initialize",
@@ -133,20 +133,20 @@ func init() {
 						ϒff      λ.Object
 						ϒself    = λargs[0]
 					)
-					ϒcookies = λ.Cal(λ.GetAttr(ϒself, "_get_dailymotion_cookies", nil))
-					ϒff = λ.Cal(λ.GetAttr(ϒself, "_get_cookie_value", nil), ϒcookies, λ.NewStr("ff"))
+					ϒcookies = λ.Calm(ϒself, "_get_dailymotion_cookies")
+					ϒff = λ.Calm(ϒself, "_get_cookie_value", ϒcookies, λ.StrLiteral("ff"))
 					λ.SetAttr(ϒself, "_FAMILY_FILTER", func() λ.Object {
 						if λ.IsTrue(ϒff) {
-							return λ.Eq(ϒff, λ.NewStr("on"))
+							return λ.Eq(ϒff, λ.StrLiteral("on"))
 						} else {
-							return λ.Cal(ϒage_restricted, λ.NewInt(18), λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("age_limit")))
+							return λ.Cal(ϒage_restricted, λ.IntLiteral(18), λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("age_limit")))
 						}
 					}())
-					λ.Cal(λ.GetAttr(ϒself, "_set_dailymotion_cookie", nil), λ.NewStr("ff"), func() λ.Object {
+					λ.Calm(ϒself, "_set_dailymotion_cookie", λ.StrLiteral("ff"), func() λ.Object {
 						if λ.IsTrue(λ.GetAttr(ϒself, "_FAMILY_FILTER", nil)) {
-							return λ.NewStr("on")
+							return λ.StrLiteral("on")
 						} else {
-							return λ.NewStr("off")
+							return λ.StrLiteral("off")
 						}
 					}())
 					return λ.None
@@ -181,31 +181,31 @@ func init() {
 					)
 					_ = τmp0
 					_ = τmp1
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_HEADERS", nil), "get", nil), λ.NewStr("Authorization"))))) {
-						ϒcookies = λ.Cal(λ.GetAttr(ϒself, "_get_dailymotion_cookies", nil))
+					if !λ.IsTrue(λ.Calm(λ.GetAttr(ϒself, "_HEADERS", nil), "get", λ.StrLiteral("Authorization"))) {
+						ϒcookies = λ.Calm(ϒself, "_get_dailymotion_cookies")
 						ϒtoken = func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒself, "_get_cookie_value", nil), ϒcookies, λ.NewStr("access_token")); λ.IsTrue(λv) {
+							if λv := λ.Calm(ϒself, "_get_cookie_value", ϒcookies, λ.StrLiteral("access_token")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(ϒself, "_get_cookie_value", nil), ϒcookies, λ.NewStr("client_token"))
+								return λ.Calm(ϒself, "_get_cookie_value", ϒcookies, λ.StrLiteral("client_token"))
 							}
 						}()
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒtoken))) {
-							ϒdata = λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("client_id"):     λ.NewStr("f1a362d288c1b98099c7"),
-								λ.NewStr("client_secret"): λ.NewStr("eea605b96e01c796ff369935357eca920c5da4c5"),
+						if !λ.IsTrue(ϒtoken) {
+							ϒdata = λ.DictLiteral(map[string]string{
+								"client_id":     "f1a362d288c1b98099c7",
+								"client_secret": "eea605b96e01c796ff369935357eca920c5da4c5",
 							})
-							τmp0 = λ.Cal(λ.GetAttr(ϒself, "_get_login_info", nil))
-							ϒusername = λ.GetItem(τmp0, λ.NewInt(0))
-							ϒpassword = λ.GetItem(τmp0, λ.NewInt(1))
+							τmp0 = λ.Calm(ϒself, "_get_login_info")
+							ϒusername = λ.GetItem(τmp0, λ.IntLiteral(0))
+							ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
 							if λ.IsTrue(ϒusername) {
-								λ.Cal(λ.GetAttr(ϒdata, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("grant_type"): λ.NewStr("password"),
-									λ.NewStr("password"):   ϒpassword,
-									λ.NewStr("username"):   ϒusername,
+								λ.Calm(ϒdata, "update", λ.DictLiteral(map[string]λ.Object{
+									"grant_type": λ.StrLiteral("password"),
+									"password":   ϒpassword,
+									"username":   ϒusername,
 								}))
 							} else {
-								λ.SetItem(ϒdata, λ.NewStr("grant_type"), λ.NewStr("client_credentials"))
+								λ.SetItem(ϒdata, λ.StrLiteral("grant_type"), λ.StrLiteral("client_credentials"))
 							}
 							τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
 								defer λ.CatchMulti(
@@ -216,10 +216,10 @@ func init() {
 											if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
 												return λv
 											} else {
-												return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.NewInt(400))
+												return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.IntLiteral(400))
 											}
 										}()) {
-											panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "read", nil)), "decode", nil)), ϒxid), λ.NewStr("error_description"))), λ.KWArgs{
+											panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.GetItem(λ.Calm(ϒself, "_parse_json", λ.Calm(λ.Calm(λ.GetAttr(ϒe, "cause", nil), "read"), "decode"), ϒxid), λ.StrLiteral("error_description"))), λ.KWArgs{
 												{Name: "expected", Value: λ.True},
 											})))
 										}
@@ -227,65 +227,65 @@ func init() {
 									}},
 								)
 								ϒtoken = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-									λ.NewStr("https://graphql.api.dailymotion.com/oauth/token"),
+									λ.StrLiteral("https://graphql.api.dailymotion.com/oauth/token"),
 									λ.None,
-									λ.NewStr("Downloading Access Token"),
+									λ.StrLiteral("Downloading Access Token"),
 								), λ.KWArgs{
 									{Name: "data", Value: λ.Cal(ϒurlencode_postdata, ϒdata)},
-								}), λ.NewStr("access_token"))
+								}), λ.StrLiteral("access_token"))
 								return λ.BlockExitNormally, nil
 							}()
-							λ.Cal(λ.GetAttr(ϒself, "_set_dailymotion_cookie", nil), func() λ.Object {
+							λ.Calm(ϒself, "_set_dailymotion_cookie", func() λ.Object {
 								if λ.IsTrue(ϒusername) {
-									return λ.NewStr("access_token")
+									return λ.StrLiteral("access_token")
 								} else {
-									return λ.NewStr("client_token")
+									return λ.StrLiteral("client_token")
 								}
 							}(), ϒtoken)
 						}
-						λ.SetItem(λ.GetAttr(ϒself, "_HEADERS", nil), λ.NewStr("Authorization"), λ.Add(λ.NewStr("Bearer "), ϒtoken))
+						λ.SetItem(λ.GetAttr(ϒself, "_HEADERS", nil), λ.StrLiteral("Authorization"), λ.Add(λ.StrLiteral("Bearer "), ϒtoken))
 					}
 					ϒresp = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.NewStr("https://graphql.api.dailymotion.com/"),
+						λ.StrLiteral("https://graphql.api.dailymotion.com/"),
 						ϒxid,
 						ϒnote,
 					), λ.KWArgs{
-						{Name: "data", Value: λ.Cal(λ.GetAttr(λ.Cal(Ωjson.ϒdumps, λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("query"): λ.Mod(λ.NewStr("{\n  %s(xid: \"%s\"%s) {\n    %s\n  }\n}"), λ.NewTuple(
+						{Name: "data", Value: λ.Calm(λ.Cal(Ωjson.ϒdumps, λ.DictLiteral(map[string]λ.Object{
+							"query": λ.Mod(λ.StrLiteral("{\n  %s(xid: \"%s\"%s) {\n    %s\n  }\n}"), λ.NewTuple(
 								ϒobject_type,
 								ϒxid,
 								func() λ.Object {
 									if λ.IsTrue(ϒfilter_extra) {
-										return λ.Add(λ.NewStr(", "), ϒfilter_extra)
+										return λ.Add(λ.StrLiteral(", "), ϒfilter_extra)
 									} else {
-										return λ.NewStr("")
+										return λ.StrLiteral("")
 									}
 								}(),
 								ϒobject_fields,
 							)),
-						})), "encode", nil))},
+						})), "encode")},
 						{Name: "headers", Value: λ.GetAttr(ϒself, "_HEADERS", nil)},
 					})
-					ϒobj = λ.GetItem(λ.GetItem(ϒresp, λ.NewStr("data")), ϒobject_type)
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒobj))) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.GetItem(λ.GetItem(λ.GetItem(ϒresp, λ.NewStr("errors")), λ.NewInt(0)), λ.NewStr("message"))), λ.KWArgs{
+					ϒobj = λ.GetItem(λ.GetItem(ϒresp, λ.StrLiteral("data")), ϒobject_type)
+					if !λ.IsTrue(ϒobj) {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.GetItem(λ.GetItem(λ.GetItem(ϒresp, λ.StrLiteral("errors")), λ.IntLiteral(0)), λ.StrLiteral("message"))), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
 					return ϒobj
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_FAMILY_FILTER"):           DailymotionBaseInfoExtractor__FAMILY_FILTER,
-				λ.NewStr("_HEADERS"):                 DailymotionBaseInfoExtractor__HEADERS,
-				λ.NewStr("_NETRC_MACHINE"):           DailymotionBaseInfoExtractor__NETRC_MACHINE,
-				λ.NewStr("_call_api"):                DailymotionBaseInfoExtractor__call_api,
-				λ.NewStr("_get_cookie_value"):        DailymotionBaseInfoExtractor__get_cookie_value,
-				λ.NewStr("_get_dailymotion_cookies"): DailymotionBaseInfoExtractor__get_dailymotion_cookies,
-				λ.NewStr("_real_initialize"):         DailymotionBaseInfoExtractor__real_initialize,
-				λ.NewStr("_set_dailymotion_cookie"):  DailymotionBaseInfoExtractor__set_dailymotion_cookie,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_FAMILY_FILTER":           DailymotionBaseInfoExtractor__FAMILY_FILTER,
+				"_HEADERS":                 DailymotionBaseInfoExtractor__HEADERS,
+				"_NETRC_MACHINE":           DailymotionBaseInfoExtractor__NETRC_MACHINE,
+				"_call_api":                DailymotionBaseInfoExtractor__call_api,
+				"_get_cookie_value":        DailymotionBaseInfoExtractor__get_cookie_value,
+				"_get_dailymotion_cookies": DailymotionBaseInfoExtractor__get_dailymotion_cookies,
+				"_real_initialize":         DailymotionBaseInfoExtractor__real_initialize,
+				"_set_dailymotion_cookie":  DailymotionBaseInfoExtractor__set_dailymotion_cookie,
 			})
 		}())
-		DailymotionIE = λ.Cal(λ.TypeType, λ.NewStr("DailymotionIE"), λ.NewTuple(DailymotionBaseInfoExtractor), func() λ.Dict {
+		DailymotionIE = λ.Cal(λ.TypeType, λ.StrLiteral("DailymotionIE"), λ.NewTuple(DailymotionBaseInfoExtractor), func() λ.Dict {
 			var (
 				DailymotionIE_IE_NAME              λ.Object
 				DailymotionIE__COMMON_MEDIA_FIELDS λ.Object
@@ -294,10 +294,10 @@ func init() {
 				DailymotionIE__extract_urls        λ.Object
 				DailymotionIE__real_extract        λ.Object
 			)
-			DailymotionIE__VALID_URL = λ.NewStr("(?ix)\n                    https?://\n                        (?:\n                            (?:(?:www|touch)\\.)?dailymotion\\.[a-z]{2,3}/(?:(?:(?:embed|swf|\\#)/)?video|swf)|\n                            (?:www\\.)?lequipe\\.fr/video\n                        )\n                        /(?P<id>[^/?_]+)(?:.+?\\bplaylist=(?P<playlist_id>x[0-9a-z]+))?\n                    ")
-			DailymotionIE_IE_NAME = λ.NewStr("dailymotion")
+			DailymotionIE__VALID_URL = λ.StrLiteral("(?ix)\n                    https?://\n                        (?:\n                            (?:(?:www|touch)\\.)?dailymotion\\.[a-z]{2,3}/(?:(?:(?:embed|swf|\\#)/)?video|swf)|\n                            (?:www\\.)?lequipe\\.fr/video\n                        )\n                        /(?P<id>[^/?_]+)(?:.+?\\bplaylist=(?P<playlist_id>x[0-9a-z]+))?\n                    ")
+			DailymotionIE_IE_NAME = λ.StrLiteral("dailymotion")
 			DailymotionIE__GEO_BYPASS = λ.False
-			DailymotionIE__COMMON_MEDIA_FIELDS = λ.NewStr("description\n      geoblockedCountries {\n        allowed\n      }\n      xid")
+			DailymotionIE__COMMON_MEDIA_FIELDS = λ.StrLiteral("description\n      geoblockedCountries {\n        allowed\n      }\n      xid")
 			DailymotionIE__extract_urls = λ.NewFunction("_extract_urls",
 				[]λ.Param{
 					{Name: "webpage"},
@@ -312,21 +312,21 @@ func init() {
 						τmp1     λ.Object
 					)
 					ϒurls = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfinditer, λ.NewStr("<(?:(?:embed|iframe)[^>]+?src=|input[^>]+id=[\\'\"]dmcloudUrlEmissionSelect[\\'\"][^>]+value=)([\"\\'])(?P<url>(?:https?:)?//(?:www\\.)?dailymotion\\.com/(?:embed|swf)/video/.+?)\\1"), ϒwebpage))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfinditer, λ.StrLiteral("<(?:(?:embed|iframe)[^>]+?src=|input[^>]+id=[\\'\"]dmcloudUrlEmissionSelect[\\'\"][^>]+value=)([\"\\'])(?P<url>(?:https?:)?//(?:www\\.)?dailymotion\\.com/(?:embed|swf)/video/.+?)\\1"), ϒwebpage))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒmobj = τmp1
-						λ.Cal(λ.GetAttr(ϒurls, "append", nil), λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("url"))))
+						λ.Calm(ϒurls, "append", λ.Cal(ϒunescapeHTML, λ.Calm(ϒmobj, "group", λ.StrLiteral("url"))))
 					}
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfinditer, λ.NewStr("(?s)DM\\.player\\([^,]+,\\s*{.*?video[\\'\"]?\\s*:\\s*[\"\\']?(?P<id>[0-9a-zA-Z]+).+?}\\s*\\);"), ϒwebpage))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfinditer, λ.StrLiteral("(?s)DM\\.player\\([^,]+,\\s*{.*?video[\\'\"]?\\s*:\\s*[\"\\']?(?P<id>[0-9a-zA-Z]+).+?}\\s*\\);"), ϒwebpage))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒmobj = τmp1
-						λ.Cal(λ.GetAttr(ϒurls, "append", nil), λ.Add(λ.NewStr("https://www.dailymotion.com/embed/video/"), λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))))
+						λ.Calm(ϒurls, "append", λ.Add(λ.StrLiteral("https://www.dailymotion.com/embed/video/"), λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))))
 					}
 					return ϒurls
 				})
@@ -376,47 +376,47 @@ func init() {
 						τmp3               λ.Object
 						τmp4               λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
-					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒplaylist_id = λ.GetItem(τmp0, λ.NewInt(1))
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒplaylist_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if λ.IsTrue(ϒplaylist_id) {
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("noplaylist"))))) {
-							λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("Downloading playlist %s - add --no-playlist to just download video"), ϒplaylist_id))
-							return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Add(λ.NewStr("http://www.dailymotion.com/playlist/"), ϒplaylist_id), λ.NewStr("DailymotionPlaylist"), ϒplaylist_id)
+						if !λ.IsTrue(λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("noplaylist"))) {
+							λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("Downloading playlist %s - add --no-playlist to just download video"), ϒplaylist_id))
+							return λ.Calm(ϒself, "url_result", λ.Add(λ.StrLiteral("http://www.dailymotion.com/playlist/"), ϒplaylist_id), λ.StrLiteral("DailymotionPlaylist"), ϒplaylist_id)
 						}
-						λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("Downloading just video %s because of --no-playlist"), ϒvideo_id))
+						λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("Downloading just video %s because of --no-playlist"), ϒvideo_id))
 					}
-					ϒpassword = λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("videopassword"))
-					ϒmedia = λ.Cal(λ.GetAttr(ϒself, "_call_api", nil), λ.NewStr("media"), ϒvideo_id, λ.Mod(λ.NewStr("... on Video {\n      %s\n      stats {\n        likes {\n          total\n        }\n        views {\n          total\n        }\n      }\n    }\n    ... on Live {\n      %s\n      audienceCount\n      isOnAir\n    }"), λ.NewTuple(
+					ϒpassword = λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("videopassword"))
+					ϒmedia = λ.Calm(ϒself, "_call_api", λ.StrLiteral("media"), ϒvideo_id, λ.Mod(λ.StrLiteral("... on Video {\n      %s\n      stats {\n        likes {\n          total\n        }\n        views {\n          total\n        }\n      }\n    }\n    ... on Live {\n      %s\n      audienceCount\n      isOnAir\n    }"), λ.NewTuple(
 						λ.GetAttr(ϒself, "_COMMON_MEDIA_FIELDS", nil),
 						λ.GetAttr(ϒself, "_COMMON_MEDIA_FIELDS", nil),
-					)), λ.NewStr("Downloading media JSON metadata"), func() λ.Object {
+					)), λ.StrLiteral("Downloading media JSON metadata"), func() λ.Object {
 						if λ.IsTrue(ϒpassword) {
-							return λ.Mod(λ.NewStr("password: \"%s\""), λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", nil), λ.NewStr("videopassword")))
+							return λ.Mod(λ.StrLiteral("password: \"%s\""), λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("videopassword")))
 						} else {
 							return λ.None
 						}
 					}())
-					ϒxid = λ.GetItem(ϒmedia, λ.NewStr("xid"))
+					ϒxid = λ.GetItem(ϒmedia, λ.StrLiteral("xid"))
 					ϒmetadata = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Add(λ.NewStr("https://www.dailymotion.com/player/metadata/video/"), ϒxid),
+						λ.Add(λ.StrLiteral("https://www.dailymotion.com/player/metadata/video/"), ϒxid),
 						ϒxid,
-						λ.NewStr("Downloading metadata JSON"),
+						λ.StrLiteral("Downloading metadata JSON"),
 					), λ.KWArgs{
-						{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("app"): λ.NewStr("com.dailymotion.neon"),
+						{Name: "query", Value: λ.DictLiteral(map[string]string{
+							"app": "com.dailymotion.neon",
 						})},
 					})
-					ϒerror = λ.Cal(λ.GetAttr(ϒmetadata, "get", nil), λ.NewStr("error"))
+					ϒerror = λ.Calm(ϒmetadata, "get", λ.StrLiteral("error"))
 					if λ.IsTrue(ϒerror) {
 						ϒtitle = func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒerror, "get", nil), λ.NewStr("title")); λ.IsTrue(λv) {
+							if λv := λ.Calm(ϒerror, "get", λ.StrLiteral("title")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.GetItem(ϒerror, λ.NewStr("raw_message"))
+								return λ.GetItem(ϒerror, λ.StrLiteral("raw_message"))
 							}
 						}()
-						if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒerror, "get", nil), λ.NewStr("code")), λ.NewStr("DM007"))) {
+						if λ.IsTrue(λ.Eq(λ.Calm(ϒerror, "get", λ.StrLiteral("code")), λ.StrLiteral("DM007"))) {
 							ϒallowed_countries = λ.Cal(ϒtry_get, ϒmedia, λ.NewFunction("<lambda>",
 								[]λ.Param{
 									{Name: "x"},
@@ -426,82 +426,82 @@ func init() {
 									var (
 										ϒx = λargs[0]
 									)
-									return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("geoblockedCountries")), λ.NewStr("allowed"))
+									return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("geoblockedCountries")), λ.StrLiteral("allowed"))
 								}), λ.ListType)
 							λ.Call(λ.GetAttr(ϒself, "raise_geo_restricted", nil), nil, λ.KWArgs{
 								{Name: "msg", Value: ϒtitle},
 								{Name: "countries", Value: ϒallowed_countries},
 							})
 						}
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("%s said: %s"), λ.NewTuple(
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("%s said: %s"), λ.NewTuple(
 							λ.GetAttr(ϒself, "IE_NAME", nil),
 							ϒtitle,
 						))), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
-					ϒtitle = λ.GetItem(ϒmetadata, λ.NewStr("title"))
-					ϒis_live = λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("isOnAir"))
+					ϒtitle = λ.GetItem(ϒmetadata, λ.StrLiteral("title"))
+					ϒis_live = λ.Calm(ϒmedia, "get", λ.StrLiteral("isOnAir"))
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.GetItem(ϒmetadata, λ.NewStr("qualities")), "items", nil)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.GetItem(ϒmetadata, λ.StrLiteral("qualities")), "items"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒquality = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒmedia_list = λ.GetItem(τmp2, λ.NewInt(1))
+						ϒquality = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒmedia_list = λ.GetItem(τmp2, λ.IntLiteral(1))
 						τmp2 = λ.Cal(λ.BuiltinIter, ϒmedia_list)
 						for {
 							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 								break
 							}
 							ϒm = τmp3
-							ϒmedia_url = λ.Cal(λ.GetAttr(ϒm, "get", nil), λ.NewStr("url"))
-							ϒmedia_type = λ.Cal(λ.GetAttr(ϒm, "get", nil), λ.NewStr("type"))
+							ϒmedia_url = λ.Calm(ϒm, "get", λ.StrLiteral("url"))
+							ϒmedia_type = λ.Calm(ϒm, "get", λ.StrLiteral("type"))
 							if λ.IsTrue(func() λ.Object {
 								if λv := λ.NewBool(!λ.IsTrue(ϒmedia_url)); λ.IsTrue(λv) {
 									return λv
 								} else {
-									return λ.Eq(ϒmedia_type, λ.NewStr("application/vnd.lumberjack.manifest"))
+									return λ.Eq(ϒmedia_type, λ.StrLiteral("application/vnd.lumberjack.manifest"))
 								}
 							}()) {
 								continue
 							}
-							if λ.IsTrue(λ.Eq(ϒmedia_type, λ.NewStr("application/x-mpegURL"))) {
-								λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+							if λ.IsTrue(λ.Eq(ϒmedia_type, λ.StrLiteral("application/x-mpegURL"))) {
+								λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
 									ϒmedia_url,
 									ϒvideo_id,
-									λ.NewStr("mp4"),
+									λ.StrLiteral("mp4"),
 									func() λ.Object {
 										if λ.IsTrue(ϒis_live) {
-											return λ.NewStr("m3u8")
+											return λ.StrLiteral("m3u8")
 										} else {
-											return λ.NewStr("m3u8_native")
+											return λ.StrLiteral("m3u8_native")
 										}
 									}(),
 								), λ.KWArgs{
-									{Name: "m3u8_id", Value: λ.NewStr("hls")},
+									{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
 									{Name: "fatal", Value: λ.False},
 								}))
 							} else {
-								ϒf = λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("url"):       ϒmedia_url,
-									λ.NewStr("format_id"): λ.Add(λ.NewStr("http-"), ϒquality),
+								ϒf = λ.DictLiteral(map[string]λ.Object{
+									"url":       ϒmedia_url,
+									"format_id": λ.Add(λ.StrLiteral("http-"), ϒquality),
 								})
-								ϒm = λ.Cal(Ωre.ϒsearch, λ.NewStr("/H264-(\\d+)x(\\d+)(?:-(60)/)?"), ϒmedia_url)
+								ϒm = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("/H264-(\\d+)x(\\d+)(?:-(60)/)?"), ϒmedia_url)
 								if λ.IsTrue(ϒm) {
-									τmp4 = λ.Cal(λ.MapIteratorType, ϒint_or_none, λ.Cal(λ.GetAttr(ϒm, "groups", nil)))
-									ϒwidth = λ.GetItem(τmp4, λ.NewInt(0))
-									ϒheight = λ.GetItem(τmp4, λ.NewInt(1))
-									ϒfps = λ.GetItem(τmp4, λ.NewInt(2))
-									λ.Cal(λ.GetAttr(ϒf, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("fps"):    ϒfps,
-										λ.NewStr("height"): ϒheight,
-										λ.NewStr("width"):  ϒwidth,
+									τmp4 = λ.Cal(λ.MapIteratorType, ϒint_or_none, λ.Calm(ϒm, "groups"))
+									ϒwidth = λ.GetItem(τmp4, λ.IntLiteral(0))
+									ϒheight = λ.GetItem(τmp4, λ.IntLiteral(1))
+									ϒfps = λ.GetItem(τmp4, λ.IntLiteral(2))
+									λ.Calm(ϒf, "update", λ.DictLiteral(map[string]λ.Object{
+										"fps":    ϒfps,
+										"height": ϒheight,
+										"width":  ϒwidth,
 									}))
 								}
-								λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)
+								λ.Calm(ϒformats, "append", ϒf)
 							}
 						}
 					}
@@ -511,19 +511,19 @@ func init() {
 							break
 						}
 						ϒf = τmp1
-						λ.SetItem(ϒf, λ.NewStr("url"), λ.GetItem(λ.Cal(λ.GetAttr(λ.GetItem(ϒf, λ.NewStr("url")), "split", nil), λ.NewStr("#")), λ.NewInt(0)))
+						λ.SetItem(ϒf, λ.StrLiteral("url"), λ.GetItem(λ.Calm(λ.GetItem(ϒf, λ.StrLiteral("url")), "split", λ.StrLiteral("#")), λ.IntLiteral(0)))
 						if λ.IsTrue(func() λ.Object {
-							if λv := λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("fps")))); !λ.IsTrue(λv) {
+							if λv := λ.NewBool(!λ.IsTrue(λ.Calm(ϒf, "get", λ.StrLiteral("fps")))); !λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(λ.GetItem(ϒf, λ.NewStr("format_id")), "endswith", nil), λ.NewStr("@60"))
+								return λ.Calm(λ.GetItem(ϒf, λ.StrLiteral("format_id")), "endswith", λ.StrLiteral("@60"))
 							}
 						}()) {
-							λ.SetItem(ϒf, λ.NewStr("fps"), λ.NewInt(60))
+							λ.SetItem(ϒf, λ.StrLiteral("fps"), λ.IntLiteral(60))
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					ϒsubtitles = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒsubtitles = λ.DictLiteral(map[λ.Object]λ.Object{})
 					ϒsubtitles_data = func() λ.Object {
 						if λv := λ.Cal(ϒtry_get, ϒmetadata, λ.NewFunction("<lambda>",
 							[]λ.Param{
@@ -534,21 +534,21 @@ func init() {
 								var (
 									ϒx = λargs[0]
 								)
-								return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("subtitles")), λ.NewStr("data"))
+								return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("subtitles")), λ.StrLiteral("data"))
 							}), λ.DictType); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
 						}
 					}()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒsubtitles_data, "items", nil)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒsubtitles_data, "items"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒsubtitle_lang = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒsubtitle = λ.GetItem(τmp2, λ.NewInt(1))
+						ϒsubtitle_lang = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒsubtitle = λ.GetItem(τmp2, λ.IntLiteral(1))
 						λ.SetItem(ϒsubtitles, ϒsubtitle_lang, λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 							nil,
 							0, false, false,
@@ -559,14 +559,14 @@ func init() {
 										τmp0          λ.Object
 										τmp1          λ.Object
 									)
-									τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒsubtitle, "get", nil), λ.NewStr("urls"), λ.NewList()))
+									τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒsubtitle, "get", λ.StrLiteral("urls"), λ.NewList()))
 									for {
 										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 											break
 										}
 										ϒsubtitle_url = τmp1
-										λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-											λ.NewStr("url"): ϒsubtitle_url,
+										λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+											"url": ϒsubtitle_url,
 										}))
 									}
 									return λ.None
@@ -574,32 +574,32 @@ func init() {
 							}))))
 					}
 					ϒthumbnails = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒmetadata, "get", nil), λ.NewStr("posters"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "items", nil)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.Calm(ϒmetadata, "get", λ.StrLiteral("posters"), λ.DictLiteral(map[λ.Object]λ.Object{})), "items"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒheight = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒposter_url = λ.GetItem(τmp2, λ.NewInt(1))
-						λ.Cal(λ.GetAttr(ϒthumbnails, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("height"): λ.Cal(ϒint_or_none, ϒheight),
-							λ.NewStr("id"):     ϒheight,
-							λ.NewStr("url"):    ϒposter_url,
+						ϒheight = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒposter_url = λ.GetItem(τmp2, λ.IntLiteral(1))
+						λ.Calm(ϒthumbnails, "append", λ.DictLiteral(map[string]λ.Object{
+							"height": λ.Cal(ϒint_or_none, ϒheight),
+							"id":     ϒheight,
+							"url":    ϒposter_url,
 						}))
 					}
 					ϒowner = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒmetadata, "get", nil), λ.NewStr("owner")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒmetadata, "get", λ.StrLiteral("owner")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
 						}
 					}()
 					ϒstats = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("stats")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒmedia, "get", λ.StrLiteral("stats")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
 						}
 					}()
 					ϒget_count = λ.NewFunction("<lambda>",
@@ -620,86 +620,86 @@ func init() {
 									var (
 										ϒy = λargs[0]
 									)
-									return λ.GetItem(λ.GetItem(ϒy, λ.Add(ϒx, λ.NewStr("s"))), λ.NewStr("total"))
+									return λ.GetItem(λ.GetItem(ϒy, λ.Add(ϒx, λ.StrLiteral("s"))), λ.StrLiteral("total"))
 								})))
 						})
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"): ϒvideo_id,
-						λ.NewStr("title"): func() λ.Object {
+					return λ.DictLiteral(map[string]λ.Object{
+						"id": ϒvideo_id,
+						"title": func() λ.Object {
 							if λ.IsTrue(ϒis_live) {
-								return λ.Cal(λ.GetAttr(ϒself, "_live_title", nil), ϒtitle)
+								return λ.Calm(ϒself, "_live_title", ϒtitle)
 							} else {
 								return ϒtitle
 							}
 						}(),
-						λ.NewStr("description"): λ.Cal(ϒclean_html, λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("description"))),
-						λ.NewStr("thumbnails"):  ϒthumbnails,
-						λ.NewStr("duration"): func() λ.Object {
-							if λv := λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒmetadata, "get", nil), λ.NewStr("duration"))); λ.IsTrue(λv) {
+						"description": λ.Cal(ϒclean_html, λ.Calm(ϒmedia, "get", λ.StrLiteral("description"))),
+						"thumbnails":  ϒthumbnails,
+						"duration": func() λ.Object {
+							if λv := λ.Cal(ϒint_or_none, λ.Calm(ϒmetadata, "get", λ.StrLiteral("duration"))); λ.IsTrue(λv) {
 								return λv
 							} else {
 								return λ.None
 							}
 						}(),
-						λ.NewStr("timestamp"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒmetadata, "get", nil), λ.NewStr("created_time"))),
-						λ.NewStr("uploader"):  λ.Cal(λ.GetAttr(ϒowner, "get", nil), λ.NewStr("screenname")),
-						λ.NewStr("uploader_id"): func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒowner, "get", nil), λ.NewStr("id")); λ.IsTrue(λv) {
+						"timestamp": λ.Cal(ϒint_or_none, λ.Calm(ϒmetadata, "get", λ.StrLiteral("created_time"))),
+						"uploader":  λ.Calm(ϒowner, "get", λ.StrLiteral("screenname")),
+						"uploader_id": func() λ.Object {
+							if λv := λ.Calm(ϒowner, "get", λ.StrLiteral("id")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(ϒmetadata, "get", nil), λ.NewStr("screenname"))
+								return λ.Calm(ϒmetadata, "get", λ.StrLiteral("screenname"))
 							}
 						}(),
-						λ.NewStr("age_limit"): func() λ.Object {
-							if λ.IsTrue(λ.Cal(λ.GetAttr(ϒmetadata, "get", nil), λ.NewStr("explicit"))) {
-								return λ.NewInt(18)
+						"age_limit": func() λ.Object {
+							if λ.IsTrue(λ.Calm(ϒmetadata, "get", λ.StrLiteral("explicit"))) {
+								return λ.IntLiteral(18)
 							} else {
-								return λ.NewInt(0)
+								return λ.IntLiteral(0)
 							}
 						}(),
-						λ.NewStr("tags"): λ.Cal(λ.GetAttr(ϒmetadata, "get", nil), λ.NewStr("tags")),
-						λ.NewStr("view_count"): func() λ.Object {
-							if λv := λ.Cal(ϒget_count, λ.NewStr("view")); λ.IsTrue(λv) {
+						"tags": λ.Calm(ϒmetadata, "get", λ.StrLiteral("tags")),
+						"view_count": func() λ.Object {
+							if λv := λ.Cal(ϒget_count, λ.StrLiteral("view")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("audienceCount")))
+								return λ.Cal(ϒint_or_none, λ.Calm(ϒmedia, "get", λ.StrLiteral("audienceCount")))
 							}
 						}(),
-						λ.NewStr("like_count"): λ.Cal(ϒget_count, λ.NewStr("like")),
-						λ.NewStr("formats"):    ϒformats,
-						λ.NewStr("subtitles"):  ϒsubtitles,
-						λ.NewStr("is_live"):    ϒis_live,
+						"like_count": λ.Cal(ϒget_count, λ.StrLiteral("like")),
+						"formats":    ϒformats,
+						"subtitles":  ϒsubtitles,
+						"is_live":    ϒis_live,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):              DailymotionIE_IE_NAME,
-				λ.NewStr("_COMMON_MEDIA_FIELDS"): DailymotionIE__COMMON_MEDIA_FIELDS,
-				λ.NewStr("_GEO_BYPASS"):          DailymotionIE__GEO_BYPASS,
-				λ.NewStr("_VALID_URL"):           DailymotionIE__VALID_URL,
-				λ.NewStr("_extract_urls"):        DailymotionIE__extract_urls,
-				λ.NewStr("_real_extract"):        DailymotionIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":              DailymotionIE_IE_NAME,
+				"_COMMON_MEDIA_FIELDS": DailymotionIE__COMMON_MEDIA_FIELDS,
+				"_GEO_BYPASS":          DailymotionIE__GEO_BYPASS,
+				"_VALID_URL":           DailymotionIE__VALID_URL,
+				"_extract_urls":        DailymotionIE__extract_urls,
+				"_real_extract":        DailymotionIE__real_extract,
 			})
 		}())
-		DailymotionPlaylistBaseIE = λ.Cal(λ.TypeType, λ.NewStr("DailymotionPlaylistBaseIE"), λ.NewTuple(DailymotionBaseInfoExtractor), func() λ.Dict {
+		DailymotionPlaylistBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("DailymotionPlaylistBaseIE"), λ.NewTuple(DailymotionBaseInfoExtractor), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
-		DailymotionPlaylistIE = λ.Cal(λ.TypeType, λ.NewStr("DailymotionPlaylistIE"), λ.NewTuple(DailymotionPlaylistBaseIE), func() λ.Dict {
+		DailymotionPlaylistIE = λ.Cal(λ.TypeType, λ.StrLiteral("DailymotionPlaylistIE"), λ.NewTuple(DailymotionPlaylistBaseIE), func() λ.Dict {
 			var (
 				DailymotionPlaylistIE__VALID_URL λ.Object
 			)
-			DailymotionPlaylistIE__VALID_URL = λ.NewStr("(?:https?://)?(?:www\\.)?dailymotion\\.[a-z]{2,3}/playlist/(?P<id>x[0-9a-z]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): DailymotionPlaylistIE__VALID_URL,
+			DailymotionPlaylistIE__VALID_URL = λ.StrLiteral("(?:https?://)?(?:www\\.)?dailymotion\\.[a-z]{2,3}/playlist/(?P<id>x[0-9a-z]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": DailymotionPlaylistIE__VALID_URL,
 			})
 		}())
-		DailymotionUserIE = λ.Cal(λ.TypeType, λ.NewStr("DailymotionUserIE"), λ.NewTuple(DailymotionPlaylistBaseIE), func() λ.Dict {
+		DailymotionUserIE = λ.Cal(λ.TypeType, λ.StrLiteral("DailymotionUserIE"), λ.NewTuple(DailymotionPlaylistBaseIE), func() λ.Dict {
 			var (
 				DailymotionUserIE__VALID_URL λ.Object
 			)
-			DailymotionUserIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?dailymotion\\.[a-z]{2,3}/(?!(?:embed|swf|#|video|playlist)/)(?:(?:old/)?user/)?(?P<id>[^/]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): DailymotionUserIE__VALID_URL,
+			DailymotionUserIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?dailymotion\\.[a-z]{2,3}/(?!(?:embed|swf|#|video|playlist)/)(?:(?:old/)?user/)?(?P<id>[^/]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": DailymotionUserIE__VALID_URL,
 			})
 		}())
 	})

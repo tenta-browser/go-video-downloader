@@ -46,26 +46,26 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
-		PeriscopeBaseIE = λ.Cal(λ.TypeType, λ.NewStr("PeriscopeBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		PeriscopeBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("PeriscopeBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
-		PeriscopeIE = λ.Cal(λ.TypeType, λ.NewStr("PeriscopeIE"), λ.NewTuple(PeriscopeBaseIE), func() λ.Dict {
+		PeriscopeIE = λ.Cal(λ.TypeType, λ.StrLiteral("PeriscopeIE"), λ.NewTuple(PeriscopeBaseIE), func() λ.Dict {
 			var (
 				PeriscopeIE__VALID_URL λ.Object
 			)
-			PeriscopeIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?:periscope|pscp)\\.tv/[^/]+/(?P<id>[^/?#]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): PeriscopeIE__VALID_URL,
+			PeriscopeIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?:periscope|pscp)\\.tv/[^/]+/(?P<id>[^/?#]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": PeriscopeIE__VALID_URL,
 			})
 		}())
-		PeriscopeUserIE = λ.Cal(λ.TypeType, λ.NewStr("PeriscopeUserIE"), λ.NewTuple(PeriscopeBaseIE), func() λ.Dict {
+		PeriscopeUserIE = λ.Cal(λ.TypeType, λ.StrLiteral("PeriscopeUserIE"), λ.NewTuple(PeriscopeBaseIE), func() λ.Dict {
 			var (
 				PeriscopeUserIE__VALID_URL λ.Object
 			)
-			PeriscopeUserIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?:periscope|pscp)\\.tv/(?P<id>[^/]+)/?$")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): PeriscopeUserIE__VALID_URL,
+			PeriscopeUserIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?:periscope|pscp)\\.tv/(?P<id>[^/]+)/?$")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": PeriscopeUserIE__VALID_URL,
 			})
 		}())
 	})

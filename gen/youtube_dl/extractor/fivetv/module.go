@@ -41,12 +41,12 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
-		FiveTVIE = λ.Cal(λ.TypeType, λ.NewStr("FiveTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		FiveTVIE = λ.Cal(λ.TypeType, λ.StrLiteral("FiveTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				FiveTVIE__VALID_URL    λ.Object
 				FiveTVIE__real_extract λ.Object
 			)
-			FiveTVIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:www\\.)?5-tv\\.ru/\n                        (?:\n                            (?:[^/]+/)+(?P<id>\\d+)|\n                            (?P<path>[^/?#]+)(?:[/?#])?\n                        )\n                    ")
+			FiveTVIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:www\\.)?5-tv\\.ru/\n                        (?:\n                            (?:[^/]+/)+(?P<id>\\d+)|\n                            (?P<path>[^/?#]+)(?:[/?#])?\n                        )\n                    ")
 			FiveTVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -66,49 +66,49 @@ func init() {
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
 					ϒvideo_id = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒmobj, "group", λ.StrLiteral("id")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("path"))
+							return λ.Calm(ϒmobj, "group", λ.StrLiteral("path"))
 						}
 					}()
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒvideo_url = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewList(
-						λ.NewStr("<div[^>]+?class=\"(?:flow)?player[^>]+?data-href=\"([^\"]+)\""),
-						λ.NewStr("<a[^>]+?href=\"([^\"]+)\"[^>]+?class=\"videoplayer\""),
-					), ϒwebpage, λ.NewStr("video url"))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒvideo_url = λ.Calm(ϒself, "_search_regex", λ.NewList(
+						λ.StrLiteral("<div[^>]+?class=\"(?:flow)?player[^>]+?data-href=\"([^\"]+)\""),
+						λ.StrLiteral("<a[^>]+?href=\"([^\"]+)\"[^>]+?class=\"videoplayer\""),
+					), ϒwebpage, λ.StrLiteral("video url"))
 					ϒtitle = func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_og_search_title", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<title>([^<]+)</title>"), ϒwebpage, λ.NewStr("title"))
+							return λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<title>([^<]+)</title>"), ϒwebpage, λ.StrLiteral("title"))
 						}
 					}()
 					ϒduration = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_og_search_property", nil), λ.NewArgs(
-						λ.NewStr("video:duration"),
+						λ.StrLiteral("video:duration"),
 						ϒwebpage,
-						λ.NewStr("duration"),
+						λ.StrLiteral("duration"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					}))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    ϒvideo_id,
-						λ.NewStr("url"):   ϒvideo_url,
-						λ.NewStr("title"): ϒtitle,
-						λ.NewStr("description"): λ.Call(λ.GetAttr(ϒself, "_og_search_description", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":    ϒvideo_id,
+						"url":   ϒvideo_url,
+						"title": ϒtitle,
+						"description": λ.Call(λ.GetAttr(ϒself, "_og_search_description", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}),
-						λ.NewStr("thumbnail"): λ.Call(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
+						"thumbnail": λ.Call(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}),
-						λ.NewStr("duration"): ϒduration,
+						"duration": ϒduration,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    FiveTVIE__VALID_URL,
-				λ.NewStr("_real_extract"): FiveTVIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    FiveTVIE__VALID_URL,
+				"_real_extract": FiveTVIE__real_extract,
 			})
 		}())
 	})

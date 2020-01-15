@@ -41,12 +41,12 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒfix_xml_ampersands = Ωutils.ϒfix_xml_ampersands
-		MetacriticIE = λ.Cal(λ.TypeType, λ.NewStr("MetacriticIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		MetacriticIE = λ.Cal(λ.TypeType, λ.StrLiteral("MetacriticIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				MetacriticIE__VALID_URL    λ.Object
 				MetacriticIE__real_extract λ.Object
 			)
-			MetacriticIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?metacritic\\.com/.+?/trailers/(?P<id>\\d+)")
+			MetacriticIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?metacritic\\.com/.+?/trailers/(?P<id>\\d+)")
 			MetacriticIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -71,12 +71,12 @@ func init() {
 						τmp1         λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
 					ϒinfo = λ.Call(λ.GetAttr(ϒself, "_download_xml", nil), λ.NewArgs(
-						λ.Add(λ.NewStr("http://www.metacritic.com/video_data?video="), ϒvideo_id),
+						λ.Add(λ.StrLiteral("http://www.metacritic.com/video_data?video="), ϒvideo_id),
 						ϒvideo_id,
-						λ.NewStr("Downloading info xml"),
+						λ.StrLiteral("Downloading info xml"),
 					), λ.KWArgs{
 						{Name: "transform_source", Value: ϒfix_xml_ampersands},
 					})
@@ -90,13 +90,13 @@ func init() {
 									τmp0 λ.Object
 									τmp1 λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒinfo, "findall", nil), λ.NewStr("playList/clip")))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒinfo, "findall", λ.StrLiteral("playList/clip")))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									ϒc = τmp1
-									if λ.IsTrue(λ.Eq(λ.GetAttr(λ.Cal(λ.GetAttr(ϒc, "find", nil), λ.NewStr("id")), "text", nil), ϒvideo_id)) {
+									if λ.IsTrue(λ.Eq(λ.GetAttr(λ.Calm(ϒc, "find", λ.StrLiteral("id")), "text", nil), ϒvideo_id)) {
 										λgy.Yield(ϒc)
 									}
 								}
@@ -104,40 +104,40 @@ func init() {
 							})
 						})))
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒclip, "findall", nil), λ.NewStr("httpURI/videoFile")))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒclip, "findall", λ.StrLiteral("httpURI/videoFile")))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒvideoFile = τmp1
-						ϒrate_str = λ.GetAttr(λ.Cal(λ.GetAttr(ϒvideoFile, "find", nil), λ.NewStr("rate")), "text", nil)
-						ϒvideo_url = λ.GetAttr(λ.Cal(λ.GetAttr(ϒvideoFile, "find", nil), λ.NewStr("filePath")), "text", nil)
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):       ϒvideo_url,
-							λ.NewStr("ext"):       λ.NewStr("mp4"),
-							λ.NewStr("format_id"): ϒrate_str,
-							λ.NewStr("tbr"):       λ.Cal(λ.IntType, ϒrate_str),
+						ϒrate_str = λ.GetAttr(λ.Calm(ϒvideoFile, "find", λ.StrLiteral("rate")), "text", nil)
+						ϒvideo_url = λ.GetAttr(λ.Calm(ϒvideoFile, "find", λ.StrLiteral("filePath")), "text", nil)
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":       ϒvideo_url,
+							"ext":       λ.StrLiteral("mp4"),
+							"format_id": ϒrate_str,
+							"tbr":       λ.Cal(λ.IntType, ϒrate_str),
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒdescription = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<b>Description:</b>(.*?)</p>"),
+						λ.StrLiteral("<b>Description:</b>(.*?)</p>"),
 						ϒwebpage,
-						λ.NewStr("description"),
+						λ.StrLiteral("description"),
 					), λ.KWArgs{
 						{Name: "flags", Value: Ωre.DOTALL},
 					})
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       λ.GetAttr(λ.Cal(λ.GetAttr(ϒclip, "find", nil), λ.NewStr("title")), "text", nil),
-						λ.NewStr("formats"):     ϒformats,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("duration"):    λ.Cal(λ.IntType, λ.GetAttr(λ.Cal(λ.GetAttr(ϒclip, "find", nil), λ.NewStr("duration")), "text", nil)),
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       λ.GetAttr(λ.Calm(ϒclip, "find", λ.StrLiteral("title")), "text", nil),
+						"formats":     ϒformats,
+						"description": ϒdescription,
+						"duration":    λ.Cal(λ.IntType, λ.GetAttr(λ.Calm(ϒclip, "find", λ.StrLiteral("duration")), "text", nil)),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    MetacriticIE__VALID_URL,
-				λ.NewStr("_real_extract"): MetacriticIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    MetacriticIE__VALID_URL,
+				"_real_extract": MetacriticIE__real_extract,
 			})
 		}())
 	})

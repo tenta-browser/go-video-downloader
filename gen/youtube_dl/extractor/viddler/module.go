@@ -43,12 +43,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ViddlerIE = λ.Cal(λ.TypeType, λ.NewStr("ViddlerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ViddlerIE = λ.Cal(λ.TypeType, λ.StrLiteral("ViddlerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ViddlerIE__VALID_URL    λ.Object
 				ViddlerIE__real_extract λ.Object
 			)
-			ViddlerIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?viddler\\.com/(?:v|embed|player)/(?P<id>[a-z0-9]+)(?:.+?\\bsecret=(\\d+))?")
+			ViddlerIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?viddler\\.com/(?:v|embed|player)/(?P<id>[a-z0-9]+)(?:.+?\\bsecret=(\\d+))?")
 			ViddlerIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -71,69 +71,69 @@ func init() {
 						τmp0        λ.Object
 						τmp1        λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
-					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒsecret = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒquery = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("video_id"): ϒvideo_id,
-						λ.NewStr("key"):      λ.NewStr("v0vhrt7bg2xq1vyxhkct"),
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒsecret = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒquery = λ.DictLiteral(map[string]λ.Object{
+						"video_id": ϒvideo_id,
+						"key":      λ.StrLiteral("v0vhrt7bg2xq1vyxhkct"),
 					})
 					if λ.IsTrue(ϒsecret) {
-						λ.SetItem(ϒquery, λ.NewStr("secret"), ϒsecret)
+						λ.SetItem(ϒquery, λ.StrLiteral("secret"), ϒsecret)
 					}
 					ϒdata = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.NewStr("http://api.viddler.com/api/v2/viddler.videos.getPlaybackDetails.json"),
+						λ.StrLiteral("http://api.viddler.com/api/v2/viddler.videos.getPlaybackDetails.json"),
 						ϒvideo_id,
 					), λ.KWArgs{
-						{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("Referer"): ϒurl,
+						{Name: "headers", Value: λ.DictLiteral(map[string]λ.Object{
+							"Referer": ϒurl,
 						})},
 						{Name: "query", Value: ϒquery},
-					}), λ.NewStr("video"))
+					}), λ.StrLiteral("video"))
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒdata, λ.NewStr("files")))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒdata, λ.StrLiteral("files")))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒfiled = τmp1
-						if λ.IsTrue(λ.Ne(λ.Cal(λ.GetAttr(ϒfiled, "get", nil), λ.NewStr("status"), λ.NewStr("ready")), λ.NewStr("ready"))) {
+						if λ.IsTrue(λ.Ne(λ.Calm(ϒfiled, "get", λ.StrLiteral("status"), λ.StrLiteral("ready")), λ.StrLiteral("ready"))) {
 							continue
 						}
 						ϒformat_id = func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒfiled, "get", nil), λ.NewStr("profile_id")); λ.IsTrue(λv) {
+							if λv := λ.Calm(ϒfiled, "get", λ.StrLiteral("profile_id")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.GetItem(ϒfiled, λ.NewStr("profile_name"))
+								return λ.GetItem(ϒfiled, λ.StrLiteral("profile_name"))
 							}
 						}()
-						ϒf = λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("format_id"):         ϒformat_id,
-							λ.NewStr("format_note"):       λ.GetItem(ϒfiled, λ.NewStr("profile_name")),
-							λ.NewStr("url"):               λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.GetItem(ϒfiled, λ.NewStr("url"))),
-							λ.NewStr("width"):             λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfiled, "get", nil), λ.NewStr("width"))),
-							λ.NewStr("height"):            λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfiled, "get", nil), λ.NewStr("height"))),
-							λ.NewStr("filesize"):          λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfiled, "get", nil), λ.NewStr("size"))),
-							λ.NewStr("ext"):               λ.Cal(λ.GetAttr(ϒfiled, "get", nil), λ.NewStr("ext")),
-							λ.NewStr("source_preference"): λ.Neg(λ.NewInt(1)),
+						ϒf = λ.DictLiteral(map[string]λ.Object{
+							"format_id":         ϒformat_id,
+							"format_note":       λ.GetItem(ϒfiled, λ.StrLiteral("profile_name")),
+							"url":               λ.Calm(ϒself, "_proto_relative_url", λ.GetItem(ϒfiled, λ.StrLiteral("url"))),
+							"width":             λ.Cal(ϒint_or_none, λ.Calm(ϒfiled, "get", λ.StrLiteral("width"))),
+							"height":            λ.Cal(ϒint_or_none, λ.Calm(ϒfiled, "get", λ.StrLiteral("height"))),
+							"filesize":          λ.Cal(ϒint_or_none, λ.Calm(ϒfiled, "get", λ.StrLiteral("size"))),
+							"ext":               λ.Calm(ϒfiled, "get", λ.StrLiteral("ext")),
+							"source_preference": λ.Neg(λ.IntLiteral(1)),
 						})
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)
-						if λ.IsTrue(λ.Cal(λ.GetAttr(ϒfiled, "get", nil), λ.NewStr("cdn_url"))) {
-							ϒf = λ.Cal(λ.GetAttr(ϒf, "copy", nil))
-							λ.SetItem(ϒf, λ.NewStr("url"), λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.GetItem(ϒfiled, λ.NewStr("cdn_url")), λ.NewStr("http:")))
-							λ.SetItem(ϒf, λ.NewStr("format_id"), λ.Add(ϒformat_id, λ.NewStr("-cdn")))
-							λ.SetItem(ϒf, λ.NewStr("source_preference"), λ.NewInt(1))
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)
+						λ.Calm(ϒformats, "append", ϒf)
+						if λ.IsTrue(λ.Calm(ϒfiled, "get", λ.StrLiteral("cdn_url"))) {
+							ϒf = λ.Calm(ϒf, "copy")
+							λ.SetItem(ϒf, λ.StrLiteral("url"), λ.Calm(ϒself, "_proto_relative_url", λ.GetItem(ϒfiled, λ.StrLiteral("cdn_url")), λ.StrLiteral("http:")))
+							λ.SetItem(ϒf, λ.StrLiteral("format_id"), λ.Add(ϒformat_id, λ.StrLiteral("-cdn")))
+							λ.SetItem(ϒf, λ.StrLiteral("source_preference"), λ.IntLiteral(1))
+							λ.Calm(ϒformats, "append", ϒf)
 						}
-						if λ.IsTrue(λ.Cal(λ.GetAttr(ϒfiled, "get", nil), λ.NewStr("html5_video_source"))) {
-							ϒf = λ.Cal(λ.GetAttr(ϒf, "copy", nil))
-							λ.SetItem(ϒf, λ.NewStr("url"), λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.GetItem(ϒfiled, λ.NewStr("html5_video_source"))))
-							λ.SetItem(ϒf, λ.NewStr("format_id"), λ.Add(ϒformat_id, λ.NewStr("-html5")))
-							λ.SetItem(ϒf, λ.NewStr("source_preference"), λ.NewInt(0))
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)
+						if λ.IsTrue(λ.Calm(ϒfiled, "get", λ.StrLiteral("html5_video_source"))) {
+							ϒf = λ.Calm(ϒf, "copy")
+							λ.SetItem(ϒf, λ.StrLiteral("url"), λ.Calm(ϒself, "_proto_relative_url", λ.GetItem(ϒfiled, λ.StrLiteral("html5_video_source"))))
+							λ.SetItem(ϒf, λ.StrLiteral("format_id"), λ.Add(ϒformat_id, λ.StrLiteral("-html5")))
+							λ.SetItem(ϒf, λ.StrLiteral("source_preference"), λ.IntLiteral(0))
+							λ.Calm(ϒformats, "append", ϒf)
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒcategories = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -144,36 +144,36 @@ func init() {
 									τmp0 λ.Object
 									τmp1 λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("tags"), λ.NewList()))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒdata, "get", λ.StrLiteral("tags"), λ.NewList()))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									ϒt = τmp1
-									if λ.IsTrue(λ.NewBool(λ.Contains(ϒt, λ.NewStr("text")))) {
-										λgy.Yield(λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("text")))
+									if λ.Contains(ϒt, λ.StrLiteral("text")) {
+										λgy.Yield(λ.Calm(ϒt, "get", λ.StrLiteral("text")))
 									}
 								}
 								return λ.None
 							})
 						})))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            ϒvideo_id,
-						λ.NewStr("title"):         λ.GetItem(ϒdata, λ.NewStr("title")),
-						λ.NewStr("formats"):       ϒformats,
-						λ.NewStr("description"):   λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("description")),
-						λ.NewStr("timestamp"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("upload_time"))),
-						λ.NewStr("thumbnail"):     λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("thumbnail_url"))),
-						λ.NewStr("uploader"):      λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("author")),
-						λ.NewStr("duration"):      λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("length"))),
-						λ.NewStr("view_count"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("view_count"))),
-						λ.NewStr("comment_count"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("comment_count"))),
-						λ.NewStr("categories"):    ϒcategories,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":            ϒvideo_id,
+						"title":         λ.GetItem(ϒdata, λ.StrLiteral("title")),
+						"formats":       ϒformats,
+						"description":   λ.Calm(ϒdata, "get", λ.StrLiteral("description")),
+						"timestamp":     λ.Cal(ϒint_or_none, λ.Calm(ϒdata, "get", λ.StrLiteral("upload_time"))),
+						"thumbnail":     λ.Calm(ϒself, "_proto_relative_url", λ.Calm(ϒdata, "get", λ.StrLiteral("thumbnail_url"))),
+						"uploader":      λ.Calm(ϒdata, "get", λ.StrLiteral("author")),
+						"duration":      λ.Cal(ϒfloat_or_none, λ.Calm(ϒdata, "get", λ.StrLiteral("length"))),
+						"view_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒdata, "get", λ.StrLiteral("view_count"))),
+						"comment_count": λ.Cal(ϒint_or_none, λ.Calm(ϒdata, "get", λ.StrLiteral("comment_count"))),
+						"categories":    ϒcategories,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    ViddlerIE__VALID_URL,
-				λ.NewStr("_real_extract"): ViddlerIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    ViddlerIE__VALID_URL,
+				"_real_extract": ViddlerIE__real_extract,
 			})
 		}())
 	})

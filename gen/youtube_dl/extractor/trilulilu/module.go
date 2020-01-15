@@ -44,12 +44,12 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
-		TriluliluIE = λ.Cal(λ.TypeType, λ.NewStr("TriluliluIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TriluliluIE = λ.Cal(λ.TypeType, λ.StrLiteral("TriluliluIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TriluliluIE__VALID_URL    λ.Object
 				TriluliluIE__real_extract λ.Object
 			)
-			TriluliluIE__VALID_URL = λ.NewStr("https?://(?:(?:www|m)\\.)?trilulilu\\.ro/(?:[^/]+/)?(?P<id>[^/#\\?]+)")
+			TriluliluIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|m)\\.)?trilulilu\\.ro/(?:[^/]+/)?(?P<id>[^/#\\?]+)")
 			TriluliluIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -70,77 +70,77 @@ func init() {
 						ϒurl         = λargs[1]
 						ϒuser        λ.Object
 					)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒmedia_info = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("http://m.trilulilu.ro/%s?format=json"), ϒdisplay_id), ϒdisplay_id)
-					ϒage_limit = λ.NewInt(0)
-					ϒerrors = λ.Cal(λ.GetAttr(ϒmedia_info, "get", nil), λ.NewStr("errors"), λ.NewDictWithTable(map[λ.Object]λ.Object{}))
-					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒerrors, "get", nil), λ.NewStr("friends"))) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("This video is private.")), λ.KWArgs{
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒmedia_info = λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("http://m.trilulilu.ro/%s?format=json"), ϒdisplay_id), ϒdisplay_id)
+					ϒage_limit = λ.IntLiteral(0)
+					ϒerrors = λ.Calm(ϒmedia_info, "get", λ.StrLiteral("errors"), λ.DictLiteral(map[λ.Object]λ.Object{}))
+					if λ.IsTrue(λ.Calm(ϒerrors, "get", λ.StrLiteral("friends"))) {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("This video is private.")), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					} else {
-						if λ.IsTrue(λ.Cal(λ.GetAttr(ϒerrors, "get", nil), λ.NewStr("geoblock"))) {
-							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("This video is not available in your country.")), λ.KWArgs{
+						if λ.IsTrue(λ.Calm(ϒerrors, "get", λ.StrLiteral("geoblock"))) {
+							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("This video is not available in your country.")), λ.KWArgs{
 								{Name: "expected", Value: λ.True},
 							})))
 						} else {
-							if λ.IsTrue(λ.Cal(λ.GetAttr(ϒerrors, "get", nil), λ.NewStr("xxx_unlogged"))) {
-								ϒage_limit = λ.NewInt(18)
+							if λ.IsTrue(λ.Calm(ϒerrors, "get", λ.StrLiteral("xxx_unlogged"))) {
+								ϒage_limit = λ.IntLiteral(18)
 							}
 						}
 					}
-					ϒmedia_class = λ.Cal(λ.GetAttr(ϒmedia_info, "get", nil), λ.NewStr("class"))
-					if λ.IsTrue(λ.NewBool(!λ.Contains(λ.NewTuple(
-						λ.NewStr("video"),
-						λ.NewStr("audio"),
-					), ϒmedia_class))) {
-						panic(λ.Raise(λ.Cal(ExtractorError, λ.NewStr("not a video or an audio"))))
+					ϒmedia_class = λ.Calm(ϒmedia_info, "get", λ.StrLiteral("class"))
+					if !λ.Contains(λ.NewTuple(
+						λ.StrLiteral("video"),
+						λ.StrLiteral("audio"),
+					), ϒmedia_class) {
+						panic(λ.Raise(λ.Cal(ExtractorError, λ.StrLiteral("not a video or an audio"))))
 					}
-					ϒuser = λ.Cal(λ.GetAttr(ϒmedia_info, "get", nil), λ.NewStr("user"), λ.NewDictWithTable(map[λ.Object]λ.Object{}))
-					ϒthumbnail = λ.Cal(λ.GetAttr(ϒmedia_info, "get", nil), λ.NewStr("cover_url"))
+					ϒuser = λ.Calm(ϒmedia_info, "get", λ.StrLiteral("user"), λ.DictLiteral(map[λ.Object]λ.Object{}))
+					ϒthumbnail = λ.Calm(ϒmedia_info, "get", λ.StrLiteral("cover_url"))
 					if λ.IsTrue(ϒthumbnail) {
 						λ.Call(λ.GetAttr(ϒthumbnail, "format", nil), nil, λ.KWArgs{
-							{Name: "width", Value: λ.NewStr("1600")},
-							{Name: "height", Value: λ.NewStr("1200")},
+							{Name: "width", Value: λ.StrLiteral("1600")},
+							{Name: "height", Value: λ.StrLiteral("1200")},
 						})
 					}
-					ϒstream_type = λ.Cal(λ.GetAttr(ϒmedia_info, "get", nil), λ.NewStr("stream_type"))
-					ϒformats = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("url"): λ.GetItem(ϒmedia_info, λ.NewStr("href")),
-						λ.NewStr("ext"): ϒstream_type,
+					ϒstream_type = λ.Calm(ϒmedia_info, "get", λ.StrLiteral("stream_type"))
+					ϒformats = λ.NewList(λ.DictLiteral(map[string]λ.Object{
+						"url": λ.GetItem(ϒmedia_info, λ.StrLiteral("href")),
+						"ext": ϒstream_type,
 					}))
-					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒmedia_info, "get", nil), λ.NewStr("is_hd"))) {
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("format_id"): λ.NewStr("hd"),
-							λ.NewStr("url"):       λ.GetItem(ϒmedia_info, λ.NewStr("hrefhd")),
-							λ.NewStr("ext"):       ϒstream_type,
+					if λ.IsTrue(λ.Calm(ϒmedia_info, "get", λ.StrLiteral("is_hd"))) {
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"format_id": λ.StrLiteral("hd"),
+							"url":       λ.GetItem(ϒmedia_info, λ.StrLiteral("hrefhd")),
+							"ext":       ϒstream_type,
 						}))
 					}
-					if λ.IsTrue(λ.Eq(ϒmedia_class, λ.NewStr("audio"))) {
-						λ.SetItem(λ.GetItem(ϒformats, λ.NewInt(0)), λ.NewStr("vcodec"), λ.NewStr("none"))
+					if λ.IsTrue(λ.Eq(ϒmedia_class, λ.StrLiteral("audio"))) {
+						λ.SetItem(λ.GetItem(ϒformats, λ.IntLiteral(0)), λ.StrLiteral("vcodec"), λ.StrLiteral("none"))
 					} else {
-						λ.SetItem(λ.GetItem(ϒformats, λ.NewInt(0)), λ.NewStr("format_id"), λ.NewStr("sd"))
+						λ.SetItem(λ.GetItem(ϒformats, λ.IntLiteral(0)), λ.StrLiteral("format_id"), λ.StrLiteral("sd"))
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            λ.GetItem(λ.Cal(λ.GetAttr(λ.GetItem(ϒmedia_info, λ.NewStr("identifier")), "split", nil), λ.NewStr("|")), λ.NewInt(1)),
-						λ.NewStr("display_id"):    ϒdisplay_id,
-						λ.NewStr("formats"):       ϒformats,
-						λ.NewStr("title"):         λ.GetItem(ϒmedia_info, λ.NewStr("title")),
-						λ.NewStr("description"):   λ.Cal(λ.GetAttr(ϒmedia_info, "get", nil), λ.NewStr("description")),
-						λ.NewStr("thumbnail"):     ϒthumbnail,
-						λ.NewStr("uploader_id"):   λ.Cal(λ.GetAttr(ϒuser, "get", nil), λ.NewStr("username")),
-						λ.NewStr("uploader"):      λ.Cal(λ.GetAttr(ϒuser, "get", nil), λ.NewStr("fullname")),
-						λ.NewStr("timestamp"):     λ.Cal(ϒparse_iso8601, λ.Cal(λ.GetAttr(ϒmedia_info, "get", nil), λ.NewStr("published")), λ.NewStr(" ")),
-						λ.NewStr("duration"):      λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒmedia_info, "get", nil), λ.NewStr("duration"))),
-						λ.NewStr("view_count"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒmedia_info, "get", nil), λ.NewStr("count_views"))),
-						λ.NewStr("like_count"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒmedia_info, "get", nil), λ.NewStr("count_likes"))),
-						λ.NewStr("comment_count"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒmedia_info, "get", nil), λ.NewStr("count_comments"))),
-						λ.NewStr("age_limit"):     ϒage_limit,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":            λ.GetItem(λ.Calm(λ.GetItem(ϒmedia_info, λ.StrLiteral("identifier")), "split", λ.StrLiteral("|")), λ.IntLiteral(1)),
+						"display_id":    ϒdisplay_id,
+						"formats":       ϒformats,
+						"title":         λ.GetItem(ϒmedia_info, λ.StrLiteral("title")),
+						"description":   λ.Calm(ϒmedia_info, "get", λ.StrLiteral("description")),
+						"thumbnail":     ϒthumbnail,
+						"uploader_id":   λ.Calm(ϒuser, "get", λ.StrLiteral("username")),
+						"uploader":      λ.Calm(ϒuser, "get", λ.StrLiteral("fullname")),
+						"timestamp":     λ.Cal(ϒparse_iso8601, λ.Calm(ϒmedia_info, "get", λ.StrLiteral("published")), λ.StrLiteral(" ")),
+						"duration":      λ.Cal(ϒint_or_none, λ.Calm(ϒmedia_info, "get", λ.StrLiteral("duration"))),
+						"view_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒmedia_info, "get", λ.StrLiteral("count_views"))),
+						"like_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒmedia_info, "get", λ.StrLiteral("count_likes"))),
+						"comment_count": λ.Cal(ϒint_or_none, λ.Calm(ϒmedia_info, "get", λ.StrLiteral("count_comments"))),
+						"age_limit":     ϒage_limit,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    TriluliluIE__VALID_URL,
-				λ.NewStr("_real_extract"): TriluliluIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    TriluliluIE__VALID_URL,
+				"_real_extract": TriluliluIE__real_extract,
 			})
 		}())
 	})

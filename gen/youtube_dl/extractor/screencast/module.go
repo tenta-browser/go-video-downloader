@@ -43,12 +43,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ExtractorError = Ωutils.ExtractorError
-		ScreencastIE = λ.Cal(λ.TypeType, λ.NewStr("ScreencastIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ScreencastIE = λ.Cal(λ.TypeType, λ.StrLiteral("ScreencastIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ScreencastIE__VALID_URL    λ.Object
 				ScreencastIE__real_extract λ.Object
 			)
-			ScreencastIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?screencast\\.com/t/(?P<id>[a-zA-Z0-9]+)")
+			ScreencastIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?screencast\\.com/t/(?P<id>[a-zA-Z0-9]+)")
 			ScreencastIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -70,107 +70,107 @@ func init() {
 						ϒvideo_url_raw λ.Object
 						ϒwebpage       λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
 					ϒvideo_url = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<embed name=\"Video\".*?src=\"([^\"]+)\""),
+						λ.StrLiteral("<embed name=\"Video\".*?src=\"([^\"]+)\""),
 						ϒwebpage,
-						λ.NewStr("QuickTime embed"),
+						λ.StrLiteral("QuickTime embed"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
-					if λ.IsTrue(λ.NewBool(ϒvideo_url == λ.None)) {
+					if ϒvideo_url == λ.None {
 						ϒflash_vars_s = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-							λ.NewStr("<param name=\"flashVars\" value=\"([^\"]+)\""),
+							λ.StrLiteral("<param name=\"flashVars\" value=\"([^\"]+)\""),
 							ϒwebpage,
-							λ.NewStr("flash vars"),
+							λ.StrLiteral("flash vars"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒflash_vars_s))) {
+						if !λ.IsTrue(ϒflash_vars_s) {
 							ϒflash_vars_s = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-								λ.NewStr("<param name=\"initParams\" value=\"([^\"]+)\""),
+								λ.StrLiteral("<param name=\"initParams\" value=\"([^\"]+)\""),
 								ϒwebpage,
-								λ.NewStr("flash vars"),
+								λ.StrLiteral("flash vars"),
 							), λ.KWArgs{
 								{Name: "default", Value: λ.None},
 							})
 							if λ.IsTrue(ϒflash_vars_s) {
-								ϒflash_vars_s = λ.Cal(λ.GetAttr(ϒflash_vars_s, "replace", nil), λ.NewStr(","), λ.NewStr("&"))
+								ϒflash_vars_s = λ.Calm(ϒflash_vars_s, "replace", λ.StrLiteral(","), λ.StrLiteral("&"))
 							}
 						}
 						if λ.IsTrue(ϒflash_vars_s) {
 							ϒflash_vars = λ.Cal(ϒcompat_parse_qs, ϒflash_vars_s)
-							ϒvideo_url_raw = λ.Cal(λ.None, λ.GetItem(λ.GetItem(ϒflash_vars, λ.NewStr("content")), λ.NewInt(0)))
-							ϒvideo_url = λ.Cal(λ.GetAttr(ϒvideo_url_raw, "replace", nil), λ.NewStr("http%3A"), λ.NewStr("http:"))
+							ϒvideo_url_raw = λ.Cal(λ.None, λ.GetItem(λ.GetItem(ϒflash_vars, λ.StrLiteral("content")), λ.IntLiteral(0)))
+							ϒvideo_url = λ.Calm(ϒvideo_url_raw, "replace", λ.StrLiteral("http%3A"), λ.StrLiteral("http:"))
 						}
 					}
-					if λ.IsTrue(λ.NewBool(ϒvideo_url == λ.None)) {
+					if ϒvideo_url == λ.None {
 						ϒvideo_meta = λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
-							λ.NewStr("og:video"),
+							λ.StrLiteral("og:video"),
 							ϒwebpage,
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
 						if λ.IsTrue(ϒvideo_meta) {
 							ϒvideo_url = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.NewStr("src=(.*?)(?:$|&)"),
+								λ.StrLiteral("src=(.*?)(?:$|&)"),
 								ϒvideo_meta,
-								λ.NewStr("meta tag video URL"),
+								λ.StrLiteral("meta tag video URL"),
 							), λ.KWArgs{
 								{Name: "default", Value: λ.None},
 							})
 						}
 					}
-					if λ.IsTrue(λ.NewBool(ϒvideo_url == λ.None)) {
+					if ϒvideo_url == λ.None {
 						ϒvideo_url = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-							λ.NewStr("MediaContentUrl[\"\\']\\s*:([\"\\'])(?P<url>(?:(?!\\1).)+)\\1"),
+							λ.StrLiteral("MediaContentUrl[\"\\']\\s*:([\"\\'])(?P<url>(?:(?!\\1).)+)\\1"),
 							ϒwebpage,
-							λ.NewStr("video url"),
+							λ.StrLiteral("video url"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
-							{Name: "group", Value: λ.NewStr("url")},
+							{Name: "group", Value: λ.StrLiteral("url")},
 						})
 					}
-					if λ.IsTrue(λ.NewBool(ϒvideo_url == λ.None)) {
+					if ϒvideo_url == λ.None {
 						ϒvideo_url = λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
-							λ.NewStr("og:video"),
+							λ.StrLiteral("og:video"),
 							ϒwebpage,
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
 					}
-					if λ.IsTrue(λ.NewBool(ϒvideo_url == λ.None)) {
-						panic(λ.Raise(λ.Cal(ExtractorError, λ.NewStr("Cannot find video"))))
+					if ϒvideo_url == λ.None {
+						panic(λ.Raise(λ.Cal(ExtractorError, λ.StrLiteral("Cannot find video"))))
 					}
 					ϒtitle = λ.Call(λ.GetAttr(ϒself, "_og_search_title", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
-					if λ.IsTrue(λ.NewBool(ϒtitle == λ.None)) {
-						ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewList(
-							λ.NewStr("<b>Title:</b> ([^<]+)</div>"),
-							λ.NewStr("class=\"tabSeperator\">></span><span class=\"tabText\">(.+?)<"),
-							λ.NewStr("<title>([^<]+)</title>"),
-						), ϒwebpage, λ.NewStr("title"))
+					if ϒtitle == λ.None {
+						ϒtitle = λ.Calm(ϒself, "_html_search_regex", λ.NewList(
+							λ.StrLiteral("<b>Title:</b> ([^<]+)</div>"),
+							λ.StrLiteral("class=\"tabSeperator\">></span><span class=\"tabText\">(.+?)<"),
+							λ.StrLiteral("<title>([^<]+)</title>"),
+						), ϒwebpage, λ.StrLiteral("title"))
 					}
-					ϒthumbnail = λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage)
+					ϒthumbnail = λ.Calm(ϒself, "_og_search_thumbnail", ϒwebpage)
 					ϒdescription = λ.Call(λ.GetAttr(ϒself, "_og_search_description", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
-					if λ.IsTrue(λ.NewBool(ϒdescription == λ.None)) {
-						ϒdescription = λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewStr("description"), ϒwebpage)
+					if ϒdescription == λ.None {
+						ϒdescription = λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("description"), ϒwebpage)
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("url"):         ϒvideo_url,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("thumbnail"):   ϒthumbnail,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"url":         ϒvideo_url,
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"thumbnail":   ϒthumbnail,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    ScreencastIE__VALID_URL,
-				λ.NewStr("_real_extract"): ScreencastIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    ScreencastIE__VALID_URL,
+				"_real_extract": ScreencastIE__real_extract,
 			})
 		}())
 	})

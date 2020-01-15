@@ -74,53 +74,53 @@ func init() {
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		ϒurl_basename = Ωutils.ϒurl_basename
 		ϒxpath_text = Ωutils.ϒxpath_text
-		MTVServicesInfoExtractor = λ.Cal(λ.TypeType, λ.NewStr("MTVServicesInfoExtractor"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		MTVServicesInfoExtractor = λ.Cal(λ.TypeType, λ.StrLiteral("MTVServicesInfoExtractor"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
-		MTVServicesEmbeddedIE = λ.Cal(λ.TypeType, λ.NewStr("MTVServicesEmbeddedIE"), λ.NewTuple(MTVServicesInfoExtractor), func() λ.Dict {
+		MTVServicesEmbeddedIE = λ.Cal(λ.TypeType, λ.StrLiteral("MTVServicesEmbeddedIE"), λ.NewTuple(MTVServicesInfoExtractor), func() λ.Dict {
 			var (
 				MTVServicesEmbeddedIE__VALID_URL λ.Object
 			)
-			MTVServicesEmbeddedIE__VALID_URL = λ.NewStr("https?://media\\.mtvnservices\\.com/embed/(?P<mgid>.+?)(\\?|/|$)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): MTVServicesEmbeddedIE__VALID_URL,
+			MTVServicesEmbeddedIE__VALID_URL = λ.StrLiteral("https?://media\\.mtvnservices\\.com/embed/(?P<mgid>.+?)(\\?|/|$)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": MTVServicesEmbeddedIE__VALID_URL,
 			})
 		}())
-		MTVIE = λ.Cal(λ.TypeType, λ.NewStr("MTVIE"), λ.NewTuple(MTVServicesInfoExtractor), func() λ.Dict {
+		MTVIE = λ.Cal(λ.TypeType, λ.StrLiteral("MTVIE"), λ.NewTuple(MTVServicesInfoExtractor), func() λ.Dict {
 			var (
 				MTVIE__VALID_URL λ.Object
 			)
-			MTVIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?mtv\\.com/(?:video-clips|(?:full-)?episodes)/(?P<id>[^/?#.]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): MTVIE__VALID_URL,
+			MTVIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?mtv\\.com/(?:video-clips|(?:full-)?episodes)/(?P<id>[^/?#.]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": MTVIE__VALID_URL,
 			})
 		}())
-		MTVJapanIE = λ.Cal(λ.TypeType, λ.NewStr("MTVJapanIE"), λ.NewTuple(MTVServicesInfoExtractor), func() λ.Dict {
+		MTVJapanIE = λ.Cal(λ.TypeType, λ.StrLiteral("MTVJapanIE"), λ.NewTuple(MTVServicesInfoExtractor), func() λ.Dict {
 			var (
 				MTVJapanIE__VALID_URL λ.Object
 			)
-			MTVJapanIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?mtvjapan\\.com/videos/(?P<id>[0-9a-z]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): MTVJapanIE__VALID_URL,
+			MTVJapanIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?mtvjapan\\.com/videos/(?P<id>[0-9a-z]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": MTVJapanIE__VALID_URL,
 			})
 		}())
-		MTVVideoIE = λ.Cal(λ.TypeType, λ.NewStr("MTVVideoIE"), λ.NewTuple(MTVServicesInfoExtractor), func() λ.Dict {
+		MTVVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("MTVVideoIE"), λ.NewTuple(MTVServicesInfoExtractor), func() λ.Dict {
 			var (
 				MTVVideoIE__VALID_URL λ.Object
 			)
-			MTVVideoIE__VALID_URL = λ.NewStr("(?x)^https?://\n        (?:(?:www\\.)?mtv\\.com/videos/.+?/(?P<videoid>[0-9]+)/[^/]+$|\n           m\\.mtv\\.com/videos/video\\.rbml\\?.*?id=(?P<mgid>[^&]+))")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): MTVVideoIE__VALID_URL,
+			MTVVideoIE__VALID_URL = λ.StrLiteral("(?x)^https?://\n        (?:(?:www\\.)?mtv\\.com/videos/.+?/(?P<videoid>[0-9]+)/[^/]+$|\n           m\\.mtv\\.com/videos/video\\.rbml\\?.*?id=(?P<mgid>[^&]+))")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": MTVVideoIE__VALID_URL,
 			})
 		}())
-		MTVDEIE = λ.Cal(λ.TypeType, λ.NewStr("MTVDEIE"), λ.NewTuple(MTVServicesInfoExtractor), func() λ.Dict {
+		MTVDEIE = λ.Cal(λ.TypeType, λ.StrLiteral("MTVDEIE"), λ.NewTuple(MTVServicesInfoExtractor), func() λ.Dict {
 			var (
 				MTVDEIE__VALID_URL λ.Object
 			)
-			MTVDEIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?mtv\\.de/(?:musik/videoclips|folgen|news)/(?P<id>[0-9a-z]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): MTVDEIE__VALID_URL,
+			MTVDEIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?mtv\\.de/(?:musik/videoclips|folgen|news)/(?P<id>[0-9a-z]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": MTVDEIE__VALID_URL,
 			})
 		}())
 	})

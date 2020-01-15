@@ -51,13 +51,13 @@ func init() {
 		ϒstrip_jsonp = Ωutils.ϒstrip_jsonp
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒunsmuggle_url = Ωutils.ϒunsmuggle_url
-		AnvatoIE = λ.Cal(λ.TypeType, λ.NewStr("AnvatoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		AnvatoIE = λ.Cal(λ.TypeType, λ.StrLiteral("AnvatoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				AnvatoIE__VALID_URL λ.Object
 			)
-			AnvatoIE__VALID_URL = λ.NewStr("anvato:(?P<access_key_or_mcp>[^:]+):(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): AnvatoIE__VALID_URL,
+			AnvatoIE__VALID_URL = λ.StrLiteral("anvato:(?P<access_key_or_mcp>[^:]+):(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": AnvatoIE__VALID_URL,
 			})
 		}())
 	})

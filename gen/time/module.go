@@ -38,7 +38,7 @@ func init() {
 			nil,
 			0, false, false,
 			func(λargs []λ.Object) λ.Object {
-				return λ.NewInt(0)
+				return λ.IntLiteral(0)
 			})
 	})
 }

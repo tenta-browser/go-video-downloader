@@ -110,15 +110,6 @@ func newDict(t Type) Dict {
 	return &dictStruct{newObject(t), *newHashTable(4)}
 }
 
-// NewDictWithTable ..
-func NewDictWithTable(table map[Object]Object) Dict {
-	d := newDict(DictType)
-	for key, value := range table {
-		d.SetItem(key, value)
-	}
-	return d
-}
-
 // NewDict ..
 func NewDict() Dict {
 	return newDict(DictType)

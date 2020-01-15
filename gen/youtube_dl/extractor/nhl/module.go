@@ -51,7 +51,7 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒparse_duration = Ωutils.ϒparse_duration
-		NHLBaseIE = λ.Cal(λ.TypeType, λ.NewStr("NHLBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		NHLBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("NHLBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				NHLBaseIE__real_extract λ.Object
 			)
@@ -85,93 +85,93 @@ func init() {
 						τmp0            λ.Object
 						τmp1            λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
-					ϒsite = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒtmp_id = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒvideo_data = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("https://%s/%s/%sid/v1/%s/details/web-v1.json"), λ.NewTuple(
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒsite = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒtmp_id = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒvideo_data = λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("https://%s/%s/%sid/v1/%s/details/web-v1.json"), λ.NewTuple(
 						λ.GetAttr(ϒself, "_CONTENT_DOMAIN", nil),
-						λ.GetItem(ϒsite, λ.NewSlice(λ.None, λ.NewInt(3), λ.None)),
+						λ.GetItem(ϒsite, λ.NewSlice(λ.None, λ.IntLiteral(3), λ.None)),
 						func() λ.Object {
-							if λ.IsTrue(λ.Eq(ϒsite, λ.NewStr("mlb"))) {
-								return λ.NewStr("item/")
+							if λ.IsTrue(λ.Eq(ϒsite, λ.StrLiteral("mlb"))) {
+								return λ.StrLiteral("item/")
 							} else {
-								return λ.NewStr("")
+								return λ.StrLiteral("")
 							}
 						}(),
 						ϒtmp_id,
 					)), ϒtmp_id)
-					if λ.IsTrue(λ.Ne(λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("type")), λ.NewStr("video"))) {
-						ϒvideo_data = λ.GetItem(ϒvideo_data, λ.NewStr("media"))
-						ϒvideo = λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("video"))
+					if λ.IsTrue(λ.Ne(λ.Calm(ϒvideo_data, "get", λ.StrLiteral("type")), λ.StrLiteral("video"))) {
+						ϒvideo_data = λ.GetItem(ϒvideo_data, λ.StrLiteral("media"))
+						ϒvideo = λ.Calm(ϒvideo_data, "get", λ.StrLiteral("video"))
 						if λ.IsTrue(ϒvideo) {
 							ϒvideo_data = ϒvideo
 						} else {
-							ϒvideos = λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("videos"))
+							ϒvideos = λ.Calm(ϒvideo_data, "get", λ.StrLiteral("videos"))
 							if λ.IsTrue(ϒvideos) {
-								ϒvideo_data = λ.GetItem(ϒvideos, λ.NewInt(0))
+								ϒvideo_data = λ.GetItem(ϒvideos, λ.IntLiteral(0))
 							}
 						}
 					}
-					ϒvideo_id = λ.Cal(ϒcompat_str, λ.GetItem(ϒvideo_data, λ.NewStr("id")))
-					ϒtitle = λ.GetItem(ϒvideo_data, λ.NewStr("title"))
+					ϒvideo_id = λ.Cal(ϒcompat_str, λ.GetItem(ϒvideo_data, λ.StrLiteral("id")))
+					ϒtitle = λ.GetItem(ϒvideo_data, λ.StrLiteral("title"))
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("playbacks"), λ.NewList()))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("playbacks"), λ.NewList()))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒplayback = τmp1
-						ϒplayback_url = λ.Cal(λ.GetAttr(ϒplayback, "get", nil), λ.NewStr("url"))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒplayback_url))) {
+						ϒplayback_url = λ.Calm(ϒplayback, "get", λ.StrLiteral("url"))
+						if !λ.IsTrue(ϒplayback_url) {
 							continue
 						}
 						ϒext = λ.Cal(ϒdetermine_ext, ϒplayback_url)
-						if λ.IsTrue(λ.Eq(ϒext, λ.NewStr("m3u8"))) {
+						if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("m3u8"))) {
 							ϒm3u8_formats = λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
 								ϒplayback_url,
 								ϒvideo_id,
-								λ.NewStr("mp4"),
-								λ.NewStr("m3u8_native"),
+								λ.StrLiteral("mp4"),
+								λ.StrLiteral("m3u8_native"),
 							), λ.KWArgs{
-								{Name: "m3u8_id", Value: λ.Cal(λ.GetAttr(ϒplayback, "get", nil), λ.NewStr("name"), λ.NewStr("hls"))},
+								{Name: "m3u8_id", Value: λ.Calm(ϒplayback, "get", λ.StrLiteral("name"), λ.StrLiteral("hls"))},
 								{Name: "fatal", Value: λ.False},
 							})
-							λ.Cal(λ.GetAttr(ϒself, "_check_formats", nil), ϒm3u8_formats, ϒvideo_id)
-							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), ϒm3u8_formats)
+							λ.Calm(ϒself, "_check_formats", ϒm3u8_formats, ϒvideo_id)
+							λ.Calm(ϒformats, "extend", ϒm3u8_formats)
 						} else {
-							ϒheight = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒplayback, "get", nil), λ.NewStr("height")))
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("format_id"): λ.Cal(λ.GetAttr(ϒplayback, "get", nil), λ.NewStr("name"), λ.Add(λ.NewStr("http"), func() λ.Object {
+							ϒheight = λ.Cal(ϒint_or_none, λ.Calm(ϒplayback, "get", λ.StrLiteral("height")))
+							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+								"format_id": λ.Calm(ϒplayback, "get", λ.StrLiteral("name"), λ.Add(λ.StrLiteral("http"), func() λ.Object {
 									if λ.IsTrue(ϒheight) {
-										return λ.Mod(λ.NewStr("-%dp"), ϒheight)
+										return λ.Mod(λ.StrLiteral("-%dp"), ϒheight)
 									} else {
-										return λ.NewStr("")
+										return λ.StrLiteral("")
 									}
 								}())),
-								λ.NewStr("url"):    ϒplayback_url,
-								λ.NewStr("width"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒplayback, "get", nil), λ.NewStr("width"))),
-								λ.NewStr("height"): ϒheight,
-								λ.NewStr("tbr"): λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-									λ.NewStr("_(\\d+)[kK]"),
+								"url":    ϒplayback_url,
+								"width":  λ.Cal(ϒint_or_none, λ.Calm(ϒplayback, "get", λ.StrLiteral("width"))),
+								"height": ϒheight,
+								"tbr": λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+									λ.StrLiteral("_(\\d+)[kK]"),
 									ϒplayback_url,
-									λ.NewStr("bitrate"),
+									λ.StrLiteral("bitrate"),
 								), λ.KWArgs{
 									{Name: "default", Value: λ.None},
 								})),
 							}))
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒthumbnails = λ.NewList()
 					ϒcuts = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("image"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("cuts")); λ.IsTrue(λv) {
+						if λv := λ.Calm(λ.Calm(ϒvideo_data, "get", λ.StrLiteral("image"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("cuts")); λ.IsTrue(λv) {
 							return λv
 						} else {
 							return λ.NewList()
 						}
 					}()
 					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒcuts, λ.DictType)) {
-						ϒcuts = λ.Cal(λ.GetAttr(ϒcuts, "values", nil))
+						ϒcuts = λ.Calm(ϒcuts, "values")
 					}
 					τmp0 = λ.Cal(λ.BuiltinIter, ϒcuts)
 					for {
@@ -179,43 +179,43 @@ func init() {
 							break
 						}
 						ϒthumbnail_data = τmp1
-						ϒthumbnail_url = λ.Cal(λ.GetAttr(ϒthumbnail_data, "get", nil), λ.NewStr("src"))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒthumbnail_url))) {
+						ϒthumbnail_url = λ.Calm(ϒthumbnail_data, "get", λ.StrLiteral("src"))
+						if !λ.IsTrue(ϒthumbnail_url) {
 							continue
 						}
-						λ.Cal(λ.GetAttr(ϒthumbnails, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):    ϒthumbnail_url,
-							λ.NewStr("width"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒthumbnail_data, "get", nil), λ.NewStr("width"))),
-							λ.NewStr("height"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒthumbnail_data, "get", nil), λ.NewStr("height"))),
+						λ.Calm(ϒthumbnails, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":    ϒthumbnail_url,
+							"width":  λ.Cal(ϒint_or_none, λ.Calm(ϒthumbnail_data, "get", λ.StrLiteral("width"))),
+							"height": λ.Cal(ϒint_or_none, λ.Calm(ϒthumbnail_data, "get", λ.StrLiteral("height"))),
 						}))
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("description")),
-						λ.NewStr("timestamp"):   λ.Cal(ϒparse_iso8601, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("date"))),
-						λ.NewStr("duration"):    λ.Cal(ϒparse_duration, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("duration"))),
-						λ.NewStr("thumbnails"):  ϒthumbnails,
-						λ.NewStr("formats"):     ϒformats,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       ϒtitle,
+						"description": λ.Calm(ϒvideo_data, "get", λ.StrLiteral("description")),
+						"timestamp":   λ.Cal(ϒparse_iso8601, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("date"))),
+						"duration":    λ.Cal(ϒparse_duration, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("duration"))),
+						"thumbnails":  ϒthumbnails,
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_real_extract"): NHLBaseIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_real_extract": NHLBaseIE__real_extract,
 			})
 		}())
-		NHLIE = λ.Cal(λ.TypeType, λ.NewStr("NHLIE"), λ.NewTuple(NHLBaseIE), func() λ.Dict {
+		NHLIE = λ.Cal(λ.TypeType, λ.StrLiteral("NHLIE"), λ.NewTuple(NHLBaseIE), func() λ.Dict {
 			var (
 				NHLIE_IE_NAME         λ.Object
 				NHLIE__CONTENT_DOMAIN λ.Object
 				NHLIE__VALID_URL      λ.Object
 			)
-			NHLIE_IE_NAME = λ.NewStr("nhl.com")
-			NHLIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?P<site>nhl|wch2016)\\.com/(?:[^/]+/)*c-(?P<id>\\d+)")
-			NHLIE__CONTENT_DOMAIN = λ.NewStr("nhl.bamcontent.com")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):         NHLIE_IE_NAME,
-				λ.NewStr("_CONTENT_DOMAIN"): NHLIE__CONTENT_DOMAIN,
-				λ.NewStr("_VALID_URL"):      NHLIE__VALID_URL,
+			NHLIE_IE_NAME = λ.StrLiteral("nhl.com")
+			NHLIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?P<site>nhl|wch2016)\\.com/(?:[^/]+/)*c-(?P<id>\\d+)")
+			NHLIE__CONTENT_DOMAIN = λ.StrLiteral("nhl.bamcontent.com")
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":         NHLIE_IE_NAME,
+				"_CONTENT_DOMAIN": NHLIE__CONTENT_DOMAIN,
+				"_VALID_URL":      NHLIE__VALID_URL,
 			})
 		}())
 	})

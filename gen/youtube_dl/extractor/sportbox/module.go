@@ -46,13 +46,13 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒmerge_dicts = Ωutils.ϒmerge_dicts
-		SportBoxIE = λ.Cal(λ.TypeType, λ.NewStr("SportBoxIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SportBoxIE = λ.Cal(λ.TypeType, λ.StrLiteral("SportBoxIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SportBoxIE__VALID_URL λ.Object
 			)
-			SportBoxIE__VALID_URL = λ.NewStr("https?://(?:news\\.sportbox|matchtv)\\.ru/vdl/player(?:/[^/]+/|\\?.*?\\bn?id=)(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SportBoxIE__VALID_URL,
+			SportBoxIE__VALID_URL = λ.StrLiteral("https?://(?:news\\.sportbox|matchtv)\\.ru/vdl/player(?:/[^/]+/|\\?.*?\\bn?id=)(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SportBoxIE__VALID_URL,
 			})
 		}())
 	})

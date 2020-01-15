@@ -37,12 +37,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		PeopleIE = λ.Cal(λ.TypeType, λ.NewStr("PeopleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		PeopleIE = λ.Cal(λ.TypeType, λ.StrLiteral("PeopleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				PeopleIE__VALID_URL    λ.Object
 				PeopleIE__real_extract λ.Object
 			)
-			PeopleIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?people\\.com/people/videos/0,,(?P<id>\\d+),00\\.html")
+			PeopleIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?people\\.com/people/videos/0,,(?P<id>\\d+),00\\.html")
 			PeopleIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -54,11 +54,11 @@ func init() {
 						ϒself = λargs[0]
 						ϒurl  = λargs[1]
 					)
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://players.brightcove.net/416418724/default_default/index.html?videoId=ref:%s"), λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)), λ.NewStr("BrightcoveNew"))
+					return λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("http://players.brightcove.net/416418724/default_default/index.html?videoId=ref:%s"), λ.Calm(ϒself, "_match_id", ϒurl)), λ.StrLiteral("BrightcoveNew"))
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    PeopleIE__VALID_URL,
-				λ.NewStr("_real_extract"): PeopleIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    PeopleIE__VALID_URL,
+				"_real_extract": PeopleIE__real_extract,
 			})
 		}())
 	})

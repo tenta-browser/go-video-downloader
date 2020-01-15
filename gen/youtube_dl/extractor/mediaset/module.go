@@ -52,15 +52,15 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
-		MediasetIE = λ.Cal(λ.TypeType, λ.NewStr("MediasetIE"), λ.NewTuple(ThePlatformBaseIE), func() λ.Dict {
+		MediasetIE = λ.Cal(λ.TypeType, λ.StrLiteral("MediasetIE"), λ.NewTuple(ThePlatformBaseIE), func() λ.Dict {
 			var (
 				MediasetIE__TP_TLD             λ.Object
 				MediasetIE__VALID_URL          λ.Object
 				MediasetIE__parse_smil_formats λ.Object
 				MediasetIE__real_extract       λ.Object
 			)
-			MediasetIE__TP_TLD = λ.NewStr("eu")
-			MediasetIE__VALID_URL = λ.NewStr("(?x)\n                    (?:\n                        mediaset:|\n                        https?://\n                            (?:(?:www|static3)\\.)?mediasetplay\\.mediaset\\.it/\n                            (?:\n                                (?:video|on-demand)/(?:[^/]+/)+[^/]+_|\n                                player/index\\.html\\?.*?\\bprogramGuid=\n                            )\n                    )(?P<id>[0-9A-Z]{16,})\n                    ")
+			MediasetIE__TP_TLD = λ.StrLiteral("eu")
+			MediasetIE__VALID_URL = λ.StrLiteral("(?x)\n                    (?:\n                        mediaset:|\n                        https?://\n                            (?:(?:www|static3)\\.)?mediasetplay\\.mediaset\\.it/\n                            (?:\n                                (?:video|on-demand)/(?:[^/]+/)+[^/]+_|\n                                player/index\\.html\\?.*?\\bprogramGuid=\n                            )\n                    )(?P<id>[0-9A-Z]{16,})\n                    ")
 			MediasetIE__parse_smil_formats = λ.NewFunction("_parse_smil_formats",
 				[]λ.Param{
 					{Name: "self"},
@@ -85,15 +85,15 @@ func init() {
 						τmp0                λ.Object
 						τmp1                λ.Object
 					)
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒsmil, "findall", nil), λ.Cal(λ.GetAttr(ϒself, "_xpath_ns", nil), λ.NewStr(".//video"), ϒnamespace)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒsmil, "findall", λ.Calm(ϒself, "_xpath_ns", λ.StrLiteral(".//video"), ϒnamespace)))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒvideo = τmp1
-						λ.SetItem(λ.GetAttr(ϒvideo, "attrib", nil), λ.NewStr("src"), λ.Cal(Ωre.ϒsub, λ.NewStr("(https?://vod05)t(-mediaset-it\\.akamaized\\.net/.+?.mpd)\\?.+"), λ.NewStr("\\1\\2"), λ.GetItem(λ.GetAttr(ϒvideo, "attrib", nil), λ.NewStr("src"))))
+						λ.SetItem(λ.GetAttr(ϒvideo, "attrib", nil), λ.StrLiteral("src"), λ.Cal(Ωre.ϒsub, λ.StrLiteral("(https?://vod05)t(-mediaset-it\\.akamaized\\.net/.+?.mpd)\\?.+"), λ.StrLiteral("\\1\\2"), λ.GetItem(λ.GetAttr(ϒvideo, "attrib", nil), λ.StrLiteral("src"))))
 					}
-					return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, MediasetIE, ϒself), "_parse_smil_formats", nil), ϒsmil, ϒsmil_url, ϒvideo_id, ϒnamespace, ϒf4m_params, ϒtransform_rtmp_url)
+					return λ.Calm(λ.Cal(λ.SuperType, MediasetIE, ϒself), "_parse_smil_formats", ϒsmil, ϒsmil_url, ϒvideo_id, ϒnamespace, ϒf4m_params, ϒtransform_rtmp_url)
 				})
 			MediasetIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -129,15 +129,15 @@ func init() {
 						τmp5          λ.Object
 						τmp6          λ.Object
 					)
-					ϒguid = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒtp_path = λ.Add(λ.NewStr("PR1GhC/media/guid/2702976343/"), ϒguid)
-					ϒinfo = λ.Cal(λ.GetAttr(ϒself, "_extract_theplatform_metadata", nil), ϒtp_path, ϒguid)
+					ϒguid = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒtp_path = λ.Add(λ.StrLiteral("PR1GhC/media/guid/2702976343/"), ϒguid)
+					ϒinfo = λ.Calm(ϒself, "_extract_theplatform_metadata", ϒtp_path, ϒguid)
 					ϒformats = λ.NewList()
-					ϒsubtitles = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+					ϒsubtitles = λ.DictLiteral(map[λ.Object]λ.Object{})
 					ϒfirst_e = λ.None
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-						λ.NewStr("SD"),
-						λ.NewStr("HD"),
+						λ.StrLiteral("SD"),
+						λ.StrLiteral("HD"),
 					))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
@@ -145,9 +145,9 @@ func init() {
 						}
 						ϒasset_type = τmp1
 						τmp2 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-							λ.NewStr("MPEG4"),
-							λ.NewStr("MPEG-DASH+none"),
-							λ.NewStr("M3U+none"),
+							λ.StrLiteral("MPEG4"),
+							λ.StrLiteral("MPEG-DASH+none"),
+							λ.StrLiteral("M3U+none"),
 						))
 						for {
 							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
@@ -159,26 +159,26 @@ func init() {
 									nil,
 									&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 										var ϒe λ.Object = λex
-										if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒfirst_e))) {
+										if !λ.IsTrue(ϒfirst_e) {
 											ϒfirst_e = ϒe
 										}
 										λexit = λ.BlockExitBreak
 										return
 									}},
 								)
-								τmp6 = λ.Cal(λ.GetAttr(ϒself, "_extract_theplatform_smil", nil), λ.Cal(ϒupdate_url_query, λ.Mod(λ.NewStr("http://link.theplatform.%s/s/%s"), λ.NewTuple(
+								τmp6 = λ.Calm(ϒself, "_extract_theplatform_smil", λ.Cal(ϒupdate_url_query, λ.Mod(λ.StrLiteral("http://link.theplatform.%s/s/%s"), λ.NewTuple(
 									λ.GetAttr(ϒself, "_TP_TLD", nil),
 									ϒtp_path,
-								)), λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("mbr"):        λ.NewStr("true"),
-									λ.NewStr("formats"):    ϒf,
-									λ.NewStr("assetTypes"): ϒasset_type,
-								})), ϒguid, λ.Mod(λ.NewStr("Downloading %s %s SMIL data"), λ.NewTuple(
-									λ.GetItem(λ.Cal(λ.GetAttr(ϒf, "split", nil), λ.NewStr("+")), λ.NewInt(0)),
+								)), λ.DictLiteral(map[string]λ.Object{
+									"mbr":        λ.StrLiteral("true"),
+									"formats":    ϒf,
+									"assetTypes": ϒasset_type,
+								})), ϒguid, λ.Mod(λ.StrLiteral("Downloading %s %s SMIL data"), λ.NewTuple(
+									λ.GetItem(λ.Calm(ϒf, "split", λ.StrLiteral("+")), λ.IntLiteral(0)),
 									ϒasset_type,
 								)))
-								ϒtp_formats = λ.GetItem(τmp6, λ.NewInt(0))
-								ϒtp_subtitles = λ.GetItem(τmp6, λ.NewInt(1))
+								ϒtp_formats = λ.GetItem(τmp6, λ.IntLiteral(0))
+								ϒtp_subtitles = λ.GetItem(τmp6, λ.IntLiteral(1))
 								return λ.BlockExitNormally, nil
 							}()
 							if τmp4 == λ.BlockExitBreak {
@@ -190,16 +190,16 @@ func init() {
 									break
 								}
 								ϒtp_f = τmp4
-								λ.SetItem(ϒtp_f, λ.NewStr("quality"), func() λ.Object {
-									if λ.IsTrue(λ.Eq(ϒasset_type, λ.NewStr("HD"))) {
-										return λ.NewInt(1)
+								λ.SetItem(ϒtp_f, λ.StrLiteral("quality"), func() λ.Object {
+									if λ.IsTrue(λ.Eq(ϒasset_type, λ.StrLiteral("HD"))) {
+										return λ.IntLiteral(1)
 									} else {
-										return λ.NewInt(0)
+										return λ.IntLiteral(0)
 									}
 								}())
 							}
-							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), ϒtp_formats)
-							ϒsubtitles = λ.Cal(λ.GetAttr(ϒself, "_merge_subtitles", nil), ϒsubtitles, ϒtp_subtitles)
+							λ.Calm(ϒformats, "extend", ϒtp_formats)
+							ϒsubtitles = λ.Calm(ϒself, "_merge_subtitles", ϒsubtitles, ϒtp_subtitles)
 						}
 					}
 					if λ.IsTrue(func() λ.Object {
@@ -211,22 +211,22 @@ func init() {
 					}()) {
 						panic(λ.Raise(ϒfirst_e))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒfields = λ.NewList()
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
 						λ.NewTuple(
-							λ.NewStr("tvSeason%sNumber"),
+							λ.StrLiteral("tvSeason%sNumber"),
 							λ.NewTuple(
-								λ.NewStr(""),
-								λ.NewStr("Episode"),
+								λ.StrLiteral(""),
+								λ.StrLiteral("Episode"),
 							),
 						),
 						λ.NewTuple(
-							λ.NewStr("mediasetprogram$%s"),
+							λ.StrLiteral("mediasetprogram$%s"),
 							λ.NewTuple(
-								λ.NewStr("brandTitle"),
-								λ.NewStr("numberOfViews"),
-								λ.NewStr("publishInfo"),
+								λ.StrLiteral("brandTitle"),
+								λ.StrLiteral("numberOfViews"),
+								λ.StrLiteral("publishInfo"),
 							),
 						),
 					))
@@ -235,9 +235,9 @@ func init() {
 							break
 						}
 						τmp2 = τmp1
-						ϒtempl = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒrepls = λ.GetItem(τmp2, λ.NewInt(1))
-						λ.Cal(λ.GetAttr(ϒfields, "extend", nil), λ.Cal(λ.NewFunction("<generator>",
+						ϒtempl = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒrepls = λ.GetItem(τmp2, λ.IntLiteral(1))
+						λ.Calm(ϒfields, "extend", λ.Cal(λ.NewFunction("<generator>",
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
@@ -260,43 +260,43 @@ func init() {
 							})))
 					}
 					ϒfeed_data = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Add(λ.NewStr("https://feed.entertainment.tv.theplatform.eu/f/PR1GhC/mediaset-prod-all-programs/guid/-/"), ϒguid),
+						λ.Add(λ.StrLiteral("https://feed.entertainment.tv.theplatform.eu/f/PR1GhC/mediaset-prod-all-programs/guid/-/"), ϒguid),
 						ϒguid,
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
-						{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("fields"): λ.Cal(λ.GetAttr(λ.NewStr(","), "join", nil), ϒfields),
+						{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
+							"fields": λ.Calm(λ.StrLiteral(","), "join", ϒfields),
 						})},
 					})
 					if λ.IsTrue(ϒfeed_data) {
 						ϒpublish_info = func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒfeed_data, "get", nil), λ.NewStr("mediasetprogram$publishInfo")); λ.IsTrue(λv) {
+							if λv := λ.Calm(ϒfeed_data, "get", λ.StrLiteral("mediasetprogram$publishInfo")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+								return λ.DictLiteral(map[λ.Object]λ.Object{})
 							}
 						}()
-						λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("episode_number"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfeed_data, "get", nil), λ.NewStr("tvSeasonEpisodeNumber"))),
-							λ.NewStr("season_number"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfeed_data, "get", nil), λ.NewStr("tvSeasonNumber"))),
-							λ.NewStr("series"):         λ.Cal(λ.GetAttr(ϒfeed_data, "get", nil), λ.NewStr("mediasetprogram$brandTitle")),
-							λ.NewStr("uploader"):       λ.Cal(λ.GetAttr(ϒpublish_info, "get", nil), λ.NewStr("description")),
-							λ.NewStr("uploader_id"):    λ.Cal(λ.GetAttr(ϒpublish_info, "get", nil), λ.NewStr("channel")),
-							λ.NewStr("view_count"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒfeed_data, "get", nil), λ.NewStr("mediasetprogram$numberOfViews"))),
+						λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
+							"episode_number": λ.Cal(ϒint_or_none, λ.Calm(ϒfeed_data, "get", λ.StrLiteral("tvSeasonEpisodeNumber"))),
+							"season_number":  λ.Cal(ϒint_or_none, λ.Calm(ϒfeed_data, "get", λ.StrLiteral("tvSeasonNumber"))),
+							"series":         λ.Calm(ϒfeed_data, "get", λ.StrLiteral("mediasetprogram$brandTitle")),
+							"uploader":       λ.Calm(ϒpublish_info, "get", λ.StrLiteral("description")),
+							"uploader_id":    λ.Calm(ϒpublish_info, "get", λ.StrLiteral("channel")),
+							"view_count":     λ.Cal(ϒint_or_none, λ.Calm(ϒfeed_data, "get", λ.StrLiteral("mediasetprogram$numberOfViews"))),
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒguid,
-						λ.NewStr("formats"):   ϒformats,
-						λ.NewStr("subtitles"): ϒsubtitles,
+					λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒguid,
+						"formats":   ϒformats,
+						"subtitles": ϒsubtitles,
 					}))
 					return ϒinfo
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TP_TLD"):             MediasetIE__TP_TLD,
-				λ.NewStr("_VALID_URL"):          MediasetIE__VALID_URL,
-				λ.NewStr("_parse_smil_formats"): MediasetIE__parse_smil_formats,
-				λ.NewStr("_real_extract"):       MediasetIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_TP_TLD":             MediasetIE__TP_TLD,
+				"_VALID_URL":          MediasetIE__VALID_URL,
+				"_parse_smil_formats": MediasetIE__parse_smil_formats,
+				"_real_extract":       MediasetIE__real_extract,
 			})
 		}())
 	})

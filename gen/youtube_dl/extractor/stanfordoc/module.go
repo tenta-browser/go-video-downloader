@@ -45,14 +45,14 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
-		StanfordOpenClassroomIE = λ.Cal(λ.TypeType, λ.NewStr("StanfordOpenClassroomIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		StanfordOpenClassroomIE = λ.Cal(λ.TypeType, λ.StrLiteral("StanfordOpenClassroomIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				StanfordOpenClassroomIE_IE_NAME       λ.Object
 				StanfordOpenClassroomIE__VALID_URL    λ.Object
 				StanfordOpenClassroomIE__real_extract λ.Object
 			)
-			StanfordOpenClassroomIE_IE_NAME = λ.NewStr("stanfordoc")
-			StanfordOpenClassroomIE__VALID_URL = λ.NewStr("https?://openclassroom\\.stanford\\.edu(?P<path>/?|(/MainFolder/(?:HomePage|CoursePage|VideoPage)\\.php([?]course=(?P<course>[^&]+)(&video=(?P<video>[^&]+))?(&.*)?)?))$")
+			StanfordOpenClassroomIE_IE_NAME = λ.StrLiteral("stanfordoc")
+			StanfordOpenClassroomIE__VALID_URL = λ.StrLiteral("https?://openclassroom\\.stanford\\.edu(?P<path>/?|(/MainFolder/(?:HomePage|CoursePage|VideoPage)\\.php([?]course=(?P<course>[^&]+)(&video=(?P<video>[^&]+))?(&.*)?)?))$")
 			StanfordOpenClassroomIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -81,66 +81,66 @@ func init() {
 					_ = τmp1
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
 					if λ.IsTrue(func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("course")); !λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒmobj, "group", λ.StrLiteral("course")); !λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("video"))
+							return λ.Calm(ϒmobj, "group", λ.StrLiteral("video"))
 						}
 					}()) {
-						ϒcourse = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("course"))
-						ϒvideo = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("video"))
-						ϒinfo = λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("id"):          λ.Add(λ.Add(ϒcourse, λ.NewStr("_")), ϒvideo),
-							λ.NewStr("uploader"):    λ.None,
-							λ.NewStr("upload_date"): λ.None,
+						ϒcourse = λ.Calm(ϒmobj, "group", λ.StrLiteral("course"))
+						ϒvideo = λ.Calm(ϒmobj, "group", λ.StrLiteral("video"))
+						ϒinfo = λ.DictLiteral(map[string]λ.Object{
+							"id":          λ.Add(λ.Add(ϒcourse, λ.StrLiteral("_")), ϒvideo),
+							"uploader":    λ.None,
+							"upload_date": λ.None,
 						})
-						ϒbaseUrl = λ.Add(λ.Add(λ.NewStr("http://openclassroom.stanford.edu/MainFolder/courses/"), ϒcourse), λ.NewStr("/videos/"))
-						ϒxmlUrl = λ.Add(λ.Add(ϒbaseUrl, ϒvideo), λ.NewStr(".xml"))
-						ϒmdoc = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), ϒxmlUrl, λ.GetItem(ϒinfo, λ.NewStr("id")))
+						ϒbaseUrl = λ.Add(λ.Add(λ.StrLiteral("http://openclassroom.stanford.edu/MainFolder/courses/"), ϒcourse), λ.StrLiteral("/videos/"))
+						ϒxmlUrl = λ.Add(λ.Add(ϒbaseUrl, ϒvideo), λ.StrLiteral(".xml"))
+						ϒmdoc = λ.Calm(ϒself, "_download_xml", ϒxmlUrl, λ.GetItem(ϒinfo, λ.StrLiteral("id")))
 						τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
 							defer λ.CatchMulti(
 								nil,
 								&λ.Catcher{λ.IndexErrorType, func(λex λ.BaseException) {
-									panic(λ.Raise(λ.Cal(ExtractorError, λ.NewStr("Invalid metadata XML file"))))
+									panic(λ.Raise(λ.Cal(ExtractorError, λ.StrLiteral("Invalid metadata XML file"))))
 								}},
 							)
-							λ.SetItem(ϒinfo, λ.NewStr("title"), λ.GetAttr(λ.GetItem(λ.Cal(λ.GetAttr(ϒmdoc, "findall", nil), λ.NewStr("./title")), λ.NewInt(0)), "text", nil))
-							λ.SetItem(ϒinfo, λ.NewStr("url"), λ.Add(ϒbaseUrl, λ.GetAttr(λ.GetItem(λ.Cal(λ.GetAttr(ϒmdoc, "findall", nil), λ.NewStr("./videoFile")), λ.NewInt(0)), "text", nil)))
+							λ.SetItem(ϒinfo, λ.StrLiteral("title"), λ.GetAttr(λ.GetItem(λ.Calm(ϒmdoc, "findall", λ.StrLiteral("./title")), λ.IntLiteral(0)), "text", nil))
+							λ.SetItem(ϒinfo, λ.StrLiteral("url"), λ.Add(ϒbaseUrl, λ.GetAttr(λ.GetItem(λ.Calm(ϒmdoc, "findall", λ.StrLiteral("./videoFile")), λ.IntLiteral(0)), "text", nil)))
 							return λ.BlockExitNormally, nil
 						}()
 						return ϒinfo
 					} else {
-						if λ.IsTrue(λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("course"))) {
-							ϒcourse = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("course"))
-							ϒinfo = λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("id"):          ϒcourse,
-								λ.NewStr("_type"):       λ.NewStr("playlist"),
-								λ.NewStr("uploader"):    λ.None,
-								λ.NewStr("upload_date"): λ.None,
+						if λ.IsTrue(λ.Calm(ϒmobj, "group", λ.StrLiteral("course"))) {
+							ϒcourse = λ.Calm(ϒmobj, "group", λ.StrLiteral("course"))
+							ϒinfo = λ.DictLiteral(map[string]λ.Object{
+								"id":          ϒcourse,
+								"_type":       λ.StrLiteral("playlist"),
+								"uploader":    λ.None,
+								"upload_date": λ.None,
 							})
 							ϒcoursepage = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
 								ϒurl,
-								λ.GetItem(ϒinfo, λ.NewStr("id")),
+								λ.GetItem(ϒinfo, λ.StrLiteral("id")),
 							), λ.KWArgs{
-								{Name: "note", Value: λ.NewStr("Downloading course info page")},
-								{Name: "errnote", Value: λ.NewStr("Unable to download course info page")},
+								{Name: "note", Value: λ.StrLiteral("Downloading course info page")},
+								{Name: "errnote", Value: λ.StrLiteral("Unable to download course info page")},
 							})
-							λ.SetItem(ϒinfo, λ.NewStr("title"), λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-								λ.NewStr("<h1>([^<]+)</h1>"),
+							λ.SetItem(ϒinfo, λ.StrLiteral("title"), λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
+								λ.StrLiteral("<h1>([^<]+)</h1>"),
 								ϒcoursepage,
-								λ.NewStr("title"),
+								λ.StrLiteral("title"),
 							), λ.KWArgs{
-								{Name: "default", Value: λ.GetItem(ϒinfo, λ.NewStr("id"))},
+								{Name: "default", Value: λ.GetItem(ϒinfo, λ.StrLiteral("id"))},
 							}))
-							λ.SetItem(ϒinfo, λ.NewStr("description"), λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-								λ.NewStr("(?s)<description>([^<]+)</description>"),
+							λ.SetItem(ϒinfo, λ.StrLiteral("description"), λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
+								λ.StrLiteral("(?s)<description>([^<]+)</description>"),
 								ϒcoursepage,
-								λ.NewStr("description"),
+								λ.StrLiteral("description"),
 							), λ.KWArgs{
 								{Name: "fatal", Value: λ.False},
 							}))
-							ϒlinks = λ.Cal(ϒorderedSet, λ.Cal(Ωre.ϒfindall, λ.NewStr("<a href=\"(VideoPage\\.php\\?[^\"]+)\">"), ϒcoursepage))
-							λ.SetItem(ϒinfo, λ.NewStr("entries"), λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+							ϒlinks = λ.Cal(ϒorderedSet, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("<a href=\"(VideoPage\\.php\\?[^\"]+)\">"), ϒcoursepage))
+							λ.SetItem(ϒinfo, λ.StrLiteral("entries"), λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 								nil,
 								0, false, false,
 								func(λargs []λ.Object) λ.Object {
@@ -156,29 +156,29 @@ func init() {
 												break
 											}
 											ϒl = τmp1
-											λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://openclassroom.stanford.edu/MainFolder/%s"), λ.Cal(ϒunescapeHTML, ϒl))))
+											λgy.Yield(λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("http://openclassroom.stanford.edu/MainFolder/%s"), λ.Cal(ϒunescapeHTML, ϒl))))
 										}
 										return λ.None
 									})
 								}))))
 							return ϒinfo
 						} else {
-							ϒinfo = λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("id"):          λ.NewStr("Stanford OpenClassroom"),
-								λ.NewStr("_type"):       λ.NewStr("playlist"),
-								λ.NewStr("uploader"):    λ.None,
-								λ.NewStr("upload_date"): λ.None,
+							ϒinfo = λ.DictLiteral(map[string]λ.Object{
+								"id":          λ.StrLiteral("Stanford OpenClassroom"),
+								"_type":       λ.StrLiteral("playlist"),
+								"uploader":    λ.None,
+								"upload_date": λ.None,
 							})
-							λ.SetItem(ϒinfo, λ.NewStr("title"), λ.GetItem(ϒinfo, λ.NewStr("id")))
-							ϒrootURL = λ.NewStr("http://openclassroom.stanford.edu/MainFolder/HomePage.php")
+							λ.SetItem(ϒinfo, λ.StrLiteral("title"), λ.GetItem(ϒinfo, λ.StrLiteral("id")))
+							ϒrootURL = λ.StrLiteral("http://openclassroom.stanford.edu/MainFolder/HomePage.php")
 							ϒrootpage = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
 								ϒrootURL,
-								λ.GetItem(ϒinfo, λ.NewStr("id")),
+								λ.GetItem(ϒinfo, λ.StrLiteral("id")),
 							), λ.KWArgs{
-								{Name: "errnote", Value: λ.NewStr("Unable to download course info page")},
+								{Name: "errnote", Value: λ.StrLiteral("Unable to download course info page")},
 							})
-							ϒlinks = λ.Cal(ϒorderedSet, λ.Cal(Ωre.ϒfindall, λ.NewStr("<a href=\"(CoursePage\\.php\\?[^\"]+)\">"), ϒrootpage))
-							λ.SetItem(ϒinfo, λ.NewStr("entries"), λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+							ϒlinks = λ.Cal(ϒorderedSet, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("<a href=\"(CoursePage\\.php\\?[^\"]+)\">"), ϒrootpage))
+							λ.SetItem(ϒinfo, λ.StrLiteral("entries"), λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 								nil,
 								0, false, false,
 								func(λargs []λ.Object) λ.Object {
@@ -194,7 +194,7 @@ func init() {
 												break
 											}
 											ϒl = τmp1
-											λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://openclassroom.stanford.edu/MainFolder/%s"), λ.Cal(ϒunescapeHTML, ϒl))))
+											λgy.Yield(λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("http://openclassroom.stanford.edu/MainFolder/%s"), λ.Cal(ϒunescapeHTML, ϒl))))
 										}
 										return λ.None
 									})
@@ -204,10 +204,10 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       StanfordOpenClassroomIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    StanfordOpenClassroomIE__VALID_URL,
-				λ.NewStr("_real_extract"): StanfordOpenClassroomIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       StanfordOpenClassroomIE_IE_NAME,
+				"_VALID_URL":    StanfordOpenClassroomIE__VALID_URL,
+				"_real_extract": StanfordOpenClassroomIE__real_extract,
 			})
 		}())
 	})

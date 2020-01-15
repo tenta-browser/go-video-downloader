@@ -65,12 +65,12 @@ func init() {
 				var (
 					ϒx = λargs[0]
 				)
-				if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒx, λ.NewTuple(
+				if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒx, λ.NewTuple(
 					λ.IntType,
 					λ.FloatType,
 					λ.BoolType,
-				))))) {
-					panic(λ.Raise(λ.Cal(λ.TypeErrorType, λ.Add(λ.NewStr("must be a real number, not "), λ.GetAttr(λ.Cal(λ.TypeType, ϒx), "__name__", nil)))))
+				))) {
+					panic(λ.Raise(λ.Cal(λ.TypeErrorType, λ.Add(λ.StrLiteral("must be a real number, not "), λ.GetAttr(λ.Cal(λ.TypeType, ϒx), "__name__", nil)))))
 				}
 				return λ.None
 			})

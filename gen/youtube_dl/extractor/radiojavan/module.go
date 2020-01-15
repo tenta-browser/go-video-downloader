@@ -49,12 +49,12 @@ func init() {
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		ϒurljoin = Ωutils.ϒurljoin
-		RadioJavanIE = λ.Cal(λ.TypeType, λ.NewStr("RadioJavanIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		RadioJavanIE = λ.Cal(λ.TypeType, λ.StrLiteral("RadioJavanIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				RadioJavanIE__VALID_URL    λ.Object
 				RadioJavanIE__real_extract λ.Object
 			)
-			RadioJavanIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?radiojavan\\.com/videos/video/(?P<id>[^/]+)/?")
+			RadioJavanIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?radiojavan\\.com/videos/video/(?P<id>[^/]+)/?")
 			RadioJavanIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -82,82 +82,82 @@ func init() {
 						τmp1           λ.Object
 						τmp2           λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒdownload_host = λ.Cal(λ.GetAttr(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.NewStr("https://www.radiojavan.com/videos/video_host"),
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒdownload_host = λ.Calm(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.StrLiteral("https://www.radiojavan.com/videos/video_host"),
 						ϒvideo_id,
 					), λ.KWArgs{
-						{Name: "data", Value: λ.Cal(ϒurlencode_postdata, λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("id"): ϒvideo_id,
+						{Name: "data", Value: λ.Cal(ϒurlencode_postdata, λ.DictLiteral(map[string]λ.Object{
+							"id": ϒvideo_id,
 						}))},
-						{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("Content-Type"): λ.NewStr("application/x-www-form-urlencoded"),
-							λ.NewStr("Referer"):      ϒurl,
+						{Name: "headers", Value: λ.DictLiteral(map[string]λ.Object{
+							"Content-Type": λ.StrLiteral("application/x-www-form-urlencoded"),
+							"Referer":      ϒurl,
 						})},
-					}), "get", nil), λ.NewStr("host"), λ.NewStr("https://host1.rjmusicmedia.com"))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					}), "get", λ.StrLiteral("host"), λ.StrLiteral("https://host1.rjmusicmedia.com"))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.NewStr("RJ\\.video(?P<format_id>\\d+[pPkK])\\s*=\\s*([\"\\'])(?P<url>(?:(?!\\2).)+)\\2"), ϒwebpage))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("RJ\\.video(?P<format_id>\\d+[pPkK])\\s*=\\s*([\"\\'])(?P<url>(?:(?!\\2).)+)\\2"), ϒwebpage))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒformat_id = λ.GetItem(τmp2, λ.NewInt(0))
-						_ = λ.GetItem(τmp2, λ.NewInt(1))
-						ϒvideo_path = λ.GetItem(τmp2, λ.NewInt(2))
+						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
+						_ = λ.GetItem(τmp2, λ.IntLiteral(1))
+						ϒvideo_path = λ.GetItem(τmp2, λ.IntLiteral(2))
 						ϒf = λ.Cal(ϒparse_resolution, ϒformat_id)
-						λ.Cal(λ.GetAttr(ϒf, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):       λ.Cal(ϒurljoin, ϒdownload_host, ϒvideo_path),
-							λ.NewStr("format_id"): ϒformat_id,
+						λ.Calm(ϒf, "update", λ.DictLiteral(map[string]λ.Object{
+							"url":       λ.Cal(ϒurljoin, ϒdownload_host, ϒvideo_path),
+							"format_id": ϒformat_id,
 						}))
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)
+						λ.Calm(ϒformats, "append", ϒf)
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
-					ϒthumbnail = λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒtitle = λ.Calm(ϒself, "_og_search_title", ϒwebpage)
+					ϒthumbnail = λ.Calm(ϒself, "_og_search_thumbnail", ϒwebpage)
 					ϒupload_date = λ.Cal(ϒunified_strdate, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("class=\"date_added\">Date added: ([^<]+)<"),
+						λ.StrLiteral("class=\"date_added\">Date added: ([^<]+)<"),
 						ϒwebpage,
-						λ.NewStr("upload date"),
+						λ.StrLiteral("upload date"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
 					ϒview_count = λ.Cal(ϒstr_to_int, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("class=\"views\">Plays: ([\\d,]+)"),
+						λ.StrLiteral("class=\"views\">Plays: ([\\d,]+)"),
 						ϒwebpage,
-						λ.NewStr("view count"),
+						λ.StrLiteral("view count"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
 					ϒlike_count = λ.Cal(ϒstr_to_int, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("class=\"rating\">([\\d,]+) likes"),
+						λ.StrLiteral("class=\"rating\">([\\d,]+) likes"),
 						ϒwebpage,
-						λ.NewStr("like count"),
+						λ.StrLiteral("like count"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
 					ϒdislike_count = λ.Cal(ϒstr_to_int, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("class=\"rating\">([\\d,]+) dislikes"),
+						λ.StrLiteral("class=\"rating\">([\\d,]+) dislikes"),
 						ϒwebpage,
-						λ.NewStr("dislike count"),
+						λ.StrLiteral("dislike count"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            ϒvideo_id,
-						λ.NewStr("title"):         ϒtitle,
-						λ.NewStr("thumbnail"):     ϒthumbnail,
-						λ.NewStr("upload_date"):   ϒupload_date,
-						λ.NewStr("view_count"):    ϒview_count,
-						λ.NewStr("like_count"):    ϒlike_count,
-						λ.NewStr("dislike_count"): ϒdislike_count,
-						λ.NewStr("formats"):       ϒformats,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":            ϒvideo_id,
+						"title":         ϒtitle,
+						"thumbnail":     ϒthumbnail,
+						"upload_date":   ϒupload_date,
+						"view_count":    ϒview_count,
+						"like_count":    ϒlike_count,
+						"dislike_count": ϒdislike_count,
+						"formats":       ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    RadioJavanIE__VALID_URL,
-				λ.NewStr("_real_extract"): RadioJavanIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    RadioJavanIE__VALID_URL,
+				"_real_extract": RadioJavanIE__real_extract,
 			})
 		}())
 	})

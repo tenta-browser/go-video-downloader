@@ -37,6 +37,13 @@ var RandInt = rnt.NewSimpleFunction("RandInt",
 		return rnt.NewInt(rand.Intn(n))
 	})
 
+// RandFloat returns a random number in [0,1).
+var RandFloat = rnt.NewSimpleFunction("RandFloat",
+	nil,
+	func(args []rnt.Object) rnt.Object {
+		return rnt.NewFloat(rand.Float64())
+	})
+
 func init() {
 	rand.Seed(time.Now().UTC().UnixNano())
 }

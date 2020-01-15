@@ -52,22 +52,22 @@ func init() {
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
 		ϒstr_or_none = Ωutils.ϒstr_or_none
-		UstreamIE = λ.Cal(λ.TypeType, λ.NewStr("UstreamIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		UstreamIE = λ.Cal(λ.TypeType, λ.StrLiteral("UstreamIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				UstreamIE__VALID_URL λ.Object
 			)
-			UstreamIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?ustream\\.tv/(?P<type>recorded|embed|embed/recorded)/(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): UstreamIE__VALID_URL,
+			UstreamIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?ustream\\.tv/(?P<type>recorded|embed|embed/recorded)/(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": UstreamIE__VALID_URL,
 			})
 		}())
-		UstreamChannelIE = λ.Cal(λ.TypeType, λ.NewStr("UstreamChannelIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		UstreamChannelIE = λ.Cal(λ.TypeType, λ.StrLiteral("UstreamChannelIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				UstreamChannelIE__VALID_URL λ.Object
 			)
-			UstreamChannelIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?ustream\\.tv/channel/(?P<slug>.+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): UstreamChannelIE__VALID_URL,
+			UstreamChannelIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?ustream\\.tv/channel/(?P<slug>.+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": UstreamChannelIE__VALID_URL,
 			})
 		}())
 	})

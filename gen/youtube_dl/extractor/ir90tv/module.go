@@ -40,12 +40,12 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒremove_start = Ωutils.ϒremove_start
-		Ir90TvIE = λ.Cal(λ.TypeType, λ.NewStr("Ir90TvIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		Ir90TvIE = λ.Cal(λ.TypeType, λ.StrLiteral("Ir90TvIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				Ir90TvIE__VALID_URL    λ.Object
 				Ir90TvIE__real_extract λ.Object
 			)
-			Ir90TvIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?90tv\\.ir/video/(?P<id>[0-9]+)/.*")
+			Ir90TvIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?90tv\\.ir/video/(?P<id>[0-9]+)/.*")
 			Ir90TvIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -62,28 +62,28 @@ func init() {
 						ϒvideo_url λ.Object
 						ϒwebpage   λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒtitle = λ.Cal(ϒremove_start, λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<title>([^<]+)</title>"), ϒwebpage, λ.NewStr("title")), λ.NewStr("90tv.ir :: "))
-					ϒvideo_url = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<source[^>]+src=\"([^\"]+)\""), ϒwebpage, λ.NewStr("video url"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒtitle = λ.Cal(ϒremove_start, λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("<title>([^<]+)</title>"), ϒwebpage, λ.StrLiteral("title")), λ.StrLiteral("90tv.ir :: "))
+					ϒvideo_url = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<source[^>]+src=\"([^\"]+)\""), ϒwebpage, λ.StrLiteral("video url"))
 					ϒthumbnail = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("poster=\"([^\"]+)\""),
+						λ.StrLiteral("poster=\"([^\"]+)\""),
 						ϒwebpage,
-						λ.NewStr("thumbnail url"),
+						λ.StrLiteral("thumbnail url"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("url"):       ϒvideo_url,
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("title"):     ϒtitle,
-						λ.NewStr("video_url"): ϒvideo_url,
-						λ.NewStr("thumbnail"): ϒthumbnail,
+					return λ.DictLiteral(map[string]λ.Object{
+						"url":       ϒvideo_url,
+						"id":        ϒvideo_id,
+						"title":     ϒtitle,
+						"video_url": ϒvideo_url,
+						"thumbnail": ϒthumbnail,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    Ir90TvIE__VALID_URL,
-				λ.NewStr("_real_extract"): Ir90TvIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    Ir90TvIE__VALID_URL,
+				"_real_extract": Ir90TvIE__real_extract,
 			})
 		}())
 	})

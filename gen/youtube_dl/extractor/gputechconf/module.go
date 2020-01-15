@@ -37,12 +37,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		GPUTechConfIE = λ.Cal(λ.TypeType, λ.NewStr("GPUTechConfIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		GPUTechConfIE = λ.Cal(λ.TypeType, λ.StrLiteral("GPUTechConfIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				GPUTechConfIE__VALID_URL    λ.Object
 				GPUTechConfIE__real_extract λ.Object
 			)
-			GPUTechConfIE__VALID_URL = λ.NewStr("https?://on-demand\\.gputechconf\\.com/gtc/2015/video/S(?P<id>\\d+)\\.html")
+			GPUTechConfIE__VALID_URL = λ.StrLiteral("https?://on-demand\\.gputechconf\\.com/gtc/2015/video/S(?P<id>\\d+)\\.html")
 			GPUTechConfIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -58,29 +58,29 @@ func init() {
 						ϒwebpage     λ.Object
 						ϒxml_file_id λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
 					ϒroot_path = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("var\\s+rootPath\\s*=\\s*\"([^\"]+)"),
+						λ.StrLiteral("var\\s+rootPath\\s*=\\s*\"([^\"]+)"),
 						ϒwebpage,
-						λ.NewStr("root path"),
+						λ.StrLiteral("root path"),
 					), λ.KWArgs{
-						{Name: "default", Value: λ.NewStr("http://evt.dispeak.com/nvidia/events/gtc15/")},
+						{Name: "default", Value: λ.StrLiteral("http://evt.dispeak.com/nvidia/events/gtc15/")},
 					})
-					ϒxml_file_id = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("var\\s+xmlFileId\\s*=\\s*\"([^\"]+)"), ϒwebpage, λ.NewStr("xml file id"))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"): λ.NewStr("url_transparent"),
-						λ.NewStr("id"):    ϒvideo_id,
-						λ.NewStr("url"): λ.Mod(λ.NewStr("%sxml/%s.xml"), λ.NewTuple(
+					ϒxml_file_id = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("var\\s+xmlFileId\\s*=\\s*\"([^\"]+)"), ϒwebpage, λ.StrLiteral("xml file id"))
+					return λ.DictLiteral(map[string]λ.Object{
+						"_type": λ.StrLiteral("url_transparent"),
+						"id":    ϒvideo_id,
+						"url": λ.Mod(λ.StrLiteral("%sxml/%s.xml"), λ.NewTuple(
 							ϒroot_path,
 							ϒxml_file_id,
 						)),
-						λ.NewStr("ie_key"): λ.NewStr("DigitallySpeaking"),
+						"ie_key": λ.StrLiteral("DigitallySpeaking"),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    GPUTechConfIE__VALID_URL,
-				λ.NewStr("_real_extract"): GPUTechConfIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    GPUTechConfIE__VALID_URL,
+				"_real_extract": GPUTechConfIE__real_extract,
 			})
 		}())
 	})

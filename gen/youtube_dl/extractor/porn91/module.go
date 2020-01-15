@@ -44,14 +44,14 @@ func init() {
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ExtractorError = Ωutils.ExtractorError
-		Porn91IE = λ.Cal(λ.TypeType, λ.NewStr("Porn91IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		Porn91IE = λ.Cal(λ.TypeType, λ.StrLiteral("Porn91IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				Porn91IE_IE_NAME       λ.Object
 				Porn91IE__VALID_URL    λ.Object
 				Porn91IE__real_extract λ.Object
 			)
-			Porn91IE_IE_NAME = λ.NewStr("91porn")
-			Porn91IE__VALID_URL = λ.NewStr("(?:https?://)(?:www\\.|)91porn\\.com/.+?\\?viewkey=(?P<id>[\\w\\d]+)")
+			Porn91IE_IE_NAME = λ.StrLiteral("91porn")
+			Porn91IE__VALID_URL = λ.StrLiteral("(?:https?://)(?:www\\.|)91porn\\.com/.+?\\?viewkey=(?P<id>[\\w\\d]+)")
 			Porn91IE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -71,46 +71,46 @@ func init() {
 						ϒvideopage      λ.Object
 						ϒwebpage        λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					λ.Cal(λ.GetAttr(ϒself, "_set_cookie", nil), λ.NewStr("91porn.com"), λ.NewStr("language"), λ.NewStr("cn_CN"))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.NewStr("http://91porn.com/view_video.php?viewkey=%s"), ϒvideo_id), ϒvideo_id)
-					if λ.IsTrue(λ.NewBool(λ.Contains(ϒwebpage, λ.NewStr("作为游客，你每天只可观看10个视频")))) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("91 Porn says: Daily limit 10 videos exceeded")), λ.KWArgs{
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					λ.Calm(ϒself, "_set_cookie", λ.StrLiteral("91porn.com"), λ.StrLiteral("language"), λ.StrLiteral("cn_CN"))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", λ.Mod(λ.StrLiteral("http://91porn.com/view_video.php?viewkey=%s"), ϒvideo_id), ϒvideo_id)
+					if λ.Contains(ϒwebpage, λ.StrLiteral("作为游客，你每天只可观看10个视频")) {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("91 Porn says: Daily limit 10 videos exceeded")), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<div id=\"viewvideo-title\">([^<]+)</div>"), ϒwebpage, λ.NewStr("title"))
-					ϒtitle = λ.Cal(λ.GetAttr(ϒtitle, "replace", nil), λ.NewStr("\n"), λ.NewStr(""))
-					ϒvideo_link_url = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<textarea[^>]+id=[\"\\']fm-video_link[^>]+>([^<]+)</textarea>"), ϒwebpage, λ.NewStr("video link"))
-					ϒvideopage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒvideo_link_url, ϒvideo_id)
-					ϒinfo_dict = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_html5_media_entries", nil), ϒurl, ϒvideopage, ϒvideo_id), λ.NewInt(0))
+					ϒtitle = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<div id=\"viewvideo-title\">([^<]+)</div>"), ϒwebpage, λ.StrLiteral("title"))
+					ϒtitle = λ.Calm(ϒtitle, "replace", λ.StrLiteral("\n"), λ.StrLiteral(""))
+					ϒvideo_link_url = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<textarea[^>]+id=[\"\\']fm-video_link[^>]+>([^<]+)</textarea>"), ϒwebpage, λ.StrLiteral("video link"))
+					ϒvideopage = λ.Calm(ϒself, "_download_webpage", ϒvideo_link_url, ϒvideo_id)
+					ϒinfo_dict = λ.GetItem(λ.Calm(ϒself, "_parse_html5_media_entries", ϒurl, ϒvideopage, ϒvideo_id), λ.IntLiteral(0))
 					ϒduration = λ.Cal(ϒparse_duration, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("时长:\\s*</span>\\s*(\\d+:\\d+)"),
+						λ.StrLiteral("时长:\\s*</span>\\s*(\\d+:\\d+)"),
 						ϒwebpage,
-						λ.NewStr("duration"),
+						λ.StrLiteral("duration"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
 					ϒcomment_count = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("留言:\\s*</span>\\s*(\\d+)"),
+						λ.StrLiteral("留言:\\s*</span>\\s*(\\d+)"),
 						ϒwebpage,
-						λ.NewStr("comment count"),
+						λ.StrLiteral("comment count"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
-					λ.Cal(λ.GetAttr(ϒinfo_dict, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            ϒvideo_id,
-						λ.NewStr("title"):         ϒtitle,
-						λ.NewStr("duration"):      ϒduration,
-						λ.NewStr("comment_count"): ϒcomment_count,
-						λ.NewStr("age_limit"):     λ.Cal(λ.GetAttr(ϒself, "_rta_search", nil), ϒwebpage),
+					λ.Calm(ϒinfo_dict, "update", λ.DictLiteral(map[string]λ.Object{
+						"id":            ϒvideo_id,
+						"title":         ϒtitle,
+						"duration":      ϒduration,
+						"comment_count": ϒcomment_count,
+						"age_limit":     λ.Calm(ϒself, "_rta_search", ϒwebpage),
 					}))
 					return ϒinfo_dict
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       Porn91IE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    Porn91IE__VALID_URL,
-				λ.NewStr("_real_extract"): Porn91IE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       Porn91IE_IE_NAME,
+				"_VALID_URL":    Porn91IE__VALID_URL,
+				"_real_extract": Porn91IE__real_extract,
 			})
 		}())
 	})

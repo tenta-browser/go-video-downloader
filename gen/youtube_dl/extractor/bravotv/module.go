@@ -45,12 +45,12 @@ func init() {
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		ϒint_or_none = Ωutils.ϒint_or_none
-		BravoTVIE = λ.Cal(λ.TypeType, λ.NewStr("BravoTVIE"), λ.NewTuple(AdobePassIE), func() λ.Dict {
+		BravoTVIE = λ.Cal(λ.TypeType, λ.StrLiteral("BravoTVIE"), λ.NewTuple(AdobePassIE), func() λ.Dict {
 			var (
 				BravoTVIE__VALID_URL    λ.Object
 				BravoTVIE__real_extract λ.Object
 			)
-			BravoTVIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bravotv\\.com/(?:[^/]+/)+(?P<id>[^/?#]+)")
+			BravoTVIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?bravotv\\.com/(?:[^/]+/)+(?P<id>[^/?#]+)")
 			BravoTVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -77,71 +77,71 @@ func init() {
 						ϒwebpage         λ.Object
 						τmp0             λ.Object
 					)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
-					ϒsettings = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<script[^>]+data-drupal-selector=\"drupal-settings-json\"[^>]*>({.+?})</script>"), ϒwebpage, λ.NewStr("drupal settings")), ϒdisplay_id)
-					ϒinfo = λ.NewDictWithTable(map[λ.Object]λ.Object{})
-					ϒquery = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("mbr"): λ.NewStr("true"),
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
+					ϒsettings = λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<script[^>]+data-drupal-selector=\"drupal-settings-json\"[^>]*>({.+?})</script>"), ϒwebpage, λ.StrLiteral("drupal settings")), ϒdisplay_id)
+					ϒinfo = λ.DictLiteral(map[λ.Object]λ.Object{})
+					ϒquery = λ.DictLiteral(map[string]string{
+						"mbr": "true",
 					})
-					τmp0 = λ.Mul(λ.NewList(λ.None), λ.NewInt(2))
-					ϒaccount_pid = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒrelease_pid = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒtve = λ.Cal(λ.GetAttr(ϒsettings, "get", nil), λ.NewStr("ls_tve"))
+					τmp0 = λ.Mul(λ.NewList(λ.None), λ.IntLiteral(2))
+					ϒaccount_pid = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒrelease_pid = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒtve = λ.Calm(ϒsettings, "get", λ.StrLiteral("ls_tve"))
 					if λ.IsTrue(ϒtve) {
-						λ.SetItem(ϒquery, λ.NewStr("manifest"), λ.NewStr("m3u"))
-						ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("<[^>]+id=\"pdk-player\"[^>]+data-url=[\"\\']?(?:https?:)?//player\\.theplatform\\.com/p/([^/]+)/(?:[^/]+/)*select/([^?#&\"\\']+)"), ϒwebpage)
+						λ.SetItem(ϒquery, λ.StrLiteral("manifest"), λ.StrLiteral("m3u"))
+						ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("<[^>]+id=\"pdk-player\"[^>]+data-url=[\"\\']?(?:https?:)?//player\\.theplatform\\.com/p/([^/]+)/(?:[^/]+/)*select/([^?#&\"\\']+)"), ϒwebpage)
 						if λ.IsTrue(ϒmobj) {
-							τmp0 = λ.Cal(λ.GetAttr(ϒmobj, "groups", nil))
-							ϒaccount_pid = λ.GetItem(τmp0, λ.NewInt(0))
-							ϒtp_path = λ.GetItem(τmp0, λ.NewInt(1))
-							ϒrelease_pid = λ.GetItem(λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒtp_path, "strip", nil), λ.NewStr("/")), "split", nil), λ.NewStr("/")), λ.Neg(λ.NewInt(1)))
+							τmp0 = λ.Calm(ϒmobj, "groups")
+							ϒaccount_pid = λ.GetItem(τmp0, λ.IntLiteral(0))
+							ϒtp_path = λ.GetItem(τmp0, λ.IntLiteral(1))
+							ϒrelease_pid = λ.GetItem(λ.Calm(λ.Calm(ϒtp_path, "strip", λ.StrLiteral("/")), "split", λ.StrLiteral("/")), λ.Neg(λ.IntLiteral(1)))
 						} else {
-							ϒaccount_pid = λ.NewStr("HNK2IC")
-							τmp0 = λ.GetItem(ϒtve, λ.NewStr("release_pid"))
+							ϒaccount_pid = λ.StrLiteral("HNK2IC")
+							τmp0 = λ.GetItem(ϒtve, λ.StrLiteral("release_pid"))
 							ϒtp_path = τmp0
 							ϒrelease_pid = τmp0
 						}
-						if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒtve, "get", nil), λ.NewStr("entitlement")), λ.NewStr("auth"))) {
-							ϒadobe_pass = λ.Cal(λ.GetAttr(ϒsettings, "get", nil), λ.NewStr("tve_adobe_auth"), λ.NewDictWithTable(map[λ.Object]λ.Object{}))
-							ϒresource = λ.Cal(λ.GetAttr(ϒself, "_get_mvpd_resource", nil), λ.Cal(λ.GetAttr(ϒadobe_pass, "get", nil), λ.NewStr("adobePassResourceId"), λ.NewStr("bravo")), λ.GetItem(ϒtve, λ.NewStr("title")), ϒrelease_pid, λ.Cal(λ.GetAttr(ϒtve, "get", nil), λ.NewStr("rating")))
-							λ.SetItem(ϒquery, λ.NewStr("auth"), λ.Cal(λ.GetAttr(ϒself, "_extract_mvpd_auth", nil), ϒurl, ϒrelease_pid, λ.Cal(λ.GetAttr(ϒadobe_pass, "get", nil), λ.NewStr("adobePassRequestorId"), λ.NewStr("bravo")), ϒresource))
+						if λ.IsTrue(λ.Eq(λ.Calm(ϒtve, "get", λ.StrLiteral("entitlement")), λ.StrLiteral("auth"))) {
+							ϒadobe_pass = λ.Calm(ϒsettings, "get", λ.StrLiteral("tve_adobe_auth"), λ.DictLiteral(map[λ.Object]λ.Object{}))
+							ϒresource = λ.Calm(ϒself, "_get_mvpd_resource", λ.Calm(ϒadobe_pass, "get", λ.StrLiteral("adobePassResourceId"), λ.StrLiteral("bravo")), λ.GetItem(ϒtve, λ.StrLiteral("title")), ϒrelease_pid, λ.Calm(ϒtve, "get", λ.StrLiteral("rating")))
+							λ.SetItem(ϒquery, λ.StrLiteral("auth"), λ.Calm(ϒself, "_extract_mvpd_auth", ϒurl, ϒrelease_pid, λ.Calm(ϒadobe_pass, "get", λ.StrLiteral("adobePassRequestorId"), λ.StrLiteral("bravo")), ϒresource))
 						}
 					} else {
-						ϒshared_playlist = λ.GetItem(ϒsettings, λ.NewStr("ls_playlist"))
-						ϒaccount_pid = λ.GetItem(ϒshared_playlist, λ.NewStr("account_pid"))
-						ϒmetadata = λ.GetItem(λ.GetItem(ϒshared_playlist, λ.NewStr("video_metadata")), λ.GetItem(ϒshared_playlist, λ.NewStr("default_clip")))
-						τmp0 = λ.Cal(λ.GetAttr(ϒmetadata, "get", nil), λ.NewStr("release_pid"))
+						ϒshared_playlist = λ.GetItem(ϒsettings, λ.StrLiteral("ls_playlist"))
+						ϒaccount_pid = λ.GetItem(ϒshared_playlist, λ.StrLiteral("account_pid"))
+						ϒmetadata = λ.GetItem(λ.GetItem(ϒshared_playlist, λ.StrLiteral("video_metadata")), λ.GetItem(ϒshared_playlist, λ.StrLiteral("default_clip")))
+						τmp0 = λ.Calm(ϒmetadata, "get", λ.StrLiteral("release_pid"))
 						ϒtp_path = τmp0
 						ϒrelease_pid = τmp0
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒrelease_pid))) {
-							ϒrelease_pid = λ.GetItem(ϒmetadata, λ.NewStr("guid"))
-							ϒtp_path = λ.Add(λ.NewStr("media/guid/2140479951/"), ϒrelease_pid)
+						if !λ.IsTrue(ϒrelease_pid) {
+							ϒrelease_pid = λ.GetItem(ϒmetadata, λ.StrLiteral("guid"))
+							ϒtp_path = λ.Add(λ.StrLiteral("media/guid/2140479951/"), ϒrelease_pid)
 						}
-						λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("title"):          λ.GetItem(ϒmetadata, λ.NewStr("title")),
-							λ.NewStr("description"):    λ.Cal(λ.GetAttr(ϒmetadata, "get", nil), λ.NewStr("description")),
-							λ.NewStr("season_number"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒmetadata, "get", nil), λ.NewStr("season_num"))),
-							λ.NewStr("episode_number"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒmetadata, "get", nil), λ.NewStr("episode_num"))),
+						λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
+							"title":          λ.GetItem(ϒmetadata, λ.StrLiteral("title")),
+							"description":    λ.Calm(ϒmetadata, "get", λ.StrLiteral("description")),
+							"season_number":  λ.Cal(ϒint_or_none, λ.Calm(ϒmetadata, "get", λ.StrLiteral("season_num"))),
+							"episode_number": λ.Cal(ϒint_or_none, λ.Calm(ϒmetadata, "get", λ.StrLiteral("episode_num"))),
 						}))
-						λ.SetItem(ϒquery, λ.NewStr("switch"), λ.NewStr("progressive"))
+						λ.SetItem(ϒquery, λ.StrLiteral("switch"), λ.StrLiteral("progressive"))
 					}
-					λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"): λ.NewStr("url_transparent"),
-						λ.NewStr("id"):    ϒrelease_pid,
-						λ.NewStr("url"): λ.Cal(ϒsmuggle_url, λ.Cal(ϒupdate_url_query, λ.Mod(λ.NewStr("http://link.theplatform.com/s/%s/%s"), λ.NewTuple(
+					λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
+						"_type": λ.StrLiteral("url_transparent"),
+						"id":    ϒrelease_pid,
+						"url": λ.Cal(ϒsmuggle_url, λ.Cal(ϒupdate_url_query, λ.Mod(λ.StrLiteral("http://link.theplatform.com/s/%s/%s"), λ.NewTuple(
 							ϒaccount_pid,
 							ϒtp_path,
-						)), ϒquery), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("force_smil_url"): λ.True,
+						)), ϒquery), λ.DictLiteral(map[string]λ.Object{
+							"force_smil_url": λ.True,
 						})),
-						λ.NewStr("ie_key"): λ.NewStr("ThePlatform"),
+						"ie_key": λ.StrLiteral("ThePlatform"),
 					}))
 					return ϒinfo
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    BravoTVIE__VALID_URL,
-				λ.NewStr("_real_extract"): BravoTVIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    BravoTVIE__VALID_URL,
+				"_real_extract": BravoTVIE__real_extract,
 			})
 		}())
 	})

@@ -87,22 +87,22 @@ func init() {
 				)
 				return ϒkwargs
 			})
-		ϒcompat_http_client = λ.Cal(λ.TypeType, λ.NewStr("compat_http_client"), λ.NewTuple(), func() λ.Dict {
+		ϒcompat_http_client = λ.Cal(λ.TypeType, λ.StrLiteral("compat_http_client"), λ.NewTuple(), func() λ.Dict {
 			var (
 				ϒcompat_http_client_HTTPException  λ.Object
 				ϒcompat_http_client_IncompleteRead λ.Object
 			)
-			ϒcompat_http_client_IncompleteRead = λ.Cal(λ.TypeType, λ.NewStr("IncompleteRead"), λ.NewTuple(λ.BaseExceptionType), func() λ.Dict {
+			ϒcompat_http_client_IncompleteRead = λ.Cal(λ.TypeType, λ.StrLiteral("IncompleteRead"), λ.NewTuple(λ.BaseExceptionType), func() λ.Dict {
 				// pass
-				return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+				return λ.DictLiteral(map[λ.Object]λ.Object{})
 			}())
-			ϒcompat_http_client_HTTPException = λ.Cal(λ.TypeType, λ.NewStr("HTTPException"), λ.NewTuple(λ.BaseExceptionType), func() λ.Dict {
+			ϒcompat_http_client_HTTPException = λ.Cal(λ.TypeType, λ.StrLiteral("HTTPException"), λ.NewTuple(λ.BaseExceptionType), func() λ.Dict {
 				// pass
-				return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+				return λ.DictLiteral(map[λ.Object]λ.Object{})
 			}())
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("HTTPException"):  ϒcompat_http_client_HTTPException,
-				λ.NewStr("IncompleteRead"): ϒcompat_http_client_IncompleteRead,
+			return λ.DictLiteral(map[string]λ.Object{
+				"HTTPException":  ϒcompat_http_client_HTTPException,
+				"IncompleteRead": ϒcompat_http_client_IncompleteRead,
 			})
 		}())
 		ϒcompat_xml_parse_error = ΩElementTree.ParseError

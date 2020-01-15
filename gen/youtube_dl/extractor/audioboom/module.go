@@ -42,12 +42,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒclean_html = Ωutils.ϒclean_html
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
-		AudioBoomIE = λ.Cal(λ.TypeType, λ.NewStr("AudioBoomIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		AudioBoomIE = λ.Cal(λ.TypeType, λ.StrLiteral("AudioBoomIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				AudioBoomIE__VALID_URL    λ.Object
 				AudioBoomIE__real_extract λ.Object
 			)
-			AudioBoomIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?audioboom\\.com/(?:boos|posts)/(?P<id>[0-9]+)")
+			AudioBoomIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?audioboom\\.com/(?:boos|posts)/(?P<id>[0-9]+)")
 			AudioBoomIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -71,34 +71,34 @@ func init() {
 						ϒvideo_id     λ.Object
 						ϒwebpage      λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
 					ϒclip = λ.None
 					ϒclip_store = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 						λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-							λ.NewStr("data-new-clip-store=([\"\\'])(?P<json>{.+?})\\1"),
+							λ.StrLiteral("data-new-clip-store=([\"\\'])(?P<json>{.+?})\\1"),
 							ϒwebpage,
-							λ.NewStr("clip store"),
+							λ.StrLiteral("clip store"),
 						), λ.KWArgs{
-							{Name: "default", Value: λ.NewStr("{}")},
-							{Name: "group", Value: λ.NewStr("json")},
+							{Name: "default", Value: λ.StrLiteral("{}")},
+							{Name: "group", Value: λ.StrLiteral("json")},
 						}),
 						ϒvideo_id,
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
 					if λ.IsTrue(ϒclip_store) {
-						ϒclips = λ.Cal(λ.GetAttr(ϒclip_store, "get", nil), λ.NewStr("clips"))
+						ϒclips = λ.Calm(ϒclip_store, "get", λ.StrLiteral("clips"))
 						if λ.IsTrue(func() λ.Object {
 							if λv := ϒclips; !λ.IsTrue(λv) {
 								return λv
 							} else if λv := λ.Cal(λ.BuiltinIsInstance, ϒclips, λ.ListType); !λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.BuiltinIsInstance, λ.GetItem(ϒclips, λ.NewInt(0)), λ.DictType)
+								return λ.Cal(λ.BuiltinIsInstance, λ.GetItem(ϒclips, λ.IntLiteral(0)), λ.DictType)
 							}
 						}()) {
-							ϒclip = λ.GetItem(ϒclips, λ.NewInt(0))
+							ϒclip = λ.GetItem(ϒclips, λ.IntLiteral(0))
 						}
 					}
 					ϒfrom_clip = λ.NewFunction("from_clip",
@@ -111,75 +111,75 @@ func init() {
 								ϒfield = λargs[0]
 							)
 							if λ.IsTrue(ϒclip) {
-								return λ.Cal(λ.GetAttr(ϒclip, "get", nil), ϒfield)
+								return λ.Calm(ϒclip, "get", ϒfield)
 							}
 							return λ.None
 						})
 					ϒaudio_url = func() λ.Object {
-						if λv := λ.Cal(ϒfrom_clip, λ.NewStr("clipURLPriorToLoading")); λ.IsTrue(λv) {
+						if λv := λ.Cal(ϒfrom_clip, λ.StrLiteral("clipURLPriorToLoading")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_og_search_property", nil), λ.NewStr("audio"), ϒwebpage, λ.NewStr("audio url"))
+							return λ.Calm(ϒself, "_og_search_property", λ.StrLiteral("audio"), ϒwebpage, λ.StrLiteral("audio url"))
 						}
 					}()
 					ϒtitle = func() λ.Object {
-						if λv := λ.Cal(ϒfrom_clip, λ.NewStr("title")); λ.IsTrue(λv) {
+						if λv := λ.Cal(ϒfrom_clip, λ.StrLiteral("title")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewList(
-								λ.NewStr("og:title"),
-								λ.NewStr("og:audio:title"),
-								λ.NewStr("audio_title"),
+							return λ.Calm(ϒself, "_html_search_meta", λ.NewList(
+								λ.StrLiteral("og:title"),
+								λ.StrLiteral("og:audio:title"),
+								λ.StrLiteral("audio_title"),
 							), ϒwebpage)
 						}
 					}()
 					ϒdescription = func() λ.Object {
-						if λv := λ.Cal(ϒfrom_clip, λ.NewStr("description")); λ.IsTrue(λv) {
+						if λv := λ.Cal(ϒfrom_clip, λ.StrLiteral("description")); λ.IsTrue(λv) {
 							return λv
-						} else if λv := λ.Cal(ϒclean_html, λ.Cal(ϒfrom_clip, λ.NewStr("formattedDescription"))); λ.IsTrue(λv) {
+						} else if λv := λ.Cal(ϒclean_html, λ.Cal(ϒfrom_clip, λ.StrLiteral("formattedDescription"))); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_og_search_description", nil), ϒwebpage)
+							return λ.Calm(ϒself, "_og_search_description", ϒwebpage)
 						}
 					}()
 					ϒduration = λ.Cal(ϒfloat_or_none, func() λ.Object {
-						if λv := λ.Cal(ϒfrom_clip, λ.NewStr("duration")); λ.IsTrue(λv) {
+						if λv := λ.Cal(ϒfrom_clip, λ.StrLiteral("duration")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewStr("weibo:audio:duration"), ϒwebpage)
+							return λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("weibo:audio:duration"), ϒwebpage)
 						}
 					}())
 					ϒuploader = func() λ.Object {
-						if λv := λ.Cal(ϒfrom_clip, λ.NewStr("author")); λ.IsTrue(λv) {
+						if λv := λ.Cal(ϒfrom_clip, λ.StrLiteral("author")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewList(
-								λ.NewStr("og:audio:artist"),
-								λ.NewStr("twitter:audio:artist_name"),
-								λ.NewStr("audio_artist"),
-							), ϒwebpage, λ.NewStr("uploader"))
+							return λ.Calm(ϒself, "_html_search_meta", λ.NewList(
+								λ.StrLiteral("og:audio:artist"),
+								λ.StrLiteral("twitter:audio:artist_name"),
+								λ.StrLiteral("audio_artist"),
+							), ϒwebpage, λ.StrLiteral("uploader"))
 						}
 					}()
 					ϒuploader_url = func() λ.Object {
-						if λv := λ.Cal(ϒfrom_clip, λ.NewStr("author_url")); λ.IsTrue(λv) {
+						if λv := λ.Cal(ϒfrom_clip, λ.StrLiteral("author_url")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewStr("audioboo:channel"), ϒwebpage, λ.NewStr("uploader url"))
+							return λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("audioboo:channel"), ϒwebpage, λ.StrLiteral("uploader url"))
 						}
 					}()
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           ϒvideo_id,
-						λ.NewStr("url"):          ϒaudio_url,
-						λ.NewStr("title"):        ϒtitle,
-						λ.NewStr("description"):  ϒdescription,
-						λ.NewStr("duration"):     ϒduration,
-						λ.NewStr("uploader"):     ϒuploader,
-						λ.NewStr("uploader_url"): ϒuploader_url,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":           ϒvideo_id,
+						"url":          ϒaudio_url,
+						"title":        ϒtitle,
+						"description":  ϒdescription,
+						"duration":     ϒduration,
+						"uploader":     ϒuploader,
+						"uploader_url": ϒuploader_url,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    AudioBoomIE__VALID_URL,
-				λ.NewStr("_real_extract"): AudioBoomIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    AudioBoomIE__VALID_URL,
+				"_real_extract": AudioBoomIE__real_extract,
 			})
 		}())
 	})

@@ -49,7 +49,7 @@ func init() {
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		ϒcompat_str = Ωutils.ϒcompat_str
 		ExtractorError = Ωutils.ExtractorError
-		CuriosityStreamBaseIE = λ.Cal(λ.TypeType, λ.NewStr("CuriosityStreamBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		CuriosityStreamBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("CuriosityStreamBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CuriosityStreamBaseIE__API_BASE_URL    λ.Object
 				CuriosityStreamBaseIE__NETRC_MACHINE   λ.Object
@@ -58,9 +58,9 @@ func init() {
 				CuriosityStreamBaseIE__handle_errors   λ.Object
 				CuriosityStreamBaseIE__real_initialize λ.Object
 			)
-			CuriosityStreamBaseIE__NETRC_MACHINE = λ.NewStr("curiositystream")
+			CuriosityStreamBaseIE__NETRC_MACHINE = λ.StrLiteral("curiositystream")
 			CuriosityStreamBaseIE__auth_token = λ.None
-			CuriosityStreamBaseIE__API_BASE_URL = λ.NewStr("https://api.curiositystream.com/v1/")
+			CuriosityStreamBaseIE__API_BASE_URL = λ.StrLiteral("https://api.curiositystream.com/v1/")
 			CuriosityStreamBaseIE__handle_errors = λ.NewFunction("_handle_errors",
 				[]λ.Param{
 					{Name: "self"},
@@ -73,12 +73,12 @@ func init() {
 						ϒresult = λargs[1]
 						ϒself   = λargs[0]
 					)
-					ϒerror = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒresult, "get", nil), λ.NewStr("error"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("message"))
+					ϒerror = λ.Calm(λ.Calm(ϒresult, "get", λ.StrLiteral("error"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("message"))
 					if λ.IsTrue(ϒerror) {
 						if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒerror, λ.DictType)) {
-							ϒerror = λ.Cal(λ.GetAttr(λ.NewStr(", "), "join", nil), λ.Cal(λ.GetAttr(ϒerror, "values", nil)))
+							ϒerror = λ.Calm(λ.StrLiteral(", "), "join", λ.Calm(ϒerror, "values"))
 						}
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("%s said: %s"), λ.NewTuple(
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("%s said: %s"), λ.NewTuple(
 							λ.GetAttr(ϒself, "IE_NAME", nil),
 							ϒerror,
 						))), λ.KWArgs{
@@ -102,9 +102,9 @@ func init() {
 						ϒself     = λargs[0]
 						ϒvideo_id = λargs[2]
 					)
-					ϒheaders = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+					ϒheaders = λ.DictLiteral(map[λ.Object]λ.Object{})
 					if λ.IsTrue(λ.GetAttr(ϒself, "_auth_token", nil)) {
-						λ.SetItem(ϒheaders, λ.NewStr("X-Auth-Token"), λ.GetAttr(ϒself, "_auth_token", nil))
+						λ.SetItem(ϒheaders, λ.StrLiteral("X-Auth-Token"), λ.GetAttr(ϒself, "_auth_token", nil))
 					}
 					ϒresult = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
 						λ.Add(λ.GetAttr(ϒself, "_API_BASE_URL", nil), ϒpath),
@@ -112,8 +112,8 @@ func init() {
 					), λ.KWArgs{
 						{Name: "headers", Value: ϒheaders},
 					})
-					λ.Cal(λ.GetAttr(ϒself, "_handle_errors", nil), ϒresult)
-					return λ.GetItem(ϒresult, λ.NewStr("data"))
+					λ.Calm(ϒself, "_handle_errors", ϒresult)
+					return λ.GetItem(ϒresult, λ.StrLiteral("data"))
 				})
 			CuriosityStreamBaseIE__real_initialize = λ.NewFunction("_real_initialize",
 				[]λ.Param{
@@ -128,42 +128,42 @@ func init() {
 						ϒself     = λargs[0]
 						τmp0      λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_get_login_info", nil))
-					ϒemail = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒpassword = λ.GetItem(τmp0, λ.NewInt(1))
-					if λ.IsTrue(λ.NewBool(ϒemail == λ.None)) {
+					τmp0 = λ.Calm(ϒself, "_get_login_info")
+					ϒemail = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
+					if ϒemail == λ.None {
 						return λ.None
 					}
 					ϒresult = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Add(λ.GetAttr(ϒself, "_API_BASE_URL", nil), λ.NewStr("login")),
+						λ.Add(λ.GetAttr(ϒself, "_API_BASE_URL", nil), λ.StrLiteral("login")),
 						λ.None,
 					), λ.KWArgs{
-						{Name: "data", Value: λ.Cal(ϒurlencode_postdata, λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("email"):    ϒemail,
-							λ.NewStr("password"): ϒpassword,
+						{Name: "data", Value: λ.Cal(ϒurlencode_postdata, λ.DictLiteral(map[string]λ.Object{
+							"email":    ϒemail,
+							"password": ϒpassword,
 						}))},
 					})
-					λ.Cal(λ.GetAttr(ϒself, "_handle_errors", nil), ϒresult)
-					λ.SetAttr(ϒself, "_auth_token", λ.GetItem(λ.GetItem(ϒresult, λ.NewStr("message")), λ.NewStr("auth_token")))
+					λ.Calm(ϒself, "_handle_errors", ϒresult)
+					λ.SetAttr(ϒself, "_auth_token", λ.GetItem(λ.GetItem(ϒresult, λ.StrLiteral("message")), λ.StrLiteral("auth_token")))
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_API_BASE_URL"):    CuriosityStreamBaseIE__API_BASE_URL,
-				λ.NewStr("_NETRC_MACHINE"):   CuriosityStreamBaseIE__NETRC_MACHINE,
-				λ.NewStr("_auth_token"):      CuriosityStreamBaseIE__auth_token,
-				λ.NewStr("_call_api"):        CuriosityStreamBaseIE__call_api,
-				λ.NewStr("_handle_errors"):   CuriosityStreamBaseIE__handle_errors,
-				λ.NewStr("_real_initialize"): CuriosityStreamBaseIE__real_initialize,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_API_BASE_URL":    CuriosityStreamBaseIE__API_BASE_URL,
+				"_NETRC_MACHINE":   CuriosityStreamBaseIE__NETRC_MACHINE,
+				"_auth_token":      CuriosityStreamBaseIE__auth_token,
+				"_call_api":        CuriosityStreamBaseIE__call_api,
+				"_handle_errors":   CuriosityStreamBaseIE__handle_errors,
+				"_real_initialize": CuriosityStreamBaseIE__real_initialize,
 			})
 		}())
-		CuriosityStreamIE = λ.Cal(λ.TypeType, λ.NewStr("CuriosityStreamIE"), λ.NewTuple(CuriosityStreamBaseIE), func() λ.Dict {
+		CuriosityStreamIE = λ.Cal(λ.TypeType, λ.StrLiteral("CuriosityStreamIE"), λ.NewTuple(CuriosityStreamBaseIE), func() λ.Dict {
 			var (
 				CuriosityStreamIE_IE_NAME       λ.Object
 				CuriosityStreamIE__VALID_URL    λ.Object
 				CuriosityStreamIE__real_extract λ.Object
 			)
-			CuriosityStreamIE_IE_NAME = λ.NewStr("curiositystream")
-			CuriosityStreamIE__VALID_URL = λ.NewStr("https?://(?:app\\.)?curiositystream\\.com/video/(?P<id>\\d+)")
+			CuriosityStreamIE_IE_NAME = λ.StrLiteral("curiositystream")
+			CuriosityStreamIE__VALID_URL = λ.StrLiteral("https?://(?:app\\.)?curiositystream\\.com/video/(?P<id>\\d+)")
 			CuriosityStreamIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -195,30 +195,30 @@ func init() {
 						τmp2            λ.Object
 						τmp3            λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒmedia = λ.Cal(λ.GetAttr(ϒself, "_call_api", nil), λ.Add(λ.NewStr("media/"), ϒvideo_id), ϒvideo_id)
-					ϒtitle = λ.GetItem(ϒmedia, λ.NewStr("title"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒmedia = λ.Calm(ϒself, "_call_api", λ.Add(λ.StrLiteral("media/"), ϒvideo_id), ϒvideo_id)
+					ϒtitle = λ.GetItem(ϒmedia, λ.StrLiteral("title"))
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("encodings"), λ.NewList()))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒmedia, "get", λ.StrLiteral("encodings"), λ.NewList()))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒencoding = τmp1
-						ϒm3u8_url = λ.Cal(λ.GetAttr(ϒencoding, "get", nil), λ.NewStr("master_playlist_url"))
+						ϒm3u8_url = λ.Calm(ϒencoding, "get", λ.StrLiteral("master_playlist_url"))
 						if λ.IsTrue(ϒm3u8_url) {
-							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+							λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
 								ϒm3u8_url,
 								ϒvideo_id,
-								λ.NewStr("mp4"),
-								λ.NewStr("m3u8_native"),
+								λ.StrLiteral("mp4"),
+								λ.StrLiteral("m3u8_native"),
 							), λ.KWArgs{
-								{Name: "m3u8_id", Value: λ.NewStr("hls")},
+								{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
 								{Name: "fatal", Value: λ.False},
 							}))
 						}
-						ϒencoding_url = λ.Cal(λ.GetAttr(ϒencoding, "get", nil), λ.NewStr("url"))
-						ϒfile_url = λ.Cal(λ.GetAttr(ϒencoding, "get", nil), λ.NewStr("file_url"))
+						ϒencoding_url = λ.Calm(ϒencoding, "get", λ.StrLiteral("url"))
+						ϒfile_url = λ.Calm(ϒencoding, "get", λ.StrLiteral("file_url"))
 						if λ.IsTrue(func() λ.Object {
 							if λv := λ.NewBool(!λ.IsTrue(ϒencoding_url)); !λ.IsTrue(λv) {
 								return λv
@@ -228,15 +228,15 @@ func init() {
 						}()) {
 							continue
 						}
-						ϒf = λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("width"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒencoding, "get", nil), λ.NewStr("width"))),
-							λ.NewStr("height"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒencoding, "get", nil), λ.NewStr("height"))),
-							λ.NewStr("vbr"):       λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒencoding, "get", nil), λ.NewStr("video_bitrate"))),
-							λ.NewStr("abr"):       λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒencoding, "get", nil), λ.NewStr("audio_bitrate"))),
-							λ.NewStr("filesize"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒencoding, "get", nil), λ.NewStr("size_in_bytes"))),
-							λ.NewStr("vcodec"):    λ.Cal(λ.GetAttr(ϒencoding, "get", nil), λ.NewStr("video_codec")),
-							λ.NewStr("acodec"):    λ.Cal(λ.GetAttr(ϒencoding, "get", nil), λ.NewStr("audio_codec")),
-							λ.NewStr("container"): λ.Cal(λ.GetAttr(ϒencoding, "get", nil), λ.NewStr("container_type")),
+						ϒf = λ.DictLiteral(map[string]λ.Object{
+							"width":     λ.Cal(ϒint_or_none, λ.Calm(ϒencoding, "get", λ.StrLiteral("width"))),
+							"height":    λ.Cal(ϒint_or_none, λ.Calm(ϒencoding, "get", λ.StrLiteral("height"))),
+							"vbr":       λ.Cal(ϒint_or_none, λ.Calm(ϒencoding, "get", λ.StrLiteral("video_bitrate"))),
+							"abr":       λ.Cal(ϒint_or_none, λ.Calm(ϒencoding, "get", λ.StrLiteral("audio_bitrate"))),
+							"filesize":  λ.Cal(ϒint_or_none, λ.Calm(ϒencoding, "get", λ.StrLiteral("size_in_bytes"))),
+							"vcodec":    λ.Calm(ϒencoding, "get", λ.StrLiteral("video_codec")),
+							"acodec":    λ.Calm(ϒencoding, "get", λ.StrLiteral("audio_codec")),
+							"container": λ.Calm(ϒencoding, "get", λ.StrLiteral("container_type")),
 						})
 						τmp2 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
 							ϒencoding_url,
@@ -247,85 +247,85 @@ func init() {
 								break
 							}
 							ϒf_url = τmp3
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒf_url))) {
+							if !λ.IsTrue(ϒf_url) {
 								continue
 							}
-							ϒfmt = λ.Cal(λ.GetAttr(ϒf, "copy", nil))
-							ϒrtmp = λ.Cal(Ωre.ϒsearch, λ.NewStr("^(?P<url>rtmpe?://(?P<host>[^/]+)/(?P<app>.+))/(?P<playpath>mp[34]:.+)$"), ϒf_url)
+							ϒfmt = λ.Calm(ϒf, "copy")
+							ϒrtmp = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("^(?P<url>rtmpe?://(?P<host>[^/]+)/(?P<app>.+))/(?P<playpath>mp[34]:.+)$"), ϒf_url)
 							if λ.IsTrue(ϒrtmp) {
-								λ.Cal(λ.GetAttr(ϒfmt, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("url"):       λ.Cal(λ.GetAttr(ϒrtmp, "group", nil), λ.NewStr("url")),
-									λ.NewStr("play_path"): λ.Cal(λ.GetAttr(ϒrtmp, "group", nil), λ.NewStr("playpath")),
-									λ.NewStr("app"):       λ.Cal(λ.GetAttr(ϒrtmp, "group", nil), λ.NewStr("app")),
-									λ.NewStr("ext"):       λ.NewStr("flv"),
-									λ.NewStr("format_id"): λ.NewStr("rtmp"),
+								λ.Calm(ϒfmt, "update", λ.DictLiteral(map[string]λ.Object{
+									"url":       λ.Calm(ϒrtmp, "group", λ.StrLiteral("url")),
+									"play_path": λ.Calm(ϒrtmp, "group", λ.StrLiteral("playpath")),
+									"app":       λ.Calm(ϒrtmp, "group", λ.StrLiteral("app")),
+									"ext":       λ.StrLiteral("flv"),
+									"format_id": λ.StrLiteral("rtmp"),
 								}))
 							} else {
-								λ.Cal(λ.GetAttr(ϒfmt, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("url"):       ϒf_url,
-									λ.NewStr("format_id"): λ.NewStr("http"),
+								λ.Calm(ϒfmt, "update", λ.DictLiteral(map[string]λ.Object{
+									"url":       ϒf_url,
+									"format_id": λ.StrLiteral("http"),
 								}))
 							}
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒfmt)
+							λ.Calm(ϒformats, "append", ϒfmt)
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					ϒsubtitles = λ.NewDictWithTable(map[λ.Object]λ.Object{})
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("closed_captions"), λ.NewList()))
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒsubtitles = λ.DictLiteral(map[λ.Object]λ.Object{})
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒmedia, "get", λ.StrLiteral("closed_captions"), λ.NewList()))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒclosed_caption = τmp1
-						ϒsub_url = λ.Cal(λ.GetAttr(ϒclosed_caption, "get", nil), λ.NewStr("file"))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒsub_url))) {
+						ϒsub_url = λ.Calm(ϒclosed_caption, "get", λ.StrLiteral("file"))
+						if !λ.IsTrue(ϒsub_url) {
 							continue
 						}
 						ϒlang = func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒclosed_caption, "get", nil), λ.NewStr("code")); λ.IsTrue(λv) {
+							if λv := λ.Calm(ϒclosed_caption, "get", λ.StrLiteral("code")); λ.IsTrue(λv) {
 								return λv
-							} else if λv := λ.Cal(λ.GetAttr(ϒclosed_caption, "get", nil), λ.NewStr("language")); λ.IsTrue(λv) {
+							} else if λv := λ.Calm(ϒclosed_caption, "get", λ.StrLiteral("language")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.NewStr("en")
+								return λ.StrLiteral("en")
 							}
 						}()
-						λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒsubtitles, "setdefault", nil), ϒlang, λ.NewList()), "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"): ϒsub_url,
+						λ.Calm(λ.Calm(ϒsubtitles, "setdefault", ϒlang, λ.NewList()), "append", λ.DictLiteral(map[string]λ.Object{
+							"url": ϒsub_url,
 						}))
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("formats"):     ϒformats,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("description")),
-						λ.NewStr("thumbnail"): func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("image_large")); λ.IsTrue(λv) {
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"formats":     ϒformats,
+						"title":       ϒtitle,
+						"description": λ.Calm(ϒmedia, "get", λ.StrLiteral("description")),
+						"thumbnail": func() λ.Object {
+							if λv := λ.Calm(ϒmedia, "get", λ.StrLiteral("image_large")); λ.IsTrue(λv) {
 								return λv
-							} else if λv := λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("image_medium")); λ.IsTrue(λv) {
+							} else if λv := λ.Calm(ϒmedia, "get", λ.StrLiteral("image_medium")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("image_small"))
+								return λ.Calm(ϒmedia, "get", λ.StrLiteral("image_small"))
 							}
 						}(),
-						λ.NewStr("duration"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("duration"))),
-						λ.NewStr("tags"):      λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("tags")),
-						λ.NewStr("subtitles"): ϒsubtitles,
+						"duration":  λ.Cal(ϒint_or_none, λ.Calm(ϒmedia, "get", λ.StrLiteral("duration"))),
+						"tags":      λ.Calm(ϒmedia, "get", λ.StrLiteral("tags")),
+						"subtitles": ϒsubtitles,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       CuriosityStreamIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    CuriosityStreamIE__VALID_URL,
-				λ.NewStr("_real_extract"): CuriosityStreamIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       CuriosityStreamIE_IE_NAME,
+				"_VALID_URL":    CuriosityStreamIE__VALID_URL,
+				"_real_extract": CuriosityStreamIE__real_extract,
 			})
 		}())
-		CuriosityStreamCollectionIE = λ.Cal(λ.TypeType, λ.NewStr("CuriosityStreamCollectionIE"), λ.NewTuple(CuriosityStreamBaseIE), func() λ.Dict {
+		CuriosityStreamCollectionIE = λ.Cal(λ.TypeType, λ.StrLiteral("CuriosityStreamCollectionIE"), λ.NewTuple(CuriosityStreamBaseIE), func() λ.Dict {
 			var (
 				CuriosityStreamCollectionIE__VALID_URL λ.Object
 			)
-			CuriosityStreamCollectionIE__VALID_URL = λ.NewStr("https?://(?:app\\.)?curiositystream\\.com/(?:collection|series)/(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): CuriosityStreamCollectionIE__VALID_URL,
+			CuriosityStreamCollectionIE__VALID_URL = λ.StrLiteral("https?://(?:app\\.)?curiositystream\\.com/(?:collection|series)/(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": CuriosityStreamCollectionIE__VALID_URL,
 			})
 		}())
 	})

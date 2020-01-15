@@ -40,14 +40,14 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒjs_to_json = Ωutils.ϒjs_to_json
-		MegaphoneIE = λ.Cal(λ.TypeType, λ.NewStr("MegaphoneIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		MegaphoneIE = λ.Cal(λ.TypeType, λ.StrLiteral("MegaphoneIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				MegaphoneIE_IE_NAME       λ.Object
 				MegaphoneIE__VALID_URL    λ.Object
 				MegaphoneIE__real_extract λ.Object
 			)
-			MegaphoneIE_IE_NAME = λ.NewStr("megaphone.fm")
-			MegaphoneIE__VALID_URL = λ.NewStr("https://player\\.megaphone\\.fm/(?P<id>[A-Z0-9]+)")
+			MegaphoneIE_IE_NAME = λ.StrLiteral("megaphone.fm")
+			MegaphoneIE__VALID_URL = λ.StrLiteral("https://player\\.megaphone\\.fm/(?P<id>[A-Z0-9]+)")
 			MegaphoneIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -68,30 +68,30 @@ func init() {
 						ϒvideo_url    λ.Object
 						ϒwebpage      λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_og_search_property", nil), λ.NewStr("audio:title"), ϒwebpage)
-					ϒauthor = λ.Cal(λ.GetAttr(ϒself, "_og_search_property", nil), λ.NewStr("audio:artist"), ϒwebpage)
-					ϒthumbnail = λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage)
-					ϒepisode_json = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("(?s)var\\s+episode\\s*=\\s*(\\{.+?\\});"), ϒwebpage, λ.NewStr("episode JSON"))
-					ϒepisode_data = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), ϒepisode_json, ϒvideo_id, ϒjs_to_json)
-					ϒvideo_url = λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.GetItem(ϒepisode_data, λ.NewStr("mediaUrl")), λ.NewStr("https:"))
-					ϒformats = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("url"): ϒvideo_url,
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒtitle = λ.Calm(ϒself, "_og_search_property", λ.StrLiteral("audio:title"), ϒwebpage)
+					ϒauthor = λ.Calm(ϒself, "_og_search_property", λ.StrLiteral("audio:artist"), ϒwebpage)
+					ϒthumbnail = λ.Calm(ϒself, "_og_search_thumbnail", ϒwebpage)
+					ϒepisode_json = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("(?s)var\\s+episode\\s*=\\s*(\\{.+?\\});"), ϒwebpage, λ.StrLiteral("episode JSON"))
+					ϒepisode_data = λ.Calm(ϒself, "_parse_json", ϒepisode_json, ϒvideo_id, ϒjs_to_json)
+					ϒvideo_url = λ.Calm(ϒself, "_proto_relative_url", λ.GetItem(ϒepisode_data, λ.StrLiteral("mediaUrl")), λ.StrLiteral("https:"))
+					ϒformats = λ.NewList(λ.DictLiteral(map[string]λ.Object{
+						"url": ϒvideo_url,
 					}))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("thumbnail"): ϒthumbnail,
-						λ.NewStr("title"):     ϒtitle,
-						λ.NewStr("author"):    ϒauthor,
-						λ.NewStr("duration"):  λ.GetItem(ϒepisode_data, λ.NewStr("duration")),
-						λ.NewStr("formats"):   ϒformats,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒvideo_id,
+						"thumbnail": ϒthumbnail,
+						"title":     ϒtitle,
+						"author":    ϒauthor,
+						"duration":  λ.GetItem(ϒepisode_data, λ.StrLiteral("duration")),
+						"formats":   ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       MegaphoneIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    MegaphoneIE__VALID_URL,
-				λ.NewStr("_real_extract"): MegaphoneIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       MegaphoneIE_IE_NAME,
+				"_VALID_URL":    MegaphoneIE__VALID_URL,
+				"_real_extract": MegaphoneIE__real_extract,
 			})
 		}())
 	})

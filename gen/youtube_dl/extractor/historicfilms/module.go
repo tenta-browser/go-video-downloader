@@ -40,12 +40,12 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒparse_duration = Ωutils.ϒparse_duration
-		HistoricFilmsIE = λ.Cal(λ.TypeType, λ.NewStr("HistoricFilmsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		HistoricFilmsIE = λ.Cal(λ.TypeType, λ.StrLiteral("HistoricFilmsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				HistoricFilmsIE__VALID_URL    λ.Object
 				HistoricFilmsIE__real_extract λ.Object
 			)
-			HistoricFilmsIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?historicfilms\\.com/(?:tapes/|play)(?P<id>\\d+)")
+			HistoricFilmsIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?historicfilms\\.com/(?:tapes/|play)(?P<id>\\d+)")
 			HistoricFilmsIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -65,38 +65,38 @@ func init() {
 						ϒvideo_url   λ.Object
 						ϒwebpage     λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒtape_id = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewList(
-						λ.NewStr("class=\"tapeId\"[^>]*>([^<]+)<"),
-						λ.NewStr("tapeId\\s*:\\s*\"([^\"]+)\""),
-					), ϒwebpage, λ.NewStr("tape id"))
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
-					ϒdescription = λ.Cal(λ.GetAttr(ϒself, "_og_search_description", nil), ϒwebpage)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒtape_id = λ.Calm(ϒself, "_search_regex", λ.NewList(
+						λ.StrLiteral("class=\"tapeId\"[^>]*>([^<]+)<"),
+						λ.StrLiteral("tapeId\\s*:\\s*\"([^\"]+)\""),
+					), ϒwebpage, λ.StrLiteral("tape id"))
+					ϒtitle = λ.Calm(ϒself, "_og_search_title", ϒwebpage)
+					ϒdescription = λ.Calm(ϒself, "_og_search_description", ϒwebpage)
 					ϒthumbnail = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewStr("thumbnailUrl"), ϒwebpage, λ.NewStr("thumbnails")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("thumbnailUrl"), ϒwebpage, λ.StrLiteral("thumbnails")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage)
+							return λ.Calm(ϒself, "_og_search_thumbnail", ϒwebpage)
 						}
 					}()
-					ϒduration = λ.Cal(ϒparse_duration, λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewStr("duration"), ϒwebpage, λ.NewStr("duration")))
-					ϒvideo_url = λ.Mod(λ.NewStr("http://www.historicfilms.com/video/%s_%s_web.mov"), λ.NewTuple(
+					ϒduration = λ.Cal(ϒparse_duration, λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("duration"), ϒwebpage, λ.StrLiteral("duration")))
+					ϒvideo_url = λ.Mod(λ.StrLiteral("http://www.historicfilms.com/video/%s_%s_web.mov"), λ.NewTuple(
 						ϒtape_id,
 						ϒvideo_id,
 					))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("url"):         ϒvideo_url,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("thumbnail"):   ϒthumbnail,
-						λ.NewStr("duration"):    ϒduration,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"url":         ϒvideo_url,
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"thumbnail":   ϒthumbnail,
+						"duration":    ϒduration,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    HistoricFilmsIE__VALID_URL,
-				λ.NewStr("_real_extract"): HistoricFilmsIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    HistoricFilmsIE__VALID_URL,
+				"_real_extract": HistoricFilmsIE__real_extract,
 			})
 		}())
 	})

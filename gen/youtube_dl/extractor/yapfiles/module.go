@@ -48,16 +48,16 @@ func init() {
 		ϒqualities = Ωutils.ϒqualities
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒurl_or_none = Ωutils.ϒurl_or_none
-		YapFilesIE = λ.Cal(λ.TypeType, λ.NewStr("YapFilesIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		YapFilesIE = λ.Cal(λ.TypeType, λ.StrLiteral("YapFilesIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				YapFilesIE__VALID_URL    λ.Object
 				YapFilesIE__YAPFILES_URL λ.Object
 			)
-			YapFilesIE__YAPFILES_URL = λ.NewStr("//(?:(?:www|api)\\.)?yapfiles\\.ru/get_player/*\\?.*?\\bv=(?P<id>\\w+)")
-			YapFilesIE__VALID_URL = λ.Mod(λ.NewStr("https?:%s"), YapFilesIE__YAPFILES_URL)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    YapFilesIE__VALID_URL,
-				λ.NewStr("_YAPFILES_URL"): YapFilesIE__YAPFILES_URL,
+			YapFilesIE__YAPFILES_URL = λ.StrLiteral("//(?:(?:www|api)\\.)?yapfiles\\.ru/get_player/*\\?.*?\\bv=(?P<id>\\w+)")
+			YapFilesIE__VALID_URL = λ.Mod(λ.StrLiteral("https?:%s"), YapFilesIE__YAPFILES_URL)
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    YapFilesIE__VALID_URL,
+				"_YAPFILES_URL": YapFilesIE__YAPFILES_URL,
 			})
 		}())
 	})

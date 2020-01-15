@@ -40,14 +40,14 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒremove_end = Ωutils.ϒremove_end
-		CharlieRoseIE = λ.Cal(λ.TypeType, λ.NewStr("CharlieRoseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		CharlieRoseIE = λ.Cal(λ.TypeType, λ.StrLiteral("CharlieRoseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CharlieRoseIE__PLAYER_BASE  λ.Object
 				CharlieRoseIE__VALID_URL    λ.Object
 				CharlieRoseIE__real_extract λ.Object
 			)
-			CharlieRoseIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?charlierose\\.com/(?:video|episode)(?:s|/player)/(?P<id>\\d+)")
-			CharlieRoseIE__PLAYER_BASE = λ.NewStr("https://charlierose.com/video/player/%s")
+			CharlieRoseIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?charlierose\\.com/(?:video|episode)(?:s|/player)/(?P<id>\\d+)")
+			CharlieRoseIE__PLAYER_BASE = λ.StrLiteral("https://charlierose.com/video/player/%s")
 			CharlieRoseIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -63,30 +63,30 @@ func init() {
 						ϒvideo_id  λ.Object
 						ϒwebpage   λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.GetAttr(ϒself, "_PLAYER_BASE", nil), ϒvideo_id), ϒvideo_id)
-					ϒtitle = λ.Cal(ϒremove_end, λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage), λ.NewStr(" - Charlie Rose"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", λ.Mod(λ.GetAttr(ϒself, "_PLAYER_BASE", nil), ϒvideo_id), ϒvideo_id)
+					ϒtitle = λ.Cal(ϒremove_end, λ.Calm(ϒself, "_og_search_title", ϒwebpage), λ.StrLiteral(" - Charlie Rose"))
 					ϒinfo_dict = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_parse_html5_media_entries", nil), λ.NewArgs(
 						λ.Mod(λ.GetAttr(ϒself, "_PLAYER_BASE", nil), ϒvideo_id),
 						ϒwebpage,
 						ϒvideo_id,
 					), λ.KWArgs{
-						{Name: "m3u8_entry_protocol", Value: λ.NewStr("m3u8_native")},
-					}), λ.NewInt(0))
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), λ.GetItem(ϒinfo_dict, λ.NewStr("formats")))
-					λ.Cal(λ.GetAttr(ϒself, "_remove_duplicate_formats", nil), λ.GetItem(ϒinfo_dict, λ.NewStr("formats")))
-					λ.Cal(λ.GetAttr(ϒinfo_dict, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage),
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒself, "_og_search_description", nil), ϒwebpage),
+						{Name: "m3u8_entry_protocol", Value: λ.StrLiteral("m3u8_native")},
+					}), λ.IntLiteral(0))
+					λ.Calm(ϒself, "_sort_formats", λ.GetItem(ϒinfo_dict, λ.StrLiteral("formats")))
+					λ.Calm(ϒself, "_remove_duplicate_formats", λ.GetItem(ϒinfo_dict, λ.StrLiteral("formats")))
+					λ.Calm(ϒinfo_dict, "update", λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       ϒtitle,
+						"thumbnail":   λ.Calm(ϒself, "_og_search_thumbnail", ϒwebpage),
+						"description": λ.Calm(ϒself, "_og_search_description", ϒwebpage),
 					}))
 					return ϒinfo_dict
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_PLAYER_BASE"):  CharlieRoseIE__PLAYER_BASE,
-				λ.NewStr("_VALID_URL"):    CharlieRoseIE__VALID_URL,
-				λ.NewStr("_real_extract"): CharlieRoseIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_PLAYER_BASE":  CharlieRoseIE__PLAYER_BASE,
+				"_VALID_URL":    CharlieRoseIE__VALID_URL,
+				"_real_extract": CharlieRoseIE__real_extract,
 			})
 		}())
 	})

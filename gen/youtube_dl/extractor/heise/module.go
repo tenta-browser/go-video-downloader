@@ -56,12 +56,12 @@ func init() {
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		ϒxpath_text = Ωutils.ϒxpath_text
-		HeiseIE = λ.Cal(λ.TypeType, λ.NewStr("HeiseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		HeiseIE = λ.Cal(λ.TypeType, λ.StrLiteral("HeiseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				HeiseIE__VALID_URL    λ.Object
 				HeiseIE__real_extract λ.Object
 			)
-			HeiseIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?heise\\.de/(?:[^/]+/)+[^/]+-(?P<id>[0-9]+)\\.html")
+			HeiseIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?heise\\.de/(?:[^/]+/)+[^/]+-(?P<id>[0-9]+)\\.html")
 			HeiseIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -93,8 +93,8 @@ func init() {
 						τmp0                  λ.Object
 						τmp1                  λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
 					ϒextract_title = λ.NewFunction("extract_title",
 						[]λ.Param{
 							{Name: "default", Def: NO_DEFAULT},
@@ -107,8 +107,8 @@ func init() {
 							)
 							ϒtitle = λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
 								λ.NewTuple(
-									λ.NewStr("fulltitle"),
-									λ.NewStr("title"),
+									λ.StrLiteral("fulltitle"),
+									λ.StrLiteral("title"),
 								),
 								ϒwebpage,
 							), λ.KWArgs{
@@ -118,22 +118,22 @@ func init() {
 								if λv := λ.NewBool(!λ.IsTrue(ϒtitle)); λ.IsTrue(λv) {
 									return λv
 								} else {
-									return λ.Eq(ϒtitle, λ.NewStr("c't"))
+									return λ.Eq(ϒtitle, λ.StrLiteral("c't"))
 								}
 							}()) {
 								ϒtitle = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-									λ.NewStr("<div[^>]+class=\"videoplayerjw\"[^>]+data-title=\"([^\"]+)\""),
+									λ.StrLiteral("<div[^>]+class=\"videoplayerjw\"[^>]+data-title=\"([^\"]+)\""),
 									ϒwebpage,
-									λ.NewStr("title"),
+									λ.StrLiteral("title"),
 								), λ.KWArgs{
 									{Name: "default", Value: λ.None},
 								})
 							}
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒtitle))) {
+							if !λ.IsTrue(ϒtitle) {
 								ϒtitle = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-									λ.NewStr("<h1[^>]+\\bclass=[\"\\']article_page_title[^>]+>(.+?)<"),
+									λ.StrLiteral("<h1[^>]+\\bclass=[\"\\']article_page_title[^>]+>(.+?)<"),
 									ϒwebpage,
-									λ.NewStr("title"),
+									λ.StrLiteral("title"),
 								), λ.KWArgs{
 									{Name: "default", Value: ϒdefault},
 								})
@@ -149,7 +149,7 @@ func init() {
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewStr("description"), ϒwebpage)
+							return λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("description"), ϒwebpage)
 						}
 					}()
 					ϒ_make_kaltura_result = λ.NewFunction("_make_kaltura_result",
@@ -161,99 +161,99 @@ func init() {
 							var (
 								ϒkaltura_url = λargs[0]
 							)
-							return λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("_type"): λ.NewStr("url_transparent"),
-								λ.NewStr("url"): λ.Cal(ϒsmuggle_url, ϒkaltura_url, λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("source_url"): ϒurl,
+							return λ.DictLiteral(map[string]λ.Object{
+								"_type": λ.StrLiteral("url_transparent"),
+								"url": λ.Cal(ϒsmuggle_url, ϒkaltura_url, λ.DictLiteral(map[string]λ.Object{
+									"source_url": ϒurl,
 								})),
-								λ.NewStr("ie_key"):      λ.Cal(λ.GetAttr(KalturaIE, "ie_key", nil)),
-								λ.NewStr("title"):       ϒtitle,
-								λ.NewStr("description"): ϒdescription,
+								"ie_key":      λ.Calm(KalturaIE, "ie_key"),
+								"title":       ϒtitle,
+								"description": ϒdescription,
 							})
 						})
-					ϒkaltura_url = λ.Cal(λ.GetAttr(KalturaIE, "_extract_url", nil), ϒwebpage)
+					ϒkaltura_url = λ.Calm(KalturaIE, "_extract_url", ϒwebpage)
 					if λ.IsTrue(ϒkaltura_url) {
 						return λ.Cal(ϒ_make_kaltura_result, ϒkaltura_url)
 					}
 					ϒkaltura_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("entry-id=([\"\\'])(?P<id>(?:(?!\\1).)+)\\1"),
+						λ.StrLiteral("entry-id=([\"\\'])(?P<id>(?:(?!\\1).)+)\\1"),
 						ϒwebpage,
-						λ.NewStr("kaltura id"),
+						λ.StrLiteral("kaltura id"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
-						{Name: "group", Value: λ.NewStr("id")},
+						{Name: "group", Value: λ.StrLiteral("id")},
 					})
 					if λ.IsTrue(ϒkaltura_id) {
-						return λ.Cal(ϒ_make_kaltura_result, λ.Mod(λ.NewStr("kaltura:2238431:%s"), ϒkaltura_id))
+						return λ.Cal(ϒ_make_kaltura_result, λ.Mod(λ.StrLiteral("kaltura:2238431:%s"), ϒkaltura_id))
 					}
-					ϒyt_urls = λ.Cal(λ.GetAttr(YoutubeIE, "_extract_urls", nil), ϒwebpage)
+					ϒyt_urls = λ.Calm(YoutubeIE, "_extract_urls", ϒwebpage)
 					if λ.IsTrue(ϒyt_urls) {
 						return λ.Call(λ.GetAttr(ϒself, "playlist_from_matches", nil), λ.NewArgs(
 							ϒyt_urls,
 							ϒvideo_id,
 							ϒtitle,
 						), λ.KWArgs{
-							{Name: "ie", Value: λ.Cal(λ.GetAttr(YoutubeIE, "ie_key", nil))},
+							{Name: "ie", Value: λ.Calm(YoutubeIE, "ie_key")},
 						})
 					}
 					ϒtitle = λ.Cal(ϒextract_title)
-					ϒcontainer_id = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<div class=\"videoplayerjw\"[^>]+data-container=\"([0-9]+)\""), ϒwebpage, λ.NewStr("container ID"))
-					ϒsequenz_id = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<div class=\"videoplayerjw\"[^>]+data-sequenz=\"([0-9]+)\""), ϒwebpage, λ.NewStr("sequenz ID"))
+					ϒcontainer_id = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<div class=\"videoplayerjw\"[^>]+data-container=\"([0-9]+)\""), ϒwebpage, λ.StrLiteral("container ID"))
+					ϒsequenz_id = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<div class=\"videoplayerjw\"[^>]+data-sequenz=\"([0-9]+)\""), ϒwebpage, λ.StrLiteral("sequenz ID"))
 					ϒdoc = λ.Call(λ.GetAttr(ϒself, "_download_xml", nil), λ.NewArgs(
-						λ.NewStr("http://www.heise.de/videout/feed"),
+						λ.StrLiteral("http://www.heise.de/videout/feed"),
 						ϒvideo_id,
 					), λ.KWArgs{
-						{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("container"): ϒcontainer_id,
-							λ.NewStr("sequenz"):   ϒsequenz_id,
+						{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
+							"container": ϒcontainer_id,
+							"sequenz":   ϒsequenz_id,
 						})},
 					})
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒdoc, "findall", nil), λ.NewStr(".//{http://rss.jwpcdn.com/}source")))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒdoc, "findall", λ.StrLiteral(".//{http://rss.jwpcdn.com/}source")))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒsource_node = τmp1
-						ϒlabel = λ.GetItem(λ.GetAttr(ϒsource_node, "attrib", nil), λ.NewStr("label"))
+						ϒlabel = λ.GetItem(λ.GetAttr(ϒsource_node, "attrib", nil), λ.StrLiteral("label"))
 						ϒheight = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("^(.*?_)?([0-9]+)p$"),
+							λ.StrLiteral("^(.*?_)?([0-9]+)p$"),
 							ϒlabel,
-							λ.NewStr("height"),
+							λ.StrLiteral("height"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}))
-						ϒvideo_url = λ.GetItem(λ.GetAttr(ϒsource_node, "attrib", nil), λ.NewStr("file"))
-						ϒext = λ.Cal(ϒdetermine_ext, ϒvideo_url, λ.NewStr(""))
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):         ϒvideo_url,
-							λ.NewStr("format_note"): ϒlabel,
-							λ.NewStr("format_id"): λ.Mod(λ.NewStr("%s_%s"), λ.NewTuple(
+						ϒvideo_url = λ.GetItem(λ.GetAttr(ϒsource_node, "attrib", nil), λ.StrLiteral("file"))
+						ϒext = λ.Cal(ϒdetermine_ext, ϒvideo_url, λ.StrLiteral(""))
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":         ϒvideo_url,
+							"format_note": ϒlabel,
+							"format_id": λ.Mod(λ.StrLiteral("%s_%s"), λ.NewTuple(
 								ϒext,
 								ϒlabel,
 							)),
-							λ.NewStr("height"): ϒheight,
+							"height": ϒheight,
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("thumbnail"): func() λ.Object {
-							if λv := λ.Cal(ϒxpath_text, ϒdoc, λ.NewStr(".//{http://rss.jwpcdn.com/}image")); λ.IsTrue(λv) {
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"thumbnail": func() λ.Object {
+							if λv := λ.Cal(ϒxpath_text, ϒdoc, λ.StrLiteral(".//{http://rss.jwpcdn.com/}image")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage)
+								return λ.Calm(ϒself, "_og_search_thumbnail", ϒwebpage)
 							}
 						}(),
-						λ.NewStr("timestamp"): λ.Cal(ϒparse_iso8601, λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewStr("date"), ϒwebpage)),
-						λ.NewStr("formats"):   ϒformats,
+						"timestamp": λ.Cal(ϒparse_iso8601, λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("date"), ϒwebpage)),
+						"formats":   ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    HeiseIE__VALID_URL,
-				λ.NewStr("_real_extract"): HeiseIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    HeiseIE__VALID_URL,
+				"_real_extract": HeiseIE__real_extract,
 			})
 		}())
 	})

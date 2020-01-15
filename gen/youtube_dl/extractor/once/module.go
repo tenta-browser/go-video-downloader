@@ -37,13 +37,13 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		OnceIE = λ.Cal(λ.TypeType, λ.NewStr("OnceIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		OnceIE = λ.Cal(λ.TypeType, λ.StrLiteral("OnceIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				OnceIE__VALID_URL λ.Object
 			)
-			OnceIE__VALID_URL = λ.NewStr("https?://.+?\\.unicornmedia\\.com/now/(?:ads/vmap/)?[^/]+/[^/]+/(?P<domain_id>[^/]+)/(?P<application_id>[^/]+)/(?:[^/]+/)?(?P<media_item_id>[^/]+)/content\\.(?:once|m3u8|mp4)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): OnceIE__VALID_URL,
+			OnceIE__VALID_URL = λ.StrLiteral("https?://.+?\\.unicornmedia\\.com/now/(?:ads/vmap/)?[^/]+/[^/]+/(?P<domain_id>[^/]+)/(?P<application_id>[^/]+)/(?:[^/]+/)?(?P<media_item_id>[^/]+)/content\\.(?:once|m3u8|mp4)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": OnceIE__VALID_URL,
 			})
 		}())
 	})

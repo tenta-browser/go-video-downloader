@@ -42,12 +42,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_duration = Ωutils.ϒparse_duration
-		HornBunnyIE = λ.Cal(λ.TypeType, λ.NewStr("HornBunnyIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		HornBunnyIE = λ.Cal(λ.TypeType, λ.StrLiteral("HornBunnyIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				HornBunnyIE__VALID_URL    λ.Object
 				HornBunnyIE__real_extract λ.Object
 			)
-			HornBunnyIE__VALID_URL = λ.NewStr("http?://(?:www\\.)?hornbunny\\.com/videos/(?P<title_dash>[a-z-]+)-(?P<id>\\d+)\\.html")
+			HornBunnyIE__VALID_URL = λ.StrLiteral("http?://(?:www\\.)?hornbunny\\.com/videos/(?P<title_dash>[a-z-]+)-(?P<id>\\d+)\\.html")
 			HornBunnyIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -65,36 +65,36 @@ func init() {
 						ϒview_count λ.Object
 						ϒwebpage    λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
-					ϒinfo_dict = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_html5_media_entries", nil), ϒurl, ϒwebpage, ϒvideo_id), λ.NewInt(0))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒtitle = λ.Calm(ϒself, "_og_search_title", ϒwebpage)
+					ϒinfo_dict = λ.GetItem(λ.Calm(ϒself, "_parse_html5_media_entries", ϒurl, ϒwebpage, ϒvideo_id), λ.IntLiteral(0))
 					ϒduration = λ.Cal(ϒparse_duration, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<strong>Runtime:</strong>\\s*([0-9:]+)</div>"),
+						λ.StrLiteral("<strong>Runtime:</strong>\\s*([0-9:]+)</div>"),
 						ϒwebpage,
-						λ.NewStr("duration"),
+						λ.StrLiteral("duration"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
 					ϒview_count = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<strong>Views:</strong>\\s*(\\d+)</div>"),
+						λ.StrLiteral("<strong>Views:</strong>\\s*(\\d+)</div>"),
 						ϒwebpage,
-						λ.NewStr("view count"),
+						λ.StrLiteral("view count"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
-					λ.Cal(λ.GetAttr(ϒinfo_dict, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         ϒvideo_id,
-						λ.NewStr("title"):      ϒtitle,
-						λ.NewStr("duration"):   ϒduration,
-						λ.NewStr("view_count"): ϒview_count,
-						λ.NewStr("age_limit"):  λ.NewInt(18),
+					λ.Calm(ϒinfo_dict, "update", λ.DictLiteral(map[string]λ.Object{
+						"id":         ϒvideo_id,
+						"title":      ϒtitle,
+						"duration":   ϒduration,
+						"view_count": ϒview_count,
+						"age_limit":  λ.IntLiteral(18),
 					}))
 					return ϒinfo_dict
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    HornBunnyIE__VALID_URL,
-				λ.NewStr("_real_extract"): HornBunnyIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    HornBunnyIE__VALID_URL,
+				"_real_extract": HornBunnyIE__real_extract,
 			})
 		}())
 	})

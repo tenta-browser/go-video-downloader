@@ -46,12 +46,12 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
-		ManyVidsIE = λ.Cal(λ.TypeType, λ.NewStr("ManyVidsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ManyVidsIE = λ.Cal(λ.TypeType, λ.StrLiteral("ManyVidsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ManyVidsIE__VALID_URL    λ.Object
 				ManyVidsIE__real_extract λ.Object
 			)
-			ManyVidsIE__VALID_URL = λ.NewStr("(?i)https?://(?:www\\.)?manyvids\\.com/video/(?P<id>\\d+)")
+			ManyVidsIE__VALID_URL = λ.StrLiteral("(?i)https?://(?:www\\.)?manyvids\\.com/video/(?P<id>\\d+)")
 			ManyVidsIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -72,32 +72,32 @@ func init() {
 						ϒwebpage    λ.Object
 						τmp0        λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
 					ϒvideo_url = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("data-(?:video-filepath|meta-video)\\s*=s*([\"\\'])(?P<url>(?:(?!\\1).)+)\\1"),
+						λ.StrLiteral("data-(?:video-filepath|meta-video)\\s*=s*([\"\\'])(?P<url>(?:(?!\\1).)+)\\1"),
 						ϒwebpage,
-						λ.NewStr("video URL"),
+						λ.StrLiteral("video URL"),
 					), λ.KWArgs{
-						{Name: "group", Value: λ.NewStr("url")},
+						{Name: "group", Value: λ.StrLiteral("url")},
 					})
 					ϒtitle = func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 							λ.NewTuple(
-								λ.NewStr("<span[^>]+class=[\"\\']item-title[^>]+>([^<]+)"),
-								λ.NewStr("<h2[^>]+class=[\"\\']h2 m-0[\"\\'][^>]*>([^<]+)"),
+								λ.StrLiteral("<span[^>]+class=[\"\\']item-title[^>]+>([^<]+)"),
+								λ.StrLiteral("<h2[^>]+class=[\"\\']h2 m-0[\"\\'][^>]*>([^<]+)"),
 							),
 							ϒwebpage,
-							λ.NewStr("title"),
+							λ.StrLiteral("title"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
 							return λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
-								λ.NewStr("twitter:title"),
+								λ.StrLiteral("twitter:title"),
 								ϒwebpage,
-								λ.NewStr("title"),
+								λ.StrLiteral("title"),
 							), λ.KWArgs{
 								{Name: "fatal", Value: λ.True},
 							})
@@ -114,8 +114,8 @@ func init() {
 									τmp1 λ.Object
 								)
 								τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-									λ.NewStr("preview_videos"),
-									λ.NewStr("_preview.mp4"),
+									λ.StrLiteral("preview_videos"),
+									λ.StrLiteral("_preview.mp4"),
 								))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
@@ -127,72 +127,72 @@ func init() {
 								return λ.None
 							})
 						})))) {
-						τmp0 = λ.IAdd(ϒtitle, λ.NewStr(" (Preview)"))
+						τmp0 = λ.IAdd(ϒtitle, λ.StrLiteral(" (Preview)"))
 						ϒtitle = τmp0
 					}
 					ϒmv_token = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("data-mvtoken=([\"\\'])(?P<value>(?:(?!\\1).)+)\\1"),
+						λ.StrLiteral("data-mvtoken=([\"\\'])(?P<value>(?:(?!\\1).)+)\\1"),
 						ϒwebpage,
-						λ.NewStr("mv token"),
+						λ.StrLiteral("mv token"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
-						{Name: "group", Value: λ.NewStr("value")},
+						{Name: "group", Value: λ.StrLiteral("value")},
 					})
 					if λ.IsTrue(ϒmv_token) {
 						λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
-							λ.NewStr("https://www.manyvids.com/includes/ajax_repository/you_had_me_at_hello.php"),
+							λ.StrLiteral("https://www.manyvids.com/includes/ajax_repository/you_had_me_at_hello.php"),
 							ϒvideo_id,
 						), λ.KWArgs{
 							{Name: "fatal", Value: λ.False},
-							{Name: "data", Value: λ.Cal(ϒurlencode_postdata, λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("mvtoken"): ϒmv_token,
-								λ.NewStr("vid"):     ϒvideo_id,
+							{Name: "data", Value: λ.Cal(ϒurlencode_postdata, λ.DictLiteral(map[string]λ.Object{
+								"mvtoken": ϒmv_token,
+								"vid":     ϒvideo_id,
 							}))},
-							{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("Referer"):          ϒurl,
-								λ.NewStr("X-Requested-With"): λ.NewStr("XMLHttpRequest"),
+							{Name: "headers", Value: λ.DictLiteral(map[string]λ.Object{
+								"Referer":          ϒurl,
+								"X-Requested-With": λ.StrLiteral("XMLHttpRequest"),
 							})},
 						})
 					}
-					if λ.IsTrue(λ.Eq(λ.Cal(ϒdetermine_ext, ϒvideo_url), λ.NewStr("m3u8"))) {
+					if λ.IsTrue(λ.Eq(λ.Cal(ϒdetermine_ext, ϒvideo_url), λ.StrLiteral("m3u8"))) {
 						ϒformats = λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
 							ϒvideo_url,
 							ϒvideo_id,
-							λ.NewStr("mp4"),
+							λ.StrLiteral("mp4"),
 						), λ.KWArgs{
-							{Name: "entry_protocol", Value: λ.NewStr("m3u8_native")},
-							{Name: "m3u8_id", Value: λ.NewStr("hls")},
+							{Name: "entry_protocol", Value: λ.StrLiteral("m3u8_native")},
+							{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
 						})
 					} else {
-						ϒformats = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"): ϒvideo_url,
+						ϒformats = λ.NewList(λ.DictLiteral(map[string]λ.Object{
+							"url": ϒvideo_url,
 						}))
 					}
 					ϒlike_count = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("data-likes=[\"\\'](\\d+)"),
+						λ.StrLiteral("data-likes=[\"\\'](\\d+)"),
 						ϒwebpage,
-						λ.NewStr("like count"),
+						λ.StrLiteral("like count"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					}))
 					ϒview_count = λ.Cal(ϒstr_to_int, λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("(?s)<span[^>]+class=\"views-wrapper\"[^>]*>(.+?)</span"),
+						λ.StrLiteral("(?s)<span[^>]+class=\"views-wrapper\"[^>]*>(.+?)</span"),
 						ϒwebpage,
-						λ.NewStr("view count"),
+						λ.StrLiteral("view count"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					}))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         ϒvideo_id,
-						λ.NewStr("title"):      ϒtitle,
-						λ.NewStr("view_count"): ϒview_count,
-						λ.NewStr("like_count"): ϒlike_count,
-						λ.NewStr("formats"):    ϒformats,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":         ϒvideo_id,
+						"title":      ϒtitle,
+						"view_count": ϒview_count,
+						"like_count": ϒlike_count,
+						"formats":    ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    ManyVidsIE__VALID_URL,
-				λ.NewStr("_real_extract"): ManyVidsIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    ManyVidsIE__VALID_URL,
+				"_real_extract": ManyVidsIE__real_extract,
 			})
 		}())
 	})

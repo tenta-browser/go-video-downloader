@@ -34,9 +34,9 @@ var (
 
 func init() {
 	λ.InitModule(func() {
-		FragmentFD = λ.Cal(λ.TypeType, λ.NewStr("FragmentFD"), λ.NewTuple(), func() λ.Dict {
+		FragmentFD = λ.Cal(λ.TypeType, λ.StrLiteral("FragmentFD"), λ.NewTuple(), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
 	})
 }

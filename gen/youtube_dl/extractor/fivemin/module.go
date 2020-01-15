@@ -37,14 +37,14 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		FiveMinIE = λ.Cal(λ.TypeType, λ.NewStr("FiveMinIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		FiveMinIE = λ.Cal(λ.TypeType, λ.StrLiteral("FiveMinIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				FiveMinIE_IE_NAME       λ.Object
 				FiveMinIE__VALID_URL    λ.Object
 				FiveMinIE__real_extract λ.Object
 			)
-			FiveMinIE_IE_NAME = λ.NewStr("5min")
-			FiveMinIE__VALID_URL = λ.NewStr("(?:5min:|https?://(?:[^/]*?5min\\.com/|delivery\\.vidible\\.tv/aol)(?:(?:Scripts/PlayerSeed\\.js|playerseed/?)?\\?.*?playList=)?)(?P<id>\\d+)")
+			FiveMinIE_IE_NAME = λ.StrLiteral("5min")
+			FiveMinIE__VALID_URL = λ.StrLiteral("(?:5min:|https?://(?:[^/]*?5min\\.com/|delivery\\.vidible\\.tv/aol)(?:(?:Scripts/PlayerSeed\\.js|playerseed/?)?\\?.*?playList=)?)(?P<id>\\d+)")
 			FiveMinIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -57,13 +57,13 @@ func init() {
 						ϒurl      = λargs[1]
 						ϒvideo_id λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("aol-video:%s"), ϒvideo_id))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					return λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("aol-video:%s"), ϒvideo_id))
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       FiveMinIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    FiveMinIE__VALID_URL,
-				λ.NewStr("_real_extract"): FiveMinIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       FiveMinIE_IE_NAME,
+				"_VALID_URL":    FiveMinIE__VALID_URL,
+				"_real_extract": FiveMinIE__real_extract,
 			})
 		}())
 	})

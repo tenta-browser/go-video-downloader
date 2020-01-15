@@ -77,78 +77,78 @@ func init() {
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		ϒurl_or_none = Ωutils.ϒurl_or_none
-		SoundcloudEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("SoundcloudEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SoundcloudEmbedIE = λ.Cal(λ.TypeType, λ.StrLiteral("SoundcloudEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SoundcloudEmbedIE__VALID_URL λ.Object
 			)
-			SoundcloudEmbedIE__VALID_URL = λ.NewStr("https?://(?:w|player|p)\\.soundcloud\\.com/player/?.*?\\burl=(?P<id>.+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SoundcloudEmbedIE__VALID_URL,
+			SoundcloudEmbedIE__VALID_URL = λ.StrLiteral("https?://(?:w|player|p)\\.soundcloud\\.com/player/?.*?\\burl=(?P<id>.+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SoundcloudEmbedIE__VALID_URL,
 			})
 		}())
-		SoundcloudIE = λ.Cal(λ.TypeType, λ.NewStr("SoundcloudIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SoundcloudIE = λ.Cal(λ.TypeType, λ.StrLiteral("SoundcloudIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SoundcloudIE__VALID_URL λ.Object
 			)
-			SoundcloudIE__VALID_URL = λ.NewStr("(?x)^(?:https?://)?\n                    (?:(?:(?:www\\.|m\\.)?soundcloud\\.com/\n                            (?!stations/track)\n                            (?P<uploader>[\\w\\d-]+)/\n                            (?!(?:tracks|albums|sets(?:/.+?)?|reposts|likes|spotlight)/?(?:$|[?#]))\n                            (?P<title>[\\w\\d-]+)/?\n                            (?P<token>[^?]+?)?(?:[?].*)?$)\n                       |(?:api(?:-v2)?\\.soundcloud\\.com/tracks/(?P<track_id>\\d+)\n                          (?:/?\\?secret_token=(?P<secret_token>[^&]+))?)\n                    )\n                    ")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SoundcloudIE__VALID_URL,
+			SoundcloudIE__VALID_URL = λ.StrLiteral("(?x)^(?:https?://)?\n                    (?:(?:(?:www\\.|m\\.)?soundcloud\\.com/\n                            (?!stations/track)\n                            (?P<uploader>[\\w\\d-]+)/\n                            (?!(?:tracks|albums|sets(?:/.+?)?|reposts|likes|spotlight)/?(?:$|[?#]))\n                            (?P<title>[\\w\\d-]+)/?\n                            (?P<token>[^?]+?)?(?:[?].*)?$)\n                       |(?:api(?:-v2)?\\.soundcloud\\.com/tracks/(?P<track_id>\\d+)\n                          (?:/?\\?secret_token=(?P<secret_token>[^&]+))?)\n                    )\n                    ")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SoundcloudIE__VALID_URL,
 			})
 		}())
-		SoundcloudPlaylistBaseIE = λ.Cal(λ.TypeType, λ.NewStr("SoundcloudPlaylistBaseIE"), λ.NewTuple(SoundcloudIE), func() λ.Dict {
+		SoundcloudPlaylistBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("SoundcloudPlaylistBaseIE"), λ.NewTuple(SoundcloudIE), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
-		SoundcloudSetIE = λ.Cal(λ.TypeType, λ.NewStr("SoundcloudSetIE"), λ.NewTuple(SoundcloudPlaylistBaseIE), func() λ.Dict {
+		SoundcloudSetIE = λ.Cal(λ.TypeType, λ.StrLiteral("SoundcloudSetIE"), λ.NewTuple(SoundcloudPlaylistBaseIE), func() λ.Dict {
 			var (
 				SoundcloudSetIE__VALID_URL λ.Object
 			)
-			SoundcloudSetIE__VALID_URL = λ.NewStr("https?://(?:(?:www|m)\\.)?soundcloud\\.com/(?P<uploader>[\\w\\d-]+)/sets/(?P<slug_title>[\\w\\d-]+)(?:/(?P<token>[^?/]+))?")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SoundcloudSetIE__VALID_URL,
+			SoundcloudSetIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|m)\\.)?soundcloud\\.com/(?P<uploader>[\\w\\d-]+)/sets/(?P<slug_title>[\\w\\d-]+)(?:/(?P<token>[^?/]+))?")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SoundcloudSetIE__VALID_URL,
 			})
 		}())
-		SoundcloudPagedPlaylistBaseIE = λ.Cal(λ.TypeType, λ.NewStr("SoundcloudPagedPlaylistBaseIE"), λ.NewTuple(SoundcloudPlaylistBaseIE), func() λ.Dict {
+		SoundcloudPagedPlaylistBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("SoundcloudPagedPlaylistBaseIE"), λ.NewTuple(SoundcloudPlaylistBaseIE), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
-		SoundcloudUserIE = λ.Cal(λ.TypeType, λ.NewStr("SoundcloudUserIE"), λ.NewTuple(SoundcloudPagedPlaylistBaseIE), func() λ.Dict {
+		SoundcloudUserIE = λ.Cal(λ.TypeType, λ.StrLiteral("SoundcloudUserIE"), λ.NewTuple(SoundcloudPagedPlaylistBaseIE), func() λ.Dict {
 			var (
 				SoundcloudUserIE__VALID_URL λ.Object
 			)
-			SoundcloudUserIE__VALID_URL = λ.NewStr("(?x)\n                        https?://\n                            (?:(?:www|m)\\.)?soundcloud\\.com/\n                            (?P<user>[^/]+)\n                            (?:/\n                                (?P<rsrc>tracks|albums|sets|reposts|likes|spotlight)\n                            )?\n                            /?(?:[?#].*)?$\n                    ")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SoundcloudUserIE__VALID_URL,
+			SoundcloudUserIE__VALID_URL = λ.StrLiteral("(?x)\n                        https?://\n                            (?:(?:www|m)\\.)?soundcloud\\.com/\n                            (?P<user>[^/]+)\n                            (?:/\n                                (?P<rsrc>tracks|albums|sets|reposts|likes|spotlight)\n                            )?\n                            /?(?:[?#].*)?$\n                    ")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SoundcloudUserIE__VALID_URL,
 			})
 		}())
-		SoundcloudTrackStationIE = λ.Cal(λ.TypeType, λ.NewStr("SoundcloudTrackStationIE"), λ.NewTuple(SoundcloudPagedPlaylistBaseIE), func() λ.Dict {
+		SoundcloudTrackStationIE = λ.Cal(λ.TypeType, λ.StrLiteral("SoundcloudTrackStationIE"), λ.NewTuple(SoundcloudPagedPlaylistBaseIE), func() λ.Dict {
 			var (
 				SoundcloudTrackStationIE__VALID_URL λ.Object
 			)
-			SoundcloudTrackStationIE__VALID_URL = λ.NewStr("https?://(?:(?:www|m)\\.)?soundcloud\\.com/stations/track/[^/]+/(?P<id>[^/?#&]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SoundcloudTrackStationIE__VALID_URL,
+			SoundcloudTrackStationIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|m)\\.)?soundcloud\\.com/stations/track/[^/]+/(?P<id>[^/?#&]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SoundcloudTrackStationIE__VALID_URL,
 			})
 		}())
-		SoundcloudPlaylistIE = λ.Cal(λ.TypeType, λ.NewStr("SoundcloudPlaylistIE"), λ.NewTuple(SoundcloudPlaylistBaseIE), func() λ.Dict {
+		SoundcloudPlaylistIE = λ.Cal(λ.TypeType, λ.StrLiteral("SoundcloudPlaylistIE"), λ.NewTuple(SoundcloudPlaylistBaseIE), func() λ.Dict {
 			var (
 				SoundcloudPlaylistIE__VALID_URL λ.Object
 			)
-			SoundcloudPlaylistIE__VALID_URL = λ.NewStr("https?://api(?:-v2)?\\.soundcloud\\.com/playlists/(?P<id>[0-9]+)(?:/?\\?secret_token=(?P<token>[^&]+?))?$")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SoundcloudPlaylistIE__VALID_URL,
+			SoundcloudPlaylistIE__VALID_URL = λ.StrLiteral("https?://api(?:-v2)?\\.soundcloud\\.com/playlists/(?P<id>[0-9]+)(?:/?\\?secret_token=(?P<token>[^&]+?))?$")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SoundcloudPlaylistIE__VALID_URL,
 			})
 		}())
-		SoundcloudSearchIE = λ.Cal(λ.TypeType, λ.NewStr("SoundcloudSearchIE"), λ.NewTuple(
+		SoundcloudSearchIE = λ.Cal(λ.TypeType, λ.StrLiteral("SoundcloudSearchIE"), λ.NewTuple(
 			SearchInfoExtractor,
 			SoundcloudIE,
 		), func() λ.Dict {
 			var (
 				SoundcloudSearchIE__SEARCH_KEY λ.Object
 			)
-			SoundcloudSearchIE__SEARCH_KEY = λ.NewStr("scsearch")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_SEARCH_KEY"): SoundcloudSearchIE__SEARCH_KEY,
+			SoundcloudSearchIE__SEARCH_KEY = λ.StrLiteral("scsearch")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_SEARCH_KEY": SoundcloudSearchIE__SEARCH_KEY,
 			})
 		}())
 	})

@@ -17,43 +17,12 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * str-compact.go: Compact implementation variant of the string type
+ * minify.go: Convenience methods used by the minifier to reduce generated code size
  */
 
 package runtime
 
-// StrCompact ..
-type StrCompact string
-
-var strCompactBase Object
-
-// Type ..
-func (sc StrCompact) Type() Type {
-	return strCompactBase.Type()
-}
-
-// Dict ..
-func (sc StrCompact) Dict() Dict {
-	return strCompactBase.Dict()
-}
-
-func (sc StrCompact) setDict(d Dict) {
-	strCompactBase.setDict(d)
-}
-
-// IsInstance ..
-func (sc StrCompact) IsInstance(t Type) bool {
-	return strCompactBase.IsInstance(t)
-}
-
-// Value ..
-func (sc StrCompact) Value() string {
-	return string(sc)
-}
-
-func newStrCompact(value string) Str {
-	if strCompactBase == nil {
-		strCompactBase = newObject(StrType)
-	}
-	return StrCompact(value)
+// Calm ..
+func Calm(o Object, attr string, args ...Object) Object {
+	return Cal(GetAttr(o, attr, nil), args...)
 }

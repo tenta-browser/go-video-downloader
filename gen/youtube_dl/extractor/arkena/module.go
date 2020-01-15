@@ -52,13 +52,13 @@ func init() {
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒstrip_jsonp = Ωutils.ϒstrip_jsonp
-		ArkenaIE = λ.Cal(λ.TypeType, λ.NewStr("ArkenaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ArkenaIE = λ.Cal(λ.TypeType, λ.StrLiteral("ArkenaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ArkenaIE__VALID_URL λ.Object
 			)
-			ArkenaIE__VALID_URL = λ.NewStr("(?x)\n                        https?://\n                            (?:\n                                video\\.arkena\\.com/play2/embed/player\\?|\n                                play\\.arkena\\.com/(?:config|embed)/avp/v\\d/player/media/(?P<id>[^/]+)/[^/]+/(?P<account_id>\\d+)\n                            )\n                        ")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): ArkenaIE__VALID_URL,
+			ArkenaIE__VALID_URL = λ.StrLiteral("(?x)\n                        https?://\n                            (?:\n                                video\\.arkena\\.com/play2/embed/player\\?|\n                                play\\.arkena\\.com/(?:config|embed)/avp/v\\d/player/media/(?P<id>[^/]+)/[^/]+/(?P<account_id>\\d+)\n                            )\n                        ")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": ArkenaIE__VALID_URL,
 			})
 		}())
 	})

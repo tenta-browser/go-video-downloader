@@ -40,12 +40,12 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒurljoin = Ωutils.ϒurljoin
-		YourUploadIE = λ.Cal(λ.TypeType, λ.NewStr("YourUploadIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		YourUploadIE = λ.Cal(λ.TypeType, λ.StrLiteral("YourUploadIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				YourUploadIE__VALID_URL    λ.Object
 				YourUploadIE__real_extract λ.Object
 			)
-			YourUploadIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?:yourupload\\.com/(?:watch|embed)|embed\\.yourupload\\.com)/(?P<id>[A-Za-z0-9]+)")
+			YourUploadIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?:yourupload\\.com/(?:watch|embed)|embed\\.yourupload\\.com)/(?P<id>[A-Za-z0-9]+)")
 			YourUploadIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -63,27 +63,27 @@ func init() {
 						ϒvideo_url λ.Object
 						ϒwebpage   λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒembed_url = λ.Mod(λ.NewStr("http://www.yourupload.com/embed/%s"), ϒvideo_id)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒembed_url, ϒvideo_id)
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
-					ϒvideo_url = λ.Cal(ϒurljoin, ϒembed_url, λ.Cal(λ.GetAttr(ϒself, "_og_search_video_url", nil), ϒwebpage))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒembed_url = λ.Mod(λ.StrLiteral("http://www.yourupload.com/embed/%s"), ϒvideo_id)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒembed_url, ϒvideo_id)
+					ϒtitle = λ.Calm(ϒself, "_og_search_title", ϒwebpage)
+					ϒvideo_url = λ.Cal(ϒurljoin, ϒembed_url, λ.Calm(ϒself, "_og_search_video_url", ϒwebpage))
 					ϒthumbnail = λ.Call(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("title"):     ϒtitle,
-						λ.NewStr("url"):       ϒvideo_url,
-						λ.NewStr("thumbnail"): ϒthumbnail,
-						λ.NewStr("http_headers"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("Referer"): ϒembed_url,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒvideo_id,
+						"title":     ϒtitle,
+						"url":       ϒvideo_url,
+						"thumbnail": ϒthumbnail,
+						"http_headers": λ.DictLiteral(map[string]λ.Object{
+							"Referer": ϒembed_url,
 						}),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    YourUploadIE__VALID_URL,
-				λ.NewStr("_real_extract"): YourUploadIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    YourUploadIE__VALID_URL,
+				"_real_extract": YourUploadIE__real_extract,
 			})
 		}())
 	})

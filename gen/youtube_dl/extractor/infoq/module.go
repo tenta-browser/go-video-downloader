@@ -48,7 +48,7 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		BokeCCBaseIE = Ωbokecc.BokeCCBaseIE
-		InfoQIE = λ.Cal(λ.TypeType, λ.NewStr("InfoQIE"), λ.NewTuple(BokeCCBaseIE), func() λ.Dict {
+		InfoQIE = λ.Cal(λ.TypeType, λ.StrLiteral("InfoQIE"), λ.NewTuple(BokeCCBaseIE), func() λ.Dict {
 			var (
 				InfoQIE__VALID_URL          λ.Object
 				InfoQIE__extract_cf_auth    λ.Object
@@ -57,7 +57,7 @@ func init() {
 				InfoQIE__extract_rtmp_video λ.Object
 				InfoQIE__real_extract       λ.Object
 			)
-			InfoQIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?infoq\\.com/(?:[^/]+/)+(?P<id>[^/]+)")
+			InfoQIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?infoq\\.com/(?:[^/]+/)+(?P<id>[^/]+)")
 			InfoQIE__extract_rtmp_video = λ.NewFunction("_extract_rtmp_video",
 				[]λ.Param{
 					{Name: "self"},
@@ -73,21 +73,21 @@ func init() {
 						ϒvideo_url  λ.Object
 						ϒwebpage    = λargs[1]
 					)
-					ϒvideo_url = λ.NewStr("rtmpe://video.infoq.com/cfx/st/")
+					ϒvideo_url = λ.StrLiteral("rtmpe://video.infoq.com/cfx/st/")
 					ϒencoded_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("jsclassref\\s*=\\s*'([^']*)'"),
+						λ.StrLiteral("jsclassref\\s*=\\s*'([^']*)'"),
 						ϒwebpage,
-						λ.NewStr("encoded id"),
+						λ.StrLiteral("encoded id"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
-					ϒreal_id = λ.Cal(ϒcompat_urllib_parse_unquote, λ.Cal(λ.GetAttr(λ.Cal(ϒcompat_b64decode, ϒencoded_id), "decode", nil), λ.NewStr("utf-8")))
-					ϒplaypath = λ.Add(λ.NewStr("mp4:"), ϒreal_id)
-					return λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("format_id"): λ.NewStr("rtmp_video"),
-						λ.NewStr("url"):       ϒvideo_url,
-						λ.NewStr("ext"):       λ.Cal(ϒdetermine_ext, ϒplaypath),
-						λ.NewStr("play_path"): ϒplaypath,
+					ϒreal_id = λ.Cal(ϒcompat_urllib_parse_unquote, λ.Calm(λ.Cal(ϒcompat_b64decode, ϒencoded_id), "decode", λ.StrLiteral("utf-8")))
+					ϒplaypath = λ.Add(λ.StrLiteral("mp4:"), ϒreal_id)
+					return λ.NewList(λ.DictLiteral(map[string]λ.Object{
+						"format_id": λ.StrLiteral("rtmp_video"),
+						"url":       ϒvideo_url,
+						"ext":       λ.Cal(ϒdetermine_ext, ϒplaypath),
+						"play_path": ϒplaypath,
 					}))
 				})
 			InfoQIE__extract_cf_auth = λ.NewFunction("_extract_cf_auth",
@@ -104,13 +104,13 @@ func init() {
 						ϒsignature   λ.Object
 						ϒwebpage     = λargs[1]
 					)
-					ϒpolicy = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("InfoQConstants\\.scp\\s*=\\s*\\'([^\\']+)\\'"), ϒwebpage, λ.NewStr("policy"))
-					ϒsignature = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("InfoQConstants\\.scs\\s*=\\s*\\'([^\\']+)\\'"), ϒwebpage, λ.NewStr("signature"))
-					ϒkey_pair_id = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("InfoQConstants\\.sck\\s*=\\s*\\'([^\\']+)\\'"), ϒwebpage, λ.NewStr("key-pair-id"))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("Policy"):      ϒpolicy,
-						λ.NewStr("Signature"):   ϒsignature,
-						λ.NewStr("Key-Pair-Id"): ϒkey_pair_id,
+					ϒpolicy = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("InfoQConstants\\.scp\\s*=\\s*\\'([^\\']+)\\'"), ϒwebpage, λ.StrLiteral("policy"))
+					ϒsignature = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("InfoQConstants\\.scs\\s*=\\s*\\'([^\\']+)\\'"), ϒwebpage, λ.StrLiteral("signature"))
+					ϒkey_pair_id = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("InfoQConstants\\.sck\\s*=\\s*\\'([^\\']+)\\'"), ϒwebpage, λ.StrLiteral("key-pair-id"))
+					return λ.DictLiteral(map[string]λ.Object{
+						"Policy":      ϒpolicy,
+						"Signature":   ϒsignature,
+						"Key-Pair-Id": ϒkey_pair_id,
 					})
 				})
 			InfoQIE__extract_http_video = λ.NewFunction("_extract_http_video",
@@ -125,11 +125,11 @@ func init() {
 						ϒself           = λargs[0]
 						ϒwebpage        = λargs[1]
 					)
-					ϒhttp_video_url = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("P\\.s\\s*=\\s*\\'([^\\']+)\\'"), ϒwebpage, λ.NewStr("video URL"))
-					ϒhttp_video_url = λ.Cal(ϒupdate_url_query, ϒhttp_video_url, λ.Cal(λ.GetAttr(ϒself, "_extract_cf_auth", nil), ϒwebpage))
-					return λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("format_id"): λ.NewStr("http_video"),
-						λ.NewStr("url"):       ϒhttp_video_url,
+					ϒhttp_video_url = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("P\\.s\\s*=\\s*\\'([^\\']+)\\'"), ϒwebpage, λ.StrLiteral("video URL"))
+					ϒhttp_video_url = λ.Cal(ϒupdate_url_query, ϒhttp_video_url, λ.Calm(ϒself, "_extract_cf_auth", ϒwebpage))
+					return λ.NewList(λ.DictLiteral(map[string]λ.Object{
+						"format_id": λ.StrLiteral("http_video"),
+						"url":       ϒhttp_video_url,
 					}))
 				})
 			InfoQIE__extract_http_audio = λ.NewFunction("_extract_http_audio",
@@ -147,20 +147,20 @@ func init() {
 						ϒvideo_id       = λargs[2]
 						ϒwebpage        = λargs[1]
 					)
-					ϒfields = λ.Cal(λ.GetAttr(ϒself, "_hidden_inputs", nil), ϒwebpage)
-					ϒhttp_audio_url = λ.Cal(λ.GetAttr(ϒfields, "get", nil), λ.NewStr("filename"))
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒhttp_audio_url))) {
+					ϒfields = λ.Calm(ϒself, "_hidden_inputs", ϒwebpage)
+					ϒhttp_audio_url = λ.Calm(ϒfields, "get", λ.StrLiteral("filename"))
+					if !λ.IsTrue(ϒhttp_audio_url) {
 						return λ.NewList()
 					}
-					ϒhttp_audio_url = λ.Cal(Ωparse.ϒurljoin, λ.NewStr("http://res.infoq.com/downloads/mp3downloads/"), ϒhttp_audio_url)
-					ϒhttp_audio_url = λ.Cal(ϒupdate_url_query, ϒhttp_audio_url, λ.Cal(λ.GetAttr(ϒself, "_extract_cf_auth", nil), ϒwebpage))
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒself, "_is_valid_url", nil), ϒhttp_audio_url, ϒvideo_id)))) {
+					ϒhttp_audio_url = λ.Cal(Ωparse.ϒurljoin, λ.StrLiteral("http://res.infoq.com/downloads/mp3downloads/"), ϒhttp_audio_url)
+					ϒhttp_audio_url = λ.Cal(ϒupdate_url_query, ϒhttp_audio_url, λ.Calm(ϒself, "_extract_cf_auth", ϒwebpage))
+					if !λ.IsTrue(λ.Calm(ϒself, "_is_valid_url", ϒhttp_audio_url, ϒvideo_id)) {
 						return λ.NewList()
 					}
-					return λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("format_id"): λ.NewStr("http_audio"),
-						λ.NewStr("url"):       ϒhttp_audio_url,
-						λ.NewStr("vcodec"):    λ.NewStr("none"),
+					return λ.NewList(λ.DictLiteral(map[string]λ.Object{
+						"format_id": λ.StrLiteral("http_audio"),
+						"url":       ϒhttp_audio_url,
+						"vcodec":    λ.StrLiteral("none"),
 					}))
 				})
 			InfoQIE__real_extract = λ.NewFunction("_real_extract",
@@ -179,30 +179,30 @@ func init() {
 						ϒvideo_title       λ.Object
 						ϒwebpage           λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒvideo_title = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<title>(.*?)</title>"), ϒwebpage, λ.NewStr("title"))
-					ϒvideo_description = λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewStr("description"), ϒwebpage, λ.NewStr("description"))
-					if λ.IsTrue(λ.NewBool(λ.Contains(ϒurl, λ.NewStr("/cn/")))) {
-						ϒformats = λ.Cal(λ.GetAttr(ϒself, "_extract_bokecc_formats", nil), ϒwebpage, ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒvideo_title = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("<title>(.*?)</title>"), ϒwebpage, λ.StrLiteral("title"))
+					ϒvideo_description = λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("description"), ϒwebpage, λ.StrLiteral("description"))
+					if λ.Contains(ϒurl, λ.StrLiteral("/cn/")) {
+						ϒformats = λ.Calm(ϒself, "_extract_bokecc_formats", ϒwebpage, ϒvideo_id)
 					} else {
-						ϒformats = λ.Add(λ.Add(λ.Cal(λ.GetAttr(ϒself, "_extract_rtmp_video", nil), ϒwebpage), λ.Cal(λ.GetAttr(ϒself, "_extract_http_video", nil), ϒwebpage)), λ.Cal(λ.GetAttr(ϒself, "_extract_http_audio", nil), ϒwebpage, ϒvideo_id))
+						ϒformats = λ.Add(λ.Add(λ.Calm(ϒself, "_extract_rtmp_video", ϒwebpage), λ.Calm(ϒself, "_extract_http_video", ϒwebpage)), λ.Calm(ϒself, "_extract_http_audio", ϒwebpage, ϒvideo_id))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       ϒvideo_title,
-						λ.NewStr("description"): ϒvideo_description,
-						λ.NewStr("formats"):     ϒformats,
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       ϒvideo_title,
+						"description": ϒvideo_description,
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):          InfoQIE__VALID_URL,
-				λ.NewStr("_extract_cf_auth"):    InfoQIE__extract_cf_auth,
-				λ.NewStr("_extract_http_audio"): InfoQIE__extract_http_audio,
-				λ.NewStr("_extract_http_video"): InfoQIE__extract_http_video,
-				λ.NewStr("_extract_rtmp_video"): InfoQIE__extract_rtmp_video,
-				λ.NewStr("_real_extract"):       InfoQIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":          InfoQIE__VALID_URL,
+				"_extract_cf_auth":    InfoQIE__extract_cf_auth,
+				"_extract_http_audio": InfoQIE__extract_http_audio,
+				"_extract_http_video": InfoQIE__extract_http_video,
+				"_extract_rtmp_video": InfoQIE__extract_rtmp_video,
+				"_real_extract":       InfoQIE__real_extract,
 			})
 		}())
 	})

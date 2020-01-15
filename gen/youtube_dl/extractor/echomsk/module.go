@@ -38,12 +38,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		EchoMskIE = λ.Cal(λ.TypeType, λ.NewStr("EchoMskIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		EchoMskIE = λ.Cal(λ.TypeType, λ.StrLiteral("EchoMskIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				EchoMskIE__VALID_URL    λ.Object
 				EchoMskIE__real_extract λ.Object
 			)
-			EchoMskIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?echo\\.msk\\.ru/sounds/(?P<id>\\d+)")
+			EchoMskIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?echo\\.msk\\.ru/sounds/(?P<id>\\d+)")
 			EchoMskIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -60,36 +60,36 @@ func init() {
 						ϒvideo_id  λ.Object
 						ϒwebpage   λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒaudio_url = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<a rel=\"mp3\" href=\"([^\"]+)\">"), ϒwebpage, λ.NewStr("audio URL"))
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<a href=\"/programs/[^\"]+\" target=\"_blank\">([^<]+)</a>"), ϒwebpage, λ.NewStr("title"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒaudio_url = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<a rel=\"mp3\" href=\"([^\"]+)\">"), ϒwebpage, λ.StrLiteral("audio URL"))
+					ϒtitle = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("<a href=\"/programs/[^\"]+\" target=\"_blank\">([^<]+)</a>"), ϒwebpage, λ.StrLiteral("title"))
 					ϒair_date = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("(?s)<div class=\"date\">(.+?)</div>"),
+						λ.StrLiteral("(?s)<div class=\"date\">(.+?)</div>"),
 						ϒwebpage,
-						λ.NewStr("date"),
+						λ.StrLiteral("date"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 						{Name: "default", Value: λ.None},
 					})
 					if λ.IsTrue(ϒair_date) {
-						ϒair_date = λ.Cal(Ωre.ϒsub, λ.NewStr("(\\s)\\1+"), λ.NewStr("\\1"), ϒair_date)
+						ϒair_date = λ.Cal(Ωre.ϒsub, λ.StrLiteral("(\\s)\\1+"), λ.StrLiteral("\\1"), ϒair_date)
 						if λ.IsTrue(ϒair_date) {
-							ϒtitle = λ.Mod(λ.NewStr("%s - %s"), λ.NewTuple(
+							ϒtitle = λ.Mod(λ.StrLiteral("%s - %s"), λ.NewTuple(
 								ϒtitle,
 								ϒair_date,
 							))
 						}
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    ϒvideo_id,
-						λ.NewStr("url"):   ϒaudio_url,
-						λ.NewStr("title"): ϒtitle,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":    ϒvideo_id,
+						"url":   ϒaudio_url,
+						"title": ϒtitle,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    EchoMskIE__VALID_URL,
-				λ.NewStr("_real_extract"): EchoMskIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    EchoMskIE__VALID_URL,
+				"_real_extract": EchoMskIE__real_extract,
 			})
 		}())
 	})

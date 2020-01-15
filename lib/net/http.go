@@ -93,12 +93,12 @@ var Execute = rnt.NewSimpleFunction("Execute",
 		status := rnt.NewStr(_status)
 
 		// extract response headers
-		_resHeaders := make(map[rnt.Object]rnt.Object)
+		_resHeaders := make(map[string]string)
 		for key := range res.Header {
 			value := res.Header.Get(key)
-			_resHeaders[rnt.NewStr(key)] = rnt.NewStr(value)
+			_resHeaders[key] = value
 		}
-		resHeaders := rnt.NewDictWithTable(_resHeaders)
+		resHeaders := rnt.DictLiteral(_resHeaders)
 
 		return rnt.NewTuple(
 			rnt.NewTuple(nativeRes, resURL, statusCode, status, resHeaders),

@@ -49,12 +49,12 @@ func init() {
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒtry_get = Ωutils.ϒtry_get
-		HitRecordIE = λ.Cal(λ.TypeType, λ.NewStr("HitRecordIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		HitRecordIE = λ.Cal(λ.TypeType, λ.StrLiteral("HitRecordIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				HitRecordIE__VALID_URL    λ.Object
 				HitRecordIE__real_extract λ.Object
 			)
-			HitRecordIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?hitrecord\\.org/records/(?P<id>\\d+)")
+			HitRecordIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?hitrecord\\.org/records/(?P<id>\\d+)")
 			HitRecordIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -72,10 +72,10 @@ func init() {
 						ϒvideo_id  λ.Object
 						ϒvideo_url λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒvideo = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("https://hitrecord.org/api/web/records/%s"), ϒvideo_id), ϒvideo_id)
-					ϒtitle = λ.GetItem(ϒvideo, λ.NewStr("title"))
-					ϒvideo_url = λ.GetItem(λ.GetItem(ϒvideo, λ.NewStr("source_url")), λ.NewStr("mp4_url"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒvideo = λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("https://hitrecord.org/api/web/records/%s"), ϒvideo_id), ϒvideo_id)
+					ϒtitle = λ.GetItem(ϒvideo, λ.StrLiteral("title"))
+					ϒvideo_url = λ.GetItem(λ.GetItem(ϒvideo, λ.StrLiteral("source_url")), λ.StrLiteral("mp4_url"))
 					ϒtags = λ.None
 					ϒtags_list = λ.Cal(ϒtry_get, ϒvideo, λ.NewFunction("<lambda>",
 						[]λ.Param{
@@ -86,7 +86,7 @@ func init() {
 							var (
 								ϒx = λargs[0]
 							)
-							return λ.GetItem(ϒx, λ.NewStr("tags"))
+							return λ.GetItem(ϒx, λ.StrLiteral("tags"))
 						}), λ.ListType)
 					if λ.IsTrue(ϒtags_list) {
 						ϒtags = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
@@ -108,27 +108,27 @@ func init() {
 										if λ.IsTrue(func() λ.Object {
 											if λv := λ.Cal(λ.BuiltinIsInstance, ϒt, λ.DictType); !λ.IsTrue(λv) {
 												return λv
-											} else if λv := λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("text")); !λ.IsTrue(λv) {
+											} else if λv := λ.Calm(ϒt, "get", λ.StrLiteral("text")); !λ.IsTrue(λv) {
 												return λv
 											} else {
-												return λ.Cal(λ.BuiltinIsInstance, λ.GetItem(ϒt, λ.NewStr("text")), ϒcompat_str)
+												return λ.Cal(λ.BuiltinIsInstance, λ.GetItem(ϒt, λ.StrLiteral("text")), ϒcompat_str)
 											}
 										}()) {
-											λgy.Yield(λ.GetItem(ϒt, λ.NewStr("text")))
+											λgy.Yield(λ.GetItem(ϒt, λ.StrLiteral("text")))
 										}
 									}
 									return λ.None
 								})
 							})))
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("url"):         ϒvideo_url,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): λ.Cal(ϒclean_html, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("body"))),
-						λ.NewStr("duration"):    λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("duration")), λ.NewInt(1000)),
-						λ.NewStr("timestamp"):   λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("created_at_i"))),
-						λ.NewStr("uploader"): λ.Cal(ϒtry_get, ϒvideo, λ.NewFunction("<lambda>",
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"url":         ϒvideo_url,
+						"title":       ϒtitle,
+						"description": λ.Cal(ϒclean_html, λ.Calm(ϒvideo, "get", λ.StrLiteral("body"))),
+						"duration":    λ.Cal(ϒfloat_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("duration")), λ.IntLiteral(1000)),
+						"timestamp":   λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("created_at_i"))),
+						"uploader": λ.Cal(ϒtry_get, ϒvideo, λ.NewFunction("<lambda>",
 							[]λ.Param{
 								{Name: "x"},
 							},
@@ -137,9 +137,9 @@ func init() {
 								var (
 									ϒx = λargs[0]
 								)
-								return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("user")), λ.NewStr("username"))
+								return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("user")), λ.StrLiteral("username"))
 							}), ϒcompat_str),
-						λ.NewStr("uploader_id"): λ.Cal(ϒtry_get, ϒvideo, λ.NewFunction("<lambda>",
+						"uploader_id": λ.Cal(ϒtry_get, ϒvideo, λ.NewFunction("<lambda>",
 							[]λ.Param{
 								{Name: "x"},
 							},
@@ -148,17 +148,17 @@ func init() {
 								var (
 									ϒx = λargs[0]
 								)
-								return λ.Cal(ϒcompat_str, λ.GetItem(λ.GetItem(ϒx, λ.NewStr("user")), λ.NewStr("id")))
+								return λ.Cal(ϒcompat_str, λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("user")), λ.StrLiteral("id")))
 							})),
-						λ.NewStr("view_count"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("total_views_count"))),
-						λ.NewStr("like_count"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("hearts_count"))),
-						λ.NewStr("comment_count"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("comments_count"))),
-						λ.NewStr("tags"):          ϒtags,
+						"view_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("total_views_count"))),
+						"like_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("hearts_count"))),
+						"comment_count": λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("comments_count"))),
+						"tags":          ϒtags,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    HitRecordIE__VALID_URL,
-				λ.NewStr("_real_extract"): HitRecordIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    HitRecordIE__VALID_URL,
+				"_real_extract": HitRecordIE__real_extract,
 			})
 		}())
 	})

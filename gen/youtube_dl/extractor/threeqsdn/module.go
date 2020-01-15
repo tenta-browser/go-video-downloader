@@ -44,13 +44,13 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
-		ThreeQSDNIE = λ.Cal(λ.TypeType, λ.NewStr("ThreeQSDNIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ThreeQSDNIE = λ.Cal(λ.TypeType, λ.StrLiteral("ThreeQSDNIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ThreeQSDNIE__VALID_URL λ.Object
 			)
-			ThreeQSDNIE__VALID_URL = λ.NewStr("https?://playout\\.3qsdn\\.com/(?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): ThreeQSDNIE__VALID_URL,
+			ThreeQSDNIE__VALID_URL = λ.StrLiteral("https?://playout\\.3qsdn\\.com/(?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": ThreeQSDNIE__VALID_URL,
 			})
 		}())
 	})

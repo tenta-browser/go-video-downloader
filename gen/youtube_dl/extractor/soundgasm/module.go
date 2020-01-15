@@ -39,14 +39,14 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		SoundgasmIE = λ.Cal(λ.TypeType, λ.NewStr("SoundgasmIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SoundgasmIE = λ.Cal(λ.TypeType, λ.StrLiteral("SoundgasmIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SoundgasmIE_IE_NAME       λ.Object
 				SoundgasmIE__VALID_URL    λ.Object
 				SoundgasmIE__real_extract λ.Object
 			)
-			SoundgasmIE_IE_NAME = λ.NewStr("soundgasm")
-			SoundgasmIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?soundgasm\\.net/u/(?P<user>[0-9a-zA-Z_-]+)/(?P<display_id>[0-9a-zA-Z_-]+)")
+			SoundgasmIE_IE_NAME = λ.StrLiteral("soundgasm")
+			SoundgasmIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?soundgasm\\.net/u/(?P<user>[0-9a-zA-Z_-]+)/(?P<display_id>[0-9a-zA-Z_-]+)")
 			SoundgasmIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -66,62 +66,62 @@ func init() {
 						ϒwebpage     λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("display_id"))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
+					ϒdisplay_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("display_id"))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
 					ϒaudio_url = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("(?s)m4a\\s*:\\s*([\"\\'])(?P<url>(?:(?!\\1).)+)\\1"),
+						λ.StrLiteral("(?s)m4a\\s*:\\s*([\"\\'])(?P<url>(?:(?!\\1).)+)\\1"),
 						ϒwebpage,
-						λ.NewStr("audio URL"),
+						λ.StrLiteral("audio URL"),
 					), λ.KWArgs{
-						{Name: "group", Value: λ.NewStr("url")},
+						{Name: "group", Value: λ.StrLiteral("url")},
 					})
 					ϒtitle = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<div[^>]+\\bclass=[\"\\']jp-title[^>]+>([^<]+)"),
+						λ.StrLiteral("<div[^>]+\\bclass=[\"\\']jp-title[^>]+>([^<]+)"),
 						ϒwebpage,
-						λ.NewStr("title"),
+						λ.StrLiteral("title"),
 					), λ.KWArgs{
 						{Name: "default", Value: ϒdisplay_id},
 					})
 					ϒdescription = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 						λ.NewTuple(
-							λ.NewStr("(?s)<div[^>]+\\bclass=[\"\\']jp-description[^>]+>(.+?)</div>"),
-							λ.NewStr("(?s)<li>Description:\\s(.*?)<\\/li>"),
+							λ.StrLiteral("(?s)<div[^>]+\\bclass=[\"\\']jp-description[^>]+>(.+?)</div>"),
+							λ.StrLiteral("(?s)<li>Description:\\s(.*?)<\\/li>"),
 						),
 						ϒwebpage,
-						λ.NewStr("description"),
+						λ.StrLiteral("description"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
 					ϒaudio_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("/([^/]+)\\.m4a"),
+						λ.StrLiteral("/([^/]+)\\.m4a"),
 						ϒaudio_url,
-						λ.NewStr("audio id"),
+						λ.StrLiteral("audio id"),
 					), λ.KWArgs{
 						{Name: "default", Value: ϒdisplay_id},
 					})
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒaudio_id,
-						λ.NewStr("display_id"):  ϒdisplay_id,
-						λ.NewStr("url"):         ϒaudio_url,
-						λ.NewStr("vcodec"):      λ.NewStr("none"),
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("uploader"):    λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("user")),
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒaudio_id,
+						"display_id":  ϒdisplay_id,
+						"url":         ϒaudio_url,
+						"vcodec":      λ.StrLiteral("none"),
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"uploader":    λ.Calm(ϒmobj, "group", λ.StrLiteral("user")),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       SoundgasmIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    SoundgasmIE__VALID_URL,
-				λ.NewStr("_real_extract"): SoundgasmIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       SoundgasmIE_IE_NAME,
+				"_VALID_URL":    SoundgasmIE__VALID_URL,
+				"_real_extract": SoundgasmIE__real_extract,
 			})
 		}())
-		SoundgasmProfileIE = λ.Cal(λ.TypeType, λ.NewStr("SoundgasmProfileIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SoundgasmProfileIE = λ.Cal(λ.TypeType, λ.StrLiteral("SoundgasmProfileIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SoundgasmProfileIE__VALID_URL λ.Object
 			)
-			SoundgasmProfileIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?soundgasm\\.net/u/(?P<id>[^/]+)/?(?:\\#.*)?$")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SoundgasmProfileIE__VALID_URL,
+			SoundgasmProfileIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?soundgasm\\.net/u/(?P<id>[^/]+)/?(?:\\#.*)?$")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SoundgasmProfileIE__VALID_URL,
 			})
 		}())
 	})

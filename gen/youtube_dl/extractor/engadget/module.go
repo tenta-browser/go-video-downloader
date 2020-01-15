@@ -37,12 +37,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		EngadgetIE = λ.Cal(λ.TypeType, λ.NewStr("EngadgetIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		EngadgetIE = λ.Cal(λ.TypeType, λ.StrLiteral("EngadgetIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				EngadgetIE__VALID_URL    λ.Object
 				EngadgetIE__real_extract λ.Object
 			)
-			EngadgetIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?engadget\\.com/video/(?P<id>[^/?#]+)")
+			EngadgetIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?engadget\\.com/video/(?P<id>[^/?#]+)")
 			EngadgetIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -55,12 +55,12 @@ func init() {
 						ϒurl      = λargs[1]
 						ϒvideo_id λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("aol-video:%s"), ϒvideo_id))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					return λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("aol-video:%s"), ϒvideo_id))
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    EngadgetIE__VALID_URL,
-				λ.NewStr("_real_extract"): EngadgetIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    EngadgetIE__VALID_URL,
+				"_real_extract": EngadgetIE__real_extract,
 			})
 		}())
 	})

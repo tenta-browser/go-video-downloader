@@ -46,13 +46,13 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
-		WistiaIE = λ.Cal(λ.TypeType, λ.NewStr("WistiaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		WistiaIE = λ.Cal(λ.TypeType, λ.StrLiteral("WistiaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				WistiaIE__VALID_URL λ.Object
 			)
-			WistiaIE__VALID_URL = λ.NewStr("(?:wistia:|https?://(?:fast\\.)?wistia\\.(?:net|com)/embed/(?:iframe|medias)/)(?P<id>[a-z0-9]{10})")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): WistiaIE__VALID_URL,
+			WistiaIE__VALID_URL = λ.StrLiteral("(?:wistia:|https?://(?:fast\\.)?wistia\\.(?:net|com)/embed/(?:iframe|medias)/)(?P<id>[a-z0-9]{10})")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": WistiaIE__VALID_URL,
 			})
 		}())
 	})

@@ -38,7 +38,7 @@ var (
 
 func init() {
 	λ.InitModule(func() {
-		Request = λ.Cal(λ.TypeType, λ.NewStr("Request"), λ.NewTuple(), func() λ.Dict {
+		Request = λ.Cal(λ.TypeType, λ.StrLiteral("Request"), λ.NewTuple(), func() λ.Dict {
 			var (
 				Request___init__     λ.Object
 				Request_add_header   λ.Object
@@ -73,18 +73,18 @@ func init() {
 						τmp2             λ.Object
 					)
 					λ.SetAttr(ϒself, "url", ϒurl)
-					λ.SetAttr(ϒself, "headers", λ.NewDictWithTable(map[λ.Object]λ.Object{}))
+					λ.SetAttr(ϒself, "headers", λ.DictLiteral(map[λ.Object]λ.Object{}))
 					λ.SetAttr(ϒself, "data", ϒdata)
 					if λ.IsTrue(ϒheaders) {
-						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒheaders, "items", nil)))
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒheaders, "items"))
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
 							τmp2 = τmp1
-							ϒkey = λ.GetItem(τmp2, λ.NewInt(0))
-							ϒvalue = λ.GetItem(τmp2, λ.NewInt(1))
-							λ.Cal(λ.GetAttr(ϒself, "add_header", nil), ϒkey, ϒvalue)
+							ϒkey = λ.GetItem(τmp2, λ.IntLiteral(0))
+							ϒvalue = λ.GetItem(τmp2, λ.IntLiteral(1))
+							λ.Calm(ϒself, "add_header", ϒkey, ϒvalue)
 						}
 					}
 					λ.SetAttr(ϒself, "origin_req_host", ϒorigin_req_host)
@@ -105,7 +105,7 @@ func init() {
 						ϒself  = λargs[0]
 						ϒvalue = λargs[2]
 					)
-					λ.SetItem(λ.GetAttr(ϒself, "headers", nil), λ.Cal(λ.GetAttr(ϒkey, "capitalize", nil)), ϒvalue)
+					λ.SetItem(λ.GetAttr(ϒself, "headers", nil), λ.Calm(ϒkey, "capitalize"), ϒvalue)
 					return λ.None
 				})
 			Request_get_header = λ.NewFunction("get_header",
@@ -121,7 +121,7 @@ func init() {
 						ϒheader_name = λargs[1]
 						ϒself        = λargs[0]
 					)
-					return λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "headers", nil), "get", nil), λ.Cal(λ.GetAttr(ϒheader_name, "capitalize", nil)), ϒdefault)
+					return λ.Calm(λ.GetAttr(ϒself, "headers", nil), "get", λ.Calm(ϒheader_name, "capitalize"), ϒdefault)
 				})
 			Request_get_full_url = λ.NewFunction("get_full_url",
 				[]λ.Param{
@@ -147,41 +147,41 @@ func init() {
 						return λ.GetAttr(ϒself, "method", nil)
 					}
 					if λ.IsTrue(λ.GetAttr(ϒself, "data", nil)) {
-						return λ.NewStr("POST")
+						return λ.StrLiteral("POST")
 					}
-					return λ.NewStr("GET")
+					return λ.StrLiteral("GET")
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"):     Request___init__,
-				λ.NewStr("add_header"):   Request_add_header,
-				λ.NewStr("get_full_url"): Request_get_full_url,
-				λ.NewStr("get_header"):   Request_get_header,
-				λ.NewStr("get_method"):   Request_get_method,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__":     Request___init__,
+				"add_header":   Request_add_header,
+				"get_full_url": Request_get_full_url,
+				"get_header":   Request_get_header,
+				"get_method":   Request_get_method,
 			})
 		}())
-		HTTPHandler = λ.Cal(λ.TypeType, λ.NewStr("HTTPHandler"), λ.NewTuple(), func() λ.Dict {
+		HTTPHandler = λ.Cal(λ.TypeType, λ.StrLiteral("HTTPHandler"), λ.NewTuple(), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
-		HTTPSHandler = λ.Cal(λ.TypeType, λ.NewStr("HTTPSHandler"), λ.NewTuple(), func() λ.Dict {
+		HTTPSHandler = λ.Cal(λ.TypeType, λ.StrLiteral("HTTPSHandler"), λ.NewTuple(), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
-		HTTPCookieProcessor = λ.Cal(λ.TypeType, λ.NewStr("HTTPCookieProcessor"), λ.NewTuple(), func() λ.Dict {
+		HTTPCookieProcessor = λ.Cal(λ.TypeType, λ.StrLiteral("HTTPCookieProcessor"), λ.NewTuple(), func() λ.Dict {
 			var (
 				HTTPCookieProcessor_http_request λ.Object
 			)
-			HTTPCookieProcessor_http_request = λ.Cal(λ.TypeType, λ.NewStr("http_request"), λ.NewTuple(), func() λ.Dict {
+			HTTPCookieProcessor_http_request = λ.Cal(λ.TypeType, λ.StrLiteral("http_request"), λ.NewTuple(), func() λ.Dict {
 
-				return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+				return λ.DictLiteral(map[λ.Object]λ.Object{})
 			}())
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("http_request"): HTTPCookieProcessor_http_request,
+			return λ.DictLiteral(map[string]λ.Object{
+				"http_request": HTTPCookieProcessor_http_request,
 			})
 		}())
-		ProxyHandler = λ.Cal(λ.TypeType, λ.NewStr("ProxyHandler"), λ.NewTuple(), func() λ.Dict {
+		ProxyHandler = λ.Cal(λ.TypeType, λ.StrLiteral("ProxyHandler"), λ.NewTuple(), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
 	})
 }

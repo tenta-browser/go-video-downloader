@@ -45,7 +45,7 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒqualities = Ωutils.ϒqualities
 		ϒunified_strdate = Ωutils.ϒunified_strdate
-		CanalplusIE = λ.Cal(λ.TypeType, λ.NewStr("CanalplusIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		CanalplusIE = λ.Cal(λ.TypeType, λ.StrLiteral("CanalplusIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CanalplusIE__GEO_COUNTRIES       λ.Object
 				CanalplusIE__SITE_ID_MAP         λ.Object
@@ -53,13 +53,13 @@ func init() {
 				CanalplusIE__VIDEO_INFO_TEMPLATE λ.Object
 				CanalplusIE__real_extract        λ.Object
 			)
-			CanalplusIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?P<site>mycanal|piwiplus)\\.fr/(?:[^/]+/)*(?P<display_id>[^?/]+)(?:\\.html\\?.*\\bvid=|/p/)(?P<id>\\d+)")
-			CanalplusIE__VIDEO_INFO_TEMPLATE = λ.NewStr("http://service.canal-plus.com/video/rest/getVideosLiees/%s/%s?format=json")
-			CanalplusIE__SITE_ID_MAP = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("mycanal"):  λ.NewStr("cplus"),
-				λ.NewStr("piwiplus"): λ.NewStr("teletoon"),
+			CanalplusIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?P<site>mycanal|piwiplus)\\.fr/(?:[^/]+/)*(?P<display_id>[^?/]+)(?:\\.html\\?.*\\bvid=|/p/)(?P<id>\\d+)")
+			CanalplusIE__VIDEO_INFO_TEMPLATE = λ.StrLiteral("http://service.canal-plus.com/video/rest/getVideosLiees/%s/%s?format=json")
+			CanalplusIE__SITE_ID_MAP = λ.DictLiteral(map[string]string{
+				"mycanal":  "cplus",
+				"piwiplus": "teletoon",
 			})
-			CanalplusIE__GEO_COUNTRIES = λ.NewList(λ.NewStr("FR"))
+			CanalplusIE__GEO_COUNTRIES = λ.NewList(λ.StrLiteral("FR"))
 			CanalplusIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -88,16 +88,16 @@ func init() {
 						τmp1        λ.Object
 						τmp2        λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
-					ϒsite = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒdisplay_id = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(2))
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒsite = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(2))
 					ϒsite_id = λ.GetItem(λ.GetAttr(ϒself, "_SITE_ID_MAP", nil), ϒsite)
 					ϒinfo_url = λ.Mod(λ.GetAttr(ϒself, "_VIDEO_INFO_TEMPLATE", nil), λ.NewTuple(
 						ϒsite_id,
 						ϒvideo_id,
 					))
-					ϒvideo_data = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), ϒinfo_url, ϒvideo_id, λ.NewStr("Downloading video JSON"))
+					ϒvideo_data = λ.Calm(ϒself, "_download_json", ϒinfo_url, ϒvideo_id, λ.StrLiteral("Downloading video JSON"))
 					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒvideo_data, λ.ListType)) {
 						ϒvideo_data = λ.GetItem(λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 							nil,
@@ -115,63 +115,63 @@ func init() {
 											break
 										}
 										ϒvideo = τmp1
-										if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("ID")), ϒvideo_id)) {
+										if λ.IsTrue(λ.Eq(λ.Calm(ϒvideo, "get", λ.StrLiteral("ID")), ϒvideo_id)) {
 											λgy.Yield(ϒvideo)
 										}
 									}
 									return λ.None
 								})
-							}))), λ.NewInt(0))
+							}))), λ.IntLiteral(0))
 					}
-					ϒmedia = λ.GetItem(ϒvideo_data, λ.NewStr("MEDIA"))
-					ϒinfos = λ.GetItem(ϒvideo_data, λ.NewStr("INFOS"))
+					ϒmedia = λ.GetItem(ϒvideo_data, λ.StrLiteral("MEDIA"))
+					ϒinfos = λ.GetItem(ϒvideo_data, λ.StrLiteral("INFOS"))
 					ϒpreference = λ.Cal(ϒqualities, λ.NewList(
-						λ.NewStr("MOBILE"),
-						λ.NewStr("BAS_DEBIT"),
-						λ.NewStr("HAUT_DEBIT"),
-						λ.NewStr("HD"),
+						λ.StrLiteral("MOBILE"),
+						λ.StrLiteral("BAS_DEBIT"),
+						λ.StrLiteral("HAUT_DEBIT"),
+						λ.StrLiteral("HD"),
 					))
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.GetItem(ϒmedia, λ.NewStr("VIDEOS")), "items", nil)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.GetItem(ϒmedia, λ.StrLiteral("VIDEOS")), "items"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒformat_id = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒformat_url = λ.GetItem(τmp2, λ.NewInt(1))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformat_url))) {
+						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒformat_url = λ.GetItem(τmp2, λ.IntLiteral(1))
+						if !λ.IsTrue(ϒformat_url) {
 							continue
 						}
-						if λ.IsTrue(λ.Eq(ϒformat_id, λ.NewStr("HLS"))) {
-							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+						if λ.IsTrue(λ.Eq(ϒformat_id, λ.StrLiteral("HLS"))) {
+							λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
 								ϒformat_url,
 								ϒvideo_id,
-								λ.NewStr("mp4"),
-								λ.NewStr("m3u8_native"),
+								λ.StrLiteral("mp4"),
+								λ.StrLiteral("m3u8_native"),
 							), λ.KWArgs{
 								{Name: "m3u8_id", Value: ϒformat_id},
 								{Name: "fatal", Value: λ.False},
 							}))
 						} else {
-							if λ.IsTrue(λ.Eq(ϒformat_id, λ.NewStr("HDS"))) {
-								λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_f4m_formats", nil), λ.NewArgs(
-									λ.Add(ϒformat_url, λ.NewStr("?hdcore=2.11.3")),
+							if λ.IsTrue(λ.Eq(ϒformat_id, λ.StrLiteral("HDS"))) {
+								λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_f4m_formats", nil), λ.NewArgs(
+									λ.Add(ϒformat_url, λ.StrLiteral("?hdcore=2.11.3")),
 									ϒvideo_id,
 								), λ.KWArgs{
 									{Name: "f4m_id", Value: ϒformat_id},
 									{Name: "fatal", Value: λ.False},
 								}))
 							} else {
-								λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("url"):        λ.Add(ϒformat_url, λ.NewStr("?secret=pqzerjlsmdkjfoiuerhsdlfknaes")),
-									λ.NewStr("format_id"):  ϒformat_id,
-									λ.NewStr("preference"): λ.Cal(ϒpreference, ϒformat_id),
+								λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+									"url":        λ.Add(ϒformat_url, λ.StrLiteral("?secret=pqzerjlsmdkjfoiuerhsdlfknaes")),
+									"format_id":  ϒformat_id,
+									"preference": λ.Cal(ϒpreference, ϒformat_id),
 								}))
 							}
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒthumbnails = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -184,46 +184,46 @@ func init() {
 									τmp1       λ.Object
 									τmp2       λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒmedia, "get", nil), λ.NewStr("images"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "items", nil)))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.Calm(ϒmedia, "get", λ.StrLiteral("images"), λ.DictLiteral(map[λ.Object]λ.Object{})), "items"))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									τmp2 = τmp1
-									ϒimage_id = λ.GetItem(τmp2, λ.NewInt(0))
-									ϒimage_url = λ.GetItem(τmp2, λ.NewInt(1))
-									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("id"):  ϒimage_id,
-										λ.NewStr("url"): ϒimage_url,
+									ϒimage_id = λ.GetItem(τmp2, λ.IntLiteral(0))
+									ϒimage_url = λ.GetItem(τmp2, λ.IntLiteral(1))
+									λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+										"id":  ϒimage_id,
+										"url": ϒimage_url,
 									}))
 								}
 								return λ.None
 							})
 						})))
-					ϒtitrage = λ.GetItem(ϒinfos, λ.NewStr("TITRAGE"))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         ϒvideo_id,
-						λ.NewStr("display_id"): ϒdisplay_id,
-						λ.NewStr("title"): λ.Mod(λ.NewStr("%s - %s"), λ.NewTuple(
-							λ.GetItem(ϒtitrage, λ.NewStr("TITRE")),
-							λ.GetItem(ϒtitrage, λ.NewStr("SOUS_TITRE")),
+					ϒtitrage = λ.GetItem(ϒinfos, λ.StrLiteral("TITRAGE"))
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":         ϒvideo_id,
+						"display_id": ϒdisplay_id,
+						"title": λ.Mod(λ.StrLiteral("%s - %s"), λ.NewTuple(
+							λ.GetItem(ϒtitrage, λ.StrLiteral("TITRE")),
+							λ.GetItem(ϒtitrage, λ.StrLiteral("SOUS_TITRE")),
 						)),
-						λ.NewStr("upload_date"):   λ.Cal(ϒunified_strdate, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒinfos, "get", nil), λ.NewStr("PUBLICATION"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("DATE"))),
-						λ.NewStr("thumbnails"):    ϒthumbnails,
-						λ.NewStr("description"):   λ.Cal(λ.GetAttr(ϒinfos, "get", nil), λ.NewStr("DESCRIPTION")),
-						λ.NewStr("duration"):      λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒinfos, "get", nil), λ.NewStr("DURATION"))),
-						λ.NewStr("view_count"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒinfos, "get", nil), λ.NewStr("NB_VUES"))),
-						λ.NewStr("like_count"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒinfos, "get", nil), λ.NewStr("NB_LIKES"))),
-						λ.NewStr("comment_count"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒinfos, "get", nil), λ.NewStr("NB_COMMENTS"))),
-						λ.NewStr("formats"):       ϒformats,
+						"upload_date":   λ.Cal(ϒunified_strdate, λ.Calm(λ.Calm(ϒinfos, "get", λ.StrLiteral("PUBLICATION"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("DATE"))),
+						"thumbnails":    ϒthumbnails,
+						"description":   λ.Calm(ϒinfos, "get", λ.StrLiteral("DESCRIPTION")),
+						"duration":      λ.Cal(ϒint_or_none, λ.Calm(ϒinfos, "get", λ.StrLiteral("DURATION"))),
+						"view_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒinfos, "get", λ.StrLiteral("NB_VUES"))),
+						"like_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒinfos, "get", λ.StrLiteral("NB_LIKES"))),
+						"comment_count": λ.Cal(ϒint_or_none, λ.Calm(ϒinfos, "get", λ.StrLiteral("NB_COMMENTS"))),
+						"formats":       ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_GEO_COUNTRIES"):       CanalplusIE__GEO_COUNTRIES,
-				λ.NewStr("_SITE_ID_MAP"):         CanalplusIE__SITE_ID_MAP,
-				λ.NewStr("_VALID_URL"):           CanalplusIE__VALID_URL,
-				λ.NewStr("_VIDEO_INFO_TEMPLATE"): CanalplusIE__VIDEO_INFO_TEMPLATE,
-				λ.NewStr("_real_extract"):        CanalplusIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_GEO_COUNTRIES":       CanalplusIE__GEO_COUNTRIES,
+				"_SITE_ID_MAP":         CanalplusIE__SITE_ID_MAP,
+				"_VALID_URL":           CanalplusIE__VALID_URL,
+				"_VIDEO_INFO_TEMPLATE": CanalplusIE__VIDEO_INFO_TEMPLATE,
+				"_real_extract":        CanalplusIE__real_extract,
 			})
 		}())
 	})

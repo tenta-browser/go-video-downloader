@@ -41,14 +41,14 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		BrightcoveNewIE = Ωbrightcove.BrightcoveNewIE
-		TVANouvellesIE = λ.Cal(λ.TypeType, λ.NewStr("TVANouvellesIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TVANouvellesIE = λ.Cal(λ.TypeType, λ.StrLiteral("TVANouvellesIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TVANouvellesIE_BRIGHTCOVE_URL_TEMPLATE λ.Object
 				TVANouvellesIE__VALID_URL              λ.Object
 				TVANouvellesIE__real_extract           λ.Object
 			)
-			TVANouvellesIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tvanouvelles\\.ca/videos/(?P<id>\\d+)")
-			TVANouvellesIE_BRIGHTCOVE_URL_TEMPLATE = λ.NewStr("http://players.brightcove.net/1741764581/default_default/index.html?videoId=%s")
+			TVANouvellesIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?tvanouvelles\\.ca/videos/(?P<id>\\d+)")
+			TVANouvellesIE_BRIGHTCOVE_URL_TEMPLATE = λ.StrLiteral("http://players.brightcove.net/1741764581/default_default/index.html?videoId=%s")
 			TVANouvellesIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -61,21 +61,21 @@ func init() {
 						ϒself          = λargs[0]
 						ϒurl           = λargs[1]
 					)
-					ϒbrightcove_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.GetAttr(ϒself, "BRIGHTCOVE_URL_TEMPLATE", nil), ϒbrightcove_id), λ.Cal(λ.GetAttr(BrightcoveNewIE, "ie_key", nil)), ϒbrightcove_id)
+					ϒbrightcove_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					return λ.Calm(ϒself, "url_result", λ.Mod(λ.GetAttr(ϒself, "BRIGHTCOVE_URL_TEMPLATE", nil), ϒbrightcove_id), λ.Calm(BrightcoveNewIE, "ie_key"), ϒbrightcove_id)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("BRIGHTCOVE_URL_TEMPLATE"): TVANouvellesIE_BRIGHTCOVE_URL_TEMPLATE,
-				λ.NewStr("_VALID_URL"):              TVANouvellesIE__VALID_URL,
-				λ.NewStr("_real_extract"):           TVANouvellesIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"BRIGHTCOVE_URL_TEMPLATE": TVANouvellesIE_BRIGHTCOVE_URL_TEMPLATE,
+				"_VALID_URL":              TVANouvellesIE__VALID_URL,
+				"_real_extract":           TVANouvellesIE__real_extract,
 			})
 		}())
-		TVANouvellesArticleIE = λ.Cal(λ.TypeType, λ.NewStr("TVANouvellesArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TVANouvellesArticleIE = λ.Cal(λ.TypeType, λ.StrLiteral("TVANouvellesArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TVANouvellesArticleIE__VALID_URL λ.Object
 				TVANouvellesArticleIE_suitable   λ.Object
 			)
-			TVANouvellesArticleIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tvanouvelles\\.ca/(?:[^/]+/)+(?P<id>[^/?#&]+)")
+			TVANouvellesArticleIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?tvanouvelles\\.ca/(?:[^/]+/)+(?P<id>[^/?#&]+)")
 			TVANouvellesArticleIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -88,17 +88,17 @@ func init() {
 						ϒurl = λargs[1]
 					)
 					return func() λ.Object {
-						if λ.IsTrue(λ.Cal(λ.GetAttr(TVANouvellesIE, "suitable", nil), ϒurl)) {
+						if λ.IsTrue(λ.Calm(TVANouvellesIE, "suitable", ϒurl)) {
 							return λ.False
 						} else {
-							return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, TVANouvellesArticleIE, ϒcls), "suitable", nil), ϒurl)
+							return λ.Calm(λ.Cal(λ.SuperType, TVANouvellesArticleIE, ϒcls), "suitable", ϒurl)
 						}
 					}()
 				})
 			TVANouvellesArticleIE_suitable = λ.Cal(λ.ClassMethodType, TVANouvellesArticleIE_suitable)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): TVANouvellesArticleIE__VALID_URL,
-				λ.NewStr("suitable"):   TVANouvellesArticleIE_suitable,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": TVANouvellesArticleIE__VALID_URL,
+				"suitable":   TVANouvellesArticleIE_suitable,
 			})
 		}())
 	})

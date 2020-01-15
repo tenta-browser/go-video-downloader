@@ -35,7 +35,7 @@ var (
 
 func init() {
 	λ.InitModule(func() {
-		URLError = λ.Cal(λ.TypeType, λ.NewStr("URLError"), λ.NewTuple(λ.OSErrorType), func() λ.Dict {
+		URLError = λ.Cal(λ.TypeType, λ.StrLiteral("URLError"), λ.NewTuple(λ.OSErrorType), func() λ.Dict {
 			var (
 				URLError___init__ λ.Object
 				URLError___str__  λ.Object
@@ -64,14 +64,14 @@ func init() {
 					var (
 						ϒself = λargs[0]
 					)
-					return λ.Mod(λ.NewStr("<urlopen error %s>"), λ.GetAttr(ϒself, "reason", nil))
+					return λ.Mod(λ.StrLiteral("<urlopen error %s>"), λ.GetAttr(ϒself, "reason", nil))
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"): URLError___init__,
-				λ.NewStr("__str__"):  URLError___str__,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__": URLError___init__,
+				"__str__":  URLError___str__,
 			})
 		}())
-		HTTPError = λ.Cal(λ.TypeType, λ.NewStr("HTTPError"), λ.NewTuple(URLError), func() λ.Dict {
+		HTTPError = λ.Cal(λ.TypeType, λ.StrLiteral("HTTPError"), λ.NewTuple(URLError), func() λ.Dict {
 			var (
 				HTTPError___init__ λ.Object
 				HTTPError___repr__ λ.Object
@@ -112,7 +112,7 @@ func init() {
 					var (
 						ϒself = λargs[0]
 					)
-					return λ.Mod(λ.NewStr("HTTP Error %s: %s"), λ.NewTuple(
+					return λ.Mod(λ.StrLiteral("HTTP Error %s: %s"), λ.NewTuple(
 						λ.GetAttr(ϒself, "code", nil),
 						λ.GetAttr(ϒself, "msg", nil),
 					))
@@ -126,15 +126,15 @@ func init() {
 					var (
 						ϒself = λargs[0]
 					)
-					return λ.Mod(λ.NewStr("<HTTPError %s: %r>"), λ.NewTuple(
+					return λ.Mod(λ.StrLiteral("<HTTPError %s: %r>"), λ.NewTuple(
 						λ.GetAttr(ϒself, "code", nil),
 						λ.GetAttr(ϒself, "msg", nil),
 					))
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"): HTTPError___init__,
-				λ.NewStr("__repr__"): HTTPError___repr__,
-				λ.NewStr("__str__"):  HTTPError___str__,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__": HTTPError___init__,
+				"__repr__": HTTPError___repr__,
+				"__str__":  HTTPError___str__,
 			})
 		}())
 	})

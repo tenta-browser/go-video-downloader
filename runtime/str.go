@@ -51,7 +51,7 @@ var _ Str = (*strStruct)(nil)
 
 func newStr(t Type, value string) Str {
 	if t == StrType {
-		return newStrCompact(value)
+		return StrLiteral(value)
 	}
 	return &strStruct{newObject(t), value}
 }
@@ -525,15 +525,85 @@ func strIndex(args Args, kwArgs KWArgs) Object {
 	})
 }
 
-func strIsDigit(args Args, kwArgs KWArgs) Object {
-	checkFunctionArgs("isdigit", args, kwArgs, StrType)
+func strIs(name string, args Args, kwArgs KWArgs, emptyRes bool, isFn func(rune) bool) Object {
+	checkFunctionArgs(name, args, kwArgs, StrType)
 	s := args[0].(Str).Value()
+	if s == "" {
+		return NewBool(emptyRes)
+	}
 	for _, r := range s {
-		if !unicode.IsDigit(r) {
+		if !isFn(r) {
 			return NewBool(false)
 		}
 	}
 	return NewBool(true)
+}
+
+func strIsAlNum(args Args, kwArgs KWArgs) Object {
+	return strIs("isalnum", args, kwArgs, false,
+		func(r rune) bool { return unicode.In(r, unicode.Letter, unicode.Number) })
+}
+
+func strIsAlpha(args Args, kwArgs KWArgs) Object {
+	return strIs("isalpha", args, kwArgs, false, unicode.IsLetter)
+}
+
+func strIsASCII(args Args, kwArgs KWArgs) Object {
+	return strIs("isascii", args, kwArgs, true, func(r rune) bool { return r <= unicode.MaxASCII })
+}
+
+func strIsDecimal(args Args, kwArgs KWArgs) Object {
+	// Docs: Formally a decimal character is a character in the Unicode General Category "Nd".
+	return strIs("isdecimal", args, kwArgs, false, unicode.IsDigit)
+}
+
+func strIsDigit(args Args, kwArgs KWArgs) Object {
+	// Docs: Formally, a digit is a character that has the property value
+	// Numeric_Type=Digit or Numeric_Type=Decimal.
+	return strIs("isdigit", args, kwArgs, false, unicode.IsNumber)
+}
+
+func strIsLowerOrUpper(name string, args Args, kwArgs KWArgs, isLower bool) Object {
+	checkFunctionArgs(name, args, kwArgs, StrType)
+	s := args[0].(Str).Value()
+	cased := false
+	for _, r := range s {
+		upper := unicode.IsUpper(r)
+		lower := unicode.IsLower(r)
+		if upper || lower {
+			cased = true
+			if lower != isLower {
+				return NewBool(false)
+			}
+		}
+	}
+	return NewBool(cased)
+}
+
+func strIsLower(args Args, kwArgs KWArgs) Object {
+	return strIsLowerOrUpper("islower", args, kwArgs, true)
+}
+
+func strIsNumeric(args Args, kwArgs KWArgs) Object {
+	// Docs: Formally, numeric characters are those with the property value
+	// Numeric_Type=Digit, Numeric_Type=Decimal or Numeric_Type=Numeric.
+	// TODO this definition is too narrow, ideally we should have:
+	//  一二三四五  isdecimal=False  isdigit=False  isnumeric=True
+	//  12345      isdecimal=True   isdigit=True   isnumeric=True
+	//  2²         isdecimal=False  isdigit=True   isnumeric=True
+	return strIs("isnumeric", args, kwArgs, false, unicode.IsNumber)
+}
+
+func strIsPrintable(args Args, kwArgs KWArgs) Object {
+	return strIs("isprintable", args, kwArgs, true, unicode.IsPrint)
+}
+
+func strIsSpace(args Args, kwArgs KWArgs) Object {
+	return strIs("isspace", args, kwArgs, false, unicode.IsSpace)
+}
+
+func strIsUpper(args Args, kwArgs KWArgs) Object {
+	return strIsLowerOrUpper("isupper", args, kwArgs, false)
 }
 
 func strJoin(args Args, kwArgs KWArgs) Object {
@@ -814,7 +884,16 @@ func initStrType(slots *typeSlots, dict map[string]Object) {
 	dict["find"] = newBuiltinFunction("find", strFind)
 	dict["format"] = newBuiltinFunction("format", strFormat)
 	dict["index"] = newBuiltinFunction("index", strIndex)
+	dict["isalnum"] = newBuiltinFunction("isalnum", strIsAlNum)
+	dict["isalpha"] = newBuiltinFunction("isalpha", strIsAlpha)
+	dict["isascii"] = newBuiltinFunction("isascii", strIsASCII)
+	dict["isdecimal"] = newBuiltinFunction("isdecimal", strIsDecimal)
 	dict["isdigit"] = newBuiltinFunction("isdigit", strIsDigit)
+	dict["islower"] = newBuiltinFunction("islower", strIsLower)
+	dict["isnumeric"] = newBuiltinFunction("isnumeric", strIsNumeric)
+	dict["isprintable"] = newBuiltinFunction("isprintable", strIsPrintable)
+	dict["isupper"] = newBuiltinFunction("isupper", strIsUpper)
+	dict["isspace"] = newBuiltinFunction("isspace", strIsSpace)
 	dict["join"] = newBuiltinFunction("join", strJoin)
 	dict["lower"] = newBuiltinFunction("lower", strLower)
 	dict["lstrip"] = newBuiltinFunction("lstrip", strLStrip)

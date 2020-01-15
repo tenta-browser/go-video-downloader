@@ -50,12 +50,12 @@ func init() {
 		ϒcompat_b64decode = Ωcompat.ϒcompat_b64decode
 		ϒclean_html = Ωutils.ϒclean_html
 		ExtractorError = Ωutils.ExtractorError
-		ChilloutzoneIE = λ.Cal(λ.TypeType, λ.NewStr("ChilloutzoneIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ChilloutzoneIE = λ.Cal(λ.TypeType, λ.StrLiteral("ChilloutzoneIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ChilloutzoneIE__VALID_URL    λ.Object
 				ChilloutzoneIE__real_extract λ.Object
 			)
-			ChilloutzoneIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?chilloutzone\\.net/video/(?P<id>[\\w|-]+)\\.html")
+			ChilloutzoneIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?chilloutzone\\.net/video/(?P<id>[\\w|-]+)\\.html")
 			ChilloutzoneIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -81,51 +81,51 @@ func init() {
 						ϒyoutube_url        λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒbase64_video_info = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("var cozVidData = \"(.+?)\";"), ϒwebpage, λ.NewStr("video data"))
-					ϒdecoded_video_info = λ.Cal(λ.GetAttr(λ.Cal(ϒcompat_b64decode, ϒbase64_video_info), "decode", nil), λ.NewStr("utf-8"))
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒbase64_video_info = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("var cozVidData = \"(.+?)\";"), ϒwebpage, λ.StrLiteral("video data"))
+					ϒdecoded_video_info = λ.Calm(λ.Cal(ϒcompat_b64decode, ϒbase64_video_info), "decode", λ.StrLiteral("utf-8"))
 					ϒvideo_info_dict = λ.Cal(Ωjson.ϒloads, ϒdecoded_video_info)
-					ϒvideo_url = λ.GetItem(ϒvideo_info_dict, λ.NewStr("mediaUrl"))
-					ϒdescription = λ.Cal(ϒclean_html, λ.Cal(λ.GetAttr(ϒvideo_info_dict, "get", nil), λ.NewStr("description")))
-					ϒtitle = λ.GetItem(ϒvideo_info_dict, λ.NewStr("title"))
-					ϒnative_platform = λ.GetItem(ϒvideo_info_dict, λ.NewStr("nativePlatform"))
-					ϒnative_video_id = λ.GetItem(ϒvideo_info_dict, λ.NewStr("nativeVideoId"))
-					ϒsource_priority = λ.GetItem(ϒvideo_info_dict, λ.NewStr("sourcePriority"))
-					if λ.IsTrue(λ.NewBool(ϒnative_platform == λ.None)) {
-						ϒyoutube_url = λ.Cal(λ.GetAttr(YoutubeIE, "_extract_url", nil), ϒwebpage)
+					ϒvideo_url = λ.GetItem(ϒvideo_info_dict, λ.StrLiteral("mediaUrl"))
+					ϒdescription = λ.Cal(ϒclean_html, λ.Calm(ϒvideo_info_dict, "get", λ.StrLiteral("description")))
+					ϒtitle = λ.GetItem(ϒvideo_info_dict, λ.StrLiteral("title"))
+					ϒnative_platform = λ.GetItem(ϒvideo_info_dict, λ.StrLiteral("nativePlatform"))
+					ϒnative_video_id = λ.GetItem(ϒvideo_info_dict, λ.StrLiteral("nativeVideoId"))
+					ϒsource_priority = λ.GetItem(ϒvideo_info_dict, λ.StrLiteral("sourcePriority"))
+					if ϒnative_platform == λ.None {
+						ϒyoutube_url = λ.Calm(YoutubeIE, "_extract_url", ϒwebpage)
 						if λ.IsTrue(ϒyoutube_url) {
 							return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(ϒyoutube_url), λ.KWArgs{
-								{Name: "ie", Value: λ.Cal(λ.GetAttr(YoutubeIE, "ie_key", nil))},
+								{Name: "ie", Value: λ.Calm(YoutubeIE, "ie_key")},
 							})
 						}
 					}
-					if λ.IsTrue(λ.Eq(ϒsource_priority, λ.NewStr("native"))) {
-						if λ.IsTrue(λ.Eq(ϒnative_platform, λ.NewStr("youtube"))) {
+					if λ.IsTrue(λ.Eq(ϒsource_priority, λ.StrLiteral("native"))) {
+						if λ.IsTrue(λ.Eq(ϒnative_platform, λ.StrLiteral("youtube"))) {
 							return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(ϒnative_video_id), λ.KWArgs{
-								{Name: "ie", Value: λ.NewStr("Youtube")},
+								{Name: "ie", Value: λ.StrLiteral("Youtube")},
 							})
 						}
-						if λ.IsTrue(λ.Eq(ϒnative_platform, λ.NewStr("vimeo"))) {
-							return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(λ.Add(λ.NewStr("http://vimeo.com/"), ϒnative_video_id)), λ.KWArgs{
-								{Name: "ie", Value: λ.NewStr("Vimeo")},
+						if λ.IsTrue(λ.Eq(ϒnative_platform, λ.StrLiteral("vimeo"))) {
+							return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(λ.Add(λ.StrLiteral("http://vimeo.com/"), ϒnative_video_id)), λ.KWArgs{
+								{Name: "ie", Value: λ.StrLiteral("Vimeo")},
 							})
 						}
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_url))) {
-						panic(λ.Raise(λ.Cal(ExtractorError, λ.NewStr("No video found"))))
+					if !λ.IsTrue(ϒvideo_url) {
+						panic(λ.Raise(λ.Cal(ExtractorError, λ.StrLiteral("No video found"))))
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("url"):         ϒvideo_url,
-						λ.NewStr("ext"):         λ.NewStr("mp4"),
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"url":         ϒvideo_url,
+						"ext":         λ.StrLiteral("mp4"),
+						"title":       ϒtitle,
+						"description": ϒdescription,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    ChilloutzoneIE__VALID_URL,
-				λ.NewStr("_real_extract"): ChilloutzoneIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    ChilloutzoneIE__VALID_URL,
+				"_real_extract": ChilloutzoneIE__real_extract,
 			})
 		}())
 	})

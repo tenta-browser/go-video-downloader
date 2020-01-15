@@ -50,7 +50,7 @@ func init() {
 		ϒunquote_plus = Ωnet.UnquotePlus
 		ϒparse_qs = Ωnet.ParseQS
 		ϒurlencode = Ωnet.URLEncode
-		ParseResult = λ.Cal(λ.TypeType, λ.NewStr("ParseResult"), λ.NewTuple(λ.TupleType), func() λ.Dict {
+		ParseResult = λ.Cal(λ.TypeType, λ.StrLiteral("ParseResult"), λ.NewTuple(λ.TupleType), func() λ.Dict {
 			var (
 				ParseResult__replace λ.Object
 				ParseResult_fragment λ.Object
@@ -68,7 +68,7 @@ func init() {
 					var (
 						ϒself = λargs[0]
 					)
-					return λ.GetItem(ϒself, λ.NewInt(0))
+					return λ.GetItem(ϒself, λ.IntLiteral(0))
 				})
 			ParseResult_scheme = λ.Cal(λ.PropertyType, ParseResult_scheme)
 			ParseResult_netloc = λ.NewFunction("netloc",
@@ -80,7 +80,7 @@ func init() {
 					var (
 						ϒself = λargs[0]
 					)
-					return λ.GetItem(ϒself, λ.NewInt(1))
+					return λ.GetItem(ϒself, λ.IntLiteral(1))
 				})
 			ParseResult_netloc = λ.Cal(λ.PropertyType, ParseResult_netloc)
 			ParseResult_path = λ.NewFunction("path",
@@ -92,7 +92,7 @@ func init() {
 					var (
 						ϒself = λargs[0]
 					)
-					return λ.GetItem(ϒself, λ.NewInt(2))
+					return λ.GetItem(ϒself, λ.IntLiteral(2))
 				})
 			ParseResult_path = λ.Cal(λ.PropertyType, ParseResult_path)
 			ParseResult_query = λ.NewFunction("query",
@@ -104,7 +104,7 @@ func init() {
 					var (
 						ϒself = λargs[0]
 					)
-					return λ.GetItem(ϒself, λ.NewInt(4))
+					return λ.GetItem(ϒself, λ.IntLiteral(4))
 				})
 			ParseResult_query = λ.Cal(λ.PropertyType, ParseResult_query)
 			ParseResult_fragment = λ.NewFunction("fragment",
@@ -116,7 +116,7 @@ func init() {
 					var (
 						ϒself = λargs[0]
 					)
-					return λ.GetItem(ϒself, λ.NewInt(5))
+					return λ.GetItem(ϒself, λ.IntLiteral(5))
 				})
 			ParseResult_fragment = λ.Cal(λ.PropertyType, ParseResult_fragment)
 			ParseResult__replace = λ.NewFunction("_replace",
@@ -137,12 +137,12 @@ func init() {
 						τmp2    λ.Object
 					)
 					ϒnames = λ.NewTuple(
-						λ.NewStr("scheme"),
-						λ.NewStr("netloc"),
-						λ.NewStr("path"),
-						λ.NewStr("params"),
-						λ.NewStr("query"),
-						λ.NewStr("fragment"),
+						λ.StrLiteral("scheme"),
+						λ.StrLiteral("netloc"),
+						λ.StrLiteral("path"),
+						λ.StrLiteral("params"),
+						λ.StrLiteral("query"),
+						λ.StrLiteral("fragment"),
 					)
 					ϒvals = λ.Cal(λ.ListType, ϒself)
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.EnumerateIteratorType, ϒnames))
@@ -151,27 +151,27 @@ func init() {
 							break
 						}
 						τmp2 = τmp1
-						ϒi = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒname = λ.GetItem(τmp2, λ.NewInt(1))
-						if λ.IsTrue(λ.NewBool(λ.Contains(ϒkwargs, ϒname))) {
+						ϒi = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒname = λ.GetItem(τmp2, λ.IntLiteral(1))
+						if λ.Contains(ϒkwargs, ϒname) {
 							λ.SetItem(ϒvals, ϒi, λ.GetItem(ϒkwargs, ϒname))
 						}
 					}
 					return λ.Cal(ParseResult, ϒvals)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_replace"): ParseResult__replace,
-				λ.NewStr("fragment"): ParseResult_fragment,
-				λ.NewStr("netloc"):   ParseResult_netloc,
-				λ.NewStr("path"):     ParseResult_path,
-				λ.NewStr("query"):    ParseResult_query,
-				λ.NewStr("scheme"):   ParseResult_scheme,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_replace": ParseResult__replace,
+				"fragment": ParseResult_fragment,
+				"netloc":   ParseResult_netloc,
+				"path":     ParseResult_path,
+				"query":    ParseResult_query,
+				"scheme":   ParseResult_scheme,
 			})
 		}())
 		ϒurlparse = λ.NewFunction("urlparse",
 			[]λ.Param{
 				{Name: "urlstring"},
-				{Name: "scheme", Def: λ.NewStr("")},
+				{Name: "scheme", Def: λ.StrLiteral("")},
 			},
 			0, false, false,
 			func(λargs []λ.Object) λ.Object {
@@ -187,12 +187,12 @@ func init() {
 					τmp0       λ.Object
 				)
 				τmp0 = λ.Cal(URLParse, ϒurlstring)
-				ϒ_scheme = λ.GetItem(τmp0, λ.NewInt(0))
-				ϒnetloc = λ.GetItem(τmp0, λ.NewInt(1))
-				ϒpath = λ.GetItem(τmp0, λ.NewInt(2))
-				ϒparams = λ.GetItem(τmp0, λ.NewInt(3))
-				ϒquery = λ.GetItem(τmp0, λ.NewInt(4))
-				ϒfragment = λ.GetItem(τmp0, λ.NewInt(5))
+				ϒ_scheme = λ.GetItem(τmp0, λ.IntLiteral(0))
+				ϒnetloc = λ.GetItem(τmp0, λ.IntLiteral(1))
+				ϒpath = λ.GetItem(τmp0, λ.IntLiteral(2))
+				ϒparams = λ.GetItem(τmp0, λ.IntLiteral(3))
+				ϒquery = λ.GetItem(τmp0, λ.IntLiteral(4))
+				ϒfragment = λ.GetItem(τmp0, λ.IntLiteral(5))
 				return λ.Cal(ParseResult, λ.NewTuple(
 					func() λ.Object {
 						if λv := ϒ_scheme; λ.IsTrue(λv) {

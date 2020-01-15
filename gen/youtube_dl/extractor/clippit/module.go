@@ -43,12 +43,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒqualities = Ωutils.ϒqualities
-		ClippitIE = λ.Cal(λ.TypeType, λ.NewStr("ClippitIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ClippitIE = λ.Cal(λ.TypeType, λ.StrLiteral("ClippitIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ClippitIE__VALID_URL    λ.Object
 				ClippitIE__real_extract λ.Object
 			)
-			ClippitIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?clippituser\\.tv/c/(?P<id>[a-z]+)")
+			ClippitIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?clippituser\\.tv/c/(?P<id>[a-z]+)")
 			ClippitIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -74,12 +74,12 @@ func init() {
 						τmp0          λ.Object
 						τmp1          λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<title.*>(.+?)</title>"), ϒwebpage, λ.NewStr("title"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒtitle = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("<title.*>(.+?)</title>"), ϒwebpage, λ.StrLiteral("title"))
 					FORMATS = λ.NewTuple(
-						λ.NewStr("sd"),
-						λ.NewStr("hd"),
+						λ.StrLiteral("sd"),
+						λ.StrLiteral("hd"),
 					)
 					ϒquality = λ.Cal(ϒqualities, FORMATS)
 					ϒformats = λ.NewList()
@@ -90,23 +90,23 @@ func init() {
 						}
 						ϒformat_id = τmp1
 						ϒurl = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-							λ.Mod(λ.NewStr("data-%s-file=\"(.+?)\""), ϒformat_id),
+							λ.Mod(λ.StrLiteral("data-%s-file=\"(.+?)\""), ϒformat_id),
 							ϒwebpage,
-							λ.NewStr("url"),
+							λ.StrLiteral("url"),
 						), λ.KWArgs{
 							{Name: "fatal", Value: λ.False},
 						})
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒurl))) {
+						if !λ.IsTrue(ϒurl) {
 							continue
 						}
-						ϒmatch = λ.Cal(Ωre.ϒsearch, λ.NewStr("/(?P<height>\\d+)\\.mp4"), ϒurl)
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):       ϒurl,
-							λ.NewStr("format_id"): ϒformat_id,
-							λ.NewStr("quality"):   λ.Cal(ϒquality, ϒformat_id),
-							λ.NewStr("height"): func() λ.Object {
+						ϒmatch = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("/(?P<height>\\d+)\\.mp4"), ϒurl)
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":       ϒurl,
+							"format_id": ϒformat_id,
+							"quality":   λ.Cal(ϒquality, ϒformat_id),
+							"height": func() λ.Object {
 								if λ.IsTrue(ϒmatch) {
-									return λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒmatch, "group", nil), λ.NewStr("height")))
+									return λ.Cal(λ.IntType, λ.Calm(ϒmatch, "group", λ.StrLiteral("height")))
 								} else {
 									return λ.None
 								}
@@ -114,47 +114,47 @@ func init() {
 						}))
 					}
 					ϒuploader = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("class=\"username\".*>\\s+(.+?)\\n"),
+						λ.StrLiteral("class=\"username\".*>\\s+(.+?)\\n"),
 						ϒwebpage,
-						λ.NewStr("uploader"),
+						λ.StrLiteral("uploader"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
 					ϒuploader_url = func() λ.Object {
 						if λ.IsTrue(ϒuploader) {
-							return λ.Add(λ.NewStr("https://www.clippituser.tv/p/"), ϒuploader)
+							return λ.Add(λ.StrLiteral("https://www.clippituser.tv/p/"), ϒuploader)
 						} else {
 							return λ.None
 						}
 					}()
 					ϒtimestamp = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("datetime=\"(.+?)\""),
+						λ.StrLiteral("datetime=\"(.+?)\""),
 						ϒwebpage,
-						λ.NewStr("date"),
+						λ.StrLiteral("date"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
 					ϒthumbnail = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("data-image=\"(.+?)\""),
+						λ.StrLiteral("data-image=\"(.+?)\""),
 						ϒwebpage,
-						λ.NewStr("thumbnail"),
+						λ.StrLiteral("thumbnail"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           ϒvideo_id,
-						λ.NewStr("title"):        ϒtitle,
-						λ.NewStr("formats"):      ϒformats,
-						λ.NewStr("uploader"):     ϒuploader,
-						λ.NewStr("uploader_url"): ϒuploader_url,
-						λ.NewStr("timestamp"):    λ.Cal(ϒparse_iso8601, ϒtimestamp),
-						λ.NewStr("description"):  λ.Cal(λ.GetAttr(ϒself, "_og_search_description", nil), ϒwebpage),
-						λ.NewStr("thumbnail"):    ϒthumbnail,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":           ϒvideo_id,
+						"title":        ϒtitle,
+						"formats":      ϒformats,
+						"uploader":     ϒuploader,
+						"uploader_url": ϒuploader_url,
+						"timestamp":    λ.Cal(ϒparse_iso8601, ϒtimestamp),
+						"description":  λ.Calm(ϒself, "_og_search_description", ϒwebpage),
+						"thumbnail":    ϒthumbnail,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    ClippitIE__VALID_URL,
-				λ.NewStr("_real_extract"): ClippitIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    ClippitIE__VALID_URL,
+				"_real_extract": ClippitIE__real_extract,
 			})
 		}())
 	})

@@ -52,11 +52,11 @@ func init() {
 		ϒstr_or_none = Ωutils.ϒstr_or_none
 		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
-		PacktPubBaseIE = λ.Cal(λ.TypeType, λ.NewStr("PacktPubBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		PacktPubBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("PacktPubBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
-		PacktPubIE = λ.Cal(λ.TypeType, λ.NewStr("PacktPubIE"), λ.NewTuple(PacktPubBaseIE), func() λ.Dict {
+		PacktPubIE = λ.Cal(λ.TypeType, λ.StrLiteral("PacktPubIE"), λ.NewTuple(PacktPubBaseIE), func() λ.Dict {
 			var (
 				PacktPubIE__NETRC_MACHINE   λ.Object
 				PacktPubIE__TOKEN           λ.Object
@@ -64,8 +64,8 @@ func init() {
 				PacktPubIE__real_extract    λ.Object
 				PacktPubIE__real_initialize λ.Object
 			)
-			PacktPubIE__VALID_URL = λ.NewStr("https?://(?:(?:www\\.)?packtpub\\.com/mapt|subscription\\.packtpub\\.com)/video/[^/]+/(?P<course_id>\\d+)/(?P<chapter_id>[^/]+)/(?P<id>[^/]+)(?:/(?P<display_id>[^/?&#]+))?")
-			PacktPubIE__NETRC_MACHINE = λ.NewStr("packtpub")
+			PacktPubIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www\\.)?packtpub\\.com/mapt|subscription\\.packtpub\\.com)/video/[^/]+/(?P<course_id>\\d+)/(?P<chapter_id>[^/]+)/(?P<id>[^/]+)(?:/(?P<display_id>[^/?&#]+))?")
+			PacktPubIE__NETRC_MACHINE = λ.StrLiteral("packtpub")
 			PacktPubIE__TOKEN = λ.None
 			PacktPubIE__real_initialize = λ.NewFunction("_real_initialize",
 				[]λ.Param{
@@ -83,10 +83,10 @@ func init() {
 					)
 					_ = τmp0
 					_ = τmp1
-					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_get_login_info", nil))
-					ϒusername = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒpassword = λ.GetItem(τmp0, λ.NewInt(1))
-					if λ.IsTrue(λ.NewBool(ϒusername == λ.None)) {
+					τmp0 = λ.Calm(ϒself, "_get_login_info")
+					ϒusername = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
+					if ϒusername == λ.None {
 						return λ.None
 					}
 					τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
@@ -99,13 +99,13 @@ func init() {
 										return λv
 									} else {
 										return λ.NewBool(λ.Contains(λ.NewTuple(
-											λ.NewInt(400),
-											λ.NewInt(401),
-											λ.NewInt(404),
+											λ.IntLiteral(400),
+											λ.IntLiteral(401),
+											λ.IntLiteral(404),
 										), λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil)))
 									}
 								}()) {
-									ϒmessage = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "read", nil)), "decode", nil)), λ.None), λ.NewStr("message"))
+									ϒmessage = λ.GetItem(λ.Calm(ϒself, "_parse_json", λ.Calm(λ.Calm(λ.GetAttr(ϒe, "cause", nil), "read"), "decode"), λ.None), λ.StrLiteral("message"))
 									panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(ϒmessage), λ.KWArgs{
 										{Name: "expected", Value: λ.True},
 									})))
@@ -114,15 +114,15 @@ func init() {
 							}},
 						)
 						λ.SetAttr(ϒself, "_TOKEN", λ.GetItem(λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-							λ.NewStr("https://services.packtpub.com/auth-v1/users/tokens"),
+							λ.StrLiteral("https://services.packtpub.com/auth-v1/users/tokens"),
 							λ.None,
-							λ.NewStr("Downloading Authorization Token"),
+							λ.StrLiteral("Downloading Authorization Token"),
 						), λ.KWArgs{
-							{Name: "data", Value: λ.Cal(λ.GetAttr(λ.Cal(Ωjson.ϒdumps, λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("username"): ϒusername,
-								λ.NewStr("password"): ϒpassword,
-							})), "encode", nil))},
-						}), λ.NewStr("data")), λ.NewStr("access")))
+							{Name: "data", Value: λ.Calm(λ.Cal(Ωjson.ϒdumps, λ.DictLiteral(map[string]λ.Object{
+								"username": ϒusername,
+								"password": ϒpassword,
+							})), "encode")},
+						}), λ.StrLiteral("data")), λ.StrLiteral("access")))
 						return λ.BlockExitNormally, nil
 					}()
 					return λ.None
@@ -148,14 +148,14 @@ func init() {
 					)
 					_ = τmp0
 					_ = τmp1
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
-					ϒcourse_id = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒchapter_id = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(2))
-					ϒdisplay_id = λ.GetItem(τmp0, λ.NewInt(3))
-					ϒheaders = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒcourse_id = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒchapter_id = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(2))
+					ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(3))
+					ϒheaders = λ.DictLiteral(map[λ.Object]λ.Object{})
 					if λ.IsTrue(λ.GetAttr(ϒself, "_TOKEN", nil)) {
-						λ.SetItem(ϒheaders, λ.NewStr("Authorization"), λ.Add(λ.NewStr("Bearer "), λ.GetAttr(ϒself, "_TOKEN", nil)))
+						λ.SetItem(ϒheaders, λ.StrLiteral("Authorization"), λ.Add(λ.StrLiteral("Bearer "), λ.GetAttr(ϒself, "_TOKEN", nil)))
 					}
 					τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
 						defer λ.CatchMulti(
@@ -166,31 +166,31 @@ func init() {
 									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
 										return λv
 									} else {
-										return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.NewInt(400))
+										return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.IntLiteral(400))
 									}
 								}()) {
-									λ.Cal(λ.GetAttr(ϒself, "raise_login_required", nil), λ.NewStr("This video is locked"))
+									λ.Calm(ϒself, "raise_login_required", λ.StrLiteral("This video is locked"))
 								}
 								panic(λ.Raise(λex))
 							}},
 						)
 						ϒvideo_url = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-							λ.Mod(λ.NewStr("https://services.packtpub.com/products-v1/products/%s/%s/%s"), λ.NewTuple(
+							λ.Mod(λ.StrLiteral("https://services.packtpub.com/products-v1/products/%s/%s/%s"), λ.NewTuple(
 								ϒcourse_id,
 								ϒchapter_id,
 								ϒvideo_id,
 							)),
 							ϒvideo_id,
-							λ.NewStr("Downloading JSON video"),
+							λ.StrLiteral("Downloading JSON video"),
 						), λ.KWArgs{
 							{Name: "headers", Value: ϒheaders},
-						}), λ.NewStr("data"))
+						}), λ.StrLiteral("data"))
 						return λ.BlockExitNormally, nil
 					}()
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):  ϒvideo_id,
-						λ.NewStr("url"): ϒvideo_url,
-						λ.NewStr("title"): func() λ.Object {
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":  ϒvideo_id,
+						"url": ϒvideo_url,
+						"title": func() λ.Object {
 							if λv := ϒdisplay_id; λ.IsTrue(λv) {
 								return λv
 							} else {
@@ -199,20 +199,20 @@ func init() {
 						}(),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_NETRC_MACHINE"):   PacktPubIE__NETRC_MACHINE,
-				λ.NewStr("_TOKEN"):           PacktPubIE__TOKEN,
-				λ.NewStr("_VALID_URL"):       PacktPubIE__VALID_URL,
-				λ.NewStr("_real_extract"):    PacktPubIE__real_extract,
-				λ.NewStr("_real_initialize"): PacktPubIE__real_initialize,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_NETRC_MACHINE":   PacktPubIE__NETRC_MACHINE,
+				"_TOKEN":           PacktPubIE__TOKEN,
+				"_VALID_URL":       PacktPubIE__VALID_URL,
+				"_real_extract":    PacktPubIE__real_extract,
+				"_real_initialize": PacktPubIE__real_initialize,
 			})
 		}())
-		PacktPubCourseIE = λ.Cal(λ.TypeType, λ.NewStr("PacktPubCourseIE"), λ.NewTuple(PacktPubBaseIE), func() λ.Dict {
+		PacktPubCourseIE = λ.Cal(λ.TypeType, λ.StrLiteral("PacktPubCourseIE"), λ.NewTuple(PacktPubBaseIE), func() λ.Dict {
 			var (
 				PacktPubCourseIE__VALID_URL λ.Object
 				PacktPubCourseIE_suitable   λ.Object
 			)
-			PacktPubCourseIE__VALID_URL = λ.NewStr("(?P<url>https?://(?:(?:www\\.)?packtpub\\.com/mapt|subscription\\.packtpub\\.com)/video/[^/]+/(?P<id>\\d+))")
+			PacktPubCourseIE__VALID_URL = λ.StrLiteral("(?P<url>https?://(?:(?:www\\.)?packtpub\\.com/mapt|subscription\\.packtpub\\.com)/video/[^/]+/(?P<id>\\d+))")
 			PacktPubCourseIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -225,17 +225,17 @@ func init() {
 						ϒurl = λargs[1]
 					)
 					return func() λ.Object {
-						if λ.IsTrue(λ.Cal(λ.GetAttr(PacktPubIE, "suitable", nil), ϒurl)) {
+						if λ.IsTrue(λ.Calm(PacktPubIE, "suitable", ϒurl)) {
 							return λ.False
 						} else {
-							return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, PacktPubCourseIE, ϒcls), "suitable", nil), ϒurl)
+							return λ.Calm(λ.Cal(λ.SuperType, PacktPubCourseIE, ϒcls), "suitable", ϒurl)
 						}
 					}()
 				})
 			PacktPubCourseIE_suitable = λ.Cal(λ.ClassMethodType, PacktPubCourseIE_suitable)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): PacktPubCourseIE__VALID_URL,
-				λ.NewStr("suitable"):   PacktPubCourseIE_suitable,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": PacktPubCourseIE__VALID_URL,
+				"suitable":   PacktPubCourseIE_suitable,
 			})
 		}())
 	})

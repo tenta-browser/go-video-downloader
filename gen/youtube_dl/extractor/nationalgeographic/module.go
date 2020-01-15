@@ -46,14 +46,14 @@ func init() {
 		FOXIE = Ωfox.FOXIE
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		ϒurl_basename = Ωutils.ϒurl_basename
-		NationalGeographicVideoIE = λ.Cal(λ.TypeType, λ.NewStr("NationalGeographicVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		NationalGeographicVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("NationalGeographicVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				NationalGeographicVideoIE_IE_NAME       λ.Object
 				NationalGeographicVideoIE__VALID_URL    λ.Object
 				NationalGeographicVideoIE__real_extract λ.Object
 			)
-			NationalGeographicVideoIE_IE_NAME = λ.NewStr("natgeo:video")
-			NationalGeographicVideoIE__VALID_URL = λ.NewStr("https?://video\\.nationalgeographic\\.com/.*?")
+			NationalGeographicVideoIE_IE_NAME = λ.StrLiteral("natgeo:video")
+			NationalGeographicVideoIE__VALID_URL = λ.StrLiteral("https?://video\\.nationalgeographic\\.com/.*?")
 			NationalGeographicVideoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -69,30 +69,30 @@ func init() {
 						ϒwebpage λ.Object
 					)
 					ϒname = λ.Cal(ϒurl_basename, ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒname)
-					ϒguid = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("id=\"(?:videoPlayer|player-container)\"[^>]+data-guid=\"([^\"]+)\""), ϒwebpage, λ.NewStr("guid"))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):  λ.NewStr("url_transparent"),
-						λ.NewStr("ie_key"): λ.NewStr("ThePlatform"),
-						λ.NewStr("url"): λ.Cal(ϒsmuggle_url, λ.Mod(λ.NewStr("http://link.theplatform.com/s/ngs/media/guid/2423130747/%s?mbr=true"), ϒguid), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("force_smil_url"): λ.True,
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒname)
+					ϒguid = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("id=\"(?:videoPlayer|player-container)\"[^>]+data-guid=\"([^\"]+)\""), ϒwebpage, λ.StrLiteral("guid"))
+					return λ.DictLiteral(map[string]λ.Object{
+						"_type":  λ.StrLiteral("url_transparent"),
+						"ie_key": λ.StrLiteral("ThePlatform"),
+						"url": λ.Cal(ϒsmuggle_url, λ.Mod(λ.StrLiteral("http://link.theplatform.com/s/ngs/media/guid/2423130747/%s?mbr=true"), ϒguid), λ.DictLiteral(map[string]λ.Object{
+							"force_smil_url": λ.True,
 						})),
-						λ.NewStr("id"): ϒguid,
+						"id": ϒguid,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       NationalGeographicVideoIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    NationalGeographicVideoIE__VALID_URL,
-				λ.NewStr("_real_extract"): NationalGeographicVideoIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       NationalGeographicVideoIE_IE_NAME,
+				"_VALID_URL":    NationalGeographicVideoIE__VALID_URL,
+				"_real_extract": NationalGeographicVideoIE__real_extract,
 			})
 		}())
-		NationalGeographicTVIE = λ.Cal(λ.TypeType, λ.NewStr("NationalGeographicTVIE"), λ.NewTuple(FOXIE), func() λ.Dict {
+		NationalGeographicTVIE = λ.Cal(λ.TypeType, λ.StrLiteral("NationalGeographicTVIE"), λ.NewTuple(FOXIE), func() λ.Dict {
 			var (
 				NationalGeographicTVIE__VALID_URL λ.Object
 			)
-			NationalGeographicTVIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?nationalgeographic\\.com/tv/watch/(?P<id>[\\da-fA-F]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): NationalGeographicTVIE__VALID_URL,
+			NationalGeographicTVIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?nationalgeographic\\.com/tv/watch/(?P<id>[\\da-fA-F]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": NationalGeographicTVIE__VALID_URL,
 			})
 		}())
 	})

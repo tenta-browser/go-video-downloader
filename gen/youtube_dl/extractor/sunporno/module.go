@@ -47,12 +47,12 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒqualities = Ωutils.ϒqualities
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
-		SunPornoIE = λ.Cal(λ.TypeType, λ.NewStr("SunPornoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SunPornoIE = λ.Cal(λ.TypeType, λ.StrLiteral("SunPornoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SunPornoIE__VALID_URL    λ.Object
 				SunPornoIE__real_extract λ.Object
 			)
-			SunPornoIE__VALID_URL = λ.NewStr("https?://(?:(?:www\\.)?sunporno\\.com/videos|embeds\\.sunporno\\.com/embed)/(?P<id>\\d+)")
+			SunPornoIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www\\.)?sunporno\\.com/videos|embeds\\.sunporno\\.com/embed)/(?P<id>\\d+)")
 			SunPornoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -78,76 +78,76 @@ func init() {
 						τmp0           λ.Object
 						τmp1           λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.NewStr("http://www.sunporno.com/videos/%s"), ϒvideo_id), ϒvideo_id)
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<title>([^<]+)</title>"), ϒwebpage, λ.NewStr("title"))
-					ϒdescription = λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewStr("description"), ϒwebpage, λ.NewStr("description"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", λ.Mod(λ.StrLiteral("http://www.sunporno.com/videos/%s"), ϒvideo_id), ϒvideo_id)
+					ϒtitle = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("<title>([^<]+)</title>"), ϒwebpage, λ.StrLiteral("title"))
+					ϒdescription = λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("description"), ϒwebpage, λ.StrLiteral("description"))
 					ϒthumbnail = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("poster=\"([^\"]+)\""),
+						λ.StrLiteral("poster=\"([^\"]+)\""),
 						ϒwebpage,
-						λ.NewStr("thumbnail"),
+						λ.StrLiteral("thumbnail"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
 					ϒduration = λ.Cal(ϒparse_duration, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
 						λ.NewTuple(
-							λ.NewStr("itemprop=\"duration\"[^>]*>\\s*(\\d+:\\d+)\\s*<"),
-							λ.NewStr(">Duration:\\s*<span[^>]+>\\s*(\\d+:\\d+)\\s*<"),
+							λ.StrLiteral("itemprop=\"duration\"[^>]*>\\s*(\\d+:\\d+)\\s*<"),
+							λ.StrLiteral(">Duration:\\s*<span[^>]+>\\s*(\\d+:\\d+)\\s*<"),
 						),
 						ϒwebpage,
-						λ.NewStr("duration"),
+						λ.StrLiteral("duration"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
 					ϒview_count = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("class=\"views\">(?:<noscript>)?\\s*(\\d+)\\s*<"),
+						λ.StrLiteral("class=\"views\">(?:<noscript>)?\\s*(\\d+)\\s*<"),
 						ϒwebpage,
-						λ.NewStr("view count"),
+						λ.StrLiteral("view count"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
 					ϒcomment_count = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("(\\d+)</b> Comments?"),
+						λ.StrLiteral("(\\d+)</b> Comments?"),
 						ϒwebpage,
-						λ.NewStr("comment count"),
+						λ.StrLiteral("comment count"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 						{Name: "default", Value: λ.None},
 					}))
 					ϒformats = λ.NewList()
 					ϒquality = λ.Cal(ϒqualities, λ.NewList(
-						λ.NewStr("mp4"),
-						λ.NewStr("flv"),
+						λ.StrLiteral("mp4"),
+						λ.StrLiteral("flv"),
 					))
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.NewStr("<(?:source|video) src=\"([^\"]+)\""), ϒwebpage))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("<(?:source|video) src=\"([^\"]+)\""), ϒwebpage))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒvideo_url = τmp1
 						ϒvideo_ext = λ.Cal(ϒdetermine_ext, ϒvideo_url)
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):       ϒvideo_url,
-							λ.NewStr("format_id"): ϒvideo_ext,
-							λ.NewStr("quality"):   λ.Cal(ϒquality, ϒvideo_ext),
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":       ϒvideo_url,
+							"format_id": ϒvideo_ext,
+							"quality":   λ.Cal(ϒquality, ϒvideo_ext),
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            ϒvideo_id,
-						λ.NewStr("title"):         ϒtitle,
-						λ.NewStr("description"):   ϒdescription,
-						λ.NewStr("thumbnail"):     ϒthumbnail,
-						λ.NewStr("duration"):      ϒduration,
-						λ.NewStr("view_count"):    ϒview_count,
-						λ.NewStr("comment_count"): ϒcomment_count,
-						λ.NewStr("formats"):       ϒformats,
-						λ.NewStr("age_limit"):     λ.NewInt(18),
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":            ϒvideo_id,
+						"title":         ϒtitle,
+						"description":   ϒdescription,
+						"thumbnail":     ϒthumbnail,
+						"duration":      ϒduration,
+						"view_count":    ϒview_count,
+						"comment_count": ϒcomment_count,
+						"formats":       ϒformats,
+						"age_limit":     λ.IntLiteral(18),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    SunPornoIE__VALID_URL,
-				λ.NewStr("_real_extract"): SunPornoIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    SunPornoIE__VALID_URL,
+				"_real_extract": SunPornoIE__real_extract,
 			})
 		}())
 	})

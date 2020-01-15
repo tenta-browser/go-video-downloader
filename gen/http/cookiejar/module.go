@@ -41,7 +41,7 @@ func init() {
 	λ.InitModule(func() {
 		SetCookie = Ωnet.SetCookie
 		GetCookieHeader = Ωnet.GetCookieHeader
-		CookieJar = λ.Cal(λ.TypeType, λ.NewStr("CookieJar"), λ.NewTuple(), func() λ.Dict {
+		CookieJar = λ.Cal(λ.TypeType, λ.StrLiteral("CookieJar"), λ.NewTuple(), func() λ.Dict {
 			var (
 				CookieJar___init__          λ.Object
 				CookieJar_add_cookie_header λ.Object
@@ -74,7 +74,7 @@ func init() {
 						ϒself    = λargs[0]
 					)
 					ϒheader = λ.Cal(GetCookieHeader, λ.GetAttr(ϒself, "jar", nil), λ.GetAttr(ϒrequest, "url", nil))
-					λ.Cal(λ.GetAttr(ϒrequest, "add_header", nil), λ.NewStr("Cookie"), ϒheader)
+					λ.Calm(ϒrequest, "add_header", λ.StrLiteral("Cookie"), ϒheader)
 					return λ.None
 				})
 			CookieJar_set_cookie = λ.NewFunction("set_cookie",
@@ -91,17 +91,17 @@ func init() {
 					λ.Cal(SetCookie, λ.GetAttr(ϒself, "jar", nil), λ.GetAttr(ϒcookie, "domain", nil), λ.GetAttr(ϒcookie, "name", nil), λ.GetAttr(ϒcookie, "value", nil))
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"):          CookieJar___init__,
-				λ.NewStr("add_cookie_header"): CookieJar_add_cookie_header,
-				λ.NewStr("set_cookie"):        CookieJar_set_cookie,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__":          CookieJar___init__,
+				"add_cookie_header": CookieJar_add_cookie_header,
+				"set_cookie":        CookieJar_set_cookie,
 			})
 		}())
-		MozillaCookieJar = λ.Cal(λ.TypeType, λ.NewStr("MozillaCookieJar"), λ.NewTuple(CookieJar), func() λ.Dict {
+		MozillaCookieJar = λ.Cal(λ.TypeType, λ.StrLiteral("MozillaCookieJar"), λ.NewTuple(CookieJar), func() λ.Dict {
 			// pass
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
-		Cookie = λ.Cal(λ.TypeType, λ.NewStr("Cookie"), λ.NewTuple(), func() λ.Dict {
+		Cookie = λ.Cal(λ.TypeType, λ.StrLiteral("Cookie"), λ.NewTuple(), func() λ.Dict {
 			var (
 				Cookie___init__ λ.Object
 			)
@@ -162,13 +162,13 @@ func init() {
 					_ = ϒrfc2109
 					_ = ϒsecure
 					_ = ϒversion
-					λ.SetAttr(ϒself, "domain", λ.Cal(λ.GetAttr(ϒdomain, "lower", nil)))
+					λ.SetAttr(ϒself, "domain", λ.Calm(ϒdomain, "lower"))
 					λ.SetAttr(ϒself, "name", ϒname)
 					λ.SetAttr(ϒself, "value", ϒvalue)
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"): Cookie___init__,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__": Cookie___init__,
 			})
 		}())
 	})

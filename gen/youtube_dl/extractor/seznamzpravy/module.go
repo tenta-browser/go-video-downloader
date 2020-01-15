@@ -64,15 +64,15 @@ func init() {
 				var (
 					ϒsrc_url = λargs[0]
 				)
-				return λ.GetItem(λ.Cal(λ.GetAttr(λ.GetAttr(λ.Cal(ϒcompat_urllib_parse_urlparse, ϒsrc_url), "path", nil), "split", nil), λ.NewStr("/")), λ.Neg(λ.NewInt(1)))
+				return λ.GetItem(λ.Calm(λ.GetAttr(λ.Cal(ϒcompat_urllib_parse_urlparse, ϒsrc_url), "path", nil), "split", λ.StrLiteral("/")), λ.Neg(λ.IntLiteral(1)))
 			})
-		SeznamZpravyIE = λ.Cal(λ.TypeType, λ.NewStr("SeznamZpravyIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SeznamZpravyIE = λ.Cal(λ.TypeType, λ.StrLiteral("SeznamZpravyIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SeznamZpravyIE__VALID_URL           λ.Object
 				SeznamZpravyIE__extract_sdn_formats λ.Object
 				SeznamZpravyIE__real_extract        λ.Object
 			)
-			SeznamZpravyIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?seznamzpravy\\.cz/iframe/player\\?.*\\bsrc=")
+			SeznamZpravyIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?seznamzpravy\\.cz/iframe/player\\?.*\\bsrc=")
 			SeznamZpravyIE__extract_sdn_formats = λ.NewFunction("_extract_sdn_formats",
 				[]λ.Param{
 					{Name: "self"},
@@ -106,10 +106,10 @@ func init() {
 					)
 					_ = τmp2
 					_ = τmp3
-					ϒsdn_data = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), ϒsdn_url, ϒvideo_id)
-					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒsdn_data, "get", nil), λ.NewStr("Location"))) {
-						ϒsdn_url = λ.GetItem(ϒsdn_data, λ.NewStr("Location"))
-						ϒsdn_data = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), ϒsdn_url, ϒvideo_id)
+					ϒsdn_data = λ.Calm(ϒself, "_download_json", ϒsdn_url, ϒvideo_id)
+					if λ.IsTrue(λ.Calm(ϒsdn_data, "get", λ.StrLiteral("Location"))) {
+						ϒsdn_url = λ.GetItem(ϒsdn_data, λ.StrLiteral("Location"))
+						ϒsdn_data = λ.Calm(ϒself, "_download_json", ϒsdn_url, ϒvideo_id)
 					}
 					ϒformats = λ.NewList()
 					ϒmp4_formats = func() λ.Object {
@@ -122,23 +122,23 @@ func init() {
 								var (
 									ϒx = λargs[0]
 								)
-								return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("data")), λ.NewStr("mp4"))
+								return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("data")), λ.StrLiteral("mp4"))
 							}), λ.DictType); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
 						}
 					}()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒmp4_formats, "items", nil)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒmp4_formats, "items"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒformat_id = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒformat_data = λ.GetItem(τmp2, λ.NewInt(1))
-						ϒrelative_url = λ.Cal(λ.GetAttr(ϒformat_data, "get", nil), λ.NewStr("url"))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒrelative_url))) {
+						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒformat_data = λ.GetItem(τmp2, λ.IntLiteral(1))
+						ϒrelative_url = λ.Calm(ϒformat_data, "get", λ.StrLiteral("url"))
+						if !λ.IsTrue(ϒrelative_url) {
 							continue
 						}
 						τmp2, τmp3 = func() (λexit λ.Object, λret λ.Object) {
@@ -152,28 +152,28 @@ func init() {
 										λ.None,
 										λ.None,
 									)
-									ϒwidth = λ.GetItem(τmp4, λ.NewInt(0))
-									ϒheight = λ.GetItem(τmp4, λ.NewInt(1))
+									ϒwidth = λ.GetItem(τmp4, λ.IntLiteral(0))
+									ϒheight = λ.GetItem(τmp4, λ.IntLiteral(1))
 								}},
 							)
-							τmp4 = λ.Cal(λ.GetAttr(ϒformat_data, "get", nil), λ.NewStr("resolution"))
-							ϒwidth = λ.GetItem(τmp4, λ.NewInt(0))
-							ϒheight = λ.GetItem(τmp4, λ.NewInt(1))
+							τmp4 = λ.Calm(ϒformat_data, "get", λ.StrLiteral("resolution"))
+							ϒwidth = λ.GetItem(τmp4, λ.IntLiteral(0))
+							ϒheight = λ.GetItem(τmp4, λ.IntLiteral(1))
 							return λ.BlockExitNormally, nil
 						}()
-						ϒf = λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):       λ.Cal(ϒurljoin, ϒsdn_url, ϒrelative_url),
-							λ.NewStr("format_id"): λ.Mod(λ.NewStr("http-%s"), ϒformat_id),
-							λ.NewStr("tbr"): λ.Call(ϒint_or_none, λ.NewArgs(λ.Cal(λ.GetAttr(ϒformat_data, "get", nil), λ.NewStr("bandwidth"))), λ.KWArgs{
-								{Name: "scale", Value: λ.NewInt(1000)},
+						ϒf = λ.DictLiteral(map[string]λ.Object{
+							"url":       λ.Cal(ϒurljoin, ϒsdn_url, ϒrelative_url),
+							"format_id": λ.Mod(λ.StrLiteral("http-%s"), ϒformat_id),
+							"tbr": λ.Call(ϒint_or_none, λ.NewArgs(λ.Calm(ϒformat_data, "get", λ.StrLiteral("bandwidth"))), λ.KWArgs{
+								{Name: "scale", Value: λ.IntLiteral(1000)},
 							}),
-							λ.NewStr("width"):  λ.Cal(ϒint_or_none, ϒwidth),
-							λ.NewStr("height"): λ.Cal(ϒint_or_none, ϒheight),
+							"width":  λ.Cal(ϒint_or_none, ϒwidth),
+							"height": λ.Cal(ϒint_or_none, ϒheight),
 						})
-						λ.Cal(λ.GetAttr(ϒf, "update", nil), λ.Cal(ϒparse_codecs, λ.Cal(λ.GetAttr(ϒformat_data, "get", nil), λ.NewStr("codec"))))
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)
+						λ.Calm(ϒf, "update", λ.Cal(ϒparse_codecs, λ.Calm(ϒformat_data, "get", λ.StrLiteral("codec"))))
+						λ.Calm(ϒformats, "append", ϒf)
 					}
-					ϒpls = λ.Cal(λ.GetAttr(ϒsdn_data, "get", nil), λ.NewStr("pls"), λ.NewDictWithTable(map[λ.Object]λ.Object{}))
+					ϒpls = λ.Calm(ϒsdn_data, "get", λ.StrLiteral("pls"), λ.DictLiteral(map[λ.Object]λ.Object{}))
 					ϒget_url = λ.NewFunction("get_url",
 						[]λ.Param{
 							{Name: "format_id"},
@@ -192,31 +192,31 @@ func init() {
 									var (
 										ϒx = λargs[0]
 									)
-									return λ.GetItem(λ.GetItem(ϒx, ϒformat_id), λ.NewStr("url"))
+									return λ.GetItem(λ.GetItem(ϒx, ϒformat_id), λ.StrLiteral("url"))
 								}), ϒcompat_str)
 						})
-					ϒdash_rel_url = λ.Cal(ϒget_url, λ.NewStr("dash"))
+					ϒdash_rel_url = λ.Cal(ϒget_url, λ.StrLiteral("dash"))
 					if λ.IsTrue(ϒdash_rel_url) {
-						λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_mpd_formats", nil), λ.NewArgs(
+						λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_mpd_formats", nil), λ.NewArgs(
 							λ.Cal(ϒurljoin, ϒsdn_url, ϒdash_rel_url),
 							ϒvideo_id,
 						), λ.KWArgs{
-							{Name: "mpd_id", Value: λ.NewStr("dash")},
+							{Name: "mpd_id", Value: λ.StrLiteral("dash")},
 							{Name: "fatal", Value: λ.False},
 						}))
 					}
-					ϒhls_rel_url = λ.Cal(ϒget_url, λ.NewStr("hls"))
+					ϒhls_rel_url = λ.Cal(ϒget_url, λ.StrLiteral("hls"))
 					if λ.IsTrue(ϒhls_rel_url) {
-						λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+						λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
 							λ.Cal(ϒurljoin, ϒsdn_url, ϒhls_rel_url),
 							ϒvideo_id,
 						), λ.KWArgs{
-							{Name: "ext", Value: λ.NewStr("mp4")},
-							{Name: "m3u8_id", Value: λ.NewStr("hls")},
+							{Name: "ext", Value: λ.StrLiteral("mp4")},
+							{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
 							{Name: "fatal", Value: λ.False},
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					return ϒformats
 				})
 			SeznamZpravyIE__real_extract = λ.NewFunction("_real_extract",
@@ -239,35 +239,35 @@ func init() {
 						ϒvideo_id  λ.Object
 					)
 					ϒparams = λ.Cal(ϒcompat_parse_qs, λ.GetAttr(λ.Cal(ϒcompat_urllib_parse_urlparse, ϒurl), "query", nil))
-					ϒsrc = λ.GetItem(λ.GetItem(ϒparams, λ.NewStr("src")), λ.NewInt(0))
-					ϒtitle = λ.GetItem(λ.GetItem(ϒparams, λ.NewStr("title")), λ.NewInt(0))
-					ϒvideo_id = λ.GetItem(λ.Cal(λ.GetAttr(ϒparams, "get", nil), λ.NewStr("contentId"), λ.NewList(λ.Cal(ϒ_raw_id, ϒsrc))), λ.NewInt(0))
-					ϒformats = λ.Cal(λ.GetAttr(ϒself, "_extract_sdn_formats", nil), λ.Add(ϒsrc, λ.NewStr("spl2,2,VOD")), ϒvideo_id)
-					ϒduration = λ.Cal(ϒint_or_none, λ.GetItem(λ.Cal(λ.GetAttr(ϒparams, "get", nil), λ.NewStr("duration"), λ.NewList(λ.None)), λ.NewInt(0)))
-					ϒseries = λ.GetItem(λ.Cal(λ.GetAttr(ϒparams, "get", nil), λ.NewStr("series"), λ.NewList(λ.None)), λ.NewInt(0))
-					ϒthumbnail = λ.GetItem(λ.Cal(λ.GetAttr(ϒparams, "get", nil), λ.NewStr("poster"), λ.NewList(λ.None)), λ.NewInt(0))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("title"):     ϒtitle,
-						λ.NewStr("thumbnail"): ϒthumbnail,
-						λ.NewStr("duration"):  ϒduration,
-						λ.NewStr("series"):    ϒseries,
-						λ.NewStr("formats"):   ϒformats,
+					ϒsrc = λ.GetItem(λ.GetItem(ϒparams, λ.StrLiteral("src")), λ.IntLiteral(0))
+					ϒtitle = λ.GetItem(λ.GetItem(ϒparams, λ.StrLiteral("title")), λ.IntLiteral(0))
+					ϒvideo_id = λ.GetItem(λ.Calm(ϒparams, "get", λ.StrLiteral("contentId"), λ.NewList(λ.Cal(ϒ_raw_id, ϒsrc))), λ.IntLiteral(0))
+					ϒformats = λ.Calm(ϒself, "_extract_sdn_formats", λ.Add(ϒsrc, λ.StrLiteral("spl2,2,VOD")), ϒvideo_id)
+					ϒduration = λ.Cal(ϒint_or_none, λ.GetItem(λ.Calm(ϒparams, "get", λ.StrLiteral("duration"), λ.NewList(λ.None)), λ.IntLiteral(0)))
+					ϒseries = λ.GetItem(λ.Calm(ϒparams, "get", λ.StrLiteral("series"), λ.NewList(λ.None)), λ.IntLiteral(0))
+					ϒthumbnail = λ.GetItem(λ.Calm(ϒparams, "get", λ.StrLiteral("poster"), λ.NewList(λ.None)), λ.IntLiteral(0))
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒvideo_id,
+						"title":     ϒtitle,
+						"thumbnail": ϒthumbnail,
+						"duration":  ϒduration,
+						"series":    ϒseries,
+						"formats":   ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):           SeznamZpravyIE__VALID_URL,
-				λ.NewStr("_extract_sdn_formats"): SeznamZpravyIE__extract_sdn_formats,
-				λ.NewStr("_real_extract"):        SeznamZpravyIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":           SeznamZpravyIE__VALID_URL,
+				"_extract_sdn_formats": SeznamZpravyIE__extract_sdn_formats,
+				"_real_extract":        SeznamZpravyIE__real_extract,
 			})
 		}())
-		SeznamZpravyArticleIE = λ.Cal(λ.TypeType, λ.NewStr("SeznamZpravyArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SeznamZpravyArticleIE = λ.Cal(λ.TypeType, λ.StrLiteral("SeznamZpravyArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SeznamZpravyArticleIE__VALID_URL λ.Object
 			)
-			SeznamZpravyArticleIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?:seznam\\.cz/zpravy|seznamzpravy\\.cz)/clanek/(?:[^/?#&]+)-(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SeznamZpravyArticleIE__VALID_URL,
+			SeznamZpravyArticleIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?:seznam\\.cz/zpravy|seznamzpravy\\.cz)/clanek/(?:[^/?#&]+)-(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SeznamZpravyArticleIE__VALID_URL,
 			})
 		}())
 	})

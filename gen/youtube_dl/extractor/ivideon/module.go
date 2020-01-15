@@ -45,19 +45,19 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_urllib_parse_urlencode = Ωcompat.ϒcompat_urllib_parse_urlencode
 		ϒqualities = Ωutils.ϒqualities
-		IvideonIE = λ.Cal(λ.TypeType, λ.NewStr("IvideonIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		IvideonIE = λ.Cal(λ.TypeType, λ.StrLiteral("IvideonIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				IvideonIE_IE_NAME       λ.Object
 				IvideonIE__QUALITIES    λ.Object
 				IvideonIE__VALID_URL    λ.Object
 				IvideonIE__real_extract λ.Object
 			)
-			IvideonIE_IE_NAME = λ.NewStr("ivideon")
-			IvideonIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?ivideon\\.com/tv/(?:[^/]+/)*camera/(?P<id>\\d+-[\\da-f]+)/(?P<camera_id>\\d+)")
+			IvideonIE_IE_NAME = λ.StrLiteral("ivideon")
+			IvideonIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?ivideon\\.com/tv/(?:[^/]+/)*camera/(?P<id>\\d+-[\\da-f]+)/(?P<camera_id>\\d+)")
 			IvideonIE__QUALITIES = λ.NewTuple(
-				λ.NewStr("low"),
-				λ.NewStr("mid"),
-				λ.NewStr("hi"),
+				λ.StrLiteral("low"),
+				λ.StrLiteral("mid"),
+				λ.StrLiteral("hi"),
 			)
 			IvideonIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -85,18 +85,18 @@ func init() {
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
 					τmp0 = λ.NewTuple(
-						λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id")),
-						λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("camera_id")),
+						λ.Calm(ϒmobj, "group", λ.StrLiteral("id")),
+						λ.Calm(ϒmobj, "group", λ.StrLiteral("camera_id")),
 					)
-					ϒserver_id = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒcamera_id = λ.GetItem(τmp0, λ.NewInt(1))
+					ϒserver_id = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒcamera_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					τmp0 = λ.NewTuple(
 						λ.None,
 						λ.None,
 					)
-					ϒcamera_name = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒdescription = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒcamera_url = λ.Cal(Ωparse.ϒurljoin, ϒurl, λ.Mod(λ.NewStr("/tv/camera/%s/%s/"), λ.NewTuple(
+					ϒcamera_name = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒdescription = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒcamera_url = λ.Cal(Ωparse.ϒurljoin, ϒurl, λ.Mod(λ.StrLiteral("/tv/camera/%s/%s/"), λ.NewTuple(
 						ϒserver_id,
 						ϒcamera_id,
 					)))
@@ -108,9 +108,9 @@ func init() {
 					})
 					if λ.IsTrue(ϒwebpage) {
 						ϒconfig_string = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("var\\s+config\\s*=\\s*({.+?});"),
+							λ.StrLiteral("var\\s+config\\s*=\\s*({.+?});"),
 							ϒwebpage,
-							λ.NewStr("config"),
+							λ.StrLiteral("config"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
@@ -121,27 +121,27 @@ func init() {
 							), λ.KWArgs{
 								{Name: "fatal", Value: λ.False},
 							})
-							ϒcamera_info = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("ivTvAppOptions"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("currentCameraInfo"))
+							ϒcamera_info = λ.Calm(λ.Calm(ϒconfig, "get", λ.StrLiteral("ivTvAppOptions"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("currentCameraInfo"))
 							if λ.IsTrue(ϒcamera_info) {
-								ϒcamera_name = λ.Cal(λ.GetAttr(ϒcamera_info, "get", nil), λ.NewStr("camera_name"))
-								ϒdescription = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒcamera_info, "get", nil), λ.NewStr("misc"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("description"))
+								ϒcamera_name = λ.Calm(ϒcamera_info, "get", λ.StrLiteral("camera_name"))
+								ϒdescription = λ.Calm(λ.Calm(ϒcamera_info, "get", λ.StrLiteral("misc"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("description"))
 							}
 						}
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒcamera_name))) {
+						if !λ.IsTrue(ϒcamera_name) {
 							ϒcamera_name = func() λ.Object {
 								if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
-									λ.NewStr("name"),
+									λ.StrLiteral("name"),
 									ϒwebpage,
-									λ.NewStr("camera name"),
+									λ.StrLiteral("camera name"),
 								), λ.KWArgs{
 									{Name: "default", Value: λ.None},
 								}); λ.IsTrue(λv) {
 									return λv
 								} else {
 									return λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-										λ.NewStr("<h1[^>]+class=\"b-video-title\"[^>]*>([^<]+)"),
+										λ.StrLiteral("<h1[^>]+class=\"b-video-title\"[^>]*>([^<]+)"),
 										ϒwebpage,
-										λ.NewStr("camera name"),
+										λ.StrLiteral("camera name"),
 									), λ.KWArgs{
 										{Name: "default", Value: λ.None},
 									})
@@ -166,41 +166,41 @@ func init() {
 										break
 									}
 									ϒformat_id = τmp1
-									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("url"): λ.Mod(λ.NewStr("https://streaming.ivideon.com/flv/live?%s"), λ.Cal(ϒcompat_urllib_parse_urlencode, λ.NewDictWithTable(map[λ.Object]λ.Object{
-											λ.NewStr("server"):    ϒserver_id,
-											λ.NewStr("camera"):    ϒcamera_id,
-											λ.NewStr("sessionId"): λ.NewStr("demo"),
-											λ.NewStr("q"):         λ.Cal(ϒquality, ϒformat_id),
+									λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+										"url": λ.Mod(λ.StrLiteral("https://streaming.ivideon.com/flv/live?%s"), λ.Cal(ϒcompat_urllib_parse_urlencode, λ.DictLiteral(map[string]λ.Object{
+											"server":    ϒserver_id,
+											"camera":    ϒcamera_id,
+											"sessionId": λ.StrLiteral("demo"),
+											"q":         λ.Cal(ϒquality, ϒformat_id),
 										}))),
-										λ.NewStr("format_id"): ϒformat_id,
-										λ.NewStr("ext"):       λ.NewStr("flv"),
-										λ.NewStr("quality"):   λ.Cal(ϒquality, ϒformat_id),
+										"format_id": ϒformat_id,
+										"ext":       λ.StrLiteral("flv"),
+										"quality":   λ.Cal(ϒquality, ϒformat_id),
 									}))
 								}
 								return λ.None
 							})
 						})))
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"): ϒserver_id,
-						λ.NewStr("title"): λ.Cal(λ.GetAttr(ϒself, "_live_title", nil), func() λ.Object {
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id": ϒserver_id,
+						"title": λ.Calm(ϒself, "_live_title", func() λ.Object {
 							if λv := ϒcamera_name; λ.IsTrue(λv) {
 								return λv
 							} else {
 								return ϒserver_id
 							}
 						}()),
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("is_live"):     λ.True,
-						λ.NewStr("formats"):     ϒformats,
+						"description": ϒdescription,
+						"is_live":     λ.True,
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       IvideonIE_IE_NAME,
-				λ.NewStr("_QUALITIES"):    IvideonIE__QUALITIES,
-				λ.NewStr("_VALID_URL"):    IvideonIE__VALID_URL,
-				λ.NewStr("_real_extract"): IvideonIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       IvideonIE_IE_NAME,
+				"_QUALITIES":    IvideonIE__QUALITIES,
+				"_VALID_URL":    IvideonIE__VALID_URL,
+				"_real_extract": IvideonIE__real_extract,
 			})
 		}())
 	})

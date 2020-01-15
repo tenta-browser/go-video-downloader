@@ -44,12 +44,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ExtractorError = Ωutils.ExtractorError
 		RUTVIE = Ωrutv.RUTVIE
-		VestiIE = λ.Cal(λ.TypeType, λ.NewStr("VestiIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		VestiIE = λ.Cal(λ.TypeType, λ.StrLiteral("VestiIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				VestiIE__VALID_URL    λ.Object
 				VestiIE__real_extract λ.Object
 			)
-			VestiIE__VALID_URL = λ.NewStr("https?://(?:.+?\\.)?vesti\\.ru/(?P<id>.+)")
+			VestiIE__VALID_URL = λ.StrLiteral("https?://(?:.+?\\.)?vesti\\.ru/(?P<id>.+)")
 			VestiIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -66,25 +66,25 @@ func init() {
 						ϒvideo_id λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-					ϒpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id, λ.NewStr("Downloading page"))
-					ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("<meta[^>]+?property=\"og:video\"[^>]+?content=\"http://www\\.vesti\\.ru/i/flvplayer_videoHost\\.swf\\?vid=(?P<id>\\d+)"), ϒpage)
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
+					ϒpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id, λ.StrLiteral("Downloading page"))
+					ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("<meta[^>]+?property=\"og:video\"[^>]+?content=\"http://www\\.vesti\\.ru/i/flvplayer_videoHost\\.swf\\?vid=(?P<id>\\d+)"), ϒpage)
 					if λ.IsTrue(ϒmobj) {
-						ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-						ϒpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.NewStr("http://www.vesti.ru/only_video.html?vid=%s"), ϒvideo_id), ϒvideo_id, λ.NewStr("Downloading video page"))
+						ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
+						ϒpage = λ.Calm(ϒself, "_download_webpage", λ.Mod(λ.StrLiteral("http://www.vesti.ru/only_video.html?vid=%s"), ϒvideo_id), ϒvideo_id, λ.StrLiteral("Downloading video page"))
 					}
-					ϒrutv_url = λ.Cal(λ.GetAttr(RUTVIE, "_extract_url", nil), ϒpage)
+					ϒrutv_url = λ.Calm(RUTVIE, "_extract_url", ϒpage)
 					if λ.IsTrue(ϒrutv_url) {
-						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒrutv_url, λ.NewStr("RUTV"))
+						return λ.Calm(ϒself, "url_result", ϒrutv_url, λ.StrLiteral("RUTV"))
 					}
-					panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("No video found")), λ.KWArgs{
+					panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("No video found")), λ.KWArgs{
 						{Name: "expected", Value: λ.True},
 					})))
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    VestiIE__VALID_URL,
-				λ.NewStr("_real_extract"): VestiIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    VestiIE__VALID_URL,
+				"_real_extract": VestiIE__real_extract,
 			})
 		}())
 	})

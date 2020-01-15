@@ -53,40 +53,40 @@ func init() {
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		ϒxpath_text = Ωutils.ϒxpath_text
-		SmotriIE = λ.Cal(λ.TypeType, λ.NewStr("SmotriIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SmotriIE = λ.Cal(λ.TypeType, λ.StrLiteral("SmotriIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SmotriIE__VALID_URL λ.Object
 			)
-			SmotriIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?:smotri\\.com/video/view/\\?id=|pics\\.smotri\\.com/(?:player|scrubber_custom8)\\.swf\\?file=)(?P<id>v(?P<realvideoid>[0-9]+)[a-z0-9]{4})")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SmotriIE__VALID_URL,
+			SmotriIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?:smotri\\.com/video/view/\\?id=|pics\\.smotri\\.com/(?:player|scrubber_custom8)\\.swf\\?file=)(?P<id>v(?P<realvideoid>[0-9]+)[a-z0-9]{4})")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SmotriIE__VALID_URL,
 			})
 		}())
-		SmotriCommunityIE = λ.Cal(λ.TypeType, λ.NewStr("SmotriCommunityIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SmotriCommunityIE = λ.Cal(λ.TypeType, λ.StrLiteral("SmotriCommunityIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SmotriCommunityIE__VALID_URL λ.Object
 			)
-			SmotriCommunityIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?smotri\\.com/community/video/(?P<id>[0-9A-Za-z_\\'-]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SmotriCommunityIE__VALID_URL,
+			SmotriCommunityIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?smotri\\.com/community/video/(?P<id>[0-9A-Za-z_\\'-]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SmotriCommunityIE__VALID_URL,
 			})
 		}())
-		SmotriUserIE = λ.Cal(λ.TypeType, λ.NewStr("SmotriUserIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SmotriUserIE = λ.Cal(λ.TypeType, λ.StrLiteral("SmotriUserIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SmotriUserIE__VALID_URL λ.Object
 			)
-			SmotriUserIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?smotri\\.com/user/(?P<id>[0-9A-Za-z_\\'-]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SmotriUserIE__VALID_URL,
+			SmotriUserIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?smotri\\.com/user/(?P<id>[0-9A-Za-z_\\'-]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SmotriUserIE__VALID_URL,
 			})
 		}())
-		SmotriBroadcastIE = λ.Cal(λ.TypeType, λ.NewStr("SmotriBroadcastIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SmotriBroadcastIE = λ.Cal(λ.TypeType, λ.StrLiteral("SmotriBroadcastIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SmotriBroadcastIE__VALID_URL λ.Object
 			)
-			SmotriBroadcastIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?P<url>smotri\\.com/live/(?P<id>[^/]+))/?.*")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SmotriBroadcastIE__VALID_URL,
+			SmotriBroadcastIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?P<url>smotri\\.com/live/(?P<id>[^/]+))/?.*")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SmotriBroadcastIE__VALID_URL,
 			})
 		}())
 	})

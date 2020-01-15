@@ -44,14 +44,14 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_b64decode = Ωcompat.ϒcompat_b64decode
 		ϒparse_duration = Ωutils.ϒparse_duration
-		ChirbitIE = λ.Cal(λ.TypeType, λ.NewStr("ChirbitIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ChirbitIE = λ.Cal(λ.TypeType, λ.StrLiteral("ChirbitIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ChirbitIE_IE_NAME       λ.Object
 				ChirbitIE__VALID_URL    λ.Object
 				ChirbitIE__real_extract λ.Object
 			)
-			ChirbitIE_IE_NAME = λ.NewStr("chirbit")
-			ChirbitIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?chirb\\.it/(?:(?:wp|pl)/|fb_chirbit_player\\.swf\\?key=)?(?P<id>[\\da-zA-Z]+)")
+			ChirbitIE_IE_NAME = λ.StrLiteral("chirbit")
+			ChirbitIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?chirb\\.it/(?:(?:wp|pl)/|fb_chirbit_player\\.swf\\?key=)?(?P<id>[\\da-zA-Z]+)")
 			ChirbitIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -71,60 +71,60 @@ func init() {
 						ϒurl         = λargs[1]
 						ϒwebpage     λ.Object
 					)
-					ϒaudio_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.NewStr("http://chirb.it/%s"), ϒaudio_id), ϒaudio_id)
+					ϒaudio_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", λ.Mod(λ.StrLiteral("http://chirb.it/%s"), ϒaudio_id), ϒaudio_id)
 					ϒdata_fd = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("data-fd=([\"\\'])(?P<url>(?:(?!\\1).)+)\\1"),
+						λ.StrLiteral("data-fd=([\"\\'])(?P<url>(?:(?!\\1).)+)\\1"),
 						ϒwebpage,
-						λ.NewStr("data fd"),
+						λ.StrLiteral("data fd"),
 					), λ.KWArgs{
-						{Name: "group", Value: λ.NewStr("url")},
+						{Name: "group", Value: λ.StrLiteral("url")},
 					})
-					ϒaudio_url = λ.Cal(λ.GetAttr(λ.Cal(ϒcompat_b64decode, λ.GetItem(ϒdata_fd, λ.NewSlice(λ.None, λ.None, λ.Neg(λ.NewInt(1))))), "decode", nil), λ.NewStr("utf-8"))
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("class=[\"\\']chirbit-title[\"\\'][^>]*>([^<]+)"), ϒwebpage, λ.NewStr("title"))
+					ϒaudio_url = λ.Calm(λ.Cal(ϒcompat_b64decode, λ.GetItem(ϒdata_fd, λ.NewSlice(λ.None, λ.None, λ.Neg(λ.IntLiteral(1))))), "decode", λ.StrLiteral("utf-8"))
+					ϒtitle = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("class=[\"\\']chirbit-title[\"\\'][^>]*>([^<]+)"), ϒwebpage, λ.StrLiteral("title"))
 					ϒdescription = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<h3>Description</h3>\\s*<pre[^>]*>([^<]+)</pre>"),
+						λ.StrLiteral("<h3>Description</h3>\\s*<pre[^>]*>([^<]+)</pre>"),
 						ϒwebpage,
-						λ.NewStr("description"),
+						λ.StrLiteral("description"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
 					ϒduration = λ.Cal(ϒparse_duration, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("class=[\"\\']c-length[\"\\'][^>]*>([^<]+)"),
+						λ.StrLiteral("class=[\"\\']c-length[\"\\'][^>]*>([^<]+)"),
 						ϒwebpage,
-						λ.NewStr("duration"),
+						λ.StrLiteral("duration"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
 					ϒuploader = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("id=[\"\\']chirbit-username[\"\\'][^>]*>([^<]+)"),
+						λ.StrLiteral("id=[\"\\']chirbit-username[\"\\'][^>]*>([^<]+)"),
 						ϒwebpage,
-						λ.NewStr("uploader"),
+						λ.StrLiteral("uploader"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒaudio_id,
-						λ.NewStr("url"):         ϒaudio_url,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("duration"):    ϒduration,
-						λ.NewStr("uploader"):    ϒuploader,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒaudio_id,
+						"url":         ϒaudio_url,
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"duration":    ϒduration,
+						"uploader":    ϒuploader,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       ChirbitIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    ChirbitIE__VALID_URL,
-				λ.NewStr("_real_extract"): ChirbitIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       ChirbitIE_IE_NAME,
+				"_VALID_URL":    ChirbitIE__VALID_URL,
+				"_real_extract": ChirbitIE__real_extract,
 			})
 		}())
-		ChirbitProfileIE = λ.Cal(λ.TypeType, λ.NewStr("ChirbitProfileIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ChirbitProfileIE = λ.Cal(λ.TypeType, λ.StrLiteral("ChirbitProfileIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ChirbitProfileIE__VALID_URL λ.Object
 			)
-			ChirbitProfileIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?chirbit\\.com/(?:rss/)?(?P<id>[^/]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): ChirbitProfileIE__VALID_URL,
+			ChirbitProfileIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?chirbit\\.com/(?:rss/)?(?P<id>[^/]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": ChirbitProfileIE__VALID_URL,
 			})
 		}())
 	})

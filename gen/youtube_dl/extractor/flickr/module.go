@@ -49,7 +49,7 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒqualities = Ωutils.ϒqualities
-		FlickrIE = λ.Cal(λ.TypeType, λ.NewStr("FlickrIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		FlickrIE = λ.Cal(λ.TypeType, λ.StrLiteral("FlickrIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				FlickrIE__API_BASE_URL λ.Object
 				FlickrIE__LICENSES     λ.Object
@@ -57,20 +57,20 @@ func init() {
 				FlickrIE__call_api     λ.Object
 				FlickrIE__real_extract λ.Object
 			)
-			FlickrIE__VALID_URL = λ.NewStr("https?://(?:www\\.|secure\\.)?flickr\\.com/photos/[\\w\\-_@]+/(?P<id>\\d+)")
-			FlickrIE__API_BASE_URL = λ.NewStr("https://api.flickr.com/services/rest?")
-			FlickrIE__LICENSES = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("0"):  λ.NewStr("All Rights Reserved"),
-				λ.NewStr("1"):  λ.NewStr("Attribution-NonCommercial-ShareAlike"),
-				λ.NewStr("2"):  λ.NewStr("Attribution-NonCommercial"),
-				λ.NewStr("3"):  λ.NewStr("Attribution-NonCommercial-NoDerivs"),
-				λ.NewStr("4"):  λ.NewStr("Attribution"),
-				λ.NewStr("5"):  λ.NewStr("Attribution-ShareAlike"),
-				λ.NewStr("6"):  λ.NewStr("Attribution-NoDerivs"),
-				λ.NewStr("7"):  λ.NewStr("No known copyright restrictions"),
-				λ.NewStr("8"):  λ.NewStr("United States government work"),
-				λ.NewStr("9"):  λ.NewStr("Public Domain Dedication (CC0)"),
-				λ.NewStr("10"): λ.NewStr("Public Domain Work"),
+			FlickrIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.|secure\\.)?flickr\\.com/photos/[\\w\\-_@]+/(?P<id>\\d+)")
+			FlickrIE__API_BASE_URL = λ.StrLiteral("https://api.flickr.com/services/rest?")
+			FlickrIE__LICENSES = λ.DictLiteral(map[string]string{
+				"0":  "All Rights Reserved",
+				"1":  "Attribution-NonCommercial-ShareAlike",
+				"2":  "Attribution-NonCommercial",
+				"3":  "Attribution-NonCommercial-NoDerivs",
+				"4":  "Attribution",
+				"5":  "Attribution-ShareAlike",
+				"6":  "Attribution-NoDerivs",
+				"7":  "No known copyright restrictions",
+				"8":  "United States government work",
+				"9":  "Public Domain Dedication (CC0)",
+				"10": "Public Domain Work",
 			})
 			FlickrIE__call_api = λ.NewFunction("_call_api",
 				[]λ.Param{
@@ -93,19 +93,19 @@ func init() {
 						ϒself     = λargs[0]
 						ϒvideo_id = λargs[2]
 					)
-					ϒquery = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("photo_id"):       ϒvideo_id,
-						λ.NewStr("method"):         λ.Mod(λ.NewStr("flickr.%s"), ϒmethod),
-						λ.NewStr("api_key"):        ϒapi_key,
-						λ.NewStr("format"):         λ.NewStr("json"),
-						λ.NewStr("nojsoncallback"): λ.NewInt(1),
+					ϒquery = λ.DictLiteral(map[string]λ.Object{
+						"photo_id":       ϒvideo_id,
+						"method":         λ.Mod(λ.StrLiteral("flickr.%s"), ϒmethod),
+						"api_key":        ϒapi_key,
+						"format":         λ.StrLiteral("json"),
+						"nojsoncallback": λ.IntLiteral(1),
 					})
 					if λ.IsTrue(ϒsecret) {
-						λ.SetItem(ϒquery, λ.NewStr("secret"), ϒsecret)
+						λ.SetItem(ϒquery, λ.StrLiteral("secret"), ϒsecret)
 					}
-					ϒdata = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Add(λ.GetAttr(ϒself, "_API_BASE_URL", nil), λ.Cal(ϒcompat_urllib_parse_urlencode, ϒquery)), ϒvideo_id, ϒnote)
-					if λ.IsTrue(λ.Ne(λ.GetItem(ϒdata, λ.NewStr("stat")), λ.NewStr("ok"))) {
-						panic(λ.Raise(λ.Cal(ExtractorError, λ.GetItem(ϒdata, λ.NewStr("message")))))
+					ϒdata = λ.Calm(ϒself, "_download_json", λ.Add(λ.GetAttr(ϒself, "_API_BASE_URL", nil), λ.Cal(ϒcompat_urllib_parse_urlencode, ϒquery)), ϒvideo_id, ϒnote)
+					if λ.IsTrue(λ.Ne(λ.GetItem(ϒdata, λ.StrLiteral("stat")), λ.StrLiteral("ok"))) {
+						panic(λ.Raise(λ.Cal(ExtractorError, λ.GetItem(ϒdata, λ.StrLiteral("message")))))
 					}
 					return ϒdata
 				})
@@ -134,42 +134,42 @@ func init() {
 						τmp0           λ.Object
 						τmp1           λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒapi_key = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.NewStr("https://www.flickr.com/hermes_error_beacon.gne"), ϒvideo_id, λ.NewStr("Downloading api key")), λ.NewStr("site_key"))
-					ϒvideo_info = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_call_api", nil), λ.NewStr("photos.getInfo"), ϒvideo_id, ϒapi_key, λ.NewStr("Downloading video info")), λ.NewStr("photo"))
-					if λ.IsTrue(λ.Eq(λ.GetItem(ϒvideo_info, λ.NewStr("media")), λ.NewStr("video"))) {
-						ϒstreams = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_call_api", nil), λ.NewStr("video.getStreamInfo"), ϒvideo_id, ϒapi_key, λ.NewStr("Downloading streams info"), λ.GetItem(ϒvideo_info, λ.NewStr("secret"))), λ.NewStr("streams"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒapi_key = λ.GetItem(λ.Calm(ϒself, "_download_json", λ.StrLiteral("https://www.flickr.com/hermes_error_beacon.gne"), ϒvideo_id, λ.StrLiteral("Downloading api key")), λ.StrLiteral("site_key"))
+					ϒvideo_info = λ.GetItem(λ.Calm(ϒself, "_call_api", λ.StrLiteral("photos.getInfo"), ϒvideo_id, ϒapi_key, λ.StrLiteral("Downloading video info")), λ.StrLiteral("photo"))
+					if λ.IsTrue(λ.Eq(λ.GetItem(ϒvideo_info, λ.StrLiteral("media")), λ.StrLiteral("video"))) {
+						ϒstreams = λ.GetItem(λ.Calm(ϒself, "_call_api", λ.StrLiteral("video.getStreamInfo"), ϒvideo_id, ϒapi_key, λ.StrLiteral("Downloading streams info"), λ.GetItem(ϒvideo_info, λ.StrLiteral("secret"))), λ.StrLiteral("streams"))
 						ϒpreference = λ.Cal(ϒqualities, λ.NewList(
-							λ.NewStr("288p"),
-							λ.NewStr("iphone_wifi"),
-							λ.NewStr("100"),
-							λ.NewStr("300"),
-							λ.NewStr("700"),
-							λ.NewStr("360p"),
-							λ.NewStr("appletv"),
-							λ.NewStr("720p"),
-							λ.NewStr("1080p"),
-							λ.NewStr("orig"),
+							λ.StrLiteral("288p"),
+							λ.StrLiteral("iphone_wifi"),
+							λ.StrLiteral("100"),
+							λ.StrLiteral("300"),
+							λ.StrLiteral("700"),
+							λ.StrLiteral("360p"),
+							λ.StrLiteral("appletv"),
+							λ.StrLiteral("720p"),
+							λ.StrLiteral("1080p"),
+							λ.StrLiteral("orig"),
 						))
 						ϒformats = λ.NewList()
-						τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒstreams, λ.NewStr("stream")))
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒstreams, λ.StrLiteral("stream")))
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
 							ϒstream = τmp1
-							ϒstream_type = λ.Cal(ϒcompat_str, λ.Cal(λ.GetAttr(ϒstream, "get", nil), λ.NewStr("type")))
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("format_id"):  ϒstream_type,
-								λ.NewStr("url"):        λ.GetItem(ϒstream, λ.NewStr("_content")),
-								λ.NewStr("preference"): λ.Cal(ϒpreference, ϒstream_type),
+							ϒstream_type = λ.Cal(ϒcompat_str, λ.Calm(ϒstream, "get", λ.StrLiteral("type")))
+							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+								"format_id":  ϒstream_type,
+								"url":        λ.GetItem(ϒstream, λ.StrLiteral("_content")),
+								"preference": λ.Cal(ϒpreference, ϒstream_type),
 							}))
 						}
-						λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-						ϒowner = λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("owner"), λ.NewDictWithTable(map[λ.Object]λ.Object{}))
-						ϒuploader_id = λ.Cal(λ.GetAttr(ϒowner, "get", nil), λ.NewStr("nsid"))
+						λ.Calm(ϒself, "_sort_formats", ϒformats)
+						ϒowner = λ.Calm(ϒvideo_info, "get", λ.StrLiteral("owner"), λ.DictLiteral(map[λ.Object]λ.Object{}))
+						ϒuploader_id = λ.Calm(ϒowner, "get", λ.StrLiteral("nsid"))
 						ϒuploader_path = func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒowner, "get", nil), λ.NewStr("path_alias")); λ.IsTrue(λv) {
+							if λv := λ.Calm(ϒowner, "get", λ.StrLiteral("path_alias")); λ.IsTrue(λv) {
 								return λv
 							} else {
 								return ϒuploader_id
@@ -177,24 +177,24 @@ func init() {
 						}()
 						ϒuploader_url = func() λ.Object {
 							if λ.IsTrue(ϒuploader_path) {
-								return λ.Mod(λ.NewStr("https://www.flickr.com/photos/%s/"), ϒuploader_path)
+								return λ.Mod(λ.StrLiteral("https://www.flickr.com/photos/%s/"), ϒuploader_path)
 							} else {
 								return λ.None
 							}
 						}()
-						return λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("id"):            ϒvideo_id,
-							λ.NewStr("title"):         λ.GetItem(λ.GetItem(ϒvideo_info, λ.NewStr("title")), λ.NewStr("_content")),
-							λ.NewStr("description"):   λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("description"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("_content")),
-							λ.NewStr("formats"):       ϒformats,
-							λ.NewStr("timestamp"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("dateuploaded"))),
-							λ.NewStr("duration"):      λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("video"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("duration"))),
-							λ.NewStr("uploader_id"):   ϒuploader_id,
-							λ.NewStr("uploader"):      λ.Cal(λ.GetAttr(ϒowner, "get", nil), λ.NewStr("realname")),
-							λ.NewStr("uploader_url"):  ϒuploader_url,
-							λ.NewStr("comment_count"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("comments"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("_content"))),
-							λ.NewStr("view_count"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("views"))),
-							λ.NewStr("tags"): λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+						return λ.DictLiteral(map[string]λ.Object{
+							"id":            ϒvideo_id,
+							"title":         λ.GetItem(λ.GetItem(ϒvideo_info, λ.StrLiteral("title")), λ.StrLiteral("_content")),
+							"description":   λ.Calm(λ.Calm(ϒvideo_info, "get", λ.StrLiteral("description"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("_content")),
+							"formats":       ϒformats,
+							"timestamp":     λ.Cal(ϒint_or_none, λ.Calm(ϒvideo_info, "get", λ.StrLiteral("dateuploaded"))),
+							"duration":      λ.Cal(ϒint_or_none, λ.Calm(λ.Calm(ϒvideo_info, "get", λ.StrLiteral("video"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("duration"))),
+							"uploader_id":   ϒuploader_id,
+							"uploader":      λ.Calm(ϒowner, "get", λ.StrLiteral("realname")),
+							"uploader_url":  ϒuploader_url,
+							"comment_count": λ.Cal(ϒint_or_none, λ.Calm(λ.Calm(ϒvideo_info, "get", λ.StrLiteral("comments"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("_content"))),
+							"view_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒvideo_info, "get", λ.StrLiteral("views"))),
+							"tags": λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 								nil,
 								0, false, false,
 								func(λargs []λ.Object) λ.Object {
@@ -204,32 +204,32 @@ func init() {
 											τmp0 λ.Object
 											τmp1 λ.Object
 										)
-										τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("tags"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("tag"), λ.NewList()))
+										τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.Calm(ϒvideo_info, "get", λ.StrLiteral("tags"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("tag"), λ.NewList()))
 										for {
 											if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 												break
 											}
 											ϒtag = τmp1
-											λgy.Yield(λ.Cal(λ.GetAttr(ϒtag, "get", nil), λ.NewStr("_content")))
+											λgy.Yield(λ.Calm(ϒtag, "get", λ.StrLiteral("_content")))
 										}
 										return λ.None
 									})
 								}))),
-							λ.NewStr("license"): λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_LICENSES", nil), "get", nil), λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("license"))),
+							"license": λ.Calm(λ.GetAttr(ϒself, "_LICENSES", nil), "get", λ.Calm(ϒvideo_info, "get", λ.StrLiteral("license"))),
 						})
 					} else {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.NewStr("not a video")), λ.KWArgs{
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("not a video")), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_API_BASE_URL"): FlickrIE__API_BASE_URL,
-				λ.NewStr("_LICENSES"):     FlickrIE__LICENSES,
-				λ.NewStr("_VALID_URL"):    FlickrIE__VALID_URL,
-				λ.NewStr("_call_api"):     FlickrIE__call_api,
-				λ.NewStr("_real_extract"): FlickrIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_API_BASE_URL": FlickrIE__API_BASE_URL,
+				"_LICENSES":     FlickrIE__LICENSES,
+				"_VALID_URL":    FlickrIE__VALID_URL,
+				"_call_api":     FlickrIE__call_api,
+				"_real_extract": FlickrIE__real_extract,
 			})
 		}())
 	})

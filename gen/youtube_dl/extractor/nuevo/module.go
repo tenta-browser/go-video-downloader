@@ -42,7 +42,7 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒxpath_text = Ωutils.ϒxpath_text
-		NuevoBaseIE = λ.Cal(λ.TypeType, λ.NewStr("NuevoBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		NuevoBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("NuevoBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				NuevoBaseIE__extract_nuevo λ.Object
 			)
@@ -51,7 +51,7 @@ func init() {
 					{Name: "self"},
 					{Name: "config_url"},
 					{Name: "video_id"},
-					{Name: "headers", Def: λ.NewDictWithTable(map[λ.Object]λ.Object{})},
+					{Name: "headers", Def: λ.DictLiteral(map[λ.Object]λ.Object{})},
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
@@ -85,37 +85,37 @@ func init() {
 								var (
 									ϒs = λargs[0]
 								)
-								return λ.Cal(λ.GetAttr(ϒs, "strip", nil))
+								return λ.Calm(ϒs, "strip")
 							})},
 						{Name: "headers", Value: ϒheaders},
 					})
-					ϒtitle = λ.Cal(λ.GetAttr(λ.Call(ϒxpath_text, λ.NewArgs(
+					ϒtitle = λ.Calm(λ.Call(ϒxpath_text, λ.NewArgs(
 						ϒconfig,
-						λ.NewStr("./title"),
-						λ.NewStr("title"),
+						λ.StrLiteral("./title"),
+						λ.StrLiteral("title"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.True},
-					}), "strip", nil))
+					}), "strip")
 					ϒvideo_id = λ.Call(ϒxpath_text, λ.NewArgs(
 						ϒconfig,
-						λ.NewStr("./mediaid"),
+						λ.StrLiteral("./mediaid"),
 					), λ.KWArgs{
 						{Name: "default", Value: ϒvideo_id},
 					})
 					ϒthumbnail = λ.Cal(ϒxpath_text, ϒconfig, λ.NewList(
-						λ.NewStr("./image"),
-						λ.NewStr("./thumb"),
+						λ.StrLiteral("./image"),
+						λ.StrLiteral("./thumb"),
 					))
-					ϒduration = λ.Cal(ϒfloat_or_none, λ.Cal(ϒxpath_text, ϒconfig, λ.NewStr("./duration")))
+					ϒduration = λ.Cal(ϒfloat_or_none, λ.Cal(ϒxpath_text, ϒconfig, λ.StrLiteral("./duration")))
 					ϒformats = λ.NewList()
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
 						λ.NewTuple(
-							λ.NewStr("file"),
-							λ.NewStr("sd"),
+							λ.StrLiteral("file"),
+							λ.StrLiteral("sd"),
 						),
 						λ.NewTuple(
-							λ.NewStr("filehd"),
-							λ.NewStr("hd"),
+							λ.StrLiteral("filehd"),
+							λ.StrLiteral("hd"),
 						),
 					))
 					for {
@@ -123,27 +123,27 @@ func init() {
 							break
 						}
 						τmp2 = τmp1
-						ϒelement_name = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒformat_id = λ.GetItem(τmp2, λ.NewInt(1))
+						ϒelement_name = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒvideo_url = λ.Cal(ϒxpath_text, ϒconfig, ϒelement_name)
 						if λ.IsTrue(ϒvideo_url) {
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("url"):       ϒvideo_url,
-								λ.NewStr("format_id"): ϒformat_id,
+							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+								"url":       ϒvideo_url,
+								"format_id": ϒformat_id,
 							}))
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_check_formats", nil), ϒformats, ϒvideo_id)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("title"):     ϒtitle,
-						λ.NewStr("thumbnail"): ϒthumbnail,
-						λ.NewStr("duration"):  ϒduration,
-						λ.NewStr("formats"):   ϒformats,
+					λ.Calm(ϒself, "_check_formats", ϒformats, ϒvideo_id)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒvideo_id,
+						"title":     ϒtitle,
+						"thumbnail": ϒthumbnail,
+						"duration":  ϒduration,
+						"formats":   ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_extract_nuevo"): NuevoBaseIE__extract_nuevo,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_extract_nuevo": NuevoBaseIE__extract_nuevo,
 			})
 		}())
 	})

@@ -42,12 +42,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
-		RockstarGamesIE = λ.Cal(λ.TypeType, λ.NewStr("RockstarGamesIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		RockstarGamesIE = λ.Cal(λ.TypeType, λ.StrLiteral("RockstarGamesIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				RockstarGamesIE__VALID_URL    λ.Object
 				RockstarGamesIE__real_extract λ.Object
 			)
-			RockstarGamesIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?rockstargames\\.com/videos(?:/video/|#?/?\\?.*\\bvideo=)(?P<id>\\d+)")
+			RockstarGamesIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?rockstargames\\.com/videos(?:/video/|#?/?\\?.*\\bvideo=)(?P<id>\\d+)")
 			RockstarGamesIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -68,66 +68,66 @@ func init() {
 						τmp0        λ.Object
 						τmp1        λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒvideo = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.NewStr("https://www.rockstargames.com/videoplayer/videos/get-video.json"),
+						λ.StrLiteral("https://www.rockstargames.com/videoplayer/videos/get-video.json"),
 						ϒvideo_id,
 					), λ.KWArgs{
-						{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("id"):     ϒvideo_id,
-							λ.NewStr("locale"): λ.NewStr("en_us"),
+						{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
+							"id":     ϒvideo_id,
+							"locale": λ.StrLiteral("en_us"),
 						})},
-					}), λ.NewStr("video"))
-					ϒtitle = λ.GetItem(ϒvideo, λ.NewStr("title"))
+					}), λ.StrLiteral("video"))
+					ϒtitle = λ.GetItem(ϒvideo, λ.StrLiteral("title"))
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(λ.GetItem(ϒvideo, λ.NewStr("files_processed")), λ.NewStr("video/mp4")))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(λ.GetItem(ϒvideo, λ.StrLiteral("files_processed")), λ.StrLiteral("video/mp4")))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒvideo = τmp1
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("src"))))) {
+						if !λ.IsTrue(λ.Calm(ϒvideo, "get", λ.StrLiteral("src"))) {
 							continue
 						}
-						ϒresolution = λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("resolution"))
+						ϒresolution = λ.Calm(ϒvideo, "get", λ.StrLiteral("resolution"))
 						ϒheight = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("^(\\d+)[pP]$"),
+							λ.StrLiteral("^(\\d+)[pP]$"),
 							func() λ.Object {
 								if λv := ϒresolution; λ.IsTrue(λv) {
 									return λv
 								} else {
-									return λ.NewStr("")
+									return λ.StrLiteral("")
 								}
 							}(),
-							λ.NewStr("height"),
+							λ.StrLiteral("height"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}))
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):       λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.GetItem(ϒvideo, λ.NewStr("src"))),
-							λ.NewStr("format_id"): ϒresolution,
-							λ.NewStr("height"):    ϒheight,
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":       λ.Calm(ϒself, "_proto_relative_url", λ.GetItem(ϒvideo, λ.StrLiteral("src"))),
+							"format_id": ϒresolution,
+							"height":    ϒheight,
 						}))
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
-						ϒyoutube_id = λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("youtube_id"))
+					if !λ.IsTrue(ϒformats) {
+						ϒyoutube_id = λ.Calm(ϒvideo, "get", λ.StrLiteral("youtube_id"))
 						if λ.IsTrue(ϒyoutube_id) {
-							return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒyoutube_id, λ.NewStr("Youtube"))
+							return λ.Calm(ϒself, "url_result", ϒyoutube_id, λ.StrLiteral("Youtube"))
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("description")),
-						λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("screencap"))),
-						λ.NewStr("timestamp"):   λ.Cal(ϒparse_iso8601, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("created"))),
-						λ.NewStr("formats"):     ϒformats,
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       ϒtitle,
+						"description": λ.Calm(ϒvideo, "get", λ.StrLiteral("description")),
+						"thumbnail":   λ.Calm(ϒself, "_proto_relative_url", λ.Calm(ϒvideo, "get", λ.StrLiteral("screencap"))),
+						"timestamp":   λ.Cal(ϒparse_iso8601, λ.Calm(ϒvideo, "get", λ.StrLiteral("created"))),
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    RockstarGamesIE__VALID_URL,
-				λ.NewStr("_real_extract"): RockstarGamesIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    RockstarGamesIE__VALID_URL,
+				"_real_extract": RockstarGamesIE__real_extract,
 			})
 		}())
 	})

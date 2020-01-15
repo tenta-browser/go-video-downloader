@@ -42,14 +42,14 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
-		PodomaticIE = λ.Cal(λ.TypeType, λ.NewStr("PodomaticIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		PodomaticIE = λ.Cal(λ.TypeType, λ.StrLiteral("PodomaticIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				PodomaticIE_IE_NAME       λ.Object
 				PodomaticIE__VALID_URL    λ.Object
 				PodomaticIE__real_extract λ.Object
 			)
-			PodomaticIE_IE_NAME = λ.NewStr("podomatic")
-			PodomaticIE__VALID_URL = λ.NewStr("(?x)\n                    (?P<proto>https?)://\n                        (?:\n                            (?P<channel>[^.]+)\\.podomatic\\.com/entry|\n                            (?:www\\.)?podomatic\\.com/podcasts/(?P<channel_2>[^/]+)/episodes\n                        )/\n                        (?P<id>[^/?#&]+)\n                ")
+			PodomaticIE_IE_NAME = λ.StrLiteral("podomatic")
+			PodomaticIE__VALID_URL = λ.StrLiteral("(?x)\n                    (?P<proto>https?)://\n                        (?:\n                            (?P<channel>[^.]+)\\.podomatic\\.com/entry|\n                            (?:www\\.)?podomatic\\.com/podcasts/(?P<channel_2>[^/]+)/episodes\n                        )/\n                        (?P<id>[^/?#&]+)\n                ")
 			PodomaticIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -73,46 +73,46 @@ func init() {
 						ϒvideo_url λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
 					ϒchannel = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("channel")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒmobj, "group", λ.StrLiteral("channel")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("channel_2"))
+							return λ.Calm(ϒmobj, "group", λ.StrLiteral("channel_2"))
 						}
 					}()
-					ϒjson_url = λ.Mod(λ.Add(λ.NewStr("%s://%s.podomatic.com/entry/embed_params/%s"), λ.NewStr("?permalink=true&rtmp=0")), λ.NewTuple(
-						λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("proto")),
+					ϒjson_url = λ.Mod(λ.Add(λ.StrLiteral("%s://%s.podomatic.com/entry/embed_params/%s"), λ.StrLiteral("?permalink=true&rtmp=0")), λ.NewTuple(
+						λ.Calm(ϒmobj, "group", λ.StrLiteral("proto")),
 						ϒchannel,
 						ϒvideo_id,
 					))
-					ϒdata_json = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒjson_url, ϒvideo_id, λ.NewStr("Downloading video info"))
+					ϒdata_json = λ.Calm(ϒself, "_download_webpage", ϒjson_url, ϒvideo_id, λ.StrLiteral("Downloading video info"))
 					ϒdata = λ.Cal(Ωjson.ϒloads, ϒdata_json)
-					ϒvideo_url = λ.GetItem(ϒdata, λ.NewStr("downloadLink"))
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_url))) {
-						ϒvideo_url = λ.Mod(λ.NewStr("%s/%s"), λ.NewTuple(
-							λ.Cal(λ.GetAttr(λ.GetItem(ϒdata, λ.NewStr("streamer")), "replace", nil), λ.NewStr("rtmp"), λ.NewStr("http")),
-							λ.GetItem(ϒdata, λ.NewStr("mediaLocation")),
+					ϒvideo_url = λ.GetItem(ϒdata, λ.StrLiteral("downloadLink"))
+					if !λ.IsTrue(ϒvideo_url) {
+						ϒvideo_url = λ.Mod(λ.StrLiteral("%s/%s"), λ.NewTuple(
+							λ.Calm(λ.GetItem(ϒdata, λ.StrLiteral("streamer")), "replace", λ.StrLiteral("rtmp"), λ.StrLiteral("http")),
+							λ.GetItem(ϒdata, λ.StrLiteral("mediaLocation")),
 						))
 					}
-					ϒuploader = λ.GetItem(ϒdata, λ.NewStr("podcast"))
-					ϒtitle = λ.GetItem(ϒdata, λ.NewStr("title"))
-					ϒthumbnail = λ.GetItem(ϒdata, λ.NewStr("imageLocation"))
-					ϒduration = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒdata, "get", nil), λ.NewStr("length")), λ.NewInt(1000))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("url"):         ϒvideo_url,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("uploader"):    ϒuploader,
-						λ.NewStr("uploader_id"): ϒchannel,
-						λ.NewStr("thumbnail"):   ϒthumbnail,
-						λ.NewStr("duration"):    ϒduration,
+					ϒuploader = λ.GetItem(ϒdata, λ.StrLiteral("podcast"))
+					ϒtitle = λ.GetItem(ϒdata, λ.StrLiteral("title"))
+					ϒthumbnail = λ.GetItem(ϒdata, λ.StrLiteral("imageLocation"))
+					ϒduration = λ.Cal(ϒint_or_none, λ.Calm(ϒdata, "get", λ.StrLiteral("length")), λ.IntLiteral(1000))
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"url":         ϒvideo_url,
+						"title":       ϒtitle,
+						"uploader":    ϒuploader,
+						"uploader_id": ϒchannel,
+						"thumbnail":   ϒthumbnail,
+						"duration":    ϒduration,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       PodomaticIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    PodomaticIE__VALID_URL,
-				λ.NewStr("_real_extract"): PodomaticIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       PodomaticIE_IE_NAME,
+				"_VALID_URL":    PodomaticIE__VALID_URL,
+				"_real_extract": PodomaticIE__real_extract,
 			})
 		}())
 	})

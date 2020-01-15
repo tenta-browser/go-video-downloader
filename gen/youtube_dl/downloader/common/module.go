@@ -37,9 +37,9 @@ var (
 func init() {
 	λ.InitModule(func() {
 		ϒerror_to_compat_str = Ωutils.ϒerror_to_compat_str
-		FileDownloader = λ.Cal(λ.TypeType, λ.NewStr("FileDownloader"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
+		FileDownloader = λ.Cal(λ.TypeType, λ.StrLiteral("FileDownloader"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
 	})
 }

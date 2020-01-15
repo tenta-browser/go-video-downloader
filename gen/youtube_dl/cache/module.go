@@ -37,7 +37,7 @@ var (
 func init() {
 	λ.InitModule(func() {
 		ϒexpand_path = Ωutils.ϒexpand_path
-		Cache = λ.Cal(λ.TypeType, λ.NewStr("Cache"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
+		Cache = λ.Cal(λ.TypeType, λ.StrLiteral("Cache"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
 			var (
 				Cache___init__ λ.Object
 				Cache_enabled  λ.Object
@@ -67,7 +67,7 @@ func init() {
 					var (
 						ϒself = λargs[0]
 					)
-					return λ.NewBool(λ.Cal(λ.GetAttr(λ.GetAttr(λ.GetAttr(ϒself, "_ydl", nil), "params", nil), "get", nil), λ.NewStr("cachedir")) != λ.False)
+					return λ.NewBool(λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_ydl", nil), "params", nil), "get", λ.StrLiteral("cachedir")) != λ.False)
 				})
 			Cache_enabled = λ.Cal(λ.PropertyType, Cache_enabled)
 			Cache_store = λ.NewFunction("store",
@@ -76,7 +76,7 @@ func init() {
 					{Name: "section"},
 					{Name: "key"},
 					{Name: "data"},
-					{Name: "dtype", Def: λ.NewStr("json")},
+					{Name: "dtype", Def: λ.StrLiteral("json")},
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
@@ -97,19 +97,19 @@ func init() {
 					_ = τmp1
 					_ = τmp2
 					_ = τmp3
-					if !λ.IsTrue(λ.NewBool(λ.Contains(λ.NewTuple(λ.NewStr("json")), ϒdtype))) {
+					if !λ.Contains(λ.NewTuple(λ.StrLiteral("json")), ϒdtype) {
 						panic(λ.Raise(λ.Cal(λ.AssertionErrorType)))
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.GetAttr(ϒself, "enabled", nil)))) {
+					if !λ.IsTrue(λ.GetAttr(ϒself, "enabled", nil)) {
 						return λ.None
 					}
-					ϒfn = λ.Cal(λ.GetAttr(ϒself, "_get_cache_fn", nil), ϒsection, ϒkey, ϒdtype)
+					ϒfn = λ.Calm(ϒself, "_get_cache_fn", ϒsection, ϒkey, ϒdtype)
 					τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
 						defer λ.CatchMulti(
 							nil,
 							&λ.Catcher{λ.ExceptionType, func(λex λ.BaseException) {
-								ϒtb = λ.Cal(λ.GetAttr(λ.None, "format_exc", nil))
-								λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_ydl", nil), "report_warning", nil), λ.Mod(λ.NewStr("Writing cache to %r failed: %s"), λ.NewTuple(
+								ϒtb = λ.Calm(λ.None, "format_exc")
+								λ.Calm(λ.GetAttr(ϒself, "_ydl", nil), "report_warning", λ.Mod(λ.StrLiteral("Writing cache to %r failed: %s"), λ.NewTuple(
 									ϒfn,
 									ϒtb,
 								)))
@@ -138,7 +138,7 @@ func init() {
 					{Name: "self"},
 					{Name: "section"},
 					{Name: "key"},
-					{Name: "dtype", Def: λ.NewStr("json")},
+					{Name: "dtype", Def: λ.StrLiteral("json")},
 					{Name: "default", Def: λ.None},
 				},
 				0, false, false,
@@ -163,13 +163,13 @@ func init() {
 					)
 					_ = τmp4
 					_ = τmp5
-					if !λ.IsTrue(λ.NewBool(λ.Contains(λ.NewTuple(λ.NewStr("json")), ϒdtype))) {
+					if !λ.Contains(λ.NewTuple(λ.StrLiteral("json")), ϒdtype) {
 						panic(λ.Raise(λ.Cal(λ.AssertionErrorType)))
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.GetAttr(ϒself, "enabled", nil)))) {
+					if !λ.IsTrue(λ.GetAttr(ϒself, "enabled", nil)) {
 						return ϒdefault
 					}
-					ϒcache_fn = λ.Cal(λ.GetAttr(ϒself, "_get_cache_fn", nil), ϒsection, ϒkey, ϒdtype)
+					ϒcache_fn = λ.Calm(ϒself, "_get_cache_fn", ϒsection, ϒkey, ϒdtype)
 					τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
 						defer λ.CatchMulti(
 							nil,
@@ -195,7 +195,7 @@ func init() {
 										ϒfile_size = λ.Cal(λ.None, ϒcache_fn)
 										return λ.BlockExitNormally, nil
 									}()
-									λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_ydl", nil), "report_warning", nil), λ.Mod(λ.NewStr("Cache retrieval from %s failed (%s)"), λ.NewTuple(
+									λ.Calm(λ.GetAttr(ϒself, "_ydl", nil), "report_warning", λ.Mod(λ.StrLiteral("Cache retrieval from %s failed (%s)"), λ.NewTuple(
 										ϒcache_fn,
 										ϒfile_size,
 									)))
@@ -203,15 +203,15 @@ func init() {
 							)
 							τmp4 = λ.Call(λ.None, λ.NewArgs(
 								ϒcache_fn,
-								λ.NewStr("r"),
+								λ.StrLiteral("r"),
 							), λ.KWArgs{
-								{Name: "encoding", Value: λ.NewStr("utf-8")},
+								{Name: "encoding", Value: λ.StrLiteral("utf-8")},
 							})
 							τmp5 = λ.GetAttr(τmp4, "__exit__", nil)
-							ϒcachef = λ.Cal(λ.GetAttr(τmp4, "__enter__", nil))
+							ϒcachef = λ.Calm(τmp4, "__enter__")
 							τmp6, τmp7 = func() (λexit λ.Object, λret λ.Object) {
 								defer λ.Catch(λ.BaseExceptionType, func(λex λ.BaseException) {
-									if ret := λ.Cal(τmp5, λex.Type(), λex, λ.NewStr("..todo..traceback..")); λ.IsTrue(ret) {
+									if ret := λ.Cal(τmp5, λex.Type(), λex, λ.StrLiteral("..todo..traceback..")); λ.IsTrue(ret) {
 										panic(λ.Raise(λex))
 									}
 								}, func() {
@@ -238,11 +238,11 @@ func init() {
 					}
 					return ϒdefault
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"): Cache___init__,
-				λ.NewStr("enabled"):  Cache_enabled,
-				λ.NewStr("load"):     Cache_load,
-				λ.NewStr("store"):    Cache_store,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__": Cache___init__,
+				"enabled":  Cache_enabled,
+				"load":     Cache_load,
+				"store":    Cache_store,
 			})
 		}())
 	})

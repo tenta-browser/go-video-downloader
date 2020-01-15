@@ -41,7 +41,7 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
-		SprutoBaseIE = λ.Cal(λ.TypeType, λ.NewStr("SprutoBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SprutoBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("SprutoBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SprutoBaseIE__extract_spruto λ.Object
 			)
@@ -63,23 +63,23 @@ func init() {
 						ϒtitle     λ.Object
 						ϒvideo_id  = λargs[2]
 					)
-					ϒplaylist = λ.GetItem(λ.GetItem(ϒspruto, λ.NewStr("playlist")), λ.NewInt(0))
-					ϒtitle = λ.GetItem(ϒplaylist, λ.NewStr("title"))
+					ϒplaylist = λ.GetItem(λ.GetItem(ϒspruto, λ.StrLiteral("playlist")), λ.IntLiteral(0))
+					ϒtitle = λ.GetItem(ϒplaylist, λ.StrLiteral("title"))
 					ϒvideo_id = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒplaylist, "get", nil), λ.NewStr("videoId")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒplaylist, "get", λ.StrLiteral("videoId")); λ.IsTrue(λv) {
 							return λv
 						} else {
 							return ϒvideo_id
 						}
 					}()
 					ϒthumbnail = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒplaylist, "get", nil), λ.NewStr("posterUrl")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒplaylist, "get", λ.StrLiteral("posterUrl")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒplaylist, "get", nil), λ.NewStr("thumbnailUrl"))
+							return λ.Calm(ϒplaylist, "get", λ.StrLiteral("thumbnailUrl"))
 						}
 					}()
-					ϒduration = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒplaylist, "get", nil), λ.NewStr("duration")))
+					ϒduration = λ.Cal(ϒint_or_none, λ.Calm(ϒplaylist, "get", λ.StrLiteral("duration")))
 					ϒformats = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -90,38 +90,38 @@ func init() {
 									τmp0 λ.Object
 									τmp1 λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒplaylist, λ.NewStr("video")))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒplaylist, λ.StrLiteral("video")))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									ϒf = τmp1
-									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("url"): λ.GetItem(ϒf, λ.NewStr("url")),
+									λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+										"url": λ.GetItem(ϒf, λ.StrLiteral("url")),
 									}))
 								}
 								return λ.None
 							})
 						})))
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("title"):     ϒtitle,
-						λ.NewStr("thumbnail"): ϒthumbnail,
-						λ.NewStr("duration"):  ϒduration,
-						λ.NewStr("formats"):   ϒformats,
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒvideo_id,
+						"title":     ϒtitle,
+						"thumbnail": ϒthumbnail,
+						"duration":  ϒduration,
+						"formats":   ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_extract_spruto"): SprutoBaseIE__extract_spruto,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_extract_spruto": SprutoBaseIE__extract_spruto,
 			})
 		}())
-		VimpleIE = λ.Cal(λ.TypeType, λ.NewStr("VimpleIE"), λ.NewTuple(SprutoBaseIE), func() λ.Dict {
+		VimpleIE = λ.Cal(λ.TypeType, λ.StrLiteral("VimpleIE"), λ.NewTuple(SprutoBaseIE), func() λ.Dict {
 			var (
 				VimpleIE__VALID_URL    λ.Object
 				VimpleIE__real_extract λ.Object
 			)
-			VimpleIE__VALID_URL = λ.NewStr("https?://(?:player\\.vimple\\.(?:ru|co)/iframe|vimple\\.(?:ru|co))/(?P<id>[\\da-f-]{32,36})")
+			VimpleIE__VALID_URL = λ.StrLiteral("https?://(?:player\\.vimple\\.(?:ru|co)/iframe|vimple\\.(?:ru|co))/(?P<id>[\\da-f-]{32,36})")
 			VimpleIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -136,14 +136,14 @@ func init() {
 						ϒvideo_id λ.Object
 						ϒwebpage  λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.NewStr("http://player.vimple.ru/iframe/%s"), ϒvideo_id), ϒvideo_id)
-					ϒspruto = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("sprutoData\\s*:\\s*({.+?}),\\r\\n"), ϒwebpage, λ.NewStr("spruto data")), ϒvideo_id)
-					return λ.Cal(λ.GetAttr(ϒself, "_extract_spruto", nil), ϒspruto, ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", λ.Mod(λ.StrLiteral("http://player.vimple.ru/iframe/%s"), ϒvideo_id), ϒvideo_id)
+					ϒspruto = λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("sprutoData\\s*:\\s*({.+?}),\\r\\n"), ϒwebpage, λ.StrLiteral("spruto data")), ϒvideo_id)
+					return λ.Calm(ϒself, "_extract_spruto", ϒspruto, ϒvideo_id)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    VimpleIE__VALID_URL,
-				λ.NewStr("_real_extract"): VimpleIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    VimpleIE__VALID_URL,
+				"_real_extract": VimpleIE__real_extract,
 			})
 		}())
 	})

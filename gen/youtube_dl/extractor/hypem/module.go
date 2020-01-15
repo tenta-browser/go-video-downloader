@@ -40,12 +40,12 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
-		HypemIE = λ.Cal(λ.TypeType, λ.NewStr("HypemIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		HypemIE = λ.Cal(λ.TypeType, λ.StrLiteral("HypemIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				HypemIE__VALID_URL    λ.Object
 				HypemIE__real_extract λ.Object
 			)
-			HypemIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?hypem\\.com/track/(?P<id>[0-9a-z]{5})")
+			HypemIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?hypem\\.com/track/(?P<id>[0-9a-z]{5})")
 			HypemIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -62,37 +62,37 @@ func init() {
 						ϒtrack_id  λ.Object
 						ϒurl       = λargs[1]
 					)
-					ϒtrack_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒresponse = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒtrack_id)
-					ϒtrack = λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("(?s)<script\\s+type=\"application/json\"\\s+id=\"displayList-data\">(.+?)</script>"), ϒresponse, λ.NewStr("tracks")), ϒtrack_id), λ.NewStr("tracks")), λ.NewInt(0))
-					ϒtrack_id = λ.GetItem(ϒtrack, λ.NewStr("id"))
-					ϒtitle = λ.GetItem(ϒtrack, λ.NewStr("song"))
+					ϒtrack_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒresponse = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒtrack_id)
+					ϒtrack = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("(?s)<script\\s+type=\"application/json\"\\s+id=\"displayList-data\">(.+?)</script>"), ϒresponse, λ.StrLiteral("tracks")), ϒtrack_id), λ.StrLiteral("tracks")), λ.IntLiteral(0))
+					ϒtrack_id = λ.GetItem(ϒtrack, λ.StrLiteral("id"))
+					ϒtitle = λ.GetItem(ϒtrack, λ.StrLiteral("song"))
 					ϒfinal_url = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Mod(λ.NewStr("http://hypem.com/serve/source/%s/%s"), λ.NewTuple(
+						λ.Mod(λ.StrLiteral("http://hypem.com/serve/source/%s/%s"), λ.NewTuple(
 							ϒtrack_id,
-							λ.GetItem(ϒtrack, λ.NewStr("key")),
+							λ.GetItem(ϒtrack, λ.StrLiteral("key")),
 						)),
 						ϒtrack_id,
-						λ.NewStr("Downloading metadata"),
+						λ.StrLiteral("Downloading metadata"),
 					), λ.KWArgs{
-						{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("Content-Type"): λ.NewStr("application/json"),
+						{Name: "headers", Value: λ.DictLiteral(map[string]string{
+							"Content-Type": "application/json",
 						})},
-					}), λ.NewStr("url"))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒtrack_id,
-						λ.NewStr("url"):       ϒfinal_url,
-						λ.NewStr("ext"):       λ.NewStr("mp3"),
-						λ.NewStr("title"):     ϒtitle,
-						λ.NewStr("uploader"):  λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("artist")),
-						λ.NewStr("duration"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("time"))),
-						λ.NewStr("timestamp"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("ts"))),
-						λ.NewStr("track"):     ϒtitle,
+					}), λ.StrLiteral("url"))
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒtrack_id,
+						"url":       ϒfinal_url,
+						"ext":       λ.StrLiteral("mp3"),
+						"title":     ϒtitle,
+						"uploader":  λ.Calm(ϒtrack, "get", λ.StrLiteral("artist")),
+						"duration":  λ.Cal(ϒint_or_none, λ.Calm(ϒtrack, "get", λ.StrLiteral("time"))),
+						"timestamp": λ.Cal(ϒint_or_none, λ.Calm(ϒtrack, "get", λ.StrLiteral("ts"))),
+						"track":     ϒtitle,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    HypemIE__VALID_URL,
-				λ.NewStr("_real_extract"): HypemIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    HypemIE__VALID_URL,
+				"_real_extract": HypemIE__real_extract,
 			})
 		}())
 	})

@@ -46,12 +46,12 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
-		MySpaceIE = λ.Cal(λ.TypeType, λ.NewStr("MySpaceIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		MySpaceIE = λ.Cal(λ.TypeType, λ.StrLiteral("MySpaceIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				MySpaceIE__VALID_URL    λ.Object
 				MySpaceIE__real_extract λ.Object
 			)
-			MySpaceIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        myspace\\.com/[^/]+/\n                        (?P<mediatype>\n                            video/[^/]+/(?P<video_id>\\d+)|\n                            music/song/[^/?#&]+-(?P<song_id>\\d+)-\\d+(?:[/?#&]|$)\n                        )\n                    ")
+			MySpaceIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        myspace\\.com/[^/]+/\n                        (?P<mediatype>\n                            video/[^/]+/(?P<video_id>\\d+)|\n                            music/song/[^/?#&]+-(?P<song_id>\\d+)-\\d+(?:[/?#&]|$)\n                        )\n                    ")
 			MySpaceIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -77,18 +77,18 @@ func init() {
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
 					ϒvideo_id = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("video_id")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒmobj, "group", λ.StrLiteral("video_id")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("song_id"))
+							return λ.Calm(ϒmobj, "group", λ.StrLiteral("song_id"))
 						}
 					}()
-					ϒis_song = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("mediatype")), "startswith", nil), λ.NewStr("music/song"))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒis_song = λ.Calm(λ.Calm(ϒmobj, "group", λ.StrLiteral("mediatype")), "startswith", λ.StrLiteral("music/song"))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
 					ϒplayer_url = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("videoSwf\":\"([^\"?]*)"),
+						λ.StrLiteral("videoSwf\":\"([^\"?]*)"),
 						ϒwebpage,
-						λ.NewStr("player URL"),
+						λ.StrLiteral("player URL"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
@@ -117,24 +117,24 @@ func init() {
 							ϒformats = λ.NewList()
 							ϒvcodec = func() λ.Object {
 								if λ.IsTrue(ϒis_song) {
-									return λ.NewStr("none")
+									return λ.StrLiteral("none")
 								} else {
 									return λ.None
 								}
 							}()
 							if λ.IsTrue(ϒhls_stream_url) {
-								λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("format_id"): λ.NewStr("hls"),
-									λ.NewStr("url"):       ϒhls_stream_url,
-									λ.NewStr("protocol"):  λ.NewStr("m3u8_native"),
-									λ.NewStr("ext"): func() λ.Object {
+								λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+									"format_id": λ.StrLiteral("hls"),
+									"url":       ϒhls_stream_url,
+									"protocol":  λ.StrLiteral("m3u8_native"),
+									"ext": func() λ.Object {
 										if λ.IsTrue(ϒis_song) {
-											return λ.NewStr("m4a")
+											return λ.StrLiteral("m4a")
 										} else {
-											return λ.NewStr("mp4")
+											return λ.StrLiteral("mp4")
 										}
 									}(),
-									λ.NewStr("vcodec"): ϒvcodec,
+									"vcodec": ϒvcodec,
 								}))
 							}
 							if λ.IsTrue(func() λ.Object {
@@ -144,43 +144,43 @@ func init() {
 									return ϒplayer_url
 								}
 							}()) {
-								τmp0 = λ.Cal(λ.GetAttr(ϒstream_url, "split", nil), λ.NewStr(";"), λ.NewInt(1))
-								ϒrtmp_url = λ.GetItem(τmp0, λ.NewInt(0))
-								ϒplay_path = λ.GetItem(τmp0, λ.NewInt(1))
-								λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("format_id"):  λ.NewStr("rtmp"),
-									λ.NewStr("url"):        ϒrtmp_url,
-									λ.NewStr("play_path"):  ϒplay_path,
-									λ.NewStr("player_url"): ϒplayer_url,
-									λ.NewStr("protocol"):   λ.NewStr("rtmp"),
-									λ.NewStr("ext"):        λ.NewStr("flv"),
-									λ.NewStr("width"):      ϒwidth,
-									λ.NewStr("height"):     ϒheight,
-									λ.NewStr("vcodec"):     ϒvcodec,
+								τmp0 = λ.Calm(ϒstream_url, "split", λ.StrLiteral(";"), λ.IntLiteral(1))
+								ϒrtmp_url = λ.GetItem(τmp0, λ.IntLiteral(0))
+								ϒplay_path = λ.GetItem(τmp0, λ.IntLiteral(1))
+								λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+									"format_id":  λ.StrLiteral("rtmp"),
+									"url":        ϒrtmp_url,
+									"play_path":  ϒplay_path,
+									"player_url": ϒplayer_url,
+									"protocol":   λ.StrLiteral("rtmp"),
+									"ext":        λ.StrLiteral("flv"),
+									"width":      ϒwidth,
+									"height":     ϒheight,
+									"vcodec":     ϒvcodec,
 								}))
 							}
 							if λ.IsTrue(ϒhttp_stream_url) {
-								λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("format_id"): λ.NewStr("http"),
-									λ.NewStr("url"):       ϒhttp_stream_url,
-									λ.NewStr("width"):     ϒwidth,
-									λ.NewStr("height"):    ϒheight,
-									λ.NewStr("vcodec"):    ϒvcodec,
+								λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+									"format_id": λ.StrLiteral("http"),
+									"url":       ϒhttp_stream_url,
+									"width":     ϒwidth,
+									"height":    ϒheight,
+									"vcodec":    ϒvcodec,
 								}))
 							}
 							return ϒformats
 						})
 					if λ.IsTrue(ϒis_song) {
 						ϒsong_data = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.Mod(λ.NewStr("<button.*data-song-id=([\"\\'])%s\\1.*"), ϒvideo_id),
+							λ.Mod(λ.StrLiteral("<button.*data-song-id=([\"\\'])%s\\1.*"), ϒvideo_id),
 							ϒwebpage,
-							λ.NewStr("song_data"),
+							λ.StrLiteral("song_data"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
-							{Name: "group", Value: λ.NewInt(0)},
+							{Name: "group", Value: λ.IntLiteral(0)},
 						})
-						if λ.IsTrue(λ.NewBool(ϒsong_data == λ.None)) {
-							λ.Cal(λ.GetAttr(ϒself, "report_warning", nil), λ.Mod(λ.NewStr("%s: No downloadable song on this page"), ϒvideo_id))
+						if ϒsong_data == λ.None {
+							λ.Calm(ϒself, "report_warning", λ.Mod(λ.StrLiteral("%s: No downloadable song on this page"), ϒvideo_id))
 							return λ.None
 						}
 						ϒsearch_data = λ.NewFunction("search_data",
@@ -193,74 +193,74 @@ func init() {
 									ϒname = λargs[0]
 								)
 								return λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-									λ.Mod(λ.NewStr("data-%s=([\\'\"])(?P<data>.*?)\\1"), ϒname),
+									λ.Mod(λ.StrLiteral("data-%s=([\\'\"])(?P<data>.*?)\\1"), ϒname),
 									ϒsong_data,
 									ϒname,
 								), λ.KWArgs{
-									{Name: "default", Value: λ.NewStr("")},
-									{Name: "group", Value: λ.NewStr("data")},
+									{Name: "default", Value: λ.StrLiteral("")},
+									{Name: "group", Value: λ.StrLiteral("data")},
 								})
 							})
-						ϒformats = λ.Cal(ϒformats_from_stream_urls, λ.Cal(ϒsearch_data, λ.NewStr("stream-url")), λ.Cal(ϒsearch_data, λ.NewStr("hls-stream-url")), λ.Cal(ϒsearch_data, λ.NewStr("http-stream-url")))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
-							ϒvevo_id = λ.Cal(ϒsearch_data, λ.NewStr("vevo-id"))
-							ϒyoutube_id = λ.Cal(ϒsearch_data, λ.NewStr("youtube-id"))
+						ϒformats = λ.Cal(ϒformats_from_stream_urls, λ.Cal(ϒsearch_data, λ.StrLiteral("stream-url")), λ.Cal(ϒsearch_data, λ.StrLiteral("hls-stream-url")), λ.Cal(ϒsearch_data, λ.StrLiteral("http-stream-url")))
+						if !λ.IsTrue(ϒformats) {
+							ϒvevo_id = λ.Cal(ϒsearch_data, λ.StrLiteral("vevo-id"))
+							ϒyoutube_id = λ.Cal(ϒsearch_data, λ.StrLiteral("youtube-id"))
 							if λ.IsTrue(ϒvevo_id) {
-								λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("Vevo video detected: %s"), ϒvevo_id))
-								return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(λ.Mod(λ.NewStr("vevo:%s"), ϒvevo_id)), λ.KWArgs{
-									{Name: "ie", Value: λ.NewStr("Vevo")},
+								λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("Vevo video detected: %s"), ϒvevo_id))
+								return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(λ.Mod(λ.StrLiteral("vevo:%s"), ϒvevo_id)), λ.KWArgs{
+									{Name: "ie", Value: λ.StrLiteral("Vevo")},
 								})
 							} else {
 								if λ.IsTrue(ϒyoutube_id) {
-									λ.Cal(λ.GetAttr(ϒself, "to_screen", nil), λ.Mod(λ.NewStr("Youtube video detected: %s"), ϒyoutube_id))
+									λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("Youtube video detected: %s"), ϒyoutube_id))
 									return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(ϒyoutube_id), λ.KWArgs{
-										{Name: "ie", Value: λ.NewStr("Youtube")},
+										{Name: "ie", Value: λ.StrLiteral("Youtube")},
 									})
 								} else {
-									panic(λ.Raise(λ.Cal(ExtractorError, λ.NewStr("Found song but don't know how to download it"))))
+									panic(λ.Raise(λ.Cal(ExtractorError, λ.StrLiteral("Found song but don't know how to download it"))))
 								}
 							}
 						}
-						λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-						return λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("id"):          ϒvideo_id,
-							λ.NewStr("title"):       λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage),
-							λ.NewStr("uploader"):    λ.Cal(ϒsearch_data, λ.NewStr("artist-name")),
-							λ.NewStr("uploader_id"): λ.Cal(ϒsearch_data, λ.NewStr("artist-username")),
-							λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage),
-							λ.NewStr("duration"):    λ.Cal(ϒint_or_none, λ.Cal(ϒsearch_data, λ.NewStr("duration"))),
-							λ.NewStr("formats"):     ϒformats,
+						λ.Calm(ϒself, "_sort_formats", ϒformats)
+						return λ.DictLiteral(map[string]λ.Object{
+							"id":          ϒvideo_id,
+							"title":       λ.Calm(ϒself, "_og_search_title", ϒwebpage),
+							"uploader":    λ.Cal(ϒsearch_data, λ.StrLiteral("artist-name")),
+							"uploader_id": λ.Cal(ϒsearch_data, λ.StrLiteral("artist-username")),
+							"thumbnail":   λ.Calm(ϒself, "_og_search_thumbnail", ϒwebpage),
+							"duration":    λ.Cal(ϒint_or_none, λ.Cal(ϒsearch_data, λ.StrLiteral("duration"))),
+							"formats":     ϒformats,
 						})
 					} else {
-						ϒvideo = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("context = ({.*?});"), ϒwebpage, λ.NewStr("context")), ϒvideo_id), λ.NewStr("video"))
-						ϒformats = λ.Cal(ϒformats_from_stream_urls, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("streamUrl")), λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("hlsStreamUrl")), λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("mp4StreamUrl")), λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("width"))), λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("height"))))
-						λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-						return λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("id"):          ϒvideo_id,
-							λ.NewStr("title"):       λ.GetItem(ϒvideo, λ.NewStr("title")),
-							λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("description")),
-							λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("imageUrl")),
-							λ.NewStr("uploader"):    λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("artistName")),
-							λ.NewStr("uploader_id"): λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("artistUsername")),
-							λ.NewStr("duration"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("duration"))),
-							λ.NewStr("timestamp"):   λ.Cal(ϒparse_iso8601, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("dateAdded"))),
-							λ.NewStr("formats"):     ϒformats,
+						ϒvideo = λ.GetItem(λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("context = ({.*?});"), ϒwebpage, λ.StrLiteral("context")), ϒvideo_id), λ.StrLiteral("video"))
+						ϒformats = λ.Cal(ϒformats_from_stream_urls, λ.Calm(ϒvideo, "get", λ.StrLiteral("streamUrl")), λ.Calm(ϒvideo, "get", λ.StrLiteral("hlsStreamUrl")), λ.Calm(ϒvideo, "get", λ.StrLiteral("mp4StreamUrl")), λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("width"))), λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("height"))))
+						λ.Calm(ϒself, "_sort_formats", ϒformats)
+						return λ.DictLiteral(map[string]λ.Object{
+							"id":          ϒvideo_id,
+							"title":       λ.GetItem(ϒvideo, λ.StrLiteral("title")),
+							"description": λ.Calm(ϒvideo, "get", λ.StrLiteral("description")),
+							"thumbnail":   λ.Calm(ϒvideo, "get", λ.StrLiteral("imageUrl")),
+							"uploader":    λ.Calm(ϒvideo, "get", λ.StrLiteral("artistName")),
+							"uploader_id": λ.Calm(ϒvideo, "get", λ.StrLiteral("artistUsername")),
+							"duration":    λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("duration"))),
+							"timestamp":   λ.Cal(ϒparse_iso8601, λ.Calm(ϒvideo, "get", λ.StrLiteral("dateAdded"))),
+							"formats":     ϒformats,
 						})
 					}
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    MySpaceIE__VALID_URL,
-				λ.NewStr("_real_extract"): MySpaceIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    MySpaceIE__VALID_URL,
+				"_real_extract": MySpaceIE__real_extract,
 			})
 		}())
-		MySpaceAlbumIE = λ.Cal(λ.TypeType, λ.NewStr("MySpaceAlbumIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		MySpaceAlbumIE = λ.Cal(λ.TypeType, λ.StrLiteral("MySpaceAlbumIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				MySpaceAlbumIE__VALID_URL λ.Object
 			)
-			MySpaceAlbumIE__VALID_URL = λ.NewStr("https?://myspace\\.com/([^/]+)/music/album/(?P<title>.*-)(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): MySpaceAlbumIE__VALID_URL,
+			MySpaceAlbumIE__VALID_URL = λ.StrLiteral("https?://myspace\\.com/([^/]+)/music/album/(?P<title>.*-)(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": MySpaceAlbumIE__VALID_URL,
 			})
 		}())
 	})

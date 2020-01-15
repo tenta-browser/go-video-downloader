@@ -39,7 +39,7 @@ func init() {
 	λ.InitModule(func() {
 		HTMLParse = Ωencoding.HTMLParse
 		HTMLParseError = Ωencoding.HTMLParseErrorType
-		HTMLParser = λ.Cal(λ.TypeType, λ.NewStr("HTMLParser"), λ.NewTuple(), func() λ.Dict {
+		HTMLParser = λ.Cal(λ.TypeType, λ.StrLiteral("HTMLParser"), λ.NewTuple(), func() λ.Dict {
 			var (
 				HTMLParser___init__ λ.Object
 				HTMLParser_close    λ.Object
@@ -85,10 +85,10 @@ func init() {
 					// pass
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"): HTMLParser___init__,
-				λ.NewStr("close"):    HTMLParser_close,
-				λ.NewStr("feed"):     HTMLParser_feed,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__": HTMLParser___init__,
+				"close":    HTMLParser_close,
+				"feed":     HTMLParser_feed,
 			})
 		}())
 	})

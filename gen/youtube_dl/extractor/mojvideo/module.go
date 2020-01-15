@@ -43,12 +43,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ExtractorError = Ωutils.ExtractorError
 		ϒparse_duration = Ωutils.ϒparse_duration
-		MojvideoIE = λ.Cal(λ.TypeType, λ.NewStr("MojvideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		MojvideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("MojvideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				MojvideoIE__VALID_URL    λ.Object
 				MojvideoIE__real_extract λ.Object
 			)
-			MojvideoIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?mojvideo\\.com/video-(?P<display_id>[^/]+)/(?P<id>[a-f0-9]+)")
+			MojvideoIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?mojvideo\\.com/video-(?P<display_id>[^/]+)/(?P<id>[a-f0-9]+)")
 			MojvideoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -70,52 +70,52 @@ func init() {
 						ϒvideo_url  λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("display_id"))
-					ϒplayerapi = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.NewStr("http://www.mojvideo.com/playerapi.php?v=%s&t=1"), ϒvideo_id), ϒdisplay_id)
-					if λ.IsTrue(λ.NewBool(λ.Contains(ϒplayerapi, λ.NewStr("<error>true</error>")))) {
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
+					ϒdisplay_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("display_id"))
+					ϒplayerapi = λ.Calm(ϒself, "_download_webpage", λ.Mod(λ.StrLiteral("http://www.mojvideo.com/playerapi.php?v=%s&t=1"), ϒvideo_id), ϒdisplay_id)
+					if λ.Contains(ϒplayerapi, λ.StrLiteral("<error>true</error>")) {
 						ϒerror_desc = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-							λ.NewStr("<errordesc>([^<]*)</errordesc>"),
+							λ.StrLiteral("<errordesc>([^<]*)</errordesc>"),
 							ϒplayerapi,
-							λ.NewStr("error description"),
+							λ.StrLiteral("error description"),
 						), λ.KWArgs{
 							{Name: "fatal", Value: λ.False},
 						})
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("%s said: %s"), λ.NewTuple(
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("%s said: %s"), λ.NewTuple(
 							λ.GetAttr(ϒself, "IE_NAME", nil),
 							ϒerror_desc,
 						))), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<title>([^<]+)</title>"), ϒplayerapi, λ.NewStr("title"))
-					ϒvideo_url = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<file>([^<]+)</file>"), ϒplayerapi, λ.NewStr("video URL"))
+					ϒtitle = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("<title>([^<]+)</title>"), ϒplayerapi, λ.StrLiteral("title"))
+					ϒvideo_url = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("<file>([^<]+)</file>"), ϒplayerapi, λ.StrLiteral("video URL"))
 					ϒthumbnail = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<preview>([^<]+)</preview>"),
+						λ.StrLiteral("<preview>([^<]+)</preview>"),
 						ϒplayerapi,
-						λ.NewStr("thumbnail"),
+						λ.StrLiteral("thumbnail"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
 					ϒduration = λ.Cal(ϒparse_duration, λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<duration>([^<]+)</duration>"),
+						λ.StrLiteral("<duration>([^<]+)</duration>"),
 						ϒplayerapi,
-						λ.NewStr("duration"),
+						λ.StrLiteral("duration"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         ϒvideo_id,
-						λ.NewStr("display_id"): ϒdisplay_id,
-						λ.NewStr("url"):        ϒvideo_url,
-						λ.NewStr("title"):      ϒtitle,
-						λ.NewStr("thumbnail"):  ϒthumbnail,
-						λ.NewStr("duration"):   ϒduration,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":         ϒvideo_id,
+						"display_id": ϒdisplay_id,
+						"url":        ϒvideo_url,
+						"title":      ϒtitle,
+						"thumbnail":  ϒthumbnail,
+						"duration":   ϒduration,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    MojvideoIE__VALID_URL,
-				λ.NewStr("_real_extract"): MojvideoIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    MojvideoIE__VALID_URL,
+				"_real_extract": MojvideoIE__real_extract,
 			})
 		}())
 	})

@@ -42,12 +42,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒstrip_jsonp = Ωutils.ϒstrip_jsonp
 		ϒunified_strdate = Ωutils.ϒunified_strdate
-		ElPaisIE = λ.Cal(λ.TypeType, λ.NewStr("ElPaisIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ElPaisIE = λ.Cal(λ.TypeType, λ.StrLiteral("ElPaisIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ElPaisIE__VALID_URL    λ.Object
 				ElPaisIE__real_extract λ.Object
 			)
-			ElPaisIE__VALID_URL = λ.NewStr("https?://(?:[^.]+\\.)?elpais\\.com/.*/(?P<id>[^/#?]+)\\.html(?:$|[?#])")
+			ElPaisIE__VALID_URL = λ.StrLiteral("https?://(?:[^.]+\\.)?elpais\\.com/.*/(?P<id>[^/#?]+)\\.html(?:$|[?#])")
 			ElPaisIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -70,38 +70,38 @@ func init() {
 						ϒvideo_url        λ.Object
 						ϒwebpage          λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒprefix = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("var\\s+url_cache\\s*=\\s*\"([^\"]+)\";"), ϒwebpage, λ.NewStr("URL prefix"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒprefix = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("var\\s+url_cache\\s*=\\s*\"([^\"]+)\";"), ϒwebpage, λ.StrLiteral("URL prefix"))
 					ϒid_multimedia = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("id_multimedia\\s*=\\s*'([^']+)'"),
+						λ.StrLiteral("id_multimedia\\s*=\\s*'([^']+)'"),
 						ϒwebpage,
-						λ.NewStr("ID multimedia"),
+						λ.StrLiteral("ID multimedia"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
 					if λ.IsTrue(ϒid_multimedia) {
 						ϒurl_info = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-							λ.Add(λ.NewStr("http://elpais.com/vdpep/1/?pepid="), ϒid_multimedia),
+							λ.Add(λ.StrLiteral("http://elpais.com/vdpep/1/?pepid="), ϒid_multimedia),
 							ϒvideo_id,
 						), λ.KWArgs{
 							{Name: "transform_source", Value: ϒstrip_jsonp},
 						})
-						ϒvideo_suffix = λ.GetItem(ϒurl_info, λ.NewStr("mp4"))
+						ϒvideo_suffix = λ.GetItem(ϒurl_info, λ.StrLiteral("mp4"))
 					} else {
-						ϒvideo_suffix = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("(?:URLMediaFile|urlVideo_\\d+)\\s*=\\s*url_cache\\s*\\+\\s*'([^']+)'"), ϒwebpage, λ.NewStr("video URL"))
+						ϒvideo_suffix = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("(?:URLMediaFile|urlVideo_\\d+)\\s*=\\s*url_cache\\s*\\+\\s*'([^']+)'"), ϒwebpage, λ.StrLiteral("video URL"))
 					}
 					ϒvideo_url = λ.Add(ϒprefix, ϒvideo_suffix)
 					ϒthumbnail_suffix = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("(?:URLMediaStill|urlFotogramaFijo_\\d+)\\s*=\\s*url_cache\\s*\\+\\s*'([^']+)'"),
+						λ.StrLiteral("(?:URLMediaStill|urlFotogramaFijo_\\d+)\\s*=\\s*url_cache\\s*\\+\\s*'([^']+)'"),
 						ϒwebpage,
-						λ.NewStr("thumbnail URL"),
+						λ.StrLiteral("thumbnail URL"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
 					ϒthumbnail = func() λ.Object {
 						if λv := func() λ.Object {
-							if λ.IsTrue(λ.NewBool(ϒthumbnail_suffix == λ.None)) {
+							if ϒthumbnail_suffix == λ.None {
 								return λ.None
 							} else {
 								return λ.Add(ϒprefix, ϒthumbnail_suffix)
@@ -109,51 +109,51 @@ func init() {
 						}(); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage)
+							return λ.Calm(ϒself, "_og_search_thumbnail", ϒwebpage)
 						}
 					}()
 					ϒtitle = func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 							λ.NewTuple(
-								λ.NewStr("tituloVideo\\s*=\\s*'([^']+)'"),
-								λ.NewStr("<h2 class=\"entry-header entry-title.*?>(.*?)</h2>"),
-								λ.NewStr("<h1[^>]+class=\"titulo\"[^>]*>([^<]+)"),
+								λ.StrLiteral("tituloVideo\\s*=\\s*'([^']+)'"),
+								λ.StrLiteral("<h2 class=\"entry-header entry-title.*?>(.*?)</h2>"),
+								λ.StrLiteral("<h1[^>]+class=\"titulo\"[^>]*>([^<]+)"),
 							),
 							ϒwebpage,
-							λ.NewStr("title"),
+							λ.StrLiteral("title"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
+							return λ.Calm(ϒself, "_og_search_title", ϒwebpage)
 						}
 					}()
 					ϒupload_date = λ.Cal(ϒunified_strdate, func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("<p class=\"date-header date-int updated\"\\s+title=\"([^\"]+)\">"),
+							λ.StrLiteral("<p class=\"date-header date-int updated\"\\s+title=\"([^\"]+)\">"),
 							ϒwebpage,
-							λ.NewStr("upload date"),
+							λ.StrLiteral("upload date"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewStr("datePublished"), ϒwebpage, λ.NewStr("timestamp"))
+							return λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("datePublished"), ϒwebpage, λ.StrLiteral("timestamp"))
 						}
 					}())
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("url"):         ϒvideo_url,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒself, "_og_search_description", nil), ϒwebpage),
-						λ.NewStr("thumbnail"):   ϒthumbnail,
-						λ.NewStr("upload_date"): ϒupload_date,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"url":         ϒvideo_url,
+						"title":       ϒtitle,
+						"description": λ.Calm(ϒself, "_og_search_description", ϒwebpage),
+						"thumbnail":   ϒthumbnail,
+						"upload_date": ϒupload_date,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    ElPaisIE__VALID_URL,
-				λ.NewStr("_real_extract"): ElPaisIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    ElPaisIE__VALID_URL,
+				"_real_extract": ElPaisIE__real_extract,
 			})
 		}())
 	})

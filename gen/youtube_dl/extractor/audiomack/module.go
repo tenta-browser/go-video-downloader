@@ -50,14 +50,14 @@ func init() {
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ExtractorError = Ωutils.ExtractorError
 		ϒurl_basename = Ωutils.ϒurl_basename
-		AudiomackIE = λ.Cal(λ.TypeType, λ.NewStr("AudiomackIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		AudiomackIE = λ.Cal(λ.TypeType, λ.StrLiteral("AudiomackIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				AudiomackIE_IE_NAME       λ.Object
 				AudiomackIE__VALID_URL    λ.Object
 				AudiomackIE__real_extract λ.Object
 			)
-			AudiomackIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?audiomack\\.com/song/(?P<id>[\\w/-]+)")
-			AudiomackIE_IE_NAME = λ.NewStr("audiomack")
+			AudiomackIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?audiomack\\.com/song/(?P<id>[\\w/-]+)")
+			AudiomackIE_IE_NAME = λ.StrLiteral("audiomack")
 			AudiomackIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -71,45 +71,45 @@ func init() {
 						ϒself          = λargs[0]
 						ϒurl           = λargs[1]
 					)
-					ϒalbum_url_tag = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒapi_response = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("http://www.audiomack.com/api/music/url/song/%s?extended=1&_=%d"), λ.NewTuple(
+					ϒalbum_url_tag = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒapi_response = λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("http://www.audiomack.com/api/music/url/song/%s?extended=1&_=%d"), λ.NewTuple(
 						ϒalbum_url_tag,
 						λ.Cal(Ωtime.ϒtime),
 					)), ϒalbum_url_tag)
 					if λ.IsTrue(func() λ.Object {
-						if λv := λ.NewBool(!λ.Contains(ϒapi_response, λ.NewStr("url"))); λ.IsTrue(λv) {
+						if λv := λ.NewBool(!λ.Contains(ϒapi_response, λ.StrLiteral("url"))); λ.IsTrue(λv) {
 							return λv
-						} else if λv := λ.NewBool(!λ.IsTrue(λ.GetItem(ϒapi_response, λ.NewStr("url")))); λ.IsTrue(λv) {
+						} else if λv := λ.NewBool(!λ.IsTrue(λ.GetItem(ϒapi_response, λ.StrLiteral("url")))); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.NewBool(λ.Contains(ϒapi_response, λ.NewStr("error")))
+							return λ.NewBool(λ.Contains(ϒapi_response, λ.StrLiteral("error")))
 						}
 					}()) {
-						panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.NewStr("Invalid url %s"), ϒurl))))
+						panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.StrLiteral("Invalid url %s"), ϒurl))))
 					}
-					if λ.IsTrue(λ.Cal(λ.GetAttr(SoundcloudIE, "suitable", nil), λ.GetItem(ϒapi_response, λ.NewStr("url")))) {
-						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.GetItem(ϒapi_response, λ.NewStr("url")), λ.Cal(λ.GetAttr(SoundcloudIE, "ie_key", nil)))
+					if λ.IsTrue(λ.Calm(SoundcloudIE, "suitable", λ.GetItem(ϒapi_response, λ.StrLiteral("url")))) {
+						return λ.Calm(ϒself, "url_result", λ.GetItem(ϒapi_response, λ.StrLiteral("url")), λ.Calm(SoundcloudIE, "ie_key"))
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):       λ.Cal(ϒcompat_str, λ.Cal(λ.GetAttr(ϒapi_response, "get", nil), λ.NewStr("id"), ϒalbum_url_tag)),
-						λ.NewStr("uploader"): λ.Cal(λ.GetAttr(ϒapi_response, "get", nil), λ.NewStr("artist")),
-						λ.NewStr("title"):    λ.Cal(λ.GetAttr(ϒapi_response, "get", nil), λ.NewStr("title")),
-						λ.NewStr("url"):      λ.GetItem(ϒapi_response, λ.NewStr("url")),
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":       λ.Cal(ϒcompat_str, λ.Calm(ϒapi_response, "get", λ.StrLiteral("id"), ϒalbum_url_tag)),
+						"uploader": λ.Calm(ϒapi_response, "get", λ.StrLiteral("artist")),
+						"title":    λ.Calm(ϒapi_response, "get", λ.StrLiteral("title")),
+						"url":      λ.GetItem(ϒapi_response, λ.StrLiteral("url")),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       AudiomackIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    AudiomackIE__VALID_URL,
-				λ.NewStr("_real_extract"): AudiomackIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       AudiomackIE_IE_NAME,
+				"_VALID_URL":    AudiomackIE__VALID_URL,
+				"_real_extract": AudiomackIE__real_extract,
 			})
 		}())
-		AudiomackAlbumIE = λ.Cal(λ.TypeType, λ.NewStr("AudiomackAlbumIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		AudiomackAlbumIE = λ.Cal(λ.TypeType, λ.StrLiteral("AudiomackAlbumIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				AudiomackAlbumIE__VALID_URL λ.Object
 			)
-			AudiomackAlbumIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?audiomack\\.com/album/(?P<id>[\\w/-]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): AudiomackAlbumIE__VALID_URL,
+			AudiomackAlbumIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?audiomack\\.com/album/(?P<id>[\\w/-]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": AudiomackAlbumIE__VALID_URL,
 			})
 		}())
 	})

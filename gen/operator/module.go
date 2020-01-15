@@ -187,13 +187,13 @@ func init() {
 					ϒb   = λargs[1]
 					ϒmsg λ.Object
 				)
-				if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinHasAttr, ϒa, λ.NewStr("__getitem__"))))) {
-					ϒmsg = λ.Mod(λ.NewStr("'%s' object can't be concatenated"), λ.GetAttr(λ.Cal(λ.TypeType, ϒa), "__name__", nil))
+				if !λ.IsTrue(λ.Cal(λ.BuiltinHasAttr, ϒa, λ.StrLiteral("__getitem__"))) {
+					ϒmsg = λ.Mod(λ.StrLiteral("'%s' object can't be concatenated"), λ.GetAttr(λ.Cal(λ.TypeType, ϒa), "__name__", nil))
 					panic(λ.Raise(λ.Cal(λ.TypeErrorType, ϒmsg)))
 				}
 				return λ.Add(ϒa, ϒb)
 			})
-		ϒitemgetter = λ.Cal(λ.TypeType, λ.NewStr("itemgetter"), λ.NewTuple(), func() λ.Dict {
+		ϒitemgetter = λ.Cal(λ.TypeType, λ.StrLiteral("itemgetter"), λ.NewTuple(), func() λ.Dict {
 			var (
 				ϒitemgetter___init__ λ.Object
 			)
@@ -211,7 +211,7 @@ func init() {
 						ϒself  = λargs[0]
 						τmp0   λ.Object
 					)
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒitems))) {
+					if !λ.IsTrue(ϒitems) {
 						λ.SetAttr(ϒself, "_items", λ.NewTuple(ϒitem))
 						ϒfunc = λ.NewFunction("func",
 							[]λ.Param{
@@ -264,8 +264,8 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"): ϒitemgetter___init__,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__": ϒitemgetter___init__,
 			})
 		}())
 	})

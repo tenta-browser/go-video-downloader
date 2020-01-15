@@ -38,12 +38,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		FilmwebIE = λ.Cal(λ.TypeType, λ.NewStr("FilmwebIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		FilmwebIE = λ.Cal(λ.TypeType, λ.StrLiteral("FilmwebIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				FilmwebIE__VALID_URL    λ.Object
 				FilmwebIE__real_extract λ.Object
 			)
-			FilmwebIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?filmweb\\.no/(?P<type>trailere|filmnytt)/article(?P<id>\\d+)\\.ece")
+			FilmwebIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?filmweb\\.no/(?P<type>trailere|filmnytt)/article(?P<id>\\d+)\\.ece")
 			FilmwebIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -61,32 +61,32 @@ func init() {
 						ϒwebpage      λ.Object
 						τmp0          λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
-					ϒarticle_type = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒarticle_id = λ.GetItem(τmp0, λ.NewInt(1))
-					if λ.IsTrue(λ.Eq(ϒarticle_type, λ.NewStr("filmnytt"))) {
-						ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒarticle_id)
-						ϒarticle_id = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("data-videoid=\"(\\d+)\""), ϒwebpage, λ.NewStr("article id"))
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒarticle_type = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒarticle_id = λ.GetItem(τmp0, λ.IntLiteral(1))
+					if λ.IsTrue(λ.Eq(ϒarticle_type, λ.StrLiteral("filmnytt"))) {
+						ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒarticle_id)
+						ϒarticle_id = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("data-videoid=\"(\\d+)\""), ϒwebpage, λ.StrLiteral("article id"))
 					}
 					ϒembed_code = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.NewStr("https://www.filmweb.no/template_v2/ajax/json_trailerEmbed.jsp"),
+						λ.StrLiteral("https://www.filmweb.no/template_v2/ajax/json_trailerEmbed.jsp"),
 						ϒarticle_id,
 					), λ.KWArgs{
-						{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("articleId"): ϒarticle_id,
+						{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
+							"articleId": ϒarticle_id,
 						})},
-					}), λ.NewStr("embedCode"))
-					ϒiframe_url = λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<iframe[^>]+src=\"([^\"]+)"), ϒembed_code, λ.NewStr("iframe url")))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):  λ.NewStr("url_transparent"),
-						λ.NewStr("id"):     ϒarticle_id,
-						λ.NewStr("url"):    ϒiframe_url,
-						λ.NewStr("ie_key"): λ.NewStr("TwentyThreeVideo"),
+					}), λ.StrLiteral("embedCode"))
+					ϒiframe_url = λ.Calm(ϒself, "_proto_relative_url", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<iframe[^>]+src=\"([^\"]+)"), ϒembed_code, λ.StrLiteral("iframe url")))
+					return λ.DictLiteral(map[string]λ.Object{
+						"_type":  λ.StrLiteral("url_transparent"),
+						"id":     ϒarticle_id,
+						"url":    ϒiframe_url,
+						"ie_key": λ.StrLiteral("TwentyThreeVideo"),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    FilmwebIE__VALID_URL,
-				λ.NewStr("_real_extract"): FilmwebIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    FilmwebIE__VALID_URL,
+				"_real_extract": FilmwebIE__real_extract,
 			})
 		}())
 	})

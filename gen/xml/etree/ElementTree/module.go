@@ -67,7 +67,7 @@ func init() {
 					}
 				}()
 			})
-		Element = λ.Cal(λ.TypeType, λ.NewStr("Element"), λ.NewTuple(), func() λ.Dict {
+		Element = λ.Cal(λ.TypeType, λ.StrLiteral("Element"), λ.NewTuple(), func() λ.Dict {
 			var (
 				Element___getitem__ λ.Object
 				Element___init__    λ.Object
@@ -91,10 +91,10 @@ func init() {
 					)
 					λ.SetAttr(ϒself, "e", ϒe)
 					τmp0 = λ.Cal(XMLElementInfos, ϒe)
-					λ.SetAttr(ϒself, "tag", λ.GetItem(τmp0, λ.NewInt(0)))
-					ϒtext = λ.GetItem(τmp0, λ.NewInt(1))
-					λ.SetAttr(ϒself, "attrib", λ.GetItem(τmp0, λ.NewInt(2)))
-					λ.SetAttr(ϒself, "childno", λ.GetItem(τmp0, λ.NewInt(3)))
+					λ.SetAttr(ϒself, "tag", λ.GetItem(τmp0, λ.IntLiteral(0)))
+					ϒtext = λ.GetItem(τmp0, λ.IntLiteral(1))
+					λ.SetAttr(ϒself, "attrib", λ.GetItem(τmp0, λ.IntLiteral(2)))
+					λ.SetAttr(ϒself, "childno", λ.GetItem(τmp0, λ.IntLiteral(3)))
 					λ.SetAttr(ϒself, "text", func() λ.Object {
 						if λ.IsTrue(ϒtext) {
 							return ϒtext
@@ -130,7 +130,7 @@ func init() {
 						ϒkey     = λargs[1]
 						ϒself    = λargs[0]
 					)
-					return λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "attrib", nil), "get", nil), ϒkey, ϒdefault)
+					return λ.Calm(λ.GetAttr(ϒself, "attrib", nil), "get", ϒkey, ϒdefault)
 				})
 			Element_find = λ.NewFunction("find",
 				[]λ.Param{
@@ -167,9 +167,9 @@ func init() {
 						ϒpath    = λargs[1]
 						ϒself    = λargs[0]
 					)
-					ϒel = λ.Cal(λ.GetAttr(ϒself, "find", nil), ϒpath)
+					ϒel = λ.Calm(ϒself, "find", ϒpath)
 					return func() λ.Object {
-						if λ.IsTrue(λ.NewBool(ϒel != λ.None)) {
+						if ϒel != λ.None {
 							return λ.GetAttr(ϒel, "text", nil)
 						} else {
 							return ϒdefault
@@ -211,13 +211,13 @@ func init() {
 							})
 						})))
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__getitem__"): Element___getitem__,
-				λ.NewStr("__init__"):    Element___init__,
-				λ.NewStr("find"):        Element_find,
-				λ.NewStr("findall"):     Element_findall,
-				λ.NewStr("findtext"):    Element_findtext,
-				λ.NewStr("get"):         Element_get,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__getitem__": Element___getitem__,
+				"__init__":    Element___init__,
+				"find":        Element_find,
+				"findall":     Element_findall,
+				"findtext":    Element_findtext,
+				"get":         Element_get,
 			})
 		}())
 	})

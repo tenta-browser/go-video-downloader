@@ -47,14 +47,14 @@ func init() {
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒurl_or_none = Ωutils.ϒurl_or_none
-		CCCIE = λ.Cal(λ.TypeType, λ.NewStr("CCCIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		CCCIE = λ.Cal(λ.TypeType, λ.StrLiteral("CCCIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CCCIE_IE_NAME       λ.Object
 				CCCIE__VALID_URL    λ.Object
 				CCCIE__real_extract λ.Object
 			)
-			CCCIE_IE_NAME = λ.NewStr("media.ccc.de")
-			CCCIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?media\\.ccc\\.de/v/(?P<id>[^/?#&]+)")
+			CCCIE_IE_NAME = λ.StrLiteral("media.ccc.de")
+			CCCIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?media\\.ccc\\.de/v/(?P<id>[^/?#&]+)")
 			CCCIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -80,69 +80,69 @@ func init() {
 						τmp1           λ.Object
 						τmp2           λ.Object
 					)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
-					ϒevent_id = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("data-id='(\\d+)'"), ϒwebpage, λ.NewStr("event id"))
-					ϒevent_data = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("https://media.ccc.de/public/events/%s"), ϒevent_id), ϒevent_id)
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
+					ϒevent_id = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("data-id='(\\d+)'"), ϒwebpage, λ.StrLiteral("event id"))
+					ϒevent_data = λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("https://media.ccc.de/public/events/%s"), ϒevent_id), ϒevent_id)
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒevent_data, "get", nil), λ.NewStr("recordings"), λ.NewList()))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒevent_data, "get", λ.StrLiteral("recordings"), λ.NewList()))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒrecording = τmp1
-						ϒrecording_url = λ.Cal(λ.GetAttr(ϒrecording, "get", nil), λ.NewStr("recording_url"))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒrecording_url))) {
+						ϒrecording_url = λ.Calm(ϒrecording, "get", λ.StrLiteral("recording_url"))
+						if !λ.IsTrue(ϒrecording_url) {
 							continue
 						}
-						ϒlanguage = λ.Cal(λ.GetAttr(ϒrecording, "get", nil), λ.NewStr("language"))
-						ϒfolder = λ.Cal(λ.GetAttr(ϒrecording, "get", nil), λ.NewStr("folder"))
+						ϒlanguage = λ.Calm(ϒrecording, "get", λ.StrLiteral("language"))
+						ϒfolder = λ.Calm(ϒrecording, "get", λ.StrLiteral("folder"))
 						ϒformat_id = λ.None
 						if λ.IsTrue(ϒlanguage) {
 							ϒformat_id = ϒlanguage
 						}
 						if λ.IsTrue(ϒfolder) {
 							if λ.IsTrue(ϒlanguage) {
-								τmp2 = λ.IAdd(ϒformat_id, λ.Add(λ.NewStr("-"), ϒfolder))
+								τmp2 = λ.IAdd(ϒformat_id, λ.Add(λ.StrLiteral("-"), ϒfolder))
 								ϒformat_id = τmp2
 							} else {
 								ϒformat_id = ϒfolder
 							}
 						}
 						ϒvcodec = func() λ.Object {
-							if λ.IsTrue(λ.NewBool(λ.Contains(ϒfolder, λ.NewStr("h264")))) {
-								return λ.NewStr("h264")
+							if λ.Contains(ϒfolder, λ.StrLiteral("h264")) {
+								return λ.StrLiteral("h264")
 							} else {
 								return func() λ.Object {
-									if λ.IsTrue(λ.NewBool(λ.Contains(λ.NewTuple(
-										λ.NewStr("mp3"),
-										λ.NewStr("opus"),
-									), ϒfolder))) {
-										return λ.NewStr("none")
+									if λ.Contains(λ.NewTuple(
+										λ.StrLiteral("mp3"),
+										λ.StrLiteral("opus"),
+									), ϒfolder) {
+										return λ.StrLiteral("none")
 									} else {
 										return λ.None
 									}
 								}()
 							}
 						}()
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("format_id"): ϒformat_id,
-							λ.NewStr("url"):       ϒrecording_url,
-							λ.NewStr("width"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒrecording, "get", nil), λ.NewStr("width"))),
-							λ.NewStr("height"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒrecording, "get", nil), λ.NewStr("height"))),
-							λ.NewStr("filesize"): λ.Call(ϒint_or_none, λ.NewArgs(λ.Cal(λ.GetAttr(ϒrecording, "get", nil), λ.NewStr("size"))), λ.KWArgs{
-								{Name: "invscale", Value: λ.Mul(λ.NewInt(1024), λ.NewInt(1024))},
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"format_id": ϒformat_id,
+							"url":       ϒrecording_url,
+							"width":     λ.Cal(ϒint_or_none, λ.Calm(ϒrecording, "get", λ.StrLiteral("width"))),
+							"height":    λ.Cal(ϒint_or_none, λ.Calm(ϒrecording, "get", λ.StrLiteral("height"))),
+							"filesize": λ.Call(ϒint_or_none, λ.NewArgs(λ.Calm(ϒrecording, "get", λ.StrLiteral("size"))), λ.KWArgs{
+								{Name: "invscale", Value: λ.Mul(λ.IntLiteral(1024), λ.IntLiteral(1024))},
 							}),
-							λ.NewStr("language"): ϒlanguage,
-							λ.NewStr("vcodec"):   ϒvcodec,
+							"language": ϒlanguage,
+							"vcodec":   ϒvcodec,
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         ϒevent_id,
-						λ.NewStr("display_id"): ϒdisplay_id,
-						λ.NewStr("title"):      λ.GetItem(ϒevent_data, λ.NewStr("title")),
-						λ.NewStr("creator"): λ.Cal(ϒtry_get, ϒevent_data, λ.NewFunction("<lambda>",
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":         ϒevent_id,
+						"display_id": ϒdisplay_id,
+						"title":      λ.GetItem(ϒevent_data, λ.StrLiteral("title")),
+						"creator": λ.Cal(ϒtry_get, ϒevent_data, λ.NewFunction("<lambda>",
 							[]λ.Param{
 								{Name: "x"},
 							},
@@ -151,29 +151,29 @@ func init() {
 								var (
 									ϒx = λargs[0]
 								)
-								return λ.Cal(λ.GetAttr(λ.NewStr(", "), "join", nil), λ.GetItem(ϒx, λ.NewStr("persons")))
+								return λ.Calm(λ.StrLiteral(", "), "join", λ.GetItem(ϒx, λ.StrLiteral("persons")))
 							})),
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒevent_data, "get", nil), λ.NewStr("description")),
-						λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒevent_data, "get", nil), λ.NewStr("thumb_url")),
-						λ.NewStr("timestamp"):   λ.Cal(ϒparse_iso8601, λ.Cal(λ.GetAttr(ϒevent_data, "get", nil), λ.NewStr("date"))),
-						λ.NewStr("duration"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒevent_data, "get", nil), λ.NewStr("length"))),
-						λ.NewStr("tags"):        λ.Cal(λ.GetAttr(ϒevent_data, "get", nil), λ.NewStr("tags")),
-						λ.NewStr("formats"):     ϒformats,
+						"description": λ.Calm(ϒevent_data, "get", λ.StrLiteral("description")),
+						"thumbnail":   λ.Calm(ϒevent_data, "get", λ.StrLiteral("thumb_url")),
+						"timestamp":   λ.Cal(ϒparse_iso8601, λ.Calm(ϒevent_data, "get", λ.StrLiteral("date"))),
+						"duration":    λ.Cal(ϒint_or_none, λ.Calm(ϒevent_data, "get", λ.StrLiteral("length"))),
+						"tags":        λ.Calm(ϒevent_data, "get", λ.StrLiteral("tags")),
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       CCCIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    CCCIE__VALID_URL,
-				λ.NewStr("_real_extract"): CCCIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       CCCIE_IE_NAME,
+				"_VALID_URL":    CCCIE__VALID_URL,
+				"_real_extract": CCCIE__real_extract,
 			})
 		}())
-		CCCPlaylistIE = λ.Cal(λ.TypeType, λ.NewStr("CCCPlaylistIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		CCCPlaylistIE = λ.Cal(λ.TypeType, λ.StrLiteral("CCCPlaylistIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CCCPlaylistIE__VALID_URL λ.Object
 			)
-			CCCPlaylistIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?media\\.ccc\\.de/c/(?P<id>[^/?#&]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): CCCPlaylistIE__VALID_URL,
+			CCCPlaylistIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?media\\.ccc\\.de/c/(?P<id>[^/?#&]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": CCCPlaylistIE__VALID_URL,
 			})
 		}())
 	})

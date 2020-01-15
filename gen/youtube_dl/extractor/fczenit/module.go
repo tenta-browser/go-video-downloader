@@ -42,12 +42,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
-		FczenitIE = λ.Cal(λ.TypeType, λ.NewStr("FczenitIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		FczenitIE = λ.Cal(λ.TypeType, λ.StrLiteral("FczenitIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				FczenitIE__VALID_URL    λ.Object
 				FczenitIE__real_extract λ.Object
 			)
-			FczenitIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?fc-zenit\\.ru/video/(?P<id>[0-9]+)")
+			FczenitIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?fc-zenit\\.ru/video/(?P<id>[0-9]+)")
 			FczenitIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -66,18 +66,18 @@ func init() {
 						ϒvideo_id λ.Object
 						ϒwebpage  λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒmsi_id = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("(?s)config\\s*=\\s*{.+?video_id\\s*:\\s*'([^']+)'"), ϒwebpage, λ.NewStr("msi id"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒmsi_id = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("(?s)config\\s*=\\s*{.+?video_id\\s*:\\s*'([^']+)'"), ϒwebpage, λ.StrLiteral("msi id"))
 					ϒmsi_data = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.NewStr("http://player.fc-zenit.ru/msi/video"),
+						λ.StrLiteral("http://player.fc-zenit.ru/msi/video"),
 						ϒmsi_id,
 					), λ.KWArgs{
-						{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("video"): ϒmsi_id,
+						{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
+							"video": ϒmsi_id,
 						})},
-					}), λ.NewStr("data"))
-					ϒtitle = λ.GetItem(ϒmsi_data, λ.NewStr("name"))
+					}), λ.StrLiteral("data"))
+					ϒtitle = λ.GetItem(ϒmsi_data, λ.StrLiteral("name"))
 					ϒformats = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -88,24 +88,24 @@ func init() {
 									τmp0 λ.Object
 									τmp1 λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒmsi_data, λ.NewStr("qualities")))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒmsi_data, λ.StrLiteral("qualities")))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									ϒq = τmp1
-									if λ.IsTrue(λ.Cal(λ.GetAttr(ϒq, "get", nil), λ.NewStr("url"))) {
-										λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-											λ.NewStr("format_id"): λ.Cal(λ.GetAttr(ϒq, "get", nil), λ.NewStr("label")),
-											λ.NewStr("url"):       λ.GetItem(ϒq, λ.NewStr("url")),
-											λ.NewStr("height"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒq, "get", nil), λ.NewStr("label"))),
+									if λ.IsTrue(λ.Calm(ϒq, "get", λ.StrLiteral("url"))) {
+										λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+											"format_id": λ.Calm(ϒq, "get", λ.StrLiteral("label")),
+											"url":       λ.GetItem(ϒq, λ.StrLiteral("url")),
+											"height":    λ.Cal(ϒint_or_none, λ.Calm(ϒq, "get", λ.StrLiteral("label"))),
 										}))
 									}
 								}
 								return λ.None
 							})
 						})))
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒtags = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -116,32 +116,32 @@ func init() {
 									τmp0 λ.Object
 									τmp1 λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒmsi_data, "get", nil), λ.NewStr("tags"), λ.NewList()))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒmsi_data, "get", λ.StrLiteral("tags"), λ.NewList()))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									ϒtag = τmp1
-									if λ.IsTrue(λ.Cal(λ.GetAttr(ϒtag, "get", nil), λ.NewStr("label"))) {
-										λgy.Yield(λ.GetItem(ϒtag, λ.NewStr("label")))
+									if λ.IsTrue(λ.Calm(ϒtag, "get", λ.StrLiteral("label"))) {
+										λgy.Yield(λ.GetItem(ϒtag, λ.StrLiteral("label")))
 									}
 								}
 								return λ.None
 							})
 						})))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("title"):     ϒtitle,
-						λ.NewStr("thumbnail"): λ.Cal(λ.GetAttr(ϒmsi_data, "get", nil), λ.NewStr("preview")),
-						λ.NewStr("formats"):   ϒformats,
-						λ.NewStr("duration"):  λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒmsi_data, "get", nil), λ.NewStr("duration"))),
-						λ.NewStr("timestamp"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒmsi_data, "get", nil), λ.NewStr("date"))),
-						λ.NewStr("tags"):      ϒtags,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒvideo_id,
+						"title":     ϒtitle,
+						"thumbnail": λ.Calm(ϒmsi_data, "get", λ.StrLiteral("preview")),
+						"formats":   ϒformats,
+						"duration":  λ.Cal(ϒfloat_or_none, λ.Calm(ϒmsi_data, "get", λ.StrLiteral("duration"))),
+						"timestamp": λ.Cal(ϒint_or_none, λ.Calm(ϒmsi_data, "get", λ.StrLiteral("date"))),
+						"tags":      ϒtags,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    FczenitIE__VALID_URL,
-				λ.NewStr("_real_extract"): FczenitIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    FczenitIE__VALID_URL,
+				"_real_extract": FczenitIE__real_extract,
 			})
 		}())
 	})

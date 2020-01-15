@@ -47,7 +47,7 @@ func init() {
 	λ.InitModule(func() {
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ExtractorError = Ωutils.ExtractorError
-		ϒ_ScopeDict = λ.Cal(λ.TypeType, λ.NewStr("_ScopeDict"), λ.NewTuple(λ.DictType), func() λ.Dict {
+		ϒ_ScopeDict = λ.Cal(λ.TypeType, λ.StrLiteral("_ScopeDict"), λ.NewTuple(λ.DictType), func() λ.Dict {
 			var (
 				ϒ_ScopeDict___init__ λ.Object
 			)
@@ -62,15 +62,15 @@ func init() {
 						ϒavm_class = λargs[1]
 						ϒself      = λargs[0]
 					)
-					λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, ϒ_ScopeDict, ϒself), "__init__", nil))
+					λ.Calm(λ.Cal(λ.SuperType, ϒ_ScopeDict, ϒself), "__init__")
 					λ.SetAttr(ϒself, "avm_class", ϒavm_class)
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"): ϒ_ScopeDict___init__,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__": ϒ_ScopeDict___init__,
 			})
 		}())
-		ϒ_AVMClass = λ.Cal(λ.TypeType, λ.NewStr("_AVMClass"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
+		ϒ_AVMClass = λ.Cal(λ.TypeType, λ.StrLiteral("_AVMClass"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
 			var (
 				ϒ_AVMClass___init__ λ.Object
 			)
@@ -91,23 +91,23 @@ func init() {
 					)
 					λ.SetAttr(ϒself, "name_idx", ϒname_idx)
 					λ.SetAttr(ϒself, "name", ϒname)
-					λ.SetAttr(ϒself, "method_names", λ.NewDictWithTable(map[λ.Object]λ.Object{}))
-					λ.SetAttr(ϒself, "method_idxs", λ.NewDictWithTable(map[λ.Object]λ.Object{}))
-					λ.SetAttr(ϒself, "methods", λ.NewDictWithTable(map[λ.Object]λ.Object{}))
-					λ.SetAttr(ϒself, "method_pyfunctions", λ.NewDictWithTable(map[λ.Object]λ.Object{}))
+					λ.SetAttr(ϒself, "method_names", λ.DictLiteral(map[λ.Object]λ.Object{}))
+					λ.SetAttr(ϒself, "method_idxs", λ.DictLiteral(map[λ.Object]λ.Object{}))
+					λ.SetAttr(ϒself, "methods", λ.DictLiteral(map[λ.Object]λ.Object{}))
+					λ.SetAttr(ϒself, "method_pyfunctions", λ.DictLiteral(map[λ.Object]λ.Object{}))
 					λ.SetAttr(ϒself, "static_properties", func() λ.Object {
 						if λ.IsTrue(ϒstatic_properties) {
 							return ϒstatic_properties
 						} else {
-							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
 						}
 					}())
 					λ.SetAttr(ϒself, "variables", λ.Cal(ϒ_ScopeDict, ϒself))
-					λ.SetAttr(ϒself, "constants", λ.NewDictWithTable(map[λ.Object]λ.Object{}))
+					λ.SetAttr(ϒself, "constants", λ.DictLiteral(map[λ.Object]λ.Object{}))
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"): ϒ_AVMClass___init__,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__": ϒ_AVMClass___init__,
 			})
 		}())
 		ϒ_read_int = λ.NewFunction("_read_int",
@@ -126,35 +126,35 @@ func init() {
 					τmp1    λ.Object
 					τmp2    λ.Object
 				)
-				ϒres = λ.NewInt(0)
-				ϒshift = λ.NewInt(0)
-				τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.RangeType, λ.NewInt(5)))
+				ϒres = λ.IntLiteral(0)
+				ϒshift = λ.IntLiteral(0)
+				τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.RangeType, λ.IntLiteral(5)))
 				for {
 					if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 						break
 					}
 					_ = τmp1
-					ϒbuf = λ.Cal(λ.GetAttr(ϒreader, "read", nil), λ.NewInt(1))
-					if !λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒbuf), λ.NewInt(1))) {
+					ϒbuf = λ.Calm(ϒreader, "read", λ.IntLiteral(1))
+					if !λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒbuf), λ.IntLiteral(1))) {
 						panic(λ.Raise(λ.Cal(λ.AssertionErrorType)))
 					}
-					ϒb = λ.GetItem(λ.Cal(λ.None, λ.NewStr("<B"), ϒbuf), λ.NewInt(0))
-					ϒres = λ.Or(ϒres, λ.LShift(λ.And(ϒb, λ.NewInt(127)), ϒshift))
-					if λ.IsTrue(λ.Eq(λ.And(ϒb, λ.NewInt(128)), λ.NewInt(0))) {
+					ϒb = λ.GetItem(λ.Cal(λ.None, λ.StrLiteral("<B"), ϒbuf), λ.IntLiteral(0))
+					ϒres = λ.Or(ϒres, λ.LShift(λ.And(ϒb, λ.IntLiteral(127)), ϒshift))
+					if λ.IsTrue(λ.Eq(λ.And(ϒb, λ.IntLiteral(128)), λ.IntLiteral(0))) {
 						break
 					}
-					τmp2 = λ.IAdd(ϒshift, λ.NewInt(7))
+					τmp2 = λ.IAdd(ϒshift, λ.IntLiteral(7))
 					ϒshift = τmp2
 				}
 				return ϒres
 			})
-		StringClass = λ.Cal(ϒ_AVMClass, λ.NewStr("(no name idx)"), λ.NewStr("String"))
-		ByteArrayClass = λ.Cal(ϒ_AVMClass, λ.NewStr("(no name idx)"), λ.NewStr("ByteArray"))
-		TimerClass = λ.Cal(ϒ_AVMClass, λ.NewStr("(no name idx)"), λ.NewStr("Timer"))
-		TimerEventClass = λ.Cal(ϒ_AVMClass, λ.NewStr("(no name idx)"), λ.NewStr("TimerEvent"), λ.NewDictWithTable(map[λ.Object]λ.Object{
-			λ.NewStr("TIMER"): λ.NewStr("timer"),
+		StringClass = λ.Cal(ϒ_AVMClass, λ.StrLiteral("(no name idx)"), λ.StrLiteral("String"))
+		ByteArrayClass = λ.Cal(ϒ_AVMClass, λ.StrLiteral("(no name idx)"), λ.StrLiteral("ByteArray"))
+		TimerClass = λ.Cal(ϒ_AVMClass, λ.StrLiteral("(no name idx)"), λ.StrLiteral("Timer"))
+		TimerEventClass = λ.Cal(ϒ_AVMClass, λ.StrLiteral("(no name idx)"), λ.StrLiteral("TimerEvent"), λ.DictLiteral(map[string]string{
+			"TIMER": "timer",
 		}))
-		ϒ_Undefined = λ.Cal(λ.TypeType, λ.NewStr("_Undefined"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
+		ϒ_Undefined = λ.Cal(λ.TypeType, λ.StrLiteral("_Undefined"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
 			var (
 				ϒ_Undefined___bool__ λ.Object
 				ϒ_Undefined___str__  λ.Object
@@ -181,11 +181,11 @@ func init() {
 						ϒself = λargs[0]
 					)
 					_ = ϒself
-					return λ.NewStr("undefined")
+					return λ.StrLiteral("undefined")
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__bool__"): ϒ_Undefined___bool__,
-				λ.NewStr("__str__"):  ϒ_Undefined___str__,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__bool__": ϒ_Undefined___bool__,
+				"__str__":  ϒ_Undefined___str__,
 			})
 		}())
 	})

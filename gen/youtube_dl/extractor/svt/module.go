@@ -64,38 +64,38 @@ func init() {
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒurljoin = Ωutils.ϒurljoin
 		ϒcompat_str = Ωutils.ϒcompat_str
-		SVTBaseIE = λ.Cal(λ.TypeType, λ.NewStr("SVTBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SVTBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("SVTBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
-		SVTIE = λ.Cal(λ.TypeType, λ.NewStr("SVTIE"), λ.NewTuple(SVTBaseIE), func() λ.Dict {
+		SVTIE = λ.Cal(λ.TypeType, λ.StrLiteral("SVTIE"), λ.NewTuple(SVTBaseIE), func() λ.Dict {
 			var (
 				SVTIE__VALID_URL λ.Object
 			)
-			SVTIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?svt\\.se/wd\\?(?:.*?&)?widgetId=(?P<widget_id>\\d+)&.*?\\barticleId=(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SVTIE__VALID_URL,
+			SVTIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?svt\\.se/wd\\?(?:.*?&)?widgetId=(?P<widget_id>\\d+)&.*?\\barticleId=(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SVTIE__VALID_URL,
 			})
 		}())
-		SVTPlayBaseIE = λ.Cal(λ.TypeType, λ.NewStr("SVTPlayBaseIE"), λ.NewTuple(SVTBaseIE), func() λ.Dict {
+		SVTPlayBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("SVTPlayBaseIE"), λ.NewTuple(SVTBaseIE), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
-		SVTPlayIE = λ.Cal(λ.TypeType, λ.NewStr("SVTPlayIE"), λ.NewTuple(SVTPlayBaseIE), func() λ.Dict {
+		SVTPlayIE = λ.Cal(λ.TypeType, λ.StrLiteral("SVTPlayIE"), λ.NewTuple(SVTPlayBaseIE), func() λ.Dict {
 			var (
 				SVTPlayIE__VALID_URL λ.Object
 			)
-			SVTPlayIE__VALID_URL = λ.NewStr("(?x)\n                    (?:\n                        svt:(?P<svt_id>[^/?#&]+)|\n                        https?://(?:www\\.)?(?:svtplay|oppetarkiv)\\.se/(?:video|klipp|kanaler)/(?P<id>[^/?#&]+)\n                    )\n                    ")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SVTPlayIE__VALID_URL,
+			SVTPlayIE__VALID_URL = λ.StrLiteral("(?x)\n                    (?:\n                        svt:(?P<svt_id>[^/?#&]+)|\n                        https?://(?:www\\.)?(?:svtplay|oppetarkiv)\\.se/(?:video|klipp|kanaler)/(?P<id>[^/?#&]+)\n                    )\n                    ")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SVTPlayIE__VALID_URL,
 			})
 		}())
-		SVTSeriesIE = λ.Cal(λ.TypeType, λ.NewStr("SVTSeriesIE"), λ.NewTuple(SVTPlayBaseIE), func() λ.Dict {
+		SVTSeriesIE = λ.Cal(λ.TypeType, λ.StrLiteral("SVTSeriesIE"), λ.NewTuple(SVTPlayBaseIE), func() λ.Dict {
 			var (
 				SVTSeriesIE__VALID_URL λ.Object
 				SVTSeriesIE_suitable   λ.Object
 			)
-			SVTSeriesIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?svtplay\\.se/(?P<id>[^/?&#]+)")
+			SVTSeriesIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?svtplay\\.se/(?P<id>[^/?&#]+)")
 			SVTSeriesIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -109,30 +109,30 @@ func init() {
 					)
 					return func() λ.Object {
 						if λ.IsTrue(func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(SVTIE, "suitable", nil), ϒurl); λ.IsTrue(λv) {
+							if λv := λ.Calm(SVTIE, "suitable", ϒurl); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(SVTPlayIE, "suitable", nil), ϒurl)
+								return λ.Calm(SVTPlayIE, "suitable", ϒurl)
 							}
 						}()) {
 							return λ.False
 						} else {
-							return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, SVTSeriesIE, ϒcls), "suitable", nil), ϒurl)
+							return λ.Calm(λ.Cal(λ.SuperType, SVTSeriesIE, ϒcls), "suitable", ϒurl)
 						}
 					}()
 				})
 			SVTSeriesIE_suitable = λ.Cal(λ.ClassMethodType, SVTSeriesIE_suitable)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SVTSeriesIE__VALID_URL,
-				λ.NewStr("suitable"):   SVTSeriesIE_suitable,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SVTSeriesIE__VALID_URL,
+				"suitable":   SVTSeriesIE_suitable,
 			})
 		}())
-		SVTPageIE = λ.Cal(λ.TypeType, λ.NewStr("SVTPageIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SVTPageIE = λ.Cal(λ.TypeType, λ.StrLiteral("SVTPageIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SVTPageIE__VALID_URL λ.Object
 				SVTPageIE_suitable   λ.Object
 			)
-			SVTPageIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?svt\\.se/(?:[^/]+/)*(?P<id>[^/?&#]+)")
+			SVTPageIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?svt\\.se/(?:[^/]+/)*(?P<id>[^/?&#]+)")
 			SVTPageIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -145,17 +145,17 @@ func init() {
 						ϒurl = λargs[1]
 					)
 					return func() λ.Object {
-						if λ.IsTrue(λ.Cal(λ.GetAttr(SVTIE, "suitable", nil), ϒurl)) {
+						if λ.IsTrue(λ.Calm(SVTIE, "suitable", ϒurl)) {
 							return λ.False
 						} else {
-							return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, SVTPageIE, ϒcls), "suitable", nil), ϒurl)
+							return λ.Calm(λ.Cal(λ.SuperType, SVTPageIE, ϒcls), "suitable", ϒurl)
 						}
 					}()
 				})
 			SVTPageIE_suitable = λ.Cal(λ.ClassMethodType, SVTPageIE_suitable)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SVTPageIE__VALID_URL,
-				λ.NewStr("suitable"):   SVTPageIE_suitable,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SVTPageIE__VALID_URL,
+				"suitable":   SVTPageIE_suitable,
 			})
 		}())
 	})

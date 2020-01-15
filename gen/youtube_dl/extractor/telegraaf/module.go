@@ -46,12 +46,12 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒtry_get = Ωutils.ϒtry_get
-		TelegraafIE = λ.Cal(λ.TypeType, λ.NewStr("TelegraafIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TelegraafIE = λ.Cal(λ.TypeType, λ.StrLiteral("TelegraafIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TelegraafIE__VALID_URL    λ.Object
 				TelegraafIE__real_extract λ.Object
 			)
-			TelegraafIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?telegraaf\\.nl/video/(?P<id>\\d+)")
+			TelegraafIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?telegraaf\\.nl/video/(?P<id>\\d+)")
 			TelegraafIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -76,60 +76,60 @@ func init() {
 						τmp0          λ.Object
 						τmp1          λ.Object
 					)
-					ϒarticle_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒarticle_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒvideo_id = λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.NewStr("https://www.telegraaf.nl/graphql"),
+						λ.StrLiteral("https://www.telegraaf.nl/graphql"),
 						ϒarticle_id,
 					), λ.KWArgs{
-						{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("query"): λ.Mod(λ.NewStr("{\n  article(uid: %s) {\n    videos {\n      videoId\n    }\n  }\n}"), ϒarticle_id),
+						{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
+							"query": λ.Mod(λ.StrLiteral("{\n  article(uid: %s) {\n    videos {\n      videoId\n    }\n  }\n}"), ϒarticle_id),
 						})},
-					}), λ.NewStr("data")), λ.NewStr("article")), λ.NewStr("videos")), λ.NewInt(0)), λ.NewStr("videoId"))
-					ϒitem = λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("https://content.tmgvideo.nl/playlist/item=%s/playlist.json"), ϒvideo_id), ϒvideo_id), λ.NewStr("items")), λ.NewInt(0))
-					ϒtitle = λ.GetItem(ϒitem, λ.NewStr("title"))
+					}), λ.StrLiteral("data")), λ.StrLiteral("article")), λ.StrLiteral("videos")), λ.IntLiteral(0)), λ.StrLiteral("videoId"))
+					ϒitem = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("https://content.tmgvideo.nl/playlist/item=%s/playlist.json"), ϒvideo_id), ϒvideo_id), λ.StrLiteral("items")), λ.IntLiteral(0))
+					ϒtitle = λ.GetItem(ϒitem, λ.StrLiteral("title"))
 					ϒformats = λ.NewList()
 					ϒlocations = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("locations")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒitem, "get", λ.StrLiteral("locations")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
 						}
 					}()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒlocations, "get", nil), λ.NewStr("adaptive"), λ.NewList()))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒlocations, "get", λ.StrLiteral("adaptive"), λ.NewList()))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒlocation = τmp1
-						ϒmanifest_url = λ.Cal(λ.GetAttr(ϒlocation, "get", nil), λ.NewStr("src"))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒmanifest_url))) {
+						ϒmanifest_url = λ.Calm(ϒlocation, "get", λ.StrLiteral("src"))
+						if !λ.IsTrue(ϒmanifest_url) {
 							continue
 						}
 						ϒext = λ.Cal(ϒdetermine_ext, ϒmanifest_url)
-						if λ.IsTrue(λ.Eq(ϒext, λ.NewStr("m3u8"))) {
-							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+						if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("m3u8"))) {
+							λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
 								ϒmanifest_url,
 								ϒvideo_id,
 							), λ.KWArgs{
-								{Name: "ext", Value: λ.NewStr("mp4")},
-								{Name: "m3u8_id", Value: λ.NewStr("hls")},
+								{Name: "ext", Value: λ.StrLiteral("mp4")},
+								{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
 								{Name: "fatal", Value: λ.False},
 							}))
 						} else {
-							if λ.IsTrue(λ.Eq(ϒext, λ.NewStr("mpd"))) {
-								λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_mpd_formats", nil), λ.NewArgs(
+							if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("mpd"))) {
+								λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_mpd_formats", nil), λ.NewArgs(
 									ϒmanifest_url,
 									ϒvideo_id,
 								), λ.KWArgs{
-									{Name: "mpd_id", Value: λ.NewStr("dash")},
+									{Name: "mpd_id", Value: λ.StrLiteral("dash")},
 									{Name: "fatal", Value: λ.False},
 								}))
 							} else {
-								λ.Cal(λ.GetAttr(ϒself, "report_warning", nil), λ.Mod(λ.NewStr("Unknown adaptive format %s"), ϒext))
+								λ.Calm(ϒself, "report_warning", λ.Mod(λ.StrLiteral("Unknown adaptive format %s"), ϒext))
 							}
 						}
 					}
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒlocations, "get", nil), λ.NewStr("progressive"), λ.NewList()))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒlocations, "get", λ.StrLiteral("progressive"), λ.NewList()))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
@@ -144,39 +144,39 @@ func init() {
 								var (
 									ϒx = λargs[0]
 								)
-								return λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.NewStr("sources")), λ.NewInt(0)), λ.NewStr("src"))
+								return λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("sources")), λ.IntLiteral(0)), λ.StrLiteral("src"))
 							}))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒsrc))) {
+						if !λ.IsTrue(ϒsrc) {
 							continue
 						}
-						ϒlabel = λ.Cal(λ.GetAttr(ϒlocation, "get", nil), λ.NewStr("label"))
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):    ϒsrc,
-							λ.NewStr("width"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒlocation, "get", nil), λ.NewStr("width"))),
-							λ.NewStr("height"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒlocation, "get", nil), λ.NewStr("height"))),
-							λ.NewStr("format_id"): λ.Add(λ.NewStr("http"), func() λ.Object {
+						ϒlabel = λ.Calm(ϒlocation, "get", λ.StrLiteral("label"))
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":    ϒsrc,
+							"width":  λ.Cal(ϒint_or_none, λ.Calm(ϒlocation, "get", λ.StrLiteral("width"))),
+							"height": λ.Cal(ϒint_or_none, λ.Calm(ϒlocation, "get", λ.StrLiteral("height"))),
+							"format_id": λ.Add(λ.StrLiteral("http"), func() λ.Object {
 								if λ.IsTrue(ϒlabel) {
-									return λ.Mod(λ.NewStr("-%s"), ϒlabel)
+									return λ.Mod(λ.StrLiteral("-%s"), ϒlabel)
 								} else {
-									return λ.NewStr("")
+									return λ.StrLiteral("")
 								}
 							}()),
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("description")),
-						λ.NewStr("formats"):     ϒformats,
-						λ.NewStr("duration"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("duration"))),
-						λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("poster")),
-						λ.NewStr("timestamp"):   λ.Cal(ϒparse_iso8601, λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("datecreated")), λ.NewStr(" ")),
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       ϒtitle,
+						"description": λ.Calm(ϒitem, "get", λ.StrLiteral("description")),
+						"formats":     ϒformats,
+						"duration":    λ.Cal(ϒint_or_none, λ.Calm(ϒitem, "get", λ.StrLiteral("duration"))),
+						"thumbnail":   λ.Calm(ϒitem, "get", λ.StrLiteral("poster")),
+						"timestamp":   λ.Cal(ϒparse_iso8601, λ.Calm(ϒitem, "get", λ.StrLiteral("datecreated")), λ.StrLiteral(" ")),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    TelegraafIE__VALID_URL,
-				λ.NewStr("_real_extract"): TelegraafIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    TelegraafIE__VALID_URL,
+				"_real_extract": TelegraafIE__real_extract,
 			})
 		}())
 	})

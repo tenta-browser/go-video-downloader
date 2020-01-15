@@ -43,12 +43,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
-		GodTubeIE = λ.Cal(λ.TypeType, λ.NewStr("GodTubeIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		GodTubeIE = λ.Cal(λ.TypeType, λ.StrLiteral("GodTubeIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				GodTubeIE__VALID_URL    λ.Object
 				GodTubeIE__real_extract λ.Object
 			)
-			GodTubeIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?godtube\\.com/watch/\\?v=(?P<id>[\\da-zA-Z]+)")
+			GodTubeIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?godtube\\.com/watch/\\?v=(?P<id>[\\da-zA-Z]+)")
 			GodTubeIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -71,28 +71,28 @@ func init() {
 						ϒvideo_url λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-					ϒconfig = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), λ.Mod(λ.NewStr("http://www.godtube.com/resource/mediaplayer/%s.xml"), λ.Cal(λ.GetAttr(ϒvideo_id, "lower", nil))), ϒvideo_id, λ.NewStr("Downloading player config XML"))
-					ϒvideo_url = λ.GetAttr(λ.Cal(λ.GetAttr(ϒconfig, "find", nil), λ.NewStr("file")), "text", nil)
-					ϒuploader = λ.GetAttr(λ.Cal(λ.GetAttr(ϒconfig, "find", nil), λ.NewStr("author")), "text", nil)
-					ϒtimestamp = λ.Cal(ϒparse_iso8601, λ.GetAttr(λ.Cal(λ.GetAttr(ϒconfig, "find", nil), λ.NewStr("date")), "text", nil))
-					ϒduration = λ.Cal(ϒparse_duration, λ.GetAttr(λ.Cal(λ.GetAttr(ϒconfig, "find", nil), λ.NewStr("duration")), "text", nil))
-					ϒthumbnail = λ.GetAttr(λ.Cal(λ.GetAttr(ϒconfig, "find", nil), λ.NewStr("image")), "text", nil)
-					ϒmedia = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), λ.Mod(λ.NewStr("http://www.godtube.com/media/xml/?v=%s"), ϒvideo_id), ϒvideo_id, λ.NewStr("Downloading media XML"))
-					ϒtitle = λ.GetAttr(λ.Cal(λ.GetAttr(ϒmedia, "find", nil), λ.NewStr("title")), "text", nil)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("url"):       ϒvideo_url,
-						λ.NewStr("title"):     ϒtitle,
-						λ.NewStr("thumbnail"): ϒthumbnail,
-						λ.NewStr("timestamp"): ϒtimestamp,
-						λ.NewStr("uploader"):  ϒuploader,
-						λ.NewStr("duration"):  ϒduration,
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
+					ϒconfig = λ.Calm(ϒself, "_download_xml", λ.Mod(λ.StrLiteral("http://www.godtube.com/resource/mediaplayer/%s.xml"), λ.Calm(ϒvideo_id, "lower")), ϒvideo_id, λ.StrLiteral("Downloading player config XML"))
+					ϒvideo_url = λ.GetAttr(λ.Calm(ϒconfig, "find", λ.StrLiteral("file")), "text", nil)
+					ϒuploader = λ.GetAttr(λ.Calm(ϒconfig, "find", λ.StrLiteral("author")), "text", nil)
+					ϒtimestamp = λ.Cal(ϒparse_iso8601, λ.GetAttr(λ.Calm(ϒconfig, "find", λ.StrLiteral("date")), "text", nil))
+					ϒduration = λ.Cal(ϒparse_duration, λ.GetAttr(λ.Calm(ϒconfig, "find", λ.StrLiteral("duration")), "text", nil))
+					ϒthumbnail = λ.GetAttr(λ.Calm(ϒconfig, "find", λ.StrLiteral("image")), "text", nil)
+					ϒmedia = λ.Calm(ϒself, "_download_xml", λ.Mod(λ.StrLiteral("http://www.godtube.com/media/xml/?v=%s"), ϒvideo_id), ϒvideo_id, λ.StrLiteral("Downloading media XML"))
+					ϒtitle = λ.GetAttr(λ.Calm(ϒmedia, "find", λ.StrLiteral("title")), "text", nil)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒvideo_id,
+						"url":       ϒvideo_url,
+						"title":     ϒtitle,
+						"thumbnail": ϒthumbnail,
+						"timestamp": ϒtimestamp,
+						"uploader":  ϒuploader,
+						"duration":  ϒduration,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    GodTubeIE__VALID_URL,
-				λ.NewStr("_real_extract"): GodTubeIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    GodTubeIE__VALID_URL,
+				"_real_extract": GodTubeIE__real_extract,
 			})
 		}())
 	})

@@ -48,13 +48,13 @@ func init() {
 		ϒxpath_with_ns = Ωutils.ϒxpath_with_ns
 		ϒxpath_text = Ωutils.ϒxpath_text
 		ϒfind_xpath_attr = Ωutils.ϒfind_xpath_attr
-		XstreamIE = λ.Cal(λ.TypeType, λ.NewStr("XstreamIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		XstreamIE = λ.Cal(λ.TypeType, λ.StrLiteral("XstreamIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				XstreamIE__VALID_URL λ.Object
 			)
-			XstreamIE__VALID_URL = λ.NewStr("(?x)\n                    (?:\n                        xstream:|\n                        https?://frontend\\.xstream\\.(?:dk|net)/\n                    )\n                    (?P<partner_id>[^/]+)\n                    (?:\n                        :|\n                        /feed/video/\\?.*?\\bid=\n                    )\n                    (?P<id>\\d+)\n                    ")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): XstreamIE__VALID_URL,
+			XstreamIE__VALID_URL = λ.StrLiteral("(?x)\n                    (?:\n                        xstream:|\n                        https?://frontend\\.xstream\\.(?:dk|net)/\n                    )\n                    (?P<partner_id>[^/]+)\n                    (?:\n                        :|\n                        /feed/video/\\?.*?\\bid=\n                    )\n                    (?P<id>\\d+)\n                    ")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": XstreamIE__VALID_URL,
 			})
 		}())
 	})

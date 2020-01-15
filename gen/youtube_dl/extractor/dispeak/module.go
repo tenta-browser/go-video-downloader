@@ -49,13 +49,13 @@ func init() {
 		ϒremove_end = Ωutils.ϒremove_end
 		ϒxpath_element = Ωutils.ϒxpath_element
 		ϒxpath_text = Ωutils.ϒxpath_text
-		DigitallySpeakingIE = λ.Cal(λ.TypeType, λ.NewStr("DigitallySpeakingIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		DigitallySpeakingIE = λ.Cal(λ.TypeType, λ.StrLiteral("DigitallySpeakingIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				DigitallySpeakingIE__VALID_URL    λ.Object
 				DigitallySpeakingIE__parse_mp4    λ.Object
 				DigitallySpeakingIE__real_extract λ.Object
 			)
-			DigitallySpeakingIE__VALID_URL = λ.NewStr("https?://(?:s?evt\\.dispeak|events\\.digitallyspeaking)\\.com/(?:[^/]+/)+xml/(?P<id>[^.]+)\\.xml")
+			DigitallySpeakingIE__VALID_URL = λ.StrLiteral("https?://(?:s?evt\\.dispeak|events\\.digitallyspeaking)\\.com/(?:[^/]+/)+xml/(?P<id>[^.]+)\\.xml")
 			DigitallySpeakingIE__parse_mp4 = λ.NewFunction("_parse_mp4",
 				[]λ.Param{
 					{Name: "self"},
@@ -87,30 +87,30 @@ func init() {
 					ϒvideo_root = λ.None
 					ϒmp4_video = λ.Call(ϒxpath_text, λ.NewArgs(
 						ϒmetadata,
-						λ.NewStr("./mp4video"),
+						λ.StrLiteral("./mp4video"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
-					if λ.IsTrue(λ.NewBool(ϒmp4_video != λ.None)) {
-						ϒmobj = λ.Cal(Ωre.ϒmatch, λ.NewStr("(?P<root>https?://.*?/).*"), ϒmp4_video)
-						ϒvideo_root = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("root"))
+					if ϒmp4_video != λ.None {
+						ϒmobj = λ.Cal(Ωre.ϒmatch, λ.StrLiteral("(?P<root>https?://.*?/).*"), ϒmp4_video)
+						ϒvideo_root = λ.Calm(ϒmobj, "group", λ.StrLiteral("root"))
 					}
-					if λ.IsTrue(λ.NewBool(ϒvideo_root == λ.None)) {
+					if ϒvideo_root == λ.None {
 						ϒhttp_host = λ.Call(ϒxpath_text, λ.NewArgs(
 							ϒmetadata,
-							λ.NewStr("httpHost"),
+							λ.StrLiteral("httpHost"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
 						if λ.IsTrue(ϒhttp_host) {
-							ϒvideo_root = λ.Mod(λ.NewStr("http://%s/"), ϒhttp_host)
+							ϒvideo_root = λ.Mod(λ.StrLiteral("http://%s/"), ϒhttp_host)
 						}
 					}
-					if λ.IsTrue(λ.NewBool(ϒvideo_root == λ.None)) {
-						ϒvideo_root = λ.NewStr("http://s3-2u.digitallyspeaking.com/")
+					if ϒvideo_root == λ.None {
+						ϒvideo_root = λ.StrLiteral("http://s3-2u.digitallyspeaking.com/")
 					}
-					ϒformats = λ.Cal(λ.GetAttr(ϒmetadata, "findall", nil), λ.NewStr("./MBRVideos/MBRVideo"))
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
+					ϒformats = λ.Calm(ϒmetadata, "findall", λ.StrLiteral("./MBRVideos/MBRVideo"))
+					if !λ.IsTrue(ϒformats) {
 						return λ.None
 					}
 					τmp0 = λ.Cal(λ.BuiltinIter, ϒformats)
@@ -121,18 +121,18 @@ func init() {
 						ϒa_format = τmp1
 						ϒstream_name = λ.Call(ϒxpath_text, λ.NewArgs(
 							ϒa_format,
-							λ.NewStr("streamName"),
+							λ.StrLiteral("streamName"),
 						), λ.KWArgs{
 							{Name: "fatal", Value: λ.True},
 						})
-						ϒvideo_path = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.NewStr("mp4\\:(?P<path>.*)"), ϒstream_name), "group", nil), λ.NewStr("path"))
+						ϒvideo_path = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.StrLiteral("mp4\\:(?P<path>.*)"), ϒstream_name), "group", λ.StrLiteral("path"))
 						ϒurl = λ.Add(ϒvideo_root, ϒvideo_path)
-						ϒbitrate = λ.Cal(ϒxpath_text, ϒa_format, λ.NewStr("bitrate"))
+						ϒbitrate = λ.Cal(ϒxpath_text, ϒa_format, λ.StrLiteral("bitrate"))
 						ϒtbr = λ.Cal(ϒint_or_none, ϒbitrate)
 						ϒvbr = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("-(\\d+)\\.mp4"),
+							λ.StrLiteral("-(\\d+)\\.mp4"),
 							ϒvideo_path,
-							λ.NewStr("vbr"),
+							λ.StrLiteral("vbr"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}))
@@ -149,12 +149,12 @@ func init() {
 								return λ.None
 							}
 						}()
-						λ.Cal(λ.GetAttr(ϒvideo_formats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("format_id"): ϒbitrate,
-							λ.NewStr("url"):       ϒurl,
-							λ.NewStr("tbr"):       ϒtbr,
-							λ.NewStr("vbr"):       ϒvbr,
-							λ.NewStr("abr"):       ϒabr,
+						λ.Calm(ϒvideo_formats, "append", λ.DictLiteral(map[string]λ.Object{
+							"format_id": ϒbitrate,
+							"url":       ϒurl,
+							"tbr":       ϒtbr,
+							"vbr":       ϒvbr,
+							"abr":       ϒabr,
 						}))
 					}
 					return ϒvideo_formats
@@ -174,30 +174,30 @@ func init() {
 						ϒvideo_id        λ.Object
 						ϒxml_description λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒxml_description = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), ϒurl, ϒvideo_id)
-					ϒmetadata = λ.Cal(ϒxpath_element, ϒxml_description, λ.NewStr("metadata"))
-					ϒvideo_formats = λ.Cal(λ.GetAttr(ϒself, "_parse_mp4", nil), ϒmetadata)
-					if λ.IsTrue(λ.NewBool(ϒvideo_formats == λ.None)) {
-						ϒvideo_formats = λ.Cal(λ.GetAttr(ϒself, "_parse_flv", nil), ϒmetadata)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒxml_description = λ.Calm(ϒself, "_download_xml", ϒurl, ϒvideo_id)
+					ϒmetadata = λ.Cal(ϒxpath_element, ϒxml_description, λ.StrLiteral("metadata"))
+					ϒvideo_formats = λ.Calm(ϒself, "_parse_mp4", ϒmetadata)
+					if ϒvideo_formats == λ.None {
+						ϒvideo_formats = λ.Calm(ϒself, "_parse_flv", ϒmetadata)
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):      ϒvideo_id,
-						λ.NewStr("formats"): ϒvideo_formats,
-						λ.NewStr("title"): λ.Call(ϒxpath_text, λ.NewArgs(
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":      ϒvideo_id,
+						"formats": ϒvideo_formats,
+						"title": λ.Call(ϒxpath_text, λ.NewArgs(
 							ϒmetadata,
-							λ.NewStr("title"),
+							λ.StrLiteral("title"),
 						), λ.KWArgs{
 							{Name: "fatal", Value: λ.True},
 						}),
-						λ.NewStr("duration"): λ.Cal(ϒparse_duration, λ.Cal(ϒxpath_text, ϒmetadata, λ.NewStr("endTime"))),
-						λ.NewStr("creator"):  λ.Cal(ϒxpath_text, ϒmetadata, λ.NewStr("speaker")),
+						"duration": λ.Cal(ϒparse_duration, λ.Cal(ϒxpath_text, ϒmetadata, λ.StrLiteral("endTime"))),
+						"creator":  λ.Cal(ϒxpath_text, ϒmetadata, λ.StrLiteral("speaker")),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    DigitallySpeakingIE__VALID_URL,
-				λ.NewStr("_parse_mp4"):    DigitallySpeakingIE__parse_mp4,
-				λ.NewStr("_real_extract"): DigitallySpeakingIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    DigitallySpeakingIE__VALID_URL,
+				"_parse_mp4":    DigitallySpeakingIE__parse_mp4,
+				"_real_extract": DigitallySpeakingIE__real_extract,
 			})
 		}())
 	})

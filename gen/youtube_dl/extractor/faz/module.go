@@ -48,14 +48,14 @@ func init() {
 		ϒxpath_element = Ωutils.ϒxpath_element
 		ϒxpath_text = Ωutils.ϒxpath_text
 		ϒint_or_none = Ωutils.ϒint_or_none
-		FazIE = λ.Cal(λ.TypeType, λ.NewStr("FazIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		FazIE = λ.Cal(λ.TypeType, λ.StrLiteral("FazIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				FazIE_IE_NAME       λ.Object
 				FazIE__VALID_URL    λ.Object
 				FazIE__real_extract λ.Object
 			)
-			FazIE_IE_NAME = λ.NewStr("faz.net")
-			FazIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?faz\\.net/(?:[^/]+/)*.*?-(?P<id>\\d+)\\.html")
+			FazIE_IE_NAME = λ.StrLiteral("faz.net")
+			FazIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?faz\\.net/(?:[^/]+/)*.*?-(?P<id>\\d+)\\.html")
 			FazIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -85,82 +85,82 @@ func init() {
 						τmp1          λ.Object
 						τmp2          λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒdescription = λ.Cal(λ.GetAttr(ϒself, "_og_search_description", nil), ϒwebpage)
-					ϒmedia = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("data-videojs-media='([^']+)"), ϒwebpage, λ.NewStr("media"))
-					if λ.IsTrue(λ.Eq(ϒmedia, λ.NewStr("extern"))) {
-						ϒperform_url = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<iframe[^>]+?src='((?:http:)?//player\\.performgroup\\.com/eplayer/eplayer\\.html#/?[0-9a-f]{26}\\.[0-9a-z]{26})"), ϒwebpage, λ.NewStr("perform url"))
-						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒperform_url)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒdescription = λ.Calm(ϒself, "_og_search_description", ϒwebpage)
+					ϒmedia = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("data-videojs-media='([^']+)"), ϒwebpage, λ.StrLiteral("media"))
+					if λ.IsTrue(λ.Eq(ϒmedia, λ.StrLiteral("extern"))) {
+						ϒperform_url = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<iframe[^>]+?src='((?:http:)?//player\\.performgroup\\.com/eplayer/eplayer\\.html#/?[0-9a-f]{26}\\.[0-9a-z]{26})"), ϒwebpage, λ.StrLiteral("perform url"))
+						return λ.Calm(ϒself, "url_result", ϒperform_url)
 					}
 					ϒconfig = λ.Cal(ϒcompat_etree_fromstring, ϒmedia)
-					ϒencodings = λ.Cal(ϒxpath_element, ϒconfig, λ.NewStr("ENCODINGS"), λ.NewStr("encodings"), λ.True)
+					ϒencodings = λ.Cal(ϒxpath_element, ϒconfig, λ.StrLiteral("ENCODINGS"), λ.StrLiteral("encodings"), λ.True)
 					ϒformats = λ.NewList()
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.EnumerateIteratorType, λ.NewList(
-						λ.NewStr("LOW"),
-						λ.NewStr("HIGH"),
-						λ.NewStr("HQ"),
+						λ.StrLiteral("LOW"),
+						λ.StrLiteral("HIGH"),
+						λ.StrLiteral("HQ"),
 					)))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒpref = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒcode = λ.GetItem(τmp2, λ.NewInt(1))
+						ϒpref = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒcode = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒencoding = λ.Cal(ϒxpath_element, ϒencodings, ϒcode)
-						if λ.IsTrue(λ.NewBool(ϒencoding != λ.None)) {
-							ϒencoding_url = λ.Cal(ϒxpath_text, ϒencoding, λ.NewStr("FILENAME"))
+						if ϒencoding != λ.None {
+							ϒencoding_url = λ.Cal(ϒxpath_text, ϒencoding, λ.StrLiteral("FILENAME"))
 							if λ.IsTrue(ϒencoding_url) {
-								ϒtbr = λ.Cal(ϒxpath_text, ϒencoding, λ.NewStr("AVERAGEBITRATE"), λ.NewInt(1000))
+								ϒtbr = λ.Cal(ϒxpath_text, ϒencoding, λ.StrLiteral("AVERAGEBITRATE"), λ.IntLiteral(1000))
 								if λ.IsTrue(ϒtbr) {
-									ϒtbr = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒtbr, "replace", nil), λ.NewStr(","), λ.NewStr(".")))
+									ϒtbr = λ.Cal(ϒint_or_none, λ.Calm(ϒtbr, "replace", λ.StrLiteral(","), λ.StrLiteral(".")))
 								}
-								ϒf = λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("url"):       ϒencoding_url,
-									λ.NewStr("format_id"): λ.Cal(λ.GetAttr(ϒcode, "lower", nil)),
-									λ.NewStr("quality"):   ϒpref,
-									λ.NewStr("tbr"):       ϒtbr,
-									λ.NewStr("vcodec"):    λ.Cal(ϒxpath_text, ϒencoding, λ.NewStr("CODEC")),
+								ϒf = λ.DictLiteral(map[string]λ.Object{
+									"url":       ϒencoding_url,
+									"format_id": λ.Calm(ϒcode, "lower"),
+									"quality":   ϒpref,
+									"tbr":       ϒtbr,
+									"vcodec":    λ.Cal(ϒxpath_text, ϒencoding, λ.StrLiteral("CODEC")),
 								})
-								ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("(\\d+)x(\\d+)_(\\d+)\\.mp4"), ϒencoding_url)
+								ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("(\\d+)x(\\d+)_(\\d+)\\.mp4"), ϒencoding_url)
 								if λ.IsTrue(ϒmobj) {
-									λ.Cal(λ.GetAttr(ϒf, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("width"):  λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewInt(1))),
-										λ.NewStr("height"): λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewInt(2))),
-										λ.NewStr("tbr"): func() λ.Object {
+									λ.Calm(ϒf, "update", λ.DictLiteral(map[string]λ.Object{
+										"width":  λ.Cal(λ.IntType, λ.Calm(ϒmobj, "group", λ.IntLiteral(1))),
+										"height": λ.Cal(λ.IntType, λ.Calm(ϒmobj, "group", λ.IntLiteral(2))),
+										"tbr": func() λ.Object {
 											if λv := ϒtbr; λ.IsTrue(λv) {
 												return λv
 											} else {
-												return λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewInt(3)))
+												return λ.Cal(λ.IntType, λ.Calm(ϒmobj, "group", λ.IntLiteral(3)))
 											}
 										}(),
 									}))
 								}
-								λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)
+								λ.Calm(ϒformats, "append", ϒf)
 							}
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):      ϒvideo_id,
-						λ.NewStr("title"):   λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage),
-						λ.NewStr("formats"): ϒformats,
-						λ.NewStr("description"): func() λ.Object {
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":      ϒvideo_id,
+						"title":   λ.Calm(ϒself, "_og_search_title", ϒwebpage),
+						"formats": ϒformats,
+						"description": func() λ.Object {
 							if λ.IsTrue(ϒdescription) {
-								return λ.Cal(λ.GetAttr(ϒdescription, "strip", nil))
+								return λ.Calm(ϒdescription, "strip")
 							} else {
 								return λ.None
 							}
 						}(),
-						λ.NewStr("thumbnail"): λ.Cal(ϒxpath_text, ϒconfig, λ.NewStr("STILL/STILL_BIG")),
-						λ.NewStr("duration"):  λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒconfig, λ.NewStr("DURATION"))),
+						"thumbnail": λ.Cal(ϒxpath_text, ϒconfig, λ.StrLiteral("STILL/STILL_BIG")),
+						"duration":  λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒconfig, λ.StrLiteral("DURATION"))),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       FazIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    FazIE__VALID_URL,
-				λ.NewStr("_real_extract"): FazIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       FazIE_IE_NAME,
+				"_VALID_URL":    FazIE__VALID_URL,
+				"_real_extract": FazIE__real_extract,
 			})
 		}())
 	})

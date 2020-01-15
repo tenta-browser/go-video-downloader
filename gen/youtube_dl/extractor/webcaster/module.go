@@ -43,22 +43,22 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒxpath_text = Ωutils.ϒxpath_text
-		WebcasterIE = λ.Cal(λ.TypeType, λ.NewStr("WebcasterIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		WebcasterIE = λ.Cal(λ.TypeType, λ.StrLiteral("WebcasterIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				WebcasterIE__VALID_URL λ.Object
 			)
-			WebcasterIE__VALID_URL = λ.NewStr("https?://bl\\.webcaster\\.pro/(?:quote|media)/start/free_(?P<id>[^/]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): WebcasterIE__VALID_URL,
+			WebcasterIE__VALID_URL = λ.StrLiteral("https?://bl\\.webcaster\\.pro/(?:quote|media)/start/free_(?P<id>[^/]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": WebcasterIE__VALID_URL,
 			})
 		}())
-		WebcasterFeedIE = λ.Cal(λ.TypeType, λ.NewStr("WebcasterFeedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		WebcasterFeedIE = λ.Cal(λ.TypeType, λ.StrLiteral("WebcasterFeedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				WebcasterFeedIE__VALID_URL λ.Object
 			)
-			WebcasterFeedIE__VALID_URL = λ.NewStr("https?://bl\\.webcaster\\.pro/feed/start/free_(?P<id>[^/]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): WebcasterFeedIE__VALID_URL,
+			WebcasterFeedIE__VALID_URL = λ.StrLiteral("https?://bl\\.webcaster\\.pro/feed/start/free_(?P<id>[^/]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": WebcasterFeedIE__VALID_URL,
 			})
 		}())
 	})

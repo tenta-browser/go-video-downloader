@@ -37,12 +37,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		OnetBaseIE = Ωonet.OnetBaseIE
-		ClipRsIE = λ.Cal(λ.TypeType, λ.NewStr("ClipRsIE"), λ.NewTuple(OnetBaseIE), func() λ.Dict {
+		ClipRsIE = λ.Cal(λ.TypeType, λ.StrLiteral("ClipRsIE"), λ.NewTuple(OnetBaseIE), func() λ.Dict {
 			var (
 				ClipRsIE__VALID_URL    λ.Object
 				ClipRsIE__real_extract λ.Object
 			)
-			ClipRsIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?clip\\.rs/(?P<id>[^/]+)/\\d+")
+			ClipRsIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?clip\\.rs/(?P<id>[^/]+)/\\d+")
 			ClipRsIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -58,16 +58,16 @@ func init() {
 						ϒurl        = λargs[1]
 						ϒwebpage    λ.Object
 					)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
-					ϒmvp_id = λ.Cal(λ.GetAttr(ϒself, "_search_mvp_id", nil), ϒwebpage)
-					ϒinfo_dict = λ.Cal(λ.GetAttr(ϒself, "_extract_from_id", nil), ϒmvp_id, ϒwebpage)
-					λ.SetItem(ϒinfo_dict, λ.NewStr("display_id"), ϒdisplay_id)
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
+					ϒmvp_id = λ.Calm(ϒself, "_search_mvp_id", ϒwebpage)
+					ϒinfo_dict = λ.Calm(ϒself, "_extract_from_id", ϒmvp_id, ϒwebpage)
+					λ.SetItem(ϒinfo_dict, λ.StrLiteral("display_id"), ϒdisplay_id)
 					return ϒinfo_dict
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    ClipRsIE__VALID_URL,
-				λ.NewStr("_real_extract"): ClipRsIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    ClipRsIE__VALID_URL,
+				"_real_extract": ClipRsIE__real_extract,
 			})
 		}())
 	})

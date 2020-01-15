@@ -40,12 +40,12 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒjs_to_json = Ωutils.ϒjs_to_json
-		ScreencastOMaticIE = λ.Cal(λ.TypeType, λ.NewStr("ScreencastOMaticIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ScreencastOMaticIE = λ.Cal(λ.TypeType, λ.StrLiteral("ScreencastOMaticIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ScreencastOMaticIE__VALID_URL    λ.Object
 				ScreencastOMaticIE__real_extract λ.Object
 			)
-			ScreencastOMaticIE__VALID_URL = λ.NewStr("https?://screencast-o-matic\\.com/watch/(?P<id>[0-9a-zA-Z]+)")
+			ScreencastOMaticIE__VALID_URL = λ.StrLiteral("https?://screencast-o-matic\\.com/watch/(?P<id>[0-9a-zA-Z]+)")
 			ScreencastOMaticIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -61,10 +61,10 @@ func init() {
 						ϒvideo_id      λ.Object
 						ϒwebpage       λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
 					ϒjwplayer_data = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
-						λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("(?s)jwplayer\\('mp4Player'\\).setup\\((\\{.*?\\})\\);"), ϒwebpage, λ.NewStr("setup code")),
+						λ.Calm(ϒself, "_search_regex", λ.StrLiteral("(?s)jwplayer\\('mp4Player'\\).setup\\((\\{.*?\\})\\);"), ϒwebpage, λ.StrLiteral("setup code")),
 						ϒvideo_id,
 					), λ.KWArgs{
 						{Name: "transform_source", Value: ϒjs_to_json},
@@ -75,15 +75,15 @@ func init() {
 					), λ.KWArgs{
 						{Name: "require_title", Value: λ.False},
 					})
-					λ.Cal(λ.GetAttr(ϒinfo_dict, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("title"):       λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage),
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒself, "_og_search_description", nil), ϒwebpage),
+					λ.Calm(ϒinfo_dict, "update", λ.DictLiteral(map[string]λ.Object{
+						"title":       λ.Calm(ϒself, "_og_search_title", ϒwebpage),
+						"description": λ.Calm(ϒself, "_og_search_description", ϒwebpage),
 					}))
 					return ϒinfo_dict
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    ScreencastOMaticIE__VALID_URL,
-				λ.NewStr("_real_extract"): ScreencastOMaticIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    ScreencastOMaticIE__VALID_URL,
+				"_real_extract": ScreencastOMaticIE__real_extract,
 			})
 		}())
 	})

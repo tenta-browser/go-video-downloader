@@ -60,22 +60,22 @@ func init() {
 					ϒres_info λ.Object
 					τmp0      λ.Object
 				)
-				ϒheaders = λ.NewDictWithTable(map[λ.Object]λ.Object{})
-				λ.Cal(λ.GetAttr(ϒheaders, "update", nil), ϒstd_headers)
-				λ.Cal(λ.GetAttr(ϒheaders, "update", nil), λ.GetAttr(ϒreq, "headers", nil))
-				τmp0 = λ.Cal(Ωnet.Execute, ϒclient, λ.Cal(λ.GetAttr(ϒreq, "get_method", nil)), λ.GetAttr(ϒreq, "url", nil), λ.GetAttr(ϒreq, "data", nil), ϒheaders)
-				ϒres_info = λ.GetItem(τmp0, λ.NewInt(0))
-				ϒerr = λ.GetItem(τmp0, λ.NewInt(1))
+				ϒheaders = λ.DictLiteral(map[λ.Object]λ.Object{})
+				λ.Calm(ϒheaders, "update", ϒstd_headers)
+				λ.Calm(ϒheaders, "update", λ.GetAttr(ϒreq, "headers", nil))
+				τmp0 = λ.Cal(Ωnet.Execute, ϒclient, λ.Calm(ϒreq, "get_method"), λ.GetAttr(ϒreq, "url", nil), λ.GetAttr(ϒreq, "data", nil), ϒheaders)
+				ϒres_info = λ.GetItem(τmp0, λ.IntLiteral(0))
+				ϒerr = λ.GetItem(τmp0, λ.IntLiteral(1))
 				if λ.IsTrue(ϒerr) {
 					panic(λ.Raise(λ.Cal(URLError, ϒerr)))
 				}
 				ϒres = λ.Cal(Response, λ.Unpack(λ.AsStarred(ϒres_info))...)
-				if λ.IsTrue(λ.Ne(λ.GetAttr(ϒres, "status", nil), λ.NewInt(200))) {
+				if λ.IsTrue(λ.Ne(λ.GetAttr(ϒres, "status", nil), λ.IntLiteral(200))) {
 					panic(λ.Raise(λ.Cal(HTTPError, λ.GetAttr(ϒres, "url", nil), λ.GetAttr(ϒres, "status", nil), λ.GetAttr(ϒres, "msg", nil), ϒheaders, ϒres)))
 				}
 				return ϒres
 			})
-		Response = λ.Cal(λ.TypeType, λ.NewStr("Response"), λ.NewTuple(), func() λ.Dict {
+		Response = λ.Cal(λ.TypeType, λ.StrLiteral("Response"), λ.NewTuple(), func() λ.Dict {
 			var (
 				Response___init__ λ.Object
 				Response_geturl   λ.Object
@@ -120,8 +120,8 @@ func init() {
 						τmp0  λ.Object
 					)
 					τmp0 = λ.Cal(Ωnet.ReadResponseBody, λ.GetAttr(ϒself, "native_res", nil))
-					ϒdata = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒerr = λ.GetItem(τmp0, λ.NewInt(1))
+					ϒdata = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒerr = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if λ.IsTrue(ϒerr) {
 						panic(λ.Raise(λ.Cal(URLError, ϒerr)))
 					}
@@ -138,10 +138,10 @@ func init() {
 					)
 					return λ.GetAttr(ϒself, "url", nil)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"): Response___init__,
-				λ.NewStr("geturl"):   Response_geturl,
-				λ.NewStr("read"):     Response_read,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__": Response___init__,
+				"geturl":   Response_geturl,
+				"read":     Response_read,
 			})
 		}())
 	})

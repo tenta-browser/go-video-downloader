@@ -40,12 +40,12 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
-		KickStarterIE = λ.Cal(λ.TypeType, λ.NewStr("KickStarterIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		KickStarterIE = λ.Cal(λ.TypeType, λ.StrLiteral("KickStarterIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				KickStarterIE__VALID_URL    λ.Object
 				KickStarterIE__real_extract λ.Object
 			)
-			KickStarterIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?kickstarter\\.com/projects/(?P<id>[^/]*)/.*")
+			KickStarterIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?kickstarter\\.com/projects/(?P<id>[^/]*)/.*")
 			KickStarterIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -62,51 +62,51 @@ func init() {
 						ϒvideo_url λ.Object
 						ϒwebpage   λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<title>\\s*(.*?)(?:\\s*&mdash;\\s*Kickstarter)?\\s*</title>"), ϒwebpage, λ.NewStr("title"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒtitle = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("<title>\\s*(.*?)(?:\\s*&mdash;\\s*Kickstarter)?\\s*</title>"), ϒwebpage, λ.StrLiteral("title"))
 					ϒvideo_url = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("data-video-url=\"(.*?)\""),
+						λ.StrLiteral("data-video-url=\"(.*?)\""),
 						ϒwebpage,
-						λ.NewStr("video URL"),
+						λ.StrLiteral("video URL"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
-					if λ.IsTrue(λ.NewBool(ϒvideo_url == λ.None)) {
-						return λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("_type"):  λ.NewStr("url_transparent"),
-							λ.NewStr("ie_key"): λ.NewStr("Generic"),
-							λ.NewStr("url"): λ.Cal(ϒsmuggle_url, ϒurl, λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("to_generic"): λ.True,
+					if ϒvideo_url == λ.None {
+						return λ.DictLiteral(map[string]λ.Object{
+							"_type":  λ.StrLiteral("url_transparent"),
+							"ie_key": λ.StrLiteral("Generic"),
+							"url": λ.Cal(ϒsmuggle_url, ϒurl, λ.DictLiteral(map[string]λ.Object{
+								"to_generic": λ.True,
 							})),
-							λ.NewStr("title"): ϒtitle,
+							"title": ϒtitle,
 						})
 					}
 					ϒthumbnail = λ.Call(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
-					if λ.IsTrue(λ.NewBool(ϒthumbnail == λ.None)) {
+					if ϒthumbnail == λ.None {
 						ϒthumbnail = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-							λ.NewStr("<img[^>]+class=\"[^\"]+\\s*poster\\s*[^\"]+\"[^>]+src=\"([^\"]+)\""),
+							λ.StrLiteral("<img[^>]+class=\"[^\"]+\\s*poster\\s*[^\"]+\"[^>]+src=\"([^\"]+)\""),
 							ϒwebpage,
-							λ.NewStr("thumbnail image"),
+							λ.StrLiteral("thumbnail image"),
 						), λ.KWArgs{
 							{Name: "fatal", Value: λ.False},
 						})
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    ϒvideo_id,
-						λ.NewStr("url"):   ϒvideo_url,
-						λ.NewStr("title"): ϒtitle,
-						λ.NewStr("description"): λ.Call(λ.GetAttr(ϒself, "_og_search_description", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":    ϒvideo_id,
+						"url":   ϒvideo_url,
+						"title": ϒtitle,
+						"description": λ.Call(λ.GetAttr(ϒself, "_og_search_description", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}),
-						λ.NewStr("thumbnail"): ϒthumbnail,
+						"thumbnail": ϒthumbnail,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    KickStarterIE__VALID_URL,
-				λ.NewStr("_real_extract"): KickStarterIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    KickStarterIE__VALID_URL,
+				"_real_extract": KickStarterIE__real_extract,
 			})
 		}())
 	})

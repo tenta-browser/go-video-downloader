@@ -47,14 +47,14 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒclean_html = Ωutils.ϒclean_html
-		TFOIE = λ.Cal(λ.TypeType, λ.NewStr("TFOIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TFOIE = λ.Cal(λ.TypeType, λ.StrLiteral("TFOIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TFOIE__GEO_COUNTRIES λ.Object
 				TFOIE__VALID_URL     λ.Object
 				TFOIE__real_extract  λ.Object
 			)
-			TFOIE__GEO_COUNTRIES = λ.NewList(λ.NewStr("CA"))
-			TFOIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tfo\\.org/(?:en|fr)/(?:[^/]+/){2}(?P<id>\\d+)")
+			TFOIE__GEO_COUNTRIES = λ.NewList(λ.StrLiteral("CA"))
+			TFOIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?tfo\\.org/(?:en|fr)/(?:[^/]+/){2}(?P<id>\\d+)")
 			TFOIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -69,50 +69,50 @@ func init() {
 						ϒvideo_data λ.Object
 						ϒvideo_id   λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					λ.Cal(λ.GetAttr(ϒself, "_request_webpage", nil), λ.Cal(HEADRequest, λ.NewStr("http://www.tfo.org/")), ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					λ.Calm(ϒself, "_request_webpage", λ.Cal(HEADRequest, λ.StrLiteral("http://www.tfo.org/")), ϒvideo_id)
 					ϒinfos = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.NewStr("http://www.tfo.org/api/web/video/get_infos"),
+						λ.StrLiteral("http://www.tfo.org/api/web/video/get_infos"),
 						ϒvideo_id,
 					), λ.KWArgs{
-						{Name: "data", Value: λ.Cal(λ.GetAttr(λ.Cal(Ωjson.ϒdumps, λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("product_id"): ϒvideo_id,
-						})), "encode", nil))},
-						{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("X-tfo-session"): λ.GetAttr(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_get_cookies", nil), λ.NewStr("http://www.tfo.org/")), λ.NewStr("tfo-session")), "value", nil),
+						{Name: "data", Value: λ.Calm(λ.Cal(Ωjson.ϒdumps, λ.DictLiteral(map[string]λ.Object{
+							"product_id": ϒvideo_id,
+						})), "encode")},
+						{Name: "headers", Value: λ.DictLiteral(map[string]λ.Object{
+							"X-tfo-session": λ.GetAttr(λ.GetItem(λ.Calm(ϒself, "_get_cookies", λ.StrLiteral("http://www.tfo.org/")), λ.StrLiteral("tfo-session")), "value", nil),
 						})},
 					})
-					if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒinfos, "get", nil), λ.NewStr("success")), λ.NewInt(0))) {
-						if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒinfos, "get", nil), λ.NewStr("code")), λ.NewStr("ErrGeoBlocked"))) {
+					if λ.IsTrue(λ.Eq(λ.Calm(ϒinfos, "get", λ.StrLiteral("success")), λ.IntLiteral(0))) {
+						if λ.IsTrue(λ.Eq(λ.Calm(ϒinfos, "get", λ.StrLiteral("code")), λ.StrLiteral("ErrGeoBlocked"))) {
 							λ.Call(λ.GetAttr(ϒself, "raise_geo_restricted", nil), nil, λ.KWArgs{
 								{Name: "countries", Value: λ.GetAttr(ϒself, "_GEO_COUNTRIES", nil)},
 							})
 						}
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("%s said: %s"), λ.NewTuple(
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("%s said: %s"), λ.NewTuple(
 							λ.GetAttr(ϒself, "IE_NAME", nil),
-							λ.Cal(ϒclean_html, λ.GetItem(ϒinfos, λ.NewStr("msg"))),
+							λ.Cal(ϒclean_html, λ.GetItem(ϒinfos, λ.StrLiteral("msg"))),
 						))), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
-					ϒvideo_data = λ.GetItem(ϒinfos, λ.NewStr("data"))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):          λ.NewStr("url_transparent"),
-						λ.NewStr("id"):             ϒvideo_id,
-						λ.NewStr("url"):            λ.Add(λ.NewStr("limelight:media:"), λ.GetItem(ϒvideo_data, λ.NewStr("llid"))),
-						λ.NewStr("title"):          λ.GetItem(ϒvideo_data, λ.NewStr("title")),
-						λ.NewStr("description"):    λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("description")),
-						λ.NewStr("series"):         λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("collection")),
-						λ.NewStr("season_number"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("season"))),
-						λ.NewStr("episode_number"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("episode"))),
-						λ.NewStr("duration"):       λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("duration"))),
-						λ.NewStr("ie_key"):         λ.NewStr("LimelightMedia"),
+					ϒvideo_data = λ.GetItem(ϒinfos, λ.StrLiteral("data"))
+					return λ.DictLiteral(map[string]λ.Object{
+						"_type":          λ.StrLiteral("url_transparent"),
+						"id":             ϒvideo_id,
+						"url":            λ.Add(λ.StrLiteral("limelight:media:"), λ.GetItem(ϒvideo_data, λ.StrLiteral("llid"))),
+						"title":          λ.GetItem(ϒvideo_data, λ.StrLiteral("title")),
+						"description":    λ.Calm(ϒvideo_data, "get", λ.StrLiteral("description")),
+						"series":         λ.Calm(ϒvideo_data, "get", λ.StrLiteral("collection")),
+						"season_number":  λ.Cal(ϒint_or_none, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("season"))),
+						"episode_number": λ.Cal(ϒint_or_none, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("episode"))),
+						"duration":       λ.Cal(ϒint_or_none, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("duration"))),
+						"ie_key":         λ.StrLiteral("LimelightMedia"),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_GEO_COUNTRIES"): TFOIE__GEO_COUNTRIES,
-				λ.NewStr("_VALID_URL"):     TFOIE__VALID_URL,
-				λ.NewStr("_real_extract"):  TFOIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_GEO_COUNTRIES": TFOIE__GEO_COUNTRIES,
+				"_VALID_URL":     TFOIE__VALID_URL,
+				"_real_extract":  TFOIE__real_extract,
 			})
 		}())
 	})

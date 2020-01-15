@@ -59,15 +59,15 @@ func init() {
 		ϒremove_end = Ωutils.ϒremove_end
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		ϒurljoin = Ωutils.ϒurljoin
-		TeamTreeHouseIE = λ.Cal(λ.TypeType, λ.NewStr("TeamTreeHouseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TeamTreeHouseIE = λ.Cal(λ.TypeType, λ.StrLiteral("TeamTreeHouseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TeamTreeHouseIE__NETRC_MACHINE   λ.Object
 				TeamTreeHouseIE__VALID_URL       λ.Object
 				TeamTreeHouseIE__real_extract    λ.Object
 				TeamTreeHouseIE__real_initialize λ.Object
 			)
-			TeamTreeHouseIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?teamtreehouse\\.com/library/(?P<id>[^/]+)")
-			TeamTreeHouseIE__NETRC_MACHINE = λ.NewStr("teamtreehouse")
+			TeamTreeHouseIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?teamtreehouse\\.com/library/(?P<id>[^/]+)")
+			TeamTreeHouseIE__NETRC_MACHINE = λ.StrLiteral("teamtreehouse")
 			TeamTreeHouseIE__real_initialize = λ.NewFunction("_real_initialize",
 				[]λ.Param{
 					{Name: "self"},
@@ -83,22 +83,22 @@ func init() {
 						ϒsignin_page   λ.Object
 						τmp0           λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_get_login_info", nil))
-					ϒemail = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒpassword = λ.GetItem(τmp0, λ.NewInt(1))
-					if λ.IsTrue(λ.NewBool(ϒemail == λ.None)) {
+					τmp0 = λ.Calm(ϒself, "_get_login_info")
+					ϒemail = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
+					if ϒemail == λ.None {
 						return λ.None
 					}
-					ϒsignin_page = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewStr("https://teamtreehouse.com/signin"), λ.None, λ.NewStr("Downloading signin page"))
-					ϒdata = λ.Cal(λ.GetAttr(ϒself, "_form_hidden_inputs", nil), λ.NewStr("new_user_session"), ϒsignin_page)
-					λ.Cal(λ.GetAttr(ϒdata, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("user_session[email]"):    ϒemail,
-						λ.NewStr("user_session[password]"): ϒpassword,
+					ϒsignin_page = λ.Calm(ϒself, "_download_webpage", λ.StrLiteral("https://teamtreehouse.com/signin"), λ.None, λ.StrLiteral("Downloading signin page"))
+					ϒdata = λ.Calm(ϒself, "_form_hidden_inputs", λ.StrLiteral("new_user_session"), ϒsignin_page)
+					λ.Calm(ϒdata, "update", λ.DictLiteral(map[string]λ.Object{
+						"user_session[email]":    ϒemail,
+						"user_session[password]": ϒpassword,
 					}))
-					ϒerror_message = λ.Cal(ϒget_element_by_class, λ.NewStr("error-message"), λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
-						λ.NewStr("https://teamtreehouse.com/person_session"),
+					ϒerror_message = λ.Cal(ϒget_element_by_class, λ.StrLiteral("error-message"), λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
+						λ.StrLiteral("https://teamtreehouse.com/person_session"),
 						λ.None,
-						λ.NewStr("Logging in"),
+						λ.StrLiteral("Logging in"),
 					), λ.KWArgs{
 						{Name: "data", Value: λ.Cal(ϒurlencode_postdata, ϒdata)},
 					}))
@@ -141,21 +141,21 @@ func init() {
 						τmp2             λ.Object
 						τmp3             λ.Object
 					)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewList(
-						λ.NewStr("og:title"),
-						λ.NewStr("twitter:title"),
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
+					ϒtitle = λ.Calm(ϒself, "_html_search_meta", λ.NewList(
+						λ.StrLiteral("og:title"),
+						λ.StrLiteral("twitter:title"),
 					), ϒwebpage)
-					ϒdescription = λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewList(
-						λ.NewStr("description"),
-						λ.NewStr("og:description"),
-						λ.NewStr("twitter:description"),
+					ϒdescription = λ.Calm(ϒself, "_html_search_meta", λ.NewList(
+						λ.StrLiteral("description"),
+						λ.StrLiteral("og:description"),
+						λ.StrLiteral("twitter:description"),
 					), ϒwebpage)
-					ϒentries = λ.Cal(λ.GetAttr(ϒself, "_parse_html5_media_entries", nil), ϒurl, ϒwebpage, ϒdisplay_id)
+					ϒentries = λ.Calm(ϒself, "_parse_html5_media_entries", ϒurl, ϒwebpage, ϒdisplay_id)
 					if λ.IsTrue(ϒentries) {
-						ϒinfo = λ.GetItem(ϒentries, λ.NewInt(0))
-						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("subtitles"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "values", nil)))
+						ϒinfo = λ.GetItem(ϒentries, λ.IntLiteral(0))
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.Calm(ϒinfo, "get", λ.StrLiteral("subtitles"), λ.DictLiteral(map[λ.Object]λ.Object{})), "values"))
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
@@ -167,24 +167,24 @@ func init() {
 									break
 								}
 								ϒsubtitle = τmp3
-								λ.SetItem(ϒsubtitle, λ.NewStr("ext"), λ.Cal(ϒdetermine_ext, λ.GetItem(ϒsubtitle, λ.NewStr("url")), λ.NewStr("srt")))
+								λ.SetItem(ϒsubtitle, λ.StrLiteral("ext"), λ.Cal(ϒdetermine_ext, λ.GetItem(ϒsubtitle, λ.StrLiteral("url")), λ.StrLiteral("srt")))
 							}
 						}
-						ϒis_preview = λ.NewBool(λ.Contains(ϒwebpage, λ.NewStr("data-preview=\"true\"")))
+						ϒis_preview = λ.NewBool(λ.Contains(ϒwebpage, λ.StrLiteral("data-preview=\"true\"")))
 						if λ.IsTrue(ϒis_preview) {
-							λ.Cal(λ.GetAttr(ϒself, "report_warning", nil), λ.NewStr("This is just a preview. You need to be signed in with a Basic account to download the entire video."), ϒdisplay_id)
-							ϒduration = λ.NewInt(30)
+							λ.Calm(ϒself, "report_warning", λ.StrLiteral("This is just a preview. You need to be signed in with a Basic account to download the entire video."), ϒdisplay_id)
+							ϒduration = λ.IntLiteral(30)
 						} else {
-							ϒduration = λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("data-duration=\"(\\d+)\""), ϒwebpage, λ.NewStr("duration")), λ.NewInt(1000))
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒduration))) {
-								ϒduration = λ.Cal(ϒparse_duration, λ.Cal(ϒget_element_by_id, λ.NewStr("video-duration"), ϒwebpage))
+							ϒduration = λ.Cal(ϒfloat_or_none, λ.Calm(ϒself, "_search_regex", λ.StrLiteral("data-duration=\"(\\d+)\""), ϒwebpage, λ.StrLiteral("duration")), λ.IntLiteral(1000))
+							if !λ.IsTrue(ϒduration) {
+								ϒduration = λ.Cal(ϒparse_duration, λ.Cal(ϒget_element_by_id, λ.StrLiteral("video-duration"), ϒwebpage))
 							}
 						}
-						λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("id"):          ϒdisplay_id,
-							λ.NewStr("title"):       ϒtitle,
-							λ.NewStr("description"): ϒdescription,
-							λ.NewStr("duration"):    ϒduration,
+						λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
+							"id":          ϒdisplay_id,
+							"title":       ϒtitle,
+							"description": ϒdescription,
+							"duration":    ϒduration,
 						}))
 						return ϒinfo
 					} else {
@@ -204,66 +204,66 @@ func init() {
 									τmp0          λ.Object
 									τmp1          λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.NewStr("<a[^>]+href=\"([^\"]+)\""), ϒhtml))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("<a[^>]+href=\"([^\"]+)\""), ϒhtml))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									ϒpath = τmp1
 									ϒpage_url = λ.Cal(ϒurljoin, ϒurl, ϒpath)
-									ϒentry = λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("_type"):  λ.NewStr("url_transparent"),
-										λ.NewStr("id"):     λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒpage_url),
-										λ.NewStr("url"):    ϒpage_url,
-										λ.NewStr("id_key"): λ.Cal(λ.GetAttr(ϒself, "ie_key", nil)),
+									ϒentry = λ.DictLiteral(map[string]λ.Object{
+										"_type":  λ.StrLiteral("url_transparent"),
+										"id":     λ.Calm(ϒself, "_match_id", ϒpage_url),
+										"url":    ϒpage_url,
+										"id_key": λ.Calm(ϒself, "ie_key"),
 									})
 									if λ.IsTrue(ϒextract_info) {
-										λ.Cal(λ.GetAttr(ϒentry, "update", nil), ϒextract_info)
+										λ.Calm(ϒentry, "update", ϒextract_info)
 									}
-									λ.Cal(λ.GetAttr(ϒentries, "append", nil), ϒentry)
+									λ.Calm(ϒentries, "append", ϒentry)
 								}
 								return λ.None
 							})
 						ϒworkshop_videos = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("(?s)<ul[^>]+id=\"workshop-videos\"[^>]*>(.+?)</ul>"),
+							λ.StrLiteral("(?s)<ul[^>]+id=\"workshop-videos\"[^>]*>(.+?)</ul>"),
 							ϒwebpage,
-							λ.NewStr("workshop videos"),
+							λ.StrLiteral("workshop videos"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
 						if λ.IsTrue(ϒworkshop_videos) {
 							λ.Cal(ϒextract_urls, ϒworkshop_videos)
 						} else {
-							ϒstages_path = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("(?s)<div[^>]+id=\"syllabus-stages\"[^>]+data-url=\"([^\"]+)\""), ϒwebpage, λ.NewStr("stages path"))
+							ϒstages_path = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("(?s)<div[^>]+id=\"syllabus-stages\"[^>]+data-url=\"([^\"]+)\""), ϒwebpage, λ.StrLiteral("stages path"))
 							if λ.IsTrue(ϒstages_path) {
-								ϒstages_page = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Cal(ϒurljoin, ϒurl, ϒstages_path), ϒdisplay_id, λ.NewStr("Downloading stages page"))
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.EnumerateIteratorType, λ.Cal(Ωre.ϒfindall, λ.NewStr("(?s)<h2[^>]*>\\s*(.+?)\\s*</h2>.+?<ul[^>]*>(.+?)</ul>"), ϒstages_page), λ.NewInt(1)))
+								ϒstages_page = λ.Calm(ϒself, "_download_webpage", λ.Cal(ϒurljoin, ϒurl, ϒstages_path), ϒdisplay_id, λ.StrLiteral("Downloading stages page"))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.EnumerateIteratorType, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("(?s)<h2[^>]*>\\s*(.+?)\\s*</h2>.+?<ul[^>]*>(.+?)</ul>"), ϒstages_page), λ.IntLiteral(1)))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									τmp2 = τmp1
-									ϒchapter_number = λ.GetItem(τmp2, λ.NewInt(0))
-									τmp3 = λ.GetItem(τmp2, λ.NewInt(1))
-									ϒchapter = λ.GetItem(τmp3, λ.NewInt(0))
-									ϒsteps_list = λ.GetItem(τmp3, λ.NewInt(1))
-									λ.Cal(ϒextract_urls, ϒsteps_list, λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("chapter"):        ϒchapter,
-										λ.NewStr("chapter_number"): ϒchapter_number,
+									ϒchapter_number = λ.GetItem(τmp2, λ.IntLiteral(0))
+									τmp3 = λ.GetItem(τmp2, λ.IntLiteral(1))
+									ϒchapter = λ.GetItem(τmp3, λ.IntLiteral(0))
+									ϒsteps_list = λ.GetItem(τmp3, λ.IntLiteral(1))
+									λ.Cal(ϒextract_urls, ϒsteps_list, λ.DictLiteral(map[string]λ.Object{
+										"chapter":        ϒchapter,
+										"chapter_number": ϒchapter_number,
 									}))
 								}
-								ϒtitle = λ.Cal(ϒremove_end, ϒtitle, λ.NewStr(" Course"))
+								ϒtitle = λ.Cal(ϒremove_end, ϒtitle, λ.StrLiteral(" Course"))
 							}
 						}
-						return λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), ϒentries, ϒdisplay_id, ϒtitle, ϒdescription)
+						return λ.Calm(ϒself, "playlist_result", ϒentries, ϒdisplay_id, ϒtitle, ϒdescription)
 					}
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_NETRC_MACHINE"):   TeamTreeHouseIE__NETRC_MACHINE,
-				λ.NewStr("_VALID_URL"):       TeamTreeHouseIE__VALID_URL,
-				λ.NewStr("_real_extract"):    TeamTreeHouseIE__real_extract,
-				λ.NewStr("_real_initialize"): TeamTreeHouseIE__real_initialize,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_NETRC_MACHINE":   TeamTreeHouseIE__NETRC_MACHINE,
+				"_VALID_URL":       TeamTreeHouseIE__VALID_URL,
+				"_real_extract":    TeamTreeHouseIE__real_extract,
+				"_real_initialize": TeamTreeHouseIE__real_initialize,
 			})
 		}())
 	})

@@ -41,22 +41,22 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
-		LiveLeakIE = λ.Cal(λ.TypeType, λ.NewStr("LiveLeakIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		LiveLeakIE = λ.Cal(λ.TypeType, λ.StrLiteral("LiveLeakIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				LiveLeakIE__VALID_URL λ.Object
 			)
-			LiveLeakIE__VALID_URL = λ.NewStr("https?://(?:\\w+\\.)?liveleak\\.com/view\\?.*?\\b[it]=(?P<id>[\\w_]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): LiveLeakIE__VALID_URL,
+			LiveLeakIE__VALID_URL = λ.StrLiteral("https?://(?:\\w+\\.)?liveleak\\.com/view\\?.*?\\b[it]=(?P<id>[\\w_]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": LiveLeakIE__VALID_URL,
 			})
 		}())
-		LiveLeakEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("LiveLeakEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		LiveLeakEmbedIE = λ.Cal(λ.TypeType, λ.StrLiteral("LiveLeakEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				LiveLeakEmbedIE__VALID_URL λ.Object
 			)
-			LiveLeakEmbedIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?liveleak\\.com/ll_embed\\?.*?\\b(?P<kind>[ift])=(?P<id>[\\w_]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): LiveLeakEmbedIE__VALID_URL,
+			LiveLeakEmbedIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?liveleak\\.com/ll_embed\\?.*?\\b(?P<kind>[ift])=(?P<id>[\\w_]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": LiveLeakEmbedIE__VALID_URL,
 			})
 		}())
 	})

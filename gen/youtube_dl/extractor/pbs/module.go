@@ -64,7 +64,7 @@ func init() {
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		US_RATINGS = Ωutils.US_RATINGS
-		PBSIE = λ.Cal(λ.TypeType, λ.NewStr("PBSIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		PBSIE = λ.Cal(λ.TypeType, λ.StrLiteral("PBSIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				PBSIE_IE_NAME             λ.Object
 				PBSIE__GEO_COUNTRIES      λ.Object
@@ -77,553 +77,553 @@ func init() {
 			)
 			PBSIE__STATIONS = λ.NewTuple(
 				λ.NewTuple(
-					λ.NewStr("(?:video|www|player)\\.pbs\\.org"),
-					λ.NewStr("PBS: Public Broadcasting Service"),
+					λ.StrLiteral("(?:video|www|player)\\.pbs\\.org"),
+					λ.StrLiteral("PBS: Public Broadcasting Service"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.aptv\\.org"),
-					λ.NewStr("APT - Alabama Public Television (WBIQ)"),
+					λ.StrLiteral("video\\.aptv\\.org"),
+					λ.StrLiteral("APT - Alabama Public Television (WBIQ)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.gpb\\.org"),
-					λ.NewStr("GPB/Georgia Public Broadcasting (WGTV)"),
+					λ.StrLiteral("video\\.gpb\\.org"),
+					λ.StrLiteral("GPB/Georgia Public Broadcasting (WGTV)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.mpbonline\\.org"),
-					λ.NewStr("Mississippi Public Broadcasting (WMPN)"),
+					λ.StrLiteral("video\\.mpbonline\\.org"),
+					λ.StrLiteral("Mississippi Public Broadcasting (WMPN)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wnpt\\.org"),
-					λ.NewStr("Nashville Public Television (WNPT)"),
+					λ.StrLiteral("video\\.wnpt\\.org"),
+					λ.StrLiteral("Nashville Public Television (WNPT)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wfsu\\.org"),
-					λ.NewStr("WFSU-TV (WFSU)"),
+					λ.StrLiteral("video\\.wfsu\\.org"),
+					λ.StrLiteral("WFSU-TV (WFSU)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wsre\\.org"),
-					λ.NewStr("WSRE (WSRE)"),
+					λ.StrLiteral("video\\.wsre\\.org"),
+					λ.StrLiteral("WSRE (WSRE)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wtcitv\\.org"),
-					λ.NewStr("WTCI (WTCI)"),
+					λ.StrLiteral("video\\.wtcitv\\.org"),
+					λ.StrLiteral("WTCI (WTCI)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.pba\\.org"),
-					λ.NewStr("WPBA/Channel 30 (WPBA)"),
+					λ.StrLiteral("video\\.pba\\.org"),
+					λ.StrLiteral("WPBA/Channel 30 (WPBA)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.alaskapublic\\.org"),
-					λ.NewStr("Alaska Public Media (KAKM)"),
+					λ.StrLiteral("video\\.alaskapublic\\.org"),
+					λ.StrLiteral("Alaska Public Media (KAKM)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.azpbs\\.org"),
-					λ.NewStr("Arizona PBS (KAET)"),
+					λ.StrLiteral("video\\.azpbs\\.org"),
+					λ.StrLiteral("Arizona PBS (KAET)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("portal\\.knme\\.org"),
-					λ.NewStr("KNME-TV/Channel 5 (KNME)"),
+					λ.StrLiteral("portal\\.knme\\.org"),
+					λ.StrLiteral("KNME-TV/Channel 5 (KNME)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.vegaspbs\\.org"),
-					λ.NewStr("Vegas PBS (KLVX)"),
+					λ.StrLiteral("video\\.vegaspbs\\.org"),
+					λ.StrLiteral("Vegas PBS (KLVX)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("watch\\.aetn\\.org"),
-					λ.NewStr("AETN/ARKANSAS ETV NETWORK (KETS)"),
+					λ.StrLiteral("watch\\.aetn\\.org"),
+					λ.StrLiteral("AETN/ARKANSAS ETV NETWORK (KETS)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.ket\\.org"),
-					λ.NewStr("KET (WKLE)"),
+					λ.StrLiteral("video\\.ket\\.org"),
+					λ.StrLiteral("KET (WKLE)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wkno\\.org"),
-					λ.NewStr("WKNO/Channel 10 (WKNO)"),
+					λ.StrLiteral("video\\.wkno\\.org"),
+					λ.StrLiteral("WKNO/Channel 10 (WKNO)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.lpb\\.org"),
-					λ.NewStr("LPB/LOUISIANA PUBLIC BROADCASTING (WLPB)"),
+					λ.StrLiteral("video\\.lpb\\.org"),
+					λ.StrLiteral("LPB/LOUISIANA PUBLIC BROADCASTING (WLPB)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("videos\\.oeta\\.tv"),
-					λ.NewStr("OETA (KETA)"),
+					λ.StrLiteral("videos\\.oeta\\.tv"),
+					λ.StrLiteral("OETA (KETA)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.optv\\.org"),
-					λ.NewStr("Ozarks Public Television (KOZK)"),
+					λ.StrLiteral("video\\.optv\\.org"),
+					λ.StrLiteral("Ozarks Public Television (KOZK)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("watch\\.wsiu\\.org"),
-					λ.NewStr("WSIU Public Broadcasting (WSIU)"),
+					λ.StrLiteral("watch\\.wsiu\\.org"),
+					λ.StrLiteral("WSIU Public Broadcasting (WSIU)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.keet\\.org"),
-					λ.NewStr("KEET TV (KEET)"),
+					λ.StrLiteral("video\\.keet\\.org"),
+					λ.StrLiteral("KEET TV (KEET)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("pbs\\.kixe\\.org"),
-					λ.NewStr("KIXE/Channel 9 (KIXE)"),
+					λ.StrLiteral("pbs\\.kixe\\.org"),
+					λ.StrLiteral("KIXE/Channel 9 (KIXE)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.kpbs\\.org"),
-					λ.NewStr("KPBS San Diego (KPBS)"),
+					λ.StrLiteral("video\\.kpbs\\.org"),
+					λ.StrLiteral("KPBS San Diego (KPBS)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.kqed\\.org"),
-					λ.NewStr("KQED (KQED)"),
+					λ.StrLiteral("video\\.kqed\\.org"),
+					λ.StrLiteral("KQED (KQED)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("vids\\.kvie\\.org"),
-					λ.NewStr("KVIE Public Television (KVIE)"),
+					λ.StrLiteral("vids\\.kvie\\.org"),
+					λ.StrLiteral("KVIE Public Television (KVIE)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.pbssocal\\.org"),
-					λ.NewStr("PBS SoCal/KOCE (KOCE)"),
+					λ.StrLiteral("video\\.pbssocal\\.org"),
+					λ.StrLiteral("PBS SoCal/KOCE (KOCE)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.valleypbs\\.org"),
-					λ.NewStr("ValleyPBS (KVPT)"),
+					λ.StrLiteral("video\\.valleypbs\\.org"),
+					λ.StrLiteral("ValleyPBS (KVPT)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.cptv\\.org"),
-					λ.NewStr("CONNECTICUT PUBLIC TELEVISION (WEDH)"),
+					λ.StrLiteral("video\\.cptv\\.org"),
+					λ.StrLiteral("CONNECTICUT PUBLIC TELEVISION (WEDH)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("watch\\.knpb\\.org"),
-					λ.NewStr("KNPB Channel 5 (KNPB)"),
+					λ.StrLiteral("watch\\.knpb\\.org"),
+					λ.StrLiteral("KNPB Channel 5 (KNPB)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.soptv\\.org"),
-					λ.NewStr("SOPTV (KSYS)"),
+					λ.StrLiteral("video\\.soptv\\.org"),
+					λ.StrLiteral("SOPTV (KSYS)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.rmpbs\\.org"),
-					λ.NewStr("Rocky Mountain PBS (KRMA)"),
+					λ.StrLiteral("video\\.rmpbs\\.org"),
+					λ.StrLiteral("Rocky Mountain PBS (KRMA)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.kenw\\.org"),
-					λ.NewStr("KENW-TV3 (KENW)"),
+					λ.StrLiteral("video\\.kenw\\.org"),
+					λ.StrLiteral("KENW-TV3 (KENW)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.kued\\.org"),
-					λ.NewStr("KUED Channel 7 (KUED)"),
+					λ.StrLiteral("video\\.kued\\.org"),
+					λ.StrLiteral("KUED Channel 7 (KUED)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wyomingpbs\\.org"),
-					λ.NewStr("Wyoming PBS (KCWC)"),
+					λ.StrLiteral("video\\.wyomingpbs\\.org"),
+					λ.StrLiteral("Wyoming PBS (KCWC)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.cpt12\\.org"),
-					λ.NewStr("Colorado Public Television / KBDI 12 (KBDI)"),
+					λ.StrLiteral("video\\.cpt12\\.org"),
+					λ.StrLiteral("Colorado Public Television / KBDI 12 (KBDI)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.kbyueleven\\.org"),
-					λ.NewStr("KBYU-TV (KBYU)"),
+					λ.StrLiteral("video\\.kbyueleven\\.org"),
+					λ.StrLiteral("KBYU-TV (KBYU)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.thirteen\\.org"),
-					λ.NewStr("Thirteen/WNET New York (WNET)"),
+					λ.StrLiteral("video\\.thirteen\\.org"),
+					λ.StrLiteral("Thirteen/WNET New York (WNET)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wgbh\\.org"),
-					λ.NewStr("WGBH/Channel 2 (WGBH)"),
+					λ.StrLiteral("video\\.wgbh\\.org"),
+					λ.StrLiteral("WGBH/Channel 2 (WGBH)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wgby\\.org"),
-					λ.NewStr("WGBY (WGBY)"),
+					λ.StrLiteral("video\\.wgby\\.org"),
+					λ.StrLiteral("WGBY (WGBY)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("watch\\.njtvonline\\.org"),
-					λ.NewStr("NJTV Public Media NJ (WNJT)"),
+					λ.StrLiteral("watch\\.njtvonline\\.org"),
+					λ.StrLiteral("NJTV Public Media NJ (WNJT)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("watch\\.wliw\\.org"),
-					λ.NewStr("WLIW21 (WLIW)"),
+					λ.StrLiteral("watch\\.wliw\\.org"),
+					λ.StrLiteral("WLIW21 (WLIW)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.mpt\\.tv"),
-					λ.NewStr("mpt/Maryland Public Television (WMPB)"),
+					λ.StrLiteral("video\\.mpt\\.tv"),
+					λ.StrLiteral("mpt/Maryland Public Television (WMPB)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("watch\\.weta\\.org"),
-					λ.NewStr("WETA Television and Radio (WETA)"),
+					λ.StrLiteral("watch\\.weta\\.org"),
+					λ.StrLiteral("WETA Television and Radio (WETA)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.whyy\\.org"),
-					λ.NewStr("WHYY (WHYY)"),
+					λ.StrLiteral("video\\.whyy\\.org"),
+					λ.StrLiteral("WHYY (WHYY)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wlvt\\.org"),
-					λ.NewStr("PBS 39 (WLVT)"),
+					λ.StrLiteral("video\\.wlvt\\.org"),
+					λ.StrLiteral("PBS 39 (WLVT)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wvpt\\.net"),
-					λ.NewStr("WVPT - Your Source for PBS and More! (WVPT)"),
+					λ.StrLiteral("video\\.wvpt\\.net"),
+					λ.StrLiteral("WVPT - Your Source for PBS and More! (WVPT)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.whut\\.org"),
-					λ.NewStr("Howard University Television (WHUT)"),
+					λ.StrLiteral("video\\.whut\\.org"),
+					λ.StrLiteral("Howard University Television (WHUT)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wedu\\.org"),
-					λ.NewStr("WEDU PBS (WEDU)"),
+					λ.StrLiteral("video\\.wedu\\.org"),
+					λ.StrLiteral("WEDU PBS (WEDU)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wgcu\\.org"),
-					λ.NewStr("WGCU Public Media (WGCU)"),
+					λ.StrLiteral("video\\.wgcu\\.org"),
+					λ.StrLiteral("WGCU Public Media (WGCU)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wpbt2\\.org"),
-					λ.NewStr("WPBT2 (WPBT)"),
+					λ.StrLiteral("video\\.wpbt2\\.org"),
+					λ.StrLiteral("WPBT2 (WPBT)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wucftv\\.org"),
-					λ.NewStr("WUCF TV (WUCF)"),
+					λ.StrLiteral("video\\.wucftv\\.org"),
+					λ.StrLiteral("WUCF TV (WUCF)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wuft\\.org"),
-					λ.NewStr("WUFT/Channel 5 (WUFT)"),
+					λ.StrLiteral("video\\.wuft\\.org"),
+					λ.StrLiteral("WUFT/Channel 5 (WUFT)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("watch\\.wxel\\.org"),
-					λ.NewStr("WXEL/Channel 42 (WXEL)"),
+					λ.StrLiteral("watch\\.wxel\\.org"),
+					λ.StrLiteral("WXEL/Channel 42 (WXEL)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wlrn\\.org"),
-					λ.NewStr("WLRN/Channel 17 (WLRN)"),
+					λ.StrLiteral("video\\.wlrn\\.org"),
+					λ.StrLiteral("WLRN/Channel 17 (WLRN)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wusf\\.usf\\.edu"),
-					λ.NewStr("WUSF Public Broadcasting (WUSF)"),
+					λ.StrLiteral("video\\.wusf\\.usf\\.edu"),
+					λ.StrLiteral("WUSF Public Broadcasting (WUSF)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.scetv\\.org"),
-					λ.NewStr("ETV (WRLK)"),
+					λ.StrLiteral("video\\.scetv\\.org"),
+					λ.StrLiteral("ETV (WRLK)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.unctv\\.org"),
-					λ.NewStr("UNC-TV (WUNC)"),
+					λ.StrLiteral("video\\.unctv\\.org"),
+					λ.StrLiteral("UNC-TV (WUNC)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.pbshawaii\\.org"),
-					λ.NewStr("PBS Hawaii - Oceanic Cable Channel 10 (KHET)"),
+					λ.StrLiteral("video\\.pbshawaii\\.org"),
+					λ.StrLiteral("PBS Hawaii - Oceanic Cable Channel 10 (KHET)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.idahoptv\\.org"),
-					λ.NewStr("Idaho Public Television (KAID)"),
+					λ.StrLiteral("video\\.idahoptv\\.org"),
+					λ.StrLiteral("Idaho Public Television (KAID)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.ksps\\.org"),
-					λ.NewStr("KSPS (KSPS)"),
+					λ.StrLiteral("video\\.ksps\\.org"),
+					λ.StrLiteral("KSPS (KSPS)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("watch\\.opb\\.org"),
-					λ.NewStr("OPB (KOPB)"),
+					λ.StrLiteral("watch\\.opb\\.org"),
+					λ.StrLiteral("OPB (KOPB)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("watch\\.nwptv\\.org"),
-					λ.NewStr("KWSU/Channel 10 & KTNW/Channel 31 (KWSU)"),
+					λ.StrLiteral("watch\\.nwptv\\.org"),
+					λ.StrLiteral("KWSU/Channel 10 & KTNW/Channel 31 (KWSU)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.will\\.illinois\\.edu"),
-					λ.NewStr("WILL-TV (WILL)"),
+					λ.StrLiteral("video\\.will\\.illinois\\.edu"),
+					λ.StrLiteral("WILL-TV (WILL)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.networkknowledge\\.tv"),
-					λ.NewStr("Network Knowledge - WSEC/Springfield (WSEC)"),
+					λ.StrLiteral("video\\.networkknowledge\\.tv"),
+					λ.StrLiteral("Network Knowledge - WSEC/Springfield (WSEC)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wttw\\.com"),
-					λ.NewStr("WTTW11 (WTTW)"),
+					λ.StrLiteral("video\\.wttw\\.com"),
+					λ.StrLiteral("WTTW11 (WTTW)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.iptv\\.org"),
-					λ.NewStr("Iowa Public Television/IPTV (KDIN)"),
+					λ.StrLiteral("video\\.iptv\\.org"),
+					λ.StrLiteral("Iowa Public Television/IPTV (KDIN)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.ninenet\\.org"),
-					λ.NewStr("Nine Network (KETC)"),
+					λ.StrLiteral("video\\.ninenet\\.org"),
+					λ.StrLiteral("Nine Network (KETC)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wfwa\\.org"),
-					λ.NewStr("PBS39 Fort Wayne (WFWA)"),
+					λ.StrLiteral("video\\.wfwa\\.org"),
+					λ.StrLiteral("PBS39 Fort Wayne (WFWA)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wfyi\\.org"),
-					λ.NewStr("WFYI Indianapolis (WFYI)"),
+					λ.StrLiteral("video\\.wfyi\\.org"),
+					λ.StrLiteral("WFYI Indianapolis (WFYI)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.mptv\\.org"),
-					λ.NewStr("Milwaukee Public Television (WMVS)"),
+					λ.StrLiteral("video\\.mptv\\.org"),
+					λ.StrLiteral("Milwaukee Public Television (WMVS)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wnin\\.org"),
-					λ.NewStr("WNIN (WNIN)"),
+					λ.StrLiteral("video\\.wnin\\.org"),
+					λ.StrLiteral("WNIN (WNIN)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wnit\\.org"),
-					λ.NewStr("WNIT Public Television (WNIT)"),
+					λ.StrLiteral("video\\.wnit\\.org"),
+					λ.StrLiteral("WNIT Public Television (WNIT)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wpt\\.org"),
-					λ.NewStr("WPT (WPNE)"),
+					λ.StrLiteral("video\\.wpt\\.org"),
+					λ.StrLiteral("WPT (WPNE)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wvut\\.org"),
-					λ.NewStr("WVUT/Channel 22 (WVUT)"),
+					λ.StrLiteral("video\\.wvut\\.org"),
+					λ.StrLiteral("WVUT/Channel 22 (WVUT)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.weiu\\.net"),
-					λ.NewStr("WEIU/Channel 51 (WEIU)"),
+					λ.StrLiteral("video\\.weiu\\.net"),
+					λ.StrLiteral("WEIU/Channel 51 (WEIU)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wqpt\\.org"),
-					λ.NewStr("WQPT-TV (WQPT)"),
+					λ.StrLiteral("video\\.wqpt\\.org"),
+					λ.StrLiteral("WQPT-TV (WQPT)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wycc\\.org"),
-					λ.NewStr("WYCC PBS Chicago (WYCC)"),
+					λ.StrLiteral("video\\.wycc\\.org"),
+					λ.StrLiteral("WYCC PBS Chicago (WYCC)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wipb\\.org"),
-					λ.NewStr("WIPB-TV (WIPB)"),
+					λ.StrLiteral("video\\.wipb\\.org"),
+					λ.StrLiteral("WIPB-TV (WIPB)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.indianapublicmedia\\.org"),
-					λ.NewStr("WTIU (WTIU)"),
+					λ.StrLiteral("video\\.indianapublicmedia\\.org"),
+					λ.StrLiteral("WTIU (WTIU)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("watch\\.cetconnect\\.org"),
-					λ.NewStr("CET  (WCET)"),
+					λ.StrLiteral("watch\\.cetconnect\\.org"),
+					λ.StrLiteral("CET  (WCET)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.thinktv\\.org"),
-					λ.NewStr("ThinkTVNetwork (WPTD)"),
+					λ.StrLiteral("video\\.thinktv\\.org"),
+					λ.StrLiteral("ThinkTVNetwork (WPTD)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wbgu\\.org"),
-					λ.NewStr("WBGU-TV (WBGU)"),
+					λ.StrLiteral("video\\.wbgu\\.org"),
+					λ.StrLiteral("WBGU-TV (WBGU)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wgvu\\.org"),
-					λ.NewStr("WGVU TV (WGVU)"),
+					λ.StrLiteral("video\\.wgvu\\.org"),
+					λ.StrLiteral("WGVU TV (WGVU)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.netnebraska\\.org"),
-					λ.NewStr("NET1 (KUON)"),
+					λ.StrLiteral("video\\.netnebraska\\.org"),
+					λ.StrLiteral("NET1 (KUON)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.pioneer\\.org"),
-					λ.NewStr("Pioneer Public Television (KWCM)"),
+					λ.StrLiteral("video\\.pioneer\\.org"),
+					λ.StrLiteral("Pioneer Public Television (KWCM)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("watch\\.sdpb\\.org"),
-					λ.NewStr("SDPB Television (KUSD)"),
+					λ.StrLiteral("watch\\.sdpb\\.org"),
+					λ.StrLiteral("SDPB Television (KUSD)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.tpt\\.org"),
-					λ.NewStr("TPT (KTCA)"),
+					λ.StrLiteral("video\\.tpt\\.org"),
+					λ.StrLiteral("TPT (KTCA)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("watch\\.ksmq\\.org"),
-					λ.NewStr("KSMQ (KSMQ)"),
+					λ.StrLiteral("watch\\.ksmq\\.org"),
+					λ.StrLiteral("KSMQ (KSMQ)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("watch\\.kpts\\.org"),
-					λ.NewStr("KPTS/Channel 8 (KPTS)"),
+					λ.StrLiteral("watch\\.kpts\\.org"),
+					λ.StrLiteral("KPTS/Channel 8 (KPTS)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("watch\\.ktwu\\.org"),
-					λ.NewStr("KTWU/Channel 11 (KTWU)"),
+					λ.StrLiteral("watch\\.ktwu\\.org"),
+					λ.StrLiteral("KTWU/Channel 11 (KTWU)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("watch\\.easttennesseepbs\\.org"),
-					λ.NewStr("East Tennessee PBS (WSJK)"),
+					λ.StrLiteral("watch\\.easttennesseepbs\\.org"),
+					λ.StrLiteral("East Tennessee PBS (WSJK)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wcte\\.tv"),
-					λ.NewStr("WCTE-TV (WCTE)"),
+					λ.StrLiteral("video\\.wcte\\.tv"),
+					λ.StrLiteral("WCTE-TV (WCTE)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wljt\\.org"),
-					λ.NewStr("WLJT, Channel 11 (WLJT)"),
+					λ.StrLiteral("video\\.wljt\\.org"),
+					λ.StrLiteral("WLJT, Channel 11 (WLJT)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wosu\\.org"),
-					λ.NewStr("WOSU TV (WOSU)"),
+					λ.StrLiteral("video\\.wosu\\.org"),
+					λ.StrLiteral("WOSU TV (WOSU)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.woub\\.org"),
-					λ.NewStr("WOUB/WOUC (WOUB)"),
+					λ.StrLiteral("video\\.woub\\.org"),
+					λ.StrLiteral("WOUB/WOUC (WOUB)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wvpublic\\.org"),
-					λ.NewStr("WVPB (WVPB)"),
+					λ.StrLiteral("video\\.wvpublic\\.org"),
+					λ.StrLiteral("WVPB (WVPB)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wkyupbs\\.org"),
-					λ.NewStr("WKYU-PBS (WKYU)"),
+					λ.StrLiteral("video\\.wkyupbs\\.org"),
+					λ.StrLiteral("WKYU-PBS (WKYU)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.kera\\.org"),
-					λ.NewStr("KERA 13 (KERA)"),
+					λ.StrLiteral("video\\.kera\\.org"),
+					λ.StrLiteral("KERA 13 (KERA)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.mpbn\\.net"),
-					λ.NewStr("MPBN (WCBB)"),
+					λ.StrLiteral("video\\.mpbn\\.net"),
+					λ.StrLiteral("MPBN (WCBB)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.mountainlake\\.org"),
-					λ.NewStr("Mountain Lake PBS (WCFE)"),
+					λ.StrLiteral("video\\.mountainlake\\.org"),
+					λ.StrLiteral("Mountain Lake PBS (WCFE)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.nhptv\\.org"),
-					λ.NewStr("NHPTV (WENH)"),
+					λ.StrLiteral("video\\.nhptv\\.org"),
+					λ.StrLiteral("NHPTV (WENH)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.vpt\\.org"),
-					λ.NewStr("Vermont PBS (WETK)"),
+					λ.StrLiteral("video\\.vpt\\.org"),
+					λ.StrLiteral("Vermont PBS (WETK)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.witf\\.org"),
-					λ.NewStr("witf (WITF)"),
+					λ.StrLiteral("video\\.witf\\.org"),
+					λ.StrLiteral("witf (WITF)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("watch\\.wqed\\.org"),
-					λ.NewStr("WQED Multimedia (WQED)"),
+					λ.StrLiteral("watch\\.wqed\\.org"),
+					λ.StrLiteral("WQED Multimedia (WQED)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wmht\\.org"),
-					λ.NewStr("WMHT Educational Telecommunications (WMHT)"),
+					λ.StrLiteral("video\\.wmht\\.org"),
+					λ.StrLiteral("WMHT Educational Telecommunications (WMHT)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.deltabroadcasting\\.org"),
-					λ.NewStr("Q-TV (WDCQ)"),
+					λ.StrLiteral("video\\.deltabroadcasting\\.org"),
+					λ.StrLiteral("Q-TV (WDCQ)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.dptv\\.org"),
-					λ.NewStr("WTVS Detroit Public TV (WTVS)"),
+					λ.StrLiteral("video\\.dptv\\.org"),
+					λ.StrLiteral("WTVS Detroit Public TV (WTVS)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wcmu\\.org"),
-					λ.NewStr("CMU Public Television (WCMU)"),
+					λ.StrLiteral("video\\.wcmu\\.org"),
+					λ.StrLiteral("CMU Public Television (WCMU)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wkar\\.org"),
-					λ.NewStr("WKAR-TV (WKAR)"),
+					λ.StrLiteral("video\\.wkar\\.org"),
+					λ.StrLiteral("WKAR-TV (WKAR)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("wnmuvideo\\.nmu\\.edu"),
-					λ.NewStr("WNMU-TV Public TV 13 (WNMU)"),
+					λ.StrLiteral("wnmuvideo\\.nmu\\.edu"),
+					λ.StrLiteral("WNMU-TV Public TV 13 (WNMU)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wdse\\.org"),
-					λ.NewStr("WDSE - WRPT (WDSE)"),
+					λ.StrLiteral("video\\.wdse\\.org"),
+					λ.StrLiteral("WDSE - WRPT (WDSE)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wgte\\.org"),
-					λ.NewStr("WGTE TV (WGTE)"),
+					λ.StrLiteral("video\\.wgte\\.org"),
+					λ.StrLiteral("WGTE TV (WGTE)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.lptv\\.org"),
-					λ.NewStr("Lakeland Public Television (KAWE)"),
+					λ.StrLiteral("video\\.lptv\\.org"),
+					λ.StrLiteral("Lakeland Public Television (KAWE)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.kmos\\.org"),
-					λ.NewStr("KMOS-TV - Channels 6.1, 6.2 and 6.3 (KMOS)"),
+					λ.StrLiteral("video\\.kmos\\.org"),
+					λ.StrLiteral("KMOS-TV - Channels 6.1, 6.2 and 6.3 (KMOS)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("watch\\.montanapbs\\.org"),
-					λ.NewStr("MontanaPBS (KUSM)"),
+					λ.StrLiteral("watch\\.montanapbs\\.org"),
+					λ.StrLiteral("MontanaPBS (KUSM)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.krwg\\.org"),
-					λ.NewStr("KRWG/Channel 22 (KRWG)"),
+					λ.StrLiteral("video\\.krwg\\.org"),
+					λ.StrLiteral("KRWG/Channel 22 (KRWG)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.kacvtv\\.org"),
-					λ.NewStr("KACV (KACV)"),
+					λ.StrLiteral("video\\.kacvtv\\.org"),
+					λ.StrLiteral("KACV (KACV)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.kcostv\\.org"),
-					λ.NewStr("KCOS/Channel 13 (KCOS)"),
+					λ.StrLiteral("video\\.kcostv\\.org"),
+					λ.StrLiteral("KCOS/Channel 13 (KCOS)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wcny\\.org"),
-					λ.NewStr("WCNY/Channel 24 (WCNY)"),
+					λ.StrLiteral("video\\.wcny\\.org"),
+					λ.StrLiteral("WCNY/Channel 24 (WCNY)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wned\\.org"),
-					λ.NewStr("WNED (WNED)"),
+					λ.StrLiteral("video\\.wned\\.org"),
+					λ.StrLiteral("WNED (WNED)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("watch\\.wpbstv\\.org"),
-					λ.NewStr("WPBS (WPBS)"),
+					λ.StrLiteral("watch\\.wpbstv\\.org"),
+					λ.StrLiteral("WPBS (WPBS)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wskg\\.org"),
-					λ.NewStr("WSKG Public TV (WSKG)"),
+					λ.StrLiteral("video\\.wskg\\.org"),
+					λ.StrLiteral("WSKG Public TV (WSKG)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wxxi\\.org"),
-					λ.NewStr("WXXI (WXXI)"),
+					λ.StrLiteral("video\\.wxxi\\.org"),
+					λ.StrLiteral("WXXI (WXXI)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wpsu\\.org"),
-					λ.NewStr("WPSU (WPSU)"),
+					λ.StrLiteral("video\\.wpsu\\.org"),
+					λ.StrLiteral("WPSU (WPSU)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("on-demand\\.wvia\\.org"),
-					λ.NewStr("WVIA Public Media Studios (WVIA)"),
+					λ.StrLiteral("on-demand\\.wvia\\.org"),
+					λ.StrLiteral("WVIA Public Media Studios (WVIA)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wtvi\\.org"),
-					λ.NewStr("WTVI (WTVI)"),
+					λ.StrLiteral("video\\.wtvi\\.org"),
+					λ.StrLiteral("WTVI (WTVI)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.westernreservepublicmedia\\.org"),
-					λ.NewStr("Western Reserve PBS (WNEO)"),
+					λ.StrLiteral("video\\.westernreservepublicmedia\\.org"),
+					λ.StrLiteral("Western Reserve PBS (WNEO)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.ideastream\\.org"),
-					λ.NewStr("WVIZ/PBS ideastream (WVIZ)"),
+					λ.StrLiteral("video\\.ideastream\\.org"),
+					λ.StrLiteral("WVIZ/PBS ideastream (WVIZ)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.kcts9\\.org"),
-					λ.NewStr("KCTS 9 (KCTS)"),
+					λ.StrLiteral("video\\.kcts9\\.org"),
+					λ.StrLiteral("KCTS 9 (KCTS)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.basinpbs\\.org"),
-					λ.NewStr("Basin PBS (KPBT)"),
+					λ.StrLiteral("video\\.basinpbs\\.org"),
+					λ.StrLiteral("Basin PBS (KPBT)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.houstonpbs\\.org"),
-					λ.NewStr("KUHT / Channel 8 (KUHT)"),
+					λ.StrLiteral("video\\.houstonpbs\\.org"),
+					λ.StrLiteral("KUHT / Channel 8 (KUHT)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.klrn\\.org"),
-					λ.NewStr("KLRN (KLRN)"),
+					λ.StrLiteral("video\\.klrn\\.org"),
+					λ.StrLiteral("KLRN (KLRN)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.klru\\.tv"),
-					λ.NewStr("KLRU (KLRU)"),
+					λ.StrLiteral("video\\.klru\\.tv"),
+					λ.StrLiteral("KLRU (KLRU)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.wtjx\\.org"),
-					λ.NewStr("WTJX Channel 12 (WTJX)"),
+					λ.StrLiteral("video\\.wtjx\\.org"),
+					λ.StrLiteral("WTJX Channel 12 (WTJX)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.ideastations\\.org"),
-					λ.NewStr("WCVE PBS (WCVE)"),
+					λ.StrLiteral("video\\.ideastations\\.org"),
+					λ.StrLiteral("WCVE PBS (WCVE)"),
 				),
 				λ.NewTuple(
-					λ.NewStr("video\\.kbtc\\.org"),
-					λ.NewStr("KBTC Public Television (KBTC)"),
+					λ.StrLiteral("video\\.kbtc\\.org"),
+					λ.StrLiteral("KBTC Public Television (KBTC)"),
 				),
 			)
-			PBSIE_IE_NAME = λ.NewStr("pbs")
-			PBSIE__VALID_URL = λ.Mod(λ.NewStr("(?x)https?://\n        (?:\n           # Direct video URL\n           (?:%s)/(?:(?:vir|port)alplayer|video)/(?P<id>[0-9]+)(?:[?/]|$) |\n           # Article with embedded player (or direct video)\n           (?:www\\.)?pbs\\.org/(?:[^/]+/){1,5}(?P<presumptive_id>[^/]+?)(?:\\.html)?/?(?:$|[?\\#]) |\n           # Player\n           (?:video|player)\\.pbs\\.org/(?:widget/)?partnerplayer/(?P<player_id>[^/]+)/\n        )\n    "), λ.Cal(λ.GetAttr(λ.NewStr("|"), "join", nil), λ.GetItem(λ.Cal(λ.ListType, λ.Cal(λ.ZipIteratorType, λ.Unpack(λ.AsStarred(PBSIE__STATIONS))...)), λ.NewInt(0))))
-			PBSIE__GEO_COUNTRIES = λ.NewList(λ.NewStr("US"))
+			PBSIE_IE_NAME = λ.StrLiteral("pbs")
+			PBSIE__VALID_URL = λ.Mod(λ.StrLiteral("(?x)https?://\n        (?:\n           # Direct video URL\n           (?:%s)/(?:(?:vir|port)alplayer|video)/(?P<id>[0-9]+)(?:[?/]|$) |\n           # Article with embedded player (or direct video)\n           (?:www\\.)?pbs\\.org/(?:[^/]+/){1,5}(?P<presumptive_id>[^/]+?)(?:\\.html)?/?(?:$|[?\\#]) |\n           # Player\n           (?:video|player)\\.pbs\\.org/(?:widget/)?partnerplayer/(?P<player_id>[^/]+)/\n        )\n    "), λ.Calm(λ.StrLiteral("|"), "join", λ.GetItem(λ.Cal(λ.ListType, λ.Cal(λ.ZipIteratorType, λ.Unpack(λ.AsStarred(PBSIE__STATIONS))...)), λ.IntLiteral(0))))
+			PBSIE__GEO_COUNTRIES = λ.NewList(λ.StrLiteral("US"))
 			PBSIE__real_initialize = λ.NewFunction("_real_initialize",
 				[]λ.Param{
 					{Name: "self"},
@@ -635,23 +635,23 @@ func init() {
 						ϒself    = λargs[0]
 						ϒstation λ.Object
 					)
-					ϒcookie = λ.Cal(λ.GetAttr(func() λ.Object {
+					ϒcookie = λ.Calm(func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-							λ.NewStr("http://localization.services.pbs.org/localize/auto/cookie/"),
+							λ.StrLiteral("http://localization.services.pbs.org/localize/auto/cookie/"),
 							λ.None,
 						), λ.KWArgs{
-							{Name: "headers", Value: λ.Cal(λ.GetAttr(ϒself, "geo_verification_headers", nil))},
+							{Name: "headers", Value: λ.Calm(ϒself, "geo_verification_headers")},
 							{Name: "fatal", Value: λ.False},
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
 						}
-					}(), "get", nil), λ.NewStr("cookie"))
+					}(), "get", λ.StrLiteral("cookie"))
 					if λ.IsTrue(ϒcookie) {
-						ϒstation = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("#?s=\\[\"([^\"]+)\""), ϒcookie, λ.NewStr("station"))
+						ϒstation = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("#?s=\\[\"([^\"]+)\""), ϒcookie, λ.StrLiteral("station"))
 						if λ.IsTrue(ϒstation) {
-							λ.Cal(λ.GetAttr(ϒself, "_set_cookie", nil), λ.NewStr(".pbs.org"), λ.NewStr("pbsol.station"), ϒstation)
+							λ.Calm(ϒself, "_set_cookie", λ.StrLiteral(".pbs.org"), λ.StrLiteral("pbsol.station"), ϒstation)
 						}
 					}
 					return λ.None
@@ -689,10 +689,10 @@ func init() {
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
 					ϒdescription = λ.None
-					ϒpresumptive_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("presumptive_id"))
+					ϒpresumptive_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("presumptive_id"))
 					ϒdisplay_id = ϒpresumptive_id
 					if λ.IsTrue(ϒpresumptive_id) {
-						ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
+						ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
 						ϒdescription = λ.Cal(ϒstrip_or_none, func() λ.Object {
 							if λv := λ.Call(λ.GetAttr(ϒself, "_og_search_description", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 								{Name: "default", Value: λ.None},
@@ -700,7 +700,7 @@ func init() {
 								return λv
 							} else {
 								return λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
-									λ.NewStr("description"),
+									λ.StrLiteral("description"),
 									ϒwebpage,
 								), λ.KWArgs{
 									{Name: "default", Value: λ.None},
@@ -708,15 +708,15 @@ func init() {
 							}
 						}())
 						ϒupload_date = λ.Cal(ϒunified_strdate, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("<input type=\"hidden\" id=\"air_date_[0-9]+\" value=\"([^\"]+)\""),
+							λ.StrLiteral("<input type=\"hidden\" id=\"air_date_[0-9]+\" value=\"([^\"]+)\""),
 							ϒwebpage,
-							λ.NewStr("upload date"),
+							λ.StrLiteral("upload date"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}))
 						MULTI_PART_REGEXES = λ.NewTuple(
-							λ.NewStr("<div[^>]+class=\"videotab[^\"]*\"[^>]+vid=\"(\\d+)\""),
-							λ.NewStr("<a[^>]+href=[\"\\']#(?:video-|part)\\d+[\"\\'][^>]+data-cove[Ii]d=[\"\\'](\\d+)"),
+							λ.StrLiteral("<div[^>]+class=\"videotab[^\"]*\"[^>]+vid=\"(\\d+)\""),
+							λ.StrLiteral("<a[^>]+href=[\"\\']#(?:video-|part)\\d+[\"\\'][^>]+data-cove[Ii]d=[\"\\'](\\d+)"),
 						)
 						τmp0 = λ.Cal(λ.BuiltinIter, MULTI_PART_REGEXES)
 						for {
@@ -735,18 +735,18 @@ func init() {
 							}
 						}
 						MEDIA_ID_REGEXES = λ.NewList(
-							λ.NewStr("div\\s*:\\s*'videoembed'\\s*,\\s*mediaid\\s*:\\s*'(\\d+)'"),
-							λ.NewStr("class=\"coveplayerid\">([^<]+)<"),
-							λ.NewStr("<section[^>]+data-coveid=\"(\\d+)\""),
-							λ.NewStr("<input type=\"hidden\" id=\"pbs_video_id_[0-9]+\" value=\"([0-9]+)\"/>"),
-							λ.NewStr("(?s)window\\.PBS\\.playerConfig\\s*=\\s*{.*?id\\s*:\\s*'([0-9]+)',"),
-							λ.NewStr("<div[^>]+\\bdata-cove-id=[\"\\'](\\d+)\""),
-							λ.NewStr("<iframe[^>]+\\bsrc=[\"\\'](?:https?:)?//video\\.pbs\\.org/widget/partnerplayer/(\\d+)"),
+							λ.StrLiteral("div\\s*:\\s*'videoembed'\\s*,\\s*mediaid\\s*:\\s*'(\\d+)'"),
+							λ.StrLiteral("class=\"coveplayerid\">([^<]+)<"),
+							λ.StrLiteral("<section[^>]+data-coveid=\"(\\d+)\""),
+							λ.StrLiteral("<input type=\"hidden\" id=\"pbs_video_id_[0-9]+\" value=\"([0-9]+)\"/>"),
+							λ.StrLiteral("(?s)window\\.PBS\\.playerConfig\\s*=\\s*{.*?id\\s*:\\s*'([0-9]+)',"),
+							λ.StrLiteral("<div[^>]+\\bdata-cove-id=[\"\\'](\\d+)\""),
+							λ.StrLiteral("<iframe[^>]+\\bsrc=[\"\\'](?:https?:)?//video\\.pbs\\.org/widget/partnerplayer/(\\d+)"),
 						)
 						ϒmedia_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
 							MEDIA_ID_REGEXES,
 							ϒwebpage,
-							λ.NewStr("media ID"),
+							λ.StrLiteral("media ID"),
 						), λ.KWArgs{
 							{Name: "fatal", Value: λ.False},
 							{Name: "default", Value: λ.None},
@@ -760,57 +760,57 @@ func init() {
 							)
 						}
 						ϒvideo_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("videoid\\s*:\\s*\"([\\d+a-z]{7,})\""),
+							λ.StrLiteral("videoid\\s*:\\s*\"([\\d+a-z]{7,})\""),
 							ϒwebpage,
-							λ.NewStr("videoid"),
+							λ.StrLiteral("videoid"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
 						if λ.IsTrue(ϒvideo_id) {
-							ϒprg_id = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("videoid\\s*:\\s*\"([\\d+a-z]{7,})\""), ϒwebpage, λ.NewStr("videoid")), λ.NewSlice(λ.NewInt(7), λ.None, λ.None))
-							if λ.IsTrue(λ.NewBool(λ.Contains(ϒprg_id, λ.NewStr("q")))) {
-								ϒprg_id = λ.GetItem(λ.Cal(λ.GetAttr(ϒprg_id, "split", nil), λ.NewStr("q")), λ.NewInt(1))
+							ϒprg_id = λ.GetItem(λ.Calm(ϒself, "_search_regex", λ.StrLiteral("videoid\\s*:\\s*\"([\\d+a-z]{7,})\""), ϒwebpage, λ.StrLiteral("videoid")), λ.NewSlice(λ.IntLiteral(7), λ.None, λ.None))
+							if λ.Contains(ϒprg_id, λ.StrLiteral("q")) {
+								ϒprg_id = λ.GetItem(λ.Calm(ϒprg_id, "split", λ.StrLiteral("q")), λ.IntLiteral(1))
 							}
-							ϒprg_id = λ.Cal(λ.IntType, ϒprg_id, λ.NewInt(16))
+							ϒprg_id = λ.Cal(λ.IntType, ϒprg_id, λ.IntLiteral(16))
 							ϒgetdir = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-								λ.Mod(λ.NewStr("http://www.pbs.org/wgbh/pages/frontline/.json/getdir/getdir%d.json"), ϒprg_id),
+								λ.Mod(λ.StrLiteral("http://www.pbs.org/wgbh/pages/frontline/.json/getdir/getdir%d.json"), ϒprg_id),
 								ϒpresumptive_id,
-								λ.NewStr("Downloading getdir JSON"),
+								λ.StrLiteral("Downloading getdir JSON"),
 							), λ.KWArgs{
 								{Name: "transform_source", Value: ϒstrip_jsonp},
 							})
 							return λ.NewTuple(
-								λ.GetItem(ϒgetdir, λ.NewStr("mid")),
+								λ.GetItem(ϒgetdir, λ.StrLiteral("mid")),
 								ϒpresumptive_id,
 								ϒupload_date,
 								ϒdescription,
 							)
 						}
-						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.NewStr("(?s)<iframe(.+?)></iframe>"), ϒwebpage))
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("(?s)<iframe(.+?)></iframe>"), ϒwebpage))
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
 							ϒiframe = τmp1
 							ϒurl = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.NewStr("src=([\"\\'])(?P<url>.+?partnerplayer.+?)\\1"),
+								λ.StrLiteral("src=([\"\\'])(?P<url>.+?partnerplayer.+?)\\1"),
 								ϒiframe,
-								λ.NewStr("player URL"),
+								λ.StrLiteral("player URL"),
 							), λ.KWArgs{
 								{Name: "default", Value: λ.None},
-								{Name: "group", Value: λ.NewStr("url")},
+								{Name: "group", Value: λ.StrLiteral("url")},
 							})
 							if λ.IsTrue(ϒurl) {
 								break
 							}
 						}
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒurl))) {
-							ϒurl = λ.Cal(λ.GetAttr(ϒself, "_og_search_url", nil), ϒwebpage)
+						if !λ.IsTrue(ϒurl) {
+							ϒurl = λ.Calm(ϒself, "_og_search_url", ϒwebpage)
 						}
-						ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Cal(λ.GetAttr(ϒurl, "strip", nil))))
+						ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), λ.Calm(ϒself, "_proto_relative_url", λ.Calm(ϒurl, "strip")))
 					}
-					ϒplayer_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("player_id"))
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒdisplay_id))) {
+					ϒplayer_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("player_id"))
+					if !λ.IsTrue(ϒdisplay_id) {
 						ϒdisplay_id = ϒplayer_id
 					}
 					if λ.IsTrue(ϒplayer_id) {
@@ -818,28 +818,28 @@ func init() {
 							ϒurl,
 							ϒdisplay_id,
 						), λ.KWArgs{
-							{Name: "note", Value: λ.NewStr("Downloading player page")},
-							{Name: "errnote", Value: λ.NewStr("Could not download player page")},
+							{Name: "note", Value: λ.StrLiteral("Downloading player page")},
+							{Name: "errnote", Value: λ.StrLiteral("Could not download player page")},
 						})
 						ϒvideo_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("<div\\s+id=[\"\\']video_(\\d+)"),
+							λ.StrLiteral("<div\\s+id=[\"\\']video_(\\d+)"),
 							ϒplayer_page,
-							λ.NewStr("video ID"),
+							λ.StrLiteral("video ID"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_id))) {
-							ϒvideo_info = λ.Cal(λ.GetAttr(ϒself, "_extract_video_data", nil), ϒplayer_page, λ.NewStr("video data"), ϒdisplay_id)
+						if !λ.IsTrue(ϒvideo_id) {
+							ϒvideo_info = λ.Calm(ϒself, "_extract_video_data", ϒplayer_page, λ.StrLiteral("video data"), ϒdisplay_id)
 							ϒvideo_id = λ.Cal(ϒcompat_str, func() λ.Object {
-								if λv := λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("id")); λ.IsTrue(λv) {
+								if λv := λ.Calm(ϒvideo_info, "get", λ.StrLiteral("id")); λ.IsTrue(λv) {
 									return λv
 								} else {
-									return λ.GetItem(ϒvideo_info, λ.NewStr("contentID"))
+									return λ.GetItem(ϒvideo_info, λ.StrLiteral("contentID"))
 								}
 							}())
 						}
 					} else {
-						ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
+						ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
 						ϒdisplay_id = ϒvideo_id
 					}
 					return λ.NewTuple(
@@ -869,13 +869,13 @@ func init() {
 					return λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 						λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
 							λ.NewList(
-								λ.NewStr("(?s)PBS\\.videoData\\s*=\\s*({.+?});\\n"),
-								λ.NewStr("window\\.videoBridge\\s*=\\s*({.+?});"),
+								λ.StrLiteral("(?s)PBS\\.videoData\\s*=\\s*({.+?});\\n"),
+								λ.StrLiteral("window\\.videoBridge\\s*=\\s*({.+?});"),
 							),
 							ϒstring,
 							ϒname,
 						), λ.KWArgs{
-							{Name: "default", Value: λ.NewStr("{}")},
+							{Name: "default", Value: λ.StrLiteral("{}")},
 						}),
 						ϒvideo_id,
 					), λ.KWArgs{
@@ -937,11 +937,11 @@ func init() {
 						τmp2                   λ.Object
 						τmp3                   λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_extract_webpage", nil), ϒurl)
-					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒdisplay_id = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒupload_date = λ.GetItem(τmp0, λ.NewInt(2))
-					ϒdescription = λ.GetItem(τmp0, λ.NewInt(3))
+					τmp0 = λ.Calm(ϒself, "_extract_webpage", ϒurl)
+					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒupload_date = λ.GetItem(τmp0, λ.IntLiteral(2))
+					ϒdescription = λ.GetItem(τmp0, λ.IntLiteral(3))
 					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒvideo_id, λ.ListType)) {
 						ϒentries = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 							nil,
@@ -959,12 +959,12 @@ func init() {
 											break
 										}
 										ϒvid_id = τmp1
-										λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://video.pbs.org/video/%s"), ϒvid_id), λ.NewStr("PBS"), ϒvid_id))
+										λgy.Yield(λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("http://video.pbs.org/video/%s"), ϒvid_id), λ.StrLiteral("PBS"), ϒvid_id))
 									}
 									return λ.None
 								})
 							})))
-						return λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), ϒentries, ϒdisplay_id)
+						return λ.Calm(ϒself, "playlist_result", ϒentries, ϒdisplay_id)
 					}
 					ϒinfo = λ.None
 					ϒredirects = λ.NewList()
@@ -987,19 +987,19 @@ func init() {
 								τmp1           λ.Object
 							)
 							τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-								λ.NewStr("recommended_encoding"),
-								λ.NewStr("alternate_encoding"),
+								λ.StrLiteral("recommended_encoding"),
+								λ.StrLiteral("alternate_encoding"),
 							))
 							for {
 								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 									break
 								}
 								ϒencoding_name = τmp1
-								ϒredirect = λ.Cal(λ.GetAttr(ϒinfo, "get", nil), ϒencoding_name)
-								if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒredirect))) {
+								ϒredirect = λ.Calm(ϒinfo, "get", ϒencoding_name)
+								if !λ.IsTrue(ϒredirect) {
 									continue
 								}
-								ϒredirect_url = λ.Cal(λ.GetAttr(ϒredirect, "get", nil), λ.NewStr("url"))
+								ϒredirect_url = λ.Calm(ϒredirect, "get", λ.StrLiteral("url"))
 								if λ.IsTrue(func() λ.Object {
 									if λv := ϒredirect_url; !λ.IsTrue(λv) {
 										return λv
@@ -1007,11 +1007,11 @@ func init() {
 										return λ.NewBool(!λ.Contains(ϒredirect_urls, ϒredirect_url))
 									}
 								}()) {
-									λ.Cal(λ.GetAttr(ϒredirects, "append", nil), ϒredirect)
-									λ.Cal(λ.GetAttr(ϒredirect_urls, "add", nil), ϒredirect_url)
+									λ.Calm(ϒredirects, "append", ϒredirect)
+									λ.Calm(ϒredirect_urls, "add", ϒredirect_url)
 								}
 							}
-							ϒencodings = λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("encodings"))
+							ϒencodings = λ.Calm(ϒinfo, "get", λ.StrLiteral("encodings"))
 							if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒencodings, λ.ListType)) {
 								τmp0 = λ.Cal(λ.BuiltinIter, ϒencodings)
 								for {
@@ -1027,10 +1027,10 @@ func init() {
 											return λ.NewBool(!λ.Contains(ϒredirect_urls, ϒencoding_url))
 										}
 									}()) {
-										λ.Cal(λ.GetAttr(ϒredirects, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-											λ.NewStr("url"): ϒencoding_url,
+										λ.Calm(ϒredirects, "append", λ.DictLiteral(map[string]λ.Object{
+											"url": ϒencoding_url,
 										}))
-										λ.Cal(λ.GetAttr(ϒredirect_urls, "add", nil), ϒencoding_url)
+										λ.Calm(ϒredirect_urls, "add", ϒencoding_url)
 									}
 								}
 							}
@@ -1038,8 +1038,8 @@ func init() {
 						})
 					ϒchapters = λ.NewList()
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-						λ.NewStr("widget/partnerplayer"),
-						λ.NewStr("portalplayer"),
+						λ.StrLiteral("widget/partnerplayer"),
+						λ.StrLiteral("portalplayer"),
 					))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
@@ -1047,39 +1047,39 @@ func init() {
 						}
 						ϒpage = τmp1
 						ϒplayer = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
-							λ.Mod(λ.NewStr("http://player.pbs.org/%s/%s"), λ.NewTuple(
+							λ.Mod(λ.StrLiteral("http://player.pbs.org/%s/%s"), λ.NewTuple(
 								ϒpage,
 								ϒvideo_id,
 							)),
 							ϒdisplay_id,
-							λ.Mod(λ.NewStr("Downloading %s page"), ϒpage),
+							λ.Mod(λ.StrLiteral("Downloading %s page"), ϒpage),
 						), λ.KWArgs{
 							{Name: "fatal", Value: λ.False},
 						})
 						if λ.IsTrue(ϒplayer) {
 							ϒvideo_info = λ.Call(λ.GetAttr(ϒself, "_extract_video_data", nil), λ.NewArgs(
 								ϒplayer,
-								λ.Mod(λ.NewStr("%s video data"), ϒpage),
+								λ.Mod(λ.StrLiteral("%s video data"), ϒpage),
 								ϒdisplay_id,
 							), λ.KWArgs{
 								{Name: "fatal", Value: λ.False},
 							})
 							if λ.IsTrue(ϒvideo_info) {
 								λ.Cal(ϒextract_redirect_urls, ϒvideo_info)
-								if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒinfo))) {
+								if !λ.IsTrue(ϒinfo) {
 									ϒinfo = ϒvideo_info
 								}
 							}
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒchapters))) {
+							if !λ.IsTrue(ϒchapters) {
 								ϒraw_chapters = func() λ.Object {
-									if λv := λ.Cal(λ.GetAttr(ϒvideo_info, "get", nil), λ.NewStr("chapters")); λ.IsTrue(λv) {
+									if λv := λ.Calm(ϒvideo_info, "get", λ.StrLiteral("chapters")); λ.IsTrue(λv) {
 										return λv
 									} else {
 										return λ.NewList()
 									}
 								}()
-								if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒraw_chapters))) {
-									τmp2 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.NewStr("(?s)chapters\\.push\\(({.*?})\\)"), ϒplayer))
+								if !λ.IsTrue(ϒraw_chapters) {
+									τmp2 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("(?s)chapters\\.push\\(({.*?})\\)"), ϒplayer))
 									for {
 										if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 											break
@@ -1092,10 +1092,10 @@ func init() {
 										), λ.KWArgs{
 											{Name: "fatal", Value: λ.False},
 										})
-										if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒchapter))) {
+										if !λ.IsTrue(ϒchapter) {
 											continue
 										}
-										λ.Cal(λ.GetAttr(ϒraw_chapters, "append", nil), ϒchapter)
+										λ.Calm(ϒraw_chapters, "append", ϒchapter)
 									}
 								}
 								τmp2 = λ.Cal(λ.BuiltinIter, ϒraw_chapters)
@@ -1104,8 +1104,8 @@ func init() {
 										break
 									}
 									ϒchapter = τmp3
-									ϒstart_time = λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒchapter, "get", nil), λ.NewStr("start_time")), λ.NewInt(1000))
-									ϒduration = λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒchapter, "get", nil), λ.NewStr("duration")), λ.NewInt(1000))
+									ϒstart_time = λ.Cal(ϒfloat_or_none, λ.Calm(ϒchapter, "get", λ.StrLiteral("start_time")), λ.IntLiteral(1000))
+									ϒduration = λ.Cal(ϒfloat_or_none, λ.Calm(ϒchapter, "get", λ.StrLiteral("duration")), λ.IntLiteral(1000))
 									if λ.IsTrue(func() λ.Object {
 										if λv := λ.NewBool(ϒstart_time == λ.None); λ.IsTrue(λv) {
 											return λv
@@ -1115,10 +1115,10 @@ func init() {
 									}()) {
 										continue
 									}
-									λ.Cal(λ.GetAttr(ϒchapters, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("start_time"): ϒstart_time,
-										λ.NewStr("end_time"):   λ.Add(ϒstart_time, ϒduration),
-										λ.NewStr("title"):      λ.Cal(λ.GetAttr(ϒchapter, "get", nil), λ.NewStr("title")),
+									λ.Calm(ϒchapters, "append", λ.DictLiteral(map[string]λ.Object{
+										"start_time": ϒstart_time,
+										"end_time":   λ.Add(ϒstart_time, ϒduration),
+										"title":      λ.Calm(ϒchapter, "get", λ.StrLiteral("title")),
 									}))
 								}
 							}
@@ -1132,13 +1132,13 @@ func init() {
 							break
 						}
 						τmp2 = τmp1
-						ϒnum = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒredirect = λ.GetItem(τmp2, λ.NewInt(1))
-						ϒredirect_id = λ.Cal(λ.GetAttr(ϒredirect, "get", nil), λ.NewStr("eeid"))
+						ϒnum = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒredirect = λ.GetItem(τmp2, λ.IntLiteral(1))
+						ϒredirect_id = λ.Calm(ϒredirect, "get", λ.StrLiteral("eeid"))
 						ϒredirect_info = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-							λ.Mod(λ.NewStr("%s?format=json"), λ.GetItem(ϒredirect, λ.NewStr("url"))),
+							λ.Mod(λ.StrLiteral("%s?format=json"), λ.GetItem(ϒredirect, λ.StrLiteral("url"))),
 							ϒdisplay_id,
-							λ.Mod(λ.NewStr("Downloading %s video url info"), func() λ.Object {
+							λ.Mod(λ.StrLiteral("Downloading %s video url info"), func() λ.Object {
 								if λv := ϒredirect_id; λ.IsTrue(λv) {
 									return λv
 								} else {
@@ -1146,47 +1146,47 @@ func init() {
 								}
 							}()),
 						), λ.KWArgs{
-							{Name: "headers", Value: λ.Cal(λ.GetAttr(ϒself, "geo_verification_headers", nil))},
+							{Name: "headers", Value: λ.Calm(ϒself, "geo_verification_headers")},
 						})
-						if λ.IsTrue(λ.Eq(λ.GetItem(ϒredirect_info, λ.NewStr("status")), λ.NewStr("error"))) {
-							ϒmessage = λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_ERRORS", nil), "get", nil), λ.GetItem(ϒredirect_info, λ.NewStr("http_code")), λ.GetItem(ϒredirect_info, λ.NewStr("message")))
-							if λ.IsTrue(λ.Eq(λ.GetItem(ϒredirect_info, λ.NewStr("http_code")), λ.NewInt(403))) {
+						if λ.IsTrue(λ.Eq(λ.GetItem(ϒredirect_info, λ.StrLiteral("status")), λ.StrLiteral("error"))) {
+							ϒmessage = λ.Calm(λ.GetAttr(ϒself, "_ERRORS", nil), "get", λ.GetItem(ϒredirect_info, λ.StrLiteral("http_code")), λ.GetItem(ϒredirect_info, λ.StrLiteral("message")))
+							if λ.IsTrue(λ.Eq(λ.GetItem(ϒredirect_info, λ.StrLiteral("http_code")), λ.IntLiteral(403))) {
 								λ.Call(λ.GetAttr(ϒself, "raise_geo_restricted", nil), nil, λ.KWArgs{
 									{Name: "msg", Value: ϒmessage},
 									{Name: "countries", Value: λ.GetAttr(ϒself, "_GEO_COUNTRIES", nil)},
 								})
 							}
-							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("%s said: %s"), λ.NewTuple(
+							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("%s said: %s"), λ.NewTuple(
 								λ.GetAttr(ϒself, "IE_NAME", nil),
 								ϒmessage,
 							))), λ.KWArgs{
 								{Name: "expected", Value: λ.True},
 							})))
 						}
-						ϒformat_url = λ.Cal(λ.GetAttr(ϒredirect_info, "get", nil), λ.NewStr("url"))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformat_url))) {
+						ϒformat_url = λ.Calm(ϒredirect_info, "get", λ.StrLiteral("url"))
+						if !λ.IsTrue(ϒformat_url) {
 							continue
 						}
-						if λ.IsTrue(λ.Eq(λ.Cal(ϒdetermine_ext, ϒformat_url), λ.NewStr("m3u8"))) {
-							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+						if λ.IsTrue(λ.Eq(λ.Cal(ϒdetermine_ext, ϒformat_url), λ.StrLiteral("m3u8"))) {
+							λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
 								ϒformat_url,
 								ϒdisplay_id,
-								λ.NewStr("mp4"),
+								λ.StrLiteral("mp4"),
 							), λ.KWArgs{
-								{Name: "m3u8_id", Value: λ.NewStr("hls")},
+								{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
 								{Name: "fatal", Value: λ.False},
 							}))
 						} else {
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("url"):       ϒformat_url,
-								λ.NewStr("format_id"): ϒredirect_id,
+							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+								"url":       ϒformat_url,
+								"format_id": ϒredirect_id,
 							}))
-							if λ.IsTrue(λ.Cal(Ωre.ϒsearch, λ.NewStr("^https?://.*(?:\\d+k|baseline)"), ϒformat_url)) {
+							if λ.IsTrue(λ.Cal(Ωre.ϒsearch, λ.StrLiteral("^https?://.*(?:\\d+k|baseline)"), ϒformat_url)) {
 								ϒhttp_url = ϒformat_url
 							}
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_remove_duplicate_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_remove_duplicate_formats", ϒformats)
 					ϒm3u8_formats = λ.Cal(λ.ListType, λ.Cal(λ.FilterIteratorType, λ.NewFunction("<lambda>",
 						[]λ.Param{
 							{Name: "f"},
@@ -1197,10 +1197,10 @@ func init() {
 								ϒf = λargs[0]
 							)
 							return func() λ.Object {
-								if λv := λ.Eq(λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("protocol")), λ.NewStr("m3u8")); !λ.IsTrue(λv) {
+								if λv := λ.Eq(λ.Calm(ϒf, "get", λ.StrLiteral("protocol")), λ.StrLiteral("m3u8")); !λ.IsTrue(λv) {
 									return λv
 								} else {
-									return λ.Ne(λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("vcodec")), λ.NewStr("none"))
+									return λ.Ne(λ.Calm(ϒf, "get", λ.StrLiteral("vcodec")), λ.StrLiteral("none"))
 								}
 							}()
 						}), ϒformats))
@@ -1212,9 +1212,9 @@ func init() {
 							}
 							ϒm3u8_format = τmp1
 							ϒbitrate = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.NewStr("(\\d+)k"),
-								λ.GetItem(ϒm3u8_format, λ.NewStr("url")),
-								λ.NewStr("bitrate"),
+								λ.StrLiteral("(\\d+)k"),
+								λ.GetItem(ϒm3u8_format, λ.StrLiteral("url")),
+								λ.StrLiteral("bitrate"),
 							), λ.KWArgs{
 								{Name: "default", Value: λ.None},
 							})
@@ -1222,91 +1222,91 @@ func init() {
 								if λv := λ.NewBool(!λ.IsTrue(ϒbitrate)); λ.IsTrue(λv) {
 									return λv
 								} else {
-									return λ.Lt(λ.Cal(λ.IntType, ϒbitrate), λ.NewInt(400))
+									return λ.Lt(λ.Cal(λ.IntType, ϒbitrate), λ.IntLiteral(400))
 								}
 							}()) {
 								continue
 							}
-							ϒf_url = λ.Cal(Ωre.ϒsub, λ.NewStr("\\d+k|baseline"), λ.Add(ϒbitrate, λ.NewStr("k")), ϒhttp_url)
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒself, "_is_valid_url", nil), ϒf_url, ϒdisplay_id, λ.Mod(λ.NewStr("http-%sk video"), ϒbitrate))))) {
+							ϒf_url = λ.Cal(Ωre.ϒsub, λ.StrLiteral("\\d+k|baseline"), λ.Add(ϒbitrate, λ.StrLiteral("k")), ϒhttp_url)
+							if !λ.IsTrue(λ.Calm(ϒself, "_is_valid_url", ϒf_url, ϒdisplay_id, λ.Mod(λ.StrLiteral("http-%sk video"), ϒbitrate))) {
 								continue
 							}
-							ϒf = λ.Cal(λ.GetAttr(ϒm3u8_format, "copy", nil))
-							λ.Cal(λ.GetAttr(ϒf, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("url"):       ϒf_url,
-								λ.NewStr("format_id"): λ.Cal(λ.GetAttr(λ.GetItem(ϒm3u8_format, λ.NewStr("format_id")), "replace", nil), λ.NewStr("hls"), λ.NewStr("http")),
-								λ.NewStr("protocol"):  λ.NewStr("http"),
+							ϒf = λ.Calm(ϒm3u8_format, "copy")
+							λ.Calm(ϒf, "update", λ.DictLiteral(map[string]λ.Object{
+								"url":       ϒf_url,
+								"format_id": λ.Calm(λ.GetItem(ϒm3u8_format, λ.StrLiteral("format_id")), "replace", λ.StrLiteral("hls"), λ.StrLiteral("http")),
+								"protocol":  λ.StrLiteral("http"),
 							}))
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), ϒf)
+							λ.Calm(ϒformats, "append", ϒf)
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					ϒrating_str = λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("rating"))
-					if λ.IsTrue(λ.NewBool(ϒrating_str != λ.None)) {
-						ϒrating_str = λ.GetItem(λ.Cal(λ.GetAttr(ϒrating_str, "rpartition", nil), λ.NewStr("-")), λ.NewInt(2))
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒrating_str = λ.Calm(ϒinfo, "get", λ.StrLiteral("rating"))
+					if ϒrating_str != λ.None {
+						ϒrating_str = λ.GetItem(λ.Calm(ϒrating_str, "rpartition", λ.StrLiteral("-")), λ.IntLiteral(2))
 					}
-					ϒage_limit = λ.Cal(λ.GetAttr(US_RATINGS, "get", nil), ϒrating_str)
-					ϒsubtitles = λ.NewDictWithTable(map[λ.Object]λ.Object{})
-					ϒclosed_captions_url = λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("closed_captions_url"))
+					ϒage_limit = λ.Calm(US_RATINGS, "get", ϒrating_str)
+					ϒsubtitles = λ.DictLiteral(map[λ.Object]λ.Object{})
+					ϒclosed_captions_url = λ.Calm(ϒinfo, "get", λ.StrLiteral("closed_captions_url"))
 					if λ.IsTrue(ϒclosed_captions_url) {
-						λ.SetItem(ϒsubtitles, λ.NewStr("en"), λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("ext"): λ.NewStr("ttml"),
-							λ.NewStr("url"): ϒclosed_captions_url,
+						λ.SetItem(ϒsubtitles, λ.StrLiteral("en"), λ.NewList(λ.DictLiteral(map[string]λ.Object{
+							"ext": λ.StrLiteral("ttml"),
+							"url": ϒclosed_captions_url,
 						})))
-						ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("/(\\d+)_Encoded\\.dfxp"), ϒclosed_captions_url)
+						ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("/(\\d+)_Encoded\\.dfxp"), ϒclosed_captions_url)
 						if λ.IsTrue(ϒmobj) {
-							τmp0 = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewInt(0), λ.NewInt(1))
-							ϒttml_caption_suffix = λ.GetItem(τmp0, λ.NewInt(0))
-							ϒttml_caption_id = λ.GetItem(τmp0, λ.NewInt(1))
+							τmp0 = λ.Calm(ϒmobj, "group", λ.IntLiteral(0), λ.IntLiteral(1))
+							ϒttml_caption_suffix = λ.GetItem(τmp0, λ.IntLiteral(0))
+							ϒttml_caption_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 							ϒttml_caption_id = λ.Cal(λ.IntType, ϒttml_caption_id)
-							λ.Cal(λ.GetAttr(λ.GetItem(ϒsubtitles, λ.NewStr("en")), "extend", nil), λ.NewList(
-								λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("url"): λ.Cal(λ.GetAttr(ϒclosed_captions_url, "replace", nil), ϒttml_caption_suffix, λ.Mod(λ.NewStr("/%d_Encoded.srt"), λ.Add(ϒttml_caption_id, λ.NewInt(1)))),
-									λ.NewStr("ext"): λ.NewStr("srt"),
+							λ.Calm(λ.GetItem(ϒsubtitles, λ.StrLiteral("en")), "extend", λ.NewList(
+								λ.DictLiteral(map[string]λ.Object{
+									"url": λ.Calm(ϒclosed_captions_url, "replace", ϒttml_caption_suffix, λ.Mod(λ.StrLiteral("/%d_Encoded.srt"), λ.Add(ϒttml_caption_id, λ.IntLiteral(1)))),
+									"ext": λ.StrLiteral("srt"),
 								}),
-								λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("url"): λ.Cal(λ.GetAttr(ϒclosed_captions_url, "replace", nil), ϒttml_caption_suffix, λ.Mod(λ.NewStr("/%d_Encoded.vtt"), λ.Add(ϒttml_caption_id, λ.NewInt(2)))),
-									λ.NewStr("ext"): λ.NewStr("vtt"),
+								λ.DictLiteral(map[string]λ.Object{
+									"url": λ.Calm(ϒclosed_captions_url, "replace", ϒttml_caption_suffix, λ.Mod(λ.StrLiteral("/%d_Encoded.vtt"), λ.Add(ϒttml_caption_id, λ.IntLiteral(2)))),
+									"ext": λ.StrLiteral("vtt"),
 								}),
 							))
 						}
 					}
-					ϒalt_title = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("program"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("title"))
+					ϒalt_title = λ.Calm(λ.Calm(ϒinfo, "get", λ.StrLiteral("program"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("title"))
 					if λ.IsTrue(ϒalt_title) {
-						λ.SetItem(ϒinfo, λ.NewStr("title"), λ.Add(λ.Add(ϒalt_title, λ.NewStr(" - ")), λ.Cal(Ωre.ϒsub, λ.Add(λ.Add(λ.NewStr("^"), ϒalt_title), λ.NewStr("[\\s\\-:]+")), λ.NewStr(""), λ.GetItem(ϒinfo, λ.NewStr("title")))))
+						λ.SetItem(ϒinfo, λ.StrLiteral("title"), λ.Add(λ.Add(ϒalt_title, λ.StrLiteral(" - ")), λ.Cal(Ωre.ϒsub, λ.Add(λ.Add(λ.StrLiteral("^"), ϒalt_title), λ.StrLiteral("[\\s\\-:]+")), λ.StrLiteral(""), λ.GetItem(ϒinfo, λ.StrLiteral("title")))))
 					}
 					ϒdescription = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("description")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒinfo, "get", λ.StrLiteral("description")); λ.IsTrue(λv) {
 							return λv
-						} else if λv := λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("program"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("description")); λ.IsTrue(λv) {
+						} else if λv := λ.Calm(λ.Calm(ϒinfo, "get", λ.StrLiteral("program"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("description")); λ.IsTrue(λv) {
 							return λv
 						} else {
 							return ϒdescription
 						}
 					}()
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("display_id"):  ϒdisplay_id,
-						λ.NewStr("title"):       λ.GetItem(ϒinfo, λ.NewStr("title")),
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("image_url")),
-						λ.NewStr("duration"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("duration"))),
-						λ.NewStr("age_limit"):   ϒage_limit,
-						λ.NewStr("upload_date"): ϒupload_date,
-						λ.NewStr("formats"):     ϒformats,
-						λ.NewStr("subtitles"):   ϒsubtitles,
-						λ.NewStr("chapters"):    ϒchapters,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"display_id":  ϒdisplay_id,
+						"title":       λ.GetItem(ϒinfo, λ.StrLiteral("title")),
+						"description": ϒdescription,
+						"thumbnail":   λ.Calm(ϒinfo, "get", λ.StrLiteral("image_url")),
+						"duration":    λ.Cal(ϒint_or_none, λ.Calm(ϒinfo, "get", λ.StrLiteral("duration"))),
+						"age_limit":   ϒage_limit,
+						"upload_date": ϒupload_date,
+						"formats":     ϒformats,
+						"subtitles":   ϒsubtitles,
+						"chapters":    ϒchapters,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):             PBSIE_IE_NAME,
-				λ.NewStr("_GEO_COUNTRIES"):      PBSIE__GEO_COUNTRIES,
-				λ.NewStr("_STATIONS"):           PBSIE__STATIONS,
-				λ.NewStr("_VALID_URL"):          PBSIE__VALID_URL,
-				λ.NewStr("_extract_video_data"): PBSIE__extract_video_data,
-				λ.NewStr("_extract_webpage"):    PBSIE__extract_webpage,
-				λ.NewStr("_real_extract"):       PBSIE__real_extract,
-				λ.NewStr("_real_initialize"):    PBSIE__real_initialize,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":             PBSIE_IE_NAME,
+				"_GEO_COUNTRIES":      PBSIE__GEO_COUNTRIES,
+				"_STATIONS":           PBSIE__STATIONS,
+				"_VALID_URL":          PBSIE__VALID_URL,
+				"_extract_video_data": PBSIE__extract_video_data,
+				"_extract_webpage":    PBSIE__extract_webpage,
+				"_real_extract":       PBSIE__real_extract,
+				"_real_initialize":    PBSIE__real_initialize,
 			})
 		}())
 	})

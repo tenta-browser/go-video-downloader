@@ -50,13 +50,13 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
-		LyndaBaseIE = λ.Cal(λ.TypeType, λ.NewStr("LyndaBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		LyndaBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("LyndaBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				LyndaBaseIE__NETRC_MACHINE   λ.Object
 				LyndaBaseIE__login           λ.Object
 				LyndaBaseIE__real_initialize λ.Object
 			)
-			LyndaBaseIE__NETRC_MACHINE = λ.NewStr("lynda")
+			LyndaBaseIE__NETRC_MACHINE = λ.StrLiteral("lynda")
 			LyndaBaseIE__real_initialize = λ.NewFunction("_real_initialize",
 				[]λ.Param{
 					{Name: "self"},
@@ -66,7 +66,7 @@ func init() {
 					var (
 						ϒself = λargs[0]
 					)
-					λ.Cal(λ.GetAttr(ϒself, "_login", nil))
+					λ.Calm(ϒself, "_login")
 					return λ.None
 				})
 			LyndaBaseIE__login = λ.NewFunction("_login",
@@ -85,13 +85,13 @@ func init() {
 						ϒusername      λ.Object
 						τmp0           λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_get_login_info", nil))
-					ϒusername = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒpassword = λ.GetItem(τmp0, λ.NewInt(1))
-					if λ.IsTrue(λ.NewBool(ϒusername == λ.None)) {
+					τmp0 = λ.Calm(ϒself, "_get_login_info")
+					ϒusername = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
+					if ϒusername == λ.None {
 						return λ.None
 					}
-					ϒsignin_page = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.GetAttr(ϒself, "_SIGNIN_URL", nil), λ.None, λ.NewStr("Downloading signin page"))
+					ϒsignin_page = λ.Calm(ϒself, "_download_webpage", λ.GetAttr(ϒself, "_SIGNIN_URL", nil), λ.None, λ.StrLiteral("Downloading signin page"))
 					if λ.IsTrue(λ.Cal(λ.BuiltinAny, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -103,9 +103,9 @@ func init() {
 									τmp1 λ.Object
 								)
 								τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-									λ.NewStr("isLoggedIn\\s*:\\s*true"),
-									λ.NewStr("logout\\.aspx"),
-									λ.NewStr(">Log out<"),
+									λ.StrLiteral("isLoggedIn\\s*:\\s*true"),
+									λ.StrLiteral("logout\\.aspx"),
+									λ.StrLiteral(">Log out<"),
 								))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
@@ -119,33 +119,33 @@ func init() {
 						})))) {
 						return λ.None
 					}
-					ϒsignin_form = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("(?s)(<form[^>]+data-form-name=[\"\\']signin[\"\\'][^>]*>.+?</form>)"), ϒsignin_page, λ.NewStr("signin form"))
-					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_login_step", nil), ϒsignin_form, λ.GetAttr(ϒself, "_PASSWORD_URL", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("email"): ϒusername,
-					}), λ.NewStr("Submitting email"), λ.GetAttr(ϒself, "_SIGNIN_URL", nil))
-					ϒsignin_page = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒsignin_url = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒpassword_form = λ.GetItem(ϒsignin_page, λ.NewStr("body"))
-					λ.Cal(λ.GetAttr(ϒself, "_login_step", nil), ϒpassword_form, λ.GetAttr(ϒself, "_USER_URL", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("email"):    ϒusername,
-						λ.NewStr("password"): ϒpassword,
-					}), λ.NewStr("Submitting password"), ϒsignin_url)
+					ϒsignin_form = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("(?s)(<form[^>]+data-form-name=[\"\\']signin[\"\\'][^>]*>.+?</form>)"), ϒsignin_page, λ.StrLiteral("signin form"))
+					τmp0 = λ.Calm(ϒself, "_login_step", ϒsignin_form, λ.GetAttr(ϒself, "_PASSWORD_URL", nil), λ.DictLiteral(map[string]λ.Object{
+						"email": ϒusername,
+					}), λ.StrLiteral("Submitting email"), λ.GetAttr(ϒself, "_SIGNIN_URL", nil))
+					ϒsignin_page = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒsignin_url = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒpassword_form = λ.GetItem(ϒsignin_page, λ.StrLiteral("body"))
+					λ.Calm(ϒself, "_login_step", ϒpassword_form, λ.GetAttr(ϒself, "_USER_URL", nil), λ.DictLiteral(map[string]λ.Object{
+						"email":    ϒusername,
+						"password": ϒpassword,
+					}), λ.StrLiteral("Submitting password"), ϒsignin_url)
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_NETRC_MACHINE"):   LyndaBaseIE__NETRC_MACHINE,
-				λ.NewStr("_login"):           LyndaBaseIE__login,
-				λ.NewStr("_real_initialize"): LyndaBaseIE__real_initialize,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_NETRC_MACHINE":   LyndaBaseIE__NETRC_MACHINE,
+				"_login":           LyndaBaseIE__login,
+				"_real_initialize": LyndaBaseIE__real_initialize,
 			})
 		}())
-		LyndaIE = λ.Cal(λ.TypeType, λ.NewStr("LyndaIE"), λ.NewTuple(LyndaBaseIE), func() λ.Dict {
+		LyndaIE = λ.Cal(λ.TypeType, λ.StrLiteral("LyndaIE"), λ.NewTuple(LyndaBaseIE), func() λ.Dict {
 			var (
 				LyndaIE_IE_NAME       λ.Object
 				LyndaIE__VALID_URL    λ.Object
 				LyndaIE__real_extract λ.Object
 			)
-			LyndaIE_IE_NAME = λ.NewStr("lynda")
-			LyndaIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:www\\.)?(?:lynda\\.com|educourse\\.ga)/\n                        (?:\n                            (?:[^/]+/){2,3}(?P<course_id>\\d+)|\n                            player/embed\n                        )/\n                        (?P<id>\\d+)\n                    ")
+			LyndaIE_IE_NAME = λ.StrLiteral("lynda")
+			LyndaIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:www\\.)?(?:lynda\\.com|educourse\\.ga)/\n                        (?:\n                            (?:[^/]+/){2,3}(?P<course_id>\\d+)|\n                            player/embed\n                        )/\n                        (?P<id>\\d+)\n                    ")
 			LyndaIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -183,28 +183,28 @@ func init() {
 						τmp4                   λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-					ϒcourse_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("course_id"))
-					ϒquery = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("videoId"): ϒvideo_id,
-						λ.NewStr("type"):    λ.NewStr("video"),
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
+					ϒcourse_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("course_id"))
+					ϒquery = λ.DictLiteral(map[string]λ.Object{
+						"videoId": ϒvideo_id,
+						"type":    λ.StrLiteral("video"),
 					})
 					ϒvideo = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.NewStr("https://www.lynda.com/ajax/player"),
+						λ.StrLiteral("https://www.lynda.com/ajax/player"),
 						ϒvideo_id,
-						λ.NewStr("Downloading video JSON"),
+						λ.StrLiteral("Downloading video JSON"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 						{Name: "query", Value: ϒquery},
 					})
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo))) {
-						λ.SetItem(ϒquery, λ.NewStr("courseId"), ϒcourse_id)
-						ϒplay = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("https://www.lynda.com/ajax/course/%s/%s/play"), λ.NewTuple(
+					if !λ.IsTrue(ϒvideo) {
+						λ.SetItem(ϒquery, λ.StrLiteral("courseId"), ϒcourse_id)
+						ϒplay = λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("https://www.lynda.com/ajax/course/%s/%s/play"), λ.NewTuple(
 							ϒcourse_id,
 							ϒvideo_id,
-						)), ϒvideo_id, λ.NewStr("Downloading play JSON"))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒplay))) {
-							λ.Cal(λ.GetAttr(ϒself, "_raise_unavailable", nil), ϒvideo_id)
+						)), ϒvideo_id, λ.StrLiteral("Downloading play JSON"))
+						if !λ.IsTrue(ϒplay) {
+							λ.Calm(ϒself, "_raise_unavailable", ϒvideo_id)
 						}
 						ϒformats = λ.NewList()
 						τmp0 = λ.Cal(λ.BuiltinIter, ϒplay)
@@ -213,27 +213,27 @@ func init() {
 								break
 							}
 							ϒformats_dict = τmp1
-							ϒurls = λ.Cal(λ.GetAttr(ϒformats_dict, "get", nil), λ.NewStr("urls"))
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒurls, λ.DictType)))) {
+							ϒurls = λ.Calm(ϒformats_dict, "get", λ.StrLiteral("urls"))
+							if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒurls, λ.DictType)) {
 								continue
 							}
-							ϒcdn = λ.Cal(λ.GetAttr(ϒformats_dict, "get", nil), λ.NewStr("name"))
-							τmp2 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒurls, "items", nil)))
+							ϒcdn = λ.Calm(ϒformats_dict, "get", λ.StrLiteral("name"))
+							τmp2 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒurls, "items"))
 							for {
 								if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 									break
 								}
 								τmp4 = τmp3
-								ϒformat_id = λ.GetItem(τmp4, λ.NewInt(0))
-								ϒformat_url = λ.GetItem(τmp4, λ.NewInt(1))
-								if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformat_url))) {
+								ϒformat_id = λ.GetItem(τmp4, λ.IntLiteral(0))
+								ϒformat_url = λ.GetItem(τmp4, λ.IntLiteral(1))
+								if !λ.IsTrue(ϒformat_url) {
 									continue
 								}
-								λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("url"): ϒformat_url,
-									λ.NewStr("format_id"): func() λ.Object {
+								λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+									"url": ϒformat_url,
+									"format_id": func() λ.Object {
 										if λ.IsTrue(ϒcdn) {
-											return λ.Mod(λ.NewStr("%s-%s"), λ.NewTuple(
+											return λ.Mod(λ.StrLiteral("%s-%s"), λ.NewTuple(
 												ϒcdn,
 												ϒformat_id,
 											))
@@ -241,49 +241,49 @@ func init() {
 											return ϒformat_id
 										}
 									}(),
-									λ.NewStr("height"): λ.Cal(ϒint_or_none, ϒformat_id),
+									"height": λ.Cal(ϒint_or_none, ϒformat_id),
 								}))
 							}
 						}
-						λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+						λ.Calm(ϒself, "_sort_formats", ϒformats)
 						ϒconviva = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-							λ.NewStr("https://www.lynda.com/ajax/player/conviva"),
+							λ.StrLiteral("https://www.lynda.com/ajax/player/conviva"),
 							ϒvideo_id,
-							λ.NewStr("Downloading conviva JSON"),
+							λ.StrLiteral("Downloading conviva JSON"),
 						), λ.KWArgs{
 							{Name: "query", Value: ϒquery},
 						})
-						return λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("id"):           ϒvideo_id,
-							λ.NewStr("title"):        λ.GetItem(ϒconviva, λ.NewStr("VideoTitle")),
-							λ.NewStr("description"):  λ.Cal(λ.GetAttr(ϒconviva, "get", nil), λ.NewStr("VideoDescription")),
-							λ.NewStr("release_year"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒconviva, "get", nil), λ.NewStr("ReleaseYear"))),
-							λ.NewStr("duration"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒconviva, "get", nil), λ.NewStr("Duration"))),
-							λ.NewStr("creator"):      λ.Cal(λ.GetAttr(ϒconviva, "get", nil), λ.NewStr("Author")),
-							λ.NewStr("formats"):      ϒformats,
+						return λ.DictLiteral(map[string]λ.Object{
+							"id":           ϒvideo_id,
+							"title":        λ.GetItem(ϒconviva, λ.StrLiteral("VideoTitle")),
+							"description":  λ.Calm(ϒconviva, "get", λ.StrLiteral("VideoDescription")),
+							"release_year": λ.Cal(ϒint_or_none, λ.Calm(ϒconviva, "get", λ.StrLiteral("ReleaseYear"))),
+							"duration":     λ.Cal(ϒint_or_none, λ.Calm(ϒconviva, "get", λ.StrLiteral("Duration"))),
+							"creator":      λ.Calm(ϒconviva, "get", λ.StrLiteral("Author")),
+							"formats":      ϒformats,
 						})
 					}
-					if λ.IsTrue(λ.NewBool(λ.Contains(ϒvideo, λ.NewStr("Status")))) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("lynda returned error: %s"), λ.GetItem(ϒvideo, λ.NewStr("Message")))), λ.KWArgs{
+					if λ.Contains(ϒvideo, λ.StrLiteral("Status")) {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("lynda returned error: %s"), λ.GetItem(ϒvideo, λ.StrLiteral("Message")))), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
-					if λ.IsTrue(λ.NewBool(λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("HasAccess")) == λ.False)) {
-						λ.Cal(λ.GetAttr(ϒself, "_raise_unavailable", nil), ϒvideo_id)
+					if λ.Calm(ϒvideo, "get", λ.StrLiteral("HasAccess")) == λ.False {
+						λ.Calm(ϒself, "_raise_unavailable", ϒvideo_id)
 					}
 					ϒvideo_id = λ.Cal(ϒcompat_str, func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("ID")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒvideo, "get", λ.StrLiteral("ID")); λ.IsTrue(λv) {
 							return λv
 						} else {
 							return ϒvideo_id
 						}
 					}())
-					ϒduration = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("DurationInSeconds")))
-					ϒtitle = λ.GetItem(ϒvideo, λ.NewStr("Title"))
+					ϒduration = λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("DurationInSeconds")))
+					ϒtitle = λ.GetItem(ϒvideo, λ.StrLiteral("Title"))
 					ϒformats = λ.NewList()
-					ϒfmts = λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("Formats"))
+					ϒfmts = λ.Calm(ϒvideo, "get", λ.StrLiteral("Formats"))
 					if λ.IsTrue(ϒfmts) {
-						λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+						λ.Calm(ϒformats, "extend", λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
@@ -299,16 +299,16 @@ func init() {
 											break
 										}
 										ϒf = τmp1
-										if λ.IsTrue(λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("Url"))) {
-											λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-												λ.NewStr("url"):      λ.GetItem(ϒf, λ.NewStr("Url")),
-												λ.NewStr("ext"):      λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("Extension")),
-												λ.NewStr("width"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("Width"))),
-												λ.NewStr("height"):   λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("Height"))),
-												λ.NewStr("filesize"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("FileSize"))),
-												λ.NewStr("format_id"): func() λ.Object {
-													if λ.IsTrue(λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("Resolution"))) {
-														return λ.Cal(ϒcompat_str, λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("Resolution")))
+										if λ.IsTrue(λ.Calm(ϒf, "get", λ.StrLiteral("Url"))) {
+											λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+												"url":      λ.GetItem(ϒf, λ.StrLiteral("Url")),
+												"ext":      λ.Calm(ϒf, "get", λ.StrLiteral("Extension")),
+												"width":    λ.Cal(ϒint_or_none, λ.Calm(ϒf, "get", λ.StrLiteral("Width"))),
+												"height":   λ.Cal(ϒint_or_none, λ.Calm(ϒf, "get", λ.StrLiteral("Height"))),
+												"filesize": λ.Cal(ϒint_or_none, λ.Calm(ϒf, "get", λ.StrLiteral("FileSize"))),
+												"format_id": func() λ.Object {
+													if λ.IsTrue(λ.Calm(ϒf, "get", λ.StrLiteral("Resolution"))) {
+														return λ.Cal(ϒcompat_str, λ.Calm(ϒf, "get", λ.StrLiteral("Resolution")))
 													} else {
 														return λ.None
 													}
@@ -320,17 +320,17 @@ func init() {
 								})
 							}))))
 					}
-					ϒprioritized_streams = λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("PrioritizedStreams"))
+					ϒprioritized_streams = λ.Calm(ϒvideo, "get", λ.StrLiteral("PrioritizedStreams"))
 					if λ.IsTrue(ϒprioritized_streams) {
-						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒprioritized_streams, "items", nil)))
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒprioritized_streams, "items"))
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
 							τmp2 = τmp1
-							ϒprioritized_stream_id = λ.GetItem(τmp2, λ.NewInt(0))
-							ϒprioritized_stream = λ.GetItem(τmp2, λ.NewInt(1))
-							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+							ϒprioritized_stream_id = λ.GetItem(τmp2, λ.IntLiteral(0))
+							ϒprioritized_stream = λ.GetItem(τmp2, λ.IntLiteral(1))
+							λ.Calm(ϒformats, "extend", λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 								nil,
 								0, false, false,
 								func(λargs []λ.Object) λ.Object {
@@ -342,18 +342,18 @@ func init() {
 											τmp1       λ.Object
 											τmp2       λ.Object
 										)
-										τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒprioritized_stream, "items", nil)))
+										τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒprioritized_stream, "items"))
 										for {
 											if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 												break
 											}
 											τmp2 = τmp1
-											ϒformat_id = λ.GetItem(τmp2, λ.NewInt(0))
-											ϒvideo_url = λ.GetItem(τmp2, λ.NewInt(1))
-											λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-												λ.NewStr("url"):    ϒvideo_url,
-												λ.NewStr("height"): λ.Cal(ϒint_or_none, ϒformat_id),
-												λ.NewStr("format_id"): λ.Mod(λ.NewStr("%s-%s"), λ.NewTuple(
+											ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
+											ϒvideo_url = λ.GetItem(τmp2, λ.IntLiteral(1))
+											λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+												"url":    ϒvideo_url,
+												"height": λ.Cal(ϒint_or_none, ϒformat_id),
+												"format_id": λ.Mod(λ.StrLiteral("%s-%s"), λ.NewTuple(
 													ϒprioritized_stream_id,
 													ϒformat_id,
 												)),
@@ -364,30 +364,30 @@ func init() {
 								}))))
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_check_formats", nil), ϒformats, ϒvideo_id)
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					ϒsubtitles = λ.Cal(λ.GetAttr(ϒself, "extract_subtitles", nil), ϒvideo_id)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("title"):     ϒtitle,
-						λ.NewStr("duration"):  ϒduration,
-						λ.NewStr("subtitles"): ϒsubtitles,
-						λ.NewStr("formats"):   ϒformats,
+					λ.Calm(ϒself, "_check_formats", ϒformats, ϒvideo_id)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒsubtitles = λ.Calm(ϒself, "extract_subtitles", ϒvideo_id)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒvideo_id,
+						"title":     ϒtitle,
+						"duration":  ϒduration,
+						"subtitles": ϒsubtitles,
+						"formats":   ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       LyndaIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    LyndaIE__VALID_URL,
-				λ.NewStr("_real_extract"): LyndaIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       LyndaIE_IE_NAME,
+				"_VALID_URL":    LyndaIE__VALID_URL,
+				"_real_extract": LyndaIE__real_extract,
 			})
 		}())
-		LyndaCourseIE = λ.Cal(λ.TypeType, λ.NewStr("LyndaCourseIE"), λ.NewTuple(LyndaBaseIE), func() λ.Dict {
+		LyndaCourseIE = λ.Cal(λ.TypeType, λ.StrLiteral("LyndaCourseIE"), λ.NewTuple(LyndaBaseIE), func() λ.Dict {
 			var (
 				LyndaCourseIE__VALID_URL λ.Object
 			)
-			LyndaCourseIE__VALID_URL = λ.NewStr("https?://(?:www|m)\\.(?:lynda\\.com|educourse\\.ga)/(?P<coursepath>(?:[^/]+/){2,3}(?P<courseid>\\d+))-2\\.html")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): LyndaCourseIE__VALID_URL,
+			LyndaCourseIE__VALID_URL = λ.StrLiteral("https?://(?:www|m)\\.(?:lynda\\.com|educourse\\.ga)/(?P<coursepath>(?:[^/]+/){2,3}(?P<courseid>\\d+))-2\\.html")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": LyndaCourseIE__VALID_URL,
 			})
 		}())
 	})

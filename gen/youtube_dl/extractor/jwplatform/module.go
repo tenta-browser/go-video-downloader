@@ -37,12 +37,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		JWPlatformIE = λ.Cal(λ.TypeType, λ.NewStr("JWPlatformIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		JWPlatformIE = λ.Cal(λ.TypeType, λ.StrLiteral("JWPlatformIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				JWPlatformIE__VALID_URL    λ.Object
 				JWPlatformIE__real_extract λ.Object
 			)
-			JWPlatformIE__VALID_URL = λ.NewStr("(?:https?://(?:content\\.jwplatform|cdn\\.jwplayer)\\.com/(?:(?:feed|player|thumb|preview)s|jw6|v2/media)/|jwplatform:)(?P<id>[a-zA-Z0-9]{8})")
+			JWPlatformIE__VALID_URL = λ.StrLiteral("(?:https?://(?:content\\.jwplatform|cdn\\.jwplayer)\\.com/(?:(?:feed|player|thumb|preview)s|jw6|v2/media)/|jwplatform:)(?P<id>[a-zA-Z0-9]{8})")
 			JWPlatformIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -56,13 +56,13 @@ func init() {
 						ϒurl       = λargs[1]
 						ϒvideo_id  λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒjson_data = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Add(λ.NewStr("https://cdn.jwplayer.com/v2/media/"), ϒvideo_id), ϒvideo_id)
-					return λ.Cal(λ.GetAttr(ϒself, "_parse_jwplayer_data", nil), ϒjson_data, ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒjson_data = λ.Calm(ϒself, "_download_json", λ.Add(λ.StrLiteral("https://cdn.jwplayer.com/v2/media/"), ϒvideo_id), ϒvideo_id)
+					return λ.Calm(ϒself, "_parse_jwplayer_data", ϒjson_data, ϒvideo_id)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    JWPlatformIE__VALID_URL,
-				λ.NewStr("_real_extract"): JWPlatformIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    JWPlatformIE__VALID_URL,
+				"_real_extract": JWPlatformIE__real_extract,
 			})
 		}())
 	})

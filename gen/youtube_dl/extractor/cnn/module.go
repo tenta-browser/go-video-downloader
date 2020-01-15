@@ -46,22 +46,22 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		TurnerBaseIE = Ωturner.TurnerBaseIE
 		ϒurl_basename = Ωutils.ϒurl_basename
-		CNNIE = λ.Cal(λ.TypeType, λ.NewStr("CNNIE"), λ.NewTuple(TurnerBaseIE), func() λ.Dict {
+		CNNIE = λ.Cal(λ.TypeType, λ.StrLiteral("CNNIE"), λ.NewTuple(TurnerBaseIE), func() λ.Dict {
 			var (
 				CNNIE__CONFIG            λ.Object
 				CNNIE__VALID_URL         λ.Object
 				CNNIE__extract_timestamp λ.Object
 				CNNIE__real_extract      λ.Object
 			)
-			CNNIE__VALID_URL = λ.NewStr("(?x)https?://(?:(?P<sub_domain>edition|www|money)\\.)?cnn\\.com/(?:video/(?:data/.+?|\\?)/)?videos?/\n        (?P<path>.+?/(?P<title>[^/]+?)(?:\\.(?:[a-z\\-]+)|(?=&)))")
-			CNNIE__CONFIG = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("edition"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("data_src"):  λ.NewStr("http://edition.cnn.com/video/data/3.0/video/%s/index.xml"),
-					λ.NewStr("media_src"): λ.NewStr("http://pmd.cdn.turner.com/cnn/big"),
+			CNNIE__VALID_URL = λ.StrLiteral("(?x)https?://(?:(?P<sub_domain>edition|www|money)\\.)?cnn\\.com/(?:video/(?:data/.+?|\\?)/)?videos?/\n        (?P<path>.+?/(?P<title>[^/]+?)(?:\\.(?:[a-z\\-]+)|(?=&)))")
+			CNNIE__CONFIG = λ.DictLiteral(map[string]λ.Object{
+				"edition": λ.DictLiteral(map[string]string{
+					"data_src":  "http://edition.cnn.com/video/data/3.0/video/%s/index.xml",
+					"media_src": "http://pmd.cdn.turner.com/cnn/big",
 				}),
-				λ.NewStr("money"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-					λ.NewStr("data_src"):  λ.NewStr("http://money.cnn.com/video/data/4.0/video/%s.xml"),
-					λ.NewStr("media_src"): λ.NewStr("http://ht3.cdn.turner.com/money/big"),
+				"money": λ.DictLiteral(map[string]string{
+					"data_src":  "http://money.cnn.com/video/data/4.0/video/%s.xml",
+					"media_src": "http://ht3.cdn.turner.com/money/big",
 				}),
 			})
 			CNNIE__extract_timestamp = λ.NewFunction("_extract_timestamp",
@@ -95,36 +95,36 @@ func init() {
 						ϒurl        = λargs[1]
 						τmp0        λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
-					ϒsub_domain = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒpath = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒpage_title = λ.GetItem(τmp0, λ.NewInt(2))
-					if λ.IsTrue(λ.NewBool(!λ.Contains(λ.NewTuple(
-						λ.NewStr("money"),
-						λ.NewStr("edition"),
-					), ϒsub_domain))) {
-						ϒsub_domain = λ.NewStr("edition")
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒsub_domain = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒpath = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒpage_title = λ.GetItem(τmp0, λ.IntLiteral(2))
+					if !λ.Contains(λ.NewTuple(
+						λ.StrLiteral("money"),
+						λ.StrLiteral("edition"),
+					), ϒsub_domain) {
+						ϒsub_domain = λ.StrLiteral("edition")
 					}
 					ϒconfig = λ.GetItem(λ.GetAttr(ϒself, "_CONFIG", nil), ϒsub_domain)
-					return λ.Cal(λ.GetAttr(ϒself, "_extract_cvp_info", nil), λ.Mod(λ.GetItem(ϒconfig, λ.NewStr("data_src")), ϒpath), ϒpage_title, λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("default"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("media_src"): λ.GetItem(ϒconfig, λ.NewStr("media_src")),
+					return λ.Calm(ϒself, "_extract_cvp_info", λ.Mod(λ.GetItem(ϒconfig, λ.StrLiteral("data_src")), ϒpath), ϒpage_title, λ.DictLiteral(map[string]λ.Object{
+						"default": λ.DictLiteral(map[string]λ.Object{
+							"media_src": λ.GetItem(ϒconfig, λ.StrLiteral("media_src")),
 						}),
 					}))
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_CONFIG"):            CNNIE__CONFIG,
-				λ.NewStr("_VALID_URL"):         CNNIE__VALID_URL,
-				λ.NewStr("_extract_timestamp"): CNNIE__extract_timestamp,
-				λ.NewStr("_real_extract"):      CNNIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_CONFIG":            CNNIE__CONFIG,
+				"_VALID_URL":         CNNIE__VALID_URL,
+				"_extract_timestamp": CNNIE__extract_timestamp,
+				"_real_extract":      CNNIE__real_extract,
 			})
 		}())
-		CNNBlogsIE = λ.Cal(λ.TypeType, λ.NewStr("CNNBlogsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		CNNBlogsIE = λ.Cal(λ.TypeType, λ.StrLiteral("CNNBlogsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CNNBlogsIE__VALID_URL    λ.Object
 				CNNBlogsIE__real_extract λ.Object
 			)
-			CNNBlogsIE__VALID_URL = λ.NewStr("https?://[^\\.]+\\.blogs\\.cnn\\.com/.+")
+			CNNBlogsIE__VALID_URL = λ.StrLiteral("https?://[^\\.]+\\.blogs\\.cnn\\.com/.+")
 			CNNBlogsIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -138,21 +138,21 @@ func init() {
 						ϒurl     = λargs[1]
 						ϒwebpage λ.Object
 					)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, λ.Cal(ϒurl_basename, ϒurl))
-					ϒcnn_url = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("data-url=\"(.+?)\""), ϒwebpage, λ.NewStr("cnn url"))
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒcnn_url, λ.Cal(λ.GetAttr(CNNIE, "ie_key", nil)))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, λ.Cal(ϒurl_basename, ϒurl))
+					ϒcnn_url = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("data-url=\"(.+?)\""), ϒwebpage, λ.StrLiteral("cnn url"))
+					return λ.Calm(ϒself, "url_result", ϒcnn_url, λ.Calm(CNNIE, "ie_key"))
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    CNNBlogsIE__VALID_URL,
-				λ.NewStr("_real_extract"): CNNBlogsIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    CNNBlogsIE__VALID_URL,
+				"_real_extract": CNNBlogsIE__real_extract,
 			})
 		}())
-		CNNArticleIE = λ.Cal(λ.TypeType, λ.NewStr("CNNArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		CNNArticleIE = λ.Cal(λ.TypeType, λ.StrLiteral("CNNArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CNNArticleIE__VALID_URL    λ.Object
 				CNNArticleIE__real_extract λ.Object
 			)
-			CNNArticleIE__VALID_URL = λ.NewStr("https?://(?:(?:edition|www)\\.)?cnn\\.com/(?!videos?/)")
+			CNNArticleIE__VALID_URL = λ.StrLiteral("https?://(?:(?:edition|www)\\.)?cnn\\.com/(?!videos?/)")
 			CNNArticleIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -166,13 +166,13 @@ func init() {
 						ϒurl     = λargs[1]
 						ϒwebpage λ.Object
 					)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, λ.Cal(ϒurl_basename, ϒurl))
-					ϒcnn_url = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("video:\\s*'([^']+)'"), ϒwebpage, λ.NewStr("cnn url"))
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Add(λ.NewStr("http://cnn.com/video/?/video/"), ϒcnn_url), λ.Cal(λ.GetAttr(CNNIE, "ie_key", nil)))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, λ.Cal(ϒurl_basename, ϒurl))
+					ϒcnn_url = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("video:\\s*'([^']+)'"), ϒwebpage, λ.StrLiteral("cnn url"))
+					return λ.Calm(ϒself, "url_result", λ.Add(λ.StrLiteral("http://cnn.com/video/?/video/"), ϒcnn_url), λ.Calm(CNNIE, "ie_key"))
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    CNNArticleIE__VALID_URL,
-				λ.NewStr("_real_extract"): CNNArticleIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    CNNArticleIE__VALID_URL,
+				"_real_extract": CNNArticleIE__real_extract,
 			})
 		}())
 	})

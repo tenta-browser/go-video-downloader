@@ -64,16 +64,16 @@ func init() {
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒurl_or_none = Ωutils.ϒurl_or_none
-		RutubeBaseIE = λ.Cal(λ.TypeType, λ.NewStr("RutubeBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		RutubeBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("RutubeBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
-		RutubeIE = λ.Cal(λ.TypeType, λ.NewStr("RutubeIE"), λ.NewTuple(RutubeBaseIE), func() λ.Dict {
+		RutubeIE = λ.Cal(λ.TypeType, λ.StrLiteral("RutubeIE"), λ.NewTuple(RutubeBaseIE), func() λ.Dict {
 			var (
 				RutubeIE__VALID_URL λ.Object
 				RutubeIE_suitable   λ.Object
 			)
-			RutubeIE__VALID_URL = λ.NewStr("https?://rutube\\.ru/(?:video|(?:play/)?embed)/(?P<id>[\\da-z]{32})")
+			RutubeIE__VALID_URL = λ.StrLiteral("https?://rutube\\.ru/(?:video|(?:play/)?embed)/(?P<id>[\\da-z]{32})")
 			RutubeIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -86,65 +86,65 @@ func init() {
 						ϒurl = λargs[1]
 					)
 					return func() λ.Object {
-						if λ.IsTrue(λ.Cal(λ.GetAttr(RutubePlaylistIE, "suitable", nil), ϒurl)) {
+						if λ.IsTrue(λ.Calm(RutubePlaylistIE, "suitable", ϒurl)) {
 							return λ.False
 						} else {
-							return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, RutubeIE, ϒcls), "suitable", nil), ϒurl)
+							return λ.Calm(λ.Cal(λ.SuperType, RutubeIE, ϒcls), "suitable", ϒurl)
 						}
 					}()
 				})
 			RutubeIE_suitable = λ.Cal(λ.ClassMethodType, RutubeIE_suitable)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): RutubeIE__VALID_URL,
-				λ.NewStr("suitable"):   RutubeIE_suitable,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": RutubeIE__VALID_URL,
+				"suitable":   RutubeIE_suitable,
 			})
 		}())
-		RutubeEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("RutubeEmbedIE"), λ.NewTuple(RutubeBaseIE), func() λ.Dict {
+		RutubeEmbedIE = λ.Cal(λ.TypeType, λ.StrLiteral("RutubeEmbedIE"), λ.NewTuple(RutubeBaseIE), func() λ.Dict {
 			var (
 				RutubeEmbedIE__VALID_URL λ.Object
 			)
-			RutubeEmbedIE__VALID_URL = λ.NewStr("https?://rutube\\.ru/(?:video|play)/embed/(?P<id>[0-9]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): RutubeEmbedIE__VALID_URL,
+			RutubeEmbedIE__VALID_URL = λ.StrLiteral("https?://rutube\\.ru/(?:video|play)/embed/(?P<id>[0-9]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": RutubeEmbedIE__VALID_URL,
 			})
 		}())
-		RutubePlaylistBaseIE = λ.Cal(λ.TypeType, λ.NewStr("RutubePlaylistBaseIE"), λ.NewTuple(RutubeBaseIE), func() λ.Dict {
+		RutubePlaylistBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("RutubePlaylistBaseIE"), λ.NewTuple(RutubeBaseIE), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
-		RutubeChannelIE = λ.Cal(λ.TypeType, λ.NewStr("RutubeChannelIE"), λ.NewTuple(RutubePlaylistBaseIE), func() λ.Dict {
+		RutubeChannelIE = λ.Cal(λ.TypeType, λ.StrLiteral("RutubeChannelIE"), λ.NewTuple(RutubePlaylistBaseIE), func() λ.Dict {
 			var (
 				RutubeChannelIE__VALID_URL λ.Object
 			)
-			RutubeChannelIE__VALID_URL = λ.NewStr("https?://rutube\\.ru/tags/video/(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): RutubeChannelIE__VALID_URL,
+			RutubeChannelIE__VALID_URL = λ.StrLiteral("https?://rutube\\.ru/tags/video/(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": RutubeChannelIE__VALID_URL,
 			})
 		}())
-		RutubeMovieIE = λ.Cal(λ.TypeType, λ.NewStr("RutubeMovieIE"), λ.NewTuple(RutubePlaylistBaseIE), func() λ.Dict {
+		RutubeMovieIE = λ.Cal(λ.TypeType, λ.StrLiteral("RutubeMovieIE"), λ.NewTuple(RutubePlaylistBaseIE), func() λ.Dict {
 			var (
 				RutubeMovieIE__VALID_URL λ.Object
 			)
-			RutubeMovieIE__VALID_URL = λ.NewStr("https?://rutube\\.ru/metainfo/tv/(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): RutubeMovieIE__VALID_URL,
+			RutubeMovieIE__VALID_URL = λ.StrLiteral("https?://rutube\\.ru/metainfo/tv/(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": RutubeMovieIE__VALID_URL,
 			})
 		}())
-		RutubePersonIE = λ.Cal(λ.TypeType, λ.NewStr("RutubePersonIE"), λ.NewTuple(RutubePlaylistBaseIE), func() λ.Dict {
+		RutubePersonIE = λ.Cal(λ.TypeType, λ.StrLiteral("RutubePersonIE"), λ.NewTuple(RutubePlaylistBaseIE), func() λ.Dict {
 			var (
 				RutubePersonIE__VALID_URL λ.Object
 			)
-			RutubePersonIE__VALID_URL = λ.NewStr("https?://rutube\\.ru/video/person/(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): RutubePersonIE__VALID_URL,
+			RutubePersonIE__VALID_URL = λ.StrLiteral("https?://rutube\\.ru/video/person/(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": RutubePersonIE__VALID_URL,
 			})
 		}())
-		RutubePlaylistIE = λ.Cal(λ.TypeType, λ.NewStr("RutubePlaylistIE"), λ.NewTuple(RutubePlaylistBaseIE), func() λ.Dict {
+		RutubePlaylistIE = λ.Cal(λ.TypeType, λ.StrLiteral("RutubePlaylistIE"), λ.NewTuple(RutubePlaylistBaseIE), func() λ.Dict {
 			var (
 				RutubePlaylistIE__VALID_URL λ.Object
 				RutubePlaylistIE_suitable   λ.Object
 			)
-			RutubePlaylistIE__VALID_URL = λ.NewStr("https?://rutube\\.ru/(?:video|(?:play/)?embed)/[\\da-z]{32}/\\?.*?\\bpl_id=(?P<id>\\d+)")
+			RutubePlaylistIE__VALID_URL = λ.StrLiteral("https?://rutube\\.ru/(?:video|(?:play/)?embed)/[\\da-z]{32}/\\?.*?\\bpl_id=(?P<id>\\d+)")
 			RutubePlaylistIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -157,22 +157,22 @@ func init() {
 						ϒparams λ.Object
 						ϒurl    = λargs[1]
 					)
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, RutubePlaylistIE, ϒcls), "suitable", nil), ϒurl)))) {
+					if !λ.IsTrue(λ.Calm(λ.Cal(λ.SuperType, RutubePlaylistIE, ϒcls), "suitable", ϒurl)) {
 						return λ.False
 					}
 					ϒparams = λ.Cal(ϒcompat_parse_qs, λ.GetAttr(λ.Cal(ϒcompat_urllib_parse_urlparse, ϒurl), "query", nil))
 					return func() λ.Object {
-						if λv := λ.GetItem(λ.Cal(λ.GetAttr(ϒparams, "get", nil), λ.NewStr("pl_type"), λ.NewList(λ.None)), λ.NewInt(0)); !λ.IsTrue(λv) {
+						if λv := λ.GetItem(λ.Calm(ϒparams, "get", λ.StrLiteral("pl_type"), λ.NewList(λ.None)), λ.IntLiteral(0)); !λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(ϒint_or_none, λ.GetItem(λ.Cal(λ.GetAttr(ϒparams, "get", nil), λ.NewStr("pl_id"), λ.NewList(λ.None)), λ.NewInt(0)))
+							return λ.Cal(ϒint_or_none, λ.GetItem(λ.Calm(ϒparams, "get", λ.StrLiteral("pl_id"), λ.NewList(λ.None)), λ.IntLiteral(0)))
 						}
 					}()
 				})
 			RutubePlaylistIE_suitable = λ.Cal(λ.ClassMethodType, RutubePlaylistIE_suitable)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): RutubePlaylistIE__VALID_URL,
-				λ.NewStr("suitable"):   RutubePlaylistIE_suitable,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": RutubePlaylistIE__VALID_URL,
+				"suitable":   RutubePlaylistIE_suitable,
 			})
 		}())
 	})

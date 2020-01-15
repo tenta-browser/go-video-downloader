@@ -47,43 +47,43 @@ func init() {
 		ϒremove_quotes = Ωutils.ϒremove_quotes
 		ϒ_OPERATORS = λ.NewList(
 			λ.NewTuple(
-				λ.NewStr("|"),
+				λ.StrLiteral("|"),
 				Ωoperator.ϒor_,
 			),
 			λ.NewTuple(
-				λ.NewStr("^"),
+				λ.StrLiteral("^"),
 				Ωoperator.ϒxor,
 			),
 			λ.NewTuple(
-				λ.NewStr("&"),
+				λ.StrLiteral("&"),
 				Ωoperator.ϒand_,
 			),
 			λ.NewTuple(
-				λ.NewStr(">>"),
+				λ.StrLiteral(">>"),
 				Ωoperator.ϒrshift,
 			),
 			λ.NewTuple(
-				λ.NewStr("<<"),
+				λ.StrLiteral("<<"),
 				Ωoperator.ϒlshift,
 			),
 			λ.NewTuple(
-				λ.NewStr("-"),
+				λ.StrLiteral("-"),
 				Ωoperator.ϒsub,
 			),
 			λ.NewTuple(
-				λ.NewStr("+"),
+				λ.StrLiteral("+"),
 				Ωoperator.ϒadd,
 			),
 			λ.NewTuple(
-				λ.NewStr("%"),
+				λ.StrLiteral("%"),
 				Ωoperator.ϒmod,
 			),
 			λ.NewTuple(
-				λ.NewStr("/"),
+				λ.StrLiteral("/"),
 				Ωoperator.ϒtruediv,
 			),
 			λ.NewTuple(
-				λ.NewStr("*"),
+				λ.StrLiteral("*"),
 				Ωoperator.ϒmul,
 			),
 		)
@@ -105,18 +105,18 @@ func init() {
 							break
 						}
 						τmp2 = τmp1
-						ϒop = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒopfunc = λ.GetItem(τmp2, λ.NewInt(1))
+						ϒop = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒopfunc = λ.GetItem(τmp2, λ.IntLiteral(1))
 						λgy.Yield(λ.NewTuple(
-							λ.Add(ϒop, λ.NewStr("=")),
+							λ.Add(ϒop, λ.StrLiteral("=")),
 							ϒopfunc,
 						))
 					}
 					return λ.None
 				})
 			})))
-		λ.Cal(λ.GetAttr(ϒ_ASSIGN_OPERATORS, "append", nil), λ.NewTuple(
-			λ.NewStr("="),
+		λ.Calm(ϒ_ASSIGN_OPERATORS, "append", λ.NewTuple(
+			λ.StrLiteral("="),
 			λ.NewFunction("<lambda>",
 				[]λ.Param{
 					{Name: "cur"},
@@ -132,8 +132,8 @@ func init() {
 					return ϒright
 				}),
 		))
-		ϒ_NAME_RE = λ.NewStr("[a-zA-Z_$][a-zA-Z_$0-9]*")
-		JSInterpreter = λ.Cal(λ.TypeType, λ.NewStr("JSInterpreter"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
+		ϒ_NAME_RE = λ.StrLiteral("[a-zA-Z_$][a-zA-Z_$0-9]*")
+		JSInterpreter = λ.Cal(λ.TypeType, λ.StrLiteral("JSInterpreter"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
 			var (
 				JSInterpreter___init__             λ.Object
 				JSInterpreter_build_function       λ.Object
@@ -155,11 +155,11 @@ func init() {
 						ϒobjects = λargs[2]
 						ϒself    = λargs[0]
 					)
-					if λ.IsTrue(λ.NewBool(ϒobjects == λ.None)) {
-						ϒobjects = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+					if ϒobjects == λ.None {
+						ϒobjects = λ.DictLiteral(map[λ.Object]λ.Object{})
 					}
 					λ.SetAttr(ϒself, "code", ϒcode)
-					λ.SetAttr(ϒself, "_functions", λ.NewDictWithTable(map[λ.Object]λ.Object{}))
+					λ.SetAttr(ϒself, "_functions", λ.DictLiteral(map[λ.Object]λ.Object{}))
 					λ.SetAttr(ϒself, "_objects", ϒobjects)
 					return λ.None
 				})
@@ -168,7 +168,7 @@ func init() {
 					{Name: "self"},
 					{Name: "stmt"},
 					{Name: "local_vars"},
-					{Name: "allow_recursion", Def: λ.NewInt(100)},
+					{Name: "allow_recursion", Def: λ.IntLiteral(100)},
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
@@ -183,24 +183,24 @@ func init() {
 						ϒstmt_m          λ.Object
 						ϒv               λ.Object
 					)
-					if λ.IsTrue(λ.Lt(ϒallow_recursion, λ.NewInt(0))) {
-						panic(λ.Raise(λ.Cal(ExtractorError, λ.NewStr("Recursion limit reached"))))
+					if λ.IsTrue(λ.Lt(ϒallow_recursion, λ.IntLiteral(0))) {
+						panic(λ.Raise(λ.Cal(ExtractorError, λ.StrLiteral("Recursion limit reached"))))
 					}
 					ϒshould_abort = λ.False
-					ϒstmt = λ.Cal(λ.GetAttr(ϒstmt, "lstrip", nil))
-					ϒstmt_m = λ.Cal(Ωre.ϒmatch, λ.NewStr("var\\s"), ϒstmt)
+					ϒstmt = λ.Calm(ϒstmt, "lstrip")
+					ϒstmt_m = λ.Cal(Ωre.ϒmatch, λ.StrLiteral("var\\s"), ϒstmt)
 					if λ.IsTrue(ϒstmt_m) {
-						ϒexpr = λ.GetItem(ϒstmt, λ.NewSlice(λ.Cal(λ.BuiltinLen, λ.Cal(λ.GetAttr(ϒstmt_m, "group", nil), λ.NewInt(0))), λ.None, λ.None))
+						ϒexpr = λ.GetItem(ϒstmt, λ.NewSlice(λ.Cal(λ.BuiltinLen, λ.Calm(ϒstmt_m, "group", λ.IntLiteral(0))), λ.None, λ.None))
 					} else {
-						ϒreturn_m = λ.Cal(Ωre.ϒmatch, λ.NewStr("return(?:\\s+|$)"), ϒstmt)
+						ϒreturn_m = λ.Cal(Ωre.ϒmatch, λ.StrLiteral("return(?:\\s+|$)"), ϒstmt)
 						if λ.IsTrue(ϒreturn_m) {
-							ϒexpr = λ.GetItem(ϒstmt, λ.NewSlice(λ.Cal(λ.BuiltinLen, λ.Cal(λ.GetAttr(ϒreturn_m, "group", nil), λ.NewInt(0))), λ.None, λ.None))
+							ϒexpr = λ.GetItem(ϒstmt, λ.NewSlice(λ.Cal(λ.BuiltinLen, λ.Calm(ϒreturn_m, "group", λ.IntLiteral(0))), λ.None, λ.None))
 							ϒshould_abort = λ.True
 						} else {
 							ϒexpr = ϒstmt
 						}
 					}
-					ϒv = λ.Cal(λ.GetAttr(ϒself, "interpret_expression", nil), ϒexpr, ϒlocal_vars, ϒallow_recursion)
+					ϒv = λ.Calm(ϒself, "interpret_expression", ϒexpr, ϒlocal_vars, ϒallow_recursion)
 					return λ.NewTuple(
 						ϒv,
 						ϒshould_abort,
@@ -251,29 +251,29 @@ func init() {
 						τmp2             λ.Object
 					)
 					_ = ϒi
-					ϒexpr = λ.Cal(λ.GetAttr(ϒexpr, "strip", nil))
-					if λ.IsTrue(λ.Eq(ϒexpr, λ.NewStr(""))) {
+					ϒexpr = λ.Calm(ϒexpr, "strip")
+					if λ.IsTrue(λ.Eq(ϒexpr, λ.StrLiteral(""))) {
 						return λ.None
 					}
-					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒexpr, "startswith", nil), λ.NewStr("("))) {
-						ϒparens_count = λ.NewInt(0)
-						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfinditer, λ.NewStr("[()]"), ϒexpr))
+					if λ.IsTrue(λ.Calm(ϒexpr, "startswith", λ.StrLiteral("("))) {
+						ϒparens_count = λ.IntLiteral(0)
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfinditer, λ.StrLiteral("[()]"), ϒexpr))
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
 							ϒm = τmp1
-							if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewInt(0)), λ.NewStr("("))) {
-								τmp2 = λ.IAdd(ϒparens_count, λ.NewInt(1))
+							if λ.IsTrue(λ.Eq(λ.Calm(ϒm, "group", λ.IntLiteral(0)), λ.StrLiteral("("))) {
+								τmp2 = λ.IAdd(ϒparens_count, λ.IntLiteral(1))
 								ϒparens_count = τmp2
 							} else {
-								τmp2 = λ.ISub(ϒparens_count, λ.NewInt(1))
+								τmp2 = λ.ISub(ϒparens_count, λ.IntLiteral(1))
 								ϒparens_count = τmp2
-								if λ.IsTrue(λ.Eq(ϒparens_count, λ.NewInt(0))) {
-									ϒsub_expr = λ.GetItem(ϒexpr, λ.NewSlice(λ.NewInt(1), λ.Cal(λ.GetAttr(ϒm, "start", nil)), λ.None))
-									ϒsub_result = λ.Cal(λ.GetAttr(ϒself, "interpret_expression", nil), ϒsub_expr, ϒlocal_vars, ϒallow_recursion)
-									ϒremaining_expr = λ.Cal(λ.GetAttr(λ.GetItem(ϒexpr, λ.NewSlice(λ.Cal(λ.GetAttr(ϒm, "end", nil)), λ.None, λ.None)), "strip", nil))
-									if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒremaining_expr))) {
+								if λ.IsTrue(λ.Eq(ϒparens_count, λ.IntLiteral(0))) {
+									ϒsub_expr = λ.GetItem(ϒexpr, λ.NewSlice(λ.IntLiteral(1), λ.Calm(ϒm, "start"), λ.None))
+									ϒsub_result = λ.Calm(ϒself, "interpret_expression", ϒsub_expr, ϒlocal_vars, ϒallow_recursion)
+									ϒremaining_expr = λ.Calm(λ.GetItem(ϒexpr, λ.NewSlice(λ.Calm(ϒm, "end"), λ.None, λ.None)), "strip")
+									if !λ.IsTrue(ϒremaining_expr) {
 										return ϒsub_result
 									} else {
 										ϒexpr = λ.Add(λ.Cal(Ωjson.ϒdumps, ϒsub_result), ϒremaining_expr)
@@ -283,7 +283,7 @@ func init() {
 							}
 						}
 						if τmp1 == λ.AfterLast {
-							panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.NewStr("Premature end of parens in %r"), ϒexpr))))
+							panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.StrLiteral("Premature end of parens in %r"), ϒexpr))))
 						}
 					}
 					τmp0 = λ.Cal(λ.BuiltinIter, ϒ_ASSIGN_OPERATORS)
@@ -292,19 +292,19 @@ func init() {
 							break
 						}
 						τmp2 = τmp1
-						ϒop = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒopfunc = λ.GetItem(τmp2, λ.NewInt(1))
-						ϒm = λ.Cal(Ωre.ϒmatch, λ.Mod(λ.NewStr("(?x)\n                (?P<out>%s)(?:\\[(?P<index>[^\\]]+?)\\])?\n                \\s*%s\n                (?P<expr>.*)$"), λ.NewTuple(
+						ϒop = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒopfunc = λ.GetItem(τmp2, λ.IntLiteral(1))
+						ϒm = λ.Cal(Ωre.ϒmatch, λ.Mod(λ.StrLiteral("(?x)\n                (?P<out>%s)(?:\\[(?P<index>[^\\]]+?)\\])?\n                \\s*%s\n                (?P<expr>.*)$"), λ.NewTuple(
 							ϒ_NAME_RE,
 							λ.Cal(Ωre.ϒescape, ϒop),
 						)), ϒexpr)
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒm))) {
+						if !λ.IsTrue(ϒm) {
 							continue
 						}
-						ϒright_val = λ.Cal(λ.GetAttr(ϒself, "interpret_expression", nil), λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("expr")), ϒlocal_vars, λ.Sub(ϒallow_recursion, λ.NewInt(1)))
-						if λ.IsTrue(λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒm, "groupdict", nil)), "get", nil), λ.NewStr("index"))) {
-							ϒlvar = λ.GetItem(ϒlocal_vars, λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("out")))
-							ϒidx = λ.Cal(λ.GetAttr(ϒself, "interpret_expression", nil), λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("index")), ϒlocal_vars, ϒallow_recursion)
+						ϒright_val = λ.Calm(ϒself, "interpret_expression", λ.Calm(ϒm, "group", λ.StrLiteral("expr")), ϒlocal_vars, λ.Sub(ϒallow_recursion, λ.IntLiteral(1)))
+						if λ.IsTrue(λ.Calm(λ.Calm(ϒm, "groupdict"), "get", λ.StrLiteral("index"))) {
+							ϒlvar = λ.GetItem(ϒlocal_vars, λ.Calm(ϒm, "group", λ.StrLiteral("out")))
+							ϒidx = λ.Calm(ϒself, "interpret_expression", λ.Calm(ϒm, "group", λ.StrLiteral("index")), ϒlocal_vars, ϒallow_recursion)
 							if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒidx, λ.IntType)) {
 								panic(λ.Raise(λ.Cal(λ.AssertionErrorType)))
 							}
@@ -313,18 +313,18 @@ func init() {
 							λ.SetItem(ϒlvar, ϒidx, ϒval)
 							return ϒval
 						} else {
-							ϒcur = λ.Cal(λ.GetAttr(ϒlocal_vars, "get", nil), λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("out")))
+							ϒcur = λ.Calm(ϒlocal_vars, "get", λ.Calm(ϒm, "group", λ.StrLiteral("out")))
 							ϒval = λ.Cal(ϒopfunc, ϒcur, ϒright_val)
-							λ.SetItem(ϒlocal_vars, λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("out")), ϒval)
+							λ.SetItem(ϒlocal_vars, λ.Calm(ϒm, "group", λ.StrLiteral("out")), ϒval)
 							return ϒval
 						}
 					}
-					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒexpr, "isdigit", nil))) {
+					if λ.IsTrue(λ.Calm(ϒexpr, "isdigit")) {
 						return λ.Cal(λ.IntType, ϒexpr)
 					}
-					ϒvar_m = λ.Cal(Ωre.ϒmatch, λ.Mod(λ.NewStr("(?!if|return|true|false)(?P<name>%s)$"), ϒ_NAME_RE), ϒexpr)
+					ϒvar_m = λ.Cal(Ωre.ϒmatch, λ.Mod(λ.StrLiteral("(?!if|return|true|false)(?P<name>%s)$"), ϒ_NAME_RE), ϒexpr)
 					if λ.IsTrue(ϒvar_m) {
-						return λ.GetItem(ϒlocal_vars, λ.Cal(λ.GetAttr(ϒvar_m, "group", nil), λ.NewStr("name")))
+						return λ.GetItem(ϒlocal_vars, λ.Calm(ϒvar_m, "group", λ.StrLiteral("name")))
 					}
 					τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
 						defer λ.CatchMulti(
@@ -340,41 +340,41 @@ func init() {
 					if τmp0 == λ.BlockExitReturn {
 						return τmp1
 					}
-					ϒm = λ.Cal(Ωre.ϒmatch, λ.Mod(λ.NewStr("(?P<in>%s)\\[(?P<idx>.+)\\]$"), ϒ_NAME_RE), ϒexpr)
+					ϒm = λ.Cal(Ωre.ϒmatch, λ.Mod(λ.StrLiteral("(?P<in>%s)\\[(?P<idx>.+)\\]$"), ϒ_NAME_RE), ϒexpr)
 					if λ.IsTrue(ϒm) {
-						ϒval = λ.GetItem(ϒlocal_vars, λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("in")))
-						ϒidx = λ.Cal(λ.GetAttr(ϒself, "interpret_expression", nil), λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("idx")), ϒlocal_vars, λ.Sub(ϒallow_recursion, λ.NewInt(1)))
+						ϒval = λ.GetItem(ϒlocal_vars, λ.Calm(ϒm, "group", λ.StrLiteral("in")))
+						ϒidx = λ.Calm(ϒself, "interpret_expression", λ.Calm(ϒm, "group", λ.StrLiteral("idx")), ϒlocal_vars, λ.Sub(ϒallow_recursion, λ.IntLiteral(1)))
 						return λ.GetItem(ϒval, ϒidx)
 					}
-					ϒm = λ.Cal(Ωre.ϒmatch, λ.Mod(λ.NewStr("(?P<var>%s)(?:\\.(?P<member>[^(]+)|\\[(?P<member2>[^]]+)\\])\\s*(?:\\(+(?P<args>[^()]*)\\))?$"), ϒ_NAME_RE), ϒexpr)
+					ϒm = λ.Cal(Ωre.ϒmatch, λ.Mod(λ.StrLiteral("(?P<var>%s)(?:\\.(?P<member>[^(]+)|\\[(?P<member2>[^]]+)\\])\\s*(?:\\(+(?P<args>[^()]*)\\))?$"), ϒ_NAME_RE), ϒexpr)
 					if λ.IsTrue(ϒm) {
-						ϒvariable = λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("var"))
+						ϒvariable = λ.Calm(ϒm, "group", λ.StrLiteral("var"))
 						ϒmember = λ.Cal(ϒremove_quotes, func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("member")); λ.IsTrue(λv) {
+							if λv := λ.Calm(ϒm, "group", λ.StrLiteral("member")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("member2"))
+								return λ.Calm(ϒm, "group", λ.StrLiteral("member2"))
 							}
 						}())
-						ϒarg_str = λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("args"))
-						if λ.IsTrue(λ.NewBool(λ.Contains(ϒlocal_vars, ϒvariable))) {
+						ϒarg_str = λ.Calm(ϒm, "group", λ.StrLiteral("args"))
+						if λ.Contains(ϒlocal_vars, ϒvariable) {
 							ϒobj = λ.GetItem(ϒlocal_vars, ϒvariable)
 						} else {
-							if λ.IsTrue(λ.NewBool(!λ.Contains(λ.GetAttr(ϒself, "_objects", nil), ϒvariable))) {
-								λ.SetItem(λ.GetAttr(ϒself, "_objects", nil), ϒvariable, λ.Cal(λ.GetAttr(ϒself, "extract_object", nil), ϒvariable))
+							if !λ.Contains(λ.GetAttr(ϒself, "_objects", nil), ϒvariable) {
+								λ.SetItem(λ.GetAttr(ϒself, "_objects", nil), ϒvariable, λ.Calm(ϒself, "extract_object", ϒvariable))
 							}
 							ϒobj = λ.GetItem(λ.GetAttr(ϒself, "_objects", nil), ϒvariable)
 						}
-						if λ.IsTrue(λ.NewBool(ϒarg_str == λ.None)) {
-							if λ.IsTrue(λ.Eq(ϒmember, λ.NewStr("length"))) {
+						if ϒarg_str == λ.None {
+							if λ.IsTrue(λ.Eq(ϒmember, λ.StrLiteral("length"))) {
 								return λ.Cal(λ.BuiltinLen, ϒobj)
 							}
 							return λ.GetItem(ϒobj, ϒmember)
 						}
-						if !λ.IsTrue(λ.Cal(λ.GetAttr(ϒexpr, "endswith", nil), λ.NewStr(")"))) {
+						if !λ.IsTrue(λ.Calm(ϒexpr, "endswith", λ.StrLiteral(")"))) {
 							panic(λ.Raise(λ.Cal(λ.AssertionErrorType)))
 						}
-						if λ.IsTrue(λ.Eq(ϒarg_str, λ.NewStr(""))) {
+						if λ.IsTrue(λ.Eq(ϒarg_str, λ.StrLiteral(""))) {
 							ϒargvals = λ.Cal(λ.TupleType)
 						} else {
 							ϒargvals = λ.Cal(λ.TupleType, λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
@@ -387,50 +387,50 @@ func init() {
 											τmp0 λ.Object
 											τmp1 λ.Object
 										)
-										τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒarg_str, "split", nil), λ.NewStr(",")))
+										τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒarg_str, "split", λ.StrLiteral(",")))
 										for {
 											if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 												break
 											}
 											ϒv = τmp1
-											λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "interpret_expression", nil), ϒv, ϒlocal_vars, ϒallow_recursion))
+											λgy.Yield(λ.Calm(ϒself, "interpret_expression", ϒv, ϒlocal_vars, ϒallow_recursion))
 										}
 										return λ.None
 									})
 								}))))
 						}
-						if λ.IsTrue(λ.Eq(ϒmember, λ.NewStr("split"))) {
-							if !λ.IsTrue(λ.Eq(ϒargvals, λ.NewTuple(λ.NewStr("")))) {
+						if λ.IsTrue(λ.Eq(ϒmember, λ.StrLiteral("split"))) {
+							if !λ.IsTrue(λ.Eq(ϒargvals, λ.NewTuple(λ.StrLiteral("")))) {
 								panic(λ.Raise(λ.Cal(λ.AssertionErrorType)))
 							}
 							return λ.Cal(λ.ListType, ϒobj)
 						}
-						if λ.IsTrue(λ.Eq(ϒmember, λ.NewStr("join"))) {
-							if !λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒargvals), λ.NewInt(1))) {
+						if λ.IsTrue(λ.Eq(ϒmember, λ.StrLiteral("join"))) {
+							if !λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒargvals), λ.IntLiteral(1))) {
 								panic(λ.Raise(λ.Cal(λ.AssertionErrorType)))
 							}
-							return λ.Cal(λ.GetAttr(λ.GetItem(ϒargvals, λ.NewInt(0)), "join", nil), ϒobj)
+							return λ.Calm(λ.GetItem(ϒargvals, λ.IntLiteral(0)), "join", ϒobj)
 						}
-						if λ.IsTrue(λ.Eq(ϒmember, λ.NewStr("reverse"))) {
-							if !λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒargvals), λ.NewInt(0))) {
+						if λ.IsTrue(λ.Eq(ϒmember, λ.StrLiteral("reverse"))) {
+							if !λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒargvals), λ.IntLiteral(0))) {
 								panic(λ.Raise(λ.Cal(λ.AssertionErrorType)))
 							}
-							λ.Cal(λ.GetAttr(ϒobj, "reverse", nil))
+							λ.Calm(ϒobj, "reverse")
 							return ϒobj
 						}
-						if λ.IsTrue(λ.Eq(ϒmember, λ.NewStr("slice"))) {
-							if !λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒargvals), λ.NewInt(1))) {
+						if λ.IsTrue(λ.Eq(ϒmember, λ.StrLiteral("slice"))) {
+							if !λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒargvals), λ.IntLiteral(1))) {
 								panic(λ.Raise(λ.Cal(λ.AssertionErrorType)))
 							}
-							return λ.GetItem(ϒobj, λ.NewSlice(λ.GetItem(ϒargvals, λ.NewInt(0)), λ.None, λ.None))
+							return λ.GetItem(ϒobj, λ.NewSlice(λ.GetItem(ϒargvals, λ.IntLiteral(0)), λ.None, λ.None))
 						}
-						if λ.IsTrue(λ.Eq(ϒmember, λ.NewStr("splice"))) {
+						if λ.IsTrue(λ.Eq(ϒmember, λ.StrLiteral("splice"))) {
 							if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒobj, λ.ListType)) {
 								panic(λ.Raise(λ.Cal(λ.AssertionErrorType)))
 							}
 							τmp1 = ϒargvals
-							ϒindex = λ.GetItem(τmp1, λ.NewInt(0))
-							ϒhowMany = λ.GetItem(τmp1, λ.NewInt(1))
+							ϒindex = λ.GetItem(τmp1, λ.IntLiteral(0))
+							ϒhowMany = λ.GetItem(τmp1, λ.IntLiteral(1))
 							ϒres = λ.NewList()
 							τmp1 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.RangeType, ϒindex, λ.Cal(λ.BuiltinMin, λ.Add(ϒindex, ϒhowMany), λ.Cal(λ.BuiltinLen, ϒobj))))
 							for {
@@ -438,7 +438,7 @@ func init() {
 									break
 								}
 								ϒi = τmp0
-								λ.Cal(λ.GetAttr(ϒres, "append", nil), λ.Cal(λ.GetAttr(ϒobj, "pop", nil), ϒindex))
+								λ.Calm(ϒres, "append", λ.Calm(ϒobj, "pop", ϒindex))
 							}
 							return ϒres
 						}
@@ -450,37 +450,37 @@ func init() {
 							break
 						}
 						τmp2 = τmp0
-						ϒop = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒopfunc = λ.GetItem(τmp2, λ.NewInt(1))
-						ϒm = λ.Cal(Ωre.ϒmatch, λ.Mod(λ.NewStr("(?P<x>.+?)%s(?P<y>.+)"), λ.Cal(Ωre.ϒescape, ϒop)), ϒexpr)
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒm))) {
+						ϒop = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒopfunc = λ.GetItem(τmp2, λ.IntLiteral(1))
+						ϒm = λ.Cal(Ωre.ϒmatch, λ.Mod(λ.StrLiteral("(?P<x>.+?)%s(?P<y>.+)"), λ.Cal(Ωre.ϒescape, ϒop)), ϒexpr)
+						if !λ.IsTrue(ϒm) {
 							continue
 						}
-						τmp2 = λ.Cal(λ.GetAttr(ϒself, "interpret_statement", nil), λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("x")), ϒlocal_vars, λ.Sub(ϒallow_recursion, λ.NewInt(1)))
-						ϒx = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒabort = λ.GetItem(τmp2, λ.NewInt(1))
+						τmp2 = λ.Calm(ϒself, "interpret_statement", λ.Calm(ϒm, "group", λ.StrLiteral("x")), ϒlocal_vars, λ.Sub(ϒallow_recursion, λ.IntLiteral(1)))
+						ϒx = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒabort = λ.GetItem(τmp2, λ.IntLiteral(1))
 						if λ.IsTrue(ϒabort) {
-							panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.NewStr("Premature left-side return of %s in %r"), λ.NewTuple(
+							panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.StrLiteral("Premature left-side return of %s in %r"), λ.NewTuple(
 								ϒop,
 								ϒexpr,
 							)))))
 						}
-						τmp2 = λ.Cal(λ.GetAttr(ϒself, "interpret_statement", nil), λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("y")), ϒlocal_vars, λ.Sub(ϒallow_recursion, λ.NewInt(1)))
-						ϒy = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒabort = λ.GetItem(τmp2, λ.NewInt(1))
+						τmp2 = λ.Calm(ϒself, "interpret_statement", λ.Calm(ϒm, "group", λ.StrLiteral("y")), ϒlocal_vars, λ.Sub(ϒallow_recursion, λ.IntLiteral(1)))
+						ϒy = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒabort = λ.GetItem(τmp2, λ.IntLiteral(1))
 						if λ.IsTrue(ϒabort) {
-							panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.NewStr("Premature right-side return of %s in %r"), λ.NewTuple(
+							panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.StrLiteral("Premature right-side return of %s in %r"), λ.NewTuple(
 								ϒop,
 								ϒexpr,
 							)))))
 						}
 						return λ.Cal(ϒopfunc, ϒx, ϒy)
 					}
-					ϒm = λ.Cal(Ωre.ϒmatch, λ.Mod(λ.NewStr("^(?P<func>%s)\\((?P<args>[a-zA-Z0-9_$,]*)\\)$"), ϒ_NAME_RE), ϒexpr)
+					ϒm = λ.Cal(Ωre.ϒmatch, λ.Mod(λ.StrLiteral("^(?P<func>%s)\\((?P<args>[a-zA-Z0-9_$,]*)\\)$"), ϒ_NAME_RE), ϒexpr)
 					if λ.IsTrue(ϒm) {
-						ϒfname = λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("func"))
+						ϒfname = λ.Calm(ϒm, "group", λ.StrLiteral("func"))
 						ϒargvals = func() λ.Object {
-							if λ.IsTrue(λ.Gt(λ.Cal(λ.BuiltinLen, λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("args"))), λ.NewInt(0))) {
+							if λ.IsTrue(λ.Gt(λ.Cal(λ.BuiltinLen, λ.Calm(ϒm, "group", λ.StrLiteral("args"))), λ.IntLiteral(0))) {
 								return λ.Cal(λ.TupleType, λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 									nil,
 									0, false, false,
@@ -491,14 +491,14 @@ func init() {
 												τmp0 λ.Object
 												τmp1 λ.Object
 											)
-											τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("args")), "split", nil), λ.NewStr(",")))
+											τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.Calm(ϒm, "group", λ.StrLiteral("args")), "split", λ.StrLiteral(",")))
 											for {
 												if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 													break
 												}
 												ϒv = τmp1
 												λgy.Yield(func() λ.Object {
-													if λ.IsTrue(λ.Cal(λ.GetAttr(ϒv, "isdigit", nil))) {
+													if λ.IsTrue(λ.Calm(ϒv, "isdigit")) {
 														return λ.Cal(λ.IntType, ϒv)
 													} else {
 														return λ.GetItem(ϒlocal_vars, ϒv)
@@ -512,12 +512,12 @@ func init() {
 								return λ.Cal(λ.TupleType)
 							}
 						}()
-						if λ.IsTrue(λ.NewBool(!λ.Contains(λ.GetAttr(ϒself, "_functions", nil), ϒfname))) {
-							λ.SetItem(λ.GetAttr(ϒself, "_functions", nil), ϒfname, λ.Cal(λ.GetAttr(ϒself, "extract_function", nil), ϒfname))
+						if !λ.Contains(λ.GetAttr(ϒself, "_functions", nil), ϒfname) {
+							λ.SetItem(λ.GetAttr(ϒself, "_functions", nil), ϒfname, λ.Calm(ϒself, "extract_function", ϒfname))
 						}
 						return λ.Cal(λ.GetItem(λ.GetAttr(ϒself, "_functions", nil), ϒfname), ϒargvals)
 					}
-					panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.NewStr("Unsupported JS expression %r"), ϒexpr))))
+					panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.StrLiteral("Unsupported JS expression %r"), ϒexpr))))
 					return λ.None
 				})
 			JSInterpreter_extract_object = λ.NewFunction("extract_object",
@@ -540,22 +540,22 @@ func init() {
 						τmp0           λ.Object
 						τmp1           λ.Object
 					)
-					ϒ_FUNC_NAME_RE = λ.NewStr("(?:[a-zA-Z$0-9]+|\"[a-zA-Z$0-9]+\"|'[a-zA-Z$0-9]+')")
-					ϒobj = λ.NewDictWithTable(map[λ.Object]λ.Object{})
-					ϒobj_m = λ.Cal(Ωre.ϒsearch, λ.Mod(λ.NewStr("(?x)\n                (?<!this\\.)%s\\s*=\\s*{\\s*\n                    (?P<fields>(%s\\s*:\\s*function\\s*\\(.*?\\)\\s*{.*?}(?:,\\s*)?)*)\n                }\\s*;\n            "), λ.NewTuple(
+					ϒ_FUNC_NAME_RE = λ.StrLiteral("(?:[a-zA-Z$0-9]+|\"[a-zA-Z$0-9]+\"|'[a-zA-Z$0-9]+')")
+					ϒobj = λ.DictLiteral(map[λ.Object]λ.Object{})
+					ϒobj_m = λ.Cal(Ωre.ϒsearch, λ.Mod(λ.StrLiteral("(?x)\n                (?<!this\\.)%s\\s*=\\s*{\\s*\n                    (?P<fields>(%s\\s*:\\s*function\\s*\\(.*?\\)\\s*{.*?}(?:,\\s*)?)*)\n                }\\s*;\n            "), λ.NewTuple(
 						λ.Cal(Ωre.ϒescape, ϒobjname),
 						ϒ_FUNC_NAME_RE,
 					)), λ.GetAttr(ϒself, "code", nil))
-					ϒfields = λ.Cal(λ.GetAttr(ϒobj_m, "group", nil), λ.NewStr("fields"))
-					ϒfields_m = λ.Cal(Ωre.ϒfinditer, λ.Mod(λ.NewStr("(?x)\n                (?P<key>%s)\\s*:\\s*function\\s*\\((?P<args>[a-z,]+)\\){(?P<code>[^}]+)}\n            "), ϒ_FUNC_NAME_RE), ϒfields)
+					ϒfields = λ.Calm(ϒobj_m, "group", λ.StrLiteral("fields"))
+					ϒfields_m = λ.Cal(Ωre.ϒfinditer, λ.Mod(λ.StrLiteral("(?x)\n                (?P<key>%s)\\s*:\\s*function\\s*\\((?P<args>[a-z,]+)\\){(?P<code>[^}]+)}\n            "), ϒ_FUNC_NAME_RE), ϒfields)
 					τmp0 = λ.Cal(λ.BuiltinIter, ϒfields_m)
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒf = τmp1
-						ϒargnames = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒf, "group", nil), λ.NewStr("args")), "split", nil), λ.NewStr(","))
-						λ.SetItem(ϒobj, λ.Cal(ϒremove_quotes, λ.Cal(λ.GetAttr(ϒf, "group", nil), λ.NewStr("key"))), λ.Cal(λ.GetAttr(ϒself, "build_function", nil), ϒargnames, λ.Cal(λ.GetAttr(ϒf, "group", nil), λ.NewStr("code"))))
+						ϒargnames = λ.Calm(λ.Calm(ϒf, "group", λ.StrLiteral("args")), "split", λ.StrLiteral(","))
+						λ.SetItem(ϒobj, λ.Cal(ϒremove_quotes, λ.Calm(ϒf, "group", λ.StrLiteral("key"))), λ.Calm(ϒself, "build_function", ϒargnames, λ.Calm(ϒf, "group", λ.StrLiteral("code"))))
 					}
 					return ϒobj
 				})
@@ -572,16 +572,16 @@ func init() {
 						ϒfuncname = λargs[1]
 						ϒself     = λargs[0]
 					)
-					ϒfunc_m = λ.Cal(Ωre.ϒsearch, λ.Mod(λ.NewStr("(?x)\n                (?:function\\s+%s|[{;,]\\s*%s\\s*=\\s*function|var\\s+%s\\s*=\\s*function)\\s*\n                \\((?P<args>[^)]*)\\)\\s*\n                \\{(?P<code>[^}]+)\\}"), λ.NewTuple(
+					ϒfunc_m = λ.Cal(Ωre.ϒsearch, λ.Mod(λ.StrLiteral("(?x)\n                (?:function\\s+%s|[{;,]\\s*%s\\s*=\\s*function|var\\s+%s\\s*=\\s*function)\\s*\n                \\((?P<args>[^)]*)\\)\\s*\n                \\{(?P<code>[^}]+)\\}"), λ.NewTuple(
 						λ.Cal(Ωre.ϒescape, ϒfuncname),
 						λ.Cal(Ωre.ϒescape, ϒfuncname),
 						λ.Cal(Ωre.ϒescape, ϒfuncname),
 					)), λ.GetAttr(ϒself, "code", nil))
-					if λ.IsTrue(λ.NewBool(ϒfunc_m == λ.None)) {
-						panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.NewStr("Could not find JS function %r"), ϒfuncname))))
+					if ϒfunc_m == λ.None {
+						panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.StrLiteral("Could not find JS function %r"), ϒfuncname))))
 					}
-					ϒargnames = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒfunc_m, "group", nil), λ.NewStr("args")), "split", nil), λ.NewStr(","))
-					return λ.Cal(λ.GetAttr(ϒself, "build_function", nil), ϒargnames, λ.Cal(λ.GetAttr(ϒfunc_m, "group", nil), λ.NewStr("code")))
+					ϒargnames = λ.Calm(λ.Calm(ϒfunc_m, "group", λ.StrLiteral("args")), "split", λ.StrLiteral(","))
+					return λ.Calm(ϒself, "build_function", ϒargnames, λ.Calm(ϒfunc_m, "group", λ.StrLiteral("code")))
 				})
 			JSInterpreter_build_function = λ.NewFunction("build_function",
 				[]λ.Param{
@@ -614,15 +614,15 @@ func init() {
 								τmp2        λ.Object
 							)
 							ϒlocal_vars = λ.Cal(λ.DictType, λ.Cal(λ.ZipIteratorType, ϒargnames, ϒargs))
-							τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒcode, "split", nil), λ.NewStr(";")))
+							τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒcode, "split", λ.StrLiteral(";")))
 							for {
 								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 									break
 								}
 								ϒstmt = τmp1
-								τmp2 = λ.Cal(λ.GetAttr(ϒself, "interpret_statement", nil), ϒstmt, ϒlocal_vars)
-								ϒres = λ.GetItem(τmp2, λ.NewInt(0))
-								ϒabort = λ.GetItem(τmp2, λ.NewInt(1))
+								τmp2 = λ.Calm(ϒself, "interpret_statement", ϒstmt, ϒlocal_vars)
+								ϒres = λ.GetItem(τmp2, λ.IntLiteral(0))
+								ϒabort = λ.GetItem(τmp2, λ.IntLiteral(1))
 								if λ.IsTrue(ϒabort) {
 									break
 								}
@@ -631,13 +631,13 @@ func init() {
 						})
 					return ϒresf
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"):             JSInterpreter___init__,
-				λ.NewStr("build_function"):       JSInterpreter_build_function,
-				λ.NewStr("extract_function"):     JSInterpreter_extract_function,
-				λ.NewStr("extract_object"):       JSInterpreter_extract_object,
-				λ.NewStr("interpret_expression"): JSInterpreter_interpret_expression,
-				λ.NewStr("interpret_statement"):  JSInterpreter_interpret_statement,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__":             JSInterpreter___init__,
+				"build_function":       JSInterpreter_build_function,
+				"extract_function":     JSInterpreter_extract_function,
+				"extract_object":       JSInterpreter_extract_object,
+				"interpret_expression": JSInterpreter_interpret_expression,
+				"interpret_statement":  JSInterpreter_interpret_statement,
 			})
 		}())
 	})

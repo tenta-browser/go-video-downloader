@@ -52,7 +52,7 @@ func init() {
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		Cache = Ωcache.Cache
 		SetExtractorRunner = Ωlib.SetExtractorRunner
-		SimpleYoutubeDL = λ.Cal(λ.TypeType, λ.NewStr("SimpleYoutubeDL"), λ.NewTuple(YoutubeDL), func() λ.Dict {
+		SimpleYoutubeDL = λ.Cal(λ.TypeType, λ.StrLiteral("SimpleYoutubeDL"), λ.NewTuple(YoutubeDL), func() λ.Dict {
 			var (
 				SimpleYoutubeDL___init__              λ.Object
 				SimpleYoutubeDL__match_entry          λ.Object
@@ -73,21 +73,21 @@ func init() {
 						ϒself      = λargs[0]
 					)
 					λ.SetAttr(ϒself, "_ies", λ.NewList())
-					λ.SetAttr(ϒself, "_ies_instances", λ.NewDictWithTable(map[λ.Object]λ.Object{}))
-					λ.SetAttr(ϒself, "_num_downloads", λ.NewInt(0))
+					λ.SetAttr(ϒself, "_ies_instances", λ.DictLiteral(map[λ.Object]λ.Object{}))
+					λ.SetAttr(ϒself, "_num_downloads", λ.IntLiteral(0))
 					λ.SetAttr(ϒself, "_err_file", λ.None)
-					λ.SetAttr(ϒself, "params", λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("cachedir"):   λ.False,
-						λ.NewStr("no_color"):   λ.True,
-						λ.NewStr("simulate"):   λ.True,
-						λ.NewStr("noplaylist"): λ.True,
-						λ.NewStr("username"):   λ.Cal(λ.GetAttr(ϒconnector, "get", nil), λ.NewStr("username"), λ.None),
-						λ.NewStr("password"):   λ.Cal(λ.GetAttr(ϒconnector, "get", nil), λ.NewStr("password"), λ.None),
+					λ.SetAttr(ϒself, "params", λ.DictLiteral(map[string]λ.Object{
+						"cachedir":   λ.False,
+						"no_color":   λ.True,
+						"simulate":   λ.True,
+						"noplaylist": λ.True,
+						"username":   λ.Calm(ϒconnector, "get", λ.StrLiteral("username"), λ.None),
+						"password":   λ.Calm(ϒconnector, "get", λ.StrLiteral("password"), λ.None),
 					}))
 					λ.SetAttr(ϒself, "connector", ϒconnector)
-					λ.SetAttr(ϒself, "browser", λ.Cal(λ.GetAttr(ϒconnector, "get", nil), λ.NewStr("browser")))
-					λ.SetAttr(ϒself, "cookiejar", λ.Cal(Ωcookiejar.CookieJar, λ.GetItem(ϒconnector, λ.NewStr("jar"))))
-					λ.Cal(λ.GetAttr(ϒself, "add_default_info_extractors", nil))
+					λ.SetAttr(ϒself, "browser", λ.Calm(ϒconnector, "get", λ.StrLiteral("browser")))
+					λ.SetAttr(ϒself, "cookiejar", λ.Cal(Ωcookiejar.CookieJar, λ.GetItem(ϒconnector, λ.StrLiteral("jar"))))
+					λ.Calm(ϒself, "add_default_info_extractors")
 					λ.SetAttr(ϒself, "cache", λ.Cal(Cache, ϒself))
 					return λ.None
 				})
@@ -107,7 +107,7 @@ func init() {
 					_ = ϒ_
 					_ = ϒself
 					λ.Call(λ.BuiltinPrint, λ.NewArgs(ϒs), λ.KWArgs{
-						{Name: "end", Value: λ.NewStr("")},
+						{Name: "end", Value: λ.StrLiteral("")},
 					})
 					return λ.None
 				})
@@ -130,19 +130,19 @@ func init() {
 					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒreq, ϒcompat_basestring)) {
 						ϒreq = λ.Cal(ϒsanitized_Request, ϒreq)
 					}
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "connector", nil), "get", nil), λ.NewStr("headers"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "items", nil)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.Calm(λ.GetAttr(ϒself, "connector", nil), "get", λ.StrLiteral("headers"), λ.DictLiteral(map[λ.Object]λ.Object{})), "items"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒkey = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒvalue = λ.GetItem(τmp2, λ.NewInt(1))
-						if λ.IsTrue(λ.NewBool(λ.Cal(λ.GetAttr(ϒreq, "get_header", nil), ϒkey, λ.None) == λ.None)) {
-							λ.Cal(λ.GetAttr(ϒreq, "add_header", nil), ϒkey, ϒvalue)
+						ϒkey = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒvalue = λ.GetItem(τmp2, λ.IntLiteral(1))
+						if λ.Calm(ϒreq, "get_header", ϒkey, λ.None) == λ.None {
+							λ.Calm(ϒreq, "add_header", ϒkey, ϒvalue)
 						}
 					}
-					return λ.Cal(Ωrequester.ϒdo, λ.GetItem(λ.GetAttr(ϒself, "connector", nil), λ.NewStr("client")), ϒreq)
+					return λ.Cal(Ωrequester.ϒdo, λ.GetItem(λ.GetAttr(ϒself, "connector", nil), λ.StrLiteral("client")), ϒreq)
 				})
 			SimpleYoutubeDL_build_format_selector = λ.NewFunction("build_format_selector",
 				[]λ.Param{
@@ -170,10 +170,10 @@ func init() {
 								ϒf = λargs[0]
 							)
 							return λ.NewBool(λ.Contains(λ.NewTuple(
-								λ.NewStr("none"),
-								λ.NewStr("http"),
-								λ.NewStr("https"),
-							), λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("protocol"))))
+								λ.StrLiteral("none"),
+								λ.StrLiteral("http"),
+								λ.StrLiteral("https"),
+							), λ.Calm(ϒf, "get", λ.StrLiteral("protocol"))))
 						})
 					ϒcomplete_filter = λ.NewFunction("complete_filter",
 						[]λ.Param{
@@ -185,10 +185,10 @@ func init() {
 								ϒf = λargs[0]
 							)
 							return func() λ.Object {
-								if λv := λ.Ne(λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("vcodec")), λ.NewStr("none")); !λ.IsTrue(λv) {
+								if λv := λ.Ne(λ.Calm(ϒf, "get", λ.StrLiteral("vcodec")), λ.StrLiteral("none")); !λ.IsTrue(λv) {
 									return λv
 								} else {
-									return λ.Ne(λ.Cal(λ.GetAttr(ϒf, "get", nil), λ.NewStr("acodec")), λ.NewStr("none"))
+									return λ.Ne(λ.Calm(ϒf, "get", λ.StrLiteral("acodec")), λ.StrLiteral("none"))
 								}
 							}()
 						})
@@ -203,17 +203,17 @@ func init() {
 								ϒformats            λ.Object
 								ϒincomplete_formats λ.Object
 							)
-							ϒformats = λ.GetItem(ϒctx, λ.NewStr("formats"))
-							ϒincomplete_formats = λ.GetItem(ϒctx, λ.NewStr("incomplete_formats"))
+							ϒformats = λ.GetItem(ϒctx, λ.StrLiteral("formats"))
+							ϒincomplete_formats = λ.GetItem(ϒctx, λ.StrLiteral("incomplete_formats"))
 							ϒformats = λ.Cal(λ.ListType, λ.Cal(λ.FilterIteratorType, ϒproto_filter, ϒformats))
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
+							if !λ.IsTrue(ϒformats) {
 								return λ.NewList()
 							}
 							if λ.IsTrue(ϒincomplete_formats) {
-								return λ.GetItem(ϒformats, λ.NewSlice(λ.Neg(λ.NewInt(1)), λ.None, λ.None))
+								return λ.GetItem(ϒformats, λ.NewSlice(λ.Neg(λ.IntLiteral(1)), λ.None, λ.None))
 							}
 							ϒformats = λ.Cal(λ.ListType, λ.Cal(λ.FilterIteratorType, ϒcomplete_filter, ϒformats))
-							return λ.GetItem(ϒformats, λ.NewSlice(λ.Neg(λ.NewInt(1)), λ.None, λ.None))
+							return λ.GetItem(ϒformats, λ.NewSlice(λ.Neg(λ.IntLiteral(1)), λ.None, λ.None))
 						})
 					return ϒselector
 				})
@@ -248,16 +248,16 @@ func init() {
 					ϒinfo_dict = λ.Call(λ.GetAttr(λ.Cal(λ.SuperType, SimpleYoutubeDL, ϒself), "process_video_result", nil), λ.NewArgs(λ.Unpack(λ.AsStarred(ϒarg))...), λ.KWArgs{
 						{Name: "", Value: ϒkwargs},
 					})
-					λ.Cal(λ.GetAttr(ϒself, "process_info", nil), ϒinfo_dict)
+					λ.Calm(ϒself, "process_info", ϒinfo_dict)
 					return ϒinfo_dict
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"):              SimpleYoutubeDL___init__,
-				λ.NewStr("_match_entry"):          SimpleYoutubeDL__match_entry,
-				λ.NewStr("_write_string"):         SimpleYoutubeDL__write_string,
-				λ.NewStr("build_format_selector"): SimpleYoutubeDL_build_format_selector,
-				λ.NewStr("process_video_result"):  SimpleYoutubeDL_process_video_result,
-				λ.NewStr("urlopen"):               SimpleYoutubeDL_urlopen,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__":              SimpleYoutubeDL___init__,
+				"_match_entry":          SimpleYoutubeDL__match_entry,
+				"_write_string":         SimpleYoutubeDL__write_string,
+				"build_format_selector": SimpleYoutubeDL_build_format_selector,
+				"process_video_result":  SimpleYoutubeDL_process_video_result,
+				"urlopen":               SimpleYoutubeDL_urlopen,
 			})
 		}())
 		ϒrun_extractor = λ.NewFunction("run_extractor",

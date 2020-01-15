@@ -52,21 +52,21 @@ func init() {
 		ϒqualities = Ωutils.ϒqualities
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		ϒurl_or_none = Ωutils.ϒurl_or_none
-		NovaEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("NovaEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		NovaEmbedIE = λ.Cal(λ.TypeType, λ.StrLiteral("NovaEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				NovaEmbedIE__VALID_URL λ.Object
 			)
-			NovaEmbedIE__VALID_URL = λ.NewStr("https?://media\\.cms\\.nova\\.cz/embed/(?P<id>[^/?#&]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): NovaEmbedIE__VALID_URL,
+			NovaEmbedIE__VALID_URL = λ.StrLiteral("https?://media\\.cms\\.nova\\.cz/embed/(?P<id>[^/?#&]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": NovaEmbedIE__VALID_URL,
 			})
 		}())
-		NovaIE = λ.Cal(λ.TypeType, λ.NewStr("NovaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		NovaIE = λ.Cal(λ.TypeType, λ.StrLiteral("NovaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				NovaIE__VALID_URL    λ.Object
 				NovaIE__real_extract λ.Object
 			)
-			NovaIE__VALID_URL = λ.NewStr("https?://(?:[^.]+\\.)?(?P<site>tv(?:noviny)?|tn|novaplus|vymena|fanda|krasna|doma|prask)\\.nova\\.cz/(?:[^/]+/)+(?P<id>[^/]+?)(?:\\.html|/|$)")
+			NovaIE__VALID_URL = λ.StrLiteral("https?://(?:[^.]+\\.)?(?P<site>tv(?:noviny)?|tn|novaplus|vymena|fanda|krasna|doma|prask)\\.nova\\.cz/(?:[^/]+/)+(?P<id>[^/]+?)(?:\\.html|/|$)")
 			NovaIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -101,44 +101,44 @@ func init() {
 						ϒwebpage        λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-					ϒsite = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("site"))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
+					ϒdisplay_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
+					ϒsite = λ.Calm(ϒmobj, "group", λ.StrLiteral("site"))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
 					ϒembed_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<iframe[^>]+\\bsrc=[\"\\'](?:https?:)?//media\\.cms\\.nova\\.cz/embed/([^/?#&]+)"),
+						λ.StrLiteral("<iframe[^>]+\\bsrc=[\"\\'](?:https?:)?//media\\.cms\\.nova\\.cz/embed/([^/?#&]+)"),
 						ϒwebpage,
-						λ.NewStr("embed url"),
+						λ.StrLiteral("embed url"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
 					if λ.IsTrue(ϒembed_id) {
-						return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(λ.Mod(λ.NewStr("https://media.cms.nova.cz/embed/%s"), ϒembed_id)), λ.KWArgs{
-							{Name: "ie", Value: λ.Cal(λ.GetAttr(NovaEmbedIE, "ie_key", nil))},
+						return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(λ.Mod(λ.StrLiteral("https://media.cms.nova.cz/embed/%s"), ϒembed_id)), λ.KWArgs{
+							{Name: "ie", Value: λ.Calm(NovaEmbedIE, "ie_key")},
 							{Name: "video_id", Value: ϒembed_id},
 						})
 					}
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewList(
-						λ.NewStr("(?:media|video_id)\\s*:\\s*'(\\d+)'"),
-						λ.NewStr("media=(\\d+)"),
-						λ.NewStr("id=\"article_video_(\\d+)\""),
-						λ.NewStr("id=\"player_(\\d+)\""),
-					), ϒwebpage, λ.NewStr("video id"))
+					ϒvideo_id = λ.Calm(ϒself, "_search_regex", λ.NewList(
+						λ.StrLiteral("(?:media|video_id)\\s*:\\s*'(\\d+)'"),
+						λ.StrLiteral("media=(\\d+)"),
+						λ.StrLiteral("id=\"article_video_(\\d+)\""),
+						λ.StrLiteral("id=\"player_(\\d+)\""),
+					), ϒwebpage, λ.StrLiteral("video id"))
 					ϒconfig_url = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("src=\"(https?://(?:tn|api)\\.nova\\.cz/bin/player/videojs/config\\.php\\?[^\"]+)\""),
+						λ.StrLiteral("src=\"(https?://(?:tn|api)\\.nova\\.cz/bin/player/videojs/config\\.php\\?[^\"]+)\""),
 						ϒwebpage,
-						λ.NewStr("config url"),
+						λ.StrLiteral("config url"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
-					ϒconfig_params = λ.NewDictWithTable(map[λ.Object]λ.Object{})
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒconfig_url))) {
+					ϒconfig_params = λ.DictLiteral(map[λ.Object]λ.Object{})
+					if !λ.IsTrue(ϒconfig_url) {
 						ϒplayer = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 							λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.NewStr("(?s)Player\\s*\\(.+?\\s*,\\s*({.+?\\bmedia\\b[\"\\']?\\s*:\\s*[\"\\']?\\d+.+?})\\s*\\)"),
+								λ.StrLiteral("(?s)Player\\s*\\(.+?\\s*,\\s*({.+?\\bmedia\\b[\"\\']?\\s*:\\s*[\"\\']?\\d+.+?})\\s*\\)"),
 								ϒwebpage,
-								λ.NewStr("player"),
+								λ.StrLiteral("player"),
 							), λ.KWArgs{
-								{Name: "default", Value: λ.NewStr("{}")},
+								{Name: "default", Value: λ.StrLiteral("{}")},
 							}),
 							ϒvideo_id,
 						), λ.KWArgs{
@@ -146,49 +146,49 @@ func init() {
 							{Name: "fatal", Value: λ.False},
 						})
 						if λ.IsTrue(ϒplayer) {
-							ϒconfig_url = λ.Cal(ϒurl_or_none, λ.Cal(λ.GetAttr(ϒplayer, "get", nil), λ.NewStr("configUrl")))
-							ϒparams = λ.Cal(λ.GetAttr(ϒplayer, "get", nil), λ.NewStr("configParams"))
+							ϒconfig_url = λ.Cal(ϒurl_or_none, λ.Calm(ϒplayer, "get", λ.StrLiteral("configUrl")))
+							ϒparams = λ.Calm(ϒplayer, "get", λ.StrLiteral("configParams"))
 							if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒparams, λ.DictType)) {
 								ϒconfig_params = ϒparams
 							}
 						}
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒconfig_url))) {
-						DEFAULT_SITE_ID = λ.NewStr("23000")
-						SITES = λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("tvnoviny"): DEFAULT_SITE_ID,
-							λ.NewStr("novaplus"): DEFAULT_SITE_ID,
-							λ.NewStr("vymena"):   DEFAULT_SITE_ID,
-							λ.NewStr("krasna"):   DEFAULT_SITE_ID,
-							λ.NewStr("fanda"):    λ.NewStr("30"),
-							λ.NewStr("tn"):       λ.NewStr("30"),
-							λ.NewStr("doma"):     λ.NewStr("30"),
+					if !λ.IsTrue(ϒconfig_url) {
+						DEFAULT_SITE_ID = λ.StrLiteral("23000")
+						SITES = λ.DictLiteral(map[string]λ.Object{
+							"tvnoviny": DEFAULT_SITE_ID,
+							"novaplus": DEFAULT_SITE_ID,
+							"vymena":   DEFAULT_SITE_ID,
+							"krasna":   DEFAULT_SITE_ID,
+							"fanda":    λ.StrLiteral("30"),
+							"tn":       λ.StrLiteral("30"),
+							"doma":     λ.StrLiteral("30"),
 						})
 						ϒsite_id = func() λ.Object {
 							if λv := λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.NewStr("site=(\\d+)"),
+								λ.StrLiteral("site=(\\d+)"),
 								ϒwebpage,
-								λ.NewStr("site id"),
+								λ.StrLiteral("site id"),
 							), λ.KWArgs{
 								{Name: "default", Value: λ.None},
 							}); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(SITES, "get", nil), ϒsite, DEFAULT_SITE_ID)
+								return λ.Calm(SITES, "get", ϒsite, DEFAULT_SITE_ID)
 							}
 						}()
-						ϒconfig_url = λ.NewStr("https://api.nova.cz/bin/player/videojs/config.php")
-						ϒconfig_params = λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("site"):    ϒsite_id,
-							λ.NewStr("media"):   ϒvideo_id,
-							λ.NewStr("quality"): λ.NewInt(3),
-							λ.NewStr("version"): λ.NewInt(1),
+						ϒconfig_url = λ.StrLiteral("https://api.nova.cz/bin/player/videojs/config.php")
+						ϒconfig_params = λ.DictLiteral(map[string]λ.Object{
+							"site":    ϒsite_id,
+							"media":   ϒvideo_id,
+							"quality": λ.IntLiteral(3),
+							"version": λ.IntLiteral(1),
 						})
 					}
 					ϒconfig = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
 						ϒconfig_url,
 						ϒdisplay_id,
-						λ.NewStr("Downloading config JSON"),
+						λ.StrLiteral("Downloading config JSON"),
 					), λ.KWArgs{
 						{Name: "query", Value: ϒconfig_params},
 						{Name: "transform_source", Value: λ.NewFunction("<lambda>",
@@ -200,51 +200,51 @@ func init() {
 								var (
 									ϒs = λargs[0]
 								)
-								return λ.GetItem(ϒs, λ.NewSlice(λ.Cal(λ.GetAttr(ϒs, "index", nil), λ.NewStr("{")), λ.Add(λ.Cal(λ.GetAttr(ϒs, "rindex", nil), λ.NewStr("}")), λ.NewInt(1)), λ.None))
+								return λ.GetItem(ϒs, λ.NewSlice(λ.Calm(ϒs, "index", λ.StrLiteral("{")), λ.Add(λ.Calm(ϒs, "rindex", λ.StrLiteral("}")), λ.IntLiteral(1)), λ.None))
 							})},
 					})
-					ϒmediafile = λ.GetItem(ϒconfig, λ.NewStr("mediafile"))
-					ϒvideo_url = λ.GetItem(ϒmediafile, λ.NewStr("src"))
-					ϒm = λ.Cal(Ωre.ϒsearch, λ.NewStr("^(?P<url>rtmpe?://[^/]+/(?P<app>[^/]+?))/&*(?P<playpath>.+)$"), ϒvideo_url)
+					ϒmediafile = λ.GetItem(ϒconfig, λ.StrLiteral("mediafile"))
+					ϒvideo_url = λ.GetItem(ϒmediafile, λ.StrLiteral("src"))
+					ϒm = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("^(?P<url>rtmpe?://[^/]+/(?P<app>[^/]+?))/&*(?P<playpath>.+)$"), ϒvideo_url)
 					if λ.IsTrue(ϒm) {
-						ϒformats = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):         λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("url")),
-							λ.NewStr("app"):         λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("app")),
-							λ.NewStr("play_path"):   λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("playpath")),
-							λ.NewStr("player_path"): λ.NewStr("http://tvnoviny.nova.cz/static/shared/app/videojs/video-js.swf"),
-							λ.NewStr("ext"):         λ.NewStr("flv"),
+						ϒformats = λ.NewList(λ.DictLiteral(map[string]λ.Object{
+							"url":         λ.Calm(ϒm, "group", λ.StrLiteral("url")),
+							"app":         λ.Calm(ϒm, "group", λ.StrLiteral("app")),
+							"play_path":   λ.Calm(ϒm, "group", λ.StrLiteral("playpath")),
+							"player_path": λ.StrLiteral("http://tvnoviny.nova.cz/static/shared/app/videojs/video-js.swf"),
+							"ext":         λ.StrLiteral("flv"),
 						}))
 					} else {
-						ϒformats = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"): ϒvideo_url,
+						ϒformats = λ.NewList(λ.DictLiteral(map[string]λ.Object{
+							"url": ϒvideo_url,
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒtitle = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒmediafile, "get", nil), λ.NewStr("meta"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("title")); λ.IsTrue(λv) {
+						if λv := λ.Calm(λ.Calm(ϒmediafile, "get", λ.StrLiteral("meta"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("title")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
+							return λ.Calm(ϒself, "_og_search_title", ϒwebpage)
 						}
 					}()
 					ϒdescription = λ.Cal(ϒclean_html, λ.Call(λ.GetAttr(ϒself, "_og_search_description", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					}))
-					ϒthumbnail = λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("poster"))
-					if λ.IsTrue(λ.Eq(ϒsite, λ.NewStr("novaplus"))) {
+					ϒthumbnail = λ.Calm(ϒconfig, "get", λ.StrLiteral("poster"))
+					if λ.IsTrue(λ.Eq(ϒsite, λ.StrLiteral("novaplus"))) {
 						ϒupload_date = λ.Cal(ϒunified_strdate, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("(\\d{1,2}-\\d{1,2}-\\d{4})$"),
+							λ.StrLiteral("(\\d{1,2}-\\d{1,2}-\\d{4})$"),
 							ϒdisplay_id,
-							λ.NewStr("upload date"),
+							λ.StrLiteral("upload date"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}))
 					} else {
-						if λ.IsTrue(λ.Eq(ϒsite, λ.NewStr("fanda"))) {
+						if λ.IsTrue(λ.Eq(ϒsite, λ.StrLiteral("fanda"))) {
 							ϒupload_date = λ.Cal(ϒunified_strdate, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.NewStr("<span class=\"date_time\">(\\d{1,2}\\.\\d{1,2}\\.\\d{4})"),
+								λ.StrLiteral("<span class=\"date_time\">(\\d{1,2}\\.\\d{1,2}\\.\\d{4})"),
 								ϒwebpage,
-								λ.NewStr("upload date"),
+								λ.StrLiteral("upload date"),
 							), λ.KWArgs{
 								{Name: "default", Value: λ.None},
 							}))
@@ -252,19 +252,19 @@ func init() {
 							ϒupload_date = λ.None
 						}
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("display_id"):  ϒdisplay_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("upload_date"): ϒupload_date,
-						λ.NewStr("thumbnail"):   ϒthumbnail,
-						λ.NewStr("formats"):     ϒformats,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"display_id":  ϒdisplay_id,
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"upload_date": ϒupload_date,
+						"thumbnail":   ϒthumbnail,
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    NovaIE__VALID_URL,
-				λ.NewStr("_real_extract"): NovaIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    NovaIE__VALID_URL,
+				"_real_extract": NovaIE__real_extract,
 			})
 		}())
 	})

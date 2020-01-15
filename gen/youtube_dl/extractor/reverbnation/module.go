@@ -42,12 +42,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒqualities = Ωutils.ϒqualities
 		ϒstr_or_none = Ωutils.ϒstr_or_none
-		ReverbNationIE = λ.Cal(λ.TypeType, λ.NewStr("ReverbNationIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ReverbNationIE = λ.Cal(λ.TypeType, λ.StrLiteral("ReverbNationIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ReverbNationIE__VALID_URL    λ.Object
 				ReverbNationIE__real_extract λ.Object
 			)
-			ReverbNationIE__VALID_URL = λ.NewStr("^https?://(?:www\\.)?reverbnation\\.com/.*?/song/(?P<id>\\d+).*?$")
+			ReverbNationIE__VALID_URL = λ.StrLiteral("^https?://(?:www\\.)?reverbnation\\.com/.*?/song/(?P<id>\\d+).*?$")
 			ReverbNationIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -67,16 +67,16 @@ func init() {
 						τmp0        λ.Object
 						τmp1        λ.Object
 					)
-					ϒsong_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒsong_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒapi_res = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Mod(λ.NewStr("https://api.reverbnation.com/song/%s"), ϒsong_id),
+						λ.Mod(λ.StrLiteral("https://api.reverbnation.com/song/%s"), ϒsong_id),
 						ϒsong_id,
 					), λ.KWArgs{
-						{Name: "note", Value: λ.Mod(λ.NewStr("Downloading information of song %s"), ϒsong_id)},
+						{Name: "note", Value: λ.Mod(λ.StrLiteral("Downloading information of song %s"), ϒsong_id)},
 					})
 					THUMBNAILS = λ.NewTuple(
-						λ.NewStr("thumbnail"),
-						λ.NewStr("image"),
+						λ.StrLiteral("thumbnail"),
+						λ.StrLiteral("image"),
 					)
 					ϒquality = λ.Cal(ϒqualities, THUMBNAILS)
 					ϒthumbnails = λ.NewList()
@@ -86,27 +86,27 @@ func init() {
 							break
 						}
 						ϒthumb_key = τmp1
-						if λ.IsTrue(λ.Cal(λ.GetAttr(ϒapi_res, "get", nil), ϒthumb_key)) {
-							λ.Cal(λ.GetAttr(ϒthumbnails, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("url"):        λ.GetItem(ϒapi_res, ϒthumb_key),
-								λ.NewStr("preference"): λ.Cal(ϒquality, ϒthumb_key),
+						if λ.IsTrue(λ.Calm(ϒapi_res, "get", ϒthumb_key)) {
+							λ.Calm(ϒthumbnails, "append", λ.DictLiteral(map[string]λ.Object{
+								"url":        λ.GetItem(ϒapi_res, ϒthumb_key),
+								"preference": λ.Cal(ϒquality, ϒthumb_key),
 							}))
 						}
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒsong_id,
-						λ.NewStr("title"):       λ.GetItem(ϒapi_res, λ.NewStr("name")),
-						λ.NewStr("url"):         λ.GetItem(ϒapi_res, λ.NewStr("url")),
-						λ.NewStr("uploader"):    λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒapi_res, "get", nil), λ.NewStr("artist"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("name")),
-						λ.NewStr("uploader_id"): λ.Cal(ϒstr_or_none, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒapi_res, "get", nil), λ.NewStr("artist"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("id"))),
-						λ.NewStr("thumbnails"):  ϒthumbnails,
-						λ.NewStr("ext"):         λ.NewStr("mp3"),
-						λ.NewStr("vcodec"):      λ.NewStr("none"),
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒsong_id,
+						"title":       λ.GetItem(ϒapi_res, λ.StrLiteral("name")),
+						"url":         λ.GetItem(ϒapi_res, λ.StrLiteral("url")),
+						"uploader":    λ.Calm(λ.Calm(ϒapi_res, "get", λ.StrLiteral("artist"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("name")),
+						"uploader_id": λ.Cal(ϒstr_or_none, λ.Calm(λ.Calm(ϒapi_res, "get", λ.StrLiteral("artist"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("id"))),
+						"thumbnails":  ϒthumbnails,
+						"ext":         λ.StrLiteral("mp3"),
+						"vcodec":      λ.StrLiteral("none"),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    ReverbNationIE__VALID_URL,
-				λ.NewStr("_real_extract"): ReverbNationIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    ReverbNationIE__VALID_URL,
+				"_real_extract": ReverbNationIE__real_extract,
 			})
 		}())
 	})

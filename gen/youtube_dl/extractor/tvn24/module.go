@@ -44,12 +44,12 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		NO_DEFAULT = Ωutils.NO_DEFAULT
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
-		TVN24IE = λ.Cal(λ.TypeType, λ.NewStr("TVN24IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TVN24IE = λ.Cal(λ.TypeType, λ.StrLiteral("TVN24IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TVN24IE__VALID_URL    λ.Object
 				TVN24IE__real_extract λ.Object
 			)
-			TVN24IE__VALID_URL = λ.NewStr("https?://(?:(?:[^/]+)\\.)?tvn24(?:bis)?\\.pl/(?:[^/]+/)*(?P<id>[^/]+)")
+			TVN24IE__VALID_URL = λ.StrLiteral("https?://(?:(?:[^/]+)\\.)?tvn24(?:bis)?\\.pl/(?:[^/]+/)*(?P<id>[^/]+)")
 			TVN24IE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -75,15 +75,15 @@ func init() {
 						τmp1          λ.Object
 						τmp2          λ.Object
 					)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
 					ϒtitle = func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_og_search_title", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<h\\d+[^>]+class=[\"\\']magazineItemHeader[^>]+>(.+?)</h"), ϒwebpage, λ.NewStr("title"))
+							return λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<h\\d+[^>]+class=[\"\\']magazineItemHeader[^>]+>(.+?)</h"), ϒwebpage, λ.StrLiteral("title"))
 						}
 					}()
 					ϒextract_json = λ.NewFunction("extract_json",
@@ -104,17 +104,17 @@ func init() {
 							return λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 								func() λ.Object {
 									if λv := λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-										λ.Mod(λ.NewStr("\\b%s=([\"\\'])(?P<json>(?!\\1).+?)\\1"), ϒattr),
+										λ.Mod(λ.StrLiteral("\\b%s=([\"\\'])(?P<json>(?!\\1).+?)\\1"), ϒattr),
 										ϒwebpage,
 										ϒname,
 									), λ.KWArgs{
-										{Name: "group", Value: λ.NewStr("json")},
+										{Name: "group", Value: λ.StrLiteral("json")},
 										{Name: "default", Value: ϒdefault},
 										{Name: "fatal", Value: ϒfatal},
 									}); λ.IsTrue(λv) {
 										return λv
 									} else {
-										return λ.NewStr("{}")
+										return λ.StrLiteral("{}")
 									}
 								}(),
 								ϒdisplay_id,
@@ -123,23 +123,23 @@ func init() {
 								{Name: "fatal", Value: ϒfatal},
 							})
 						})
-					ϒquality_data = λ.Cal(ϒextract_json, λ.NewStr("data-quality"), λ.NewStr("formats"))
+					ϒquality_data = λ.Cal(ϒextract_json, λ.StrLiteral("data-quality"), λ.StrLiteral("formats"))
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒquality_data, "items", nil)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒquality_data, "items"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒformat_id = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒurl = λ.GetItem(τmp2, λ.NewInt(1))
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):       ϒurl,
-							λ.NewStr("format_id"): ϒformat_id,
-							λ.NewStr("height"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒformat_id, "rstrip", nil), λ.NewStr("p"))),
+						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒurl = λ.GetItem(τmp2, λ.IntLiteral(1))
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":       ϒurl,
+							"format_id": ϒformat_id,
+							"height":    λ.Cal(ϒint_or_none, λ.Calm(ϒformat_id, "rstrip", λ.StrLiteral("p"))),
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒdescription = λ.Call(λ.GetAttr(ϒself, "_og_search_description", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
@@ -150,56 +150,56 @@ func init() {
 							return λv
 						} else {
 							return λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-								λ.NewStr("\\bdata-poster=([\"\\'])(?P<url>(?!\\1).+?)\\1"),
+								λ.StrLiteral("\\bdata-poster=([\"\\'])(?P<url>(?!\\1).+?)\\1"),
 								ϒwebpage,
-								λ.NewStr("thumbnail"),
+								λ.StrLiteral("thumbnail"),
 							), λ.KWArgs{
-								{Name: "group", Value: λ.NewStr("url")},
+								{Name: "group", Value: λ.StrLiteral("url")},
 							})
 						}
 					}()
 					ϒvideo_id = λ.None
 					ϒshare_params = λ.Call(ϒextract_json, λ.NewArgs(
-						λ.NewStr("data-share-params"),
-						λ.NewStr("share params"),
+						λ.StrLiteral("data-share-params"),
+						λ.StrLiteral("share params"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
 					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒshare_params, λ.DictType)) {
-						ϒvideo_id = λ.Cal(λ.GetAttr(ϒshare_params, "get", nil), λ.NewStr("id"))
+						ϒvideo_id = λ.Calm(ϒshare_params, "get", λ.StrLiteral("id"))
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_id))) {
+					if !λ.IsTrue(ϒvideo_id) {
 						ϒvideo_id = func() λ.Object {
 							if λv := λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.NewStr("data-vid-id=[\"\\'](\\d+)"),
+								λ.StrLiteral("data-vid-id=[\"\\'](\\d+)"),
 								ϒwebpage,
-								λ.NewStr("video id"),
+								λ.StrLiteral("video id"),
 							), λ.KWArgs{
 								{Name: "default", Value: λ.None},
 							}); λ.IsTrue(λv) {
 								return λv
 							} else {
 								return λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-									λ.NewStr(",(\\d+)\\.html"),
+									λ.StrLiteral(",(\\d+)\\.html"),
 									ϒurl,
-									λ.NewStr("video id"),
+									λ.StrLiteral("video id"),
 								), λ.KWArgs{
 									{Name: "default", Value: ϒdisplay_id},
 								})
 							}
 						}()
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("thumbnail"):   ϒthumbnail,
-						λ.NewStr("formats"):     ϒformats,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"thumbnail":   ϒthumbnail,
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    TVN24IE__VALID_URL,
-				λ.NewStr("_real_extract"): TVN24IE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    TVN24IE__VALID_URL,
+				"_real_extract": TVN24IE__real_extract,
 			})
 		}())
 	})

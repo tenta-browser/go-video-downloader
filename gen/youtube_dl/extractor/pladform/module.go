@@ -49,12 +49,12 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒxpath_text = Ωutils.ϒxpath_text
 		ϒqualities = Ωutils.ϒqualities
-		PladformIE = λ.Cal(λ.TypeType, λ.NewStr("PladformIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		PladformIE = λ.Cal(λ.TypeType, λ.StrLiteral("PladformIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				PladformIE__VALID_URL   λ.Object
 				PladformIE__extract_url λ.Object
 			)
-			PladformIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            (?:\n                                out\\.pladform\\.ru/player|\n                                static\\.pladform\\.ru/player\\.swf\n                            )\n                            \\?.*\\bvideoid=|\n                            video\\.pladform\\.ru/catalog/video/videoid/\n                        )\n                        (?P<id>\\d+)\n                    ")
+			PladformIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\n                            (?:\n                                out\\.pladform\\.ru/player|\n                                static\\.pladform\\.ru/player\\.swf\n                            )\n                            \\?.*\\bvideoid=|\n                            video\\.pladform\\.ru/catalog/video/videoid/\n                        )\n                        (?P<id>\\d+)\n                    ")
 			PladformIE__extract_url = λ.NewFunction("_extract_url",
 				[]λ.Param{
 					{Name: "webpage"},
@@ -65,16 +65,16 @@ func init() {
 						ϒmobj    λ.Object
 						ϒwebpage = λargs[0]
 					)
-					ϒmobj = λ.Cal(Ωre.ϒsearch, λ.NewStr("<iframe[^>]+src=([\"\\'])(?P<url>(?:https?:)?//out\\.pladform\\.ru/player\\?.+?)\\1"), ϒwebpage)
+					ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("<iframe[^>]+src=([\"\\'])(?P<url>(?:https?:)?//out\\.pladform\\.ru/player\\?.+?)\\1"), ϒwebpage)
 					if λ.IsTrue(ϒmobj) {
-						return λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("url"))
+						return λ.Calm(ϒmobj, "group", λ.StrLiteral("url"))
 					}
 					return λ.None
 				})
 			PladformIE__extract_url = λ.Cal(λ.StaticMethodType, PladformIE__extract_url)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):   PladformIE__VALID_URL,
-				λ.NewStr("_extract_url"): PladformIE__extract_url,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":   PladformIE__VALID_URL,
+				"_extract_url": PladformIE__extract_url,
 			})
 		}())
 	})

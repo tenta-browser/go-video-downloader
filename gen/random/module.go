@@ -32,11 +32,13 @@ import (
 var (
 	RandInt λ.Object
 	ϒchoice λ.Object
+	ϒrandom λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		RandInt = Ωrandom.RandInt
+		ϒrandom = Ωrandom.RandFloat
 		ϒchoice = λ.NewFunction("choice",
 			[]λ.Param{
 				{Name: "seq"},

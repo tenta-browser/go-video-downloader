@@ -55,13 +55,13 @@ func init() {
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
-		FOXIE = λ.Cal(λ.TypeType, λ.NewStr("FOXIE"), λ.NewTuple(AdobePassIE), func() λ.Dict {
+		FOXIE = λ.Cal(λ.TypeType, λ.StrLiteral("FOXIE"), λ.NewTuple(AdobePassIE), func() λ.Dict {
 			var (
 				FOXIE__VALID_URL λ.Object
 			)
-			FOXIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?fox\\.com/watch/(?P<id>[\\da-fA-F]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): FOXIE__VALID_URL,
+			FOXIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?fox\\.com/watch/(?P<id>[\\da-fA-F]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": FOXIE__VALID_URL,
 			})
 		}())
 	})

@@ -38,22 +38,22 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		RtmpIE = λ.Cal(λ.TypeType, λ.NewStr("RtmpIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		RtmpIE = λ.Cal(λ.TypeType, λ.StrLiteral("RtmpIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				RtmpIE__VALID_URL λ.Object
 			)
-			RtmpIE__VALID_URL = λ.NewStr("(?i)rtmp[est]?://.+")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): RtmpIE__VALID_URL,
+			RtmpIE__VALID_URL = λ.StrLiteral("(?i)rtmp[est]?://.+")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": RtmpIE__VALID_URL,
 			})
 		}())
-		MmsIE = λ.Cal(λ.TypeType, λ.NewStr("MmsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		MmsIE = λ.Cal(λ.TypeType, λ.StrLiteral("MmsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				MmsIE__VALID_URL λ.Object
 			)
-			MmsIE__VALID_URL = λ.NewStr("(?i)mms://.+")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): MmsIE__VALID_URL,
+			MmsIE__VALID_URL = λ.StrLiteral("(?i)mms://.+")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": MmsIE__VALID_URL,
 			})
 		}())
 	})

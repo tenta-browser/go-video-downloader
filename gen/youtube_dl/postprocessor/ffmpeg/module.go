@@ -42,9 +42,9 @@ func init() {
 		PostProcessor = Ωcommon.PostProcessor
 		PostProcessingError = Ωutils.PostProcessingError
 		ISO639Utils = Ωutils.ISO639Utils
-		FFmpegPostProcessor = λ.Cal(λ.TypeType, λ.NewStr("FFmpegPostProcessor"), λ.NewTuple(PostProcessor), func() λ.Dict {
+		FFmpegPostProcessor = λ.Cal(λ.TypeType, λ.StrLiteral("FFmpegPostProcessor"), λ.NewTuple(PostProcessor), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
 	})
 }

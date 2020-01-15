@@ -59,30 +59,30 @@ func init() {
 		ϒparse_age_limit = Ωutils.ϒparse_age_limit
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒtry_get = Ωutils.ϒtry_get
-		ViewLiftBaseIE = λ.Cal(λ.TypeType, λ.NewStr("ViewLiftBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ViewLiftBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("ViewLiftBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ViewLiftBaseIE__DOMAINS_REGEX λ.Object
 			)
-			ViewLiftBaseIE__DOMAINS_REGEX = λ.NewStr("(?:(?:main\\.)?snagfilms|snagxtreme|funnyforfree|kiddovid|winnersview|(?:monumental|lax)sportsnetwork|vayafilm)\\.com|hoichoi\\.tv")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_DOMAINS_REGEX"): ViewLiftBaseIE__DOMAINS_REGEX,
+			ViewLiftBaseIE__DOMAINS_REGEX = λ.StrLiteral("(?:(?:main\\.)?snagfilms|snagxtreme|funnyforfree|kiddovid|winnersview|(?:monumental|lax)sportsnetwork|vayafilm)\\.com|hoichoi\\.tv")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_DOMAINS_REGEX": ViewLiftBaseIE__DOMAINS_REGEX,
 			})
 		}())
-		ViewLiftEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("ViewLiftEmbedIE"), λ.NewTuple(ViewLiftBaseIE), func() λ.Dict {
+		ViewLiftEmbedIE = λ.Cal(λ.TypeType, λ.StrLiteral("ViewLiftEmbedIE"), λ.NewTuple(ViewLiftBaseIE), func() λ.Dict {
 			var (
 				ViewLiftEmbedIE__VALID_URL λ.Object
 			)
-			ViewLiftEmbedIE__VALID_URL = λ.Mod(λ.NewStr("https?://(?:(?:www|embed)\\.)?(?:%s)/embed/player\\?.*\\bfilmId=(?P<id>[\\da-f]{8}-(?:[\\da-f]{4}-){3}[\\da-f]{12})"), λ.GetAttr(ViewLiftBaseIE, "_DOMAINS_REGEX", nil))
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): ViewLiftEmbedIE__VALID_URL,
+			ViewLiftEmbedIE__VALID_URL = λ.Mod(λ.StrLiteral("https?://(?:(?:www|embed)\\.)?(?:%s)/embed/player\\?.*\\bfilmId=(?P<id>[\\da-f]{8}-(?:[\\da-f]{4}-){3}[\\da-f]{12})"), λ.GetAttr(ViewLiftBaseIE, "_DOMAINS_REGEX", nil))
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": ViewLiftEmbedIE__VALID_URL,
 			})
 		}())
-		ViewLiftIE = λ.Cal(λ.TypeType, λ.NewStr("ViewLiftIE"), λ.NewTuple(ViewLiftBaseIE), func() λ.Dict {
+		ViewLiftIE = λ.Cal(λ.TypeType, λ.StrLiteral("ViewLiftIE"), λ.NewTuple(ViewLiftBaseIE), func() λ.Dict {
 			var (
 				ViewLiftIE__VALID_URL λ.Object
 				ViewLiftIE_suitable   λ.Object
 			)
-			ViewLiftIE__VALID_URL = λ.Mod(λ.NewStr("https?://(?:www\\.)?(?P<domain>%s)(?:/(?:films/title|show|(?:news/)?videos?))?/(?P<id>[^?#]+)"), λ.GetAttr(ViewLiftBaseIE, "_DOMAINS_REGEX", nil))
+			ViewLiftIE__VALID_URL = λ.Mod(λ.StrLiteral("https?://(?:www\\.)?(?P<domain>%s)(?:/(?:films/title|show|(?:news/)?videos?))?/(?P<id>[^?#]+)"), λ.GetAttr(ViewLiftBaseIE, "_DOMAINS_REGEX", nil))
 			ViewLiftIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -95,17 +95,17 @@ func init() {
 						ϒurl = λargs[1]
 					)
 					return func() λ.Object {
-						if λ.IsTrue(λ.Cal(λ.GetAttr(ViewLiftEmbedIE, "suitable", nil), ϒurl)) {
+						if λ.IsTrue(λ.Calm(ViewLiftEmbedIE, "suitable", ϒurl)) {
 							return λ.False
 						} else {
-							return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, ViewLiftIE, ϒcls), "suitable", nil), ϒurl)
+							return λ.Calm(λ.Cal(λ.SuperType, ViewLiftIE, ϒcls), "suitable", ϒurl)
 						}
 					}()
 				})
 			ViewLiftIE_suitable = λ.Cal(λ.ClassMethodType, ViewLiftIE_suitable)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): ViewLiftIE__VALID_URL,
-				λ.NewStr("suitable"):   ViewLiftIE_suitable,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": ViewLiftIE__VALID_URL,
+				"suitable":   ViewLiftIE_suitable,
 			})
 		}())
 	})

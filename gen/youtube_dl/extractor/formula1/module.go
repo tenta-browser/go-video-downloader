@@ -37,12 +37,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		Formula1IE = λ.Cal(λ.TypeType, λ.NewStr("Formula1IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		Formula1IE = λ.Cal(λ.TypeType, λ.StrLiteral("Formula1IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				Formula1IE__VALID_URL    λ.Object
 				Formula1IE__real_extract λ.Object
 			)
-			Formula1IE__VALID_URL = λ.NewStr("https?://(?:www\\.)?formula1\\.com/(?:content/fom-website/)?en/video/\\d{4}/\\d{1,2}/(?P<id>.+?)\\.html")
+			Formula1IE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?formula1\\.com/(?:content/fom-website/)?en/video/\\d{4}/\\d{1,2}/(?P<id>.+?)\\.html")
 			Formula1IE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -57,14 +57,14 @@ func init() {
 						ϒurl               = λargs[1]
 						ϒwebpage           λ.Object
 					)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
-					ϒooyala_embed_code = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("data-videoid=\"([^\"]+)\""), ϒwebpage, λ.NewStr("ooyala embed code"))
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("ooyala:%s"), ϒooyala_embed_code), λ.NewStr("Ooyala"), ϒooyala_embed_code)
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
+					ϒooyala_embed_code = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("data-videoid=\"([^\"]+)\""), ϒwebpage, λ.StrLiteral("ooyala embed code"))
+					return λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("ooyala:%s"), ϒooyala_embed_code), λ.StrLiteral("Ooyala"), ϒooyala_embed_code)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    Formula1IE__VALID_URL,
-				λ.NewStr("_real_extract"): Formula1IE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    Formula1IE__VALID_URL,
+				"_real_extract": Formula1IE__real_extract,
 			})
 		}())
 	})

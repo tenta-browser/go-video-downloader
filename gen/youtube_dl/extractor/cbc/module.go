@@ -74,12 +74,12 @@ func init() {
 		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ExtractorError = Ωutils.ExtractorError
-		CBCIE = λ.Cal(λ.TypeType, λ.NewStr("CBCIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		CBCIE = λ.Cal(λ.TypeType, λ.StrLiteral("CBCIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CBCIE__VALID_URL λ.Object
 				CBCIE_suitable   λ.Object
 			)
-			CBCIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?cbc\\.ca/(?!player/)(?:[^/]+/)+(?P<id>[^/?#]+)")
+			CBCIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?cbc\\.ca/(?!player/)(?:[^/]+/)+(?P<id>[^/?#]+)")
 			CBCIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -92,27 +92,27 @@ func init() {
 						ϒurl = λargs[1]
 					)
 					return func() λ.Object {
-						if λ.IsTrue(λ.Cal(λ.GetAttr(CBCPlayerIE, "suitable", nil), ϒurl)) {
+						if λ.IsTrue(λ.Calm(CBCPlayerIE, "suitable", ϒurl)) {
 							return λ.False
 						} else {
-							return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, CBCIE, ϒcls), "suitable", nil), ϒurl)
+							return λ.Calm(λ.Cal(λ.SuperType, CBCIE, ϒcls), "suitable", ϒurl)
 						}
 					}()
 				})
 			CBCIE_suitable = λ.Cal(λ.ClassMethodType, CBCIE_suitable)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): CBCIE__VALID_URL,
-				λ.NewStr("suitable"):   CBCIE_suitable,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": CBCIE__VALID_URL,
+				"suitable":   CBCIE_suitable,
 			})
 		}())
-		CBCPlayerIE = λ.Cal(λ.TypeType, λ.NewStr("CBCPlayerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		CBCPlayerIE = λ.Cal(λ.TypeType, λ.StrLiteral("CBCPlayerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CBCPlayerIE_IE_NAME       λ.Object
 				CBCPlayerIE__VALID_URL    λ.Object
 				CBCPlayerIE__real_extract λ.Object
 			)
-			CBCPlayerIE_IE_NAME = λ.NewStr("cbc.ca:player")
-			CBCPlayerIE__VALID_URL = λ.NewStr("(?:cbcplayer:|https?://(?:www\\.)?cbc\\.ca/(?:player/play/|i/caffeine/syndicate/\\?mediaId=))(?P<id>\\d+)")
+			CBCPlayerIE_IE_NAME = λ.StrLiteral("cbc.ca:player")
+			CBCPlayerIE__VALID_URL = λ.StrLiteral("(?:cbcplayer:|https?://(?:www\\.)?cbc\\.ca/(?:player/play/|i/caffeine/syndicate/\\?mediaId=))(?P<id>\\d+)")
 			CBCPlayerIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -125,51 +125,51 @@ func init() {
 						ϒurl      = λargs[1]
 						ϒvideo_id λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):  λ.NewStr("url_transparent"),
-						λ.NewStr("ie_key"): λ.NewStr("ThePlatform"),
-						λ.NewStr("url"): λ.Cal(ϒsmuggle_url, λ.Mod(λ.NewStr("http://link.theplatform.com/s/ExhSPC/media/guid/2655402169/%s?mbr=true&formats=MPEG4,FLV,MP3"), ϒvideo_id), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("force_smil_url"): λ.True,
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					return λ.DictLiteral(map[string]λ.Object{
+						"_type":  λ.StrLiteral("url_transparent"),
+						"ie_key": λ.StrLiteral("ThePlatform"),
+						"url": λ.Cal(ϒsmuggle_url, λ.Mod(λ.StrLiteral("http://link.theplatform.com/s/ExhSPC/media/guid/2655402169/%s?mbr=true&formats=MPEG4,FLV,MP3"), ϒvideo_id), λ.DictLiteral(map[string]λ.Object{
+							"force_smil_url": λ.True,
 						})),
-						λ.NewStr("id"): ϒvideo_id,
+						"id": ϒvideo_id,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       CBCPlayerIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    CBCPlayerIE__VALID_URL,
-				λ.NewStr("_real_extract"): CBCPlayerIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       CBCPlayerIE_IE_NAME,
+				"_VALID_URL":    CBCPlayerIE__VALID_URL,
+				"_real_extract": CBCPlayerIE__real_extract,
 			})
 		}())
-		CBCWatchBaseIE = λ.Cal(λ.TypeType, λ.NewStr("CBCWatchBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		CBCWatchBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("CBCWatchBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
-		CBCWatchVideoIE = λ.Cal(λ.TypeType, λ.NewStr("CBCWatchVideoIE"), λ.NewTuple(CBCWatchBaseIE), func() λ.Dict {
+		CBCWatchVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("CBCWatchVideoIE"), λ.NewTuple(CBCWatchBaseIE), func() λ.Dict {
 			var (
 				CBCWatchVideoIE__VALID_URL λ.Object
 			)
-			CBCWatchVideoIE__VALID_URL = λ.NewStr("https?://api-cbc\\.cloud\\.clearleap\\.com/cloffice/client/web/play/?\\?.*?\\bcontentId=(?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): CBCWatchVideoIE__VALID_URL,
+			CBCWatchVideoIE__VALID_URL = λ.StrLiteral("https?://api-cbc\\.cloud\\.clearleap\\.com/cloffice/client/web/play/?\\?.*?\\bcontentId=(?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": CBCWatchVideoIE__VALID_URL,
 			})
 		}())
-		CBCWatchIE = λ.Cal(λ.TypeType, λ.NewStr("CBCWatchIE"), λ.NewTuple(CBCWatchBaseIE), func() λ.Dict {
+		CBCWatchIE = λ.Cal(λ.TypeType, λ.StrLiteral("CBCWatchIE"), λ.NewTuple(CBCWatchBaseIE), func() λ.Dict {
 			var (
 				CBCWatchIE__VALID_URL λ.Object
 			)
-			CBCWatchIE__VALID_URL = λ.NewStr("https?://(?:gem|watch)\\.cbc\\.ca/(?:[^/]+/)+(?P<id>[0-9a-f-]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): CBCWatchIE__VALID_URL,
+			CBCWatchIE__VALID_URL = λ.StrLiteral("https?://(?:gem|watch)\\.cbc\\.ca/(?:[^/]+/)+(?P<id>[0-9a-f-]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": CBCWatchIE__VALID_URL,
 			})
 		}())
-		CBCOlympicsIE = λ.Cal(λ.TypeType, λ.NewStr("CBCOlympicsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		CBCOlympicsIE = λ.Cal(λ.TypeType, λ.StrLiteral("CBCOlympicsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CBCOlympicsIE__VALID_URL λ.Object
 			)
-			CBCOlympicsIE__VALID_URL = λ.NewStr("https?://olympics\\.cbc\\.ca/video/[^/]+/(?P<id>[^/?#]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): CBCOlympicsIE__VALID_URL,
+			CBCOlympicsIE__VALID_URL = λ.StrLiteral("https?://olympics\\.cbc\\.ca/video/[^/]+/(?P<id>[^/?#]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": CBCOlympicsIE__VALID_URL,
 			})
 		}())
 	})

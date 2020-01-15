@@ -42,12 +42,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
-		BildIE = λ.Cal(λ.TypeType, λ.NewStr("BildIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		BildIE = λ.Cal(λ.TypeType, λ.StrLiteral("BildIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				BildIE__VALID_URL    λ.Object
 				BildIE__real_extract λ.Object
 			)
-			BildIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?bild\\.de/(?:[^/]+/)+(?P<display_id>[^/]+)-(?P<id>\\d+)(?:,auto=true)?\\.bild\\.html")
+			BildIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?bild\\.de/(?:[^/]+/)+(?P<display_id>[^/]+)-(?P<id>\\d+)(?:,auto=true)?\\.bild\\.html")
 			BildIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -61,20 +61,20 @@ func init() {
 						ϒvideo_data λ.Object
 						ϒvideo_id   λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒvideo_data = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Add(λ.GetItem(λ.Cal(λ.GetAttr(ϒurl, "split", nil), λ.NewStr(".bild.html")), λ.NewInt(0)), λ.NewStr(",view=json.bild.html")), ϒvideo_id)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       λ.Cal(λ.GetAttr(λ.Cal(ϒunescapeHTML, λ.GetItem(ϒvideo_data, λ.NewStr("title"))), "strip", nil)),
-						λ.NewStr("description"): λ.Cal(ϒunescapeHTML, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("description"))),
-						λ.NewStr("url"):         λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒvideo_data, λ.NewStr("clipList")), λ.NewInt(0)), λ.NewStr("srces")), λ.NewInt(0)), λ.NewStr("src")),
-						λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("poster")),
-						λ.NewStr("duration"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("durationSec"))),
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒvideo_data = λ.Calm(ϒself, "_download_json", λ.Add(λ.GetItem(λ.Calm(ϒurl, "split", λ.StrLiteral(".bild.html")), λ.IntLiteral(0)), λ.StrLiteral(",view=json.bild.html")), ϒvideo_id)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       λ.Calm(λ.Cal(ϒunescapeHTML, λ.GetItem(ϒvideo_data, λ.StrLiteral("title"))), "strip"),
+						"description": λ.Cal(ϒunescapeHTML, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("description"))),
+						"url":         λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒvideo_data, λ.StrLiteral("clipList")), λ.IntLiteral(0)), λ.StrLiteral("srces")), λ.IntLiteral(0)), λ.StrLiteral("src")),
+						"thumbnail":   λ.Calm(ϒvideo_data, "get", λ.StrLiteral("poster")),
+						"duration":    λ.Cal(ϒint_or_none, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("durationSec"))),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    BildIE__VALID_URL,
-				λ.NewStr("_real_extract"): BildIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    BildIE__VALID_URL,
+				"_real_extract": BildIE__real_extract,
 			})
 		}())
 	})

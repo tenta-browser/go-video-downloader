@@ -22,54 +22,11 @@ The extractor leans heavily on a regular expression engine supporting Perl Compa
 Usage
 =====
 
-```go
-package main
-
-import (
-    "net/http"
-
-    matcher "github.com/tenta-browser/go-pcre-matcher"
-    "github.com/tenta-browser/go-pcre-matcher/matcherpcre"
-    downloader "github.com/tenta-browser/go-video-downloader"
-)
-
-func main() {
-    // Select PCRE matcher engine.
-    matcher.ReEngine = matcherpcre.NewEngine()
-
-    // The downloader has to be initialized once, before usage.
-    if err := downloader.Init(); err != nil {
-        panic(err.Error())
-    }
-
-    // Quick check to see if the specified URL contains a video
-    // (for which extraction is supported).
-    hasVideo, err := downloader.Check("https://tenta.com/how-to-download-videos")
-    if err != nil {
-        panic(err.Error())
-    }
-    println("Has video:", hasVideo)
-
-    // Pluggable HTTP client and common headers to be used at each page request
-    // done by the extractor.
-    connector := &downloader.Connector{
-        Client:    &http.Client{},
-        UserAgent: "Mozilla/5.0 (X11; Linux x86_64) ..",
-        Cookie:    "SESSIONID=12345",
-    }
-
-    // Extracts various properties of the video contained at the specified URL,
-    // most importantly it's direct URL.
-    // This is a slow call, the extractor will possibly do multiple HTTP requests.
-    videoData, err := downloader.Extract("https://tenta.com/how-to-download-videos", connector)
-    if err != nil {
-        panic(err.Error())
-    }
-    println("Video title:", videoData.Title)
-    println("Raw video URL:", videoData.URL)
-    println("Suggested filename:", videoData.Filename)
-}
 ```
+go get github.com/tenta-browser/go-video-downloader
+```
+
+A simple example program using the library can be found at [cmd/extractor/main.go](cmd/extractor/main.go).
 
 Supported sites
 ===============

@@ -37,14 +37,14 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		RadioDeIE = λ.Cal(λ.TypeType, λ.NewStr("RadioDeIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		RadioDeIE = λ.Cal(λ.TypeType, λ.StrLiteral("RadioDeIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				RadioDeIE_IE_NAME       λ.Object
 				RadioDeIE__VALID_URL    λ.Object
 				RadioDeIE__real_extract λ.Object
 			)
-			RadioDeIE_IE_NAME = λ.NewStr("radio.de")
-			RadioDeIE__VALID_URL = λ.NewStr("https?://(?P<id>.+?)\\.(?:radio\\.(?:de|at|fr|pt|es|pl|it)|rad\\.io)")
+			RadioDeIE_IE_NAME = λ.StrLiteral("radio.de")
+			RadioDeIE__VALID_URL = λ.StrLiteral("https?://(?P<id>.+?)\\.(?:radio\\.(?:de|at|fr|pt|es|pl|it)|rad\\.io)")
 			RadioDeIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -64,25 +64,25 @@ func init() {
 						ϒurl         = λargs[1]
 						ϒwebpage     λ.Object
 					)
-					ϒradio_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒradio_id)
-					ϒjscode = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("'components/station/stationService':\\s*\\{\\s*'?station'?:\\s*(\\{.*?\\s*\\}),\\n"), ϒwebpage, λ.NewStr("broadcast"))
-					ϒbroadcast = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), ϒjscode, ϒradio_id)
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_live_title", nil), λ.GetItem(ϒbroadcast, λ.NewStr("name")))
+					ϒradio_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒradio_id)
+					ϒjscode = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("'components/station/stationService':\\s*\\{\\s*'?station'?:\\s*(\\{.*?\\s*\\}),\\n"), ϒwebpage, λ.StrLiteral("broadcast"))
+					ϒbroadcast = λ.Calm(ϒself, "_parse_json", ϒjscode, ϒradio_id)
+					ϒtitle = λ.Calm(ϒself, "_live_title", λ.GetItem(ϒbroadcast, λ.StrLiteral("name")))
 					ϒdescription = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒbroadcast, "get", nil), λ.NewStr("description")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒbroadcast, "get", λ.StrLiteral("description")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒbroadcast, "get", nil), λ.NewStr("shortDescription"))
+							return λ.Calm(ϒbroadcast, "get", λ.StrLiteral("shortDescription"))
 						}
 					}()
 					ϒthumbnail = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒbroadcast, "get", nil), λ.NewStr("picture4Url")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒbroadcast, "get", λ.StrLiteral("picture4Url")); λ.IsTrue(λv) {
 							return λv
-						} else if λv := λ.Cal(λ.GetAttr(ϒbroadcast, "get", nil), λ.NewStr("picture4TransUrl")); λ.IsTrue(λv) {
+						} else if λv := λ.Calm(ϒbroadcast, "get", λ.StrLiteral("picture4TransUrl")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒbroadcast, "get", nil), λ.NewStr("logo100x100"))
+							return λ.Calm(ϒbroadcast, "get", λ.StrLiteral("logo100x100"))
 						}
 					}()
 					ϒformats = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
@@ -95,37 +95,37 @@ func init() {
 									τmp0    λ.Object
 									τmp1    λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒbroadcast, λ.NewStr("streamUrls")))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒbroadcast, λ.StrLiteral("streamUrls")))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									ϒstream = τmp1
-									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("url"):    λ.GetItem(ϒstream, λ.NewStr("streamUrl")),
-										λ.NewStr("ext"):    λ.Cal(λ.GetAttr(λ.GetItem(ϒstream, λ.NewStr("streamContentFormat")), "lower", nil)),
-										λ.NewStr("acodec"): λ.GetItem(ϒstream, λ.NewStr("streamContentFormat")),
-										λ.NewStr("abr"):    λ.GetItem(ϒstream, λ.NewStr("bitRate")),
-										λ.NewStr("asr"):    λ.GetItem(ϒstream, λ.NewStr("sampleRate")),
+									λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+										"url":    λ.GetItem(ϒstream, λ.StrLiteral("streamUrl")),
+										"ext":    λ.Calm(λ.GetItem(ϒstream, λ.StrLiteral("streamContentFormat")), "lower"),
+										"acodec": λ.GetItem(ϒstream, λ.StrLiteral("streamContentFormat")),
+										"abr":    λ.GetItem(ϒstream, λ.StrLiteral("bitRate")),
+										"asr":    λ.GetItem(ϒstream, λ.StrLiteral("sampleRate")),
 									}))
 								}
 								return λ.None
 							})
 						})))
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒradio_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("thumbnail"):   ϒthumbnail,
-						λ.NewStr("is_live"):     λ.True,
-						λ.NewStr("formats"):     ϒformats,
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒradio_id,
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"thumbnail":   ϒthumbnail,
+						"is_live":     λ.True,
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       RadioDeIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    RadioDeIE__VALID_URL,
-				λ.NewStr("_real_extract"): RadioDeIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       RadioDeIE_IE_NAME,
+				"_VALID_URL":    RadioDeIE__VALID_URL,
+				"_real_extract": RadioDeIE__real_extract,
 			})
 		}())
 	})

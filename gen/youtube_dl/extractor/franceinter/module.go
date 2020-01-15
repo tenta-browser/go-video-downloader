@@ -40,12 +40,12 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒmonth_by_name = Ωutils.ϒmonth_by_name
-		FranceInterIE = λ.Cal(λ.TypeType, λ.NewStr("FranceInterIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		FranceInterIE = λ.Cal(λ.TypeType, λ.StrLiteral("FranceInterIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				FranceInterIE__VALID_URL    λ.Object
 				FranceInterIE__real_extract λ.Object
 			)
-			FranceInterIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?franceinter\\.fr/emissions/(?P<id>[^?#]+)")
+			FranceInterIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?franceinter\\.fr/emissions/(?P<id>[^?#]+)")
 			FranceInterIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -65,55 +65,55 @@ func init() {
 						ϒvideo_url        λ.Object
 						ϒwebpage          λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
 					ϒvideo_url = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("(?s)<div[^>]+class=[\"\\']page-diffusion[\"\\'][^>]*>.*?<button[^>]+data-url=([\"\\'])(?P<url>(?:(?!\\1).)+)\\1"),
+						λ.StrLiteral("(?s)<div[^>]+class=[\"\\']page-diffusion[\"\\'][^>]*>.*?<button[^>]+data-url=([\"\\'])(?P<url>(?:(?!\\1).)+)\\1"),
 						ϒwebpage,
-						λ.NewStr("video url"),
+						λ.StrLiteral("video url"),
 					), λ.KWArgs{
-						{Name: "group", Value: λ.NewStr("url")},
+						{Name: "group", Value: λ.StrLiteral("url")},
 					})
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
-					ϒdescription = λ.Cal(λ.GetAttr(ϒself, "_og_search_description", nil), ϒwebpage)
+					ϒtitle = λ.Calm(ϒself, "_og_search_title", ϒwebpage)
+					ϒdescription = λ.Calm(ϒself, "_og_search_description", ϒwebpage)
 					ϒupload_date_str = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("class=[\"\\']\\s*cover-emission-period\\s*[\"\\'][^>]*>[^<]+\\s+(\\d{1,2}\\s+[^\\s]+\\s+\\d{4})<"),
+						λ.StrLiteral("class=[\"\\']\\s*cover-emission-period\\s*[\"\\'][^>]*>[^<]+\\s+(\\d{1,2}\\s+[^\\s]+\\s+\\d{4})<"),
 						ϒwebpage,
-						λ.NewStr("upload date"),
+						λ.StrLiteral("upload date"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
 					if λ.IsTrue(ϒupload_date_str) {
-						ϒupload_date_list = λ.Cal(λ.GetAttr(ϒupload_date_str, "split", nil))
-						λ.Cal(λ.GetAttr(ϒupload_date_list, "reverse", nil))
-						λ.SetItem(ϒupload_date_list, λ.NewInt(1), λ.Mod(λ.NewStr("%02d"), func() λ.Object {
-							if λv := λ.Call(ϒmonth_by_name, λ.NewArgs(λ.GetItem(ϒupload_date_list, λ.NewInt(1))), λ.KWArgs{
-								{Name: "lang", Value: λ.NewStr("fr")},
+						ϒupload_date_list = λ.Calm(ϒupload_date_str, "split")
+						λ.Calm(ϒupload_date_list, "reverse")
+						λ.SetItem(ϒupload_date_list, λ.IntLiteral(1), λ.Mod(λ.StrLiteral("%02d"), func() λ.Object {
+							if λv := λ.Call(ϒmonth_by_name, λ.NewArgs(λ.GetItem(ϒupload_date_list, λ.IntLiteral(1))), λ.KWArgs{
+								{Name: "lang", Value: λ.StrLiteral("fr")},
 							}); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.NewInt(0)
+								return λ.IntLiteral(0)
 							}
 						}()))
-						λ.SetItem(ϒupload_date_list, λ.NewInt(2), λ.Mod(λ.NewStr("%02d"), λ.Cal(λ.IntType, λ.GetItem(ϒupload_date_list, λ.NewInt(2)))))
-						ϒupload_date = λ.Cal(λ.GetAttr(λ.NewStr(""), "join", nil), ϒupload_date_list)
+						λ.SetItem(ϒupload_date_list, λ.IntLiteral(2), λ.Mod(λ.StrLiteral("%02d"), λ.Cal(λ.IntType, λ.GetItem(ϒupload_date_list, λ.IntLiteral(2)))))
+						ϒupload_date = λ.Calm(λ.StrLiteral(""), "join", ϒupload_date_list)
 					} else {
 						ϒupload_date = λ.None
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("upload_date"): ϒupload_date,
-						λ.NewStr("formats"): λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):    ϒvideo_url,
-							λ.NewStr("vcodec"): λ.NewStr("none"),
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"upload_date": ϒupload_date,
+						"formats": λ.NewList(λ.DictLiteral(map[string]λ.Object{
+							"url":    ϒvideo_url,
+							"vcodec": λ.StrLiteral("none"),
 						})),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    FranceInterIE__VALID_URL,
-				λ.NewStr("_real_extract"): FranceInterIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    FranceInterIE__VALID_URL,
+				"_real_extract": FranceInterIE__real_extract,
 			})
 		}())
 	})

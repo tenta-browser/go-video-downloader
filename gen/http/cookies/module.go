@@ -39,7 +39,7 @@ var (
 func init() {
 	λ.InitModule(func() {
 		ParseCookieString = Ωnet.ParseCookieString
-		Morsel = λ.Cal(λ.TypeType, λ.NewStr("Morsel"), λ.NewTuple(), func() λ.Dict {
+		Morsel = λ.Cal(λ.TypeType, λ.StrLiteral("Morsel"), λ.NewTuple(), func() λ.Dict {
 			var (
 				Morsel___init__ λ.Object
 			)
@@ -60,11 +60,11 @@ func init() {
 					λ.SetAttr(ϒself, "value", ϒvalue)
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"): Morsel___init__,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__": Morsel___init__,
 			})
 		}())
-		BaseCookie = λ.Cal(λ.TypeType, λ.NewStr("BaseCookie"), λ.NewTuple(λ.DictType), func() λ.Dict {
+		BaseCookie = λ.Cal(λ.TypeType, λ.StrLiteral("BaseCookie"), λ.NewTuple(λ.DictType), func() λ.Dict {
 			var (
 				BaseCookie___init__ λ.Object
 				BaseCookie_load     λ.Object
@@ -80,9 +80,9 @@ func init() {
 						ϒinput = λargs[1]
 						ϒself  = λargs[0]
 					)
-					λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, BaseCookie, ϒself), "__init__", nil))
+					λ.Calm(λ.Cal(λ.SuperType, BaseCookie, ϒself), "__init__")
 					if λ.IsTrue(ϒinput) {
-						λ.Cal(λ.GetAttr(ϒself, "load", nil), ϒinput)
+						λ.Calm(ϒself, "load", ϒinput)
 					}
 					return λ.None
 				})
@@ -102,26 +102,26 @@ func init() {
 						τmp1     λ.Object
 						τmp2     λ.Object
 					)
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(ParseCookieString, ϒrawdata), "items", nil)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.Cal(ParseCookieString, ϒrawdata), "items"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒname = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒvalue = λ.GetItem(τmp2, λ.NewInt(1))
+						ϒname = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒvalue = λ.GetItem(τmp2, λ.IntLiteral(1))
 						λ.SetItem(ϒself, ϒname, λ.Cal(Morsel, ϒname, ϒvalue))
 					}
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"): BaseCookie___init__,
-				λ.NewStr("load"):     BaseCookie_load,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__": BaseCookie___init__,
+				"load":     BaseCookie_load,
 			})
 		}())
-		SimpleCookie = λ.Cal(λ.TypeType, λ.NewStr("SimpleCookie"), λ.NewTuple(BaseCookie), func() λ.Dict {
+		SimpleCookie = λ.Cal(λ.TypeType, λ.StrLiteral("SimpleCookie"), λ.NewTuple(BaseCookie), func() λ.Dict {
 			// pass
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
 	})
 }

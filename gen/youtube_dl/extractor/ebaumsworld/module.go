@@ -37,12 +37,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		EbaumsWorldIE = λ.Cal(λ.TypeType, λ.NewStr("EbaumsWorldIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		EbaumsWorldIE = λ.Cal(λ.TypeType, λ.StrLiteral("EbaumsWorldIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				EbaumsWorldIE__VALID_URL    λ.Object
 				EbaumsWorldIE__real_extract λ.Object
 			)
-			EbaumsWorldIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?ebaumsworld\\.com/videos/[^/]+/(?P<id>\\d+)")
+			EbaumsWorldIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?ebaumsworld\\.com/videos/[^/]+/(?P<id>\\d+)")
 			EbaumsWorldIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -57,21 +57,21 @@ func init() {
 						ϒvideo_id  λ.Object
 						ϒvideo_url λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒconfig = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), λ.Mod(λ.NewStr("http://www.ebaumsworld.com/video/player/%s"), ϒvideo_id), ϒvideo_id)
-					ϒvideo_url = λ.GetAttr(λ.Cal(λ.GetAttr(ϒconfig, "find", nil), λ.NewStr("file")), "text", nil)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       λ.GetAttr(λ.Cal(λ.GetAttr(ϒconfig, "find", nil), λ.NewStr("title")), "text", nil),
-						λ.NewStr("url"):         ϒvideo_url,
-						λ.NewStr("description"): λ.GetAttr(λ.Cal(λ.GetAttr(ϒconfig, "find", nil), λ.NewStr("description")), "text", nil),
-						λ.NewStr("thumbnail"):   λ.GetAttr(λ.Cal(λ.GetAttr(ϒconfig, "find", nil), λ.NewStr("image")), "text", nil),
-						λ.NewStr("uploader"):    λ.GetAttr(λ.Cal(λ.GetAttr(ϒconfig, "find", nil), λ.NewStr("username")), "text", nil),
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒconfig = λ.Calm(ϒself, "_download_xml", λ.Mod(λ.StrLiteral("http://www.ebaumsworld.com/video/player/%s"), ϒvideo_id), ϒvideo_id)
+					ϒvideo_url = λ.GetAttr(λ.Calm(ϒconfig, "find", λ.StrLiteral("file")), "text", nil)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       λ.GetAttr(λ.Calm(ϒconfig, "find", λ.StrLiteral("title")), "text", nil),
+						"url":         ϒvideo_url,
+						"description": λ.GetAttr(λ.Calm(ϒconfig, "find", λ.StrLiteral("description")), "text", nil),
+						"thumbnail":   λ.GetAttr(λ.Calm(ϒconfig, "find", λ.StrLiteral("image")), "text", nil),
+						"uploader":    λ.GetAttr(λ.Calm(ϒconfig, "find", λ.StrLiteral("username")), "text", nil),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    EbaumsWorldIE__VALID_URL,
-				λ.NewStr("_real_extract"): EbaumsWorldIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    EbaumsWorldIE__VALID_URL,
+				"_real_extract": EbaumsWorldIE__real_extract,
 			})
 		}())
 	})

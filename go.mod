@@ -6,5 +6,5 @@ require (
 	github.com/beevik/etree v1.1.0
 	github.com/gijsbers/go-pcre v0.0.0-20161214203829-a84f3096ab3c // indirect
 	github.com/tenta-browser/go-pcre-matcher v0.0.0-20181119152944-9985a9d97d9b
-	golang.org/x/net v0.0.0-20191108063844-7e6e90b9ea88
+	golang.org/x/net v0.0.0-20200114155413-6afb5195e5aa
 )

@@ -47,6 +47,9 @@ func (fs *floatStruct) Value() float64 {
 var _ Float = (*floatStruct)(nil)
 
 func newFloat(t Type, value float64) Float {
+	if t == FloatType {
+		return FloatLiteral(value)
+	}
 	return &floatStruct{newObject(t), value}
 }
 

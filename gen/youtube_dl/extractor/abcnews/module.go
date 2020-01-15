@@ -45,14 +45,14 @@ func init() {
 		AMPIE = Ωamp.AMPIE
 		InfoExtractor = Ωcommon.InfoExtractor
 		YoutubeIE = Ωyoutube.YoutubeIE
-		AbcNewsVideoIE = λ.Cal(λ.TypeType, λ.NewStr("AbcNewsVideoIE"), λ.NewTuple(AMPIE), func() λ.Dict {
+		AbcNewsVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("AbcNewsVideoIE"), λ.NewTuple(AMPIE), func() λ.Dict {
 			var (
 				AbcNewsVideoIE_IE_NAME       λ.Object
 				AbcNewsVideoIE__VALID_URL    λ.Object
 				AbcNewsVideoIE__real_extract λ.Object
 			)
-			AbcNewsVideoIE_IE_NAME = λ.NewStr("abcnews:video")
-			AbcNewsVideoIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            abcnews\\.go\\.com/\n                            (?:\n                                [^/]+/video/(?P<display_id>[0-9a-z-]+)-|\n                                video/embed\\?.*?\\bid=\n                            )|\n                            fivethirtyeight\\.abcnews\\.go\\.com/video/embed/\\d+/\n                        )\n                        (?P<id>\\d+)\n                    ")
+			AbcNewsVideoIE_IE_NAME = λ.StrLiteral("abcnews:video")
+			AbcNewsVideoIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\n                            abcnews\\.go\\.com/\n                            (?:\n                                [^/]+/video/(?P<display_id>[0-9a-z-]+)-|\n                                video/embed\\?.*?\\bid=\n                            )|\n                            fivethirtyeight\\.abcnews\\.go\\.com/video/embed/\\d+/\n                        )\n                        (?P<id>\\d+)\n                    ")
 			AbcNewsVideoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -69,28 +69,28 @@ func init() {
 						ϒvideo_id   λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("display_id"))
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-					ϒinfo_dict = λ.Cal(λ.GetAttr(ϒself, "_extract_feed_info", nil), λ.Mod(λ.NewStr("http://abcnews.go.com/video/itemfeed?id=%s"), ϒvideo_id))
-					λ.Cal(λ.GetAttr(ϒinfo_dict, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         ϒvideo_id,
-						λ.NewStr("display_id"): ϒdisplay_id,
+					ϒdisplay_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("display_id"))
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
+					ϒinfo_dict = λ.Calm(ϒself, "_extract_feed_info", λ.Mod(λ.StrLiteral("http://abcnews.go.com/video/itemfeed?id=%s"), ϒvideo_id))
+					λ.Calm(ϒinfo_dict, "update", λ.DictLiteral(map[string]λ.Object{
+						"id":         ϒvideo_id,
+						"display_id": ϒdisplay_id,
 					}))
 					return ϒinfo_dict
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       AbcNewsVideoIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    AbcNewsVideoIE__VALID_URL,
-				λ.NewStr("_real_extract"): AbcNewsVideoIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       AbcNewsVideoIE_IE_NAME,
+				"_VALID_URL":    AbcNewsVideoIE__VALID_URL,
+				"_real_extract": AbcNewsVideoIE__real_extract,
 			})
 		}())
-		AbcNewsIE = λ.Cal(λ.TypeType, λ.NewStr("AbcNewsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		AbcNewsIE = λ.Cal(λ.TypeType, λ.StrLiteral("AbcNewsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				AbcNewsIE__VALID_URL λ.Object
 			)
-			AbcNewsIE__VALID_URL = λ.NewStr("https?://abcnews\\.go\\.com/(?:[^/]+/)+(?P<display_id>[0-9a-z-]+)/story\\?id=(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): AbcNewsIE__VALID_URL,
+			AbcNewsIE__VALID_URL = λ.StrLiteral("https?://abcnews\\.go\\.com/(?:[^/]+/)+(?P<display_id>[0-9a-z-]+)/story\\?id=(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": AbcNewsIE__VALID_URL,
 			})
 		}())
 	})

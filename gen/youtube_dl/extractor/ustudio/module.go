@@ -46,23 +46,23 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
-		UstudioIE = λ.Cal(λ.TypeType, λ.NewStr("UstudioIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		UstudioIE = λ.Cal(λ.TypeType, λ.StrLiteral("UstudioIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				UstudioIE__VALID_URL λ.Object
 			)
-			UstudioIE__VALID_URL = λ.NewStr("https?://(?:(?:www|v1)\\.)?ustudio\\.com/video/(?P<id>[^/]+)/(?P<display_id>[^/?#&]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): UstudioIE__VALID_URL,
+			UstudioIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|v1)\\.)?ustudio\\.com/video/(?P<id>[^/]+)/(?P<display_id>[^/?#&]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": UstudioIE__VALID_URL,
 			})
 		}())
-		UstudioEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("UstudioEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		UstudioEmbedIE = λ.Cal(λ.TypeType, λ.StrLiteral("UstudioEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				UstudioEmbedIE_IE_NAME       λ.Object
 				UstudioEmbedIE__VALID_URL    λ.Object
 				UstudioEmbedIE__real_extract λ.Object
 			)
-			UstudioEmbedIE_IE_NAME = λ.NewStr("ustudio:embed")
-			UstudioEmbedIE__VALID_URL = λ.NewStr("https?://(?:(?:app|embed)\\.)?ustudio\\.com/embed/(?P<uid>[^/]+)/(?P<id>[^/]+)")
+			UstudioEmbedIE_IE_NAME = λ.StrLiteral("ustudio:embed")
+			UstudioEmbedIE__VALID_URL = λ.StrLiteral("https?://(?:(?:app|embed)\\.)?ustudio\\.com/embed/(?P<uid>[^/]+)/(?P<id>[^/]+)")
 			UstudioEmbedIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -91,38 +91,38 @@ func init() {
 						τmp2         λ.Object
 						τmp3         λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
-					ϒuploader_id = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒvideo_data = λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("http://app.ustudio.com/embed/%s/%s/config.json"), λ.NewTuple(
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒuploader_id = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒvideo_data = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("http://app.ustudio.com/embed/%s/%s/config.json"), λ.NewTuple(
 						ϒuploader_id,
 						ϒvideo_id,
-					)), ϒvideo_id), λ.NewStr("videos")), λ.NewInt(0))
-					ϒtitle = λ.GetItem(ϒvideo_data, λ.NewStr("name"))
+					)), ϒvideo_id), λ.StrLiteral("videos")), λ.IntLiteral(0))
+					ϒtitle = λ.GetItem(ϒvideo_data, λ.StrLiteral("name"))
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("transcodes"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "items", nil)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.Calm(ϒvideo_data, "get", λ.StrLiteral("transcodes"), λ.DictLiteral(map[λ.Object]λ.Object{})), "items"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒext = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒqualities = λ.GetItem(τmp2, λ.NewInt(1))
+						ϒext = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒqualities = λ.GetItem(τmp2, λ.IntLiteral(1))
 						τmp2 = λ.Cal(λ.BuiltinIter, ϒqualities)
 						for {
 							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 								break
 							}
 							ϒquality = τmp3
-							ϒquality_url = λ.Cal(λ.GetAttr(ϒquality, "get", nil), λ.NewStr("url"))
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒquality_url))) {
+							ϒquality_url = λ.Calm(ϒquality, "get", λ.StrLiteral("url"))
+							if !λ.IsTrue(ϒquality_url) {
 								continue
 							}
-							ϒheight = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒquality, "get", nil), λ.NewStr("height")))
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("format_id"): func() λ.Object {
+							ϒheight = λ.Cal(ϒint_or_none, λ.Calm(ϒquality, "get", λ.StrLiteral("height")))
+							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+								"format_id": func() λ.Object {
 									if λ.IsTrue(ϒheight) {
-										return λ.Mod(λ.NewStr("%s-%dp"), λ.NewTuple(
+										return λ.Mod(λ.StrLiteral("%s-%dp"), λ.NewTuple(
 											ϒext,
 											ϒheight,
 										))
@@ -130,43 +130,43 @@ func init() {
 										return ϒext
 									}
 								}(),
-								λ.NewStr("url"):    ϒquality_url,
-								λ.NewStr("width"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒquality, "get", nil), λ.NewStr("width"))),
-								λ.NewStr("height"): ϒheight,
+								"url":    ϒquality_url,
+								"width":  λ.Cal(ϒint_or_none, λ.Calm(ϒquality, "get", λ.StrLiteral("width"))),
+								"height": ϒheight,
 							}))
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒthumbnails = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("images"), λ.NewList()))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("images"), λ.NewList()))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒimage = τmp1
-						ϒimage_url = λ.Cal(λ.GetAttr(ϒimage, "get", nil), λ.NewStr("url"))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒimage_url))) {
+						ϒimage_url = λ.Calm(ϒimage, "get", λ.StrLiteral("url"))
+						if !λ.IsTrue(ϒimage_url) {
 							continue
 						}
-						λ.Cal(λ.GetAttr(ϒthumbnails, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"): ϒimage_url,
+						λ.Calm(ϒthumbnails, "append", λ.DictLiteral(map[string]λ.Object{
+							"url": ϒimage_url,
 						}))
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("description")),
-						λ.NewStr("duration"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("duration"))),
-						λ.NewStr("uploader_id"): ϒuploader_id,
-						λ.NewStr("tags"):        λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("keywords")),
-						λ.NewStr("thumbnails"):  ϒthumbnails,
-						λ.NewStr("formats"):     ϒformats,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       ϒtitle,
+						"description": λ.Calm(ϒvideo_data, "get", λ.StrLiteral("description")),
+						"duration":    λ.Cal(ϒint_or_none, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("duration"))),
+						"uploader_id": ϒuploader_id,
+						"tags":        λ.Calm(ϒvideo_data, "get", λ.StrLiteral("keywords")),
+						"thumbnails":  ϒthumbnails,
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       UstudioEmbedIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    UstudioEmbedIE__VALID_URL,
-				λ.NewStr("_real_extract"): UstudioEmbedIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       UstudioEmbedIE_IE_NAME,
+				"_VALID_URL":    UstudioEmbedIE__VALID_URL,
+				"_real_extract": UstudioEmbedIE__real_extract,
 			})
 		}())
 	})

@@ -47,12 +47,12 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
-		StitcherIE = λ.Cal(λ.TypeType, λ.NewStr("StitcherIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		StitcherIE = λ.Cal(λ.TypeType, λ.StrLiteral("StitcherIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				StitcherIE__VALID_URL    λ.Object
 				StitcherIE__real_extract λ.Object
 			)
-			StitcherIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?stitcher\\.com/podcast/(?:[^/]+/)+e/(?:(?P<display_id>[^/#?&]+?)-)?(?P<id>\\d+)(?:[/#?&]|$)")
+			StitcherIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?stitcher\\.com/podcast/(?:[^/]+/)+e/(?:(?P<display_id>[^/#?&]+?)-)?(?P<id>\\d+)(?:[/#?&]|$)")
 			StitcherIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -75,17 +75,17 @@ func init() {
 						ϒwebpage     λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒaudio_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
+					ϒaudio_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
 					ϒdisplay_id = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("display_id")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒmobj, "group", λ.StrLiteral("display_id")); λ.IsTrue(λv) {
 							return λv
 						} else {
 							return ϒaudio_id
 						}
 					}()
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
-					ϒepisode = λ.GetItem(λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(ϒjs_to_json, λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("(?s)var\\s+stitcher(?:Config)?\\s*=\\s*({.+?});\\n"), ϒwebpage, λ.NewStr("episode config"))), ϒdisplay_id), λ.NewStr("config")), λ.NewStr("episode"))
-					ϒtitle = λ.Cal(ϒunescapeHTML, λ.GetItem(ϒepisode, λ.NewStr("title")))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
+					ϒepisode = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_parse_json", λ.Cal(ϒjs_to_json, λ.Calm(ϒself, "_search_regex", λ.StrLiteral("(?s)var\\s+stitcher(?:Config)?\\s*=\\s*({.+?});\\n"), ϒwebpage, λ.StrLiteral("episode config"))), ϒdisplay_id), λ.StrLiteral("config")), λ.StrLiteral("episode"))
+					ϒtitle = λ.Cal(ϒunescapeHTML, λ.GetItem(ϒepisode, λ.StrLiteral("title")))
 					ϒformats = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -96,23 +96,23 @@ func init() {
 									τmp0         λ.Object
 									τmp1         λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(λ.NewStr("episodeURL")))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(λ.StrLiteral("episodeURL")))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									ϒepisode_key = τmp1
-									if λ.IsTrue(λ.Cal(λ.GetAttr(ϒepisode, "get", nil), ϒepisode_key)) {
-										λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-											λ.NewStr("url"): λ.GetItem(ϒepisode, ϒepisode_key),
-											λ.NewStr("ext"): func() λ.Object {
+									if λ.IsTrue(λ.Calm(ϒepisode, "get", ϒepisode_key)) {
+										λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+											"url": λ.GetItem(ϒepisode, ϒepisode_key),
+											"ext": func() λ.Object {
 												if λv := λ.Cal(ϒdetermine_ext, λ.GetItem(ϒepisode, ϒepisode_key)); λ.IsTrue(λv) {
 													return λv
 												} else {
-													return λ.NewStr("mp3")
+													return λ.StrLiteral("mp3")
 												}
 											}(),
-											λ.NewStr("vcodec"): λ.NewStr("none"),
+											"vcodec": λ.StrLiteral("none"),
 										}))
 									}
 								}
@@ -120,27 +120,27 @@ func init() {
 							})
 						})))
 					ϒdescription = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("Episode Info:\\s*</span>([^<]+)<"),
+						λ.StrLiteral("Episode Info:\\s*</span>([^<]+)<"),
 						ϒwebpage,
-						λ.NewStr("description"),
+						λ.StrLiteral("description"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
-					ϒduration = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒepisode, "get", nil), λ.NewStr("duration")))
-					ϒthumbnail = λ.Cal(λ.GetAttr(ϒepisode, "get", nil), λ.NewStr("episodeImage"))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒaudio_id,
-						λ.NewStr("display_id"):  ϒdisplay_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("duration"):    ϒduration,
-						λ.NewStr("thumbnail"):   ϒthumbnail,
-						λ.NewStr("formats"):     ϒformats,
+					ϒduration = λ.Cal(ϒint_or_none, λ.Calm(ϒepisode, "get", λ.StrLiteral("duration")))
+					ϒthumbnail = λ.Calm(ϒepisode, "get", λ.StrLiteral("episodeImage"))
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒaudio_id,
+						"display_id":  ϒdisplay_id,
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"duration":    ϒduration,
+						"thumbnail":   ϒthumbnail,
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    StitcherIE__VALID_URL,
-				λ.NewStr("_real_extract"): StitcherIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    StitcherIE__VALID_URL,
+				"_real_extract": StitcherIE__real_extract,
 			})
 		}())
 	})

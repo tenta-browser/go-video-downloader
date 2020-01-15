@@ -73,7 +73,7 @@ func init() {
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
-		FacebookIE = λ.Cal(λ.TypeType, λ.NewStr("FacebookIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		FacebookIE = λ.Cal(λ.TypeType, λ.StrLiteral("FacebookIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				FacebookIE_IE_NAME                    λ.Object
 				FacebookIE__CHROME_USER_AGENT         λ.Object
@@ -86,12 +86,12 @@ func init() {
 				FacebookIE__real_extract              λ.Object
 				FacebookIE__real_initialize           λ.Object
 			)
-			FacebookIE__VALID_URL = λ.NewStr("(?x)\n                (?:\n                    https?://\n                        (?:[\\w-]+\\.)?(?:facebook\\.com|facebookcorewwwi\\.onion)/\n                        (?:[^#]*?\\#!/)?\n                        (?:\n                            (?:\n                                video/video\\.php|\n                                photo\\.php|\n                                video\\.php|\n                                video/embed|\n                                story\\.php\n                            )\\?(?:.*?)(?:v|video_id|story_fbid)=|\n                            [^/]+/videos/(?:[^/]+/)?|\n                            [^/]+/posts/|\n                            groups/[^/]+/permalink/\n                        )|\n                    facebook:\n                )\n                (?P<id>[0-9]+)\n                ")
-			FacebookIE__NETRC_MACHINE = λ.NewStr("facebook")
-			FacebookIE_IE_NAME = λ.NewStr("facebook")
-			FacebookIE__CHROME_USER_AGENT = λ.NewStr("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36")
-			FacebookIE__VIDEO_PAGE_TEMPLATE = λ.NewStr("https://www.facebook.com/video/video.php?v=%s")
-			FacebookIE__VIDEO_PAGE_TAHOE_TEMPLATE = λ.NewStr("https://www.facebook.com/video/tahoe/async/%s/?chain=true&isvideo=true&payloadtype=primary")
+			FacebookIE__VALID_URL = λ.StrLiteral("(?x)\n                (?:\n                    https?://\n                        (?:[\\w-]+\\.)?(?:facebook\\.com|facebookcorewwwi\\.onion)/\n                        (?:[^#]*?\\#!/)?\n                        (?:\n                            (?:\n                                video/video\\.php|\n                                photo\\.php|\n                                video\\.php|\n                                video/embed|\n                                story\\.php\n                            )\\?(?:.*?)(?:v|video_id|story_fbid)=|\n                            [^/]+/videos/(?:[^/]+/)?|\n                            [^/]+/posts/|\n                            groups/[^/]+/permalink/\n                        )|\n                    facebook:\n                )\n                (?P<id>[0-9]+)\n                ")
+			FacebookIE__NETRC_MACHINE = λ.StrLiteral("facebook")
+			FacebookIE_IE_NAME = λ.StrLiteral("facebook")
+			FacebookIE__CHROME_USER_AGENT = λ.StrLiteral("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36")
+			FacebookIE__VIDEO_PAGE_TEMPLATE = λ.StrLiteral("https://www.facebook.com/video/video.php?v=%s")
+			FacebookIE__VIDEO_PAGE_TAHOE_TEMPLATE = λ.StrLiteral("https://www.facebook.com/video/tahoe/async/%s/?chain=true&isvideo=true&payloadtype=primary")
 			FacebookIE__login = λ.NewFunction("_login",
 				[]λ.Param{
 					{Name: "self"},
@@ -118,36 +118,36 @@ func init() {
 						τmp0            λ.Object
 						τmp1            λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_get_login_info", nil))
-					ϒuseremail = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒpassword = λ.GetItem(τmp0, λ.NewInt(1))
-					if λ.IsTrue(λ.NewBool(ϒuseremail == λ.None)) {
+					τmp0 = λ.Calm(ϒself, "_get_login_info")
+					ϒuseremail = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
+					if ϒuseremail == λ.None {
 						return λ.None
 					}
 					ϒlogin_page_req = λ.Cal(ϒsanitized_Request, λ.GetAttr(ϒself, "_LOGIN_URL", nil))
-					λ.Cal(λ.GetAttr(ϒself, "_set_cookie", nil), λ.NewStr("facebook.com"), λ.NewStr("locale"), λ.NewStr("en_US"))
+					λ.Calm(ϒself, "_set_cookie", λ.StrLiteral("facebook.com"), λ.StrLiteral("locale"), λ.StrLiteral("en_US"))
 					ϒlogin_page = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
 						ϒlogin_page_req,
 						λ.None,
 					), λ.KWArgs{
-						{Name: "note", Value: λ.NewStr("Downloading login page")},
-						{Name: "errnote", Value: λ.NewStr("Unable to download login page")},
+						{Name: "note", Value: λ.StrLiteral("Downloading login page")},
+						{Name: "errnote", Value: λ.StrLiteral("Unable to download login page")},
 					})
-					ϒlsd = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<input type=\"hidden\" name=\"lsd\" value=\"([^\"]*)\""), ϒlogin_page, λ.NewStr("lsd"))
-					ϒlgnrnd = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("name=\"lgnrnd\" value=\"([^\"]*?)\""), ϒlogin_page, λ.NewStr("lgnrnd"))
-					ϒlogin_form = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("email"):              ϒuseremail,
-						λ.NewStr("pass"):               ϒpassword,
-						λ.NewStr("lsd"):                ϒlsd,
-						λ.NewStr("lgnrnd"):             ϒlgnrnd,
-						λ.NewStr("next"):               λ.NewStr("http://facebook.com/home.php"),
-						λ.NewStr("default_persistent"): λ.NewStr("0"),
-						λ.NewStr("legacy_return"):      λ.NewStr("1"),
-						λ.NewStr("timezone"):           λ.NewStr("-60"),
-						λ.NewStr("trynum"):             λ.NewStr("1"),
+					ϒlsd = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<input type=\"hidden\" name=\"lsd\" value=\"([^\"]*)\""), ϒlogin_page, λ.StrLiteral("lsd"))
+					ϒlgnrnd = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("name=\"lgnrnd\" value=\"([^\"]*?)\""), ϒlogin_page, λ.StrLiteral("lgnrnd"))
+					ϒlogin_form = λ.DictLiteral(map[string]λ.Object{
+						"email":              ϒuseremail,
+						"pass":               ϒpassword,
+						"lsd":                ϒlsd,
+						"lgnrnd":             ϒlgnrnd,
+						"next":               λ.StrLiteral("http://facebook.com/home.php"),
+						"default_persistent": λ.StrLiteral("0"),
+						"legacy_return":      λ.StrLiteral("1"),
+						"timezone":           λ.StrLiteral("-60"),
+						"trynum":             λ.StrLiteral("1"),
 					})
 					ϒrequest = λ.Cal(ϒsanitized_Request, λ.GetAttr(ϒself, "_LOGIN_URL", nil), λ.Cal(ϒurlencode_postdata, ϒlogin_form))
-					λ.Cal(λ.GetAttr(ϒrequest, "add_header", nil), λ.NewStr("Content-Type"), λ.NewStr("application/x-www-form-urlencoded"))
+					λ.Calm(ϒrequest, "add_header", λ.StrLiteral("Content-Type"), λ.StrLiteral("application/x-www-form-urlencoded"))
 					τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
 						defer λ.CatchMulti(
 							nil,
@@ -157,7 +157,7 @@ func init() {
 								Ωsocket.ϒerror,
 							), func(λex λ.BaseException) {
 								var ϒerr λ.Object = λex
-								λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "report_warning", nil), λ.Mod(λ.NewStr("unable to log in: %s"), λ.Cal(ϒerror_to_compat_str, ϒerr)))
+								λ.Calm(λ.GetAttr(ϒself, "_downloader", nil), "report_warning", λ.Mod(λ.StrLiteral("unable to log in: %s"), λ.Cal(ϒerror_to_compat_str, ϒerr)))
 								λexit, λret = λ.BlockExitReturn, λ.None
 								return
 							}},
@@ -166,38 +166,38 @@ func init() {
 							ϒrequest,
 							λ.None,
 						), λ.KWArgs{
-							{Name: "note", Value: λ.NewStr("Logging in")},
-							{Name: "errnote", Value: λ.NewStr("unable to fetch login page")},
+							{Name: "note", Value: λ.StrLiteral("Logging in")},
+							{Name: "errnote", Value: λ.StrLiteral("unable to fetch login page")},
 						})
-						if λ.IsTrue(λ.NewBool(λ.Cal(Ωre.ϒsearch, λ.NewStr("<form(.*)name=\"login\"(.*)</form>"), ϒlogin_results) != λ.None)) {
+						if λ.Cal(Ωre.ϒsearch, λ.StrLiteral("<form(.*)name=\"login\"(.*)</form>"), ϒlogin_results) != λ.None {
 							ϒerror = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-								λ.NewStr("(?s)<div[^>]+class=([\"\\']).*?login_error_box.*?\\1[^>]*><div[^>]*>.*?</div><div[^>]*>(?P<error>.+?)</div>"),
+								λ.StrLiteral("(?s)<div[^>]+class=([\"\\']).*?login_error_box.*?\\1[^>]*><div[^>]*>.*?</div><div[^>]*>(?P<error>.+?)</div>"),
 								ϒlogin_results,
-								λ.NewStr("login error"),
+								λ.StrLiteral("login error"),
 							), λ.KWArgs{
 								{Name: "default", Value: λ.None},
-								{Name: "group", Value: λ.NewStr("error")},
+								{Name: "group", Value: λ.StrLiteral("error")},
 							})
 							if λ.IsTrue(ϒerror) {
-								panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("Unable to login: %s"), ϒerror)), λ.KWArgs{
+								panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("Unable to login: %s"), ϒerror)), λ.KWArgs{
 									{Name: "expected", Value: λ.True},
 								})))
 							}
-							λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "report_warning", nil), λ.NewStr("unable to log in: bad username/password, or exceeded login rate limit (~3/min). Check credentials or wait."))
+							λ.Calm(λ.GetAttr(ϒself, "_downloader", nil), "report_warning", λ.StrLiteral("unable to log in: bad username/password, or exceeded login rate limit (~3/min). Check credentials or wait."))
 							λexit, λret = λ.BlockExitReturn, λ.None
 							return
 						}
 						ϒfb_dtsg = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("name=\"fb_dtsg\" value=\"(.+?)\""),
+							λ.StrLiteral("name=\"fb_dtsg\" value=\"(.+?)\""),
 							ϒlogin_results,
-							λ.NewStr("fb_dtsg"),
+							λ.StrLiteral("fb_dtsg"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
 						ϒh = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("name=\"h\"\\s+(?:\\w+=\"[^\"]+\"\\s+)*?value=\"([^\"]+)\""),
+							λ.StrLiteral("name=\"h\"\\s+(?:\\w+=\"[^\"]+\"\\s+)*?value=\"([^\"]+)\""),
 							ϒlogin_results,
-							λ.NewStr("h"),
+							λ.StrLiteral("h"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
@@ -211,21 +211,21 @@ func init() {
 							λexit, λret = λ.BlockExitReturn, λ.None
 							return
 						}
-						ϒcheck_form = λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("fb_dtsg"):              ϒfb_dtsg,
-							λ.NewStr("h"):                    ϒh,
-							λ.NewStr("name_action_selected"): λ.NewStr("dont_save"),
+						ϒcheck_form = λ.DictLiteral(map[string]λ.Object{
+							"fb_dtsg":              ϒfb_dtsg,
+							"h":                    ϒh,
+							"name_action_selected": λ.StrLiteral("dont_save"),
 						})
 						ϒcheck_req = λ.Cal(ϒsanitized_Request, λ.GetAttr(ϒself, "_CHECKPOINT_URL", nil), λ.Cal(ϒurlencode_postdata, ϒcheck_form))
-						λ.Cal(λ.GetAttr(ϒcheck_req, "add_header", nil), λ.NewStr("Content-Type"), λ.NewStr("application/x-www-form-urlencoded"))
+						λ.Calm(ϒcheck_req, "add_header", λ.StrLiteral("Content-Type"), λ.StrLiteral("application/x-www-form-urlencoded"))
 						ϒcheck_response = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
 							ϒcheck_req,
 							λ.None,
 						), λ.KWArgs{
-							{Name: "note", Value: λ.NewStr("Confirming login")},
+							{Name: "note", Value: λ.StrLiteral("Confirming login")},
 						})
-						if λ.IsTrue(λ.NewBool(λ.Cal(Ωre.ϒsearch, λ.NewStr("id=\"checkpointSubmitButton\""), ϒcheck_response) != λ.None)) {
-							λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "report_warning", nil), λ.NewStr("Unable to confirm login, you have to login in your browser and authorize the login."))
+						if λ.Cal(Ωre.ϒsearch, λ.StrLiteral("id=\"checkpointSubmitButton\""), ϒcheck_response) != λ.None {
+							λ.Calm(λ.GetAttr(ϒself, "_downloader", nil), "report_warning", λ.StrLiteral("Unable to confirm login, you have to login in your browser and authorize the login."))
 						}
 						return λ.BlockExitNormally, nil
 					}()
@@ -243,7 +243,7 @@ func init() {
 					var (
 						ϒself = λargs[0]
 					)
-					λ.Cal(λ.GetAttr(ϒself, "_login", nil))
+					λ.Calm(ϒself, "_login")
 					return λ.None
 				})
 			FacebookIE__extract_from_url = λ.NewFunction("_extract_from_url",
@@ -294,8 +294,8 @@ func init() {
 						τmp6                           λ.Object
 					)
 					ϒreq = λ.Cal(ϒsanitized_Request, ϒurl)
-					λ.Cal(λ.GetAttr(ϒreq, "add_header", nil), λ.NewStr("User-Agent"), λ.GetAttr(ϒself, "_CHROME_USER_AGENT", nil))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒreq, ϒvideo_id)
+					λ.Calm(ϒreq, "add_header", λ.StrLiteral("User-Agent"), λ.GetAttr(ϒself, "_CHROME_USER_AGENT", nil))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒreq, ϒvideo_id)
 					ϒvideo_data = λ.None
 					ϒextract_video_data = λ.NewFunction("extract_video_data",
 						[]λ.Param{
@@ -316,10 +316,10 @@ func init() {
 									break
 								}
 								ϒitem = τmp1
-								if λ.IsTrue(λ.Eq(λ.GetItem(λ.GetItem(ϒitem, λ.NewInt(1)), λ.NewInt(0)), λ.NewStr("VideoConfig"))) {
-									ϒvideo_item = λ.GetItem(λ.GetItem(ϒitem, λ.NewInt(2)), λ.NewInt(0))
-									if λ.IsTrue(λ.Cal(λ.GetAttr(ϒvideo_item, "get", nil), λ.NewStr("video_id"))) {
-										return λ.GetItem(ϒvideo_item, λ.NewStr("videoData"))
+								if λ.IsTrue(λ.Eq(λ.GetItem(λ.GetItem(ϒitem, λ.IntLiteral(1)), λ.IntLiteral(0)), λ.StrLiteral("VideoConfig"))) {
+									ϒvideo_item = λ.GetItem(λ.GetItem(ϒitem, λ.IntLiteral(2)), λ.IntLiteral(0))
+									if λ.IsTrue(λ.Calm(ϒvideo_item, "get", λ.StrLiteral("video_id"))) {
+										return λ.GetItem(ϒvideo_item, λ.StrLiteral("videoData"))
 									}
 								}
 							}
@@ -327,18 +327,18 @@ func init() {
 						})
 					ϒserver_js_data = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 						λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("handleServerJS\\(({.+})(?:\\);|,\")"),
+							λ.StrLiteral("handleServerJS\\(({.+})(?:\\);|,\")"),
 							ϒwebpage,
-							λ.NewStr("server js data"),
+							λ.StrLiteral("server js data"),
 						), λ.KWArgs{
-							{Name: "default", Value: λ.NewStr("{}")},
+							{Name: "default", Value: λ.StrLiteral("{}")},
 						}),
 						ϒvideo_id,
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
 					if λ.IsTrue(ϒserver_js_data) {
-						ϒvideo_data = λ.Cal(ϒextract_video_data, λ.Cal(λ.GetAttr(ϒserver_js_data, "get", nil), λ.NewStr("instances"), λ.NewList()))
+						ϒvideo_data = λ.Cal(ϒextract_video_data, λ.Calm(ϒserver_js_data, "get", λ.StrLiteral("instances"), λ.NewList()))
 					}
 					ϒextract_from_jsmods_instances = λ.NewFunction("extract_from_jsmods_instances",
 						[]λ.Param{
@@ -360,7 +360,7 @@ func init() {
 											var (
 												ϒx = λargs[0]
 											)
-											return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("jsmods")), λ.NewStr("instances"))
+											return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("jsmods")), λ.StrLiteral("instances"))
 										}), λ.ListType); λ.IsTrue(λv) {
 										return λv
 									} else {
@@ -370,14 +370,14 @@ func init() {
 							}
 							return λ.None
 						})
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_data))) {
+					if !λ.IsTrue(ϒvideo_data) {
 						ϒserver_js_data = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 							λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.NewStr("bigPipe\\.onPageletArrive\\(({.+?})\\)\\s*;\\s*}\\s*\\)\\s*,\\s*[\"\\']onPageletArrive\\s+(?:pagelet_group_mall|permalink_video_pagelet|hyperfeed_story_id_\\d+)"),
+								λ.StrLiteral("bigPipe\\.onPageletArrive\\(({.+?})\\)\\s*;\\s*}\\s*\\)\\s*,\\s*[\"\\']onPageletArrive\\s+(?:pagelet_group_mall|permalink_video_pagelet|hyperfeed_story_id_\\d+)"),
 								ϒwebpage,
-								λ.NewStr("js data"),
+								λ.StrLiteral("js data"),
 							), λ.KWArgs{
-								{Name: "default", Value: λ.NewStr("{}")},
+								{Name: "default", Value: λ.StrLiteral("{}")},
 							}),
 							ϒvideo_id,
 						), λ.KWArgs{
@@ -386,62 +386,62 @@ func init() {
 						})
 						ϒvideo_data = λ.Cal(ϒextract_from_jsmods_instances, ϒserver_js_data)
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_data))) {
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒfatal_if_no_video))) {
+					if !λ.IsTrue(ϒvideo_data) {
+						if !λ.IsTrue(ϒfatal_if_no_video) {
 							return λ.NewTuple(
 								ϒwebpage,
 								λ.False,
 							)
 						}
-						ϒm_msg = λ.Cal(Ωre.ϒsearch, λ.NewStr("class=\"[^\"]*uiInterstitialContent[^\"]*\"><div>(.*?)</div>"), ϒwebpage)
-						if λ.IsTrue(λ.NewBool(ϒm_msg != λ.None)) {
-							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("The video is not available, Facebook said: \"%s\""), λ.Cal(λ.GetAttr(ϒm_msg, "group", nil), λ.NewInt(1)))), λ.KWArgs{
+						ϒm_msg = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("class=\"[^\"]*uiInterstitialContent[^\"]*\"><div>(.*?)</div>"), ϒwebpage)
+						if ϒm_msg != λ.None {
+							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("The video is not available, Facebook said: \"%s\""), λ.Calm(ϒm_msg, "group", λ.IntLiteral(1)))), λ.KWArgs{
 								{Name: "expected", Value: λ.True},
 							})))
 						} else {
-							if λ.IsTrue(λ.NewBool(λ.Contains(ϒwebpage, λ.NewStr(">You must log in to continue")))) {
-								λ.Cal(λ.GetAttr(ϒself, "raise_login_required", nil))
+							if λ.Contains(ϒwebpage, λ.StrLiteral(">You must log in to continue")) {
+								λ.Calm(ϒself, "raise_login_required")
 							}
 						}
 						ϒtahoe_data = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
 							λ.Mod(λ.GetAttr(ϒself, "_VIDEO_PAGE_TAHOE_TEMPLATE", nil), ϒvideo_id),
 							ϒvideo_id,
 						), λ.KWArgs{
-							{Name: "data", Value: λ.Cal(ϒurlencode_postdata, λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("__a"): λ.NewInt(1),
-								λ.NewStr("__pc"): λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-									λ.NewStr("pkg_cohort[\"\\']\\s*:\\s*[\"\\'](.+?)[\"\\']"),
+							{Name: "data", Value: λ.Cal(ϒurlencode_postdata, λ.DictLiteral(map[string]λ.Object{
+								"__a": λ.IntLiteral(1),
+								"__pc": λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+									λ.StrLiteral("pkg_cohort[\"\\']\\s*:\\s*[\"\\'](.+?)[\"\\']"),
 									ϒwebpage,
-									λ.NewStr("pkg cohort"),
+									λ.StrLiteral("pkg cohort"),
 								), λ.KWArgs{
-									{Name: "default", Value: λ.NewStr("PHASED:DEFAULT")},
+									{Name: "default", Value: λ.StrLiteral("PHASED:DEFAULT")},
 								}),
-								λ.NewStr("__rev"): λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-									λ.NewStr("client_revision[\"\\']\\s*:\\s*(\\d+),"),
+								"__rev": λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+									λ.StrLiteral("client_revision[\"\\']\\s*:\\s*(\\d+),"),
 									ϒwebpage,
-									λ.NewStr("client revision"),
+									λ.StrLiteral("client revision"),
 								), λ.KWArgs{
-									{Name: "default", Value: λ.NewStr("3944515")},
+									{Name: "default", Value: λ.StrLiteral("3944515")},
 								}),
-								λ.NewStr("fb_dtsg"): λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-									λ.NewStr("\"DTSGInitialData\"\\s*,\\s*\\[\\]\\s*,\\s*{\\s*\"token\"\\s*:\\s*\"([^\"]+)\""),
+								"fb_dtsg": λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+									λ.StrLiteral("\"DTSGInitialData\"\\s*,\\s*\\[\\]\\s*,\\s*{\\s*\"token\"\\s*:\\s*\"([^\"]+)\""),
 									ϒwebpage,
-									λ.NewStr("dtsg token"),
+									λ.StrLiteral("dtsg token"),
 								), λ.KWArgs{
-									{Name: "default", Value: λ.NewStr("")},
+									{Name: "default", Value: λ.StrLiteral("")},
 								}),
 							}))},
-							{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("Content-Type"): λ.NewStr("application/x-www-form-urlencoded"),
+							{Name: "headers", Value: λ.DictLiteral(map[string]string{
+								"Content-Type": "application/x-www-form-urlencoded",
 							})},
 						})
 						ϒtahoe_js_data = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 							λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.NewStr("for\\s+\\(\\s*;\\s*;\\s*\\)\\s*;(.+)"),
+								λ.StrLiteral("for\\s+\\(\\s*;\\s*;\\s*\\)\\s*;(.+)"),
 								ϒtahoe_data,
-								λ.NewStr("tahoe js data"),
+								λ.StrLiteral("tahoe js data"),
 							), λ.KWArgs{
-								{Name: "default", Value: λ.NewStr("{}")},
+								{Name: "default", Value: λ.StrLiteral("{}")},
 							}),
 							ϒvideo_id,
 						), λ.KWArgs{
@@ -449,10 +449,10 @@ func init() {
 						})
 						ϒvideo_data = λ.Cal(ϒextract_from_jsmods_instances, ϒtahoe_js_data)
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_data))) {
-						panic(λ.Raise(λ.Cal(ExtractorError, λ.NewStr("Cannot parse data"))))
+					if !λ.IsTrue(ϒvideo_data) {
+						panic(λ.Raise(λ.Cal(ExtractorError, λ.StrLiteral("Cannot parse data"))))
 					}
-					ϒsubtitles = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+					ϒsubtitles = λ.DictLiteral(map[λ.Object]λ.Object{})
 					ϒformats = λ.NewList()
 					τmp0 = λ.Cal(λ.BuiltinIter, ϒvideo_data)
 					for {
@@ -460,7 +460,7 @@ func init() {
 							break
 						}
 						ϒf = τmp1
-						ϒformat_id = λ.GetItem(ϒf, λ.NewStr("stream_type"))
+						ϒformat_id = λ.GetItem(ϒf, λ.StrLiteral("stream_type"))
 						if λ.IsTrue(func() λ.Object {
 							if λv := ϒf; !λ.IsTrue(λv) {
 								return λv
@@ -480,8 +480,8 @@ func init() {
 							continue
 						}
 						τmp2 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-							λ.NewStr("sd"),
-							λ.NewStr("hd"),
+							λ.StrLiteral("sd"),
+							λ.StrLiteral("hd"),
 						))
 						for {
 							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
@@ -489,55 +489,55 @@ func init() {
 							}
 							ϒquality = τmp3
 							τmp4 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-								λ.NewStr("src"),
-								λ.NewStr("src_no_ratelimit"),
+								λ.StrLiteral("src"),
+								λ.StrLiteral("src_no_ratelimit"),
 							))
 							for {
 								if τmp5 = λ.NextDefault(τmp4, λ.AfterLast); τmp5 == λ.AfterLast {
 									break
 								}
 								ϒsrc_type = τmp5
-								ϒsrc = λ.Cal(λ.GetAttr(λ.GetItem(ϒf, λ.NewInt(0)), "get", nil), λ.Mod(λ.NewStr("%s_%s"), λ.NewTuple(
+								ϒsrc = λ.Calm(λ.GetItem(ϒf, λ.IntLiteral(0)), "get", λ.Mod(λ.StrLiteral("%s_%s"), λ.NewTuple(
 									ϒquality,
 									ϒsrc_type,
 								)))
 								if λ.IsTrue(ϒsrc) {
 									ϒpreference = func() λ.Object {
-										if λ.IsTrue(λ.Eq(ϒformat_id, λ.NewStr("progressive"))) {
-											return λ.Neg(λ.NewInt(10))
+										if λ.IsTrue(λ.Eq(ϒformat_id, λ.StrLiteral("progressive"))) {
+											return λ.Neg(λ.IntLiteral(10))
 										} else {
-											return λ.NewInt(0)
+											return λ.IntLiteral(0)
 										}
 									}()
-									if λ.IsTrue(λ.Eq(ϒquality, λ.NewStr("hd"))) {
-										τmp6 = λ.IAdd(ϒpreference, λ.NewInt(5))
+									if λ.IsTrue(λ.Eq(ϒquality, λ.StrLiteral("hd"))) {
+										τmp6 = λ.IAdd(ϒpreference, λ.IntLiteral(5))
 										ϒpreference = τmp6
 									}
-									λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("format_id"): λ.Mod(λ.NewStr("%s_%s_%s"), λ.NewTuple(
+									λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+										"format_id": λ.Mod(λ.StrLiteral("%s_%s_%s"), λ.NewTuple(
 											ϒformat_id,
 											ϒquality,
 											ϒsrc_type,
 										)),
-										λ.NewStr("url"):        ϒsrc,
-										λ.NewStr("preference"): ϒpreference,
+										"url":        ϒsrc,
+										"preference": ϒpreference,
 									}))
 								}
 							}
 						}
-						ϒdash_manifest = λ.Cal(λ.GetAttr(λ.GetItem(ϒf, λ.NewInt(0)), "get", nil), λ.NewStr("dash_manifest"))
+						ϒdash_manifest = λ.Calm(λ.GetItem(ϒf, λ.IntLiteral(0)), "get", λ.StrLiteral("dash_manifest"))
 						if λ.IsTrue(ϒdash_manifest) {
-							λ.Cal(λ.GetAttr(ϒformats, "extend", nil), λ.Cal(λ.GetAttr(ϒself, "_parse_mpd_formats", nil), λ.Cal(ϒcompat_etree_fromstring, λ.Cal(ϒcompat_urllib_parse_unquote_plus, ϒdash_manifest))))
+							λ.Calm(ϒformats, "extend", λ.Calm(ϒself, "_parse_mpd_formats", λ.Cal(ϒcompat_etree_fromstring, λ.Cal(ϒcompat_urllib_parse_unquote_plus, ϒdash_manifest))))
 						}
-						ϒsubtitles_src = λ.Cal(λ.GetAttr(λ.GetItem(ϒf, λ.NewInt(0)), "get", nil), λ.NewStr("subtitles_src"))
+						ϒsubtitles_src = λ.Calm(λ.GetItem(ϒf, λ.IntLiteral(0)), "get", λ.StrLiteral("subtitles_src"))
 						if λ.IsTrue(ϒsubtitles_src) {
-							λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒsubtitles, "setdefault", nil), λ.NewStr("en"), λ.NewList()), "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("url"): ϒsubtitles_src,
+							λ.Calm(λ.Calm(ϒsubtitles, "setdefault", λ.StrLiteral("en"), λ.NewList()), "append", λ.DictLiteral(map[string]λ.Object{
+								"url": ϒsubtitles_src,
 							}))
 						}
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒformats))) {
-						panic(λ.Raise(λ.Cal(ExtractorError, λ.NewStr("Cannot find video formats"))))
+					if !λ.IsTrue(ϒformats) {
+						panic(λ.Raise(λ.Cal(ExtractorError, λ.StrLiteral("Cannot find video formats"))))
 					}
 					τmp0 = λ.Cal(λ.BuiltinIter, ϒformats)
 					for {
@@ -545,46 +545,46 @@ func init() {
 							break
 						}
 						ϒf = τmp1
-						λ.SetItem(λ.Cal(λ.GetAttr(ϒf, "setdefault", nil), λ.NewStr("http_headers"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), λ.NewStr("User-Agent"), λ.NewStr("facebookexternalhit/1.1"))
+						λ.SetItem(λ.Calm(ϒf, "setdefault", λ.StrLiteral("http_headers"), λ.DictLiteral(map[λ.Object]λ.Object{})), λ.StrLiteral("User-Agent"), λ.StrLiteral("facebookexternalhit/1.1"))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒvideo_title = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<h2\\s+[^>]*class=\"uiHeaderTitle\"[^>]*>([^<]*)</h2>"),
+						λ.StrLiteral("<h2\\s+[^>]*class=\"uiHeaderTitle\"[^>]*>([^<]*)</h2>"),
 						ϒwebpage,
-						λ.NewStr("title"),
+						λ.StrLiteral("title"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_title))) {
+					if !λ.IsTrue(ϒvideo_title) {
 						ϒvideo_title = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-							λ.NewStr("(?s)<span class=\"fbPhotosPhotoCaption\".*?id=\"fbPhotoPageCaption\"><span class=\"hasCaption\">(.*?)</span>"),
+							λ.StrLiteral("(?s)<span class=\"fbPhotosPhotoCaption\".*?id=\"fbPhotoPageCaption\"><span class=\"hasCaption\">(.*?)</span>"),
 							ϒwebpage,
-							λ.NewStr("alternative title"),
+							λ.StrLiteral("alternative title"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_title))) {
+					if !λ.IsTrue(ϒvideo_title) {
 						ϒvideo_title = λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
-							λ.NewStr("description"),
+							λ.StrLiteral("description"),
 							ϒwebpage,
-							λ.NewStr("title"),
+							λ.StrLiteral("title"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
 					}
 					if λ.IsTrue(ϒvideo_title) {
-						ϒvideo_title = λ.Cal(ϒlimit_length, ϒvideo_title, λ.NewInt(80))
+						ϒvideo_title = λ.Cal(ϒlimit_length, ϒvideo_title, λ.IntLiteral(80))
 					} else {
-						ϒvideo_title = λ.Mod(λ.NewStr("Facebook video #%s"), ϒvideo_id)
+						ϒvideo_title = λ.Mod(λ.StrLiteral("Facebook video #%s"), ϒvideo_id)
 					}
 					ϒuploader = func() λ.Object {
-						if λv := λ.Cal(ϒclean_html, λ.Cal(ϒget_element_by_id, λ.NewStr("fbPhotoPageAuthorName"), ϒwebpage)); λ.IsTrue(λv) {
+						if λv := λ.Cal(ϒclean_html, λ.Cal(ϒget_element_by_id, λ.StrLiteral("fbPhotoPageAuthorName"), ϒwebpage)); λ.IsTrue(λv) {
 							return λv
 						} else if λv := λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("ownerName\\s*:\\s*\"([^\"]+)\""),
+							λ.StrLiteral("ownerName\\s*:\\s*\"([^\"]+)\""),
 							ϒwebpage,
-							λ.NewStr("uploader"),
+							λ.StrLiteral("uploader"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}); λ.IsTrue(λv) {
@@ -596,32 +596,32 @@ func init() {
 						}
 					}()
 					ϒtimestamp = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<abbr[^>]+data-utime=[\"\\'](\\d+)"),
+						λ.StrLiteral("<abbr[^>]+data-utime=[\"\\'](\\d+)"),
 						ϒwebpage,
-						λ.NewStr("timestamp"),
+						λ.StrLiteral("timestamp"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					}))
-					ϒthumbnail = λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewList(
-						λ.NewStr("og:image"),
-						λ.NewStr("twitter:image"),
+					ϒthumbnail = λ.Calm(ϒself, "_html_search_meta", λ.NewList(
+						λ.StrLiteral("og:image"),
+						λ.StrLiteral("twitter:image"),
 					), ϒwebpage)
 					ϒview_count = λ.Cal(ϒparse_count, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("\\bviewCount\\s*:\\s*[\"\\']([\\d,.]+)"),
+						λ.StrLiteral("\\bviewCount\\s*:\\s*[\"\\']([\\d,.]+)"),
 						ϒwebpage,
-						λ.NewStr("view count"),
+						λ.StrLiteral("view count"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					}))
-					ϒinfo_dict = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):         ϒvideo_id,
-						λ.NewStr("title"):      ϒvideo_title,
-						λ.NewStr("formats"):    ϒformats,
-						λ.NewStr("uploader"):   ϒuploader,
-						λ.NewStr("timestamp"):  ϒtimestamp,
-						λ.NewStr("thumbnail"):  ϒthumbnail,
-						λ.NewStr("view_count"): ϒview_count,
-						λ.NewStr("subtitles"):  ϒsubtitles,
+					ϒinfo_dict = λ.DictLiteral(map[string]λ.Object{
+						"id":         ϒvideo_id,
+						"title":      ϒvideo_title,
+						"formats":    ϒformats,
+						"uploader":   ϒuploader,
+						"timestamp":  ϒtimestamp,
+						"thumbnail":  ϒthumbnail,
+						"view_count": ϒview_count,
+						"subtitles":  ϒsubtitles,
 					})
 					return λ.NewTuple(
 						ϒwebpage,
@@ -645,9 +645,9 @@ func init() {
 						ϒwebpage   λ.Object
 						τmp0       λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒreal_url = func() λ.Object {
-						if λ.IsTrue(λ.Cal(λ.GetAttr(ϒurl, "startswith", nil), λ.NewStr("facebook:"))) {
+						if λ.IsTrue(λ.Calm(ϒurl, "startswith", λ.StrLiteral("facebook:"))) {
 							return λ.Mod(λ.GetAttr(ϒself, "_VIDEO_PAGE_TEMPLATE", nil), ϒvideo_id)
 						} else {
 							return ϒurl
@@ -659,12 +659,12 @@ func init() {
 					), λ.KWArgs{
 						{Name: "fatal_if_no_video", Value: λ.False},
 					})
-					ϒwebpage = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒinfo_dict = λ.GetItem(τmp0, λ.NewInt(1))
+					ϒwebpage = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒinfo_dict = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if λ.IsTrue(ϒinfo_dict) {
 						return ϒinfo_dict
 					}
-					if λ.IsTrue(λ.NewBool(λ.Contains(ϒurl, λ.NewStr("/posts/")))) {
+					if λ.Contains(ϒurl, λ.StrLiteral("/posts/")) {
 						ϒentries = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 							nil,
 							0, false, false,
@@ -675,24 +675,24 @@ func init() {
 										τmp0 λ.Object
 										τmp1 λ.Object
 									)
-									τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-										λ.NewStr("([\"\\'])video_ids\\1\\s*:\\s*(?P<ids>\\[.+?\\])"),
+									τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒself, "_parse_json", λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+										λ.StrLiteral("([\"\\'])video_ids\\1\\s*:\\s*(?P<ids>\\[.+?\\])"),
 										ϒwebpage,
-										λ.NewStr("video ids"),
+										λ.StrLiteral("video ids"),
 									), λ.KWArgs{
-										{Name: "group", Value: λ.NewStr("ids")},
+										{Name: "group", Value: λ.StrLiteral("ids")},
 									}), ϒvideo_id))
 									for {
 										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 											break
 										}
 										ϒvid = τmp1
-										λgy.Yield(λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("facebook:%s"), ϒvid), λ.Cal(λ.GetAttr(FacebookIE, "ie_key", nil))))
+										λgy.Yield(λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("facebook:%s"), ϒvid), λ.Calm(FacebookIE, "ie_key")))
 									}
 									return λ.None
 								})
 							})))
-						return λ.Cal(λ.GetAttr(ϒself, "playlist_result", nil), ϒentries, ϒvideo_id)
+						return λ.Calm(ϒself, "playlist_result", ϒentries, ϒvideo_id)
 					} else {
 						τmp0 = λ.Call(λ.GetAttr(ϒself, "_extract_from_url", nil), λ.NewArgs(
 							λ.Mod(λ.GetAttr(ϒself, "_VIDEO_PAGE_TEMPLATE", nil), ϒvideo_id),
@@ -700,31 +700,31 @@ func init() {
 						), λ.KWArgs{
 							{Name: "fatal_if_no_video", Value: λ.True},
 						})
-						_ = λ.GetItem(τmp0, λ.NewInt(0))
-						ϒinfo_dict = λ.GetItem(τmp0, λ.NewInt(1))
+						_ = λ.GetItem(τmp0, λ.IntLiteral(0))
+						ϒinfo_dict = λ.GetItem(τmp0, λ.IntLiteral(1))
 						return ϒinfo_dict
 					}
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):                    FacebookIE_IE_NAME,
-				λ.NewStr("_CHROME_USER_AGENT"):         FacebookIE__CHROME_USER_AGENT,
-				λ.NewStr("_NETRC_MACHINE"):             FacebookIE__NETRC_MACHINE,
-				λ.NewStr("_VALID_URL"):                 FacebookIE__VALID_URL,
-				λ.NewStr("_VIDEO_PAGE_TAHOE_TEMPLATE"): FacebookIE__VIDEO_PAGE_TAHOE_TEMPLATE,
-				λ.NewStr("_VIDEO_PAGE_TEMPLATE"):       FacebookIE__VIDEO_PAGE_TEMPLATE,
-				λ.NewStr("_extract_from_url"):          FacebookIE__extract_from_url,
-				λ.NewStr("_login"):                     FacebookIE__login,
-				λ.NewStr("_real_extract"):              FacebookIE__real_extract,
-				λ.NewStr("_real_initialize"):           FacebookIE__real_initialize,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":                    FacebookIE_IE_NAME,
+				"_CHROME_USER_AGENT":         FacebookIE__CHROME_USER_AGENT,
+				"_NETRC_MACHINE":             FacebookIE__NETRC_MACHINE,
+				"_VALID_URL":                 FacebookIE__VALID_URL,
+				"_VIDEO_PAGE_TAHOE_TEMPLATE": FacebookIE__VIDEO_PAGE_TAHOE_TEMPLATE,
+				"_VIDEO_PAGE_TEMPLATE":       FacebookIE__VIDEO_PAGE_TEMPLATE,
+				"_extract_from_url":          FacebookIE__extract_from_url,
+				"_login":                     FacebookIE__login,
+				"_real_extract":              FacebookIE__real_extract,
+				"_real_initialize":           FacebookIE__real_initialize,
 			})
 		}())
-		FacebookPluginsVideoIE = λ.Cal(λ.TypeType, λ.NewStr("FacebookPluginsVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		FacebookPluginsVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("FacebookPluginsVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				FacebookPluginsVideoIE__VALID_URL    λ.Object
 				FacebookPluginsVideoIE__real_extract λ.Object
 			)
-			FacebookPluginsVideoIE__VALID_URL = λ.NewStr("https?://(?:[\\w-]+\\.)?facebook\\.com/plugins/video\\.php\\?.*?\\bhref=(?P<id>https.+)")
+			FacebookPluginsVideoIE__VALID_URL = λ.StrLiteral("https?://(?:[\\w-]+\\.)?facebook\\.com/plugins/video\\.php\\?.*?\\bhref=(?P<id>https.+)")
 			FacebookPluginsVideoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -736,11 +736,11 @@ func init() {
 						ϒself = λargs[0]
 						ϒurl  = λargs[1]
 					)
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Cal(ϒcompat_urllib_parse_unquote, λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)), λ.Cal(λ.GetAttr(FacebookIE, "ie_key", nil)))
+					return λ.Calm(ϒself, "url_result", λ.Cal(ϒcompat_urllib_parse_unquote, λ.Calm(ϒself, "_match_id", ϒurl)), λ.Calm(FacebookIE, "ie_key"))
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    FacebookPluginsVideoIE__VALID_URL,
-				λ.NewStr("_real_extract"): FacebookPluginsVideoIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    FacebookPluginsVideoIE__VALID_URL,
+				"_real_extract": FacebookPluginsVideoIE__real_extract,
 			})
 		}())
 	})

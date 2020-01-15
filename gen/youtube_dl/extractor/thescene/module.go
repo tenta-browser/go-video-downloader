@@ -38,12 +38,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		TheSceneIE = λ.Cal(λ.TypeType, λ.NewStr("TheSceneIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TheSceneIE = λ.Cal(λ.TypeType, λ.StrLiteral("TheSceneIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TheSceneIE__VALID_URL    λ.Object
 				TheSceneIE__real_extract λ.Object
 			)
-			TheSceneIE__VALID_URL = λ.NewStr("https?://thescene\\.com/watch/[^/]+/(?P<id>[^/#?]+)")
+			TheSceneIE__VALID_URL = λ.StrLiteral("https?://thescene\\.com/watch/[^/]+/(?P<id>[^/#?]+)")
 			TheSceneIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -58,19 +58,19 @@ func init() {
 						ϒurl        = λargs[1]
 						ϒwebpage    λ.Object
 					)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
-					ϒplayer_url = λ.Cal(Ωparse.ϒurljoin, ϒurl, λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("id=\\'js-player-script\\'[^>]+src=\\'(.+?)\\'"), ϒwebpage, λ.NewStr("player url")))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):      λ.NewStr("url_transparent"),
-						λ.NewStr("display_id"): ϒdisplay_id,
-						λ.NewStr("url"):        ϒplayer_url,
-						λ.NewStr("ie_key"):     λ.NewStr("CondeNast"),
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
+					ϒplayer_url = λ.Cal(Ωparse.ϒurljoin, ϒurl, λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("id=\\'js-player-script\\'[^>]+src=\\'(.+?)\\'"), ϒwebpage, λ.StrLiteral("player url")))
+					return λ.DictLiteral(map[string]λ.Object{
+						"_type":      λ.StrLiteral("url_transparent"),
+						"display_id": ϒdisplay_id,
+						"url":        ϒplayer_url,
+						"ie_key":     λ.StrLiteral("CondeNast"),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    TheSceneIE__VALID_URL,
-				λ.NewStr("_real_extract"): TheSceneIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    TheSceneIE__VALID_URL,
+				"_real_extract": TheSceneIE__real_extract,
 			})
 		}())
 	})

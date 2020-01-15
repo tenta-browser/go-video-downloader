@@ -40,12 +40,12 @@ func init() {
 	λ.InitModule(func() {
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		KeezMoviesIE = Ωkeezmovies.KeezMoviesIE
-		ExtremeTubeIE = λ.Cal(λ.TypeType, λ.NewStr("ExtremeTubeIE"), λ.NewTuple(KeezMoviesIE), func() λ.Dict {
+		ExtremeTubeIE = λ.Cal(λ.TypeType, λ.StrLiteral("ExtremeTubeIE"), λ.NewTuple(KeezMoviesIE), func() λ.Dict {
 			var (
 				ExtremeTubeIE__VALID_URL    λ.Object
 				ExtremeTubeIE__real_extract λ.Object
 			)
-			ExtremeTubeIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?extremetube\\.com/(?:[^/]+/)?video/(?P<id>[^/#?&]+)")
+			ExtremeTubeIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?extremetube\\.com/(?:[^/]+/)?video/(?P<id>[^/#?&]+)")
 			ExtremeTubeIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -62,35 +62,35 @@ func init() {
 						ϒwebpage    λ.Object
 						τmp0        λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_extract_info", nil), ϒurl)
-					ϒwebpage = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒinfo = λ.GetItem(τmp0, λ.NewInt(1))
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.GetItem(ϒinfo, λ.NewStr("title"))))) {
-						λ.SetItem(ϒinfo, λ.NewStr("title"), λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<h1[^>]+title=\"([^\"]+)\"[^>]*>"), ϒwebpage, λ.NewStr("title")))
+					τmp0 = λ.Calm(ϒself, "_extract_info", ϒurl)
+					ϒwebpage = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒinfo = λ.GetItem(τmp0, λ.IntLiteral(1))
+					if !λ.IsTrue(λ.GetItem(ϒinfo, λ.StrLiteral("title"))) {
+						λ.SetItem(ϒinfo, λ.StrLiteral("title"), λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<h1[^>]+title=\"([^\"]+)\"[^>]*>"), ϒwebpage, λ.StrLiteral("title")))
 					}
 					ϒuploader = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("Uploaded by:\\s*</[^>]+>\\s*<a[^>]+>(.+?)</a>"),
+						λ.StrLiteral("Uploaded by:\\s*</[^>]+>\\s*<a[^>]+>(.+?)</a>"),
 						ϒwebpage,
-						λ.NewStr("uploader"),
+						λ.StrLiteral("uploader"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
 					ϒview_count = λ.Cal(ϒstr_to_int, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("Views:\\s*</[^>]+>\\s*<[^>]+>([\\d,\\.]+)</"),
+						λ.StrLiteral("Views:\\s*</[^>]+>\\s*<[^>]+>([\\d,\\.]+)</"),
 						ϒwebpage,
-						λ.NewStr("view count"),
+						λ.StrLiteral("view count"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
-					λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("uploader"):   ϒuploader,
-						λ.NewStr("view_count"): ϒview_count,
+					λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
+						"uploader":   ϒuploader,
+						"view_count": ϒview_count,
 					}))
 					return ϒinfo
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    ExtremeTubeIE__VALID_URL,
-				λ.NewStr("_real_extract"): ExtremeTubeIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    ExtremeTubeIE__VALID_URL,
+				"_real_extract": ExtremeTubeIE__real_extract,
 			})
 		}())
 	})

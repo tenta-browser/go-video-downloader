@@ -44,12 +44,12 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒqualities = Ωutils.ϒqualities
-		VeohIE = λ.Cal(λ.TypeType, λ.NewStr("VeohIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		VeohIE = λ.Cal(λ.TypeType, λ.StrLiteral("VeohIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				VeohIE__VALID_URL    λ.Object
 				VeohIE__real_extract λ.Object
 			)
-			VeohIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?veoh\\.com/(?:watch|embed|iphone/#_Watch)/(?P<id>(?:v|e|yapi-)[\\da-zA-Z]+)")
+			VeohIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?veoh\\.com/(?:watch|embed|iphone/#_Watch)/(?P<id>(?:v|e|yapi-)[\\da-zA-Z]+)")
 			VeohIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -72,59 +72,59 @@ func init() {
 						τmp1           λ.Object
 						τmp2           λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒvideo = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Add(λ.NewStr("https://www.veoh.com/watch/getVideo/"), ϒvideo_id), ϒvideo_id), λ.NewStr("video"))
-					ϒtitle = λ.GetItem(ϒvideo, λ.NewStr("title"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒvideo = λ.GetItem(λ.Calm(ϒself, "_download_json", λ.Add(λ.StrLiteral("https://www.veoh.com/watch/getVideo/"), ϒvideo_id), ϒvideo_id), λ.StrLiteral("video"))
+					ϒtitle = λ.GetItem(ϒvideo, λ.StrLiteral("title"))
 					ϒthumbnail_url = λ.None
 					ϒq = λ.Cal(ϒqualities, λ.NewList(
-						λ.NewStr("HQ"),
-						λ.NewStr("Regular"),
+						λ.StrLiteral("HQ"),
+						λ.StrLiteral("Regular"),
 					))
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("src"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "items", nil)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.Calm(ϒvideo, "get", λ.StrLiteral("src"), λ.DictLiteral(map[λ.Object]λ.Object{})), "items"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒf_id = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒf_url = λ.GetItem(τmp2, λ.NewInt(1))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒf_url))) {
+						ϒf_id = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒf_url = λ.GetItem(τmp2, λ.IntLiteral(1))
+						if !λ.IsTrue(ϒf_url) {
 							continue
 						}
-						if λ.IsTrue(λ.Eq(ϒf_id, λ.NewStr("poster"))) {
+						if λ.IsTrue(λ.Eq(ϒf_id, λ.StrLiteral("poster"))) {
 							ϒthumbnail_url = ϒf_url
 						} else {
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("format_id"): ϒf_id,
-								λ.NewStr("quality"):   λ.Cal(ϒq, ϒf_id),
-								λ.NewStr("url"):       ϒf_url,
+							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+								"format_id": ϒf_id,
+								"quality":   λ.Cal(ϒq, ϒf_id),
+								"url":       ϒf_url,
 							}))
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("description")),
-						λ.NewStr("thumbnail"):   ϒthumbnail_url,
-						λ.NewStr("uploader"):    λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("author"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("nickname")),
-						λ.NewStr("duration"): func() λ.Object {
-							if λv := λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("lengthBySec"))); λ.IsTrue(λv) {
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       ϒtitle,
+						"description": λ.Calm(ϒvideo, "get", λ.StrLiteral("description")),
+						"thumbnail":   ϒthumbnail_url,
+						"uploader":    λ.Calm(λ.Calm(ϒvideo, "get", λ.StrLiteral("author"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("nickname")),
+						"duration": func() λ.Object {
+							if λv := λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("lengthBySec"))); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(ϒparse_duration, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("length")))
+								return λ.Cal(ϒparse_duration, λ.Calm(ϒvideo, "get", λ.StrLiteral("length")))
 							}
 						}(),
-						λ.NewStr("view_count"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("views"))),
-						λ.NewStr("formats"):        ϒformats,
-						λ.NewStr("average_rating"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("rating"))),
-						λ.NewStr("comment_count"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("numOfComments"))),
+						"view_count":     λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("views"))),
+						"formats":        ϒformats,
+						"average_rating": λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("rating"))),
+						"comment_count":  λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("numOfComments"))),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    VeohIE__VALID_URL,
-				λ.NewStr("_real_extract"): VeohIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    VeohIE__VALID_URL,
+				"_real_extract": VeohIE__real_extract,
 			})
 		}())
 	})

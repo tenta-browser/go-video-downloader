@@ -48,12 +48,12 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒqualities = Ωutils.ϒqualities
-		CoubIE = λ.Cal(λ.TypeType, λ.NewStr("CoubIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		CoubIE = λ.Cal(λ.TypeType, λ.StrLiteral("CoubIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CoubIE__VALID_URL    λ.Object
 				CoubIE__real_extract λ.Object
 			)
-			CoubIE__VALID_URL = λ.NewStr("(?:coub:|https?://(?:coub\\.com/(?:view|embed|coubs)/|c-cdn\\.coub\\.com/fb-player\\.swf\\?.*\\bcoub(?:ID|id)=))(?P<id>[\\da-z]+)")
+			CoubIE__VALID_URL = λ.StrLiteral("(?:coub:|https?://(?:coub\\.com/(?:view|embed|coubs)/|c-cdn\\.coub\\.com/fb-player\\.swf\\?.*\\bcoub(?:ID|id)=))(?P<id>[\\da-z]+)")
 			CoubIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -99,26 +99,26 @@ func init() {
 						τmp3              λ.Object
 						τmp4              λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒcoub = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("http://coub.com/api/v2/coubs/%s.json"), ϒvideo_id), ϒvideo_id)
-					if λ.IsTrue(λ.Cal(λ.GetAttr(ϒcoub, "get", nil), λ.NewStr("error"))) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.NewStr("%s said: %s"), λ.NewTuple(
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒcoub = λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("http://coub.com/api/v2/coubs/%s.json"), ϒvideo_id), ϒvideo_id)
+					if λ.IsTrue(λ.Calm(ϒcoub, "get", λ.StrLiteral("error"))) {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("%s said: %s"), λ.NewTuple(
 							λ.GetAttr(ϒself, "IE_NAME", nil),
-							λ.GetItem(ϒcoub, λ.NewStr("error")),
+							λ.GetItem(ϒcoub, λ.StrLiteral("error")),
 						))), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
-					ϒtitle = λ.GetItem(ϒcoub, λ.NewStr("title"))
-					ϒfile_versions = λ.GetItem(ϒcoub, λ.NewStr("file_versions"))
+					ϒtitle = λ.GetItem(ϒcoub, λ.StrLiteral("title"))
+					ϒfile_versions = λ.GetItem(ϒcoub, λ.StrLiteral("file_versions"))
 					QUALITIES = λ.NewTuple(
-						λ.NewStr("low"),
-						λ.NewStr("med"),
-						λ.NewStr("high"),
+						λ.StrLiteral("low"),
+						λ.StrLiteral("med"),
+						λ.StrLiteral("high"),
 					)
-					MOBILE = λ.NewStr("mobile")
-					IPHONE = λ.NewStr("iphone")
-					HTML5 = λ.NewStr("html5")
+					MOBILE = λ.StrLiteral("mobile")
+					IPHONE = λ.StrLiteral("iphone")
+					HTML5 = λ.StrLiteral("html5")
 					SOURCE_PREFERENCE = λ.NewTuple(
 						MOBILE,
 						IPHONE,
@@ -127,125 +127,125 @@ func init() {
 					ϒquality_key = λ.Cal(ϒqualities, QUALITIES)
 					ϒpreference_key = λ.Cal(ϒqualities, SOURCE_PREFERENCE)
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒfile_versions, "get", nil), HTML5, λ.NewDictWithTable(map[λ.Object]λ.Object{})), "items", nil)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.Calm(ϒfile_versions, "get", HTML5, λ.DictLiteral(map[λ.Object]λ.Object{})), "items"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						ϒkind = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒitems = λ.GetItem(τmp2, λ.NewInt(1))
-						if λ.IsTrue(λ.NewBool(!λ.Contains(λ.NewTuple(
-							λ.NewStr("video"),
-							λ.NewStr("audio"),
-						), ϒkind))) {
+						ϒkind = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒitems = λ.GetItem(τmp2, λ.IntLiteral(1))
+						if !λ.Contains(λ.NewTuple(
+							λ.StrLiteral("video"),
+							λ.StrLiteral("audio"),
+						), ϒkind) {
 							continue
 						}
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒitems, λ.DictType)))) {
+						if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒitems, λ.DictType)) {
 							continue
 						}
-						τmp2 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒitems, "items", nil)))
+						τmp2 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒitems, "items"))
 						for {
 							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 								break
 							}
 							τmp4 = τmp3
-							ϒquality = λ.GetItem(τmp4, λ.NewInt(0))
-							ϒitem = λ.GetItem(τmp4, λ.NewInt(1))
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒitem, λ.DictType)))) {
+							ϒquality = λ.GetItem(τmp4, λ.IntLiteral(0))
+							ϒitem = λ.GetItem(τmp4, λ.IntLiteral(1))
+							if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒitem, λ.DictType)) {
 								continue
 							}
-							ϒitem_url = λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("url"))
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒitem_url))) {
+							ϒitem_url = λ.Calm(ϒitem, "get", λ.StrLiteral("url"))
+							if !λ.IsTrue(ϒitem_url) {
 								continue
 							}
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("url"): ϒitem_url,
-								λ.NewStr("format_id"): λ.Mod(λ.NewStr("%s-%s-%s"), λ.NewTuple(
+							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+								"url": ϒitem_url,
+								"format_id": λ.Mod(λ.StrLiteral("%s-%s-%s"), λ.NewTuple(
 									HTML5,
 									ϒkind,
 									ϒquality,
 								)),
-								λ.NewStr("filesize"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("size"))),
-								λ.NewStr("vcodec"): func() λ.Object {
-									if λ.IsTrue(λ.Eq(ϒkind, λ.NewStr("audio"))) {
-										return λ.NewStr("none")
+								"filesize": λ.Cal(ϒint_or_none, λ.Calm(ϒitem, "get", λ.StrLiteral("size"))),
+								"vcodec": func() λ.Object {
+									if λ.IsTrue(λ.Eq(ϒkind, λ.StrLiteral("audio"))) {
+										return λ.StrLiteral("none")
 									} else {
 										return λ.None
 									}
 								}(),
-								λ.NewStr("quality"):    λ.Cal(ϒquality_key, ϒquality),
-								λ.NewStr("preference"): λ.Cal(ϒpreference_key, HTML5),
+								"quality":    λ.Cal(ϒquality_key, ϒquality),
+								"preference": λ.Cal(ϒpreference_key, HTML5),
 							}))
 						}
 					}
-					ϒiphone_url = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒfile_versions, "get", nil), IPHONE, λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("url"))
+					ϒiphone_url = λ.Calm(λ.Calm(ϒfile_versions, "get", IPHONE, λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("url"))
 					if λ.IsTrue(ϒiphone_url) {
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):        ϒiphone_url,
-							λ.NewStr("format_id"):  IPHONE,
-							λ.NewStr("preference"): λ.Cal(ϒpreference_key, IPHONE),
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":        ϒiphone_url,
+							"format_id":  IPHONE,
+							"preference": λ.Cal(ϒpreference_key, IPHONE),
 						}))
 					}
-					ϒmobile_url = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒfile_versions, "get", nil), MOBILE, λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("audio_url"))
+					ϒmobile_url = λ.Calm(λ.Calm(ϒfile_versions, "get", MOBILE, λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("audio_url"))
 					if λ.IsTrue(ϒmobile_url) {
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):        ϒmobile_url,
-							λ.NewStr("format_id"):  λ.Mod(λ.NewStr("%s-audio"), MOBILE),
-							λ.NewStr("preference"): λ.Cal(ϒpreference_key, MOBILE),
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":        ϒmobile_url,
+							"format_id":  λ.Mod(λ.StrLiteral("%s-audio"), MOBILE),
+							"preference": λ.Cal(ϒpreference_key, MOBILE),
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					ϒthumbnail = λ.Cal(λ.GetAttr(ϒcoub, "get", nil), λ.NewStr("picture"))
-					ϒduration = λ.Cal(ϒfloat_or_none, λ.Cal(λ.GetAttr(ϒcoub, "get", nil), λ.NewStr("duration")))
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒthumbnail = λ.Calm(ϒcoub, "get", λ.StrLiteral("picture"))
+					ϒduration = λ.Cal(ϒfloat_or_none, λ.Calm(ϒcoub, "get", λ.StrLiteral("duration")))
 					ϒtimestamp = λ.Cal(ϒparse_iso8601, func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒcoub, "get", nil), λ.NewStr("published_at")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒcoub, "get", λ.StrLiteral("published_at")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒcoub, "get", nil), λ.NewStr("created_at"))
+							return λ.Calm(ϒcoub, "get", λ.StrLiteral("created_at"))
 						}
 					}())
-					ϒuploader = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒcoub, "get", nil), λ.NewStr("channel"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("title"))
-					ϒuploader_id = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒcoub, "get", nil), λ.NewStr("channel"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "get", nil), λ.NewStr("permalink"))
+					ϒuploader = λ.Calm(λ.Calm(ϒcoub, "get", λ.StrLiteral("channel"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("title"))
+					ϒuploader_id = λ.Calm(λ.Calm(ϒcoub, "get", λ.StrLiteral("channel"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("permalink"))
 					ϒview_count = λ.Cal(ϒint_or_none, func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒcoub, "get", nil), λ.NewStr("views_count")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒcoub, "get", λ.StrLiteral("views_count")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒcoub, "get", nil), λ.NewStr("views_increase_count"))
+							return λ.Calm(ϒcoub, "get", λ.StrLiteral("views_increase_count"))
 						}
 					}())
-					ϒlike_count = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒcoub, "get", nil), λ.NewStr("likes_count")))
-					ϒrepost_count = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒcoub, "get", nil), λ.NewStr("recoubs_count")))
-					ϒage_restricted = λ.Cal(λ.GetAttr(ϒcoub, "get", nil), λ.NewStr("age_restricted"), λ.Cal(λ.GetAttr(ϒcoub, "get", nil), λ.NewStr("age_restricted_by_admin")))
-					if λ.IsTrue(λ.NewBool(ϒage_restricted != λ.None)) {
+					ϒlike_count = λ.Cal(ϒint_or_none, λ.Calm(ϒcoub, "get", λ.StrLiteral("likes_count")))
+					ϒrepost_count = λ.Cal(ϒint_or_none, λ.Calm(ϒcoub, "get", λ.StrLiteral("recoubs_count")))
+					ϒage_restricted = λ.Calm(ϒcoub, "get", λ.StrLiteral("age_restricted"), λ.Calm(ϒcoub, "get", λ.StrLiteral("age_restricted_by_admin")))
+					if ϒage_restricted != λ.None {
 						ϒage_limit = func() λ.Object {
-							if λ.IsTrue(λ.NewBool(ϒage_restricted == λ.True)) {
-								return λ.NewInt(18)
+							if ϒage_restricted == λ.True {
+								return λ.IntLiteral(18)
 							} else {
-								return λ.NewInt(0)
+								return λ.IntLiteral(0)
 							}
 						}()
 					} else {
 						ϒage_limit = λ.None
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):           ϒvideo_id,
-						λ.NewStr("title"):        ϒtitle,
-						λ.NewStr("thumbnail"):    ϒthumbnail,
-						λ.NewStr("duration"):     ϒduration,
-						λ.NewStr("timestamp"):    ϒtimestamp,
-						λ.NewStr("uploader"):     ϒuploader,
-						λ.NewStr("uploader_id"):  ϒuploader_id,
-						λ.NewStr("view_count"):   ϒview_count,
-						λ.NewStr("like_count"):   ϒlike_count,
-						λ.NewStr("repost_count"): ϒrepost_count,
-						λ.NewStr("age_limit"):    ϒage_limit,
-						λ.NewStr("formats"):      ϒformats,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":           ϒvideo_id,
+						"title":        ϒtitle,
+						"thumbnail":    ϒthumbnail,
+						"duration":     ϒduration,
+						"timestamp":    ϒtimestamp,
+						"uploader":     ϒuploader,
+						"uploader_id":  ϒuploader_id,
+						"view_count":   ϒview_count,
+						"like_count":   ϒlike_count,
+						"repost_count": ϒrepost_count,
+						"age_limit":    ϒage_limit,
+						"formats":      ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    CoubIE__VALID_URL,
-				λ.NewStr("_real_extract"): CoubIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    CoubIE__VALID_URL,
+				"_real_extract": CoubIE__real_extract,
 			})
 		}())
 	})

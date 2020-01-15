@@ -48,12 +48,12 @@ func init() {
 		ϒclean_html = Ωutils.ϒclean_html
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒtry_get = Ωutils.ϒtry_get
-		JamendoIE = λ.Cal(λ.TypeType, λ.NewStr("JamendoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		JamendoIE = λ.Cal(λ.TypeType, λ.StrLiteral("JamendoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				JamendoIE__VALID_URL    λ.Object
 				JamendoIE__real_extract λ.Object
 			)
-			JamendoIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:\n                            licensing\\.jamendo\\.com/[^/]+|\n                            (?:www\\.)?jamendo\\.com\n                        )\n                        /track/(?P<id>[0-9]+)(?:/(?P<display_id>[^/?#&]+))?\n                    ")
+			JamendoIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\n                            licensing\\.jamendo\\.com/[^/]+|\n                            (?:www\\.)?jamendo\\.com\n                        )\n                        /track/(?P<id>[0-9]+)(?:/(?P<display_id>[^/?#&]+))?\n                    ")
 			JamendoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -92,13 +92,13 @@ func init() {
 						τmp3         λ.Object
 						τmp4         λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_VALID_URL_RE", nil), "match", nil), ϒurl), "groups", nil))
-					ϒtrack_id = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒdisplay_id = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Add(λ.NewStr("https://www.jamendo.com/track/"), ϒtrack_id), ϒtrack_id)
-					ϒmodels = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("data-bundled-models='([^']+)"), ϒwebpage, λ.NewStr("bundled models")), ϒtrack_id)
-					ϒtrack = λ.GetItem(λ.GetItem(λ.GetItem(ϒmodels, λ.NewStr("track")), λ.NewStr("models")), λ.NewInt(0))
-					τmp0 = λ.GetItem(ϒtrack, λ.NewStr("name"))
+					τmp0 = λ.Calm(λ.Calm(λ.GetAttr(ϒself, "_VALID_URL_RE", nil), "match", ϒurl), "groups")
+					ϒtrack_id = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", λ.Add(λ.StrLiteral("https://www.jamendo.com/track/"), ϒtrack_id), ϒtrack_id)
+					ϒmodels = λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("data-bundled-models='([^']+)"), ϒwebpage, λ.StrLiteral("bundled models")), ϒtrack_id)
+					ϒtrack = λ.GetItem(λ.GetItem(λ.GetItem(ϒmodels, λ.StrLiteral("track")), λ.StrLiteral("models")), λ.IntLiteral(0))
+					τmp0 = λ.GetItem(ϒtrack, λ.StrLiteral("name"))
 					ϒtitle = τmp0
 					ϒtrack_name = τmp0
 					ϒget_model = λ.NewFunction("<lambda>",
@@ -120,23 +120,23 @@ func init() {
 										var (
 											ϒy = λargs[0]
 										)
-										return λ.GetItem(λ.GetItem(λ.GetItem(ϒy, ϒx), λ.NewStr("models")), λ.NewInt(0))
+										return λ.GetItem(λ.GetItem(λ.GetItem(ϒy, ϒx), λ.StrLiteral("models")), λ.IntLiteral(0))
 									}), λ.DictType); λ.IsTrue(λv) {
 									return λv
 								} else {
-									return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+									return λ.DictLiteral(map[λ.Object]λ.Object{})
 								}
 							}()
 						})
-					ϒartist = λ.Cal(ϒget_model, λ.NewStr("artist"))
-					ϒartist_name = λ.Cal(λ.GetAttr(ϒartist, "get", nil), λ.NewStr("name"))
+					ϒartist = λ.Cal(ϒget_model, λ.StrLiteral("artist"))
+					ϒartist_name = λ.Calm(ϒartist, "get", λ.StrLiteral("name"))
 					if λ.IsTrue(ϒartist_name) {
-						ϒtitle = λ.Mod(λ.NewStr("%s - %s"), λ.NewTuple(
+						ϒtitle = λ.Mod(λ.StrLiteral("%s - %s"), λ.NewTuple(
 							ϒartist_name,
 							ϒtitle,
 						))
 					}
-					ϒalbum = λ.Cal(ϒget_model, λ.NewStr("album"))
+					ϒalbum = λ.Cal(ϒget_model, λ.StrLiteral("album"))
 					ϒformats = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -154,24 +154,24 @@ func init() {
 								)
 								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.EnumerateIteratorType, λ.NewTuple(
 									λ.NewTuple(
-										λ.NewStr("mp31"),
-										λ.NewStr("mp3l"),
-										λ.NewStr("mp3"),
+										λ.StrLiteral("mp31"),
+										λ.StrLiteral("mp3l"),
+										λ.StrLiteral("mp3"),
 									),
 									λ.NewTuple(
-										λ.NewStr("mp32"),
-										λ.NewStr("mp3d"),
-										λ.NewStr("mp3"),
+										λ.StrLiteral("mp32"),
+										λ.StrLiteral("mp3d"),
+										λ.StrLiteral("mp3"),
 									),
 									λ.NewTuple(
-										λ.NewStr("ogg1"),
-										λ.NewStr("ogg"),
-										λ.NewStr("ogg"),
+										λ.StrLiteral("ogg1"),
+										λ.StrLiteral("ogg"),
+										λ.StrLiteral("ogg"),
 									),
 									λ.NewTuple(
-										λ.NewStr("flac"),
-										λ.NewStr("flac"),
-										λ.NewStr("flac"),
+										λ.StrLiteral("flac"),
+										λ.StrLiteral("flac"),
+										λ.StrLiteral("flac"),
 									),
 								)))
 								for {
@@ -179,44 +179,44 @@ func init() {
 										break
 									}
 									τmp2 = τmp1
-									ϒquality = λ.GetItem(τmp2, λ.NewInt(0))
-									τmp3 = λ.GetItem(τmp2, λ.NewInt(1))
-									ϒformat_id = λ.GetItem(τmp3, λ.NewInt(0))
-									ϒsub_domain = λ.GetItem(τmp3, λ.NewInt(1))
-									ϒext = λ.GetItem(τmp3, λ.NewInt(2))
-									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("url"): λ.Mod(λ.NewStr("https://%s.jamendo.com/?trackid=%s&format=%s&from=app-97dab294"), λ.NewTuple(
+									ϒquality = λ.GetItem(τmp2, λ.IntLiteral(0))
+									τmp3 = λ.GetItem(τmp2, λ.IntLiteral(1))
+									ϒformat_id = λ.GetItem(τmp3, λ.IntLiteral(0))
+									ϒsub_domain = λ.GetItem(τmp3, λ.IntLiteral(1))
+									ϒext = λ.GetItem(τmp3, λ.IntLiteral(2))
+									λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+										"url": λ.Mod(λ.StrLiteral("https://%s.jamendo.com/?trackid=%s&format=%s&from=app-97dab294"), λ.NewTuple(
 											ϒsub_domain,
 											ϒtrack_id,
 											ϒformat_id,
 										)),
-										λ.NewStr("format_id"): ϒformat_id,
-										λ.NewStr("ext"):       ϒext,
-										λ.NewStr("quality"):   ϒquality,
+										"format_id": ϒformat_id,
+										"ext":       ϒext,
+										"quality":   ϒquality,
 									}))
 								}
 								return λ.None
 							})
 						})))
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒurls = λ.NewList()
 					ϒthumbnails = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("cover"), λ.NewDictWithTable(map[λ.Object]λ.Object{})), "items", nil)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.Calm(ϒtrack, "get", λ.StrLiteral("cover"), λ.DictLiteral(map[λ.Object]λ.Object{})), "items"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						τmp2 = τmp1
-						_ = λ.GetItem(τmp2, λ.NewInt(0))
-						ϒcovers = λ.GetItem(τmp2, λ.NewInt(1))
-						τmp2 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒcovers, "items", nil)))
+						_ = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒcovers = λ.GetItem(τmp2, λ.IntLiteral(1))
+						τmp2 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒcovers, "items"))
 						for {
 							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 								break
 							}
 							τmp4 = τmp3
-							ϒcover_id = λ.GetItem(τmp4, λ.NewInt(0))
-							ϒcover_url = λ.GetItem(τmp4, λ.NewInt(1))
+							ϒcover_id = λ.GetItem(τmp4, λ.IntLiteral(0))
+							ϒcover_url = λ.GetItem(τmp4, λ.IntLiteral(1))
 							if λ.IsTrue(func() λ.Object {
 								if λv := λ.NewBool(!λ.IsTrue(ϒcover_url)); λ.IsTrue(λv) {
 									return λv
@@ -226,73 +226,73 @@ func init() {
 							}()) {
 								continue
 							}
-							λ.Cal(λ.GetAttr(ϒurls, "append", nil), ϒcover_url)
-							ϒsize = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒcover_id, "lstrip", nil), λ.NewStr("size")))
-							λ.Cal(λ.GetAttr(ϒthumbnails, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("id"):     ϒcover_id,
-								λ.NewStr("url"):    ϒcover_url,
-								λ.NewStr("width"):  ϒsize,
-								λ.NewStr("height"): ϒsize,
+							λ.Calm(ϒurls, "append", ϒcover_url)
+							ϒsize = λ.Cal(ϒint_or_none, λ.Calm(ϒcover_id, "lstrip", λ.StrLiteral("size")))
+							λ.Calm(ϒthumbnails, "append", λ.DictLiteral(map[string]λ.Object{
+								"id":     ϒcover_id,
+								"url":    ϒcover_url,
+								"width":  ϒsize,
+								"height": ϒsize,
 							}))
 						}
 					}
 					ϒtags = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("tags"), λ.NewList()))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒtrack, "get", λ.StrLiteral("tags"), λ.NewList()))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒtag = τmp1
-						ϒtag_name = λ.Cal(λ.GetAttr(ϒtag, "get", nil), λ.NewStr("name"))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒtag_name))) {
+						ϒtag_name = λ.Calm(ϒtag, "get", λ.StrLiteral("name"))
+						if !λ.IsTrue(ϒtag_name) {
 							continue
 						}
-						λ.Cal(λ.GetAttr(ϒtags, "append", nil), ϒtag_name)
+						λ.Calm(ϒtags, "append", ϒtag_name)
 					}
 					ϒstats = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("stats")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒtrack, "get", λ.StrLiteral("stats")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
 						}
 					}()
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒtrack_id,
-						λ.NewStr("display_id"):  ϒdisplay_id,
-						λ.NewStr("thumbnails"):  ϒthumbnails,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("description")),
-						λ.NewStr("duration"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("duration"))),
-						λ.NewStr("artist"):      ϒartist_name,
-						λ.NewStr("track"):       ϒtrack_name,
-						λ.NewStr("album"):       λ.Cal(λ.GetAttr(ϒalbum, "get", nil), λ.NewStr("name")),
-						λ.NewStr("formats"):     ϒformats,
-						λ.NewStr("license"): func() λ.Object {
-							if λv := λ.Cal(λ.GetAttr(λ.NewStr("-"), "join", nil), λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("licenseCC"), λ.NewList())); λ.IsTrue(λv) {
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒtrack_id,
+						"display_id":  ϒdisplay_id,
+						"thumbnails":  ϒthumbnails,
+						"title":       ϒtitle,
+						"description": λ.Calm(ϒtrack, "get", λ.StrLiteral("description")),
+						"duration":    λ.Cal(ϒint_or_none, λ.Calm(ϒtrack, "get", λ.StrLiteral("duration"))),
+						"artist":      ϒartist_name,
+						"track":       ϒtrack_name,
+						"album":       λ.Calm(ϒalbum, "get", λ.StrLiteral("name")),
+						"formats":     ϒformats,
+						"license": func() λ.Object {
+							if λv := λ.Calm(λ.StrLiteral("-"), "join", λ.Calm(ϒtrack, "get", λ.StrLiteral("licenseCC"), λ.NewList())); λ.IsTrue(λv) {
 								return λv
 							} else {
 								return λ.None
 							}
 						}(),
-						λ.NewStr("timestamp"):      λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒtrack, "get", nil), λ.NewStr("dateCreated"))),
-						λ.NewStr("view_count"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒstats, "get", nil), λ.NewStr("listenedAll"))),
-						λ.NewStr("like_count"):     λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒstats, "get", nil), λ.NewStr("favorited"))),
-						λ.NewStr("average_rating"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒstats, "get", nil), λ.NewStr("averageNote"))),
-						λ.NewStr("tags"):           ϒtags,
+						"timestamp":      λ.Cal(ϒint_or_none, λ.Calm(ϒtrack, "get", λ.StrLiteral("dateCreated"))),
+						"view_count":     λ.Cal(ϒint_or_none, λ.Calm(ϒstats, "get", λ.StrLiteral("listenedAll"))),
+						"like_count":     λ.Cal(ϒint_or_none, λ.Calm(ϒstats, "get", λ.StrLiteral("favorited"))),
+						"average_rating": λ.Cal(ϒint_or_none, λ.Calm(ϒstats, "get", λ.StrLiteral("averageNote"))),
+						"tags":           ϒtags,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    JamendoIE__VALID_URL,
-				λ.NewStr("_real_extract"): JamendoIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    JamendoIE__VALID_URL,
+				"_real_extract": JamendoIE__real_extract,
 			})
 		}())
-		JamendoAlbumIE = λ.Cal(λ.TypeType, λ.NewStr("JamendoAlbumIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		JamendoAlbumIE = λ.Cal(λ.TypeType, λ.StrLiteral("JamendoAlbumIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				JamendoAlbumIE__VALID_URL λ.Object
 			)
-			JamendoAlbumIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?jamendo\\.com/album/(?P<id>[0-9]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): JamendoAlbumIE__VALID_URL,
+			JamendoAlbumIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?jamendo\\.com/album/(?P<id>[0-9]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": JamendoAlbumIE__VALID_URL,
 			})
 		}())
 	})

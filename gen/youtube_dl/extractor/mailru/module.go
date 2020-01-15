@@ -53,16 +53,16 @@ func init() {
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒremove_end = Ωutils.ϒremove_end
 		ϒtry_get = Ωutils.ϒtry_get
-		MailRuIE = λ.Cal(λ.TypeType, λ.NewStr("MailRuIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		MailRuIE = λ.Cal(λ.TypeType, λ.StrLiteral("MailRuIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				MailRuIE__VALID_URL λ.Object
 			)
-			MailRuIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:(?:www|m)\\.)?my\\.mail\\.ru/+\n                        (?:\n                            video/.*\\#video=/?(?P<idv1>(?:[^/]+/){3}\\d+)|\n                            (?:(?P<idv2prefix>(?:[^/]+/+){2})video/(?P<idv2suffix>[^/]+/\\d+))\\.html|\n                            (?:video/embed|\\+/video/meta)/(?P<metaid>\\d+)\n                        )\n                    ")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): MailRuIE__VALID_URL,
+			MailRuIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:(?:www|m)\\.)?my\\.mail\\.ru/+\n                        (?:\n                            video/.*\\#video=/?(?P<idv1>(?:[^/]+/){3}\\d+)|\n                            (?:(?P<idv2prefix>(?:[^/]+/+){2})video/(?P<idv2suffix>[^/]+/\\d+))\\.html|\n                            (?:video/embed|\\+/video/meta)/(?P<metaid>\\d+)\n                        )\n                    ")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": MailRuIE__VALID_URL,
 			})
 		}())
-		MailRuMusicSearchBaseIE = λ.Cal(λ.TypeType, λ.NewStr("MailRuMusicSearchBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		MailRuMusicSearchBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("MailRuMusicSearchBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				MailRuMusicSearchBaseIE__extract_track λ.Object
 				MailRuMusicSearchBaseIE__search        λ.Object
@@ -73,8 +73,8 @@ func init() {
 					{Name: "query"},
 					{Name: "url"},
 					{Name: "audio_id"},
-					{Name: "limit", Def: λ.NewInt(100)},
-					{Name: "offset", Def: λ.NewInt(0)},
+					{Name: "limit", Def: λ.IntLiteral(100)},
+					{Name: "offset", Def: λ.IntLiteral(0)},
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
@@ -88,30 +88,30 @@ func init() {
 						ϒurl      = λargs[2]
 					)
 					ϒsearch = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.NewStr("https://my.mail.ru/cgi-bin/my/ajax"),
+						λ.StrLiteral("https://my.mail.ru/cgi-bin/my/ajax"),
 						ϒaudio_id,
-						λ.Mod(λ.NewStr("Downloading songs JSON page %d"), λ.Add(λ.FloorDiv(ϒoffset, ϒlimit), λ.NewInt(1))),
+						λ.Mod(λ.StrLiteral("Downloading songs JSON page %d"), λ.Add(λ.FloorDiv(ϒoffset, ϒlimit), λ.IntLiteral(1))),
 					), λ.KWArgs{
-						{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("Referer"):          ϒurl,
-							λ.NewStr("X-Requested-With"): λ.NewStr("XMLHttpRequest"),
+						{Name: "headers", Value: λ.DictLiteral(map[string]λ.Object{
+							"Referer":          ϒurl,
+							"X-Requested-With": λ.StrLiteral("XMLHttpRequest"),
 						})},
-						{Name: "query", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("xemail"):       λ.NewStr(""),
-							λ.NewStr("ajax_call"):    λ.NewStr("1"),
-							λ.NewStr("func_name"):    λ.NewStr("music.search"),
-							λ.NewStr("mna"):          λ.NewStr(""),
-							λ.NewStr("mnb"):          λ.NewStr(""),
-							λ.NewStr("arg_query"):    ϒquery,
-							λ.NewStr("arg_extended"): λ.NewStr("1"),
-							λ.NewStr("arg_search_params"): λ.Cal(Ωjson.ϒdumps, λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("music"): λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("limit"):  ϒlimit,
-									λ.NewStr("offset"): ϒoffset,
+						{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
+							"xemail":       λ.StrLiteral(""),
+							"ajax_call":    λ.StrLiteral("1"),
+							"func_name":    λ.StrLiteral("music.search"),
+							"mna":          λ.StrLiteral(""),
+							"mnb":          λ.StrLiteral(""),
+							"arg_query":    ϒquery,
+							"arg_extended": λ.StrLiteral("1"),
+							"arg_search_params": λ.Cal(Ωjson.ϒdumps, λ.DictLiteral(map[string]λ.Object{
+								"music": λ.DictLiteral(map[string]λ.Object{
+									"limit":  ϒlimit,
+									"offset": ϒoffset,
 								}),
 							})),
-							λ.NewStr("arg_limit"):  ϒlimit,
-							λ.NewStr("arg_offset"): ϒoffset,
+							"arg_limit":  ϒlimit,
+							"arg_offset": ϒoffset,
 						})},
 					})
 					return λ.Cal(λ.BuiltinNext, λ.Cal(λ.NewFunction("<generator>",
@@ -161,77 +161,77 @@ func init() {
 					)
 					ϒaudio_url = func() λ.Object {
 						if λ.IsTrue(ϒfatal) {
-							return λ.GetItem(ϒt, λ.NewStr("URL"))
+							return λ.GetItem(ϒt, λ.StrLiteral("URL"))
 						} else {
-							return λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("URL"))
+							return λ.Calm(ϒt, "get", λ.StrLiteral("URL"))
 						}
 					}()
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒaudio_url))) {
+					if !λ.IsTrue(ϒaudio_url) {
 						return λ.None
 					}
 					ϒaudio_id = func() λ.Object {
 						if λ.IsTrue(ϒfatal) {
-							return λ.GetItem(ϒt, λ.NewStr("File"))
+							return λ.GetItem(ϒt, λ.StrLiteral("File"))
 						} else {
-							return λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("File"))
+							return λ.Calm(ϒt, "get", λ.StrLiteral("File"))
 						}
 					}()
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒaudio_id))) {
+					if !λ.IsTrue(ϒaudio_id) {
 						return λ.None
 					}
 					ϒthumbnail = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("AlbumCoverURL")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒt, "get", λ.StrLiteral("AlbumCoverURL")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("FiledAlbumCover"))
+							return λ.Calm(ϒt, "get", λ.StrLiteral("FiledAlbumCover"))
 						}
 					}()
 					ϒuploader = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("OwnerName")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒt, "get", λ.StrLiteral("OwnerName")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("OwnerName_Text_HTML"))
+							return λ.Calm(ϒt, "get", λ.StrLiteral("OwnerName_Text_HTML"))
 						}
 					}()
-					ϒuploader_id = λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("UploaderID"))
+					ϒuploader_id = λ.Calm(ϒt, "get", λ.StrLiteral("UploaderID"))
 					ϒduration = func() λ.Object {
-						if λv := λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("DurationInSeconds"))); λ.IsTrue(λv) {
+						if λv := λ.Cal(ϒint_or_none, λ.Calm(ϒt, "get", λ.StrLiteral("DurationInSeconds"))); λ.IsTrue(λv) {
 							return λv
 						} else {
 							return λ.Cal(ϒparse_duration, func() λ.Object {
-								if λv := λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("Duration")); λ.IsTrue(λv) {
+								if λv := λ.Calm(ϒt, "get", λ.StrLiteral("Duration")); λ.IsTrue(λv) {
 									return λv
 								} else {
-									return λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("DurationStr"))
+									return λ.Calm(ϒt, "get", λ.StrLiteral("DurationStr"))
 								}
 							}())
 						}
 					}()
 					ϒview_count = λ.Cal(ϒint_or_none, func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("PlayCount")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒt, "get", λ.StrLiteral("PlayCount")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("PlayCount_hr"))
+							return λ.Calm(ϒt, "get", λ.StrLiteral("PlayCount_hr"))
 						}
 					}())
 					ϒtrack = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("Name")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒt, "get", λ.StrLiteral("Name")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("Name_Text_HTML"))
+							return λ.Calm(ϒt, "get", λ.StrLiteral("Name_Text_HTML"))
 						}
 					}()
 					ϒartist = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("Author")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒt, "get", λ.StrLiteral("Author")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("Author_Text_HTML"))
+							return λ.Calm(ϒt, "get", λ.StrLiteral("Author_Text_HTML"))
 						}
 					}()
 					if λ.IsTrue(ϒtrack) {
 						ϒtitle = func() λ.Object {
 							if λ.IsTrue(ϒartist) {
-								return λ.Mod(λ.NewStr("%s - %s"), λ.NewTuple(
+								return λ.Mod(λ.StrLiteral("%s - %s"), λ.NewTuple(
 									ϒartist,
 									ϒtrack,
 								))
@@ -242,37 +242,37 @@ func init() {
 					} else {
 						ϒtitle = ϒaudio_id
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("extractor_key"): λ.Cal(λ.GetAttr(MailRuMusicIE, "ie_key", nil)),
-						λ.NewStr("id"):            ϒaudio_id,
-						λ.NewStr("title"):         ϒtitle,
-						λ.NewStr("thumbnail"):     ϒthumbnail,
-						λ.NewStr("uploader"):      ϒuploader,
-						λ.NewStr("uploader_id"):   ϒuploader_id,
-						λ.NewStr("duration"):      ϒduration,
-						λ.NewStr("view_count"):    ϒview_count,
-						λ.NewStr("vcodec"):        λ.NewStr("none"),
-						λ.NewStr("abr"):           λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("BitRate"))),
-						λ.NewStr("track"):         ϒtrack,
-						λ.NewStr("artist"):        ϒartist,
-						λ.NewStr("album"):         λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("Album")),
-						λ.NewStr("url"):           ϒaudio_url,
+					return λ.DictLiteral(map[string]λ.Object{
+						"extractor_key": λ.Calm(MailRuMusicIE, "ie_key"),
+						"id":            ϒaudio_id,
+						"title":         ϒtitle,
+						"thumbnail":     ϒthumbnail,
+						"uploader":      ϒuploader,
+						"uploader_id":   ϒuploader_id,
+						"duration":      ϒduration,
+						"view_count":    ϒview_count,
+						"vcodec":        λ.StrLiteral("none"),
+						"abr":           λ.Cal(ϒint_or_none, λ.Calm(ϒt, "get", λ.StrLiteral("BitRate"))),
+						"track":         ϒtrack,
+						"artist":        ϒartist,
+						"album":         λ.Calm(ϒt, "get", λ.StrLiteral("Album")),
+						"url":           ϒaudio_url,
 					})
 				})
 			MailRuMusicSearchBaseIE__extract_track = λ.Cal(λ.StaticMethodType, MailRuMusicSearchBaseIE__extract_track)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_extract_track"): MailRuMusicSearchBaseIE__extract_track,
-				λ.NewStr("_search"):        MailRuMusicSearchBaseIE__search,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_extract_track": MailRuMusicSearchBaseIE__extract_track,
+				"_search":        MailRuMusicSearchBaseIE__search,
 			})
 		}())
-		MailRuMusicIE = λ.Cal(λ.TypeType, λ.NewStr("MailRuMusicIE"), λ.NewTuple(MailRuMusicSearchBaseIE), func() λ.Dict {
+		MailRuMusicIE = λ.Cal(λ.TypeType, λ.StrLiteral("MailRuMusicIE"), λ.NewTuple(MailRuMusicSearchBaseIE), func() λ.Dict {
 			var (
 				MailRuMusicIE_IE_NAME       λ.Object
 				MailRuMusicIE__VALID_URL    λ.Object
 				MailRuMusicIE__real_extract λ.Object
 			)
-			MailRuMusicIE_IE_NAME = λ.NewStr("mailru:music")
-			MailRuMusicIE__VALID_URL = λ.NewStr("https?://my\\.mail\\.ru/+music/+songs/+[^/?#&]+-(?P<id>[\\da-f]+)")
+			MailRuMusicIE_IE_NAME = λ.StrLiteral("mailru:music")
+			MailRuMusicIE__VALID_URL = λ.StrLiteral("https?://my\\.mail\\.ru/+music/+songs/+[^/?#&]+-(?P<id>[\\da-f]+)")
 			MailRuMusicIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -290,10 +290,10 @@ func init() {
 						ϒurl        = λargs[1]
 						ϒwebpage    λ.Object
 					)
-					ϒaudio_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒaudio_id)
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
-					ϒmusic_data = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_search", nil), ϒtitle, ϒurl, ϒaudio_id), λ.NewStr("MusicData"))
+					ϒaudio_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒaudio_id)
+					ϒtitle = λ.Calm(ϒself, "_og_search_title", ϒwebpage)
+					ϒmusic_data = λ.GetItem(λ.Calm(ϒself, "_search", ϒtitle, ϒurl, ϒaudio_id), λ.StrLiteral("MusicData"))
 					ϒt = λ.Cal(λ.BuiltinNext, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -310,30 +310,30 @@ func init() {
 										break
 									}
 									ϒt = τmp1
-									if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒt, "get", nil), λ.NewStr("File")), ϒaudio_id)) {
+									if λ.IsTrue(λ.Eq(λ.Calm(ϒt, "get", λ.StrLiteral("File")), ϒaudio_id)) {
 										λgy.Yield(ϒt)
 									}
 								}
 								return λ.None
 							})
 						})))
-					ϒinfo = λ.Cal(λ.GetAttr(ϒself, "_extract_track", nil), ϒt)
-					λ.SetItem(ϒinfo, λ.NewStr("title"), ϒtitle)
+					ϒinfo = λ.Calm(ϒself, "_extract_track", ϒt)
+					λ.SetItem(ϒinfo, λ.StrLiteral("title"), ϒtitle)
 					return ϒinfo
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       MailRuMusicIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    MailRuMusicIE__VALID_URL,
-				λ.NewStr("_real_extract"): MailRuMusicIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       MailRuMusicIE_IE_NAME,
+				"_VALID_URL":    MailRuMusicIE__VALID_URL,
+				"_real_extract": MailRuMusicIE__real_extract,
 			})
 		}())
-		MailRuMusicSearchIE = λ.Cal(λ.TypeType, λ.NewStr("MailRuMusicSearchIE"), λ.NewTuple(MailRuMusicSearchBaseIE), func() λ.Dict {
+		MailRuMusicSearchIE = λ.Cal(λ.TypeType, λ.StrLiteral("MailRuMusicSearchIE"), λ.NewTuple(MailRuMusicSearchBaseIE), func() λ.Dict {
 			var (
 				MailRuMusicSearchIE__VALID_URL λ.Object
 			)
-			MailRuMusicSearchIE__VALID_URL = λ.NewStr("https?://my\\.mail\\.ru/+music/+search/+(?P<id>[^/?#&]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): MailRuMusicSearchIE__VALID_URL,
+			MailRuMusicSearchIE__VALID_URL = λ.StrLiteral("https?://my\\.mail\\.ru/+music/+search/+(?P<id>[^/?#&]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": MailRuMusicSearchIE__VALID_URL,
 			})
 		}())
 	})

@@ -42,12 +42,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒremove_start = Ωutils.ϒremove_start
-		RozhlasIE = λ.Cal(λ.TypeType, λ.NewStr("RozhlasIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		RozhlasIE = λ.Cal(λ.TypeType, λ.StrLiteral("RozhlasIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				RozhlasIE__VALID_URL    λ.Object
 				RozhlasIE__real_extract λ.Object
 			)
-			RozhlasIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?prehravac\\.rozhlas\\.cz/audio/(?P<id>[0-9]+)")
+			RozhlasIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?prehravac\\.rozhlas\\.cz/audio/(?P<id>[0-9]+)")
 			RozhlasIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -64,48 +64,48 @@ func init() {
 						ϒurl         = λargs[1]
 						ϒwebpage     λ.Object
 					)
-					ϒaudio_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), λ.Mod(λ.NewStr("http://prehravac.rozhlas.cz/audio/%s"), ϒaudio_id), ϒaudio_id)
+					ϒaudio_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", λ.Mod(λ.StrLiteral("http://prehravac.rozhlas.cz/audio/%s"), ϒaudio_id), ϒaudio_id)
 					ϒtitle = func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-							λ.NewStr("<h3>(.+?)</h3>\\s*<p[^>]*>.*?</p>\\s*<div[^>]+id=[\"\\']player-track"),
+							λ.StrLiteral("<h3>(.+?)</h3>\\s*<p[^>]*>.*?</p>\\s*<div[^>]+id=[\"\\']player-track"),
 							ϒwebpage,
-							λ.NewStr("title"),
+							λ.StrLiteral("title"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(ϒremove_start, λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage), λ.NewStr("Radio Wave - "))
+							return λ.Cal(ϒremove_start, λ.Calm(ϒself, "_og_search_title", ϒwebpage), λ.StrLiteral("Radio Wave - "))
 						}
 					}()
 					ϒdescription = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<p[^>]+title=([\"\\'])(?P<url>(?:(?!\\1).)+)\\1[^>]*>.*?</p>\\s*<div[^>]+id=[\"\\']player-track"),
+						λ.StrLiteral("<p[^>]+title=([\"\\'])(?P<url>(?:(?!\\1).)+)\\1[^>]*>.*?</p>\\s*<div[^>]+id=[\"\\']player-track"),
 						ϒwebpage,
-						λ.NewStr("description"),
+						λ.StrLiteral("description"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
-						{Name: "group", Value: λ.NewStr("url")},
+						{Name: "group", Value: λ.StrLiteral("url")},
 					})
 					ϒduration = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("data-duration=[\"\\'](\\d+)"),
+						λ.StrLiteral("data-duration=[\"\\'](\\d+)"),
 						ϒwebpage,
-						λ.NewStr("duration"),
+						λ.StrLiteral("duration"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					}))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒaudio_id,
-						λ.NewStr("url"):         λ.Mod(λ.NewStr("http://media.rozhlas.cz/_audio/%s.mp3"), ϒaudio_id),
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("duration"):    ϒduration,
-						λ.NewStr("vcodec"):      λ.NewStr("none"),
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒaudio_id,
+						"url":         λ.Mod(λ.StrLiteral("http://media.rozhlas.cz/_audio/%s.mp3"), ϒaudio_id),
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"duration":    ϒduration,
+						"vcodec":      λ.StrLiteral("none"),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    RozhlasIE__VALID_URL,
-				λ.NewStr("_real_extract"): RozhlasIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    RozhlasIE__VALID_URL,
+				"_real_extract": RozhlasIE__real_extract,
 			})
 		}())
 	})

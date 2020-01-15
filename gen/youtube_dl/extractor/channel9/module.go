@@ -50,13 +50,13 @@ func init() {
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒqualities = Ωutils.ϒqualities
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
-		Channel9IE = λ.Cal(λ.TypeType, λ.NewStr("Channel9IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		Channel9IE = λ.Cal(λ.TypeType, λ.StrLiteral("Channel9IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				Channel9IE__VALID_URL λ.Object
 			)
-			Channel9IE__VALID_URL = λ.NewStr("https?://(?:www\\.)?(?:channel9\\.msdn\\.com|s\\.ch9\\.ms)/(?P<contentpath>.+?)(?P<rss>/RSS)?/?(?:[?#&]|$)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): Channel9IE__VALID_URL,
+			Channel9IE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?:channel9\\.msdn\\.com|s\\.ch9\\.ms)/(?P<contentpath>.+?)(?P<rss>/RSS)?/?(?:[?#&]|$)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": Channel9IE__VALID_URL,
 			})
 		}())
 	})

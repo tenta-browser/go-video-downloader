@@ -135,9 +135,9 @@ var ParseCookieString = rnt.NewSimpleFunction("ParseCookieString",
 	func(args []rnt.Object) rnt.Object {
 		cs := args[0].(rnt.Str).Value()
 		cookies := parseCookieString(cs)
-		res := make(map[rnt.Object]rnt.Object)
+		res := make(map[string]string)
 		for _, cookie := range cookies {
-			res[rnt.NewStr(cookie.Name)] = rnt.NewStr(cookie.Value)
+			res[cookie.Name] = cookie.Value
 		}
-		return rnt.NewDictWithTable(res)
+		return rnt.DictLiteral(res)
 	})

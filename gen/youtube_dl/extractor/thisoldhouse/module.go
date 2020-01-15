@@ -43,12 +43,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒtry_get = Ωutils.ϒtry_get
-		ThisOldHouseIE = λ.Cal(λ.TypeType, λ.NewStr("ThisOldHouseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ThisOldHouseIE = λ.Cal(λ.TypeType, λ.StrLiteral("ThisOldHouseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				ThisOldHouseIE__VALID_URL    λ.Object
 				ThisOldHouseIE__real_extract λ.Object
 			)
-			ThisOldHouseIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?thisoldhouse\\.com/(?:watch|how-to|tv-episode)/(?P<id>[^/?#]+)")
+			ThisOldHouseIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?thisoldhouse\\.com/(?:watch|how-to|tv-episode)/(?P<id>[^/?#]+)")
 			ThisOldHouseIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -64,21 +64,21 @@ func init() {
 						ϒvideo_id        λ.Object
 						ϒwebpage         λ.Object
 					)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
 					ϒvideo_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
 						λ.NewTuple(
-							λ.NewStr("data-mid=([\"\\'])(?P<id>(?:(?!\\1).)+)\\1"),
-							λ.NewStr("id=([\"\\'])inline-video-player-(?P<id>(?:(?!\\1).)+)\\1"),
+							λ.StrLiteral("data-mid=([\"\\'])(?P<id>(?:(?!\\1).)+)\\1"),
+							λ.StrLiteral("id=([\"\\'])inline-video-player-(?P<id>(?:(?!\\1).)+)\\1"),
 						),
 						ϒwebpage,
-						λ.NewStr("video id"),
+						λ.StrLiteral("video id"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
-						{Name: "group", Value: λ.NewStr("id")},
+						{Name: "group", Value: λ.StrLiteral("id")},
 					})
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_id))) {
-						ϒdrupal_settings = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("jQuery\\.extend\\(Drupal\\.settings\\s*,\\s*({.+?})\\);"), ϒwebpage, λ.NewStr("drupal settings")), ϒdisplay_id)
+					if !λ.IsTrue(ϒvideo_id) {
+						ϒdrupal_settings = λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("jQuery\\.extend\\(Drupal\\.settings\\s*,\\s*({.+?})\\);"), ϒwebpage, λ.StrLiteral("drupal settings")), ϒdisplay_id)
 						ϒvideo_id = func() λ.Object {
 							if λv := λ.Cal(ϒtry_get, ϒdrupal_settings, λ.NewFunction("<lambda>",
 								[]λ.Param{
@@ -89,19 +89,19 @@ func init() {
 									var (
 										ϒx = λargs[0]
 									)
-									return λ.GetItem(λ.GetItem(ϒx, λ.NewStr("jwplatform")), λ.NewStr("video_id"))
+									return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("jwplatform")), λ.StrLiteral("video_id"))
 								}), ϒcompat_str); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.GetItem(λ.Cal(λ.ListType, λ.GetItem(ϒdrupal_settings, λ.NewStr("comScore"))), λ.NewInt(0))
+								return λ.GetItem(λ.Cal(λ.ListType, λ.GetItem(ϒdrupal_settings, λ.StrLiteral("comScore"))), λ.IntLiteral(0))
 							}
 						}()
 					}
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Add(λ.NewStr("jwplatform:"), ϒvideo_id), λ.NewStr("JWPlatform"), ϒvideo_id)
+					return λ.Calm(ϒself, "url_result", λ.Add(λ.StrLiteral("jwplatform:"), ϒvideo_id), λ.StrLiteral("JWPlatform"), ϒvideo_id)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    ThisOldHouseIE__VALID_URL,
-				λ.NewStr("_real_extract"): ThisOldHouseIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    ThisOldHouseIE__VALID_URL,
+				"_real_extract": ThisOldHouseIE__real_extract,
 			})
 		}())
 	})

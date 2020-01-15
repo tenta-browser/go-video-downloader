@@ -55,26 +55,26 @@ func init() {
 		ϒget_element_by_class = Ωutils.ϒget_element_by_class
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		ϒurljoin = Ωutils.ϒurljoin
-		TeachableBaseIE = λ.Cal(λ.TypeType, λ.NewStr("TeachableBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TeachableBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("TeachableBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TeachableBaseIE__SITES               λ.Object
 				TeachableBaseIE__URL_PREFIX          λ.Object
 				TeachableBaseIE__VALID_URL_SUB_TUPLE λ.Object
 			)
-			TeachableBaseIE__URL_PREFIX = λ.NewStr("teachable:")
-			TeachableBaseIE__SITES = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("upskillcourses.com"):      λ.NewStr("upskill"),
-				λ.NewStr("academy.gns3.com"):        λ.NewStr("gns3"),
-				λ.NewStr("academyhacker.com"):       λ.NewStr("academyhacker"),
-				λ.NewStr("stackskills.com"):         λ.NewStr("stackskills"),
-				λ.NewStr("market.saleshacker.com"):  λ.NewStr("saleshacker"),
-				λ.NewStr("learnability.org"):        λ.NewStr("learnability"),
-				λ.NewStr("edurila.com"):             λ.NewStr("edurila"),
-				λ.NewStr("courses.workitdaily.com"): λ.NewStr("workitdaily"),
+			TeachableBaseIE__URL_PREFIX = λ.StrLiteral("teachable:")
+			TeachableBaseIE__SITES = λ.DictLiteral(map[string]string{
+				"upskillcourses.com":      "upskill",
+				"academy.gns3.com":        "gns3",
+				"academyhacker.com":       "academyhacker",
+				"stackskills.com":         "stackskills",
+				"market.saleshacker.com":  "saleshacker",
+				"learnability.org":        "learnability",
+				"edurila.com":             "edurila",
+				"courses.workitdaily.com": "workitdaily",
 			})
 			TeachableBaseIE__VALID_URL_SUB_TUPLE = λ.NewTuple(
 				TeachableBaseIE__URL_PREFIX,
-				λ.Cal(λ.GetAttr(λ.NewStr("|"), "join", nil), λ.Cal(λ.NewFunction("<generator>",
+				λ.Calm(λ.StrLiteral("|"), "join", λ.Cal(λ.NewFunction("<generator>",
 					nil,
 					0, false, false,
 					func(λargs []λ.Object) λ.Object {
@@ -84,7 +84,7 @@ func init() {
 								τmp0  λ.Object
 								τmp1  λ.Object
 							)
-							τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(TeachableBaseIE__SITES, "keys", nil)))
+							τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(TeachableBaseIE__SITES, "keys"))
 							for {
 								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 									break
@@ -96,10 +96,10 @@ func init() {
 						})
 					}))),
 			)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_SITES"):               TeachableBaseIE__SITES,
-				λ.NewStr("_URL_PREFIX"):          TeachableBaseIE__URL_PREFIX,
-				λ.NewStr("_VALID_URL_SUB_TUPLE"): TeachableBaseIE__VALID_URL_SUB_TUPLE,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_SITES":               TeachableBaseIE__SITES,
+				"_URL_PREFIX":          TeachableBaseIE__URL_PREFIX,
+				"_VALID_URL_SUB_TUPLE": TeachableBaseIE__VALID_URL_SUB_TUPLE,
 			})
 		}())
 	})

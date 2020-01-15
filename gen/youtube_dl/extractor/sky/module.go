@@ -48,7 +48,7 @@ func init() {
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒurljoin = Ωutils.ϒurljoin
-		SkyBaseIE = λ.Cal(λ.TypeType, λ.NewStr("SkyBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SkyBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("SkyBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SkyBaseIE__real_extract λ.Object
 			)
@@ -70,24 +70,24 @@ func init() {
 						ϒvideo_url           λ.Object
 						ϒwebpage             λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒvideo_data = λ.Cal(ϒextract_attributes, λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("(<div.+?class=\"[^\"]*sdc-article-video__media-ooyala[^\"]*\"[^>]+>)"), ϒwebpage, λ.NewStr("video data")))
-					ϒvideo_url = λ.Mod(λ.NewStr("ooyala:%s"), λ.GetItem(ϒvideo_data, λ.NewStr("data-video-id")))
-					if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("data-token-required")), λ.NewStr("true"))) {
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒvideo_data = λ.Cal(ϒextract_attributes, λ.Calm(ϒself, "_search_regex", λ.StrLiteral("(<div.+?class=\"[^\"]*sdc-article-video__media-ooyala[^\"]*\"[^>]+>)"), ϒwebpage, λ.StrLiteral("video data")))
+					ϒvideo_url = λ.Mod(λ.StrLiteral("ooyala:%s"), λ.GetItem(ϒvideo_data, λ.StrLiteral("data-video-id")))
+					if λ.IsTrue(λ.Eq(λ.Calm(ϒvideo_data, "get", λ.StrLiteral("data-token-required")), λ.StrLiteral("true"))) {
 						ϒtoken_fetch_options = func() λ.Object {
 							if λv := λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
-								λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("data-token-fetch-options"), λ.NewStr("{}")),
+								λ.Calm(ϒvideo_data, "get", λ.StrLiteral("data-token-fetch-options"), λ.StrLiteral("{}")),
 								ϒvideo_id,
 							), λ.KWArgs{
 								{Name: "fatal", Value: λ.False},
 							}); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+								return λ.DictLiteral(map[λ.Object]λ.Object{})
 							}
 						}()
-						ϒtoken_fetch_url = λ.Cal(λ.GetAttr(ϒtoken_fetch_options, "get", nil), λ.NewStr("url"))
+						ϒtoken_fetch_url = λ.Calm(ϒtoken_fetch_options, "get", λ.StrLiteral("url"))
 						if λ.IsTrue(ϒtoken_fetch_url) {
 							ϒembed_token = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
 								λ.Cal(ϒurljoin, ϒurl, ϒtoken_fetch_url),
@@ -96,41 +96,41 @@ func init() {
 								{Name: "fatal", Value: λ.False},
 							})
 							if λ.IsTrue(ϒembed_token) {
-								ϒvideo_url = λ.Cal(ϒsmuggle_url, ϒvideo_url, λ.NewDictWithTable(map[λ.Object]λ.Object{
-									λ.NewStr("embed_token"): λ.Cal(λ.GetAttr(ϒembed_token, "strip", nil), λ.NewStr("\"")),
+								ϒvideo_url = λ.Cal(ϒsmuggle_url, ϒvideo_url, λ.DictLiteral(map[string]λ.Object{
+									"embed_token": λ.Calm(ϒembed_token, "strip", λ.StrLiteral("\"")),
 								}))
 							}
 						}
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):       λ.NewStr("url_transparent"),
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("url"):         ϒvideo_url,
-						λ.NewStr("title"):       λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage),
-						λ.NewStr("description"): λ.Cal(ϒstrip_or_none, λ.Cal(λ.GetAttr(ϒself, "_og_search_description", nil), ϒwebpage)),
-						λ.NewStr("ie_key"):      λ.NewStr("Ooyala"),
+					return λ.DictLiteral(map[string]λ.Object{
+						"_type":       λ.StrLiteral("url_transparent"),
+						"id":          ϒvideo_id,
+						"url":         ϒvideo_url,
+						"title":       λ.Calm(ϒself, "_og_search_title", ϒwebpage),
+						"description": λ.Cal(ϒstrip_or_none, λ.Calm(ϒself, "_og_search_description", ϒwebpage)),
+						"ie_key":      λ.StrLiteral("Ooyala"),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_real_extract"): SkyBaseIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_real_extract": SkyBaseIE__real_extract,
 			})
 		}())
-		SkySportsIE = λ.Cal(λ.TypeType, λ.NewStr("SkySportsIE"), λ.NewTuple(SkyBaseIE), func() λ.Dict {
+		SkySportsIE = λ.Cal(λ.TypeType, λ.StrLiteral("SkySportsIE"), λ.NewTuple(SkyBaseIE), func() λ.Dict {
 			var (
 				SkySportsIE__VALID_URL λ.Object
 			)
-			SkySportsIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?skysports\\.com/watch/video/(?P<id>[0-9]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SkySportsIE__VALID_URL,
+			SkySportsIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?skysports\\.com/watch/video/(?P<id>[0-9]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SkySportsIE__VALID_URL,
 			})
 		}())
-		SkyNewsIE = λ.Cal(λ.TypeType, λ.NewStr("SkyNewsIE"), λ.NewTuple(SkyBaseIE), func() λ.Dict {
+		SkyNewsIE = λ.Cal(λ.TypeType, λ.StrLiteral("SkyNewsIE"), λ.NewTuple(SkyBaseIE), func() λ.Dict {
 			var (
 				SkyNewsIE__VALID_URL λ.Object
 			)
-			SkyNewsIE__VALID_URL = λ.NewStr("https?://news\\.sky\\.com/video/[0-9a-z-]+-(?P<id>[0-9]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SkyNewsIE__VALID_URL,
+			SkyNewsIE__VALID_URL = λ.StrLiteral("https?://news\\.sky\\.com/video/[0-9a-z-]+-(?P<id>[0-9]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SkyNewsIE__VALID_URL,
 			})
 		}())
 	})

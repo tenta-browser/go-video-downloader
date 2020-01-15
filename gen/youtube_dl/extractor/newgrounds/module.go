@@ -49,12 +49,12 @@ func init() {
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒparse_filesize = Ωutils.ϒparse_filesize
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
-		NewgroundsIE = λ.Cal(λ.TypeType, λ.NewStr("NewgroundsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		NewgroundsIE = λ.Cal(λ.TypeType, λ.StrLiteral("NewgroundsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				NewgroundsIE__VALID_URL    λ.Object
 				NewgroundsIE__real_extract λ.Object
 			)
-			NewgroundsIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?newgrounds\\.com/(?:audio/listen|portal/view)/(?P<id>[0-9]+)")
+			NewgroundsIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?newgrounds\\.com/(?:audio/listen|portal/view)/(?P<id>[0-9]+)")
 			NewgroundsIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -80,28 +80,28 @@ func init() {
 						τmp0             λ.Object
 						τmp1             λ.Object
 					)
-					ϒmedia_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒmedia_id)
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<title>([^>]+)</title>"), ϒwebpage, λ.NewStr("title"))
-					ϒmedia_url = λ.Cal(λ.GetAttr(ϒself, "_parse_json", nil), λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("\"url\"\\s*:\\s*(\"[^\"]+\"),"), ϒwebpage, λ.NewStr("")), ϒmedia_id)
-					ϒformats = λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("url"):       ϒmedia_url,
-						λ.NewStr("format_id"): λ.NewStr("source"),
-						λ.NewStr("quality"):   λ.NewInt(1),
+					ϒmedia_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒmedia_id)
+					ϒtitle = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("<title>([^>]+)</title>"), ϒwebpage, λ.StrLiteral("title"))
+					ϒmedia_url = λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("\"url\"\\s*:\\s*(\"[^\"]+\"),"), ϒwebpage, λ.StrLiteral("")), ϒmedia_id)
+					ϒformats = λ.NewList(λ.DictLiteral(map[string]λ.Object{
+						"url":       ϒmedia_url,
+						"format_id": λ.StrLiteral("source"),
+						"quality":   λ.IntLiteral(1),
 					}))
 					ϒmax_resolution = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("max_resolution[\"\\']\\s*:\\s*(\\d+)"),
+						λ.StrLiteral("max_resolution[\"\\']\\s*:\\s*(\\d+)"),
 						ϒwebpage,
-						λ.NewStr("max resolution"),
+						λ.StrLiteral("max resolution"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					}))
 					if λ.IsTrue(ϒmax_resolution) {
-						ϒurl_base = λ.GetItem(λ.Cal(λ.GetAttr(ϒmedia_url, "rpartition", nil), λ.NewStr(".")), λ.NewInt(0))
+						ϒurl_base = λ.GetItem(λ.Calm(ϒmedia_url, "rpartition", λ.StrLiteral(".")), λ.IntLiteral(0))
 						τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-							λ.NewInt(360),
-							λ.NewInt(720),
-							λ.NewInt(1080),
+							λ.IntLiteral(360),
+							λ.IntLiteral(720),
+							λ.IntLiteral(1080),
 						))
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
@@ -111,79 +111,79 @@ func init() {
 							if λ.IsTrue(λ.Gt(ϒresolution, ϒmax_resolution)) {
 								break
 							}
-							λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-								λ.NewStr("url"): λ.Mod(λ.NewStr("%s.%dp.mp4"), λ.NewTuple(
+							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+								"url": λ.Mod(λ.StrLiteral("%s.%dp.mp4"), λ.NewTuple(
 									ϒurl_base,
 									ϒresolution,
 								)),
-								λ.NewStr("format_id"): λ.Mod(λ.NewStr("%dp"), ϒresolution),
-								λ.NewStr("height"):    ϒresolution,
+								"format_id": λ.Mod(λ.StrLiteral("%dp"), ϒresolution),
+								"height":    ϒresolution,
 							}))
 						}
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_check_formats", nil), ϒformats, ϒmedia_id)
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_check_formats", ϒformats, ϒmedia_id)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒuploader = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 						λ.NewTuple(
-							λ.NewStr("(?s)<h4[^>]*>(.+?)</h4>.*?<em>\\s*Author\\s*</em>"),
-							λ.NewStr("(?:Author|Writer)\\s*<a[^>]+>([^<]+)"),
+							λ.StrLiteral("(?s)<h4[^>]*>(.+?)</h4>.*?<em>\\s*Author\\s*</em>"),
+							λ.StrLiteral("(?:Author|Writer)\\s*<a[^>]+>([^<]+)"),
 						),
 						ϒwebpage,
-						λ.NewStr("uploader"),
+						λ.StrLiteral("uploader"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
 					ϒtimestamp = λ.Cal(ϒunified_timestamp, λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 						λ.NewTuple(
-							λ.NewStr("<dt>\\s*Uploaded\\s*</dt>\\s*<dd>([^<]+</dd>\\s*<dd>[^<]+)"),
-							λ.NewStr("<dt>\\s*Uploaded\\s*</dt>\\s*<dd>([^<]+)"),
+							λ.StrLiteral("<dt>\\s*Uploaded\\s*</dt>\\s*<dd>([^<]+</dd>\\s*<dd>[^<]+)"),
+							λ.StrLiteral("<dt>\\s*Uploaded\\s*</dt>\\s*<dd>([^<]+)"),
 						),
 						ϒwebpage,
-						λ.NewStr("timestamp"),
+						λ.StrLiteral("timestamp"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					}))
 					ϒduration = λ.Cal(ϒparse_duration, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("(?s)<dd>\\s*Song\\s*</dd>\\s*<dd>.+?</dd>\\s*<dd>([^<]+)"),
+						λ.StrLiteral("(?s)<dd>\\s*Song\\s*</dd>\\s*<dd>.+?</dd>\\s*<dd>([^<]+)"),
 						ϒwebpage,
-						λ.NewStr("duration"),
+						λ.StrLiteral("duration"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					}))
 					ϒfilesize_approx = λ.Cal(ϒparse_filesize, λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("(?s)<dd>\\s*Song\\s*</dd>\\s*<dd>(.+?)</dd>"),
+						λ.StrLiteral("(?s)<dd>\\s*Song\\s*</dd>\\s*<dd>(.+?)</dd>"),
 						ϒwebpage,
-						λ.NewStr("filesize"),
+						λ.StrLiteral("filesize"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					}))
-					if λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒformats), λ.NewInt(1))) {
-						λ.SetItem(λ.GetItem(ϒformats, λ.NewInt(0)), λ.NewStr("filesize_approx"), ϒfilesize_approx)
+					if λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒformats), λ.IntLiteral(1))) {
+						λ.SetItem(λ.GetItem(ϒformats, λ.IntLiteral(0)), λ.StrLiteral("filesize_approx"), ϒfilesize_approx)
 					}
-					if λ.IsTrue(λ.NewBool(λ.Contains(ϒwebpage, λ.NewStr("<dd>Song")))) {
-						λ.SetItem(λ.GetItem(ϒformats, λ.NewInt(0)), λ.NewStr("vcodec"), λ.NewStr("none"))
+					if λ.Contains(ϒwebpage, λ.StrLiteral("<dd>Song")) {
+						λ.SetItem(λ.GetItem(ϒformats, λ.IntLiteral(0)), λ.StrLiteral("vcodec"), λ.StrLiteral("none"))
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒmedia_id,
-						λ.NewStr("title"):     ϒtitle,
-						λ.NewStr("uploader"):  ϒuploader,
-						λ.NewStr("timestamp"): ϒtimestamp,
-						λ.NewStr("duration"):  ϒduration,
-						λ.NewStr("formats"):   ϒformats,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒmedia_id,
+						"title":     ϒtitle,
+						"uploader":  ϒuploader,
+						"timestamp": ϒtimestamp,
+						"duration":  ϒduration,
+						"formats":   ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    NewgroundsIE__VALID_URL,
-				λ.NewStr("_real_extract"): NewgroundsIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    NewgroundsIE__VALID_URL,
+				"_real_extract": NewgroundsIE__real_extract,
 			})
 		}())
-		NewgroundsPlaylistIE = λ.Cal(λ.TypeType, λ.NewStr("NewgroundsPlaylistIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		NewgroundsPlaylistIE = λ.Cal(λ.TypeType, λ.StrLiteral("NewgroundsPlaylistIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				NewgroundsPlaylistIE__VALID_URL λ.Object
 			)
-			NewgroundsPlaylistIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?newgrounds\\.com/(?:collection|[^/]+/search/[^/]+)/(?P<id>[^/?#&]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): NewgroundsPlaylistIE__VALID_URL,
+			NewgroundsPlaylistIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?newgrounds\\.com/(?:collection|[^/]+/search/[^/]+)/(?P<id>[^/?#&]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": NewgroundsPlaylistIE__VALID_URL,
 			})
 		}())
 	})

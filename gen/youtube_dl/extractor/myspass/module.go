@@ -48,12 +48,12 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒxpath_text = Ωutils.ϒxpath_text
-		MySpassIE = λ.Cal(λ.TypeType, λ.NewStr("MySpassIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		MySpassIE = λ.Cal(λ.TypeType, λ.StrLiteral("MySpassIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				MySpassIE__VALID_URL    λ.Object
 				MySpassIE__real_extract λ.Object
 			)
-			MySpassIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?myspass\\.de/([^/]+/)*(?P<id>\\d+)")
+			MySpassIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?myspass\\.de/([^/]+/)*(?P<id>\\d+)")
 			MySpassIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -74,17 +74,17 @@ func init() {
 						τmp0          λ.Object
 						τmp1          λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒmetadata = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), λ.Add(λ.NewStr("http://www.myspass.de/myspass/includes/apps/video/getvideometadataxml.php?id="), ϒvideo_id), ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒmetadata = λ.Calm(ϒself, "_download_xml", λ.Add(λ.StrLiteral("http://www.myspass.de/myspass/includes/apps/video/getvideometadataxml.php?id="), ϒvideo_id), ϒvideo_id)
 					ϒtitle = λ.Call(ϒxpath_text, λ.NewArgs(
 						ϒmetadata,
-						λ.NewStr("title"),
+						λ.StrLiteral("title"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.True},
 					})
-					ϒvideo_url = λ.Cal(ϒxpath_text, ϒmetadata, λ.NewStr("url_flv"), λ.NewStr("download url"), λ.True)
+					ϒvideo_url = λ.Cal(ϒxpath_text, ϒmetadata, λ.StrLiteral("url_flv"), λ.StrLiteral("download url"), λ.True)
 					ϒvideo_id_int = λ.Cal(λ.IntType, ϒvideo_id)
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒsearch, λ.NewStr("/myspass2009/\\d+/(\\d+)/(\\d+)/(\\d+)/"), ϒvideo_url), "groups", nil)))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.Cal(Ωre.ϒsearch, λ.StrLiteral("/myspass2009/\\d+/(\\d+)/(\\d+)/(\\d+)/"), ϒvideo_url), "groups"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
@@ -92,26 +92,26 @@ func init() {
 						ϒgroup = τmp1
 						ϒgroup_int = λ.Cal(λ.IntType, ϒgroup)
 						if λ.IsTrue(λ.Gt(ϒgroup_int, ϒvideo_id_int)) {
-							ϒvideo_url = λ.Cal(λ.GetAttr(ϒvideo_url, "replace", nil), ϒgroup, λ.Cal(ϒcompat_str, λ.FloorDiv(ϒgroup_int, ϒvideo_id_int)))
+							ϒvideo_url = λ.Calm(ϒvideo_url, "replace", ϒgroup, λ.Cal(ϒcompat_str, λ.FloorDiv(ϒgroup_int, ϒvideo_id_int)))
 						}
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):             ϒvideo_id,
-						λ.NewStr("url"):            ϒvideo_url,
-						λ.NewStr("title"):          ϒtitle,
-						λ.NewStr("thumbnail"):      λ.Cal(ϒxpath_text, ϒmetadata, λ.NewStr("imagePreview")),
-						λ.NewStr("description"):    λ.Cal(ϒxpath_text, ϒmetadata, λ.NewStr("description")),
-						λ.NewStr("duration"):       λ.Cal(ϒparse_duration, λ.Cal(ϒxpath_text, ϒmetadata, λ.NewStr("duration"))),
-						λ.NewStr("series"):         λ.Cal(ϒxpath_text, ϒmetadata, λ.NewStr("format")),
-						λ.NewStr("season_number"):  λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒmetadata, λ.NewStr("season"))),
-						λ.NewStr("season_id"):      λ.Cal(ϒxpath_text, ϒmetadata, λ.NewStr("season_id")),
-						λ.NewStr("episode"):        ϒtitle,
-						λ.NewStr("episode_number"): λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒmetadata, λ.NewStr("episode"))),
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":             ϒvideo_id,
+						"url":            ϒvideo_url,
+						"title":          ϒtitle,
+						"thumbnail":      λ.Cal(ϒxpath_text, ϒmetadata, λ.StrLiteral("imagePreview")),
+						"description":    λ.Cal(ϒxpath_text, ϒmetadata, λ.StrLiteral("description")),
+						"duration":       λ.Cal(ϒparse_duration, λ.Cal(ϒxpath_text, ϒmetadata, λ.StrLiteral("duration"))),
+						"series":         λ.Cal(ϒxpath_text, ϒmetadata, λ.StrLiteral("format")),
+						"season_number":  λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒmetadata, λ.StrLiteral("season"))),
+						"season_id":      λ.Cal(ϒxpath_text, ϒmetadata, λ.StrLiteral("season_id")),
+						"episode":        ϒtitle,
+						"episode_number": λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒmetadata, λ.StrLiteral("episode"))),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    MySpassIE__VALID_URL,
-				λ.NewStr("_real_extract"): MySpassIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    MySpassIE__VALID_URL,
+				"_real_extract": MySpassIE__real_extract,
 			})
 		}())
 	})

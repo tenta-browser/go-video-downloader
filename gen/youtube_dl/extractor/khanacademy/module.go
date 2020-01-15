@@ -41,14 +41,14 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒunified_strdate = Ωutils.ϒunified_strdate
-		KhanAcademyIE = λ.Cal(λ.TypeType, λ.NewStr("KhanAcademyIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		KhanAcademyIE = λ.Cal(λ.TypeType, λ.StrLiteral("KhanAcademyIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				KhanAcademyIE_IE_NAME       λ.Object
 				KhanAcademyIE__VALID_URL    λ.Object
 				KhanAcademyIE__real_extract λ.Object
 			)
-			KhanAcademyIE__VALID_URL = λ.NewStr("^https?://(?:(?:www|api)\\.)?khanacademy\\.org/(?P<key>[^/]+)/(?:[^/]+/){,2}(?P<id>[^?#/]+)(?:$|[?#])")
-			KhanAcademyIE_IE_NAME = λ.NewStr("KhanAcademy")
+			KhanAcademyIE__VALID_URL = λ.StrLiteral("^https?://(?:(?:www|api)\\.)?khanacademy\\.org/(?P<key>[^/]+)/(?:[^/]+/){,2}(?P<id>[^?#/]+)(?:$|[?#])")
+			KhanAcademyIE_IE_NAME = λ.StrLiteral("KhanAcademy")
 			KhanAcademyIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -67,24 +67,24 @@ func init() {
 						ϒvideo_id    λ.Object
 					)
 					ϒm = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("id"))
-					if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("key")), λ.NewStr("video"))) {
-						ϒdata = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Add(λ.NewStr("http://api.khanacademy.org/api/v1/videos/"), ϒvideo_id), ϒvideo_id, λ.NewStr("Downloading video info"))
-						ϒupload_date = λ.Cal(ϒunified_strdate, λ.GetItem(ϒdata, λ.NewStr("date_added")))
-						ϒuploader = λ.Cal(λ.GetAttr(λ.NewStr(", "), "join", nil), λ.GetItem(ϒdata, λ.NewStr("author_names")))
-						return λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("_type"):       λ.NewStr("url_transparent"),
-							λ.NewStr("url"):         λ.GetItem(ϒdata, λ.NewStr("url")),
-							λ.NewStr("id"):          ϒvideo_id,
-							λ.NewStr("title"):       λ.GetItem(ϒdata, λ.NewStr("title")),
-							λ.NewStr("thumbnail"):   λ.GetItem(ϒdata, λ.NewStr("image_url")),
-							λ.NewStr("duration"):    λ.GetItem(ϒdata, λ.NewStr("duration")),
-							λ.NewStr("description"): λ.GetItem(ϒdata, λ.NewStr("description")),
-							λ.NewStr("uploader"):    ϒuploader,
-							λ.NewStr("upload_date"): ϒupload_date,
+					ϒvideo_id = λ.Calm(ϒm, "group", λ.StrLiteral("id"))
+					if λ.IsTrue(λ.Eq(λ.Calm(ϒm, "group", λ.StrLiteral("key")), λ.StrLiteral("video"))) {
+						ϒdata = λ.Calm(ϒself, "_download_json", λ.Add(λ.StrLiteral("http://api.khanacademy.org/api/v1/videos/"), ϒvideo_id), ϒvideo_id, λ.StrLiteral("Downloading video info"))
+						ϒupload_date = λ.Cal(ϒunified_strdate, λ.GetItem(ϒdata, λ.StrLiteral("date_added")))
+						ϒuploader = λ.Calm(λ.StrLiteral(", "), "join", λ.GetItem(ϒdata, λ.StrLiteral("author_names")))
+						return λ.DictLiteral(map[string]λ.Object{
+							"_type":       λ.StrLiteral("url_transparent"),
+							"url":         λ.GetItem(ϒdata, λ.StrLiteral("url")),
+							"id":          ϒvideo_id,
+							"title":       λ.GetItem(ϒdata, λ.StrLiteral("title")),
+							"thumbnail":   λ.GetItem(ϒdata, λ.StrLiteral("image_url")),
+							"duration":    λ.GetItem(ϒdata, λ.StrLiteral("duration")),
+							"description": λ.GetItem(ϒdata, λ.StrLiteral("description")),
+							"uploader":    ϒuploader,
+							"upload_date": ϒupload_date,
 						})
 					} else {
-						ϒdata = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Add(λ.NewStr("http://api.khanacademy.org/api/v1/topic/"), ϒvideo_id), ϒvideo_id, λ.NewStr("Downloading topic info"))
+						ϒdata = λ.Calm(ϒself, "_download_json", λ.Add(λ.StrLiteral("http://api.khanacademy.org/api/v1/topic/"), ϒvideo_id), ϒvideo_id, λ.StrLiteral("Downloading topic info"))
 						ϒentries = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 							nil,
 							0, false, false,
@@ -95,41 +95,41 @@ func init() {
 										τmp0 λ.Object
 										τmp1 λ.Object
 									)
-									τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒdata, λ.NewStr("children")))
+									τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒdata, λ.StrLiteral("children")))
 									for {
 										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 											break
 										}
 										ϒc = τmp1
-										if λ.IsTrue(λ.NewBool(λ.Contains(λ.NewTuple(
-											λ.NewStr("Video"),
-											λ.NewStr("Topic"),
-										), λ.GetItem(ϒc, λ.NewStr("kind"))))) {
-											λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-												λ.NewStr("_type"): λ.NewStr("url"),
-												λ.NewStr("url"):   λ.GetItem(ϒc, λ.NewStr("url")),
-												λ.NewStr("id"):    λ.GetItem(ϒc, λ.NewStr("id")),
-												λ.NewStr("title"): λ.GetItem(ϒc, λ.NewStr("title")),
+										if λ.Contains(λ.NewTuple(
+											λ.StrLiteral("Video"),
+											λ.StrLiteral("Topic"),
+										), λ.GetItem(ϒc, λ.StrLiteral("kind"))) {
+											λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+												"_type": λ.StrLiteral("url"),
+												"url":   λ.GetItem(ϒc, λ.StrLiteral("url")),
+												"id":    λ.GetItem(ϒc, λ.StrLiteral("id")),
+												"title": λ.GetItem(ϒc, λ.StrLiteral("title")),
 											}))
 										}
 									}
 									return λ.None
 								})
 							})))
-						return λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("_type"):       λ.NewStr("playlist"),
-							λ.NewStr("id"):          ϒvideo_id,
-							λ.NewStr("title"):       λ.GetItem(ϒdata, λ.NewStr("title")),
-							λ.NewStr("description"): λ.GetItem(ϒdata, λ.NewStr("description")),
-							λ.NewStr("entries"):     ϒentries,
+						return λ.DictLiteral(map[string]λ.Object{
+							"_type":       λ.StrLiteral("playlist"),
+							"id":          ϒvideo_id,
+							"title":       λ.GetItem(ϒdata, λ.StrLiteral("title")),
+							"description": λ.GetItem(ϒdata, λ.StrLiteral("description")),
+							"entries":     ϒentries,
 						})
 					}
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       KhanAcademyIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    KhanAcademyIE__VALID_URL,
-				λ.NewStr("_real_extract"): KhanAcademyIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       KhanAcademyIE_IE_NAME,
+				"_VALID_URL":    KhanAcademyIE__VALID_URL,
+				"_real_extract": KhanAcademyIE__real_extract,
 			})
 		}())
 	})

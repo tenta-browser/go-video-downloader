@@ -59,7 +59,7 @@ func init() {
 		τmp0 = Ωre.FlagVerbose
 		VERBOSE = τmp0
 
-		Match = λ.Cal(λ.TypeType, λ.NewStr("Match"), λ.NewTuple(), func() λ.Dict {
+		Match = λ.Cal(λ.TypeType, λ.StrLiteral("Match"), λ.NewTuple(), func() λ.Dict {
 			var (
 				Match___init__  λ.Object
 				Match_group     λ.Object
@@ -100,11 +100,11 @@ func init() {
 						τmp1    λ.Object
 					)
 					ϒl = λ.Cal(λ.BuiltinLen, ϒgroups)
-					if λ.IsTrue(λ.Eq(ϒl, λ.NewInt(0))) {
-						return λ.Cal(Ωre.Group, λ.GetAttr(ϒself, "m", nil), λ.GetAttr(ϒself, "st", nil), λ.NewInt(0), λ.None)
+					if λ.IsTrue(λ.Eq(ϒl, λ.IntLiteral(0))) {
+						return λ.Cal(Ωre.Group, λ.GetAttr(ϒself, "m", nil), λ.GetAttr(ϒself, "st", nil), λ.IntLiteral(0), λ.None)
 					} else {
-						if λ.IsTrue(λ.Eq(ϒl, λ.NewInt(1))) {
-							return λ.Cal(Ωre.Group, λ.GetAttr(ϒself, "m", nil), λ.GetAttr(ϒself, "st", nil), λ.GetItem(ϒgroups, λ.NewInt(0)), λ.None)
+						if λ.IsTrue(λ.Eq(ϒl, λ.IntLiteral(1))) {
+							return λ.Cal(Ωre.Group, λ.GetAttr(ϒself, "m", nil), λ.GetAttr(ϒself, "st", nil), λ.GetItem(ϒgroups, λ.IntLiteral(0)), λ.None)
 						} else {
 							ϒvals = λ.NewList()
 							τmp0 = λ.Cal(λ.BuiltinIter, ϒgroups)
@@ -113,7 +113,7 @@ func init() {
 									break
 								}
 								ϒgroup = τmp1
-								λ.Cal(λ.GetAttr(ϒvals, "append", nil), λ.Cal(Ωre.Group, λ.GetAttr(ϒself, "m", nil), λ.GetAttr(ϒself, "st", nil), ϒgroup, λ.None))
+								λ.Calm(ϒvals, "append", λ.Cal(Ωre.Group, λ.GetAttr(ϒself, "m", nil), λ.GetAttr(ϒself, "st", nil), ϒgroup, λ.None))
 							}
 							return λ.Cal(λ.TupleType, ϒvals)
 						}
@@ -137,10 +137,10 @@ func init() {
 					)
 					ϒvals = λ.NewList()
 					ϒcnt = λ.Cal(Ωre.Groups, λ.GetAttr(ϒself, "m", nil))
-					ϒi = λ.NewInt(1)
+					ϒi = λ.IntLiteral(1)
 					for λ.IsTrue(λ.Le(ϒi, ϒcnt)) {
-						λ.Cal(λ.GetAttr(ϒvals, "append", nil), λ.Cal(Ωre.Group, λ.GetAttr(ϒself, "m", nil), λ.GetAttr(ϒself, "st", nil), ϒi, ϒdefault))
-						τmp0 = λ.IAdd(ϒi, λ.NewInt(1))
+						λ.Calm(ϒvals, "append", λ.Cal(Ωre.Group, λ.GetAttr(ϒself, "m", nil), λ.GetAttr(ϒself, "st", nil), ϒi, ϒdefault))
+						τmp0 = λ.IAdd(ϒi, λ.IntLiteral(1))
 						ϒi = τmp0
 					}
 					return λ.Cal(λ.TupleType, ϒvals)
@@ -160,7 +160,7 @@ func init() {
 						τmp0     λ.Object
 						τmp1     λ.Object
 					)
-					ϒd = λ.NewDictWithTable(map[λ.Object]λ.Object{})
+					ϒd = λ.DictLiteral(map[λ.Object]λ.Object{})
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.GroupNames, λ.GetAttr(λ.GetAttr(ϒself, "pattern", nil), "r", nil)))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
@@ -171,14 +171,14 @@ func init() {
 					}
 					return ϒd
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"):  Match___init__,
-				λ.NewStr("group"):     Match_group,
-				λ.NewStr("groupdict"): Match_groupdict,
-				λ.NewStr("groups"):    Match_groups,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__":  Match___init__,
+				"group":     Match_group,
+				"groupdict": Match_groupdict,
+				"groups":    Match_groups,
 			})
 		}())
-		MatchIterator = λ.Cal(λ.TypeType, λ.NewStr("MatchIterator"), λ.NewTuple(), func() λ.Dict {
+		MatchIterator = λ.Cal(λ.TypeType, λ.StrLiteral("MatchIterator"), λ.NewTuple(), func() λ.Dict {
 			var (
 				MatchIterator___init__ λ.Object
 				MatchIterator___iter__ λ.Object
@@ -222,26 +222,26 @@ func init() {
 					var (
 						ϒself = λargs[0]
 					)
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.GetAttr(ϒself, "m", nil)))) {
+					if !λ.IsTrue(λ.GetAttr(ϒself, "m", nil)) {
 						panic(λ.Raise(λ.StopIterationType))
 					}
 					if λ.IsTrue(λ.GetAttr(ϒself, "first", nil)) {
 						λ.SetAttr(ϒself, "first", λ.False)
 					} else {
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(Ωre.Next, λ.GetAttr(ϒself, "m", nil))))) {
+						if !λ.IsTrue(λ.Cal(Ωre.Next, λ.GetAttr(ϒself, "m", nil))) {
 							λ.SetAttr(ϒself, "m", λ.None)
 							panic(λ.Raise(λ.StopIterationType))
 						}
 					}
 					return λ.Cal(Match, λ.GetAttr(ϒself, "pattern", nil), λ.GetAttr(ϒself, "m", nil))
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"): MatchIterator___init__,
-				λ.NewStr("__iter__"): MatchIterator___iter__,
-				λ.NewStr("__next__"): MatchIterator___next__,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__": MatchIterator___init__,
+				"__iter__": MatchIterator___iter__,
+				"__next__": MatchIterator___next__,
 			})
 		}())
-		Pattern = λ.Cal(λ.TypeType, λ.NewStr("Pattern"), λ.NewTuple(), func() λ.Dict {
+		Pattern = λ.Cal(λ.TypeType, λ.StrLiteral("Pattern"), λ.NewTuple(), func() λ.Dict {
 			var (
 				Pattern___init__ λ.Object
 				Pattern__search  λ.Object
@@ -280,7 +280,7 @@ func init() {
 						ϒself   = λargs[0]
 						ϒstring = λargs[1]
 					)
-					return λ.Cal(λ.GetAttr(ϒself, "_search", nil), ϒstring, λ.False)
+					return λ.Calm(ϒself, "_search", ϒstring, λ.False)
 				})
 			Pattern_match = λ.NewFunction("match",
 				[]λ.Param{
@@ -293,7 +293,7 @@ func init() {
 						ϒself   = λargs[0]
 						ϒstring = λargs[1]
 					)
-					return λ.Cal(λ.GetAttr(ϒself, "_search", nil), ϒstring, λ.True)
+					return λ.Calm(ϒself, "_search", ϒstring, λ.True)
 				})
 			Pattern__search = λ.NewFunction("_search",
 				[]λ.Param{
@@ -310,7 +310,7 @@ func init() {
 						ϒstring       = λargs[1]
 					)
 					ϒm = λ.Cal(Ωre.Search, λ.GetAttr(ϒself, "p", nil), ϒstring, ϒanchor_start)
-					if λ.IsTrue(λ.NewBool(ϒm == λ.None)) {
+					if ϒm == λ.None {
 						return λ.None
 					}
 					return λ.Cal(Match, ϒself, ϒm)
@@ -338,24 +338,24 @@ func init() {
 					if λ.IsTrue(ϒm) {
 						ϒgcnt = λ.Cal(Ωre.Groups, ϒm)
 						for λ.IsTrue(λ.True) {
-							if λ.IsTrue(λ.Eq(ϒgcnt, λ.NewInt(0))) {
-								ϒval = λ.Cal(Ωre.Group, ϒm, λ.GetAttr(ϒself, "st", nil), λ.NewInt(0), λ.NewStr(""))
+							if λ.IsTrue(λ.Eq(ϒgcnt, λ.IntLiteral(0))) {
+								ϒval = λ.Cal(Ωre.Group, ϒm, λ.GetAttr(ϒself, "st", nil), λ.IntLiteral(0), λ.StrLiteral(""))
 							} else {
-								if λ.IsTrue(λ.Eq(ϒgcnt, λ.NewInt(1))) {
-									ϒval = λ.Cal(Ωre.Group, ϒm, λ.GetAttr(ϒself, "st", nil), λ.NewInt(1), λ.NewStr(""))
+								if λ.IsTrue(λ.Eq(ϒgcnt, λ.IntLiteral(1))) {
+									ϒval = λ.Cal(Ωre.Group, ϒm, λ.GetAttr(ϒself, "st", nil), λ.IntLiteral(1), λ.StrLiteral(""))
 								} else {
 									ϒgvals = λ.NewList()
-									ϒi = λ.NewInt(1)
+									ϒi = λ.IntLiteral(1)
 									for λ.IsTrue(λ.Le(ϒi, ϒgcnt)) {
-										λ.Cal(λ.GetAttr(ϒgvals, "append", nil), λ.Cal(Ωre.Group, ϒm, λ.GetAttr(ϒself, "st", nil), ϒi, λ.NewStr("")))
-										τmp0 = λ.IAdd(ϒi, λ.NewInt(1))
+										λ.Calm(ϒgvals, "append", λ.Cal(Ωre.Group, ϒm, λ.GetAttr(ϒself, "st", nil), ϒi, λ.StrLiteral("")))
+										τmp0 = λ.IAdd(ϒi, λ.IntLiteral(1))
 										ϒi = τmp0
 									}
 									ϒval = λ.Cal(λ.TupleType, ϒgvals)
 								}
 							}
-							λ.Cal(λ.GetAttr(ϒvals, "append", nil), ϒval)
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(Ωre.Next, ϒm)))) {
+							λ.Calm(ϒvals, "append", ϒval)
+							if !λ.IsTrue(λ.Cal(Ωre.Next, ϒm)) {
 								break
 							}
 						}
@@ -382,7 +382,7 @@ func init() {
 					{Name: "self"},
 					{Name: "repl"},
 					{Name: "string"},
-					{Name: "count", Def: λ.NewInt(0)},
+					{Name: "count", Def: λ.IntLiteral(0)},
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
@@ -393,7 +393,7 @@ func init() {
 						ϒstring = λargs[2]
 					)
 					if λ.IsTrue(ϒcount) {
-						panic(λ.Raise(λ.Cal(λ.NotImplementedErrorType, λ.NewStr("Non-zero count in re.sub"))))
+						panic(λ.Raise(λ.Cal(λ.NotImplementedErrorType, λ.StrLiteral("Non-zero count in re.sub"))))
 					}
 					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒrepl, λ.StrType)) {
 						return λ.Cal(Ωre.Replace, λ.GetAttr(ϒself, "p", nil), ϒrepl, ϒstring)
@@ -412,20 +412,20 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"): Pattern___init__,
-				λ.NewStr("_search"):  Pattern__search,
-				λ.NewStr("findall"):  Pattern_findall,
-				λ.NewStr("finditer"): Pattern_finditer,
-				λ.NewStr("match"):    Pattern_match,
-				λ.NewStr("search"):   Pattern_search,
-				λ.NewStr("sub"):      Pattern_sub,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__": Pattern___init__,
+				"_search":  Pattern__search,
+				"findall":  Pattern_findall,
+				"finditer": Pattern_finditer,
+				"match":    Pattern_match,
+				"search":   Pattern_search,
+				"sub":      Pattern_sub,
 			})
 		}())
 		ϒcompile = λ.NewFunction("compile",
 			[]λ.Param{
 				{Name: "pattern"},
-				{Name: "flags", Def: λ.NewInt(0)},
+				{Name: "flags", Def: λ.IntLiteral(0)},
 			},
 			0, false, false,
 			func(λargs []λ.Object) λ.Object {
@@ -442,7 +442,7 @@ func init() {
 			[]λ.Param{
 				{Name: "pattern"},
 				{Name: "string"},
-				{Name: "flags", Def: λ.NewInt(0)},
+				{Name: "flags", Def: λ.IntLiteral(0)},
 			},
 			0, false, false,
 			func(λargs []λ.Object) λ.Object {
@@ -451,13 +451,13 @@ func init() {
 					ϒpattern = λargs[0]
 					ϒstring  = λargs[1]
 				)
-				return λ.Cal(λ.GetAttr(λ.Cal(ϒcompile, ϒpattern, ϒflags), "search", nil), ϒstring)
+				return λ.Calm(λ.Cal(ϒcompile, ϒpattern, ϒflags), "search", ϒstring)
 			})
 		ϒmatch = λ.NewFunction("match",
 			[]λ.Param{
 				{Name: "pattern"},
 				{Name: "string"},
-				{Name: "flags", Def: λ.NewInt(0)},
+				{Name: "flags", Def: λ.IntLiteral(0)},
 			},
 			0, false, false,
 			func(λargs []λ.Object) λ.Object {
@@ -466,13 +466,13 @@ func init() {
 					ϒpattern = λargs[0]
 					ϒstring  = λargs[1]
 				)
-				return λ.Cal(λ.GetAttr(λ.Cal(ϒcompile, ϒpattern, ϒflags), "match", nil), ϒstring)
+				return λ.Calm(λ.Cal(ϒcompile, ϒpattern, ϒflags), "match", ϒstring)
 			})
 		ϒfindall = λ.NewFunction("findall",
 			[]λ.Param{
 				{Name: "pattern"},
 				{Name: "string"},
-				{Name: "flags", Def: λ.NewInt(0)},
+				{Name: "flags", Def: λ.IntLiteral(0)},
 			},
 			0, false, false,
 			func(λargs []λ.Object) λ.Object {
@@ -481,13 +481,13 @@ func init() {
 					ϒpattern = λargs[0]
 					ϒstring  = λargs[1]
 				)
-				return λ.Cal(λ.GetAttr(λ.Cal(ϒcompile, ϒpattern, ϒflags), "findall", nil), ϒstring)
+				return λ.Calm(λ.Cal(ϒcompile, ϒpattern, ϒflags), "findall", ϒstring)
 			})
 		ϒfinditer = λ.NewFunction("finditer",
 			[]λ.Param{
 				{Name: "pattern"},
 				{Name: "string"},
-				{Name: "flags", Def: λ.NewInt(0)},
+				{Name: "flags", Def: λ.IntLiteral(0)},
 			},
 			0, false, false,
 			func(λargs []λ.Object) λ.Object {
@@ -496,15 +496,15 @@ func init() {
 					ϒpattern = λargs[0]
 					ϒstring  = λargs[1]
 				)
-				return λ.Cal(λ.GetAttr(λ.Cal(ϒcompile, ϒpattern, ϒflags), "finditer", nil), ϒstring)
+				return λ.Calm(λ.Cal(ϒcompile, ϒpattern, ϒflags), "finditer", ϒstring)
 			})
 		ϒsub = λ.NewFunction("sub",
 			[]λ.Param{
 				{Name: "pattern"},
 				{Name: "repl"},
 				{Name: "string"},
-				{Name: "count", Def: λ.NewInt(0)},
-				{Name: "flags", Def: λ.NewInt(0)},
+				{Name: "count", Def: λ.IntLiteral(0)},
+				{Name: "flags", Def: λ.IntLiteral(0)},
 			},
 			0, false, false,
 			func(λargs []λ.Object) λ.Object {
@@ -515,7 +515,7 @@ func init() {
 					ϒrepl    = λargs[1]
 					ϒstring  = λargs[2]
 				)
-				return λ.Cal(λ.GetAttr(λ.Cal(ϒcompile, ϒpattern, ϒflags), "sub", nil), ϒrepl, ϒstring, ϒcount)
+				return λ.Calm(λ.Cal(ϒcompile, ϒpattern, ϒflags), "sub", ϒrepl, ϒstring, ϒcount)
 			})
 		ϒescape = λ.NewFunction("escape",
 			[]λ.Param{

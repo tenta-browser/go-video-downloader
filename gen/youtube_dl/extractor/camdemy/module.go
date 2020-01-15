@@ -51,12 +51,12 @@ func init() {
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		ϒunified_strdate = Ωutils.ϒunified_strdate
-		CamdemyIE = λ.Cal(λ.TypeType, λ.NewStr("CamdemyIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		CamdemyIE = λ.Cal(λ.TypeType, λ.StrLiteral("CamdemyIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CamdemyIE__VALID_URL    λ.Object
 				CamdemyIE__real_extract λ.Object
 			)
-			CamdemyIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?camdemy\\.com/media/(?P<id>\\d+)")
+			CamdemyIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?camdemy\\.com/media/(?P<id>\\d+)")
 			CamdemyIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -81,76 +81,76 @@ func init() {
 						ϒview_count    λ.Object
 						ϒwebpage       λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
 					ϒsrc_from = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("class=['\\\"]srcFrom['\\\"][^>]*>Sources?(?:\\s+from)?\\s*:\\s*<a[^>]+(?:href|title)=(['\\\"])(?P<url>(?:(?!\\1).)+)\\1"),
+						λ.StrLiteral("class=['\\\"]srcFrom['\\\"][^>]*>Sources?(?:\\s+from)?\\s*:\\s*<a[^>]+(?:href|title)=(['\\\"])(?P<url>(?:(?!\\1).)+)\\1"),
 						ϒwebpage,
-						λ.NewStr("external source"),
+						λ.StrLiteral("external source"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
-						{Name: "group", Value: λ.NewStr("url")},
+						{Name: "group", Value: λ.StrLiteral("url")},
 					})
 					if λ.IsTrue(ϒsrc_from) {
-						return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒsrc_from)
+						return λ.Calm(ϒself, "url_result", ϒsrc_from)
 					}
-					ϒoembed_obj = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Add(λ.NewStr("http://www.camdemy.com/oembed/?format=json&url="), ϒurl), ϒvideo_id)
-					ϒtitle = λ.GetItem(ϒoembed_obj, λ.NewStr("title"))
-					ϒthumb_url = λ.GetItem(ϒoembed_obj, λ.NewStr("thumbnail_url"))
-					ϒvideo_folder = λ.Cal(Ωparse.ϒurljoin, ϒthumb_url, λ.NewStr("video/"))
-					ϒfile_list_doc = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), λ.Cal(Ωparse.ϒurljoin, ϒvideo_folder, λ.NewStr("fileList.xml")), ϒvideo_id, λ.NewStr("Downloading filelist XML"))
-					ϒfile_name = λ.GetAttr(λ.Cal(λ.GetAttr(ϒfile_list_doc, "find", nil), λ.NewStr("./video/item/fileName")), "text", nil)
+					ϒoembed_obj = λ.Calm(ϒself, "_download_json", λ.Add(λ.StrLiteral("http://www.camdemy.com/oembed/?format=json&url="), ϒurl), ϒvideo_id)
+					ϒtitle = λ.GetItem(ϒoembed_obj, λ.StrLiteral("title"))
+					ϒthumb_url = λ.GetItem(ϒoembed_obj, λ.StrLiteral("thumbnail_url"))
+					ϒvideo_folder = λ.Cal(Ωparse.ϒurljoin, ϒthumb_url, λ.StrLiteral("video/"))
+					ϒfile_list_doc = λ.Calm(ϒself, "_download_xml", λ.Cal(Ωparse.ϒurljoin, ϒvideo_folder, λ.StrLiteral("fileList.xml")), ϒvideo_id, λ.StrLiteral("Downloading filelist XML"))
+					ϒfile_name = λ.GetAttr(λ.Calm(ϒfile_list_doc, "find", λ.StrLiteral("./video/item/fileName")), "text", nil)
 					ϒvideo_url = λ.Cal(Ωparse.ϒurljoin, ϒvideo_folder, ϒfile_name)
 					ϒupload_date = λ.Cal(ϒunified_strdate, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr(">published on ([^<]+)<"),
+						λ.StrLiteral(">published on ([^<]+)<"),
 						ϒwebpage,
-						λ.NewStr("upload date"),
+						λ.StrLiteral("upload date"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					}))
 					ϒview_count = λ.Cal(ϒstr_to_int, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("role=[\"\\']viewCnt[\"\\'][^>]*>([\\d,.]+) views"),
+						λ.StrLiteral("role=[\"\\']viewCnt[\"\\'][^>]*>([\\d,.]+) views"),
 						ϒwebpage,
-						λ.NewStr("view count"),
+						λ.StrLiteral("view count"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					}))
 					ϒdescription = func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
-							λ.NewStr("description"),
+							λ.StrLiteral("description"),
 							ϒwebpage,
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(ϒclean_html, λ.Cal(λ.GetAttr(ϒoembed_obj, "get", nil), λ.NewStr("description")))
+							return λ.Cal(ϒclean_html, λ.Calm(ϒoembed_obj, "get", λ.StrLiteral("description")))
 						}
 					}()
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("url"):         ϒvideo_url,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("thumbnail"):   ϒthumb_url,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("creator"):     λ.Cal(λ.GetAttr(ϒoembed_obj, "get", nil), λ.NewStr("author_name")),
-						λ.NewStr("duration"):    λ.Cal(ϒparse_duration, λ.Cal(λ.GetAttr(ϒoembed_obj, "get", nil), λ.NewStr("duration"))),
-						λ.NewStr("upload_date"): ϒupload_date,
-						λ.NewStr("view_count"):  ϒview_count,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"url":         ϒvideo_url,
+						"title":       ϒtitle,
+						"thumbnail":   ϒthumb_url,
+						"description": ϒdescription,
+						"creator":     λ.Calm(ϒoembed_obj, "get", λ.StrLiteral("author_name")),
+						"duration":    λ.Cal(ϒparse_duration, λ.Calm(ϒoembed_obj, "get", λ.StrLiteral("duration"))),
+						"upload_date": ϒupload_date,
+						"view_count":  ϒview_count,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    CamdemyIE__VALID_URL,
-				λ.NewStr("_real_extract"): CamdemyIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    CamdemyIE__VALID_URL,
+				"_real_extract": CamdemyIE__real_extract,
 			})
 		}())
-		CamdemyFolderIE = λ.Cal(λ.TypeType, λ.NewStr("CamdemyFolderIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		CamdemyFolderIE = λ.Cal(λ.TypeType, λ.StrLiteral("CamdemyFolderIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CamdemyFolderIE__VALID_URL λ.Object
 			)
-			CamdemyFolderIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?camdemy\\.com/folder/(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): CamdemyFolderIE__VALID_URL,
+			CamdemyFolderIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?camdemy\\.com/folder/(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": CamdemyFolderIE__VALID_URL,
 			})
 		}())
 	})

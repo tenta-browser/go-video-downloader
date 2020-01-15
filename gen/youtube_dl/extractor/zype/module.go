@@ -26,20 +26,39 @@ package zype
 
 import (
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
+	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	InfoExtractor λ.Object
-	ZypeIE        λ.Object
+	ExtractorError λ.Object
+	InfoExtractor  λ.Object
+	ZypeIE         λ.Object
+	ϒdict_get      λ.Object
+	ϒint_or_none   λ.Object
+	ϒjs_to_json    λ.Object
+	ϒparse_iso8601 λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ZypeIE = λ.Cal(λ.TypeType, λ.NewStr("ZypeIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
-
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+		ϒdict_get = Ωutils.ϒdict_get
+		ExtractorError = Ωutils.ExtractorError
+		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒjs_to_json = Ωutils.ϒjs_to_json
+		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
+		ZypeIE = λ.Cal(λ.TypeType, λ.StrLiteral("ZypeIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+			var (
+				ZypeIE__COMMON_RE λ.Object
+				ZypeIE__ID_RE     λ.Object
+			)
+			ZypeIE__ID_RE = λ.StrLiteral("[\\da-fA-F]+")
+			ZypeIE__COMMON_RE = λ.StrLiteral("//player\\.zype\\.com/embed/%s\\.(?:js|json|html)\\?.*?(?:access_token|(?:ap[ip]|player)_key)=")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_COMMON_RE": ZypeIE__COMMON_RE,
+				"_ID_RE":     ZypeIE__ID_RE,
+			})
 		}())
 	})
 }

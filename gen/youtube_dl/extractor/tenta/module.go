@@ -38,12 +38,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		TentaIE = λ.Cal(λ.TypeType, λ.NewStr("TentaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TentaIE = λ.Cal(λ.TypeType, λ.StrLiteral("TentaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TentaIE__VALID_URL    λ.Object
 				TentaIE__real_extract λ.Object
 			)
-			TentaIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tenta\\.com/how-to-download-videos")
+			TentaIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?tenta\\.com/how-to-download-videos")
 			TentaIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -59,22 +59,22 @@ func init() {
 						ϒvideo_url λ.Object
 						ϒwebpage   λ.Object
 					)
-					ϒvideo_id = λ.NewStr("howto")
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒvideo_id = λ.StrLiteral("howto")
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
 					ϒtitle = λ.Call(λ.GetAttr(ϒself, "_og_search_title", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
-					ϒvideo_url = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<source[^>]+src=[\"\\'](.+?)[\"\\'][^>]+type=[\"\\']video/mp4[\"\\'][^>]*/>"), ϒwebpage, λ.NewStr("video_url"))
+					ϒvideo_url = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<source[^>]+src=[\"\\'](.+?)[\"\\'][^>]+type=[\"\\']video/mp4[\"\\'][^>]*/>"), ϒwebpage, λ.StrLiteral("video_url"))
 					ϒvideo_url = λ.Cal(Ωparse.ϒurljoin, ϒurl, ϒvideo_url)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):    ϒvideo_id,
-						λ.NewStr("title"): ϒtitle,
-						λ.NewStr("url"):   ϒvideo_url,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":    ϒvideo_id,
+						"title": ϒtitle,
+						"url":   ϒvideo_url,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    TentaIE__VALID_URL,
-				λ.NewStr("_real_extract"): TentaIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    TentaIE__VALID_URL,
+				"_real_extract": TentaIE__real_extract,
 			})
 		}())
 	})

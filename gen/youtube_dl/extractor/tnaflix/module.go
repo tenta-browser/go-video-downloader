@@ -61,7 +61,7 @@ func init() {
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒxpath_text = Ωutils.ϒxpath_text
-		TNAFlixNetworkBaseIE = λ.Cal(λ.TypeType, λ.NewStr("TNAFlixNetworkBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TNAFlixNetworkBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("TNAFlixNetworkBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TNAFlixNetworkBaseIE__AVERAGE_RATING_REGEX λ.Object
 				TNAFlixNetworkBaseIE__CATEGORIES_REGEX     λ.Object
@@ -77,19 +77,19 @@ func init() {
 				TNAFlixNetworkBaseIE__real_extract         λ.Object
 			)
 			TNAFlixNetworkBaseIE__CONFIG_REGEX = λ.NewList(
-				λ.NewStr("flashvars\\.config\\s*=\\s*escape\\(\"(?P<url>[^\"]+)\""),
-				λ.NewStr("<input[^>]+name=\"config\\d?\" value=\"(?P<url>[^\"]+)\""),
-				λ.NewStr("config\\s*=\\s*([\"\\'])(?P<url>(?:https?:)?//(?:(?!\\1).)+)\\1"),
+				λ.StrLiteral("flashvars\\.config\\s*=\\s*escape\\(\"(?P<url>[^\"]+)\""),
+				λ.StrLiteral("<input[^>]+name=\"config\\d?\" value=\"(?P<url>[^\"]+)\""),
+				λ.StrLiteral("config\\s*=\\s*([\"\\'])(?P<url>(?:https?:)?//(?:(?!\\1).)+)\\1"),
 			)
-			TNAFlixNetworkBaseIE__HOST = λ.NewStr("tna")
-			TNAFlixNetworkBaseIE__VKEY_SUFFIX = λ.NewStr("")
-			TNAFlixNetworkBaseIE__TITLE_REGEX = λ.NewStr("<input[^>]+name=\"title\" value=\"([^\"]+)\"")
-			TNAFlixNetworkBaseIE__DESCRIPTION_REGEX = λ.NewStr("<input[^>]+name=\"description\" value=\"([^\"]+)\"")
-			TNAFlixNetworkBaseIE__UPLOADER_REGEX = λ.NewStr("<input[^>]+name=\"username\" value=\"([^\"]+)\"")
+			TNAFlixNetworkBaseIE__HOST = λ.StrLiteral("tna")
+			TNAFlixNetworkBaseIE__VKEY_SUFFIX = λ.StrLiteral("")
+			TNAFlixNetworkBaseIE__TITLE_REGEX = λ.StrLiteral("<input[^>]+name=\"title\" value=\"([^\"]+)\"")
+			TNAFlixNetworkBaseIE__DESCRIPTION_REGEX = λ.StrLiteral("<input[^>]+name=\"description\" value=\"([^\"]+)\"")
+			TNAFlixNetworkBaseIE__UPLOADER_REGEX = λ.StrLiteral("<input[^>]+name=\"username\" value=\"([^\"]+)\"")
 			TNAFlixNetworkBaseIE__VIEW_COUNT_REGEX = λ.None
 			TNAFlixNetworkBaseIE__COMMENT_COUNT_REGEX = λ.None
 			TNAFlixNetworkBaseIE__AVERAGE_RATING_REGEX = λ.None
-			TNAFlixNetworkBaseIE__CATEGORIES_REGEX = λ.NewStr("<li[^>]*>\\s*<span[^>]+class=\"infoTitle\"[^>]*>Categories:</span>\\s*<span[^>]+class=\"listView\"[^>]*>(.+?)</span>\\s*</li>")
+			TNAFlixNetworkBaseIE__CATEGORIES_REGEX = λ.StrLiteral("<li[^>]*>\\s*<span[^>]+class=\"infoTitle\"[^>]*>Categories:</span>\\s*<span[^>]+class=\"listView\"[^>]*>(.+?)</span>\\s*</li>")
 			TNAFlixNetworkBaseIE__extract_thumbnails = λ.NewFunction("_extract_thumbnails",
 				[]λ.Param{
 					{Name: "self"},
@@ -133,23 +133,23 @@ func init() {
 									break
 								}
 								ϒname = τmp1
-								ϒchild = λ.Cal(λ.GetAttr(ϒelem, "find", nil), ϒname)
-								if λ.IsTrue(λ.NewBool(ϒchild != λ.None)) {
+								ϒchild = λ.Calm(ϒelem, "find", ϒname)
+								if ϒchild != λ.None {
 									return ϒchild
 								}
 							}
 							return λ.None
 						})
 					ϒtimeline = λ.Cal(ϒget_child, ϒflix_xml, λ.NewList(
-						λ.NewStr("timeline"),
-						λ.NewStr("rolloverBarImage"),
+						λ.StrLiteral("timeline"),
+						λ.StrLiteral("rolloverBarImage"),
 					))
-					if λ.IsTrue(λ.NewBool(ϒtimeline == λ.None)) {
+					if ϒtimeline == λ.None {
 						return λ.None
 					}
 					ϒpattern_el = λ.Cal(ϒget_child, ϒtimeline, λ.NewList(
-						λ.NewStr("imagePattern"),
-						λ.NewStr("pattern"),
+						λ.StrLiteral("imagePattern"),
+						λ.StrLiteral("pattern"),
 					))
 					if λ.IsTrue(func() λ.Object {
 						if λv := λ.NewBool(ϒpattern_el == λ.None); λ.IsTrue(λv) {
@@ -161,12 +161,12 @@ func init() {
 						return λ.None
 					}
 					ϒfirst_el = λ.Cal(ϒget_child, ϒtimeline, λ.NewList(
-						λ.NewStr("imageFirst"),
-						λ.NewStr("first"),
+						λ.StrLiteral("imageFirst"),
+						λ.StrLiteral("first"),
 					))
 					ϒlast_el = λ.Cal(ϒget_child, ϒtimeline, λ.NewList(
-						λ.NewStr("imageLast"),
-						λ.NewStr("last"),
+						λ.StrLiteral("imageLast"),
+						λ.StrLiteral("last"),
 					))
 					if λ.IsTrue(func() λ.Object {
 						if λv := λ.NewBool(ϒfirst_el == λ.None); λ.IsTrue(λv) {
@@ -180,10 +180,10 @@ func init() {
 					ϒfirst_text = λ.GetAttr(ϒfirst_el, "text", nil)
 					ϒlast_text = λ.GetAttr(ϒlast_el, "text", nil)
 					if λ.IsTrue(func() λ.Object {
-						if λv := λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒfirst_text, "isdigit", nil)))); λ.IsTrue(λv) {
+						if λv := λ.NewBool(!λ.IsTrue(λ.Calm(ϒfirst_text, "isdigit"))); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒlast_text, "isdigit", nil))))
+							return λ.NewBool(!λ.IsTrue(λ.Calm(ϒlast_text, "isdigit")))
 						}
 					}()) {
 						return λ.None
@@ -193,8 +193,8 @@ func init() {
 					if λ.IsTrue(λ.Gt(ϒfirst, ϒlast)) {
 						return λ.None
 					}
-					ϒwidth = λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒtimeline, λ.NewStr("./imageWidth"), λ.NewStr("thumbnail width")))
-					ϒheight = λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒtimeline, λ.NewStr("./imageHeight"), λ.NewStr("thumbnail height")))
+					ϒwidth = λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒtimeline, λ.StrLiteral("./imageWidth"), λ.StrLiteral("thumbnail width")))
+					ϒheight = λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒtimeline, λ.StrLiteral("./imageHeight"), λ.StrLiteral("thumbnail height")))
 					return λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -205,16 +205,16 @@ func init() {
 									τmp0 λ.Object
 									τmp1 λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.RangeType, ϒfirst, λ.Add(ϒlast, λ.NewInt(1))))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.RangeType, ϒfirst, λ.Add(ϒlast, λ.IntLiteral(1))))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									ϒi = τmp1
-									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("url"):    λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Cal(λ.GetAttr(λ.GetAttr(ϒpattern_el, "text", nil), "replace", nil), λ.NewStr("#"), λ.Cal(ϒcompat_str, ϒi)), λ.NewStr("http:")),
-										λ.NewStr("width"):  ϒwidth,
-										λ.NewStr("height"): ϒheight,
+									λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+										"url":    λ.Calm(ϒself, "_proto_relative_url", λ.Calm(λ.GetAttr(ϒpattern_el, "text", nil), "replace", λ.StrLiteral("#"), λ.Cal(ϒcompat_str, ϒi)), λ.StrLiteral("http:")),
+										"width":  ϒwidth,
+										"height": ϒheight,
 									}))
 								}
 								return λ.None
@@ -263,18 +263,18 @@ func init() {
 						τmp1               λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-						λ.NewStr("display_id"),
-						λ.NewStr("display_id_2"),
+						λ.StrLiteral("display_id"),
+						λ.StrLiteral("display_id_2"),
 					))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒdisplay_id_key = τmp1
-						if λ.IsTrue(λ.NewBool(λ.Contains(λ.Cal(λ.GetAttr(ϒmobj, "groupdict", nil)), ϒdisplay_id_key))) {
-							ϒdisplay_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), ϒdisplay_id_key)
+						if λ.Contains(λ.Calm(ϒmobj, "groupdict"), ϒdisplay_id_key) {
+							ϒdisplay_id = λ.Calm(ϒmobj, "group", ϒdisplay_id_key)
 							if λ.IsTrue(ϒdisplay_id) {
 								break
 							}
@@ -283,34 +283,34 @@ func init() {
 					if τmp1 == λ.AfterLast {
 						ϒdisplay_id = ϒvideo_id
 					}
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
-					ϒcfg_url = λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
+					ϒcfg_url = λ.Calm(ϒself, "_proto_relative_url", λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 						λ.GetAttr(ϒself, "_CONFIG_REGEX", nil),
 						ϒwebpage,
-						λ.NewStr("flashvars.config"),
+						λ.StrLiteral("flashvars.config"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
-						{Name: "group", Value: λ.NewStr("url")},
-					}), λ.NewStr("http:"))
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒcfg_url))) {
-						ϒinputs = λ.Cal(λ.GetAttr(ϒself, "_hidden_inputs", nil), ϒwebpage)
-						ϒcfg_url = λ.Mod(λ.NewStr("https://cdn-fck.%sflix.com/%sflix/%s%s.fid?key=%s&VID=%s&premium=1&vip=1&alpha"), λ.NewTuple(
+						{Name: "group", Value: λ.StrLiteral("url")},
+					}), λ.StrLiteral("http:"))
+					if !λ.IsTrue(ϒcfg_url) {
+						ϒinputs = λ.Calm(ϒself, "_hidden_inputs", ϒwebpage)
+						ϒcfg_url = λ.Mod(λ.StrLiteral("https://cdn-fck.%sflix.com/%sflix/%s%s.fid?key=%s&VID=%s&premium=1&vip=1&alpha"), λ.NewTuple(
 							λ.GetAttr(ϒself, "_HOST", nil),
 							λ.GetAttr(ϒself, "_HOST", nil),
-							λ.GetItem(ϒinputs, λ.NewStr("vkey")),
+							λ.GetItem(ϒinputs, λ.StrLiteral("vkey")),
 							λ.GetAttr(ϒself, "_VKEY_SUFFIX", nil),
-							λ.GetItem(ϒinputs, λ.NewStr("nkey")),
+							λ.GetItem(ϒinputs, λ.StrLiteral("nkey")),
 							ϒvideo_id,
 						))
 					}
 					ϒcfg_xml = λ.Call(λ.GetAttr(ϒself, "_download_xml", nil), λ.NewArgs(
 						ϒcfg_url,
 						ϒdisplay_id,
-						λ.NewStr("Downloading metadata"),
+						λ.StrLiteral("Downloading metadata"),
 					), λ.KWArgs{
 						{Name: "transform_source", Value: ϒfix_xml_ampersands},
-						{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("Referer"): ϒurl,
+						{Name: "headers", Value: λ.DictLiteral(map[string]λ.Object{
+							"Referer": ϒurl,
 						})},
 					})
 					ϒformats = λ.NewList()
@@ -325,77 +325,77 @@ func init() {
 							)
 							return λ.Cal(ϒunescapeHTML, λ.GetAttr(ϒvl, "text", nil))
 						})
-					ϒvideo_link = λ.Cal(λ.GetAttr(ϒcfg_xml, "find", nil), λ.NewStr("./videoLink"))
-					if λ.IsTrue(λ.NewBool(ϒvideo_link != λ.None)) {
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"): λ.Cal(ϒextract_video_url, ϒvideo_link),
-							λ.NewStr("ext"): λ.Call(ϒxpath_text, λ.NewArgs(
+					ϒvideo_link = λ.Calm(ϒcfg_xml, "find", λ.StrLiteral("./videoLink"))
+					if ϒvideo_link != λ.None {
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"url": λ.Cal(ϒextract_video_url, ϒvideo_link),
+							"ext": λ.Call(ϒxpath_text, λ.NewArgs(
 								ϒcfg_xml,
-								λ.NewStr("./videoConfig/type"),
-								λ.NewStr("type"),
+								λ.StrLiteral("./videoConfig/type"),
+								λ.StrLiteral("type"),
 							), λ.KWArgs{
-								{Name: "default", Value: λ.NewStr("flv")},
+								{Name: "default", Value: λ.StrLiteral("flv")},
 							}),
 						}))
 					}
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒcfg_xml, "findall", nil), λ.NewStr("./quality/item")))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒcfg_xml, "findall", λ.StrLiteral("./quality/item")))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒitem = τmp1
-						ϒvideo_link = λ.Cal(λ.GetAttr(ϒitem, "find", nil), λ.NewStr("./videoLink"))
-						if λ.IsTrue(λ.NewBool(ϒvideo_link == λ.None)) {
+						ϒvideo_link = λ.Calm(ϒitem, "find", λ.StrLiteral("./videoLink"))
+						if ϒvideo_link == λ.None {
 							continue
 						}
-						ϒres = λ.Cal(λ.GetAttr(ϒitem, "find", nil), λ.NewStr("res"))
+						ϒres = λ.Calm(ϒitem, "find", λ.StrLiteral("res"))
 						ϒformat_id = func() λ.Object {
-							if λ.IsTrue(λ.NewBool(ϒres == λ.None)) {
+							if ϒres == λ.None {
 								return λ.None
 							} else {
 								return λ.GetAttr(ϒres, "text", nil)
 							}
 						}()
 						ϒheight = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("^(\\d+)[pP]"),
+							λ.StrLiteral("^(\\d+)[pP]"),
 							ϒformat_id,
-							λ.NewStr("height"),
+							λ.StrLiteral("height"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}))
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):       λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Cal(ϒextract_video_url, ϒvideo_link), λ.NewStr("http:")),
-							λ.NewStr("format_id"): ϒformat_id,
-							λ.NewStr("height"):    ϒheight,
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":       λ.Calm(ϒself, "_proto_relative_url", λ.Cal(ϒextract_video_url, ϒvideo_link), λ.StrLiteral("http:")),
+							"format_id": ϒformat_id,
+							"height":    ϒheight,
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					ϒthumbnail = λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), λ.Cal(ϒxpath_text, ϒcfg_xml, λ.NewStr("./startThumb"), λ.NewStr("thumbnail")), λ.NewStr("http:"))
-					ϒthumbnails = λ.Cal(λ.GetAttr(ϒself, "_extract_thumbnails", nil), ϒcfg_xml)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒthumbnail = λ.Calm(ϒself, "_proto_relative_url", λ.Cal(ϒxpath_text, ϒcfg_xml, λ.StrLiteral("./startThumb"), λ.StrLiteral("thumbnail")), λ.StrLiteral("http:"))
+					ϒthumbnails = λ.Calm(ϒself, "_extract_thumbnails", ϒcfg_xml)
 					ϒtitle = λ.None
 					if λ.IsTrue(λ.GetAttr(ϒself, "_TITLE_REGEX", nil)) {
 						ϒtitle = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 							λ.GetAttr(ϒself, "_TITLE_REGEX", nil),
 							ϒwebpage,
-							λ.NewStr("title"),
+							λ.StrLiteral("title"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒtitle))) {
-						ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
+					if !λ.IsTrue(ϒtitle) {
+						ϒtitle = λ.Calm(ϒself, "_og_search_title", ϒwebpage)
 					}
 					ϒage_limit = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒself, "_rta_search", nil), ϒwebpage); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒself, "_rta_search", ϒwebpage); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.NewInt(18)
+							return λ.IntLiteral(18)
 						}
 					}()
 					ϒduration = λ.Cal(ϒparse_duration, λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
-						λ.NewStr("duration"),
+						λ.StrLiteral("duration"),
 						ϒwebpage,
-						λ.NewStr("duration"),
+						λ.StrLiteral("duration"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					}))
@@ -424,14 +424,14 @@ func init() {
 								}
 							}()
 						})
-					ϒdescription = λ.Cal(ϒextract_field, λ.GetAttr(ϒself, "_DESCRIPTION_REGEX", nil), λ.NewStr("description"))
-					ϒuploader = λ.Cal(ϒextract_field, λ.GetAttr(ϒself, "_UPLOADER_REGEX", nil), λ.NewStr("uploader"))
-					ϒview_count = λ.Cal(ϒstr_to_int, λ.Cal(ϒextract_field, λ.GetAttr(ϒself, "_VIEW_COUNT_REGEX", nil), λ.NewStr("view count")))
-					ϒcomment_count = λ.Cal(ϒstr_to_int, λ.Cal(ϒextract_field, λ.GetAttr(ϒself, "_COMMENT_COUNT_REGEX", nil), λ.NewStr("comment count")))
-					ϒaverage_rating = λ.Cal(ϒfloat_or_none, λ.Cal(ϒextract_field, λ.GetAttr(ϒself, "_AVERAGE_RATING_REGEX", nil), λ.NewStr("average rating")))
-					ϒcategories_str = λ.Cal(ϒextract_field, λ.GetAttr(ϒself, "_CATEGORIES_REGEX", nil), λ.NewStr("categories"))
+					ϒdescription = λ.Cal(ϒextract_field, λ.GetAttr(ϒself, "_DESCRIPTION_REGEX", nil), λ.StrLiteral("description"))
+					ϒuploader = λ.Cal(ϒextract_field, λ.GetAttr(ϒself, "_UPLOADER_REGEX", nil), λ.StrLiteral("uploader"))
+					ϒview_count = λ.Cal(ϒstr_to_int, λ.Cal(ϒextract_field, λ.GetAttr(ϒself, "_VIEW_COUNT_REGEX", nil), λ.StrLiteral("view count")))
+					ϒcomment_count = λ.Cal(ϒstr_to_int, λ.Cal(ϒextract_field, λ.GetAttr(ϒself, "_COMMENT_COUNT_REGEX", nil), λ.StrLiteral("comment count")))
+					ϒaverage_rating = λ.Cal(ϒfloat_or_none, λ.Cal(ϒextract_field, λ.GetAttr(ϒself, "_AVERAGE_RATING_REGEX", nil), λ.StrLiteral("average rating")))
+					ϒcategories_str = λ.Cal(ϒextract_field, λ.GetAttr(ϒself, "_CATEGORIES_REGEX", nil), λ.StrLiteral("categories"))
 					ϒcategories = func() λ.Object {
-						if λ.IsTrue(λ.NewBool(ϒcategories_str != λ.None)) {
+						if ϒcategories_str != λ.None {
 							return λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 								nil,
 								0, false, false,
@@ -442,13 +442,13 @@ func init() {
 											τmp0 λ.Object
 											τmp1 λ.Object
 										)
-										τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒcategories_str, "split", nil), λ.NewStr(",")))
+										τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒcategories_str, "split", λ.StrLiteral(",")))
 										for {
 											if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 												break
 											}
 											ϒc = τmp1
-											λgy.Yield(λ.Cal(λ.GetAttr(ϒc, "strip", nil)))
+											λgy.Yield(λ.Calm(ϒc, "strip"))
 										}
 										return λ.None
 									})
@@ -457,93 +457,93 @@ func init() {
 							return λ.NewList()
 						}
 					}()
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):             ϒvideo_id,
-						λ.NewStr("display_id"):     ϒdisplay_id,
-						λ.NewStr("title"):          ϒtitle,
-						λ.NewStr("description"):    ϒdescription,
-						λ.NewStr("thumbnail"):      ϒthumbnail,
-						λ.NewStr("thumbnails"):     ϒthumbnails,
-						λ.NewStr("duration"):       ϒduration,
-						λ.NewStr("age_limit"):      ϒage_limit,
-						λ.NewStr("uploader"):       ϒuploader,
-						λ.NewStr("view_count"):     ϒview_count,
-						λ.NewStr("comment_count"):  ϒcomment_count,
-						λ.NewStr("average_rating"): ϒaverage_rating,
-						λ.NewStr("categories"):     ϒcategories,
-						λ.NewStr("formats"):        ϒformats,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":             ϒvideo_id,
+						"display_id":     ϒdisplay_id,
+						"title":          ϒtitle,
+						"description":    ϒdescription,
+						"thumbnail":      ϒthumbnail,
+						"thumbnails":     ϒthumbnails,
+						"duration":       ϒduration,
+						"age_limit":      ϒage_limit,
+						"uploader":       ϒuploader,
+						"view_count":     ϒview_count,
+						"comment_count":  ϒcomment_count,
+						"average_rating": ϒaverage_rating,
+						"categories":     ϒcategories,
+						"formats":        ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_AVERAGE_RATING_REGEX"): TNAFlixNetworkBaseIE__AVERAGE_RATING_REGEX,
-				λ.NewStr("_CATEGORIES_REGEX"):     TNAFlixNetworkBaseIE__CATEGORIES_REGEX,
-				λ.NewStr("_COMMENT_COUNT_REGEX"):  TNAFlixNetworkBaseIE__COMMENT_COUNT_REGEX,
-				λ.NewStr("_CONFIG_REGEX"):         TNAFlixNetworkBaseIE__CONFIG_REGEX,
-				λ.NewStr("_DESCRIPTION_REGEX"):    TNAFlixNetworkBaseIE__DESCRIPTION_REGEX,
-				λ.NewStr("_HOST"):                 TNAFlixNetworkBaseIE__HOST,
-				λ.NewStr("_TITLE_REGEX"):          TNAFlixNetworkBaseIE__TITLE_REGEX,
-				λ.NewStr("_UPLOADER_REGEX"):       TNAFlixNetworkBaseIE__UPLOADER_REGEX,
-				λ.NewStr("_VIEW_COUNT_REGEX"):     TNAFlixNetworkBaseIE__VIEW_COUNT_REGEX,
-				λ.NewStr("_VKEY_SUFFIX"):          TNAFlixNetworkBaseIE__VKEY_SUFFIX,
-				λ.NewStr("_extract_thumbnails"):   TNAFlixNetworkBaseIE__extract_thumbnails,
-				λ.NewStr("_real_extract"):         TNAFlixNetworkBaseIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_AVERAGE_RATING_REGEX": TNAFlixNetworkBaseIE__AVERAGE_RATING_REGEX,
+				"_CATEGORIES_REGEX":     TNAFlixNetworkBaseIE__CATEGORIES_REGEX,
+				"_COMMENT_COUNT_REGEX":  TNAFlixNetworkBaseIE__COMMENT_COUNT_REGEX,
+				"_CONFIG_REGEX":         TNAFlixNetworkBaseIE__CONFIG_REGEX,
+				"_DESCRIPTION_REGEX":    TNAFlixNetworkBaseIE__DESCRIPTION_REGEX,
+				"_HOST":                 TNAFlixNetworkBaseIE__HOST,
+				"_TITLE_REGEX":          TNAFlixNetworkBaseIE__TITLE_REGEX,
+				"_UPLOADER_REGEX":       TNAFlixNetworkBaseIE__UPLOADER_REGEX,
+				"_VIEW_COUNT_REGEX":     TNAFlixNetworkBaseIE__VIEW_COUNT_REGEX,
+				"_VKEY_SUFFIX":          TNAFlixNetworkBaseIE__VKEY_SUFFIX,
+				"_extract_thumbnails":   TNAFlixNetworkBaseIE__extract_thumbnails,
+				"_real_extract":         TNAFlixNetworkBaseIE__real_extract,
 			})
 		}())
-		TNAFlixNetworkEmbedIE = λ.Cal(λ.TypeType, λ.NewStr("TNAFlixNetworkEmbedIE"), λ.NewTuple(TNAFlixNetworkBaseIE), func() λ.Dict {
+		TNAFlixNetworkEmbedIE = λ.Cal(λ.TypeType, λ.StrLiteral("TNAFlixNetworkEmbedIE"), λ.NewTuple(TNAFlixNetworkBaseIE), func() λ.Dict {
 			var (
 				TNAFlixNetworkEmbedIE__TITLE_REGEX λ.Object
 				TNAFlixNetworkEmbedIE__VALID_URL   λ.Object
 			)
-			TNAFlixNetworkEmbedIE__VALID_URL = λ.NewStr("https?://player\\.(?:tna|emp)flix\\.com/video/(?P<id>\\d+)")
-			TNAFlixNetworkEmbedIE__TITLE_REGEX = λ.NewStr("<title>([^<]+)</title>")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TITLE_REGEX"): TNAFlixNetworkEmbedIE__TITLE_REGEX,
-				λ.NewStr("_VALID_URL"):   TNAFlixNetworkEmbedIE__VALID_URL,
+			TNAFlixNetworkEmbedIE__VALID_URL = λ.StrLiteral("https?://player\\.(?:tna|emp)flix\\.com/video/(?P<id>\\d+)")
+			TNAFlixNetworkEmbedIE__TITLE_REGEX = λ.StrLiteral("<title>([^<]+)</title>")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_TITLE_REGEX": TNAFlixNetworkEmbedIE__TITLE_REGEX,
+				"_VALID_URL":   TNAFlixNetworkEmbedIE__VALID_URL,
 			})
 		}())
-		TNAEMPFlixBaseIE = λ.Cal(λ.TypeType, λ.NewStr("TNAEMPFlixBaseIE"), λ.NewTuple(TNAFlixNetworkBaseIE), func() λ.Dict {
+		TNAEMPFlixBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("TNAEMPFlixBaseIE"), λ.NewTuple(TNAFlixNetworkBaseIE), func() λ.Dict {
 			var (
 				TNAEMPFlixBaseIE__CATEGORIES_REGEX  λ.Object
 				TNAEMPFlixBaseIE__DESCRIPTION_REGEX λ.Object
 				TNAEMPFlixBaseIE__UPLOADER_REGEX    λ.Object
 			)
-			TNAEMPFlixBaseIE__DESCRIPTION_REGEX = λ.NewStr("(?s)>Description:</[^>]+>(.+?)<")
-			TNAEMPFlixBaseIE__UPLOADER_REGEX = λ.NewStr("<span>by\\s*<a[^>]+\\bhref=[\"\\']/profile/[^>]+>([^<]+)<")
-			TNAEMPFlixBaseIE__CATEGORIES_REGEX = λ.NewStr("(?s)<span[^>]*>Categories:</span>(.+?)</div>")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_CATEGORIES_REGEX"):  TNAEMPFlixBaseIE__CATEGORIES_REGEX,
-				λ.NewStr("_DESCRIPTION_REGEX"): TNAEMPFlixBaseIE__DESCRIPTION_REGEX,
-				λ.NewStr("_UPLOADER_REGEX"):    TNAEMPFlixBaseIE__UPLOADER_REGEX,
+			TNAEMPFlixBaseIE__DESCRIPTION_REGEX = λ.StrLiteral("(?s)>Description:</[^>]+>(.+?)<")
+			TNAEMPFlixBaseIE__UPLOADER_REGEX = λ.StrLiteral("<span>by\\s*<a[^>]+\\bhref=[\"\\']/profile/[^>]+>([^<]+)<")
+			TNAEMPFlixBaseIE__CATEGORIES_REGEX = λ.StrLiteral("(?s)<span[^>]*>Categories:</span>(.+?)</div>")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_CATEGORIES_REGEX":  TNAEMPFlixBaseIE__CATEGORIES_REGEX,
+				"_DESCRIPTION_REGEX": TNAEMPFlixBaseIE__DESCRIPTION_REGEX,
+				"_UPLOADER_REGEX":    TNAEMPFlixBaseIE__UPLOADER_REGEX,
 			})
 		}())
-		TNAFlixIE = λ.Cal(λ.TypeType, λ.NewStr("TNAFlixIE"), λ.NewTuple(TNAEMPFlixBaseIE), func() λ.Dict {
+		TNAFlixIE = λ.Cal(λ.TypeType, λ.StrLiteral("TNAFlixIE"), λ.NewTuple(TNAEMPFlixBaseIE), func() λ.Dict {
 			var (
 				TNAFlixIE__TITLE_REGEX λ.Object
 				TNAFlixIE__VALID_URL   λ.Object
 			)
-			TNAFlixIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tnaflix\\.com/[^/]+/(?P<display_id>[^/]+)/video(?P<id>\\d+)")
-			TNAFlixIE__TITLE_REGEX = λ.NewStr("<title>(.+?) - (?:TNAFlix Porn Videos|TNAFlix\\.com)</title>")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_TITLE_REGEX"): TNAFlixIE__TITLE_REGEX,
-				λ.NewStr("_VALID_URL"):   TNAFlixIE__VALID_URL,
+			TNAFlixIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?tnaflix\\.com/[^/]+/(?P<display_id>[^/]+)/video(?P<id>\\d+)")
+			TNAFlixIE__TITLE_REGEX = λ.StrLiteral("<title>(.+?) - (?:TNAFlix Porn Videos|TNAFlix\\.com)</title>")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_TITLE_REGEX": TNAFlixIE__TITLE_REGEX,
+				"_VALID_URL":   TNAFlixIE__VALID_URL,
 			})
 		}())
-		EMPFlixIE = λ.Cal(λ.TypeType, λ.NewStr("EMPFlixIE"), λ.NewTuple(TNAEMPFlixBaseIE), func() λ.Dict {
+		EMPFlixIE = λ.Cal(λ.TypeType, λ.StrLiteral("EMPFlixIE"), λ.NewTuple(TNAEMPFlixBaseIE), func() λ.Dict {
 			var (
 				EMPFlixIE__HOST        λ.Object
 				EMPFlixIE__VALID_URL   λ.Object
 				EMPFlixIE__VKEY_SUFFIX λ.Object
 			)
-			EMPFlixIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?empflix\\.com/(?:videos/(?P<display_id>.+?)-|[^/]+/(?P<display_id_2>[^/]+)/video)(?P<id>[0-9]+)")
-			EMPFlixIE__HOST = λ.NewStr("emp")
-			EMPFlixIE__VKEY_SUFFIX = λ.NewStr("-1")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_HOST"):        EMPFlixIE__HOST,
-				λ.NewStr("_VALID_URL"):   EMPFlixIE__VALID_URL,
-				λ.NewStr("_VKEY_SUFFIX"): EMPFlixIE__VKEY_SUFFIX,
+			EMPFlixIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?empflix\\.com/(?:videos/(?P<display_id>.+?)-|[^/]+/(?P<display_id_2>[^/]+)/video)(?P<id>[0-9]+)")
+			EMPFlixIE__HOST = λ.StrLiteral("emp")
+			EMPFlixIE__VKEY_SUFFIX = λ.StrLiteral("-1")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_HOST":        EMPFlixIE__HOST,
+				"_VALID_URL":   EMPFlixIE__VALID_URL,
+				"_VKEY_SUFFIX": EMPFlixIE__VKEY_SUFFIX,
 			})
 		}())
-		MovieFapIE = λ.Cal(λ.TypeType, λ.NewStr("MovieFapIE"), λ.NewTuple(TNAFlixNetworkBaseIE), func() λ.Dict {
+		MovieFapIE = λ.Cal(λ.TypeType, λ.StrLiteral("MovieFapIE"), λ.NewTuple(TNAFlixNetworkBaseIE), func() λ.Dict {
 			var (
 				MovieFapIE__AVERAGE_RATING_REGEX λ.Object
 				MovieFapIE__CATEGORIES_REGEX     λ.Object
@@ -551,17 +551,17 @@ func init() {
 				MovieFapIE__VALID_URL            λ.Object
 				MovieFapIE__VIEW_COUNT_REGEX     λ.Object
 			)
-			MovieFapIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?moviefap\\.com/videos/(?P<id>[0-9a-f]+)/(?P<display_id>[^/]+)\\.html")
-			MovieFapIE__VIEW_COUNT_REGEX = λ.NewStr("<br>Views\\s*<strong>([\\d,.]+)</strong>")
-			MovieFapIE__COMMENT_COUNT_REGEX = λ.NewStr("<span[^>]+id=\"comCount\"[^>]*>([\\d,.]+)</span>")
-			MovieFapIE__AVERAGE_RATING_REGEX = λ.NewStr("Current Rating\\s*<br>\\s*<strong>([\\d.]+)</strong>")
-			MovieFapIE__CATEGORIES_REGEX = λ.NewStr("(?s)<div[^>]+id=\"vid_info\"[^>]*>\\s*<div[^>]*>.+?</div>(.*?)<br>")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_AVERAGE_RATING_REGEX"): MovieFapIE__AVERAGE_RATING_REGEX,
-				λ.NewStr("_CATEGORIES_REGEX"):     MovieFapIE__CATEGORIES_REGEX,
-				λ.NewStr("_COMMENT_COUNT_REGEX"):  MovieFapIE__COMMENT_COUNT_REGEX,
-				λ.NewStr("_VALID_URL"):            MovieFapIE__VALID_URL,
-				λ.NewStr("_VIEW_COUNT_REGEX"):     MovieFapIE__VIEW_COUNT_REGEX,
+			MovieFapIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?moviefap\\.com/videos/(?P<id>[0-9a-f]+)/(?P<display_id>[^/]+)\\.html")
+			MovieFapIE__VIEW_COUNT_REGEX = λ.StrLiteral("<br>Views\\s*<strong>([\\d,.]+)</strong>")
+			MovieFapIE__COMMENT_COUNT_REGEX = λ.StrLiteral("<span[^>]+id=\"comCount\"[^>]*>([\\d,.]+)</span>")
+			MovieFapIE__AVERAGE_RATING_REGEX = λ.StrLiteral("Current Rating\\s*<br>\\s*<strong>([\\d.]+)</strong>")
+			MovieFapIE__CATEGORIES_REGEX = λ.StrLiteral("(?s)<div[^>]+id=\"vid_info\"[^>]*>\\s*<div[^>]*>.+?</div>(.*?)<br>")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_AVERAGE_RATING_REGEX": MovieFapIE__AVERAGE_RATING_REGEX,
+				"_CATEGORIES_REGEX":     MovieFapIE__CATEGORIES_REGEX,
+				"_COMMENT_COUNT_REGEX":  MovieFapIE__COMMENT_COUNT_REGEX,
+				"_VALID_URL":            MovieFapIE__VALID_URL,
+				"_VIEW_COUNT_REGEX":     MovieFapIE__VIEW_COUNT_REGEX,
 			})
 		}())
 	})

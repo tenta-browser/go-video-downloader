@@ -38,12 +38,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		JeuxVideoIE = λ.Cal(λ.TypeType, λ.NewStr("JeuxVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		JeuxVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("JeuxVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				JeuxVideoIE__VALID_URL    λ.Object
 				JeuxVideoIE__real_extract λ.Object
 			)
-			JeuxVideoIE__VALID_URL = λ.NewStr("https?://.*?\\.jeuxvideo\\.com/.*/(.*?)\\.htm")
+			JeuxVideoIE__VALID_URL = λ.StrLiteral("https?://.*?\\.jeuxvideo\\.com/.*/(.*?)\\.htm")
 			JeuxVideoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -63,19 +63,19 @@ func init() {
 						ϒwebpage    λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒtitle = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewInt(1))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒtitle)
+					ϒtitle = λ.Calm(ϒmobj, "group", λ.IntLiteral(1))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒtitle)
 					ϒtitle = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewStr("name"), ϒwebpage); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("name"), ϒwebpage); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
+							return λ.Calm(ϒself, "_og_search_title", ϒwebpage)
 						}
 					}()
-					ϒconfig_url = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("data-src(?:set-video)?=\"(/contenu/medias/video\\.php.*?)\""), ϒwebpage, λ.NewStr("config URL"))
-					ϒconfig_url = λ.Add(λ.NewStr("http://www.jeuxvideo.com"), ϒconfig_url)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("id=(\\d+)"), ϒconfig_url, λ.NewStr("video ID"))
-					ϒconfig = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), ϒconfig_url, ϒtitle, λ.NewStr("Downloading JSON config"))
+					ϒconfig_url = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("data-src(?:set-video)?=\"(/contenu/medias/video\\.php.*?)\""), ϒwebpage, λ.StrLiteral("config URL"))
+					ϒconfig_url = λ.Add(λ.StrLiteral("http://www.jeuxvideo.com"), ϒconfig_url)
+					ϒvideo_id = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("id=(\\d+)"), ϒconfig_url, λ.StrLiteral("video ID"))
+					ϒconfig = λ.Calm(ϒself, "_download_json", ϒconfig_url, ϒtitle, λ.StrLiteral("Downloading JSON config"))
 					ϒformats = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -86,32 +86,32 @@ func init() {
 									τmp0    λ.Object
 									τmp1    λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.ReversedIteratorType, λ.GetItem(ϒconfig, λ.NewStr("sources"))))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.ReversedIteratorType, λ.GetItem(ϒconfig, λ.StrLiteral("sources"))))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									ϒsource = τmp1
-									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("url"):        λ.GetItem(ϒsource, λ.NewStr("file")),
-										λ.NewStr("format_id"):  λ.GetItem(ϒsource, λ.NewStr("label")),
-										λ.NewStr("resolution"): λ.GetItem(ϒsource, λ.NewStr("label")),
+									λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+										"url":        λ.GetItem(ϒsource, λ.StrLiteral("file")),
+										"format_id":  λ.GetItem(ϒsource, λ.StrLiteral("label")),
+										"resolution": λ.GetItem(ϒsource, λ.StrLiteral("label")),
 									}))
 								}
 								return λ.None
 							})
 						})))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("formats"):     ϒformats,
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒself, "_og_search_description", nil), ϒwebpage),
-						λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒconfig, "get", nil), λ.NewStr("image")),
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       ϒtitle,
+						"formats":     ϒformats,
+						"description": λ.Calm(ϒself, "_og_search_description", ϒwebpage),
+						"thumbnail":   λ.Calm(ϒconfig, "get", λ.StrLiteral("image")),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    JeuxVideoIE__VALID_URL,
-				λ.NewStr("_real_extract"): JeuxVideoIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    JeuxVideoIE__VALID_URL,
+				"_real_extract": JeuxVideoIE__real_extract,
 			})
 		}())
 	})

@@ -51,66 +51,66 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
-		XFileShareIE = λ.Cal(λ.TypeType, λ.NewStr("XFileShareIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		XFileShareIE = λ.Cal(λ.TypeType, λ.StrLiteral("XFileShareIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				XFileShareIE__SITES     λ.Object
 				XFileShareIE__VALID_URL λ.Object
 			)
 			XFileShareIE__SITES = λ.NewTuple(
 				λ.NewTuple(
-					λ.NewStr("clipwatching\\.com"),
-					λ.NewStr("ClipWatching"),
+					λ.StrLiteral("clipwatching\\.com"),
+					λ.StrLiteral("ClipWatching"),
 				),
 				λ.NewTuple(
-					λ.NewStr("gounlimited\\.to"),
-					λ.NewStr("GoUnlimited"),
+					λ.StrLiteral("gounlimited\\.to"),
+					λ.StrLiteral("GoUnlimited"),
 				),
 				λ.NewTuple(
-					λ.NewStr("govid\\.me"),
-					λ.NewStr("GoVid"),
+					λ.StrLiteral("govid\\.me"),
+					λ.StrLiteral("GoVid"),
 				),
 				λ.NewTuple(
-					λ.NewStr("holavid\\.com"),
-					λ.NewStr("HolaVid"),
+					λ.StrLiteral("holavid\\.com"),
+					λ.StrLiteral("HolaVid"),
 				),
 				λ.NewTuple(
-					λ.NewStr("streamty\\.com"),
-					λ.NewStr("Streamty"),
+					λ.StrLiteral("streamty\\.com"),
+					λ.StrLiteral("Streamty"),
 				),
 				λ.NewTuple(
-					λ.NewStr("thevideobee\\.to"),
-					λ.NewStr("TheVideoBee"),
+					λ.StrLiteral("thevideobee\\.to"),
+					λ.StrLiteral("TheVideoBee"),
 				),
 				λ.NewTuple(
-					λ.NewStr("uqload\\.com"),
-					λ.NewStr("Uqload"),
+					λ.StrLiteral("uqload\\.com"),
+					λ.StrLiteral("Uqload"),
 				),
 				λ.NewTuple(
-					λ.NewStr("vidbom\\.com"),
-					λ.NewStr("VidBom"),
+					λ.StrLiteral("vidbom\\.com"),
+					λ.StrLiteral("VidBom"),
 				),
 				λ.NewTuple(
-					λ.NewStr("vidlo\\.us"),
-					λ.NewStr("vidlo"),
+					λ.StrLiteral("vidlo\\.us"),
+					λ.StrLiteral("vidlo"),
 				),
 				λ.NewTuple(
-					λ.NewStr("vidlocker\\.xyz"),
-					λ.NewStr("VidLocker"),
+					λ.StrLiteral("vidlocker\\.xyz"),
+					λ.StrLiteral("VidLocker"),
 				),
 				λ.NewTuple(
-					λ.NewStr("vidshare\\.tv"),
-					λ.NewStr("VidShare"),
+					λ.StrLiteral("vidshare\\.tv"),
+					λ.StrLiteral("VidShare"),
 				),
 				λ.NewTuple(
-					λ.NewStr("vup\\.to"),
-					λ.NewStr("VUp"),
+					λ.StrLiteral("vup\\.to"),
+					λ.StrLiteral("VUp"),
 				),
 				λ.NewTuple(
-					λ.NewStr("xvideosharing\\.com"),
-					λ.NewStr("XVideoSharing"),
+					λ.StrLiteral("xvideosharing\\.com"),
+					λ.StrLiteral("XVideoSharing"),
 				),
 			)
-			XFileShareIE__VALID_URL = λ.Mod(λ.NewStr("https?://(?:www\\.)?(?P<host>%s)/(?:embed-)?(?P<id>[0-9a-zA-Z]+)"), λ.Cal(λ.GetAttr(λ.NewStr("|"), "join", nil), λ.Cal(λ.NewFunction("<generator>",
+			XFileShareIE__VALID_URL = λ.Mod(λ.StrLiteral("https?://(?:www\\.)?(?P<host>%s)/(?:embed-)?(?P<id>[0-9a-zA-Z]+)"), λ.Calm(λ.StrLiteral("|"), "join", λ.Cal(λ.NewFunction("<generator>",
 				nil,
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
@@ -120,7 +120,7 @@ func init() {
 							τmp0  λ.Object
 							τmp1  λ.Object
 						)
-						τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(λ.Cal(λ.ListType, λ.Cal(λ.ZipIteratorType, λ.Unpack(λ.AsStarred(XFileShareIE__SITES))...)), λ.NewInt(0)))
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(λ.Cal(λ.ListType, λ.Cal(λ.ZipIteratorType, λ.Unpack(λ.AsStarred(XFileShareIE__SITES))...)), λ.IntLiteral(0)))
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
@@ -131,9 +131,9 @@ func init() {
 						return λ.None
 					})
 				}))))
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_SITES"):     XFileShareIE__SITES,
-				λ.NewStr("_VALID_URL"): XFileShareIE__VALID_URL,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_SITES":     XFileShareIE__SITES,
+				"_VALID_URL": XFileShareIE__VALID_URL,
 			})
 		}())
 	})

@@ -46,14 +46,14 @@ func init() {
 		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒxpath_text = Ωutils.ϒxpath_text
-		NTVRuIE = λ.Cal(λ.TypeType, λ.NewStr("NTVRuIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		NTVRuIE = λ.Cal(λ.TypeType, λ.StrLiteral("NTVRuIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				NTVRuIE_IE_NAME       λ.Object
 				NTVRuIE__VALID_URL    λ.Object
 				NTVRuIE__real_extract λ.Object
 			)
-			NTVRuIE_IE_NAME = λ.NewStr("ntv.ru")
-			NTVRuIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?ntv\\.ru/(?:[^/]+/)*(?P<id>[^/?#&]+)")
+			NTVRuIE_IE_NAME = λ.StrLiteral("ntv.ru")
+			NTVRuIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?ntv\\.ru/(?:[^/]+/)*(?P<id>[^/?#&]+)")
 			NTVRuIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -76,12 +76,12 @@ func init() {
 						τmp0       λ.Object
 						τmp1       λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
 					ϒvideo_url = λ.Call(λ.GetAttr(ϒself, "_og_search_property", nil), λ.NewArgs(
 						λ.NewTuple(
-							λ.NewStr("video"),
-							λ.NewStr("video:iframe"),
+							λ.StrLiteral("video"),
+							λ.StrLiteral("video:iframe"),
 						),
 						ϒwebpage,
 					), λ.KWArgs{
@@ -89,67 +89,67 @@ func init() {
 					})
 					if λ.IsTrue(ϒvideo_url) {
 						ϒvideo_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("https?://(?:www\\.)?ntv\\.ru/video/(?:embed/)?(\\d+)"),
+							λ.StrLiteral("https?://(?:www\\.)?ntv\\.ru/video/(?:embed/)?(\\d+)"),
 							ϒvideo_url,
-							λ.NewStr("video id"),
+							λ.StrLiteral("video id"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
 					}
-					if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒvideo_id))) {
-						ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.GetAttr(ϒself, "_VIDEO_ID_REGEXES", nil), ϒwebpage, λ.NewStr("video id"))
+					if !λ.IsTrue(ϒvideo_id) {
+						ϒvideo_id = λ.Calm(ϒself, "_html_search_regex", λ.GetAttr(ϒself, "_VIDEO_ID_REGEXES", nil), ϒwebpage, λ.StrLiteral("video id"))
 					}
-					ϒplayer = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), λ.Mod(λ.NewStr("http://www.ntv.ru/vi%s/"), ϒvideo_id), ϒvideo_id, λ.NewStr("Downloading video XML"))
+					ϒplayer = λ.Calm(ϒself, "_download_xml", λ.Mod(λ.StrLiteral("http://www.ntv.ru/vi%s/"), ϒvideo_id), ϒvideo_id, λ.StrLiteral("Downloading video XML"))
 					ϒtitle = λ.Cal(ϒstrip_or_none, λ.Cal(ϒunescapeHTML, λ.Call(ϒxpath_text, λ.NewArgs(
 						ϒplayer,
-						λ.NewStr("./data/title"),
-						λ.NewStr("title"),
+						λ.StrLiteral("./data/title"),
+						λ.StrLiteral("title"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.True},
 					})))
-					ϒvideo = λ.Cal(λ.GetAttr(ϒplayer, "find", nil), λ.NewStr("./data/video"))
+					ϒvideo = λ.Calm(ϒplayer, "find", λ.StrLiteral("./data/video"))
 					ϒformats = λ.NewList()
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewList(
-						λ.NewStr(""),
-						λ.NewStr("hi"),
-						λ.NewStr("webm"),
+						λ.StrLiteral(""),
+						λ.StrLiteral("hi"),
+						λ.StrLiteral("webm"),
 					))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒformat_id = τmp1
-						ϒfile_ = λ.Cal(ϒxpath_text, ϒvideo, λ.Mod(λ.NewStr("./%sfile"), ϒformat_id))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒfile_))) {
+						ϒfile_ = λ.Cal(ϒxpath_text, ϒvideo, λ.Mod(λ.StrLiteral("./%sfile"), ϒformat_id))
+						if !λ.IsTrue(ϒfile_) {
 							continue
 						}
-						if λ.IsTrue(λ.Cal(λ.GetAttr(ϒfile_, "startswith", nil), λ.NewStr("//"))) {
-							ϒfile_ = λ.Cal(λ.GetAttr(ϒself, "_proto_relative_url", nil), ϒfile_)
+						if λ.IsTrue(λ.Calm(ϒfile_, "startswith", λ.StrLiteral("//"))) {
+							ϒfile_ = λ.Calm(ϒself, "_proto_relative_url", ϒfile_)
 						} else {
-							if λ.IsTrue(λ.NewBool(!λ.IsTrue(λ.Cal(λ.GetAttr(ϒfile_, "startswith", nil), λ.NewStr("http"))))) {
-								ϒfile_ = λ.Add(λ.NewStr("http://media.ntv.ru/vod/"), ϒfile_)
+							if !λ.IsTrue(λ.Calm(ϒfile_, "startswith", λ.StrLiteral("http"))) {
+								ϒfile_ = λ.Add(λ.StrLiteral("http://media.ntv.ru/vod/"), ϒfile_)
 							}
 						}
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):      ϒfile_,
-							λ.NewStr("filesize"): λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒvideo, λ.Mod(λ.NewStr("./%ssize"), ϒformat_id))),
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":      ϒfile_,
+							"filesize": λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒvideo, λ.Mod(λ.StrLiteral("./%ssize"), ϒformat_id))),
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          λ.Cal(ϒxpath_text, ϒvideo, λ.NewStr("./id")),
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): λ.Cal(ϒstrip_or_none, λ.Cal(ϒunescapeHTML, λ.Cal(ϒxpath_text, ϒplayer, λ.NewStr("./data/description")))),
-						λ.NewStr("thumbnail"):   λ.Cal(ϒxpath_text, ϒvideo, λ.NewStr("./splash")),
-						λ.NewStr("duration"):    λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒvideo, λ.NewStr("./totaltime"))),
-						λ.NewStr("view_count"):  λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒvideo, λ.NewStr("./views"))),
-						λ.NewStr("formats"):     ϒformats,
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          λ.Cal(ϒxpath_text, ϒvideo, λ.StrLiteral("./id")),
+						"title":       ϒtitle,
+						"description": λ.Cal(ϒstrip_or_none, λ.Cal(ϒunescapeHTML, λ.Cal(ϒxpath_text, ϒplayer, λ.StrLiteral("./data/description")))),
+						"thumbnail":   λ.Cal(ϒxpath_text, ϒvideo, λ.StrLiteral("./splash")),
+						"duration":    λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒvideo, λ.StrLiteral("./totaltime"))),
+						"view_count":  λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒvideo, λ.StrLiteral("./views"))),
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       NTVRuIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    NTVRuIE__VALID_URL,
-				λ.NewStr("_real_extract"): NTVRuIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       NTVRuIE_IE_NAME,
+				"_VALID_URL":    NTVRuIE__VALID_URL,
+				"_real_extract": NTVRuIE__real_extract,
 			})
 		}())
 	})

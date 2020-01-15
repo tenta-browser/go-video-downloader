@@ -49,12 +49,12 @@ func init() {
 		ϒremove_end = Ωutils.ϒremove_end
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		ϒurljoin = Ωutils.ϒurljoin
-		NDTVIE = λ.Cal(λ.TypeType, λ.NewStr("NDTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		NDTVIE = λ.Cal(λ.TypeType, λ.StrLiteral("NDTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				NDTVIE__VALID_URL    λ.Object
 				NDTVIE__real_extract λ.Object
 			)
-			NDTVIE__VALID_URL = λ.NewStr("https?://(?:[^/]+\\.)?ndtv\\.com/(?:[^/]+/)*videos?/?(?:[^/]+/)*[^/?^&]+-(?P<id>\\d+)")
+			NDTVIE__VALID_URL = λ.StrLiteral("https?://(?:[^/]+\\.)?ndtv\\.com/(?:[^/]+/)*videos?/?(?:[^/]+/)*[^/?^&]+-(?P<id>\\d+)")
 			NDTVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -74,71 +74,71 @@ func init() {
 						ϒvideo_url   λ.Object
 						ϒwebpage     λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
 					ϒtitle = λ.Cal(ϒcompat_urllib_parse_unquote_plus, func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("__title\\s*=\\s*'([^']+)'"),
+							λ.StrLiteral("__title\\s*=\\s*'([^']+)'"),
 							ϒwebpage,
-							λ.NewStr("title"),
+							λ.StrLiteral("title"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
+							return λ.Calm(ϒself, "_og_search_title", ϒwebpage)
 						}
 					}())
-					ϒfilename = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("(?:__)?filename\\s*[:=]\\s*'([^']+)'"), ϒwebpage, λ.NewStr("video filename"))
-					ϒvideo_url = λ.Cal(ϒurljoin, λ.NewStr("https://ndtvod.bc-ssl.cdn.bitgravity.com/23372/ndtv/"), λ.Cal(λ.GetAttr(ϒfilename, "lstrip", nil), λ.NewStr("/")))
+					ϒfilename = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("(?:__)?filename\\s*[:=]\\s*'([^']+)'"), ϒwebpage, λ.StrLiteral("video filename"))
+					ϒvideo_url = λ.Cal(ϒurljoin, λ.StrLiteral("https://ndtvod.bc-ssl.cdn.bitgravity.com/23372/ndtv/"), λ.Calm(ϒfilename, "lstrip", λ.StrLiteral("/")))
 					ϒduration = λ.Cal(ϒparse_duration, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("(?:__)?duration\\s*[:=]\\s*'([^']+)'"),
+						λ.StrLiteral("(?:__)?duration\\s*[:=]\\s*'([^']+)'"),
 						ϒwebpage,
-						λ.NewStr("duration"),
+						λ.StrLiteral("duration"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
 					ϒupload_date = λ.Cal(ϒunified_strdate, func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
-							λ.NewStr("publish-date"),
+							λ.StrLiteral("publish-date"),
 							ϒwebpage,
-							λ.NewStr("upload date"),
+							λ.StrLiteral("upload date"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}); λ.IsTrue(λv) {
 							return λv
 						} else if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
-							λ.NewStr("uploadDate"),
+							λ.StrLiteral("uploadDate"),
 							ϒwebpage,
-							λ.NewStr("upload date"),
+							λ.StrLiteral("upload date"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
 							return λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.NewStr("datePublished\"\\s*:\\s*\"([^\"]+)\""),
+								λ.StrLiteral("datePublished\"\\s*:\\s*\"([^\"]+)\""),
 								ϒwebpage,
-								λ.NewStr("upload date"),
+								λ.StrLiteral("upload date"),
 							), λ.KWArgs{
 								{Name: "fatal", Value: λ.False},
 							})
 						}
 					}())
-					ϒdescription = λ.Cal(ϒremove_end, λ.Cal(λ.GetAttr(ϒself, "_og_search_description", nil), ϒwebpage), λ.NewStr(" (Read more)"))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("url"):         ϒvideo_url,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), ϒwebpage),
-						λ.NewStr("duration"):    ϒduration,
-						λ.NewStr("upload_date"): ϒupload_date,
+					ϒdescription = λ.Cal(ϒremove_end, λ.Calm(ϒself, "_og_search_description", ϒwebpage), λ.StrLiteral(" (Read more)"))
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"url":         ϒvideo_url,
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"thumbnail":   λ.Calm(ϒself, "_og_search_thumbnail", ϒwebpage),
+						"duration":    ϒduration,
+						"upload_date": ϒupload_date,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    NDTVIE__VALID_URL,
-				λ.NewStr("_real_extract"): NDTVIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    NDTVIE__VALID_URL,
+				"_real_extract": NDTVIE__real_extract,
 			})
 		}())
 	})

@@ -46,7 +46,7 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒstr_or_none = Ωutils.ϒstr_or_none
-		SverigesRadioBaseIE = λ.Cal(λ.TypeType, λ.NewStr("SverigesRadioBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SverigesRadioBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("SverigesRadioBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SverigesRadioBaseIE__BASE_URL                 λ.Object
 				SverigesRadioBaseIE__CODING_FORMAT_TO_ABR_MAP λ.Object
@@ -54,21 +54,21 @@ func init() {
 				SverigesRadioBaseIE__QUALITIES                λ.Object
 				SverigesRadioBaseIE__real_extract             λ.Object
 			)
-			SverigesRadioBaseIE__BASE_URL = λ.NewStr("https://sverigesradio.se/sida/playerajax/")
+			SverigesRadioBaseIE__BASE_URL = λ.StrLiteral("https://sverigesradio.se/sida/playerajax/")
 			SverigesRadioBaseIE__QUALITIES = λ.NewList(
-				λ.NewStr("low"),
-				λ.NewStr("medium"),
-				λ.NewStr("high"),
+				λ.StrLiteral("low"),
+				λ.StrLiteral("medium"),
+				λ.StrLiteral("high"),
 			)
-			SverigesRadioBaseIE__EXT_TO_CODEC_MAP = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("mp3"): λ.NewStr("mp3"),
-				λ.NewStr("m4a"): λ.NewStr("aac"),
+			SverigesRadioBaseIE__EXT_TO_CODEC_MAP = λ.DictLiteral(map[string]string{
+				"mp3": "mp3",
+				"m4a": "aac",
 			})
-			SverigesRadioBaseIE__CODING_FORMAT_TO_ABR_MAP = λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewInt(5):  λ.NewInt(128),
-				λ.NewInt(11): λ.NewInt(192),
-				λ.NewInt(12): λ.NewInt(32),
-				λ.NewInt(13): λ.NewInt(96),
+			SverigesRadioBaseIE__CODING_FORMAT_TO_ABR_MAP = λ.DictLiteral(map[int]int{
+				5:  128,
+				11: 192,
+				12: 32,
+				13: 96,
 			})
 			SverigesRadioBaseIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -95,20 +95,20 @@ func init() {
 						τmp0            λ.Object
 						τmp1            λ.Object
 					)
-					ϒaudio_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒquery = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):   ϒaudio_id,
-						λ.NewStr("type"): λ.GetAttr(ϒself, "_AUDIO_TYPE", nil),
+					ϒaudio_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒquery = λ.DictLiteral(map[string]λ.Object{
+						"id":   ϒaudio_id,
+						"type": λ.GetAttr(ϒself, "_AUDIO_TYPE", nil),
 					})
 					ϒitem = λ.GetItem(λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Add(λ.GetAttr(ϒself, "_BASE_URL", nil), λ.NewStr("audiometadata")),
+						λ.Add(λ.GetAttr(ϒself, "_BASE_URL", nil), λ.StrLiteral("audiometadata")),
 						ϒaudio_id,
-						λ.NewStr("Downloading audio JSON metadata"),
+						λ.StrLiteral("Downloading audio JSON metadata"),
 					), λ.KWArgs{
 						{Name: "query", Value: ϒquery},
-					}), λ.NewStr("items")), λ.NewInt(0))
-					ϒtitle = λ.GetItem(ϒitem, λ.NewStr("subtitle"))
-					λ.SetItem(ϒquery, λ.NewStr("format"), λ.NewStr("iis"))
+					}), λ.StrLiteral("items")), λ.IntLiteral(0))
+					ϒtitle = λ.GetItem(ϒitem, λ.StrLiteral("subtitle"))
+					λ.SetItem(ϒquery, λ.StrLiteral("format"), λ.StrLiteral("iis"))
 					ϒurls = λ.NewList()
 					ϒformats = λ.NewList()
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetAttr(ϒself, "_QUALITIES", nil))
@@ -117,22 +117,22 @@ func init() {
 							break
 						}
 						ϒquality = τmp1
-						λ.SetItem(ϒquery, λ.NewStr("quality"), ϒquality)
+						λ.SetItem(ϒquery, λ.StrLiteral("quality"), ϒquality)
 						ϒaudio_url_data = func() λ.Object {
 							if λv := λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-								λ.Add(λ.GetAttr(ϒself, "_BASE_URL", nil), λ.NewStr("getaudiourl")),
+								λ.Add(λ.GetAttr(ϒself, "_BASE_URL", nil), λ.StrLiteral("getaudiourl")),
 								ϒaudio_id,
-								λ.Mod(λ.NewStr("Downloading %s format JSON metadata"), ϒquality),
+								λ.Mod(λ.StrLiteral("Downloading %s format JSON metadata"), ϒquality),
 							), λ.KWArgs{
 								{Name: "fatal", Value: λ.False},
 								{Name: "query", Value: ϒquery},
 							}); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+								return λ.DictLiteral(map[λ.Object]λ.Object{})
 							}
 						}()
-						ϒaudio_url = λ.Cal(λ.GetAttr(ϒaudio_url_data, "get", nil), λ.NewStr("audioUrl"))
+						ϒaudio_url = λ.Calm(ϒaudio_url_data, "get", λ.StrLiteral("audioUrl"))
 						if λ.IsTrue(func() λ.Object {
 							if λv := λ.NewBool(!λ.IsTrue(ϒaudio_url)); λ.IsTrue(λv) {
 								return λv
@@ -142,78 +142,78 @@ func init() {
 						}()) {
 							continue
 						}
-						λ.Cal(λ.GetAttr(ϒurls, "append", nil), ϒaudio_url)
+						λ.Calm(ϒurls, "append", ϒaudio_url)
 						ϒext = λ.Cal(ϒdetermine_ext, ϒaudio_url)
-						ϒcoding_format = λ.Cal(λ.GetAttr(ϒaudio_url_data, "get", nil), λ.NewStr("codingFormat"))
+						ϒcoding_format = λ.Calm(ϒaudio_url_data, "get", λ.StrLiteral("codingFormat"))
 						ϒabr = func() λ.Object {
 							if λv := λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.NewStr("_a(\\d+)\\.m4a"),
+								λ.StrLiteral("_a(\\d+)\\.m4a"),
 								ϒaudio_url,
-								λ.NewStr("audio bitrate"),
+								λ.StrLiteral("audio bitrate"),
 							), λ.KWArgs{
 								{Name: "default", Value: λ.None},
 							})); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_CODING_FORMAT_TO_ABR_MAP", nil), "get", nil), ϒcoding_format)
+								return λ.Calm(λ.GetAttr(ϒself, "_CODING_FORMAT_TO_ABR_MAP", nil), "get", ϒcoding_format)
 							}
 						}()
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("abr"):       ϒabr,
-							λ.NewStr("acodec"):    λ.Cal(λ.GetAttr(λ.GetAttr(ϒself, "_EXT_TO_CODEC_MAP", nil), "get", nil), ϒext),
-							λ.NewStr("ext"):       ϒext,
-							λ.NewStr("format_id"): λ.Cal(ϒstr_or_none, ϒcoding_format),
-							λ.NewStr("vcodec"):    λ.NewStr("none"),
-							λ.NewStr("url"):       ϒaudio_url,
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"abr":       ϒabr,
+							"acodec":    λ.Calm(λ.GetAttr(ϒself, "_EXT_TO_CODEC_MAP", nil), "get", ϒext),
+							"ext":       ϒext,
+							"format_id": λ.Cal(ϒstr_or_none, ϒcoding_format),
+							"vcodec":    λ.StrLiteral("none"),
+							"url":       ϒaudio_url,
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒaudio_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("formats"):     ϒformats,
-						λ.NewStr("series"):      λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("title")),
-						λ.NewStr("duration"):    λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("duration"))),
-						λ.NewStr("thumbnail"):   λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("displayimageurl")),
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒitem, "get", nil), λ.NewStr("description")),
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒaudio_id,
+						"title":       ϒtitle,
+						"formats":     ϒformats,
+						"series":      λ.Calm(ϒitem, "get", λ.StrLiteral("title")),
+						"duration":    λ.Cal(ϒint_or_none, λ.Calm(ϒitem, "get", λ.StrLiteral("duration"))),
+						"thumbnail":   λ.Calm(ϒitem, "get", λ.StrLiteral("displayimageurl")),
+						"description": λ.Calm(ϒitem, "get", λ.StrLiteral("description")),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_BASE_URL"):                 SverigesRadioBaseIE__BASE_URL,
-				λ.NewStr("_CODING_FORMAT_TO_ABR_MAP"): SverigesRadioBaseIE__CODING_FORMAT_TO_ABR_MAP,
-				λ.NewStr("_EXT_TO_CODEC_MAP"):         SverigesRadioBaseIE__EXT_TO_CODEC_MAP,
-				λ.NewStr("_QUALITIES"):                SverigesRadioBaseIE__QUALITIES,
-				λ.NewStr("_real_extract"):             SverigesRadioBaseIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_BASE_URL":                 SverigesRadioBaseIE__BASE_URL,
+				"_CODING_FORMAT_TO_ABR_MAP": SverigesRadioBaseIE__CODING_FORMAT_TO_ABR_MAP,
+				"_EXT_TO_CODEC_MAP":         SverigesRadioBaseIE__EXT_TO_CODEC_MAP,
+				"_QUALITIES":                SverigesRadioBaseIE__QUALITIES,
+				"_real_extract":             SverigesRadioBaseIE__real_extract,
 			})
 		}())
-		SverigesRadioPublicationIE = λ.Cal(λ.TypeType, λ.NewStr("SverigesRadioPublicationIE"), λ.NewTuple(SverigesRadioBaseIE), func() λ.Dict {
+		SverigesRadioPublicationIE = λ.Cal(λ.TypeType, λ.StrLiteral("SverigesRadioPublicationIE"), λ.NewTuple(SverigesRadioBaseIE), func() λ.Dict {
 			var (
 				SverigesRadioPublicationIE_IE_NAME     λ.Object
 				SverigesRadioPublicationIE__AUDIO_TYPE λ.Object
 				SverigesRadioPublicationIE__VALID_URL  λ.Object
 			)
-			SverigesRadioPublicationIE_IE_NAME = λ.NewStr("sverigesradio:publication")
-			SverigesRadioPublicationIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?sverigesradio\\.se/sida/(?:artikel|gruppsida)\\.aspx\\?.*?\\bartikel=(?P<id>[0-9]+)")
-			SverigesRadioPublicationIE__AUDIO_TYPE = λ.NewStr("publication")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):     SverigesRadioPublicationIE_IE_NAME,
-				λ.NewStr("_AUDIO_TYPE"): SverigesRadioPublicationIE__AUDIO_TYPE,
-				λ.NewStr("_VALID_URL"):  SverigesRadioPublicationIE__VALID_URL,
+			SverigesRadioPublicationIE_IE_NAME = λ.StrLiteral("sverigesradio:publication")
+			SverigesRadioPublicationIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?sverigesradio\\.se/sida/(?:artikel|gruppsida)\\.aspx\\?.*?\\bartikel=(?P<id>[0-9]+)")
+			SverigesRadioPublicationIE__AUDIO_TYPE = λ.StrLiteral("publication")
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":     SverigesRadioPublicationIE_IE_NAME,
+				"_AUDIO_TYPE": SverigesRadioPublicationIE__AUDIO_TYPE,
+				"_VALID_URL":  SverigesRadioPublicationIE__VALID_URL,
 			})
 		}())
-		SverigesRadioEpisodeIE = λ.Cal(λ.TypeType, λ.NewStr("SverigesRadioEpisodeIE"), λ.NewTuple(SverigesRadioBaseIE), func() λ.Dict {
+		SverigesRadioEpisodeIE = λ.Cal(λ.TypeType, λ.StrLiteral("SverigesRadioEpisodeIE"), λ.NewTuple(SverigesRadioBaseIE), func() λ.Dict {
 			var (
 				SverigesRadioEpisodeIE_IE_NAME     λ.Object
 				SverigesRadioEpisodeIE__AUDIO_TYPE λ.Object
 				SverigesRadioEpisodeIE__VALID_URL  λ.Object
 			)
-			SverigesRadioEpisodeIE_IE_NAME = λ.NewStr("sverigesradio:episode")
-			SverigesRadioEpisodeIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?sverigesradio\\.se/(?:sida/)?avsnitt/(?P<id>[0-9]+)")
-			SverigesRadioEpisodeIE__AUDIO_TYPE = λ.NewStr("episode")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):     SverigesRadioEpisodeIE_IE_NAME,
-				λ.NewStr("_AUDIO_TYPE"): SverigesRadioEpisodeIE__AUDIO_TYPE,
-				λ.NewStr("_VALID_URL"):  SverigesRadioEpisodeIE__VALID_URL,
+			SverigesRadioEpisodeIE_IE_NAME = λ.StrLiteral("sverigesradio:episode")
+			SverigesRadioEpisodeIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?sverigesradio\\.se/(?:sida/)?avsnitt/(?P<id>[0-9]+)")
+			SverigesRadioEpisodeIE__AUDIO_TYPE = λ.StrLiteral("episode")
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":     SverigesRadioEpisodeIE_IE_NAME,
+				"_AUDIO_TYPE": SverigesRadioEpisodeIE__AUDIO_TYPE,
+				"_VALID_URL":  SverigesRadioEpisodeIE__VALID_URL,
 			})
 		}())
 	})

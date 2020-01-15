@@ -42,14 +42,14 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒtry_get = Ωutils.ϒtry_get
-		TwentyMinutenIE = λ.Cal(λ.TypeType, λ.NewStr("TwentyMinutenIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TwentyMinutenIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwentyMinutenIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TwentyMinutenIE_IE_NAME       λ.Object
 				TwentyMinutenIE__VALID_URL    λ.Object
 				TwentyMinutenIE__real_extract λ.Object
 			)
-			TwentyMinutenIE_IE_NAME = λ.NewStr("20min")
-			TwentyMinutenIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:www\\.)?20min\\.ch/\n                        (?:\n                            videotv/*\\?.*?\\bvid=|\n                            videoplayer/videoplayer\\.html\\?.*?\\bvideoId@\n                        )\n                        (?P<id>\\d+)\n                    ")
+			TwentyMinutenIE_IE_NAME = λ.StrLiteral("20min")
+			TwentyMinutenIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:www\\.)?20min\\.ch/\n                        (?:\n                            videotv/*\\?.*?\\bvid=|\n                            videoplayer/videoplayer\\.html\\?.*?\\bvideoId@\n                        )\n                        (?P<id>\\d+)\n                    ")
 			TwentyMinutenIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -70,9 +70,9 @@ func init() {
 						ϒvideo         λ.Object
 						ϒvideo_id      λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒvideo = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), λ.Mod(λ.NewStr("http://api.20min.ch/video/%s/show"), ϒvideo_id), ϒvideo_id), λ.NewStr("content"))
-					ϒtitle = λ.GetItem(ϒvideo, λ.NewStr("title"))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒvideo = λ.GetItem(λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("http://api.20min.ch/video/%s/show"), ϒvideo_id), ϒvideo_id), λ.StrLiteral("content"))
+					ϒtitle = λ.GetItem(ϒvideo, λ.StrLiteral("title"))
 					ϒformats = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -89,12 +89,12 @@ func init() {
 								)
 								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.EnumerateIteratorType, λ.NewList(
 									λ.NewTuple(
-										λ.NewStr("sd"),
-										λ.NewStr(""),
+										λ.StrLiteral("sd"),
+										λ.StrLiteral(""),
 									),
 									λ.NewTuple(
-										λ.NewStr("hd"),
-										λ.NewStr("h"),
+										λ.StrLiteral("hd"),
+										λ.StrLiteral("h"),
 									),
 								)))
 								for {
@@ -102,25 +102,25 @@ func init() {
 										break
 									}
 									τmp2 = τmp1
-									ϒquality = λ.GetItem(τmp2, λ.NewInt(0))
-									τmp3 = λ.GetItem(τmp2, λ.NewInt(1))
-									ϒformat_id = λ.GetItem(τmp3, λ.NewInt(0))
-									ϒp = λ.GetItem(τmp3, λ.NewInt(1))
-									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("format_id"): ϒformat_id,
-										λ.NewStr("url"): λ.Mod(λ.NewStr("http://podcast.20min-tv.ch/podcast/20min/%s%s.mp4"), λ.NewTuple(
+									ϒquality = λ.GetItem(τmp2, λ.IntLiteral(0))
+									τmp3 = λ.GetItem(τmp2, λ.IntLiteral(1))
+									ϒformat_id = λ.GetItem(τmp3, λ.IntLiteral(0))
+									ϒp = λ.GetItem(τmp3, λ.IntLiteral(1))
+									λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+										"format_id": ϒformat_id,
+										"url": λ.Mod(λ.StrLiteral("http://podcast.20min-tv.ch/podcast/20min/%s%s.mp4"), λ.NewTuple(
 											ϒvideo_id,
 											ϒp,
 										)),
-										λ.NewStr("quality"): ϒquality,
+										"quality": ϒquality,
 									}))
 								}
 								return λ.None
 							})
 						})))
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					ϒdescription = λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("lead"))
-					ϒthumbnail = λ.Cal(λ.GetAttr(ϒvideo, "get", nil), λ.NewStr("thumbnail"))
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒdescription = λ.Calm(ϒvideo, "get", λ.StrLiteral("lead"))
+					ϒthumbnail = λ.Calm(ϒvideo, "get", λ.StrLiteral("thumbnail"))
 					ϒextract_count = λ.NewFunction("extract_count",
 						[]λ.Param{
 							{Name: "kind"},
@@ -139,25 +139,25 @@ func init() {
 									var (
 										ϒx = λargs[0]
 									)
-									return λ.Cal(ϒint_or_none, λ.GetItem(λ.GetItem(ϒx, λ.NewStr("communityobject")), λ.Mod(λ.NewStr("thumbs_%s"), ϒkind)))
+									return λ.Cal(ϒint_or_none, λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("communityobject")), λ.Mod(λ.StrLiteral("thumbs_%s"), ϒkind)))
 								}))
 						})
-					ϒlike_count = λ.Cal(ϒextract_count, λ.NewStr("up"))
-					ϒdislike_count = λ.Cal(ϒextract_count, λ.NewStr("down"))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            ϒvideo_id,
-						λ.NewStr("title"):         ϒtitle,
-						λ.NewStr("description"):   ϒdescription,
-						λ.NewStr("thumbnail"):     ϒthumbnail,
-						λ.NewStr("like_count"):    ϒlike_count,
-						λ.NewStr("dislike_count"): ϒdislike_count,
-						λ.NewStr("formats"):       ϒformats,
+					ϒlike_count = λ.Cal(ϒextract_count, λ.StrLiteral("up"))
+					ϒdislike_count = λ.Cal(ϒextract_count, λ.StrLiteral("down"))
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":            ϒvideo_id,
+						"title":         ϒtitle,
+						"description":   ϒdescription,
+						"thumbnail":     ϒthumbnail,
+						"like_count":    ϒlike_count,
+						"dislike_count": ϒdislike_count,
+						"formats":       ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       TwentyMinutenIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    TwentyMinutenIE__VALID_URL,
-				λ.NewStr("_real_extract"): TwentyMinutenIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       TwentyMinutenIE_IE_NAME,
+				"_VALID_URL":    TwentyMinutenIE__VALID_URL,
+				"_real_extract": TwentyMinutenIE__real_extract,
 			})
 		}())
 	})

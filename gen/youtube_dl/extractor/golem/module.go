@@ -44,14 +44,14 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
-		GolemIE = λ.Cal(λ.TypeType, λ.NewStr("GolemIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		GolemIE = λ.Cal(λ.TypeType, λ.StrLiteral("GolemIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				GolemIE__PREFIX       λ.Object
 				GolemIE__VALID_URL    λ.Object
 				GolemIE__real_extract λ.Object
 			)
-			GolemIE__VALID_URL = λ.NewStr("^https?://video\\.golem\\.de/.+?/(?P<id>.+?)/")
-			GolemIE__PREFIX = λ.NewStr("http://video.golem.de")
+			GolemIE__VALID_URL = λ.StrLiteral("^https?://video\\.golem\\.de/.+?/(?P<id>.+?)/")
+			GolemIE__PREFIX = λ.StrLiteral("http://video.golem.de")
 			GolemIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -71,12 +71,12 @@ func init() {
 						τmp0        λ.Object
 						τmp1        λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒconfig = λ.Cal(λ.GetAttr(ϒself, "_download_xml", nil), λ.Cal(λ.GetAttr(λ.NewStr("https://video.golem.de/xml/{0}.xml"), "format", nil), ϒvideo_id), ϒvideo_id)
-					ϒinfo = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):       ϒvideo_id,
-						λ.NewStr("title"):    λ.Cal(λ.GetAttr(ϒconfig, "findtext", nil), λ.NewStr("./title"), λ.NewStr("golem")),
-						λ.NewStr("duration"): λ.Cal(λ.GetAttr(ϒself, "_float", nil), λ.Cal(λ.GetAttr(ϒconfig, "findtext", nil), λ.NewStr("./playtime")), λ.NewStr("duration")),
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒconfig = λ.Calm(ϒself, "_download_xml", λ.Calm(λ.StrLiteral("https://video.golem.de/xml/{0}.xml"), "format", ϒvideo_id), ϒvideo_id)
+					ϒinfo = λ.DictLiteral(map[string]λ.Object{
+						"id":       ϒvideo_id,
+						"title":    λ.Calm(ϒconfig, "findtext", λ.StrLiteral("./title"), λ.StrLiteral("golem")),
+						"duration": λ.Calm(ϒself, "_float", λ.Calm(ϒconfig, "findtext", λ.StrLiteral("./playtime")), λ.StrLiteral("duration")),
 					})
 					ϒformats = λ.NewList()
 					τmp0 = λ.Cal(λ.BuiltinIter, ϒconfig)
@@ -85,45 +85,45 @@ func init() {
 							break
 						}
 						ϒe = τmp1
-						ϒurl = λ.Cal(λ.GetAttr(ϒe, "findtext", nil), λ.NewStr("./url"))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒurl))) {
+						ϒurl = λ.Calm(ϒe, "findtext", λ.StrLiteral("./url"))
+						if !λ.IsTrue(ϒurl) {
 							continue
 						}
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("format_id"): λ.Cal(ϒcompat_str, λ.GetAttr(ϒe, "tag", nil)),
-							λ.NewStr("url"):       λ.Cal(Ωparse.ϒurljoin, λ.GetAttr(ϒself, "_PREFIX", nil), ϒurl),
-							λ.NewStr("height"):    λ.Cal(λ.GetAttr(ϒself, "_int", nil), λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("height")), λ.NewStr("height")),
-							λ.NewStr("width"):     λ.Cal(λ.GetAttr(ϒself, "_int", nil), λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("width")), λ.NewStr("width")),
-							λ.NewStr("filesize"):  λ.Cal(λ.GetAttr(ϒself, "_int", nil), λ.Cal(λ.GetAttr(ϒe, "findtext", nil), λ.NewStr("filesize")), λ.NewStr("filesize")),
-							λ.NewStr("ext"):       λ.Cal(ϒdetermine_ext, λ.Cal(λ.GetAttr(ϒe, "findtext", nil), λ.NewStr("./filename"))),
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"format_id": λ.Cal(ϒcompat_str, λ.GetAttr(ϒe, "tag", nil)),
+							"url":       λ.Cal(Ωparse.ϒurljoin, λ.GetAttr(ϒself, "_PREFIX", nil), ϒurl),
+							"height":    λ.Calm(ϒself, "_int", λ.Calm(ϒe, "get", λ.StrLiteral("height")), λ.StrLiteral("height")),
+							"width":     λ.Calm(ϒself, "_int", λ.Calm(ϒe, "get", λ.StrLiteral("width")), λ.StrLiteral("width")),
+							"filesize":  λ.Calm(ϒself, "_int", λ.Calm(ϒe, "findtext", λ.StrLiteral("filesize")), λ.StrLiteral("filesize")),
+							"ext":       λ.Cal(ϒdetermine_ext, λ.Calm(ϒe, "findtext", λ.StrLiteral("./filename"))),
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					λ.SetItem(ϒinfo, λ.NewStr("formats"), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					λ.SetItem(ϒinfo, λ.StrLiteral("formats"), ϒformats)
 					ϒthumbnails = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒconfig, "findall", nil), λ.NewStr(".//teaser")))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒconfig, "findall", λ.StrLiteral(".//teaser")))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒe = τmp1
-						ϒurl = λ.Cal(λ.GetAttr(ϒe, "findtext", nil), λ.NewStr("./url"))
-						if λ.IsTrue(λ.NewBool(!λ.IsTrue(ϒurl))) {
+						ϒurl = λ.Calm(ϒe, "findtext", λ.StrLiteral("./url"))
+						if !λ.IsTrue(ϒurl) {
 							continue
 						}
-						λ.Cal(λ.GetAttr(ϒthumbnails, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):    λ.Cal(Ωparse.ϒurljoin, λ.GetAttr(ϒself, "_PREFIX", nil), ϒurl),
-							λ.NewStr("width"):  λ.Cal(λ.GetAttr(ϒself, "_int", nil), λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("width")), λ.NewStr("thumbnail width")),
-							λ.NewStr("height"): λ.Cal(λ.GetAttr(ϒself, "_int", nil), λ.Cal(λ.GetAttr(ϒe, "get", nil), λ.NewStr("height")), λ.NewStr("thumbnail height")),
+						λ.Calm(ϒthumbnails, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":    λ.Cal(Ωparse.ϒurljoin, λ.GetAttr(ϒself, "_PREFIX", nil), ϒurl),
+							"width":  λ.Calm(ϒself, "_int", λ.Calm(ϒe, "get", λ.StrLiteral("width")), λ.StrLiteral("thumbnail width")),
+							"height": λ.Calm(ϒself, "_int", λ.Calm(ϒe, "get", λ.StrLiteral("height")), λ.StrLiteral("thumbnail height")),
 						}))
 					}
-					λ.SetItem(ϒinfo, λ.NewStr("thumbnails"), ϒthumbnails)
+					λ.SetItem(ϒinfo, λ.StrLiteral("thumbnails"), ϒthumbnails)
 					return ϒinfo
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_PREFIX"):       GolemIE__PREFIX,
-				λ.NewStr("_VALID_URL"):    GolemIE__VALID_URL,
-				λ.NewStr("_real_extract"): GolemIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_PREFIX":       GolemIE__PREFIX,
+				"_VALID_URL":    GolemIE__VALID_URL,
+				"_real_extract": GolemIE__real_extract,
 			})
 		}())
 	})

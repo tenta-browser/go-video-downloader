@@ -47,12 +47,12 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
-		NetzkinoIE = λ.Cal(λ.TypeType, λ.NewStr("NetzkinoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		NetzkinoIE = λ.Cal(λ.TypeType, λ.StrLiteral("NetzkinoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				NetzkinoIE__VALID_URL    λ.Object
 				NetzkinoIE__real_extract λ.Object
 			)
-			NetzkinoIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?netzkino\\.de/\\#!/(?P<category>[^/]+)/(?P<id>[^/]+)")
+			NetzkinoIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?netzkino\\.de/\\#!/(?P<category>[^/]+)/(?P<id>[^/]+)")
 			NetzkinoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -79,10 +79,10 @@ func init() {
 						ϒvideo_id      λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒcategory_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("category"))
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-					ϒapi_url = λ.Mod(λ.NewStr("http://api.netzkino.de.simplecache.net/capi-2.0a/categories/%s.json?d=www"), ϒcategory_id)
-					ϒapi_info = λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), ϒapi_url, ϒvideo_id)
+					ϒcategory_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("category"))
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
+					ϒapi_url = λ.Mod(λ.StrLiteral("http://api.netzkino.de.simplecache.net/capi-2.0a/categories/%s.json?d=www"), ϒcategory_id)
+					ϒapi_info = λ.Calm(ϒself, "_download_json", ϒapi_url, ϒvideo_id)
 					ϒinfo = λ.Cal(λ.BuiltinNext, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -93,39 +93,39 @@ func init() {
 									τmp0 λ.Object
 									τmp1 λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒapi_info, λ.NewStr("posts")))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒapi_info, λ.StrLiteral("posts")))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									ϒp = τmp1
-									if λ.IsTrue(λ.Eq(λ.GetItem(ϒp, λ.NewStr("slug")), ϒvideo_id)) {
+									if λ.IsTrue(λ.Eq(λ.GetItem(ϒp, λ.StrLiteral("slug")), ϒvideo_id)) {
 										λgy.Yield(ϒp)
 									}
 								}
 								return λ.None
 							})
 						})))
-					ϒcustom_fields = λ.GetItem(ϒinfo, λ.NewStr("custom_fields"))
+					ϒcustom_fields = λ.GetItem(ϒinfo, λ.StrLiteral("custom_fields"))
 					ϒproduction_js = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
-						λ.NewStr("http://www.netzkino.de/beta/dist/production.min.js"),
+						λ.StrLiteral("http://www.netzkino.de/beta/dist/production.min.js"),
 						ϒvideo_id,
 					), λ.KWArgs{
-						{Name: "note", Value: λ.NewStr("Downloading player code")},
+						{Name: "note", Value: λ.StrLiteral("Downloading player code")},
 					})
-					ϒavo_js = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("var urlTemplate=(\\{.*?\"\\})"), ϒproduction_js, λ.NewStr("URL templates"))
+					ϒavo_js = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("var urlTemplate=(\\{.*?\"\\})"), ϒproduction_js, λ.StrLiteral("URL templates"))
 					ϒtemplates = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 						ϒavo_js,
 						ϒvideo_id,
 					), λ.KWArgs{
 						{Name: "transform_source", Value: ϒjs_to_json},
 					})
-					ϒsuffix = λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("hds"): λ.NewStr(".mp4/manifest.f4m"),
-						λ.NewStr("hls"): λ.NewStr(".mp4/master.m3u8"),
-						λ.NewStr("pmd"): λ.NewStr(".mp4"),
+					ϒsuffix = λ.DictLiteral(map[string]string{
+						"hds": ".mp4/manifest.f4m",
+						"hls": ".mp4/master.m3u8",
+						"pmd": ".mp4",
 					})
-					ϒfilm_fn = λ.GetItem(λ.GetItem(ϒcustom_fields, λ.NewStr("Streaming")), λ.NewInt(0))
+					ϒfilm_fn = λ.GetItem(λ.GetItem(ϒcustom_fields, λ.StrLiteral("Streaming")), λ.IntLiteral(0))
 					ϒformats = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -138,24 +138,24 @@ func init() {
 									τmp1 λ.Object
 									τmp2 λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒtemplates, "items", nil)))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒtemplates, "items"))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									τmp2 = τmp1
-									ϒkey = λ.GetItem(τmp2, λ.NewInt(0))
-									ϒtpl = λ.GetItem(τmp2, λ.NewInt(1))
-									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("format_id"): ϒkey,
-										λ.NewStr("ext"):       λ.NewStr("mp4"),
-										λ.NewStr("url"):       λ.Add(λ.Cal(λ.GetAttr(ϒtpl, "replace", nil), λ.NewStr("{}"), ϒfilm_fn), λ.GetItem(ϒsuffix, ϒkey)),
+									ϒkey = λ.GetItem(τmp2, λ.IntLiteral(0))
+									ϒtpl = λ.GetItem(τmp2, λ.IntLiteral(1))
+									λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+										"format_id": ϒkey,
+										"ext":       λ.StrLiteral("mp4"),
+										"url":       λ.Add(λ.Calm(ϒtpl, "replace", λ.StrLiteral("{}"), ϒfilm_fn), λ.GetItem(ϒsuffix, ϒkey)),
 									}))
 								}
 								return λ.None
 							})
 						})))
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒcomments = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -166,24 +166,24 @@ func init() {
 									τmp0 λ.Object
 									τmp1 λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("comments"), λ.NewList()))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒinfo, "get", λ.StrLiteral("comments"), λ.NewList()))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									ϒc = τmp1
-									λgy.Yield(λ.NewDictWithTable(map[λ.Object]λ.Object{
-										λ.NewStr("timestamp"): λ.Call(ϒparse_iso8601, λ.NewArgs(λ.Cal(λ.GetAttr(ϒc, "get", nil), λ.NewStr("date"))), λ.KWArgs{
-											{Name: "delimiter", Value: λ.NewStr(" ")},
+									λgy.Yield(λ.DictLiteral(map[string]λ.Object{
+										"timestamp": λ.Call(ϒparse_iso8601, λ.NewArgs(λ.Calm(ϒc, "get", λ.StrLiteral("date"))), λ.KWArgs{
+											{Name: "delimiter", Value: λ.StrLiteral(" ")},
 										}),
-										λ.NewStr("id"):     λ.GetItem(ϒc, λ.NewStr("id")),
-										λ.NewStr("author"): λ.GetItem(ϒc, λ.NewStr("name")),
-										λ.NewStr("html"):   λ.GetItem(ϒc, λ.NewStr("content")),
-										λ.NewStr("parent"): func() λ.Object {
-											if λ.IsTrue(λ.Eq(λ.Cal(λ.GetAttr(ϒc, "get", nil), λ.NewStr("parent"), λ.NewInt(0)), λ.NewInt(0))) {
-												return λ.NewStr("root")
+										"id":     λ.GetItem(ϒc, λ.StrLiteral("id")),
+										"author": λ.GetItem(ϒc, λ.StrLiteral("name")),
+										"html":   λ.GetItem(ϒc, λ.StrLiteral("content")),
+										"parent": func() λ.Object {
+											if λ.IsTrue(λ.Eq(λ.Calm(ϒc, "get", λ.StrLiteral("parent"), λ.IntLiteral(0)), λ.IntLiteral(0))) {
+												return λ.StrLiteral("root")
 											} else {
-												return λ.GetItem(ϒc, λ.NewStr("parent"))
+												return λ.GetItem(ϒc, λ.StrLiteral("parent"))
 											}
 										}(),
 									}))
@@ -191,24 +191,24 @@ func init() {
 								return λ.None
 							})
 						})))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("formats"):   ϒformats,
-						λ.NewStr("comments"):  ϒcomments,
-						λ.NewStr("title"):     λ.GetItem(ϒinfo, λ.NewStr("title")),
-						λ.NewStr("age_limit"): λ.Cal(ϒint_or_none, λ.GetItem(λ.Cal(λ.GetAttr(ϒcustom_fields, "get", nil), λ.NewStr("FSK")), λ.NewInt(0))),
-						λ.NewStr("timestamp"): λ.Call(ϒparse_iso8601, λ.NewArgs(λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("date"))), λ.KWArgs{
-							{Name: "delimiter", Value: λ.NewStr(" ")},
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒvideo_id,
+						"formats":   ϒformats,
+						"comments":  ϒcomments,
+						"title":     λ.GetItem(ϒinfo, λ.StrLiteral("title")),
+						"age_limit": λ.Cal(ϒint_or_none, λ.GetItem(λ.Calm(ϒcustom_fields, "get", λ.StrLiteral("FSK")), λ.IntLiteral(0))),
+						"timestamp": λ.Call(ϒparse_iso8601, λ.NewArgs(λ.Calm(ϒinfo, "get", λ.StrLiteral("date"))), λ.KWArgs{
+							{Name: "delimiter", Value: λ.StrLiteral(" ")},
 						}),
-						λ.NewStr("description"):    λ.Cal(ϒclean_html, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("content"))),
-						λ.NewStr("thumbnail"):      λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("thumbnail")),
-						λ.NewStr("playlist_title"): λ.Cal(λ.GetAttr(ϒapi_info, "get", nil), λ.NewStr("title")),
-						λ.NewStr("playlist_id"):    ϒcategory_id,
+						"description":    λ.Cal(ϒclean_html, λ.Calm(ϒinfo, "get", λ.StrLiteral("content"))),
+						"thumbnail":      λ.Calm(ϒinfo, "get", λ.StrLiteral("thumbnail")),
+						"playlist_title": λ.Calm(ϒapi_info, "get", λ.StrLiteral("title")),
+						"playlist_id":    ϒcategory_id,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    NetzkinoIE__VALID_URL,
-				λ.NewStr("_real_extract"): NetzkinoIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    NetzkinoIE__VALID_URL,
+				"_real_extract": NetzkinoIE__real_extract,
 			})
 		}())
 	})

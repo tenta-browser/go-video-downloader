@@ -40,14 +40,14 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		YoutubeIE = Ωyoutube.YoutubeIE
-		FreespeechIE = λ.Cal(λ.TypeType, λ.NewStr("FreespeechIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		FreespeechIE = λ.Cal(λ.TypeType, λ.StrLiteral("FreespeechIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				FreespeechIE_IE_NAME       λ.Object
 				FreespeechIE__VALID_URL    λ.Object
 				FreespeechIE__real_extract λ.Object
 			)
-			FreespeechIE_IE_NAME = λ.NewStr("freespeech.org")
-			FreespeechIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?freespeech\\.org/stories/(?P<id>.+)")
+			FreespeechIE_IE_NAME = λ.StrLiteral("freespeech.org")
+			FreespeechIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?freespeech\\.org/stories/(?P<id>.+)")
 			FreespeechIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -62,15 +62,15 @@ func init() {
 						ϒwebpage     λ.Object
 						ϒyoutube_url λ.Object
 					)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
-					ϒyoutube_url = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("data-video-url=\"([^\"]+)\""), ϒwebpage, λ.NewStr("youtube url"))
-					return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒyoutube_url, λ.Cal(λ.GetAttr(YoutubeIE, "ie_key", nil)))
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
+					ϒyoutube_url = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("data-video-url=\"([^\"]+)\""), ϒwebpage, λ.StrLiteral("youtube url"))
+					return λ.Calm(ϒself, "url_result", ϒyoutube_url, λ.Calm(YoutubeIE, "ie_key"))
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       FreespeechIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    FreespeechIE__VALID_URL,
-				λ.NewStr("_real_extract"): FreespeechIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       FreespeechIE_IE_NAME,
+				"_VALID_URL":    FreespeechIE__VALID_URL,
+				"_real_extract": FreespeechIE__real_extract,
 			})
 		}())
 	})

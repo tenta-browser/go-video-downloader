@@ -43,12 +43,12 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒextract_attributes = Ωutils.ϒextract_attributes
 		ϒint_or_none = Ωutils.ϒint_or_none
-		PokemonIE = λ.Cal(λ.TypeType, λ.NewStr("PokemonIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		PokemonIE = λ.Cal(λ.TypeType, λ.StrLiteral("PokemonIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				PokemonIE__VALID_URL    λ.Object
 				PokemonIE__real_extract λ.Object
 			)
-			PokemonIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?pokemon\\.com/[a-z]{2}(?:.*?play=(?P<id>[a-z0-9]{32})|/(?:[^/]+/)+(?P<display_id>[^/?#&]+))")
+			PokemonIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?pokemon\\.com/[a-z]{2}(?:.*?play=(?P<id>[a-z0-9]{32})|/(?:[^/]+/)+(?P<display_id>[^/?#&]+))")
 			PokemonIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -66,56 +66,56 @@ func init() {
 						ϒwebpage    λ.Object
 						τmp0        λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups", nil))
-					ϒvideo_id = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒdisplay_id = λ.GetItem(τmp0, λ.NewInt(1))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, func() λ.Object {
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, func() λ.Object {
 						if λv := ϒvideo_id; λ.IsTrue(λv) {
 							return λv
 						} else {
 							return ϒdisplay_id
 						}
 					}())
-					ϒvideo_data = λ.Cal(ϒextract_attributes, λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.Mod(λ.NewStr("(<[^>]+data-video-id=\"%s\"[^>]*>)"), func() λ.Object {
+					ϒvideo_data = λ.Cal(ϒextract_attributes, λ.Calm(ϒself, "_search_regex", λ.Mod(λ.StrLiteral("(<[^>]+data-video-id=\"%s\"[^>]*>)"), func() λ.Object {
 						if λ.IsTrue(ϒvideo_id) {
 							return ϒvideo_id
 						} else {
-							return λ.NewStr("[a-z0-9]{32}")
+							return λ.StrLiteral("[a-z0-9]{32}")
 						}
-					}()), ϒwebpage, λ.NewStr("video data element")))
-					ϒvideo_id = λ.GetItem(ϒvideo_data, λ.NewStr("data-video-id"))
+					}()), ϒwebpage, λ.StrLiteral("video data element")))
+					ϒvideo_id = λ.GetItem(ϒvideo_data, λ.StrLiteral("data-video-id"))
 					ϒtitle = func() λ.Object {
-						if λv := λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("data-video-title")); λ.IsTrue(λv) {
+						if λv := λ.Calm(ϒvideo_data, "get", λ.StrLiteral("data-video-title")); λ.IsTrue(λv) {
 							return λv
 						} else if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
-							λ.NewStr("pkm-title"),
+							λ.StrLiteral("pkm-title"),
 							ϒwebpage,
-							λ.NewStr(" title"),
+							λ.StrLiteral(" title"),
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<h1[^>]+\\bclass=[\"\\']us-title[^>]+>([^<]+)"), ϒwebpage, λ.NewStr("title"))
+							return λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<h1[^>]+\\bclass=[\"\\']us-title[^>]+>([^<]+)"), ϒwebpage, λ.StrLiteral("title"))
 						}
 					}()
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("_type"):          λ.NewStr("url_transparent"),
-						λ.NewStr("id"):             ϒvideo_id,
-						λ.NewStr("url"):            λ.Mod(λ.NewStr("limelight:media:%s"), ϒvideo_id),
-						λ.NewStr("title"):          ϒtitle,
-						λ.NewStr("description"):    λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("data-video-summary")),
-						λ.NewStr("thumbnail"):      λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("data-video-poster")),
-						λ.NewStr("series"):         λ.NewStr("Pokémon"),
-						λ.NewStr("season_number"):  λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("data-video-season"))),
-						λ.NewStr("episode"):        ϒtitle,
-						λ.NewStr("episode_number"): λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒvideo_data, "get", nil), λ.NewStr("data-video-episode"))),
-						λ.NewStr("ie_key"):         λ.NewStr("LimelightMedia"),
+					return λ.DictLiteral(map[string]λ.Object{
+						"_type":          λ.StrLiteral("url_transparent"),
+						"id":             ϒvideo_id,
+						"url":            λ.Mod(λ.StrLiteral("limelight:media:%s"), ϒvideo_id),
+						"title":          ϒtitle,
+						"description":    λ.Calm(ϒvideo_data, "get", λ.StrLiteral("data-video-summary")),
+						"thumbnail":      λ.Calm(ϒvideo_data, "get", λ.StrLiteral("data-video-poster")),
+						"series":         λ.StrLiteral("Pokémon"),
+						"season_number":  λ.Cal(ϒint_or_none, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("data-video-season"))),
+						"episode":        ϒtitle,
+						"episode_number": λ.Cal(ϒint_or_none, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("data-video-episode"))),
+						"ie_key":         λ.StrLiteral("LimelightMedia"),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    PokemonIE__VALID_URL,
-				λ.NewStr("_real_extract"): PokemonIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    PokemonIE__VALID_URL,
+				"_real_extract": PokemonIE__real_extract,
 			})
 		}())
 	})

@@ -53,7 +53,7 @@ func init() {
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ExtractorError = Ωutils.ExtractorError
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
-		NownessBaseIE = λ.Cal(λ.TypeType, λ.NewStr("NownessBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		NownessBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("NownessBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				NownessBaseIE__api_request        λ.Object
 				NownessBaseIE__extract_url_result λ.Object
@@ -76,41 +76,41 @@ func init() {
 						τmp0         λ.Object
 						τmp1         λ.Object
 					)
-					if λ.IsTrue(λ.Eq(λ.GetItem(ϒpost, λ.NewStr("type")), λ.NewStr("video"))) {
-						τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒpost, λ.NewStr("media")))
+					if λ.IsTrue(λ.Eq(λ.GetItem(ϒpost, λ.StrLiteral("type")), λ.StrLiteral("video"))) {
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒpost, λ.StrLiteral("media")))
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
 							ϒmedia = τmp1
-							if λ.IsTrue(λ.Eq(λ.GetItem(ϒmedia, λ.NewStr("type")), λ.NewStr("video"))) {
-								ϒvideo_id = λ.GetItem(ϒmedia, λ.NewStr("content"))
-								ϒsource = λ.GetItem(ϒmedia, λ.NewStr("source"))
-								if λ.IsTrue(λ.Eq(ϒsource, λ.NewStr("brightcove"))) {
+							if λ.IsTrue(λ.Eq(λ.GetItem(ϒmedia, λ.StrLiteral("type")), λ.StrLiteral("video"))) {
+								ϒvideo_id = λ.GetItem(ϒmedia, λ.StrLiteral("content"))
+								ϒsource = λ.GetItem(ϒmedia, λ.StrLiteral("source"))
+								if λ.IsTrue(λ.Eq(ϒsource, λ.StrLiteral("brightcove"))) {
 									ϒplayer_code = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
-										λ.Mod(λ.NewStr("http://www.nowness.com/iframe?id=%s"), ϒvideo_id),
+										λ.Mod(λ.StrLiteral("http://www.nowness.com/iframe?id=%s"), ϒvideo_id),
 										ϒvideo_id,
 									), λ.KWArgs{
-										{Name: "note", Value: λ.NewStr("Downloading player JavaScript")},
-										{Name: "errnote", Value: λ.NewStr("Unable to download player JavaScript")},
+										{Name: "note", Value: λ.StrLiteral("Downloading player JavaScript")},
+										{Name: "errnote", Value: λ.StrLiteral("Unable to download player JavaScript")},
 									})
-									ϒbc_url = λ.Cal(λ.GetAttr(BrightcoveLegacyIE, "_extract_brightcove_url", nil), ϒplayer_code)
+									ϒbc_url = λ.Calm(BrightcoveLegacyIE, "_extract_brightcove_url", ϒplayer_code)
 									if λ.IsTrue(ϒbc_url) {
-										return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒbc_url, λ.Cal(λ.GetAttr(BrightcoveLegacyIE, "ie_key", nil)))
+										return λ.Calm(ϒself, "url_result", ϒbc_url, λ.Calm(BrightcoveLegacyIE, "ie_key"))
 									}
-									ϒbc_url = λ.Cal(λ.GetAttr(BrightcoveNewIE, "_extract_url", nil), ϒself, ϒplayer_code)
+									ϒbc_url = λ.Calm(BrightcoveNewIE, "_extract_url", ϒself, ϒplayer_code)
 									if λ.IsTrue(ϒbc_url) {
-										return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒbc_url, λ.Cal(λ.GetAttr(BrightcoveNewIE, "ie_key", nil)))
+										return λ.Calm(ϒself, "url_result", ϒbc_url, λ.Calm(BrightcoveNewIE, "ie_key"))
 									}
-									panic(λ.Raise(λ.Cal(ExtractorError, λ.NewStr("Could not find player definition"))))
+									panic(λ.Raise(λ.Cal(ExtractorError, λ.StrLiteral("Could not find player definition"))))
 								} else {
-									if λ.IsTrue(λ.Eq(ϒsource, λ.NewStr("vimeo"))) {
-										return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), λ.Mod(λ.NewStr("http://vimeo.com/%s"), ϒvideo_id), λ.NewStr("Vimeo"))
+									if λ.IsTrue(λ.Eq(ϒsource, λ.StrLiteral("vimeo"))) {
+										return λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("http://vimeo.com/%s"), ϒvideo_id), λ.StrLiteral("Vimeo"))
 									} else {
-										if λ.IsTrue(λ.Eq(ϒsource, λ.NewStr("youtube"))) {
-											return λ.Cal(λ.GetAttr(ϒself, "url_result", nil), ϒvideo_id, λ.NewStr("Youtube"))
+										if λ.IsTrue(λ.Eq(ϒsource, λ.StrLiteral("youtube"))) {
+											return λ.Calm(ϒself, "url_result", ϒvideo_id, λ.StrLiteral("Youtube"))
 										} else {
-											if λ.IsTrue(λ.Eq(ϒsource, λ.NewStr("cinematique"))) {
+											if λ.IsTrue(λ.Eq(ϒsource, λ.StrLiteral("cinematique"))) {
 												// pass
 											}
 										}
@@ -136,36 +136,36 @@ func init() {
 						ϒself         = λargs[0]
 						ϒurl          = λargs[1]
 					)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒrequest = λ.Call(ϒsanitized_Request, λ.NewArgs(λ.Add(λ.NewStr("http://api.nowness.com/api/"), λ.Mod(ϒrequest_path, ϒdisplay_id))), λ.KWArgs{
-						{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("X-Nowness-Language"): func() λ.Object {
-								if λ.IsTrue(λ.NewBool(λ.Contains(ϒurl, λ.NewStr("cn.nowness.com")))) {
-									return λ.NewStr("zh-cn")
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒrequest = λ.Call(ϒsanitized_Request, λ.NewArgs(λ.Add(λ.StrLiteral("http://api.nowness.com/api/"), λ.Mod(ϒrequest_path, ϒdisplay_id))), λ.KWArgs{
+						{Name: "headers", Value: λ.DictLiteral(map[string]λ.Object{
+							"X-Nowness-Language": func() λ.Object {
+								if λ.Contains(ϒurl, λ.StrLiteral("cn.nowness.com")) {
+									return λ.StrLiteral("zh-cn")
 								} else {
-									return λ.NewStr("en-us")
+									return λ.StrLiteral("en-us")
 								}
 							}(),
 						})},
 					})
 					return λ.NewTuple(
 						ϒdisplay_id,
-						λ.Cal(λ.GetAttr(ϒself, "_download_json", nil), ϒrequest, ϒdisplay_id),
+						λ.Calm(ϒself, "_download_json", ϒrequest, ϒdisplay_id),
 					)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_api_request"):        NownessBaseIE__api_request,
-				λ.NewStr("_extract_url_result"): NownessBaseIE__extract_url_result,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_api_request":        NownessBaseIE__api_request,
+				"_extract_url_result": NownessBaseIE__extract_url_result,
 			})
 		}())
-		NownessIE = λ.Cal(λ.TypeType, λ.NewStr("NownessIE"), λ.NewTuple(NownessBaseIE), func() λ.Dict {
+		NownessIE = λ.Cal(λ.TypeType, λ.StrLiteral("NownessIE"), λ.NewTuple(NownessBaseIE), func() λ.Dict {
 			var (
 				NownessIE_IE_NAME       λ.Object
 				NownessIE__VALID_URL    λ.Object
 				NownessIE__real_extract λ.Object
 			)
-			NownessIE_IE_NAME = λ.NewStr("nowness")
-			NownessIE__VALID_URL = λ.NewStr("https?://(?:(?:www|cn)\\.)?nowness\\.com/(?:story|(?:series|category)/[^/]+)/(?P<id>[^/]+?)(?:$|[?#])")
+			NownessIE_IE_NAME = λ.StrLiteral("nowness")
+			NownessIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|cn)\\.)?nowness\\.com/(?:story|(?:series|category)/[^/]+)/(?P<id>[^/]+?)(?:$|[?#])")
 			NownessIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -179,33 +179,33 @@ func init() {
 						ϒurl  = λargs[1]
 						τmp0  λ.Object
 					)
-					τmp0 = λ.Cal(λ.GetAttr(ϒself, "_api_request", nil), ϒurl, λ.NewStr("post/getBySlug/%s"))
-					_ = λ.GetItem(τmp0, λ.NewInt(0))
-					ϒpost = λ.GetItem(τmp0, λ.NewInt(1))
-					return λ.Cal(λ.GetAttr(ϒself, "_extract_url_result", nil), ϒpost)
+					τmp0 = λ.Calm(ϒself, "_api_request", ϒurl, λ.StrLiteral("post/getBySlug/%s"))
+					_ = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒpost = λ.GetItem(τmp0, λ.IntLiteral(1))
+					return λ.Calm(ϒself, "_extract_url_result", ϒpost)
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("IE_NAME"):       NownessIE_IE_NAME,
-				λ.NewStr("_VALID_URL"):    NownessIE__VALID_URL,
-				λ.NewStr("_real_extract"): NownessIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"IE_NAME":       NownessIE_IE_NAME,
+				"_VALID_URL":    NownessIE__VALID_URL,
+				"_real_extract": NownessIE__real_extract,
 			})
 		}())
-		NownessPlaylistIE = λ.Cal(λ.TypeType, λ.NewStr("NownessPlaylistIE"), λ.NewTuple(NownessBaseIE), func() λ.Dict {
+		NownessPlaylistIE = λ.Cal(λ.TypeType, λ.StrLiteral("NownessPlaylistIE"), λ.NewTuple(NownessBaseIE), func() λ.Dict {
 			var (
 				NownessPlaylistIE__VALID_URL λ.Object
 			)
-			NownessPlaylistIE__VALID_URL = λ.NewStr("https?://(?:(?:www|cn)\\.)?nowness\\.com/playlist/(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): NownessPlaylistIE__VALID_URL,
+			NownessPlaylistIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|cn)\\.)?nowness\\.com/playlist/(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": NownessPlaylistIE__VALID_URL,
 			})
 		}())
-		NownessSeriesIE = λ.Cal(λ.TypeType, λ.NewStr("NownessSeriesIE"), λ.NewTuple(NownessBaseIE), func() λ.Dict {
+		NownessSeriesIE = λ.Cal(λ.TypeType, λ.StrLiteral("NownessSeriesIE"), λ.NewTuple(NownessBaseIE), func() λ.Dict {
 			var (
 				NownessSeriesIE__VALID_URL λ.Object
 			)
-			NownessSeriesIE__VALID_URL = λ.NewStr("https?://(?:(?:www|cn)\\.)?nowness\\.com/series/(?P<id>[^/]+?)(?:$|[?#])")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): NownessSeriesIE__VALID_URL,
+			NownessSeriesIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|cn)\\.)?nowness\\.com/series/(?P<id>[^/]+?)(?:$|[?#])")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": NownessSeriesIE__VALID_URL,
 			})
 		}())
 	})

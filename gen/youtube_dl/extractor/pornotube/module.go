@@ -41,12 +41,12 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
-		PornotubeIE = λ.Cal(λ.TypeType, λ.NewStr("PornotubeIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		PornotubeIE = λ.Cal(λ.TypeType, λ.StrLiteral("PornotubeIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				PornotubeIE__VALID_URL    λ.Object
 				PornotubeIE__real_extract λ.Object
 			)
-			PornotubeIE__VALID_URL = λ.NewStr("https?://(?:\\w+\\.)?pornotube\\.com/(?:[^?#]*?)/video/(?P<id>[0-9]+)")
+			PornotubeIE__VALID_URL = λ.StrLiteral("https?://(?:\\w+\\.)?pornotube\\.com/(?:[^?#]*?)/video/(?P<id>[0-9]+)")
 			PornotubeIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -73,62 +73,62 @@ func init() {
 						ϒvideo_id             λ.Object
 						ϒvideo_url            λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒtoken = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.NewStr("https://api.aebn.net/auth/v2/origins/authenticate"),
+						λ.StrLiteral("https://api.aebn.net/auth/v2/origins/authenticate"),
 						ϒvideo_id,
 					), λ.KWArgs{
-						{Name: "note", Value: λ.NewStr("Downloading token")},
-						{Name: "data", Value: λ.Cal(λ.GetAttr(λ.Cal(Ωjson.ϒdumps, λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("credentials"): λ.NewStr("Clip Application"),
-						})), "encode", nil), λ.NewStr("utf-8"))},
-						{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("Content-Type"): λ.NewStr("application/json"),
-							λ.NewStr("Origin"):       λ.NewStr("http://www.pornotube.com"),
+						{Name: "note", Value: λ.StrLiteral("Downloading token")},
+						{Name: "data", Value: λ.Calm(λ.Cal(Ωjson.ϒdumps, λ.DictLiteral(map[string]string{
+							"credentials": "Clip Application",
+						})), "encode", λ.StrLiteral("utf-8"))},
+						{Name: "headers", Value: λ.DictLiteral(map[string]string{
+							"Content-Type": "application/json",
+							"Origin":       "http://www.pornotube.com",
 						})},
-					}), λ.NewStr("tokenKey"))
+					}), λ.StrLiteral("tokenKey"))
 					ϒvideo_url = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Mod(λ.NewStr("https://api.aebn.net/delivery/v1/clips/%s/MP4"), ϒvideo_id),
+						λ.Mod(λ.StrLiteral("https://api.aebn.net/delivery/v1/clips/%s/MP4"), ϒvideo_id),
 						ϒvideo_id,
 					), λ.KWArgs{
-						{Name: "note", Value: λ.NewStr("Downloading delivery information")},
-						{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("Authorization"): ϒtoken,
+						{Name: "note", Value: λ.StrLiteral("Downloading delivery information")},
+						{Name: "headers", Value: λ.DictLiteral(map[string]λ.Object{
+							"Authorization": ϒtoken,
 						})},
-					}), λ.NewStr("mediaUrl"))
+					}), λ.StrLiteral("mediaUrl"))
 					FIELDS = λ.NewTuple(
-						λ.NewStr("title"),
-						λ.NewStr("description"),
-						λ.NewStr("startSecond"),
-						λ.NewStr("endSecond"),
-						λ.NewStr("publishDate"),
-						λ.NewStr("studios{name}"),
-						λ.NewStr("categories{name}"),
-						λ.NewStr("movieId"),
-						λ.NewStr("primaryImageNumber"),
+						λ.StrLiteral("title"),
+						λ.StrLiteral("description"),
+						λ.StrLiteral("startSecond"),
+						λ.StrLiteral("endSecond"),
+						λ.StrLiteral("publishDate"),
+						λ.StrLiteral("studios{name}"),
+						λ.StrLiteral("categories{name}"),
+						λ.StrLiteral("movieId"),
+						λ.StrLiteral("primaryImageNumber"),
 					)
 					ϒinfo = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Mod(λ.NewStr("https://api.aebn.net/content/v2/clips/%s?fields=%s"), λ.NewTuple(
+						λ.Mod(λ.StrLiteral("https://api.aebn.net/content/v2/clips/%s?fields=%s"), λ.NewTuple(
 							ϒvideo_id,
-							λ.Cal(λ.GetAttr(λ.NewStr(","), "join", nil), FIELDS),
+							λ.Calm(λ.StrLiteral(","), "join", FIELDS),
 						)),
 						ϒvideo_id,
 					), λ.KWArgs{
-						{Name: "note", Value: λ.NewStr("Downloading metadata")},
-						{Name: "headers", Value: λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("Authorization"): ϒtoken,
+						{Name: "note", Value: λ.StrLiteral("Downloading metadata")},
+						{Name: "headers", Value: λ.DictLiteral(map[string]λ.Object{
+							"Authorization": ϒtoken,
 						})},
 					})
 					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒinfo, λ.ListType)) {
-						ϒinfo = λ.GetItem(ϒinfo, λ.NewInt(0))
+						ϒinfo = λ.GetItem(ϒinfo, λ.IntLiteral(0))
 					}
-					ϒtitle = λ.GetItem(ϒinfo, λ.NewStr("title"))
-					ϒtimestamp = λ.Call(ϒint_or_none, λ.NewArgs(λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("publishDate"))), λ.KWArgs{
-						{Name: "scale", Value: λ.NewInt(1000)},
+					ϒtitle = λ.GetItem(ϒinfo, λ.StrLiteral("title"))
+					ϒtimestamp = λ.Call(ϒint_or_none, λ.NewArgs(λ.Calm(ϒinfo, "get", λ.StrLiteral("publishDate"))), λ.KWArgs{
+						{Name: "scale", Value: λ.IntLiteral(1000)},
 					})
-					ϒuploader = λ.Cal(λ.GetAttr(λ.GetItem(λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("studios"), λ.NewList(λ.NewDictWithTable(map[λ.Object]λ.Object{}))), λ.NewInt(0)), "get", nil), λ.NewStr("name"))
-					ϒmovie_id = λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("movieId"))
-					ϒprimary_image_number = λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("primaryImageNumber"))
+					ϒuploader = λ.Calm(λ.GetItem(λ.Calm(ϒinfo, "get", λ.StrLiteral("studios"), λ.NewList(λ.DictLiteral(map[λ.Object]λ.Object{}))), λ.IntLiteral(0)), "get", λ.StrLiteral("name"))
+					ϒmovie_id = λ.Calm(ϒinfo, "get", λ.StrLiteral("movieId"))
+					ϒprimary_image_number = λ.Calm(ϒinfo, "get", λ.StrLiteral("primaryImageNumber"))
 					ϒthumbnail = λ.None
 					if λ.IsTrue(func() λ.Object {
 						if λv := ϒmovie_id; !λ.IsTrue(λv) {
@@ -137,14 +137,14 @@ func init() {
 							return ϒprimary_image_number
 						}
 					}()) {
-						ϒthumbnail = λ.Mod(λ.NewStr("http://pic.aebn.net/dis/t/%s/%s_%08d.jpg"), λ.NewTuple(
+						ϒthumbnail = λ.Mod(λ.StrLiteral("http://pic.aebn.net/dis/t/%s/%s_%08d.jpg"), λ.NewTuple(
 							ϒmovie_id,
 							ϒmovie_id,
 							ϒprimary_image_number,
 						))
 					}
-					ϒstart = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("startSecond")))
-					ϒend = λ.Cal(ϒint_or_none, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("endSecond")))
+					ϒstart = λ.Cal(ϒint_or_none, λ.Calm(ϒinfo, "get", λ.StrLiteral("startSecond")))
+					ϒend = λ.Cal(ϒint_or_none, λ.Calm(ϒinfo, "get", λ.StrLiteral("endSecond")))
 					ϒduration = func() λ.Object {
 						if λ.IsTrue(func() λ.Object {
 							if λv := ϒstart; !λ.IsTrue(λv) {
@@ -168,35 +168,35 @@ func init() {
 									τmp0 λ.Object
 									τmp1 λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("categories"), λ.NewList()))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒinfo, "get", λ.StrLiteral("categories"), λ.NewList()))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									ϒc = τmp1
-									if λ.IsTrue(λ.Cal(λ.GetAttr(ϒc, "get", nil), λ.NewStr("name"))) {
-										λgy.Yield(λ.GetItem(ϒc, λ.NewStr("name")))
+									if λ.IsTrue(λ.Calm(ϒc, "get", λ.StrLiteral("name"))) {
+										λgy.Yield(λ.GetItem(ϒc, λ.StrLiteral("name")))
 									}
 								}
 								return λ.None
 							})
 						})))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("url"):         ϒvideo_url,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): λ.Cal(λ.GetAttr(ϒinfo, "get", nil), λ.NewStr("description")),
-						λ.NewStr("duration"):    ϒduration,
-						λ.NewStr("timestamp"):   ϒtimestamp,
-						λ.NewStr("uploader"):    ϒuploader,
-						λ.NewStr("thumbnail"):   ϒthumbnail,
-						λ.NewStr("categories"):  ϒcategories,
-						λ.NewStr("age_limit"):   λ.NewInt(18),
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"url":         ϒvideo_url,
+						"title":       ϒtitle,
+						"description": λ.Calm(ϒinfo, "get", λ.StrLiteral("description")),
+						"duration":    ϒduration,
+						"timestamp":   ϒtimestamp,
+						"uploader":    ϒuploader,
+						"thumbnail":   ϒthumbnail,
+						"categories":  ϒcategories,
+						"age_limit":   λ.IntLiteral(18),
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    PornotubeIE__VALID_URL,
-				λ.NewStr("_real_extract"): PornotubeIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    PornotubeIE__VALID_URL,
+				"_real_extract": PornotubeIE__real_extract,
 			})
 		}())
 	})

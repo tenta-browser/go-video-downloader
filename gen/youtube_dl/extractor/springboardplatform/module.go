@@ -52,13 +52,13 @@ func init() {
 		ϒxpath_element = Ωutils.ϒxpath_element
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
-		SpringboardPlatformIE = λ.Cal(λ.TypeType, λ.NewStr("SpringboardPlatformIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		SpringboardPlatformIE = λ.Cal(λ.TypeType, λ.StrLiteral("SpringboardPlatformIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SpringboardPlatformIE__VALID_URL λ.Object
 			)
-			SpringboardPlatformIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        cms\\.springboardplatform\\.com/\n                        (?:\n                            (?:previews|embed_iframe)/(?P<index>\\d+)/video/(?P<id>\\d+)|\n                            xml_feeds_advanced/index/(?P<index_2>\\d+)/rss3/(?P<id_2>\\d+)\n                        )\n                    ")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): SpringboardPlatformIE__VALID_URL,
+			SpringboardPlatformIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        cms\\.springboardplatform\\.com/\n                        (?:\n                            (?:previews|embed_iframe)/(?P<index>\\d+)/video/(?P<id>\\d+)|\n                            xml_feeds_advanced/index/(?P<index_2>\\d+)/rss3/(?P<id_2>\\d+)\n                        )\n                    ")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": SpringboardPlatformIE__VALID_URL,
 			})
 		}())
 	})

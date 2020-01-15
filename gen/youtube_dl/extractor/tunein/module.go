@@ -45,25 +45,25 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ExtractorError = Ωutils.ExtractorError
-		TuneInBaseIE = λ.Cal(λ.TypeType, λ.NewStr("TuneInBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TuneInBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("TuneInBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
-		TuneInClipIE = λ.Cal(λ.TypeType, λ.NewStr("TuneInClipIE"), λ.NewTuple(TuneInBaseIE), func() λ.Dict {
+		TuneInClipIE = λ.Cal(λ.TypeType, λ.StrLiteral("TuneInClipIE"), λ.NewTuple(TuneInBaseIE), func() λ.Dict {
 			var (
 				TuneInClipIE__VALID_URL λ.Object
 			)
-			TuneInClipIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tunein\\.com/station/.*?audioClipId\\=(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): TuneInClipIE__VALID_URL,
+			TuneInClipIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?tunein\\.com/station/.*?audioClipId\\=(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": TuneInClipIE__VALID_URL,
 			})
 		}())
-		TuneInStationIE = λ.Cal(λ.TypeType, λ.NewStr("TuneInStationIE"), λ.NewTuple(TuneInBaseIE), func() λ.Dict {
+		TuneInStationIE = λ.Cal(λ.TypeType, λ.StrLiteral("TuneInStationIE"), λ.NewTuple(TuneInBaseIE), func() λ.Dict {
 			var (
 				TuneInStationIE__VALID_URL λ.Object
 				TuneInStationIE_suitable   λ.Object
 			)
-			TuneInStationIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tunein\\.com/(?:radio/.*?-s|station/.*?StationId=|embed/player/s)(?P<id>\\d+)")
+			TuneInStationIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?tunein\\.com/(?:radio/.*?-s|station/.*?StationId=|embed/player/s)(?P<id>\\d+)")
 			TuneInStationIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -76,44 +76,44 @@ func init() {
 						ϒurl = λargs[1]
 					)
 					return func() λ.Object {
-						if λ.IsTrue(λ.Cal(λ.GetAttr(TuneInClipIE, "suitable", nil), ϒurl)) {
+						if λ.IsTrue(λ.Calm(TuneInClipIE, "suitable", ϒurl)) {
 							return λ.False
 						} else {
-							return λ.Cal(λ.GetAttr(λ.Cal(λ.SuperType, TuneInStationIE, ϒcls), "suitable", nil), ϒurl)
+							return λ.Calm(λ.Cal(λ.SuperType, TuneInStationIE, ϒcls), "suitable", ϒurl)
 						}
 					}()
 				})
 			TuneInStationIE_suitable = λ.Cal(λ.ClassMethodType, TuneInStationIE_suitable)
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): TuneInStationIE__VALID_URL,
-				λ.NewStr("suitable"):   TuneInStationIE_suitable,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": TuneInStationIE__VALID_URL,
+				"suitable":   TuneInStationIE_suitable,
 			})
 		}())
-		TuneInProgramIE = λ.Cal(λ.TypeType, λ.NewStr("TuneInProgramIE"), λ.NewTuple(TuneInBaseIE), func() λ.Dict {
+		TuneInProgramIE = λ.Cal(λ.TypeType, λ.StrLiteral("TuneInProgramIE"), λ.NewTuple(TuneInBaseIE), func() λ.Dict {
 			var (
 				TuneInProgramIE__VALID_URL λ.Object
 			)
-			TuneInProgramIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tunein\\.com/(?:radio/.*?-p|program/.*?ProgramId=|embed/player/p)(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): TuneInProgramIE__VALID_URL,
+			TuneInProgramIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?tunein\\.com/(?:radio/.*?-p|program/.*?ProgramId=|embed/player/p)(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": TuneInProgramIE__VALID_URL,
 			})
 		}())
-		TuneInTopicIE = λ.Cal(λ.TypeType, λ.NewStr("TuneInTopicIE"), λ.NewTuple(TuneInBaseIE), func() λ.Dict {
+		TuneInTopicIE = λ.Cal(λ.TypeType, λ.StrLiteral("TuneInTopicIE"), λ.NewTuple(TuneInBaseIE), func() λ.Dict {
 			var (
 				TuneInTopicIE__VALID_URL λ.Object
 			)
-			TuneInTopicIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?tunein\\.com/(?:topic/.*?TopicId=|embed/player/t)(?P<id>\\d+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): TuneInTopicIE__VALID_URL,
+			TuneInTopicIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?tunein\\.com/(?:topic/.*?TopicId=|embed/player/t)(?P<id>\\d+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": TuneInTopicIE__VALID_URL,
 			})
 		}())
-		TuneInShortenerIE = λ.Cal(λ.TypeType, λ.NewStr("TuneInShortenerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		TuneInShortenerIE = λ.Cal(λ.TypeType, λ.StrLiteral("TuneInShortenerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				TuneInShortenerIE__VALID_URL λ.Object
 			)
-			TuneInShortenerIE__VALID_URL = λ.NewStr("https?://tun\\.in/(?P<id>[A-Za-z0-9]+)")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"): TuneInShortenerIE__VALID_URL,
+			TuneInShortenerIE__VALID_URL = λ.StrLiteral("https?://tun\\.in/(?P<id>[A-Za-z0-9]+)")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL": TuneInShortenerIE__VALID_URL,
 			})
 		}())
 	})

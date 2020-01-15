@@ -110,7 +110,6 @@ Supported sites
  * HornBunny _(adult)_: `hornbunny.com`
  * Hypem: `hypem.com`
  * IGN: `www.ign.com`
- * Imdb: `www.imdb.com`
  * Imgur: `i.imgur.com`
  * ImgurGallery: `imgur.com`
  * Ina: `www.ina.fr`
@@ -248,6 +247,7 @@ Supported sites
  * TwentyThreeVideo: `video.twentythree.net`
  * TwitchClips: `clips.twitch.tv`
  * TwitterAmplify: `amp.twimg.com`
+ * UDNEmbed: `video.udn.com`
  * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
  * UstudioEmbed: `app.ustudio.com`
@@ -275,6 +275,7 @@ Supported sites
  * VuClip: `m.vuclip.com`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
+ * Weibo: `weibo.com`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`
@@ -283,11 +284,13 @@ Supported sites
  * XHamsterEmbed _(adult)_: `xhamster.com`
  * XNXX _(adult)_: `www.xnxx.com`
  * XTube _(adult)_: `www.xtube.com`
+ * Xuite: `vlog.xuite.net`
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
  * Yahoo: `screen.yahoo.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`
+ * YourPorn _(adult)_: `sxyprn.com`
  * YourUpload: `yourupload.com`
  * Youtube _(adult)_: `www.youtube.com`
  * YoutubePlaylist: `www.youtube.com`

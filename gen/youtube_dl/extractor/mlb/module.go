@@ -37,16 +37,16 @@ var (
 func init() {
 	λ.InitModule(func() {
 		NHLBaseIE = Ωnhl.NHLBaseIE
-		MLBIE = λ.Cal(λ.TypeType, λ.NewStr("MLBIE"), λ.NewTuple(NHLBaseIE), func() λ.Dict {
+		MLBIE = λ.Cal(λ.TypeType, λ.StrLiteral("MLBIE"), λ.NewTuple(NHLBaseIE), func() λ.Dict {
 			var (
 				MLBIE__CONTENT_DOMAIN λ.Object
 				MLBIE__VALID_URL      λ.Object
 			)
-			MLBIE__VALID_URL = λ.NewStr("(?x)\n                    https?://\n                        (?:[\\da-z_-]+\\.)*(?P<site>mlb)\\.com/\n                        (?:\n                            (?:\n                                (?:[^/]+/)*c-|\n                                (?:\n                                    shared/video/embed/(?:embed|m-internal-embed)\\.html|\n                                    (?:[^/]+/)+(?:play|index)\\.jsp|\n                                )\\?.*?\\bcontent_id=\n                            )\n                            (?P<id>\\d+)\n                        )\n                    ")
-			MLBIE__CONTENT_DOMAIN = λ.NewStr("content.mlb.com")
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_CONTENT_DOMAIN"): MLBIE__CONTENT_DOMAIN,
-				λ.NewStr("_VALID_URL"):      MLBIE__VALID_URL,
+			MLBIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:[\\da-z_-]+\\.)*(?P<site>mlb)\\.com/\n                        (?:\n                            (?:\n                                (?:[^/]+/)*c-|\n                                (?:\n                                    shared/video/embed/(?:embed|m-internal-embed)\\.html|\n                                    (?:[^/]+/)+(?:play|index)\\.jsp|\n                                )\\?.*?\\bcontent_id=\n                            )\n                            (?P<id>\\d+)\n                        )\n                    ")
+			MLBIE__CONTENT_DOMAIN = λ.StrLiteral("content.mlb.com")
+			return λ.DictLiteral(map[string]λ.Object{
+				"_CONTENT_DOMAIN": MLBIE__CONTENT_DOMAIN,
+				"_VALID_URL":      MLBIE__VALID_URL,
 			})
 		}())
 	})

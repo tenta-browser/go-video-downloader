@@ -37,12 +37,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		NuevoBaseIE = Ωnuevo.NuevoBaseIE
-		NonkTubeIE = λ.Cal(λ.TypeType, λ.NewStr("NonkTubeIE"), λ.NewTuple(NuevoBaseIE), func() λ.Dict {
+		NonkTubeIE = λ.Cal(λ.TypeType, λ.StrLiteral("NonkTubeIE"), λ.NewTuple(NuevoBaseIE), func() λ.Dict {
 			var (
 				NonkTubeIE__VALID_URL    λ.Object
 				NonkTubeIE__real_extract λ.Object
 			)
-			NonkTubeIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?nonktube\\.com/(?:(?:video|embed)/|media/nuevo/embed\\.php\\?.*?\\bid=)(?P<id>\\d+)")
+			NonkTubeIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?nonktube\\.com/(?:(?:video|embed)/|media/nuevo/embed\\.php\\?.*?\\bid=)(?P<id>\\d+)")
 			NonkTubeIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -58,20 +58,20 @@ func init() {
 						ϒvideo_id λ.Object
 						ϒwebpage  λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_og_search_title", nil), ϒwebpage)
-					ϒinfo = λ.GetItem(λ.Cal(λ.GetAttr(ϒself, "_parse_html5_media_entries", nil), ϒurl, ϒwebpage, ϒvideo_id), λ.NewInt(0))
-					λ.Cal(λ.GetAttr(ϒinfo, "update", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):        ϒvideo_id,
-						λ.NewStr("title"):     ϒtitle,
-						λ.NewStr("age_limit"): λ.NewInt(18),
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒtitle = λ.Calm(ϒself, "_og_search_title", ϒwebpage)
+					ϒinfo = λ.GetItem(λ.Calm(ϒself, "_parse_html5_media_entries", ϒurl, ϒwebpage, ϒvideo_id), λ.IntLiteral(0))
+					λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
+						"id":        ϒvideo_id,
+						"title":     ϒtitle,
+						"age_limit": λ.IntLiteral(18),
 					}))
 					return ϒinfo
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    NonkTubeIE__VALID_URL,
-				λ.NewStr("_real_extract"): NonkTubeIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    NonkTubeIE__VALID_URL,
+				"_real_extract": NonkTubeIE__real_extract,
 			})
 		}())
 	})

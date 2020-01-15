@@ -41,12 +41,12 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒqualities = Ωutils.ϒqualities
-		UnistraIE = λ.Cal(λ.TypeType, λ.NewStr("UnistraIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		UnistraIE = λ.Cal(λ.TypeType, λ.StrLiteral("UnistraIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				UnistraIE__VALID_URL    λ.Object
 				UnistraIE__real_extract λ.Object
 			)
-			UnistraIE__VALID_URL = λ.NewStr("https?://utv\\.unistra\\.fr/(?:index|video)\\.php\\?id_video\\=(?P<id>\\d+)")
+			UnistraIE__VALID_URL = λ.StrLiteral("https?://utv\\.unistra\\.fr/(?:index|video)\\.php\\?id_video\\=(?P<id>\\d+)")
 			UnistraIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -72,12 +72,12 @@ func init() {
 						τmp1         λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒmobj, "group", nil), λ.NewStr("id"))
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒfiles = λ.Cal(λ.SetType, λ.Cal(Ωre.ϒfindall, λ.NewStr("file\\s*:\\s*\"(/[^\"]+)\""), ϒwebpage))
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒfiles = λ.Cal(λ.SetType, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("file\\s*:\\s*\"(/[^\"]+)\""), ϒwebpage))
 					ϒquality = λ.Cal(ϒqualities, λ.NewList(
-						λ.NewStr("SD"),
-						λ.NewStr("HD"),
+						λ.StrLiteral("SD"),
+						λ.StrLiteral("HD"),
 					))
 					ϒformats = λ.NewList()
 					τmp0 = λ.Cal(λ.BuiltinIter, ϒfiles)
@@ -87,39 +87,39 @@ func init() {
 						}
 						ϒfile_path = τmp1
 						ϒformat_id = func() λ.Object {
-							if λ.IsTrue(λ.Cal(λ.GetAttr(ϒfile_path, "endswith", nil), λ.NewStr("-HD.mp4"))) {
-								return λ.NewStr("HD")
+							if λ.IsTrue(λ.Calm(ϒfile_path, "endswith", λ.StrLiteral("-HD.mp4"))) {
+								return λ.StrLiteral("HD")
 							} else {
-								return λ.NewStr("SD")
+								return λ.StrLiteral("SD")
 							}
 						}()
-						λ.Cal(λ.GetAttr(ϒformats, "append", nil), λ.NewDictWithTable(map[λ.Object]λ.Object{
-							λ.NewStr("url"):       λ.Mod(λ.NewStr("http://vod-flash.u-strasbg.fr:8080%s"), ϒfile_path),
-							λ.NewStr("format_id"): ϒformat_id,
-							λ.NewStr("quality"):   λ.Cal(ϒquality, ϒformat_id),
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":       λ.Mod(λ.StrLiteral("http://vod-flash.u-strasbg.fr:8080%s"), ϒfile_path),
+							"format_id": ϒformat_id,
+							"quality":   λ.Cal(ϒquality, ϒformat_id),
 						}))
 					}
-					λ.Cal(λ.GetAttr(ϒself, "_sort_formats", nil), ϒformats)
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<title>UTV - (.*?)</"), ϒwebpage, λ.NewStr("title"))
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒtitle = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("<title>UTV - (.*?)</"), ϒwebpage, λ.StrLiteral("title"))
 					ϒdescription = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<meta name=\"Description\" content=\"(.*?)\""),
+						λ.StrLiteral("<meta name=\"Description\" content=\"(.*?)\""),
 						ϒwebpage,
-						λ.NewStr("description"),
+						λ.StrLiteral("description"),
 					), λ.KWArgs{
 						{Name: "flags", Value: Ωre.DOTALL},
 					})
-					ϒthumbnail = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("image: \"(.*?)\""), ϒwebpage, λ.NewStr("thumbnail"))
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("thumbnail"):   ϒthumbnail,
-						λ.NewStr("formats"):     ϒformats,
+					ϒthumbnail = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("image: \"(.*?)\""), ϒwebpage, λ.StrLiteral("thumbnail"))
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"thumbnail":   ϒthumbnail,
+						"formats":     ϒformats,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    UnistraIE__VALID_URL,
-				λ.NewStr("_real_extract"): UnistraIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    UnistraIE__VALID_URL,
+				"_real_extract": UnistraIE__real_extract,
 			})
 		}())
 	})

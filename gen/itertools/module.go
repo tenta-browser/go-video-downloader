@@ -35,7 +35,7 @@ var (
 
 func init() {
 	λ.InitModule(func() {
-		ϒchain = λ.Cal(λ.TypeType, λ.NewStr("chain"), λ.NewTuple(), func() λ.Dict {
+		ϒchain = λ.Cal(λ.TypeType, λ.StrLiteral("chain"), λ.NewTuple(), func() λ.Dict {
 			var (
 				ϒchain___init__ λ.Object
 				ϒchain___iter__ λ.Object
@@ -101,16 +101,16 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("__init__"): ϒchain___init__,
-				λ.NewStr("__iter__"): ϒchain___iter__,
-				λ.NewStr("__next__"): ϒchain___next__,
+			return λ.DictLiteral(map[string]λ.Object{
+				"__init__": ϒchain___init__,
+				"__iter__": ϒchain___iter__,
+				"__next__": ϒchain___next__,
 			})
 		}())
 		ϒcount = λ.NewFunction("count",
 			[]λ.Param{
-				{Name: "start", Def: λ.NewInt(0)},
-				{Name: "step", Def: λ.NewInt(1)},
+				{Name: "start", Def: λ.IntLiteral(0)},
+				{Name: "step", Def: λ.IntLiteral(1)},
 			},
 			0, false, false,
 			func(λargs []λ.Object) λ.Object {

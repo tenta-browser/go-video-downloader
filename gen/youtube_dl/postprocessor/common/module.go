@@ -37,9 +37,9 @@ var (
 func init() {
 	λ.InitModule(func() {
 		PostProcessingError = Ωutils.PostProcessingError
-		PostProcessor = λ.Cal(λ.TypeType, λ.NewStr("PostProcessor"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
+		PostProcessor = λ.Cal(λ.TypeType, λ.StrLiteral("PostProcessor"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
 
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{})
+			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())
 	})
 }

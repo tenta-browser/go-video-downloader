@@ -46,12 +46,12 @@ func init() {
 		YoutubeIE = Ωyoutube.YoutubeIE
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒstr_to_int = Ωutils.ϒstr_to_int
-		CrackedIE = λ.Cal(λ.TypeType, λ.NewStr("CrackedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		CrackedIE = λ.Cal(λ.TypeType, λ.StrLiteral("CrackedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				CrackedIE__VALID_URL    λ.Object
 				CrackedIE__real_extract λ.Object
 			)
-			CrackedIE__VALID_URL = λ.NewStr("https?://(?:www\\.)?cracked\\.com/video_(?P<id>\\d+)_[\\da-z-]+\\.html")
+			CrackedIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?cracked\\.com/video_(?P<id>\\d+)_[\\da-z-]+\\.html")
 			CrackedIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -76,77 +76,77 @@ func init() {
 						ϒyoutube_url   λ.Object
 						τmp0           λ.Object
 					)
-					ϒvideo_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒvideo_id)
-					ϒyoutube_url = λ.Cal(λ.GetAttr(YoutubeIE, "_extract_url", nil), ϒwebpage)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒyoutube_url = λ.Calm(YoutubeIE, "_extract_url", ϒwebpage)
 					if λ.IsTrue(ϒyoutube_url) {
 						return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(ϒyoutube_url), λ.KWArgs{
-							{Name: "ie", Value: λ.Cal(λ.GetAttr(YoutubeIE, "ie_key", nil))},
+							{Name: "ie", Value: λ.Calm(YoutubeIE, "ie_key")},
 						})
 					}
-					ϒvideo_url = λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewList(
-						λ.NewStr("var\\s+CK_vidSrc\\s*=\\s*\"([^\"]+)\""),
-						λ.NewStr("<video\\s+src=\"([^\"]+)\""),
-					), ϒwebpage, λ.NewStr("video URL"))
-					ϒtitle = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewList(
-						λ.NewStr("property=\"?og:title\"?\\s+content=\"([^\"]+)\""),
-						λ.NewStr("class=\"?title\"?>([^<]+)"),
-					), ϒwebpage, λ.NewStr("title"))
+					ϒvideo_url = λ.Calm(ϒself, "_html_search_regex", λ.NewList(
+						λ.StrLiteral("var\\s+CK_vidSrc\\s*=\\s*\"([^\"]+)\""),
+						λ.StrLiteral("<video\\s+src=\"([^\"]+)\""),
+					), ϒwebpage, λ.StrLiteral("video URL"))
+					ϒtitle = λ.Calm(ϒself, "_search_regex", λ.NewList(
+						λ.StrLiteral("property=\"?og:title\"?\\s+content=\"([^\"]+)\""),
+						λ.StrLiteral("class=\"?title\"?>([^<]+)"),
+					), ϒwebpage, λ.StrLiteral("title"))
 					ϒdescription = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("name=\"?(?:og:)?description\"?\\s+content=\"([^\"]+)\""),
+						λ.StrLiteral("name=\"?(?:og:)?description\"?\\s+content=\"([^\"]+)\""),
 						ϒwebpage,
-						λ.NewStr("description"),
+						λ.StrLiteral("description"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
 					ϒtimestamp = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("\"date\"\\s*:\\s*\"([^\"]+)\""),
+						λ.StrLiteral("\"date\"\\s*:\\s*\"([^\"]+)\""),
 						ϒwebpage,
-						λ.NewStr("upload date"),
+						λ.StrLiteral("upload date"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					})
 					if λ.IsTrue(ϒtimestamp) {
-						ϒtimestamp = λ.Cal(ϒparse_iso8601, λ.GetItem(ϒtimestamp, λ.NewSlice(λ.None, λ.Neg(λ.NewInt(6)), λ.None)))
+						ϒtimestamp = λ.Cal(ϒparse_iso8601, λ.GetItem(ϒtimestamp, λ.NewSlice(λ.None, λ.Neg(λ.IntLiteral(6)), λ.None)))
 					}
 					ϒview_count = λ.Cal(ϒstr_to_int, λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<span\\s+class=\"?views\"? id=\"?viewCounts\"?>([\\d,\\.]+) Views</span>"),
+						λ.StrLiteral("<span\\s+class=\"?views\"? id=\"?viewCounts\"?>([\\d,\\.]+) Views</span>"),
 						ϒwebpage,
-						λ.NewStr("view count"),
+						λ.StrLiteral("view count"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
 					ϒcomment_count = λ.Cal(ϒstr_to_int, λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<span\\s+id=\"?commentCounts\"?>([\\d,\\.]+)</span>"),
+						λ.StrLiteral("<span\\s+id=\"?commentCounts\"?>([\\d,\\.]+)</span>"),
 						ϒwebpage,
-						λ.NewStr("comment count"),
+						λ.StrLiteral("comment count"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
 					}))
-					ϒm = λ.Cal(Ωre.ϒsearch, λ.NewStr("_(?P<width>\\d+)X(?P<height>\\d+)\\.mp4$"), ϒvideo_url)
+					ϒm = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("_(?P<width>\\d+)X(?P<height>\\d+)\\.mp4$"), ϒvideo_url)
 					if λ.IsTrue(ϒm) {
-						ϒwidth = λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("width")))
-						ϒheight = λ.Cal(λ.IntType, λ.Cal(λ.GetAttr(ϒm, "group", nil), λ.NewStr("height")))
+						ϒwidth = λ.Cal(λ.IntType, λ.Calm(ϒm, "group", λ.StrLiteral("width")))
+						ϒheight = λ.Cal(λ.IntType, λ.Calm(ϒm, "group", λ.StrLiteral("height")))
 					} else {
 						τmp0 = λ.None
 						ϒwidth = τmp0
 						ϒheight = τmp0
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("id"):            ϒvideo_id,
-						λ.NewStr("url"):           ϒvideo_url,
-						λ.NewStr("title"):         ϒtitle,
-						λ.NewStr("description"):   ϒdescription,
-						λ.NewStr("timestamp"):     ϒtimestamp,
-						λ.NewStr("view_count"):    ϒview_count,
-						λ.NewStr("comment_count"): ϒcomment_count,
-						λ.NewStr("height"):        ϒheight,
-						λ.NewStr("width"):         ϒwidth,
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":            ϒvideo_id,
+						"url":           ϒvideo_url,
+						"title":         ϒtitle,
+						"description":   ϒdescription,
+						"timestamp":     ϒtimestamp,
+						"view_count":    ϒview_count,
+						"comment_count": ϒcomment_count,
+						"height":        ϒheight,
+						"width":         ϒwidth,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    CrackedIE__VALID_URL,
-				λ.NewStr("_real_extract"): CrackedIE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    CrackedIE__VALID_URL,
+				"_real_extract": CrackedIE__real_extract,
 			})
 		}())
 	})

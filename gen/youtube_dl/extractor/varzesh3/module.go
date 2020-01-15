@@ -47,12 +47,12 @@ func init() {
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒclean_html = Ωutils.ϒclean_html
 		ϒremove_start = Ωutils.ϒremove_start
-		Varzesh3IE = λ.Cal(λ.TypeType, λ.NewStr("Varzesh3IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		Varzesh3IE = λ.Cal(λ.TypeType, λ.StrLiteral("Varzesh3IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				Varzesh3IE__VALID_URL    λ.Object
 				Varzesh3IE__real_extract λ.Object
 			)
-			Varzesh3IE__VALID_URL = λ.NewStr("https?://(?:www\\.)?video\\.varzesh3\\.com/(?:[^/]+/)+(?P<id>[^/]+)/?")
+			Varzesh3IE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?video\\.varzesh3\\.com/(?:[^/]+/)+(?P<id>[^/]+)/?")
 			Varzesh3IE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -73,61 +73,61 @@ func init() {
 						ϒvideo_url     λ.Object
 						ϒwebpage       λ.Object
 					)
-					ϒdisplay_id = λ.Cal(λ.GetAttr(ϒself, "_match_id", nil), ϒurl)
-					ϒwebpage = λ.Cal(λ.GetAttr(ϒself, "_download_webpage", nil), ϒurl, ϒdisplay_id)
-					ϒvideo_url = λ.Cal(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewStr("<source[^>]+src=\"([^\"]+)\""), ϒwebpage, λ.NewStr("video url"))
-					ϒtitle = λ.Cal(ϒremove_start, λ.Cal(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewStr("<title>([^<]+)</title>"), ϒwebpage, λ.NewStr("title")), λ.NewStr("ویدیو ورزش 3 | "))
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
+					ϒvideo_url = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<source[^>]+src=\"([^\"]+)\""), ϒwebpage, λ.StrLiteral("video url"))
+					ϒtitle = λ.Cal(ϒremove_start, λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("<title>([^<]+)</title>"), ϒwebpage, λ.StrLiteral("title")), λ.StrLiteral("ویدیو ورزش 3 | "))
 					ϒdescription = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.NewStr("(?s)<div class=\"matn\">(.+?)</div>"),
+						λ.StrLiteral("(?s)<div class=\"matn\">(.+?)</div>"),
 						ϒwebpage,
-						λ.NewStr("description"),
+						λ.StrLiteral("description"),
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
-					if λ.IsTrue(λ.NewBool(ϒdescription == λ.None)) {
-						ϒdescription = λ.Cal(ϒclean_html, λ.Cal(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewStr("description"), ϒwebpage))
+					if ϒdescription == λ.None {
+						ϒdescription = λ.Cal(ϒclean_html, λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("description"), ϒwebpage))
 					}
 					ϒthumbnail = λ.Call(λ.GetAttr(ϒself, "_og_search_thumbnail", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
-					if λ.IsTrue(λ.NewBool(ϒthumbnail == λ.None)) {
+					if ϒthumbnail == λ.None {
 						ϒfb_sharer_url = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("<a[^>]+href=\"(https?://www\\.facebook\\.com/sharer/sharer\\.php?[^\"]+)\""),
+							λ.StrLiteral("<a[^>]+href=\"(https?://www\\.facebook\\.com/sharer/sharer\\.php?[^\"]+)\""),
 							ϒwebpage,
-							λ.NewStr("facebook sharer URL"),
+							λ.StrLiteral("facebook sharer URL"),
 						), λ.KWArgs{
 							{Name: "fatal", Value: λ.False},
 						})
 						ϒsharer_params = λ.Cal(ϒcompat_parse_qs, λ.GetAttr(λ.Cal(ϒcompat_urllib_parse_urlparse, ϒfb_sharer_url), "query", nil))
-						ϒthumbnail = λ.GetItem(λ.Cal(λ.GetAttr(ϒsharer_params, "get", nil), λ.NewStr("p[images][0]"), λ.NewList(λ.None)), λ.NewInt(0))
+						ϒthumbnail = λ.GetItem(λ.Calm(ϒsharer_params, "get", λ.StrLiteral("p[images][0]"), λ.NewList(λ.None)), λ.IntLiteral(0))
 					}
 					ϒvideo_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.NewStr("<link[^>]+rel='(?:canonical|shortlink)'[^>]+href='/\\?p=([^']+)'"),
+						λ.StrLiteral("<link[^>]+rel='(?:canonical|shortlink)'[^>]+href='/\\?p=([^']+)'"),
 						ϒwebpage,
 						ϒdisplay_id,
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
-					if λ.IsTrue(λ.NewBool(ϒvideo_id == λ.None)) {
+					if ϒvideo_id == λ.None {
 						ϒvideo_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.NewStr("var\\s+VideoId\\s*=\\s*(\\d+);"),
+							λ.StrLiteral("var\\s+VideoId\\s*=\\s*(\\d+);"),
 							ϒwebpage,
-							λ.NewStr("video id"),
+							λ.StrLiteral("video id"),
 						), λ.KWArgs{
 							{Name: "default", Value: ϒdisplay_id},
 						})
 					}
-					return λ.NewDictWithTable(map[λ.Object]λ.Object{
-						λ.NewStr("url"):         ϒvideo_url,
-						λ.NewStr("id"):          ϒvideo_id,
-						λ.NewStr("title"):       ϒtitle,
-						λ.NewStr("description"): ϒdescription,
-						λ.NewStr("thumbnail"):   ϒthumbnail,
+					return λ.DictLiteral(map[string]λ.Object{
+						"url":         ϒvideo_url,
+						"id":          ϒvideo_id,
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"thumbnail":   ϒthumbnail,
 					})
 				})
-			return λ.NewDictWithTable(map[λ.Object]λ.Object{
-				λ.NewStr("_VALID_URL"):    Varzesh3IE__VALID_URL,
-				λ.NewStr("_real_extract"): Varzesh3IE__real_extract,
+			return λ.DictLiteral(map[string]λ.Object{
+				"_VALID_URL":    Varzesh3IE__VALID_URL,
+				"_real_extract": Varzesh3IE__real_extract,
 			})
 		}())
 	})
