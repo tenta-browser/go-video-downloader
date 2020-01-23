@@ -15,9 +15,11 @@ Supported sites
  * AsianCrush: `www.asiancrush.com`
  * AudioBoom: `audioboom.com`
  * Audiomack: `www.audiomack.com`
+ * AZMedien: `www.telezueri.ch`
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
  * Beatport: `beatport.com`
+ * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
  * BitChute: `www.bitchute.com`
@@ -28,6 +30,7 @@ Supported sites
  * Bpb: `www.bpb.de`
  * BR: `www.br.de`
  * BravoTV: `www.bravotv.com`
+ * BusinessInsider: `uk.businessinsider.com`
  * Camdemy: `www.camdemy.com`
  * Canalplus: `www.piwiplus.fr`
  * Canalc2: `www.canalc2.tv`
@@ -59,7 +62,6 @@ Supported sites
  * DaumClip: `tvpot.daum.net`
  * DaumPlaylist: `tvpot.daum.net`
  * DaumUser: `tvpot.daum.net`
- * DBTV: `www.dagbladet.no`
  * DctpTv: `www.dctp.tv`
  * Dotsub: `dotsub.com`
  * DrTuber _(adult)_: `www.drtuber.com`
@@ -214,6 +216,7 @@ Supported sites
  * SRGSSRPlay: `www.rts.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
  * Streamable: `streamable.com`
+ * StretchInternet: `portal.stretchinternet.com`
  * SunPorno _(adult)_: `www.sunporno.com`
  * SverigesRadioEpisode: `sverigesradio.se`
  * SverigesRadioPublication: `sverigesradio.se`
@@ -241,13 +244,12 @@ Supported sites
  * TVANouvelles: `www.tvanouvelles.ca`
  * TVC: `www.tvc.ru`
  * TVCArticle: `www.tvc.ru`
- * TVN24: `www.tvn24.pl`
+ * TVN24: `tvnmeteo.tvn24.pl`
  * TVP: `vod.tvp.pl`
  * TwentyMinuten: `www.20min.ch`
  * TwentyThreeVideo: `video.twentythree.net`
  * TwitchClips: `clips.twitch.tv`
  * TwitterAmplify: `amp.twimg.com`
- * UDNEmbed: `video.udn.com`
  * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
  * UstudioEmbed: `app.ustudio.com`
@@ -272,6 +274,7 @@ Supported sites
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * VLivePlaylist: `www.vlive.tv`
+ * VoiceRepublic: `voicerepublic.com`
  * VuClip: `m.vuclip.com`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
@@ -288,6 +291,7 @@ Supported sites
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
  * Yahoo: `screen.yahoo.com`
+ * YinYueTai: `v.yinyuetai.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`
  * YourPorn _(adult)_: `sxyprn.com`

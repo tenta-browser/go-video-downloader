@@ -25,6 +25,7 @@
 package ard
 
 import (
+	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
@@ -35,6 +36,7 @@ import (
 var (
 	ARDBetaMediathekIE       λ.Object
 	ARDIE                    λ.Object
+	ARDMediathekBaseIE       λ.Object
 	ARDMediathekIE           λ.Object
 	ExtractorError           λ.Object
 	InfoExtractor            λ.Object
@@ -68,38 +70,15 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		ϒxpath_text = Ωutils.ϒxpath_text
 		ϒcompat_etree_fromstring = Ωcompat.ϒcompat_etree_fromstring
-		ARDMediathekIE = λ.Cal(λ.TypeType, λ.StrLiteral("ARDMediathekIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ARDMediathekBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("ARDMediathekBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ARDMediathekIE_IE_NAME             λ.Object
-				ARDMediathekIE__VALID_URL          λ.Object
-				ARDMediathekIE__extract_formats    λ.Object
-				ARDMediathekIE__extract_media_info λ.Object
-				ARDMediathekIE__real_extract       λ.Object
-				ARDMediathekIE_suitable            λ.Object
+				ARDMediathekBaseIE__GEO_COUNTRIES      λ.Object
+				ARDMediathekBaseIE__extract_formats    λ.Object
+				ARDMediathekBaseIE__extract_media_info λ.Object
+				ARDMediathekBaseIE__parse_media_info   λ.Object
 			)
-			ARDMediathekIE_IE_NAME = λ.StrLiteral("ARD:mediathek")
-			ARDMediathekIE__VALID_URL = λ.StrLiteral("^https?://(?:(?:(?:www|classic)\\.)?ardmediathek\\.de|mediathek\\.(?:daserste|rbb-online)\\.de|one\\.ard\\.de)/(?:.*/)(?P<video_id>[0-9]+|[^0-9][^/\\?]+)[^/\\?]*(?:\\?.*)?")
-			ARDMediathekIE_suitable = λ.NewFunction("suitable",
-				[]λ.Param{
-					{Name: "cls"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒcls = λargs[0]
-						ϒurl = λargs[1]
-					)
-					return func() λ.Object {
-						if λ.IsTrue(λ.Calm(ARDBetaMediathekIE, "suitable", ϒurl)) {
-							return λ.False
-						} else {
-							return λ.Calm(λ.Cal(λ.SuperType, ARDMediathekIE, ϒcls), "suitable", ϒurl)
-						}
-					}()
-				})
-			ARDMediathekIE_suitable = λ.Cal(λ.ClassMethodType, ARDMediathekIE_suitable)
-			ARDMediathekIE__extract_media_info = λ.NewFunction("_extract_media_info",
+			ARDMediathekBaseIE__GEO_COUNTRIES = λ.NewList(λ.StrLiteral("DE"))
+			ARDMediathekBaseIE__extract_media_info = λ.NewFunction("_extract_media_info",
 				[]λ.Param{
 					{Name: "self"},
 					{Name: "media_info_url"},
@@ -109,37 +88,48 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒduration       λ.Object
-						ϒformats        λ.Object
-						ϒis_live        λ.Object
 						ϒmedia_info     λ.Object
 						ϒmedia_info_url = λargs[1]
 						ϒself           = λargs[0]
-						ϒsubtitle_url   λ.Object
-						ϒsubtitles      λ.Object
-						ϒthumbnail      λ.Object
 						ϒvideo_id       = λargs[3]
 						ϒwebpage        = λargs[2]
 					)
 					ϒmedia_info = λ.Calm(ϒself, "_download_json", ϒmedia_info_url, ϒvideo_id, λ.StrLiteral("Downloading media JSON"))
+					return λ.Calm(ϒself, "_parse_media_info", ϒmedia_info, ϒvideo_id, λ.NewBool(λ.Contains(ϒwebpage, λ.StrLiteral("\"fsk\""))))
+				})
+			ARDMediathekBaseIE__parse_media_info = λ.NewFunction("_parse_media_info",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "media_info"},
+					{Name: "video_id"},
+					{Name: "fsk"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒformats      λ.Object
+						ϒfsk          = λargs[3]
+						ϒmedia_info   = λargs[1]
+						ϒself         = λargs[0]
+						ϒsubtitle_url λ.Object
+						ϒsubtitles    λ.Object
+						ϒvideo_id     = λargs[2]
+					)
 					ϒformats = λ.Calm(ϒself, "_extract_formats", ϒmedia_info, ϒvideo_id)
 					if !λ.IsTrue(ϒformats) {
-						if λ.Contains(ϒwebpage, λ.StrLiteral("\"fsk\"")) {
+						if λ.IsTrue(ϒfsk) {
 							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("This video is only available after 20:00")), λ.KWArgs{
 								{Name: "expected", Value: λ.True},
 							})))
 						} else {
 							if λ.IsTrue(λ.Calm(ϒmedia_info, "get", λ.StrLiteral("_geoblocked"))) {
-								panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("This video is not available due to geo restriction")), λ.KWArgs{
-									{Name: "expected", Value: λ.True},
-								})))
+								λ.Call(λ.GetAttr(ϒself, "raise_geo_restricted", nil), λ.NewArgs(λ.StrLiteral("This video is not available due to geoblocking")), λ.KWArgs{
+									{Name: "countries", Value: λ.GetAttr(ϒself, "_GEO_COUNTRIES", nil)},
+								})
 							}
 						}
 					}
 					λ.Calm(ϒself, "_sort_formats", ϒformats)
-					ϒduration = λ.Cal(ϒint_or_none, λ.Calm(ϒmedia_info, "get", λ.StrLiteral("_duration")))
-					ϒthumbnail = λ.Calm(ϒmedia_info, "get", λ.StrLiteral("_previewImage"))
-					ϒis_live = λ.NewBool(λ.Calm(ϒmedia_info, "get", λ.StrLiteral("_isLive")) == λ.True)
 					ϒsubtitles = λ.DictLiteral(map[λ.Object]λ.Object{})
 					ϒsubtitle_url = λ.Calm(ϒmedia_info, "get", λ.StrLiteral("_subtitleUrl"))
 					if λ.IsTrue(ϒsubtitle_url) {
@@ -150,14 +140,14 @@ func init() {
 					}
 					return λ.DictLiteral(map[string]λ.Object{
 						"id":        ϒvideo_id,
-						"duration":  ϒduration,
-						"thumbnail": ϒthumbnail,
-						"is_live":   ϒis_live,
+						"duration":  λ.Cal(ϒint_or_none, λ.Calm(ϒmedia_info, "get", λ.StrLiteral("_duration"))),
+						"thumbnail": λ.Calm(ϒmedia_info, "get", λ.StrLiteral("_previewImage")),
+						"is_live":   λ.NewBool(λ.Calm(ϒmedia_info, "get", λ.StrLiteral("_isLive")) == λ.True),
 						"formats":   ϒformats,
 						"subtitles": ϒsubtitles,
 					})
 				})
-			ARDMediathekIE__extract_formats = λ.NewFunction("_extract_formats",
+			ARDMediathekBaseIE__extract_formats = λ.NewFunction("_extract_formats",
 				[]λ.Param{
 					{Name: "self"},
 					{Name: "media_info"},
@@ -254,6 +244,7 @@ func init() {
 											ϒstream_url,
 											ϒvideo_id,
 											λ.StrLiteral("mp4"),
+											λ.StrLiteral("m3u8_native"),
 										), λ.KWArgs{
 											{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
 											{Name: "fatal", Value: λ.False},
@@ -302,6 +293,42 @@ func init() {
 					}
 					return ϒformats
 				})
+			return λ.DictLiteral(map[string]λ.Object{
+				"_GEO_COUNTRIES":      ARDMediathekBaseIE__GEO_COUNTRIES,
+				"_extract_formats":    ARDMediathekBaseIE__extract_formats,
+				"_extract_media_info": ARDMediathekBaseIE__extract_media_info,
+				"_parse_media_info":   ARDMediathekBaseIE__parse_media_info,
+			})
+		}())
+		ARDMediathekIE = λ.Cal(λ.TypeType, λ.StrLiteral("ARDMediathekIE"), λ.NewTuple(ARDMediathekBaseIE), func() λ.Dict {
+			var (
+				ARDMediathekIE_IE_NAME       λ.Object
+				ARDMediathekIE__VALID_URL    λ.Object
+				ARDMediathekIE__real_extract λ.Object
+				ARDMediathekIE_suitable      λ.Object
+			)
+			ARDMediathekIE_IE_NAME = λ.StrLiteral("ARD:mediathek")
+			ARDMediathekIE__VALID_URL = λ.StrLiteral("^https?://(?:(?:(?:www|classic)\\.)?ardmediathek\\.de|mediathek\\.(?:daserste|rbb-online)\\.de|one\\.ard\\.de)/(?:.*/)(?P<video_id>[0-9]+|[^0-9][^/\\?]+)[^/\\?]*(?:\\?.*)?")
+			ARDMediathekIE_suitable = λ.NewFunction("suitable",
+				[]λ.Param{
+					{Name: "cls"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcls = λargs[0]
+						ϒurl = λargs[1]
+					)
+					return func() λ.Object {
+						if λ.IsTrue(λ.Calm(ARDBetaMediathekIE, "suitable", ϒurl)) {
+							return λ.False
+						} else {
+							return λ.Calm(λ.Cal(λ.SuperType, ARDMediathekIE, ϒcls), "suitable", ϒurl)
+						}
+					}()
+				})
+			ARDMediathekIE_suitable = λ.Cal(λ.ClassMethodType, ARDMediathekIE_suitable)
 			ARDMediathekIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -467,12 +494,10 @@ func init() {
 					return ϒinfo
 				})
 			return λ.DictLiteral(map[string]λ.Object{
-				"IE_NAME":             ARDMediathekIE_IE_NAME,
-				"_VALID_URL":          ARDMediathekIE__VALID_URL,
-				"_extract_formats":    ARDMediathekIE__extract_formats,
-				"_extract_media_info": ARDMediathekIE__extract_media_info,
-				"_real_extract":       ARDMediathekIE__real_extract,
-				"suitable":            ARDMediathekIE_suitable,
+				"IE_NAME":       ARDMediathekIE_IE_NAME,
+				"_VALID_URL":    ARDMediathekIE__VALID_URL,
+				"_real_extract": ARDMediathekIE__real_extract,
+				"suitable":      ARDMediathekIE_suitable,
 			})
 		}())
 		ARDIE = λ.Cal(λ.TypeType, λ.StrLiteral("ARDIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
@@ -484,12 +509,12 @@ func init() {
 				"_VALID_URL": ARDIE__VALID_URL,
 			})
 		}())
-		ARDBetaMediathekIE = λ.Cal(λ.TypeType, λ.StrLiteral("ARDBetaMediathekIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ARDBetaMediathekIE = λ.Cal(λ.TypeType, λ.StrLiteral("ARDBetaMediathekIE"), λ.NewTuple(ARDMediathekBaseIE), func() λ.Dict {
 			var (
 				ARDBetaMediathekIE__VALID_URL    λ.Object
 				ARDBetaMediathekIE__real_extract λ.Object
 			)
-			ARDBetaMediathekIE__VALID_URL = λ.StrLiteral("https://(?:beta|www)\\.ardmediathek\\.de/[^/]+/(?:player|live)/(?P<video_id>[a-zA-Z0-9]+)(?:/(?P<display_id>[^/?#]+))?")
+			ARDBetaMediathekIE__VALID_URL = λ.StrLiteral("https://(?:beta|www)\\.ardmediathek\\.de/(?P<client>[^/]+)/(?:player|live)/(?P<video_id>[a-zA-Z0-9]+)(?:/(?P<display_id>[^/?#]+))?")
 			ARDBetaMediathekIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -498,25 +523,19 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒdata         λ.Object
-						ϒdata_json    λ.Object
-						ϒdisplay_id   λ.Object
-						ϒext          λ.Object
-						ϒformat_url   λ.Object
-						ϒformats      λ.Object
-						ϒgeoblocked   λ.Object
-						ϒmobj         λ.Object
-						ϒquality      λ.Object
-						ϒres          λ.Object
-						ϒself         = λargs[0]
-						ϒsubtitle_url λ.Object
-						ϒsubtitles    λ.Object
-						ϒurl          = λargs[1]
-						ϒvideo_id     λ.Object
-						ϒwebpage      λ.Object
-						ϒwidget       λ.Object
-						τmp0          λ.Object
-						τmp1          λ.Object
+						ϒage_limit               λ.Object
+						ϒcontent_id              λ.Object
+						ϒdescription             λ.Object
+						ϒdisplay_id              λ.Object
+						ϒinfo                    λ.Object
+						ϒmaturity_content_rating λ.Object
+						ϒmedia_collection        λ.Object
+						ϒmobj                    λ.Object
+						ϒplayer_page             λ.Object
+						ϒself                    = λargs[0]
+						ϒtitle                   λ.Object
+						ϒurl                     = λargs[1]
+						ϒvideo_id                λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
 					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("video_id"))
@@ -527,119 +546,106 @@ func init() {
 							return ϒvideo_id
 						}
 					}()
-					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
-					ϒdata_json = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("window\\.__APOLLO_STATE__\\s*=\\s*(\\{.*);\\n"), ϒwebpage, λ.StrLiteral("json"))
-					ϒdata = λ.Calm(ϒself, "_parse_json", ϒdata_json, ϒdisplay_id)
-					ϒres = λ.DictLiteral(map[string]λ.Object{
-						"id":         ϒvideo_id,
-						"display_id": ϒdisplay_id,
-					})
-					ϒformats = λ.NewList()
-					ϒsubtitles = λ.DictLiteral(map[λ.Object]λ.Object{})
-					ϒgeoblocked = λ.False
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒdata, "values"))
-					for {
-						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-							break
-						}
-						ϒwidget = τmp1
-						if λ.Calm(ϒwidget, "get", λ.StrLiteral("_geoblocked")) == λ.True {
-							ϒgeoblocked = λ.True
-						}
-						if λ.Contains(ϒwidget, λ.StrLiteral("_duration")) {
-							λ.SetItem(ϒres, λ.StrLiteral("duration"), λ.Cal(ϒint_or_none, λ.GetItem(ϒwidget, λ.StrLiteral("_duration"))))
-						}
-						if λ.Contains(ϒwidget, λ.StrLiteral("clipTitle")) {
-							λ.SetItem(ϒres, λ.StrLiteral("title"), λ.GetItem(ϒwidget, λ.StrLiteral("clipTitle")))
-						}
-						if λ.Contains(ϒwidget, λ.StrLiteral("_previewImage")) {
-							λ.SetItem(ϒres, λ.StrLiteral("thumbnail"), λ.GetItem(ϒwidget, λ.StrLiteral("_previewImage")))
-						}
-						if λ.Contains(ϒwidget, λ.StrLiteral("broadcastedOn")) {
-							λ.SetItem(ϒres, λ.StrLiteral("timestamp"), λ.Cal(ϒunified_timestamp, λ.GetItem(ϒwidget, λ.StrLiteral("broadcastedOn"))))
-						}
-						if λ.Contains(ϒwidget, λ.StrLiteral("synopsis")) {
-							λ.SetItem(ϒres, λ.StrLiteral("description"), λ.GetItem(ϒwidget, λ.StrLiteral("synopsis")))
-						}
-						ϒsubtitle_url = λ.Cal(ϒurl_or_none, λ.Calm(ϒwidget, "get", λ.StrLiteral("_subtitleUrl")))
-						if λ.IsTrue(ϒsubtitle_url) {
-							λ.Calm(λ.Calm(ϒsubtitles, "setdefault", λ.StrLiteral("de"), λ.NewList()), "append", λ.DictLiteral(map[string]λ.Object{
-								"ext": λ.StrLiteral("ttml"),
-								"url": ϒsubtitle_url,
-							}))
-						}
-						if λ.Contains(ϒwidget, λ.StrLiteral("_quality")) {
-							ϒformat_url = λ.Cal(ϒurl_or_none, λ.Cal(ϒtry_get, ϒwidget, λ.NewFunction("<lambda>",
-								[]λ.Param{
-									{Name: "x"},
-								},
-								0, false, false,
-								func(λargs []λ.Object) λ.Object {
-									var (
-										ϒx = λargs[0]
-									)
-									return λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("_stream")), λ.StrLiteral("json")), λ.IntLiteral(0))
-								})))
-							if !λ.IsTrue(ϒformat_url) {
-								continue
-							}
-							ϒext = λ.Cal(ϒdetermine_ext, ϒformat_url)
-							if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("f4m"))) {
-								λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_f4m_formats", nil), λ.NewArgs(
-									λ.Add(ϒformat_url, λ.StrLiteral("?hdcore=3.11.0")),
-									ϒvideo_id,
-								), λ.KWArgs{
-									{Name: "f4m_id", Value: λ.StrLiteral("hds")},
-									{Name: "fatal", Value: λ.False},
-								}))
-							} else {
-								if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("m3u8"))) {
-									λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
-										ϒformat_url,
-										ϒvideo_id,
-										λ.StrLiteral("mp4"),
-									), λ.KWArgs{
-										{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
-										{Name: "fatal", Value: λ.False},
-									}))
-								} else {
-									if λ.IsTrue(ϒgeoblocked) {
-										continue
-									}
-									ϒquality = λ.Cal(ϒstr_or_none, λ.Calm(ϒwidget, "get", λ.StrLiteral("_quality")))
-									λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
-										"format_id": func() λ.Object {
-											if λ.IsTrue(ϒquality) {
-												return λ.Add(λ.StrLiteral("http-"), ϒquality)
-											} else {
-												return λ.StrLiteral("http")
-											}
-										}(),
-										"url":        ϒformat_url,
-										"preference": λ.IntLiteral(10),
-									}))
-								}
-							}
-						}
-					}
-					if λ.IsTrue(func() λ.Object {
-						if λv := λ.NewBool(!λ.IsTrue(ϒformats)); !λ.IsTrue(λv) {
+					ϒplayer_page = λ.GetItem(λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.StrLiteral("https://api.ardmediathek.de/public-gateway"),
+						ϒdisplay_id,
+					), λ.KWArgs{
+						{Name: "data", Value: λ.Calm(λ.Cal(Ωjson.ϒdumps, λ.DictLiteral(map[string]λ.Object{
+							"query": λ.Mod(λ.StrLiteral("{\n  playerPage(client:\"%s\", clipId: \"%s\") {\n    blockedByFsk\n    broadcastedOn\n    maturityContentRating\n    mediaCollection {\n      _duration\n      _geoblocked\n      _isLive\n      _mediaArray {\n        _mediaStreamArray {\n          _quality\n          _server\n          _stream\n        }\n      }\n      _previewImage\n      _subtitleUrl\n      _type\n    }\n    show {\n      title\n    }\n    synopsis\n    title\n    tracking {\n      atiCustomVars {\n        contentId\n      }\n    }\n  }\n}"), λ.NewTuple(
+								λ.Calm(ϒmobj, "group", λ.StrLiteral("client")),
+								ϒvideo_id,
+							)),
+						})), "encode")},
+						{Name: "headers", Value: λ.DictLiteral(map[string]string{
+							"Content-Type": "application/json",
+						})},
+					}), λ.StrLiteral("data")), λ.StrLiteral("playerPage"))
+					ϒtitle = λ.GetItem(ϒplayer_page, λ.StrLiteral("title"))
+					ϒcontent_id = λ.Cal(ϒstr_or_none, λ.Cal(ϒtry_get, ϒplayer_page, λ.NewFunction("<lambda>",
+						[]λ.Param{
+							{Name: "x"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒx = λargs[0]
+							)
+							return λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("tracking")), λ.StrLiteral("atiCustomVars")), λ.StrLiteral("contentId"))
+						})))
+					ϒmedia_collection = func() λ.Object {
+						if λv := λ.Calm(ϒplayer_page, "get", λ.StrLiteral("mediaCollection")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return ϒgeoblocked
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
+						}
+					}()
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.NewBool(!λ.IsTrue(ϒmedia_collection)); !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return ϒcontent_id
 						}
 					}()) {
-						λ.Call(λ.GetAttr(ϒself, "raise_geo_restricted", nil), nil, λ.KWArgs{
-							{Name: "msg", Value: λ.StrLiteral("This video is not available due to geoblocking")},
-							{Name: "countries", Value: λ.NewList(λ.StrLiteral("DE"))},
-						})
+						ϒmedia_collection = func() λ.Object {
+							if λv := λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+								λ.Add(λ.StrLiteral("https://www.ardmediathek.de/play/media/"), ϒcontent_id),
+								ϒcontent_id,
+							), λ.KWArgs{
+								{Name: "fatal", Value: λ.False},
+							}); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.DictLiteral(map[λ.Object]λ.Object{})
+							}
+						}()
 					}
-					λ.Calm(ϒself, "_sort_formats", ϒformats)
-					λ.Calm(ϒres, "update", λ.DictLiteral(map[string]λ.Object{
-						"subtitles": ϒsubtitles,
-						"formats":   ϒformats,
+					ϒinfo = λ.Calm(ϒself, "_parse_media_info", ϒmedia_collection, func() λ.Object {
+						if λv := ϒcontent_id; λ.IsTrue(λv) {
+							return λv
+						} else {
+							return ϒvideo_id
+						}
+					}(), λ.Calm(ϒplayer_page, "get", λ.StrLiteral("blockedByFsk")))
+					ϒage_limit = λ.None
+					ϒdescription = λ.Calm(ϒplayer_page, "get", λ.StrLiteral("synopsis"))
+					ϒmaturity_content_rating = λ.Calm(ϒplayer_page, "get", λ.StrLiteral("maturityContentRating"))
+					if λ.IsTrue(ϒmaturity_content_rating) {
+						ϒage_limit = λ.Cal(ϒint_or_none, λ.Calm(ϒmaturity_content_rating, "lstrip", λ.StrLiteral("FSK")))
+					}
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.NewBool(!λ.IsTrue(ϒage_limit)); !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return ϒdescription
+						}
+					}()) {
+						ϒage_limit = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+							λ.StrLiteral("\\(FSK\\s*(\\d+)\\)\\s*$"),
+							ϒdescription,
+							λ.StrLiteral("age limit"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						}))
+					}
+					λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
+						"age_limit":   ϒage_limit,
+						"display_id":  ϒdisplay_id,
+						"title":       ϒtitle,
+						"description": ϒdescription,
+						"timestamp":   λ.Cal(ϒunified_timestamp, λ.Calm(ϒplayer_page, "get", λ.StrLiteral("broadcastedOn"))),
+						"series": λ.Cal(ϒtry_get, ϒplayer_page, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("show")), λ.StrLiteral("title"))
+							})),
 					}))
-					return ϒres
+					return ϒinfo
 				})
 			return λ.DictLiteral(map[string]λ.Object{
 				"_VALID_URL":    ARDBetaMediathekIE__VALID_URL,

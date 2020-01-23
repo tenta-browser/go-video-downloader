@@ -25,7 +25,6 @@
 package dbtv
 
 import (
-	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
@@ -40,49 +39,11 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		DBTVIE = λ.Cal(λ.TypeType, λ.StrLiteral("DBTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				DBTVIE__VALID_URL    λ.Object
-				DBTVIE__real_extract λ.Object
+				DBTVIE__VALID_URL λ.Object
 			)
 			DBTVIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?dagbladet\\.no/video/(?:(?:embed|(?P<display_id>[^/]+))/)?(?P<id>[0-9A-Za-z_-]{11}|[a-zA-Z0-9]{8})")
-			DBTVIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒdisplay_id λ.Object
-						ϒinfo       λ.Object
-						ϒself       = λargs[0]
-						ϒurl        = λargs[1]
-						ϒvideo_id   λ.Object
-						τmp0        λ.Object
-					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
-					ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(0))
-					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(1))
-					ϒinfo = λ.DictLiteral(map[string]λ.Object{
-						"_type":      λ.StrLiteral("url_transparent"),
-						"id":         ϒvideo_id,
-						"display_id": ϒdisplay_id,
-					})
-					if λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒvideo_id), λ.IntLiteral(11))) {
-						λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
-							"url":    ϒvideo_id,
-							"ie_key": λ.StrLiteral("Youtube"),
-						}))
-					} else {
-						λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
-							"url":    λ.Add(λ.StrLiteral("jwplatform:"), ϒvideo_id),
-							"ie_key": λ.StrLiteral("JWPlatform"),
-						}))
-					}
-					return ϒinfo
-				})
 			return λ.DictLiteral(map[string]λ.Object{
-				"_VALID_URL":    DBTVIE__VALID_URL,
-				"_real_extract": DBTVIE__real_extract,
+				"_VALID_URL": DBTVIE__VALID_URL,
 			})
 		}())
 	})
