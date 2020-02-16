@@ -49,6 +49,7 @@ func init() {
 			var (
 				IGNIE_IE_NAME           λ.Object
 				IGNIE__API_URL_TEMPLATE λ.Object
+				IGNIE__EMBED_RE         λ.Object
 				IGNIE__VALID_URL        λ.Object
 				IGNIE__find_video_id    λ.Object
 				IGNIE__get_video_info   λ.Object
@@ -57,6 +58,7 @@ func init() {
 			IGNIE__VALID_URL = λ.StrLiteral("https?://.+?\\.ign\\.com/(?:[^/]+/)?(?P<type>videos|show_videos|articles|feature|(?:[^/]+/\\d+/video))(/.+)?/(?P<name_or_id>.+)")
 			IGNIE_IE_NAME = λ.StrLiteral("ign.com")
 			IGNIE__API_URL_TEMPLATE = λ.StrLiteral("http://apis.ign.com/video/v3/videos/%s")
+			IGNIE__EMBED_RE = λ.StrLiteral("<iframe[^>]+?[\"\\']((?:https?:)?//.+?\\.ign\\.com.+?/embed.+?)[\"\\']")
 			IGNIE__find_video_id = λ.NewFunction("_find_video_id",
 				[]λ.Param{
 					{Name: "self"},
@@ -265,6 +267,7 @@ func init() {
 			return λ.DictLiteral(map[string]λ.Object{
 				"IE_NAME":           IGNIE_IE_NAME,
 				"_API_URL_TEMPLATE": IGNIE__API_URL_TEMPLATE,
+				"_EMBED_RE":         IGNIE__EMBED_RE,
 				"_VALID_URL":        IGNIE__VALID_URL,
 				"_find_video_id":    IGNIE__find_video_id,
 				"_get_video_info":   IGNIE__get_video_info,

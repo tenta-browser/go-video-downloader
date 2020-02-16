@@ -19,10 +19,8 @@ Supported sites
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
  * Beatport: `beatport.com`
- * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
- * BitChute: `www.bitchute.com`
  * BIQLE: `biqle.ru`
  * BleacherReport: `bleacherreport.com`
  * BleacherReportCMS: `bleacherreport.com`
@@ -78,7 +76,6 @@ Supported sites
  * Eporner _(adult)_: `www.eporner.com`
  * Escapist: `www.escapistmagazine.com`
  * ExtremeTube _(adult)_: `www.extremetube.com`
- * Facebook: `www.facebook.com`
  * FacebookPluginsVideo: `www.facebook.com`
  * Faz: `www.faz.net`
  * Fczenit: `fc-zenit.ru`
@@ -117,7 +114,6 @@ Supported sites
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
  * Instagram: `instagram.com`
- * Ir90Tv: `90tv.ir`
  * Ivideon: `www.ivideon.com`
  * Izlesene: `www.izlesene.com`
  * Jamendo: `www.jamendo.com`
@@ -166,8 +162,6 @@ Supported sites
  * Nowness: `www.nowness.com`
  * NTVRu: `www.ntv.ru`
  * Odnoklassniki: `ok.ru`
- * Onet: `onet.tv`
- * OnetChannel: `onet.tv`
  * OnionStudios: `www.onionstudios.com`
  * Ooyala: `player.ooyala.com`
  * OutsideTV: `www.outsidetv.com`
@@ -213,6 +207,7 @@ Supported sites
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
  * Stitcher: `www.stitcher.com`
+ * SportDeutschland: `sportdeutschland.tv`
  * SRGSSRPlay: `www.rts.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
  * Streamable: `streamable.com`
@@ -231,7 +226,6 @@ Supported sites
  * TFO: `www.tfo.org`
  * ThePlatform: `player.theplatform.com`
  * TheScene: `thescene.com`
- * ThisOldHouse: `www.thisoldhouse.com`
  * TMZ: `www.tmz.com`
  * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
  * TNAFlix _(adult)_: `www.tnaflix.com`
@@ -250,6 +244,7 @@ Supported sites
  * TwentyThreeVideo: `video.twentythree.net`
  * TwitchClips: `clips.twitch.tv`
  * TwitterAmplify: `amp.twimg.com`
+ * UDNEmbed: `video.udn.com`
  * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
  * UstudioEmbed: `app.ustudio.com`
@@ -265,6 +260,8 @@ Supported sites
  * VideoPress: `videopress.com`
  * VideosZ _(adult)_: `www.videosz.com`
  * VidLii: `www.vidlii.com`
+ * ViewLift _(adult)_: `www.snagfilms.com`
+ * ViewLiftEmbed: `embed.snagfilms.com`
  * Vimeo: `vimeo.com`
  * VimeoOndemand: `vimeo.com`
  * VimeoReview: `vimeo.com`
@@ -278,7 +275,6 @@ Supported sites
  * VuClip: `m.vuclip.com`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
- * Weibo: `weibo.com`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`

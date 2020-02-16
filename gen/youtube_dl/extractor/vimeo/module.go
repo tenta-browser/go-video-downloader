@@ -50,6 +50,7 @@ var (
 	VimeoUserIE            λ.Object
 	VimeoWatchLaterIE      λ.Object
 	ϒclean_html            λ.Object
+	ϒcompat_HTTPError      λ.Object
 	ϒcompat_kwargs         λ.Object
 	ϒcompat_str            λ.Object
 	ϒdetermine_ext         λ.Object
@@ -73,6 +74,7 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_kwargs = Ωcompat.ϒcompat_kwargs
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒclean_html = Ωutils.ϒclean_html
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
@@ -153,7 +155,7 @@ func init() {
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 								var ϒe λ.Object = λex
 								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
+									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
 										return λv
 									} else {
 										return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.IntLiteral(418))
@@ -962,7 +964,7 @@ func init() {
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 								var ϒee λ.Object = λex
 								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒee, "cause", nil), λ.None); !λ.IsTrue(λv) {
+									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒee, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
 										return λv
 									} else {
 										return λ.Eq(λ.GetAttr(λ.GetAttr(ϒee, "cause", nil), "code", nil), λ.IntLiteral(403))
@@ -1322,7 +1324,7 @@ func init() {
 				"_VALID_URL": VimeoUserIE__VALID_URL,
 			})
 		}())
-		VimeoAlbumIE = λ.Cal(λ.TypeType, λ.StrLiteral("VimeoAlbumIE"), λ.NewTuple(VimeoChannelIE), func() λ.Dict {
+		VimeoAlbumIE = λ.Cal(λ.TypeType, λ.StrLiteral("VimeoAlbumIE"), λ.NewTuple(VimeoBaseInfoExtractor), func() λ.Dict {
 			var (
 				VimeoAlbumIE__VALID_URL λ.Object
 			)

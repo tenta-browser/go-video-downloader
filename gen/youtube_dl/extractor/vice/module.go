@@ -37,20 +37,21 @@ import (
 )
 
 var (
-	AdobePassIE      λ.Object
-	ExtractorError   λ.Object
-	InfoExtractor    λ.Object
-	ViceArticleIE    λ.Object
-	ViceBaseIE       λ.Object
-	ViceIE           λ.Object
-	ViceShowIE       λ.Object
-	YoutubeIE        λ.Object
-	ϒclean_html      λ.Object
-	ϒcompat_str      λ.Object
-	ϒint_or_none     λ.Object
-	ϒparse_age_limit λ.Object
-	ϒstr_or_none     λ.Object
-	ϒtry_get         λ.Object
+	AdobePassIE       λ.Object
+	ExtractorError    λ.Object
+	InfoExtractor     λ.Object
+	ViceArticleIE     λ.Object
+	ViceBaseIE        λ.Object
+	ViceIE            λ.Object
+	ViceShowIE        λ.Object
+	YoutubeIE         λ.Object
+	ϒclean_html       λ.Object
+	ϒcompat_HTTPError λ.Object
+	ϒcompat_str       λ.Object
+	ϒint_or_none      λ.Object
+	ϒparse_age_limit  λ.Object
+	ϒstr_or_none      λ.Object
+	ϒtry_get          λ.Object
 )
 
 func init() {
@@ -58,6 +59,7 @@ func init() {
 		AdobePassIE = Ωadobepass.AdobePassIE
 		InfoExtractor = Ωcommon.InfoExtractor
 		YoutubeIE = Ωyoutube.YoutubeIE
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒclean_html = Ωutils.ϒclean_html
 		ExtractorError = Ωutils.ExtractorError
@@ -216,7 +218,7 @@ func init() {
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 								var ϒe λ.Object = λex
 								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
+									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
 										return λv
 									} else {
 										return λ.NewBool(λ.Contains(λ.NewTuple(

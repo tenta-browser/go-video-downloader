@@ -35,6 +35,7 @@ var (
 	AdobePassIE                  λ.Object
 	ExtractorError               λ.Object
 	FOXIE                        λ.Object
+	ϒcompat_HTTPError            λ.Object
 	ϒcompat_str                  λ.Object
 	ϒcompat_urllib_parse_unquote λ.Object
 	ϒint_or_none                 λ.Object
@@ -47,6 +48,7 @@ var (
 func init() {
 	λ.InitModule(func() {
 		AdobePassIE = Ωadobepass.AdobePassIE
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒcompat_urllib_parse_unquote = Ωcompat.ϒcompat_urllib_parse_unquote
 		ExtractorError = Ωutils.ExtractorError

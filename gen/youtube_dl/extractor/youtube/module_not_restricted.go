@@ -68,6 +68,7 @@ var (
 	YoutubeWatchLaterIE               λ.Object
 	ϒbool_or_none                     λ.Object
 	ϒclean_html                       λ.Object
+	ϒcompat_HTTPError                 λ.Object
 	ϒcompat_chr                       λ.Object
 	ϒcompat_kwargs                    λ.Object
 	ϒcompat_parse_qs                  λ.Object
@@ -107,6 +108,7 @@ func init() {
 		SearchInfoExtractor = Ωcommon.SearchInfoExtractor
 		JSInterpreter = Ωjsinterp.JSInterpreter
 		ϒcompat_chr = Ωcompat.ϒcompat_chr
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_kwargs = Ωcompat.ϒcompat_kwargs
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒcompat_urllib_parse_unquote = Ωcompat.ϒcompat_urllib_parse_unquote
@@ -734,7 +736,7 @@ func init() {
 										&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 											var ϒe λ.Object = λex
 											if λ.IsTrue(func() λ.Object {
-												if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
+												if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
 													return λv
 												} else {
 													return λ.NewBool(λ.Contains(λ.NewTuple(

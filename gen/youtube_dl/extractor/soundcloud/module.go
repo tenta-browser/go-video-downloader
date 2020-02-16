@@ -46,6 +46,7 @@ var (
 	SoundcloudSetIE               λ.Object
 	SoundcloudTrackStationIE      λ.Object
 	SoundcloudUserIE              λ.Object
+	ϒcompat_HTTPError             λ.Object
 	ϒcompat_kwargs                λ.Object
 	ϒcompat_str                   λ.Object
 	ϒerror_to_compat_str          λ.Object
@@ -63,6 +64,7 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		SearchInfoExtractor = Ωcommon.SearchInfoExtractor
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_kwargs = Ωcompat.ϒcompat_kwargs
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒerror_to_compat_str = Ωutils.ϒerror_to_compat_str
@@ -108,7 +110,7 @@ func init() {
 				"_VALID_URL": SoundcloudSetIE__VALID_URL,
 			})
 		}())
-		SoundcloudPagedPlaylistBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("SoundcloudPagedPlaylistBaseIE"), λ.NewTuple(SoundcloudPlaylistBaseIE), func() λ.Dict {
+		SoundcloudPagedPlaylistBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("SoundcloudPagedPlaylistBaseIE"), λ.NewTuple(SoundcloudIE), func() λ.Dict {
 
 			return λ.DictLiteral(map[λ.Object]λ.Object{})
 		}())

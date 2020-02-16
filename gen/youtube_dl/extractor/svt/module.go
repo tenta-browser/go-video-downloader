@@ -32,38 +32,32 @@ import (
 )
 
 var (
-	InfoExtractor                 λ.Object
-	SVTBaseIE                     λ.Object
-	SVTIE                         λ.Object
-	SVTPageIE                     λ.Object
-	SVTPlayBaseIE                 λ.Object
-	SVTPlayIE                     λ.Object
-	SVTSeriesIE                   λ.Object
-	ϒcompat_parse_qs              λ.Object
-	ϒcompat_str                   λ.Object
-	ϒcompat_urllib_parse_urlparse λ.Object
-	ϒdetermine_ext                λ.Object
-	ϒdict_get                     λ.Object
-	ϒint_or_none                  λ.Object
-	ϒorderedSet                   λ.Object
-	ϒstrip_or_none                λ.Object
-	ϒtry_get                      λ.Object
-	ϒurljoin                      λ.Object
+	InfoExtractor  λ.Object
+	SVTBaseIE      λ.Object
+	SVTIE          λ.Object
+	SVTPageIE      λ.Object
+	SVTPlayBaseIE  λ.Object
+	SVTPlayIE      λ.Object
+	SVTSeriesIE    λ.Object
+	ϒcompat_str    λ.Object
+	ϒdetermine_ext λ.Object
+	ϒdict_get      λ.Object
+	ϒint_or_none   λ.Object
+	ϒstr_or_none   λ.Object
+	ϒstrip_or_none λ.Object
+	ϒtry_get       λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
-		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
+		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒdict_get = Ωutils.ϒdict_get
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ϒorderedSet = Ωutils.ϒorderedSet
+		ϒstr_or_none = Ωutils.ϒstr_or_none
 		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒtry_get = Ωutils.ϒtry_get
-		ϒurljoin = Ωutils.ϒurljoin
-		ϒcompat_str = Ωutils.ϒcompat_str
 		SVTBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("SVTBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 
 			return λ.DictLiteral(map[λ.Object]λ.Object{})
@@ -95,7 +89,7 @@ func init() {
 				SVTSeriesIE__VALID_URL λ.Object
 				SVTSeriesIE_suitable   λ.Object
 			)
-			SVTSeriesIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?svtplay\\.se/(?P<id>[^/?&#]+)")
+			SVTSeriesIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?svtplay\\.se/(?P<id>[^/?&#]+)(?:.+?\\btab=(?P<season_slug>[^&#]+))?")
 			SVTSeriesIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -132,7 +126,7 @@ func init() {
 				SVTPageIE__VALID_URL λ.Object
 				SVTPageIE_suitable   λ.Object
 			)
-			SVTPageIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?svt\\.se/(?:[^/]+/)*(?P<id>[^/?&#]+)")
+			SVTPageIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?svt\\.se/(?P<path>(?:[^/]+/)*(?P<id>[^/?&#]+))")
 			SVTPageIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},

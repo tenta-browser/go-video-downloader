@@ -104,6 +104,30 @@ func init() {
 					ϒdisplay_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
 					ϒsite = λ.Calm(ϒmobj, "group", λ.StrLiteral("site"))
 					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
+					ϒdescription = λ.Cal(ϒclean_html, λ.Call(λ.GetAttr(ϒself, "_og_search_description", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
+						{Name: "default", Value: λ.None},
+					}))
+					if λ.IsTrue(λ.Eq(ϒsite, λ.StrLiteral("novaplus"))) {
+						ϒupload_date = λ.Cal(ϒunified_strdate, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+							λ.StrLiteral("(\\d{1,2}-\\d{1,2}-\\d{4})$"),
+							ϒdisplay_id,
+							λ.StrLiteral("upload date"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						}))
+					} else {
+						if λ.IsTrue(λ.Eq(ϒsite, λ.StrLiteral("fanda"))) {
+							ϒupload_date = λ.Cal(ϒunified_strdate, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+								λ.StrLiteral("<span class=\"date_time\">(\\d{1,2}\\.\\d{1,2}\\.\\d{4})"),
+								ϒwebpage,
+								λ.StrLiteral("upload date"),
+							), λ.KWArgs{
+								{Name: "default", Value: λ.None},
+							}))
+						} else {
+							ϒupload_date = λ.None
+						}
+					}
 					ϒembed_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
 						λ.StrLiteral("<iframe[^>]+\\bsrc=[\"\\'](?:https?:)?//media\\.cms\\.nova\\.cz/embed/([^/?#&]+)"),
 						ϒwebpage,
@@ -112,9 +136,13 @@ func init() {
 						{Name: "default", Value: λ.None},
 					})
 					if λ.IsTrue(ϒembed_id) {
-						return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(λ.Mod(λ.StrLiteral("https://media.cms.nova.cz/embed/%s"), ϒembed_id)), λ.KWArgs{
-							{Name: "ie", Value: λ.Calm(NovaEmbedIE, "ie_key")},
-							{Name: "video_id", Value: ϒembed_id},
+						return λ.DictLiteral(map[string]λ.Object{
+							"_type":       λ.StrLiteral("url_transparent"),
+							"url":         λ.Mod(λ.StrLiteral("https://media.cms.nova.cz/embed/%s"), ϒembed_id),
+							"ie_key":      λ.Calm(NovaEmbedIE, "ie_key"),
+							"id":          ϒembed_id,
+							"description": ϒdescription,
+							"upload_date": ϒupload_date,
 						})
 					}
 					ϒvideo_id = λ.Calm(ϒself, "_search_regex", λ.NewList(
@@ -227,31 +255,7 @@ func init() {
 							return λ.Calm(ϒself, "_og_search_title", ϒwebpage)
 						}
 					}()
-					ϒdescription = λ.Cal(ϒclean_html, λ.Call(λ.GetAttr(ϒself, "_og_search_description", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
-						{Name: "default", Value: λ.None},
-					}))
 					ϒthumbnail = λ.Calm(ϒconfig, "get", λ.StrLiteral("poster"))
-					if λ.IsTrue(λ.Eq(ϒsite, λ.StrLiteral("novaplus"))) {
-						ϒupload_date = λ.Cal(ϒunified_strdate, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.StrLiteral("(\\d{1,2}-\\d{1,2}-\\d{4})$"),
-							ϒdisplay_id,
-							λ.StrLiteral("upload date"),
-						), λ.KWArgs{
-							{Name: "default", Value: λ.None},
-						}))
-					} else {
-						if λ.IsTrue(λ.Eq(ϒsite, λ.StrLiteral("fanda"))) {
-							ϒupload_date = λ.Cal(ϒunified_strdate, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.StrLiteral("<span class=\"date_time\">(\\d{1,2}\\.\\d{1,2}\\.\\d{4})"),
-								ϒwebpage,
-								λ.StrLiteral("upload date"),
-							), λ.KWArgs{
-								{Name: "default", Value: λ.None},
-							}))
-						} else {
-							ϒupload_date = λ.None
-						}
-					}
 					return λ.DictLiteral(map[string]λ.Object{
 						"id":          ϒvideo_id,
 						"display_id":  ϒdisplay_id,

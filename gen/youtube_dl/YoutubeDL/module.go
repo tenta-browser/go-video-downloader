@@ -1253,7 +1253,13 @@ func init() {
 											"playlist_title":       λ.Calm(ϒie_result, "get", λ.StrLiteral("title")),
 											"playlist_uploader":    λ.Calm(ϒie_result, "get", λ.StrLiteral("uploader")),
 											"playlist_uploader_id": λ.Calm(ϒie_result, "get", λ.StrLiteral("uploader_id")),
-											"playlist_index":       λ.Add(ϒi, ϒplayliststart),
+											"playlist_index": func() λ.Object {
+												if λ.IsTrue(ϒplaylistitems) {
+													return λ.GetItem(ϒplaylistitems, λ.Sub(ϒi, λ.IntLiteral(1)))
+												} else {
+													return λ.Add(ϒi, ϒplayliststart)
+												}
+											}(),
 											"extractor":            λ.GetItem(ϒie_result, λ.StrLiteral("extractor")),
 											"webpage_url":          λ.GetItem(ϒie_result, λ.StrLiteral("webpage_url")),
 											"webpage_url_basename": λ.Cal(ϒurl_basename, λ.GetItem(ϒie_result, λ.StrLiteral("webpage_url"))),

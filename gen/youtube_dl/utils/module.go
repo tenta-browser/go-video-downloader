@@ -60,6 +60,7 @@ var (
 	PagedList                         λ.Object
 	PostProcessingError               λ.Object
 	RegexNotFoundError                λ.Object
+	TV_PARENTAL_GUIDELINES            λ.Object
 	US_RATINGS                        λ.Object
 	UnavailableVideoError             λ.Object
 	YoutubeDLError                    λ.Object
@@ -104,7 +105,6 @@ var (
 	ϒjs_to_json                       λ.Object
 	ϒlimit_length                     λ.Object
 	ϒlookup_unit_table                λ.Object
-	ϒlowercase_escape                 λ.Object
 	ϒmerge_dicts                      λ.Object
 	ϒmimetype2ext                     λ.Object
 	ϒmonth_by_name                    λ.Object
@@ -3841,29 +3841,6 @@ func init() {
 						return λ.GetItem(λ.Cal(ϒunicode_escape, λ.Calm(ϒm, "group", λ.IntLiteral(0))), λ.IntLiteral(0))
 					}), ϒs)
 			})
-		ϒlowercase_escape = λ.NewFunction("lowercase_escape",
-			[]λ.Param{
-				{Name: "s"},
-			},
-			0, false, false,
-			func(λargs []λ.Object) λ.Object {
-				var (
-					ϒs              = λargs[0]
-					ϒunicode_escape λ.Object
-				)
-				ϒunicode_escape = λ.Cal(Ωcodecs.ϒgetdecoder, λ.StrLiteral("unicode_escape"))
-				return λ.Cal(Ωre.ϒsub, λ.StrLiteral("\\\\u[0-9a-fA-F]{4}"), λ.NewFunction("<lambda>",
-					[]λ.Param{
-						{Name: "m"},
-					},
-					0, false, false,
-					func(λargs []λ.Object) λ.Object {
-						var (
-							ϒm = λargs[0]
-						)
-						return λ.GetItem(λ.Cal(ϒunicode_escape, λ.Calm(ϒm, "group", λ.IntLiteral(0))), λ.IntLiteral(0))
-					}), ϒs)
-			})
 		ϒurlencode_postdata = λ.NewFunction("urlencode_postdata",
 			nil,
 			0, true, true,
@@ -4137,6 +4114,14 @@ func init() {
 			"R":     16,
 			"NC":    18,
 		})
+		TV_PARENTAL_GUIDELINES = λ.DictLiteral(map[string]int{
+			"TV-Y":  0,
+			"TV-Y7": 7,
+			"TV-G":  0,
+			"TV-PG": 0,
+			"TV-14": 14,
+			"TV-MA": 17,
+		})
 		ϒparse_age_limit = λ.NewFunction("parse_age_limit",
 			[]λ.Param{
 				{Name: "s"},
@@ -4188,7 +4173,7 @@ func init() {
 								τmp0 λ.Object
 								τmp1 λ.Object
 							)
-							τmp0 = λ.Cal(λ.BuiltinIter, λ.None)
+							τmp0 = λ.Cal(λ.BuiltinIter, TV_PARENTAL_GUIDELINES)
 							for {
 								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 									break
@@ -4200,7 +4185,7 @@ func init() {
 						})
 					})))), ϒs)
 				if λ.IsTrue(ϒm) {
-					return λ.GetItem(λ.None, λ.Add(λ.StrLiteral("TV-"), λ.Calm(ϒm, "group", λ.IntLiteral(1))))
+					return λ.GetItem(TV_PARENTAL_GUIDELINES, λ.Add(λ.StrLiteral("TV-"), λ.Calm(ϒm, "group", λ.IntLiteral(1))))
 				}
 				return λ.None
 			})
