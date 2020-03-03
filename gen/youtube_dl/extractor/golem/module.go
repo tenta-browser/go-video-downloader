@@ -120,7 +120,7 @@ func init() {
 					λ.SetItem(ϒinfo, λ.StrLiteral("thumbnails"), ϒthumbnails)
 					return ϒinfo
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_PREFIX":       GolemIE__PREFIX,
 				"_VALID_URL":    GolemIE__VALID_URL,
 				"_real_extract": GolemIE__real_extract,

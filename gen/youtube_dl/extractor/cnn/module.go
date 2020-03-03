@@ -112,7 +112,7 @@ func init() {
 						}),
 					}))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_CONFIG":            CNNIE__CONFIG,
 				"_VALID_URL":         CNNIE__VALID_URL,
 				"_extract_timestamp": CNNIE__extract_timestamp,
@@ -142,7 +142,7 @@ func init() {
 					ϒcnn_url = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("data-url=\"(.+?)\""), ϒwebpage, λ.StrLiteral("cnn url"))
 					return λ.Calm(ϒself, "url_result", ϒcnn_url, λ.Calm(CNNIE, "ie_key"))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    CNNBlogsIE__VALID_URL,
 				"_real_extract": CNNBlogsIE__real_extract,
 			})
@@ -170,7 +170,7 @@ func init() {
 					ϒcnn_url = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("video:\\s*'([^']+)'"), ϒwebpage, λ.StrLiteral("cnn url"))
 					return λ.Calm(ϒself, "url_result", λ.Add(λ.StrLiteral("http://cnn.com/video/?/video/"), ϒcnn_url), λ.Calm(CNNIE, "ie_key"))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    CNNArticleIE__VALID_URL,
 				"_real_extract": CNNArticleIE__real_extract,
 			})

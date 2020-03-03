@@ -297,7 +297,7 @@ func init() {
 						"subtitles":   ϒsubtitles,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    DisneyIE__VALID_URL,
 				"_real_extract": DisneyIE__real_extract,
 			})

@@ -67,7 +67,7 @@ func init() {
 					})))
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_PLAYLIST_ID_RE": YoutubeBaseInfoExtractor__PLAYLIST_ID_RE,
 				"_real_extract":   YoutubeBaseInfoExtractor__real_extract,
 			})
@@ -81,7 +81,7 @@ func init() {
 				"playlist_id": λ.GetAttr(YoutubeBaseInfoExtractor, "_PLAYLIST_ID_RE", nil),
 			}))
 			YoutubeIE__GEO_BYPASS = λ.False
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_GEO_BYPASS": YoutubeIE__GEO_BYPASS,
 				"_VALID_URL":  YoutubeIE__VALID_URL,
 			})
@@ -112,7 +112,7 @@ func init() {
 					})))
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    YoutubePlaylistIE__VALID_URL,
 				"_real_extract": YoutubePlaylistIE__real_extract,
 			})

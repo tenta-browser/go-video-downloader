@@ -385,7 +385,7 @@ func init() {
 					}
 					return λ.Cal(ϒmerge_dicts, λ.Calm(ϒself, "_get_common_fields", ϒwebpage), λ.Calm(ϒself, "_extract_video_info", ϒvideo_id, ϒlong_video_id, ϒkey))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":            VLiveIE_IE_NAME,
 				"_NETRC_MACHINE":     VLiveIE__NETRC_MACHINE,
 				"_VALID_URL":         VLiveIE__VALID_URL,
@@ -402,7 +402,7 @@ func init() {
 				VLiveChannelIE__VALID_URL λ.Object
 			)
 			VLiveChannelIE__VALID_URL = λ.StrLiteral("https?://channels\\.vlive\\.tv/(?P<id>[0-9A-Z]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": VLiveChannelIE__VALID_URL,
 			})
 		}())
@@ -513,7 +513,7 @@ func init() {
 					})
 					return λ.Calm(ϒself, "playlist_result", ϒentries, ϒplaylist_id, ϒplaylist_name)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":             VLivePlaylistIE_IE_NAME,
 				"_VALID_URL":          VLivePlaylistIE__VALID_URL,
 				"_VIDEO_URL_TEMPLATE": VLivePlaylistIE__VIDEO_URL_TEMPLATE,

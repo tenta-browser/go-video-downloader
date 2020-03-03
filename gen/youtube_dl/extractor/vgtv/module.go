@@ -266,7 +266,7 @@ func init() {
 					}))
 					return ϒinfo
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_APP_NAME_TO_VENDOR": VGTVIE__APP_NAME_TO_VENDOR,
 				"_GEO_BYPASS":         VGTVIE__GEO_BYPASS,
 				"_HOST_TO_APPNAME":    VGTVIE__HOST_TO_APPNAME,
@@ -279,7 +279,7 @@ func init() {
 				BTArticleIE__VALID_URL λ.Object
 			)
 			BTArticleIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?bt\\.no/(?:[^/]+/)+(?P<id>[^/]+)-\\d+\\.html")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": BTArticleIE__VALID_URL,
 			})
 		}())
@@ -288,7 +288,7 @@ func init() {
 				BTVestlendingenIE__VALID_URL λ.Object
 			)
 			BTVestlendingenIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?bt\\.no/spesial/vestlendingen/#!/(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": BTVestlendingenIE__VALID_URL,
 			})
 		}())

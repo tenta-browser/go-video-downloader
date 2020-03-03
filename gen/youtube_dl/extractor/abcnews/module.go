@@ -78,7 +78,7 @@ func init() {
 					}))
 					return ϒinfo_dict
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       AbcNewsVideoIE_IE_NAME,
 				"_VALID_URL":    AbcNewsVideoIE__VALID_URL,
 				"_real_extract": AbcNewsVideoIE__real_extract,
@@ -89,7 +89,7 @@ func init() {
 				AbcNewsIE__VALID_URL λ.Object
 			)
 			AbcNewsIE__VALID_URL = λ.StrLiteral("https?://abcnews\\.go\\.com/(?:[^/]+/)+(?P<display_id>[0-9a-z-]+)/story\\?id=(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": AbcNewsIE__VALID_URL,
 			})
 		}())

@@ -3013,7 +3013,7 @@ func init() {
 					return ϒres
 				})
 			YoutubeDL_format_resolution = λ.Cal(λ.StaticMethodType, YoutubeDL_format_resolution)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_NUMERIC_FIELDS":             YoutubeDL__NUMERIC_FIELDS,
 				"__forced_printings":          YoutubeDL___forced_printings,
 				"_bidi_workaround":            YoutubeDL__bidi_workaround,

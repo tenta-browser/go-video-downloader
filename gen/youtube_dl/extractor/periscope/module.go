@@ -48,14 +48,14 @@ func init() {
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		PeriscopeBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("PeriscopeBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		PeriscopeIE = λ.Cal(λ.TypeType, λ.StrLiteral("PeriscopeIE"), λ.NewTuple(PeriscopeBaseIE), func() λ.Dict {
 			var (
 				PeriscopeIE__VALID_URL λ.Object
 			)
 			PeriscopeIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?:periscope|pscp)\\.tv/[^/]+/(?P<id>[^/?#]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": PeriscopeIE__VALID_URL,
 			})
 		}())
@@ -64,7 +64,7 @@ func init() {
 				PeriscopeUserIE__VALID_URL λ.Object
 			)
 			PeriscopeUserIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?:periscope|pscp)\\.tv/(?P<id>[^/]+)/?$")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": PeriscopeUserIE__VALID_URL,
 			})
 		}())

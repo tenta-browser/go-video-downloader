@@ -101,7 +101,7 @@ func init() {
 					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
 					return λ.Calm(ϒself, "_extract_embed", ϒwebpage, ϒdisplay_id)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_real_extract": NDRBaseIE__real_extract,
 			})
 		}())
@@ -164,7 +164,7 @@ func init() {
 						"timestamp":   ϒtimestamp,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":        NDRIE_IE_NAME,
 				"_VALID_URL":     NDRIE__VALID_URL,
 				"_extract_embed": NDRIE__extract_embed,
@@ -175,7 +175,7 @@ func init() {
 				NJoyIE__VALID_URL λ.Object
 			)
 			NJoyIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?n-joy\\.de/(?:[^/]+/)*(?:(?P<display_id>[^/?#]+),)?(?P<id>[\\da-z]+)\\.html")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": NJoyIE__VALID_URL,
 			})
 		}())
@@ -385,7 +385,7 @@ func init() {
 						"formats":    ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    NDREmbedBaseIE__VALID_URL,
 				"_real_extract": NDREmbedBaseIE__real_extract,
 			})
@@ -397,7 +397,7 @@ func init() {
 			)
 			NDREmbedIE_IE_NAME = λ.StrLiteral("ndr:embed")
 			NDREmbedIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?ndr\\.de/(?:[^/]+/)*(?P<id>[\\da-z]+)-(?:player|externalPlayer)\\.html")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":    NDREmbedIE_IE_NAME,
 				"_VALID_URL": NDREmbedIE__VALID_URL,
 			})
@@ -409,7 +409,7 @@ func init() {
 			)
 			NJoyEmbedIE_IE_NAME = λ.StrLiteral("njoy:embed")
 			NJoyEmbedIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?n-joy\\.de/(?:[^/]+/)*(?P<id>[\\da-z]+)-(?:player|externalPlayer)_[^/]+\\.html")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":    NJoyEmbedIE_IE_NAME,
 				"_VALID_URL": NJoyEmbedIE__VALID_URL,
 			})

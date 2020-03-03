@@ -224,7 +224,7 @@ func init() {
 					}
 					return ϒinfo
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_RECORD_TEMPL": TeamcocoIE__RECORD_TEMPL,
 				"_VALID_URL":    TeamcocoIE__VALID_URL,
 				"_graphql_call": TeamcocoIE__graphql_call,

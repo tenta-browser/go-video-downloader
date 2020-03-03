@@ -72,7 +72,7 @@ func init() {
 						"url":   ϒvideo_url,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    TentaIE__VALID_URL,
 				"_real_extract": TentaIE__real_extract,
 			})

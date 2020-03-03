@@ -310,7 +310,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_GEO_BYPASS":        SRGSSRIE__GEO_BYPASS,
 				"_GEO_COUNTRIES":     SRGSSRIE__GEO_COUNTRIES,
 				"_VALID_URL":         SRGSSRIE__VALID_URL,
@@ -356,7 +356,7 @@ func init() {
 						ϒmedia_id,
 					)), λ.StrLiteral("SRGSSR"))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    SRGSSRPlayIE__VALID_URL,
 				"_real_extract": SRGSSRPlayIE__real_extract,
 			})

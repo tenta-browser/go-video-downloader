@@ -328,7 +328,7 @@ func init() {
 						"formats":   ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_AUTHORIZATION_URL_TEMPLATE": OoyalaBaseIE__AUTHORIZATION_URL_TEMPLATE,
 				"_CONTENT_TREE_BASE":          OoyalaBaseIE__CONTENT_TREE_BASE,
 				"_PLAYER_BASE":                OoyalaBaseIE__PLAYER_BASE,
@@ -372,7 +372,7 @@ func init() {
 					)))
 					return λ.Calm(ϒself, "_extract", ϒcontent_tree_url, ϒembed_code, ϒdomain, ϒsupportedformats, ϒembed_token)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    OoyalaIE__VALID_URL,
 				"_real_extract": OoyalaIE__real_extract,
 			})
@@ -382,7 +382,7 @@ func init() {
 				OoyalaExternalIE__VALID_URL λ.Object
 			)
 			OoyalaExternalIE__VALID_URL = λ.StrLiteral("(?x)\n                    (?:\n                        ooyalaexternal:|\n                        https?://.+?\\.ooyala\\.com/.*?\\bexternalId=\n                    )\n                    (?P<partner_id>[^:]+)\n                    :\n                    (?P<id>.+)\n                    (?:\n                        :|\n                        .*?&pcode=\n                    )\n                    (?P<pcode>.+?)\n                    (?:&|$)\n                    ")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": OoyalaExternalIE__VALID_URL,
 			})
 		}())

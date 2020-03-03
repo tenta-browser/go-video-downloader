@@ -46,7 +46,7 @@ func init() {
 				MyviIE__VALID_URL λ.Object
 			)
 			MyviIE__VALID_URL = λ.StrLiteral("(?x)\n                        (?:\n                            https?://\n                                (?:www\\.)?\n                                myvi\\.\n                                (?:\n                                    (?:ru/player|tv)/\n                                    (?:\n                                        (?:\n                                            embed/html|\n                                            flash|\n                                            api/Video/Get\n                                        )/|\n                                        content/preloader\\.swf\\?.*\\bid=\n                                    )|\n                                    ru/watch/\n                                )|\n                            myvi:\n                        )\n                        (?P<id>[\\da-zA-Z_-]+)\n                    ")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": MyviIE__VALID_URL,
 			})
 		}())
@@ -76,7 +76,7 @@ func init() {
 					}()
 				})
 			MyviEmbedIE_suitable = λ.Cal(λ.ClassMethodType, MyviEmbedIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": MyviEmbedIE__VALID_URL,
 				"suitable":   MyviEmbedIE_suitable,
 			})

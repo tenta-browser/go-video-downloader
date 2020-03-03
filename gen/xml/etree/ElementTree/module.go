@@ -211,7 +211,7 @@ func init() {
 							})
 						})))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__getitem__": Element___getitem__,
 				"__init__":    Element___init__,
 				"find":        Element_find,

@@ -58,7 +58,7 @@ func init() {
 				SmotriIE__VALID_URL λ.Object
 			)
 			SmotriIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?:smotri\\.com/video/view/\\?id=|pics\\.smotri\\.com/(?:player|scrubber_custom8)\\.swf\\?file=)(?P<id>v(?P<realvideoid>[0-9]+)[a-z0-9]{4})")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SmotriIE__VALID_URL,
 			})
 		}())
@@ -67,7 +67,7 @@ func init() {
 				SmotriCommunityIE__VALID_URL λ.Object
 			)
 			SmotriCommunityIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?smotri\\.com/community/video/(?P<id>[0-9A-Za-z_\\'-]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SmotriCommunityIE__VALID_URL,
 			})
 		}())
@@ -76,7 +76,7 @@ func init() {
 				SmotriUserIE__VALID_URL λ.Object
 			)
 			SmotriUserIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?smotri\\.com/user/(?P<id>[0-9A-Za-z_\\'-]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SmotriUserIE__VALID_URL,
 			})
 		}())
@@ -85,7 +85,7 @@ func init() {
 				SmotriBroadcastIE__VALID_URL λ.Object
 			)
 			SmotriBroadcastIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?P<url>smotri\\.com/live/(?P<id>[^/]+))/?.*")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SmotriBroadcastIE__VALID_URL,
 			})
 		}())

@@ -111,7 +111,7 @@ func init() {
 						"ie_key":      λ.StrLiteral("Ooyala"),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_real_extract": SkyBaseIE__real_extract,
 			})
 		}())
@@ -120,7 +120,7 @@ func init() {
 				SkySportsIE__VALID_URL λ.Object
 			)
 			SkySportsIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?skysports\\.com/watch/video/(?P<id>[0-9]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SkySportsIE__VALID_URL,
 			})
 		}())
@@ -129,7 +129,7 @@ func init() {
 				SkyNewsIE__VALID_URL λ.Object
 			)
 			SkyNewsIE__VALID_URL = λ.StrLiteral("https?://news\\.sky\\.com/video/[0-9a-z-]+-(?P<id>[0-9]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SkyNewsIE__VALID_URL,
 			})
 		}())

@@ -347,7 +347,7 @@ func init() {
 					return ϒsubtitles
 				})
 			RaiBaseIE__extract_subtitles = λ.Cal(λ.StaticMethodType, RaiBaseIE__extract_subtitles)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_GEO_BYPASS":            RaiBaseIE__GEO_BYPASS,
 				"_GEO_COUNTRIES":         RaiBaseIE__GEO_COUNTRIES,
 				"_UUID_RE":               RaiBaseIE__UUID_RE,
@@ -360,7 +360,7 @@ func init() {
 				RaiPlayIE__VALID_URL λ.Object
 			)
 			RaiPlayIE__VALID_URL = λ.Mod(λ.StrLiteral("(?P<url>https?://(?:www\\.)?raiplay\\.it/.+?-(?P<id>%s)\\.html)"), λ.GetAttr(RaiBaseIE, "_UUID_RE", nil))
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": RaiPlayIE__VALID_URL,
 			})
 		}())
@@ -369,7 +369,7 @@ func init() {
 				RaiPlayLiveIE__VALID_URL λ.Object
 			)
 			RaiPlayLiveIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?raiplay\\.it/dirette/(?P<id>[^/?#&]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": RaiPlayLiveIE__VALID_URL,
 			})
 		}())
@@ -378,7 +378,7 @@ func init() {
 				RaiPlayPlaylistIE__VALID_URL λ.Object
 			)
 			RaiPlayPlaylistIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?raiplay\\.it/programmi/(?P<id>[^/?#&]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": RaiPlayPlaylistIE__VALID_URL,
 			})
 		}())
@@ -584,7 +584,7 @@ func init() {
 					λ.Calm(ϒinfo, "update", ϒrelinker_info)
 					return ϒinfo
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":               RaiIE__VALID_URL,
 				"_extract_from_content_id": RaiIE__extract_from_content_id,
 				"_real_extract":            RaiIE__real_extract,

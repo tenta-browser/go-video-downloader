@@ -72,7 +72,7 @@ func init() {
 					)
 					return λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("window\\.__INITIAL_STORE__\\s*=\\s*({.+?});\\s*</script>"), ϒwebpage, λ.StrLiteral("initial store")), ϒvideo_id)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_extract_json": VevoBaseIE__extract_json,
 			})
 		}())
@@ -419,7 +419,7 @@ func init() {
 						"genre":      ϒgenre,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":      VevoIE__VALID_URL,
 				"_VERSIONS":       VevoIE__VERSIONS,
 				"_call_api":       VevoIE__call_api,
@@ -432,7 +432,7 @@ func init() {
 				VevoPlaylistIE__VALID_URL λ.Object
 			)
 			VevoPlaylistIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?vevo\\.com/watch/(?P<kind>playlist|genre)/(?P<id>[^/?#&]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": VevoPlaylistIE__VALID_URL,
 			})
 		}())

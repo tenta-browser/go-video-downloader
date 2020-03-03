@@ -65,7 +65,7 @@ func init() {
 					λ.SetItem(ϒinfo_dict, λ.StrLiteral("display_id"), ϒdisplay_id)
 					return ϒinfo_dict
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    ClipRsIE__VALID_URL,
 				"_real_extract": ClipRsIE__real_extract,
 			})

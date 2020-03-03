@@ -108,7 +108,7 @@ func init() {
 						}
 					}()
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_extract_base_url":          MicrosoftVirtualAcademyBaseIE__extract_base_url,
 				"_extract_chapter_and_title": MicrosoftVirtualAcademyBaseIE__extract_chapter_and_title,
 			})
@@ -283,7 +283,7 @@ func init() {
 						"formats":   ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       MicrosoftVirtualAcademyIE_IE_NAME,
 				"_VALID_URL":    MicrosoftVirtualAcademyIE__VALID_URL,
 				"_real_extract": MicrosoftVirtualAcademyIE__real_extract,
@@ -317,7 +317,7 @@ func init() {
 					}()
 				})
 			MicrosoftVirtualAcademyCourseIE_suitable = λ.Cal(λ.ClassMethodType, MicrosoftVirtualAcademyCourseIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":    MicrosoftVirtualAcademyCourseIE_IE_NAME,
 				"_VALID_URL": MicrosoftVirtualAcademyCourseIE__VALID_URL,
 				"suitable":   MicrosoftVirtualAcademyCourseIE_suitable,

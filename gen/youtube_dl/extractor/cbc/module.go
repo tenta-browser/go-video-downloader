@@ -102,7 +102,7 @@ func init() {
 					}()
 				})
 			CBCIE_suitable = λ.Cal(λ.ClassMethodType, CBCIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": CBCIE__VALID_URL,
 				"suitable":   CBCIE_suitable,
 			})
@@ -137,7 +137,7 @@ func init() {
 						"id": ϒvideo_id,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       CBCPlayerIE_IE_NAME,
 				"_VALID_URL":    CBCPlayerIE__VALID_URL,
 				"_real_extract": CBCPlayerIE__real_extract,
@@ -145,14 +145,14 @@ func init() {
 		}())
 		CBCWatchBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("CBCWatchBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		CBCWatchVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("CBCWatchVideoIE"), λ.NewTuple(CBCWatchBaseIE), func() λ.Dict {
 			var (
 				CBCWatchVideoIE__VALID_URL λ.Object
 			)
 			CBCWatchVideoIE__VALID_URL = λ.StrLiteral("https?://api-cbc\\.cloud\\.clearleap\\.com/cloffice/client/web/play/?\\?.*?\\bcontentId=(?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": CBCWatchVideoIE__VALID_URL,
 			})
 		}())
@@ -161,7 +161,7 @@ func init() {
 				CBCWatchIE__VALID_URL λ.Object
 			)
 			CBCWatchIE__VALID_URL = λ.StrLiteral("https?://(?:gem|watch)\\.cbc\\.ca/(?:[^/]+/)+(?P<id>[0-9a-f-]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": CBCWatchIE__VALID_URL,
 			})
 		}())
@@ -170,7 +170,7 @@ func init() {
 				CBCOlympicsIE__VALID_URL λ.Object
 			)
 			CBCOlympicsIE__VALID_URL = λ.StrLiteral("https?://olympics\\.cbc\\.ca/video/[^/]+/(?P<id>[^/?#]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": CBCOlympicsIE__VALID_URL,
 			})
 		}())

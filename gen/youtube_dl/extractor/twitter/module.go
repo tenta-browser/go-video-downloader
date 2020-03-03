@@ -204,7 +204,7 @@ func init() {
 					return λ.None
 				})
 			TwitterBaseIE__search_dimensions_in_video_url = λ.Cal(λ.StaticMethodType, TwitterBaseIE__search_dimensions_in_video_url)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_BASE_REGEX":                     TwitterBaseIE__BASE_REGEX,
 				"_extract_formats_from_vmap_url":  TwitterBaseIE__extract_formats_from_vmap_url,
 				"_extract_variant_formats":        TwitterBaseIE__extract_variant_formats,
@@ -216,7 +216,7 @@ func init() {
 				TwitterCardIE__VALID_URL λ.Object
 			)
 			TwitterCardIE__VALID_URL = λ.Add(λ.GetAttr(TwitterBaseIE, "_BASE_REGEX", nil), λ.StrLiteral("i/(?:cards/tfw/v1|videos(?:/tweet)?)/(?P<id>\\d+)"))
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TwitterCardIE__VALID_URL,
 			})
 		}())
@@ -225,7 +225,7 @@ func init() {
 				TwitterIE__VALID_URL λ.Object
 			)
 			TwitterIE__VALID_URL = λ.Add(λ.GetAttr(TwitterBaseIE, "_BASE_REGEX", nil), λ.StrLiteral("(?:(?:i/web|[^/]+)/status|statuses)/(?P<id>\\d+)"))
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TwitterIE__VALID_URL,
 			})
 		}())
@@ -324,7 +324,7 @@ func init() {
 						"thumbnails": ϒthumbnails,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       TwitterAmplifyIE_IE_NAME,
 				"_VALID_URL":    TwitterAmplifyIE__VALID_URL,
 				"_real_extract": TwitterAmplifyIE__real_extract,
@@ -338,7 +338,7 @@ func init() {
 				TwitterBroadcastIE__VALID_URL λ.Object
 			)
 			TwitterBroadcastIE__VALID_URL = λ.Add(λ.GetAttr(TwitterBaseIE, "_BASE_REGEX", nil), λ.StrLiteral("i/broadcasts/(?P<id>[0-9a-zA-Z]{13})"))
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TwitterBroadcastIE__VALID_URL,
 			})
 		}())

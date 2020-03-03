@@ -42,7 +42,7 @@ func init() {
 				OnceIE__VALID_URL λ.Object
 			)
 			OnceIE__VALID_URL = λ.StrLiteral("https?://.+?\\.unicornmedia\\.com/now/(?:ads/vmap/)?[^/]+/[^/]+/(?P<domain_id>[^/]+)/(?P<application_id>[^/]+)/(?:[^/]+/)?(?P<media_item_id>[^/]+)/content\\.(?:once|m3u8|mp4)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": OnceIE__VALID_URL,
 			})
 		}())

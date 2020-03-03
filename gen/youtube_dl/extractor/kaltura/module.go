@@ -602,7 +602,7 @@ func init() {
 						"view_count": λ.Calm(ϒinfo, "get", λ.StrLiteral("plays")),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_SERVICE_BASE":     KalturaIE__SERVICE_BASE,
 				"_SERVICE_URL":      KalturaIE__SERVICE_URL,
 				"_VALID_URL":        KalturaIE__VALID_URL,

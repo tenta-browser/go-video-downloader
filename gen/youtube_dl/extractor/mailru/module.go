@@ -58,7 +58,7 @@ func init() {
 				MailRuIE__VALID_URL λ.Object
 			)
 			MailRuIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:(?:www|m)\\.)?my\\.mail\\.ru/+\n                        (?:\n                            video/.*\\#video=/?(?P<idv1>(?:[^/]+/){3}\\d+)|\n                            (?:(?P<idv2prefix>(?:[^/]+/+){2})video/(?P<idv2suffix>[^/]+/\\d+))\\.html|\n                            (?:video/embed|\\+/video/meta)/(?P<metaid>\\d+)\n                        )\n                    ")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": MailRuIE__VALID_URL,
 			})
 		}())
@@ -260,7 +260,7 @@ func init() {
 					})
 				})
 			MailRuMusicSearchBaseIE__extract_track = λ.Cal(λ.StaticMethodType, MailRuMusicSearchBaseIE__extract_track)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_extract_track": MailRuMusicSearchBaseIE__extract_track,
 				"_search":        MailRuMusicSearchBaseIE__search,
 			})
@@ -321,7 +321,7 @@ func init() {
 					λ.SetItem(ϒinfo, λ.StrLiteral("title"), ϒtitle)
 					return ϒinfo
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       MailRuMusicIE_IE_NAME,
 				"_VALID_URL":    MailRuMusicIE__VALID_URL,
 				"_real_extract": MailRuMusicIE__real_extract,
@@ -332,7 +332,7 @@ func init() {
 				MailRuMusicSearchIE__VALID_URL λ.Object
 			)
 			MailRuMusicSearchIE__VALID_URL = λ.StrLiteral("https?://my\\.mail\\.ru/+music/+search/+(?P<id>[^/?#&]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": MailRuMusicSearchIE__VALID_URL,
 			})
 		}())

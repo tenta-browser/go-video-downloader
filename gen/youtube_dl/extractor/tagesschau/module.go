@@ -53,7 +53,7 @@ func init() {
 				TagesschauPlayerIE__VALID_URL λ.Object
 			)
 			TagesschauPlayerIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?tagesschau\\.de/multimedia/(?P<kind>audio|video)/(?P=kind)-(?P<id>\\d+)~player(?:_[^/?#&]+)?\\.html")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TagesschauPlayerIE__VALID_URL,
 			})
 		}())
@@ -287,7 +287,7 @@ func init() {
 						"description": ϒdescription,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":       TagesschauIE__VALID_URL,
 				"_extract_formats": TagesschauIE__extract_formats,
 				"_real_extract":    TagesschauIE__real_extract,

@@ -283,7 +283,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_URL_BASE_RE":     OnetBaseIE__URL_BASE_RE,
 				"_extract_from_id": OnetBaseIE__extract_from_id,
 				"_search_mvp_id":   OnetBaseIE__search_mvp_id,
@@ -294,7 +294,7 @@ func init() {
 				OnetMVPIE__VALID_URL λ.Object
 			)
 			OnetMVPIE__VALID_URL = λ.StrLiteral("onetmvp:(?P<id>\\d+\\.\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": OnetMVPIE__VALID_URL,
 			})
 		}())
@@ -303,7 +303,7 @@ func init() {
 				OnetIE__VALID_URL λ.Object
 			)
 			OnetIE__VALID_URL = λ.Add(λ.GetAttr(OnetBaseIE, "_URL_BASE_RE", nil), λ.StrLiteral("[a-z]+/(?P<display_id>[0-9a-z-]+)/(?P<id>[0-9a-z]+)"))
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": OnetIE__VALID_URL,
 			})
 		}())
@@ -312,7 +312,7 @@ func init() {
 				OnetChannelIE__VALID_URL λ.Object
 			)
 			OnetChannelIE__VALID_URL = λ.Add(λ.GetAttr(OnetBaseIE, "_URL_BASE_RE", nil), λ.StrLiteral("(?P<id>[a-z]+)(?:[?#]|$)"))
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": OnetChannelIE__VALID_URL,
 			})
 		}())
@@ -321,7 +321,7 @@ func init() {
 				OnetPlIE__VALID_URL λ.Object
 			)
 			OnetPlIE__VALID_URL = λ.StrLiteral("https?://(?:[^/]+\\.)?(?:onet|businessinsider\\.com|plejada)\\.pl/(?:[^/]+/)+(?P<id>[0-9a-z]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": OnetPlIE__VALID_URL,
 			})
 		}())

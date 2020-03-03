@@ -206,7 +206,7 @@ func init() {
 						"playlist_id":    ϒcategory_id,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    NetzkinoIE__VALID_URL,
 				"_real_extract": NetzkinoIE__real_extract,
 			})

@@ -101,7 +101,7 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__": ϒchain___init__,
 				"__iter__": ϒchain___iter__,
 				"__next__": ϒchain___next__,

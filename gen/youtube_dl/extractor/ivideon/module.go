@@ -196,7 +196,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       IvideonIE_IE_NAME,
 				"_QUALITIES":    IvideonIE__QUALITIES,
 				"_VALID_URL":    IvideonIE__VALID_URL,

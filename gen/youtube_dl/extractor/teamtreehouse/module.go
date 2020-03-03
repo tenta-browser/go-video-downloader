@@ -259,7 +259,7 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_NETRC_MACHINE":   TeamTreeHouseIE__NETRC_MACHINE,
 				"_VALID_URL":       TeamTreeHouseIE__VALID_URL,
 				"_real_extract":    TeamTreeHouseIE__real_extract,

@@ -91,7 +91,7 @@ func init() {
 					λ.Cal(SetCookie, λ.GetAttr(ϒself, "jar", nil), λ.GetAttr(ϒcookie, "domain", nil), λ.GetAttr(ϒcookie, "name", nil), λ.GetAttr(ϒcookie, "value", nil))
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__":          CookieJar___init__,
 				"add_cookie_header": CookieJar_add_cookie_header,
 				"set_cookie":        CookieJar_set_cookie,
@@ -99,7 +99,7 @@ func init() {
 		}())
 		MozillaCookieJar = λ.Cal(λ.TypeType, λ.StrLiteral("MozillaCookieJar"), λ.NewTuple(CookieJar), func() λ.Dict {
 			// pass
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		Cookie = λ.Cal(λ.TypeType, λ.StrLiteral("Cookie"), λ.NewTuple(), func() λ.Dict {
 			var (
@@ -167,7 +167,7 @@ func init() {
 					λ.SetAttr(ϒself, "value", ϒvalue)
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__": Cookie___init__,
 			})
 		}())

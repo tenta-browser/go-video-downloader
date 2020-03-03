@@ -1298,7 +1298,7 @@ func init() {
 						"chapters":    ϒchapters,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":             PBSIE_IE_NAME,
 				"_GEO_COUNTRIES":      PBSIE__GEO_COUNTRIES,
 				"_STATIONS":           PBSIE__STATIONS,

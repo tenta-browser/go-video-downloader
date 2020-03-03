@@ -172,7 +172,7 @@ func init() {
 						"episode_number": λ.Cal(ϒint_or_none, λ.Calm(ϒe, "get", λ.StrLiteral("episodeNumber"))),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       ACastIE_IE_NAME,
 				"_VALID_URL":    ACastIE__VALID_URL,
 				"_real_extract": ACastIE__real_extract,
@@ -204,7 +204,7 @@ func init() {
 					}()
 				})
 			ACastChannelIE_suitable = λ.Cal(λ.ClassMethodType, ACastChannelIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": ACastChannelIE__VALID_URL,
 				"suitable":   ACastChannelIE_suitable,
 			})

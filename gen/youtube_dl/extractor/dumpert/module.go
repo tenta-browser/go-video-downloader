@@ -186,7 +186,7 @@ func init() {
 						"view_count":  λ.Cal(ϒint_or_none, λ.Calm(ϒstats, "get", λ.StrLiteral("views_total"))),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    DumpertIE__VALID_URL,
 				"_real_extract": DumpertIE__real_extract,
 			})

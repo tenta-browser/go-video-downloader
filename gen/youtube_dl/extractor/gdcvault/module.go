@@ -203,7 +203,7 @@ func init() {
 						"ie_key":     ϒie_key,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_NETRC_MACHINE": GDCVaultIE__NETRC_MACHINE,
 				"_VALID_URL":     GDCVaultIE__VALID_URL,
 				"_login":         GDCVaultIE__login,

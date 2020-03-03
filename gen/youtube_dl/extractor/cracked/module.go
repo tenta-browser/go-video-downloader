@@ -144,7 +144,7 @@ func init() {
 						"width":         ϒwidth,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    CrackedIE__VALID_URL,
 				"_real_extract": CrackedIE__real_extract,
 			})

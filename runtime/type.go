@@ -307,3 +307,10 @@ func initTypeType(slots *typeSlots, dict map[string]Object) {
 	slots.GetAttribute = typeGetAttribute
 	slots.Repr = typeRepr
 }
+
+// ---- Class dict literal ----
+
+// ClassDictLiteral ..
+func ClassDictLiteral(m interface{}) Dict {
+	return dictLiteral(m, true)
+}

@@ -60,7 +60,7 @@ func init() {
 					ϒbrightcove_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					return λ.Calm(ϒself, "url_result", λ.Mod(λ.GetAttr(ϒself, "BRIGHTCOVE_URL_TEMPLATE", nil), ϒbrightcove_id), λ.StrLiteral("BrightcoveNew"), ϒbrightcove_id)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"BRIGHTCOVE_URL_TEMPLATE": TDSLifewayIE_BRIGHTCOVE_URL_TEMPLATE,
 				"_VALID_URL":              TDSLifewayIE__VALID_URL,
 				"_real_extract":           TDSLifewayIE__real_extract,

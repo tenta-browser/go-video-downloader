@@ -51,7 +51,7 @@ func init() {
 				UstudioIE__VALID_URL λ.Object
 			)
 			UstudioIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|v1)\\.)?ustudio\\.com/video/(?P<id>[^/]+)/(?P<display_id>[^/?#&]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": UstudioIE__VALID_URL,
 			})
 		}())
@@ -163,7 +163,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       UstudioEmbedIE_IE_NAME,
 				"_VALID_URL":    UstudioEmbedIE__VALID_URL,
 				"_real_extract": UstudioEmbedIE__real_extract,

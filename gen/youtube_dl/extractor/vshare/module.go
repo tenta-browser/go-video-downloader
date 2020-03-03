@@ -48,7 +48,7 @@ func init() {
 				VShareIE__VALID_URL λ.Object
 			)
 			VShareIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?vshare\\.io/[dv]/(?P<id>[^/?#&]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": VShareIE__VALID_URL,
 			})
 		}())

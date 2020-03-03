@@ -73,7 +73,7 @@ func init() {
 						{Name: "video_id", Value: ϒvideo_id},
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    BusinessInsiderIE__VALID_URL,
 				"_real_extract": BusinessInsiderIE__real_extract,
 			})

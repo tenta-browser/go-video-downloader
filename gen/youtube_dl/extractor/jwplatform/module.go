@@ -60,7 +60,7 @@ func init() {
 					ϒjson_data = λ.Calm(ϒself, "_download_json", λ.Add(λ.StrLiteral("https://cdn.jwplayer.com/v2/media/"), ϒvideo_id), ϒvideo_id)
 					return λ.Calm(ϒself, "_parse_jwplayer_data", ϒjson_data, ϒvideo_id)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    JWPlatformIE__VALID_URL,
 				"_real_extract": JWPlatformIE__real_extract,
 			})

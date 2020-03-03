@@ -287,7 +287,7 @@ func init() {
 					panic(λ.Raise(λ.Cal(ExtractorError, λ.StrLiteral("Could not find neither video nor playlist"))))
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":               DVTVIE_IE_NAME,
 				"_VALID_URL":            DVTVIE__VALID_URL,
 				"_parse_video_metadata": DVTVIE__parse_video_metadata,

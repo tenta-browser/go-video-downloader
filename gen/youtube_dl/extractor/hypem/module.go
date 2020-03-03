@@ -90,7 +90,7 @@ func init() {
 						"track":     ϒtitle,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    HypemIE__VALID_URL,
 				"_real_extract": HypemIE__real_extract,
 			})

@@ -66,7 +66,7 @@ func init() {
 				MediasiteNamedCatalogIE__VALID_URL λ.Object
 			)
 			MediasiteNamedCatalogIE__VALID_URL = λ.StrLiteral("(?xi)(?P<url>https?://[^/]+/Mediasite)/Catalog/catalogs/(?P<catalog_name>[^/?#&]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": MediasiteNamedCatalogIE__VALID_URL,
 			})
 		}())

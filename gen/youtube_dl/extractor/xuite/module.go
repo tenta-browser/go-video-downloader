@@ -189,7 +189,7 @@ func init() {
 						"formats":      ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_REGEX_BASE64": XuiteIE__REGEX_BASE64,
 				"_VALID_URL":    XuiteIE__VALID_URL,
 				"_real_extract": XuiteIE__real_extract,

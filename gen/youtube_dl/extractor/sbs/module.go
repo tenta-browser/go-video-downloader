@@ -122,7 +122,7 @@ func init() {
 						})),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    SBSIE__VALID_URL,
 				"_real_extract": SBSIE__real_extract,
 			})

@@ -105,6 +105,7 @@ var (
 	ϒjs_to_json                       λ.Object
 	ϒlimit_length                     λ.Object
 	ϒlookup_unit_table                λ.Object
+	ϒlowercase_escape                 λ.Object
 	ϒmerge_dicts                      λ.Object
 	ϒmimetype2ext                     λ.Object
 	ϒmonth_by_name                    λ.Object
@@ -2392,7 +2393,7 @@ func init() {
 					λ.SetAttr(ϒself, "attrs", λ.Cal(λ.DictType, ϒattrs))
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__":        HTMLAttributeParser___init__,
 				"handle_starttag": HTMLAttributeParser_handle_starttag,
 			})
@@ -2841,7 +2842,7 @@ func init() {
 			})
 		YoutubeDLError = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeDLError"), λ.NewTuple(λ.ExceptionType), func() λ.Dict {
 			// pass
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		ExtractorError = λ.Cal(λ.TypeType, λ.StrLiteral("ExtractorError"), λ.NewTuple(YoutubeDLError), func() λ.Dict {
 			var (
@@ -2907,18 +2908,18 @@ func init() {
 					}
 					return λ.Calm(λ.StrLiteral(""), "join", λ.Calm(λ.None, "format_tb", λ.GetAttr(ϒself, "traceback", nil)))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__":         ExtractorError___init__,
 				"format_traceback": ExtractorError_format_traceback,
 			})
 		}())
 		RegexNotFoundError = λ.Cal(λ.TypeType, λ.StrLiteral("RegexNotFoundError"), λ.NewTuple(ExtractorError), func() λ.Dict {
 			// pass
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		GeoRestrictedError = λ.Cal(λ.TypeType, λ.StrLiteral("GeoRestrictedError"), λ.NewTuple(ExtractorError), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		DownloadError = λ.Cal(λ.TypeType, λ.StrLiteral("DownloadError"), λ.NewTuple(YoutubeDLError), func() λ.Dict {
 			var (
@@ -2941,21 +2942,21 @@ func init() {
 					λ.SetAttr(ϒself, "exc_info", ϒexc_info)
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__": DownloadError___init__,
 			})
 		}())
 		PostProcessingError = λ.Cal(λ.TypeType, λ.StrLiteral("PostProcessingError"), λ.NewTuple(YoutubeDLError), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		MaxDownloadsReached = λ.Cal(λ.TypeType, λ.StrLiteral("MaxDownloadsReached"), λ.NewTuple(YoutubeDLError), func() λ.Dict {
 			// pass
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		UnavailableVideoError = λ.Cal(λ.TypeType, λ.StrLiteral("UnavailableVideoError"), λ.NewTuple(YoutubeDLError), func() λ.Dict {
 			// pass
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		ϒparse_iso8601 = λ.NewFunction("parse_iso8601",
 			[]λ.Param{
@@ -3539,7 +3540,7 @@ func init() {
 					_ = ϒself
 					return λ.StrLiteral("HEAD")
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"get_method": HEADRequest_get_method,
 			})
 		}())
@@ -3816,7 +3817,7 @@ func init() {
 			})
 		PagedList = λ.Cal(λ.TypeType, λ.StrLiteral("PagedList"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		ϒuppercase_escape = λ.NewFunction("uppercase_escape",
 			[]λ.Param{
@@ -3830,6 +3831,29 @@ func init() {
 				)
 				ϒunicode_escape = λ.Cal(Ωcodecs.ϒgetdecoder, λ.StrLiteral("unicode_escape"))
 				return λ.Cal(Ωre.ϒsub, λ.StrLiteral("\\\\U[0-9a-fA-F]{8}"), λ.NewFunction("<lambda>",
+					[]λ.Param{
+						{Name: "m"},
+					},
+					0, false, false,
+					func(λargs []λ.Object) λ.Object {
+						var (
+							ϒm = λargs[0]
+						)
+						return λ.GetItem(λ.Cal(ϒunicode_escape, λ.Calm(ϒm, "group", λ.IntLiteral(0))), λ.IntLiteral(0))
+					}), ϒs)
+			})
+		ϒlowercase_escape = λ.NewFunction("lowercase_escape",
+			[]λ.Param{
+				{Name: "s"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒs              = λargs[0]
+					ϒunicode_escape λ.Object
+				)
+				ϒunicode_escape = λ.Cal(Ωcodecs.ϒgetdecoder, λ.StrLiteral("unicode_escape"))
+				return λ.Cal(Ωre.ϒsub, λ.StrLiteral("\\\\u[0-9a-fA-F]{4}"), λ.NewFunction("<lambda>",
 					[]λ.Param{
 						{Name: "m"},
 					},
@@ -4847,7 +4871,7 @@ func init() {
 					return λ.None
 				})
 			ISO639Utils_long2short = λ.Cal(λ.ClassMethodType, ISO639Utils_long2short)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_lang_map":  ISO639Utils__lang_map,
 				"long2short": ISO639Utils_long2short,
 			})
@@ -5124,7 +5148,7 @@ func init() {
 					return λ.Cal(RandomIPv4, ϒblock)
 				})
 			GeoUtils_random_ipv4 = λ.Cal(λ.ClassMethodType, GeoUtils_random_ipv4)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_country_ip_map": GeoUtils__country_ip_map,
 				"random_ipv4":     GeoUtils_random_ipv4,
 			})

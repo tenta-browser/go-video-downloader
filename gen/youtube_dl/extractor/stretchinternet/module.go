@@ -68,7 +68,7 @@ func init() {
 						"url":       λ.Add(λ.StrLiteral("https://"), λ.GetItem(λ.GetItem(λ.GetItem(ϒevent, λ.StrLiteral("media")), λ.IntLiteral(0)), λ.StrLiteral("url"))),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    StretchInternetIE__VALID_URL,
 				"_real_extract": StretchInternetIE__real_extract,
 			})

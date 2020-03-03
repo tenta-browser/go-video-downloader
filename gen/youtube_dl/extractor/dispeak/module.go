@@ -194,7 +194,7 @@ func init() {
 						"creator":  λ.Cal(ϒxpath_text, ϒmetadata, λ.StrLiteral("speaker")),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    DigitallySpeakingIE__VALID_URL,
 				"_parse_mp4":    DigitallySpeakingIE__parse_mp4,
 				"_real_extract": DigitallySpeakingIE__real_extract,

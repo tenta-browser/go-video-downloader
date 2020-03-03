@@ -197,7 +197,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    TVN24IE__VALID_URL,
 				"_real_extract": TVN24IE__real_extract,
 			})

@@ -68,7 +68,7 @@ func init() {
 						"ie_key":     λ.StrLiteral("CondeNast"),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    TheSceneIE__VALID_URL,
 				"_real_extract": TheSceneIE__real_extract,
 			})

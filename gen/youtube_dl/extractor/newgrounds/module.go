@@ -172,7 +172,7 @@ func init() {
 						"formats":   ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    NewgroundsIE__VALID_URL,
 				"_real_extract": NewgroundsIE__real_extract,
 			})
@@ -182,7 +182,7 @@ func init() {
 				NewgroundsPlaylistIE__VALID_URL λ.Object
 			)
 			NewgroundsPlaylistIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?newgrounds\\.com/(?:collection|[^/]+/search/[^/]+)/(?P<id>[^/?#&]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": NewgroundsPlaylistIE__VALID_URL,
 			})
 		}())

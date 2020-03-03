@@ -329,7 +329,7 @@ func init() {
 					λ.SetItem(ϒinfo, λ.StrLiteral("formats"), ϒformats)
 					return ϒinfo
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    OdnoklassnikiIE__VALID_URL,
 				"_extract_url":  OdnoklassnikiIE__extract_url,
 				"_real_extract": OdnoklassnikiIE__real_extract,

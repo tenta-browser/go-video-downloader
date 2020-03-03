@@ -49,7 +49,7 @@ func init() {
 				APAIE__VALID_URL λ.Object
 			)
 			APAIE__VALID_URL = λ.StrLiteral("https?://[^/]+\\.apa\\.at/embed/(?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": APAIE__VALID_URL,
 			})
 		}())

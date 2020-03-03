@@ -73,7 +73,7 @@ func init() {
 				NBCIE__VALID_URL λ.Object
 			)
 			NBCIE__VALID_URL = λ.StrLiteral("https?(?P<permalink>://(?:www\\.)?nbc\\.com/(?:classic-tv/)?[^/]+/video/[^/]+/(?P<id>n?\\d+))")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": NBCIE__VALID_URL,
 			})
 		}())
@@ -102,7 +102,7 @@ func init() {
 					ϒtheplatform_url = λ.Calm(λ.Calm(ϒself, "_og_search_video_url", ϒwebpage), "replace", λ.StrLiteral("vplayer.nbcsports.com"), λ.StrLiteral("player.theplatform.com"))
 					return λ.Calm(ϒself, "url_result", ϒtheplatform_url, λ.StrLiteral("ThePlatform"))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    NBCSportsVPlayerIE__VALID_URL,
 				"_real_extract": NBCSportsVPlayerIE__real_extract,
 			})
@@ -112,7 +112,7 @@ func init() {
 				NBCSportsIE__VALID_URL λ.Object
 			)
 			NBCSportsIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?nbcsports\\.com//?(?:[^/]+/)+(?P<id>[0-9a-z-]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": NBCSportsIE__VALID_URL,
 			})
 		}())
@@ -121,7 +121,7 @@ func init() {
 				NBCSportsStreamIE__VALID_URL λ.Object
 			)
 			NBCSportsStreamIE__VALID_URL = λ.StrLiteral("https?://stream\\.nbcsports\\.com/.+?\\bpid=(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": NBCSportsStreamIE__VALID_URL,
 			})
 		}())
@@ -153,7 +153,7 @@ func init() {
 						"display_id": ϒdisplay_id,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    CSNNEIE__VALID_URL,
 				"_real_extract": CSNNEIE__real_extract,
 			})
@@ -301,7 +301,7 @@ func init() {
 						"subtitles": ϒsubtitles,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    NBCNewsIE__VALID_URL,
 				"_real_extract": NBCNewsIE__real_extract,
 			})
@@ -311,7 +311,7 @@ func init() {
 				NBCOlympicsIE__VALID_URL λ.Object
 			)
 			NBCOlympicsIE__VALID_URL = λ.StrLiteral("https?://www\\.nbcolympics\\.com/video/(?P<id>[a-z-]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": NBCOlympicsIE__VALID_URL,
 			})
 		}())
@@ -320,7 +320,7 @@ func init() {
 				NBCOlympicsStreamIE__VALID_URL λ.Object
 			)
 			NBCOlympicsStreamIE__VALID_URL = λ.StrLiteral("https?://stream\\.nbcolympics\\.com/(?P<id>[0-9a-z-]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": NBCOlympicsStreamIE__VALID_URL,
 			})
 		}())

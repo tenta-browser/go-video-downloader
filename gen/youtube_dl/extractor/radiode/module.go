@@ -122,7 +122,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       RadioDeIE_IE_NAME,
 				"_VALID_URL":    RadioDeIE__VALID_URL,
 				"_real_extract": RadioDeIE__real_extract,

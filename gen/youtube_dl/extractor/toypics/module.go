@@ -82,7 +82,7 @@ func init() {
 						"age_limit": λ.IntLiteral(18),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    ToypicsIE__VALID_URL,
 				"_real_extract": ToypicsIE__real_extract,
 			})
@@ -92,7 +92,7 @@ func init() {
 				ToypicsUserIE__VALID_URL λ.Object
 			)
 			ToypicsUserIE__VALID_URL = λ.StrLiteral("https?://videos\\.toypics\\.net/(?!view)(?P<id>[^/?#&]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": ToypicsUserIE__VALID_URL,
 			})
 		}())

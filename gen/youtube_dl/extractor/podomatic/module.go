@@ -109,7 +109,7 @@ func init() {
 						"duration":    ϒduration,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       PodomaticIE_IE_NAME,
 				"_VALID_URL":    PodomaticIE__VALID_URL,
 				"_real_extract": PodomaticIE__real_extract,

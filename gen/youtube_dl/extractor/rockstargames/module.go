@@ -125,7 +125,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    RockstarGamesIE__VALID_URL,
 				"_real_extract": RockstarGamesIE__real_extract,
 			})

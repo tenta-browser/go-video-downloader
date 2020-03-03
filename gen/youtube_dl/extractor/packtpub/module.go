@@ -57,7 +57,7 @@ func init() {
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		PacktPubBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("PacktPubBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		PacktPubIE = λ.Cal(λ.TypeType, λ.StrLiteral("PacktPubIE"), λ.NewTuple(PacktPubBaseIE), func() λ.Dict {
 			var (
@@ -202,7 +202,7 @@ func init() {
 						}(),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_NETRC_MACHINE":   PacktPubIE__NETRC_MACHINE,
 				"_TOKEN":           PacktPubIE__TOKEN,
 				"_VALID_URL":       PacktPubIE__VALID_URL,
@@ -236,7 +236,7 @@ func init() {
 					}()
 				})
 			PacktPubCourseIE_suitable = λ.Cal(λ.ClassMethodType, PacktPubCourseIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": PacktPubCourseIE__VALID_URL,
 				"suitable":   PacktPubCourseIE_suitable,
 			})

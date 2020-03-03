@@ -67,7 +67,7 @@ func init() {
 					ϒyoutube_url = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("data-video-url=\"([^\"]+)\""), ϒwebpage, λ.StrLiteral("youtube url"))
 					return λ.Calm(ϒself, "url_result", ϒyoutube_url, λ.Calm(YoutubeIE, "ie_key"))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       FreespeechIE_IE_NAME,
 				"_VALID_URL":    FreespeechIE__VALID_URL,
 				"_real_extract": FreespeechIE__real_extract,

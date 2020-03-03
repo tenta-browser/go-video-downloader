@@ -19,6 +19,7 @@ Supported sites
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
  * Beatport: `beatport.com`
+ * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
  * BIQLE: `biqle.ru`
@@ -109,6 +110,7 @@ Supported sites
  * HornBunny _(adult)_: `hornbunny.com`
  * Hypem: `hypem.com`
  * IGN: `www.ign.com`
+ * Imdb: `www.imdb.com`
  * Imgur: `i.imgur.com`
  * ImgurGallery: `imgur.com`
  * Ina: `www.ina.fr`
@@ -170,6 +172,7 @@ Supported sites
  * ParliamentLiveUK: `parliamentlive.tv`
  * PBS: `www.pbs.org`
  * PearVideo: `www.pearvideo.com`
+ * PeerTube: `framatube.org`
  * People: `www.people.com`
  * PerformGroup: `player.performgroup.com`
  * Photobucket: `media.photobucket.com`
@@ -179,6 +182,7 @@ Supported sites
  * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
  * Porn91 _(adult)_: `91porn.com`
+ * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
  * RadioDe: `ndr2.radio.de`
@@ -287,7 +291,6 @@ Supported sites
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
  * Yahoo: `screen.yahoo.com`
- * YinYueTai: `v.yinyuetai.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`
  * YourPorn _(adult)_: `sxyprn.com`

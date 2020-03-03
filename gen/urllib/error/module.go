@@ -66,7 +66,7 @@ func init() {
 					)
 					return λ.Mod(λ.StrLiteral("<urlopen error %s>"), λ.GetAttr(ϒself, "reason", nil))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__": URLError___init__,
 				"__str__":  URLError___str__,
 			})
@@ -76,6 +76,7 @@ func init() {
 				HTTPError___init__ λ.Object
 				HTTPError___repr__ λ.Object
 				HTTPError___str__  λ.Object
+				HTTPError_read     λ.Object
 			)
 			HTTPError___init__ = λ.NewFunction("__init__",
 				[]λ.Param{
@@ -131,10 +132,22 @@ func init() {
 						λ.GetAttr(ϒself, "msg", nil),
 					))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			HTTPError_read = λ.NewFunction("read",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself = λargs[0]
+					)
+					return λ.Calm(λ.GetAttr(ϒself, "fp", nil), "read")
+				})
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__": HTTPError___init__,
 				"__repr__": HTTPError___repr__,
 				"__str__":  HTTPError___str__,
+				"read":     HTTPError_read,
 			})
 		}())
 	})

@@ -303,7 +303,7 @@ func init() {
 					})))
 					return ϒinfo
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    KeezMoviesIE__VALID_URL,
 				"_extract_info": KeezMoviesIE__extract_info,
 				"_real_extract": KeezMoviesIE__real_extract,

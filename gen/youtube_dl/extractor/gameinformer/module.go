@@ -93,7 +93,7 @@ func init() {
 					}()
 					return λ.Calm(ϒself, "url_result", ϒbrightcove_url, λ.StrLiteral("BrightcoveNew"), ϒbrightcove_id)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"BRIGHTCOVE_URL_TEMPLATE": GameInformerIE_BRIGHTCOVE_URL_TEMPLATE,
 				"_VALID_URL":              GameInformerIE__VALID_URL,
 				"_real_extract":           GameInformerIE__real_extract,

@@ -109,7 +109,7 @@ func init() {
 						"ie_key":         λ.StrLiteral("LimelightMedia"),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_GEO_COUNTRIES": TFOIE__GEO_COUNTRIES,
 				"_VALID_URL":     TFOIE__VALID_URL,
 				"_real_extract":  TFOIE__real_extract,

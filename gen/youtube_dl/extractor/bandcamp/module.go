@@ -405,7 +405,7 @@ func init() {
 						"formats":      ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    BandcampIE__VALID_URL,
 				"_real_extract": BandcampIE__real_extract,
 			})
@@ -442,7 +442,7 @@ func init() {
 					}()
 				})
 			BandcampAlbumIE_suitable = λ.Cal(λ.ClassMethodType, BandcampAlbumIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": BandcampAlbumIE__VALID_URL,
 				"suitable":   BandcampAlbumIE_suitable,
 			})
@@ -622,7 +622,7 @@ func init() {
 						"formats":        ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       BandcampWeeklyIE_IE_NAME,
 				"_VALID_URL":    BandcampWeeklyIE__VALID_URL,
 				"_real_extract": BandcampWeeklyIE__real_extract,

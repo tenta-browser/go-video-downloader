@@ -97,7 +97,7 @@ func init() {
 						"url":      λ.GetItem(ϒapi_response, λ.StrLiteral("url")),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       AudiomackIE_IE_NAME,
 				"_VALID_URL":    AudiomackIE__VALID_URL,
 				"_real_extract": AudiomackIE__real_extract,
@@ -108,7 +108,7 @@ func init() {
 				AudiomackAlbumIE__VALID_URL λ.Object
 			)
 			AudiomackAlbumIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?audiomack\\.com/album/(?P<id>[\\w/-]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": AudiomackAlbumIE__VALID_URL,
 			})
 		}())

@@ -123,7 +123,7 @@ func init() {
 						"description": ϒdescription,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    ChilloutzoneIE__VALID_URL,
 				"_real_extract": ChilloutzoneIE__real_extract,
 			})

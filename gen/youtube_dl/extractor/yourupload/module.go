@@ -81,7 +81,7 @@ func init() {
 						}),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    YourUploadIE__VALID_URL,
 				"_real_extract": YourUploadIE__real_extract,
 			})

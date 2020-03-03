@@ -66,7 +66,7 @@ func init() {
 					λ.SetAttr(ϒself, "avm_class", ϒavm_class)
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__": ϒ_ScopeDict___init__,
 			})
 		}())
@@ -106,7 +106,7 @@ func init() {
 					λ.SetAttr(ϒself, "constants", λ.DictLiteral(map[λ.Object]λ.Object{}))
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__": ϒ_AVMClass___init__,
 			})
 		}())
@@ -183,7 +183,7 @@ func init() {
 					_ = ϒself
 					return λ.StrLiteral("undefined")
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__bool__": ϒ_Undefined___bool__,
 				"__str__":  ϒ_Undefined___str__,
 			})

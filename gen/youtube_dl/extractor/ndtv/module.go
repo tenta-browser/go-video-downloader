@@ -136,7 +136,7 @@ func init() {
 						"upload_date": ϒupload_date,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    NDTVIE__VALID_URL,
 				"_real_extract": NDTVIE__real_extract,
 			})

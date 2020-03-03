@@ -72,7 +72,7 @@ func init() {
 						"duration":    λ.Cal(ϒint_or_none, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("durationSec"))),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    BildIE__VALID_URL,
 				"_real_extract": BildIE__real_extract,
 			})

@@ -56,7 +56,7 @@ func init() {
 				AnvatoIE__VALID_URL λ.Object
 			)
 			AnvatoIE__VALID_URL = λ.StrLiteral("anvato:(?P<access_key_or_mcp>[^:]+):(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": AnvatoIE__VALID_URL,
 			})
 		}())

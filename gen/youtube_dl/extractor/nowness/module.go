@@ -153,7 +153,7 @@ func init() {
 						λ.Calm(ϒself, "_download_json", ϒrequest, ϒdisplay_id),
 					)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_api_request":        NownessBaseIE__api_request,
 				"_extract_url_result": NownessBaseIE__extract_url_result,
 			})
@@ -184,7 +184,7 @@ func init() {
 					ϒpost = λ.GetItem(τmp0, λ.IntLiteral(1))
 					return λ.Calm(ϒself, "_extract_url_result", ϒpost)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       NownessIE_IE_NAME,
 				"_VALID_URL":    NownessIE__VALID_URL,
 				"_real_extract": NownessIE__real_extract,
@@ -195,7 +195,7 @@ func init() {
 				NownessPlaylistIE__VALID_URL λ.Object
 			)
 			NownessPlaylistIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|cn)\\.)?nowness\\.com/playlist/(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": NownessPlaylistIE__VALID_URL,
 			})
 		}())
@@ -204,7 +204,7 @@ func init() {
 				NownessSeriesIE__VALID_URL λ.Object
 			)
 			NownessSeriesIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|cn)\\.)?nowness\\.com/series/(?P<id>[^/]+?)(?:$|[?#])")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": NownessSeriesIE__VALID_URL,
 			})
 		}())

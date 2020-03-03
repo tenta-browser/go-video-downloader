@@ -83,7 +83,7 @@ func init() {
 						"thumbnail": λ.GetItem(ϒinfo, λ.StrLiteral("thumbUrl")),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    PhotobucketIE__VALID_URL,
 				"_real_extract": PhotobucketIE__real_extract,
 			})

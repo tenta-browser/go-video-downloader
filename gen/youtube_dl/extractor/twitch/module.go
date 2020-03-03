@@ -251,7 +251,7 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_CLIENT_ID":       TwitchBaseIE__CLIENT_ID,
 				"_NETRC_MACHINE":   TwitchBaseIE__NETRC_MACHINE,
 				"_VALID_URL_BASE":  TwitchBaseIE__VALID_URL_BASE,
@@ -261,14 +261,14 @@ func init() {
 		}())
 		TwitchItemBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchItemBaseIE"), λ.NewTuple(TwitchBaseIE), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		TwitchVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchVideoIE"), λ.NewTuple(TwitchItemBaseIE), func() λ.Dict {
 			var (
 				TwitchVideoIE__VALID_URL λ.Object
 			)
 			TwitchVideoIE__VALID_URL = λ.Mod(λ.StrLiteral("%s/[^/]+/b/(?P<id>\\d+)"), λ.GetAttr(TwitchBaseIE, "_VALID_URL_BASE", nil))
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TwitchVideoIE__VALID_URL,
 			})
 		}())
@@ -277,7 +277,7 @@ func init() {
 				TwitchChapterIE__VALID_URL λ.Object
 			)
 			TwitchChapterIE__VALID_URL = λ.Mod(λ.StrLiteral("%s/[^/]+/c/(?P<id>\\d+)"), λ.GetAttr(TwitchBaseIE, "_VALID_URL_BASE", nil))
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TwitchChapterIE__VALID_URL,
 			})
 		}())
@@ -286,7 +286,7 @@ func init() {
 				TwitchVodIE__VALID_URL λ.Object
 			)
 			TwitchVodIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\n                            (?:(?:www|go|m)\\.)?twitch\\.tv/(?:[^/]+/v(?:ideo)?|videos)/|\n                            player\\.twitch\\.tv/\\?.*?\\bvideo=v?\n                        )\n                        (?P<id>\\d+)\n                    ")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TwitchVodIE__VALID_URL,
 			})
 		}())
@@ -295,7 +295,7 @@ func init() {
 				TwitchPlaylistBaseIE__PLAYLIST_PATH λ.Object
 			)
 			TwitchPlaylistBaseIE__PLAYLIST_PATH = λ.StrLiteral("kraken/channels/%s/videos/?offset=%d&limit=%d")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_PLAYLIST_PATH": TwitchPlaylistBaseIE__PLAYLIST_PATH,
 			})
 		}())
@@ -304,7 +304,7 @@ func init() {
 				TwitchProfileIE__VALID_URL λ.Object
 			)
 			TwitchProfileIE__VALID_URL = λ.Mod(λ.StrLiteral("%s/(?P<id>[^/]+)/profile/?(?:\\#.*)?$"), λ.GetAttr(TwitchBaseIE, "_VALID_URL_BASE", nil))
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TwitchProfileIE__VALID_URL,
 			})
 		}())
@@ -315,7 +315,7 @@ func init() {
 			)
 			TwitchVideosBaseIE__VALID_URL_VIDEOS_BASE = λ.Mod(λ.StrLiteral("%s/(?P<id>[^/]+)/videos"), λ.GetAttr(TwitchBaseIE, "_VALID_URL_BASE", nil))
 			TwitchVideosBaseIE__PLAYLIST_PATH = λ.Add(λ.GetAttr(TwitchPlaylistBaseIE, "_PLAYLIST_PATH", nil), λ.StrLiteral("&broadcast_type="))
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_PLAYLIST_PATH":         TwitchVideosBaseIE__PLAYLIST_PATH,
 				"_VALID_URL_VIDEOS_BASE": TwitchVideosBaseIE__VALID_URL_VIDEOS_BASE,
 			})
@@ -325,7 +325,7 @@ func init() {
 				TwitchAllVideosIE__VALID_URL λ.Object
 			)
 			TwitchAllVideosIE__VALID_URL = λ.Mod(λ.StrLiteral("%s/all"), λ.GetAttr(TwitchVideosBaseIE, "_VALID_URL_VIDEOS_BASE", nil))
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TwitchAllVideosIE__VALID_URL,
 			})
 		}())
@@ -334,7 +334,7 @@ func init() {
 				TwitchUploadsIE__VALID_URL λ.Object
 			)
 			TwitchUploadsIE__VALID_URL = λ.Mod(λ.StrLiteral("%s/uploads"), λ.GetAttr(TwitchVideosBaseIE, "_VALID_URL_VIDEOS_BASE", nil))
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TwitchUploadsIE__VALID_URL,
 			})
 		}())
@@ -343,7 +343,7 @@ func init() {
 				TwitchPastBroadcastsIE__VALID_URL λ.Object
 			)
 			TwitchPastBroadcastsIE__VALID_URL = λ.Mod(λ.StrLiteral("%s/past-broadcasts"), λ.GetAttr(TwitchVideosBaseIE, "_VALID_URL_VIDEOS_BASE", nil))
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TwitchPastBroadcastsIE__VALID_URL,
 			})
 		}())
@@ -352,7 +352,7 @@ func init() {
 				TwitchHighlightsIE__VALID_URL λ.Object
 			)
 			TwitchHighlightsIE__VALID_URL = λ.Mod(λ.StrLiteral("%s/highlights"), λ.GetAttr(TwitchVideosBaseIE, "_VALID_URL_VIDEOS_BASE", nil))
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TwitchHighlightsIE__VALID_URL,
 			})
 		}())
@@ -412,7 +412,7 @@ func init() {
 					}()
 				})
 			TwitchStreamIE_suitable = λ.Cal(λ.ClassMethodType, TwitchStreamIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TwitchStreamIE__VALID_URL,
 				"suitable":   TwitchStreamIE_suitable,
 			})
@@ -570,7 +570,7 @@ func init() {
 							}), ϒcompat_str),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       TwitchClipsIE_IE_NAME,
 				"_VALID_URL":    TwitchClipsIE__VALID_URL,
 				"_real_extract": TwitchClipsIE__real_extract,

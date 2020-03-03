@@ -204,7 +204,7 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       StanfordOpenClassroomIE_IE_NAME,
 				"_VALID_URL":    StanfordOpenClassroomIE__VALID_URL,
 				"_real_extract": StanfordOpenClassroomIE__real_extract,

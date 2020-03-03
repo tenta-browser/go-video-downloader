@@ -258,7 +258,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_extract_feed_info": AMPIE__extract_feed_info,
 			})
 		}())

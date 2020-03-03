@@ -305,7 +305,7 @@ func init() {
 						"subtitles":  ϒsubtitles,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_FORMATS_INFO": HBOBaseIE__FORMATS_INFO,
 				"_extract_info": HBOBaseIE__extract_info,
 			})
@@ -337,7 +337,7 @@ func init() {
 					ϒlocation_path = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("data-state=\"({.+?})\""), ϒwebpage, λ.StrLiteral("state")), ϒdisplay_id), λ.StrLiteral("video")), λ.StrLiteral("locationUrl"))
 					return λ.Calm(ϒself, "_extract_info", λ.Cal(ϒurljoin, ϒurl, ϒlocation_path), ϒdisplay_id)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       HBOIE_IE_NAME,
 				"_VALID_URL":    HBOIE__VALID_URL,
 				"_real_extract": HBOIE__real_extract,

@@ -81,7 +81,7 @@ func init() {
 					}))
 					return ϒinfo_dict
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    ScreencastOMaticIE__VALID_URL,
 				"_real_extract": ScreencastOMaticIE__real_extract,
 			})

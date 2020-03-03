@@ -111,7 +111,7 @@ func init() {
 						})),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    FranceInterIE__VALID_URL,
 				"_real_extract": FranceInterIE__real_extract,
 			})

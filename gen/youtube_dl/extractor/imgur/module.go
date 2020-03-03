@@ -162,7 +162,7 @@ func init() {
 						}),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    ImgurIE__VALID_URL,
 				"_real_extract": ImgurIE__real_extract,
 			})
@@ -219,7 +219,7 @@ func init() {
 					}
 					return λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("http://imgur.com/%s"), ϒgallery_id), λ.Calm(ImgurIE, "ie_key"), ϒgallery_id)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       ImgurGalleryIE_IE_NAME,
 				"_VALID_URL":    ImgurGalleryIE__VALID_URL,
 				"_real_extract": ImgurGalleryIE__real_extract,
@@ -230,7 +230,7 @@ func init() {
 				ImgurAlbumIE__VALID_URL λ.Object
 			)
 			ImgurAlbumIE__VALID_URL = λ.StrLiteral("https?://(?:i\\.)?imgur\\.com/a/(?P<id>[a-zA-Z0-9]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": ImgurAlbumIE__VALID_URL,
 			})
 		}())

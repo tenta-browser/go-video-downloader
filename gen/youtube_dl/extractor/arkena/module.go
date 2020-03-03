@@ -57,7 +57,7 @@ func init() {
 				ArkenaIE__VALID_URL λ.Object
 			)
 			ArkenaIE__VALID_URL = λ.StrLiteral("(?x)\n                        https?://\n                            (?:\n                                video\\.arkena\\.com/play2/embed/player\\?|\n                                play\\.arkena\\.com/(?:config|embed)/avp/v\\d/player/media/(?P<id>[^/]+)/[^/]+/(?P<account_id>\\d+)\n                            )\n                        ")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": ArkenaIE__VALID_URL,
 			})
 		}())

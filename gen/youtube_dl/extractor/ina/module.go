@@ -200,7 +200,7 @@ func init() {
 						"thumbnails":  ϒthumbnails,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    InaIE__VALID_URL,
 				"_real_extract": InaIE__real_extract,
 			})

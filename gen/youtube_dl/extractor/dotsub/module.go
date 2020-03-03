@@ -110,7 +110,7 @@ func init() {
 					}))
 					return ϒinfo_dict
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    DotsubIE__VALID_URL,
 				"_real_extract": DotsubIE__real_extract,
 			})

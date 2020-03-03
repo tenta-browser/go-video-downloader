@@ -48,7 +48,7 @@ func init() {
 				WebcasterIE__VALID_URL λ.Object
 			)
 			WebcasterIE__VALID_URL = λ.StrLiteral("https?://bl\\.webcaster\\.pro/(?:quote|media)/start/free_(?P<id>[^/]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": WebcasterIE__VALID_URL,
 			})
 		}())
@@ -57,7 +57,7 @@ func init() {
 				WebcasterFeedIE__VALID_URL λ.Object
 			)
 			WebcasterFeedIE__VALID_URL = λ.StrLiteral("https?://bl\\.webcaster\\.pro/feed/start/free_(?P<id>[^/]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": WebcasterFeedIE__VALID_URL,
 			})
 		}())

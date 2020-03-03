@@ -229,7 +229,7 @@ func init() {
 						"subtitles":   λ.Calm(ϒself, "_parse_subtitles", ϒvideo_data, λ.StrLiteral("vtt")),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_call_api":         AdobeTVBaseIE__call_api,
 				"_parse_subtitles":  AdobeTVBaseIE__parse_subtitles,
 				"_parse_video_data": AdobeTVBaseIE__parse_video_data,
@@ -262,7 +262,7 @@ func init() {
 					})), λ.IntLiteral(0))
 					return λ.Calm(ϒself, "_parse_video_data", ϒvideo_data)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       AdobeTVEmbedIE_IE_NAME,
 				"_VALID_URL":    AdobeTVEmbedIE__VALID_URL,
 				"_real_extract": AdobeTVEmbedIE__real_extract,
@@ -307,7 +307,7 @@ func init() {
 					})), λ.IntLiteral(0))
 					return λ.Calm(ϒself, "_parse_video_data", ϒvideo_data)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       AdobeTVIE_IE_NAME,
 				"_VALID_URL":    AdobeTVIE__VALID_URL,
 				"_real_extract": AdobeTVIE__real_extract,
@@ -315,14 +315,14 @@ func init() {
 		}())
 		AdobeTVPlaylistBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("AdobeTVPlaylistBaseIE"), λ.NewTuple(AdobeTVBaseIE), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		AdobeTVShowIE = λ.Cal(λ.TypeType, λ.StrLiteral("AdobeTVShowIE"), λ.NewTuple(AdobeTVPlaylistBaseIE), func() λ.Dict {
 			var (
 				AdobeTVShowIE__VALID_URL λ.Object
 			)
 			AdobeTVShowIE__VALID_URL = λ.StrLiteral("https?://tv\\.adobe\\.com/(?:(?P<language>fr|de|es|jp)/)?show/(?P<id>[^/]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": AdobeTVShowIE__VALID_URL,
 			})
 		}())
@@ -331,7 +331,7 @@ func init() {
 				AdobeTVChannelIE__VALID_URL λ.Object
 			)
 			AdobeTVChannelIE__VALID_URL = λ.StrLiteral("https?://tv\\.adobe\\.com/(?:(?P<language>fr|de|es|jp)/)?channel/(?P<id>[^/]+)(?:/(?P<category_urlname>[^/]+))?")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": AdobeTVChannelIE__VALID_URL,
 			})
 		}())
@@ -459,7 +459,7 @@ func init() {
 						"subtitles":   λ.Calm(ϒself, "_parse_subtitles", ϒvideo_data, λ.StrLiteral("vttPath")),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       AdobeTVVideoIE_IE_NAME,
 				"_VALID_URL":    AdobeTVVideoIE__VALID_URL,
 				"_real_extract": AdobeTVVideoIE__real_extract,

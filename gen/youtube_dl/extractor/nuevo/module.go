@@ -142,7 +142,7 @@ func init() {
 						"formats":   ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_extract_nuevo": NuevoBaseIE__extract_nuevo,
 			})
 		}())

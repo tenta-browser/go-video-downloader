@@ -70,7 +70,7 @@ func init() {
 				BiliBiliIE__VALID_URL λ.Object
 			)
 			BiliBiliIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.|bangumi\\.|)bilibili\\.(?:tv|com)/(?:video/av|anime/(?P<anime_id>\\d+)/play#)(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": BiliBiliIE__VALID_URL,
 			})
 		}())
@@ -100,7 +100,7 @@ func init() {
 					}()
 				})
 			BiliBiliBangumiIE_suitable = λ.Cal(λ.ClassMethodType, BiliBiliBangumiIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": BiliBiliBangumiIE__VALID_URL,
 				"suitable":   BiliBiliBangumiIE_suitable,
 			})
@@ -136,7 +136,7 @@ func init() {
 						{Name: "query", Value: ϒquery},
 					}), λ.StrLiteral("data"))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_call_api": BilibiliAudioBaseIE__call_api,
 			})
 		}())
@@ -204,7 +204,7 @@ func init() {
 						"view_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒstatistic, "get", λ.StrLiteral("play"))),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    BilibiliAudioIE__VALID_URL,
 				"_real_extract": BilibiliAudioIE__real_extract,
 			})
@@ -214,7 +214,7 @@ func init() {
 				BilibiliAudioAlbumIE__VALID_URL λ.Object
 			)
 			BilibiliAudioAlbumIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?bilibili\\.com/audio/am(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": BilibiliAudioAlbumIE__VALID_URL,
 			})
 		}())

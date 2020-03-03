@@ -171,7 +171,7 @@ func init() {
 						"categories":    ϒcategories,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    ViddlerIE__VALID_URL,
 				"_real_extract": ViddlerIE__real_extract,
 			})

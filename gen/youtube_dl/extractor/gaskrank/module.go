@@ -142,7 +142,7 @@ func init() {
 					λ.Calm(ϒself, "_sort_formats", λ.GetItem(ϒentry, λ.StrLiteral("formats")))
 					return ϒentry
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    GaskrankIE__VALID_URL,
 				"_real_extract": GaskrankIE__real_extract,
 			})

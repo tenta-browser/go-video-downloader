@@ -104,7 +104,7 @@ func init() {
 						"vcodec":      λ.StrLiteral("none"),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    ReverbNationIE__VALID_URL,
 				"_real_extract": ReverbNationIE__real_extract,
 			})

@@ -60,7 +60,7 @@ func init() {
 					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					return λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("aol-video:%s"), ϒvideo_id))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       FiveMinIE_IE_NAME,
 				"_VALID_URL":    FiveMinIE__VALID_URL,
 				"_real_extract": FiveMinIE__real_extract,

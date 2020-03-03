@@ -36,7 +36,7 @@ func init() {
 	λ.InitModule(func() {
 		ϒerror = λ.Cal(λ.TypeType, λ.StrLiteral("error"), λ.NewTuple(λ.BaseExceptionType), func() λ.Dict {
 			// pass
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 	})
 }

@@ -120,7 +120,7 @@ func init() {
 					}))
 					return ϒinfo
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       Canalc2IE_IE_NAME,
 				"_VALID_URL":    Canalc2IE__VALID_URL,
 				"_real_extract": Canalc2IE__real_extract,

@@ -56,7 +56,7 @@ func init() {
 					)
 					return λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("http://players.brightcove.net/416418724/default_default/index.html?videoId=ref:%s"), λ.Calm(ϒself, "_match_id", ϒurl)), λ.StrLiteral("BrightcoveNew"))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    PeopleIE__VALID_URL,
 				"_real_extract": PeopleIE__real_extract,
 			})

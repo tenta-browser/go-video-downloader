@@ -26,7 +26,6 @@ package eporner
 
 import (
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
-	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
@@ -36,7 +35,6 @@ var (
 	EpornerIE       λ.Object
 	ExtractorError  λ.Object
 	InfoExtractor   λ.Object
-	ϒcompat_str     λ.Object
 	ϒencode_base_n  λ.Object
 	ϒint_or_none    λ.Object
 	ϒmerge_dicts    λ.Object
@@ -48,7 +46,6 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒencode_base_n = Ωutils.ϒencode_base_n
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
@@ -111,7 +108,7 @@ func init() {
 					τmp0 = λ.Calm(ϒself, "_download_webpage_handle", ϒurl, ϒdisplay_id)
 					ϒwebpage = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
-					ϒvideo_id = λ.Calm(ϒself, "_match_id", λ.Cal(ϒcompat_str, λ.Calm(ϒurlh, "geturl")))
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", λ.Calm(ϒurlh, "geturl"))
 					ϒhash = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("hash\\s*:\\s*[\"\\']([\\da-f]{32})"), ϒwebpage, λ.StrLiteral("hash"))
 					ϒtitle = func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_og_search_title", nil), λ.NewArgs(ϒwebpage), λ.KWArgs{
@@ -271,7 +268,7 @@ func init() {
 						"age_limit":  λ.IntLiteral(18),
 					}))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    EpornerIE__VALID_URL,
 				"_real_extract": EpornerIE__real_extract,
 			})

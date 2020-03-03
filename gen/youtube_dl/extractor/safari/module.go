@@ -42,7 +42,6 @@ var (
 	SafariCourseIE    λ.Object
 	SafariIE          λ.Object
 	ϒcompat_parse_qs  λ.Object
-	ϒcompat_str       λ.Object
 	ϒupdate_url_query λ.Object
 )
 
@@ -50,7 +49,6 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
-		ϒcompat_str = Ωcompat.ϒcompat_str
 		ExtractorError = Ωutils.ExtractorError
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		SafariBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("SafariBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
@@ -114,13 +112,13 @@ func init() {
 							var (
 								ϒurlh = λargs[0]
 							)
-							return λ.NewBool(λ.Contains(λ.Cal(ϒcompat_str, λ.Calm(ϒurlh, "geturl")), λ.StrLiteral("learning.oreilly.com/home/")))
+							return λ.NewBool(λ.Contains(λ.Calm(ϒurlh, "geturl"), λ.StrLiteral("learning.oreilly.com/home/")))
 						})
 					if λ.IsTrue(λ.Cal(ϒis_logged, ϒurlh)) {
 						λ.SetAttr(ϒself, "LOGGED_IN", λ.True)
 						return λ.None
 					}
-					ϒredirect_url = λ.Cal(ϒcompat_str, λ.Calm(ϒurlh, "geturl"))
+					ϒredirect_url = λ.Calm(ϒurlh, "geturl")
 					ϒparsed_url = λ.Cal(Ωparse.ϒurlparse, ϒredirect_url)
 					ϒqs = λ.Cal(ϒcompat_parse_qs, λ.GetAttr(ϒparsed_url, "query", nil))
 					ϒnext_uri = λ.Cal(Ωparse.ϒurljoin, λ.StrLiteral("https://api.oreilly.com"), λ.GetItem(λ.GetItem(ϒqs, λ.StrLiteral("next")), λ.IntLiteral(0)))
@@ -184,7 +182,7 @@ func init() {
 					panic(λ.Raise(λ.Cal(ExtractorError, λ.StrLiteral("Unable to log in"))))
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"LOGGED_IN":        SafariBaseIE_LOGGED_IN,
 				"_NETRC_MACHINE":   SafariBaseIE__NETRC_MACHINE,
 				"_login":           SafariBaseIE__login,
@@ -296,7 +294,7 @@ func init() {
 					}
 					return λ.Calm(ϒself, "url_result", λ.Cal(ϒupdate_url_query, λ.StrLiteral("https://cdnapisec.kaltura.com/html5/html5lib/v2.37.1/mwEmbedFrame.php"), ϒquery), λ.StrLiteral("Kaltura"))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       SafariIE_IE_NAME,
 				"_PARTNER_ID":   SafariIE__PARTNER_ID,
 				"_UICONF_ID":    SafariIE__UICONF_ID,
@@ -309,7 +307,7 @@ func init() {
 				SafariApiIE__VALID_URL λ.Object
 			)
 			SafariApiIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?:safaribooksonline|(?:learning\\.)?oreilly)\\.com/api/v1/book/(?P<course_id>[^/]+)/chapter(?:-content)?/(?P<part>[^/?#&]+)\\.html")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SafariApiIE__VALID_URL,
 			})
 		}())
@@ -345,7 +343,7 @@ func init() {
 					}()
 				})
 			SafariCourseIE_suitable = λ.Cal(λ.ClassMethodType, SafariCourseIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SafariCourseIE__VALID_URL,
 				"suitable":   SafariCourseIE_suitable,
 			})

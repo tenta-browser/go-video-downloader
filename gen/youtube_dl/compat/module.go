@@ -97,13 +97,13 @@ func init() {
 			)
 			ϒcompat_http_client_IncompleteRead = λ.Cal(λ.TypeType, λ.StrLiteral("IncompleteRead"), λ.NewTuple(λ.BaseExceptionType), func() λ.Dict {
 				// pass
-				return λ.DictLiteral(map[λ.Object]λ.Object{})
+				return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 			}())
 			ϒcompat_http_client_HTTPException = λ.Cal(λ.TypeType, λ.StrLiteral("HTTPException"), λ.NewTuple(λ.BaseExceptionType), func() λ.Dict {
 				// pass
-				return λ.DictLiteral(map[λ.Object]λ.Object{})
+				return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 			}())
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"HTTPException":  ϒcompat_http_client_HTTPException,
 				"IncompleteRead": ϒcompat_http_client_IncompleteRead,
 			})

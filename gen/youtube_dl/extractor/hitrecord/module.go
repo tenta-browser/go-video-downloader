@@ -156,7 +156,7 @@ func init() {
 						"tags":          ϒtags,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    HitRecordIE__VALID_URL,
 				"_real_extract": HitRecordIE__real_extract,
 			})

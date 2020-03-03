@@ -84,7 +84,7 @@ func init() {
 					}))
 					return ϒinfo
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    TastyTradeIE__VALID_URL,
 				"_real_extract": TastyTradeIE__real_extract,
 			})

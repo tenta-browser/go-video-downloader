@@ -196,7 +196,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":          InfoQIE__VALID_URL,
 				"_extract_cf_auth":    InfoQIE__extract_cf_auth,
 				"_extract_http_audio": InfoQIE__extract_http_audio,

@@ -130,7 +130,7 @@ func init() {
 						"ext":       λ.StrLiteral("mp4"),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    YourPornIE__VALID_URL,
 				"_real_extract": YourPornIE__real_extract,
 			})

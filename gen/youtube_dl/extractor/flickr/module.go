@@ -224,7 +224,7 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_API_BASE_URL": FlickrIE__API_BASE_URL,
 				"_LICENSES":     FlickrIE__LICENSES,
 				"_VALID_URL":    FlickrIE__VALID_URL,

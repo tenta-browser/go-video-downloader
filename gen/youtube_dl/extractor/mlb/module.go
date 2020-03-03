@@ -44,7 +44,7 @@ func init() {
 			)
 			MLBIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:[\\da-z_-]+\\.)*(?P<site>mlb)\\.com/\n                        (?:\n                            (?:\n                                (?:[^/]+/)*c-|\n                                (?:\n                                    shared/video/embed/(?:embed|m-internal-embed)\\.html|\n                                    (?:[^/]+/)+(?:play|index)\\.jsp|\n                                )\\?.*?\\bcontent_id=\n                            )\n                            (?P<id>\\d+)\n                        )\n                    ")
 			MLBIE__CONTENT_DOMAIN = λ.StrLiteral("content.mlb.com")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_CONTENT_DOMAIN": MLBIE__CONTENT_DOMAIN,
 				"_VALID_URL":      MLBIE__VALID_URL,
 			})

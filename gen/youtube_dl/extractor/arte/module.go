@@ -283,7 +283,7 @@ func init() {
 					λ.SetItem(ϒinfo_dict, λ.StrLiteral("formats"), ϒformats)
 					return ϒinfo_dict
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_extract_from_json_url": ArteTVBaseIE__extract_from_json_url,
 			})
 		}())
@@ -317,7 +317,7 @@ func init() {
 						ϒvideo_id,
 					)), ϒvideo_id, ϒlang)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       ArteTVPlus7IE_IE_NAME,
 				"_VALID_URL":    ArteTVPlus7IE__VALID_URL,
 				"_real_extract": ArteTVPlus7IE__real_extract,
@@ -328,7 +328,7 @@ func init() {
 				ArteTVEmbedIE__VALID_URL λ.Object
 			)
 			ArteTVEmbedIE__VALID_URL = λ.StrLiteral("(?x)\n        https://www\\.arte\\.tv\n        /player/v3/index\\.php\\?json_url=\n        (?P<json_url>\n            https?://api\\.arte\\.tv/api/player/v1/config/\n            (?P<lang>[^/]+)/(?P<id>\\d{6}-\\d{3}-[AF])\n        )\n    ")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": ArteTVEmbedIE__VALID_URL,
 			})
 		}())
@@ -337,7 +337,7 @@ func init() {
 				ArteTVPlaylistIE__VALID_URL λ.Object
 			)
 			ArteTVPlaylistIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?arte\\.tv/(?P<lang>fr|de|en|es|it|pl)/videos/(?P<id>RC-\\d{6})")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": ArteTVPlaylistIE__VALID_URL,
 			})
 		}())

@@ -198,7 +198,7 @@ func init() {
 						"formats":   ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       ABCOTVSIE_IE_NAME,
 				"_SITE_MAP":     ABCOTVSIE__SITE_MAP,
 				"_VALID_URL":    ABCOTVSIE__VALID_URL,
@@ -210,7 +210,7 @@ func init() {
 				ABCOTVSClipsIE__VALID_URL λ.Object
 			)
 			ABCOTVSClipsIE__VALID_URL = λ.StrLiteral("https?://clips\\.abcotvs\\.com/(?:[^/]+/)*video/(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": ABCOTVSClipsIE__VALID_URL,
 			})
 		}())

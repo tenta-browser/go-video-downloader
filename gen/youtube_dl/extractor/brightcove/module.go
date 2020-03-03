@@ -214,7 +214,7 @@ func init() {
 						})))
 				})
 			BrightcoveLegacyIE__extract_brightcove_urls = λ.Cal(λ.ClassMethodType, BrightcoveLegacyIE__extract_brightcove_urls)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":               BrightcoveLegacyIE__VALID_URL,
 				"_extract_brightcove_url":  BrightcoveLegacyIE__extract_brightcove_url,
 				"_extract_brightcove_urls": BrightcoveLegacyIE__extract_brightcove_urls,
@@ -913,7 +913,7 @@ func init() {
 						{Name: "headers", Value: ϒheaders},
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":                    BrightcoveNewIE_IE_NAME,
 				"_VALID_URL":                 BrightcoveNewIE__VALID_URL,
 				"_extract_url":               BrightcoveNewIE__extract_url,

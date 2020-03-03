@@ -84,7 +84,7 @@ func init() {
 				SoundcloudEmbedIE__VALID_URL λ.Object
 			)
 			SoundcloudEmbedIE__VALID_URL = λ.StrLiteral("https?://(?:w|player|p)\\.soundcloud\\.com/player/?.*?\\burl=(?P<id>.+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SoundcloudEmbedIE__VALID_URL,
 			})
 		}())
@@ -93,33 +93,33 @@ func init() {
 				SoundcloudIE__VALID_URL λ.Object
 			)
 			SoundcloudIE__VALID_URL = λ.StrLiteral("(?x)^(?:https?://)?\n                    (?:(?:(?:www\\.|m\\.)?soundcloud\\.com/\n                            (?!stations/track)\n                            (?P<uploader>[\\w\\d-]+)/\n                            (?!(?:tracks|albums|sets(?:/.+?)?|reposts|likes|spotlight)/?(?:$|[?#]))\n                            (?P<title>[\\w\\d-]+)/?\n                            (?P<token>[^?]+?)?(?:[?].*)?$)\n                       |(?:api(?:-v2)?\\.soundcloud\\.com/tracks/(?P<track_id>\\d+)\n                          (?:/?\\?secret_token=(?P<secret_token>[^&]+))?)\n                    )\n                    ")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SoundcloudIE__VALID_URL,
 			})
 		}())
 		SoundcloudPlaylistBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("SoundcloudPlaylistBaseIE"), λ.NewTuple(SoundcloudIE), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		SoundcloudSetIE = λ.Cal(λ.TypeType, λ.StrLiteral("SoundcloudSetIE"), λ.NewTuple(SoundcloudPlaylistBaseIE), func() λ.Dict {
 			var (
 				SoundcloudSetIE__VALID_URL λ.Object
 			)
 			SoundcloudSetIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|m)\\.)?soundcloud\\.com/(?P<uploader>[\\w\\d-]+)/sets/(?P<slug_title>[\\w\\d-]+)(?:/(?P<token>[^?/]+))?")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SoundcloudSetIE__VALID_URL,
 			})
 		}())
 		SoundcloudPagedPlaylistBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("SoundcloudPagedPlaylistBaseIE"), λ.NewTuple(SoundcloudIE), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		SoundcloudUserIE = λ.Cal(λ.TypeType, λ.StrLiteral("SoundcloudUserIE"), λ.NewTuple(SoundcloudPagedPlaylistBaseIE), func() λ.Dict {
 			var (
 				SoundcloudUserIE__VALID_URL λ.Object
 			)
 			SoundcloudUserIE__VALID_URL = λ.StrLiteral("(?x)\n                        https?://\n                            (?:(?:www|m)\\.)?soundcloud\\.com/\n                            (?P<user>[^/]+)\n                            (?:/\n                                (?P<rsrc>tracks|albums|sets|reposts|likes|spotlight)\n                            )?\n                            /?(?:[?#].*)?$\n                    ")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SoundcloudUserIE__VALID_URL,
 			})
 		}())
@@ -128,7 +128,7 @@ func init() {
 				SoundcloudTrackStationIE__VALID_URL λ.Object
 			)
 			SoundcloudTrackStationIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|m)\\.)?soundcloud\\.com/stations/track/[^/]+/(?P<id>[^/?#&]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SoundcloudTrackStationIE__VALID_URL,
 			})
 		}())
@@ -137,7 +137,7 @@ func init() {
 				SoundcloudPlaylistIE__VALID_URL λ.Object
 			)
 			SoundcloudPlaylistIE__VALID_URL = λ.StrLiteral("https?://api(?:-v2)?\\.soundcloud\\.com/playlists/(?P<id>[0-9]+)(?:/?\\?secret_token=(?P<token>[^&]+?))?$")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SoundcloudPlaylistIE__VALID_URL,
 			})
 		}())
@@ -149,7 +149,7 @@ func init() {
 				SoundcloudSearchIE__SEARCH_KEY λ.Object
 			)
 			SoundcloudSearchIE__SEARCH_KEY = λ.StrLiteral("scsearch")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_SEARCH_KEY": SoundcloudSearchIE__SEARCH_KEY,
 			})
 		}())

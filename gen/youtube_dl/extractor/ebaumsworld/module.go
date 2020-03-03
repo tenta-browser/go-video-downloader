@@ -69,7 +69,7 @@ func init() {
 						"uploader":    λ.GetAttr(λ.Calm(ϒconfig, "find", λ.StrLiteral("username")), "text", nil),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    EbaumsWorldIE__VALID_URL,
 				"_real_extract": EbaumsWorldIE__real_extract,
 			})

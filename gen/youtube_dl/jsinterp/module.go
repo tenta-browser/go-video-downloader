@@ -631,7 +631,7 @@ func init() {
 						})
 					return ϒresf
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__":             JSInterpreter___init__,
 				"build_function":       JSInterpreter_build_function,
 				"extract_function":     JSInterpreter_extract_function,

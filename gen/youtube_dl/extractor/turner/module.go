@@ -372,7 +372,7 @@ func init() {
 						"is_live":        ϒis_live,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_extract_cvp_info":  TurnerBaseIE__extract_cvp_info,
 				"_extract_timestamp": TurnerBaseIE__extract_timestamp,
 			})

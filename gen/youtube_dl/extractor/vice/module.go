@@ -108,7 +108,7 @@ func init() {
 						})},
 					}), λ.StrLiteral("data")), ϒresource)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_call_api": ViceBaseIE__call_api,
 			})
 		}())
@@ -359,7 +359,7 @@ func init() {
 						"subtitles":   ϒsubtitles,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       ViceIE_IE_NAME,
 				"_VALID_URL":    ViceIE__VALID_URL,
 				"_extract_url":  ViceIE__extract_url,
@@ -372,7 +372,7 @@ func init() {
 				ViceShowIE__VALID_URL λ.Object
 			)
 			ViceShowIE__VALID_URL = λ.StrLiteral("https?://(?:video\\.vice|(?:www\\.)?vice(?:land|tv))\\.com/(?P<locale>[^/]+)/show/(?P<id>[^/?#&]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": ViceShowIE__VALID_URL,
 			})
 		}())
@@ -449,7 +449,7 @@ func init() {
 					ϒvideo_url = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("data-video-url=\"([^\"]+)\""), λ.GetItem(ϒarticle, λ.StrLiteral("embed_code")), λ.StrLiteral("video URL"))
 					return λ.Cal(ϒ_url_res, ϒvideo_url, λ.Calm(ViceIE, "ie_key"))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       ViceArticleIE_IE_NAME,
 				"_VALID_URL":    ViceArticleIE__VALID_URL,
 				"_real_extract": ViceArticleIE__real_extract,

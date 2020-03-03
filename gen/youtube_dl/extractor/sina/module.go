@@ -185,7 +185,7 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    SinaIE__VALID_URL,
 				"_real_extract": SinaIE__real_extract,
 			})

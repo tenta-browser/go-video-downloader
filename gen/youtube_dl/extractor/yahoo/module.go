@@ -372,7 +372,7 @@ func init() {
 						"episode_number": λ.Cal(ϒint_or_none, λ.Calm(ϒseries_info, "get", λ.StrLiteral("episode_number"))),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    YahooIE__VALID_URL,
 				"_real_extract": YahooIE__real_extract,
 			})
@@ -382,7 +382,7 @@ func init() {
 				YahooGyaOPlayerIE__VALID_URL λ.Object
 			)
 			YahooGyaOPlayerIE__VALID_URL = λ.StrLiteral("https?://(?:gyao\\.yahoo\\.co\\.jp/(?:player|episode/[^/]+)|streaming\\.yahoo\\.co\\.jp/c/y)/(?P<id>\\d+/v\\d+/v\\d+|[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": YahooGyaOPlayerIE__VALID_URL,
 			})
 		}())
@@ -391,7 +391,7 @@ func init() {
 				YahooGyaOIE__VALID_URL λ.Object
 			)
 			YahooGyaOIE__VALID_URL = λ.StrLiteral("https?://(?:gyao\\.yahoo\\.co\\.jp/(?:p|title/[^/]+)|streaming\\.yahoo\\.co\\.jp/p/y)/(?P<id>\\d+/v\\d+|[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": YahooGyaOIE__VALID_URL,
 			})
 		}())
@@ -400,7 +400,7 @@ func init() {
 				YahooJapanNewsIE__VALID_URL λ.Object
 			)
 			YahooJapanNewsIE__VALID_URL = λ.StrLiteral("https?://(?P<host>(?:news|headlines)\\.yahoo\\.co\\.jp)[^\\d]*(?P<id>\\d[\\d-]*\\d)?")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": YahooJapanNewsIE__VALID_URL,
 			})
 		}())

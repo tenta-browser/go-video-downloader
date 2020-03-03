@@ -238,7 +238,7 @@ func init() {
 					}
 					return ϒdefault
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__": Cache___init__,
 				"enabled":  Cache_enabled,
 				"load":     Cache_load,

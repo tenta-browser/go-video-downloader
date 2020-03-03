@@ -90,7 +90,7 @@ func init() {
 						"duration":  ϒduration,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    GodTubeIE__VALID_URL,
 				"_real_extract": GodTubeIE__real_extract,
 			})

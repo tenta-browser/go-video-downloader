@@ -31,6 +31,7 @@ import (
 var (
 	HTTPCookieProcessor λ.Object
 	HTTPHandler         λ.Object
+	HTTPRedirectHandler λ.Object
 	HTTPSHandler        λ.Object
 	ProxyHandler        λ.Object
 	Request             λ.Object
@@ -151,7 +152,7 @@ func init() {
 					}
 					return λ.StrLiteral("GET")
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__":     Request___init__,
 				"add_header":   Request_add_header,
 				"get_full_url": Request_get_full_url,
@@ -161,11 +162,15 @@ func init() {
 		}())
 		HTTPHandler = λ.Cal(λ.TypeType, λ.StrLiteral("HTTPHandler"), λ.NewTuple(), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		HTTPSHandler = λ.Cal(λ.TypeType, λ.StrLiteral("HTTPSHandler"), λ.NewTuple(), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
+		}())
+		HTTPRedirectHandler = λ.Cal(λ.TypeType, λ.StrLiteral("HTTPRedirectHandler"), λ.NewTuple(), func() λ.Dict {
+
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		HTTPCookieProcessor = λ.Cal(λ.TypeType, λ.StrLiteral("HTTPCookieProcessor"), λ.NewTuple(), func() λ.Dict {
 			var (
@@ -173,15 +178,15 @@ func init() {
 			)
 			HTTPCookieProcessor_http_request = λ.Cal(λ.TypeType, λ.StrLiteral("http_request"), λ.NewTuple(), func() λ.Dict {
 
-				return λ.DictLiteral(map[λ.Object]λ.Object{})
+				return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 			}())
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"http_request": HTTPCookieProcessor_http_request,
 			})
 		}())
 		ProxyHandler = λ.Cal(λ.TypeType, λ.StrLiteral("ProxyHandler"), λ.NewTuple(), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 	})
 }

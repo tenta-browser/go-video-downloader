@@ -161,7 +161,7 @@ func init() {
 						ϒurlh,
 					)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_download_webpage_handle": PornHubBaseIE__download_webpage_handle,
 			})
 		}())
@@ -293,11 +293,11 @@ func init() {
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+							return λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 								λ.NewTuple(
-									λ.StrLiteral("<h1[^>]+class=[\"\\']title[\"\\'][^>]*>(?P<title>[^<]+)"),
-									λ.StrLiteral("<div[^>]+data-video-title=([\"\\'])(?P<title>.+?)\\1"),
-									λ.StrLiteral("shareTitle\\s*=\\s*([\"\\'])(?P<title>.+?)\\1"),
+									λ.StrLiteral("(?s)<h1[^>]+class=[\"\\']title[\"\\'][^>]*>(?P<title>.+?)</h1>"),
+									λ.StrLiteral("<div[^>]+data-video-title=([\"\\'])(?P<title>(?:(?!\\1).)+)\\1"),
+									λ.StrLiteral("shareTitle[\"\\']\\s*[=:]\\s*([\"\\'])(?P<title>(?:(?!\\1).)+)\\1"),
 								),
 								ϒwebpage,
 								λ.StrLiteral("title"),
@@ -654,7 +654,7 @@ func init() {
 						"subtitles":     ϒsubtitles,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":     PornHubIE__VALID_URL,
 				"_extract_count": PornHubIE__extract_count,
 				"_real_extract":  PornHubIE__real_extract,
@@ -662,20 +662,20 @@ func init() {
 		}())
 		PornHubPlaylistBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("PornHubPlaylistBaseIE"), λ.NewTuple(PornHubBaseIE), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		PornHubUserIE = λ.Cal(λ.TypeType, λ.StrLiteral("PornHubUserIE"), λ.NewTuple(PornHubPlaylistBaseIE), func() λ.Dict {
 			var (
 				PornHubUserIE__VALID_URL λ.Object
 			)
 			PornHubUserIE__VALID_URL = λ.StrLiteral("(?P<url>https?://(?:[^/]+\\.)?pornhub\\.(?:com|net)/(?:(?:user|channel)s|model|pornstar)/(?P<id>[^/?#&]+))(?:[?#&]|/(?!videos)|$)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": PornHubUserIE__VALID_URL,
 			})
 		}())
 		PornHubPagedPlaylistBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("PornHubPagedPlaylistBaseIE"), λ.NewTuple(PornHubPlaylistBaseIE), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		PornHubPagedVideoListIE = λ.Cal(λ.TypeType, λ.StrLiteral("PornHubPagedVideoListIE"), λ.NewTuple(PornHubPagedPlaylistBaseIE), func() λ.Dict {
 			var (
@@ -711,7 +711,7 @@ func init() {
 					}()
 				})
 			PornHubPagedVideoListIE_suitable = λ.Cal(λ.ClassMethodType, PornHubPagedVideoListIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": PornHubPagedVideoListIE__VALID_URL,
 				"suitable":   PornHubPagedVideoListIE_suitable,
 			})
@@ -721,7 +721,7 @@ func init() {
 				PornHubUserVideosUploadIE__VALID_URL λ.Object
 			)
 			PornHubUserVideosUploadIE__VALID_URL = λ.StrLiteral("(?P<url>https?://(?:[^/]+\\.)?(?P<host>pornhub\\.(?:com|net))/(?:(?:user|channel)s|model|pornstar)/(?P<id>[^/]+)/videos/upload)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": PornHubUserVideosUploadIE__VALID_URL,
 			})
 		}())

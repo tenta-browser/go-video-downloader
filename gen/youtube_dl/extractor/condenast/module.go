@@ -325,7 +325,7 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_SITES":                CondeNastIE__SITES,
 				"_VALID_URL":            CondeNastIE__VALID_URL,
 				"_extract_video":        CondeNastIE__extract_video,

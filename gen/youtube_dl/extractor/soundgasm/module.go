@@ -109,7 +109,7 @@ func init() {
 						"uploader":    λ.Calm(ϒmobj, "group", λ.StrLiteral("user")),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       SoundgasmIE_IE_NAME,
 				"_VALID_URL":    SoundgasmIE__VALID_URL,
 				"_real_extract": SoundgasmIE__real_extract,
@@ -120,7 +120,7 @@ func init() {
 				SoundgasmProfileIE__VALID_URL λ.Object
 			)
 			SoundgasmProfileIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?soundgasm\\.net/u/(?P<id>[^/]+)/?(?:\\#.*)?$")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SoundgasmProfileIE__VALID_URL,
 			})
 		}())

@@ -68,6 +68,7 @@ var (
 	ϒunified_timestamp     λ.Object
 	ϒunsmuggle_url         λ.Object
 	ϒurlencode_postdata    λ.Object
+	ϒurljoin               λ.Object
 )
 
 func init() {
@@ -93,6 +94,7 @@ func init() {
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒunsmuggle_url = Ωutils.ϒunsmuggle_url
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
+		ϒurljoin = Ωutils.ϒurljoin
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		VimeoBaseInfoExtractor = λ.Cal(λ.TypeType, λ.StrLiteral("VimeoBaseInfoExtractor"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
@@ -531,7 +533,7 @@ func init() {
 							ϒtt = τmp1
 							λ.SetItem(ϒsubtitles, λ.GetItem(ϒtt, λ.StrLiteral("lang")), λ.NewList(λ.DictLiteral(map[string]λ.Object{
 								"ext": λ.StrLiteral("vtt"),
-								"url": λ.Add(λ.StrLiteral("https://vimeo.com"), λ.GetItem(ϒtt, λ.StrLiteral("url"))),
+								"url": λ.Cal(ϒurljoin, λ.StrLiteral("https://vimeo.com"), λ.GetItem(ϒtt, λ.StrLiteral("url"))),
 							})))
 						}
 					}
@@ -676,7 +678,7 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_LOGIN_REQUIRED":          VimeoBaseInfoExtractor__LOGIN_REQUIRED,
 				"_NETRC_MACHINE":           VimeoBaseInfoExtractor__NETRC_MACHINE,
 				"_extract_original_format": VimeoBaseInfoExtractor__extract_original_format,
@@ -943,6 +945,8 @@ func init() {
 										τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
 											λ.StrLiteral("play_redirect_hls"),
 											λ.StrLiteral("moogaloop.swf"),
+											λ.StrLiteral("/album/"),
+											λ.StrLiteral("/showcase/"),
 										))
 										for {
 											if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
@@ -988,7 +992,7 @@ func init() {
 						})
 						ϒwebpage = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒurlh = λ.GetItem(τmp2, λ.IntLiteral(1))
-						ϒredirect_url = λ.Cal(ϒcompat_str, λ.Calm(ϒurlh, "geturl"))
+						ϒredirect_url = λ.Calm(ϒurlh, "geturl")
 						return λ.BlockExitNormally, nil
 					}()
 					λ.Calm(ϒself, "report_extraction", ϒvideo_id)
@@ -1283,7 +1287,7 @@ func init() {
 					ϒinfo_dict = λ.Cal(ϒmerge_dicts, ϒinfo_dict, ϒinfo_dict_config, ϒjson_ld)
 					return ϒinfo_dict
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":                       VimeoIE_IE_NAME,
 				"_VALID_URL":                    VimeoIE__VALID_URL,
 				"_extract_url":                  VimeoIE__extract_url,
@@ -1301,7 +1305,7 @@ func init() {
 			)
 			VimeoOndemandIE_IE_NAME = λ.StrLiteral("vimeo:ondemand")
 			VimeoOndemandIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?vimeo\\.com/ondemand/([^/]+/)?(?P<id>[^/?#&]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":    VimeoOndemandIE_IE_NAME,
 				"_VALID_URL": VimeoOndemandIE__VALID_URL,
 			})
@@ -1311,7 +1315,7 @@ func init() {
 				VimeoChannelIE__VALID_URL λ.Object
 			)
 			VimeoChannelIE__VALID_URL = λ.StrLiteral("https://vimeo\\.com/channels/(?P<id>[^/?#]+)/?(?:$|[?#])")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": VimeoChannelIE__VALID_URL,
 			})
 		}())
@@ -1320,7 +1324,7 @@ func init() {
 				VimeoUserIE__VALID_URL λ.Object
 			)
 			VimeoUserIE__VALID_URL = λ.StrLiteral("https://vimeo\\.com/(?!(?:[0-9]+|watchlater)(?:$|[?#/]))(?P<id>[^/]+)(?:/videos|[#?]|$)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": VimeoUserIE__VALID_URL,
 			})
 		}())
@@ -1329,7 +1333,7 @@ func init() {
 				VimeoAlbumIE__VALID_URL λ.Object
 			)
 			VimeoAlbumIE__VALID_URL = λ.StrLiteral("https://vimeo\\.com/(?:album|showcase)/(?P<id>\\d+)(?:$|[?#]|/(?!video))")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": VimeoAlbumIE__VALID_URL,
 			})
 		}())
@@ -1338,7 +1342,7 @@ func init() {
 				VimeoGroupsIE__VALID_URL λ.Object
 			)
 			VimeoGroupsIE__VALID_URL = λ.StrLiteral("https://vimeo\\.com/groups/(?P<id>[^/]+)(?:/(?!videos?/\\d+)|$)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": VimeoGroupsIE__VALID_URL,
 			})
 		}())
@@ -1397,7 +1401,7 @@ func init() {
 					λ.SetItem(ϒinfo_dict, λ.StrLiteral("description"), λ.Cal(ϒclean_html, λ.Calm(ϒclip_data, "get", λ.StrLiteral("description"))))
 					return ϒinfo_dict
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":          VimeoReviewIE_IE_NAME,
 				"_VALID_URL":       VimeoReviewIE__VALID_URL,
 				"_real_extract":    VimeoReviewIE__real_extract,
@@ -1409,7 +1413,7 @@ func init() {
 				VimeoWatchLaterIE__VALID_URL λ.Object
 			)
 			VimeoWatchLaterIE__VALID_URL = λ.StrLiteral("https://vimeo\\.com/(?:home/)?watchlater|:vimeowatchlater")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": VimeoWatchLaterIE__VALID_URL,
 			})
 		}())
@@ -1418,7 +1422,7 @@ func init() {
 				VimeoLikesIE__VALID_URL λ.Object
 			)
 			VimeoLikesIE__VALID_URL = λ.StrLiteral("https://(?:www\\.)?vimeo\\.com/(?P<id>[^/]+)/likes/?(?:$|[?#]|sort:)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": VimeoLikesIE__VALID_URL,
 			})
 		}())
@@ -1427,7 +1431,7 @@ func init() {
 				VHXEmbedIE__VALID_URL λ.Object
 			)
 			VHXEmbedIE__VALID_URL = λ.StrLiteral("https?://embed\\.vhx\\.tv/videos/(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": VHXEmbedIE__VALID_URL,
 			})
 		}())

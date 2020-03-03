@@ -46,7 +46,7 @@ func init() {
 				LiveLeakIE__VALID_URL λ.Object
 			)
 			LiveLeakIE__VALID_URL = λ.StrLiteral("https?://(?:\\w+\\.)?liveleak\\.com/view\\?.*?\\b[it]=(?P<id>[\\w_]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": LiveLeakIE__VALID_URL,
 			})
 		}())
@@ -55,7 +55,7 @@ func init() {
 				LiveLeakEmbedIE__VALID_URL λ.Object
 			)
 			LiveLeakEmbedIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?liveleak\\.com/ll_embed\\?.*?\\b(?P<kind>[ift])=(?P<id>[\\w_]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": LiveLeakEmbedIE__VALID_URL,
 			})
 		}())

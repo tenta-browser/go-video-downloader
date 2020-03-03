@@ -187,7 +187,7 @@ func init() {
 					}
 					return ϒpayload
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_NETRC_MACHINE":    VKBaseIE__NETRC_MACHINE,
 				"_download_payload": VKBaseIE__download_payload,
 				"_login":            VKBaseIE__login,
@@ -494,7 +494,7 @@ func init() {
 						"is_live":       ϒis_live,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       VKIE_IE_NAME,
 				"_VALID_URL":    VKIE__VALID_URL,
 				"_real_extract": VKIE__real_extract,
@@ -505,7 +505,7 @@ func init() {
 				VKUserVideosIE__VALID_URL λ.Object
 			)
 			VKUserVideosIE__VALID_URL = λ.StrLiteral("https?://(?:(?:m|new)\\.)?vk\\.com/videos(?P<id>-?[0-9]+)(?!\\?.*\\bz=video)(?:[/?#&](?:.*?\\bsection=(?P<section>\\w+))?|$)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": VKUserVideosIE__VALID_URL,
 			})
 		}())
@@ -514,7 +514,7 @@ func init() {
 				VKWallPostIE__VALID_URL λ.Object
 			)
 			VKWallPostIE__VALID_URL = λ.StrLiteral("https?://(?:(?:(?:(?:m|new)\\.)?vk\\.com/(?:[^?]+\\?.*\\bw=)?wall(?P<id>-?\\d+_\\d+)))")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": VKWallPostIE__VALID_URL,
 			})
 		}())

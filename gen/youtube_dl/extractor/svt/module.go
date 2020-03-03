@@ -60,27 +60,27 @@ func init() {
 		ϒtry_get = Ωutils.ϒtry_get
 		SVTBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("SVTBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		SVTIE = λ.Cal(λ.TypeType, λ.StrLiteral("SVTIE"), λ.NewTuple(SVTBaseIE), func() λ.Dict {
 			var (
 				SVTIE__VALID_URL λ.Object
 			)
 			SVTIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?svt\\.se/wd\\?(?:.*?&)?widgetId=(?P<widget_id>\\d+)&.*?\\barticleId=(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SVTIE__VALID_URL,
 			})
 		}())
 		SVTPlayBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("SVTPlayBaseIE"), λ.NewTuple(SVTBaseIE), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		SVTPlayIE = λ.Cal(λ.TypeType, λ.StrLiteral("SVTPlayIE"), λ.NewTuple(SVTPlayBaseIE), func() λ.Dict {
 			var (
 				SVTPlayIE__VALID_URL λ.Object
 			)
 			SVTPlayIE__VALID_URL = λ.StrLiteral("(?x)\n                    (?:\n                        svt:(?P<svt_id>[^/?#&]+)|\n                        https?://(?:www\\.)?(?:svtplay|oppetarkiv)\\.se/(?:video|klipp|kanaler)/(?P<id>[^/?#&]+)\n                    )\n                    ")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SVTPlayIE__VALID_URL,
 			})
 		}())
@@ -116,7 +116,7 @@ func init() {
 					}()
 				})
 			SVTSeriesIE_suitable = λ.Cal(λ.ClassMethodType, SVTSeriesIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SVTSeriesIE__VALID_URL,
 				"suitable":   SVTSeriesIE_suitable,
 			})
@@ -147,7 +147,7 @@ func init() {
 					}()
 				})
 			SVTPageIE_suitable = λ.Cal(λ.ClassMethodType, SVTPageIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SVTPageIE__VALID_URL,
 				"suitable":   SVTPageIE_suitable,
 			})

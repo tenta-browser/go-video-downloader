@@ -277,7 +277,7 @@ func init() {
 					}
 					return ϒobj
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_FAMILY_FILTER":           DailymotionBaseInfoExtractor__FAMILY_FILTER,
 				"_HEADERS":                 DailymotionBaseInfoExtractor__HEADERS,
 				"_NETRC_MACHINE":           DailymotionBaseInfoExtractor__NETRC_MACHINE,
@@ -674,7 +674,7 @@ func init() {
 						"is_live":    ϒis_live,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":              DailymotionIE_IE_NAME,
 				"_COMMON_MEDIA_FIELDS": DailymotionIE__COMMON_MEDIA_FIELDS,
 				"_GEO_BYPASS":          DailymotionIE__GEO_BYPASS,
@@ -685,14 +685,14 @@ func init() {
 		}())
 		DailymotionPlaylistBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("DailymotionPlaylistBaseIE"), λ.NewTuple(DailymotionBaseInfoExtractor), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		DailymotionPlaylistIE = λ.Cal(λ.TypeType, λ.StrLiteral("DailymotionPlaylistIE"), λ.NewTuple(DailymotionPlaylistBaseIE), func() λ.Dict {
 			var (
 				DailymotionPlaylistIE__VALID_URL λ.Object
 			)
 			DailymotionPlaylistIE__VALID_URL = λ.StrLiteral("(?:https?://)?(?:www\\.)?dailymotion\\.[a-z]{2,3}/playlist/(?P<id>x[0-9a-z]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": DailymotionPlaylistIE__VALID_URL,
 			})
 		}())
@@ -701,7 +701,7 @@ func init() {
 				DailymotionUserIE__VALID_URL λ.Object
 			)
 			DailymotionUserIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?dailymotion\\.[a-z]{2,3}/(?!(?:embed|swf|#|video|playlist)/)(?:(?:old/)?user/)?(?P<id>[^/]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": DailymotionUserIE__VALID_URL,
 			})
 		}())

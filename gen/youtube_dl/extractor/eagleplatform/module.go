@@ -285,7 +285,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":     EaglePlatformIE__VALID_URL,
 				"_download_json": EaglePlatformIE__download_json,
 				"_get_video_url": EaglePlatformIE__get_video_url,

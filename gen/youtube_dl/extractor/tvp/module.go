@@ -108,7 +108,7 @@ func init() {
 						"ie_key": λ.StrLiteral("TVPEmbed"),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       TVPIE_IE_NAME,
 				"_VALID_URL":    TVPIE__VALID_URL,
 				"_real_extract": TVPIE__real_extract,
@@ -300,7 +300,7 @@ func init() {
 						"formats":   ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       TVPEmbedIE_IE_NAME,
 				"_VALID_URL":    TVPEmbedIE__VALID_URL,
 				"_real_extract": TVPEmbedIE__real_extract,
@@ -311,7 +311,7 @@ func init() {
 				TVPWebsiteIE__VALID_URL λ.Object
 			)
 			TVPWebsiteIE__VALID_URL = λ.StrLiteral("https?://vod\\.tvp\\.pl/website/(?P<display_id>[^,]+),(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TVPWebsiteIE__VALID_URL,
 			})
 		}())

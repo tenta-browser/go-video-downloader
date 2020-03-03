@@ -47,7 +47,7 @@ func init() {
 		BrowserWrapper = Ωbrowser.BrowserWrapper
 		PhantomJSwrapper = λ.Cal(λ.TypeType, λ.StrLiteral("PhantomJSwrapper"), λ.NewTuple(BrowserWrapper), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 	})
 }

@@ -64,7 +64,7 @@ func init() {
 					ϒbrightcove_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					return λ.Calm(ϒself, "url_result", λ.Mod(λ.GetAttr(ϒself, "BRIGHTCOVE_URL_TEMPLATE", nil), ϒbrightcove_id), λ.Calm(BrightcoveNewIE, "ie_key"), ϒbrightcove_id)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"BRIGHTCOVE_URL_TEMPLATE": TVANouvellesIE_BRIGHTCOVE_URL_TEMPLATE,
 				"_VALID_URL":              TVANouvellesIE__VALID_URL,
 				"_real_extract":           TVANouvellesIE__real_extract,
@@ -96,7 +96,7 @@ func init() {
 					}()
 				})
 			TVANouvellesArticleIE_suitable = λ.Cal(λ.ClassMethodType, TVANouvellesArticleIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TVANouvellesArticleIE__VALID_URL,
 				"suitable":   TVANouvellesArticleIE_suitable,
 			})

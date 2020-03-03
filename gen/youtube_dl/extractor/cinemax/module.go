@@ -66,7 +66,7 @@ func init() {
 					λ.SetItem(ϒinfo, λ.StrLiteral("id"), ϒvideo_id)
 					return ϒinfo
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    CinemaxIE__VALID_URL,
 				"_real_extract": CinemaxIE__real_extract,
 			})

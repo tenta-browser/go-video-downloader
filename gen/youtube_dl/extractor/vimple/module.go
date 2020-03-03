@@ -112,7 +112,7 @@ func init() {
 						"formats":   ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_extract_spruto": SprutoBaseIE__extract_spruto,
 			})
 		}())
@@ -141,7 +141,7 @@ func init() {
 					ϒspruto = λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("sprutoData\\s*:\\s*({.+?}),\\r\\n"), ϒwebpage, λ.StrLiteral("spruto data")), ϒvideo_id)
 					return λ.Calm(ϒself, "_extract_spruto", ϒspruto, ϒvideo_id)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    VimpleIE__VALID_URL,
 				"_real_extract": VimpleIE__real_extract,
 			})

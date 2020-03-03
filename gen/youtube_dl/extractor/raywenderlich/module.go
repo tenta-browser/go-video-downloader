@@ -279,7 +279,7 @@ func init() {
 						{Name: "video_id", Value: ϒvimeo_id},
 					}))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":        RayWenderlichIE__VALID_URL,
 				"_extract_video_id": RayWenderlichIE__extract_video_id,
 				"_real_extract":     RayWenderlichIE__real_extract,
@@ -311,7 +311,7 @@ func init() {
 					}()
 				})
 			RayWenderlichCourseIE_suitable = λ.Cal(λ.ClassMethodType, RayWenderlichCourseIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": RayWenderlichCourseIE__VALID_URL,
 				"suitable":   RayWenderlichCourseIE_suitable,
 			})

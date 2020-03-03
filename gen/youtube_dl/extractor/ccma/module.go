@@ -188,7 +188,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    CCMAIE__VALID_URL,
 				"_real_extract": CCMAIE__real_extract,
 			})

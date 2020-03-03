@@ -125,7 +125,7 @@ func init() {
 						"thumbnail":   ϒthumbnail,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    Varzesh3IE__VALID_URL,
 				"_real_extract": Varzesh3IE__real_extract,
 			})

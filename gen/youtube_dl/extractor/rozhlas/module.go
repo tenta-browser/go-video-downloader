@@ -103,7 +103,7 @@ func init() {
 						"vcodec":      λ.StrLiteral("none"),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    RozhlasIE__VALID_URL,
 				"_real_extract": RozhlasIE__real_extract,
 			})

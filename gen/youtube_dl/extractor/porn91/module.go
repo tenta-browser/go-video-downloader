@@ -107,7 +107,7 @@ func init() {
 					}))
 					return ϒinfo_dict
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       Porn91IE_IE_NAME,
 				"_VALID_URL":    Porn91IE__VALID_URL,
 				"_real_extract": Porn91IE__real_extract,

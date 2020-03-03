@@ -74,7 +74,7 @@ func init() {
 						{Name: "", Value: λ.Cal(ϒcompat_kwargs, ϒkwargs)},
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_download_webpage_handle": AdobePassIE__download_webpage_handle,
 			})
 		}())

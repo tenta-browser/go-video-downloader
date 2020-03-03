@@ -125,7 +125,7 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    BleacherReportIE__VALID_URL,
 				"_real_extract": BleacherReportIE__real_extract,
 			})
@@ -154,7 +154,7 @@ func init() {
 					λ.SetItem(ϒinfo, λ.StrLiteral("id"), ϒvideo_id)
 					return ϒinfo
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    BleacherReportCMSIE__VALID_URL,
 				"_real_extract": BleacherReportCMSIE__real_extract,
 			})

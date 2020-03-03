@@ -57,7 +57,7 @@ func init() {
 				NovaEmbedIE__VALID_URL λ.Object
 			)
 			NovaEmbedIE__VALID_URL = λ.StrLiteral("https?://media\\.cms\\.nova\\.cz/embed/(?P<id>[^/?#&]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": NovaEmbedIE__VALID_URL,
 			})
 		}())
@@ -266,7 +266,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    NovaIE__VALID_URL,
 				"_real_extract": NovaIE__real_extract,
 			})

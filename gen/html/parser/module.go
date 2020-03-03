@@ -85,7 +85,7 @@ func init() {
 					// pass
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__": HTMLParser___init__,
 				"close":    HTMLParser_close,
 				"feed":     HTMLParser_feed,

@@ -147,7 +147,7 @@ func init() {
 						"description": ϒdescription,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":      AsianCrushIE__VALID_URL,
 				"_VALID_URL_BASE": AsianCrushIE__VALID_URL_BASE,
 				"_real_extract":   AsianCrushIE__real_extract,
@@ -158,7 +158,7 @@ func init() {
 				AsianCrushPlaylistIE__VALID_URL λ.Object
 			)
 			AsianCrushPlaylistIE__VALID_URL = λ.Mod(λ.StrLiteral("%s/series/0+(?P<id>\\d+)s\\b"), λ.GetAttr(AsianCrushIE, "_VALID_URL_BASE", nil))
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": AsianCrushPlaylistIE__VALID_URL,
 			})
 		}())

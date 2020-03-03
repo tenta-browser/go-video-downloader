@@ -92,7 +92,7 @@ func init() {
 					ϒformats = λ.NewList()
 					ϒencodings = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 						λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.StrLiteral("encodings\\s*=\\s*(\\[.+?\\]);\\n"),
+							λ.StrLiteral("[Ee]ncodings\\s*=\\s*(\\[.+?\\]);\\n"),
 							ϒwebpage,
 							λ.StrLiteral("encodings"),
 						), λ.KWArgs{
@@ -178,7 +178,7 @@ func init() {
 					}))
 					return ϒinfo_dict
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    YouJizzIE__VALID_URL,
 				"_real_extract": YouJizzIE__real_extract,
 			})

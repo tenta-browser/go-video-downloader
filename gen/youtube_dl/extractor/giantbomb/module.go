@@ -157,7 +157,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    GiantBombIE__VALID_URL,
 				"_real_extract": GiantBombIE__real_extract,
 			})

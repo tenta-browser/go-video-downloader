@@ -62,7 +62,7 @@ func init() {
 				FOXIE__VALID_URL λ.Object
 			)
 			FOXIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?fox\\.com/watch/(?P<id>[\\da-fA-F]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": FOXIE__VALID_URL,
 			})
 		}())

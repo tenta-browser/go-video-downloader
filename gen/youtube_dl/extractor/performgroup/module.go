@@ -181,7 +181,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    PerformGroupIE__VALID_URL,
 				"_call_api":     PerformGroupIE__call_api,
 				"_real_extract": PerformGroupIE__real_extract,

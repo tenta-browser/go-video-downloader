@@ -112,7 +112,7 @@ func init() {
 						"uploader":    ϒuploader,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       ChirbitIE_IE_NAME,
 				"_VALID_URL":    ChirbitIE__VALID_URL,
 				"_real_extract": ChirbitIE__real_extract,
@@ -123,7 +123,7 @@ func init() {
 				ChirbitProfileIE__VALID_URL λ.Object
 			)
 			ChirbitProfileIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?chirbit\\.com/(?:rss/)?(?P<id>[^/]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": ChirbitProfileIE__VALID_URL,
 			})
 		}())

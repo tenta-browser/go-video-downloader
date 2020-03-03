@@ -187,7 +187,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    LibsynIE__VALID_URL,
 				"_real_extract": LibsynIE__real_extract,
 			})

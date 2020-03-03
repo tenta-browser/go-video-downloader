@@ -68,7 +68,7 @@ func init() {
 					ϒmcp_id = λ.Cal(ϒcompat_str, λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("window\\.mcpMapping\\s*=\\s*({.+?});"), ϒwebpage, λ.StrLiteral("MCP Mapping")), ϒvideo_id, ϒjs_to_json), ϒvideo_id), λ.StrLiteral("mcp_id")))
 					return λ.Calm(ϒself, "url_result", λ.Add(λ.StrLiteral("http://kinja.com/ajax/inset/iframe?id=mcp-"), ϒmcp_id), λ.StrLiteral("KinjaEmbed"), ϒmcp_id)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    OnionStudiosIE__VALID_URL,
 				"_real_extract": OnionStudiosIE__real_extract,
 			})

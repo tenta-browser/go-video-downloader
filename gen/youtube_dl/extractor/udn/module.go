@@ -176,7 +176,7 @@ func init() {
 						"thumbnail": ϒposter,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_PROTOCOL_RELATIVE_VALID_URL": UDNEmbedIE__PROTOCOL_RELATIVE_VALID_URL,
 				"_VALID_URL":                   UDNEmbedIE__VALID_URL,
 				"_real_extract":                UDNEmbedIE__real_extract,

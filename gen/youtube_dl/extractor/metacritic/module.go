@@ -135,7 +135,7 @@ func init() {
 						"duration":    λ.Cal(λ.IntType, λ.GetAttr(λ.Calm(ϒclip, "find", λ.StrLiteral("duration")), "text", nil)),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    MetacriticIE__VALID_URL,
 				"_real_extract": MetacriticIE__real_extract,
 			})

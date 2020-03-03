@@ -68,14 +68,14 @@ func init() {
 		DailymotionIE = Ωdailymotion.DailymotionIE
 		FranceTVBaseInfoExtractor = λ.Cal(λ.TypeType, λ.StrLiteral("FranceTVBaseInfoExtractor"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		FranceTVIE = λ.Cal(λ.TypeType, λ.StrLiteral("FranceTVIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				FranceTVIE__VALID_URL λ.Object
 			)
 			FranceTVIE__VALID_URL = λ.StrLiteral("(?x)\n                    (?:\n                        https?://\n                            sivideo\\.webservices\\.francetelevisions\\.fr/tools/getInfosOeuvre/v2/\\?\n                            .*?\\bidDiffusion=[^&]+|\n                        (?:\n                            https?://videos\\.francetv\\.fr/video/|\n                            francetv:\n                        )\n                        (?P<id>[^@]+)(?:@(?P<catalog>.+))?\n                    )\n                    ")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": FranceTVIE__VALID_URL,
 			})
 		}())
@@ -84,7 +84,7 @@ func init() {
 				FranceTVSiteIE__VALID_URL λ.Object
 			)
 			FranceTVSiteIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www\\.)?france\\.tv|mobile\\.france\\.tv)/(?:[^/]+/)*(?P<id>[^/]+)\\.html")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": FranceTVSiteIE__VALID_URL,
 			})
 		}())
@@ -93,7 +93,7 @@ func init() {
 				FranceTVEmbedIE__VALID_URL λ.Object
 			)
 			FranceTVEmbedIE__VALID_URL = λ.StrLiteral("https?://embed\\.francetv\\.fr/*\\?.*?\\bue=(?P<id>[^&]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": FranceTVEmbedIE__VALID_URL,
 			})
 		}())
@@ -102,7 +102,7 @@ func init() {
 				FranceTVInfoIE__VALID_URL λ.Object
 			)
 			FranceTVInfoIE__VALID_URL = λ.StrLiteral("https?://(?:www|mobile|france3-regions)\\.francetvinfo\\.fr/(?:[^/]+/)*(?P<id>[^/?#&.]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": FranceTVInfoIE__VALID_URL,
 			})
 		}())
@@ -111,7 +111,7 @@ func init() {
 				FranceTVInfoSportIE__VALID_URL λ.Object
 			)
 			FranceTVInfoSportIE__VALID_URL = λ.StrLiteral("https?://sport\\.francetvinfo\\.fr/(?:[^/]+/)*(?P<id>[^/?#&]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": FranceTVInfoSportIE__VALID_URL,
 			})
 		}())
@@ -145,7 +145,7 @@ func init() {
 						{Name: "video_id", Value: ϒyoutube_id},
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       GenerationWhatIE_IE_NAME,
 				"_VALID_URL":    GenerationWhatIE__VALID_URL,
 				"_real_extract": GenerationWhatIE__real_extract,
@@ -156,7 +156,7 @@ func init() {
 				CultureboxIE__VALID_URL λ.Object
 			)
 			CultureboxIE__VALID_URL = λ.StrLiteral("https?://(?:m\\.)?culturebox\\.francetvinfo\\.fr/(?:[^/]+/)*(?P<id>[^/?#&]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": CultureboxIE__VALID_URL,
 			})
 		}())
@@ -165,7 +165,7 @@ func init() {
 				FranceTVJeunesseIE__VALID_URL λ.Object
 			)
 			FranceTVJeunesseIE__VALID_URL = λ.StrLiteral("(?P<url>https?://(?:www\\.)?(?:zouzous|ludo)\\.fr/heros/(?P<id>[^/?#&]+))")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": FranceTVJeunesseIE__VALID_URL,
 			})
 		}())

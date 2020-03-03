@@ -164,7 +164,7 @@ func init() {
 						"categories": λ.Calm(ϒinfo, "get", λ.StrLiteral("keywords")),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    WSJIE__VALID_URL,
 				"_real_extract": WSJIE__real_extract,
 			})
@@ -194,7 +194,7 @@ func init() {
 					ϒvideo_id = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("data-src=[\"\\']([a-fA-F0-9-]{36})"), ϒwebpage, λ.StrLiteral("video id"))
 					return λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("wsj:%s"), ϒvideo_id), λ.Calm(WSJIE, "ie_key"), ϒvideo_id)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    WSJArticleIE__VALID_URL,
 				"_real_extract": WSJArticleIE__real_extract,
 			})

@@ -309,7 +309,7 @@ func init() {
 						"age_limit":   ϒage_limit,
 					}), ϒinfo)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    SpankBangIE__VALID_URL,
 				"_real_extract": SpankBangIE__real_extract,
 			})
@@ -319,7 +319,7 @@ func init() {
 				SpankBangPlaylistIE__VALID_URL λ.Object
 			)
 			SpankBangPlaylistIE__VALID_URL = λ.StrLiteral("https?://(?:[^/]+\\.)?spankbang\\.com/(?P<id>[\\da-z]+)/playlist/[^/]+")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SpankBangPlaylistIE__VALID_URL,
 			})
 		}())

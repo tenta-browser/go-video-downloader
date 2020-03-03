@@ -51,7 +51,7 @@ func init() {
 				SportBoxIE__VALID_URL λ.Object
 			)
 			SportBoxIE__VALID_URL = λ.StrLiteral("https?://(?:news\\.sportbox|matchtv)\\.ru/vdl/player(?:/[^/]+/|\\?.*?\\bn?id=)(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SportBoxIE__VALID_URL,
 			})
 		}())

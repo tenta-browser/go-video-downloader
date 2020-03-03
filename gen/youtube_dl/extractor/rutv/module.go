@@ -254,7 +254,7 @@ func init() {
 						"is_live":     ϒis_live,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    RUTVIE__VALID_URL,
 				"_extract_url":  RUTVIE__extract_url,
 				"_real_extract": RUTVIE__real_extract,

@@ -250,7 +250,7 @@ func init() {
 						"tags":          λ.Calm(ϒclip, "get", λ.StrLiteral("tagList")),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_API_BASE_TMPL": KakaoIE__API_BASE_TMPL,
 				"_VALID_URL":     KakaoIE__VALID_URL,
 				"_real_extract":  KakaoIE__real_extract,

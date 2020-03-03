@@ -177,7 +177,7 @@ func init() {
 						"uploader_url": ϒuploader_url,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    AudioBoomIE__VALID_URL,
 				"_real_extract": AudioBoomIE__real_extract,
 			})

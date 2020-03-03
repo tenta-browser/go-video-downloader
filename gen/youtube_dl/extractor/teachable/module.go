@@ -26,7 +26,6 @@ package teachable
 
 import (
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
-	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωwistia "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/wistia"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
@@ -39,7 +38,6 @@ var (
 	TeachableBaseIE       λ.Object
 	WistiaIE              λ.Object
 	ϒclean_html           λ.Object
-	ϒcompat_str           λ.Object
 	ϒget_element_by_class λ.Object
 	ϒurlencode_postdata   λ.Object
 	ϒurljoin              λ.Object
@@ -49,7 +47,6 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		WistiaIE = Ωwistia.WistiaIE
-		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒclean_html = Ωutils.ϒclean_html
 		ExtractorError = Ωutils.ExtractorError
 		ϒget_element_by_class = Ωutils.ϒget_element_by_class
@@ -96,7 +93,7 @@ func init() {
 						})
 					}))),
 			)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_SITES":               TeachableBaseIE__SITES,
 				"_URL_PREFIX":          TeachableBaseIE__URL_PREFIX,
 				"_VALID_URL_SUB_TUPLE": TeachableBaseIE__VALID_URL_SUB_TUPLE,

@@ -108,7 +108,7 @@ func init() {
 					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					return ϒformats
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_extract_bokecc_formats": BokeCCBaseIE__extract_bokecc_formats,
 			})
 		}())
@@ -155,7 +155,7 @@ func init() {
 						"formats": λ.Calm(ϒself, "_extract_bokecc_formats", ϒwebpage, ϒvideo_id),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    BokeCCIE__VALID_URL,
 				"_real_extract": BokeCCIE__real_extract,
 			})

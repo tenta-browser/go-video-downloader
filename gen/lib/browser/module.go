@@ -127,7 +127,7 @@ func init() {
 						λ.None,
 					)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__": BrowserWrapper___init__,
 				"get":      BrowserWrapper_get,
 			})

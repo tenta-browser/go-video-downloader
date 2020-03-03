@@ -351,7 +351,7 @@ func init() {
 					ϒinfo = λ.Calm(ϒself, "_download_theplatform_metadata", ϒpath, ϒvideo_id)
 					return λ.Calm(ϒself, "_parse_theplatform_metadata", ϒinfo)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_TP_TLD":                        ThePlatformBaseIE__TP_TLD,
 				"_download_theplatform_metadata": ThePlatformBaseIE__download_theplatform_metadata,
 				"_extract_theplatform_metadata":  ThePlatformBaseIE__extract_theplatform_metadata,
@@ -515,238 +515,18 @@ func init() {
 					}))
 					return ϒret
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    ThePlatformIE__VALID_URL,
 				"_real_extract": ThePlatformIE__real_extract,
 			})
 		}())
 		ThePlatformFeedIE = λ.Cal(λ.TypeType, λ.StrLiteral("ThePlatformFeedIE"), λ.NewTuple(ThePlatformBaseIE), func() λ.Dict {
 			var (
-				ThePlatformFeedIE__URL_TEMPLATE      λ.Object
-				ThePlatformFeedIE__VALID_URL         λ.Object
-				ThePlatformFeedIE__extract_feed_info λ.Object
-				ThePlatformFeedIE__real_extract      λ.Object
+				ThePlatformFeedIE__VALID_URL λ.Object
 			)
-			ThePlatformFeedIE__URL_TEMPLATE = λ.StrLiteral("%s//feed.theplatform.com/f/%s/%s?form=json&%s")
 			ThePlatformFeedIE__VALID_URL = λ.StrLiteral("https?://feed\\.theplatform\\.com/f/(?P<provider_id>[^/]+)/(?P<feed_id>[^?/]+)\\?(?:[^&]+&)*(?P<filter>by(?:Gui|I)d=(?P<id>[^&]+))")
-			ThePlatformFeedIE__extract_feed_info = λ.NewFunction("_extract_feed_info",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "provider_id"},
-					{Name: "feed_id"},
-					{Name: "filter_query"},
-					{Name: "video_id"},
-					{Name: "custom_fields", Def: λ.None},
-					{Name: "asset_types_query", Def: λ.DictLiteral(map[λ.Object]λ.Object{})},
-					{Name: "account_id", Def: λ.None},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒaccount_id        = λargs[7]
-						ϒasset_type        λ.Object
-						ϒasset_types       λ.Object
-						ϒasset_types_query = λargs[6]
-						ϒcategories        λ.Object
-						ϒcur_formats       λ.Object
-						ϒcur_subtitles     λ.Object
-						ϒcur_video_id      λ.Object
-						ϒcustom_fields     = λargs[5]
-						ϒduration          λ.Object
-						ϒentry             λ.Object
-						ϒfeed_id           = λargs[2]
-						ϒfile_asset_types  λ.Object
-						ϒfilter_query      = λargs[3]
-						ϒfirst_video_id    λ.Object
-						ϒformats           λ.Object
-						ϒitem              λ.Object
-						ϒmain_smil_url     λ.Object
-						ϒprovider_id       = λargs[1]
-						ϒquery             λ.Object
-						ϒreal_url          λ.Object
-						ϒret               λ.Object
-						ϒself              = λargs[0]
-						ϒsmil_url          λ.Object
-						ϒsubtitles         λ.Object
-						ϒthumbnails        λ.Object
-						ϒtimestamp         λ.Object
-						ϒvideo_id          = λargs[4]
-						τmp0               λ.Object
-						τmp1               λ.Object
-						τmp2               λ.Object
-						τmp3               λ.Object
-						τmp4               λ.Object
-					)
-					ϒreal_url = λ.Mod(λ.GetAttr(ϒself, "_URL_TEMPLATE", nil), λ.NewTuple(
-						λ.Calm(ϒself, "http_scheme"),
-						ϒprovider_id,
-						ϒfeed_id,
-						ϒfilter_query,
-					))
-					ϒentry = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_download_json", ϒreal_url, ϒvideo_id), λ.StrLiteral("entries")), λ.IntLiteral(0))
-					ϒmain_smil_url = func() λ.Object {
-						if λ.IsTrue(ϒaccount_id) {
-							return λ.Mod(λ.StrLiteral("http://link.theplatform.com/s/%s/media/guid/%d/%s"), λ.NewTuple(
-								ϒprovider_id,
-								ϒaccount_id,
-								λ.GetItem(ϒentry, λ.StrLiteral("guid")),
-							))
-						} else {
-							return λ.Calm(ϒentry, "get", λ.StrLiteral("plmedia$publicUrl"))
-						}
-					}()
-					ϒformats = λ.NewList()
-					ϒsubtitles = λ.DictLiteral(map[λ.Object]λ.Object{})
-					ϒfirst_video_id = λ.None
-					ϒduration = λ.None
-					ϒasset_types = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒentry, λ.StrLiteral("media$content")))
-					for {
-						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-							break
-						}
-						ϒitem = τmp1
-						ϒsmil_url = λ.GetItem(ϒitem, λ.StrLiteral("plfile$url"))
-						ϒcur_video_id = λ.Calm(ThePlatformIE, "_match_id", ϒsmil_url)
-						if ϒfirst_video_id == λ.None {
-							ϒfirst_video_id = ϒcur_video_id
-							ϒduration = λ.Cal(ϒfloat_or_none, λ.Calm(ϒitem, "get", λ.StrLiteral("plfile$duration")))
-						}
-						ϒfile_asset_types = func() λ.Object {
-							if λv := λ.Calm(ϒitem, "get", λ.StrLiteral("plfile$assetTypes")); λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.GetItem(λ.Cal(ϒcompat_parse_qs, λ.GetAttr(λ.Cal(ϒcompat_urllib_parse_urlparse, ϒsmil_url), "query", nil)), λ.StrLiteral("assetTypes"))
-							}
-						}()
-						τmp2 = λ.Cal(λ.BuiltinIter, ϒfile_asset_types)
-						for {
-							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
-								break
-							}
-							ϒasset_type = τmp3
-							if λ.Contains(ϒasset_types, ϒasset_type) {
-								continue
-							}
-							λ.Calm(ϒasset_types, "append", ϒasset_type)
-							ϒquery = λ.DictLiteral(map[string]λ.Object{
-								"mbr":        λ.StrLiteral("true"),
-								"formats":    λ.GetItem(ϒitem, λ.StrLiteral("plfile$format")),
-								"assetTypes": ϒasset_type,
-							})
-							if λ.Contains(ϒasset_types_query, ϒasset_type) {
-								λ.Calm(ϒquery, "update", λ.GetItem(ϒasset_types_query, ϒasset_type))
-							}
-							τmp4 = λ.Calm(ϒself, "_extract_theplatform_smil", λ.Cal(ϒupdate_url_query, func() λ.Object {
-								if λv := ϒmain_smil_url; λ.IsTrue(λv) {
-									return λv
-								} else {
-									return ϒsmil_url
-								}
-							}(), ϒquery), ϒvideo_id, λ.Mod(λ.StrLiteral("Downloading SMIL data for %s"), ϒasset_type))
-							ϒcur_formats = λ.GetItem(τmp4, λ.IntLiteral(0))
-							ϒcur_subtitles = λ.GetItem(τmp4, λ.IntLiteral(1))
-							λ.Calm(ϒformats, "extend", ϒcur_formats)
-							ϒsubtitles = λ.Calm(ϒself, "_merge_subtitles", ϒsubtitles, ϒcur_subtitles)
-						}
-					}
-					λ.Calm(ϒself, "_sort_formats", ϒformats)
-					ϒthumbnails = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
-						nil,
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
-								var (
-									ϒthumbnail λ.Object
-									τmp0       λ.Object
-									τmp1       λ.Object
-								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒentry, "get", λ.StrLiteral("media$thumbnails"), λ.NewList()))
-								for {
-									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-										break
-									}
-									ϒthumbnail = τmp1
-									λgy.Yield(λ.DictLiteral(map[string]λ.Object{
-										"url":    λ.GetItem(ϒthumbnail, λ.StrLiteral("plfile$url")),
-										"width":  λ.Cal(ϒint_or_none, λ.Calm(ϒthumbnail, "get", λ.StrLiteral("plfile$width"))),
-										"height": λ.Cal(ϒint_or_none, λ.Calm(ϒthumbnail, "get", λ.StrLiteral("plfile$height"))),
-									}))
-								}
-								return λ.None
-							})
-						})))
-					ϒtimestamp = λ.Call(ϒint_or_none, λ.NewArgs(λ.Calm(ϒentry, "get", λ.StrLiteral("media$availableDate"))), λ.KWArgs{
-						{Name: "scale", Value: λ.IntLiteral(1000)},
-					})
-					ϒcategories = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
-						nil,
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
-								var (
-									ϒitem λ.Object
-									τmp0  λ.Object
-									τmp1  λ.Object
-								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒentry, "get", λ.StrLiteral("media$categories"), λ.NewList()))
-								for {
-									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-										break
-									}
-									ϒitem = τmp1
-									λgy.Yield(λ.GetItem(ϒitem, λ.StrLiteral("media$name")))
-								}
-								return λ.None
-							})
-						})))
-					ϒret = λ.Calm(ϒself, "_extract_theplatform_metadata", λ.Mod(λ.StrLiteral("%s/%s"), λ.NewTuple(
-						ϒprovider_id,
-						ϒfirst_video_id,
-					)), ϒvideo_id)
-					ϒsubtitles = λ.Calm(ϒself, "_merge_subtitles", ϒsubtitles, λ.GetItem(ϒret, λ.StrLiteral("subtitles")))
-					λ.Calm(ϒret, "update", λ.DictLiteral(map[string]λ.Object{
-						"id":         ϒvideo_id,
-						"formats":    ϒformats,
-						"subtitles":  ϒsubtitles,
-						"thumbnails": ϒthumbnails,
-						"duration":   ϒduration,
-						"timestamp":  ϒtimestamp,
-						"categories": ϒcategories,
-					}))
-					if λ.IsTrue(ϒcustom_fields) {
-						λ.Calm(ϒret, "update", λ.Cal(ϒcustom_fields, ϒentry))
-					}
-					return ϒret
-				})
-			ThePlatformFeedIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒfeed_id      λ.Object
-						ϒfilter_query λ.Object
-						ϒmobj         λ.Object
-						ϒprovider_id  λ.Object
-						ϒself         = λargs[0]
-						ϒurl          = λargs[1]
-						ϒvideo_id     λ.Object
-					)
-					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
-					ϒprovider_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("provider_id"))
-					ϒfeed_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("feed_id"))
-					ϒfilter_query = λ.Calm(ϒmobj, "group", λ.StrLiteral("filter"))
-					return λ.Calm(ϒself, "_extract_feed_info", ϒprovider_id, ϒfeed_id, ϒfilter_query, ϒvideo_id)
-				})
-			return λ.DictLiteral(map[string]λ.Object{
-				"_URL_TEMPLATE":      ThePlatformFeedIE__URL_TEMPLATE,
-				"_VALID_URL":         ThePlatformFeedIE__VALID_URL,
-				"_extract_feed_info": ThePlatformFeedIE__extract_feed_info,
-				"_real_extract":      ThePlatformFeedIE__real_extract,
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_VALID_URL": ThePlatformFeedIE__VALID_URL,
 			})
 		}())
 	})

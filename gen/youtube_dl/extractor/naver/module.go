@@ -325,7 +325,7 @@ func init() {
 						"uploader_url": λ.Calm(ϒuser, "get", λ.StrLiteral("url")),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_CAPTION_EXT_RE":     NaverBaseIE__CAPTION_EXT_RE,
 				"_extract_video_info": NaverBaseIE__extract_video_info,
 			})
@@ -425,7 +425,7 @@ func init() {
 					}))
 					return ϒinfo
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_GEO_BYPASS":   NaverIE__GEO_BYPASS,
 				"_VALID_URL":    NaverIE__VALID_URL,
 				"_real_extract": NaverIE__real_extract,

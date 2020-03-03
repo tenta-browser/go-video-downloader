@@ -210,7 +210,7 @@ func init() {
 						"formats":   ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    JojIE__VALID_URL,
 				"_real_extract": JojIE__real_extract,
 			})

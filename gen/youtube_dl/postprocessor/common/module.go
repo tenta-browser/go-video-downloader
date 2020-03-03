@@ -39,7 +39,7 @@ func init() {
 		PostProcessingError = Ωutils.PostProcessingError
 		PostProcessor = λ.Cal(λ.TypeType, λ.StrLiteral("PostProcessor"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 	})
 }

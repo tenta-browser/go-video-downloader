@@ -80,7 +80,7 @@ func init() {
 						"id": ϒguid,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       NationalGeographicVideoIE_IE_NAME,
 				"_VALID_URL":    NationalGeographicVideoIE__VALID_URL,
 				"_real_extract": NationalGeographicVideoIE__real_extract,
@@ -91,7 +91,7 @@ func init() {
 				NationalGeographicTVIE__VALID_URL λ.Object
 			)
 			NationalGeographicTVIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?nationalgeographic\\.com/tv/watch/(?P<id>[\\da-fA-F]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": NationalGeographicTVIE__VALID_URL,
 			})
 		}())

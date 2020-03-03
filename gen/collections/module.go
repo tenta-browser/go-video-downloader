@@ -98,7 +98,7 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__getitem__": ϒdefaultdict___getitem__,
 				"__init__":    ϒdefaultdict___init__,
 			})

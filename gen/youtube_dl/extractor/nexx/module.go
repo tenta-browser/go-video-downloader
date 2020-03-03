@@ -731,7 +731,7 @@ func init() {
 						"formats": ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":             NexxIE__VALID_URL,
 				"_extract_azure_formats": NexxIE__extract_azure_formats,
 				"_extract_domain_id":     NexxIE__extract_domain_id,
@@ -766,7 +766,7 @@ func init() {
 						{Name: "ie", Value: λ.Calm(NexxIE, "ie_key")},
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    NexxEmbedIE__VALID_URL,
 				"_real_extract": NexxEmbedIE__real_extract,
 			})

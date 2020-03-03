@@ -556,7 +556,7 @@ func init() {
 						}
 					}(), ϒmetadata)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_API_URL":               LimelightBaseIE__API_URL,
 				"_PLAYLIST_SERVICE_URL":  LimelightBaseIE__PLAYLIST_SERVICE_URL,
 				"_call_api":              LimelightBaseIE__call_api,
@@ -608,7 +608,7 @@ func init() {
 					ϒmetadata = λ.GetItem(τmp0, λ.IntLiteral(2))
 					return λ.Calm(ϒself, "_extract_info_helper", ϒpc, ϒmobile, λ.IntLiteral(0), ϒmetadata)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":                LimelightMediaIE_IE_NAME,
 				"_API_PATH":              LimelightMediaIE__API_PATH,
 				"_PLAYLIST_SERVICE_PATH": LimelightMediaIE__PLAYLIST_SERVICE_PATH,
@@ -621,7 +621,7 @@ func init() {
 				LimelightChannelIE__VALID_URL λ.Object
 			)
 			LimelightChannelIE__VALID_URL = λ.StrLiteral("(?x)\n                        (?:\n                            limelight:channel:|\n                            https?://\n                                (?:\n                                    link\\.videoplatform\\.limelight\\.com/media/|\n                                    assets\\.delvenetworks\\.com/player/loader\\.swf\n                                )\n                                \\?.*?\\bchannelId=\n                        )\n                        (?P<id>[a-z0-9]{32})\n                    ")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": LimelightChannelIE__VALID_URL,
 			})
 		}())
@@ -630,7 +630,7 @@ func init() {
 				LimelightChannelListIE__VALID_URL λ.Object
 			)
 			LimelightChannelListIE__VALID_URL = λ.StrLiteral("(?x)\n                        (?:\n                            limelight:channel_list:|\n                            https?://\n                                (?:\n                                    link\\.videoplatform\\.limelight\\.com/media/|\n                                    assets\\.delvenetworks\\.com/player/loader\\.swf\n                                )\n                                \\?.*?\\bchannelListId=\n                        )\n                        (?P<id>[a-z0-9]{32})\n                    ")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": LimelightChannelListIE__VALID_URL,
 			})
 		}())

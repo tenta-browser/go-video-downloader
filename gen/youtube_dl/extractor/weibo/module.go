@@ -56,7 +56,7 @@ func init() {
 				WeiboIE__VALID_URL λ.Object
 			)
 			WeiboIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?weibo\\.com/[0-9]+/(?P<id>[a-zA-Z0-9]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": WeiboIE__VALID_URL,
 			})
 		}())
@@ -114,7 +114,7 @@ func init() {
 						"url":      λ.GetItem(λ.GetItem(ϒpage_info, λ.StrLiteral("media_info")), λ.StrLiteral("stream_url")),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    WeiboMobileIE__VALID_URL,
 				"_real_extract": WeiboMobileIE__real_extract,
 			})

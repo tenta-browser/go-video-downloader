@@ -43,7 +43,7 @@ func init() {
 				RtmpIE__VALID_URL λ.Object
 			)
 			RtmpIE__VALID_URL = λ.StrLiteral("(?i)rtmp[est]?://.+")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": RtmpIE__VALID_URL,
 			})
 		}())
@@ -52,7 +52,7 @@ func init() {
 				MmsIE__VALID_URL λ.Object
 			)
 			MmsIE__VALID_URL = λ.StrLiteral("(?i)mms://.+")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": MmsIE__VALID_URL,
 			})
 		}())

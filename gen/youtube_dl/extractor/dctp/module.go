@@ -186,7 +186,7 @@ func init() {
 						"formats":    ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_BASE_URL":     DctpTvIE__BASE_URL,
 				"_VALID_URL":    DctpTvIE__VALID_URL,
 				"_real_extract": DctpTvIE__real_extract,

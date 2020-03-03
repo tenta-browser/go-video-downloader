@@ -57,7 +57,7 @@ func init() {
 				SpringboardPlatformIE__VALID_URL λ.Object
 			)
 			SpringboardPlatformIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        cms\\.springboardplatform\\.com/\n                        (?:\n                            (?:previews|embed_iframe)/(?P<index>\\d+)/video/(?P<id>\\d+)|\n                            xml_feeds_advanced/index/(?P<index_2>\\d+)/rss3/(?P<id_2>\\d+)\n                        )\n                    ")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SpringboardPlatformIE__VALID_URL,
 			})
 		}())

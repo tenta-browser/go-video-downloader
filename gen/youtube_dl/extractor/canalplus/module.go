@@ -218,7 +218,7 @@ func init() {
 						"formats":       ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_GEO_COUNTRIES":       CanalplusIE__GEO_COUNTRIES,
 				"_SITE_ID_MAP":         CanalplusIE__SITE_ID_MAP,
 				"_VALID_URL":           CanalplusIE__VALID_URL,

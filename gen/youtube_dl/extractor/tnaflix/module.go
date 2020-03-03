@@ -474,7 +474,7 @@ func init() {
 						"formats":        ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_AVERAGE_RATING_REGEX": TNAFlixNetworkBaseIE__AVERAGE_RATING_REGEX,
 				"_CATEGORIES_REGEX":     TNAFlixNetworkBaseIE__CATEGORIES_REGEX,
 				"_COMMENT_COUNT_REGEX":  TNAFlixNetworkBaseIE__COMMENT_COUNT_REGEX,
@@ -496,7 +496,7 @@ func init() {
 			)
 			TNAFlixNetworkEmbedIE__VALID_URL = λ.StrLiteral("https?://player\\.(?:tna|emp)flix\\.com/video/(?P<id>\\d+)")
 			TNAFlixNetworkEmbedIE__TITLE_REGEX = λ.StrLiteral("<title>([^<]+)</title>")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_TITLE_REGEX": TNAFlixNetworkEmbedIE__TITLE_REGEX,
 				"_VALID_URL":   TNAFlixNetworkEmbedIE__VALID_URL,
 			})
@@ -510,7 +510,7 @@ func init() {
 			TNAEMPFlixBaseIE__DESCRIPTION_REGEX = λ.StrLiteral("(?s)>Description:</[^>]+>(.+?)<")
 			TNAEMPFlixBaseIE__UPLOADER_REGEX = λ.StrLiteral("<span>by\\s*<a[^>]+\\bhref=[\"\\']/profile/[^>]+>([^<]+)<")
 			TNAEMPFlixBaseIE__CATEGORIES_REGEX = λ.StrLiteral("(?s)<span[^>]*>Categories:</span>(.+?)</div>")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_CATEGORIES_REGEX":  TNAEMPFlixBaseIE__CATEGORIES_REGEX,
 				"_DESCRIPTION_REGEX": TNAEMPFlixBaseIE__DESCRIPTION_REGEX,
 				"_UPLOADER_REGEX":    TNAEMPFlixBaseIE__UPLOADER_REGEX,
@@ -523,7 +523,7 @@ func init() {
 			)
 			TNAFlixIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?tnaflix\\.com/[^/]+/(?P<display_id>[^/]+)/video(?P<id>\\d+)")
 			TNAFlixIE__TITLE_REGEX = λ.StrLiteral("<title>(.+?) - (?:TNAFlix Porn Videos|TNAFlix\\.com)</title>")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_TITLE_REGEX": TNAFlixIE__TITLE_REGEX,
 				"_VALID_URL":   TNAFlixIE__VALID_URL,
 			})
@@ -537,7 +537,7 @@ func init() {
 			EMPFlixIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?empflix\\.com/(?:videos/(?P<display_id>.+?)-|[^/]+/(?P<display_id_2>[^/]+)/video)(?P<id>[0-9]+)")
 			EMPFlixIE__HOST = λ.StrLiteral("emp")
 			EMPFlixIE__VKEY_SUFFIX = λ.StrLiteral("-1")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_HOST":        EMPFlixIE__HOST,
 				"_VALID_URL":   EMPFlixIE__VALID_URL,
 				"_VKEY_SUFFIX": EMPFlixIE__VKEY_SUFFIX,
@@ -556,7 +556,7 @@ func init() {
 			MovieFapIE__COMMENT_COUNT_REGEX = λ.StrLiteral("<span[^>]+id=\"comCount\"[^>]*>([\\d,.]+)</span>")
 			MovieFapIE__AVERAGE_RATING_REGEX = λ.StrLiteral("Current Rating\\s*<br>\\s*<strong>([\\d.]+)</strong>")
 			MovieFapIE__CATEGORIES_REGEX = λ.StrLiteral("(?s)<div[^>]+id=\"vid_info\"[^>]*>\\s*<div[^>]*>.+?</div>(.*?)<br>")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_AVERAGE_RATING_REGEX": MovieFapIE__AVERAGE_RATING_REGEX,
 				"_CATEGORIES_REGEX":     MovieFapIE__CATEGORIES_REGEX,
 				"_COMMENT_COUNT_REGEX":  MovieFapIE__COMMENT_COUNT_REGEX,

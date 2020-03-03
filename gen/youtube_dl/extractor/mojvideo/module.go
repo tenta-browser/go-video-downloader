@@ -113,7 +113,7 @@ func init() {
 						"duration":   ϒduration,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    MojvideoIE__VALID_URL,
 				"_real_extract": MojvideoIE__real_extract,
 			})

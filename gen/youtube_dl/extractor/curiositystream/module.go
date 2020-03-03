@@ -147,7 +147,7 @@ func init() {
 					λ.SetAttr(ϒself, "_auth_token", λ.GetItem(λ.GetItem(ϒresult, λ.StrLiteral("message")), λ.StrLiteral("auth_token")))
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_API_BASE_URL":    CuriosityStreamBaseIE__API_BASE_URL,
 				"_NETRC_MACHINE":   CuriosityStreamBaseIE__NETRC_MACHINE,
 				"_auth_token":      CuriosityStreamBaseIE__auth_token,
@@ -313,7 +313,7 @@ func init() {
 						"subtitles": ϒsubtitles,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       CuriosityStreamIE_IE_NAME,
 				"_VALID_URL":    CuriosityStreamIE__VALID_URL,
 				"_real_extract": CuriosityStreamIE__real_extract,
@@ -324,7 +324,7 @@ func init() {
 				CuriosityStreamCollectionIE__VALID_URL λ.Object
 			)
 			CuriosityStreamCollectionIE__VALID_URL = λ.StrLiteral("https?://(?:app\\.)?curiositystream\\.com/(?:collection|series)/(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": CuriosityStreamCollectionIE__VALID_URL,
 			})
 		}())

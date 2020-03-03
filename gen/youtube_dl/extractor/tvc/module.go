@@ -105,7 +105,7 @@ func init() {
 						"formats":   ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    TVCIE__VALID_URL,
 				"_real_extract": TVCIE__real_extract,
 			})
@@ -138,7 +138,7 @@ func init() {
 						"thumbnail":   λ.Calm(ϒself, "_og_search_thumbnail", ϒwebpage),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    TVCArticleIE__VALID_URL,
 				"_real_extract": TVCArticleIE__real_extract,
 			})

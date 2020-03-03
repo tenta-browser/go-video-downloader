@@ -161,7 +161,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       CCCIE_IE_NAME,
 				"_VALID_URL":    CCCIE__VALID_URL,
 				"_real_extract": CCCIE__real_extract,
@@ -172,7 +172,7 @@ func init() {
 				CCCPlaylistIE__VALID_URL λ.Object
 			)
 			CCCPlaylistIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?media\\.ccc\\.de/c/(?P<id>[^/?#&]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": CCCPlaylistIE__VALID_URL,
 			})
 		}())

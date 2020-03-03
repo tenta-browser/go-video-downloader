@@ -60,7 +60,6 @@ func init() {
 				TEDIE__NATIVE_FORMATS       λ.Object
 				TEDIE__VALID_URL            λ.Object
 				TEDIE__extract_info         λ.Object
-				TEDIE__get_subtitles        λ.Object
 				TEDIE__playlist_videos_info λ.Object
 				TEDIE__real_extract         λ.Object
 				TEDIE__talk_info            λ.Object
@@ -557,105 +556,11 @@ func init() {
 							}), λ.ListType),
 					})
 				})
-			TEDIE__get_subtitles = λ.NewFunction("_get_subtitles",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "video_id"},
-					{Name: "talk_info"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒlang_code     λ.Object
-						ϒlanguage      λ.Object
-						ϒself          = λargs[0]
-						ϒsub_lang_list λ.Object
-						ϒtalk_info     = λargs[2]
-						ϒvideo_id      = λargs[1]
-						τmp0           λ.Object
-						τmp1           λ.Object
-					)
-					_ = ϒself
-					ϒsub_lang_list = λ.DictLiteral(map[λ.Object]λ.Object{})
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(ϒtry_get, ϒtalk_info, λ.NewTuple(
-						λ.NewFunction("<lambda>",
-							[]λ.Param{
-								{Name: "x"},
-							},
-							0, false, false,
-							func(λargs []λ.Object) λ.Object {
-								var (
-									ϒx = λargs[0]
-								)
-								return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("downloads")), λ.StrLiteral("languages"))
-							}),
-						λ.NewFunction("<lambda>",
-							[]λ.Param{
-								{Name: "x"},
-							},
-							0, false, false,
-							func(λargs []λ.Object) λ.Object {
-								var (
-									ϒx = λargs[0]
-								)
-								return λ.GetItem(ϒx, λ.StrLiteral("languages"))
-							}),
-					), λ.ListType))
-					for {
-						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-							break
-						}
-						ϒlanguage = τmp1
-						ϒlang_code = func() λ.Object {
-							if λv := λ.Calm(ϒlanguage, "get", λ.StrLiteral("languageCode")); λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.Calm(ϒlanguage, "get", λ.StrLiteral("ianaCode"))
-							}
-						}()
-						if !λ.IsTrue(ϒlang_code) {
-							continue
-						}
-						λ.SetItem(ϒsub_lang_list, ϒlang_code, λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
-							nil,
-							0, false, false,
-							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
-									var (
-										ϒext λ.Object
-										τmp0 λ.Object
-										τmp1 λ.Object
-									)
-									τmp0 = λ.Cal(λ.BuiltinIter, λ.NewList(
-										λ.StrLiteral("ted"),
-										λ.StrLiteral("srt"),
-									))
-									for {
-										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-											break
-										}
-										ϒext = τmp1
-										λgy.Yield(λ.DictLiteral(map[string]λ.Object{
-											"url": λ.Mod(λ.StrLiteral("http://www.ted.com/talks/subtitles/id/%s/lang/%s/format/%s"), λ.NewTuple(
-												ϒvideo_id,
-												ϒlang_code,
-												ϒext,
-											)),
-											"ext": ϒext,
-										}))
-									}
-									return λ.None
-								})
-							}))))
-					}
-					return ϒsub_lang_list
-				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":               TEDIE_IE_NAME,
 				"_NATIVE_FORMATS":       TEDIE__NATIVE_FORMATS,
 				"_VALID_URL":            TEDIE__VALID_URL,
 				"_extract_info":         TEDIE__extract_info,
-				"_get_subtitles":        TEDIE__get_subtitles,
 				"_playlist_videos_info": TEDIE__playlist_videos_info,
 				"_real_extract":         TEDIE__real_extract,
 				"_talk_info":            TEDIE__talk_info,

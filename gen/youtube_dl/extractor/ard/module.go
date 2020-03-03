@@ -293,7 +293,7 @@ func init() {
 					}
 					return ϒformats
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_GEO_COUNTRIES":      ARDMediathekBaseIE__GEO_COUNTRIES,
 				"_extract_formats":    ARDMediathekBaseIE__extract_formats,
 				"_extract_media_info": ARDMediathekBaseIE__extract_media_info,
@@ -493,7 +493,7 @@ func init() {
 					}))
 					return ϒinfo
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       ARDMediathekIE_IE_NAME,
 				"_VALID_URL":    ARDMediathekIE__VALID_URL,
 				"_real_extract": ARDMediathekIE__real_extract,
@@ -505,7 +505,7 @@ func init() {
 				ARDIE__VALID_URL λ.Object
 			)
 			ARDIE__VALID_URL = λ.StrLiteral("(?P<mainurl>https?://(www\\.)?daserste\\.de/[^?#]+/videos/(?P<display_id>[^/?#]+)-(?P<id>[0-9]+))\\.html")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": ARDIE__VALID_URL,
 			})
 		}())
@@ -647,7 +647,7 @@ func init() {
 					}))
 					return ϒinfo
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    ARDBetaMediathekIE__VALID_URL,
 				"_real_extract": ARDBetaMediathekIE__real_extract,
 			})

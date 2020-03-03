@@ -121,7 +121,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    StreamableIE__VALID_URL,
 				"_real_extract": StreamableIE__real_extract,
 			})

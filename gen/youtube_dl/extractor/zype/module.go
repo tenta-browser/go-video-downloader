@@ -58,7 +58,7 @@ func init() {
 			)
 			ZypeIE__ID_RE = λ.StrLiteral("[\\da-fA-F]+")
 			ZypeIE__COMMON_RE = λ.StrLiteral("//player\\.zype\\.com/embed/%s\\.(?:js|json|html)\\?.*?(?:access_token|(?:ap[ip]|player)_key)=")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_COMMON_RE": ZypeIE__COMMON_RE,
 				"_ID_RE":     ZypeIE__ID_RE,
 			})

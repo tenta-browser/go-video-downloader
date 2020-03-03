@@ -109,7 +109,7 @@ func init() {
 						"episode_number": λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒmetadata, λ.StrLiteral("episode"))),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    MySpassIE__VALID_URL,
 				"_real_extract": MySpassIE__real_extract,
 			})

@@ -174,7 +174,7 @@ func init() {
 						"timestamp":   λ.Cal(ϒparse_iso8601, λ.Calm(ϒitem, "get", λ.StrLiteral("datecreated")), λ.StrLiteral(" ")),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    TelegraafIE__VALID_URL,
 				"_real_extract": TelegraafIE__real_extract,
 			})

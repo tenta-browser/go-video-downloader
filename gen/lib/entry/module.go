@@ -251,7 +251,7 @@ func init() {
 					λ.Calm(ϒself, "process_info", ϒinfo_dict)
 					return ϒinfo_dict
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__":              SimpleYoutubeDL___init__,
 				"_match_entry":          SimpleYoutubeDL__match_entry,
 				"_write_string":         SimpleYoutubeDL__write_string,

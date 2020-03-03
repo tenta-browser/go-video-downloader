@@ -159,7 +159,7 @@ func init() {
 					}
 					return λ.Cal(ParseResult, ϒvals)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_replace": ParseResult__replace,
 				"fragment": ParseResult_fragment,
 				"netloc":   ParseResult_netloc,

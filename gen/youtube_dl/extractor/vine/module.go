@@ -188,7 +188,7 @@ func init() {
 						"formats":       ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    VineIE__VALID_URL,
 				"_real_extract": VineIE__real_extract,
 			})
@@ -219,7 +219,7 @@ func init() {
 					}()
 				})
 			VineUserIE_suitable = λ.Cal(λ.ClassMethodType, VineUserIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": VineUserIE__VALID_URL,
 				"suitable":   VineUserIE_suitable,
 			})

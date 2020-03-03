@@ -357,7 +357,7 @@ func init() {
 						"formats":        ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    YouPornIE__VALID_URL,
 				"_real_extract": YouPornIE__real_extract,
 			})

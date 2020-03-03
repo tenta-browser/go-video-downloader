@@ -255,7 +255,7 @@ func init() {
 						"formats":   ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":           SeznamZpravyIE__VALID_URL,
 				"_extract_sdn_formats": SeznamZpravyIE__extract_sdn_formats,
 				"_real_extract":        SeznamZpravyIE__real_extract,
@@ -266,7 +266,7 @@ func init() {
 				SeznamZpravyArticleIE__VALID_URL λ.Object
 			)
 			SeznamZpravyArticleIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?:seznam\\.cz/zpravy|seznamzpravy\\.cz)/clanek/(?:[^/?#&]+)-(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SeznamZpravyArticleIE__VALID_URL,
 			})
 		}())

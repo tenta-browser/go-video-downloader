@@ -122,7 +122,7 @@ func init() {
 						"comment_count":  λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("numOfComments"))),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    VeohIE__VALID_URL,
 				"_real_extract": VeohIE__real_extract,
 			})

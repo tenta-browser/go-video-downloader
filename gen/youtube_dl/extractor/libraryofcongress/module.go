@@ -197,7 +197,7 @@ func init() {
 						"subtitles":  ϒsubtitles,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       LibraryOfCongressIE_IE_NAME,
 				"_VALID_URL":    LibraryOfCongressIE__VALID_URL,
 				"_real_extract": LibraryOfCongressIE__real_extract,

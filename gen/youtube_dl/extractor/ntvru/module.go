@@ -146,7 +146,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       NTVRuIE_IE_NAME,
 				"_VALID_URL":    NTVRuIE__VALID_URL,
 				"_real_extract": NTVRuIE__real_extract,

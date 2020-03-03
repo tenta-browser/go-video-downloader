@@ -77,7 +77,7 @@ func init() {
 						"ie_key":      λ.StrLiteral("Kaltura"),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       ParliamentLiveUKIE_IE_NAME,
 				"_VALID_URL":    ParliamentLiveUKIE__VALID_URL,
 				"_real_extract": ParliamentLiveUKIE__real_extract,

@@ -219,7 +219,7 @@ func init() {
 						"thumbnails": ϒimages,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    BeatportIE__VALID_URL,
 				"_real_extract": BeatportIE__real_extract,
 			})

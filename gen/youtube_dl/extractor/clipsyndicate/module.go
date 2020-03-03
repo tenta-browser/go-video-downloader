@@ -100,7 +100,7 @@ func init() {
 						"duration":  λ.Cal(λ.IntType, λ.Cal(ϒfind_param, λ.StrLiteral("duration"))),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    ClipsyndicateIE__VALID_URL,
 				"_real_extract": ClipsyndicateIE__real_extract,
 			})

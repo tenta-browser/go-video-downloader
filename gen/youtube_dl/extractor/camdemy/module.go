@@ -139,7 +139,7 @@ func init() {
 						"view_count":  ϒview_count,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    CamdemyIE__VALID_URL,
 				"_real_extract": CamdemyIE__real_extract,
 			})
@@ -149,7 +149,7 @@ func init() {
 				CamdemyFolderIE__VALID_URL λ.Object
 			)
 			CamdemyFolderIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?camdemy\\.com/folder/(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": CamdemyFolderIE__VALID_URL,
 			})
 		}())

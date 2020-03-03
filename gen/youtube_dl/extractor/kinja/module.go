@@ -366,7 +366,7 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_COMMON_REGEX":        KinjaEmbedIE__COMMON_REGEX,
 				"_DOMAIN_REGEX":        KinjaEmbedIE__DOMAIN_REGEX,
 				"_JWPLATFORM_PROVIDER": KinjaEmbedIE__JWPLATFORM_PROVIDER,

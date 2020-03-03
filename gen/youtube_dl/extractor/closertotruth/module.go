@@ -123,7 +123,7 @@ func init() {
 						"title":  ϒtitle,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    CloserToTruthIE__VALID_URL,
 				"_real_extract": CloserToTruthIE__real_extract,
 			})

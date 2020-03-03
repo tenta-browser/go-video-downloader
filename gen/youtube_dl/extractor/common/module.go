@@ -6298,7 +6298,7 @@ func init() {
 					}
 					return ϒheaders
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":                      InfoExtractor_IE_NAME,
 				"_GEO_BYPASS":                  InfoExtractor__GEO_BYPASS,
 				"_GEO_COUNTRIES":               InfoExtractor__GEO_COUNTRIES,
@@ -6422,7 +6422,7 @@ func init() {
 					return λ.NewBool(λ.Cal(Ωre.ϒmatch, λ.Calm(ϒcls, "_make_valid_url"), ϒurl) != λ.None)
 				})
 			SearchInfoExtractor_suitable = λ.Cal(λ.ClassMethodType, SearchInfoExtractor_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_make_valid_url": SearchInfoExtractor__make_valid_url,
 				"suitable":        SearchInfoExtractor_suitable,
 			})

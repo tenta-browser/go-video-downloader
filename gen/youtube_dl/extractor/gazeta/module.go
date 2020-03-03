@@ -67,7 +67,7 @@ func init() {
 					ϒvideo_id = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<div[^>]*?class=\"eagleplayer\"[^>]*?data-id=\"([^\"]+)\""), ϒembed_page, λ.StrLiteral("video id"))
 					return λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("eagleplatform:gazeta.media.eagleplatform.com:%s"), ϒvideo_id), λ.StrLiteral("EaglePlatform"))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    GazetaIE__VALID_URL,
 				"_real_extract": GazetaIE__real_extract,
 			})

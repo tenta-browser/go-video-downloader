@@ -52,7 +52,7 @@ func init() {
 				CloudflareStreamIE__EMBED_RE,
 				CloudflareStreamIE__ID_RE,
 			))
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_DOMAIN_RE": CloudflareStreamIE__DOMAIN_RE,
 				"_EMBED_RE":  CloudflareStreamIE__EMBED_RE,
 				"_ID_RE":     CloudflareStreamIE__ID_RE,

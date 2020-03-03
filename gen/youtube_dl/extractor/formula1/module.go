@@ -62,7 +62,7 @@ func init() {
 					ϒooyala_embed_code = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("data-videoid=\"([^\"]+)\""), ϒwebpage, λ.StrLiteral("ooyala embed code"))
 					return λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("ooyala:%s"), ϒooyala_embed_code), λ.StrLiteral("Ooyala"), ϒooyala_embed_code)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    Formula1IE__VALID_URL,
 				"_real_extract": Formula1IE__real_extract,
 			})

@@ -210,7 +210,7 @@ func init() {
 						"release_year":   λ.Cal(ϒint_or_none, λ.Calm(ϒdetails, "get", λ.StrLiteral("pub_year"))),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    CONtvIE__VALID_URL,
 				"_real_extract": CONtvIE__real_extract,
 			})

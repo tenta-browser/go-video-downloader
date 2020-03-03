@@ -39,6 +39,7 @@ import (
 	Ωazmedien "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/azmedien"
 	Ωbandcamp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bandcamp"
 	Ωbeatport "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/beatport"
+	Ωbigflix "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bigflix"
 	Ωbild "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bild"
 	Ωbilibili "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bilibili"
 	Ωbiqle "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/biqle"
@@ -123,6 +124,7 @@ import (
 	Ωhornbunny "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/hornbunny"
 	Ωhypem "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/hypem"
 	Ωign "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ign"
+	Ωimdb "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/imdb"
 	Ωimgur "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/imgur"
 	Ωina "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ina"
 	Ωinfoq "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/infoq"
@@ -178,6 +180,7 @@ import (
 	Ωparliamentliveuk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/parliamentliveuk"
 	Ωpbs "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pbs"
 	Ωpearvideo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pearvideo"
+	Ωpeertube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/peertube"
 	Ωpeople "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/people"
 	Ωperformgroup "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/performgroup"
 	Ωphotobucket "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/photobucket"
@@ -187,6 +190,7 @@ import (
 	Ωpodomatic "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/podomatic"
 	Ωpokemon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pokemon"
 	Ωporn91 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/porn91"
+	Ωpornhd "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhd"
 	Ωpornhub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhub"
 	Ωpornotube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornotube"
 	Ωradiode "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/radiode"
@@ -283,7 +287,6 @@ import (
 	Ωxvideos "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xvideos"
 	Ωxxxymovies "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xxxymovies"
 	Ωyahoo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yahoo"
-	Ωyinyuetai "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yinyuetai"
 	Ωyoujizz "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youjizz"
 	Ωyouporn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youporn"
 	Ωyourporn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yourporn"
@@ -313,6 +316,7 @@ var (
 	BandcampIE                 λ.Object
 	BandcampWeeklyIE           λ.Object
 	BeatportIE                 λ.Object
+	BigflixIE                  λ.Object
 	BildIE                     λ.Object
 	BilibiliAudioIE            λ.Object
 	BleacherReportCMSIE        λ.Object
@@ -404,6 +408,7 @@ var (
 	HornBunnyIE                λ.Object
 	HypemIE                    λ.Object
 	IGNIE                      λ.Object
+	ImdbIE                     λ.Object
 	ImgurGalleryIE             λ.Object
 	ImgurIE                    λ.Object
 	InaIE                      λ.Object
@@ -465,6 +470,7 @@ var (
 	PandoraTVIE                λ.Object
 	ParliamentLiveUKIE         λ.Object
 	PearVideoIE                λ.Object
+	PeerTubeIE                 λ.Object
 	PeopleIE                   λ.Object
 	PerformGroupIE             λ.Object
 	PhotobucketIE              λ.Object
@@ -474,6 +480,7 @@ var (
 	PodomaticIE                λ.Object
 	PokemonIE                  λ.Object
 	Porn91IE                   λ.Object
+	PornHdIE                   λ.Object
 	PornHubIE                  λ.Object
 	PornotubeIE                λ.Object
 	RTSIE                      λ.Object
@@ -580,7 +587,6 @@ var (
 	XXXYMoviesIE               λ.Object
 	XuiteIE                    λ.Object
 	YahooIE                    λ.Object
-	YinYueTaiIE                λ.Object
 	YouJizzIE                  λ.Object
 	YouPornIE                  λ.Object
 	YourPornIE                 λ.Object
@@ -610,6 +616,7 @@ func init() {
 		BandcampIE = Ωbandcamp.BandcampIE
 		BandcampWeeklyIE = Ωbandcamp.BandcampWeeklyIE
 		BeatportIE = Ωbeatport.BeatportIE
+		BigflixIE = Ωbigflix.BigflixIE
 		BildIE = Ωbild.BildIE
 		BilibiliAudioIE = Ωbilibili.BilibiliAudioIE
 		BIQLEIE = Ωbiqle.BIQLEIE
@@ -700,6 +707,7 @@ func init() {
 		HornBunnyIE = Ωhornbunny.HornBunnyIE
 		HypemIE = Ωhypem.HypemIE
 		IGNIE = Ωign.IGNIE
+		ImdbIE = Ωimdb.ImdbIE
 		ImgurIE = Ωimgur.ImgurIE
 		ImgurGalleryIE = Ωimgur.ImgurGalleryIE
 		InaIE = Ωina.InaIE
@@ -761,6 +769,7 @@ func init() {
 		ParliamentLiveUKIE = Ωparliamentliveuk.ParliamentLiveUKIE
 		PBSIE = Ωpbs.PBSIE
 		PearVideoIE = Ωpearvideo.PearVideoIE
+		PeerTubeIE = Ωpeertube.PeerTubeIE
 		PeopleIE = Ωpeople.PeopleIE
 		PerformGroupIE = Ωperformgroup.PerformGroupIE
 		PhotobucketIE = Ωphotobucket.PhotobucketIE
@@ -770,6 +779,7 @@ func init() {
 		PodomaticIE = Ωpodomatic.PodomaticIE
 		PokemonIE = Ωpokemon.PokemonIE
 		Porn91IE = Ωporn91.Porn91IE
+		PornHdIE = Ωpornhd.PornHdIE
 		PornHubIE = Ωpornhub.PornHubIE
 		PornotubeIE = Ωpornotube.PornotubeIE
 		RadioDeIE = Ωradiode.RadioDeIE
@@ -879,7 +889,6 @@ func init() {
 		XVideosIE = Ωxvideos.XVideosIE
 		XXXYMoviesIE = Ωxxxymovies.XXXYMoviesIE
 		YahooIE = Ωyahoo.YahooIE
-		YinYueTaiIE = Ωyinyuetai.YinYueTaiIE
 		YouJizzIE = Ωyoujizz.YouJizzIE
 		YouPornIE = Ωyouporn.YouPornIE
 		YourPornIE = Ωyourporn.YourPornIE
@@ -905,6 +914,7 @@ func init() {
 			BandcampIE,
 			BandcampWeeklyIE,
 			BeatportIE,
+			BigflixIE,
 			BildIE,
 			BilibiliAudioIE,
 			BIQLEIE,
@@ -995,6 +1005,7 @@ func init() {
 			HornBunnyIE,
 			HypemIE,
 			IGNIE,
+			ImdbIE,
 			ImgurIE,
 			ImgurGalleryIE,
 			InaIE,
@@ -1056,6 +1067,7 @@ func init() {
 			ParliamentLiveUKIE,
 			PBSIE,
 			PearVideoIE,
+			PeerTubeIE,
 			PeopleIE,
 			PerformGroupIE,
 			PhotobucketIE,
@@ -1065,6 +1077,7 @@ func init() {
 			PodomaticIE,
 			PokemonIE,
 			Porn91IE,
+			PornHdIE,
 			PornHubIE,
 			PornotubeIE,
 			RadioDeIE,
@@ -1174,7 +1187,6 @@ func init() {
 			XVideosIE,
 			XXXYMoviesIE,
 			YahooIE,
-			YinYueTaiIE,
 			YouJizzIE,
 			YouPornIE,
 			YourPornIE,

@@ -55,7 +55,7 @@ func init() {
 			)
 			YapFilesIE__YAPFILES_URL = λ.StrLiteral("//(?:(?:www|api)\\.)?yapfiles\\.ru/get_player/*\\?.*?\\bv=(?P<id>\\w+)")
 			YapFilesIE__VALID_URL = λ.Mod(λ.StrLiteral("https?:%s"), YapFilesIE__YAPFILES_URL)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    YapFilesIE__VALID_URL,
 				"_YAPFILES_URL": YapFilesIE__YAPFILES_URL,
 			})

@@ -125,6 +125,10 @@ func (ic FloatLiteral) Value() float64 {
 
 // DictLiteral ..
 func DictLiteral(m interface{}) Dict {
+	return dictLiteral(m, false)
+}
+
+func dictLiteral(m interface{}, skipNilValues bool) Dict {
 	type converter func(reflect.Value) Object
 
 	var oi Object
@@ -163,7 +167,9 @@ func DictLiteral(m interface{}) Dict {
 	d := newDict(DictType)
 	it := v.MapRange()
 	for it.Next() {
-		d.SetItem(keyConv(it.Key()), valConv(it.Value()))
+		if val := it.Value(); !(skipNilValues && val.IsNil()) {
+			d.SetItem(keyConv(it.Key()), valConv(val))
+		}
 	}
 
 	return d

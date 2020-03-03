@@ -199,7 +199,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_real_extract": NHLBaseIE__real_extract,
 			})
 		}())
@@ -212,7 +212,7 @@ func init() {
 			NHLIE_IE_NAME = λ.StrLiteral("nhl.com")
 			NHLIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?P<site>nhl|wch2016)\\.com/(?:[^/]+/)*c-(?P<id>\\d+)")
 			NHLIE__CONTENT_DOMAIN = λ.StrLiteral("nhl.bamcontent.com")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":         NHLIE_IE_NAME,
 				"_CONTENT_DOMAIN": NHLIE__CONTENT_DOMAIN,
 				"_VALID_URL":      NHLIE__VALID_URL,

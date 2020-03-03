@@ -157,7 +157,7 @@ func init() {
 						"duration":  λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒconfig, λ.StrLiteral("DURATION"))),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       FazIE_IE_NAME,
 				"_VALID_URL":    FazIE__VALID_URL,
 				"_real_extract": FazIE__real_extract,

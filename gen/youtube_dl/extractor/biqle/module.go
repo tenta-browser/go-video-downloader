@@ -175,7 +175,7 @@ func init() {
 						"view_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒitem, "get", λ.StrLiteral("views"))),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    BIQLEIE__VALID_URL,
 				"_real_extract": BIQLEIE__real_extract,
 			})

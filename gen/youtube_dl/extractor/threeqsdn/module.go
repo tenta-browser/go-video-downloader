@@ -49,7 +49,7 @@ func init() {
 				ThreeQSDNIE__VALID_URL λ.Object
 			)
 			ThreeQSDNIE__VALID_URL = λ.StrLiteral("https?://playout\\.3qsdn\\.com/(?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": ThreeQSDNIE__VALID_URL,
 			})
 		}())

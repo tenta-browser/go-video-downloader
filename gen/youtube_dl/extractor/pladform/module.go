@@ -72,7 +72,7 @@ func init() {
 					return λ.None
 				})
 			PladformIE__extract_url = λ.Cal(λ.StaticMethodType, PladformIE__extract_url)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":   PladformIE__VALID_URL,
 				"_extract_url": PladformIE__extract_url,
 			})

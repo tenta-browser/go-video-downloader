@@ -72,7 +72,7 @@ func init() {
 					)
 					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
-					ϒvideo_data = λ.Cal(ϒextract_attributes, λ.Calm(ϒself, "_search_regex", λ.StrLiteral("(?s)<div[^>]+class=\"[^\"]*?(?:title-zone-diffusion|heading-zone-(?:wrapper|player-button))[^\"]*?\"[^>]*>.*?(<button[^>]+data-asset-source=\"[^\"]+\"[^>]+>)"), ϒwebpage, λ.StrLiteral("video data")))
+					ϒvideo_data = λ.Cal(ϒextract_attributes, λ.Calm(ϒself, "_search_regex", λ.StrLiteral("(?sx)\n                (?:\n                    </h1>|\n                    <div[^>]+class=\"[^\"]*?(?:title-zone-diffusion|heading-zone-(?:wrapper|player-button))[^\"]*?\"[^>]*>\n                ).*?\n                (<button[^>]+data-asset-source=\"[^\"]+\"[^>]+>)\n            "), ϒwebpage, λ.StrLiteral("video data")))
 					ϒvideo_url = λ.GetItem(ϒvideo_data, λ.StrLiteral("data-asset-source"))
 					ϒtitle = func() λ.Object {
 						if λv := λ.Calm(ϒvideo_data, "get", λ.StrLiteral("data-asset-title")); λ.IsTrue(λv) {
@@ -123,7 +123,7 @@ func init() {
 						"duration":  λ.Cal(ϒint_or_none, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("data-duration"))),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    FranceCultureIE__VALID_URL,
 				"_real_extract": FranceCultureIE__real_extract,
 			})

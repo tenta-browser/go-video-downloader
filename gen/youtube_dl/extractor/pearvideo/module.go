@@ -146,7 +146,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    PearVideoIE__VALID_URL,
 				"_real_extract": PearVideoIE__real_extract,
 			})

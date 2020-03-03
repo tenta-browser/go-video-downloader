@@ -272,7 +272,7 @@ func init() {
 					})
 					return ϒthumbnails
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":          BRIE__VALID_URL,
 				"_extract_formats":    BRIE__extract_formats,
 				"_extract_thumbnails": BRIE__extract_thumbnails,
@@ -284,7 +284,7 @@ func init() {
 				BRMediathekIE__VALID_URL λ.Object
 			)
 			BRMediathekIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?br\\.de/mediathek/video/[^/?&#]*?-(?P<id>av:[0-9a-f]{24})")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": BRMediathekIE__VALID_URL,
 			})
 		}())

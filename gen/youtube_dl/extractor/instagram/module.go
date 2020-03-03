@@ -43,6 +43,7 @@ var (
 	ϒcompat_str               λ.Object
 	ϒget_element_by_attribute λ.Object
 	ϒint_or_none              λ.Object
+	ϒlowercase_escape         λ.Object
 	ϒstd_headers              λ.Object
 	ϒtry_get                  λ.Object
 	ϒurl_or_none              λ.Object
@@ -56,6 +57,7 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒget_element_by_attribute = Ωutils.ϒget_element_by_attribute
 		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒlowercase_escape = Ωutils.ϒlowercase_escape
 		ϒstd_headers = Ωutils.ϒstd_headers
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒurl_or_none = Ωutils.ϒurl_or_none
@@ -377,7 +379,7 @@ func init() {
 							{Name: "default", Value: λ.None},
 						})
 						if ϒdescription != λ.None {
-							ϒdescription = λ.Cal(λ.None, ϒdescription)
+							ϒdescription = λ.Cal(ϒlowercase_escape, ϒdescription)
 						}
 					}
 					if !λ.IsTrue(ϒthumbnail) {
@@ -398,21 +400,21 @@ func init() {
 						"comments":      ϒcomments,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    InstagramIE__VALID_URL,
 				"_real_extract": InstagramIE__real_extract,
 			})
 		}())
 		InstagramPlaylistIE = λ.Cal(λ.TypeType, λ.StrLiteral("InstagramPlaylistIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		InstagramUserIE = λ.Cal(λ.TypeType, λ.StrLiteral("InstagramUserIE"), λ.NewTuple(InstagramPlaylistIE), func() λ.Dict {
 			var (
 				InstagramUserIE__VALID_URL λ.Object
 			)
 			InstagramUserIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?instagram\\.com/(?P<id>[^/]{2,})/?(?:$|[?#])")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": InstagramUserIE__VALID_URL,
 			})
 		}())
@@ -421,7 +423,7 @@ func init() {
 				InstagramTagIE__VALID_URL λ.Object
 			)
 			InstagramTagIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?instagram\\.com/explore/tags/(?P<id>[^/]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": InstagramTagIE__VALID_URL,
 			})
 		}())

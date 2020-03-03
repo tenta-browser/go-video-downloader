@@ -58,7 +58,7 @@ func init() {
 					ϒjw_media_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					return λ.Calm(ϒself, "url_result", λ.Add(λ.StrLiteral("jwplatform:"), ϒjw_media_id), λ.StrLiteral("JWPlatform"), ϒjw_media_id)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    OutsideTVIE__VALID_URL,
 				"_real_extract": OutsideTVIE__real_extract,
 			})

@@ -54,7 +54,7 @@ func init() {
 				IndavideoEmbedIE__VALID_URL λ.Object
 			)
 			IndavideoEmbedIE__VALID_URL = λ.StrLiteral("https?://(?:(?:embed\\.)?indavideo\\.hu/player/video/|assets\\.indavideo\\.hu/swf/player\\.swf\\?.*\\b(?:v(?:ID|id))=)(?P<id>[\\da-f]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": IndavideoEmbedIE__VALID_URL,
 			})
 		}())

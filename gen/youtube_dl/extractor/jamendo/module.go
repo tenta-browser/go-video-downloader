@@ -281,7 +281,7 @@ func init() {
 						"tags":           ϒtags,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    JamendoIE__VALID_URL,
 				"_real_extract": JamendoIE__real_extract,
 			})
@@ -291,7 +291,7 @@ func init() {
 				JamendoAlbumIE__VALID_URL λ.Object
 			)
 			JamendoAlbumIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?jamendo\\.com/album/(?P<id>[0-9]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": JamendoAlbumIE__VALID_URL,
 			})
 		}())

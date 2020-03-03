@@ -96,7 +96,7 @@ func init() {
 						{Name: "video_id", Value: ϒentry_id},
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_API_TEMPL":    AZMedienIE__API_TEMPL,
 				"_PARTNER_ID":   AZMedienIE__PARTNER_ID,
 				"_VALID_URL":    AZMedienIE__VALID_URL,

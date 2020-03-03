@@ -37,7 +37,6 @@ var (
 	MediasetIE                    λ.Object
 	ThePlatformBaseIE             λ.Object
 	ϒcompat_parse_qs              λ.Object
-	ϒcompat_str                   λ.Object
 	ϒcompat_urllib_parse_urlparse λ.Object
 	ϒint_or_none                  λ.Object
 	ϒupdate_url_query             λ.Object
@@ -47,7 +46,6 @@ func init() {
 	λ.InitModule(func() {
 		ThePlatformBaseIE = Ωtheplatform.ThePlatformBaseIE
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
-		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
@@ -292,7 +290,7 @@ func init() {
 					}))
 					return ϒinfo
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_TP_TLD":             MediasetIE__TP_TLD,
 				"_VALID_URL":          MediasetIE__VALID_URL,
 				"_parse_smil_formats": MediasetIE__parse_smil_formats,

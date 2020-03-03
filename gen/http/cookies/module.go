@@ -60,7 +60,7 @@ func init() {
 					λ.SetAttr(ϒself, "value", ϒvalue)
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__": Morsel___init__,
 			})
 		}())
@@ -114,14 +114,14 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__": BaseCookie___init__,
 				"load":     BaseCookie_load,
 			})
 		}())
 		SimpleCookie = λ.Cal(λ.TypeType, λ.StrLiteral("SimpleCookie"), λ.NewTuple(BaseCookie), func() λ.Dict {
 			// pass
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 	})
 }

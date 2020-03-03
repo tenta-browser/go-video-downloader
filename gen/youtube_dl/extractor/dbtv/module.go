@@ -42,7 +42,7 @@ func init() {
 				DBTVIE__VALID_URL λ.Object
 			)
 			DBTVIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?dagbladet\\.no/video/(?:(?:embed|(?P<display_id>[^/]+))/)?(?P<id>[0-9A-Za-z_-]{11}|[a-zA-Z0-9]{8})")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": DBTVIE__VALID_URL,
 			})
 		}())

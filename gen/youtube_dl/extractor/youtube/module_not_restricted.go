@@ -664,7 +664,7 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_LOGIN_REQUIRED":          YoutubeBaseInfoExtractor__LOGIN_REQUIRED,
 				"_NETRC_MACHINE":           YoutubeBaseInfoExtractor__NETRC_MACHINE,
 				"_PLAYLIST_ID_RE":          YoutubeBaseInfoExtractor__PLAYLIST_ID_RE,
@@ -791,17 +791,17 @@ func init() {
 						return λ.None
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_entries": YoutubeEntryListBaseInfoExtractor__entries,
 			})
 		}())
 		YoutubePlaylistBaseInfoExtractor = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubePlaylistBaseInfoExtractor"), λ.NewTuple(YoutubeEntryListBaseInfoExtractor), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		YoutubePlaylistsBaseInfoExtractor = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubePlaylistsBaseInfoExtractor"), λ.NewTuple(YoutubeEntryListBaseInfoExtractor), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		YoutubeIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeIE"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {
 			var (
@@ -3841,7 +3841,7 @@ func init() {
 						"release_year":   ϒrelease_year,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":                            YoutubeIE_IE_NAME,
 				"_GEO_BYPASS":                        YoutubeIE__GEO_BYPASS,
 				"_NEXT_URL_RE":                       YoutubeIE__NEXT_URL_RE,
@@ -4121,7 +4121,7 @@ func init() {
 						{Name: "video_id", Value: ϒvideo_id},
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":                    YoutubePlaylistIE_IE_NAME,
 				"_TEMPLATE_URL":              YoutubePlaylistIE__TEMPLATE_URL,
 				"_VALID_URL":                 YoutubePlaylistIE__VALID_URL,
@@ -4164,21 +4164,21 @@ func init() {
 					}()
 				})
 			YoutubeChannelIE_suitable = λ.Cal(λ.ClassMethodType, YoutubeChannelIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": YoutubeChannelIE__VALID_URL,
 				"suitable":   YoutubeChannelIE_suitable,
 			})
 		}())
 		YoutubeUserIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeUserIE"), λ.NewTuple(YoutubeChannelIE), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		YoutubeLiveIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeLiveIE"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {
 			var (
 				YoutubeLiveIE__VALID_URL λ.Object
 			)
 			YoutubeLiveIE__VALID_URL = λ.StrLiteral("(?P<base_url>https?://(?:\\w+\\.)?youtube\\.com/(?:(?:user|channel|c)/)?(?P<id>[^/]+))/live")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": YoutubeLiveIE__VALID_URL,
 			})
 		}())
@@ -4187,13 +4187,13 @@ func init() {
 				YoutubePlaylistsIE__VALID_URL λ.Object
 			)
 			YoutubePlaylistsIE__VALID_URL = λ.StrLiteral("https?://(?:\\w+\\.)?youtube\\.com/(?:user|channel)/(?P<id>[^/]+)/playlists")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": YoutubePlaylistsIE__VALID_URL,
 			})
 		}())
 		YoutubeSearchBaseInfoExtractor = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeSearchBaseInfoExtractor"), λ.NewTuple(YoutubePlaylistBaseInfoExtractor), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		YoutubeSearchIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeSearchIE"), λ.NewTuple(
 			SearchInfoExtractor,
@@ -4203,59 +4203,59 @@ func init() {
 				YoutubeSearchIE_IE_NAME λ.Object
 			)
 			YoutubeSearchIE_IE_NAME = λ.StrLiteral("youtube:search")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME": YoutubeSearchIE_IE_NAME,
 			})
 		}())
 		YoutubeSearchURLIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeSearchURLIE"), λ.NewTuple(YoutubeSearchBaseInfoExtractor), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		YoutubeShowIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeShowIE"), λ.NewTuple(YoutubePlaylistsBaseInfoExtractor), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		YoutubeFeedsInfoExtractor = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeFeedsInfoExtractor"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		YoutubeWatchLaterIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeWatchLaterIE"), λ.NewTuple(YoutubePlaylistIE), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		YoutubeFavouritesIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeFavouritesIE"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {
 			var (
 				YoutubeFavouritesIE__VALID_URL λ.Object
 			)
 			YoutubeFavouritesIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?youtube\\.com/my_favorites|:ytfav(?:ou?rites)?")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": YoutubeFavouritesIE__VALID_URL,
 			})
 		}())
 		YoutubeRecommendedIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeRecommendedIE"), λ.NewTuple(YoutubeFeedsInfoExtractor), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		YoutubeSubscriptionsIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeSubscriptionsIE"), λ.NewTuple(YoutubeFeedsInfoExtractor), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		YoutubeHistoryIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeHistoryIE"), λ.NewTuple(YoutubeFeedsInfoExtractor), func() λ.Dict {
 			var (
 				YoutubeHistoryIE__VALID_URL λ.Object
 			)
 			YoutubeHistoryIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?youtube\\.com/feed/history|:ythistory")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": YoutubeHistoryIE__VALID_URL,
 			})
 		}())
 		YoutubeTruncatedURLIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeTruncatedURLIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		YoutubeTruncatedIDIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeTruncatedIDIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 	})
 }

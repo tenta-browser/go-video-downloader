@@ -131,7 +131,7 @@ func init() {
 						return λ.None
 					})
 				}))))
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_SITES":     XFileShareIE__SITES,
 				"_VALID_URL": XFileShareIE__VALID_URL,
 			})

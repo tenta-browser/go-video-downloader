@@ -47,14 +47,14 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		TuneInBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("TuneInBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 
-			return λ.DictLiteral(map[λ.Object]λ.Object{})
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		TuneInClipIE = λ.Cal(λ.TypeType, λ.StrLiteral("TuneInClipIE"), λ.NewTuple(TuneInBaseIE), func() λ.Dict {
 			var (
 				TuneInClipIE__VALID_URL λ.Object
 			)
 			TuneInClipIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?tunein\\.com/station/.*?audioClipId\\=(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TuneInClipIE__VALID_URL,
 			})
 		}())
@@ -84,7 +84,7 @@ func init() {
 					}()
 				})
 			TuneInStationIE_suitable = λ.Cal(λ.ClassMethodType, TuneInStationIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TuneInStationIE__VALID_URL,
 				"suitable":   TuneInStationIE_suitable,
 			})
@@ -94,7 +94,7 @@ func init() {
 				TuneInProgramIE__VALID_URL λ.Object
 			)
 			TuneInProgramIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?tunein\\.com/(?:radio/.*?-p|program/.*?ProgramId=|embed/player/p)(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TuneInProgramIE__VALID_URL,
 			})
 		}())
@@ -103,7 +103,7 @@ func init() {
 				TuneInTopicIE__VALID_URL λ.Object
 			)
 			TuneInTopicIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?tunein\\.com/(?:topic/.*?TopicId=|embed/player/t)(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TuneInTopicIE__VALID_URL,
 			})
 		}())
@@ -112,7 +112,7 @@ func init() {
 				TuneInShortenerIE__VALID_URL λ.Object
 			)
 			TuneInShortenerIE__VALID_URL = λ.StrLiteral("https?://tun\\.in/(?P<id>[A-Za-z0-9]+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TuneInShortenerIE__VALID_URL,
 			})
 		}())

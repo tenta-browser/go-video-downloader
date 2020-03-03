@@ -55,7 +55,7 @@ func init() {
 				Channel9IE__VALID_URL λ.Object
 			)
 			Channel9IE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?:channel9\\.msdn\\.com|s\\.ch9\\.ms)/(?P<contentpath>.+?)(?P<rss>/RSS)?/?(?:[?#&]|$)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": Channel9IE__VALID_URL,
 			})
 		}())

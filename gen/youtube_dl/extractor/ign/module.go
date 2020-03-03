@@ -264,7 +264,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":           IGNIE_IE_NAME,
 				"_API_URL_TEMPLATE": IGNIE__API_URL_TEMPLATE,
 				"_EMBED_RE":         IGNIE__EMBED_RE,
@@ -279,7 +279,7 @@ func init() {
 				OneUPIE__VALID_URL λ.Object
 			)
 			OneUPIE__VALID_URL = λ.StrLiteral("https?://gamevideos\\.1up\\.com/(?P<type>video)/id/(?P<name_or_id>.+)\\.html")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": OneUPIE__VALID_URL,
 			})
 		}())
@@ -288,7 +288,7 @@ func init() {
 				PCMagIE__VALID_URL λ.Object
 			)
 			PCMagIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?pcmag\\.com/(?P<type>videos|article2)(/.+)?/(?P<name_or_id>.+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": PCMagIE__VALID_URL,
 			})
 		}())

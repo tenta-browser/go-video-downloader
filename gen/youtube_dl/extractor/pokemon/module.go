@@ -113,7 +113,7 @@ func init() {
 						"ie_key":         λ.StrLiteral("LimelightMedia"),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    PokemonIE__VALID_URL,
 				"_real_extract": PokemonIE__real_extract,
 			})

@@ -54,7 +54,7 @@ func init() {
 				DaumBaseIE__KAKAO_EMBED_BASE λ.Object
 			)
 			DaumBaseIE__KAKAO_EMBED_BASE = λ.StrLiteral("http://tv.kakao.com/embed/player/cliplink/")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_KAKAO_EMBED_BASE": DaumBaseIE__KAKAO_EMBED_BASE,
 			})
 		}())
@@ -86,7 +86,7 @@ func init() {
 					}
 					return λ.Calm(ϒself, "url_result", λ.Add(λ.GetAttr(ϒself, "_KAKAO_EMBED_BASE", nil), ϒvideo_id), λ.StrLiteral("Kakao"), ϒvideo_id)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       DaumIE_IE_NAME,
 				"_VALID_URL":    DaumIE__VALID_URL,
 				"_real_extract": DaumIE__real_extract,
@@ -144,7 +144,7 @@ func init() {
 					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					return λ.Calm(ϒself, "url_result", λ.Add(λ.GetAttr(ϒself, "_KAKAO_EMBED_BASE", nil), ϒvideo_id), λ.StrLiteral("Kakao"), ϒvideo_id)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       DaumClipIE_IE_NAME,
 				"_URL_TEMPLATE": DaumClipIE__URL_TEMPLATE,
 				"_VALID_URL":    DaumClipIE__VALID_URL,
@@ -255,7 +255,7 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_check_clip":  DaumListIE__check_clip,
 				"_get_entries": DaumListIE__get_entries,
 			})
@@ -317,7 +317,7 @@ func init() {
 					ϒentries = λ.GetItem(τmp0, λ.IntLiteral(1))
 					return λ.Calm(ϒself, "playlist_result", ϒentries, ϒlist_id, ϒname)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       DaumPlaylistIE_IE_NAME,
 				"_URL_TEMPLATE": DaumPlaylistIE__URL_TEMPLATE,
 				"_VALID_URL":    DaumPlaylistIE__VALID_URL,
@@ -366,7 +366,7 @@ func init() {
 					ϒentries = λ.GetItem(τmp0, λ.IntLiteral(1))
 					return λ.Calm(ϒself, "playlist_result", ϒentries, ϒlist_id, ϒname)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       DaumUserIE_IE_NAME,
 				"_VALID_URL":    DaumUserIE__VALID_URL,
 				"_real_extract": DaumUserIE__real_extract,

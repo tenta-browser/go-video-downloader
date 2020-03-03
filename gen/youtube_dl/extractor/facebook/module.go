@@ -702,7 +702,7 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":            FacebookIE_IE_NAME,
 				"_CHROME_USER_AGENT": FacebookIE__CHROME_USER_AGENT,
 				"_NETRC_MACHINE":     FacebookIE__NETRC_MACHINE,
@@ -732,7 +732,7 @@ func init() {
 					)
 					return λ.Calm(ϒself, "url_result", λ.Cal(ϒcompat_urllib_parse_unquote, λ.Calm(ϒself, "_match_id", ϒurl)), λ.Calm(FacebookIE, "ie_key"))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    FacebookPluginsVideoIE__VALID_URL,
 				"_real_extract": FacebookPluginsVideoIE__real_extract,
 			})

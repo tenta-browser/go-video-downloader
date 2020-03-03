@@ -209,7 +209,7 @@ func init() {
 						"series":      λ.Calm(ϒvideo_data, "get", λ.StrLiteral("show")),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    EscapistIE__VALID_URL,
 				"_real_extract": EscapistIE__real_extract,
 			})

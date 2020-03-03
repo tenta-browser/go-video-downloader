@@ -66,7 +66,7 @@ func init() {
 						"referrer":      ϒurl,
 					})), λ.StrLiteral("BrightcoveNew"), ϒbrightcove_id)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"BRIGHTCOVE_URL_TEMPLATE": SonyLIVIE_BRIGHTCOVE_URL_TEMPLATE,
 				"_VALID_URL":              SonyLIVIE__VALID_URL,
 				"_real_extract":           SonyLIVIE__real_extract,

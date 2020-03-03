@@ -171,7 +171,7 @@ func init() {
 					}
 					return ϒd
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__":  Match___init__,
 				"group":     Match_group,
 				"groupdict": Match_groupdict,
@@ -235,7 +235,7 @@ func init() {
 					}
 					return λ.Cal(Match, λ.GetAttr(ϒself, "pattern", nil), λ.GetAttr(ϒself, "m", nil))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__": MatchIterator___init__,
 				"__iter__": MatchIterator___iter__,
 				"__next__": MatchIterator___next__,
@@ -412,7 +412,7 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__": Pattern___init__,
 				"_search":  Pattern__search,
 				"findall":  Pattern_findall,

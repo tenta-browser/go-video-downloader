@@ -353,7 +353,7 @@ func init() {
 						"thumbnail":   λ.Cal(ϒunescapeHTML, λ.Calm(ϒinfo, "get", λ.StrLiteral("preview_image_url"))),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    RTSIE__VALID_URL,
 				"_real_extract": RTSIE__real_extract,
 			})

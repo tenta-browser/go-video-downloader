@@ -83,7 +83,7 @@ func init() {
 					}))
 					return ϒinfo_dict
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_PLAYER_BASE":  CharlieRoseIE__PLAYER_BASE,
 				"_VALID_URL":    CharlieRoseIE__VALID_URL,
 				"_real_extract": CharlieRoseIE__real_extract,

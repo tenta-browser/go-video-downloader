@@ -145,7 +145,7 @@ func init() {
 						{Name: "query", Value: ϒquery},
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_API_BASE":      ViewLiftBaseIE__API_BASE,
 				"_DOMAINS_REGEX": ViewLiftBaseIE__DOMAINS_REGEX,
 				"_SITE_MAP":      ViewLiftBaseIE__SITE_MAP,
@@ -331,7 +331,7 @@ func init() {
 					}
 					return ϒinfo
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       ViewLiftEmbedIE_IE_NAME,
 				"_VALID_URL":    ViewLiftEmbedIE__VALID_URL,
 				"_real_extract": ViewLiftEmbedIE__real_extract,
@@ -432,7 +432,7 @@ func init() {
 						"ie_key":     λ.StrLiteral("ViewLiftEmbed"),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       ViewLiftIE_IE_NAME,
 				"_VALID_URL":    ViewLiftIE__VALID_URL,
 				"_real_extract": ViewLiftIE__real_extract,

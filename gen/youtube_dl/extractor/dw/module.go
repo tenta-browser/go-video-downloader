@@ -129,7 +129,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       DWIE_IE_NAME,
 				"_VALID_URL":    DWIE__VALID_URL,
 				"_real_extract": DWIE__real_extract,
@@ -140,7 +140,7 @@ func init() {
 				DWArticleIE__VALID_URL λ.Object
 			)
 			DWArticleIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?dw\\.com/(?:[^/]+/)+a-(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": DWArticleIE__VALID_URL,
 			})
 		}())

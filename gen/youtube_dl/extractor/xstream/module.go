@@ -53,7 +53,7 @@ func init() {
 				XstreamIE__VALID_URL λ.Object
 			)
 			XstreamIE__VALID_URL = λ.StrLiteral("(?x)\n                    (?:\n                        xstream:|\n                        https?://frontend\\.xstream\\.(?:dk|net)/\n                    )\n                    (?P<partner_id>[^/]+)\n                    (?:\n                        :|\n                        /feed/video/\\?.*?\\bid=\n                    )\n                    (?P<id>\\d+)\n                    ")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": XstreamIE__VALID_URL,
 			})
 		}())

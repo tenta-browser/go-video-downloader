@@ -148,7 +148,7 @@ func init() {
 						"categories":    ϒcategories,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       PlayFMIE_IE_NAME,
 				"_VALID_URL":    PlayFMIE__VALID_URL,
 				"_real_extract": PlayFMIE__real_extract,

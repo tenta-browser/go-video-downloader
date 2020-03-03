@@ -51,7 +51,7 @@ func init() {
 				WistiaIE__VALID_URL λ.Object
 			)
 			WistiaIE__VALID_URL = λ.StrLiteral("(?:wistia:|https?://(?:fast\\.)?wistia\\.(?:net|com)/embed/(?:iframe|medias)/)(?P<id>[a-z0-9]{10})")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": WistiaIE__VALID_URL,
 			})
 		}())

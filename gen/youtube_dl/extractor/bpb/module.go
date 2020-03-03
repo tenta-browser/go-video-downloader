@@ -126,7 +126,7 @@ func init() {
 						"description": λ.Calm(ϒself, "_og_search_description", ϒwebpage),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    BpbIE__VALID_URL,
 				"_real_extract": BpbIE__real_extract,
 			})

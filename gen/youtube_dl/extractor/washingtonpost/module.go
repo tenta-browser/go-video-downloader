@@ -238,7 +238,7 @@ func init() {
 						"timestamp":   λ.Cal(ϒint_or_none, λ.Calm(λ.Calm(ϒvideo_data, "get", λ.StrLiteral("dateConfig"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("dateFirstPublished")), λ.IntLiteral(1000)),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       WashingtonPostIE_IE_NAME,
 				"_VALID_URL":    WashingtonPostIE__VALID_URL,
 				"_real_extract": WashingtonPostIE__real_extract,
@@ -270,7 +270,7 @@ func init() {
 					}()
 				})
 			WashingtonPostArticleIE_suitable = λ.Cal(λ.ClassMethodType, WashingtonPostArticleIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": WashingtonPostArticleIE__VALID_URL,
 				"suitable":   WashingtonPostArticleIE_suitable,
 			})

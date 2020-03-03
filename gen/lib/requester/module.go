@@ -138,7 +138,7 @@ func init() {
 					)
 					return λ.GetAttr(ϒself, "url", nil)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__init__": Response___init__,
 				"geturl":   Response_geturl,
 				"read":     Response_read,

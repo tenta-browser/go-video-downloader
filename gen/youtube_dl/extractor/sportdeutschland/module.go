@@ -163,7 +163,7 @@ func init() {
 						"timestamp":   λ.Cal(ϒparse_iso8601, λ.Calm(ϒasset, "get", λ.StrLiteral("date"))),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    SportDeutschlandIE__VALID_URL,
 				"_real_extract": SportDeutschlandIE__real_extract,
 			})

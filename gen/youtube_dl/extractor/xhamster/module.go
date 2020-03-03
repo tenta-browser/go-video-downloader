@@ -112,6 +112,7 @@ func init() {
 						ϒupload_date     λ.Object
 						ϒuploader        λ.Object
 						ϒurl             = λargs[1]
+						ϒurlh            λ.Object
 						ϒvideo           λ.Object
 						ϒvideo_id        λ.Object
 						ϒvideo_url       λ.Object
@@ -140,7 +141,9 @@ func init() {
 						}
 					}()
 					ϒdesktop_url = λ.Cal(Ωre.ϒsub, λ.StrLiteral("^(https?://(?:.+?\\.)?)m\\."), λ.StrLiteral("\\1"), ϒurl)
-					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒdesktop_url, ϒvideo_id)
+					τmp0 = λ.Calm(ϒself, "_download_webpage_handle", ϒdesktop_url, ϒvideo_id)
+					ϒwebpage = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒerror = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 						λ.StrLiteral("<div[^>]+id=[\"\\']videoClosed[\"\\'][^>]*>(.+?)</div>"),
 						ϒwebpage,
@@ -232,6 +235,9 @@ func init() {
 									"ext":      λ.Cal(ϒdetermine_ext, ϒformat_url, λ.StrLiteral("mp4")),
 									"height":   λ.Cal(ϒget_height, ϒquality),
 									"filesize": ϒfilesize,
+									"http_headers": λ.DictLiteral(map[string]λ.Object{
+										"Referer": λ.Calm(ϒurlh, "geturl"),
+									}),
 								}))
 							}
 						}
@@ -495,7 +501,7 @@ func init() {
 						"formats":       ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_DOMAINS":      XHamsterIE__DOMAINS,
 				"_VALID_URL":    XHamsterIE__VALID_URL,
 				"_real_extract": XHamsterIE__real_extract,
@@ -542,7 +548,7 @@ func init() {
 					}
 					return λ.Calm(ϒself, "url_result", ϒvideo_url, λ.StrLiteral("XHamster"))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    XHamsterEmbedIE__VALID_URL,
 				"_real_extract": XHamsterEmbedIE__real_extract,
 			})
@@ -552,7 +558,7 @@ func init() {
 				XHamsterUserIE__VALID_URL λ.Object
 			)
 			XHamsterUserIE__VALID_URL = λ.Mod(λ.StrLiteral("https?://(?:.+?\\.)?%s/users/(?P<id>[^/?#&]+)"), λ.GetAttr(XHamsterIE, "_DOMAINS", nil))
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": XHamsterUserIE__VALID_URL,
 			})
 		}())

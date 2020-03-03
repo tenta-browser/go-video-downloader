@@ -161,7 +161,7 @@ func init() {
 						"formats":     ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    FreesoundIE__VALID_URL,
 				"_real_extract": FreesoundIE__real_extract,
 			})

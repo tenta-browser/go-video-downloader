@@ -75,7 +75,7 @@ func init() {
 					λ.SetItem(ϒinfo, λ.StrLiteral("id"), ϒvideo_id)
 					return ϒinfo
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       FoxNewsIE_IE_NAME,
 				"_VALID_URL":    FoxNewsIE__VALID_URL,
 				"_real_extract": FoxNewsIE__real_extract,
@@ -118,7 +118,7 @@ func init() {
 					}
 					return λ.Calm(ϒself, "url_result", λ.GetItem(λ.Calm(FoxNewsIE, "_extract_urls", ϒwebpage), λ.IntLiteral(0)), λ.Calm(FoxNewsIE, "ie_key"))
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       FoxNewsArticleIE_IE_NAME,
 				"_VALID_URL":    FoxNewsArticleIE__VALID_URL,
 				"_real_extract": FoxNewsArticleIE__real_extract,

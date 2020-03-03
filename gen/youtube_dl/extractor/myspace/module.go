@@ -249,7 +249,7 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    MySpaceIE__VALID_URL,
 				"_real_extract": MySpaceIE__real_extract,
 			})
@@ -259,7 +259,7 @@ func init() {
 				MySpaceAlbumIE__VALID_URL λ.Object
 			)
 			MySpaceAlbumIE__VALID_URL = λ.StrLiteral("https?://myspace\\.com/([^/]+)/music/album/(?P<title>.*-)(?P<id>\\d+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": MySpaceAlbumIE__VALID_URL,
 			})
 		}())

@@ -178,7 +178,7 @@ func init() {
 						"description": λ.Calm(ϒitem, "get", λ.StrLiteral("description")),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_BASE_URL":                 SverigesRadioBaseIE__BASE_URL,
 				"_CODING_FORMAT_TO_ABR_MAP": SverigesRadioBaseIE__CODING_FORMAT_TO_ABR_MAP,
 				"_EXT_TO_CODEC_MAP":         SverigesRadioBaseIE__EXT_TO_CODEC_MAP,
@@ -195,7 +195,7 @@ func init() {
 			SverigesRadioPublicationIE_IE_NAME = λ.StrLiteral("sverigesradio:publication")
 			SverigesRadioPublicationIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?sverigesradio\\.se/sida/(?:artikel|gruppsida)\\.aspx\\?.*?\\bartikel=(?P<id>[0-9]+)")
 			SverigesRadioPublicationIE__AUDIO_TYPE = λ.StrLiteral("publication")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":     SverigesRadioPublicationIE_IE_NAME,
 				"_AUDIO_TYPE": SverigesRadioPublicationIE__AUDIO_TYPE,
 				"_VALID_URL":  SverigesRadioPublicationIE__VALID_URL,
@@ -210,7 +210,7 @@ func init() {
 			SverigesRadioEpisodeIE_IE_NAME = λ.StrLiteral("sverigesradio:episode")
 			SverigesRadioEpisodeIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?sverigesradio\\.se/(?:sida/)?avsnitt/(?P<id>[0-9]+)")
 			SverigesRadioEpisodeIE__AUDIO_TYPE = λ.StrLiteral("episode")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":     SverigesRadioEpisodeIE_IE_NAME,
 				"_AUDIO_TYPE": SverigesRadioEpisodeIE__AUDIO_TYPE,
 				"_VALID_URL":  SverigesRadioEpisodeIE__VALID_URL,

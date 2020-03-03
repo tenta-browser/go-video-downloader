@@ -334,7 +334,7 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":             LivestreamIE_IE_NAME,
 				"_API_URL_TEMPLATE":   LivestreamIE__API_URL_TEMPLATE,
 				"_VALID_URL":          LivestreamIE__VALID_URL,
@@ -348,7 +348,7 @@ func init() {
 				LivestreamOriginalIE__VALID_URL λ.Object
 			)
 			LivestreamOriginalIE__VALID_URL = λ.StrLiteral("(?x)https?://original\\.livestream\\.com/\n        (?P<user>[^/\\?#]+)(?:/(?P<type>video|folder)\n        (?:(?:\\?.*?Id=|/)(?P<id>.*?)(&|$))?)?\n        ")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": LivestreamOriginalIE__VALID_URL,
 			})
 		}())
@@ -357,7 +357,7 @@ func init() {
 				LivestreamShortenerIE__VALID_URL λ.Object
 			)
 			LivestreamShortenerIE__VALID_URL = λ.StrLiteral("https?://livestre\\.am/(?P<id>.+)")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": LivestreamShortenerIE__VALID_URL,
 			})
 		}())

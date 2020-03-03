@@ -202,7 +202,7 @@ func init() {
 						"subtitles":   ϒsubtitles,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    PikselIE__VALID_URL,
 				"_real_extract": PikselIE__real_extract,
 			})

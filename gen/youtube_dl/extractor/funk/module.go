@@ -85,7 +85,7 @@ func init() {
 						"thumbnail":   λ.Calm(ϒvideo, "get", λ.StrLiteral("imageUrlLandscape")),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    FunkIE__VALID_URL,
 				"_real_extract": FunkIE__real_extract,
 			})

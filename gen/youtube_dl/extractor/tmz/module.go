@@ -59,7 +59,7 @@ func init() {
 					ϒvideo_id = λ.Calm(λ.Calm(ϒself, "_match_id", ϒurl), "replace", λ.StrLiteral("-"), λ.StrLiteral("_"))
 					return λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("kaltura:591531:%s"), ϒvideo_id), λ.StrLiteral("Kaltura"), ϒvideo_id)
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    TMZIE__VALID_URL,
 				"_real_extract": TMZIE__real_extract,
 			})
@@ -69,7 +69,7 @@ func init() {
 				TMZArticleIE__VALID_URL λ.Object
 			)
 			TMZArticleIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?tmz\\.com/\\d{4}/\\d{2}/\\d{2}/(?P<id>[^/]+)/?")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": TMZArticleIE__VALID_URL,
 			})
 		}())

@@ -379,7 +379,7 @@ func init() {
 						"thumbnail": ϒthumbnail,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_COMM_MAP":          SenateISVPIE__COMM_MAP,
 				"_VALID_URL":         SenateISVPIE__VALID_URL,
 				"_get_info_for_comm": SenateISVPIE__get_info_for_comm,

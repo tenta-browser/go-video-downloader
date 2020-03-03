@@ -155,7 +155,7 @@ func init() {
 					}
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":          ToonGogglesIE__VALID_URL,
 				"_call_api":           ToonGogglesIE__call_api,
 				"_parse_episode_data": ToonGogglesIE__parse_episode_data,

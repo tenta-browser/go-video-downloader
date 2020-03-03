@@ -109,7 +109,7 @@ func init() {
 						"thumbnail":   λ.Calm(ϒconfig, "get", λ.StrLiteral("image")),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    JeuxVideoIE__VALID_URL,
 				"_real_extract": JeuxVideoIE__real_extract,
 			})

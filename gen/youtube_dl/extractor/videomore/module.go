@@ -64,7 +64,7 @@ func init() {
 				VideomoreIE__VALID_URL λ.Object
 			)
 			VideomoreIE__VALID_URL = λ.StrLiteral("(?x)\n                    videomore:(?P<sid>\\d+)$|\n                    https?://(?:player\\.)?videomore\\.ru/\n                        (?:\n                            (?:\n                                embed|\n                                [^/]+/[^/]+\n                            )/|\n                            [^/]*\\?.*?\\btrack_id=\n                        )\n                        (?P<id>\\d+)\n                        (?:[/?#&]|\\.(?:xml|json)|$)\n                    ")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": VideomoreIE__VALID_URL,
 			})
 		}())
@@ -94,7 +94,7 @@ func init() {
 					}()
 				})
 			VideomoreVideoIE_suitable = λ.Cal(λ.ClassMethodType, VideomoreVideoIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": VideomoreVideoIE__VALID_URL,
 				"suitable":   VideomoreVideoIE_suitable,
 			})
@@ -131,7 +131,7 @@ func init() {
 					}()
 				})
 			VideomoreSeasonIE_suitable = λ.Cal(λ.ClassMethodType, VideomoreSeasonIE_suitable)
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": VideomoreSeasonIE__VALID_URL,
 				"suitable":   VideomoreSeasonIE_suitable,
 			})

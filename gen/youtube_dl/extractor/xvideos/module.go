@@ -225,7 +225,7 @@ func init() {
 						"age_limit":  λ.IntLiteral(18),
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    XVideosIE__VALID_URL,
 				"_real_extract": XVideosIE__real_extract,
 			})

@@ -116,7 +116,7 @@ func init() {
 					}))
 					return ϒinfo
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_GEO_COUNTRIES": Vbox7IE__GEO_COUNTRIES,
 				"_VALID_URL":     Vbox7IE__VALID_URL,
 				"_real_extract":  Vbox7IE__real_extract,

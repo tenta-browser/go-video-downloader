@@ -132,7 +132,7 @@ func init() {
 					}), λ.StrLiteral("Submitting password"), ϒsignin_url)
 					return λ.None
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_NETRC_MACHINE":   LyndaBaseIE__NETRC_MACHINE,
 				"_login":           LyndaBaseIE__login,
 				"_real_initialize": LyndaBaseIE__real_initialize,
@@ -375,7 +375,7 @@ func init() {
 						"formats":   ϒformats,
 					})
 				})
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":       LyndaIE_IE_NAME,
 				"_VALID_URL":    LyndaIE__VALID_URL,
 				"_real_extract": LyndaIE__real_extract,
@@ -386,7 +386,7 @@ func init() {
 				LyndaCourseIE__VALID_URL λ.Object
 			)
 			LyndaCourseIE__VALID_URL = λ.StrLiteral("https?://(?:www|m)\\.(?:lynda\\.com|educourse\\.ga)/(?P<coursepath>(?:[^/]+/){2,3}(?P<courseid>\\d+))-2\\.html")
-			return λ.DictLiteral(map[string]λ.Object{
+			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": LyndaCourseIE__VALID_URL,
 			})
 		}())
