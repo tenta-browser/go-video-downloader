@@ -1498,7 +1498,7 @@ func init() {
 						ϒurlh          λ.Object
 						ϒvideo_id      = λargs[1]
 					)
-					ϒid_m = λ.Cal(Ωre.ϒmatch, λ.StrLiteral(".*?-(?P<id>[a-zA-Z0-9_-]+)(?:/watch_as3|/html5player(?:-new)?|(?:/[a-z]{2,3}_[A-Z]{2})?/base)?\\.(?P<ext>[a-z]+)$"), ϒplayer_url)
+					ϒid_m = λ.Cal(Ωre.ϒmatch, λ.StrLiteral(".*?[-.](?P<id>[a-zA-Z0-9_-]+)(?:/watch_as3|/html5player(?:-new)?|(?:/[a-z]{2,3}_[A-Z]{2})?/base)?\\.(?P<ext>[a-z]+)$"), ϒplayer_url)
 					if !λ.IsTrue(ϒid_m) {
 						panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.StrLiteral("Cannot identify player %r"), ϒplayer_url))))
 					}
@@ -2954,7 +2954,7 @@ func init() {
 														ϒplayer_version = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
 															λ.NewList(
 																λ.StrLiteral("html5player-([^/]+?)(?:/html5player(?:-new)?)?\\.js"),
-																λ.StrLiteral("(?:www|player(?:_ias)?)-([^/]+)(?:/[a-z]{2,3}_[A-Z]{2})?/base\\.js"),
+																λ.StrLiteral("(?:www|player(?:_ias)?)[-.]([^/]+)(?:/[a-z]{2,3}_[A-Z]{2})?/base\\.js"),
 															),
 															ϒplayer_url,
 															λ.StrLiteral("html5 player"),

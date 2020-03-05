@@ -7,7 +7,6 @@ Supported sites
  * AdobeTVEmbed: `tv.adobe.com`
  * AdobeTV: `tv.adobe.com`
  * AdobeTVVideo: `video.tv.adobe.com`
- * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
  * ARDBetaMediathek: `beta.ardmediathek.de`
  * ARDMediathek: `www.ardmediathek.de`
@@ -73,7 +72,6 @@ Supported sites
  * EbaumsWorld: `www.ebaumsworld.com`
  * EchoMsk: `www.echo.msk.ru`
  * ElPais: `blogs.elpais.com`
- * Engadget: `www.engadget.com`
  * Eporner _(adult)_: `www.eporner.com`
  * Escapist: `www.escapistmagazine.com`
  * ExtremeTube _(adult)_: `www.extremetube.com`
@@ -81,7 +79,6 @@ Supported sites
  * Faz: `www.faz.net`
  * Fczenit: `fc-zenit.ru`
  * Filmweb: `www.filmweb.no`
- * FiveMin: `pshared.5min.com`
  * FiveTV: `5-tv.ru`
  * Flickr: `www.flickr.com`
  * Formula1: `www.formula1.com`
@@ -128,7 +125,6 @@ Supported sites
  * KickStarter: `www.kickstarter.com`
  * LibraryOfCongress: `loc.gov`
  * Libsyn: `html5-player.libsyn.com`
- * LimelightMedia: `link.videoplatform.limelight.com`
  * Livestream: `new.livestream.com`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * Lynda: `www.lynda.com`
@@ -180,7 +176,6 @@ Supported sites
  * PlayFM: `www.play.fm`
  * Playvid _(adult)_: `www.playvid.com`
  * Podomatic: `scienceteachingtips.podomatic.com`
- * Pokemon: `www.pokemon.com`
  * Porn91 _(adult)_: `91porn.com`
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
@@ -227,7 +222,6 @@ Supported sites
  * TED: `www.ted.com`
  * Telegraaf: `www.telegraaf.nl`
  * Tenta: `tenta.com`
- * TFO: `www.tfo.org`
  * ThePlatform: `player.theplatform.com`
  * TheScene: `thescene.com`
  * TMZ: `www.tmz.com`
@@ -279,6 +273,7 @@ Supported sites
  * VuClip: `m.vuclip.com`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
+ * Weibo: `weibo.com`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`
