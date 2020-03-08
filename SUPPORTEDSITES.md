@@ -113,6 +113,7 @@ Supported sites
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
  * Instagram: `instagram.com`
+ * Ir90Tv: `90tv.ir`
  * Ivideon: `www.ivideon.com`
  * Izlesene: `www.izlesene.com`
  * Jamendo: `www.jamendo.com`

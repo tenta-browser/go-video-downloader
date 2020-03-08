@@ -126,6 +126,7 @@ import (
 	Ωina "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ina"
 	Ωinfoq "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/infoq"
 	Ωinstagram "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/instagram"
+	Ωir90tv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ir90tv"
 	Ωivideon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ivideon"
 	Ωizlesene "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/izlesene"
 	Ωjamendo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/jamendo"
@@ -405,6 +406,7 @@ var (
 	InaIE                      λ.Object
 	InfoQIE                    λ.Object
 	InstagramIE                λ.Object
+	Ir90TvIE                   λ.Object
 	IvideonIE                  λ.Object
 	IzleseneIE                 λ.Object
 	JWPlatformIE               λ.Object
@@ -699,6 +701,7 @@ func init() {
 		InaIE = Ωina.InaIE
 		InfoQIE = Ωinfoq.InfoQIE
 		InstagramIE = Ωinstagram.InstagramIE
+		Ir90TvIE = Ωir90tv.Ir90TvIE
 		IvideonIE = Ωivideon.IvideonIE
 		IzleseneIE = Ωizlesene.IzleseneIE
 		JamendoIE = Ωjamendo.JamendoIE
@@ -992,6 +995,7 @@ func init() {
 			InaIE,
 			InfoQIE,
 			InstagramIE,
+			Ir90TvIE,
 			IvideonIE,
 			IzleseneIE,
 			JamendoIE,
