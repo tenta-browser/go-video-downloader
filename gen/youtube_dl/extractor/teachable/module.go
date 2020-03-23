@@ -39,6 +39,8 @@ var (
 	WistiaIE              λ.Object
 	ϒclean_html           λ.Object
 	ϒget_element_by_class λ.Object
+	ϒint_or_none          λ.Object
+	ϒstrip_or_none        λ.Object
 	ϒurlencode_postdata   λ.Object
 	ϒurljoin              λ.Object
 )
@@ -49,7 +51,9 @@ func init() {
 		WistiaIE = Ωwistia.WistiaIE
 		ϒclean_html = Ωutils.ϒclean_html
 		ExtractorError = Ωutils.ExtractorError
+		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒget_element_by_class = Ωutils.ϒget_element_by_class
+		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		ϒurljoin = Ωutils.ϒurljoin
 		TeachableBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("TeachableBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
@@ -60,8 +64,8 @@ func init() {
 			)
 			TeachableBaseIE__URL_PREFIX = λ.StrLiteral("teachable:")
 			TeachableBaseIE__SITES = λ.DictLiteral(map[string]string{
-				"upskillcourses.com":      "upskill",
-				"academy.gns3.com":        "gns3",
+				"v1.upskillcourses.com":   "upskill",
+				"gns3.teachable.com":      "gns3",
 				"academyhacker.com":       "academyhacker",
 				"stackskills.com":         "stackskills",
 				"market.saleshacker.com":  "saleshacker",

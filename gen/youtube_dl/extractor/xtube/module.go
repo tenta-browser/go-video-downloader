@@ -137,10 +137,16 @@ func init() {
 							ϒtitle = λ.Calm(ϒconfig, "get", λ.StrLiteral("title"))
 							ϒthumbnail = λ.Calm(ϒconfig, "get", λ.StrLiteral("poster"))
 							ϒduration = λ.Cal(ϒint_or_none, λ.Calm(ϒconfig, "get", λ.StrLiteral("duration")))
-							ϒsources = λ.Calm(ϒconfig, "get", λ.StrLiteral("sources"))
+							ϒsources = func() λ.Object {
+								if λv := λ.Calm(ϒconfig, "get", λ.StrLiteral("sources")); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.Calm(ϒconfig, "get", λ.StrLiteral("format"))
+								}
+							}()
 						}
 					}
-					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒsources, λ.DictType)) {
+					if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒsources, λ.DictType)) {
 						ϒsources = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 							λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
 								λ.StrLiteral("([\"\\'])?sources\\1?\\s*:\\s*(?P<sources>{.+?}),"),

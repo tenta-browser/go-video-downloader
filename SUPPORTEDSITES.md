@@ -74,6 +74,7 @@ Supported sites
  * ElPais: `blogs.elpais.com`
  * Eporner _(adult)_: `www.eporner.com`
  * Escapist: `www.escapistmagazine.com`
+ * FiveThirtyEight: `fivethirtyeight.com`
  * ExtremeTube _(adult)_: `www.extremetube.com`
  * FacebookPluginsVideo: `www.facebook.com`
  * Faz: `www.faz.net`
@@ -102,6 +103,7 @@ Supported sites
  * GPUTechConf: `on-demand.gputechconf.com`
  * HBO: `www.hbo.com`
  * Heise: `www.heise.de`
+ * HellPorno _(adult)_: `hellporno.com`
  * HistoricFilms: `www.historicfilms.com`
  * HitRecord: `hitrecord.org`
  * HornBunny _(adult)_: `hornbunny.com`
@@ -110,7 +112,6 @@ Supported sites
  * Imdb: `www.imdb.com`
  * Imgur: `i.imgur.com`
  * ImgurGallery: `imgur.com`
- * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
  * Instagram: `instagram.com`
  * Ir90Tv: `90tv.ir`
@@ -126,6 +127,7 @@ Supported sites
  * KickStarter: `www.kickstarter.com`
  * LibraryOfCongress: `loc.gov`
  * Libsyn: `html5-player.libsyn.com`
+ * LimelightMedia: `link.videoplatform.limelight.com`
  * Livestream: `new.livestream.com`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * Lynda: `www.lynda.com`
@@ -177,6 +179,7 @@ Supported sites
  * PlayFM: `www.play.fm`
  * Playvid _(adult)_: `www.playvid.com`
  * Podomatic: `scienceteachingtips.podomatic.com`
+ * Pokemon: `www.pokemon.com`
  * Porn91 _(adult)_: `91porn.com`
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
@@ -223,8 +226,8 @@ Supported sites
  * TED: `www.ted.com`
  * Telegraaf: `www.telegraaf.nl`
  * Tenta: `tenta.com`
+ * TFO: `www.tfo.org`
  * ThePlatform: `player.theplatform.com`
- * TheScene: `thescene.com`
  * TMZ: `www.tmz.com`
  * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
  * TNAFlix _(adult)_: `www.tnaflix.com`
@@ -270,11 +273,8 @@ Supported sites
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * VLivePlaylist: `www.vlive.tv`
- * VoiceRepublic: `voicerepublic.com`
- * VuClip: `m.vuclip.com`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
- * Weibo: `weibo.com`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`

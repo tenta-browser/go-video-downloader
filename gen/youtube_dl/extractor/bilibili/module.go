@@ -34,6 +34,7 @@ import (
 var (
 	BiliBiliBangumiIE    λ.Object
 	BiliBiliIE           λ.Object
+	BiliBiliPlayerIE     λ.Object
 	BilibiliAudioAlbumIE λ.Object
 	BilibiliAudioBaseIE  λ.Object
 	BilibiliAudioIE      λ.Object
@@ -69,7 +70,7 @@ func init() {
 			var (
 				BiliBiliIE__VALID_URL λ.Object
 			)
-			BiliBiliIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.|bangumi\\.|)bilibili\\.(?:tv|com)/(?:video/av|anime/(?P<anime_id>\\d+)/play#)(?P<id>\\d+)")
+			BiliBiliIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:(?:www|bangumi)\\.)?\n                        bilibili\\.(?:tv|com)/\n                        (?:\n                            (?:\n                                video/[aA][vV]|\n                                anime/(?P<anime_id>\\d+)/play\\#\n                            )(?P<id_bv>\\d+)|\n                            video/[bB][vV](?P<id>[^/?#&]+)\n                        )\n                    ")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": BiliBiliIE__VALID_URL,
 			})
@@ -216,6 +217,15 @@ func init() {
 			BilibiliAudioAlbumIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?bilibili\\.com/audio/am(?P<id>\\d+)")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": BilibiliAudioAlbumIE__VALID_URL,
+			})
+		}())
+		BiliBiliPlayerIE = λ.Cal(λ.TypeType, λ.StrLiteral("BiliBiliPlayerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+			var (
+				BiliBiliPlayerIE__VALID_URL λ.Object
+			)
+			BiliBiliPlayerIE__VALID_URL = λ.StrLiteral("https?://player\\.bilibili\\.com/player\\.html\\?.*?\\baid=(?P<id>\\d+)")
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_VALID_URL": BiliBiliPlayerIE__VALID_URL,
 			})
 		}())
 	})

@@ -945,8 +945,6 @@ func init() {
 										τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
 											λ.StrLiteral("play_redirect_hls"),
 											λ.StrLiteral("moogaloop.swf"),
-											λ.StrLiteral("/album/"),
-											λ.StrLiteral("/showcase/"),
 										))
 										for {
 											if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {

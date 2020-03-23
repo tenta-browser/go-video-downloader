@@ -41,6 +41,7 @@ var (
 	NJoyIE         λ.Object
 	ϒdetermine_ext λ.Object
 	ϒint_or_none   λ.Object
+	ϒmerge_dicts   λ.Object
 	ϒparse_iso8601 λ.Object
 	ϒqualities     λ.Object
 	ϒtry_get       λ.Object
@@ -52,6 +53,7 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒmerge_dicts = Ωutils.ϒmerge_dicts
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒqualities = Ωutils.ϒqualities
 		ϒtry_get = Ωutils.ϒtry_get
@@ -125,17 +127,30 @@ func init() {
 						ϒdescription λ.Object
 						ϒdisplay_id  = λargs[2]
 						ϒembed_url   λ.Object
+						ϒinfo        λ.Object
 						ϒself        = λargs[0]
 						ϒtimestamp   λ.Object
 						ϒwebpage     = λargs[1]
 					)
-					ϒembed_url = λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
-						λ.StrLiteral("embedURL"),
-						ϒwebpage,
-						λ.StrLiteral("embed URL"),
-					), λ.KWArgs{
-						{Name: "fatal", Value: λ.True},
-					})
+					ϒembed_url = func() λ.Object {
+						if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
+							λ.StrLiteral("embedURL"),
+							ϒwebpage,
+							λ.StrLiteral("embed URL"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						}); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+								λ.StrLiteral("\\bembedUrl[\"\\']\\s*:\\s*([\"\\'])(?P<url>(?:(?!\\1).)+)\\1"),
+								ϒwebpage,
+								λ.StrLiteral("embed URL"),
+							), λ.KWArgs{
+								{Name: "group", Value: λ.StrLiteral("url")},
+							})
+						}
+					}()
 					ϒdescription = func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
 							λ.StrLiteral("<p[^>]+itemprop=\"description\">([^<]+)</p>"),
@@ -154,15 +169,21 @@ func init() {
 						ϒwebpage,
 						λ.StrLiteral("upload date"),
 					), λ.KWArgs{
-						{Name: "fatal", Value: λ.False},
+						{Name: "default", Value: λ.None},
 					}))
-					return λ.DictLiteral(map[string]λ.Object{
+					ϒinfo = λ.Call(λ.GetAttr(ϒself, "_search_json_ld", nil), λ.NewArgs(
+						ϒwebpage,
+						ϒdisplay_id,
+					), λ.KWArgs{
+						{Name: "default", Value: λ.DictLiteral(map[λ.Object]λ.Object{})},
+					})
+					return λ.Cal(ϒmerge_dicts, λ.DictLiteral(map[string]λ.Object{
 						"_type":       λ.StrLiteral("url_transparent"),
 						"url":         ϒembed_url,
 						"display_id":  ϒdisplay_id,
 						"description": ϒdescription,
 						"timestamp":   ϒtimestamp,
-					})
+					}), ϒinfo)
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"IE_NAME":        NDRIE_IE_NAME,
