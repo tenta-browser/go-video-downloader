@@ -7,6 +7,7 @@ Supported sites
  * AdobeTVEmbed: `tv.adobe.com`
  * AdobeTV: `tv.adobe.com`
  * AdobeTVVideo: `video.tv.adobe.com`
+ * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
  * ARDBetaMediathek: `beta.ardmediathek.de`
  * ARDMediathek: `www.ardmediathek.de`
@@ -72,7 +73,7 @@ Supported sites
  * EbaumsWorld: `www.ebaumsworld.com`
  * EchoMsk: `www.echo.msk.ru`
  * ElPais: `blogs.elpais.com`
- * Eporner _(adult)_: `www.eporner.com`
+ * Engadget: `www.engadget.com`
  * Escapist: `www.escapistmagazine.com`
  * FiveThirtyEight: `fivethirtyeight.com`
  * ExtremeTube _(adult)_: `www.extremetube.com`
@@ -80,6 +81,7 @@ Supported sites
  * Faz: `www.faz.net`
  * Fczenit: `fc-zenit.ru`
  * Filmweb: `www.filmweb.no`
+ * FiveMin: `pshared.5min.com`
  * FiveTV: `5-tv.ru`
  * Flickr: `www.flickr.com`
  * Formula1: `www.formula1.com`
@@ -112,9 +114,9 @@ Supported sites
  * Imdb: `www.imdb.com`
  * Imgur: `i.imgur.com`
  * ImgurGallery: `imgur.com`
+ * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
  * Instagram: `instagram.com`
- * Ir90Tv: `90tv.ir`
  * Ivideon: `www.ivideon.com`
  * Izlesene: `www.izlesene.com`
  * Jamendo: `www.jamendo.com`
@@ -133,7 +135,6 @@ Supported sites
  * Lynda: `www.lynda.com`
  * MailRuMusic: `my.mail.ru`
  * ManyVids: `www.manyvids.com`
- * MassengeschmackTV: `massengeschmack.tv`
  * Mediaset: `www.mediasetplay.mediaset.it`
  * Megaphone: `player.megaphone.fm`
  * Metacritic: `www.metacritic.com`
@@ -180,7 +181,6 @@ Supported sites
  * Playvid _(adult)_: `www.playvid.com`
  * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
- * Porn91 _(adult)_: `91porn.com`
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
@@ -210,7 +210,6 @@ Supported sites
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
  * Stitcher: `www.stitcher.com`
- * SportDeutschland: `sportdeutschland.tv`
  * SRGSSRPlay: `www.rts.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
  * Streamable: `streamable.com`
@@ -227,7 +226,6 @@ Supported sites
  * Telegraaf: `www.telegraaf.nl`
  * Tenta: `tenta.com`
  * TFO: `www.tfo.org`
- * ThePlatform: `player.theplatform.com`
  * TMZ: `www.tmz.com`
  * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
  * TNAFlix _(adult)_: `www.tnaflix.com`
@@ -250,7 +248,6 @@ Supported sites
  * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
  * UstudioEmbed: `app.ustudio.com`
- * Varzesh3: `video.varzesh3.com`
  * Vbox7: `vbox7.com`
  * Veoh: `www.veoh.com`
  * Vesti: `www.vesti.ru`
@@ -264,8 +261,7 @@ Supported sites
  * VidLii: `www.vidlii.com`
  * ViewLift _(adult)_: `www.snagfilms.com`
  * ViewLiftEmbed: `embed.snagfilms.com`
- * Vimeo: `vimeo.com`
- * VimeoOndemand: `vimeo.com`
+ * Vimeo: `player.vimeo.com`
  * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
  * Vine: `vine.co`
@@ -273,6 +269,7 @@ Supported sites
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * VLivePlaylist: `www.vlive.tv`
+ * VoiceRepublic: `voicerepublic.com`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
  * WeiboMobile: `m.weibo.cn`
@@ -287,6 +284,7 @@ Supported sites
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
  * Yahoo: `screen.yahoo.com`
+ * YinYueTai: `v.yinyuetai.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`
  * YourPorn _(adult)_: `sxyprn.com`

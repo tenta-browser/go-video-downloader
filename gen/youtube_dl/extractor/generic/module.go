@@ -55,6 +55,7 @@ import (
 	Ωliveleak "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/liveleak"
 	Ωmediaset "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mediaset"
 	Ωmegaphone "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/megaphone"
+	Ωmofosex "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mofosex"
 	Ωmtv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mtv"
 	Ωmyvi "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/myvi"
 	Ωnbc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nbc"
@@ -72,6 +73,7 @@ import (
 	Ωsenateisvp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/senateisvp"
 	Ωsmotri "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/smotri"
 	Ωsoundcloud "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/soundcloud"
+	Ωspankwire "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/spankwire"
 	Ωsportbox "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sportbox"
 	Ωspringboardplatform "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/springboardplatform"
 	Ωsvt "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/svt"
@@ -100,6 +102,7 @@ import (
 	Ωxfileshare "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xfileshare"
 	Ωxhamster "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xhamster"
 	Ωyapfiles "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yapfiles"
+	Ωyouporn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youporn"
 	Ωyoutube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youtube"
 	Ωzype "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/zype"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
@@ -140,6 +143,7 @@ var (
 	MTVServicesEmbeddedIE        λ.Object
 	MediasetIE                   λ.Object
 	MegaphoneIE                  λ.Object
+	MofosexEmbedIE               λ.Object
 	MyviIE                       λ.Object
 	NBCSportsVPlayerIE           λ.Object
 	NexxEmbedIE                  λ.Object
@@ -159,6 +163,7 @@ var (
 	SenateISVPIE                 λ.Object
 	SmotriIE                     λ.Object
 	SoundcloudEmbedIE            λ.Object
+	SpankwireIE                  λ.Object
 	SportBoxIE                   λ.Object
 	SpringboardPlatformIE        λ.Object
 	TNAFlixNetworkEmbedIE        λ.Object
@@ -186,6 +191,7 @@ var (
 	XFileShareIE                 λ.Object
 	XHamsterEmbedIE              λ.Object
 	YapFilesIE                   λ.Object
+	YouPornIE                    λ.Object
 	YoutubeIE                    λ.Object
 	ZypeIE                       λ.Object
 	ϒcompat_etree_fromstring     λ.Object
@@ -251,6 +257,9 @@ func init() {
 		DrTuberIE = Ωdrtuber.DrTuberIE
 		RedTubeIE = Ωredtube.RedTubeIE
 		Tube8IE = Ωtube8.Tube8IE
+		MofosexEmbedIE = Ωmofosex.MofosexEmbedIE
+		SpankwireIE = Ωspankwire.SpankwireIE
+		YouPornIE = Ωyouporn.YouPornIE
 		VimeoIE = Ωvimeo.VimeoIE
 		DailymotionIE = Ωdailymotion.DailymotionIE
 		DailyMailIE = Ωdailymail.DailyMailIE

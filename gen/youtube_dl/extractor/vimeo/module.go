@@ -1298,13 +1298,10 @@ func init() {
 		}())
 		VimeoOndemandIE = λ.Cal(λ.TypeType, λ.StrLiteral("VimeoOndemandIE"), λ.NewTuple(VimeoIE), func() λ.Dict {
 			var (
-				VimeoOndemandIE_IE_NAME    λ.Object
 				VimeoOndemandIE__VALID_URL λ.Object
 			)
-			VimeoOndemandIE_IE_NAME = λ.StrLiteral("vimeo:ondemand")
 			VimeoOndemandIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?vimeo\\.com/ondemand/([^/]+/)?(?P<id>[^/?#&]+)")
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"IE_NAME":    VimeoOndemandIE_IE_NAME,
 				"_VALID_URL": VimeoOndemandIE__VALID_URL,
 			})
 		}())

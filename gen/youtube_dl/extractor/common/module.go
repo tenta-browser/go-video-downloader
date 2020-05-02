@@ -192,7 +192,6 @@ func init() {
 				InfoExtractor__initialize_geo_bypass       λ.Object
 				InfoExtractor__int                         λ.Object
 				InfoExtractor__is_valid_url                λ.Object
-				InfoExtractor__json_ld                     λ.Object
 				InfoExtractor__live_title                  λ.Object
 				InfoExtractor__match_id                    λ.Object
 				InfoExtractor__media_rating_search         λ.Object
@@ -2111,28 +2110,17 @@ func init() {
 						ϒfatal         λ.Object
 						ϒhtml          = λargs[1]
 						ϒjson_ld       λ.Object
+						ϒjson_ld_item  λ.Object
+						ϒjson_ld_list  λ.Object
 						ϒkwargs        = λargs[4]
+						ϒmobj          λ.Object
 						ϒself          = λargs[0]
 						ϒvideo_id      = λargs[2]
+						τmp0           λ.Object
+						τmp1           λ.Object
 					)
-					ϒjson_ld = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						JSON_LD_RE,
-						ϒhtml,
-						λ.StrLiteral("JSON-LD"),
-					), λ.KWArgs{
-						{Name: "group", Value: λ.StrLiteral("json_ld")},
-						{Name: "", Value: ϒkwargs},
-					})
+					ϒjson_ld_list = λ.Cal(λ.ListType, λ.Cal(Ωre.ϒfinditer, JSON_LD_RE, ϒhtml))
 					ϒdefault = λ.Calm(ϒkwargs, "get", λ.StrLiteral("default"), NO_DEFAULT)
-					if !λ.IsTrue(ϒjson_ld) {
-						return func() λ.Object {
-							if ϒdefault != NO_DEFAULT {
-								return ϒdefault
-							} else {
-								return λ.DictLiteral(map[λ.Object]λ.Object{})
-							}
-						}()
-					}
 					ϒfatal = func() λ.Object {
 						if λ.IsTrue(λ.Eq(ϒdefault, NO_DEFAULT)) {
 							return λ.Calm(ϒkwargs, "get", λ.StrLiteral("fatal"), λ.True)
@@ -2140,310 +2128,56 @@ func init() {
 							return λ.False
 						}
 					}()
-					return λ.Call(λ.GetAttr(ϒself, "_json_ld", nil), λ.NewArgs(
-						ϒjson_ld,
-						ϒvideo_id,
-					), λ.KWArgs{
-						{Name: "fatal", Value: ϒfatal},
-						{Name: "expected_type", Value: ϒexpected_type},
-					})
-				})
-			InfoExtractor__json_ld = λ.NewFunction("_json_ld",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "json_ld"},
-					{Name: "video_id"},
-					{Name: "fatal", Def: λ.True},
-					{Name: "expected_type", Def: λ.None},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						INTERACTION_TYPE_MAP           λ.Object
-						ϒe                             λ.Object
-						ϒepisode_name                  λ.Object
-						ϒexpected_type                 = λargs[4]
-						ϒextract_interaction_statistic λ.Object
-						ϒextract_video_object          λ.Object
-						ϒfatal                         = λargs[3]
-						ϒinfo                          λ.Object
-						ϒitem_type                     λ.Object
-						ϒjson_ld                       = λargs[1]
-						ϒpart_of_season                λ.Object
-						ϒpart_of_series                λ.Object
-						ϒself                          = λargs[0]
-						ϒvideo                         λ.Object
-						ϒvideo_id                      = λargs[2]
-						τmp0                           λ.Object
-						τmp1                           λ.Object
-					)
-					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒjson_ld, ϒcompat_str)) {
-						ϒjson_ld = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
-							ϒjson_ld,
-							ϒvideo_id,
-						), λ.KWArgs{
-							{Name: "fatal", Value: ϒfatal},
-						})
-					}
-					if !λ.IsTrue(ϒjson_ld) {
-						return λ.DictLiteral(map[λ.Object]λ.Object{})
-					}
-					ϒinfo = λ.DictLiteral(map[λ.Object]λ.Object{})
-					if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒjson_ld, λ.NewTuple(
-						λ.ListType,
-						λ.TupleType,
-						λ.DictType,
-					))) {
-						return ϒinfo
-					}
-					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒjson_ld, λ.DictType)) {
-						ϒjson_ld = λ.NewList(ϒjson_ld)
-					}
-					INTERACTION_TYPE_MAP = λ.DictLiteral(map[string]string{
-						"CommentAction":  "comment",
-						"AgreeAction":    "like",
-						"DisagreeAction": "dislike",
-						"LikeAction":     "like",
-						"DislikeAction":  "dislike",
-						"ListenAction":   "view",
-						"WatchAction":    "view",
-						"ViewAction":     "view",
-					})
-					ϒextract_interaction_statistic = λ.NewFunction("extract_interaction_statistic",
-						[]λ.Param{
-							{Name: "e"},
-						},
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							var (
-								ϒcount_key             λ.Object
-								ϒcount_kind            λ.Object
-								ϒe                     = λargs[0]
-								ϒinteraction_count     λ.Object
-								ϒinteraction_statistic λ.Object
-								ϒinteraction_type      λ.Object
-								ϒis_e                  λ.Object
-								τmp0                   λ.Object
-								τmp1                   λ.Object
-							)
-							ϒinteraction_statistic = λ.Calm(ϒe, "get", λ.StrLiteral("interactionStatistic"))
-							if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒinteraction_statistic, λ.ListType)) {
-								return λ.None
-							}
-							τmp0 = λ.Cal(λ.BuiltinIter, ϒinteraction_statistic)
-							for {
-								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-									break
-								}
-								ϒis_e = τmp1
-								if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒis_e, λ.DictType)) {
-									continue
-								}
-								if λ.IsTrue(λ.Ne(λ.Calm(ϒis_e, "get", λ.StrLiteral("@type")), λ.StrLiteral("InteractionCounter"))) {
-									continue
-								}
-								ϒinteraction_type = λ.Calm(ϒis_e, "get", λ.StrLiteral("interactionType"))
-								if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒinteraction_type, ϒcompat_str)) {
-									continue
-								}
-								ϒinteraction_count = λ.Cal(ϒint_or_none, λ.Calm(ϒis_e, "get", λ.StrLiteral("userInteractionCount")))
-								if ϒinteraction_count == λ.None {
-									continue
-								}
-								ϒcount_kind = λ.Calm(INTERACTION_TYPE_MAP, "get", λ.GetItem(λ.Calm(ϒinteraction_type, "split", λ.StrLiteral("/")), λ.Neg(λ.IntLiteral(1))))
-								if !λ.IsTrue(ϒcount_kind) {
-									continue
-								}
-								ϒcount_key = λ.Mod(λ.StrLiteral("%s_count"), ϒcount_kind)
-								if λ.Calm(ϒinfo, "get", ϒcount_key) != λ.None {
-									continue
-								}
-								λ.SetItem(ϒinfo, ϒcount_key, ϒinteraction_count)
-							}
-							return λ.None
-						})
-					ϒextract_video_object = λ.NewFunction("extract_video_object",
-						[]λ.Param{
-							{Name: "e"},
-						},
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							var (
-								ϒe = λargs[0]
-							)
-							if !λ.IsTrue(λ.Eq(λ.GetItem(ϒe, λ.StrLiteral("@type")), λ.StrLiteral("VideoObject"))) {
-								panic(λ.Raise(λ.Cal(λ.AssertionErrorType)))
-							}
-							λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
-								"url":         λ.Cal(ϒurl_or_none, λ.Calm(ϒe, "get", λ.StrLiteral("contentUrl"))),
-								"title":       λ.Cal(ϒunescapeHTML, λ.Calm(ϒe, "get", λ.StrLiteral("name"))),
-								"description": λ.Cal(ϒunescapeHTML, λ.Calm(ϒe, "get", λ.StrLiteral("description"))),
-								"thumbnail": λ.Cal(ϒurl_or_none, func() λ.Object {
-									if λv := λ.Calm(ϒe, "get", λ.StrLiteral("thumbnailUrl")); λ.IsTrue(λv) {
-										return λv
-									} else {
-										return λ.Calm(ϒe, "get", λ.StrLiteral("thumbnailURL"))
-									}
-								}()),
-								"duration":   λ.Cal(ϒparse_duration, λ.Calm(ϒe, "get", λ.StrLiteral("duration"))),
-								"timestamp":  λ.Cal(ϒunified_timestamp, λ.Calm(ϒe, "get", λ.StrLiteral("uploadDate"))),
-								"filesize":   λ.Cal(ϒfloat_or_none, λ.Calm(ϒe, "get", λ.StrLiteral("contentSize"))),
-								"tbr":        λ.Cal(ϒint_or_none, λ.Calm(ϒe, "get", λ.StrLiteral("bitrate"))),
-								"width":      λ.Cal(ϒint_or_none, λ.Calm(ϒe, "get", λ.StrLiteral("width"))),
-								"height":     λ.Cal(ϒint_or_none, λ.Calm(ϒe, "get", λ.StrLiteral("height"))),
-								"view_count": λ.Cal(ϒint_or_none, λ.Calm(ϒe, "get", λ.StrLiteral("interactionCount"))),
-							}))
-							λ.Cal(ϒextract_interaction_statistic, ϒe)
-							return λ.None
-						})
-					τmp0 = λ.Cal(λ.BuiltinIter, ϒjson_ld)
+					ϒjson_ld = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, ϒjson_ld_list)
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						ϒe = τmp1
-						if λ.IsTrue(func() λ.Object {
-							if λv := λ.Cal(λ.BuiltinIsInstance, λ.Calm(ϒe, "get", λ.StrLiteral("@context")), ϒcompat_str); !λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.Cal(Ωre.ϒmatch, λ.StrLiteral("^https?://schema.org/?$"), λ.Calm(ϒe, "get", λ.StrLiteral("@context")))
+						ϒmobj = τmp1
+						ϒjson_ld_item = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
+							λ.Calm(ϒmobj, "group", λ.StrLiteral("json_ld")),
+							ϒvideo_id,
+						), λ.KWArgs{
+							{Name: "fatal", Value: ϒfatal},
+						})
+						if !λ.IsTrue(ϒjson_ld_item) {
+							continue
+						}
+						if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒjson_ld_item, λ.DictType)) {
+							λ.Calm(ϒjson_ld, "append", ϒjson_ld_item)
+						} else {
+							if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒjson_ld_item, λ.NewTuple(
+								λ.ListType,
+								λ.TupleType,
+							))) {
+								λ.Calm(ϒjson_ld, "extend", ϒjson_ld_item)
 							}
-						}()) {
-							ϒitem_type = λ.Calm(ϒe, "get", λ.StrLiteral("@type"))
-							if λ.IsTrue(func() λ.Object {
-								if λv := λ.NewBool(ϒexpected_type != λ.None); !λ.IsTrue(λv) {
-									return λv
-								} else {
-									return λ.Ne(ϒexpected_type, ϒitem_type)
-								}
-							}()) {
-								return ϒinfo
-							}
-							if λ.Contains(λ.NewTuple(
-								λ.StrLiteral("TVEpisode"),
-								λ.StrLiteral("Episode"),
-							), ϒitem_type) {
-								ϒepisode_name = λ.Cal(ϒunescapeHTML, λ.Calm(ϒe, "get", λ.StrLiteral("name")))
-								λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
-									"episode":        ϒepisode_name,
-									"episode_number": λ.Cal(ϒint_or_none, λ.Calm(ϒe, "get", λ.StrLiteral("episodeNumber"))),
-									"description":    λ.Cal(ϒunescapeHTML, λ.Calm(ϒe, "get", λ.StrLiteral("description"))),
-								}))
-								if λ.IsTrue(func() λ.Object {
-									if λv := λ.NewBool(!λ.IsTrue(λ.Calm(ϒinfo, "get", λ.StrLiteral("title")))); !λ.IsTrue(λv) {
-										return λv
-									} else {
-										return ϒepisode_name
-									}
-								}()) {
-									λ.SetItem(ϒinfo, λ.StrLiteral("title"), ϒepisode_name)
-								}
-								ϒpart_of_season = λ.Calm(ϒe, "get", λ.StrLiteral("partOfSeason"))
-								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, ϒpart_of_season, λ.DictType); !λ.IsTrue(λv) {
-										return λv
-									} else {
-										return λ.NewBool(λ.Contains(λ.NewTuple(
-											λ.StrLiteral("TVSeason"),
-											λ.StrLiteral("Season"),
-											λ.StrLiteral("CreativeWorkSeason"),
-										), λ.Calm(ϒpart_of_season, "get", λ.StrLiteral("@type"))))
-									}
-								}()) {
-									λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
-										"season":        λ.Cal(ϒunescapeHTML, λ.Calm(ϒpart_of_season, "get", λ.StrLiteral("name"))),
-										"season_number": λ.Cal(ϒint_or_none, λ.Calm(ϒpart_of_season, "get", λ.StrLiteral("seasonNumber"))),
-									}))
-								}
-								ϒpart_of_series = func() λ.Object {
-									if λv := λ.Calm(ϒe, "get", λ.StrLiteral("partOfSeries")); λ.IsTrue(λv) {
-										return λv
-									} else {
-										return λ.Calm(ϒe, "get", λ.StrLiteral("partOfTVSeries"))
-									}
-								}()
-								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, ϒpart_of_series, λ.DictType); !λ.IsTrue(λv) {
-										return λv
-									} else {
-										return λ.NewBool(λ.Contains(λ.NewTuple(
-											λ.StrLiteral("TVSeries"),
-											λ.StrLiteral("Series"),
-											λ.StrLiteral("CreativeWorkSeries"),
-										), λ.Calm(ϒpart_of_series, "get", λ.StrLiteral("@type"))))
-									}
-								}()) {
-									λ.SetItem(ϒinfo, λ.StrLiteral("series"), λ.Cal(ϒunescapeHTML, λ.Calm(ϒpart_of_series, "get", λ.StrLiteral("name"))))
-								}
-							} else {
-								if λ.IsTrue(λ.Eq(ϒitem_type, λ.StrLiteral("Movie"))) {
-									λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
-										"title":       λ.Cal(ϒunescapeHTML, λ.Calm(ϒe, "get", λ.StrLiteral("name"))),
-										"description": λ.Cal(ϒunescapeHTML, λ.Calm(ϒe, "get", λ.StrLiteral("description"))),
-										"duration":    λ.Cal(ϒparse_duration, λ.Calm(ϒe, "get", λ.StrLiteral("duration"))),
-										"timestamp":   λ.Cal(ϒunified_timestamp, λ.Calm(ϒe, "get", λ.StrLiteral("dateCreated"))),
-									}))
-								} else {
-									if λ.Contains(λ.NewTuple(
-										λ.StrLiteral("Article"),
-										λ.StrLiteral("NewsArticle"),
-									), ϒitem_type) {
-										λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
-											"timestamp":   λ.Cal(ϒparse_iso8601, λ.Calm(ϒe, "get", λ.StrLiteral("datePublished"))),
-											"title":       λ.Cal(ϒunescapeHTML, λ.Calm(ϒe, "get", λ.StrLiteral("headline"))),
-											"description": λ.Cal(ϒunescapeHTML, λ.Calm(ϒe, "get", λ.StrLiteral("articleBody"))),
-										}))
-									} else {
-										if λ.IsTrue(λ.Eq(ϒitem_type, λ.StrLiteral("VideoObject"))) {
-											λ.Cal(ϒextract_video_object, ϒe)
-											continue
-										}
-									}
-								}
-							}
-							ϒvideo = λ.Calm(ϒe, "get", λ.StrLiteral("video"))
-							if λ.IsTrue(func() λ.Object {
-								if λv := λ.Cal(λ.BuiltinIsInstance, ϒvideo, λ.DictType); !λ.IsTrue(λv) {
-									return λv
-								} else {
-									return λ.Eq(λ.Calm(ϒvideo, "get", λ.StrLiteral("@type")), λ.StrLiteral("VideoObject"))
-								}
-							}()) {
-								λ.Cal(ϒextract_video_object, ϒvideo)
-							}
-							break
 						}
 					}
-					return λ.Cal(λ.DictType, λ.Cal(λ.NewFunction("<generator>",
-						nil,
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
-								var (
-									ϒk   λ.Object
-									ϒv   λ.Object
-									τmp0 λ.Object
-									τmp1 λ.Object
-									τmp2 λ.Object
-								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒinfo, "items"))
-								for {
-									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-										break
-									}
-									τmp2 = τmp1
-									ϒk = λ.GetItem(τmp2, λ.IntLiteral(0))
-									ϒv = λ.GetItem(τmp2, λ.IntLiteral(1))
-									if ϒv != λ.None {
-										λgy.Yield(λ.NewTuple(
-											ϒk,
-											ϒv,
-										))
-									}
-								}
-								return λ.None
-							})
-						})))
+					if λ.IsTrue(ϒjson_ld) {
+						ϒjson_ld = λ.Call(λ.GetAttr(ϒself, "_json_ld", nil), λ.NewArgs(
+							ϒjson_ld,
+							ϒvideo_id,
+						), λ.KWArgs{
+							{Name: "fatal", Value: ϒfatal},
+							{Name: "expected_type", Value: ϒexpected_type},
+						})
+					}
+					if λ.IsTrue(ϒjson_ld) {
+						return ϒjson_ld
+					}
+					if ϒdefault != NO_DEFAULT {
+						return ϒdefault
+					} else {
+						if λ.IsTrue(ϒfatal) {
+							panic(λ.Raise(λ.Cal(RegexNotFoundError, λ.StrLiteral("Unable to extract JSON-LD"))))
+						} else {
+							λ.Calm(λ.GetAttr(ϒself, "_downloader", nil), "report_warning", λ.Mod(λ.StrLiteral("unable to extract JSON-LD %s"), λ.Cal(ϒbug_reports_message)))
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
+						}
+					}
+					return λ.None
 				})
 			InfoExtractor__hidden_inputs = λ.NewFunction("_hidden_inputs",
 				[]λ.Param{
@@ -4994,6 +4728,9 @@ func init() {
 					τmp0 = ϒres
 					ϒism_doc = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
+					if ϒism_doc == λ.None {
+						return λ.NewList()
+					}
 					return λ.Calm(ϒself, "_parse_ism_formats", ϒism_doc, λ.Calm(ϒurlh, "geturl"), ϒism_id)
 				})
 			InfoExtractor__parse_ism_formats = λ.NewFunction("_parse_ism_formats",
@@ -6333,7 +6070,6 @@ func init() {
 				"_initialize_geo_bypass":       InfoExtractor__initialize_geo_bypass,
 				"_int":                         InfoExtractor__int,
 				"_is_valid_url":                InfoExtractor__is_valid_url,
-				"_json_ld":                     InfoExtractor__json_ld,
 				"_live_title":                  InfoExtractor__live_title,
 				"_match_id":                    InfoExtractor__match_id,
 				"_media_rating_search":         InfoExtractor__media_rating_search,

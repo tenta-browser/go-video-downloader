@@ -806,10 +806,12 @@ func init() {
 				YoutubeIE_IE_NAME                     λ.Object
 				YoutubeIE__GEO_BYPASS                 λ.Object
 				YoutubeIE__NEXT_URL_RE                λ.Object
+				YoutubeIE__PLAYER_INFO_RE             λ.Object
 				YoutubeIE__VALID_URL                  λ.Object
 				YoutubeIE___init__                    λ.Object
 				YoutubeIE__decrypt_signature          λ.Object
 				YoutubeIE__extract_chapters           λ.Object
+				YoutubeIE__extract_player_info        λ.Object
 				YoutubeIE__extract_signature_function λ.Object
 				YoutubeIE__extract_url                λ.Object
 				YoutubeIE__extract_urls               λ.Object
@@ -824,6 +826,10 @@ func init() {
 				"playlist_id": λ.GetAttr(YoutubeBaseInfoExtractor, "_PLAYLIST_ID_RE", nil),
 			}))
 			YoutubeIE__NEXT_URL_RE = λ.StrLiteral("[\\?&]next_url=([^&]+)")
+			YoutubeIE__PLAYER_INFO_RE = λ.NewTuple(
+				λ.StrLiteral("/(?P<id>[a-zA-Z0-9_-]{8,})/player_ias\\.vflset(?:/[a-zA-Z]{2,3}_[a-zA-Z]{2,3})?/base\\.(?P<ext>[a-z]+)$"),
+				λ.StrLiteral("\\b(?P<id>vfl[a-zA-Z0-9_-]+)\\b.*?\\.(?P<ext>[a-z]+)$"),
+			)
 			YoutubeIE__formats = λ.DictLiteral(map[string]λ.Object{
 				"5": λ.DictLiteral(map[string]λ.Object{
 					"ext":    λ.StrLiteral("flv"),
@@ -1455,6 +1461,41 @@ func init() {
 							})
 						})))
 				})
+			YoutubeIE__extract_player_info = λ.NewFunction("_extract_player_info",
+				[]λ.Param{
+					{Name: "cls"},
+					{Name: "player_url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcls        = λargs[0]
+						ϒid_m       λ.Object
+						ϒplayer_re  λ.Object
+						ϒplayer_url = λargs[1]
+						τmp0        λ.Object
+						τmp1        λ.Object
+					)
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetAttr(ϒcls, "_PLAYER_INFO_RE", nil))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒplayer_re = τmp1
+						ϒid_m = λ.Cal(Ωre.ϒsearch, ϒplayer_re, ϒplayer_url)
+						if λ.IsTrue(ϒid_m) {
+							break
+						}
+					}
+					if τmp1 == λ.AfterLast {
+						panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.StrLiteral("Cannot identify player %r"), ϒplayer_url))))
+					}
+					return λ.NewTuple(
+						λ.Calm(ϒid_m, "group", λ.StrLiteral("ext")),
+						λ.Calm(ϒid_m, "group", λ.StrLiteral("id")),
+					)
+				})
+			YoutubeIE__extract_player_info = λ.Cal(λ.ClassMethodType, YoutubeIE__extract_player_info)
 			YoutubeIE__extract_signature_function = λ.NewFunction("_extract_signature_function",
 				[]λ.Param{
 					{Name: "self"},
@@ -1471,7 +1512,6 @@ func init() {
 						ϒdownload_note λ.Object
 						ϒexample_sig   = λargs[3]
 						ϒfunc_id       λ.Object
-						ϒid_m          λ.Object
 						ϒplayer_id     λ.Object
 						ϒplayer_type   λ.Object
 						ϒplayer_url    = λargs[2]
@@ -1480,13 +1520,11 @@ func init() {
 						ϒtest_string   λ.Object
 						ϒurlh          λ.Object
 						ϒvideo_id      = λargs[1]
+						τmp0           λ.Object
 					)
-					ϒid_m = λ.Cal(Ωre.ϒmatch, λ.StrLiteral(".*?[-.](?P<id>[a-zA-Z0-9_-]+)(?:/watch_as3|/html5player(?:-new)?|(?:/[a-z]{2,3}_[A-Z]{2})?/base)?\\.(?P<ext>[a-z]+)$"), ϒplayer_url)
-					if !λ.IsTrue(ϒid_m) {
-						panic(λ.Raise(λ.Cal(ExtractorError, λ.Mod(λ.StrLiteral("Cannot identify player %r"), ϒplayer_url))))
-					}
-					ϒplayer_type = λ.Calm(ϒid_m, "group", λ.StrLiteral("ext"))
-					ϒplayer_id = λ.Calm(ϒid_m, "group", λ.StrLiteral("id"))
+					τmp0 = λ.Calm(ϒself, "_extract_player_info", ϒplayer_url)
+					ϒplayer_type = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒplayer_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒfunc_id = λ.Mod(λ.StrLiteral("%s_%s_%s"), λ.NewTuple(
 						ϒplayer_type,
 						ϒplayer_id,
@@ -1968,7 +2006,10 @@ func init() {
 						ϒf                           λ.Object
 						ϒfeed                        λ.Object
 						ϒfeed_data                   λ.Object
+						ϒfeed_entry                  λ.Object
+						ϒfeed_id                     λ.Object
 						ϒfeed_ids                    λ.Object
+						ϒfeed_title                  λ.Object
 						ϒfilesize                    λ.Object
 						ϒfmt                         λ.Object
 						ϒfmt_list                    λ.Object
@@ -2001,10 +2042,12 @@ func init() {
 						ϒpl_response                 λ.Object
 						ϒplayer_desc                 λ.Object
 						ϒplayer_response             λ.Object
+						ϒplayer_type                 λ.Object
 						ϒplayer_url                  λ.Object
 						ϒplayer_url_json             λ.Object
 						ϒplayer_version              λ.Object
 						ϒproto                       λ.Object
+						ϒqs                          λ.Object
 						ϒquality                     λ.Object
 						ϒquality_label               λ.Object
 						ϒquery                       λ.Object
@@ -2026,6 +2069,7 @@ func init() {
 						ϒstreaming_formats           λ.Object
 						ϒstretched_m                 λ.Object
 						ϒtbr                         λ.Object
+						ϒtitle                       λ.Object
 						ϒtrack                       λ.Object
 						ϒtype_                       λ.Object
 						ϒtype_split                  λ.Object
@@ -2033,6 +2077,7 @@ func init() {
 						ϒupload_date                 λ.Object
 						ϒurl                         = λargs[1]
 						ϒurl_data                    λ.Object
+						ϒurlh                        λ.Object
 						ϒvalue                       λ.Object
 						ϒvideo_alt_title             λ.Object
 						ϒvideo_annotations           λ.Object
@@ -2127,7 +2172,17 @@ func init() {
 					}
 					ϒvideo_id = λ.Calm(ϒself, "extract_id", ϒurl)
 					ϒurl = λ.Add(ϒproto, λ.Mod(λ.StrLiteral("://www.youtube.com/watch?v=%s&gl=US&hl=en&has_verified=1&bpctr=9999999999"), ϒvideo_id))
-					ϒvideo_webpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					τmp0 = λ.Calm(ϒself, "_download_webpage_handle", ϒurl, ϒvideo_id)
+					ϒvideo_webpage = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒqs = λ.Cal(ϒcompat_parse_qs, λ.GetAttr(λ.Cal(ϒcompat_urllib_parse_urlparse, λ.Calm(ϒurlh, "geturl")), "query", nil))
+					ϒvideo_id = func() λ.Object {
+						if λv := λ.GetItem(λ.Calm(ϒqs, "get", λ.StrLiteral("v"), λ.NewList(λ.None)), λ.IntLiteral(0)); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return ϒvideo_id
+						}
+					}()
 					ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("swfConfig.*?\"(https?:\\\\/\\\\/.*?watch.*?-.*?\\.swf)\""), ϒvideo_webpage)
 					if ϒmobj != λ.None {
 						ϒplayer_url = λ.Cal(Ωre.ϒsub, λ.StrLiteral("\\\\(.)"), λ.StrLiteral("\\1"), λ.Calm(ϒmobj, "group", λ.IntLiteral(1)))
@@ -2550,6 +2605,37 @@ func init() {
 									}
 									ϒfeed = τmp0
 									ϒfeed_data = λ.Cal(ϒcompat_parse_qs, λ.Cal(ϒcompat_urllib_parse_unquote_plus, ϒfeed))
+									ϒfeed_entry = λ.NewFunction("feed_entry",
+										[]λ.Param{
+											{Name: "name"},
+										},
+										0, false, false,
+										func(λargs []λ.Object) λ.Object {
+											var (
+												ϒname = λargs[0]
+											)
+											return λ.Cal(ϒtry_get, ϒfeed_data, λ.NewFunction("<lambda>",
+												[]λ.Param{
+													{Name: "x"},
+												},
+												0, false, false,
+												func(λargs []λ.Object) λ.Object {
+													var (
+														ϒx = λargs[0]
+													)
+													return λ.GetItem(λ.GetItem(ϒx, ϒname), λ.IntLiteral(0))
+												}), ϒcompat_str)
+										})
+									ϒfeed_id = λ.Cal(ϒfeed_entry, λ.StrLiteral("id"))
+									if !λ.IsTrue(ϒfeed_id) {
+										continue
+									}
+									ϒfeed_title = λ.Cal(ϒfeed_entry, λ.StrLiteral("title"))
+									ϒtitle = ϒvideo_title
+									if λ.IsTrue(ϒfeed_title) {
+										τmp2 = λ.IAdd(ϒtitle, λ.Mod(λ.StrLiteral(" (%s)"), ϒfeed_title))
+										ϒtitle = τmp2
+									}
 									λ.Calm(ϒentries, "append", λ.DictLiteral(map[string]λ.Object{
 										"_type":  λ.StrLiteral("url_transparent"),
 										"ie_key": λ.StrLiteral("Youtube"),
@@ -2559,12 +2645,9 @@ func init() {
 										)), λ.DictLiteral(map[string]λ.Object{
 											"force_singlefeed": λ.True,
 										})),
-										"title": λ.Mod(λ.StrLiteral("%s (%s)"), λ.NewTuple(
-											ϒvideo_title,
-											λ.GetItem(λ.GetItem(ϒfeed_data, λ.StrLiteral("title")), λ.IntLiteral(0)),
-										)),
+										"title": ϒtitle,
 									}))
-									λ.Calm(ϒfeed_ids, "append", λ.GetItem(λ.GetItem(ϒfeed_data, λ.StrLiteral("id")), λ.IntLiteral(0)))
+									λ.Calm(ϒfeed_ids, "append", ϒfeed_id)
 								}
 								λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("Downloading multifeed video (%s) - add --no-playlist to just download video %s"), λ.NewTuple(
 									λ.Calm(λ.StrLiteral(", "), "join", ϒfeed_ids),
@@ -2758,7 +2841,13 @@ func init() {
 									break
 								}
 								ϒfmt = τmp0
-								if λ.IsTrue(λ.Calm(ϒfmt, "get", λ.StrLiteral("drm_families"))) {
+								if λ.IsTrue(func() λ.Object {
+									if λv := λ.Calm(ϒfmt, "get", λ.StrLiteral("drmFamilies")); λ.IsTrue(λv) {
+										return λv
+									} else {
+										return λ.Calm(ϒfmt, "get", λ.StrLiteral("drm_families"))
+									}
+								}()) {
 									continue
 								}
 								ϒurl = λ.Cal(ϒurl_or_none, λ.Calm(ϒfmt, "get", λ.StrLiteral("url")))
@@ -2860,31 +2949,21 @@ func init() {
 											ϒencrypted_sig = λ.GetItem(λ.GetItem(ϒurl_data, λ.StrLiteral("s")), λ.IntLiteral(0))
 											if λ.IsTrue(λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("verbose"))) {
 												if ϒplayer_url == λ.None {
-													ϒplayer_version = λ.StrLiteral("unknown")
 													ϒplayer_desc = λ.StrLiteral("unknown")
 												} else {
-													if λ.IsTrue(λ.Calm(ϒplayer_url, "endswith", λ.StrLiteral("swf"))) {
-														ϒplayer_version = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-															λ.StrLiteral("-(.+?)(?:/watch_as3)?\\.swf$"),
-															ϒplayer_url,
-															λ.StrLiteral("flash player"),
-														), λ.KWArgs{
-															{Name: "fatal", Value: λ.False},
-														})
-														ϒplayer_desc = λ.Mod(λ.StrLiteral("flash player %s"), ϒplayer_version)
-													} else {
-														ϒplayer_version = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-															λ.NewList(
-																λ.StrLiteral("html5player-([^/]+?)(?:/html5player(?:-new)?)?\\.js"),
-																λ.StrLiteral("(?:www|player(?:_ias)?)[-.]([^/]+)(?:/[a-z]{2,3}_[A-Z]{2})?/base\\.js"),
-															),
-															ϒplayer_url,
-															λ.StrLiteral("html5 player"),
-														), λ.KWArgs{
-															{Name: "fatal", Value: λ.False},
-														})
-														ϒplayer_desc = λ.Mod(λ.StrLiteral("html5 player %s"), ϒplayer_version)
-													}
+													τmp2 = λ.Calm(ϒself, "_extract_player_info", ϒplayer_url)
+													ϒplayer_type = λ.GetItem(τmp2, λ.IntLiteral(0))
+													ϒplayer_version = λ.GetItem(τmp2, λ.IntLiteral(1))
+													ϒplayer_desc = λ.Mod(λ.StrLiteral("%s player %s"), λ.NewTuple(
+														func() λ.Object {
+															if λ.IsTrue(λ.Eq(ϒplayer_type, λ.StrLiteral("swf"))) {
+																return λ.StrLiteral("flash")
+															} else {
+																return λ.StrLiteral("html5")
+															}
+														}(),
+														ϒplayer_version,
+													))
 												}
 												ϒparts_sizes = λ.Calm(ϒself, "_signature_cache_id", ϒencrypted_sig)
 												λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("{%s} signature length %s, %s"), λ.NewTuple(
@@ -3754,10 +3833,12 @@ func init() {
 				"IE_NAME":                     YoutubeIE_IE_NAME,
 				"_GEO_BYPASS":                 YoutubeIE__GEO_BYPASS,
 				"_NEXT_URL_RE":                YoutubeIE__NEXT_URL_RE,
+				"_PLAYER_INFO_RE":             YoutubeIE__PLAYER_INFO_RE,
 				"_VALID_URL":                  YoutubeIE__VALID_URL,
 				"__init__":                    YoutubeIE___init__,
 				"_decrypt_signature":          YoutubeIE__decrypt_signature,
 				"_extract_chapters":           YoutubeIE__extract_chapters,
+				"_extract_player_info":        YoutubeIE__extract_player_info,
 				"_extract_signature_function": YoutubeIE__extract_signature_function,
 				"_extract_url":                YoutubeIE__extract_url,
 				"_extract_urls":               YoutubeIE__extract_urls,

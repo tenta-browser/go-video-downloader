@@ -32,21 +32,19 @@ import (
 )
 
 var (
-	InfoExtractor      λ.Object
-	YouPornIE          λ.Object
-	ϒint_or_none       λ.Object
-	ϒsanitized_Request λ.Object
-	ϒstr_to_int        λ.Object
-	ϒunescapeHTML      λ.Object
-	ϒunified_strdate   λ.Object
-	ϒurl_or_none       λ.Object
+	InfoExtractor    λ.Object
+	YouPornIE        λ.Object
+	ϒint_or_none     λ.Object
+	ϒstr_to_int      λ.Object
+	ϒunescapeHTML    λ.Object
+	ϒunified_strdate λ.Object
+	ϒurl_or_none     λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒunified_strdate = Ωutils.ϒunified_strdate
@@ -56,7 +54,7 @@ func init() {
 				YouPornIE__VALID_URL    λ.Object
 				YouPornIE__real_extract λ.Object
 			)
-			YouPornIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?youporn\\.com/watch/(?P<id>\\d+)/(?P<display_id>[^/?#&]+)")
+			YouPornIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?youporn\\.com/(?:watch|embed)/(?P<id>\\d+)(?:/(?P<display_id>[^/?#&]+))?")
 			YouPornIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -82,7 +80,6 @@ func init() {
 						ϒlink            λ.Object
 						ϒlinks           λ.Object
 						ϒmobj            λ.Object
-						ϒrequest         λ.Object
 						ϒself            = λargs[0]
 						ϒsources         λ.Object
 						ϒtags            λ.Object
@@ -101,10 +98,21 @@ func init() {
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
 					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
-					ϒdisplay_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("display_id"))
-					ϒrequest = λ.Cal(ϒsanitized_Request, ϒurl)
-					λ.Calm(ϒrequest, "add_header", λ.StrLiteral("Cookie"), λ.StrLiteral("age_verified=1"))
-					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒrequest, ϒdisplay_id)
+					ϒdisplay_id = func() λ.Object {
+						if λv := λ.Calm(ϒmobj, "group", λ.StrLiteral("display_id")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return ϒvideo_id
+						}
+					}()
+					ϒwebpage = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
+						λ.Mod(λ.StrLiteral("http://www.youporn.com/watch/%s"), ϒvideo_id),
+						ϒdisplay_id,
+					), λ.KWArgs{
+						{Name: "headers", Value: λ.DictLiteral(map[string]string{
+							"Cookie": "age_verified=1",
+						})},
+					})
 					ϒtitle = func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 							λ.StrLiteral("(?s)<div[^>]+class=[\"\\']watchVideoTitle[^>]+>(.+?)</div>"),

@@ -36,6 +36,7 @@ var (
 	NovaEmbedIE      λ.Object
 	NovaIE           λ.Object
 	ϒclean_html      λ.Object
+	ϒdetermine_ext   λ.Object
 	ϒint_or_none     λ.Object
 	ϒjs_to_json      λ.Object
 	ϒqualities       λ.Object
@@ -47,6 +48,7 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒclean_html = Ωutils.ϒclean_html
+		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒqualities = Ωutils.ϒqualities

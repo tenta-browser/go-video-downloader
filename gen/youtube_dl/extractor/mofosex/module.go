@@ -25,13 +25,16 @@
 package mofosex
 
 import (
+	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωkeezmovies "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/keezmovies"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
+	InfoExtractor    λ.Object
 	KeezMoviesIE     λ.Object
+	MofosexEmbedIE   λ.Object
 	MofosexIE        λ.Object
 	ϒint_or_none     λ.Object
 	ϒstr_to_int      λ.Object
@@ -40,6 +43,7 @@ var (
 
 func init() {
 	λ.InitModule(func() {
+		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		ϒunified_strdate = Ωutils.ϒunified_strdate
@@ -111,6 +115,15 @@ func init() {
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    MofosexIE__VALID_URL,
 				"_real_extract": MofosexIE__real_extract,
+			})
+		}())
+		MofosexEmbedIE = λ.Cal(λ.TypeType, λ.StrLiteral("MofosexEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+			var (
+				MofosexEmbedIE__VALID_URL λ.Object
+			)
+			MofosexEmbedIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?mofosex\\.com/embed/?\\?.*?\\bvideoid=(?P<id>\\d+)")
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_VALID_URL": MofosexEmbedIE__VALID_URL,
 			})
 		}())
 	})

@@ -35,6 +35,7 @@ import (
 
 var (
 	BrightcoveNewIE     λ.Object
+	ExtractorError      λ.Object
 	InfoExtractor       λ.Object
 	SearchInfoExtractor λ.Object
 	YahooGyaOIE         λ.Object
@@ -57,6 +58,7 @@ func init() {
 		SearchInfoExtractor = Ωcommon.SearchInfoExtractor
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒclean_html = Ωutils.ϒclean_html
+		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
@@ -390,7 +392,7 @@ func init() {
 			var (
 				YahooGyaOIE__VALID_URL λ.Object
 			)
-			YahooGyaOIE__VALID_URL = λ.StrLiteral("https?://(?:gyao\\.yahoo\\.co\\.jp/(?:p|title/[^/]+)|streaming\\.yahoo\\.co\\.jp/p/y)/(?P<id>\\d+/v\\d+|[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
+			YahooGyaOIE__VALID_URL = λ.StrLiteral("https?://(?:gyao\\.yahoo\\.co\\.jp/(?:p|title(?:/[^/]+)?)|streaming\\.yahoo\\.co\\.jp/p/y)/(?P<id>\\d+/v\\d+|[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": YahooGyaOIE__VALID_URL,
 			})
