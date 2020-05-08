@@ -41,7 +41,6 @@ var (
 	ϒint_or_none                  λ.Object
 	ϒjs_to_json                   λ.Object
 	ϒmimetype2ext                 λ.Object
-	ϒorderedSet                   λ.Object
 	ϒparse_iso8601                λ.Object
 )
 
@@ -54,7 +53,6 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		CondeNastIE = λ.Cal(λ.TypeType, λ.StrLiteral("CondeNastIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (

@@ -37,7 +37,6 @@ var (
 	XTubeUserIE        λ.Object
 	ϒint_or_none       λ.Object
 	ϒjs_to_json        λ.Object
-	ϒorderedSet        λ.Object
 	ϒparse_duration    λ.Object
 	ϒsanitized_Request λ.Object
 	ϒstr_to_int        λ.Object
@@ -48,7 +47,6 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒjs_to_json = Ωutils.ϒjs_to_json
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		ϒstr_to_int = Ωutils.ϒstr_to_int
