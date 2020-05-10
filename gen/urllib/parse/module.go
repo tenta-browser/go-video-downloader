@@ -53,6 +53,8 @@ func init() {
 		ParseResult = λ.Cal(λ.TypeType, λ.StrLiteral("ParseResult"), λ.NewTuple(λ.TupleType), func() λ.Dict {
 			var (
 				ParseResult__replace λ.Object
+				ParseResult_fragment λ.Object
+				ParseResult_netloc   λ.Object
 				ParseResult_path     λ.Object
 				ParseResult_query    λ.Object
 				ParseResult_scheme   λ.Object
@@ -69,6 +71,18 @@ func init() {
 					return λ.GetItem(ϒself, λ.IntLiteral(0))
 				})
 			ParseResult_scheme = λ.Cal(λ.PropertyType, ParseResult_scheme)
+			ParseResult_netloc = λ.NewFunction("netloc",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself = λargs[0]
+					)
+					return λ.GetItem(ϒself, λ.IntLiteral(1))
+				})
+			ParseResult_netloc = λ.Cal(λ.PropertyType, ParseResult_netloc)
 			ParseResult_path = λ.NewFunction("path",
 				[]λ.Param{
 					{Name: "self"},
@@ -93,6 +107,18 @@ func init() {
 					return λ.GetItem(ϒself, λ.IntLiteral(4))
 				})
 			ParseResult_query = λ.Cal(λ.PropertyType, ParseResult_query)
+			ParseResult_fragment = λ.NewFunction("fragment",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself = λargs[0]
+					)
+					return λ.GetItem(ϒself, λ.IntLiteral(5))
+				})
+			ParseResult_fragment = λ.Cal(λ.PropertyType, ParseResult_fragment)
 			ParseResult__replace = λ.NewFunction("_replace",
 				[]λ.Param{
 					{Name: "self"},
@@ -135,6 +161,8 @@ func init() {
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_replace": ParseResult__replace,
+				"fragment": ParseResult_fragment,
+				"netloc":   ParseResult_netloc,
 				"path":     ParseResult_path,
 				"query":    ParseResult_query,
 				"scheme":   ParseResult_scheme,

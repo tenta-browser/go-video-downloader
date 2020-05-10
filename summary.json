@@ -16,7 +16,7 @@
     "ABCOTVSClipsIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://clips.abcotvs.com/vogo/video/getByIds?ids=214814\": dial tcp 68.71.208.125:443: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://clips.abcotvs.com/vogo/video/getByIds?ids=214814\": dial tcp 68.71.208.125:443: connect: network is unreachable> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -100,7 +100,7 @@
     "ATVAtIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://atv.at/aktuell/di-210317-2005-uhr/v1698449/\": dial tcp: lookup atv.at on 74.206.188.88:53: read udp 74.206.165.158:59350->74.206.188.88:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -442,8 +442,8 @@
     "BBCIE": {
         "adult": false,
         "error_msgs": [
-            "Crash: runtime error: slice bounds out of range [:191196] with length 13365",
-            "Crash: runtime error: slice bounds out of range [:230077] with length 11617",
+            "Crash: runtime error: slice bounds out of range [:191245] with length 13365",
+            "Crash: runtime error: slice bounds out of range [:230078] with length 11617",
             "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "DownloadError: ERROR: no suitable InfoExtractor for URL https://www.bbc.co.uk/programmes/None",
             "DownloadError: ERROR: requested format not available",
@@ -465,17 +465,16 @@
     },
     "BIQLEIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
-        ],
+        "error_msgs": [],
         "success_urls": [
-            "http://biqle.org/watch/-44781847_168547604"
+            "http://biqle.org/watch/-44781847_168547604",
+            "https://biqle.ru/watch/-115995369_456239081"
         ]
     },
     "BRIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.br.de/radio/bayern1/service/team/videos/team-video-erdelt100.html\": dial tcp: lookup www.br.de on 74.206.188.88:53: read udp 74.206.165.158:53283->74.206.188.88:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.br.de/radio/bayern1/service/team/videos/team-video-erdelt100.html\": dial tcp: lookup www.br.de on 74.206.188.87:53: read udp 74.206.165.158:60068->74.206.188.87:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": [
             "http://www.br.de/fernsehen/br-alpha/sendungen/kant-fuer-anfaenger/kritik-der-reinen-vernunft/kant-kritik-01-metaphysik100.html"
@@ -681,15 +680,16 @@
     "BleacherReportIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Ooyala said: movie expired",
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "DownloadError: ERROR: Ooyala said: movie expired"
         ],
-        "success_urls": []
+        "success_urls": [
+            "http://bleacherreport.com/articles/2586817-aussie-golfers-get-fright-of-their-lives-after-being-chased-by-angry-kangaroo"
+        ]
     },
     "BlinkxIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://apib4.blinkx.com/api.php?action=play_video&video=Da0Gw3xc5ucpNduzLuDDlv4WC9PuI4fDi1-t6Y3LyfdY2SZS5Urbvn-UPJvrvbo8LTKTc67Wu2rPKSQDJyZeeORCR8bYkhs8lI7eqddznH2ofh5WEEdjYXnoRtj7ByQwt7atMErmXIeYKPsSDuMAAqJDlQZ-3Ff4HJVeH_s3Gh8oQ\": dial tcp: lookup apib4.blinkx.com on 74.206.188.87:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://apib4.blinkx.com/api.php?action=play_video&video=Da0Gw3xc5ucpNduzLuDDlv4WC9PuI4fDi1-t6Y3LyfdY2SZS5Urbvn-UPJvrvbo8LTKTc67Wu2rPKSQDJyZeeORCR8bYkhs8lI7eqddznH2ofh5WEEdjYXnoRtj7ByQwt7atMErmXIeYKPsSDuMAAqJDlQZ-3Ff4HJVeH_s3Gh8oQ\": dial tcp: lookup apib4.blinkx.com on 74.206.188.88:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -894,7 +894,8 @@
     "CDAIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 410: Gone (caused by <HTTPError 410: 'Gone'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -1017,11 +1018,10 @@
     },
     "CamdemyIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
-        ],
+        "error_msgs": [],
         "success_urls": [
             "http://www.camdemy.com/media/13885",
+            "http://www.camdemy.com/media/14842",
             "http://www.camdemy.com/media/5181/"
         ]
     },
@@ -1113,10 +1113,10 @@
     "ChilloutzoneIE": {
         "adult": false,
         "error_msgs": [
-            "Crash: runtime error: slice bounds out of range [:128954] with length 9377",
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "Crash: runtime error: slice bounds out of range [:129028] with length 9377"
         ],
         "success_urls": [
+            "http://www.chilloutzone.net/video/eine-sekunde-bevor.html",
             "http://www.chilloutzone.net/video/enemene-meck-alle-katzen-weg.html"
         ]
     },
@@ -1283,10 +1283,9 @@
     },
     "CrackedIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
-        ],
+        "error_msgs": [],
         "success_urls": [
+            "http://www.cracked.com/video_19006_4-plot-holes-you-didnt-notice-in-your-favorite-movies.html",
             "http://www.cracked.com/video_19070_if-animal-actors-got-e21-true-hollywood-stories.html"
         ]
     },
@@ -1320,12 +1319,11 @@
     },
     "CtsNewsIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
-        ],
+        "error_msgs": [],
         "success_urls": [
             "http://news.cts.com.tw/cts/international/201309/201309031304098.html",
-            "http://news.cts.com.tw/cts/international/201501/201501291578109.html"
+            "http://news.cts.com.tw/cts/international/201501/201501291578109.html",
+            "http://news.cts.com.tw/cts/money/201501/201501291578003.html"
         ]
     },
     "CultureUnpluggedIE": {
@@ -1359,7 +1357,7 @@
     "DBTVIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "DownloadError: ERROR: PynxJnNWChE: YouTube said: This video is unavailable.\nSorry about that."
         ],
         "success_urls": []
     },
@@ -1462,22 +1460,22 @@
     },
     "DailymotionIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "http://www.dailymotion.com/video/x5kesuj_office-christmas-party-review-jason-bateman-olivia-munn-t-j-miller_news"
+        ]
     },
     "DailymotionPlaylistIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
     "DailymotionUserIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
@@ -1610,7 +1608,7 @@
     "DotsubIE": {
         "adult": false,
         "error_msgs": [
-            "Crash: runtime error: slice bounds out of range [:121815] with length 9377"
+            "Crash: runtime error: slice bounds out of range [:121887] with length 9377"
         ],
         "success_urls": [
             "https://dotsub.com/view/9c63db2a-fa95-4838-8e6e-13deafe47f09"
@@ -1627,7 +1625,7 @@
         "adult": false,
         "error_msgs": [
             "DownloadError: ERROR: 17732: Failed to parse JSON  (caused by ValueError('invalid character \\'<\\' looking for beginning of value')); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
-            "DownloadError: ERROR: Unable to extract room id; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 502: Bad Gateway (caused by <HTTPError 502: 'Bad Gateway'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -1669,7 +1667,7 @@
     "EHowIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.ehow.com/video_12245069_hardwood-flooring-basics.html\": read tcp 74.206.165.158:40310->23.10.124.174:80: read: connection timed out> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to extract video URL; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -1807,7 +1805,7 @@
     "EpornerIE": {
         "adult": false,
         "error_msgs": [
-            "Crash: runtime error: slice bounds out of range [:45457] with length 5052"
+            "Crash: runtime error: slice bounds out of range [:47192] with length 5052"
         ],
         "success_urls": []
     },
@@ -2129,10 +2127,10 @@
     },
     "FreespeechIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "http://www.freespeech.org/stories/fcc-announces-net-neutrality-rollback-whats-stake/"
+        ]
     },
     "FreshLiveIE": {
         "adult": false,
@@ -2251,10 +2249,10 @@
     },
     "GenerationWhatIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "http://generation-what.francetv.fr/portrait/video/present-arms"
+        ]
     },
     "GfycatIE": {
         "adult": false,
@@ -2571,7 +2569,7 @@
     "IPrimaIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "TypeError: 'placeholder round (reason: undefined_name)' object is not callable"
         ],
         "success_urls": []
     },
@@ -2675,14 +2673,14 @@
     "InstagramTagIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
     "InstagramUserIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
@@ -2711,10 +2709,10 @@
     },
     "Ir90TvIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 502: Bad Gateway (caused by <HTTPError 502: 'Bad Gateway'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "http://90tv.ir/video/95719/%D8%B4%D8%A7%DB%8C%D8%B9%D8%A7%D8%AA-%D9%86%D9%82%D9%84-%D9%88-%D8%A7%D9%86%D8%AA%D9%82%D8%A7%D9%84%D8%A7%D8%AA-%D9%85%D9%87%D9%85-%D9%81%D9%88%D8%AA%D8%A8%D8%A7%D9%84-%D8%A7%D8%B1%D9%88%D9%BE%D8%A7-940218"
+        ]
     },
     "IviCompilationIE": {
         "adult": false,
@@ -2866,10 +2864,11 @@
     "KhanAcademyIE": {
         "adult": false,
         "error_msgs": [
-            "Exception: Playlists and multi video results are not supported!",
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "Exception: Playlists and multi video results are not supported!"
         ],
-        "success_urls": []
+        "success_urls": [
+            "http://www.khanacademy.org/video/one-time-pad"
+        ]
     },
     "KickStarterIE": {
         "adult": false,
@@ -2938,7 +2937,7 @@
     "KuwoIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to get song detail info: <urlopen error Get \"http://www.kuwo.cn/yinyue/6446136/\": dial tcp: lookup www.kuwo.cn on 74.206.188.87:53: read udp 74.206.165.158:34223->74.206.188.87:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to get song detail info: <urlopen error Get \"http://www.kuwo.cn/yinyue/6446136/\": dial tcp: lookup www.kuwo.cn on 74.206.188.88:53: read udp 74.206.165.158:41816->74.206.188.88:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -2952,7 +2951,7 @@
     "KuwoSingerIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to get singer info: HTTP Error 500: OK (caused by <HTTPError 500: 'OK'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to get singer info: HTTP Error 501: Not Implemented (caused by <HTTPError 501: 'Not Implemented'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -3172,8 +3171,8 @@
     "LiveLeakIE": {
         "adult": false,
         "error_msgs": [
-            "Exception: Playlists and multi video results are not supported!",
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "DownloadError: ERROR: Sd12qY2OqWM: YouTube said: This video is no longer available because the YouTube account associated with this video has been terminated.\nSorry about that.",
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
@@ -3342,7 +3341,7 @@
     "MallTVIE": {
         "adult": false,
         "error_msgs": [
-            "Crash: runtime error: slice bounds out of range [:131226] with length 1097"
+            "Crash: runtime error: slice bounds out of range [:130885] with length 1097"
         ],
         "success_urls": []
     },
@@ -3415,7 +3414,7 @@
     "MediasiteCatalogIE": {
         "adult": false,
         "error_msgs": [
-            "RegexpError: Function not allowed: <built-in method format of str object at 0x7f2ffb8b6ae8>"
+            "RegexpError: Function not allowed: <built-in method format of str object at 0x7fa3c16dbae8>"
         ],
         "success_urls": []
     },
@@ -3463,8 +3462,8 @@
         "adult": false,
         "error_msgs": [
             "AttributeError: 'placeholder youtube_dl/compat/compat_urllib_parse' object has no attribute 'quote'",
-            "DownloadError: ERROR: requested format not available",
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "DownloadError: ERROR: Content Warning\nIf the owner of this video has granted you access, please sign in.\n       This video is private.",
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -3684,12 +3683,11 @@
     },
     "MySpaceIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
-        ],
+        "error_msgs": [],
         "success_urls": [
             "https://myspace.com/fiveminutestothestage/video/little-big-town/109594919",
-            "https://myspace.com/killsorrow/music/song/of-weakened-soul...-93388656-103880681"
+            "https://myspace.com/killsorrow/music/song/of-weakened-soul...-93388656-103880681",
+            "https://myspace.com/threedaysgrace/music/song/animal-i-have-become-28400208-28218041"
         ]
     },
     "MySpassIE": {
@@ -3827,7 +3825,7 @@
     "NFLIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://prod.www.steelers.clubs.nfl.com/video-and-audio/videos/LIVE_Post_Game_vs_Browns/9d72f26a-9e2b-4718-84d3-09fb4046c266\": dial tcp: lookup prod.www.steelers.clubs.nfl.com on 74.206.188.88:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://prod.www.steelers.clubs.nfl.com/video-and-audio/videos/LIVE_Post_Game_vs_Browns/9d72f26a-9e2b-4718-84d3-09fb4046c266\": dial tcp: lookup prod.www.steelers.clubs.nfl.com on 74.206.188.87:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "ValueError: invalid format string"
         ],
@@ -4170,7 +4168,7 @@
     "NickIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 500: Internal Server Error (caused by <HTTPError 500: 'Internal Server Error'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -4279,7 +4277,7 @@
     "NownessIE": {
         "adult": false,
         "error_msgs": [
-            "Crash: runtime error: slice bounds out of range [:121803] with length 9377"
+            "Crash: runtime error: slice bounds out of range [:121674] with length 9377"
         ],
         "success_urls": [
             "https://cn.nowness.com/story/kasper-bjorke-ft-jaakko-eino-kalevi-tnr",
@@ -4317,7 +4315,7 @@
     "NuvidIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "DownloadError: ERROR: Unable to extract 1310741; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -4416,12 +4414,11 @@
     },
     "OdnoklassnikiIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
-        ],
+        "error_msgs": [],
         "success_urls": [
             "http://ok.ru/video/20079905452",
-            "http://ok.ru/video/63567059965189-0?fromTime=5"
+            "http://ok.ru/video/63567059965189-0?fromTime=5",
+            "http://ok.ru/video/64211978996595-1"
         ]
     },
     "OktoberfestTVIE": {
@@ -4517,9 +4514,21 @@
     "PBSIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "DownloadError: ERROR: No video formats found; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "Exception: Playlists and multi video results are not supported!"
         ],
-        "success_urls": []
+        "success_urls": [
+            "http://www.pbs.org/food/features/a-chefs-life-season-3-episode-5-prickly-business/",
+            "http://www.pbs.org/tpt/constitution-usa-peter-sagal/watch/a-more-perfect-union/",
+            "http://www.pbs.org/video/2365245528/",
+            "http://www.pbs.org/video/2365641075/",
+            "http://www.pbs.org/wgbh/pages/frontline/losing-iraq/",
+            "http://www.pbs.org/wgbh/pages/frontline/the-atomic-artists",
+            "http://www.pbs.org/wgbh/roadshow/watch/episode/2105-indianapolis-hour-2/",
+            "https://player.pbs.org/partnerplayer/tOz9tM5ljOXQqIIWke53UA==/",
+            "https://www.pbs.org/wgbh/masterpiece/episodes/victoria-s2-e1/"
+        ]
     },
     "PCMagIE": {
         "adult": false,
@@ -4575,10 +4584,10 @@
     },
     "PearVideoIE": {
         "adult": false,
-        "error_msgs": [],
-        "success_urls": [
-            "http://www.pearvideo.com/video_1076290"
-        ]
+        "error_msgs": [
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.pearvideo.com/video_1076290\": dial tcp: lookup www.pearvideo.com on 74.206.188.87:53: read udp 74.206.165.158:53416->74.206.188.87:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+        ],
+        "success_urls": []
     },
     "PeerTubeIE": {
         "adult": false,
@@ -4787,7 +4796,7 @@
     "Porn91IE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "DownloadError: ERROR: Unable to extract title; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -4806,11 +4815,14 @@
         ]
     },
     "PornHubIE": {
-        "adult": false,
+        "adult": true,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "DownloadError: ERROR: ph5af5fef7c2aa7: PornHub said: This video has been disabled"
         ],
-        "success_urls": []
+        "success_urls": [
+            "http://www.pornhub.com/view_video.php?viewkey=1331683002",
+            "http://www.pornhub.com/view_video.php?viewkey=648719015"
+        ]
     },
     "PornHubPagedVideoListIE": {
         "adult": false,
@@ -4934,7 +4946,7 @@
     "QQMusicSingerIE": {
         "adult": false,
         "error_msgs": [
-            "Exception: Playlists and multi video results are not supported!"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://y.qq.com/n/yqq/singer/001BLpXF2DyJe2.html\": dial tcp: lookup y.qq.com on 74.206.188.88:53: read udp 74.206.165.158:59266->74.206.188.88:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -4981,7 +4993,7 @@
     "RBMARadioIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://www.rbmaradio.com/shows/main-stage/episodes/ford-lopatin-live-at-primavera-sound-2011\": dial tcp: lookup www.rbmaradio.com on 74.206.188.88:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://www.rbmaradio.com/shows/main-stage/episodes/ford-lopatin-live-at-primavera-sound-2011\": dial tcp: lookup www.rbmaradio.com on 74.206.188.87:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -5104,6 +5116,7 @@
     "RTVSIE": {
         "adult": false,
         "error_msgs": [
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.rtvs.sk/radio/archiv/11224/414872\": dial tcp: lookup www.rtvs.sk on 74.206.188.87:53: read udp 74.206.165.158:43157->74.206.188.87:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "DownloadError: ERROR: Unable to extract playlist url; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
@@ -5507,10 +5520,10 @@
     },
     "SafariIE": {
         "adult": false,
-        "error_msgs": [],
-        "success_urls": [
-            "https://www.safaribooksonline.com/library/view/hadoop-fundamentals-livelessons/9780133392838/part00.html"
-        ]
+        "error_msgs": [
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 502: Bad Gateway (caused by <HTTPError 502: 'Bad Gateway'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+        ],
+        "success_urls": []
     },
     "SaltTVIE": {
         "adult": false,
@@ -5622,8 +5635,8 @@
     "SeznamZpravyArticleIE": {
         "adult": false,
         "error_msgs": [
-            "Crash: runtime error: slice bounds out of range [:276833] with length 63961",
-            "Crash: runtime error: slice bounds out of range [:296707] with length 87356"
+            "Crash: runtime error: slice bounds out of range [:278546] with length 63930",
+            "Crash: runtime error: slice bounds out of range [:304415] with length 89170"
         ],
         "success_urls": []
     },
@@ -5713,10 +5726,10 @@
     },
     "SlidesLiveIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "https://slideslive.com/38902413/gcc-ia16-backend"
+        ]
     },
     "SlideshareIE": {
         "adult": false,
@@ -5963,7 +5976,8 @@
     "SteamIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "DownloadError: ERROR: Unable to extract flash vars; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
@@ -6034,7 +6048,7 @@
     "SyfyIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: requested format not available"
+            "TypeError: 'str' object is not native"
         ],
         "success_urls": []
     },
@@ -6062,10 +6076,15 @@
     "TEDIE": {
         "adult": false,
         "error_msgs": [
-            "Exception: Playlists and multi video results are not supported!",
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "Exception: Playlists and multi video results are not supported!"
         ],
-        "success_urls": []
+        "success_urls": [
+            "http://www.ted.com/talks/dan_dennett_on_our_consciousness.html",
+            "http://www.ted.com/talks/gabby_giffords_and_mark_kelly_be_passionate_be_courageous_be_your_best",
+            "https://www.ted.com/talks/douglas_adams_parrots_the_universe_and_everything",
+            "https://www.ted.com/talks/tom_thum_the_orchestra_in_my_mouth",
+            "https://www.ted.com/talks/vishal_sikka_the_beauty_and_power_of_algorithms"
+        ]
     },
     "TF1IE": {
         "adult": false,
@@ -6763,7 +6782,7 @@
     "TurboIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 503: Service Unavailable (caused by <HTTPError 503: 'Service Unavailable'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.turbo.fr/videos-voiture/454443-turbo-du-07-09-2014-renault-twingo-3-bentley-continental-gt-speed-ces-guide-achat-dacia.html\": dial tcp: lookup www.turbo.fr on 74.206.188.88:53: read udp 74.206.165.158:47720->74.206.188.88:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -6804,7 +6823,7 @@
     "TwitCastingIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Failed to download m3u8 information: <urlopen error Get \"https:\\\\/\\\\/dl01.twitcasting.tv\\\\/tc.vod\\\\/v\\\\/2357609-1588940678-1588969478-832dd047-ce2c0bde3c4407a5\\\\/fmp4\\\\/index.m3u8\": http: no Host in request URL> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
+            "DownloadError: ERROR: Failed to download m3u8 information: <urlopen error Get \"https:\\\\/\\\\/dl01.twitcasting.tv\\\\/tc.vod\\\\/v\\\\/2357609-1589115907-1589144707-832dd047-bdb73a20d40c4993\\\\/fmp4\\\\/index.m3u8\": http: no Host in request URL> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.",
             "DownloadError: ERROR: Unable to extract twitter:title; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
@@ -6989,7 +7008,7 @@
     "UnityIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 503: Service Unavailable (caused by <HTTPError 503: 'Service Unavailable'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to extract youtube ID; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -7071,13 +7090,13 @@
     "VKIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: This video is no longer available, because its author has been blocked.",
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "DownloadError: ERROR: This video is no longer available, because its author has been blocked."
         ],
         "success_urls": [
             "http://vk.com/video-110305615_171782105",
             "http://vk.com/video205387401_165548505",
             "http://vk.com/videos-77521?z=video-77521_162222515%2Fclub77521",
+            "https://vk.com/video-37468416_456239855",
             "https://vk.com/video_ext.php?oid=-77521&id=162222515&hash=87b046504ccd8bfa",
             "https://vk.com/videos-387766?z=video-387766_456242764%2Fpl_-387766_-2"
         ]
@@ -7251,10 +7270,11 @@
     "ViceArticleIE": {
         "adult": false,
         "error_msgs": [
-            "AttributeError: 'placeholder hashlib' object has no attribute 'sha512'",
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "AttributeError: 'placeholder hashlib' object has no attribute 'sha512'"
         ],
-        "success_urls": []
+        "success_urls": [
+            "https://www.vice.com/en_us/article/how-to-hack-a-car"
+        ]
     },
     "ViceIE": {
         "adult": false,
@@ -7387,7 +7407,7 @@
     "VidziIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://vidzi.tv/cghql9yq6emu\": dial tcp: lookup vidzi.tv on 74.206.188.88:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://vidzi.tv/cghql9yq6emu\": dial tcp: lookup vidzi.tv on 74.206.188.87:53: no such host> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -7469,12 +7489,12 @@
     "VimeoIE": {
         "adult": false,
         "error_msgs": [
-            "Crash: runtime error: slice bounds out of range [:101120] with length 8632",
-            "Crash: runtime error: slice bounds out of range [:121165] with length 9377",
-            "Crash: runtime error: slice bounds out of range [:121394] with length 9377",
-            "Crash: runtime error: slice bounds out of range [:121723] with length 9377",
-            "Crash: runtime error: slice bounds out of range [:125274] with length 9377",
-            "Crash: runtime error: slice bounds out of range [:99053] with length 8634",
+            "Crash: runtime error: slice bounds out of range [:101068] with length 8632",
+            "Crash: runtime error: slice bounds out of range [:121178] with length 9377",
+            "Crash: runtime error: slice bounds out of range [:121411] with length 9377",
+            "Crash: runtime error: slice bounds out of range [:121648] with length 9377",
+            "Crash: runtime error: slice bounds out of range [:125201] with length 9377",
+            "Crash: runtime error: slice bounds out of range [:99039] with length 8634",
             "DownloadError: ERROR: This video is protected by a password, use the --video-password option",
             "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
@@ -7493,8 +7513,8 @@
     "VimeoOndemandIE": {
         "adult": false,
         "error_msgs": [
-            "Crash: runtime error: slice bounds out of range [:159142] with length 9371",
-            "Crash: runtime error: slice bounds out of range [:159514] with length 9371"
+            "Crash: runtime error: slice bounds out of range [:159147] with length 9371",
+            "Crash: runtime error: slice bounds out of range [:159515] with length 9371"
         ],
         "success_urls": []
     },
@@ -7696,7 +7716,7 @@
     "WWEIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Failed to download m3u8 information: <urlopen error Get \"http://vod.wwe.com/vod/2018/,1080,720,540,432,360,288,/sd994_bryan_almas_090418.m3u8\": dial tcp: lookup vod.wwe.com on 74.206.188.87:53: read udp 74.206.165.158:51253->74.206.188.87:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -7778,23 +7798,23 @@
     "WebcasterIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Could not find XML element event name; please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download XML: <urlopen error Get \"http://bl.webcaster.pro/quote/start/free_c8cefd240aa593681c8d068cff59f407_hd/q393859/eb173f99dd5f558674dae55f4ba6806d/1480289104?sr%3D105%26fa%3D1%26type_id%3D18\": dial tcp: lookup bl.webcaster.pro on 74.206.188.88:53: read udp 74.206.165.158:48417->74.206.188.88:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
     "WeiboIE": {
         "adult": false,
-        "error_msgs": [],
-        "success_urls": [
-            "https://weibo.com/6275294458/Fp6RGfbff?type=comment"
-        ]
+        "error_msgs": [
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://passport.weibo.com/visitor/visitor?entry=miniblog&a=enter&url=https%3A%2F%2Fweibo.com%2F6275294458%2FFp6RGfbff%3Ftype%3Dcomment&domain=.weibo.com&sudaref=https%3A%2F%2Fweibo.com%2F6275294458%2FFp6RGfbff%3Ftype%3Dcomment&ua=php-sso_sdk_client-0.6.36&_rand=1589116339.1156\": dial tcp: lookup passport.weibo.com on 74.206.188.87:53: read udp 74.206.165.158:43505->74.206.188.87:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+        ],
+        "success_urls": []
     },
     "WeiboMobileIE": {
         "adult": false,
-        "error_msgs": [],
-        "success_urls": [
-            "https://m.weibo.cn/status/4189191225395228?wm=3333_2001&sourcetype=weixin&featurecode=newtitle&from=singlemessage&isappinstalled=0"
-        ]
+        "error_msgs": [
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://m.weibo.cn/status/4189191225395228?wm=3333_2001&sourcetype=weixin&featurecode=newtitle&from=singlemessage&isappinstalled=0\": dial tcp: lookup m.weibo.cn on 74.206.188.87:53: read udp 74.206.165.158:32962->74.206.188.87:53: i/o timeout> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+        ],
+        "success_urls": []
     },
     "WeiqiTVIE": {
         "adult": false,
@@ -7820,7 +7840,7 @@
     "XBefIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download XML: <urlopen error parse \"\\r\\n\\r\\n<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Transitional//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\\">\\r\\n\\r\\n<html xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\r\\n<head><title>\\r\\n\\r\\n</title>\\r\\n    </head>\\r\\n<body>\\r\\n    <form method=\\\"post\\\" action=\\\"../../pages/WhoisSuspended.aspx\\\" id=\\\"form1\\\">\\r\\n<div class=\\\"aspNetHidden\\\">\\r\\n<input type=\\\"hidden\\\" name=\\\"__VIEWSTATE\\\" id=\\\"__VIEWSTATE\\\" value=\\\"viyDMQGjp4ZpvVFx6B+eZls79+bNZW2IQ8DQ/ySoWnrRAhQ77UmQSzcnUI0NqG8cqSOPmCbpb1WSbA+TFmDIBHm5JBm/5ovLtnnxpHCIUCwUJnCun/P1EX7irPw6kGQR2OI4IqSFMAwyElbpW+IpyQ==\\\" />\\r\\n</div>\\r\\n\\r\\n<div class=\\\"aspNetHidden\\\">\\r\\n\\r\\n\\t<input type=\\\"hidden\\\" name=\\\"__VIEWSTATEGENERATOR\\\" id=\\\"__VIEWSTATEGENERATOR\\\" value=\\\"E99D4DB9\\\" />\\r\\n</div>\\r\\n    <div>\\r\\n        \\r\\n\\r\\n    \\r\\n<style type=\\\"text/css\\\">\\r\\n    body {background-color:\": net/url: invalid control character in URL> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+            "DownloadError: ERROR: Unable to download XML: <urlopen error parse \"\\r\\n\\r\\n<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Transitional//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\\">\\r\\n\\r\\n<html xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\r\\n<head><title>\\r\\n\\r\\n</title>\\r\\n    </head>\\r\\n<body>\\r\\n    <form method=\\\"post\\\" action=\\\"../../pages/WhoisSuspended.aspx\\\" id=\\\"form1\\\">\\r\\n<div class=\\\"aspNetHidden\\\">\\r\\n<input type=\\\"hidden\\\" name=\\\"__VIEWSTATE\\\" id=\\\"__VIEWSTATE\\\" value=\\\"7QLvNjf4RG7grk1EaUFmK3HhrW3QzUYClV2+QCqlrOIL0p4XohWjb5VozyfTP2c2OAGf13fj3vNNut3Z5086Q+fC85z/r9PJYIlfashT5wb6LjURHz0Wa6AORXm2O6q7rirTBx/fbQBzd3q8HDmX3A==\\\" />\\r\\n</div>\\r\\n\\r\\n<div class=\\\"aspNetHidden\\\">\\r\\n\\r\\n\\t<input type=\\\"hidden\\\" name=\\\"__VIEWSTATEGENERATOR\\\" id=\\\"__VIEWSTATEGENERATOR\\\" value=\\\"E99D4DB9\\\" />\\r\\n</div>\\r\\n    <div>\\r\\n        \\r\\n\\r\\n    \\r\\n<style type=\\\"text/css\\\">\\r\\n    body {background-color:\": net/url: invalid control character in URL> (caused by URLError); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -8093,7 +8113,7 @@
     "YoukuIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'etag\\'')); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },
@@ -8121,7 +8141,7 @@
     "YoutubeChannelIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
@@ -8140,31 +8160,57 @@
         "success_urls": []
     },
     "YoutubeIE": {
-        "adult": false,
+        "adult": true,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "DownloadError: ERROR: Content Warning\nIf the owner of this video has granted you access, please sign in.\n       This video is private."
         ],
-        "success_urls": []
+        "success_urls": [
+            "DJztXj2GPfl",
+            "__2ABJjxzNo",
+            "https://music.youtube.com/watch?v=MgNrAu2pzNs",
+            "https://www.youtube.com/watch?v=-hcAI0g-f5M",
+            "https://www.youtube.com/watch?v=07FYdnEawAQ",
+            "https://www.youtube.com/watch?v=6SJNVb0GnPI",
+            "https://www.youtube.com/watch?v=6kLq3WMV1nU",
+            "https://www.youtube.com/watch?v=74qn0eJSjpA",
+            "https://www.youtube.com/watch?v=BaW_jenozKc&t=1s&end=9",
+            "https://www.youtube.com/watch?v=BaW_jenozKc&v=UxxajLWwzqY",
+            "https://www.youtube.com/watch?v=IB3lcPjvWLA",
+            "https://www.youtube.com/watch?v=M4gD1WSo5mA",
+            "https://www.youtube.com/watch?v=T4XJQO3qol8",
+            "https://www.youtube.com/watch?v=UxxajLWwzqY",
+            "https://www.youtube.com/watch?v=_b-2C3KPAM0",
+            "https://www.youtube.com/watch?v=eQcmzGIKrzg",
+            "https://www.youtube.com/watch?v=iqKdEhx-dD4",
+            "https://www.youtube.com/watch?v=k0jLE7tTwjY",
+            "https://www.youtube.com/watch?v=lsguqyKfVQg",
+            "https://www.youtube.com/watch?v=nfWlot6h_JM",
+            "https://youtube.com/watch?v=HtVdAasjOgU",
+            "lqQg6PlCWgI"
+        ]
     },
     "YoutubeLiveIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "TypeError: 'placeholder globals (reason: undefined_name)' object is not callable"
         ],
         "success_urls": []
     },
     "YoutubePlaylistIE": {
         "adult": false,
         "error_msgs": [
-            "Exception: Playlists and multi video results are not supported!",
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "DownloadError: ERROR: PLBB231211A: YouTube said: This video is unavailable.\nSorry about that.",
+            "Exception: Playlists and multi video results are not supported!"
         ],
-        "success_urls": []
+        "success_urls": [
+            "http://www.youtube.com/embed/_xDOZElKyNU?list=PLsyOSbh5bs16vubvKePAQ1x3PhKavfBIl",
+            "https://youtu.be/yeWKywCrFtk?list=PL2qgrgXsNUG5ig9cat4ohreBjYLAPC0J5"
+        ]
     },
     "YoutubePlaylistsIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
@@ -8192,14 +8238,14 @@
     "YoutubeSearchURLIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
     "YoutubeShowIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookiejar_Cookie' object is not callable"
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>); please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
         ],
         "success_urls": []
     },

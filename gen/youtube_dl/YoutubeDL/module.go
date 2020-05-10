@@ -70,6 +70,7 @@ var (
 	ϒgen_extractor_classes λ.Object
 	ϒget_info_extractor    λ.Object
 	ϒint_or_none           λ.Object
+	ϒorderedSet            λ.Object
 	ϒparse_filesize        λ.Object
 	ϒpreferredencoding     λ.Object
 	ϒsanitize_filename     λ.Object
@@ -100,6 +101,7 @@ func init() {
 		GeoRestrictedError = Ωutils.GeoRestrictedError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		MaxDownloadsReached = Ωutils.MaxDownloadsReached
+		ϒorderedSet = Ωutils.ϒorderedSet
 		PagedList = Ωutils.PagedList
 		ϒparse_filesize = Ωutils.ϒparse_filesize
 		PostProcessingError = Ωutils.PostProcessingError
@@ -1115,7 +1117,7 @@ func init() {
 													return λ.None
 												})
 											})
-										ϒplaylistitems = λ.Cal(λ.None, λ.Cal(ϒiter_playlistitems, ϒplaylistitems_str))
+										ϒplaylistitems = λ.Cal(ϒorderedSet, λ.Cal(ϒiter_playlistitems, ϒplaylistitems_str))
 									}
 									ϒie_entries = λ.GetItem(ϒie_result, λ.StrLiteral("entries"))
 									ϒmake_playlistitems_entries = λ.NewFunction("make_playlistitems_entries",

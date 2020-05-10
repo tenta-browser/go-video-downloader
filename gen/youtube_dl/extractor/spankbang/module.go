@@ -38,6 +38,7 @@ var (
 	SpankBangPlaylistIE λ.Object
 	ϒdetermine_ext      λ.Object
 	ϒmerge_dicts        λ.Object
+	ϒorderedSet         λ.Object
 	ϒparse_duration     λ.Object
 	ϒparse_resolution   λ.Object
 	ϒstr_to_int         λ.Object
@@ -51,6 +52,7 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
 		ϒmerge_dicts = Ωutils.ϒmerge_dicts
+		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒparse_resolution = Ωutils.ϒparse_resolution
 		ϒstr_to_int = Ωutils.ϒstr_to_int

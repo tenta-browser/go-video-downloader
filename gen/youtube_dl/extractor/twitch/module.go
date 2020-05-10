@@ -57,6 +57,7 @@ var (
 	ϒcompat_urllib_parse_urlencode λ.Object
 	ϒcompat_urllib_parse_urlparse  λ.Object
 	ϒint_or_none                   λ.Object
+	ϒorderedSet                    λ.Object
 	ϒparse_duration                λ.Object
 	ϒparse_iso8601                 λ.Object
 	ϒtry_get                       λ.Object
@@ -77,6 +78,7 @@ func init() {
 		ϒclean_html = Ωutils.ϒclean_html
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒtry_get = Ωutils.ϒtry_get

@@ -67,6 +67,7 @@ var (
 	ϒ_htmlentity_transform            λ.Object
 	ϒage_restricted                   λ.Object
 	ϒbase_url                         λ.Object
+	ϒbool_or_none                     λ.Object
 	ϒbug_reports_message              λ.Object
 	ϒclean_html                       λ.Object
 	ϒcompat_HTMLParseError            λ.Object
@@ -107,6 +108,7 @@ var (
 	ϒmerge_dicts                      λ.Object
 	ϒmimetype2ext                     λ.Object
 	ϒmonth_by_name                    λ.Object
+	ϒorderedSet                       λ.Object
 	ϒparse_age_limit                  λ.Object
 	ϒparse_bitrate                    λ.Object
 	ϒparse_codecs                     λ.Object
@@ -121,6 +123,7 @@ var (
 	ϒrandom_birthday                  λ.Object
 	ϒrandom_user_agent                λ.Object
 	ϒremove_end                       λ.Object
+	ϒremove_quotes                    λ.Object
 	ϒremove_start                     λ.Object
 	ϒsanitize_filename                λ.Object
 	ϒsanitize_path                    λ.Object
@@ -139,6 +142,7 @@ var (
 	ϒunsmuggle_url                    λ.Object
 	ϒupdate_Request                   λ.Object
 	ϒupdate_url_query                 λ.Object
+	ϒuppercase_escape                 λ.Object
 	ϒurl_basename                     λ.Object
 	ϒurl_or_none                      λ.Object
 	ϒurlencode_postdata               λ.Object
@@ -2713,6 +2717,32 @@ func init() {
 				)
 				return ϒs
 			})
+		ϒorderedSet = λ.NewFunction("orderedSet",
+			[]λ.Param{
+				{Name: "iterable"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒel       λ.Object
+					ϒiterable = λargs[0]
+					ϒres      λ.Object
+					τmp0      λ.Object
+					τmp1      λ.Object
+				)
+				ϒres = λ.NewList()
+				τmp0 = λ.Cal(λ.BuiltinIter, ϒiterable)
+				for {
+					if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+						break
+					}
+					ϒel = τmp1
+					if !λ.Contains(ϒres, ϒel) {
+						λ.Calm(ϒres, "append", ϒel)
+					}
+				}
+				return ϒres
+			})
 		ϒ_htmlentity_transform = λ.NewFunction("_htmlentity_transform",
 			[]λ.Param{
 				{Name: "entity_with_semicolon"},
@@ -3387,6 +3417,48 @@ func init() {
 					}
 				}()
 			})
+		ϒremove_quotes = λ.NewFunction("remove_quotes",
+			[]λ.Param{
+				{Name: "s"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒquote λ.Object
+					ϒs     = λargs[0]
+					τmp0   λ.Object
+					τmp1   λ.Object
+				)
+				if λ.IsTrue(func() λ.Object {
+					if λv := λ.NewBool(ϒs == λ.None); λ.IsTrue(λv) {
+						return λv
+					} else {
+						return λ.Lt(λ.Cal(λ.BuiltinLen, ϒs), λ.IntLiteral(2))
+					}
+				}()) {
+					return ϒs
+				}
+				τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+					λ.StrLiteral("\""),
+					λ.StrLiteral("'"),
+				))
+				for {
+					if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+						break
+					}
+					ϒquote = τmp1
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.Eq(λ.GetItem(ϒs, λ.IntLiteral(0)), ϒquote); !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Eq(λ.GetItem(ϒs, λ.Neg(λ.IntLiteral(1))), ϒquote)
+						}
+					}()) {
+						return λ.GetItem(ϒs, λ.NewSlice(λ.IntLiteral(1), λ.Neg(λ.IntLiteral(1)), λ.None))
+					}
+				}
+				return ϒs
+			})
 		ϒurl_basename = λ.NewFunction("url_basename",
 			[]λ.Param{
 				{Name: "url"},
@@ -3599,6 +3671,25 @@ func init() {
 				}
 				return λ.None
 			})
+		ϒbool_or_none = λ.NewFunction("bool_or_none",
+			[]λ.Param{
+				{Name: "v"},
+				{Name: "default", Def: λ.None},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒdefault = λargs[1]
+					ϒv       = λargs[0]
+				)
+				return func() λ.Object {
+					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒv, λ.BoolType)) {
+						return ϒv
+					} else {
+						return ϒdefault
+					}
+				}()
+			})
 		ϒstrip_or_none = λ.NewFunction("strip_or_none",
 			[]λ.Param{
 				{Name: "v"},
@@ -3727,6 +3818,29 @@ func init() {
 
 			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
+		ϒuppercase_escape = λ.NewFunction("uppercase_escape",
+			[]λ.Param{
+				{Name: "s"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒs              = λargs[0]
+					ϒunicode_escape λ.Object
+				)
+				ϒunicode_escape = λ.Cal(Ωcodecs.ϒgetdecoder, λ.StrLiteral("unicode_escape"))
+				return λ.Cal(Ωre.ϒsub, λ.StrLiteral("\\\\U[0-9a-fA-F]{8}"), λ.NewFunction("<lambda>",
+					[]λ.Param{
+						{Name: "m"},
+					},
+					0, false, false,
+					func(λargs []λ.Object) λ.Object {
+						var (
+							ϒm = λargs[0]
+						)
+						return λ.GetItem(λ.Cal(ϒunicode_escape, λ.Calm(ϒm, "group", λ.IntLiteral(0))), λ.IntLiteral(0))
+					}), ϒs)
+			})
 		ϒlowercase_escape = λ.NewFunction("lowercase_escape",
 			[]λ.Param{
 				{Name: "s"},

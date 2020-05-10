@@ -22,7 +22,8 @@ Supported sites
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
- * BIQLE: `biqle.org`
+ * BIQLE: `biqle.ru`
+ * BleacherReport: `bleacherreport.com`
  * BleacherReportCMS: `bleacherreport.com`
  * BokeCC: `union.bokecc.com`
  * Bpb: `www.bpb.de`
@@ -55,6 +56,7 @@ Supported sites
  * CtsNews: `news.cts.com.tw`
  * CuriosityStream: `app.curiositystream.com`
  * DailyMail: `www.dailymail.co.uk`
+ * Dailymotion: `www.dailymotion.com`
  * Daum: `tvpot.daum.net`
  * DaumClip: `tvpot.daum.net`
  * DaumPlaylist: `tvpot.daum.net`
@@ -87,7 +89,9 @@ Supported sites
  * FoxNewsArticle: `www.foxnews.com`
  * FranceCulture: `www.franceculture.fr`
  * FranceInter: `www.franceinter.fr`
+ * GenerationWhat: `generation-what.francetv.fr`
  * Freesound: `www.freesound.org`
+ * Freespeech: `www.freespeech.org`
  * Funk: `www.funk.net`
  * GameInformer: `www.gameinformer.com`
  * Gaskrank: `www.gaskrank.tv`
@@ -112,6 +116,7 @@ Supported sites
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
  * Instagram: `instagram.com`
+ * Ir90Tv: `90tv.ir`
  * Ivideon: `www.ivideon.com`
  * Izlesene: `www.izlesene.com`
  * Jamendo: `www.jamendo.com`
@@ -120,6 +125,7 @@ Supported sites
  * JWPlatform: `content.jwplatform.com`
  * Kakao: `tv.kakao.com`
  * KeezMovies _(adult)_: `www.keezmovies.com`
+ * KhanAcademy: `www.khanacademy.org`
  * KickStarter: `www.kickstarter.com`
  * LibraryOfCongress: `loc.gov`
  * Libsyn: `html5-player.libsyn.com`
@@ -164,7 +170,7 @@ Supported sites
  * PacktPub: `www.packtpub.com`
  * PandoraTV: `jp.channel.pandora.tv`
  * ParliamentLiveUK: `parliamentlive.tv`
- * PearVideo: `www.pearvideo.com`
+ * PBS: `www.pbs.org`
  * PeerTube: `framatube.org`
  * People: `www.people.com`
  * PerformGroup: `player.performgroup.com`
@@ -175,6 +181,7 @@ Supported sites
  * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
  * PornHd _(adult)_: `www.pornhd.com`
+ * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
  * RadioDe: `ndr2.radio.de`
  * RadioJavan: `www.radiojavan.com`
@@ -187,7 +194,6 @@ Supported sites
  * RTS: `www.rts.ch`
  * RUTV: `player.rutv.ru`
  * Ruutu: `www.ruutu.fi`
- * Safari: `www.safaribooksonline.com`
  * Sapo: `videos.sapo.pt`
  * SBS: `www.sbs.com.au`
  * Screencast: `www.screencast.com`
@@ -197,6 +203,7 @@ Supported sites
  * Sina: `video.sina.com.cn`
  * SkyNews: `news.sky.com`
  * Slideshare: `www.slideshare.net`
+ * SlidesLive: `slideslive.com`
  * SonyLIV: `www.sonyliv.com`
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
@@ -214,6 +221,7 @@ Supported sites
  * TDSLifeway: `tds.lifeway.com`
  * Teamcoco: `teamcoco.com`
  * TeamTreeHouse: `teamtreehouse.com`
+ * TED: `www.ted.com`
  * Telegraaf: `www.telegraaf.nl`
  * Tenta: `tenta.com`
  * TFO: `www.tfo.org`
@@ -244,6 +252,7 @@ Supported sites
  * Vesti: `www.vesti.ru`
  * Vevo _(adult)_: `www.vevo.com`
  * VGTV: `www.vgtv.no`
+ * ViceArticle: `www.vice.com`
  * Viddler: `www.viddler.com`
  * Videa: `videa.hu`
  * VideoPress: `videopress.com`
@@ -262,8 +271,6 @@ Supported sites
  * VoiceRepublic: `voicerepublic.com`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
- * Weibo: `weibo.com`
- * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`
  * WSJArticle: `www.wsj.com`
@@ -280,3 +287,5 @@ Supported sites
  * YouPorn _(adult)_: `www.youporn.com`
  * YourPorn _(adult)_: `sxyprn.com`
  * YourUpload: `yourupload.com`
+ * Youtube _(adult)_: `www.youtube.com`
+ * YoutubePlaylist: `www.youtube.com`

@@ -55,6 +55,7 @@ var (
 	ϒbase_url                      λ.Object
 	ϒbug_reports_message           λ.Object
 	ϒclean_html                    λ.Object
+	ϒcompat_cookiejar_Cookie       λ.Object
 	ϒcompat_etree_Element          λ.Object
 	ϒcompat_etree_fromstring       λ.Object
 	ϒcompat_http_client            λ.Object
@@ -75,6 +76,7 @@ var (
 	ϒint_or_none                   λ.Object
 	ϒjs_to_json                    λ.Object
 	ϒmimetype2ext                  λ.Object
+	ϒorderedSet                    λ.Object
 	ϒparse_bitrate                 λ.Object
 	ϒparse_codecs                  λ.Object
 	ϒparse_duration                λ.Object
@@ -101,6 +103,7 @@ var (
 
 func init() {
 	λ.InitModule(func() {
+		ϒcompat_cookiejar_Cookie = Ωcompat.ϒcompat_cookiejar_Cookie
 		ϒcompat_etree_Element = Ωcompat.ϒcompat_etree_Element
 		ϒcompat_etree_fromstring = Ωcompat.ϒcompat_etree_fromstring
 		ϒcompat_integer_types = Ωcompat.ϒcompat_integer_types
@@ -131,6 +134,7 @@ func init() {
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		JSON_LD_RE = Ωutils.JSON_LD_RE
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
+		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_bitrate = Ωutils.ϒparse_bitrate
 		ϒparse_codecs = Ωutils.ϒparse_codecs
 		ϒparse_duration = Ωutils.ϒparse_duration
@@ -200,6 +204,7 @@ func init() {
 				InfoExtractor__og_search_property          λ.Object
 				InfoExtractor__og_search_thumbnail         λ.Object
 				InfoExtractor__og_search_title             λ.Object
+				InfoExtractor__og_search_url               λ.Object
 				InfoExtractor__og_search_video_url         λ.Object
 				InfoExtractor__parse_f4m_formats           λ.Object
 				InfoExtractor__parse_html5_media_entries   λ.Object
@@ -233,6 +238,7 @@ func init() {
 				InfoExtractor_http_scheme                  λ.Object
 				InfoExtractor_ie_key                       λ.Object
 				InfoExtractor_initialize                   λ.Object
+				InfoExtractor_mark_watched                 λ.Object
 				InfoExtractor_playlist_result              λ.Object
 				InfoExtractor_report_download_webpage      λ.Object
 				InfoExtractor_report_extraction            λ.Object
@@ -1937,6 +1943,25 @@ func init() {
 						ϒregexes,
 						ϒhtml,
 						ϒname,
+					), λ.KWArgs{
+						{Name: "", Value: ϒkargs},
+					})
+				})
+			InfoExtractor__og_search_url = λ.NewFunction("_og_search_url",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "html"},
+				},
+				0, false, true,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒhtml  = λargs[1]
+						ϒkargs = λargs[2]
+						ϒself  = λargs[0]
+					)
+					return λ.Call(λ.GetAttr(ϒself, "_og_search_property", nil), λ.NewArgs(
+						λ.StrLiteral("url"),
+						ϒhtml,
 					), λ.KWArgs{
 						{Name: "", Value: ϒkargs},
 					})
@@ -5805,7 +5830,7 @@ func init() {
 						ϒvalue       = λargs[3]
 					)
 					_ = ϒkwargs
-					ϒcookie = λ.Cal(λ.None, λ.IntLiteral(0), ϒname, ϒvalue, ϒport, λ.NewBool(ϒport != λ.None), ϒdomain, λ.True, λ.Calm(ϒdomain, "startswith", λ.StrLiteral(".")), ϒpath, λ.True, ϒsecure, ϒexpire_time, ϒdiscard, λ.None, λ.None, ϒrest)
+					ϒcookie = λ.Cal(ϒcompat_cookiejar_Cookie, λ.IntLiteral(0), ϒname, ϒvalue, ϒport, λ.NewBool(ϒport != λ.None), ϒdomain, λ.True, λ.Calm(ϒdomain, "startswith", λ.StrLiteral(".")), ϒpath, λ.True, ϒsecure, ϒexpire_time, ϒdiscard, λ.None, λ.None, ϒrest)
 					λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "cookiejar", nil), "set_cookie", ϒcookie)
 					return λ.None
 				})
@@ -5963,6 +5988,36 @@ func init() {
 					}
 					return λ.DictLiteral(map[λ.Object]λ.Object{})
 				})
+			InfoExtractor_mark_watched = λ.NewFunction("mark_watched",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, true, true,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒargs   = λargs[1]
+						ϒkwargs = λargs[2]
+						ϒself   = λargs[0]
+					)
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("mark_watched"), λ.False); !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return func() λ.Object {
+								if λv := λ.NewBool(λ.GetItem(λ.Calm(ϒself, "_get_login_info"), λ.IntLiteral(0)) != λ.None); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.NewBool(λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("cookiefile")) != λ.None)
+								}
+							}()
+						}
+					}()) {
+						λ.Call(λ.GetAttr(ϒself, "_mark_watched", nil), λ.NewArgs(λ.Unpack(λ.AsStarred(ϒargs))...), λ.KWArgs{
+							{Name: "", Value: ϒkwargs},
+						})
+					}
+					return λ.None
+				})
 			InfoExtractor_geo_verification_headers = λ.NewFunction("geo_verification_headers",
 				[]λ.Param{
 					{Name: "self"},
@@ -6027,6 +6082,7 @@ func init() {
 				"_og_search_property":          InfoExtractor__og_search_property,
 				"_og_search_thumbnail":         InfoExtractor__og_search_thumbnail,
 				"_og_search_title":             InfoExtractor__og_search_title,
+				"_og_search_url":               InfoExtractor__og_search_url,
 				"_og_search_video_url":         InfoExtractor__og_search_video_url,
 				"_parse_f4m_formats":           InfoExtractor__parse_f4m_formats,
 				"_parse_html5_media_entries":   InfoExtractor__parse_html5_media_entries,
@@ -6060,6 +6116,7 @@ func init() {
 				"http_scheme":                  InfoExtractor_http_scheme,
 				"ie_key":                       InfoExtractor_ie_key,
 				"initialize":                   InfoExtractor_initialize,
+				"mark_watched":                 InfoExtractor_mark_watched,
 				"playlist_result":              InfoExtractor_playlist_result,
 				"report_download_webpage":      InfoExtractor_report_download_webpage,
 				"report_extraction":            InfoExtractor_report_extraction,
