@@ -4,8 +4,6 @@ Supported sites
  * AbcNewsVideo: `abcnews.go.com`
  * ABCOTVS: `abc7news.com`
  * ACast: `www.acast.com`
- * AdobeTVEmbed: `tv.adobe.com`
- * AdobeTV: `tv.adobe.com`
  * AdobeTVVideo: `video.tv.adobe.com`
  * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
@@ -19,7 +17,6 @@ Supported sites
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
  * Beatport: `beatport.com`
- * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
  * BIQLE: `biqle.ru`
@@ -74,6 +71,7 @@ Supported sites
  * EchoMsk: `www.echo.msk.ru`
  * ElPais: `blogs.elpais.com`
  * Engadget: `www.engadget.com`
+ * Eporner _(adult)_: `www.eporner.com`
  * Escapist: `www.escapistmagazine.com`
  * FiveThirtyEight: `fivethirtyeight.com`
  * ExtremeTube _(adult)_: `www.extremetube.com`
@@ -127,6 +125,7 @@ Supported sites
  * KeezMovies _(adult)_: `www.keezmovies.com`
  * KhanAcademy: `www.khanacademy.org`
  * KickStarter: `www.kickstarter.com`
+ * Lenta: `lenta.ru`
  * LibraryOfCongress: `loc.gov`
  * Libsyn: `html5-player.libsyn.com`
  * LimelightMedia: `link.videoplatform.limelight.com`
@@ -171,6 +170,7 @@ Supported sites
  * PandoraTV: `jp.channel.pandora.tv`
  * ParliamentLiveUK: `parliamentlive.tv`
  * PBS: `www.pbs.org`
+ * PearVideo: `www.pearvideo.com`
  * PeerTube: `framatube.org`
  * People: `www.people.com`
  * PerformGroup: `player.performgroup.com`
@@ -183,9 +183,8 @@ Supported sites
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
- * RadioDe: `ndr2.radio.de`
  * RadioJavan: `www.radiojavan.com`
- * Rai: `www.raisport.rai.it`
+ * Rai: `www.rai.tv`
  * RayWenderlich: `www.raywenderlich.com`
  * RedTube _(adult)_: `www.redtube.com`
  * ReverbNation: `www.reverbnation.com`
@@ -194,6 +193,7 @@ Supported sites
  * RTS: `www.rts.ch`
  * RUTV: `player.rutv.ru`
  * Ruutu: `www.ruutu.fi`
+ * Safari: `www.safaribooksonline.com`
  * Sapo: `videos.sapo.pt`
  * SBS: `www.sbs.com.au`
  * Screencast: `www.screencast.com`
@@ -260,7 +260,8 @@ Supported sites
  * VidLii: `www.vidlii.com`
  * ViewLift _(adult)_: `www.snagfilms.com`
  * ViewLiftEmbed: `embed.snagfilms.com`
- * Vimeo: `player.vimeo.com`
+ * Vimeo: `vimeo.com`
+ * VimeoOndemand: `vimeo.com`
  * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
  * Vine: `vine.co`
@@ -270,7 +271,7 @@ Supported sites
  * VLivePlaylist: `www.vlive.tv`
  * VoiceRepublic: `voicerepublic.com`
  * Vzaar: `vzaar.com`
- * WashingtonPost: `www.washingtonpost.com`
+ * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`
  * WSJArticle: `www.wsj.com`

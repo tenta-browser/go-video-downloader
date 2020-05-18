@@ -64,35 +64,9 @@ func init() {
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		AdobeTVBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("AdobeTVBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				AdobeTVBaseIE__call_api         λ.Object
 				AdobeTVBaseIE__parse_subtitles  λ.Object
 				AdobeTVBaseIE__parse_video_data λ.Object
 			)
-			AdobeTVBaseIE__call_api = λ.NewFunction("_call_api",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "path"},
-					{Name: "video_id"},
-					{Name: "query"},
-					{Name: "note", Def: λ.None},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒnote     = λargs[4]
-						ϒpath     = λargs[1]
-						ϒquery    = λargs[3]
-						ϒself     = λargs[0]
-						ϒvideo_id = λargs[2]
-					)
-					return λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Add(λ.StrLiteral("http://tv.adobe.com/api/v4/"), ϒpath),
-						ϒvideo_id,
-						ϒnote,
-					), λ.KWArgs{
-						{Name: "query", Value: ϒquery},
-					}), λ.StrLiteral("data"))
-				})
 			AdobeTVBaseIE__parse_subtitles = λ.NewFunction("_parse_subtitles",
 				[]λ.Param{
 					{Name: "self"},
@@ -230,87 +204,26 @@ func init() {
 					})
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_call_api":         AdobeTVBaseIE__call_api,
 				"_parse_subtitles":  AdobeTVBaseIE__parse_subtitles,
 				"_parse_video_data": AdobeTVBaseIE__parse_video_data,
 			})
 		}())
 		AdobeTVEmbedIE = λ.Cal(λ.TypeType, λ.StrLiteral("AdobeTVEmbedIE"), λ.NewTuple(AdobeTVBaseIE), func() λ.Dict {
 			var (
-				AdobeTVEmbedIE_IE_NAME       λ.Object
-				AdobeTVEmbedIE__VALID_URL    λ.Object
-				AdobeTVEmbedIE__real_extract λ.Object
+				AdobeTVEmbedIE__VALID_URL λ.Object
 			)
-			AdobeTVEmbedIE_IE_NAME = λ.StrLiteral("adobetv:embed")
 			AdobeTVEmbedIE__VALID_URL = λ.StrLiteral("https?://tv\\.adobe\\.com/embed/\\d+/(?P<id>\\d+)")
-			AdobeTVEmbedIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒself       = λargs[0]
-						ϒurl        = λargs[1]
-						ϒvideo_data λ.Object
-						ϒvideo_id   λ.Object
-					)
-					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
-					ϒvideo_data = λ.GetItem(λ.Calm(ϒself, "_call_api", λ.Add(λ.StrLiteral("episode/"), ϒvideo_id), ϒvideo_id, λ.DictLiteral(map[string]string{
-						"disclosure": "standard",
-					})), λ.IntLiteral(0))
-					return λ.Calm(ϒself, "_parse_video_data", ϒvideo_data)
-				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"IE_NAME":       AdobeTVEmbedIE_IE_NAME,
-				"_VALID_URL":    AdobeTVEmbedIE__VALID_URL,
-				"_real_extract": AdobeTVEmbedIE__real_extract,
+				"_VALID_URL": AdobeTVEmbedIE__VALID_URL,
 			})
 		}())
 		AdobeTVIE = λ.Cal(λ.TypeType, λ.StrLiteral("AdobeTVIE"), λ.NewTuple(AdobeTVBaseIE), func() λ.Dict {
 			var (
-				AdobeTVIE_IE_NAME       λ.Object
-				AdobeTVIE__VALID_URL    λ.Object
-				AdobeTVIE__real_extract λ.Object
+				AdobeTVIE__VALID_URL λ.Object
 			)
-			AdobeTVIE_IE_NAME = λ.StrLiteral("adobetv")
 			AdobeTVIE__VALID_URL = λ.StrLiteral("https?://tv\\.adobe\\.com/(?:(?P<language>fr|de|es|jp)/)?watch/(?P<show_urlname>[^/]+)/(?P<id>[^/]+)")
-			AdobeTVIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒlanguage     λ.Object
-						ϒself         = λargs[0]
-						ϒshow_urlname λ.Object
-						ϒurl          = λargs[1]
-						ϒurlname      λ.Object
-						ϒvideo_data   λ.Object
-						τmp0          λ.Object
-					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
-					ϒlanguage = λ.GetItem(τmp0, λ.IntLiteral(0))
-					ϒshow_urlname = λ.GetItem(τmp0, λ.IntLiteral(1))
-					ϒurlname = λ.GetItem(τmp0, λ.IntLiteral(2))
-					if !λ.IsTrue(ϒlanguage) {
-						ϒlanguage = λ.StrLiteral("en")
-					}
-					ϒvideo_data = λ.GetItem(λ.Calm(ϒself, "_call_api", λ.StrLiteral("episode/get"), ϒurlname, λ.DictLiteral(map[string]λ.Object{
-						"disclosure":   λ.StrLiteral("standard"),
-						"language":     ϒlanguage,
-						"show_urlname": ϒshow_urlname,
-						"urlname":      ϒurlname,
-					})), λ.IntLiteral(0))
-					return λ.Calm(ϒself, "_parse_video_data", ϒvideo_data)
-				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"IE_NAME":       AdobeTVIE_IE_NAME,
-				"_VALID_URL":    AdobeTVIE__VALID_URL,
-				"_real_extract": AdobeTVIE__real_extract,
+				"_VALID_URL": AdobeTVIE__VALID_URL,
 			})
 		}())
 		AdobeTVPlaylistBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("AdobeTVPlaylistBaseIE"), λ.NewTuple(AdobeTVBaseIE), func() λ.Dict {
