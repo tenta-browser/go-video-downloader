@@ -7,7 +7,7 @@ Supported sites
  * AdobeTVVideo: `video.tv.adobe.com`
  * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
- * ARDBetaMediathek: `beta.ardmediathek.de`
+ * ARDBetaMediathek: `ardmediathek.de`
  * ARDMediathek: `www.ardmediathek.de`
  * ArteTVPlus7: `www.arte.tv`
  * AsianCrush: `www.asiancrush.com`
@@ -17,9 +17,9 @@ Supported sites
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
  * Beatport: `beatport.com`
+ * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
- * BIQLE: `biqle.ru`
  * BleacherReport: `bleacherreport.com`
  * BleacherReportCMS: `bleacherreport.com`
  * BokeCC: `union.bokecc.com`
@@ -50,7 +50,6 @@ Supported sites
  * CondeNast: `video.wired.com`
  * CONtv: `www.contv.com`
  * Cracked: `www.cracked.com`
- * CtsNews: `news.cts.com.tw`
  * CuriosityStream: `app.curiositystream.com`
  * DailyMail: `www.dailymail.co.uk`
  * Dailymotion: `www.dailymotion.com`
@@ -113,7 +112,6 @@ Supported sites
  * ImgurGallery: `imgur.com`
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
- * Instagram: `instagram.com`
  * Ir90Tv: `90tv.ir`
  * Ivideon: `www.ivideon.com`
  * Izlesene: `www.izlesene.com`
@@ -164,7 +162,6 @@ Supported sites
  * NTVRu: `www.ntv.ru`
  * Odnoklassniki: `ok.ru`
  * OnionStudios: `www.onionstudios.com`
- * Ooyala: `player.ooyala.com`
  * OutsideTV: `www.outsidetv.com`
  * PacktPub: `www.packtpub.com`
  * PandoraTV: `jp.channel.pandora.tv`
@@ -184,7 +181,7 @@ Supported sites
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
  * RadioJavan: `www.radiojavan.com`
- * Rai: `www.rai.tv`
+ * Rai: `www.raisport.rai.it`
  * RayWenderlich: `www.raywenderlich.com`
  * RedTube _(adult)_: `www.redtube.com`
  * ReverbNation: `www.reverbnation.com`
@@ -228,7 +225,6 @@ Supported sites
  * TMZ: `www.tmz.com`
  * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
  * TNAFlix _(adult)_: `www.tnaflix.com`
- * EMPFlix _(adult)_: `www.empflix.com`
  * MovieFap _(adult)_: `www.moviefap.com`
  * ToonGoggles: `www.toongoggles.com`
  * Toypics _(adult)_: `videos.toypics.net`

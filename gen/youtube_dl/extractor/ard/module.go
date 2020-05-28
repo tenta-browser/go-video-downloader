@@ -504,7 +504,7 @@ func init() {
 			var (
 				ARDIE__VALID_URL λ.Object
 			)
-			ARDIE__VALID_URL = λ.StrLiteral("(?P<mainurl>https?://(www\\.)?daserste\\.de/[^?#]+/videos/(?P<display_id>[^/?#]+)-(?P<id>[0-9]+))\\.html")
+			ARDIE__VALID_URL = λ.StrLiteral("(?P<mainurl>https?://(www\\.)?daserste\\.de/[^?#]+/videos(?:extern)?/(?P<display_id>[^/?#]+)-(?P<id>[0-9]+))\\.html")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": ARDIE__VALID_URL,
 			})
@@ -514,7 +514,7 @@ func init() {
 				ARDBetaMediathekIE__VALID_URL    λ.Object
 				ARDBetaMediathekIE__real_extract λ.Object
 			)
-			ARDBetaMediathekIE__VALID_URL = λ.StrLiteral("https://(?:beta|www)\\.ardmediathek\\.de/(?P<client>[^/]+)/(?:player|live)/(?P<video_id>[a-zA-Z0-9]+)(?:/(?P<display_id>[^/?#]+))?")
+			ARDBetaMediathekIE__VALID_URL = λ.StrLiteral("https://(?:(?:beta|www)\\.)?ardmediathek\\.de/(?P<client>[^/]+)/(?:player|live|video)/(?P<display_id>(?:[^/]+/)*)(?P<video_id>[a-zA-Z0-9]+)")
 			ARDBetaMediathekIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -539,13 +539,13 @@ func init() {
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
 					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("video_id"))
-					ϒdisplay_id = func() λ.Object {
-						if λv := λ.Calm(ϒmobj, "group", λ.StrLiteral("display_id")); λ.IsTrue(λv) {
-							return λv
-						} else {
-							return ϒvideo_id
-						}
-					}()
+					ϒdisplay_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("display_id"))
+					if λ.IsTrue(ϒdisplay_id) {
+						ϒdisplay_id = λ.Calm(ϒdisplay_id, "rstrip", λ.StrLiteral("/"))
+					}
+					if !λ.IsTrue(ϒdisplay_id) {
+						ϒdisplay_id = ϒvideo_id
+					}
 					ϒplayer_page = λ.GetItem(λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
 						λ.StrLiteral("https://api.ardmediathek.de/public-gateway"),
 						ϒdisplay_id,

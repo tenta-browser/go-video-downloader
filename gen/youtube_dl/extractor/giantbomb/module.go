@@ -53,7 +53,7 @@ func init() {
 				GiantBombIE__VALID_URL    λ.Object
 				GiantBombIE__real_extract λ.Object
 			)
-			GiantBombIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?giantbomb\\.com/videos/(?P<display_id>[^/]+)/(?P<id>\\d+-\\d+)")
+			GiantBombIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?giantbomb\\.com/(?:videos|shows)/(?P<display_id>[^/]+)/(?P<id>\\d+-\\d+)")
 			GiantBombIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},

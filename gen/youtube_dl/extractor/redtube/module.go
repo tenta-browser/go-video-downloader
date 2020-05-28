@@ -34,6 +34,7 @@ var (
 	ExtractorError   λ.Object
 	InfoExtractor    λ.Object
 	RedTubeIE        λ.Object
+	ϒdetermine_ext   λ.Object
 	ϒint_or_none     λ.Object
 	ϒmerge_dicts     λ.Object
 	ϒstr_to_int      λ.Object
@@ -44,6 +45,7 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒmerge_dicts = Ωutils.ϒmerge_dicts
@@ -154,7 +156,7 @@ func init() {
 						λ.SetItem(ϒinfo, λ.StrLiteral("title"), func() λ.Object {
 							if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 								λ.NewTuple(
-									λ.StrLiteral("<h(\\d)[^>]+class=\"(?:video_title_text|videoTitle)[^\"]*\">(?P<title>(?:(?!\\1).)+)</h\\1>"),
+									λ.StrLiteral("<h(\\d)[^>]+class=\"(?:video_title_text|videoTitle|video_title)[^\"]*\">(?P<title>(?:(?!\\1).)+)</h\\1>"),
 									λ.StrLiteral("(?:videoTitle|title)\\s*:\\s*([\"\\'])(?P<title>(?:(?!\\1).)+)\\1"),
 								),
 								ϒwebpage,
@@ -208,7 +210,7 @@ func init() {
 					}
 					ϒmedias = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 						λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.StrLiteral("mediaDefinition\\s*:\\s*(\\[.+?\\])"),
+							λ.StrLiteral("mediaDefinition[\"\\']?\\s*:\\s*(\\[.+?}\\s*\\])"),
 							ϒwebpage,
 							λ.StrLiteral("media definitions"),
 						), λ.KWArgs{
@@ -233,6 +235,24 @@ func init() {
 							ϒmedia = τmp1
 							ϒformat_url = λ.Cal(ϒurl_or_none, λ.Calm(ϒmedia, "get", λ.StrLiteral("videoUrl")))
 							if !λ.IsTrue(ϒformat_url) {
+								continue
+							}
+							if λ.IsTrue(func() λ.Object {
+								if λv := λ.Eq(λ.Calm(ϒmedia, "get", λ.StrLiteral("format")), λ.StrLiteral("hls")); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.Eq(λ.Cal(ϒdetermine_ext, ϒformat_url), λ.StrLiteral("m3u8"))
+								}
+							}()) {
+								λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+									ϒformat_url,
+									ϒvideo_id,
+									λ.StrLiteral("mp4"),
+								), λ.KWArgs{
+									{Name: "entry_protocol", Value: λ.StrLiteral("m3u8_native")},
+									{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
+									{Name: "fatal", Value: λ.False},
+								}))
 								continue
 							}
 							ϒformat_id = λ.Calm(ϒmedia, "get", λ.StrLiteral("quality"))
