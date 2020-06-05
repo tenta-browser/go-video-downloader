@@ -26,17 +26,20 @@ package jwplatform
 
 import (
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
+	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	InfoExtractor λ.Object
-	JWPlatformIE  λ.Object
+	InfoExtractor  λ.Object
+	JWPlatformIE   λ.Object
+	ϒunsmuggle_url λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒunsmuggle_url = Ωutils.ϒunsmuggle_url
 		JWPlatformIE = λ.Cal(λ.TypeType, λ.StrLiteral("JWPlatformIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				JWPlatformIE__VALID_URL    λ.Object
@@ -51,11 +54,19 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒjson_data λ.Object
-						ϒself      = λargs[0]
-						ϒurl       = λargs[1]
-						ϒvideo_id  λ.Object
+						ϒjson_data     λ.Object
+						ϒself          = λargs[0]
+						ϒsmuggled_data λ.Object
+						ϒurl           = λargs[1]
+						ϒvideo_id      λ.Object
+						τmp0           λ.Object
 					)
+					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{}))
+					ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒsmuggled_data = λ.GetItem(τmp0, λ.IntLiteral(1))
+					λ.Calm(ϒself, "_initialize_geo_bypass", λ.DictLiteral(map[string]λ.Object{
+						"countries": λ.Calm(ϒsmuggled_data, "get", λ.StrLiteral("geo_countries")),
+					}))
 					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒjson_data = λ.Calm(ϒself, "_download_json", λ.Add(λ.StrLiteral("https://cdn.jwplayer.com/v2/media/"), ϒvideo_id), ϒvideo_id)
 					return λ.Calm(ϒself, "_parse_jwplayer_data", ϒjson_data, ϒvideo_id)

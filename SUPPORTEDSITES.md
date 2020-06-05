@@ -10,7 +10,6 @@ Supported sites
  * ARDBetaMediathek: `ardmediathek.de`
  * ARDMediathek: `www.ardmediathek.de`
  * ArteTVPlus7: `www.arte.tv`
- * AsianCrush: `www.asiancrush.com`
  * AudioBoom: `audioboom.com`
  * Audiomack: `www.audiomack.com`
  * AZMedien: `www.telezueri.ch`
@@ -20,6 +19,7 @@ Supported sites
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
+ * BIQLE: `biqle.ru`
  * BleacherReport: `bleacherreport.com`
  * BleacherReportCMS: `bleacherreport.com`
  * BokeCC: `union.bokecc.com`
@@ -35,7 +35,6 @@ Supported sites
  * CCMA: `www.ccma.cat`
  * CCTV: `sports.cntv.cn`
  * CharlieRose: `charlierose.com`
- * Chilloutzone: `www.chilloutzone.net`
  * Chirbit: `chirb.it`
  * Cinemax: `www.cinemax.com`
  * Clippit: `www.clippituser.tv`
@@ -50,6 +49,7 @@ Supported sites
  * CondeNast: `video.wired.com`
  * CONtv: `www.contv.com`
  * Cracked: `www.cracked.com`
+ * CtsNews: `news.cts.com.tw`
  * CuriosityStream: `app.curiositystream.com`
  * DailyMail: `www.dailymail.co.uk`
  * Dailymotion: `www.dailymotion.com`
@@ -93,7 +93,6 @@ Supported sites
  * GameInformer: `www.gameinformer.com`
  * Gaskrank: `www.gaskrank.tv`
  * Gazeta: `www.gazeta.ru`
- * GDCVault: `www.gdcvault.com`
  * Gfycat: `gfycat.com`
  * GiantBomb: `www.giantbomb.com`
  * GodTube: `www.godtube.com`
@@ -137,7 +136,6 @@ Supported sites
  * Metacritic: `www.metacritic.com`
  * MicrosoftVirtualAcademy: `mva.microsoft.com`
  * MLB: `www.mlb.com`
- * Mofosex _(adult)_: `www.mofosex.com`
  * Mojvideo: `www.mojvideo.com`
  * MySpace: `myspace.com`
  * MySpass: `www.myspass.de`
@@ -267,6 +265,7 @@ Supported sites
  * VLivePlaylist: `www.vlive.tv`
  * VoiceRepublic: `voicerepublic.com`
  * Vzaar: `vzaar.com`
+ * Weibo: `weibo.com`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`

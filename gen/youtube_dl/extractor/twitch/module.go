@@ -60,6 +60,8 @@ var (
 	ϒorderedSet                    λ.Object
 	ϒparse_duration                λ.Object
 	ϒparse_iso8601                 λ.Object
+	ϒqualities                     λ.Object
+	ϒstr_or_none                   λ.Object
 	ϒtry_get                       λ.Object
 	ϒunified_timestamp             λ.Object
 	ϒupdate_url_query              λ.Object
@@ -81,6 +83,8 @@ func init() {
 		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
+		ϒqualities = Ωutils.ϒqualities
+		ϒstr_or_none = Ωutils.ϒstr_or_none
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query

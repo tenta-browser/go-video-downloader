@@ -50,71 +50,11 @@ func init() {
 		KeezMoviesIE = Ωkeezmovies.KeezMoviesIE
 		MofosexIE = λ.Cal(λ.TypeType, λ.StrLiteral("MofosexIE"), λ.NewTuple(KeezMoviesIE), func() λ.Dict {
 			var (
-				MofosexIE__VALID_URL    λ.Object
-				MofosexIE__real_extract λ.Object
+				MofosexIE__VALID_URL λ.Object
 			)
 			MofosexIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?mofosex\\.com/videos/(?P<id>\\d+)/(?P<display_id>[^/?#&.]+)\\.html")
-			MofosexIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒdislike_count λ.Object
-						ϒinfo          λ.Object
-						ϒlike_count    λ.Object
-						ϒself          = λargs[0]
-						ϒupload_date   λ.Object
-						ϒurl           = λargs[1]
-						ϒview_count    λ.Object
-						ϒwebpage       λ.Object
-						τmp0           λ.Object
-					)
-					τmp0 = λ.Calm(ϒself, "_extract_info", ϒurl)
-					ϒwebpage = λ.GetItem(τmp0, λ.IntLiteral(0))
-					ϒinfo = λ.GetItem(τmp0, λ.IntLiteral(1))
-					ϒview_count = λ.Cal(ϒstr_to_int, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.StrLiteral("VIEWS:</span>\\s*([\\d,.]+)"),
-						ϒwebpage,
-						λ.StrLiteral("view count"),
-					), λ.KWArgs{
-						{Name: "fatal", Value: λ.False},
-					}))
-					ϒlike_count = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.StrLiteral("id=[\"\\']amountLikes[\"\\'][^>]*>(\\d+)"),
-						ϒwebpage,
-						λ.StrLiteral("like count"),
-					), λ.KWArgs{
-						{Name: "fatal", Value: λ.False},
-					}))
-					ϒdislike_count = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.StrLiteral("id=[\"\\']amountDislikes[\"\\'][^>]*>(\\d+)"),
-						ϒwebpage,
-						λ.StrLiteral("like count"),
-					), λ.KWArgs{
-						{Name: "fatal", Value: λ.False},
-					}))
-					ϒupload_date = λ.Cal(ϒunified_strdate, λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.StrLiteral("Added:</span>([^<]+)"),
-						ϒwebpage,
-						λ.StrLiteral("upload date"),
-					), λ.KWArgs{
-						{Name: "fatal", Value: λ.False},
-					}))
-					λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
-						"view_count":    ϒview_count,
-						"like_count":    ϒlike_count,
-						"dislike_count": ϒdislike_count,
-						"upload_date":   ϒupload_date,
-						"thumbnail":     λ.Calm(ϒself, "_og_search_thumbnail", ϒwebpage),
-					}))
-					return ϒinfo
-				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL":    MofosexIE__VALID_URL,
-				"_real_extract": MofosexIE__real_extract,
+				"_VALID_URL": MofosexIE__VALID_URL,
 			})
 		}())
 		MofosexEmbedIE = λ.Cal(λ.TypeType, λ.StrLiteral("MofosexEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

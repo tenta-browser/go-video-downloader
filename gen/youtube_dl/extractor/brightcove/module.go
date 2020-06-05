@@ -54,34 +54,38 @@ var (
 	ϒmimetype2ext                 λ.Object
 	ϒparse_iso8601                λ.Object
 	ϒsmuggle_url                  λ.Object
+	ϒstr_or_none                  λ.Object
 	ϒunescapeHTML                 λ.Object
 	ϒunsmuggle_url                λ.Object
 	ϒupdate_url_query             λ.Object
+	ϒurl_or_none                  λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
-		InfoExtractor = Ωcommon.InfoExtractor
 		AdobePassIE = Ωadobepass.AdobePassIE
+		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_etree_fromstring = Ωcompat.ϒcompat_etree_fromstring
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ϒcompat_xml_parse_error = Ωcompat.ϒcompat_xml_parse_error
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
-		ExtractorError = Ωutils.ExtractorError
+		ϒclean_html = Ωutils.ϒclean_html
 		ϒextract_attributes = Ωutils.ϒextract_attributes
+		ExtractorError = Ωutils.ExtractorError
 		ϒfind_xpath_attr = Ωutils.ϒfind_xpath_attr
 		ϒfix_xml_ampersands = Ωutils.ϒfix_xml_ampersands
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
-		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒjs_to_json = Ωutils.ϒjs_to_json
+		ϒmimetype2ext = Ωutils.ϒmimetype2ext
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
+		ϒstr_or_none = Ωutils.ϒstr_or_none
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒunsmuggle_url = Ωutils.ϒunsmuggle_url
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
-		ϒclean_html = Ωutils.ϒclean_html
-		ϒmimetype2ext = Ωutils.ϒmimetype2ext
+		ϒurl_or_none = Ωutils.ϒurl_or_none
 		BrightcoveLegacyIE = λ.Cal(λ.TypeType, λ.StrLiteral("BrightcoveLegacyIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				BrightcoveLegacyIE__VALID_URL               λ.Object
@@ -381,6 +385,7 @@ func init() {
 						ϒheight          λ.Object
 						ϒis_live         λ.Object
 						ϒjson_data       = λargs[1]
+						ϒlang            λ.Object
 						ϒs3_source_url   λ.Object
 						ϒself            = λargs[0]
 						ϒsource          λ.Object
@@ -390,6 +395,7 @@ func init() {
 						ϒsubtitles       λ.Object
 						ϒtbr             λ.Object
 						ϒtext_track      λ.Object
+						ϒtext_track_url  λ.Object
 						ϒtitle           λ.Object
 						ϒvideo_id        = λargs[2]
 						ϒwidth           λ.Object
@@ -617,11 +623,25 @@ func init() {
 							break
 						}
 						ϒtext_track = τmp1
-						if λ.IsTrue(λ.Calm(ϒtext_track, "get", λ.StrLiteral("src"))) {
-							λ.Calm(λ.Calm(ϒsubtitles, "setdefault", λ.Calm(ϒtext_track, "get", λ.StrLiteral("srclang")), λ.NewList()), "append", λ.DictLiteral(map[string]λ.Object{
-								"url": λ.GetItem(ϒtext_track, λ.StrLiteral("src")),
-							}))
+						if λ.IsTrue(λ.Ne(λ.Calm(ϒtext_track, "get", λ.StrLiteral("kind")), λ.StrLiteral("captions"))) {
+							continue
 						}
+						ϒtext_track_url = λ.Cal(ϒurl_or_none, λ.Calm(ϒtext_track, "get", λ.StrLiteral("src")))
+						if !λ.IsTrue(ϒtext_track_url) {
+							continue
+						}
+						ϒlang = λ.Calm(func() λ.Object {
+							if λv := λ.Cal(ϒstr_or_none, λ.Calm(ϒtext_track, "get", λ.StrLiteral("srclang"))); λ.IsTrue(λv) {
+								return λv
+							} else if λv := λ.Cal(ϒstr_or_none, λ.Calm(ϒtext_track, "get", λ.StrLiteral("label"))); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.StrLiteral("en")
+							}
+						}(), "lower")
+						λ.Calm(λ.Calm(ϒsubtitles, "setdefault", ϒlang, λ.NewList()), "append", λ.DictLiteral(map[string]λ.Object{
+							"url": ϒtext_track_url,
+						}))
 					}
 					ϒis_live = λ.False
 					ϒduration = λ.Cal(ϒfloat_or_none, λ.Calm(ϒjson_data, "get", λ.StrLiteral("duration")), λ.IntLiteral(1000))

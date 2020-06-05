@@ -60,6 +60,7 @@ func init() {
 				KalturaIE__SERVICE_URL      λ.Object
 				KalturaIE__VALID_URL        λ.Object
 				KalturaIE__extract_url      λ.Object
+				KalturaIE__extract_urls     λ.Object
 				KalturaIE__get_video_info   λ.Object
 				KalturaIE__kaltura_api_call λ.Object
 				KalturaIE__real_extract     λ.Object
@@ -74,37 +75,67 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
+						ϒurls    λ.Object
+						ϒwebpage = λargs[0]
+					)
+					ϒurls = λ.Calm(KalturaIE, "_extract_urls", ϒwebpage)
+					return func() λ.Object {
+						if λ.IsTrue(ϒurls) {
+							return λ.GetItem(ϒurls, λ.IntLiteral(0))
+						} else {
+							return λ.None
+						}
+					}()
+				})
+			KalturaIE__extract_url = λ.Cal(λ.StaticMethodType, KalturaIE__extract_url)
+			KalturaIE__extract_urls = λ.NewFunction("_extract_urls",
+				[]λ.Param{
+					{Name: "webpage"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
 						ϒembed_info   λ.Object
 						ϒescaped_pid  λ.Object
+						ϒfinditer     λ.Object
 						ϒk            λ.Object
 						ϒmobj         λ.Object
 						ϒservice_mobj λ.Object
 						ϒurl          λ.Object
+						ϒurls         λ.Object
 						ϒv            λ.Object
 						ϒwebpage      = λargs[0]
 						τmp0          λ.Object
 						τmp1          λ.Object
 						τmp2          λ.Object
+						τmp3          λ.Object
+						τmp4          λ.Object
 					)
-					ϒmobj = func() λ.Object {
-						if λv := λ.Cal(Ωre.ϒsearch, λ.StrLiteral("(?xs)\n                    kWidget\\.(?:thumb)?[Ee]mbed\\(\n                    \\{.*?\n                        (?P<q1>['\"])wid(?P=q1)\\s*:\\s*\n                        (?P<q2>['\"])_?(?P<partner_id>(?:(?!(?P=q2)).)+)(?P=q2),.*?\n                        (?P<q3>['\"])entry_?[Ii]d(?P=q3)\\s*:\\s*\n                        (?P<q4>['\"])(?P<id>(?:(?!(?P=q4)).)+)(?P=q4)(?:,|\\s*\\})\n                "), ϒwebpage); λ.IsTrue(λv) {
+					ϒfinditer = func() λ.Object {
+						if λv := λ.Cal(Ωre.ϒfinditer, λ.StrLiteral("(?xs)\n                    kWidget\\.(?:thumb)?[Ee]mbed\\(\n                    \\{.*?\n                        (?P<q1>['\"])wid(?P=q1)\\s*:\\s*\n                        (?P<q2>['\"])_?(?P<partner_id>(?:(?!(?P=q2)).)+)(?P=q2),.*?\n                        (?P<q3>['\"])entry_?[Ii]d(?P=q3)\\s*:\\s*\n                        (?P<q4>['\"])(?P<id>(?:(?!(?P=q4)).)+)(?P=q4)(?:,|\\s*\\})\n                "), ϒwebpage); λ.IsTrue(λv) {
 							return λv
-						} else if λv := λ.Cal(Ωre.ϒsearch, λ.StrLiteral("(?xs)\n                    (?P<q1>[\"'])\n                        (?:https?:)?//cdnapi(?:sec)?\\.kaltura\\.com(?::\\d+)?/(?:(?!(?P=q1)).)*\\b(?:p|partner_id)/(?P<partner_id>\\d+)(?:(?!(?P=q1)).)*\n                    (?P=q1).*?\n                    (?:\n                        (?:\n                            entry_?[Ii]d|\n                            (?P<q2>[\"'])entry_?[Ii]d(?P=q2)\n                        )\\s*:\\s*|\n                        \\[\\s*(?P<q2_1>[\"'])entry_?[Ii]d(?P=q2_1)\\s*\\]\\s*=\\s*\n                    )\n                    (?P<q3>[\"'])(?P<id>(?:(?!(?P=q3)).)+)(?P=q3)\n                "), ϒwebpage); λ.IsTrue(λv) {
+						} else if λv := λ.Cal(Ωre.ϒfinditer, λ.StrLiteral("(?xs)\n                    (?P<q1>[\"'])\n                        (?:https?:)?//cdnapi(?:sec)?\\.kaltura\\.com(?::\\d+)?/(?:(?!(?P=q1)).)*\\b(?:p|partner_id)/(?P<partner_id>\\d+)(?:(?!(?P=q1)).)*\n                    (?P=q1).*?\n                    (?:\n                        (?:\n                            entry_?[Ii]d|\n                            (?P<q2>[\"'])entry_?[Ii]d(?P=q2)\n                        )\\s*:\\s*|\n                        \\[\\s*(?P<q2_1>[\"'])entry_?[Ii]d(?P=q2_1)\\s*\\]\\s*=\\s*\n                    )\n                    (?P<q3>[\"'])(?P<id>(?:(?!(?P=q3)).)+)(?P=q3)\n                "), ϒwebpage); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(Ωre.ϒsearch, λ.StrLiteral("(?xs)\n                    <(?:iframe[^>]+src|meta[^>]+\\bcontent)=(?P<q1>[\"'])\n                      (?:https?:)?//(?:(?:www|cdnapi(?:sec)?)\\.)?kaltura\\.com/(?:(?!(?P=q1)).)*\\b(?:p|partner_id)/(?P<partner_id>\\d+)\n                      (?:(?!(?P=q1)).)*\n                      [?&;]entry_id=(?P<id>(?:(?!(?P=q1))[^&])+)\n                      (?:(?!(?P=q1)).)*\n                    (?P=q1)\n                "), ϒwebpage)
+							return λ.Cal(Ωre.ϒfinditer, λ.StrLiteral("(?xs)\n                    <(?:iframe[^>]+src|meta[^>]+\\bcontent)=(?P<q1>[\"'])\n                      (?:https?:)?//(?:(?:www|cdnapi(?:sec)?)\\.)?kaltura\\.com/(?:(?!(?P=q1)).)*\\b(?:p|partner_id)/(?P<partner_id>\\d+)\n                      (?:(?!(?P=q1)).)*\n                      [?&;]entry_id=(?P<id>(?:(?!(?P=q1))[^&])+)\n                      (?:(?!(?P=q1)).)*\n                    (?P=q1)\n                "), ϒwebpage)
 						}
 					}()
-					if λ.IsTrue(ϒmobj) {
+					ϒurls = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, ϒfinditer)
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒmobj = τmp1
 						ϒembed_info = λ.Calm(ϒmobj, "groupdict")
-						τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒembed_info, "items"))
+						τmp2 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒembed_info, "items"))
 						for {
-							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 								break
 							}
-							τmp2 = τmp1
-							ϒk = λ.GetItem(τmp2, λ.IntLiteral(0))
-							ϒv = λ.GetItem(τmp2, λ.IntLiteral(1))
+							τmp4 = τmp3
+							ϒk = λ.GetItem(τmp4, λ.IntLiteral(0))
+							ϒv = λ.GetItem(τmp4, λ.IntLiteral(1))
 							if λ.IsTrue(ϒv) {
 								λ.SetItem(ϒembed_info, ϒk, λ.Calm(ϒv, "strip"))
 							}
@@ -120,11 +151,11 @@ func init() {
 								"service_url": λ.Calm(ϒservice_mobj, "group", λ.StrLiteral("id")),
 							}))
 						}
-						return ϒurl
+						λ.Calm(ϒurls, "append", ϒurl)
 					}
-					return λ.None
+					return ϒurls
 				})
-			KalturaIE__extract_url = λ.Cal(λ.StaticMethodType, KalturaIE__extract_url)
+			KalturaIE__extract_urls = λ.Cal(λ.StaticMethodType, KalturaIE__extract_urls)
 			KalturaIE__kaltura_api_call = λ.NewFunction("_kaltura_api_call",
 				[]λ.Param{
 					{Name: "self"},
@@ -607,6 +638,7 @@ func init() {
 				"_SERVICE_URL":      KalturaIE__SERVICE_URL,
 				"_VALID_URL":        KalturaIE__VALID_URL,
 				"_extract_url":      KalturaIE__extract_url,
+				"_extract_urls":     KalturaIE__extract_urls,
 				"_get_video_info":   KalturaIE__get_video_info,
 				"_kaltura_api_call": KalturaIE__kaltura_api_call,
 				"_real_extract":     KalturaIE__real_extract,
