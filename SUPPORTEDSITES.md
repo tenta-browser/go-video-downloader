@@ -10,6 +10,7 @@ Supported sites
  * ARDBetaMediathek: `ardmediathek.de`
  * ARDMediathek: `www.ardmediathek.de`
  * ArteTVPlus7: `www.arte.tv`
+ * AsianCrush: `www.asiancrush.com`
  * AudioBoom: `audioboom.com`
  * Audiomack: `www.audiomack.com`
  * AZMedien: `www.telezueri.ch`
@@ -19,7 +20,7 @@ Supported sites
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
- * BIQLE: `biqle.ru`
+ * BIQLE: `biqle.org`
  * BleacherReport: `bleacherreport.com`
  * BleacherReportCMS: `bleacherreport.com`
  * BokeCC: `union.bokecc.com`
@@ -74,6 +75,7 @@ Supported sites
  * Escapist: `www.escapistmagazine.com`
  * FiveThirtyEight: `fivethirtyeight.com`
  * ExtremeTube _(adult)_: `www.extremetube.com`
+ * Facebook: `www.facebook.com`
  * FacebookPluginsVideo: `www.facebook.com`
  * Faz: `www.faz.net`
  * Fczenit: `fc-zenit.ru`
@@ -111,7 +113,6 @@ Supported sites
  * ImgurGallery: `imgur.com`
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
- * Ir90Tv: `90tv.ir`
  * Ivideon: `www.ivideon.com`
  * Izlesene: `www.izlesene.com`
  * Jamendo: `www.jamendo.com`
@@ -163,10 +164,8 @@ Supported sites
  * OutsideTV: `www.outsidetv.com`
  * PacktPub: `www.packtpub.com`
  * PandoraTV: `jp.channel.pandora.tv`
- * ParliamentLiveUK: `parliamentlive.tv`
  * PBS: `www.pbs.org`
  * PearVideo: `www.pearvideo.com`
- * PeerTube: `framatube.org`
  * People: `www.people.com`
  * PerformGroup: `player.performgroup.com`
  * Photobucket: `media.photobucket.com`
@@ -208,7 +207,6 @@ Supported sites
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
  * Streamable: `streamable.com`
  * StretchInternet: `portal.stretchinternet.com`
- * SunPorno _(adult)_: `www.sunporno.com`
  * SverigesRadioEpisode: `sverigesradio.se`
  * SverigesRadioPublication: `sverigesradio.se`
  * Tagesschau: `www.tagesschau.de`
@@ -248,7 +246,6 @@ Supported sites
  * VGTV: `www.vgtv.no`
  * ViceArticle: `www.vice.com`
  * Viddler: `www.viddler.com`
- * Videa: `videa.hu`
  * VideoPress: `videopress.com`
  * VideosZ _(adult)_: `www.videosz.com`
  * VidLii: `www.vidlii.com`
@@ -265,7 +262,6 @@ Supported sites
  * VLivePlaylist: `www.vlive.tv`
  * VoiceRepublic: `voicerepublic.com`
  * Vzaar: `vzaar.com`
- * Weibo: `weibo.com`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`
@@ -283,5 +279,5 @@ Supported sites
  * YouPorn _(adult)_: `www.youporn.com`
  * YourPorn _(adult)_: `sxyprn.com`
  * YourUpload: `yourupload.com`
- * Youtube _(adult)_: `www.youtube.com`
+ * Youtube: `www.youtube.com`
  * YoutubePlaylist: `www.youtube.com`

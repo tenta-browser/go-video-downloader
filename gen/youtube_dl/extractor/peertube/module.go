@@ -25,7 +25,6 @@
 package peertube
 
 import (
-	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
@@ -58,269 +57,20 @@ func init() {
 		ϒurljoin = Ωutils.ϒurljoin
 		PeerTubeIE = λ.Cal(λ.TypeType, λ.StrLiteral("PeerTubeIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				PeerTubeIE__API_BASE     λ.Object
 				PeerTubeIE__INSTANCES_RE λ.Object
 				PeerTubeIE__UUID_RE      λ.Object
 				PeerTubeIE__VALID_URL    λ.Object
-				PeerTubeIE__call_api     λ.Object
-				PeerTubeIE__real_extract λ.Object
 			)
 			PeerTubeIE__INSTANCES_RE = λ.StrLiteral("(?:\n                            # Taken from https://instances.joinpeertube.org/instances\n                            peertube\\.rainbowswingers\\.net|\n                            tube\\.stanisic\\.nl|\n                            peer\\.suiri\\.us|\n                            medias\\.libox\\.fr|\n                            videomensoif\\.ynh\\.fr|\n                            peertube\\.travelpandas\\.eu|\n                            peertube\\.rachetjay\\.fr|\n                            peertube\\.montecsys\\.fr|\n                            tube\\.eskuero\\.me|\n                            peer\\.tube|\n                            peertube\\.umeahackerspace\\.se|\n                            tube\\.nx-pod\\.de|\n                            video\\.monsieurbidouille\\.fr|\n                            tube\\.openalgeria\\.org|\n                            vid\\.lelux\\.fi|\n                            video\\.anormallostpod\\.ovh|\n                            tube\\.crapaud-fou\\.org|\n                            peertube\\.stemy\\.me|\n                            lostpod\\.space|\n                            exode\\.me|\n                            peertube\\.snargol\\.com|\n                            vis\\.ion\\.ovh|\n                            videosdulib\\.re|\n                            v\\.mbius\\.io|\n                            videos\\.judrey\\.eu|\n                            peertube\\.osureplayviewer\\.xyz|\n                            peertube\\.mathieufamily\\.ovh|\n                            www\\.videos-libr\\.es|\n                            fightforinfo\\.com|\n                            peertube\\.fediverse\\.ru|\n                            peertube\\.oiseauroch\\.fr|\n                            video\\.nesven\\.eu|\n                            v\\.bearvideo\\.win|\n                            video\\.qoto\\.org|\n                            justporn\\.cc|\n                            video\\.vny\\.fr|\n                            peervideo\\.club|\n                            tube\\.taker\\.fr|\n                            peertube\\.chantierlibre\\.org|\n                            tube\\.ipfixe\\.info|\n                            tube\\.kicou\\.info|\n                            tube\\.dodsorf\\.as|\n                            videobit\\.cc|\n                            video\\.yukari\\.moe|\n                            videos\\.elbinario\\.net|\n                            hkvideo\\.live|\n                            pt\\.tux\\.tf|\n                            www\\.hkvideo\\.live|\n                            FIGHTFORINFO\\.com|\n                            pt\\.765racing\\.com|\n                            peertube\\.gnumeria\\.eu\\.org|\n                            nordenmedia\\.com|\n                            peertube\\.co\\.uk|\n                            tube\\.darfweb\\.eu|\n                            tube\\.kalah-france\\.org|\n                            0ch\\.in|\n                            vod\\.mochi\\.academy|\n                            film\\.node9\\.org|\n                            peertube\\.hatthieves\\.es|\n                            video\\.fitchfamily\\.org|\n                            peertube\\.ddns\\.net|\n                            video\\.ifuncle\\.kr|\n                            video\\.fdlibre\\.eu|\n                            tube\\.22decembre\\.eu|\n                            peertube\\.harmoniescreatives\\.com|\n                            tube\\.fabrigli\\.fr|\n                            video\\.thedwyers\\.co|\n                            video\\.bruitbruit\\.com|\n                            peertube\\.foxfam\\.club|\n                            peer\\.philoxweb\\.be|\n                            videos\\.bugs\\.social|\n                            peertube\\.malbert\\.xyz|\n                            peertube\\.bilange\\.ca|\n                            libretube\\.net|\n                            diytelevision\\.com|\n                            peertube\\.fedilab\\.app|\n                            libre\\.video|\n                            video\\.mstddntfdn\\.online|\n                            us\\.tv|\n                            peertube\\.sl-network\\.fr|\n                            peertube\\.dynlinux\\.io|\n                            peertube\\.david\\.durieux\\.family|\n                            peertube\\.linuxrocks\\.online|\n                            peerwatch\\.xyz|\n                            v\\.kretschmann\\.social|\n                            tube\\.otter\\.sh|\n                            yt\\.is\\.nota\\.live|\n                            tube\\.dragonpsi\\.xyz|\n                            peertube\\.boneheadmedia\\.com|\n                            videos\\.funkwhale\\.audio|\n                            watch\\.44con\\.com|\n                            peertube\\.gcaillaut\\.fr|\n                            peertube\\.icu|\n                            pony\\.tube|\n                            spacepub\\.space|\n                            tube\\.stbr\\.io|\n                            v\\.mom-gay\\.faith|\n                            tube\\.port0\\.xyz|\n                            peertube\\.simounet\\.net|\n                            play\\.jergefelt\\.se|\n                            peertube\\.zeteo\\.me|\n                            tube\\.danq\\.me|\n                            peertube\\.kerenon\\.com|\n                            tube\\.fab-l3\\.org|\n                            tube\\.calculate\\.social|\n                            peertube\\.mckillop\\.org|\n                            tube\\.netzspielplatz\\.de|\n                            vod\\.ksite\\.de|\n                            peertube\\.laas\\.fr|\n                            tube\\.govital\\.net|\n                            peertube\\.stephenson\\.cc|\n                            bistule\\.nohost\\.me|\n                            peertube\\.kajalinifi\\.de|\n                            video\\.ploud\\.jp|\n                            video\\.omniatv\\.com|\n                            peertube\\.ffs2play\\.fr|\n                            peertube\\.leboulaire\\.ovh|\n                            peertube\\.tronic-studio\\.com|\n                            peertube\\.public\\.cat|\n                            peertube\\.metalbanana\\.net|\n                            video\\.1000i100\\.fr|\n                            peertube\\.alter-nativ-voll\\.de|\n                            tube\\.pasa\\.tf|\n                            tube\\.worldofhauru\\.xyz|\n                            pt\\.kamp\\.site|\n                            peertube\\.teleassist\\.fr|\n                            videos\\.mleduc\\.xyz|\n                            conf\\.tube|\n                            media\\.privacyinternational\\.org|\n                            pt\\.forty-two\\.nl|\n                            video\\.halle-leaks\\.de|\n                            video\\.grosskopfgames\\.de|\n                            peertube\\.schaeferit\\.de|\n                            peertube\\.jackbot\\.fr|\n                            tube\\.extinctionrebellion\\.fr|\n                            peertube\\.f-si\\.org|\n                            video\\.subak\\.ovh|\n                            videos\\.koweb\\.fr|\n                            peertube\\.zergy\\.net|\n                            peertube\\.roflcopter\\.fr|\n                            peertube\\.floss-marketing-school\\.com|\n                            vloggers\\.social|\n                            peertube\\.iriseden\\.eu|\n                            videos\\.ubuntu-paris\\.org|\n                            peertube\\.mastodon\\.host|\n                            armstube\\.com|\n                            peertube\\.s2s\\.video|\n                            peertube\\.lol|\n                            tube\\.open-plug\\.eu|\n                            open\\.tube|\n                            peertube\\.ch|\n                            peertube\\.normandie-libre\\.fr|\n                            peertube\\.slat\\.org|\n                            video\\.lacaveatonton\\.ovh|\n                            peertube\\.uno|\n                            peertube\\.servebeer\\.com|\n                            peertube\\.fedi\\.quebec|\n                            tube\\.h3z\\.jp|\n                            tube\\.plus200\\.com|\n                            peertube\\.eric\\.ovh|\n                            tube\\.metadocs\\.cc|\n                            tube\\.unmondemeilleur\\.eu|\n                            gouttedeau\\.space|\n                            video\\.antirep\\.net|\n                            nrop\\.cant\\.at|\n                            tube\\.ksl-bmx\\.de|\n                            tube\\.plaf\\.fr|\n                            tube\\.tchncs\\.de|\n                            video\\.devinberg\\.com|\n                            hitchtube\\.fr|\n                            peertube\\.kosebamse\\.com|\n                            yunopeertube\\.myddns\\.me|\n                            peertube\\.varney\\.fr|\n                            peertube\\.anon-kenkai\\.com|\n                            tube\\.maiti\\.info|\n                            tubee\\.fr|\n                            videos\\.dinofly\\.com|\n                            toobnix\\.org|\n                            videotape\\.me|\n                            voca\\.tube|\n                            video\\.heromuster\\.com|\n                            video\\.lemediatv\\.fr|\n                            video\\.up\\.edu\\.ph|\n                            balafon\\.video|\n                            video\\.ivel\\.fr|\n                            thickrips\\.cloud|\n                            pt\\.laurentkruger\\.fr|\n                            video\\.monarch-pass\\.net|\n                            peertube\\.artica\\.center|\n                            video\\.alternanet\\.fr|\n                            indymotion\\.fr|\n                            fanvid\\.stopthatimp\\.net|\n                            video\\.farci\\.org|\n                            v\\.lesterpig\\.com|\n                            video\\.okaris\\.de|\n                            tube\\.pawelko\\.net|\n                            peertube\\.mablr\\.org|\n                            tube\\.fede\\.re|\n                            pytu\\.be|\n                            evertron\\.tv|\n                            devtube\\.dev-wiki\\.de|\n                            raptube\\.antipub\\.org|\n                            video\\.selea\\.se|\n                            peertube\\.mygaia\\.org|\n                            video\\.oh14\\.de|\n                            peertube\\.livingutopia\\.org|\n                            peertube\\.the-penguin\\.de|\n                            tube\\.thechangebook\\.org|\n                            tube\\.anjara\\.eu|\n                            pt\\.pube\\.tk|\n                            video\\.samedi\\.pm|\n                            mplayer\\.demouliere\\.eu|\n                            widemus\\.de|\n                            peertube\\.me|\n                            peertube\\.zapashcanon\\.fr|\n                            video\\.latavernedejohnjohn\\.fr|\n                            peertube\\.pcservice46\\.fr|\n                            peertube\\.mazzonetto\\.eu|\n                            video\\.irem\\.univ-paris-diderot\\.fr|\n                            video\\.livecchi\\.cloud|\n                            alttube\\.fr|\n                            video\\.coop\\.tools|\n                            video\\.cabane-libre\\.org|\n                            peertube\\.openstreetmap\\.fr|\n                            videos\\.alolise\\.org|\n                            irrsinn\\.video|\n                            video\\.antopie\\.org|\n                            scitech\\.video|\n                            tube2\\.nemsia\\.org|\n                            video\\.amic37\\.fr|\n                            peertube\\.freeforge\\.eu|\n                            video\\.arbitrarion\\.com|\n                            video\\.datsemultimedia\\.com|\n                            stoptrackingus\\.tv|\n                            peertube\\.ricostrongxxx\\.com|\n                            docker\\.videos\\.lecygnenoir\\.info|\n                            peertube\\.togart\\.de|\n                            tube\\.postblue\\.info|\n                            videos\\.domainepublic\\.net|\n                            peertube\\.cyber-tribal\\.com|\n                            video\\.gresille\\.org|\n                            peertube\\.dsmouse\\.net|\n                            cinema\\.yunohost\\.support|\n                            tube\\.theocevaer\\.fr|\n                            repro\\.video|\n                            tube\\.4aem\\.com|\n                            quaziinc\\.com|\n                            peertube\\.metawurst\\.space|\n                            videos\\.wakapo\\.com|\n                            video\\.ploud\\.fr|\n                            video\\.freeradical\\.zone|\n                            tube\\.valinor\\.fr|\n                            refuznik\\.video|\n                            pt\\.kircheneuenburg\\.de|\n                            peertube\\.asrun\\.eu|\n                            peertube\\.lagob\\.fr|\n                            videos\\.side-ways\\.net|\n                            91video\\.online|\n                            video\\.valme\\.io|\n                            video\\.taboulisme\\.com|\n                            videos-libr\\.es|\n                            tv\\.mooh\\.fr|\n                            nuage\\.acostey\\.fr|\n                            video\\.monsieur-a\\.fr|\n                            peertube\\.librelois\\.fr|\n                            videos\\.pair2jeux\\.tube|\n                            videos\\.pueseso\\.club|\n                            peer\\.mathdacloud\\.ovh|\n                            media\\.assassinate-you\\.net|\n                            vidcommons\\.org|\n                            ptube\\.rousset\\.nom\\.fr|\n                            tube\\.cyano\\.at|\n                            videos\\.squat\\.net|\n                            video\\.iphodase\\.fr|\n                            peertube\\.makotoworkshop\\.org|\n                            peertube\\.serveur\\.slv-valbonne\\.fr|\n                            vault\\.mle\\.party|\n                            hostyour\\.tv|\n                            videos\\.hack2g2\\.fr|\n                            libre\\.tube|\n                            pire\\.artisanlogiciel\\.net|\n                            videos\\.numerique-en-commun\\.fr|\n                            video\\.netsyms\\.com|\n                            video\\.die-partei\\.social|\n                            video\\.writeas\\.org|\n                            peertube\\.swarm\\.solvingmaz\\.es|\n                            tube\\.pericoloso\\.ovh|\n                            watching\\.cypherpunk\\.observer|\n                            videos\\.adhocmusic\\.com|\n                            tube\\.rfc1149\\.net|\n                            peertube\\.librelabucm\\.org|\n                            videos\\.numericoop\\.fr|\n                            peertube\\.koehn\\.com|\n                            peertube\\.anarchmusicall\\.net|\n                            tube\\.kampftoast\\.de|\n                            vid\\.y-y\\.li|\n                            peertube\\.xtenz\\.xyz|\n                            diode\\.zone|\n                            tube\\.egf\\.mn|\n                            peertube\\.nomagic\\.uk|\n                            visionon\\.tv|\n                            videos\\.koumoul\\.com|\n                            video\\.rastapuls\\.com|\n                            video\\.mantlepro\\.com|\n                            video\\.deadsuperhero\\.com|\n                            peertube\\.musicstudio\\.pro|\n                            peertube\\.we-keys\\.fr|\n                            artitube\\.artifaille\\.fr|\n                            peertube\\.ethernia\\.net|\n                            tube\\.midov\\.pl|\n                            peertube\\.fr|\n                            watch\\.snoot\\.tube|\n                            peertube\\.donnadieu\\.fr|\n                            argos\\.aquilenet\\.fr|\n                            tube\\.nemsia\\.org|\n                            tube\\.bruniau\\.net|\n                            videos\\.darckoune\\.moe|\n                            tube\\.traydent\\.info|\n                            dev\\.videos\\.lecygnenoir\\.info|\n                            peertube\\.nayya\\.org|\n                            peertube\\.live|\n                            peertube\\.mofgao\\.space|\n                            video\\.lequerrec\\.eu|\n                            peertube\\.amicale\\.net|\n                            aperi\\.tube|\n                            tube\\.ac-lyon\\.fr|\n                            video\\.lw1\\.at|\n                            www\\.yiny\\.org|\n                            videos\\.pofilo\\.fr|\n                            tube\\.lou\\.lt|\n                            choob\\.h\\.etbus\\.ch|\n                            tube\\.hoga\\.fr|\n                            peertube\\.heberge\\.fr|\n                            video\\.obermui\\.de|\n                            videos\\.cloudfrancois\\.fr|\n                            betamax\\.video|\n                            video\\.typica\\.us|\n                            tube\\.piweb\\.be|\n                            video\\.blender\\.org|\n                            peertube\\.cat|\n                            tube\\.kdy\\.ch|\n                            pe\\.ertu\\.be|\n                            peertube\\.social|\n                            videos\\.lescommuns\\.org|\n                            tv\\.datamol\\.org|\n                            videonaute\\.fr|\n                            dialup\\.express|\n                            peertube\\.nogafa\\.org|\n                            megatube\\.lilomoino\\.fr|\n                            peertube\\.tamanoir\\.foucry\\.net|\n                            peertube\\.devosi\\.org|\n                            peertube\\.1312\\.media|\n                            tube\\.bootlicker\\.party|\n                            skeptikon\\.fr|\n                            video\\.blueline\\.mg|\n                            tube\\.homecomputing\\.fr|\n                            tube\\.ouahpiti\\.info|\n                            video\\.tedomum\\.net|\n                            video\\.g3l\\.org|\n                            fontube\\.fr|\n                            peertube\\.gaialabs\\.ch|\n                            tube\\.kher\\.nl|\n                            peertube\\.qtg\\.fr|\n                            video\\.migennes\\.net|\n                            tube\\.p2p\\.legal|\n                            troll\\.tv|\n                            videos\\.iut-orsay\\.fr|\n                            peertube\\.solidev\\.net|\n                            videos\\.cemea\\.org|\n                            video\\.passageenseine\\.fr|\n                            videos\\.festivalparminous\\.org|\n                            peertube\\.touhoppai\\.moe|\n                            sikke\\.fi|\n                            peer\\.hostux\\.social|\n                            share\\.tube|\n                            peertube\\.walkingmountains\\.fr|\n                            videos\\.benpro\\.fr|\n                            peertube\\.parleur\\.net|\n                            peertube\\.heraut\\.eu|\n                            tube\\.aquilenet\\.fr|\n                            peertube\\.gegeweb\\.eu|\n                            framatube\\.org|\n                            thinkerview\\.video|\n                            tube\\.conferences-gesticulees\\.net|\n                            peertube\\.datagueule\\.tv|\n                            video\\.lqdn\\.fr|\n                            tube\\.mochi\\.academy|\n                            media\\.zat\\.im|\n                            video\\.colibris-outilslibres\\.org|\n                            tube\\.svnet\\.fr|\n                            peertube\\.video|\n                            peertube3\\.cpy\\.re|\n                            peertube2\\.cpy\\.re|\n                            videos\\.tcit\\.fr|\n                            peertube\\.cpy\\.re\n                        )")
 			PeerTubeIE__UUID_RE = λ.StrLiteral("[\\da-fA-F]{8}-[\\da-fA-F]{4}-[\\da-fA-F]{4}-[\\da-fA-F]{4}-[\\da-fA-F]{12}")
-			PeerTubeIE__API_BASE = λ.StrLiteral("https://%s/api/v1/videos/%s/%s")
 			PeerTubeIE__VALID_URL = λ.Mod(λ.StrLiteral("(?x)\n                    (?:\n                        peertube:(?P<host>[^:]+):|\n                        https?://(?P<host_2>%s)/(?:videos/(?:watch|embed)|api/v\\d/videos)/\n                    )\n                    (?P<id>%s)\n                    "), λ.NewTuple(
 				PeerTubeIE__INSTANCES_RE,
 				PeerTubeIE__UUID_RE,
 			))
-			PeerTubeIE__call_api = λ.NewFunction("_call_api",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "host"},
-					{Name: "video_id"},
-					{Name: "path"},
-					{Name: "note", Def: λ.None},
-					{Name: "errnote", Def: λ.None},
-					{Name: "fatal", Def: λ.True},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒerrnote  = λargs[5]
-						ϒfatal    = λargs[6]
-						ϒhost     = λargs[1]
-						ϒnote     = λargs[4]
-						ϒpath     = λargs[3]
-						ϒself     = λargs[0]
-						ϒvideo_id = λargs[2]
-					)
-					return λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Mod(λ.GetAttr(ϒself, "_API_BASE", nil), λ.NewTuple(
-							ϒhost,
-							ϒvideo_id,
-							ϒpath,
-						)),
-						ϒvideo_id,
-					), λ.KWArgs{
-						{Name: "note", Value: ϒnote},
-						{Name: "errnote", Value: ϒerrnote},
-						{Name: "fatal", Value: ϒfatal},
-					})
-				})
-			PeerTubeIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒaccount_data     λ.Object
-						ϒage_limit        λ.Object
-						ϒcategories       λ.Object
-						ϒcategory         λ.Object
-						ϒchannel_data     λ.Object
-						ϒdata             λ.Object
-						ϒdescription      λ.Object
-						ϒf                λ.Object
-						ϒfile_            λ.Object
-						ϒfile_size        λ.Object
-						ϒfile_url         λ.Object
-						ϒformat_id        λ.Object
-						ϒformats          λ.Object
-						ϒfull_description λ.Object
-						ϒhost             λ.Object
-						ϒmobj             λ.Object
-						ϒnsfw             λ.Object
-						ϒself             = λargs[0]
-						ϒsubtitles        λ.Object
-						ϒtitle            λ.Object
-						ϒurl              = λargs[1]
-						ϒvideo            λ.Object
-						ϒvideo_id         λ.Object
-						τmp0              λ.Object
-						τmp1              λ.Object
-					)
-					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒhost = func() λ.Object {
-						if λv := λ.Calm(ϒmobj, "group", λ.StrLiteral("host")); λ.IsTrue(λv) {
-							return λv
-						} else {
-							return λ.Calm(ϒmobj, "group", λ.StrLiteral("host_2"))
-						}
-					}()
-					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
-					ϒvideo = λ.Call(λ.GetAttr(ϒself, "_call_api", nil), λ.NewArgs(
-						ϒhost,
-						ϒvideo_id,
-						λ.StrLiteral(""),
-					), λ.KWArgs{
-						{Name: "note", Value: λ.StrLiteral("Downloading video JSON")},
-					})
-					ϒtitle = λ.GetItem(ϒvideo, λ.StrLiteral("name"))
-					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒvideo, λ.StrLiteral("files")))
-					for {
-						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-							break
-						}
-						ϒfile_ = τmp1
-						if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒfile_, λ.DictType)) {
-							continue
-						}
-						ϒfile_url = λ.Cal(ϒurl_or_none, λ.Calm(ϒfile_, "get", λ.StrLiteral("fileUrl")))
-						if !λ.IsTrue(ϒfile_url) {
-							continue
-						}
-						ϒfile_size = λ.Cal(ϒint_or_none, λ.Calm(ϒfile_, "get", λ.StrLiteral("size")))
-						ϒformat_id = λ.Cal(ϒtry_get, ϒfile_, λ.NewFunction("<lambda>",
-							[]λ.Param{
-								{Name: "x"},
-							},
-							0, false, false,
-							func(λargs []λ.Object) λ.Object {
-								var (
-									ϒx = λargs[0]
-								)
-								return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("resolution")), λ.StrLiteral("label"))
-							}), ϒcompat_str)
-						ϒf = λ.Cal(ϒparse_resolution, ϒformat_id)
-						λ.Calm(ϒf, "update", λ.DictLiteral(map[string]λ.Object{
-							"url":       ϒfile_url,
-							"format_id": ϒformat_id,
-							"filesize":  ϒfile_size,
-						}))
-						λ.Calm(ϒformats, "append", ϒf)
-					}
-					λ.Calm(ϒself, "_sort_formats", ϒformats)
-					ϒfull_description = λ.Call(λ.GetAttr(ϒself, "_call_api", nil), λ.NewArgs(
-						ϒhost,
-						ϒvideo_id,
-						λ.StrLiteral("description"),
-					), λ.KWArgs{
-						{Name: "note", Value: λ.StrLiteral("Downloading description JSON")},
-						{Name: "fatal", Value: λ.False},
-					})
-					ϒdescription = λ.None
-					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒfull_description, λ.DictType)) {
-						ϒdescription = λ.Cal(ϒstr_or_none, λ.Calm(ϒfull_description, "get", λ.StrLiteral("description")))
-					}
-					if !λ.IsTrue(ϒdescription) {
-						ϒdescription = λ.Calm(ϒvideo, "get", λ.StrLiteral("description"))
-					}
-					ϒsubtitles = λ.Calm(ϒself, "extract_subtitles", ϒhost, ϒvideo_id)
-					ϒdata = λ.NewFunction("data",
-						[]λ.Param{
-							{Name: "section"},
-							{Name: "field"},
-							{Name: "type_"},
-						},
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							var (
-								ϒfield   = λargs[1]
-								ϒsection = λargs[0]
-								ϒtype_   = λargs[2]
-							)
-							return λ.Cal(ϒtry_get, ϒvideo, λ.NewFunction("<lambda>",
-								[]λ.Param{
-									{Name: "x"},
-								},
-								0, false, false,
-								func(λargs []λ.Object) λ.Object {
-									var (
-										ϒx = λargs[0]
-									)
-									return λ.GetItem(λ.GetItem(ϒx, ϒsection), ϒfield)
-								}), ϒtype_)
-						})
-					ϒaccount_data = λ.NewFunction("account_data",
-						[]λ.Param{
-							{Name: "field"},
-							{Name: "type_"},
-						},
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							var (
-								ϒfield = λargs[0]
-								ϒtype_ = λargs[1]
-							)
-							return λ.Cal(ϒdata, λ.StrLiteral("account"), ϒfield, ϒtype_)
-						})
-					ϒchannel_data = λ.NewFunction("channel_data",
-						[]λ.Param{
-							{Name: "field"},
-							{Name: "type_"},
-						},
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							var (
-								ϒfield = λargs[0]
-								ϒtype_ = λargs[1]
-							)
-							return λ.Cal(ϒdata, λ.StrLiteral("channel"), ϒfield, ϒtype_)
-						})
-					ϒcategory = λ.Cal(ϒdata, λ.StrLiteral("category"), λ.StrLiteral("label"), ϒcompat_str)
-					ϒcategories = func() λ.Object {
-						if λ.IsTrue(ϒcategory) {
-							return λ.NewList(ϒcategory)
-						} else {
-							return λ.None
-						}
-					}()
-					ϒnsfw = λ.Calm(ϒvideo, "get", λ.StrLiteral("nsfw"))
-					if ϒnsfw == λ.BoolType {
-						ϒage_limit = func() λ.Object {
-							if λ.IsTrue(ϒnsfw) {
-								return λ.IntLiteral(18)
-							} else {
-								return λ.IntLiteral(0)
-							}
-						}()
-					} else {
-						ϒage_limit = λ.None
-					}
-					return λ.DictLiteral(map[string]λ.Object{
-						"id":            ϒvideo_id,
-						"title":         ϒtitle,
-						"description":   ϒdescription,
-						"thumbnail":     λ.Cal(ϒurljoin, ϒurl, λ.Calm(ϒvideo, "get", λ.StrLiteral("thumbnailPath"))),
-						"timestamp":     λ.Cal(ϒunified_timestamp, λ.Calm(ϒvideo, "get", λ.StrLiteral("publishedAt"))),
-						"uploader":      λ.Cal(ϒaccount_data, λ.StrLiteral("displayName"), ϒcompat_str),
-						"uploader_id":   λ.Cal(ϒstr_or_none, λ.Cal(ϒaccount_data, λ.StrLiteral("id"), λ.IntType)),
-						"uploader_url":  λ.Cal(ϒurl_or_none, λ.Cal(ϒaccount_data, λ.StrLiteral("url"), ϒcompat_str)),
-						"channel":       λ.Cal(ϒchannel_data, λ.StrLiteral("displayName"), ϒcompat_str),
-						"channel_id":    λ.Cal(ϒstr_or_none, λ.Cal(ϒchannel_data, λ.StrLiteral("id"), λ.IntType)),
-						"channel_url":   λ.Cal(ϒurl_or_none, λ.Cal(ϒchannel_data, λ.StrLiteral("url"), ϒcompat_str)),
-						"language":      λ.Cal(ϒdata, λ.StrLiteral("language"), λ.StrLiteral("id"), ϒcompat_str),
-						"license":       λ.Cal(ϒdata, λ.StrLiteral("licence"), λ.StrLiteral("label"), ϒcompat_str),
-						"duration":      λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("duration"))),
-						"view_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("views"))),
-						"like_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("likes"))),
-						"dislike_count": λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("dislikes"))),
-						"age_limit":     ϒage_limit,
-						"tags": λ.Cal(ϒtry_get, ϒvideo, λ.NewFunction("<lambda>",
-							[]λ.Param{
-								{Name: "x"},
-							},
-							0, false, false,
-							func(λargs []λ.Object) λ.Object {
-								var (
-									ϒx = λargs[0]
-								)
-								return λ.GetItem(ϒx, λ.StrLiteral("tags"))
-							}), λ.ListType),
-						"categories": ϒcategories,
-						"formats":    ϒformats,
-						"subtitles":  ϒsubtitles,
-					})
-				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_API_BASE":     PeerTubeIE__API_BASE,
 				"_INSTANCES_RE": PeerTubeIE__INSTANCES_RE,
 				"_UUID_RE":      PeerTubeIE__UUID_RE,
 				"_VALID_URL":    PeerTubeIE__VALID_URL,
-				"_call_api":     PeerTubeIE__call_api,
-				"_real_extract": PeerTubeIE__real_extract,
 			})
 		}())
 	})

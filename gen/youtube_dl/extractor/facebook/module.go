@@ -75,19 +75,23 @@ func init() {
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		FacebookIE = λ.Cal(λ.TypeType, λ.StrLiteral("FacebookIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				FacebookIE_IE_NAME            λ.Object
-				FacebookIE__CHROME_USER_AGENT λ.Object
-				FacebookIE__NETRC_MACHINE     λ.Object
-				FacebookIE__VALID_URL         λ.Object
-				FacebookIE__extract_from_url  λ.Object
-				FacebookIE__login             λ.Object
-				FacebookIE__real_extract      λ.Object
-				FacebookIE__real_initialize   λ.Object
+				FacebookIE_IE_NAME                    λ.Object
+				FacebookIE__CHROME_USER_AGENT         λ.Object
+				FacebookIE__NETRC_MACHINE             λ.Object
+				FacebookIE__VALID_URL                 λ.Object
+				FacebookIE__VIDEO_PAGE_TAHOE_TEMPLATE λ.Object
+				FacebookIE__VIDEO_PAGE_TEMPLATE       λ.Object
+				FacebookIE__extract_from_url          λ.Object
+				FacebookIE__login                     λ.Object
+				FacebookIE__real_extract              λ.Object
+				FacebookIE__real_initialize           λ.Object
 			)
 			FacebookIE__VALID_URL = λ.StrLiteral("(?x)\n                (?:\n                    https?://\n                        (?:[\\w-]+\\.)?(?:facebook\\.com|facebookcorewwwi\\.onion)/\n                        (?:[^#]*?\\#!/)?\n                        (?:\n                            (?:\n                                video/video\\.php|\n                                photo\\.php|\n                                video\\.php|\n                                video/embed|\n                                story\\.php\n                            )\\?(?:.*?)(?:v|video_id|story_fbid)=|\n                            [^/]+/videos/(?:[^/]+/)?|\n                            [^/]+/posts/|\n                            groups/[^/]+/permalink/\n                        )|\n                    facebook:\n                )\n                (?P<id>[0-9]+)\n                ")
 			FacebookIE__NETRC_MACHINE = λ.StrLiteral("facebook")
 			FacebookIE_IE_NAME = λ.StrLiteral("facebook")
 			FacebookIE__CHROME_USER_AGENT = λ.StrLiteral("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36")
+			FacebookIE__VIDEO_PAGE_TEMPLATE = λ.StrLiteral("https://www.facebook.com/video/video.php?v=%s")
+			FacebookIE__VIDEO_PAGE_TAHOE_TEMPLATE = λ.StrLiteral("https://www.facebook.com/video/tahoe/async/%s/?chain=true&isvideo=true&payloadtype=primary")
 			FacebookIE__login = λ.NewFunction("_login",
 				[]λ.Param{
 					{Name: "self"},
@@ -632,14 +636,15 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒentries   λ.Object
-						ϒinfo_dict λ.Object
-						ϒreal_url  λ.Object
-						ϒself      = λargs[0]
-						ϒurl       = λargs[1]
-						ϒvideo_id  λ.Object
-						ϒwebpage   λ.Object
-						τmp0       λ.Object
+						ϒentries       λ.Object
+						ϒinfo_dict     λ.Object
+						ϒreal_url      λ.Object
+						ϒself          = λargs[0]
+						ϒurl           = λargs[1]
+						ϒvideo_id      λ.Object
+						ϒvideo_id_json λ.Object
+						ϒwebpage       λ.Object
+						τmp0           λ.Object
 					)
 					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒreal_url = func() λ.Object {
@@ -661,34 +666,40 @@ func init() {
 						return ϒinfo_dict
 					}
 					if λ.Contains(ϒurl, λ.StrLiteral("/posts/")) {
-						ϒentries = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
-							nil,
-							0, false, false,
-							func(λargs []λ.Object) λ.Object {
-								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
-									var (
-										ϒvid λ.Object
-										τmp0 λ.Object
-										τmp1 λ.Object
-									)
-									τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒself, "_parse_json", λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-										λ.StrLiteral("([\"\\'])video_ids\\1\\s*:\\s*(?P<ids>\\[.+?\\])"),
-										ϒwebpage,
-										λ.StrLiteral("video ids"),
-									), λ.KWArgs{
-										{Name: "group", Value: λ.StrLiteral("ids")},
-									}), ϒvideo_id))
-									for {
-										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-											break
+						ϒvideo_id_json = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+							λ.StrLiteral("([\"\\'])video_ids\\1\\s*:\\s*(?P<ids>\\[.+?\\])"),
+							ϒwebpage,
+							λ.StrLiteral("video ids"),
+						), λ.KWArgs{
+							{Name: "group", Value: λ.StrLiteral("ids")},
+							{Name: "default", Value: λ.StrLiteral("")},
+						})
+						if λ.IsTrue(ϒvideo_id_json) {
+							ϒentries = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+								nil,
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
+										var (
+											ϒvid λ.Object
+											τmp0 λ.Object
+											τmp1 λ.Object
+										)
+										τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒself, "_parse_json", ϒvideo_id_json, ϒvideo_id))
+										for {
+											if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+												break
+											}
+											ϒvid = τmp1
+											λgy.Yield(λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("facebook:%s"), ϒvid), λ.Calm(FacebookIE, "ie_key")))
 										}
-										ϒvid = τmp1
-										λgy.Yield(λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("facebook:%s"), ϒvid), λ.Calm(FacebookIE, "ie_key")))
-									}
-									return λ.None
-								})
-							})))
-						return λ.Calm(ϒself, "playlist_result", ϒentries, ϒvideo_id)
+										return λ.None
+									})
+								})))
+							return λ.Calm(ϒself, "playlist_result", ϒentries, ϒvideo_id)
+						}
+						ϒvideo_id = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("video_id:\\s*\"([0-9]+)\""), ϒwebpage, λ.StrLiteral("single video id"))
+						return λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("facebook:%s"), ϒvideo_id), λ.Calm(FacebookIE, "ie_key"))
 					} else {
 						τmp0 = λ.Call(λ.GetAttr(ϒself, "_extract_from_url", nil), λ.NewArgs(
 							λ.Mod(λ.GetAttr(ϒself, "_VIDEO_PAGE_TEMPLATE", nil), ϒvideo_id),
@@ -703,14 +714,16 @@ func init() {
 					return λ.None
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"IE_NAME":            FacebookIE_IE_NAME,
-				"_CHROME_USER_AGENT": FacebookIE__CHROME_USER_AGENT,
-				"_NETRC_MACHINE":     FacebookIE__NETRC_MACHINE,
-				"_VALID_URL":         FacebookIE__VALID_URL,
-				"_extract_from_url":  FacebookIE__extract_from_url,
-				"_login":             FacebookIE__login,
-				"_real_extract":      FacebookIE__real_extract,
-				"_real_initialize":   FacebookIE__real_initialize,
+				"IE_NAME":                    FacebookIE_IE_NAME,
+				"_CHROME_USER_AGENT":         FacebookIE__CHROME_USER_AGENT,
+				"_NETRC_MACHINE":             FacebookIE__NETRC_MACHINE,
+				"_VALID_URL":                 FacebookIE__VALID_URL,
+				"_VIDEO_PAGE_TAHOE_TEMPLATE": FacebookIE__VIDEO_PAGE_TAHOE_TEMPLATE,
+				"_VIDEO_PAGE_TEMPLATE":       FacebookIE__VIDEO_PAGE_TEMPLATE,
+				"_extract_from_url":          FacebookIE__extract_from_url,
+				"_login":                     FacebookIE__login,
+				"_real_extract":              FacebookIE__real_extract,
+				"_real_initialize":           FacebookIE__real_initialize,
 			})
 		}())
 		FacebookPluginsVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("FacebookPluginsVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

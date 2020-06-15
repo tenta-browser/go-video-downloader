@@ -33,6 +33,7 @@ import (
 	Ωaol "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/aol"
 	Ωard "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ard"
 	Ωarte "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/arte"
+	Ωasiancrush "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/asiancrush"
 	Ωaudioboom "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/audioboom"
 	Ωaudiomack "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/audiomack"
 	Ωazmedien "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/azmedien"
@@ -126,7 +127,6 @@ import (
 	Ωimgur "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/imgur"
 	Ωina "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ina"
 	Ωinfoq "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/infoq"
-	Ωir90tv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ir90tv"
 	Ωivideon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ivideon"
 	Ωizlesene "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/izlesene"
 	Ωjamendo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/jamendo"
@@ -173,10 +173,8 @@ import (
 	Ωoutsidetv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/outsidetv"
 	Ωpacktpub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/packtpub"
 	Ωpandoratv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pandoratv"
-	Ωparliamentliveuk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/parliamentliveuk"
 	Ωpbs "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pbs"
 	Ωpearvideo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pearvideo"
-	Ωpeertube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/peertube"
 	Ωpeople "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/people"
 	Ωperformgroup "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/performgroup"
 	Ωphotobucket "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/photobucket"
@@ -218,7 +216,6 @@ import (
 	Ωstitcher "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/stitcher"
 	Ωstreamable "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/streamable"
 	Ωstretchinternet "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/stretchinternet"
-	Ωsunporno "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sunporno"
 	Ωsverigesradio "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sverigesradio"
 	Ωtagesschau "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tagesschau"
 	Ωtastytrade "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tastytrade"
@@ -253,7 +250,6 @@ import (
 	Ωvgtv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vgtv"
 	Ωvice "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vice"
 	Ωviddler "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/viddler"
-	Ωvidea "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/videa"
 	Ωvideopress "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/videopress"
 	Ωvideosz "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/videosz"
 	Ωvidlii "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vidlii"
@@ -296,6 +292,7 @@ var (
 	AllocineIE                 λ.Object
 	AolIE                      λ.Object
 	ArteTVPlus7IE              λ.Object
+	AsianCrushIE               λ.Object
 	AudioBoomIE                λ.Object
 	AudiomackIE                λ.Object
 	BIQLEIE                    λ.Object
@@ -360,6 +357,7 @@ var (
 	EpornerIE                  λ.Object
 	EscapistIE                 λ.Object
 	ExtremeTubeIE              λ.Object
+	FacebookIE                 λ.Object
 	FacebookPluginsVideoIE     λ.Object
 	FazIE                      λ.Object
 	FczenitIE                  λ.Object
@@ -398,7 +396,6 @@ var (
 	ImgurIE                    λ.Object
 	InaIE                      λ.Object
 	InfoQIE                    λ.Object
-	Ir90TvIE                   λ.Object
 	IvideonIE                  λ.Object
 	IzleseneIE                 λ.Object
 	JWPlatformIE               λ.Object
@@ -451,9 +448,7 @@ var (
 	PBSIE                      λ.Object
 	PacktPubIE                 λ.Object
 	PandoraTVIE                λ.Object
-	ParliamentLiveUKIE         λ.Object
 	PearVideoIE                λ.Object
-	PeerTubeIE                 λ.Object
 	PeopleIE                   λ.Object
 	PerformGroupIE             λ.Object
 	PhotobucketIE              λ.Object
@@ -495,7 +490,6 @@ var (
 	StitcherIE                 λ.Object
 	StreamableIE               λ.Object
 	StretchInternetIE          λ.Object
-	SunPornoIE                 λ.Object
 	SverigesRadioEpisodeIE     λ.Object
 	SverigesRadioPublicationIE λ.Object
 	TDSLifewayIE               λ.Object
@@ -538,7 +532,6 @@ var (
 	ViceArticleIE              λ.Object
 	VidLiiIE                   λ.Object
 	ViddlerIE                  λ.Object
-	VideaIE                    λ.Object
 	VideoPressIE               λ.Object
 	VideosZIE                  λ.Object
 	ViewLiftEmbedIE            λ.Object
@@ -553,7 +546,6 @@ var (
 	VzaarIE                    λ.Object
 	WSJArticleIE               λ.Object
 	WSJIE                      λ.Object
-	WeiboIE                    λ.Object
 	WeiboMobileIE              λ.Object
 	WorldStarHipHopIE          λ.Object
 	XHamsterEmbedIE            λ.Object
@@ -585,6 +577,7 @@ func init() {
 		ARDBetaMediathekIE = Ωard.ARDBetaMediathekIE
 		ARDMediathekIE = Ωard.ARDMediathekIE
 		ArteTVPlus7IE = Ωarte.ArteTVPlus7IE
+		AsianCrushIE = Ωasiancrush.AsianCrushIE
 		AudioBoomIE = Ωaudioboom.AudioBoomIE
 		AudiomackIE = Ωaudiomack.AudiomackIE
 		AZMedienIE = Ωazmedien.AZMedienIE
@@ -649,6 +642,7 @@ func init() {
 		EscapistIE = Ωescapist.EscapistIE
 		FiveThirtyEightIE = Ωespn.FiveThirtyEightIE
 		ExtremeTubeIE = Ωextremetube.ExtremeTubeIE
+		FacebookIE = Ωfacebook.FacebookIE
 		FacebookPluginsVideoIE = Ωfacebook.FacebookPluginsVideoIE
 		FazIE = Ωfaz.FazIE
 		FczenitIE = Ωfczenit.FczenitIE
@@ -686,7 +680,6 @@ func init() {
 		ImgurGalleryIE = Ωimgur.ImgurGalleryIE
 		InaIE = Ωina.InaIE
 		InfoQIE = Ωinfoq.InfoQIE
-		Ir90TvIE = Ωir90tv.Ir90TvIE
 		IvideonIE = Ωivideon.IvideonIE
 		IzleseneIE = Ωizlesene.IzleseneIE
 		JamendoIE = Ωjamendo.JamendoIE
@@ -738,10 +731,8 @@ func init() {
 		OutsideTVIE = Ωoutsidetv.OutsideTVIE
 		PacktPubIE = Ωpacktpub.PacktPubIE
 		PandoraTVIE = Ωpandoratv.PandoraTVIE
-		ParliamentLiveUKIE = Ωparliamentliveuk.ParliamentLiveUKIE
 		PBSIE = Ωpbs.PBSIE
 		PearVideoIE = Ωpearvideo.PearVideoIE
-		PeerTubeIE = Ωpeertube.PeerTubeIE
 		PeopleIE = Ωpeople.PeopleIE
 		PerformGroupIE = Ωperformgroup.PerformGroupIE
 		PhotobucketIE = Ωphotobucket.PhotobucketIE
@@ -783,7 +774,6 @@ func init() {
 		StanfordOpenClassroomIE = Ωstanfordoc.StanfordOpenClassroomIE
 		StreamableIE = Ωstreamable.StreamableIE
 		StretchInternetIE = Ωstretchinternet.StretchInternetIE
-		SunPornoIE = Ωsunporno.SunPornoIE
 		SverigesRadioEpisodeIE = Ωsverigesradio.SverigesRadioEpisodeIE
 		SverigesRadioPublicationIE = Ωsverigesradio.SverigesRadioPublicationIE
 		TagesschauIE = Ωtagesschau.TagesschauIE
@@ -824,7 +814,6 @@ func init() {
 		VGTVIE = Ωvgtv.VGTVIE
 		ViceArticleIE = Ωvice.ViceArticleIE
 		ViddlerIE = Ωviddler.ViddlerIE
-		VideaIE = Ωvidea.VideaIE
 		VideoPressIE = Ωvideopress.VideoPressIE
 		VideosZIE = Ωvideosz.VideosZIE
 		VidLiiIE = Ωvidlii.VidLiiIE
@@ -841,7 +830,6 @@ func init() {
 		VLivePlaylistIE = Ωvlive.VLivePlaylistIE
 		VoiceRepublicIE = Ωvoicerepublic.VoiceRepublicIE
 		VzaarIE = Ωvzaar.VzaarIE
-		WeiboIE = Ωweibo.WeiboIE
 		WeiboMobileIE = Ωweibo.WeiboMobileIE
 		WorldStarHipHopIE = Ωworldstarhiphop.WorldStarHipHopIE
 		WSJIE = Ωwsj.WSJIE
@@ -871,6 +859,7 @@ func init() {
 			ARDBetaMediathekIE,
 			ARDMediathekIE,
 			ArteTVPlus7IE,
+			AsianCrushIE,
 			AudioBoomIE,
 			AudiomackIE,
 			AZMedienIE,
@@ -935,6 +924,7 @@ func init() {
 			EscapistIE,
 			FiveThirtyEightIE,
 			ExtremeTubeIE,
+			FacebookIE,
 			FacebookPluginsVideoIE,
 			FazIE,
 			FczenitIE,
@@ -972,7 +962,6 @@ func init() {
 			ImgurGalleryIE,
 			InaIE,
 			InfoQIE,
-			Ir90TvIE,
 			IvideonIE,
 			IzleseneIE,
 			JamendoIE,
@@ -1024,10 +1013,8 @@ func init() {
 			OutsideTVIE,
 			PacktPubIE,
 			PandoraTVIE,
-			ParliamentLiveUKIE,
 			PBSIE,
 			PearVideoIE,
-			PeerTubeIE,
 			PeopleIE,
 			PerformGroupIE,
 			PhotobucketIE,
@@ -1069,7 +1056,6 @@ func init() {
 			StanfordOpenClassroomIE,
 			StreamableIE,
 			StretchInternetIE,
-			SunPornoIE,
 			SverigesRadioEpisodeIE,
 			SverigesRadioPublicationIE,
 			TagesschauIE,
@@ -1110,7 +1096,6 @@ func init() {
 			VGTVIE,
 			ViceArticleIE,
 			ViddlerIE,
-			VideaIE,
 			VideoPressIE,
 			VideosZIE,
 			VidLiiIE,
@@ -1127,7 +1112,6 @@ func init() {
 			VLivePlaylistIE,
 			VoiceRepublicIE,
 			VzaarIE,
-			WeiboIE,
 			WeiboMobileIE,
 			WorldStarHipHopIE,
 			WSJIE,
