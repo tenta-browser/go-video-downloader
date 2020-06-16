@@ -165,7 +165,7 @@ func init() {
 					λ.Call(λ.GetAttr(ϒself, "_set_cookie", nil), λ.NewArgs(
 						λ.StrLiteral(".youtube.com"),
 						λ.StrLiteral("PREF"),
-						λ.StrLiteral("f1=50000000&hl=en"),
+						λ.StrLiteral("f1=50000000&f6=8&hl=en"),
 					), λ.KWArgs{
 						{Name: "expire_time", Value: λ.Add(λ.Cal(Ωtime.ϒtime), λ.Mul(λ.Mul(λ.Mul(λ.IntLiteral(2), λ.IntLiteral(30)), λ.IntLiteral(24)), λ.IntLiteral(3600)))},
 					})
@@ -3740,6 +3740,7 @@ func init() {
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
+					ϒcategory = λ.None
 					if λ.IsTrue(ϒm_cat_container) {
 						ϒcategory = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 							λ.StrLiteral("(?s)<a[^<]+>(.*?)</a>"),
@@ -3748,16 +3749,27 @@ func init() {
 						), λ.KWArgs{
 							{Name: "default", Value: λ.None},
 						})
-						ϒvideo_categories = func() λ.Object {
-							if ϒcategory == λ.None {
-								return λ.None
-							} else {
-								return λ.NewList(ϒcategory)
-							}
-						}()
-					} else {
-						ϒvideo_categories = λ.None
 					}
+					if !λ.IsTrue(ϒcategory) {
+						ϒcategory = λ.Cal(ϒtry_get, ϒmicroformat, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(ϒx, λ.StrLiteral("category"))
+							}), ϒcompat_str)
+					}
+					ϒvideo_categories = func() λ.Object {
+						if ϒcategory == λ.None {
+							return λ.None
+						} else {
+							return λ.NewList(ϒcategory)
+						}
+					}()
 					ϒvideo_tags = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -3779,6 +3791,19 @@ func init() {
 								return λ.None
 							})
 						})))
+					if !λ.IsTrue(ϒvideo_tags) {
+						ϒvideo_tags = λ.Cal(ϒtry_get, ϒvideo_details, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(ϒx, λ.StrLiteral("keywords"))
+							}), λ.ListType)
+					}
 					ϒ_extract_count = λ.NewFunction("_extract_count",
 						[]λ.Param{
 							{Name: "count_name"},

@@ -173,8 +173,10 @@ import (
 	Ωoutsidetv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/outsidetv"
 	Ωpacktpub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/packtpub"
 	Ωpandoratv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pandoratv"
+	Ωparliamentliveuk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/parliamentliveuk"
 	Ωpbs "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pbs"
 	Ωpearvideo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pearvideo"
+	Ωpeertube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/peertube"
 	Ωpeople "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/people"
 	Ωperformgroup "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/performgroup"
 	Ωphotobucket "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/photobucket"
@@ -216,6 +218,7 @@ import (
 	Ωstitcher "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/stitcher"
 	Ωstreamable "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/streamable"
 	Ωstretchinternet "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/stretchinternet"
+	Ωsunporno "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sunporno"
 	Ωsverigesradio "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sverigesradio"
 	Ωtagesschau "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tagesschau"
 	Ωtastytrade "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tastytrade"
@@ -448,7 +451,9 @@ var (
 	PBSIE                      λ.Object
 	PacktPubIE                 λ.Object
 	PandoraTVIE                λ.Object
+	ParliamentLiveUKIE         λ.Object
 	PearVideoIE                λ.Object
+	PeerTubeIE                 λ.Object
 	PeopleIE                   λ.Object
 	PerformGroupIE             λ.Object
 	PhotobucketIE              λ.Object
@@ -490,6 +495,7 @@ var (
 	StitcherIE                 λ.Object
 	StreamableIE               λ.Object
 	StretchInternetIE          λ.Object
+	SunPornoIE                 λ.Object
 	SverigesRadioEpisodeIE     λ.Object
 	SverigesRadioPublicationIE λ.Object
 	TDSLifewayIE               λ.Object
@@ -546,6 +552,7 @@ var (
 	VzaarIE                    λ.Object
 	WSJArticleIE               λ.Object
 	WSJIE                      λ.Object
+	WeiboIE                    λ.Object
 	WeiboMobileIE              λ.Object
 	WorldStarHipHopIE          λ.Object
 	XHamsterEmbedIE            λ.Object
@@ -731,8 +738,10 @@ func init() {
 		OutsideTVIE = Ωoutsidetv.OutsideTVIE
 		PacktPubIE = Ωpacktpub.PacktPubIE
 		PandoraTVIE = Ωpandoratv.PandoraTVIE
+		ParliamentLiveUKIE = Ωparliamentliveuk.ParliamentLiveUKIE
 		PBSIE = Ωpbs.PBSIE
 		PearVideoIE = Ωpearvideo.PearVideoIE
+		PeerTubeIE = Ωpeertube.PeerTubeIE
 		PeopleIE = Ωpeople.PeopleIE
 		PerformGroupIE = Ωperformgroup.PerformGroupIE
 		PhotobucketIE = Ωphotobucket.PhotobucketIE
@@ -774,6 +783,7 @@ func init() {
 		StanfordOpenClassroomIE = Ωstanfordoc.StanfordOpenClassroomIE
 		StreamableIE = Ωstreamable.StreamableIE
 		StretchInternetIE = Ωstretchinternet.StretchInternetIE
+		SunPornoIE = Ωsunporno.SunPornoIE
 		SverigesRadioEpisodeIE = Ωsverigesradio.SverigesRadioEpisodeIE
 		SverigesRadioPublicationIE = Ωsverigesradio.SverigesRadioPublicationIE
 		TagesschauIE = Ωtagesschau.TagesschauIE
@@ -830,6 +840,7 @@ func init() {
 		VLivePlaylistIE = Ωvlive.VLivePlaylistIE
 		VoiceRepublicIE = Ωvoicerepublic.VoiceRepublicIE
 		VzaarIE = Ωvzaar.VzaarIE
+		WeiboIE = Ωweibo.WeiboIE
 		WeiboMobileIE = Ωweibo.WeiboMobileIE
 		WorldStarHipHopIE = Ωworldstarhiphop.WorldStarHipHopIE
 		WSJIE = Ωwsj.WSJIE
@@ -1013,8 +1024,10 @@ func init() {
 			OutsideTVIE,
 			PacktPubIE,
 			PandoraTVIE,
+			ParliamentLiveUKIE,
 			PBSIE,
 			PearVideoIE,
+			PeerTubeIE,
 			PeopleIE,
 			PerformGroupIE,
 			PhotobucketIE,
@@ -1056,6 +1069,7 @@ func init() {
 			StanfordOpenClassroomIE,
 			StreamableIE,
 			StretchInternetIE,
+			SunPornoIE,
 			SverigesRadioEpisodeIE,
 			SverigesRadioPublicationIE,
 			TagesschauIE,
@@ -1112,6 +1126,7 @@ func init() {
 			VLivePlaylistIE,
 			VoiceRepublicIE,
 			VzaarIE,
+			WeiboIE,
 			WeiboMobileIE,
 			WorldStarHipHopIE,
 			WSJIE,

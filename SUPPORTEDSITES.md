@@ -20,7 +20,7 @@ Supported sites
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
- * BIQLE: `biqle.org`
+ * BIQLE: `biqle.ru`
  * BleacherReport: `bleacherreport.com`
  * BleacherReportCMS: `bleacherreport.com`
  * BokeCC: `union.bokecc.com`
@@ -164,8 +164,10 @@ Supported sites
  * OutsideTV: `www.outsidetv.com`
  * PacktPub: `www.packtpub.com`
  * PandoraTV: `jp.channel.pandora.tv`
+ * ParliamentLiveUK: `parliamentlive.tv`
  * PBS: `www.pbs.org`
  * PearVideo: `www.pearvideo.com`
+ * PeerTube: `framatube.org`
  * People: `www.people.com`
  * PerformGroup: `player.performgroup.com`
  * Photobucket: `media.photobucket.com`
@@ -207,6 +209,7 @@ Supported sites
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
  * Streamable: `streamable.com`
  * StretchInternet: `portal.stretchinternet.com`
+ * SunPorno _(adult)_: `www.sunporno.com`
  * SverigesRadioEpisode: `sverigesradio.se`
  * SverigesRadioPublication: `sverigesradio.se`
  * Tagesschau: `www.tagesschau.de`
@@ -262,6 +265,7 @@ Supported sites
  * VLivePlaylist: `www.vlive.tv`
  * VoiceRepublic: `voicerepublic.com`
  * Vzaar: `vzaar.com`
+ * Weibo: `weibo.com`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`
@@ -279,5 +283,5 @@ Supported sites
  * YouPorn _(adult)_: `www.youporn.com`
  * YourPorn _(adult)_: `sxyprn.com`
  * YourUpload: `yourupload.com`
- * Youtube: `www.youtube.com`
+ * Youtube _(adult)_: `www.youtube.com`
  * YoutubePlaylist: `www.youtube.com`
