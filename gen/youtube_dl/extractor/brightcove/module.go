@@ -298,7 +298,7 @@ func init() {
 							}
 						}())
 					}
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("(?isx)\n                    (<video\\s+[^>]*\\bdata-video-id\\s*=\\s*['\"]?[^>]+>)\n                    (?:.*?\n                        (<script[^>]+\n                            src=[\"\\'](?:https?:)?//players\\.brightcove\\.net/\n                            (\\d+)/([^/]+)_([^/]+)/index(?:\\.min)?\\.js\n                        )\n                    )?\n                "), ϒwebpage))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("(?isx)\n                    (<video(?:-js)?\\s+[^>]*\\bdata-video-id\\s*=\\s*['\"]?[^>]+>)\n                    (?:.*?\n                        (<script[^>]+\n                            src=[\"\\'](?:https?:)?//players\\.brightcove\\.net/\n                            (\\d+)/([^/]+)_([^/]+)/index(?:\\.min)?\\.js\n                        )\n                    )?\n                "), ϒwebpage))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break

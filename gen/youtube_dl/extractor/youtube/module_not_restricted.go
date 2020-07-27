@@ -754,7 +754,7 @@ func init() {
 										}},
 									)
 									ϒmore = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-										λ.Mod(λ.StrLiteral("https://youtube.com/%s"), λ.Calm(ϒmobj, "group", λ.StrLiteral("more"))),
+										λ.Mod(λ.StrLiteral("https://www.youtube.com/%s"), λ.Calm(ϒmobj, "group", λ.StrLiteral("more"))),
 										ϒplaylist_id,
 										λ.Mod(λ.StrLiteral("Downloading page #%s%s"), λ.NewTuple(
 											ϒpage_num,
@@ -1650,7 +1650,7 @@ func init() {
 						λ.NewTuple(
 							λ.StrLiteral("\\b[cs]\\s*&&\\s*[adf]\\.set\\([^,]+\\s*,\\s*encodeURIComponent\\s*\\(\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
 							λ.StrLiteral("\\b[a-zA-Z0-9]+\\s*&&\\s*[a-zA-Z0-9]+\\.set\\([^,]+\\s*,\\s*encodeURIComponent\\s*\\(\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
-							λ.StrLiteral("\\b(?P<sig>[a-zA-Z0-9$]{2})\\s*=\\s*function\\(\\s*a\\s*\\)\\s*{\\s*a\\s*=\\s*a\\.split\\(\\s*\"\"\\s*\\)"),
+							λ.StrLiteral("(?:\\b|[^a-zA-Z0-9$])(?P<sig>[a-zA-Z0-9$]{2})\\s*=\\s*function\\(\\s*a\\s*\\)\\s*{\\s*a\\s*=\\s*a\\.split\\(\\s*\"\"\\s*\\)"),
 							λ.StrLiteral("(?P<sig>[a-zA-Z0-9$]+)\\s*=\\s*function\\(\\s*a\\s*\\)\\s*{\\s*a\\s*=\\s*a\\.split\\(\\s*\"\"\\s*\\)"),
 							λ.StrLiteral("([\"\\'])signature\\1\\s*,\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
 							λ.StrLiteral("\\.sig\\|\\|(?P<sig>[a-zA-Z0-9$]+)\\("),
@@ -2763,10 +2763,10 @@ func init() {
 						ϒvideo_description = λ.Cal(ϒclean_html, ϒvideo_description)
 					} else {
 						ϒvideo_description = func() λ.Object {
-							if λv := λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("description"), ϒvideo_webpage); λ.IsTrue(λv) {
+							if λv := λ.Calm(ϒvideo_details, "get", λ.StrLiteral("shortDescription")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Calm(ϒvideo_details, "get", λ.StrLiteral("shortDescription"))
+								return λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("description"), ϒvideo_webpage)
 							}
 						}()
 					}
@@ -4492,7 +4492,7 @@ func init() {
 			var (
 				YoutubePlaylistsIE__VALID_URL λ.Object
 			)
-			YoutubePlaylistsIE__VALID_URL = λ.StrLiteral("https?://(?:\\w+\\.)?youtube\\.com/(?:user|channel)/(?P<id>[^/]+)/playlists")
+			YoutubePlaylistsIE__VALID_URL = λ.StrLiteral("https?://(?:\\w+\\.)?youtube\\.com/(?:user|channel|c)/(?P<id>[^/]+)/playlists")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": YoutubePlaylistsIE__VALID_URL,
 			})

@@ -58,77 +58,10 @@ func init() {
 			var (
 				NexxIE__VALID_URL             λ.Object
 				NexxIE__extract_azure_formats λ.Object
-				NexxIE__extract_domain_id     λ.Object
 				NexxIE__extract_free_formats  λ.Object
-				NexxIE__extract_url           λ.Object
-				NexxIE__extract_urls          λ.Object
 				NexxIE__real_extract          λ.Object
 			)
 			NexxIE__VALID_URL = λ.StrLiteral("(?x)\n                        (?:\n                            https?://api\\.nexx(?:\\.cloud|cdn\\.com)/v3/(?P<domain_id>\\d+)/videos/byid/|\n                            nexx:(?:(?P<domain_id_s>\\d+):)?|\n                            https?://arc\\.nexx\\.cloud/api/video/\n                        )\n                        (?P<id>\\d+)\n                    ")
-			NexxIE__extract_domain_id = λ.NewFunction("_extract_domain_id",
-				[]λ.Param{
-					{Name: "webpage"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒmobj    λ.Object
-						ϒwebpage = λargs[0]
-					)
-					ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("<script\\b[^>]+\\bsrc=[\"\\'](?:https?:)?//(?:require|arc)\\.nexx(?:\\.cloud|cdn\\.com)/(?:sdk/)?(?P<id>\\d+)"), ϒwebpage)
-					return func() λ.Object {
-						if λ.IsTrue(ϒmobj) {
-							return λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
-						} else {
-							return λ.None
-						}
-					}()
-				})
-			NexxIE__extract_domain_id = λ.Cal(λ.StaticMethodType, NexxIE__extract_domain_id)
-			NexxIE__extract_urls = λ.NewFunction("_extract_urls",
-				[]λ.Param{
-					{Name: "webpage"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒdomain_id λ.Object
-						ϒentries   λ.Object
-						ϒvideo_id  λ.Object
-						ϒwebpage   = λargs[0]
-						τmp0       λ.Object
-						τmp1       λ.Object
-					)
-					ϒentries = λ.NewList()
-					ϒdomain_id = λ.Calm(NexxIE, "_extract_domain_id", ϒwebpage)
-					if λ.IsTrue(ϒdomain_id) {
-						τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("(?is)onPLAYReady.+?_play\\.(?:init|(?:control\\.)?addPlayer)\\s*\\(.+?\\s*,\\s*[\"\\']?(\\d+)"), ϒwebpage))
-						for {
-							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-								break
-							}
-							ϒvideo_id = τmp1
-							λ.Calm(ϒentries, "append", λ.Mod(λ.StrLiteral("https://api.nexx.cloud/v3/%s/videos/byid/%s"), λ.NewTuple(
-								ϒdomain_id,
-								ϒvideo_id,
-							)))
-						}
-					}
-					return ϒentries
-				})
-			NexxIE__extract_urls = λ.Cal(λ.StaticMethodType, NexxIE__extract_urls)
-			NexxIE__extract_url = λ.NewFunction("_extract_url",
-				[]λ.Param{
-					{Name: "webpage"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒwebpage = λargs[0]
-					)
-					return λ.GetItem(λ.Calm(NexxIE, "_extract_urls", ϒwebpage), λ.IntLiteral(0))
-				})
-			NexxIE__extract_url = λ.Cal(λ.StaticMethodType, NexxIE__extract_url)
 			NexxIE__extract_free_formats = λ.NewFunction("_extract_free_formats",
 				[]λ.Param{
 					{Name: "self"},
@@ -734,41 +667,17 @@ func init() {
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":             NexxIE__VALID_URL,
 				"_extract_azure_formats": NexxIE__extract_azure_formats,
-				"_extract_domain_id":     NexxIE__extract_domain_id,
 				"_extract_free_formats":  NexxIE__extract_free_formats,
-				"_extract_url":           NexxIE__extract_url,
-				"_extract_urls":          NexxIE__extract_urls,
 				"_real_extract":          NexxIE__real_extract,
 			})
 		}())
 		NexxEmbedIE = λ.Cal(λ.TypeType, λ.StrLiteral("NexxEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				NexxEmbedIE__VALID_URL    λ.Object
-				NexxEmbedIE__real_extract λ.Object
+				NexxEmbedIE__VALID_URL λ.Object
 			)
 			NexxEmbedIE__VALID_URL = λ.StrLiteral("https?://embed\\.nexx(?:\\.cloud|cdn\\.com)/\\d+/(?:video/)?(?P<id>[^/?#&]+)")
-			NexxEmbedIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒembed_id λ.Object
-						ϒself     = λargs[0]
-						ϒurl      = λargs[1]
-						ϒwebpage  λ.Object
-					)
-					ϒembed_id = λ.Calm(ϒself, "_match_id", ϒurl)
-					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒembed_id)
-					return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(λ.Calm(NexxIE, "_extract_url", ϒwebpage)), λ.KWArgs{
-						{Name: "ie", Value: λ.Calm(NexxIE, "ie_key")},
-					})
-				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL":    NexxEmbedIE__VALID_URL,
-				"_real_extract": NexxEmbedIE__real_extract,
+				"_VALID_URL": NexxEmbedIE__VALID_URL,
 			})
 		}())
 	})

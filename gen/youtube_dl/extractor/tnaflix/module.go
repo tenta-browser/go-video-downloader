@@ -530,11 +530,17 @@ func init() {
 		}())
 		EMPFlixIE = λ.Cal(λ.TypeType, λ.StrLiteral("EMPFlixIE"), λ.NewTuple(TNAEMPFlixBaseIE), func() λ.Dict {
 			var (
-				EMPFlixIE__VALID_URL λ.Object
+				EMPFlixIE__HOST        λ.Object
+				EMPFlixIE__VALID_URL   λ.Object
+				EMPFlixIE__VKEY_SUFFIX λ.Object
 			)
 			EMPFlixIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?empflix\\.com/(?:videos/(?P<display_id>.+?)-|[^/]+/(?P<display_id_2>[^/]+)/video)(?P<id>[0-9]+)")
+			EMPFlixIE__HOST = λ.StrLiteral("emp")
+			EMPFlixIE__VKEY_SUFFIX = λ.StrLiteral("-1")
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": EMPFlixIE__VALID_URL,
+				"_HOST":        EMPFlixIE__HOST,
+				"_VALID_URL":   EMPFlixIE__VALID_URL,
+				"_VKEY_SUFFIX": EMPFlixIE__VKEY_SUFFIX,
 			})
 		}())
 		MovieFapIE = λ.Cal(λ.TypeType, λ.StrLiteral("MovieFapIE"), λ.NewTuple(TNAFlixNetworkBaseIE), func() λ.Dict {

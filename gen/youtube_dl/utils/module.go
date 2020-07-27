@@ -60,7 +60,6 @@ var (
 	PagedList                         λ.Object
 	PostProcessingError               λ.Object
 	RegexNotFoundError                λ.Object
-	TV_PARENTAL_GUIDELINES            λ.Object
 	US_RATINGS                        λ.Object
 	UnavailableVideoError             λ.Object
 	YoutubeDLError                    λ.Object
@@ -4138,14 +4137,6 @@ func init() {
 			"R":     16,
 			"NC":    18,
 		})
-		TV_PARENTAL_GUIDELINES = λ.DictLiteral(map[string]int{
-			"TV-Y":  0,
-			"TV-Y7": 7,
-			"TV-G":  0,
-			"TV-PG": 0,
-			"TV-14": 14,
-			"TV-MA": 17,
-		})
 		ϒparse_age_limit = λ.NewFunction("parse_age_limit",
 			[]λ.Param{
 				{Name: "s"},
@@ -4197,7 +4188,7 @@ func init() {
 								τmp0 λ.Object
 								τmp1 λ.Object
 							)
-							τmp0 = λ.Cal(λ.BuiltinIter, TV_PARENTAL_GUIDELINES)
+							τmp0 = λ.Cal(λ.BuiltinIter, λ.None)
 							for {
 								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 									break
@@ -4209,7 +4200,7 @@ func init() {
 						})
 					})))), ϒs)
 				if λ.IsTrue(ϒm) {
-					return λ.GetItem(TV_PARENTAL_GUIDELINES, λ.Add(λ.StrLiteral("TV-"), λ.Calm(ϒm, "group", λ.IntLiteral(1))))
+					return λ.GetItem(λ.None, λ.Add(λ.StrLiteral("TV-"), λ.Calm(ϒm, "group", λ.IntLiteral(1))))
 				}
 				return λ.None
 			})
