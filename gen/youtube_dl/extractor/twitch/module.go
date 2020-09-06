@@ -25,6 +25,7 @@
 package twitch
 
 import (
+	Ωcollections "github.com/tenta-browser/go-video-downloader/gen/collections"
 	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
@@ -36,19 +37,15 @@ import (
 var (
 	ExtractorError                 λ.Object
 	InfoExtractor                  λ.Object
-	TwitchAllVideosIE              λ.Object
 	TwitchBaseIE                   λ.Object
-	TwitchChapterIE                λ.Object
 	TwitchClipsIE                  λ.Object
-	TwitchHighlightsIE             λ.Object
-	TwitchItemBaseIE               λ.Object
-	TwitchPastBroadcastsIE         λ.Object
+	TwitchCollectionIE             λ.Object
+	TwitchGraphQLBaseIE            λ.Object
 	TwitchPlaylistBaseIE           λ.Object
-	TwitchProfileIE                λ.Object
 	TwitchStreamIE                 λ.Object
-	TwitchUploadsIE                λ.Object
-	TwitchVideoIE                  λ.Object
-	TwitchVideosBaseIE             λ.Object
+	TwitchVideosClipsIE            λ.Object
+	TwitchVideosCollectionsIE      λ.Object
+	TwitchVideosIE                 λ.Object
 	TwitchVodIE                    λ.Object
 	ϒclean_html                    λ.Object
 	ϒcompat_kwargs                 λ.Object
@@ -56,8 +53,8 @@ var (
 	ϒcompat_str                    λ.Object
 	ϒcompat_urllib_parse_urlencode λ.Object
 	ϒcompat_urllib_parse_urlparse  λ.Object
+	ϒfloat_or_none                 λ.Object
 	ϒint_or_none                   λ.Object
-	ϒorderedSet                    λ.Object
 	ϒparse_duration                λ.Object
 	ϒparse_iso8601                 λ.Object
 	ϒqualities                     λ.Object
@@ -79,8 +76,8 @@ func init() {
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ϒclean_html = Ωutils.ϒclean_html
 		ExtractorError = Ωutils.ExtractorError
+		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒqualities = Ωutils.ϒqualities
@@ -94,11 +91,9 @@ func init() {
 			var (
 				TwitchBaseIE__CLIENT_ID       λ.Object
 				TwitchBaseIE__NETRC_MACHINE   λ.Object
-				TwitchBaseIE__VALID_URL_BASE  λ.Object
 				TwitchBaseIE__login           λ.Object
 				TwitchBaseIE__real_initialize λ.Object
 			)
-			TwitchBaseIE__VALID_URL_BASE = λ.StrLiteral("https?://(?:(?:www|go|m)\\.)?twitch\\.tv")
 			TwitchBaseIE__CLIENT_ID = λ.StrLiteral("kimne78kx3ncx6brgo4mv6wki5h1ko")
 			TwitchBaseIE__NETRC_MACHINE = λ.StrLiteral("twitch")
 			TwitchBaseIE__real_initialize = λ.NewFunction("_real_initialize",
@@ -258,34 +253,11 @@ func init() {
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_CLIENT_ID":       TwitchBaseIE__CLIENT_ID,
 				"_NETRC_MACHINE":   TwitchBaseIE__NETRC_MACHINE,
-				"_VALID_URL_BASE":  TwitchBaseIE__VALID_URL_BASE,
 				"_login":           TwitchBaseIE__login,
 				"_real_initialize": TwitchBaseIE__real_initialize,
 			})
 		}())
-		TwitchItemBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchItemBaseIE"), λ.NewTuple(TwitchBaseIE), func() λ.Dict {
-
-			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
-		}())
-		TwitchVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchVideoIE"), λ.NewTuple(TwitchItemBaseIE), func() λ.Dict {
-			var (
-				TwitchVideoIE__VALID_URL λ.Object
-			)
-			TwitchVideoIE__VALID_URL = λ.Mod(λ.StrLiteral("%s/[^/]+/b/(?P<id>\\d+)"), λ.GetAttr(TwitchBaseIE, "_VALID_URL_BASE", nil))
-			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": TwitchVideoIE__VALID_URL,
-			})
-		}())
-		TwitchChapterIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchChapterIE"), λ.NewTuple(TwitchItemBaseIE), func() λ.Dict {
-			var (
-				TwitchChapterIE__VALID_URL λ.Object
-			)
-			TwitchChapterIE__VALID_URL = λ.Mod(λ.StrLiteral("%s/[^/]+/c/(?P<id>\\d+)"), λ.GetAttr(TwitchBaseIE, "_VALID_URL_BASE", nil))
-			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": TwitchChapterIE__VALID_URL,
-			})
-		}())
-		TwitchVodIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchVodIE"), λ.NewTuple(TwitchItemBaseIE), func() λ.Dict {
+		TwitchVodIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchVodIE"), λ.NewTuple(TwitchBaseIE), func() λ.Dict {
 			var (
 				TwitchVodIE__VALID_URL λ.Object
 			)
@@ -294,70 +266,114 @@ func init() {
 				"_VALID_URL": TwitchVodIE__VALID_URL,
 			})
 		}())
-		TwitchPlaylistBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchPlaylistBaseIE"), λ.NewTuple(TwitchBaseIE), func() λ.Dict {
+		TwitchGraphQLBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchGraphQLBaseIE"), λ.NewTuple(TwitchBaseIE), func() λ.Dict {
+
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
+		}())
+		TwitchCollectionIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchCollectionIE"), λ.NewTuple(TwitchGraphQLBaseIE), func() λ.Dict {
 			var (
-				TwitchPlaylistBaseIE__PLAYLIST_PATH λ.Object
+				TwitchCollectionIE__VALID_URL λ.Object
 			)
-			TwitchPlaylistBaseIE__PLAYLIST_PATH = λ.StrLiteral("kraken/channels/%s/videos/?offset=%d&limit=%d")
+			TwitchCollectionIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|go|m)\\.)?twitch\\.tv/collections/(?P<id>[^/]+)")
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_PLAYLIST_PATH": TwitchPlaylistBaseIE__PLAYLIST_PATH,
+				"_VALID_URL": TwitchCollectionIE__VALID_URL,
 			})
 		}())
-		TwitchProfileIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchProfileIE"), λ.NewTuple(TwitchPlaylistBaseIE), func() λ.Dict {
+		TwitchPlaylistBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchPlaylistBaseIE"), λ.NewTuple(TwitchGraphQLBaseIE), func() λ.Dict {
+
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
+		}())
+		TwitchVideosIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchVideosIE"), λ.NewTuple(TwitchPlaylistBaseIE), func() λ.Dict {
 			var (
-				TwitchProfileIE__VALID_URL λ.Object
+				TwitchVideosIE_Broadcast          λ.Object
+				TwitchVideosIE__DEFAULT_BROADCAST λ.Object
+				TwitchVideosIE__DEFAULT_SORTED_BY λ.Object
+				TwitchVideosIE__VALID_URL         λ.Object
+				TwitchVideosIE_suitable           λ.Object
 			)
-			TwitchProfileIE__VALID_URL = λ.Mod(λ.StrLiteral("%s/(?P<id>[^/]+)/profile/?(?:\\#.*)?$"), λ.GetAttr(TwitchBaseIE, "_VALID_URL_BASE", nil))
+			TwitchVideosIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|go|m)\\.)?twitch\\.tv/(?P<id>[^/]+)/(?:videos|profile)")
+			TwitchVideosIE_Broadcast = λ.Cal(Ωcollections.ϒnamedtuple, λ.StrLiteral("Broadcast"), λ.NewList(
+				λ.StrLiteral("type"),
+				λ.StrLiteral("label"),
+			))
+			TwitchVideosIE__DEFAULT_BROADCAST = λ.Cal(TwitchVideosIE_Broadcast, λ.None, λ.StrLiteral("All Videos"))
+			TwitchVideosIE__DEFAULT_SORTED_BY = λ.StrLiteral("Date")
+			TwitchVideosIE_suitable = λ.NewFunction("suitable",
+				[]λ.Param{
+					{Name: "cls"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcls = λargs[0]
+						ϒurl = λargs[1]
+					)
+					return func() λ.Object {
+						if λ.IsTrue(λ.Cal(λ.BuiltinAny, λ.Cal(λ.NewFunction("<generator>",
+							nil,
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
+									var (
+										ϒie  λ.Object
+										τmp0 λ.Object
+										τmp1 λ.Object
+									)
+									τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+										TwitchVideosClipsIE,
+										TwitchVideosCollectionsIE,
+									))
+									for {
+										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+											break
+										}
+										ϒie = τmp1
+										λgy.Yield(λ.Calm(ϒie, "suitable", ϒurl))
+									}
+									return λ.None
+								})
+							})))) {
+							return λ.False
+						} else {
+							return λ.Calm(λ.Cal(λ.SuperType, TwitchVideosIE, ϒcls), "suitable", ϒurl)
+						}
+					}()
+				})
+			TwitchVideosIE_suitable = λ.Cal(λ.ClassMethodType, TwitchVideosIE_suitable)
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": TwitchProfileIE__VALID_URL,
+				"Broadcast":          TwitchVideosIE_Broadcast,
+				"_DEFAULT_BROADCAST": TwitchVideosIE__DEFAULT_BROADCAST,
+				"_DEFAULT_SORTED_BY": TwitchVideosIE__DEFAULT_SORTED_BY,
+				"_VALID_URL":         TwitchVideosIE__VALID_URL,
+				"suitable":           TwitchVideosIE_suitable,
 			})
 		}())
-		TwitchVideosBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchVideosBaseIE"), λ.NewTuple(TwitchPlaylistBaseIE), func() λ.Dict {
+		TwitchVideosClipsIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchVideosClipsIE"), λ.NewTuple(TwitchPlaylistBaseIE), func() λ.Dict {
 			var (
-				TwitchVideosBaseIE__PLAYLIST_PATH         λ.Object
-				TwitchVideosBaseIE__VALID_URL_VIDEOS_BASE λ.Object
+				TwitchVideosClipsIE_Clip          λ.Object
+				TwitchVideosClipsIE__DEFAULT_CLIP λ.Object
+				TwitchVideosClipsIE__VALID_URL    λ.Object
 			)
-			TwitchVideosBaseIE__VALID_URL_VIDEOS_BASE = λ.Mod(λ.StrLiteral("%s/(?P<id>[^/]+)/videos"), λ.GetAttr(TwitchBaseIE, "_VALID_URL_BASE", nil))
-			TwitchVideosBaseIE__PLAYLIST_PATH = λ.Add(λ.GetAttr(TwitchPlaylistBaseIE, "_PLAYLIST_PATH", nil), λ.StrLiteral("&broadcast_type="))
+			TwitchVideosClipsIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|go|m)\\.)?twitch\\.tv/(?P<id>[^/]+)/(?:clips|videos/*?\\?.*?\\bfilter=clips)")
+			TwitchVideosClipsIE_Clip = λ.Cal(Ωcollections.ϒnamedtuple, λ.StrLiteral("Clip"), λ.NewList(
+				λ.StrLiteral("filter"),
+				λ.StrLiteral("label"),
+			))
+			TwitchVideosClipsIE__DEFAULT_CLIP = λ.Cal(TwitchVideosClipsIE_Clip, λ.StrLiteral("LAST_WEEK"), λ.StrLiteral("Top 7D"))
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_PLAYLIST_PATH":         TwitchVideosBaseIE__PLAYLIST_PATH,
-				"_VALID_URL_VIDEOS_BASE": TwitchVideosBaseIE__VALID_URL_VIDEOS_BASE,
+				"Clip":          TwitchVideosClipsIE_Clip,
+				"_DEFAULT_CLIP": TwitchVideosClipsIE__DEFAULT_CLIP,
+				"_VALID_URL":    TwitchVideosClipsIE__VALID_URL,
 			})
 		}())
-		TwitchAllVideosIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchAllVideosIE"), λ.NewTuple(TwitchVideosBaseIE), func() λ.Dict {
+		TwitchVideosCollectionsIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchVideosCollectionsIE"), λ.NewTuple(TwitchPlaylistBaseIE), func() λ.Dict {
 			var (
-				TwitchAllVideosIE__VALID_URL λ.Object
+				TwitchVideosCollectionsIE__VALID_URL λ.Object
 			)
-			TwitchAllVideosIE__VALID_URL = λ.Mod(λ.StrLiteral("%s/all"), λ.GetAttr(TwitchVideosBaseIE, "_VALID_URL_VIDEOS_BASE", nil))
+			TwitchVideosCollectionsIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|go|m)\\.)?twitch\\.tv/(?P<id>[^/]+)/videos/*?\\?.*?\\bfilter=collections")
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": TwitchAllVideosIE__VALID_URL,
-			})
-		}())
-		TwitchUploadsIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchUploadsIE"), λ.NewTuple(TwitchVideosBaseIE), func() λ.Dict {
-			var (
-				TwitchUploadsIE__VALID_URL λ.Object
-			)
-			TwitchUploadsIE__VALID_URL = λ.Mod(λ.StrLiteral("%s/uploads"), λ.GetAttr(TwitchVideosBaseIE, "_VALID_URL_VIDEOS_BASE", nil))
-			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": TwitchUploadsIE__VALID_URL,
-			})
-		}())
-		TwitchPastBroadcastsIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchPastBroadcastsIE"), λ.NewTuple(TwitchVideosBaseIE), func() λ.Dict {
-			var (
-				TwitchPastBroadcastsIE__VALID_URL λ.Object
-			)
-			TwitchPastBroadcastsIE__VALID_URL = λ.Mod(λ.StrLiteral("%s/past-broadcasts"), λ.GetAttr(TwitchVideosBaseIE, "_VALID_URL_VIDEOS_BASE", nil))
-			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": TwitchPastBroadcastsIE__VALID_URL,
-			})
-		}())
-		TwitchHighlightsIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchHighlightsIE"), λ.NewTuple(TwitchVideosBaseIE), func() λ.Dict {
-			var (
-				TwitchHighlightsIE__VALID_URL λ.Object
-			)
-			TwitchHighlightsIE__VALID_URL = λ.Mod(λ.StrLiteral("%s/highlights"), λ.GetAttr(TwitchVideosBaseIE, "_VALID_URL_VIDEOS_BASE", nil))
-			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": TwitchHighlightsIE__VALID_URL,
+				"_VALID_URL": TwitchVideosCollectionsIE__VALID_URL,
 			})
 		}())
 		TwitchStreamIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchStreamIE"), λ.NewTuple(TwitchBaseIE), func() λ.Dict {
@@ -389,14 +405,11 @@ func init() {
 										τmp1 λ.Object
 									)
 									τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-										TwitchVideoIE,
-										TwitchChapterIE,
 										TwitchVodIE,
-										TwitchProfileIE,
-										TwitchAllVideosIE,
-										TwitchUploadsIE,
-										TwitchPastBroadcastsIE,
-										TwitchHighlightsIE,
+										TwitchCollectionIE,
+										TwitchVideosIE,
+										TwitchVideosClipsIE,
+										TwitchVideosCollectionsIE,
 										TwitchClipsIE,
 									))
 									for {

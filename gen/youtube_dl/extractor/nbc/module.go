@@ -127,35 +127,11 @@ func init() {
 		}())
 		CSNNEIE = λ.Cal(λ.TypeType, λ.StrLiteral("CSNNEIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				CSNNEIE__VALID_URL    λ.Object
-				CSNNEIE__real_extract λ.Object
+				CSNNEIE__VALID_URL λ.Object
 			)
 			CSNNEIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?csnne\\.com/video/(?P<id>[0-9a-z-]+)")
-			CSNNEIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒdisplay_id λ.Object
-						ϒself       = λargs[0]
-						ϒurl        = λargs[1]
-						ϒwebpage    λ.Object
-					)
-					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
-					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
-					return λ.DictLiteral(map[string]λ.Object{
-						"_type":      λ.StrLiteral("url_transparent"),
-						"ie_key":     λ.StrLiteral("ThePlatform"),
-						"url":        λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("twitter:player:stream"), ϒwebpage),
-						"display_id": ϒdisplay_id,
-					})
-				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL":    CSNNEIE__VALID_URL,
-				"_real_extract": CSNNEIE__real_extract,
+				"_VALID_URL": CSNNEIE__VALID_URL,
 			})
 		}())
 		NBCNewsIE = λ.Cal(λ.TypeType, λ.StrLiteral("NBCNewsIE"), λ.NewTuple(ThePlatformIE), func() λ.Dict {

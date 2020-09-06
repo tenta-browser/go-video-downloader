@@ -2485,7 +2485,18 @@ func init() {
 					ϒplayer_response = λ.DictLiteral(map[λ.Object]λ.Object{})
 					ϒvideo_info = λ.DictLiteral(map[λ.Object]λ.Object{})
 					ϒembed_webpage = λ.None
-					if λ.Cal(Ωre.ϒsearch, λ.StrLiteral("player-age-gate-content\">"), ϒvideo_webpage) != λ.None {
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.Eq(λ.Call(λ.GetAttr(ϒself, "_og_search_property", nil), λ.NewArgs(
+							λ.StrLiteral("restrictions:age"),
+							ϒvideo_webpage,
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						}), λ.StrLiteral("18+")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewBool(λ.Cal(Ωre.ϒsearch, λ.StrLiteral("player-age-gate-content\">"), ϒvideo_webpage) != λ.None)
+						}
+					}()) {
 						ϒage_gate = λ.True
 						ϒurl = λ.Add(ϒproto, λ.Mod(λ.StrLiteral("://www.youtube.com/embed/%s"), ϒvideo_id))
 						ϒembed_webpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id, λ.StrLiteral("Downloading embed webpage"))

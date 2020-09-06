@@ -19,7 +19,6 @@ Supported sites
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
- * BIQLE: `biqle.ru`
  * BleacherReportCMS: `bleacherreport.com`
  * BokeCC: `union.bokecc.com`
  * Bpb: `www.bpb.de`
@@ -66,7 +65,6 @@ Supported sites
  * DW: `www.dw.com`
  * EaglePlatform: `lentaru.media.eagleplatform.com`
  * EbaumsWorld: `www.ebaumsworld.com`
- * EchoMsk: `www.echo.msk.ru`
  * ElPais: `blogs.elpais.com`
  * Engadget: `www.engadget.com`
  * Eporner _(adult)_: `www.eporner.com`
@@ -112,14 +110,12 @@ Supported sites
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
  * Ivideon: `www.ivideon.com`
- * Izlesene: `www.izlesene.com`
  * Jamendo: `www.jamendo.com`
  * JeuxVideo: `www.jeuxvideo.com`
  * Joj: `media.joj.sk`
  * JWPlatform: `content.jwplatform.com`
  * Kakao: `tv.kakao.com`
  * KeezMovies _(adult)_: `www.keezmovies.com`
- * KhanAcademy: `www.khanacademy.org`
  * KickStarter: `www.kickstarter.com`
  * Lenta: `lenta.ru`
  * LibraryOfCongress: `loc.gov`
@@ -141,7 +137,6 @@ Supported sites
  * NationalGeographicVideo: `video.nationalgeographic.com`
  * Naver: `tv.naver.com`
  * NBA: `www.nba.com`
- * CSNNE: `www.csnne.com`
  * NBCSportsVPlayer: `vplayer.nbcsports.com`
  * NDR: `www.ndr.de`
  * NDREmbed: `www.ndr.de`
@@ -159,15 +154,13 @@ Supported sites
  * OnionStudios: `www.onionstudios.com`
  * OutsideTV: `www.outsidetv.com`
  * PacktPub: `www.packtpub.com`
+ * ParliamentLiveUK: `parliamentlive.tv`
  * PBS: `www.pbs.org`
  * PearVideo: `www.pearvideo.com`
  * PeerTube: `framatube.org`
  * People: `www.people.com`
- * PerformGroup: `player.performgroup.com`
  * Photobucket: `media.photobucket.com`
  * Piksel: `player.piksel.com`
- * PlayFM: `www.play.fm`
- * Playvid _(adult)_: `www.playvid.com`
  * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
  * PornHd _(adult)_: `www.pornhd.com`
@@ -178,7 +171,6 @@ Supported sites
  * RayWenderlich: `www.raywenderlich.com`
  * RedTube _(adult)_: `www.redtube.com`
  * ReverbNation: `www.reverbnation.com`
- * RockstarGames: `www.rockstargames.com`
  * Rozhlas: `prehravac.rozhlas.cz`
  * RTS: `www.rts.ch`
  * RUTV: `player.rutv.ru`
@@ -218,14 +210,13 @@ Supported sites
  * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
  * TNAFlix _(adult)_: `www.tnaflix.com`
  * EMPFlix _(adult)_: `www.empflix.com`
- * MovieFap _(adult)_: `www.moviefap.com`
  * ToonGoggles: `www.toongoggles.com`
  * Toypics _(adult)_: `videos.toypics.net`
  * Tube8 _(adult)_: `www.tube8.com`
  * TVANouvelles: `www.tvanouvelles.ca`
  * TVC: `www.tvc.ru`
  * TVCArticle: `www.tvc.ru`
- * TVN24: `tvnmeteo.tvn24.pl`
+ * TVN24: `www.tvn24.pl`
  * TVP: `vod.tvp.pl`
  * TwentyThreeVideo: `video.twentythree.net`
  * TwitchClips: `clips.twitch.tv`
@@ -256,6 +247,7 @@ Supported sites
  * VLivePlaylist: `www.vlive.tv`
  * VoiceRepublic: `voicerepublic.com`
  * Vzaar: `vzaar.com`
+ * Weibo: `weibo.com`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`
@@ -268,10 +260,9 @@ Supported sites
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
  * Yahoo: `screen.yahoo.com`
- * YinYueTai: `v.yinyuetai.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`
  * YourPorn _(adult)_: `sxyprn.com`
  * YourUpload: `yourupload.com`
- * Youtube: `www.youtube.com`
+ * Youtube _(adult)_: `www.youtube.com`
  * YoutubePlaylist: `www.youtube.com`

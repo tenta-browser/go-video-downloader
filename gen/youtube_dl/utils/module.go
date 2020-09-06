@@ -4460,6 +4460,7 @@ func init() {
 					"vnd.ms-sstr+xml":   "ism",
 					"quicktime":         "mov",
 					"mp2t":              "ts",
+					"x-wav":             "wav",
 				}), "get", ϒres, ϒres)
 			})
 		ϒparse_codecs = λ.NewFunction("parse_codecs",

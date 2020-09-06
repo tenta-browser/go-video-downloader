@@ -70,8 +70,8 @@ func init() {
 				XHamsterIE__VALID_URL    λ.Object
 				XHamsterIE__real_extract λ.Object
 			)
-			XHamsterIE__DOMAINS = λ.StrLiteral("(?:xhamster\\.(?:com|one|desi)|xhms\\.pro|xhamster[27]\\.com)")
-			XHamsterIE__VALID_URL = λ.Mod(λ.StrLiteral("(?x)\n                    https?://\n                        (?:.+?\\.)?%s/\n                        (?:\n                            movies/(?P<id>\\d+)/(?P<display_id>[^/]*)\\.html|\n                            videos/(?P<display_id_2>[^/]*)-(?P<id_2>\\d+)\n                        )\n                    "), XHamsterIE__DOMAINS)
+			XHamsterIE__DOMAINS = λ.StrLiteral("(?:xhamster\\.(?:com|one|desi)|xhms\\.pro|xhamster\\d+\\.com)")
+			XHamsterIE__VALID_URL = λ.Mod(λ.StrLiteral("(?x)\n                    https?://\n                        (?:.+?\\.)?%s/\n                        (?:\n                            movies/(?P<id>[\\dA-Za-z]+)/(?P<display_id>[^/]*)\\.html|\n                            videos/(?P<display_id_2>[^/]*)-(?P<id_2>[\\dA-Za-z]+)\n                        )\n                    "), XHamsterIE__DOMAINS)
 			XHamsterIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -176,7 +176,10 @@ func init() {
 						})
 					ϒinitials = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 						λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.StrLiteral("window\\.initials\\s*=\\s*({.+?})\\s*;\\s*\\n"),
+							λ.NewTuple(
+								λ.StrLiteral("window\\.initials\\s*=\\s*({.+?})\\s*;\\s*</script>"),
+								λ.StrLiteral("window\\.initials\\s*=\\s*({.+?})\\s*;"),
+							),
 							ϒwebpage,
 							λ.StrLiteral("initials"),
 						), λ.KWArgs{

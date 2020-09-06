@@ -25,7 +25,6 @@
 package openload
 
 import (
-	Ωbrowser "github.com/tenta-browser/go-video-downloader/gen/lib/browser"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
@@ -37,6 +36,8 @@ var (
 	PhantomJSwrapper λ.Object
 	ϒcompat_kwargs   λ.Object
 	ϒstd_headers     λ.Object
+	τmp0             λ.Object
+	τmp1             λ.Object
 )
 
 func init() {
@@ -44,7 +45,19 @@ func init() {
 		ϒcompat_kwargs = Ωcompat.ϒcompat_kwargs
 		ExtractorError = Ωutils.ExtractorError
 		ϒstd_headers = Ωutils.ϒstd_headers
-		BrowserWrapper = Ωbrowser.BrowserWrapper
+		τmp1, τmp0 = func() (λexit λ.Object, λret λ.Object) {
+			defer λ.CatchMulti(
+				nil,
+				&λ.Catcher{λ.ImportErrorType, func(λex λ.BaseException) {
+					BrowserWrapper = λ.Cal(λ.TypeType, λ.StrLiteral("BrowserWrapper"), λ.NewTuple(), func() λ.Dict {
+
+						return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
+					}())
+				}},
+			)
+
+			return λ.BlockExitNormally, nil
+		}()
 		PhantomJSwrapper = λ.Cal(λ.TypeType, λ.StrLiteral("PhantomJSwrapper"), λ.NewTuple(BrowserWrapper), func() λ.Dict {
 
 			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})

@@ -545,23 +545,11 @@ func init() {
 		}())
 		MovieFapIE = λ.Cal(λ.TypeType, λ.StrLiteral("MovieFapIE"), λ.NewTuple(TNAFlixNetworkBaseIE), func() λ.Dict {
 			var (
-				MovieFapIE__AVERAGE_RATING_REGEX λ.Object
-				MovieFapIE__CATEGORIES_REGEX     λ.Object
-				MovieFapIE__COMMENT_COUNT_REGEX  λ.Object
-				MovieFapIE__VALID_URL            λ.Object
-				MovieFapIE__VIEW_COUNT_REGEX     λ.Object
+				MovieFapIE__VALID_URL λ.Object
 			)
 			MovieFapIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?moviefap\\.com/videos/(?P<id>[0-9a-f]+)/(?P<display_id>[^/]+)\\.html")
-			MovieFapIE__VIEW_COUNT_REGEX = λ.StrLiteral("<br>Views\\s*<strong>([\\d,.]+)</strong>")
-			MovieFapIE__COMMENT_COUNT_REGEX = λ.StrLiteral("<span[^>]+id=\"comCount\"[^>]*>([\\d,.]+)</span>")
-			MovieFapIE__AVERAGE_RATING_REGEX = λ.StrLiteral("Current Rating\\s*<br>\\s*<strong>([\\d.]+)</strong>")
-			MovieFapIE__CATEGORIES_REGEX = λ.StrLiteral("(?s)<div[^>]+id=\"vid_info\"[^>]*>\\s*<div[^>]*>.+?</div>(.*?)<br>")
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_AVERAGE_RATING_REGEX": MovieFapIE__AVERAGE_RATING_REGEX,
-				"_CATEGORIES_REGEX":     MovieFapIE__CATEGORIES_REGEX,
-				"_COMMENT_COUNT_REGEX":  MovieFapIE__COMMENT_COUNT_REGEX,
-				"_VALID_URL":            MovieFapIE__VALID_URL,
-				"_VIEW_COUNT_REGEX":     MovieFapIE__VIEW_COUNT_REGEX,
+				"_VALID_URL": MovieFapIE__VALID_URL,
 			})
 		}())
 	})

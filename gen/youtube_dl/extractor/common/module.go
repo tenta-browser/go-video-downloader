@@ -181,7 +181,6 @@ func init() {
 				InfoExtractor__extract_m3u8_formats        λ.Object
 				InfoExtractor__extract_mpd_formats         λ.Object
 				InfoExtractor__extract_smil_formats        λ.Object
-				InfoExtractor__family_friendly_search      λ.Object
 				InfoExtractor__float                       λ.Object
 				InfoExtractor__get_cookies                 λ.Object
 				InfoExtractor__get_login_info              λ.Object
@@ -2082,36 +2081,6 @@ func init() {
 						"restricted":    19,
 					})
 					return λ.Calm(RATING_TABLE, "get", λ.Calm(ϒrating, "lower"))
-				})
-			InfoExtractor__family_friendly_search = λ.NewFunction("_family_friendly_search",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "html"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						RATING_TABLE     λ.Object
-						ϒfamily_friendly λ.Object
-						ϒhtml            = λargs[1]
-						ϒself            = λargs[0]
-					)
-					ϒfamily_friendly = λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
-						λ.StrLiteral("isFamilyFriendly"),
-						ϒhtml,
-					), λ.KWArgs{
-						{Name: "default", Value: λ.None},
-					})
-					if !λ.IsTrue(ϒfamily_friendly) {
-						return λ.None
-					}
-					RATING_TABLE = λ.DictLiteral(map[string]int{
-						"1":     0,
-						"true":  0,
-						"0":     18,
-						"false": 18,
-					})
-					return λ.Calm(RATING_TABLE, "get", λ.Calm(ϒfamily_friendly, "lower"))
 				})
 			InfoExtractor__search_json_ld = λ.NewFunction("_search_json_ld",
 				[]λ.Param{
@@ -6375,7 +6344,6 @@ func init() {
 				"_extract_m3u8_formats":        InfoExtractor__extract_m3u8_formats,
 				"_extract_mpd_formats":         InfoExtractor__extract_mpd_formats,
 				"_extract_smil_formats":        InfoExtractor__extract_smil_formats,
-				"_family_friendly_search":      InfoExtractor__family_friendly_search,
 				"_float":                       InfoExtractor__float,
 				"_get_cookies":                 InfoExtractor__get_cookies,
 				"_get_login_info":              InfoExtractor__get_login_info,
