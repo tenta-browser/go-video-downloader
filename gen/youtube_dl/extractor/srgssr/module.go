@@ -324,7 +324,7 @@ func init() {
 				SRGSSRPlayIE__VALID_URL    λ.Object
 				SRGSSRPlayIE__real_extract λ.Object
 			)
-			SRGSSRPlayIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:(?:www|play)\\.)?\n                        (?P<bu>srf|rts|rsi|rtr|swissinfo)\\.ch/play/(?:tv|radio)/\n                        (?:\n                            [^/]+/(?P<type>video|audio)/[^?]+|\n                            popup(?P<type_2>video|audio)player\n                        )\n                        \\?id=(?P<id>[0-9a-f\\-]{36}|\\d+)\n                    ")
+			SRGSSRPlayIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:(?:www|play)\\.)?\n                        (?P<bu>srf|rts|rsi|rtr|swissinfo)\\.ch/play/(?:tv|radio)/\n                        (?:\n                            [^/]+/(?P<type>video|audio)/[^?]+|\n                            popup(?P<type_2>video|audio)player\n                        )\n                        \\?.*?\\b(?:id=|urn=urn:[^:]+:video:)(?P<id>[0-9a-f\\-]{36}|\\d+)\n                    ")
 			SRGSSRPlayIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},

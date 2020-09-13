@@ -2773,13 +2773,10 @@ func init() {
 						ϒvideo_description = τmp1
 						ϒvideo_description = λ.Cal(ϒclean_html, ϒvideo_description)
 					} else {
-						ϒvideo_description = func() λ.Object {
-							if λv := λ.Calm(ϒvideo_details, "get", λ.StrLiteral("shortDescription")); λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("description"), ϒvideo_webpage)
-							}
-						}()
+						ϒvideo_description = λ.Calm(ϒvideo_details, "get", λ.StrLiteral("shortDescription"))
+						if ϒvideo_description == λ.None {
+							ϒvideo_description = λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("description"), ϒvideo_webpage)
+						}
 					}
 					if !λ.IsTrue(λ.Calm(ϒsmuggled_data, "get", λ.StrLiteral("force_singlefeed"), λ.False)) {
 						if !λ.IsTrue(λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("noplaylist"))) {

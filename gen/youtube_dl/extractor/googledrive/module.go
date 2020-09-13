@@ -85,6 +85,7 @@ func init() {
 						ϒadd_source_format    λ.Object
 						ϒconfirm              λ.Object
 						ϒconfirmation_webpage λ.Object
+						ϒconfirmed_source_url λ.Object
 						ϒduration             λ.Object
 						ϒf                    λ.Object
 						ϒfmt                  λ.Object
@@ -98,6 +99,7 @@ func init() {
 						ϒhl                   λ.Object
 						ϒmobj                 λ.Object
 						ϒreason               λ.Object
+						ϒrequest_source_file  λ.Object
 						ϒresolution           λ.Object
 						ϒresolutions          λ.Object
 						ϒself                 = λargs[0]
@@ -204,26 +206,39 @@ func init() {
 						"id":     ϒvideo_id,
 						"export": λ.StrLiteral("download"),
 					}))
-					ϒurlh = λ.Call(λ.GetAttr(ϒself, "_request_webpage", nil), λ.NewArgs(
-						ϒsource_url,
-						ϒvideo_id,
-					), λ.KWArgs{
-						{Name: "note", Value: λ.StrLiteral("Requesting source file")},
-						{Name: "errnote", Value: λ.StrLiteral("Unable to request source file")},
-						{Name: "fatal", Value: λ.False},
-					})
+					ϒrequest_source_file = λ.NewFunction("request_source_file",
+						[]λ.Param{
+							{Name: "source_url"},
+							{Name: "kind"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒkind       = λargs[1]
+								ϒsource_url = λargs[0]
+							)
+							return λ.Call(λ.GetAttr(ϒself, "_request_webpage", nil), λ.NewArgs(
+								ϒsource_url,
+								ϒvideo_id,
+							), λ.KWArgs{
+								{Name: "note", Value: λ.Mod(λ.StrLiteral("Requesting %s file"), ϒkind)},
+								{Name: "errnote", Value: λ.Mod(λ.StrLiteral("Unable to request %s file"), ϒkind)},
+								{Name: "fatal", Value: λ.False},
+							})
+						})
+					ϒurlh = λ.Cal(ϒrequest_source_file, ϒsource_url, λ.StrLiteral("source"))
 					if λ.IsTrue(ϒurlh) {
 						ϒadd_source_format = λ.NewFunction("add_source_format",
 							[]λ.Param{
-								{Name: "src_url"},
+								{Name: "urlh"},
 							},
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
 								var (
-									ϒsrc_url = λargs[0]
+									ϒurlh = λargs[0]
 								)
 								λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
-									"url":       ϒsrc_url,
+									"url":       λ.Calm(ϒurlh, "geturl"),
 									"ext":       λ.Calm(λ.Cal(ϒdetermine_ext, ϒtitle, λ.StrLiteral("mp4")), "lower"),
 									"format_id": λ.StrLiteral("source"),
 									"quality":   λ.IntLiteral(1),
@@ -231,7 +246,7 @@ func init() {
 								return λ.None
 							})
 						if λ.IsTrue(λ.Calm(λ.GetAttr(ϒurlh, "headers", nil), "get", λ.StrLiteral("Content-Disposition"))) {
-							λ.Cal(ϒadd_source_format, ϒsource_url)
+							λ.Cal(ϒadd_source_format, ϒurlh)
 						} else {
 							ϒconfirmation_webpage = λ.Call(λ.GetAttr(ϒself, "_webpage_read_content", nil), λ.NewArgs(
 								ϒurlh,
@@ -251,9 +266,19 @@ func init() {
 									{Name: "fatal", Value: λ.False},
 								})
 								if λ.IsTrue(ϒconfirm) {
-									λ.Cal(ϒadd_source_format, λ.Cal(ϒupdate_url_query, ϒsource_url, λ.DictLiteral(map[string]λ.Object{
+									ϒconfirmed_source_url = λ.Cal(ϒupdate_url_query, ϒsource_url, λ.DictLiteral(map[string]λ.Object{
 										"confirm": ϒconfirm,
-									})))
+									}))
+									ϒurlh = λ.Cal(ϒrequest_source_file, ϒconfirmed_source_url, λ.StrLiteral("confirmed source"))
+									if λ.IsTrue(func() λ.Object {
+										if λv := ϒurlh; !λ.IsTrue(λv) {
+											return λv
+										} else {
+											return λ.Calm(λ.GetAttr(ϒurlh, "headers", nil), "get", λ.StrLiteral("Content-Disposition"))
+										}
+									}()) {
+										λ.Cal(ϒadd_source_format, ϒurlh)
+									}
 								}
 							}
 						}

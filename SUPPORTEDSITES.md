@@ -14,7 +14,6 @@ Supported sites
  * Audiomack: `www.audiomack.com`
  * AZMedien: `www.telezueri.ch`
  * Bandcamp: `youtube-dl.bandcamp.com`
- * BandcampWeekly: `bandcamp.com`
  * Beatport: `beatport.com`
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
@@ -151,7 +150,6 @@ Supported sites
  * Nowness: `www.nowness.com`
  * NTVRu: `www.ntv.ru`
  * Odnoklassniki: `ok.ru`
- * OnionStudios: `www.onionstudios.com`
  * OutsideTV: `www.outsidetv.com`
  * PacktPub: `www.packtpub.com`
  * ParliamentLiveUK: `parliamentlive.tv`
@@ -247,7 +245,6 @@ Supported sites
  * VLivePlaylist: `www.vlive.tv`
  * VoiceRepublic: `voicerepublic.com`
  * Vzaar: `vzaar.com`
- * Weibo: `weibo.com`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`
@@ -260,6 +257,7 @@ Supported sites
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
  * Yahoo: `screen.yahoo.com`
+ * YinYueTai: `v.yinyuetai.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`
  * YourPorn _(adult)_: `sxyprn.com`

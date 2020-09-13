@@ -165,7 +165,6 @@ import (
 	Ωnowness "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nowness"
 	Ωntvru "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ntvru"
 	Ωodnoklassniki "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/odnoklassniki"
-	Ωonionstudios "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/onionstudios"
 	Ωoutsidetv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/outsidetv"
 	Ωpacktpub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/packtpub"
 	Ωparliamentliveuk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/parliamentliveuk"
@@ -263,6 +262,7 @@ import (
 	Ωxvideos "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xvideos"
 	Ωxxxymovies "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xxxymovies"
 	Ωyahoo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yahoo"
+	Ωyinyuetai "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yinyuetai"
 	Ωyoujizz "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youjizz"
 	Ωyouporn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youporn"
 	Ωyourporn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yourporn"
@@ -286,7 +286,6 @@ var (
 	AudiomackIE                λ.Object
 	BRIE                       λ.Object
 	BandcampIE                 λ.Object
-	BandcampWeeklyIE           λ.Object
 	BeatportIE                 λ.Object
 	BigflixIE                  λ.Object
 	BildIE                     λ.Object
@@ -424,7 +423,6 @@ var (
 	NovaIE                     λ.Object
 	NownessIE                  λ.Object
 	OdnoklassnikiIE            λ.Object
-	OnionStudiosIE             λ.Object
 	OutsideTVIE                λ.Object
 	PBSIE                      λ.Object
 	PacktPubIE                 λ.Object
@@ -521,7 +519,6 @@ var (
 	VzaarIE                    λ.Object
 	WSJArticleIE               λ.Object
 	WSJIE                      λ.Object
-	WeiboIE                    λ.Object
 	WeiboMobileIE              λ.Object
 	WorldStarHipHopIE          λ.Object
 	XHamsterEmbedIE            λ.Object
@@ -532,6 +529,7 @@ var (
 	XXXYMoviesIE               λ.Object
 	XuiteIE                    λ.Object
 	YahooIE                    λ.Object
+	YinYueTaiIE                λ.Object
 	YouJizzIE                  λ.Object
 	YouPornIE                  λ.Object
 	YourPornIE                 λ.Object
@@ -556,7 +554,6 @@ func init() {
 		AudiomackIE = Ωaudiomack.AudiomackIE
 		AZMedienIE = Ωazmedien.AZMedienIE
 		BandcampIE = Ωbandcamp.BandcampIE
-		BandcampWeeklyIE = Ωbandcamp.BandcampWeeklyIE
 		BeatportIE = Ωbeatport.BeatportIE
 		BigflixIE = Ωbigflix.BigflixIE
 		BildIE = Ωbild.BildIE
@@ -693,7 +690,6 @@ func init() {
 		NownessIE = Ωnowness.NownessIE
 		NTVRuIE = Ωntvru.NTVRuIE
 		OdnoklassnikiIE = Ωodnoklassniki.OdnoklassnikiIE
-		OnionStudiosIE = Ωonionstudios.OnionStudiosIE
 		OutsideTVIE = Ωoutsidetv.OutsideTVIE
 		PacktPubIE = Ωpacktpub.PacktPubIE
 		ParliamentLiveUKIE = Ωparliamentliveuk.ParliamentLiveUKIE
@@ -790,7 +786,6 @@ func init() {
 		VLivePlaylistIE = Ωvlive.VLivePlaylistIE
 		VoiceRepublicIE = Ωvoicerepublic.VoiceRepublicIE
 		VzaarIE = Ωvzaar.VzaarIE
-		WeiboIE = Ωweibo.WeiboIE
 		WeiboMobileIE = Ωweibo.WeiboMobileIE
 		WorldStarHipHopIE = Ωworldstarhiphop.WorldStarHipHopIE
 		WSJIE = Ωwsj.WSJIE
@@ -803,6 +798,7 @@ func init() {
 		XVideosIE = Ωxvideos.XVideosIE
 		XXXYMoviesIE = Ωxxxymovies.XXXYMoviesIE
 		YahooIE = Ωyahoo.YahooIE
+		YinYueTaiIE = Ωyinyuetai.YinYueTaiIE
 		YouJizzIE = Ωyoujizz.YouJizzIE
 		YouPornIE = Ωyouporn.YouPornIE
 		YourPornIE = Ωyourporn.YourPornIE
@@ -823,7 +819,6 @@ func init() {
 			AudiomackIE,
 			AZMedienIE,
 			BandcampIE,
-			BandcampWeeklyIE,
 			BeatportIE,
 			BigflixIE,
 			BildIE,
@@ -960,7 +955,6 @@ func init() {
 			NownessIE,
 			NTVRuIE,
 			OdnoklassnikiIE,
-			OnionStudiosIE,
 			OutsideTVIE,
 			PacktPubIE,
 			ParliamentLiveUKIE,
@@ -1057,7 +1051,6 @@ func init() {
 			VLivePlaylistIE,
 			VoiceRepublicIE,
 			VzaarIE,
-			WeiboIE,
 			WeiboMobileIE,
 			WorldStarHipHopIE,
 			WSJIE,
@@ -1070,6 +1063,7 @@ func init() {
 			XVideosIE,
 			XXXYMoviesIE,
 			YahooIE,
+			YinYueTaiIE,
 			YouJizzIE,
 			YouPornIE,
 			YourPornIE,
