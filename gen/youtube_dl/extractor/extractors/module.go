@@ -168,8 +168,8 @@ import (
 	Ωoutsidetv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/outsidetv"
 	Ωpacktpub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/packtpub"
 	Ωparliamentliveuk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/parliamentliveuk"
+	Ωpatreon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/patreon"
 	Ωpbs "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pbs"
-	Ωpearvideo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pearvideo"
 	Ωpeertube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/peertube"
 	Ωpeople "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/people"
 	Ωphotobucket "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/photobucket"
@@ -427,7 +427,7 @@ var (
 	PBSIE                      λ.Object
 	PacktPubIE                 λ.Object
 	ParliamentLiveUKIE         λ.Object
-	PearVideoIE                λ.Object
+	PatreonIE                  λ.Object
 	PeerTubeIE                 λ.Object
 	PeopleIE                   λ.Object
 	PhotobucketIE              λ.Object
@@ -519,6 +519,7 @@ var (
 	VzaarIE                    λ.Object
 	WSJArticleIE               λ.Object
 	WSJIE                      λ.Object
+	WeiboIE                    λ.Object
 	WeiboMobileIE              λ.Object
 	WorldStarHipHopIE          λ.Object
 	XHamsterEmbedIE            λ.Object
@@ -693,8 +694,8 @@ func init() {
 		OutsideTVIE = Ωoutsidetv.OutsideTVIE
 		PacktPubIE = Ωpacktpub.PacktPubIE
 		ParliamentLiveUKIE = Ωparliamentliveuk.ParliamentLiveUKIE
+		PatreonIE = Ωpatreon.PatreonIE
 		PBSIE = Ωpbs.PBSIE
-		PearVideoIE = Ωpearvideo.PearVideoIE
 		PeerTubeIE = Ωpeertube.PeerTubeIE
 		PeopleIE = Ωpeople.PeopleIE
 		PhotobucketIE = Ωphotobucket.PhotobucketIE
@@ -786,6 +787,7 @@ func init() {
 		VLivePlaylistIE = Ωvlive.VLivePlaylistIE
 		VoiceRepublicIE = Ωvoicerepublic.VoiceRepublicIE
 		VzaarIE = Ωvzaar.VzaarIE
+		WeiboIE = Ωweibo.WeiboIE
 		WeiboMobileIE = Ωweibo.WeiboMobileIE
 		WorldStarHipHopIE = Ωworldstarhiphop.WorldStarHipHopIE
 		WSJIE = Ωwsj.WSJIE
@@ -958,8 +960,8 @@ func init() {
 			OutsideTVIE,
 			PacktPubIE,
 			ParliamentLiveUKIE,
+			PatreonIE,
 			PBSIE,
-			PearVideoIE,
 			PeerTubeIE,
 			PeopleIE,
 			PhotobucketIE,
@@ -1051,6 +1053,7 @@ func init() {
 			VLivePlaylistIE,
 			VoiceRepublicIE,
 			VzaarIE,
+			WeiboIE,
 			WeiboMobileIE,
 			WorldStarHipHopIE,
 			WSJIE,

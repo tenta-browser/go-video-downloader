@@ -52,6 +52,7 @@ var (
 	ϒcompat_str                λ.Object
 	ϒdetermine_ext             λ.Object
 	ϒint_or_none               λ.Object
+	ϒmerge_dicts               λ.Object
 	ϒorderedSet                λ.Object
 	ϒremove_quotes             λ.Object
 	ϒstr_to_int                λ.Object
@@ -67,6 +68,7 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒmerge_dicts = Ωutils.ϒmerge_dicts
 		NO_DEFAULT = Ωutils.NO_DEFAULT
 		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒremove_quotes = Ωutils.ϒremove_quotes
@@ -219,6 +221,7 @@ func init() {
 						ϒformats           λ.Object
 						ϒheight            λ.Object
 						ϒhost              λ.Object
+						ϒinfo              λ.Object
 						ϒjs_vars           λ.Object
 						ϒkey               λ.Object
 						ϒlike_count        λ.Object
@@ -615,9 +618,9 @@ func init() {
 						ϒwebpage,
 						λ.StrLiteral("uploader"),
 					), λ.KWArgs{
-						{Name: "fatal", Value: λ.False},
+						{Name: "default", Value: λ.None},
 					})
-					ϒview_count = λ.Calm(ϒself, "_extract_count", λ.StrLiteral("<span class=\"count\">([\\d,\\.]+)</span> views"), ϒwebpage, λ.StrLiteral("view"))
+					ϒview_count = λ.Calm(ϒself, "_extract_count", λ.StrLiteral("<span class=\"count\">([\\d,\\.]+)</span> [Vv]iews"), ϒwebpage, λ.StrLiteral("view"))
 					ϒlike_count = λ.Calm(ϒself, "_extract_count", λ.StrLiteral("<span class=\"votesUp\">([\\d,\\.]+)</span>"), ϒwebpage, λ.StrLiteral("like"))
 					ϒdislike_count = λ.Calm(ϒself, "_extract_count", λ.StrLiteral("<span class=\"votesDown\">([\\d,\\.]+)</span>"), ϒwebpage, λ.StrLiteral("dislike"))
 					ϒcomment_count = λ.Calm(ϒself, "_extract_count", λ.StrLiteral("All Comments\\s*<span>\\(([\\d,.]+)\\)"), ϒwebpage, λ.StrLiteral("comment"))
@@ -643,7 +646,14 @@ func init() {
 							}
 							return λ.None
 						})
-					return λ.DictLiteral(map[string]λ.Object{
+					ϒinfo = λ.Call(λ.GetAttr(ϒself, "_search_json_ld", nil), λ.NewArgs(
+						ϒwebpage,
+						ϒvideo_id,
+					), λ.KWArgs{
+						{Name: "default", Value: λ.DictLiteral(map[λ.Object]λ.Object{})},
+					})
+					λ.SetItem(ϒinfo, λ.StrLiteral("description"), λ.None)
+					return λ.Cal(ϒmerge_dicts, λ.DictLiteral(map[string]λ.Object{
 						"id":            ϒvideo_id,
 						"uploader":      ϒvideo_uploader,
 						"upload_date":   ϒupload_date,
@@ -659,7 +669,7 @@ func init() {
 						"tags":          λ.Cal(ϒextract_list, λ.StrLiteral("tags")),
 						"categories":    λ.Cal(ϒextract_list, λ.StrLiteral("categories")),
 						"subtitles":     ϒsubtitles,
-					})
+					}), ϒinfo)
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":     PornHubIE__VALID_URL,

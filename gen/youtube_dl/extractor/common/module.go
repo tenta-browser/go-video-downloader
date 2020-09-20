@@ -87,6 +87,7 @@ var (
 	ϒsanitize_filename             λ.Object
 	ϒsanitized_Request             λ.Object
 	ϒstr_or_none                   λ.Object
+	ϒstr_to_int                    λ.Object
 	ϒstrip_or_none                 λ.Object
 	ϒunescapeHTML                  λ.Object
 	ϒunified_strdate               λ.Object
@@ -145,6 +146,7 @@ func init() {
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		ϒsanitize_filename = Ωutils.ϒsanitize_filename
 		ϒstr_or_none = Ωutils.ϒstr_or_none
+		ϒstr_to_int = Ωutils.ϒstr_to_int
 		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒunified_strdate = Ωutils.ϒunified_strdate
@@ -609,6 +611,7 @@ func init() {
 						ϒdata            = λargs[6]
 						ϒerrmsg          λ.Object
 						ϒerrnote         = λargs[4]
+						ϒexceptions      λ.Object
 						ϒexpected_status = λargs[9]
 						ϒfatal           = λargs[5]
 						ϒheaders         = λargs[7]
@@ -659,14 +662,18 @@ func init() {
 							ϒurl_or_request = λ.Cal(ϒsanitized_Request, ϒurl_or_request, ϒdata, ϒheaders)
 						}
 					}
+					ϒexceptions = λ.NewList(
+						Ωerror.URLError,
+						λ.GetAttr(ϒcompat_http_client, "HTTPException", nil),
+						Ωsocket.ϒerror,
+					)
+					if λ.IsTrue(λ.Cal(λ.BuiltinHasAttr, λ.None, λ.StrLiteral("CertificateError"))) {
+						λ.Calm(ϒexceptions, "append", λ.GetAttr(λ.None, "CertificateError", nil))
+					}
 					τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
 						defer λ.CatchMulti(
 							nil,
-							&λ.Catcher{λ.NewTuple(
-								Ωerror.URLError,
-								λ.GetAttr(ϒcompat_http_client, "HTTPException", nil),
-								Ωsocket.ϒerror,
-							), func(λex λ.BaseException) {
+							&λ.Catcher{λ.Cal(λ.TupleType, ϒexceptions), func(λex λ.BaseException) {
 								var ϒerr λ.Object = λex
 								if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒerr, Ωerror.HTTPError)) {
 									if λ.IsTrue(λ.Calm(ϒself, "__can_accept_status_code", ϒerr, ϒexpected_status)) {
@@ -2264,7 +2271,7 @@ func init() {
 								if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒinteraction_type, ϒcompat_str)) {
 									continue
 								}
-								ϒinteraction_count = λ.Cal(ϒint_or_none, λ.Calm(ϒis_e, "get", λ.StrLiteral("userInteractionCount")))
+								ϒinteraction_count = λ.Cal(ϒstr_to_int, λ.Calm(ϒis_e, "get", λ.StrLiteral("userInteractionCount")))
 								if ϒinteraction_count == λ.None {
 									continue
 								}
@@ -2305,6 +2312,7 @@ func init() {
 								}()),
 								"duration":   λ.Cal(ϒparse_duration, λ.Calm(ϒe, "get", λ.StrLiteral("duration"))),
 								"timestamp":  λ.Cal(ϒunified_timestamp, λ.Calm(ϒe, "get", λ.StrLiteral("uploadDate"))),
+								"uploader":   λ.Cal(ϒstr_or_none, λ.Calm(ϒe, "get", λ.StrLiteral("author"))),
 								"filesize":   λ.Cal(ϒfloat_or_none, λ.Calm(ϒe, "get", λ.StrLiteral("contentSize"))),
 								"tbr":        λ.Cal(ϒint_or_none, λ.Calm(ϒe, "get", λ.StrLiteral("bitrate"))),
 								"width":      λ.Cal(ϒint_or_none, λ.Calm(ϒe, "get", λ.StrLiteral("width"))),

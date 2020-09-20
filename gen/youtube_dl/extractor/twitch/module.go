@@ -58,7 +58,6 @@ var (
 	ϒparse_duration                λ.Object
 	ϒparse_iso8601                 λ.Object
 	ϒqualities                     λ.Object
-	ϒstr_or_none                   λ.Object
 	ϒtry_get                       λ.Object
 	ϒunified_timestamp             λ.Object
 	ϒupdate_url_query              λ.Object
@@ -81,7 +80,6 @@ func init() {
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒqualities = Ωutils.ϒqualities
-		ϒstr_or_none = Ωutils.ϒstr_or_none
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
@@ -376,7 +374,7 @@ func init() {
 				"_VALID_URL": TwitchVideosCollectionsIE__VALID_URL,
 			})
 		}())
-		TwitchStreamIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchStreamIE"), λ.NewTuple(TwitchBaseIE), func() λ.Dict {
+		TwitchStreamIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchStreamIE"), λ.NewTuple(TwitchGraphQLBaseIE), func() λ.Dict {
 			var (
 				TwitchStreamIE__VALID_URL λ.Object
 				TwitchStreamIE_suitable   λ.Object

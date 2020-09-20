@@ -153,8 +153,8 @@ Supported sites
  * OutsideTV: `www.outsidetv.com`
  * PacktPub: `www.packtpub.com`
  * ParliamentLiveUK: `parliamentlive.tv`
+ * Patreon: `www.patreon.com`
  * PBS: `www.pbs.org`
- * PearVideo: `www.pearvideo.com`
  * PeerTube: `framatube.org`
  * People: `www.people.com`
  * Photobucket: `media.photobucket.com`
@@ -245,6 +245,7 @@ Supported sites
  * VLivePlaylist: `www.vlive.tv`
  * VoiceRepublic: `voicerepublic.com`
  * Vzaar: `vzaar.com`
+ * Weibo: `weibo.com`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`

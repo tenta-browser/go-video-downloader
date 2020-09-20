@@ -57,7 +57,7 @@ func init() {
 				RedTubeIE__VALID_URL    λ.Object
 				RedTubeIE__real_extract λ.Object
 			)
-			RedTubeIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www\\.)?redtube\\.com/|embed\\.redtube\\.com/\\?.*?\\bid=)(?P<id>[0-9]+)")
+			RedTubeIE__VALID_URL = λ.StrLiteral("https?://(?:(?:\\w+\\.)?redtube\\.com/|embed\\.redtube\\.com/\\?.*?\\bid=)(?P<id>[0-9]+)")
 			RedTubeIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
