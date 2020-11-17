@@ -187,6 +187,7 @@ Supported sites
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
  * Spankwire _(adult)_: `www.spankwire.com`
+ * Spiegel: `www.spiegel.de`
  * SRGSSRPlay: `www.rts.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
  * Streamable: `streamable.com`
@@ -240,6 +241,7 @@ Supported sites
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * Vzaar: `vzaar.com`
+ * Weibo: `weibo.com`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`
@@ -258,5 +260,4 @@ Supported sites
  * YourPorn _(adult)_: `sxyprn.com`
  * YourUpload: `yourupload.com`
  * Youtube _(adult)_: `www.youtube.com`
- * Zapiks: `www.zapiks.fr`
  * ZDF: `www.zdf.de`

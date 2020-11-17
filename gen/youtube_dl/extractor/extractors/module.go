@@ -201,6 +201,7 @@ import (
 	Ωsoundgasm "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/soundgasm"
 	Ωspankbang "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/spankbang"
 	Ωspankwire "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/spankwire"
+	Ωspiegel "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/spiegel"
 	Ωsrgssr "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/srgssr"
 	Ωstanfordoc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/stanfordoc"
 	Ωstreamable "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/streamable"
@@ -263,7 +264,6 @@ import (
 	Ωyourporn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yourporn"
 	Ωyourupload "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yourupload"
 	Ωyoutube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youtube"
-	Ωzapiks "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/zapiks"
 	Ωzdf "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/zdf"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
@@ -458,6 +458,7 @@ var (
 	SoundgasmIE                λ.Object
 	SpankBangIE                λ.Object
 	SpankwireIE                λ.Object
+	SpiegelIE                  λ.Object
 	StanfordOpenClassroomIE    λ.Object
 	StreamableIE               λ.Object
 	StretchInternetIE          λ.Object
@@ -511,6 +512,7 @@ var (
 	VzaarIE                    λ.Object
 	WSJArticleIE               λ.Object
 	WSJIE                      λ.Object
+	WeiboIE                    λ.Object
 	WeiboMobileIE              λ.Object
 	WorldStarHipHopIE          λ.Object
 	XHamsterEmbedIE            λ.Object
@@ -528,7 +530,6 @@ var (
 	YourUploadIE               λ.Object
 	YoutubeIE                  λ.Object
 	ZDFIE                      λ.Object
-	ZapiksIE                   λ.Object
 	ϒ__ALL__                   λ.Object
 )
 
@@ -720,6 +721,7 @@ func init() {
 		SoundgasmIE = Ωsoundgasm.SoundgasmIE
 		SpankBangIE = Ωspankbang.SpankBangIE
 		SpankwireIE = Ωspankwire.SpankwireIE
+		SpiegelIE = Ωspiegel.SpiegelIE
 		SRGSSRPlayIE = Ωsrgssr.SRGSSRPlayIE
 		StanfordOpenClassroomIE = Ωstanfordoc.StanfordOpenClassroomIE
 		StreamableIE = Ωstreamable.StreamableIE
@@ -774,6 +776,7 @@ func init() {
 		VKIE = Ωvk.VKIE
 		VLiveIE = Ωvlive.VLiveIE
 		VzaarIE = Ωvzaar.VzaarIE
+		WeiboIE = Ωweibo.WeiboIE
 		WeiboMobileIE = Ωweibo.WeiboMobileIE
 		WorldStarHipHopIE = Ωworldstarhiphop.WorldStarHipHopIE
 		WSJIE = Ωwsj.WSJIE
@@ -792,7 +795,6 @@ func init() {
 		YourPornIE = Ωyourporn.YourPornIE
 		YourUploadIE = Ωyourupload.YourUploadIE
 		YoutubeIE = Ωyoutube.YoutubeIE
-		ZapiksIE = Ωzapiks.ZapiksIE
 		ZDFIE = Ωzdf.ZDFIE
 		ϒ__ALL__ = λ.NewList(
 			AbcNewsVideoIE,
@@ -981,6 +983,7 @@ func init() {
 			SoundgasmIE,
 			SpankBangIE,
 			SpankwireIE,
+			SpiegelIE,
 			SRGSSRPlayIE,
 			StanfordOpenClassroomIE,
 			StreamableIE,
@@ -1035,6 +1038,7 @@ func init() {
 			VKIE,
 			VLiveIE,
 			VzaarIE,
+			WeiboIE,
 			WeiboMobileIE,
 			WorldStarHipHopIE,
 			WSJIE,
@@ -1053,7 +1057,6 @@ func init() {
 			YourPornIE,
 			YourUploadIE,
 			YoutubeIE,
-			ZapiksIE,
 			ZDFIE,
 		)
 	})
