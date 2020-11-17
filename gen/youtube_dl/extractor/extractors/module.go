@@ -39,6 +39,7 @@ import (
 	Ωazmedien "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/azmedien"
 	Ωbandcamp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bandcamp"
 	Ωbeatport "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/beatport"
+	Ωbigflix "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bigflix"
 	Ωbild "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bild"
 	Ωbilibili "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bilibili"
 	Ωbiqle "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/biqle"
@@ -262,6 +263,7 @@ import (
 	Ωyourporn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yourporn"
 	Ωyourupload "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yourupload"
 	Ωyoutube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youtube"
+	Ωzapiks "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/zapiks"
 	Ωzdf "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/zdf"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
@@ -284,6 +286,7 @@ var (
 	BandcampIE                 λ.Object
 	BandcampWeeklyIE           λ.Object
 	BeatportIE                 λ.Object
+	BigflixIE                  λ.Object
 	BildIE                     λ.Object
 	BilibiliAudioIE            λ.Object
 	BleacherReportCMSIE        λ.Object
@@ -525,6 +528,7 @@ var (
 	YourUploadIE               λ.Object
 	YoutubeIE                  λ.Object
 	ZDFIE                      λ.Object
+	ZapiksIE                   λ.Object
 	ϒ__ALL__                   λ.Object
 )
 
@@ -545,6 +549,7 @@ func init() {
 		BandcampIE = Ωbandcamp.BandcampIE
 		BandcampWeeklyIE = Ωbandcamp.BandcampWeeklyIE
 		BeatportIE = Ωbeatport.BeatportIE
+		BigflixIE = Ωbigflix.BigflixIE
 		BildIE = Ωbild.BildIE
 		BilibiliAudioIE = Ωbilibili.BilibiliAudioIE
 		BIQLEIE = Ωbiqle.BIQLEIE
@@ -787,6 +792,7 @@ func init() {
 		YourPornIE = Ωyourporn.YourPornIE
 		YourUploadIE = Ωyourupload.YourUploadIE
 		YoutubeIE = Ωyoutube.YoutubeIE
+		ZapiksIE = Ωzapiks.ZapiksIE
 		ZDFIE = Ωzdf.ZDFIE
 		ϒ__ALL__ = λ.NewList(
 			AbcNewsVideoIE,
@@ -804,6 +810,7 @@ func init() {
 			BandcampIE,
 			BandcampWeeklyIE,
 			BeatportIE,
+			BigflixIE,
 			BildIE,
 			BilibiliAudioIE,
 			BIQLEIE,
@@ -1046,6 +1053,7 @@ func init() {
 			YourPornIE,
 			YourUploadIE,
 			YoutubeIE,
+			ZapiksIE,
 			ZDFIE,
 		)
 	})

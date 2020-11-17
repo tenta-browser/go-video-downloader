@@ -16,6 +16,7 @@ Supported sites
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
  * Beatport: `beatport.com`
+ * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
  * BIQLE: `biqle.org`
@@ -119,6 +120,7 @@ Supported sites
  * Lenta: `lenta.ru`
  * LibraryOfCongress: `loc.gov`
  * Libsyn: `html5-player.libsyn.com`
+ * LimelightMedia: `link.videoplatform.limelight.com`
  * Livestream: `new.livestream.com`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * Lynda: `www.lynda.com`
@@ -256,4 +258,5 @@ Supported sites
  * YourPorn _(adult)_: `sxyprn.com`
  * YourUpload: `yourupload.com`
  * Youtube _(adult)_: `www.youtube.com`
+ * Zapiks: `www.zapiks.fr`
  * ZDF: `www.zdf.de`
