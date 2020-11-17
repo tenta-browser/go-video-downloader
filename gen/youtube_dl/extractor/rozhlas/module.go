@@ -34,14 +34,12 @@ var (
 	InfoExtractor λ.Object
 	RozhlasIE     λ.Object
 	ϒint_or_none  λ.Object
-	ϒremove_start λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ϒremove_start = Ωutils.ϒremove_start
 		RozhlasIE = λ.Cal(λ.TypeType, λ.StrLiteral("RozhlasIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				RozhlasIE__VALID_URL    λ.Object
@@ -76,7 +74,7 @@ func init() {
 						}); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(ϒremove_start, λ.Calm(ϒself, "_og_search_title", ϒwebpage), λ.StrLiteral("Radio Wave - "))
+							return λ.Cal(λ.None, λ.Calm(ϒself, "_og_search_title", ϒwebpage), λ.StrLiteral("Radio Wave - "))
 						}
 					}()
 					ϒdescription = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(

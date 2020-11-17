@@ -37,7 +37,6 @@ var (
 	InfoExtractor     λ.Object
 	ϒdetermine_ext    λ.Object
 	ϒint_or_none      λ.Object
-	ϒlowercase_escape λ.Object
 	ϒupdate_url_query λ.Object
 )
 
@@ -47,33 +46,13 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ϒlowercase_escape = Ωutils.ϒlowercase_escape
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		GoogleDriveIE = λ.Cal(λ.TypeType, λ.StrLiteral("GoogleDriveIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				GoogleDriveIE__FORMATS_EXT  λ.Object
 				GoogleDriveIE__VALID_URL    λ.Object
 				GoogleDriveIE__real_extract λ.Object
 			)
 			GoogleDriveIE__VALID_URL = λ.StrLiteral("(?x)\n                        https?://\n                            (?:\n                                (?:docs|drive)\\.google\\.com/\n                                (?:\n                                    (?:uc|open)\\?.*?id=|\n                                    file/d/\n                                )|\n                                video\\.google\\.com/get_player\\?.*?docid=\n                            )\n                            (?P<id>[a-zA-Z0-9_-]{28,})\n                    ")
-			GoogleDriveIE__FORMATS_EXT = λ.DictLiteral(map[string]string{
-				"5":  "flv",
-				"6":  "flv",
-				"13": "3gp",
-				"17": "3gp",
-				"18": "mp4",
-				"22": "mp4",
-				"34": "flv",
-				"35": "flv",
-				"36": "3gp",
-				"37": "mp4",
-				"38": "mp4",
-				"43": "webm",
-				"44": "webm",
-				"45": "webm",
-				"46": "webm",
-				"59": "mp4",
-			})
 			GoogleDriveIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -188,7 +167,7 @@ func init() {
 							ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒformat_url = λ.GetItem(τmp2, λ.IntLiteral(1))
 							ϒf = λ.DictLiteral(map[string]λ.Object{
-								"url":       λ.Cal(ϒlowercase_escape, ϒformat_url),
+								"url":       λ.Cal(λ.None, ϒformat_url),
 								"format_id": ϒformat_id,
 								"ext":       λ.GetItem(λ.GetAttr(ϒself, "_FORMATS_EXT", nil), ϒformat_id),
 							})
@@ -329,7 +308,6 @@ func init() {
 					})
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_FORMATS_EXT":  GoogleDriveIE__FORMATS_EXT,
 				"_VALID_URL":    GoogleDriveIE__VALID_URL,
 				"_real_extract": GoogleDriveIE__real_extract,
 			})

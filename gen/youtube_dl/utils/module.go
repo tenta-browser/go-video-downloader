@@ -88,7 +88,6 @@ var (
 	ϒdetermine_ext                    λ.Object
 	ϒdetermine_protocol               λ.Object
 	ϒdict_get                         λ.Object
-	ϒencode_base_n                    λ.Object
 	ϒerror_to_compat_str              λ.Object
 	ϒexpand_path                      λ.Object
 	ϒextract_attributes               λ.Object
@@ -104,7 +103,6 @@ var (
 	ϒjs_to_json                       λ.Object
 	ϒlimit_length                     λ.Object
 	ϒlookup_unit_table                λ.Object
-	ϒlowercase_escape                 λ.Object
 	ϒmerge_dicts                      λ.Object
 	ϒmimetype2ext                     λ.Object
 	ϒmonth_by_name                    λ.Object
@@ -124,7 +122,6 @@ var (
 	ϒrandom_user_agent                λ.Object
 	ϒremove_end                       λ.Object
 	ϒremove_quotes                    λ.Object
-	ϒremove_start                     λ.Object
 	ϒsanitize_filename                λ.Object
 	ϒsanitize_path                    λ.Object
 	ϒsanitize_url                     λ.Object
@@ -2607,7 +2604,7 @@ func init() {
 					ϒdrive_or_unc = λ.GetItem(τmp0, λ.IntLiteral(0))
 					_ = λ.GetItem(τmp0, λ.IntLiteral(1))
 				}
-				ϒnorm_path = λ.Calm(λ.Cal(λ.None, λ.Cal(ϒremove_start, ϒs, ϒdrive_or_unc)), "split", λ.None)
+				ϒnorm_path = λ.Calm(λ.Cal(λ.None, λ.Cal(λ.None, ϒs, ϒdrive_or_unc)), "split", λ.None)
 				if λ.IsTrue(ϒdrive_or_unc) {
 					λ.Calm(ϒnorm_path, "pop", λ.IntLiteral(0))
 				}
@@ -3367,31 +3364,6 @@ func init() {
 				)
 				return λ.Cal(Ωre.ϒsub, λ.StrLiteral("&(?!amp;|lt;|gt;|apos;|quot;|#x[0-9a-fA-F]{,4};|#[0-9]{,4};)"), λ.StrLiteral("&amp;"), ϒxml_str)
 			})
-		ϒremove_start = λ.NewFunction("remove_start",
-			[]λ.Param{
-				{Name: "s"},
-				{Name: "start"},
-			},
-			0, false, false,
-			func(λargs []λ.Object) λ.Object {
-				var (
-					ϒs     = λargs[0]
-					ϒstart = λargs[1]
-				)
-				return func() λ.Object {
-					if λ.IsTrue(func() λ.Object {
-						if λv := λ.NewBool(ϒs != λ.None); !λ.IsTrue(λv) {
-							return λv
-						} else {
-							return λ.Calm(ϒs, "startswith", ϒstart)
-						}
-					}()) {
-						return λ.GetItem(ϒs, λ.NewSlice(λ.Cal(λ.BuiltinLen, ϒstart), λ.None, λ.None))
-					} else {
-						return ϒs
-					}
-				}()
-			})
 		ϒremove_end = λ.NewFunction("remove_end",
 			[]λ.Param{
 				{Name: "s"},
@@ -3841,29 +3813,6 @@ func init() {
 						return λ.GetItem(λ.Cal(ϒunicode_escape, λ.Calm(ϒm, "group", λ.IntLiteral(0))), λ.IntLiteral(0))
 					}), ϒs)
 			})
-		ϒlowercase_escape = λ.NewFunction("lowercase_escape",
-			[]λ.Param{
-				{Name: "s"},
-			},
-			0, false, false,
-			func(λargs []λ.Object) λ.Object {
-				var (
-					ϒs              = λargs[0]
-					ϒunicode_escape λ.Object
-				)
-				ϒunicode_escape = λ.Cal(Ωcodecs.ϒgetdecoder, λ.StrLiteral("unicode_escape"))
-				return λ.Cal(Ωre.ϒsub, λ.StrLiteral("\\\\u[0-9a-fA-F]{4}"), λ.NewFunction("<lambda>",
-					[]λ.Param{
-						{Name: "m"},
-					},
-					0, false, false,
-					func(λargs []λ.Object) λ.Object {
-						var (
-							ϒm = λargs[0]
-						)
-						return λ.GetItem(λ.Cal(ϒunicode_escape, λ.Calm(ϒm, "group", λ.IntLiteral(0))), λ.IntLiteral(0))
-					}), ϒs)
-			})
 		ϒurlencode_postdata = λ.NewFunction("urlencode_postdata",
 			nil,
 			0, true, true,
@@ -4276,6 +4225,8 @@ func init() {
 									return λv
 								} else if λv := λ.Calm(ϒv, "startswith", λ.StrLiteral("//")); λ.IsTrue(λv) {
 									return λv
+								} else if λv := λ.Calm(ϒv, "startswith", λ.StrLiteral("!")); λ.IsTrue(λv) {
+									return λv
 								} else {
 									return λ.Eq(ϒv, λ.StrLiteral(","))
 								}
@@ -4303,30 +4254,31 @@ func init() {
 										"\\x":  "\\u00",
 									}), "get", λ.Calm(ϒm, "group", λ.IntLiteral(0)), λ.Calm(ϒm, "group", λ.IntLiteral(0)))
 								}), λ.GetItem(ϒv, λ.NewSlice(λ.IntLiteral(1), λ.Neg(λ.IntLiteral(1)), λ.None)))
-						}
-						τmp0 = λ.Cal(λ.BuiltinIter, INTEGER_TABLE)
-						for {
-							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-								break
-							}
-							τmp2 = τmp1
-							ϒregex = λ.GetItem(τmp2, λ.IntLiteral(0))
-							ϒbase = λ.GetItem(τmp2, λ.IntLiteral(1))
-							ϒim = λ.Cal(Ωre.ϒmatch, ϒregex, ϒv)
-							if λ.IsTrue(ϒim) {
-								ϒi = λ.Cal(λ.IntType, λ.Calm(ϒim, "group", λ.IntLiteral(1)), ϒbase)
-								return func() λ.Object {
-									if λ.IsTrue(λ.Calm(ϒv, "endswith", λ.StrLiteral(":"))) {
-										return λ.Mod(λ.StrLiteral("\"%d\":"), ϒi)
-									} else {
-										return λ.Mod(λ.StrLiteral("%d"), ϒi)
-									}
-								}()
+						} else {
+							τmp0 = λ.Cal(λ.BuiltinIter, INTEGER_TABLE)
+							for {
+								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+									break
+								}
+								τmp2 = τmp1
+								ϒregex = λ.GetItem(τmp2, λ.IntLiteral(0))
+								ϒbase = λ.GetItem(τmp2, λ.IntLiteral(1))
+								ϒim = λ.Cal(Ωre.ϒmatch, ϒregex, ϒv)
+								if λ.IsTrue(ϒim) {
+									ϒi = λ.Cal(λ.IntType, λ.Calm(ϒim, "group", λ.IntLiteral(1)), ϒbase)
+									return func() λ.Object {
+										if λ.IsTrue(λ.Calm(ϒv, "endswith", λ.StrLiteral(":"))) {
+											return λ.Mod(λ.StrLiteral("\"%d\":"), ϒi)
+										} else {
+											return λ.Mod(λ.StrLiteral("%d"), ϒi)
+										}
+									}()
+								}
 							}
 						}
 						return λ.Mod(λ.StrLiteral("\"%s\""), ϒv)
 					})
-				return λ.Cal(Ωre.ϒsub, λ.Call(λ.GetAttr(λ.StrLiteral("(?sx)\n        \"(?:[^\"\\\\]*(?:\\\\\\\\|\\\\['\"nurtbfx/\\n]))*[^\"\\\\]*\"|\n        '(?:[^'\\\\]*(?:\\\\\\\\|\\\\['\"nurtbfx/\\n]))*[^'\\\\]*'|\n        {comment}|,(?={skip}[\\]}}])|\n        (?:(?<![0-9])[eE]|[a-df-zA-DF-Z_])[.a-zA-Z_0-9]*|\n        \\b(?:0[xX][0-9a-fA-F]+|0+[0-7]+)(?:{skip}:)?|\n        [0-9]+(?={skip}:)\n        "), "format", nil), nil, λ.KWArgs{
+				return λ.Cal(Ωre.ϒsub, λ.Call(λ.GetAttr(λ.StrLiteral("(?sx)\n        \"(?:[^\"\\\\]*(?:\\\\\\\\|\\\\['\"nurtbfx/\\n]))*[^\"\\\\]*\"|\n        '(?:[^'\\\\]*(?:\\\\\\\\|\\\\['\"nurtbfx/\\n]))*[^'\\\\]*'|\n        {comment}|,(?={skip}[\\]}}])|\n        (?:(?<![0-9])[eE]|[a-df-zA-DF-Z_])[.a-zA-Z_0-9]*|\n        \\b(?:0[xX][0-9a-fA-F]+|0+[0-7]+)(?:{skip}:)?|\n        [0-9]+(?={skip}:)|\n        !+\n        "), "format", nil), nil, λ.KWArgs{
 					{Name: "comment", Value: COMMENT_RE},
 					{Name: "skip", Value: SKIP_RE},
 				}), ϒfix_kv, ϒcode)
@@ -5145,41 +5097,6 @@ func init() {
 				"random_ipv4":     GeoUtils_random_ipv4,
 			})
 		}())
-		ϒencode_base_n = λ.NewFunction("encode_base_n",
-			[]λ.Param{
-				{Name: "num"},
-				{Name: "n"},
-				{Name: "table", Def: λ.None},
-			},
-			0, false, false,
-			func(λargs []λ.Object) λ.Object {
-				var (
-					FULL_TABLE λ.Object
-					ϒn         = λargs[1]
-					ϒnum       = λargs[0]
-					ϒret       λ.Object
-					ϒtable     = λargs[2]
-				)
-				FULL_TABLE = λ.StrLiteral("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
-				if !λ.IsTrue(ϒtable) {
-					ϒtable = λ.GetItem(FULL_TABLE, λ.NewSlice(λ.None, ϒn, λ.None))
-				}
-				if λ.IsTrue(λ.Gt(ϒn, λ.Cal(λ.BuiltinLen, ϒtable))) {
-					panic(λ.Raise(λ.Cal(λ.ValueErrorType, λ.Mod(λ.StrLiteral("base %d exceeds table length %d"), λ.NewTuple(
-						ϒn,
-						λ.Cal(λ.BuiltinLen, ϒtable),
-					)))))
-				}
-				if λ.IsTrue(λ.Eq(ϒnum, λ.IntLiteral(0))) {
-					return λ.GetItem(ϒtable, λ.IntLiteral(0))
-				}
-				ϒret = λ.StrLiteral("")
-				for λ.IsTrue(ϒnum) {
-					ϒret = λ.Add(λ.GetItem(ϒtable, λ.Mod(ϒnum, ϒn)), ϒret)
-					ϒnum = λ.FloorDiv(ϒnum, ϒn)
-				}
-				return ϒret
-			})
 		ϒparse_m3u8_attributes = λ.NewFunction("parse_m3u8_attributes",
 			[]λ.Param{
 				{Name: "attrib"},

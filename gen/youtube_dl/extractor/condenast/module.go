@@ -43,6 +43,8 @@ var (
 	ϒmimetype2ext                 λ.Object
 	ϒorderedSet                   λ.Object
 	ϒparse_iso8601                λ.Object
+	ϒstrip_or_none                λ.Object
+	ϒtry_get                      λ.Object
 )
 
 func init() {
@@ -56,13 +58,14 @@ func init() {
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
 		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
+		ϒstrip_or_none = Ωutils.ϒstrip_or_none
+		ϒtry_get = Ωutils.ϒtry_get
 		CondeNastIE = λ.Cal(λ.TypeType, λ.StrLiteral("CondeNastIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				CondeNastIE__SITES                λ.Object
-				CondeNastIE__VALID_URL            λ.Object
-				CondeNastIE__extract_video        λ.Object
-				CondeNastIE__extract_video_params λ.Object
-				CondeNastIE__real_extract         λ.Object
+				CondeNastIE__SITES         λ.Object
+				CondeNastIE__VALID_URL     λ.Object
+				CondeNastIE__extract_video λ.Object
+				CondeNastIE__real_extract  λ.Object
 			)
 			CondeNastIE__SITES = λ.DictLiteral(map[string]string{
 				"allure":              "Allure",
@@ -86,52 +89,6 @@ func init() {
 				"wmagazine":           "W Magazine",
 			})
 			CondeNastIE__VALID_URL = λ.Mod(λ.StrLiteral("(?x)https?://(?:video|www|player(?:-backend)?)\\.(?:%s)\\.com/\n        (?:\n            (?:\n                embed(?:js)?|\n                (?:script|inline)/video\n            )/(?P<id>[0-9a-f]{24})(?:/(?P<player_id>[0-9a-f]{24}))?(?:.+?\\btarget=(?P<target>[^&]+))?|\n            (?P<type>watch|series|video)/(?P<display_id>[^/?#]+)\n        )"), λ.Calm(λ.StrLiteral("|"), "join", λ.Calm(CondeNastIE__SITES, "keys")))
-			CondeNastIE__extract_video_params = λ.NewFunction("_extract_video_params",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "webpage"},
-					{Name: "display_id"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒdisplay_id = λargs[2]
-						ϒparams     λ.Object
-						ϒquery      λ.Object
-						ϒself       = λargs[0]
-						ϒwebpage    = λargs[1]
-					)
-					ϒquery = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
-						λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.StrLiteral("(?s)var\\s+params\\s*=\\s*({.+?})[;,]"),
-							ϒwebpage,
-							λ.StrLiteral("player params"),
-						), λ.KWArgs{
-							{Name: "default", Value: λ.StrLiteral("{}")},
-						}),
-						ϒdisplay_id,
-					), λ.KWArgs{
-						{Name: "transform_source", Value: ϒjs_to_json},
-						{Name: "fatal", Value: λ.False},
-					})
-					if λ.IsTrue(ϒquery) {
-						λ.SetItem(ϒquery, λ.StrLiteral("videoId"), λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.StrLiteral("(?:data-video-id=|currentVideoId\\s*=\\s*)[\"\\']([\\da-f]+)"),
-							ϒwebpage,
-							λ.StrLiteral("video id"),
-						), λ.KWArgs{
-							{Name: "default", Value: λ.None},
-						}))
-					} else {
-						ϒparams = λ.Cal(ϒextract_attributes, λ.Calm(ϒself, "_search_regex", λ.StrLiteral("(<[^>]+data-js=\"video-player\"[^>]+>)"), ϒwebpage, λ.StrLiteral("player params element")))
-						λ.Calm(ϒquery, "update", λ.DictLiteral(map[string]λ.Object{
-							"videoId":  λ.GetItem(ϒparams, λ.StrLiteral("data-video")),
-							"playerId": λ.GetItem(ϒparams, λ.StrLiteral("data-player")),
-							"target":   λ.GetItem(ϒparams, λ.StrLiteral("id")),
-						}))
-					}
-					return ϒquery
-				})
 			CondeNastIE__extract_video = λ.NewFunction("_extract_video",
 				[]λ.Param{
 					{Name: "self"},
@@ -140,20 +97,25 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒext        λ.Object
-						ϒfdata      λ.Object
-						ϒformats    λ.Object
-						ϒinfo_page  λ.Object
-						ϒparams     = λargs[1]
-						ϒquality    λ.Object
-						ϒquery      λ.Object
-						ϒself       = λargs[0]
-						ϒsrc        λ.Object
-						ϒtitle      λ.Object
-						ϒvideo_id   λ.Object
-						ϒvideo_info λ.Object
-						τmp0        λ.Object
-						τmp1        λ.Object
+						ϒcaption     λ.Object
+						ϒcaption_url λ.Object
+						ϒext         λ.Object
+						ϒfdata       λ.Object
+						ϒformats     λ.Object
+						ϒinfo_page   λ.Object
+						ϒparams      = λargs[1]
+						ϒquality     λ.Object
+						ϒquery       λ.Object
+						ϒself        = λargs[0]
+						ϒsrc         λ.Object
+						ϒsubtitles   λ.Object
+						ϒt           λ.Object
+						ϒtitle       λ.Object
+						ϒvideo_id    λ.Object
+						ϒvideo_info  λ.Object
+						τmp0         λ.Object
+						τmp1         λ.Object
+						τmp2         λ.Object
 					)
 					ϒvideo_id = λ.GetItem(ϒparams, λ.StrLiteral("videoId"))
 					ϒvideo_info = λ.None
@@ -262,6 +224,33 @@ func init() {
 						}))
 					}
 					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒsubtitles = λ.DictLiteral(map[λ.Object]λ.Object{})
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.Calm(ϒvideo_info, "get", λ.StrLiteral("captions"), λ.DictLiteral(map[λ.Object]λ.Object{})), "items"))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						τmp2 = τmp1
+						ϒt = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒcaption = λ.GetItem(τmp2, λ.IntLiteral(1))
+						ϒcaption_url = λ.Calm(ϒcaption, "get", λ.StrLiteral("src"))
+						if !λ.IsTrue(func() λ.Object {
+							if λv := λ.NewBool(λ.Contains(λ.NewTuple(
+								λ.StrLiteral("vtt"),
+								λ.StrLiteral("srt"),
+								λ.StrLiteral("tml"),
+							), ϒt)); !λ.IsTrue(λv) {
+								return λv
+							} else {
+								return ϒcaption_url
+							}
+						}()) {
+							continue
+						}
+						λ.Calm(λ.Calm(ϒsubtitles, "setdefault", λ.StrLiteral("en"), λ.NewList()), "append", λ.DictLiteral(map[string]λ.Object{
+							"url": ϒcaption_url,
+						}))
+					}
 					return λ.DictLiteral(map[string]λ.Object{
 						"id":         ϒvideo_id,
 						"formats":    ϒformats,
@@ -274,6 +263,7 @@ func init() {
 						"season":     λ.Calm(ϒvideo_info, "get", λ.StrLiteral("season_title")),
 						"timestamp":  λ.Cal(ϒparse_iso8601, λ.Calm(ϒvideo_info, "get", λ.StrLiteral("premiere_date"))),
 						"categories": λ.Calm(ϒvideo_info, "get", λ.StrLiteral("categories")),
+						"subtitles":  ϒsubtitles,
 					})
 				})
 			CondeNastIE__real_extract = λ.NewFunction("_real_extract",
@@ -292,6 +282,7 @@ func init() {
 						ϒtarget     λ.Object
 						ϒurl        = λargs[1]
 						ϒurl_type   λ.Object
+						ϒvideo      λ.Object
 						ϒvideo_id   λ.Object
 						ϒwebpage    λ.Object
 						τmp0        λ.Object
@@ -313,24 +304,43 @@ func init() {
 					if λ.IsTrue(λ.Eq(ϒurl_type, λ.StrLiteral("series"))) {
 						return λ.Calm(ϒself, "_extract_series", ϒurl, ϒwebpage)
 					} else {
-						ϒparams = λ.Calm(ϒself, "_extract_video_params", ϒwebpage, ϒdisplay_id)
-						ϒinfo = λ.Call(λ.GetAttr(ϒself, "_search_json_ld", nil), λ.NewArgs(
-							ϒwebpage,
-							ϒdisplay_id,
-						), λ.KWArgs{
-							{Name: "fatal", Value: λ.False},
-						})
+						ϒvideo = λ.Cal(ϒtry_get, λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("__PRELOADED_STATE__\\s*=\\s*({.+?});"), ϒwebpage, λ.StrLiteral("preload state"), λ.StrLiteral("{}")), ϒdisplay_id), λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("transformed")), λ.StrLiteral("video"))
+							}))
+						if λ.IsTrue(ϒvideo) {
+							ϒparams = λ.DictLiteral(map[string]λ.Object{
+								"videoId": λ.GetItem(ϒvideo, λ.StrLiteral("id")),
+							})
+							ϒinfo = λ.DictLiteral(map[string]λ.Object{
+								"description": λ.Cal(ϒstrip_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("description"))),
+							})
+						} else {
+							ϒparams = λ.Calm(ϒself, "_extract_video_params", ϒwebpage, ϒdisplay_id)
+							ϒinfo = λ.Call(λ.GetAttr(ϒself, "_search_json_ld", nil), λ.NewArgs(
+								ϒwebpage,
+								ϒdisplay_id,
+							), λ.KWArgs{
+								{Name: "fatal", Value: λ.False},
+							})
+						}
 						λ.Calm(ϒinfo, "update", λ.Calm(ϒself, "_extract_video", ϒparams))
 						return ϒinfo
 					}
 					return λ.None
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_SITES":                CondeNastIE__SITES,
-				"_VALID_URL":            CondeNastIE__VALID_URL,
-				"_extract_video":        CondeNastIE__extract_video,
-				"_extract_video_params": CondeNastIE__extract_video_params,
-				"_real_extract":         CondeNastIE__real_extract,
+				"_SITES":         CondeNastIE__SITES,
+				"_VALID_URL":     CondeNastIE__VALID_URL,
+				"_extract_video": CondeNastIE__extract_video,
+				"_real_extract":  CondeNastIE__real_extract,
 			})
 		}())
 	})

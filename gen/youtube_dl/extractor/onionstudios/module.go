@@ -45,11 +45,32 @@ func init() {
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		OnionStudiosIE = λ.Cal(λ.TypeType, λ.StrLiteral("OnionStudiosIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				OnionStudiosIE__VALID_URL λ.Object
+				OnionStudiosIE__VALID_URL    λ.Object
+				OnionStudiosIE__real_extract λ.Object
 			)
 			OnionStudiosIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?onionstudios\\.com/(?:video(?:s/[^/]+-|/)|embed\\?.*\\bid=)(?P<id>\\d+)(?!-)")
+			OnionStudiosIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒmcp_id   λ.Object
+						ϒself     = λargs[0]
+						ϒurl      = λargs[1]
+						ϒvideo_id λ.Object
+						ϒwebpage  λ.Object
+					)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", λ.StrLiteral("http://onionstudios.com/embed/dc94dc2899fe644c0e7241fa04c1b732.js"), ϒvideo_id)
+					ϒmcp_id = λ.Cal(ϒcompat_str, λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("window\\.mcpMapping\\s*=\\s*({.+?});"), ϒwebpage, λ.StrLiteral("MCP Mapping")), ϒvideo_id, ϒjs_to_json), ϒvideo_id), λ.StrLiteral("mcp_id")))
+					return λ.Calm(ϒself, "url_result", λ.Add(λ.StrLiteral("http://kinja.com/ajax/inset/iframe?id=mcp-"), ϒmcp_id), λ.StrLiteral("KinjaEmbed"), ϒmcp_id)
+				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": OnionStudiosIE__VALID_URL,
+				"_VALID_URL":    OnionStudiosIE__VALID_URL,
+				"_real_extract": OnionStudiosIE__real_extract,
 			})
 		}())
 	})

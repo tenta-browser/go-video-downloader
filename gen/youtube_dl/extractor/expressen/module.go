@@ -50,7 +50,7 @@ func init() {
 			var (
 				ExpressenIE__VALID_URL λ.Object
 			)
-			ExpressenIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:www\\.)?expressen\\.se/\n                        (?:(?:tvspelare/video|videoplayer/embed)/)?\n                        tv/(?:[^/]+/)*\n                        (?P<id>[^/?#&]+)\n                    ")
+			ExpressenIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:www\\.)?(?:expressen|di)\\.se/\n                        (?:(?:tvspelare/video|videoplayer/embed)/)?\n                        tv/(?:[^/]+/)*\n                        (?P<id>[^/?#&]+)\n                    ")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": ExpressenIE__VALID_URL,
 			})

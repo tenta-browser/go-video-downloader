@@ -47,7 +47,6 @@ var (
 	ThePlatformIE                λ.Object
 	ϒcompat_urllib_parse_unquote λ.Object
 	ϒint_or_none                 λ.Object
-	ϒjs_to_json                  λ.Object
 	ϒparse_duration              λ.Object
 	ϒsmuggle_url                 λ.Object
 	ϒtry_get                     λ.Object
@@ -62,7 +61,6 @@ func init() {
 		AdobePassIE = Ωadobepass.AdobePassIE
 		ϒcompat_urllib_parse_unquote = Ωcompat.ϒcompat_urllib_parse_unquote
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		ϒtry_get = Ωutils.ϒtry_get
@@ -136,11 +134,150 @@ func init() {
 		}())
 		NBCNewsIE = λ.Cal(λ.TypeType, λ.StrLiteral("NBCNewsIE"), λ.NewTuple(ThePlatformIE), func() λ.Dict {
 			var (
-				NBCNewsIE__VALID_URL λ.Object
+				NBCNewsIE__VALID_URL    λ.Object
+				NBCNewsIE__real_extract λ.Object
 			)
 			NBCNewsIE__VALID_URL = λ.StrLiteral("(?x)https?://(?:www\\.)?(?:nbcnews|today|msnbc)\\.com/([^/]+/)*(?:.*-)?(?P<id>[^/?]+)")
+			NBCNewsIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcc_url            λ.Object
+						ϒclosed_captioning λ.Object
+						ϒdata              λ.Object
+						ϒformat_id         λ.Object
+						ϒformats           λ.Object
+						ϒpublic_url        λ.Object
+						ϒself              = λargs[0]
+						ϒsubtitles         λ.Object
+						ϒtbr               λ.Object
+						ϒtitle             λ.Object
+						ϒurl               = λargs[1]
+						ϒva                λ.Object
+						ϒvideo_data        λ.Object
+						ϒvideo_id          λ.Object
+						ϒwebpage           λ.Object
+						τmp0               λ.Object
+						τmp1               λ.Object
+						τmp2               λ.Object
+					)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					ϒdata = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<script[^>]+id=\"__NEXT_DATA__\"[^>]*>({.+?})</script>"), ϒwebpage, λ.StrLiteral("bootstrap json")), ϒvideo_id), λ.StrLiteral("props")), λ.StrLiteral("initialState"))
+					ϒvideo_data = λ.Cal(ϒtry_get, ϒdata, λ.NewFunction("<lambda>",
+						[]λ.Param{
+							{Name: "x"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒx = λargs[0]
+							)
+							return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("video")), λ.StrLiteral("current"))
+						}), λ.DictType)
+					if !λ.IsTrue(ϒvideo_data) {
+						ϒvideo_data = λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒdata, λ.StrLiteral("article")), λ.StrLiteral("content")), λ.IntLiteral(0)), λ.StrLiteral("primaryMedia")), λ.StrLiteral("video"))
+					}
+					ϒtitle = λ.GetItem(λ.GetItem(ϒvideo_data, λ.StrLiteral("headline")), λ.StrLiteral("primary"))
+					ϒformats = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("videoAssets"), λ.NewList()))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒva = τmp1
+						ϒpublic_url = λ.Calm(ϒva, "get", λ.StrLiteral("publicUrl"))
+						if !λ.IsTrue(ϒpublic_url) {
+							continue
+						}
+						if λ.Contains(ϒpublic_url, λ.StrLiteral("://link.theplatform.com/")) {
+							ϒpublic_url = λ.Cal(ϒupdate_url_query, ϒpublic_url, λ.DictLiteral(map[string]string{
+								"format": "redirect",
+							}))
+						}
+						ϒformat_id = λ.Calm(ϒva, "get", λ.StrLiteral("format"))
+						if λ.IsTrue(λ.Eq(ϒformat_id, λ.StrLiteral("M3U"))) {
+							λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+								ϒpublic_url,
+								ϒvideo_id,
+								λ.StrLiteral("mp4"),
+								λ.StrLiteral("m3u8_native"),
+							), λ.KWArgs{
+								{Name: "m3u8_id", Value: ϒformat_id},
+								{Name: "fatal", Value: λ.False},
+							}))
+							continue
+						}
+						ϒtbr = λ.Cal(ϒint_or_none, λ.Calm(ϒva, "get", λ.StrLiteral("bitrate")), λ.IntLiteral(1000))
+						if λ.IsTrue(ϒtbr) {
+							τmp2 = λ.IAdd(ϒformat_id, λ.Mod(λ.StrLiteral("-%d"), ϒtbr))
+							ϒformat_id = τmp2
+						}
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"format_id": ϒformat_id,
+							"url":       ϒpublic_url,
+							"width":     λ.Cal(ϒint_or_none, λ.Calm(ϒva, "get", λ.StrLiteral("width"))),
+							"height":    λ.Cal(ϒint_or_none, λ.Calm(ϒva, "get", λ.StrLiteral("height"))),
+							"tbr":       ϒtbr,
+							"ext":       λ.StrLiteral("mp4"),
+						}))
+					}
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒsubtitles = λ.DictLiteral(map[λ.Object]λ.Object{})
+					ϒclosed_captioning = λ.Calm(ϒvideo_data, "get", λ.StrLiteral("closedCaptioning"))
+					if λ.IsTrue(ϒclosed_captioning) {
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒclosed_captioning, "values"))
+						for {
+							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+								break
+							}
+							ϒcc_url = τmp1
+							if !λ.IsTrue(ϒcc_url) {
+								continue
+							}
+							λ.Calm(λ.Calm(ϒsubtitles, "setdefault", λ.StrLiteral("en"), λ.NewList()), "append", λ.DictLiteral(map[string]λ.Object{
+								"url": ϒcc_url,
+							}))
+						}
+					}
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":    ϒvideo_id,
+						"title": ϒtitle,
+						"description": λ.Cal(ϒtry_get, ϒvideo_data, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("description")), λ.StrLiteral("primary"))
+							})),
+						"thumbnail": λ.Cal(ϒtry_get, ϒvideo_data, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("primaryImage")), λ.StrLiteral("url")), λ.StrLiteral("primary"))
+							})),
+						"duration":  λ.Cal(ϒparse_duration, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("duration"))),
+						"timestamp": λ.Cal(ϒunified_timestamp, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("datePublished"))),
+						"formats":   ϒformats,
+						"subtitles": ϒsubtitles,
+					})
+				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": NBCNewsIE__VALID_URL,
+				"_VALID_URL":    NBCNewsIE__VALID_URL,
+				"_real_extract": NBCNewsIE__real_extract,
 			})
 		}())
 		NBCOlympicsIE = λ.Cal(λ.TypeType, λ.StrLiteral("NBCOlympicsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

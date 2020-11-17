@@ -48,7 +48,7 @@ func init() {
 				TwentyThreeVideoIE__real_extract λ.Object
 			)
 			TwentyThreeVideoIE_IE_NAME = λ.StrLiteral("23video")
-			TwentyThreeVideoIE__VALID_URL = λ.StrLiteral("https?://video\\.(?P<domain>twentythree\\.net|23video\\.com|filmweb\\.no)/v\\.ihtml/player\\.html\\?(?P<query>.*?\\bphoto(?:_|%5f)id=(?P<id>\\d+).*)")
+			TwentyThreeVideoIE__VALID_URL = λ.StrLiteral("https?://(?P<domain>[^.]+\\.(?:twentythree\\.net|23video\\.com|filmweb\\.no))/v\\.ihtml/player\\.html\\?(?P<query>.*?\\bphoto(?:_|%5f)id=(?P<id>\\d+).*)")
 			TwentyThreeVideoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -78,7 +78,7 @@ func init() {
 					ϒdomain = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒquery = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒphoto_id = λ.GetItem(τmp0, λ.IntLiteral(2))
-					ϒbase_url = λ.Mod(λ.StrLiteral("https://video.%s"), ϒdomain)
+					ϒbase_url = λ.Mod(λ.StrLiteral("https://%s"), ϒdomain)
 					ϒphoto_data = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
 						λ.Add(λ.Add(ϒbase_url, λ.StrLiteral("/api/photo/list?")), ϒquery),
 						ϒphoto_id,

@@ -56,7 +56,7 @@ func init() {
 			var (
 				UstreamIE__VALID_URL λ.Object
 			)
-			UstreamIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?ustream\\.tv/(?P<type>recorded|embed|embed/recorded)/(?P<id>\\d+)")
+			UstreamIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?:ustream\\.tv|video\\.ibm\\.com)/(?P<type>recorded|embed|embed/recorded)/(?P<id>\\d+)")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": UstreamIE__VALID_URL,
 			})

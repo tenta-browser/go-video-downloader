@@ -242,7 +242,6 @@ func init() {
 				InfoExtractor_initialize                   λ.Object
 				InfoExtractor_mark_watched                 λ.Object
 				InfoExtractor_playlist_result              λ.Object
-				InfoExtractor_raise_login_required         λ.Object
 				InfoExtractor_report_download_webpage      λ.Object
 				InfoExtractor_report_extraction            λ.Object
 				InfoExtractor_report_warning               λ.Object
@@ -1484,21 +1483,6 @@ func init() {
 					λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("%s: Downloading webpage"), ϒvideo_id))
 					return λ.None
 				})
-			InfoExtractor_raise_login_required = λ.NewFunction("raise_login_required",
-				[]λ.Param{
-					{Name: "msg", Def: λ.StrLiteral("This video is only available for registered users")},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒmsg = λargs[0]
-					)
-					panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("%s. Use --username and --password or --netrc to provide account credentials."), ϒmsg)), λ.KWArgs{
-						{Name: "expected", Value: λ.True},
-					})))
-					return λ.None
-				})
-			InfoExtractor_raise_login_required = λ.Cal(λ.StaticMethodType, InfoExtractor_raise_login_required)
 			InfoExtractor_url_result = λ.NewFunction("url_result",
 				[]λ.Param{
 					{Name: "url"},
@@ -6411,7 +6395,6 @@ func init() {
 				"initialize":                   InfoExtractor_initialize,
 				"mark_watched":                 InfoExtractor_mark_watched,
 				"playlist_result":              InfoExtractor_playlist_result,
-				"raise_login_required":         InfoExtractor_raise_login_required,
 				"report_download_webpage":      InfoExtractor_report_download_webpage,
 				"report_extraction":            InfoExtractor_report_extraction,
 				"report_warning":               InfoExtractor_report_warning,

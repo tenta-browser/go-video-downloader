@@ -205,17 +205,11 @@ func init() {
 		}())
 		NHLIE = λ.Cal(λ.TypeType, λ.StrLiteral("NHLIE"), λ.NewTuple(NHLBaseIE), func() λ.Dict {
 			var (
-				NHLIE_IE_NAME         λ.Object
-				NHLIE__CONTENT_DOMAIN λ.Object
-				NHLIE__VALID_URL      λ.Object
+				NHLIE__VALID_URL λ.Object
 			)
-			NHLIE_IE_NAME = λ.StrLiteral("nhl.com")
 			NHLIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?P<site>nhl|wch2016)\\.com/(?:[^/]+/)*c-(?P<id>\\d+)")
-			NHLIE__CONTENT_DOMAIN = λ.StrLiteral("nhl.bamcontent.com")
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"IE_NAME":         NHLIE_IE_NAME,
-				"_CONTENT_DOMAIN": NHLIE__CONTENT_DOMAIN,
-				"_VALID_URL":      NHLIE__VALID_URL,
+				"_VALID_URL": NHLIE__VALID_URL,
 			})
 		}())
 	})

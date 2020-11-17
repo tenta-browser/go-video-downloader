@@ -45,7 +45,6 @@ var (
 	ϒint_or_none          λ.Object
 	ϒjs_to_json           λ.Object
 	ϒparse_iso8601        λ.Object
-	ϒremove_start         λ.Object
 	ϒstrip_or_none        λ.Object
 	ϒurl_basename         λ.Object
 )
@@ -61,7 +60,6 @@ func init() {
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		NO_DEFAULT = Ωutils.NO_DEFAULT
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
-		ϒremove_start = Ωutils.ϒremove_start
 		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒurl_basename = Ωutils.ϒurl_basename
 		OnetBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("OnetBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

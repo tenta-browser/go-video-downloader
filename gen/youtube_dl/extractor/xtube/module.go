@@ -120,7 +120,7 @@ func init() {
 					ϒduration = λ.GetItem(τmp0, λ.IntLiteral(2))
 					ϒconfig = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 						λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.StrLiteral("playerConf\\s*=\\s*({.+?})\\s*,\\s*\\n"),
+							λ.StrLiteral("playerConf\\s*=\\s*({.+?})\\s*,\\s*(?:\\n|loaderConf)"),
 							ϒwebpage,
 							λ.StrLiteral("config"),
 						), λ.KWArgs{

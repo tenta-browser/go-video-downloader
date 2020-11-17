@@ -230,11 +230,15 @@ func init() {
 						ϒquality_key   λ.Object
 						ϒself          = λargs[0]
 						ϒsrc           λ.Object
+						ϒsubtitles     λ.Object
 						ϒthumbnail     λ.Object
 						ϒthumbnail_id  λ.Object
 						ϒthumbnail_url λ.Object
 						ϒthumbnails    λ.Object
 						ϒtitle         λ.Object
+						ϒtrack         λ.Object
+						ϒtrack_url     λ.Object
+						ϒtracks        λ.Object
 						ϒtype_         λ.Object
 						ϒupload_date   λ.Object
 						ϒuploader      λ.Object
@@ -383,6 +387,40 @@ func init() {
 							"preference": λ.Cal(ϒquality_key, λ.Calm(ϒthumbnail, "get", λ.StrLiteral("quality"))),
 						}))
 					}
+					ϒsubtitles = λ.DictLiteral(map[λ.Object]λ.Object{})
+					ϒtracks = λ.Calm(ϒconfig, "get", λ.StrLiteral("tracks"))
+					if λ.IsTrue(func() λ.Object {
+						if λv := ϒtracks; !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Cal(λ.BuiltinIsInstance, ϒtracks, λ.ListType)
+						}
+					}()) {
+						τmp0 = λ.Cal(λ.BuiltinIter, ϒtracks)
+						for {
+							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+								break
+							}
+							ϒtrack = τmp1
+							if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒtrack, λ.DictType)) {
+								continue
+							}
+							ϒtrack_url = λ.Cal(ϒurljoin, ϒurl, λ.Calm(ϒtrack, "get", λ.StrLiteral("src")))
+							if !λ.IsTrue(ϒtrack_url) {
+								continue
+							}
+							λ.Calm(λ.Calm(ϒsubtitles, "setdefault", func() λ.Object {
+								if λv := λ.Calm(ϒtrack, "get", λ.StrLiteral("srclang")); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.StrLiteral("de")
+								}
+							}(), λ.NewList()), "append", λ.DictLiteral(map[string]λ.Object{
+								"url": ϒtrack_url,
+								"ext": λ.StrLiteral("ttml"),
+							}))
+						}
+					}
 					return λ.DictLiteral(map[string]λ.Object{
 						"id":      ϒvideo_id,
 						"title":   ϒtitle,
@@ -404,6 +442,7 @@ func init() {
 						"duration":   ϒduration,
 						"thumbnails": ϒthumbnails,
 						"formats":    ϒformats,
+						"subtitles":  ϒsubtitles,
 					})
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
