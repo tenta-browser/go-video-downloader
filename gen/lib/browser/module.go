@@ -32,6 +32,7 @@ import (
 
 var (
 	BrowserLoad    λ.Object
+	BrowserWrapper λ.Object
 	ExtractorError λ.Object
 	ϒstd_headers   λ.Object
 )
@@ -41,5 +42,95 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒstd_headers = Ωutils.ϒstd_headers
 		BrowserLoad = Ωbrowser.BrowserLoad
+		BrowserWrapper = λ.Cal(λ.TypeType, λ.StrLiteral("BrowserWrapper"), λ.NewTuple(), func() λ.Dict {
+			var (
+				BrowserWrapper___init__ λ.Object
+				BrowserWrapper_get      λ.Object
+			)
+			BrowserWrapper___init__ = λ.NewFunction("__init__",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "extractor"},
+					{Name: "required_version", Def: λ.None},
+					{Name: "timeout", Def: λ.IntLiteral(10000)},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒextractor        = λargs[1]
+						ϒrequired_version = λargs[2]
+						ϒself             = λargs[0]
+						ϒtimeout          = λargs[3]
+					)
+					_ = ϒrequired_version
+					_ = ϒtimeout
+					λ.SetAttr(ϒself, "extractor", ϒextractor)
+					return λ.None
+				})
+			BrowserWrapper_get = λ.NewFunction("get",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+					{Name: "html", Def: λ.None},
+					{Name: "video_id", Def: λ.None},
+					{Name: "note", Def: λ.None},
+					{Name: "note2", Def: λ.StrLiteral("Executing JS on webpage")},
+					{Name: "headers", Def: λ.None},
+					{Name: "jscode", Def: λ.StrLiteral("saveAndExit();")},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒdownloader λ.Object
+						ϒheaders    = λargs[6]
+						ϒhtml       = λargs[2]
+						ϒjscode     = λargs[7]
+						ϒnote       = λargs[4]
+						ϒnote2      = λargs[5]
+						ϒself       = λargs[0]
+						ϒurl        = λargs[1]
+						ϒuser_agent λ.Object
+						ϒvideo_id   = λargs[3]
+					)
+					_ = ϒjscode
+					_ = ϒnote
+					ϒuser_agent = func() λ.Object {
+						if λv := func() λ.Object {
+							if λv := ϒheaders; !λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Calm(ϒheaders, "get", λ.StrLiteral("User-Agent"))
+							}
+						}(); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.GetItem(ϒstd_headers, λ.StrLiteral("User-Agent"))
+						}
+					}()
+					ϒdownloader = λ.GetAttr(λ.GetAttr(ϒself, "extractor", nil), "_downloader", nil)
+					if !λ.IsTrue(λ.GetAttr(ϒdownloader, "browser", nil)) {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("No browser interface supplied")), λ.KWArgs{
+							{Name: "expected", Value: λ.True},
+						})))
+					}
+					if ϒvideo_id == λ.None {
+						λ.Calm(λ.GetAttr(ϒself, "extractor", nil), "to_screen", λ.Mod(λ.StrLiteral("%s"), λ.NewTuple(ϒnote2)))
+					} else {
+						λ.Calm(λ.GetAttr(ϒself, "extractor", nil), "to_screen", λ.Mod(λ.StrLiteral("%s: %s"), λ.NewTuple(
+							ϒvideo_id,
+							ϒnote2,
+						)))
+					}
+					ϒhtml = λ.Cal(BrowserLoad, λ.GetAttr(λ.GetAttr(ϒdownloader, "cookiejar", nil), "jar", nil), λ.GetAttr(ϒdownloader, "browser", nil), ϒurl, ϒuser_agent)
+					return λ.NewTuple(
+						ϒhtml,
+						λ.None,
+					)
+				})
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"__init__": BrowserWrapper___init__,
+				"get":      BrowserWrapper_get,
+			})
+		}())
 	})
 }
