@@ -60,7 +60,7 @@ func init() {
 				LBRYIE__real_extract   λ.Object
 			)
 			LBRYIE_IE_NAME = λ.StrLiteral("lbry.tv")
-			LBRYIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?lbry\\.tv/(?P<id>@[0-9a-zA-Z-]+:[0-9a-z]+/[0-9a-zA-Z().-]+:[0-9a-z])")
+			LBRYIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?:lbry\\.tv|odysee\\.com)/(?P<id>@[0-9a-zA-Z-]+:[0-9a-z]+/[0-9a-zA-Z().-]+:[0-9a-z])")
 			LBRYIE__call_api_proxy = λ.NewFunction("_call_api_proxy",
 				[]λ.Param{
 					{Name: "self"},

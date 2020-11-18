@@ -29,6 +29,7 @@ import (
 	Ωanvato "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/anvato"
 	Ωapa "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/apa"
 	Ωarkena "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/arkena"
+	Ωarte "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/arte"
 	Ωbrightcove "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/brightcove"
 	Ωchannel9 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/channel9"
 	Ωcloudflarestream "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/cloudflarestream"
@@ -113,6 +114,7 @@ var (
 	APAIE                        λ.Object
 	AnvatoIE                     λ.Object
 	ArkenaIE                     λ.Object
+	ArteTVEmbedIE                λ.Object
 	BrightcoveLegacyIE           λ.Object
 	BrightcoveNewIE              λ.Object
 	Channel9IE                   λ.Object
@@ -288,6 +290,7 @@ func init() {
 		VideaIE = Ωvidea.VideaIE
 		TwentyMinutenIE = Ωtwentymin.TwentyMinutenIE
 		UstreamIE = Ωustream.UstreamIE
+		ArteTVEmbedIE = Ωarte.ArteTVEmbedIE
 		VideoPressIE = Ωvideopress.VideoPressIE
 		RutubeIE = Ωrutube.RutubeIE
 		LimelightBaseIE = Ωlimelight.LimelightBaseIE

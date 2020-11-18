@@ -26,6 +26,7 @@ package openload
 
 import (
 	Ωbrowser "github.com/tenta-browser/go-video-downloader/gen/lib/browser"
+	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
@@ -34,11 +35,13 @@ var (
 	BrowserWrapper   λ.Object
 	ExtractorError   λ.Object
 	PhantomJSwrapper λ.Object
+	ϒcompat_kwargs   λ.Object
 	ϒstd_headers     λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
+		ϒcompat_kwargs = Ωcompat.ϒcompat_kwargs
 		ExtractorError = Ωutils.ExtractorError
 		ϒstd_headers = Ωutils.ϒstd_headers
 		BrowserWrapper = Ωbrowser.BrowserWrapper

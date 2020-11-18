@@ -291,6 +291,7 @@ func init() {
 					})
 					ϒupload_date = λ.Cal(ϒunified_strdate, λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 						λ.NewList(
+							λ.StrLiteral("UPLOADED:\\s*<span>([^<]+)"),
 							λ.StrLiteral("Date\\s+[Aa]dded:\\s*<span>([^<]+)"),
 							λ.StrLiteral("(?s)<div[^>]+class=[\"\\']videoInfo(?:Date|Time)[\"\\'][^>]*>(.+?)</div>"),
 						),
@@ -320,7 +321,7 @@ func init() {
 						ϒwebpage,
 						λ.StrLiteral("comment count"),
 					), λ.KWArgs{
-						{Name: "fatal", Value: λ.False},
+						{Name: "default", Value: λ.None},
 					}))
 					ϒextract_tag_box = λ.NewFunction("extract_tag_box",
 						[]λ.Param{

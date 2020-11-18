@@ -52,6 +52,7 @@ var (
 	ϒparse_duration           λ.Object
 	ϒtry_get                  λ.Object
 	ϒurl_or_none              λ.Object
+	ϒurljoin                  λ.Object
 )
 
 func init() {
@@ -65,6 +66,7 @@ func init() {
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒurl_or_none = Ωutils.ϒurl_or_none
+		ϒurljoin = Ωutils.ϒurljoin
 		DailymotionIE = Ωdailymotion.DailymotionIE
 		FranceTVBaseInfoExtractor = λ.Cal(λ.TypeType, λ.StrLiteral("FranceTVBaseInfoExtractor"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 

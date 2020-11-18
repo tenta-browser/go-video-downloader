@@ -8,7 +8,8 @@ Supported sites
  * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
  * ARDMediathek: `www.ardmediathek.de`
- * ArteTVPlus7: `www.arte.tv`
+ * ArteTV: `www.arte.tv`
+ * ArteTVEmbed: `www.arte.tv`
  * AsianCrush: `www.asiancrush.com`
  * AudioBoom: `audioboom.com`
  * Audiomack: `www.audiomack.com`
@@ -19,7 +20,6 @@ Supported sites
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
- * BIQLE: `biqle.org`
  * BleacherReportCMS: `bleacherreport.com`
  * BokeCC: `union.bokecc.com`
  * Bpb: `www.bpb.de`

@@ -2916,9 +2916,11 @@ func init() {
 						defer λ.CatchMulti(
 							nil,
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
-								λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("%s: %s URL is invalid, skipping"), λ.NewTuple(
+								var ϒe λ.Object = λex
+								λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("%s: %s URL is invalid, skipping: %s"), λ.NewTuple(
 									ϒvideo_id,
 									ϒitem,
+									λ.Cal(ϒerror_to_compat_str, λ.GetAttr(ϒe, "cause", nil)),
 								)))
 								λexit, λret = λ.BlockExitReturn, λ.False
 								return

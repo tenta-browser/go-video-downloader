@@ -42,7 +42,6 @@ import (
 	Ωbigflix "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bigflix"
 	Ωbild "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bild"
 	Ωbilibili "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bilibili"
-	Ωbiqle "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/biqle"
 	Ωbleacherreport "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bleacherreport"
 	Ωbokecc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bokecc"
 	Ωbpb "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bpb"
@@ -277,11 +276,11 @@ var (
 	AdobeTVVideoIE             λ.Object
 	AllocineIE                 λ.Object
 	AolIE                      λ.Object
-	ArteTVPlus7IE              λ.Object
+	ArteTVEmbedIE              λ.Object
+	ArteTVIE                   λ.Object
 	AsianCrushIE               λ.Object
 	AudioBoomIE                λ.Object
 	AudiomackIE                λ.Object
-	BIQLEIE                    λ.Object
 	BRIE                       λ.Object
 	BandcampIE                 λ.Object
 	BandcampWeeklyIE           λ.Object
@@ -542,7 +541,8 @@ func init() {
 		AolIE = Ωaol.AolIE
 		AllocineIE = Ωallocine.AllocineIE
 		ARDMediathekIE = Ωard.ARDMediathekIE
-		ArteTVPlus7IE = Ωarte.ArteTVPlus7IE
+		ArteTVIE = Ωarte.ArteTVIE
+		ArteTVEmbedIE = Ωarte.ArteTVEmbedIE
 		AsianCrushIE = Ωasiancrush.AsianCrushIE
 		AudioBoomIE = Ωaudioboom.AudioBoomIE
 		AudiomackIE = Ωaudiomack.AudiomackIE
@@ -553,7 +553,6 @@ func init() {
 		BigflixIE = Ωbigflix.BigflixIE
 		BildIE = Ωbild.BildIE
 		BilibiliAudioIE = Ωbilibili.BilibiliAudioIE
-		BIQLEIE = Ωbiqle.BIQLEIE
 		BleacherReportCMSIE = Ωbleacherreport.BleacherReportCMSIE
 		BokeCCIE = Ωbokecc.BokeCCIE
 		BpbIE = Ωbpb.BpbIE
@@ -804,7 +803,8 @@ func init() {
 			AolIE,
 			AllocineIE,
 			ARDMediathekIE,
-			ArteTVPlus7IE,
+			ArteTVIE,
+			ArteTVEmbedIE,
 			AsianCrushIE,
 			AudioBoomIE,
 			AudiomackIE,
@@ -815,7 +815,6 @@ func init() {
 			BigflixIE,
 			BildIE,
 			BilibiliAudioIE,
-			BIQLEIE,
 			BleacherReportCMSIE,
 			BokeCCIE,
 			BpbIE,
