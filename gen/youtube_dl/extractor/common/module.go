@@ -184,6 +184,7 @@ func init() {
 				InfoExtractor__extract_mpd_formats         λ.Object
 				InfoExtractor__extract_smil_formats        λ.Object
 				InfoExtractor__float                       λ.Object
+				InfoExtractor__form_hidden_inputs          λ.Object
 				InfoExtractor__get_cookies                 λ.Object
 				InfoExtractor__get_login_info              λ.Object
 				InfoExtractor__get_netrc_login_info        λ.Object
@@ -2512,6 +2513,29 @@ func init() {
 					return ϒhidden_inputs
 				})
 			InfoExtractor__hidden_inputs = λ.Cal(λ.StaticMethodType, InfoExtractor__hidden_inputs)
+			InfoExtractor__form_hidden_inputs = λ.NewFunction("_form_hidden_inputs",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "form_id"},
+					{Name: "html"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒform    λ.Object
+						ϒform_id = λargs[1]
+						ϒhtml    = λargs[2]
+						ϒself    = λargs[0]
+					)
+					ϒform = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+						λ.Mod(λ.StrLiteral("(?is)<form[^>]+?id=([\"\\'])%s\\1[^>]*>(?P<form>.+?)</form>"), ϒform_id),
+						ϒhtml,
+						λ.Mod(λ.StrLiteral("%s form"), ϒform_id),
+					), λ.KWArgs{
+						{Name: "group", Value: λ.StrLiteral("form")},
+					})
+					return λ.Calm(ϒself, "_hidden_inputs", ϒform)
+				})
 			InfoExtractor__sort_formats = λ.NewFunction("_sort_formats",
 				[]λ.Param{
 					{Name: "self"},
@@ -6339,6 +6363,7 @@ func init() {
 				"_extract_mpd_formats":         InfoExtractor__extract_mpd_formats,
 				"_extract_smil_formats":        InfoExtractor__extract_smil_formats,
 				"_float":                       InfoExtractor__float,
+				"_form_hidden_inputs":          InfoExtractor__form_hidden_inputs,
 				"_get_cookies":                 InfoExtractor__get_cookies,
 				"_get_login_info":              InfoExtractor__get_login_info,
 				"_get_netrc_login_info":        InfoExtractor__get_netrc_login_info,

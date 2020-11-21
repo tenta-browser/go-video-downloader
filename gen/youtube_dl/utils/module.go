@@ -103,6 +103,7 @@ var (
 	ϒjs_to_json                       λ.Object
 	ϒlimit_length                     λ.Object
 	ϒlookup_unit_table                λ.Object
+	ϒlowercase_escape                 λ.Object
 	ϒmerge_dicts                      λ.Object
 	ϒmimetype2ext                     λ.Object
 	ϒmonth_by_name                    λ.Object
@@ -3813,6 +3814,29 @@ func init() {
 						return λ.GetItem(λ.Cal(ϒunicode_escape, λ.Calm(ϒm, "group", λ.IntLiteral(0))), λ.IntLiteral(0))
 					}), ϒs)
 			})
+		ϒlowercase_escape = λ.NewFunction("lowercase_escape",
+			[]λ.Param{
+				{Name: "s"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒs              = λargs[0]
+					ϒunicode_escape λ.Object
+				)
+				ϒunicode_escape = λ.Cal(Ωcodecs.ϒgetdecoder, λ.StrLiteral("unicode_escape"))
+				return λ.Cal(Ωre.ϒsub, λ.StrLiteral("\\\\u[0-9a-fA-F]{4}"), λ.NewFunction("<lambda>",
+					[]λ.Param{
+						{Name: "m"},
+					},
+					0, false, false,
+					func(λargs []λ.Object) λ.Object {
+						var (
+							ϒm = λargs[0]
+						)
+						return λ.GetItem(λ.Cal(ϒunicode_escape, λ.Calm(ϒm, "group", λ.IntLiteral(0))), λ.IntLiteral(0))
+					}), ϒs)
+			})
 		ϒurlencode_postdata = λ.NewFunction("urlencode_postdata",
 			nil,
 			0, true, true,
@@ -4422,19 +4446,19 @@ func init() {
 			0, false, false,
 			func(λargs []λ.Object) λ.Object {
 				var (
-					ϒacodec         λ.Object
-					ϒcodec          λ.Object
-					ϒcodecs_str     = λargs[0]
-					ϒfull_codec     λ.Object
-					ϒsplited_codecs λ.Object
-					ϒvcodec         λ.Object
-					τmp0            λ.Object
-					τmp1            λ.Object
+					ϒacodec       λ.Object
+					ϒcodec        λ.Object
+					ϒcodecs_str   = λargs[0]
+					ϒfull_codec   λ.Object
+					ϒsplit_codecs λ.Object
+					ϒvcodec       λ.Object
+					τmp0          λ.Object
+					τmp1          λ.Object
 				)
 				if !λ.IsTrue(ϒcodecs_str) {
 					return λ.DictLiteral(map[λ.Object]λ.Object{})
 				}
-				ϒsplited_codecs = λ.Cal(λ.ListType, λ.Cal(λ.FilterIteratorType, λ.None, λ.Cal(λ.MapIteratorType, λ.NewFunction("<lambda>",
+				ϒsplit_codecs = λ.Cal(λ.ListType, λ.Cal(λ.FilterIteratorType, λ.None, λ.Cal(λ.MapIteratorType, λ.NewFunction("<lambda>",
 					[]λ.Param{
 						{Name: "str"},
 					},
@@ -4451,7 +4475,7 @@ func init() {
 				)
 				ϒvcodec = λ.GetItem(τmp0, λ.IntLiteral(0))
 				ϒacodec = λ.GetItem(τmp0, λ.IntLiteral(1))
-				τmp0 = λ.Cal(λ.BuiltinIter, ϒsplited_codecs)
+				τmp0 = λ.Cal(λ.BuiltinIter, ϒsplit_codecs)
 				for {
 					if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 						break
@@ -4507,10 +4531,10 @@ func init() {
 						return λ.NewBool(!λ.IsTrue(ϒacodec))
 					}
 				}()) {
-					if λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒsplited_codecs), λ.IntLiteral(2))) {
+					if λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒsplit_codecs), λ.IntLiteral(2))) {
 						return λ.DictLiteral(map[string]λ.Object{
-							"vcodec": λ.GetItem(ϒsplited_codecs, λ.IntLiteral(0)),
-							"acodec": λ.GetItem(ϒsplited_codecs, λ.IntLiteral(1)),
+							"vcodec": λ.GetItem(ϒsplit_codecs, λ.IntLiteral(0)),
+							"acodec": λ.GetItem(ϒsplit_codecs, λ.IntLiteral(1)),
 						})
 					}
 				} else {

@@ -124,34 +124,36 @@ func init() {
 		}
 		YoutubeDL = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeDL"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
 			var (
-				YoutubeDL__NUMERIC_FIELDS             λ.Object
-				YoutubeDL___forced_printings          λ.Object
-				YoutubeDL__bidi_workaround            λ.Object
-				YoutubeDL__calc_cookies               λ.Object
-				YoutubeDL__calc_headers               λ.Object
-				YoutubeDL__default_format_spec        λ.Object
-				YoutubeDL__ies                        λ.Object
-				YoutubeDL__num_downloads              λ.Object
-				YoutubeDL__screen_file                λ.Object
-				YoutubeDL_add_default_extra_info      λ.Object
-				YoutubeDL_add_default_info_extractors λ.Object
-				YoutubeDL_add_extra_info              λ.Object
-				YoutubeDL_add_info_extractor          λ.Object
-				YoutubeDL_extract_info                λ.Object
-				YoutubeDL_format_resolution           λ.Object
-				YoutubeDL_get_info_extractor          λ.Object
-				YoutubeDL_params                      λ.Object
-				YoutubeDL_prepare_filename            λ.Object
-				YoutubeDL_process_ie_result           λ.Object
-				YoutubeDL_process_info                λ.Object
-				YoutubeDL_process_subtitles           λ.Object
-				YoutubeDL_process_video_result        λ.Object
-				YoutubeDL_report_error                λ.Object
-				YoutubeDL_report_warning              λ.Object
-				YoutubeDL_to_screen                   λ.Object
-				YoutubeDL_to_stderr                   λ.Object
-				YoutubeDL_to_stdout                   λ.Object
-				YoutubeDL_trouble                     λ.Object
+				YoutubeDL__NUMERIC_FIELDS                λ.Object
+				YoutubeDL___extract_info                 λ.Object
+				YoutubeDL___forced_printings             λ.Object
+				YoutubeDL___handle_extraction_exceptions λ.Object
+				YoutubeDL__bidi_workaround               λ.Object
+				YoutubeDL__calc_cookies                  λ.Object
+				YoutubeDL__calc_headers                  λ.Object
+				YoutubeDL__default_format_spec           λ.Object
+				YoutubeDL__ies                           λ.Object
+				YoutubeDL__num_downloads                 λ.Object
+				YoutubeDL__screen_file                   λ.Object
+				YoutubeDL_add_default_extra_info         λ.Object
+				YoutubeDL_add_default_info_extractors    λ.Object
+				YoutubeDL_add_extra_info                 λ.Object
+				YoutubeDL_add_info_extractor             λ.Object
+				YoutubeDL_extract_info                   λ.Object
+				YoutubeDL_format_resolution              λ.Object
+				YoutubeDL_get_info_extractor             λ.Object
+				YoutubeDL_params                         λ.Object
+				YoutubeDL_prepare_filename               λ.Object
+				YoutubeDL_process_ie_result              λ.Object
+				YoutubeDL_process_info                   λ.Object
+				YoutubeDL_process_subtitles              λ.Object
+				YoutubeDL_process_video_result           λ.Object
+				YoutubeDL_report_error                   λ.Object
+				YoutubeDL_report_warning                 λ.Object
+				YoutubeDL_to_screen                      λ.Object
+				YoutubeDL_to_stderr                      λ.Object
+				YoutubeDL_to_stdout                      λ.Object
+				YoutubeDL_trouble                        λ.Object
 			)
 			YoutubeDL__NUMERIC_FIELDS = λ.Cal(λ.SetType, λ.NewTuple(
 				λ.StrLiteral("width"),
@@ -763,17 +765,12 @@ func init() {
 						ϒforce_generic_extractor = λargs[6]
 						ϒie                      λ.Object
 						ϒie_key                  = λargs[3]
-						ϒie_result               λ.Object
 						ϒies                     λ.Object
-						ϒmsg                     λ.Object
 						ϒprocess                 = λargs[5]
 						ϒself                    = λargs[0]
 						ϒurl                     = λargs[1]
 						τmp0                     λ.Object
 						τmp1                     λ.Object
-						τmp2                     λ.Object
-						τmp3                     λ.Object
-						τmp4                     λ.Object
 					)
 					if λ.IsTrue(func() λ.Object {
 						if λv := λ.NewBool(!λ.IsTrue(ϒie_key)); !λ.IsTrue(λv) {
@@ -802,77 +799,125 @@ func init() {
 						if !λ.IsTrue(λ.Calm(ϒie, "working")) {
 							λ.Calm(ϒself, "report_warning", λ.StrLiteral("The program functionality for this site has been marked as broken, and will probably not work."))
 						}
-						τmp2, τmp3 = func() (λexit λ.Object, λret λ.Object) {
-							defer λ.CatchMulti(
-								nil,
-								&λ.Catcher{GeoRestrictedError, func(λex λ.BaseException) {
-									var ϒe λ.Object = λex
-									ϒmsg = λ.GetAttr(ϒe, "msg", nil)
-									if λ.IsTrue(λ.GetAttr(ϒe, "countries", nil)) {
-										τmp4 = λ.IAdd(ϒmsg, λ.Mod(λ.StrLiteral("\nThis video is available in %s."), λ.Calm(λ.StrLiteral(", "), "join", λ.Cal(λ.MapIteratorType, λ.GetAttr(λ.None, "short2full", nil), λ.GetAttr(ϒe, "countries", nil)))))
-										ϒmsg = τmp4
-									}
-									τmp4 = λ.IAdd(ϒmsg, λ.StrLiteral("\nYou might want to use a VPN or a proxy server (with --proxy) to workaround."))
-									ϒmsg = τmp4
-									λ.Calm(ϒself, "report_error", ϒmsg)
-									λexit = λ.BlockExitBreak
-									return
-								}},
-								&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
-									var ϒe λ.Object = λex
-									λ.Calm(ϒself, "report_error", λ.Cal(ϒcompat_str, ϒe), λ.Calm(ϒe, "format_traceback"))
-									λexit = λ.BlockExitBreak
-									return
-								}},
-								&λ.Catcher{MaxDownloadsReached, func(λex λ.BaseException) {
-									panic(λ.Raise(λex))
-								}},
-								&λ.Catcher{λ.ExceptionType, func(λex λ.BaseException) {
-									var ϒe λ.Object = λex
-									if λ.IsTrue(λ.Calm(λ.GetAttr(ϒself, "params", nil), "get", λ.StrLiteral("ignoreerrors"), λ.False)) {
-										λ.Call(λ.GetAttr(ϒself, "report_error", nil), λ.NewArgs(λ.Cal(ϒerror_to_compat_str, ϒe)), λ.KWArgs{
-											{Name: "tb", Value: λ.Cal(λ.None, λ.Calm(λ.None, "format_exc"))},
-										})
-										λexit = λ.BlockExitBreak
-										return
-									} else {
-										panic(λ.Raise(λex))
-									}
-								}},
-							)
-							ϒie_result = λ.Calm(ϒie, "extract", ϒurl)
-							if ϒie_result == λ.None {
-								λexit = λ.BlockExitBreak
-								return
-							}
-							if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒie_result, λ.ListType)) {
-								ϒie_result = λ.DictLiteral(map[string]λ.Object{
-									"_type":   λ.StrLiteral("compat_list"),
-									"entries": ϒie_result,
-								})
-							}
-							λ.Calm(ϒself, "add_default_extra_info", ϒie_result, ϒie, ϒurl)
-							if λ.IsTrue(ϒprocess) {
-								λexit, λret = λ.BlockExitReturn, λ.Calm(ϒself, "process_ie_result", ϒie_result, ϒdownload, ϒextra_info)
-								return
-							} else {
-								λexit, λret = λ.BlockExitReturn, ϒie_result
-								return
-							}
-							return λ.BlockExitNormally, nil
-						}()
-						if τmp2 == λ.BlockExitReturn {
-							return τmp3
-						}
-						if τmp2 == λ.BlockExitBreak {
-							break
-						}
+						return λ.Calm(ϒself, "__extract_info", ϒurl, ϒie, ϒdownload, ϒextra_info, ϒprocess)
 					}
 					if τmp1 == λ.AfterLast {
 						λ.Calm(ϒself, "report_error", λ.Mod(λ.StrLiteral("no suitable InfoExtractor for URL %s"), ϒurl))
 					}
 					return λ.None
 				})
+			YoutubeDL___handle_extraction_exceptions = λ.NewFunction("__handle_extraction_exceptions",
+				[]λ.Param{
+					{Name: "func"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒfunc    = λargs[0]
+						ϒwrapper λ.Object
+					)
+					ϒwrapper = λ.NewFunction("wrapper",
+						[]λ.Param{
+							{Name: "self"},
+						},
+						0, true, true,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒargs   = λargs[1]
+								ϒkwargs = λargs[2]
+								ϒmsg    λ.Object
+								ϒself   = λargs[0]
+								τmp0    λ.Object
+								τmp1    λ.Object
+								τmp2    λ.Object
+							)
+							τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
+								defer λ.CatchMulti(
+									nil,
+									&λ.Catcher{GeoRestrictedError, func(λex λ.BaseException) {
+										var ϒe λ.Object = λex
+										ϒmsg = λ.GetAttr(ϒe, "msg", nil)
+										if λ.IsTrue(λ.GetAttr(ϒe, "countries", nil)) {
+											τmp2 = λ.IAdd(ϒmsg, λ.Mod(λ.StrLiteral("\nThis video is available in %s."), λ.Calm(λ.StrLiteral(", "), "join", λ.Cal(λ.MapIteratorType, λ.GetAttr(λ.None, "short2full", nil), λ.GetAttr(ϒe, "countries", nil)))))
+											ϒmsg = τmp2
+										}
+										τmp2 = λ.IAdd(ϒmsg, λ.StrLiteral("\nYou might want to use a VPN or a proxy server (with --proxy) to workaround."))
+										ϒmsg = τmp2
+										λ.Calm(ϒself, "report_error", ϒmsg)
+									}},
+									&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
+										var ϒe λ.Object = λex
+										λ.Calm(ϒself, "report_error", λ.Cal(ϒcompat_str, ϒe), λ.Calm(ϒe, "format_traceback"))
+									}},
+									&λ.Catcher{MaxDownloadsReached, func(λex λ.BaseException) {
+										panic(λ.Raise(λex))
+									}},
+									&λ.Catcher{λ.ExceptionType, func(λex λ.BaseException) {
+										var ϒe λ.Object = λex
+										if λ.IsTrue(λ.Calm(λ.GetAttr(ϒself, "params", nil), "get", λ.StrLiteral("ignoreerrors"), λ.False)) {
+											λ.Call(λ.GetAttr(ϒself, "report_error", nil), λ.NewArgs(λ.Cal(ϒerror_to_compat_str, ϒe)), λ.KWArgs{
+												{Name: "tb", Value: λ.Cal(λ.None, λ.Calm(λ.None, "format_exc"))},
+											})
+										} else {
+											panic(λ.Raise(λex))
+										}
+									}},
+								)
+								λexit, λret = λ.BlockExitReturn, λ.Call(ϒfunc, λ.NewArgs(λ.Unpack(
+									ϒself,
+									λ.AsStarred(ϒargs),
+								)...), λ.KWArgs{
+									{Name: "", Value: ϒkwargs},
+								})
+								return
+								return λ.BlockExitNormally, nil
+							}()
+							if τmp0 == λ.BlockExitReturn {
+								return τmp1
+							}
+							return λ.None
+						})
+					return ϒwrapper
+				})
+			YoutubeDL___extract_info = λ.NewFunction("__extract_info",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+					{Name: "ie"},
+					{Name: "download"},
+					{Name: "extra_info"},
+					{Name: "process"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒdownload   = λargs[3]
+						ϒextra_info = λargs[4]
+						ϒie         = λargs[2]
+						ϒie_result  λ.Object
+						ϒprocess    = λargs[5]
+						ϒself       = λargs[0]
+						ϒurl        = λargs[1]
+					)
+					ϒie_result = λ.Calm(ϒie, "extract", ϒurl)
+					if ϒie_result == λ.None {
+						return λ.None
+					}
+					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒie_result, λ.ListType)) {
+						ϒie_result = λ.DictLiteral(map[string]λ.Object{
+							"_type":   λ.StrLiteral("compat_list"),
+							"entries": ϒie_result,
+						})
+					}
+					λ.Calm(ϒself, "add_default_extra_info", ϒie_result, ϒie, ϒurl)
+					if λ.IsTrue(ϒprocess) {
+						return λ.Calm(ϒself, "process_ie_result", ϒie_result, ϒdownload, ϒextra_info)
+					} else {
+						return ϒie_result
+					}
+					return λ.None
+				})
+			YoutubeDL___extract_info = λ.Cal(YoutubeDL___handle_extraction_exceptions, YoutubeDL___extract_info)
 			YoutubeDL_add_default_extra_info = λ.NewFunction("add_default_extra_info",
 				[]λ.Param{
 					{Name: "self"},
@@ -1272,10 +1317,7 @@ func init() {
 											λ.Calm(ϒself, "to_screen", λ.Add(λ.StrLiteral("[download] "), ϒreason))
 											continue
 										}
-										ϒentry_result = λ.Call(λ.GetAttr(ϒself, "process_ie_result", nil), λ.NewArgs(ϒentry), λ.KWArgs{
-											{Name: "download", Value: ϒdownload},
-											{Name: "extra_info", Value: ϒextra},
-										})
+										ϒentry_result = λ.Calm(ϒself, "__process_iterable_entry", ϒentry, ϒdownload, ϒextra)
 										λ.Calm(ϒplaylist_results, "append", ϒentry_result)
 									}
 									λ.SetItem(ϒie_result, λ.StrLiteral("entries"), ϒplaylist_results)
@@ -3014,34 +3056,36 @@ func init() {
 				})
 			YoutubeDL_format_resolution = λ.Cal(λ.StaticMethodType, YoutubeDL_format_resolution)
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_NUMERIC_FIELDS":             YoutubeDL__NUMERIC_FIELDS,
-				"__forced_printings":          YoutubeDL___forced_printings,
-				"_bidi_workaround":            YoutubeDL__bidi_workaround,
-				"_calc_cookies":               YoutubeDL__calc_cookies,
-				"_calc_headers":               YoutubeDL__calc_headers,
-				"_default_format_spec":        YoutubeDL__default_format_spec,
-				"_ies":                        YoutubeDL__ies,
-				"_num_downloads":              YoutubeDL__num_downloads,
-				"_screen_file":                YoutubeDL__screen_file,
-				"add_default_extra_info":      YoutubeDL_add_default_extra_info,
-				"add_default_info_extractors": YoutubeDL_add_default_info_extractors,
-				"add_extra_info":              YoutubeDL_add_extra_info,
-				"add_info_extractor":          YoutubeDL_add_info_extractor,
-				"extract_info":                YoutubeDL_extract_info,
-				"format_resolution":           YoutubeDL_format_resolution,
-				"get_info_extractor":          YoutubeDL_get_info_extractor,
-				"params":                      YoutubeDL_params,
-				"prepare_filename":            YoutubeDL_prepare_filename,
-				"process_ie_result":           YoutubeDL_process_ie_result,
-				"process_info":                YoutubeDL_process_info,
-				"process_subtitles":           YoutubeDL_process_subtitles,
-				"process_video_result":        YoutubeDL_process_video_result,
-				"report_error":                YoutubeDL_report_error,
-				"report_warning":              YoutubeDL_report_warning,
-				"to_screen":                   YoutubeDL_to_screen,
-				"to_stderr":                   YoutubeDL_to_stderr,
-				"to_stdout":                   YoutubeDL_to_stdout,
-				"trouble":                     YoutubeDL_trouble,
+				"_NUMERIC_FIELDS":                YoutubeDL__NUMERIC_FIELDS,
+				"__extract_info":                 YoutubeDL___extract_info,
+				"__forced_printings":             YoutubeDL___forced_printings,
+				"__handle_extraction_exceptions": YoutubeDL___handle_extraction_exceptions,
+				"_bidi_workaround":               YoutubeDL__bidi_workaround,
+				"_calc_cookies":                  YoutubeDL__calc_cookies,
+				"_calc_headers":                  YoutubeDL__calc_headers,
+				"_default_format_spec":           YoutubeDL__default_format_spec,
+				"_ies":                           YoutubeDL__ies,
+				"_num_downloads":                 YoutubeDL__num_downloads,
+				"_screen_file":                   YoutubeDL__screen_file,
+				"add_default_extra_info":         YoutubeDL_add_default_extra_info,
+				"add_default_info_extractors":    YoutubeDL_add_default_info_extractors,
+				"add_extra_info":                 YoutubeDL_add_extra_info,
+				"add_info_extractor":             YoutubeDL_add_info_extractor,
+				"extract_info":                   YoutubeDL_extract_info,
+				"format_resolution":              YoutubeDL_format_resolution,
+				"get_info_extractor":             YoutubeDL_get_info_extractor,
+				"params":                         YoutubeDL_params,
+				"prepare_filename":               YoutubeDL_prepare_filename,
+				"process_ie_result":              YoutubeDL_process_ie_result,
+				"process_info":                   YoutubeDL_process_info,
+				"process_subtitles":              YoutubeDL_process_subtitles,
+				"process_video_result":           YoutubeDL_process_video_result,
+				"report_error":                   YoutubeDL_report_error,
+				"report_warning":                 YoutubeDL_report_warning,
+				"to_screen":                      YoutubeDL_to_screen,
+				"to_stderr":                      YoutubeDL_to_stderr,
+				"to_stdout":                      YoutubeDL_to_stdout,
+				"trouble":                        YoutubeDL_trouble,
 			})
 		}())
 	})

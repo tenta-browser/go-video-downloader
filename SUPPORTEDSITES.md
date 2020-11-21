@@ -5,6 +5,7 @@ Supported sites
  * ABCOTVS: `abc7news.com`
  * ACast: `www.acast.com`
  * AdobeTVVideo: `video.tv.adobe.com`
+ * Amara: `amara.org`
  * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
  * ARDMediathek: `www.ardmediathek.de`
@@ -207,6 +208,7 @@ Supported sites
  * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
  * TNAFlix _(adult)_: `www.tnaflix.com`
  * EMPFlix _(adult)_: `www.empflix.com`
+ * ToonGoggles: `www.toongoggles.com`
  * Toypics _(adult)_: `videos.toypics.net`
  * Tube8 _(adult)_: `www.tube8.com`
  * TVANouvelles: `www.tvanouvelles.ca`
@@ -253,7 +255,6 @@ Supported sites
  * Xuite: `vlog.xuite.net`
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
- * Yahoo: `screen.yahoo.com`
  * YinYueTai: `v.yinyuetai.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`

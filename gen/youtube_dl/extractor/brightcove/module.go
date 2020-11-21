@@ -162,7 +162,7 @@ func init() {
 											break
 										}
 										ϒm = τmp1
-										λgy.Yield(λ.Calm(ϒcls, "_build_brighcove_url", ϒm))
+										λgy.Yield(λ.Calm(ϒcls, "_build_brightcove_url", ϒm))
 									}
 									return λ.None
 								})
@@ -186,7 +186,7 @@ func init() {
 											break
 										}
 										ϒcustom_bc = τmp1
-										λgy.Yield(λ.Calm(ϒcls, "_build_brighcove_url_from_js", ϒcustom_bc))
+										λgy.Yield(λ.Calm(ϒcls, "_build_brightcove_url_from_js", ϒcustom_bc))
 									}
 									return λ.None
 								})

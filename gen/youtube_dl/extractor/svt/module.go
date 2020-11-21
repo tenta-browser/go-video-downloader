@@ -32,20 +32,21 @@ import (
 )
 
 var (
-	InfoExtractor  λ.Object
-	SVTBaseIE      λ.Object
-	SVTIE          λ.Object
-	SVTPageIE      λ.Object
-	SVTPlayBaseIE  λ.Object
-	SVTPlayIE      λ.Object
-	SVTSeriesIE    λ.Object
-	ϒcompat_str    λ.Object
-	ϒdetermine_ext λ.Object
-	ϒdict_get      λ.Object
-	ϒint_or_none   λ.Object
-	ϒstr_or_none   λ.Object
-	ϒstrip_or_none λ.Object
-	ϒtry_get       λ.Object
+	InfoExtractor      λ.Object
+	SVTBaseIE          λ.Object
+	SVTIE              λ.Object
+	SVTPageIE          λ.Object
+	SVTPlayBaseIE      λ.Object
+	SVTPlayIE          λ.Object
+	SVTSeriesIE        λ.Object
+	ϒcompat_str        λ.Object
+	ϒdetermine_ext     λ.Object
+	ϒdict_get          λ.Object
+	ϒint_or_none       λ.Object
+	ϒstr_or_none       λ.Object
+	ϒstrip_or_none     λ.Object
+	ϒtry_get           λ.Object
+	ϒunified_timestamp λ.Object
 )
 
 func init() {
@@ -55,6 +56,7 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒdict_get = Ωutils.ϒdict_get
 		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒstr_or_none = Ωutils.ϒstr_or_none
 		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒtry_get = Ωutils.ϒtry_get
@@ -79,7 +81,7 @@ func init() {
 			var (
 				SVTPlayIE__VALID_URL λ.Object
 			)
-			SVTPlayIE__VALID_URL = λ.StrLiteral("(?x)\n                    (?:\n                        svt:(?P<svt_id>[^/?#&]+)|\n                        https?://(?:www\\.)?(?:svtplay|oppetarkiv)\\.se/(?:video|klipp|kanaler)/(?P<id>[^/?#&]+)\n                    )\n                    ")
+			SVTPlayIE__VALID_URL = λ.StrLiteral("(?x)\n                    (?:\n                        (?:\n                            svt:|\n                            https?://(?:www\\.)?svt\\.se/barnkanalen/barnplay/[^/]+/\n                        )\n                        (?P<svt_id>[^/?#&]+)|\n                        https?://(?:www\\.)?(?:svtplay|oppetarkiv)\\.se/(?:video|klipp|kanaler)/(?P<id>[^/?#&]+)\n                    )\n                    ")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SVTPlayIE__VALID_URL,
 			})
@@ -139,7 +141,13 @@ func init() {
 						ϒurl = λargs[1]
 					)
 					return func() λ.Object {
-						if λ.IsTrue(λ.Calm(SVTIE, "suitable", ϒurl)) {
+						if λ.IsTrue(func() λ.Object {
+							if λv := λ.Calm(SVTIE, "suitable", ϒurl); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Calm(SVTPlayIE, "suitable", ϒurl)
+							}
+						}()) {
 							return λ.False
 						} else {
 							return λ.Calm(λ.Cal(λ.SuperType, SVTPageIE, ϒcls), "suitable", ϒurl)

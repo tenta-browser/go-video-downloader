@@ -73,7 +73,7 @@ func init() {
 						ϒvideo_url  λ.Object
 						ϒwebpage    = λargs[1]
 					)
-					ϒvideo_url = λ.StrLiteral("rtmpe://video.infoq.com/cfx/st/")
+					ϒvideo_url = λ.StrLiteral("rtmpe://videof.infoq.com/cfx/st/")
 					ϒencoded_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
 						λ.StrLiteral("jsclassref\\s*=\\s*'([^']*)'"),
 						ϒwebpage,
@@ -130,6 +130,9 @@ func init() {
 					return λ.NewList(λ.DictLiteral(map[string]λ.Object{
 						"format_id": λ.StrLiteral("http_video"),
 						"url":       ϒhttp_video_url,
+						"http_headers": λ.DictLiteral(map[string]string{
+							"Referer": "https://www.infoq.com/",
+						}),
 					}))
 				})
 			InfoQIE__extract_http_audio = λ.NewFunction("_extract_http_audio",
@@ -147,12 +150,12 @@ func init() {
 						ϒvideo_id       = λargs[2]
 						ϒwebpage        = λargs[1]
 					)
-					ϒfields = λ.Calm(ϒself, "_hidden_inputs", ϒwebpage)
+					ϒfields = λ.Calm(ϒself, "_form_hidden_inputs", λ.StrLiteral("mp3Form"), ϒwebpage)
 					ϒhttp_audio_url = λ.Calm(ϒfields, "get", λ.StrLiteral("filename"))
 					if !λ.IsTrue(ϒhttp_audio_url) {
 						return λ.NewList()
 					}
-					ϒhttp_audio_url = λ.Cal(Ωparse.ϒurljoin, λ.StrLiteral("http://res.infoq.com/downloads/mp3downloads/"), ϒhttp_audio_url)
+					ϒhttp_audio_url = λ.Cal(Ωparse.ϒurljoin, λ.StrLiteral("http://ress.infoq.com/downloads/mp3downloads/"), ϒhttp_audio_url)
 					ϒhttp_audio_url = λ.Cal(ϒupdate_url_query, ϒhttp_audio_url, λ.Calm(ϒself, "_extract_cf_auth", ϒwebpage))
 					if !λ.IsTrue(λ.Calm(ϒself, "_is_valid_url", ϒhttp_audio_url, ϒvideo_id)) {
 						return λ.NewList()

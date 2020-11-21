@@ -30,6 +30,7 @@ import (
 	Ωacast "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/acast"
 	Ωadobetv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/adobetv"
 	Ωallocine "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/allocine"
+	Ωamara "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/amara"
 	Ωaol "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/aol"
 	Ωard "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ard"
 	Ωarte "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/arte"
@@ -217,6 +218,7 @@ import (
 	Ωtfo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tfo"
 	Ωtmz "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tmz"
 	Ωtnaflix "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tnaflix"
+	Ωtoongoggles "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/toongoggles"
 	Ωtoypics "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/toypics"
 	Ωtube8 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tube8"
 	Ωtvanouvelles "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvanouvelles"
@@ -256,7 +258,6 @@ import (
 	Ωxuite "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xuite"
 	Ωxvideos "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xvideos"
 	Ωxxxymovies "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xxxymovies"
-	Ωyahoo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yahoo"
 	Ωyinyuetai "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yinyuetai"
 	Ωyoujizz "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youjizz"
 	Ωyouporn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youporn"
@@ -275,6 +276,7 @@ var (
 	AbcNewsVideoIE             λ.Object
 	AdobeTVVideoIE             λ.Object
 	AllocineIE                 λ.Object
+	AmaraIE                    λ.Object
 	AolIE                      λ.Object
 	ArteTVEmbedIE              λ.Object
 	ArteTVIE                   λ.Object
@@ -481,6 +483,7 @@ var (
 	TeamcocoIE                 λ.Object
 	TelegraafIE                λ.Object
 	TentaIE                    λ.Object
+	ToonGogglesIE              λ.Object
 	ToypicsIE                  λ.Object
 	Tube8IE                    λ.Object
 	TwentyThreeVideoIE         λ.Object
@@ -521,7 +524,6 @@ var (
 	XVideosIE                  λ.Object
 	XXXYMoviesIE               λ.Object
 	XuiteIE                    λ.Object
-	YahooIE                    λ.Object
 	YinYueTaiIE                λ.Object
 	YouJizzIE                  λ.Object
 	YouPornIE                  λ.Object
@@ -538,6 +540,7 @@ func init() {
 		ABCOTVSIE = Ωabcotvs.ABCOTVSIE
 		ACastIE = Ωacast.ACastIE
 		AdobeTVVideoIE = Ωadobetv.AdobeTVVideoIE
+		AmaraIE = Ωamara.AmaraIE
 		AolIE = Ωaol.AolIE
 		AllocineIE = Ωallocine.AllocineIE
 		ARDMediathekIE = Ωard.ARDMediathekIE
@@ -740,6 +743,7 @@ func init() {
 		TNAFlixNetworkEmbedIE = Ωtnaflix.TNAFlixNetworkEmbedIE
 		TNAFlixIE = Ωtnaflix.TNAFlixIE
 		EMPFlixIE = Ωtnaflix.EMPFlixIE
+		ToonGogglesIE = Ωtoongoggles.ToonGogglesIE
 		ToypicsIE = Ωtoypics.ToypicsIE
 		Tube8IE = Ωtube8.Tube8IE
 		TVANouvellesIE = Ωtvanouvelles.TVANouvellesIE
@@ -787,7 +791,6 @@ func init() {
 		XuiteIE = Ωxuite.XuiteIE
 		XVideosIE = Ωxvideos.XVideosIE
 		XXXYMoviesIE = Ωxxxymovies.XXXYMoviesIE
-		YahooIE = Ωyahoo.YahooIE
 		YinYueTaiIE = Ωyinyuetai.YinYueTaiIE
 		YouJizzIE = Ωyoujizz.YouJizzIE
 		YouPornIE = Ωyouporn.YouPornIE
@@ -800,6 +803,7 @@ func init() {
 			ABCOTVSIE,
 			ACastIE,
 			AdobeTVVideoIE,
+			AmaraIE,
 			AolIE,
 			AllocineIE,
 			ARDMediathekIE,
@@ -1002,6 +1006,7 @@ func init() {
 			TNAFlixNetworkEmbedIE,
 			TNAFlixIE,
 			EMPFlixIE,
+			ToonGogglesIE,
 			ToypicsIE,
 			Tube8IE,
 			TVANouvellesIE,
@@ -1049,7 +1054,6 @@ func init() {
 			XuiteIE,
 			XVideosIE,
 			XXXYMoviesIE,
-			YahooIE,
 			YinYueTaiIE,
 			YouJizzIE,
 			YouPornIE,
