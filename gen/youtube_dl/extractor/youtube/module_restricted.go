@@ -50,7 +50,7 @@ func init() {
 				YoutubeBaseInfoExtractor__PLAYLIST_ID_RE λ.Object
 				YoutubeBaseInfoExtractor__real_extract   λ.Object
 			)
-			YoutubeBaseInfoExtractor__PLAYLIST_ID_RE = λ.StrLiteral("(?:PL|LL|EC|UU|FL|RD|UL|TL|PU|OLAK5uy_)[0-9A-Za-z-_]{10,}")
+			YoutubeBaseInfoExtractor__PLAYLIST_ID_RE = λ.StrLiteral("(?:(?:PL|LL|EC|UU|FL|RD|UL|TL|PU|OLAK5uy_)[0-9A-Za-z-_]{10,}|RDMM)")
 			YoutubeBaseInfoExtractor__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -92,7 +92,7 @@ func init() {
 			var (
 				YoutubeTabIE__VALID_URL λ.Object
 			)
-			YoutubeTabIE__VALID_URL = λ.StrLiteral("https?://(?:\\w+\\.)?(?:youtube(?:kids)?\\.com|invidio\\.us)/(?:(?:channel|c|user)/|playlist\\?.*?\\blist=)(?P<id>[^/?#&]+)")
+			YoutubeTabIE__VALID_URL = λ.StrLiteral("https?://(?:\\w+\\.)?(?:youtube(?:kids)?\\.com|invidio\\.us)/(?:(?:channel|c|user)/|(?:playlist|watch)\\?.*?\\blist=)(?P<id>[^/?#&]+)")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": YoutubeTabIE__VALID_URL,
 			})
@@ -102,7 +102,7 @@ func init() {
 				YoutubePlaylistIE__VALID_URL    λ.Object
 				YoutubePlaylistIE__real_extract λ.Object
 			)
-			YoutubePlaylistIE__VALID_URL = λ.Mod(λ.StrLiteral("(?x)(?:\n                        (?:https?://)?\n                        (?:\\w+\\.)?\n                        (?:\n                            (?:\n                                youtube(?:kids)?\\.com|\n                                invidio\\.us\n                            )\n                            /\n                            (?:\n                               (?:course|view_play_list|my_playlists|artist|playlist|watch|embed/(?:videoseries|[0-9A-Za-z_-]{11}))\n                               \\? (?:.*?[&;])*? (?:p|a|list)=\n                            |  p/\n                            )|\n                            youtu\\.be/[0-9A-Za-z_-]{11}\\?.*?\\blist=\n                        )\n                        (\n                            (?:PL|LL|EC|UU|FL|RD|UL|TL|PU|OLAK5uy_)?[0-9A-Za-z-_]{10,}\n                            # Top tracks, they can also include dots\n                            |(?:MC)[\\w\\.]*\n                        )\n                        .*\n                     |\n                        (%(playlist_id)s)\n                     )"), λ.DictLiteral(map[string]λ.Object{
+			YoutubePlaylistIE__VALID_URL = λ.Mod(λ.StrLiteral("(?x)(?:\n                        (?:https?://)?\n                        (?:\\w+\\.)?\n                        (?:\n                            (?:\n                                youtube(?:kids)?\\.com|\n                                invidio\\.us|\n                                youtu\\.be\n                            )\n                            /.*?\\?.*?\\blist=\n                        )?\n                        (?P<id>%(playlist_id)s)\n                     )"), λ.DictLiteral(map[string]λ.Object{
 				"playlist_id": λ.GetAttr(YoutubeBaseInfoExtractor, "_PLAYLIST_ID_RE", nil),
 			}))
 			YoutubePlaylistIE__real_extract = λ.NewFunction("_real_extract",

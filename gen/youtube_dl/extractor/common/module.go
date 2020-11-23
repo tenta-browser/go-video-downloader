@@ -169,6 +169,7 @@ func init() {
 				InfoExtractor___can_accept_status_code     λ.Object
 				InfoExtractor___check_blocked              λ.Object
 				InfoExtractor___init__                     λ.Object
+				InfoExtractor___maybe_fake_ip_and_retry    λ.Object
 				InfoExtractor__check_formats               λ.Object
 				InfoExtractor__download_json               λ.Object
 				InfoExtractor__download_json_handle        λ.Object
@@ -178,6 +179,7 @@ func init() {
 				InfoExtractor__download_xml                λ.Object
 				InfoExtractor__download_xml_handle         λ.Object
 				InfoExtractor__downloader                  λ.Object
+				InfoExtractor__extract_akamai_formats      λ.Object
 				InfoExtractor__extract_f4m_formats         λ.Object
 				InfoExtractor__extract_ism_formats         λ.Object
 				InfoExtractor__extract_m3u8_formats        λ.Object
@@ -243,6 +245,7 @@ func init() {
 				InfoExtractor_initialize                   λ.Object
 				InfoExtractor_mark_watched                 λ.Object
 				InfoExtractor_playlist_result              λ.Object
+				InfoExtractor_raise_geo_restricted         λ.Object
 				InfoExtractor_report_download_webpage      λ.Object
 				InfoExtractor_report_extraction            λ.Object
 				InfoExtractor_report_warning               λ.Object
@@ -502,6 +505,43 @@ func init() {
 						return τmp1
 					}
 					return λ.None
+				})
+			InfoExtractor___maybe_fake_ip_and_retry = λ.NewFunction("__maybe_fake_ip_and_retry",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "countries"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcountries    = λargs[1]
+						ϒcountry_code λ.Object
+						ϒself         = λargs[0]
+					)
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.NewBool(!λ.IsTrue(λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("geo_bypass_country"), λ.None))); !λ.IsTrue(λv) {
+							return λv
+						} else if λv := λ.GetAttr(ϒself, "_GEO_BYPASS", nil); !λ.IsTrue(λv) {
+							return λv
+						} else if λv := λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("geo_bypass"), λ.True); !λ.IsTrue(λv) {
+							return λv
+						} else if λv := λ.NewBool(!λ.IsTrue(λ.GetAttr(ϒself, "_x_forwarded_for_ip", nil))); !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return ϒcountries
+						}
+					}()) {
+						ϒcountry_code = λ.Cal(Ωrandom.ϒchoice, ϒcountries)
+						λ.SetAttr(ϒself, "_x_forwarded_for_ip", λ.Calm(GeoUtils, "random_ipv4", ϒcountry_code))
+						if λ.IsTrue(λ.GetAttr(ϒself, "_x_forwarded_for_ip", nil)) {
+							λ.Calm(ϒself, "report_warning", λ.Mod(λ.StrLiteral("Video is geo restricted. Retrying extraction with fake IP %s (%s) as X-Forwarded-For."), λ.NewTuple(
+								λ.GetAttr(ϒself, "_x_forwarded_for_ip", nil),
+								λ.Calm(ϒcountry_code, "upper"),
+							)))
+							return λ.True
+						}
+					}
+					return λ.False
 				})
 			InfoExtractor_set_downloader = λ.NewFunction("set_downloader",
 				[]λ.Param{
@@ -1484,6 +1524,23 @@ func init() {
 					λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("%s: Downloading webpage"), ϒvideo_id))
 					return λ.None
 				})
+			InfoExtractor_raise_geo_restricted = λ.NewFunction("raise_geo_restricted",
+				[]λ.Param{
+					{Name: "msg", Def: λ.StrLiteral("This video is not available from your location due to geo restriction")},
+					{Name: "countries", Def: λ.None},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcountries = λargs[1]
+						ϒmsg       = λargs[0]
+					)
+					panic(λ.Raise(λ.Call(GeoRestrictedError, λ.NewArgs(ϒmsg), λ.KWArgs{
+						{Name: "countries", Value: ϒcountries},
+					})))
+					return λ.None
+				})
+			InfoExtractor_raise_geo_restricted = λ.Cal(λ.StaticMethodType, InfoExtractor_raise_geo_restricted)
 			InfoExtractor_url_result = λ.NewFunction("url_result",
 				[]λ.Param{
 					{Name: "url"},
@@ -5676,6 +5733,153 @@ func init() {
 					}
 					return ϒentries
 				})
+			InfoExtractor__extract_akamai_formats = λ.NewFunction("_extract_akamai_formats",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "manifest_url"},
+					{Name: "video_id"},
+					{Name: "hosts", Def: λ.DictLiteral(map[λ.Object]λ.Object{})},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						REPL_REGEX        λ.Object
+						ϒentry            λ.Object
+						ϒf                λ.Object
+						ϒf4m_formats      λ.Object
+						ϒf4m_url          λ.Object
+						ϒformats          λ.Object
+						ϒhdcore_sign      λ.Object
+						ϒhds_host         λ.Object
+						ϒhls_host         λ.Object
+						ϒhosts            = λargs[3]
+						ϒhttp_f           λ.Object
+						ϒhttp_formats     λ.Object
+						ϒhttp_host        λ.Object
+						ϒhttp_url         λ.Object
+						ϒi                λ.Object
+						ϒm3u8_url         λ.Object
+						ϒmanifest_url     = λargs[1]
+						ϒprotocol         λ.Object
+						ϒqualities        λ.Object
+						ϒqualities_length λ.Object
+						ϒself             = λargs[0]
+						ϒvideo_id         = λargs[2]
+						τmp0              λ.Object
+						τmp1              λ.Object
+						τmp2              λ.Object
+						τmp3              λ.Object
+					)
+					ϒformats = λ.NewList()
+					ϒhdcore_sign = λ.StrLiteral("hdcore=3.7.0")
+					ϒf4m_url = λ.Calm(λ.Cal(Ωre.ϒsub, λ.StrLiteral("(https?://[^/]+)/i/"), λ.StrLiteral("\\1/z/"), ϒmanifest_url), "replace", λ.StrLiteral("/master.m3u8"), λ.StrLiteral("/manifest.f4m"))
+					ϒhds_host = λ.Calm(ϒhosts, "get", λ.StrLiteral("hds"))
+					if λ.IsTrue(ϒhds_host) {
+						ϒf4m_url = λ.Cal(Ωre.ϒsub, λ.StrLiteral("(https?://)[^/]+"), λ.Add(λ.StrLiteral("\\1"), ϒhds_host), ϒf4m_url)
+					}
+					if !λ.Contains(ϒf4m_url, λ.StrLiteral("hdcore=")) {
+						τmp0 = λ.IAdd(ϒf4m_url, λ.Add(func() λ.Object {
+							if λ.Contains(ϒf4m_url, λ.StrLiteral("?")) {
+								return λ.StrLiteral("&")
+							} else {
+								return λ.StrLiteral("?")
+							}
+						}(), ϒhdcore_sign))
+						ϒf4m_url = τmp0
+					}
+					ϒf4m_formats = λ.Call(λ.GetAttr(ϒself, "_extract_f4m_formats", nil), λ.NewArgs(
+						ϒf4m_url,
+						ϒvideo_id,
+					), λ.KWArgs{
+						{Name: "f4m_id", Value: λ.StrLiteral("hds")},
+						{Name: "fatal", Value: λ.False},
+					})
+					τmp0 = λ.Cal(λ.BuiltinIter, ϒf4m_formats)
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒentry = τmp1
+						λ.Calm(ϒentry, "update", λ.DictLiteral(map[string]λ.Object{
+							"extra_param_to_segment_url": ϒhdcore_sign,
+						}))
+					}
+					λ.Calm(ϒformats, "extend", ϒf4m_formats)
+					ϒm3u8_url = λ.Calm(λ.Cal(Ωre.ϒsub, λ.StrLiteral("(https?://[^/]+)/z/"), λ.StrLiteral("\\1/i/"), ϒmanifest_url), "replace", λ.StrLiteral("/manifest.f4m"), λ.StrLiteral("/master.m3u8"))
+					ϒhls_host = λ.Calm(ϒhosts, "get", λ.StrLiteral("hls"))
+					if λ.IsTrue(ϒhls_host) {
+						ϒm3u8_url = λ.Cal(Ωre.ϒsub, λ.StrLiteral("(https?://)[^/]+"), λ.Add(λ.StrLiteral("\\1"), ϒhls_host), ϒm3u8_url)
+					}
+					λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+						ϒm3u8_url,
+						ϒvideo_id,
+						λ.StrLiteral("mp4"),
+						λ.StrLiteral("m3u8_native"),
+					), λ.KWArgs{
+						{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
+						{Name: "fatal", Value: λ.False},
+					}))
+					ϒhttp_host = λ.Calm(ϒhosts, "get", λ.StrLiteral("http"))
+					if λ.IsTrue(func() λ.Object {
+						if λv := ϒhttp_host; !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewBool(!λ.Contains(ϒmanifest_url, λ.StrLiteral("hdnea=")))
+						}
+					}()) {
+						REPL_REGEX = λ.StrLiteral("https://[^/]+/i/([^,]+),([^/]+),([^/]+).csmil/.+")
+						ϒqualities = λ.Calm(λ.Calm(λ.Cal(Ωre.ϒmatch, REPL_REGEX, ϒm3u8_url), "group", λ.IntLiteral(2)), "split", λ.StrLiteral(","))
+						ϒqualities_length = λ.Cal(λ.BuiltinLen, ϒqualities)
+						if λ.Contains(λ.NewTuple(
+							λ.Add(ϒqualities_length, λ.IntLiteral(1)),
+							λ.Add(λ.Mul(ϒqualities_length, λ.IntLiteral(2)), λ.IntLiteral(1)),
+						), λ.Cal(λ.BuiltinLen, ϒformats)) {
+							ϒi = λ.IntLiteral(0)
+							ϒhttp_formats = λ.NewList()
+							τmp0 = λ.Cal(λ.BuiltinIter, ϒformats)
+							for {
+								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+									break
+								}
+								ϒf = τmp1
+								if λ.IsTrue(func() λ.Object {
+									if λv := λ.Eq(λ.GetItem(ϒf, λ.StrLiteral("protocol")), λ.StrLiteral("m3u8_native")); !λ.IsTrue(λv) {
+										return λv
+									} else {
+										return λ.Ne(λ.GetItem(ϒf, λ.StrLiteral("vcodec")), λ.StrLiteral("none"))
+									}
+								}()) {
+									τmp2 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+										λ.StrLiteral("http"),
+										λ.StrLiteral("https"),
+									))
+									for {
+										if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+											break
+										}
+										ϒprotocol = τmp3
+										ϒhttp_f = λ.Calm(ϒf, "copy")
+										λ.DelItem(ϒhttp_f, λ.StrLiteral("manifest_url"))
+										ϒhttp_url = λ.Cal(Ωre.ϒsub, REPL_REGEX, λ.Add(ϒprotocol, λ.Mod(λ.StrLiteral("://%s/\\1%s\\3"), λ.NewTuple(
+											ϒhttp_host,
+											λ.GetItem(ϒqualities, ϒi),
+										))), λ.GetItem(ϒf, λ.StrLiteral("url")))
+										λ.Calm(ϒhttp_f, "update", λ.DictLiteral(map[string]λ.Object{
+											"format_id": λ.Calm(λ.GetItem(ϒhttp_f, λ.StrLiteral("format_id")), "replace", λ.StrLiteral("hls-"), λ.Add(ϒprotocol, λ.StrLiteral("-"))),
+											"url":       ϒhttp_url,
+											"protocol":  ϒprotocol,
+										}))
+										λ.Calm(ϒhttp_formats, "append", ϒhttp_f)
+									}
+									τmp2 = λ.IAdd(ϒi, λ.IntLiteral(1))
+									ϒi = τmp2
+								}
+							}
+							λ.Calm(ϒformats, "extend", ϒhttp_formats)
+						}
+					}
+					return ϒformats
+				})
 			InfoExtractor__parse_jwplayer_data = λ.NewFunction("_parse_jwplayer_data",
 				[]λ.Param{
 					{Name: "self"},
@@ -6348,6 +6552,7 @@ func init() {
 				"__can_accept_status_code":     InfoExtractor___can_accept_status_code,
 				"__check_blocked":              InfoExtractor___check_blocked,
 				"__init__":                     InfoExtractor___init__,
+				"__maybe_fake_ip_and_retry":    InfoExtractor___maybe_fake_ip_and_retry,
 				"_check_formats":               InfoExtractor__check_formats,
 				"_download_json":               InfoExtractor__download_json,
 				"_download_json_handle":        InfoExtractor__download_json_handle,
@@ -6357,6 +6562,7 @@ func init() {
 				"_download_xml":                InfoExtractor__download_xml,
 				"_download_xml_handle":         InfoExtractor__download_xml_handle,
 				"_downloader":                  InfoExtractor__downloader,
+				"_extract_akamai_formats":      InfoExtractor__extract_akamai_formats,
 				"_extract_f4m_formats":         InfoExtractor__extract_f4m_formats,
 				"_extract_ism_formats":         InfoExtractor__extract_ism_formats,
 				"_extract_m3u8_formats":        InfoExtractor__extract_m3u8_formats,
@@ -6422,6 +6628,7 @@ func init() {
 				"initialize":                   InfoExtractor_initialize,
 				"mark_watched":                 InfoExtractor_mark_watched,
 				"playlist_result":              InfoExtractor_playlist_result,
+				"raise_geo_restricted":         InfoExtractor_raise_geo_restricted,
 				"report_download_webpage":      InfoExtractor_report_download_webpage,
 				"report_extraction":            InfoExtractor_report_extraction,
 				"report_warning":               InfoExtractor_report_warning,

@@ -6,7 +6,6 @@ Supported sites
  * ACast: `www.acast.com`
  * AdobeTVVideo: `video.tv.adobe.com`
  * Amara: `amara.org`
- * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
  * ARDMediathek: `www.ardmediathek.de`
  * ArteTV: `www.arte.tv`
@@ -21,8 +20,10 @@ Supported sites
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
+ * BIQLE: `biqle.org`
  * BleacherReportCMS: `bleacherreport.com`
  * BokeCC: `union.bokecc.com`
+ * Box: `mlssoccer.app.box.com`
  * Bpb: `www.bpb.de`
  * BR: `www.br.de`
  * BravoTV: `www.bravotv.com`
@@ -34,6 +35,7 @@ Supported sites
  * CCC: `media.ccc.de`
  * CCMA: `www.ccma.cat`
  * CCTV: `sports.cntv.cn`
+ * CDA: `www.cda.pl`
  * CharlieRose: `charlierose.com`
  * Chirbit: `chirb.it`
  * Cinemax: `www.cinemax.com`
@@ -68,7 +70,6 @@ Supported sites
  * EaglePlatform: `lentaru.media.eagleplatform.com`
  * EbaumsWorld: `www.ebaumsworld.com`
  * ElPais: `blogs.elpais.com`
- * Engadget: `www.engadget.com`
  * Escapist: `www.escapistmagazine.com`
  * FiveThirtyEight: `fivethirtyeight.com`
  * ExtremeTube _(adult)_: `www.extremetube.com`
@@ -77,7 +78,6 @@ Supported sites
  * Faz: `www.faz.net`
  * Fczenit: `fc-zenit.ru`
  * Filmweb: `www.filmweb.no`
- * FiveMin: `pshared.5min.com`
  * FiveTV: `5-tv.ru`
  * Flickr: `www.flickr.com`
  * Formula1: `www.formula1.com`
@@ -105,12 +105,9 @@ Supported sites
  * Hypem: `hypem.com`
  * IGN: `www.ign.com`
  * Imdb: `www.imdb.com`
- * Imgur: `i.imgur.com`
- * ImgurGallery: `imgur.com`
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
  * Ivideon: `www.ivideon.com`
- * Jamendo: `www.jamendo.com`
  * JeuxVideo: `www.jeuxvideo.com`
  * Joj: `media.joj.sk`
  * JWPlatform: `content.jwplatform.com`
@@ -160,6 +157,7 @@ Supported sites
  * PeerTube: `framatube.org`
  * People: `www.people.com`
  * Piksel: `player.piksel.com`
+ * Pinterest: `www.pinterest.com`
  * PlayFM: `www.play.fm`
  * Podomatic: `scienceteachingtips.podomatic.com`
  * Pokemon: `www.pokemon.com`
@@ -172,6 +170,7 @@ Supported sites
  * ReverbNation: `www.reverbnation.com`
  * Rozhlas: `prehravac.rozhlas.cz`
  * RTS: `www.rts.ch`
+ * RumbleEmbed: `rumble.com`
  * RUTV: `player.rutv.ru`
  * Ruutu: `www.ruutu.fi`
  * Safari: `www.safaribooksonline.com`
@@ -183,6 +182,12 @@ Supported sites
  * Servus: `www.servustv.com`
  * SeznamZpravy: `www.seznamzpravy.cz`
  * Sina: `video.sina.com.cn`
+ * SkyItVideo: `video.sky.it`
+ * SkyIt: `tg24.sky.it`
+ * SkyItAcademy: `www.skyacademy.it`
+ * SkyItArte: `arte.sky.it`
+ * CieloTVIt: `www.cielotv.it`
+ * TV8It: `tv8.it`
  * Slideshare: `www.slideshare.net`
  * SlidesLive: `slideslive.com`
  * Soundgasm: `soundgasm.net`
@@ -203,7 +208,6 @@ Supported sites
  * TED: `www.ted.com`
  * Telegraaf: `www.telegraaf.nl`
  * Tenta: `tenta.com`
- * TFO: `www.tfo.org`
  * TMZ: `www.tmz.com`
  * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
  * TNAFlix _(adult)_: `www.tnaflix.com`

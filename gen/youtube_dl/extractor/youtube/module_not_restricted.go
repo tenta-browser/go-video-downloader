@@ -44,6 +44,7 @@ var (
 	JSInterpreter                     λ.Object
 	SearchInfoExtractor               λ.Object
 	YoutubeBaseInfoExtractor          λ.Object
+	YoutubeFavouritesIE               λ.Object
 	YoutubeFeedsInfoExtractor         λ.Object
 	YoutubeHistoryIE                  λ.Object
 	YoutubeIE                         λ.Object
@@ -70,7 +71,6 @@ var (
 	ϒget_element_by_id                λ.Object
 	ϒint_or_none                      λ.Object
 	ϒmimetype2ext                     λ.Object
-	ϒorderedSet                       λ.Object
 	ϒparse_codecs                     λ.Object
 	ϒparse_duration                   λ.Object
 	ϒremove_quotes                    λ.Object
@@ -108,7 +108,6 @@ func init() {
 		ϒget_element_by_id = Ωutils.ϒget_element_by_id
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_codecs = Ωutils.ϒparse_codecs
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒremove_quotes = Ωutils.ϒremove_quotes
@@ -4079,7 +4078,7 @@ func init() {
 				YoutubeTabIE__VALID_URL    λ.Object
 				YoutubeTabIE__real_extract λ.Object
 			)
-			YoutubeTabIE__VALID_URL = λ.StrLiteral("https?://(?:\\w+\\.)?(?:youtube(?:kids)?\\.com|invidio\\.us)/(?:(?:channel|c|user)/|(?:playlist|watch)\\?.*?\\blist=)(?P<id>[^/?#&]+)")
+			YoutubeTabIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\\w+\\.)?\n                        (?:\n                            youtube(?:kids)?\\.com|\n                            invidio\\.us\n                        )/\n                        (?:\n                            (?:channel|c|user|feed)/|\n                            (?:playlist|watch)\\?.*?\\blist=\n                        )\n                        (?P<id>[^/?\\#&]+)\n                    ")
 			YoutubeTabIE_IE_NAME = λ.StrLiteral("youtube:tab")
 			YoutubeTabIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -4129,7 +4128,7 @@ func init() {
 					}
 					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒitem_id)
 					ϒidentity_token = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.StrLiteral("\\bID_TOKEN[\"\\']\\s*:\\s/l*[\"\\'](.+?)[\"\\']"),
+						λ.StrLiteral("\\bID_TOKEN[\"\\']\\s*:\\s*[\"\\'](.+?)[\"\\']"),
 						ϒwebpage,
 						λ.StrLiteral("identity token"),
 					), λ.KWArgs{
@@ -4238,6 +4237,15 @@ func init() {
 				"_VALID_URL": YoutubeYtUserIE__VALID_URL,
 			})
 		}())
+		YoutubeFavouritesIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeFavouritesIE"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {
+			var (
+				YoutubeFavouritesIE__VALID_URL λ.Object
+			)
+			YoutubeFavouritesIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?youtube\\.com/my_favorites|:ytfav(?:ou?rites)?")
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_VALID_URL": YoutubeFavouritesIE__VALID_URL,
+			})
+		}())
 		YoutubeSearchIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeSearchIE"), λ.NewTuple(
 			SearchInfoExtractor,
 			YoutubeBaseInfoExtractor,
@@ -4250,7 +4258,7 @@ func init() {
 				"IE_NAME": YoutubeSearchIE_IE_NAME,
 			})
 		}())
-		YoutubeFeedsInfoExtractor = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeFeedsInfoExtractor"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {
+		YoutubeFeedsInfoExtractor = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeFeedsInfoExtractor"), λ.NewTuple(YoutubeTabIE), func() λ.Dict {
 
 			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
@@ -4258,7 +4266,7 @@ func init() {
 			var (
 				YoutubeWatchLaterIE__VALID_URL λ.Object
 			)
-			YoutubeWatchLaterIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?youtube\\.com/feed/watch_later|:ytwatchlater")
+			YoutubeWatchLaterIE__VALID_URL = λ.StrLiteral(":ytwatchlater")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": YoutubeWatchLaterIE__VALID_URL,
 			})
@@ -4267,7 +4275,7 @@ func init() {
 			var (
 				YoutubeRecommendedIE__VALID_URL λ.Object
 			)
-			YoutubeRecommendedIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?youtube\\.com/feed/recommended|:ytrec(?:ommended)?")
+			YoutubeRecommendedIE__VALID_URL = λ.StrLiteral(":ytrec(?:ommended)?")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": YoutubeRecommendedIE__VALID_URL,
 			})
@@ -4276,7 +4284,7 @@ func init() {
 			var (
 				YoutubeSubscriptionsIE__VALID_URL λ.Object
 			)
-			YoutubeSubscriptionsIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?youtube\\.com/feed/subscriptions|:ytsubs(?:criptions)?")
+			YoutubeSubscriptionsIE__VALID_URL = λ.StrLiteral(":ytsubs(?:criptions)?")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": YoutubeSubscriptionsIE__VALID_URL,
 			})
@@ -4285,7 +4293,7 @@ func init() {
 			var (
 				YoutubeHistoryIE__VALID_URL λ.Object
 			)
-			YoutubeHistoryIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?youtube\\.com/feed/history|:ythistory")
+			YoutubeHistoryIE__VALID_URL = λ.StrLiteral(":ythistory")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": YoutubeHistoryIE__VALID_URL,
 			})

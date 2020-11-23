@@ -56,6 +56,7 @@ func init() {
 					var (
 						ϒdescription      λ.Object
 						ϒself             = λargs[0]
+						ϒthumbnail        λ.Object
 						ϒtitle            λ.Object
 						ϒupload_date      λ.Object
 						ϒupload_date_list λ.Object
@@ -76,6 +77,10 @@ func init() {
 					})
 					ϒtitle = λ.Calm(ϒself, "_og_search_title", ϒwebpage)
 					ϒdescription = λ.Calm(ϒself, "_og_search_description", ϒwebpage)
+					ϒthumbnail = λ.Calm(ϒself, "_html_search_meta", λ.NewList(
+						λ.StrLiteral("og:image"),
+						λ.StrLiteral("twitter:image"),
+					), ϒwebpage)
 					ϒupload_date_str = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
 						λ.StrLiteral("class=[\"\\']\\s*cover-emission-period\\s*[\"\\'][^>]*>[^<]+\\s+(\\d{1,2}\\s+[^\\s]+\\s+\\d{4})<"),
 						ϒwebpage,
@@ -104,6 +109,7 @@ func init() {
 						"id":          ϒvideo_id,
 						"title":       ϒtitle,
 						"description": ϒdescription,
+						"thumbnail":   ϒthumbnail,
 						"upload_date": ϒupload_date,
 						"formats": λ.NewList(λ.DictLiteral(map[string]λ.Object{
 							"url":    ϒvideo_url,

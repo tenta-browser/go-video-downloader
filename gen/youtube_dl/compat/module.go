@@ -50,6 +50,7 @@ var (
 	ϒcompat_integer_types             λ.Object
 	ϒcompat_kwargs                    λ.Object
 	ϒcompat_numeric_types             λ.Object
+	ϒcompat_ord                       λ.Object
 	ϒcompat_parse_qs                  λ.Object
 	ϒcompat_str                       λ.Object
 	ϒcompat_urllib_parse_unquote      λ.Object
@@ -92,6 +93,22 @@ func init() {
 					ϒkwargs = λargs[0]
 				)
 				return ϒkwargs
+			})
+		ϒcompat_ord = λ.NewFunction("compat_ord",
+			[]λ.Param{
+				{Name: "c"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒc = λargs[0]
+				)
+				if λ.Cal(λ.TypeType, ϒc) == λ.IntType {
+					return ϒc
+				} else {
+					return λ.Cal(λ.BuiltinOrd, ϒc)
+				}
+				return λ.None
 			})
 		ϒcompat_http_client = λ.Cal(λ.TypeType, λ.StrLiteral("compat_http_client"), λ.NewTuple(), func() λ.Dict {
 			var (

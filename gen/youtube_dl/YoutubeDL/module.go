@@ -50,6 +50,7 @@ var (
 	ExtractorError         λ.Object
 	FFmpegPostProcessor    λ.Object
 	GeoRestrictedError     λ.Object
+	ISO3166Utils           λ.Object
 	MaxDownloadsReached    λ.Object
 	PagedList              λ.Object
 	PhantomJSwrapper       λ.Object
@@ -100,6 +101,7 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		GeoRestrictedError = Ωutils.GeoRestrictedError
 		ϒint_or_none = Ωutils.ϒint_or_none
+		ISO3166Utils = Ωutils.ISO3166Utils
 		MaxDownloadsReached = Ωutils.MaxDownloadsReached
 		ϒorderedSet = Ωutils.ϒorderedSet
 		PagedList = Ωutils.PagedList
@@ -838,7 +840,7 @@ func init() {
 										var ϒe λ.Object = λex
 										ϒmsg = λ.GetAttr(ϒe, "msg", nil)
 										if λ.IsTrue(λ.GetAttr(ϒe, "countries", nil)) {
-											τmp2 = λ.IAdd(ϒmsg, λ.Mod(λ.StrLiteral("\nThis video is available in %s."), λ.Calm(λ.StrLiteral(", "), "join", λ.Cal(λ.MapIteratorType, λ.GetAttr(λ.None, "short2full", nil), λ.GetAttr(ϒe, "countries", nil)))))
+											τmp2 = λ.IAdd(ϒmsg, λ.Mod(λ.StrLiteral("\nThis video is available in %s."), λ.Calm(λ.StrLiteral(", "), "join", λ.Cal(λ.MapIteratorType, λ.GetAttr(ISO3166Utils, "short2full", nil), λ.GetAttr(ϒe, "countries", nil)))))
 											ϒmsg = τmp2
 										}
 										τmp2 = λ.IAdd(ϒmsg, λ.StrLiteral("\nYou might want to use a VPN or a proxy server (with --proxy) to workaround."))

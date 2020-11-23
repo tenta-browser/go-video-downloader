@@ -33,7 +33,6 @@ import (
 
 var (
 	ExtractorError            λ.Object
-	HEADRequest               λ.Object
 	InfoExtractor             λ.Object
 	SinaIE                    λ.Object
 	ϒclean_html               λ.Object
@@ -46,7 +45,6 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		HEADRequest = Ωutils.HEADRequest
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
@@ -94,7 +92,7 @@ func init() {
 					if !λ.IsTrue(ϒvideo_id) {
 						if λ.Calm(ϒmobj, "group", λ.StrLiteral("token")) != λ.None {
 							λ.Calm(ϒself, "to_screen", λ.StrLiteral("Getting video id"))
-							ϒrequest = λ.Cal(HEADRequest, ϒurl)
+							ϒrequest = λ.Cal(λ.None, ϒurl)
 							τmp0 = λ.Calm(ϒself, "_download_webpage_handle", ϒrequest, λ.StrLiteral("NA"), λ.False)
 							_ = λ.GetItem(τmp0, λ.IntLiteral(0))
 							ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))

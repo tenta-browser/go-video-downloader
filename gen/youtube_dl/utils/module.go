@@ -49,8 +49,8 @@ var (
 	ExtractorError                    λ.Object
 	GeoRestrictedError                λ.Object
 	GeoUtils                          λ.Object
-	HEADRequest                       λ.Object
 	HTMLAttributeParser               λ.Object
+	ISO3166Utils                      λ.Object
 	ISO639Utils                       λ.Object
 	JSON_LD_RE                        λ.Object
 	KNOWN_EXTENSIONS                  λ.Object
@@ -2915,8 +2915,32 @@ func init() {
 			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		GeoRestrictedError = λ.Cal(λ.TypeType, λ.StrLiteral("GeoRestrictedError"), λ.NewTuple(ExtractorError), func() λ.Dict {
-
-			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
+			var (
+				GeoRestrictedError___init__ λ.Object
+			)
+			GeoRestrictedError___init__ = λ.NewFunction("__init__",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "msg"},
+					{Name: "countries", Def: λ.None},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcountries = λargs[2]
+						ϒmsg       = λargs[1]
+						ϒself      = λargs[0]
+					)
+					λ.Call(λ.GetAttr(λ.Cal(λ.SuperType, GeoRestrictedError, ϒself), "__init__", nil), λ.NewArgs(ϒmsg), λ.KWArgs{
+						{Name: "expected", Value: λ.True},
+					})
+					λ.SetAttr(ϒself, "msg", ϒmsg)
+					λ.SetAttr(ϒself, "countries", ϒcountries)
+					return λ.None
+				})
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"__init__": GeoRestrictedError___init__,
+			})
 		}())
 		DownloadError = λ.Cal(λ.TypeType, λ.StrLiteral("DownloadError"), λ.NewTuple(YoutubeDLError), func() λ.Dict {
 			var (
@@ -3496,26 +3520,6 @@ func init() {
 				}
 				return λ.Cal(Ωparse.ϒurljoin, ϒbase, ϒpath)
 			})
-		HEADRequest = λ.Cal(λ.TypeType, λ.StrLiteral("HEADRequest"), λ.NewTuple(Ωrequest.Request), func() λ.Dict {
-			var (
-				HEADRequest_get_method λ.Object
-			)
-			HEADRequest_get_method = λ.NewFunction("get_method",
-				[]λ.Param{
-					{Name: "self"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒself = λargs[0]
-					)
-					_ = ϒself
-					return λ.StrLiteral("HEAD")
-				})
-			return λ.ClassDictLiteral(map[string]λ.Object{
-				"get_method": HEADRequest_get_method,
-			})
-		}())
 		ϒint_or_none = λ.NewFunction("int_or_none",
 			[]λ.Param{
 				{Name: "v"},
@@ -3913,7 +3917,7 @@ func init() {
 				}(), ϒquery)
 				ϒreq_get_method = λ.Calm(ϒreq, "get_method")
 				if λ.IsTrue(λ.Eq(ϒreq_get_method, λ.StrLiteral("HEAD"))) {
-					ϒreq_type = HEADRequest
+					ϒreq_type = λ.None
 				} else {
 					if λ.IsTrue(λ.Eq(ϒreq_get_method, λ.StrLiteral("PUT"))) {
 						ϒreq_type = λ.None
@@ -4842,6 +4846,281 @@ func init() {
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_lang_map":  ISO639Utils__lang_map,
 				"long2short": ISO639Utils_long2short,
+			})
+		}())
+		ISO3166Utils = λ.Cal(λ.TypeType, λ.StrLiteral("ISO3166Utils"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
+			var (
+				ISO3166Utils__country_map λ.Object
+				ISO3166Utils_short2full   λ.Object
+			)
+			ISO3166Utils__country_map = λ.DictLiteral(map[string]string{
+				"AF": "Afghanistan",
+				"AX": "Åland Islands",
+				"AL": "Albania",
+				"DZ": "Algeria",
+				"AS": "American Samoa",
+				"AD": "Andorra",
+				"AO": "Angola",
+				"AI": "Anguilla",
+				"AQ": "Antarctica",
+				"AG": "Antigua and Barbuda",
+				"AR": "Argentina",
+				"AM": "Armenia",
+				"AW": "Aruba",
+				"AU": "Australia",
+				"AT": "Austria",
+				"AZ": "Azerbaijan",
+				"BS": "Bahamas",
+				"BH": "Bahrain",
+				"BD": "Bangladesh",
+				"BB": "Barbados",
+				"BY": "Belarus",
+				"BE": "Belgium",
+				"BZ": "Belize",
+				"BJ": "Benin",
+				"BM": "Bermuda",
+				"BT": "Bhutan",
+				"BO": "Bolivia, Plurinational State of",
+				"BQ": "Bonaire, Sint Eustatius and Saba",
+				"BA": "Bosnia and Herzegovina",
+				"BW": "Botswana",
+				"BV": "Bouvet Island",
+				"BR": "Brazil",
+				"IO": "British Indian Ocean Territory",
+				"BN": "Brunei Darussalam",
+				"BG": "Bulgaria",
+				"BF": "Burkina Faso",
+				"BI": "Burundi",
+				"KH": "Cambodia",
+				"CM": "Cameroon",
+				"CA": "Canada",
+				"CV": "Cape Verde",
+				"KY": "Cayman Islands",
+				"CF": "Central African Republic",
+				"TD": "Chad",
+				"CL": "Chile",
+				"CN": "China",
+				"CX": "Christmas Island",
+				"CC": "Cocos (Keeling) Islands",
+				"CO": "Colombia",
+				"KM": "Comoros",
+				"CG": "Congo",
+				"CD": "Congo, the Democratic Republic of the",
+				"CK": "Cook Islands",
+				"CR": "Costa Rica",
+				"CI": "Côte d'Ivoire",
+				"HR": "Croatia",
+				"CU": "Cuba",
+				"CW": "Curaçao",
+				"CY": "Cyprus",
+				"CZ": "Czech Republic",
+				"DK": "Denmark",
+				"DJ": "Djibouti",
+				"DM": "Dominica",
+				"DO": "Dominican Republic",
+				"EC": "Ecuador",
+				"EG": "Egypt",
+				"SV": "El Salvador",
+				"GQ": "Equatorial Guinea",
+				"ER": "Eritrea",
+				"EE": "Estonia",
+				"ET": "Ethiopia",
+				"FK": "Falkland Islands (Malvinas)",
+				"FO": "Faroe Islands",
+				"FJ": "Fiji",
+				"FI": "Finland",
+				"FR": "France",
+				"GF": "French Guiana",
+				"PF": "French Polynesia",
+				"TF": "French Southern Territories",
+				"GA": "Gabon",
+				"GM": "Gambia",
+				"GE": "Georgia",
+				"DE": "Germany",
+				"GH": "Ghana",
+				"GI": "Gibraltar",
+				"GR": "Greece",
+				"GL": "Greenland",
+				"GD": "Grenada",
+				"GP": "Guadeloupe",
+				"GU": "Guam",
+				"GT": "Guatemala",
+				"GG": "Guernsey",
+				"GN": "Guinea",
+				"GW": "Guinea-Bissau",
+				"GY": "Guyana",
+				"HT": "Haiti",
+				"HM": "Heard Island and McDonald Islands",
+				"VA": "Holy See (Vatican City State)",
+				"HN": "Honduras",
+				"HK": "Hong Kong",
+				"HU": "Hungary",
+				"IS": "Iceland",
+				"IN": "India",
+				"ID": "Indonesia",
+				"IR": "Iran, Islamic Republic of",
+				"IQ": "Iraq",
+				"IE": "Ireland",
+				"IM": "Isle of Man",
+				"IL": "Israel",
+				"IT": "Italy",
+				"JM": "Jamaica",
+				"JP": "Japan",
+				"JE": "Jersey",
+				"JO": "Jordan",
+				"KZ": "Kazakhstan",
+				"KE": "Kenya",
+				"KI": "Kiribati",
+				"KP": "Korea, Democratic People's Republic of",
+				"KR": "Korea, Republic of",
+				"KW": "Kuwait",
+				"KG": "Kyrgyzstan",
+				"LA": "Lao People's Democratic Republic",
+				"LV": "Latvia",
+				"LB": "Lebanon",
+				"LS": "Lesotho",
+				"LR": "Liberia",
+				"LY": "Libya",
+				"LI": "Liechtenstein",
+				"LT": "Lithuania",
+				"LU": "Luxembourg",
+				"MO": "Macao",
+				"MK": "Macedonia, the Former Yugoslav Republic of",
+				"MG": "Madagascar",
+				"MW": "Malawi",
+				"MY": "Malaysia",
+				"MV": "Maldives",
+				"ML": "Mali",
+				"MT": "Malta",
+				"MH": "Marshall Islands",
+				"MQ": "Martinique",
+				"MR": "Mauritania",
+				"MU": "Mauritius",
+				"YT": "Mayotte",
+				"MX": "Mexico",
+				"FM": "Micronesia, Federated States of",
+				"MD": "Moldova, Republic of",
+				"MC": "Monaco",
+				"MN": "Mongolia",
+				"ME": "Montenegro",
+				"MS": "Montserrat",
+				"MA": "Morocco",
+				"MZ": "Mozambique",
+				"MM": "Myanmar",
+				"NA": "Namibia",
+				"NR": "Nauru",
+				"NP": "Nepal",
+				"NL": "Netherlands",
+				"NC": "New Caledonia",
+				"NZ": "New Zealand",
+				"NI": "Nicaragua",
+				"NE": "Niger",
+				"NG": "Nigeria",
+				"NU": "Niue",
+				"NF": "Norfolk Island",
+				"MP": "Northern Mariana Islands",
+				"NO": "Norway",
+				"OM": "Oman",
+				"PK": "Pakistan",
+				"PW": "Palau",
+				"PS": "Palestine, State of",
+				"PA": "Panama",
+				"PG": "Papua New Guinea",
+				"PY": "Paraguay",
+				"PE": "Peru",
+				"PH": "Philippines",
+				"PN": "Pitcairn",
+				"PL": "Poland",
+				"PT": "Portugal",
+				"PR": "Puerto Rico",
+				"QA": "Qatar",
+				"RE": "Réunion",
+				"RO": "Romania",
+				"RU": "Russian Federation",
+				"RW": "Rwanda",
+				"BL": "Saint Barthélemy",
+				"SH": "Saint Helena, Ascension and Tristan da Cunha",
+				"KN": "Saint Kitts and Nevis",
+				"LC": "Saint Lucia",
+				"MF": "Saint Martin (French part)",
+				"PM": "Saint Pierre and Miquelon",
+				"VC": "Saint Vincent and the Grenadines",
+				"WS": "Samoa",
+				"SM": "San Marino",
+				"ST": "Sao Tome and Principe",
+				"SA": "Saudi Arabia",
+				"SN": "Senegal",
+				"RS": "Serbia",
+				"SC": "Seychelles",
+				"SL": "Sierra Leone",
+				"SG": "Singapore",
+				"SX": "Sint Maarten (Dutch part)",
+				"SK": "Slovakia",
+				"SI": "Slovenia",
+				"SB": "Solomon Islands",
+				"SO": "Somalia",
+				"ZA": "South Africa",
+				"GS": "South Georgia and the South Sandwich Islands",
+				"SS": "South Sudan",
+				"ES": "Spain",
+				"LK": "Sri Lanka",
+				"SD": "Sudan",
+				"SR": "Suriname",
+				"SJ": "Svalbard and Jan Mayen",
+				"SZ": "Swaziland",
+				"SE": "Sweden",
+				"CH": "Switzerland",
+				"SY": "Syrian Arab Republic",
+				"TW": "Taiwan, Province of China",
+				"TJ": "Tajikistan",
+				"TZ": "Tanzania, United Republic of",
+				"TH": "Thailand",
+				"TL": "Timor-Leste",
+				"TG": "Togo",
+				"TK": "Tokelau",
+				"TO": "Tonga",
+				"TT": "Trinidad and Tobago",
+				"TN": "Tunisia",
+				"TR": "Turkey",
+				"TM": "Turkmenistan",
+				"TC": "Turks and Caicos Islands",
+				"TV": "Tuvalu",
+				"UG": "Uganda",
+				"UA": "Ukraine",
+				"AE": "United Arab Emirates",
+				"GB": "United Kingdom",
+				"US": "United States",
+				"UM": "United States Minor Outlying Islands",
+				"UY": "Uruguay",
+				"UZ": "Uzbekistan",
+				"VU": "Vanuatu",
+				"VE": "Venezuela, Bolivarian Republic of",
+				"VN": "Viet Nam",
+				"VG": "Virgin Islands, British",
+				"VI": "Virgin Islands, U.S.",
+				"WF": "Wallis and Futuna",
+				"EH": "Western Sahara",
+				"YE": "Yemen",
+				"ZM": "Zambia",
+				"ZW": "Zimbabwe",
+			})
+			ISO3166Utils_short2full = λ.NewFunction("short2full",
+				[]λ.Param{
+					{Name: "cls"},
+					{Name: "code"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcls  = λargs[0]
+						ϒcode = λargs[1]
+					)
+					return λ.Calm(λ.GetAttr(ϒcls, "_country_map", nil), "get", λ.Calm(ϒcode, "upper"))
+				})
+			ISO3166Utils_short2full = λ.Cal(λ.ClassMethodType, ISO3166Utils_short2full)
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_country_map": ISO3166Utils__country_map,
+				"short2full":   ISO3166Utils_short2full,
 			})
 		}())
 		GeoUtils = λ.Cal(λ.TypeType, λ.StrLiteral("GeoUtils"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
