@@ -131,6 +131,7 @@ var (
 	FacebookIE                   λ.Object
 	FoxNewsIE                    λ.Object
 	GoogleDriveIE                λ.Object
+	HEADRequest                  λ.Object
 	IndavideoEmbedIE             λ.Object
 	InfoExtractor                λ.Object
 	InstagramIE                  λ.Object
@@ -224,6 +225,7 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
+		HEADRequest = Ωutils.HEADRequest
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		KNOWN_EXTENSIONS = Ωutils.KNOWN_EXTENSIONS
 		ϒmerge_dicts = Ωutils.ϒmerge_dicts

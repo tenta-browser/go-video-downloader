@@ -49,6 +49,7 @@ var (
 	ExtractorError                    λ.Object
 	GeoRestrictedError                λ.Object
 	GeoUtils                          λ.Object
+	HEADRequest                       λ.Object
 	HTMLAttributeParser               λ.Object
 	ISO3166Utils                      λ.Object
 	ISO639Utils                       λ.Object
@@ -3520,6 +3521,26 @@ func init() {
 				}
 				return λ.Cal(Ωparse.ϒurljoin, ϒbase, ϒpath)
 			})
+		HEADRequest = λ.Cal(λ.TypeType, λ.StrLiteral("HEADRequest"), λ.NewTuple(Ωrequest.Request), func() λ.Dict {
+			var (
+				HEADRequest_get_method λ.Object
+			)
+			HEADRequest_get_method = λ.NewFunction("get_method",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself = λargs[0]
+					)
+					_ = ϒself
+					return λ.StrLiteral("HEAD")
+				})
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"get_method": HEADRequest_get_method,
+			})
+		}())
 		ϒint_or_none = λ.NewFunction("int_or_none",
 			[]λ.Param{
 				{Name: "v"},
@@ -3917,7 +3938,7 @@ func init() {
 				}(), ϒquery)
 				ϒreq_get_method = λ.Calm(ϒreq, "get_method")
 				if λ.IsTrue(λ.Eq(ϒreq_get_method, λ.StrLiteral("HEAD"))) {
-					ϒreq_type = λ.None
+					ϒreq_type = HEADRequest
 				} else {
 					if λ.IsTrue(λ.Eq(ϒreq_get_method, λ.StrLiteral("PUT"))) {
 						ϒreq_type = λ.None

@@ -10,10 +10,8 @@ Supported sites
  * ARDMediathek: `www.ardmediathek.de`
  * ArteTV: `www.arte.tv`
  * ArteTVEmbed: `www.arte.tv`
- * AsianCrush: `www.asiancrush.com`
  * AudioBoom: `audioboom.com`
  * Audiomack: `www.audiomack.com`
- * AZMedien: `www.telezueri.ch`
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
  * Beatport: `beatport.com`
@@ -105,9 +103,12 @@ Supported sites
  * Hypem: `hypem.com`
  * IGN: `www.ign.com`
  * Imdb: `www.imdb.com`
+ * Imgur: `i.imgur.com`
+ * ImgurGallery: `imgur.com`
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
  * Ivideon: `www.ivideon.com`
+ * Jamendo: `www.jamendo.com`
  * JeuxVideo: `www.jeuxvideo.com`
  * Joj: `media.joj.sk`
  * JWPlatform: `content.jwplatform.com`
@@ -179,7 +180,6 @@ Supported sites
  * Screencast: `www.screencast.com`
  * ScreencastOMatic: `screencast-o-matic.com`
  * SenateISVP: `www.senate.gov`
- * Servus: `www.servustv.com`
  * SeznamZpravy: `www.seznamzpravy.cz`
  * Sina: `video.sina.com.cn`
  * SkyItVideo: `video.sky.it`
@@ -194,6 +194,7 @@ Supported sites
  * SpankBang _(adult)_: `spankbang.com`
  * Spankwire _(adult)_: `www.spankwire.com`
  * Spiegel: `www.spiegel.de`
+ * Spreaker: `api.spreaker.com`
  * SRGSSRPlay: `www.rts.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
  * Streamable: `streamable.com`
@@ -208,6 +209,7 @@ Supported sites
  * TED: `www.ted.com`
  * Telegraaf: `www.telegraaf.nl`
  * Tenta: `tenta.com`
+ * TFO: `www.tfo.org`
  * TMZ: `www.tmz.com`
  * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
  * TNAFlix _(adult)_: `www.tnaflix.com`

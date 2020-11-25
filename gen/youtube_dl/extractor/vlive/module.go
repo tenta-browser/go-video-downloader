@@ -38,10 +38,13 @@ var (
 	VLiveBaseIE         λ.Object
 	VLiveChannelIE      λ.Object
 	VLiveIE             λ.Object
+	VLivePostIE         λ.Object
 	ϒcompat_HTTPError   λ.Object
 	ϒcompat_str         λ.Object
 	ϒint_or_none        λ.Object
 	ϒmerge_dicts        λ.Object
+	ϒstr_or_none        λ.Object
+	ϒstrip_or_none      λ.Object
 	ϒtry_get            λ.Object
 	ϒurlencode_postdata λ.Object
 )
@@ -54,6 +57,8 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒmerge_dicts = Ωutils.ϒmerge_dicts
+		ϒstr_or_none = Ωutils.ϒstr_or_none
+		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		VLiveBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("VLiveBaseIE"), λ.NewTuple(NaverBaseIE), func() λ.Dict {
@@ -190,23 +195,50 @@ func init() {
 						ϒquery         λ.Object
 						ϒself          = λargs[0]
 						ϒvideo_id      = λargs[2]
+						τmp0           λ.Object
+						τmp1           λ.Object
 					)
 					ϒquery = λ.DictLiteral(map[string]λ.Object{
 						"appId": λ.GetAttr(ϒself, "_APP_ID", nil),
+						"gcc":   λ.StrLiteral("KR"),
 					})
 					if λ.IsTrue(ϒfields) {
 						λ.SetItem(ϒquery, λ.StrLiteral("fields"), ϒfields)
 					}
-					return λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Add(λ.StrLiteral("https://www.vlive.tv/globalv-web/vam-web/"), λ.Mod(ϒpath_template, ϒvideo_id)),
-						ϒvideo_id,
-						λ.Mod(λ.StrLiteral("Downloading %s JSON metadata"), λ.GetItem(λ.Calm(λ.GetItem(λ.Calm(ϒpath_template, "split", λ.StrLiteral("/")), λ.Neg(λ.IntLiteral(1))), "split", λ.StrLiteral("-")), λ.IntLiteral(0))),
-					), λ.KWArgs{
-						{Name: "headers", Value: λ.DictLiteral(map[string]string{
-							"Referer": "https://www.vlive.tv/",
-						})},
-						{Name: "query", Value: ϒquery},
-					})
+					τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
+						defer λ.CatchMulti(
+							nil,
+							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
+								var ϒe λ.Object = λex
+								if λ.IsTrue(func() λ.Object {
+									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
+										return λv
+									} else {
+										return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.IntLiteral(403))
+									}
+								}()) {
+									λ.Calm(ϒself, "raise_login_required", λ.GetItem(λ.Cal(Ωjson.ϒloads, λ.Calm(λ.Calm(λ.GetAttr(ϒe, "cause", nil), "read"), "decode")), λ.StrLiteral("message")))
+								}
+								panic(λ.Raise(λex))
+							}},
+						)
+						λexit, λret = λ.BlockExitReturn, λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+							λ.Add(λ.StrLiteral("https://www.vlive.tv/globalv-web/vam-web/"), λ.Mod(ϒpath_template, ϒvideo_id)),
+							ϒvideo_id,
+							λ.Mod(λ.StrLiteral("Downloading %s JSON metadata"), λ.GetItem(λ.Calm(λ.GetItem(λ.Calm(ϒpath_template, "split", λ.StrLiteral("/")), λ.Neg(λ.IntLiteral(1))), "split", λ.StrLiteral("-")), λ.IntLiteral(0))),
+						), λ.KWArgs{
+							{Name: "headers", Value: λ.DictLiteral(map[string]string{
+								"Referer": "https://www.vlive.tv/",
+							})},
+							{Name: "query", Value: ϒquery},
+						})
+						return
+						return λ.BlockExitNormally, nil
+					}()
+					if τmp0 == λ.BlockExitReturn {
+						return τmp1
+					}
+					return λ.None
 				})
 			VLiveIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -229,32 +261,9 @@ func init() {
 						ϒvideo_id          λ.Object
 						ϒvideo_type        λ.Object
 						ϒvod_id            λ.Object
-						τmp0               λ.Object
-						τmp1               λ.Object
 					)
-					_ = τmp0
-					_ = τmp1
 					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
-					τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
-						defer λ.CatchMulti(
-							nil,
-							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
-								var ϒe λ.Object = λex
-								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
-										return λv
-									} else {
-										return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.IntLiteral(403))
-									}
-								}()) {
-									λ.Calm(ϒself, "raise_login_required", λ.GetItem(λ.Cal(Ωjson.ϒloads, λ.Calm(λ.Calm(λ.GetAttr(ϒe, "cause", nil), "read"), "decode")), λ.StrLiteral("message")))
-								}
-								panic(λ.Raise(λex))
-							}},
-						)
-						ϒpost = λ.Calm(ϒself, "_call_api", λ.StrLiteral("post/v1.0/officialVideoPost-%s"), ϒvideo_id, λ.StrLiteral("author{nickname},channel{channelCode,channelName},officialVideo{commentCount,exposeStatus,likeCount,playCount,playTime,status,title,type,vodId}"))
-						return λ.BlockExitNormally, nil
-					}()
+					ϒpost = λ.Calm(ϒself, "_call_api", λ.StrLiteral("post/v1.0/officialVideoPost-%s"), ϒvideo_id, λ.StrLiteral("author{nickname},channel{channelCode,channelName},officialVideo{commentCount,exposeStatus,likeCount,playCount,playTime,status,title,type,vodId}"))
 					ϒvideo = λ.GetItem(ϒpost, λ.StrLiteral("officialVideo"))
 					ϒget_common_fields = λ.NewFunction("get_common_fields",
 						nil,
@@ -333,6 +342,18 @@ func init() {
 				"_login":           VLiveIE__login,
 				"_real_extract":    VLiveIE__real_extract,
 				"_real_initialize": VLiveIE__real_initialize,
+			})
+		}())
+		VLivePostIE = λ.Cal(λ.TypeType, λ.StrLiteral("VLivePostIE"), λ.NewTuple(VLiveIE), func() λ.Dict {
+			var (
+				VLivePostIE__FVIDEO_TMPL λ.Object
+				VLivePostIE__VALID_URL   λ.Object
+			)
+			VLivePostIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|m)\\.)?vlive\\.tv/post/(?P<id>\\d-\\d+)")
+			VLivePostIE__FVIDEO_TMPL = λ.StrLiteral("fvideo/v1.0/fvideo-%%s/%s")
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_FVIDEO_TMPL": VLivePostIE__FVIDEO_TMPL,
+				"_VALID_URL":   VLivePostIE__VALID_URL,
 			})
 		}())
 		VLiveChannelIE = λ.Cal(λ.TypeType, λ.StrLiteral("VLiveChannelIE"), λ.NewTuple(VLiveBaseIE), func() λ.Dict {

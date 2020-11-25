@@ -33,6 +33,7 @@ import (
 
 var (
 	ExtractorError           λ.Object
+	HEADRequest              λ.Object
 	InfoExtractor            λ.Object
 	MTVDEIE                  λ.Object
 	MTVIE                    λ.Object
@@ -64,6 +65,7 @@ func init() {
 		ϒfind_xpath_attr = Ωutils.ϒfind_xpath_attr
 		ϒfix_xml_ampersands = Ωutils.ϒfix_xml_ampersands
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
+		HEADRequest = Ωutils.HEADRequest
 		RegexNotFoundError = Ωutils.RegexNotFoundError
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		ϒstrip_or_none = Ωutils.ϒstrip_or_none
