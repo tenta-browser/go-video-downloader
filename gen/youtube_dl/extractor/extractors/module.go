@@ -217,6 +217,7 @@ import (
 	Ωtelegraaf "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/telegraaf"
 	Ωtenta "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tenta"
 	Ωtfo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tfo"
+	Ωtiktok "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tiktok"
 	Ωtmz "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tmz"
 	Ωtnaflix "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tnaflix"
 	Ωtoongoggles "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/toongoggles"
@@ -490,6 +491,7 @@ var (
 	TeamcocoIE                 λ.Object
 	TelegraafIE                λ.Object
 	TentaIE                    λ.Object
+	TikTokIE                   λ.Object
 	ToonGogglesIE              λ.Object
 	ToypicsIE                  λ.Object
 	Tube8IE                    λ.Object
@@ -521,7 +523,6 @@ var (
 	VzaarIE                    λ.Object
 	WSJArticleIE               λ.Object
 	WSJIE                      λ.Object
-	WeiboIE                    λ.Object
 	WeiboMobileIE              λ.Object
 	WorldStarHipHopIE          λ.Object
 	XHamsterEmbedIE            λ.Object
@@ -752,6 +753,7 @@ func init() {
 		TelegraafIE = Ωtelegraaf.TelegraafIE
 		TentaIE = Ωtenta.TentaIE
 		TFOIE = Ωtfo.TFOIE
+		TikTokIE = Ωtiktok.TikTokIE
 		TMZIE = Ωtmz.TMZIE
 		TNAFlixNetworkEmbedIE = Ωtnaflix.TNAFlixNetworkEmbedIE
 		TNAFlixIE = Ωtnaflix.TNAFlixIE
@@ -792,7 +794,6 @@ func init() {
 		VKIE = Ωvk.VKIE
 		VLiveIE = Ωvlive.VLiveIE
 		VzaarIE = Ωvzaar.VzaarIE
-		WeiboIE = Ωweibo.WeiboIE
 		WeiboMobileIE = Ωweibo.WeiboMobileIE
 		WorldStarHipHopIE = Ωworldstarhiphop.WorldStarHipHopIE
 		WSJIE = Ωwsj.WSJIE
@@ -1021,6 +1022,7 @@ func init() {
 			TelegraafIE,
 			TentaIE,
 			TFOIE,
+			TikTokIE,
 			TMZIE,
 			TNAFlixNetworkEmbedIE,
 			TNAFlixIE,
@@ -1061,7 +1063,6 @@ func init() {
 			VKIE,
 			VLiveIE,
 			VzaarIE,
-			WeiboIE,
 			WeiboMobileIE,
 			WorldStarHipHopIE,
 			WSJIE,

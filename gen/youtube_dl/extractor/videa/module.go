@@ -25,34 +25,43 @@
 package videa
 
 import (
+	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	InfoExtractor  λ.Object
-	VideaIE        λ.Object
-	ϒint_or_none   λ.Object
-	ϒmimetype2ext  λ.Object
-	ϒparse_codecs  λ.Object
-	ϒxpath_element λ.Object
-	ϒxpath_text    λ.Object
+	ExtractorError    λ.Object
+	InfoExtractor     λ.Object
+	VideaIE           λ.Object
+	ϒcompat_b64decode λ.Object
+	ϒcompat_ord       λ.Object
+	ϒint_or_none      λ.Object
+	ϒmimetype2ext     λ.Object
+	ϒparse_codecs     λ.Object
+	ϒupdate_url_query λ.Object
+	ϒxpath_element    λ.Object
+	ϒxpath_text       λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
 		ϒparse_codecs = Ωutils.ϒparse_codecs
+		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		ϒxpath_element = Ωutils.ϒxpath_element
 		ϒxpath_text = Ωutils.ϒxpath_text
+		ϒcompat_b64decode = Ωcompat.ϒcompat_b64decode
+		ϒcompat_ord = Ωcompat.ϒcompat_ord
 		VideaIE = λ.Cal(λ.TypeType, λ.StrLiteral("VideaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				VideaIE__VALID_URL λ.Object
 			)
-			VideaIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        videa(?:kid)?\\.hu/\n                        (?:\n                            videok/(?:[^/]+/)*[^?#&]+-|\n                            player\\?.*?\\bv=|\n                            player/v/\n                        )\n                        (?P<id>[^?#&]+)\n                    ")
+			VideaIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        videa(?:kid)?\\.hu/\n                        (?:\n                            videok/(?:[^/]+/)*[^?#&]+-|\n                            (?:videojs_)?player\\?.*?\\bv=|\n                            player/v/\n                        )\n                        (?P<id>[^?#&]+)\n                    ")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": VideaIE__VALID_URL,
 			})

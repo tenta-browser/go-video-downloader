@@ -53,7 +53,7 @@ func init() {
 				InaIE__VALID_URL    λ.Object
 				InaIE__real_extract λ.Object
 			)
-			InaIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?ina\\.fr/(?:video|audio)/(?P<id>[A-Z0-9_]+)")
+			InaIE__VALID_URL = λ.StrLiteral("https?://(?:(?:www|m)\\.)?ina\\.fr/(?:video|audio)/(?P<id>[A-Z0-9_]+)")
 			InaIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},

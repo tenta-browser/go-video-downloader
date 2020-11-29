@@ -1920,7 +1920,7 @@ func init() {
 							{Name: "download", Value: ϒdownload},
 						})
 						if λ.IsTrue(λ.Calm(λ.GetAttr(ϒself, "params", nil), "get", λ.StrLiteral("verbose"))) {
-							λ.Calm(ϒself, "to_stdout", λ.Mod(λ.StrLiteral("[debug] Default format spec: %s"), ϒreq_format))
+							λ.Calm(ϒself, "_write_string", λ.Mod(λ.StrLiteral("[debug] Default format spec: %s\n"), ϒreq_format))
 						}
 					}
 					ϒformat_selector = λ.Calm(ϒself, "build_format_selector", ϒreq_format)
@@ -2743,7 +2743,7 @@ func init() {
 										λ.Calm(ϒfd, "add_progress_hook", ϒph)
 									}
 									if λ.IsTrue(λ.Calm(λ.GetAttr(ϒself, "params", nil), "get", λ.StrLiteral("verbose"))) {
-										λ.Calm(ϒself, "to_stdout", λ.Mod(λ.StrLiteral("[debug] Invoking downloader on %r"), λ.Calm(ϒinfo, "get", λ.StrLiteral("url"))))
+										λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("[debug] Invoking downloader on %r"), λ.Calm(ϒinfo, "get", λ.StrLiteral("url"))))
 									}
 									return λ.Calm(ϒfd, "download", ϒname, ϒinfo)
 								})

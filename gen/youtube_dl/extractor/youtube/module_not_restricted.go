@@ -125,14 +125,15 @@ func init() {
 		ϒurljoin = Ωutils.ϒurljoin
 		YoutubeBaseInfoExtractor = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeBaseInfoExtractor"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				YoutubeBaseInfoExtractor__LOGIN_REQUIRED          λ.Object
-				YoutubeBaseInfoExtractor__NETRC_MACHINE           λ.Object
-				YoutubeBaseInfoExtractor__PLAYLIST_ID_RE          λ.Object
-				YoutubeBaseInfoExtractor__YT_INITIAL_DATA_RE      λ.Object
-				YoutubeBaseInfoExtractor__extract_yt_initial_data λ.Object
-				YoutubeBaseInfoExtractor__login                   λ.Object
-				YoutubeBaseInfoExtractor__real_initialize         λ.Object
-				YoutubeBaseInfoExtractor__set_language            λ.Object
+				YoutubeBaseInfoExtractor__LOGIN_REQUIRED                λ.Object
+				YoutubeBaseInfoExtractor__NETRC_MACHINE                 λ.Object
+				YoutubeBaseInfoExtractor__PLAYLIST_ID_RE                λ.Object
+				YoutubeBaseInfoExtractor__YT_INITIAL_DATA_RE            λ.Object
+				YoutubeBaseInfoExtractor__YT_INITIAL_PLAYER_RESPONSE_RE λ.Object
+				YoutubeBaseInfoExtractor__extract_yt_initial_data       λ.Object
+				YoutubeBaseInfoExtractor__login                         λ.Object
+				YoutubeBaseInfoExtractor__real_initialize               λ.Object
+				YoutubeBaseInfoExtractor__set_language                  λ.Object
 			)
 			YoutubeBaseInfoExtractor__NETRC_MACHINE = λ.StrLiteral("youtube")
 			YoutubeBaseInfoExtractor__LOGIN_REQUIRED = λ.False
@@ -628,6 +629,7 @@ func init() {
 					return λ.None
 				})
 			YoutubeBaseInfoExtractor__YT_INITIAL_DATA_RE = λ.StrLiteral("(?:window\\s*\\[\\s*[\"\\']ytInitialData[\"\\']\\s*\\]|ytInitialData)\\s*=\\s*({.+?})\\s*;")
+			YoutubeBaseInfoExtractor__YT_INITIAL_PLAYER_RESPONSE_RE = λ.StrLiteral("ytInitialPlayerResponse\\s*=\\s*({.+?})\\s*;")
 			YoutubeBaseInfoExtractor__extract_yt_initial_data = λ.NewFunction("_extract_yt_initial_data",
 				[]λ.Param{
 					{Name: "self"},
@@ -647,14 +649,15 @@ func init() {
 					), ϒwebpage, λ.StrLiteral("yt initial data")), ϒvideo_id)
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_LOGIN_REQUIRED":          YoutubeBaseInfoExtractor__LOGIN_REQUIRED,
-				"_NETRC_MACHINE":           YoutubeBaseInfoExtractor__NETRC_MACHINE,
-				"_PLAYLIST_ID_RE":          YoutubeBaseInfoExtractor__PLAYLIST_ID_RE,
-				"_YT_INITIAL_DATA_RE":      YoutubeBaseInfoExtractor__YT_INITIAL_DATA_RE,
-				"_extract_yt_initial_data": YoutubeBaseInfoExtractor__extract_yt_initial_data,
-				"_login":                   YoutubeBaseInfoExtractor__login,
-				"_real_initialize":         YoutubeBaseInfoExtractor__real_initialize,
-				"_set_language":            YoutubeBaseInfoExtractor__set_language,
+				"_LOGIN_REQUIRED":                YoutubeBaseInfoExtractor__LOGIN_REQUIRED,
+				"_NETRC_MACHINE":                 YoutubeBaseInfoExtractor__NETRC_MACHINE,
+				"_PLAYLIST_ID_RE":                YoutubeBaseInfoExtractor__PLAYLIST_ID_RE,
+				"_YT_INITIAL_DATA_RE":            YoutubeBaseInfoExtractor__YT_INITIAL_DATA_RE,
+				"_YT_INITIAL_PLAYER_RESPONSE_RE": YoutubeBaseInfoExtractor__YT_INITIAL_PLAYER_RESPONSE_RE,
+				"_extract_yt_initial_data":       YoutubeBaseInfoExtractor__extract_yt_initial_data,
+				"_login":                         YoutubeBaseInfoExtractor__login,
+				"_real_initialize":               YoutubeBaseInfoExtractor__real_initialize,
+				"_set_language":                  YoutubeBaseInfoExtractor__set_language,
 			})
 		}())
 		YoutubeIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeIE"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {
@@ -2457,7 +2460,10 @@ func init() {
 						}
 					}()) {
 						ϒplayer_response = λ.Cal(ϒextract_player_response, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.StrLiteral("ytInitialPlayerResponse\\s*=\\s*({.+?})\\s*;"),
+							λ.NewTuple(
+								λ.Mod(λ.StrLiteral("%s\\s*(?:var\\s+meta|</script|\\n)"), λ.GetAttr(ϒself, "_YT_INITIAL_PLAYER_RESPONSE_RE", nil)),
+								λ.GetAttr(ϒself, "_YT_INITIAL_PLAYER_RESPONSE_RE", nil),
+							),
 							ϒvideo_webpage,
 							λ.StrLiteral("initial player response"),
 						), λ.KWArgs{

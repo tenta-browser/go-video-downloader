@@ -621,8 +621,8 @@ func init() {
 						{Name: "default", Value: λ.None},
 					})
 					ϒview_count = λ.Calm(ϒself, "_extract_count", λ.StrLiteral("<span class=\"count\">([\\d,\\.]+)</span> [Vv]iews"), ϒwebpage, λ.StrLiteral("view"))
-					ϒlike_count = λ.Calm(ϒself, "_extract_count", λ.StrLiteral("<span class=\"votesUp\">([\\d,\\.]+)</span>"), ϒwebpage, λ.StrLiteral("like"))
-					ϒdislike_count = λ.Calm(ϒself, "_extract_count", λ.StrLiteral("<span class=\"votesDown\">([\\d,\\.]+)</span>"), ϒwebpage, λ.StrLiteral("dislike"))
+					ϒlike_count = λ.Calm(ϒself, "_extract_count", λ.StrLiteral("<span[^>]+class=\"votesUp\"[^>]*>([\\d,\\.]+)</span>"), ϒwebpage, λ.StrLiteral("like"))
+					ϒdislike_count = λ.Calm(ϒself, "_extract_count", λ.StrLiteral("<span[^>]+class=\"votesDown\"[^>]*>([\\d,\\.]+)</span>"), ϒwebpage, λ.StrLiteral("dislike"))
 					ϒcomment_count = λ.Calm(ϒself, "_extract_count", λ.StrLiteral("All Comments\\s*<span>\\(([\\d,.]+)\\)"), ϒwebpage, λ.StrLiteral("comment"))
 					ϒextract_list = λ.NewFunction("extract_list",
 						[]λ.Param{

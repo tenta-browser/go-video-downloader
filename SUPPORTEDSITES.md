@@ -119,7 +119,6 @@ Supported sites
  * Lenta: `lenta.ru`
  * LibraryOfCongress: `loc.gov`
  * Libsyn: `html5-player.libsyn.com`
- * LimelightMedia: `link.videoplatform.limelight.com`
  * Livestream: `new.livestream.com`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * Lynda: `www.lynda.com`
@@ -210,6 +209,7 @@ Supported sites
  * Telegraaf: `www.telegraaf.nl`
  * Tenta: `tenta.com`
  * TFO: `www.tfo.org`
+ * TikTok: `www.tiktok.com`
  * TMZ: `www.tmz.com`
  * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
  * TNAFlix _(adult)_: `www.tnaflix.com`
@@ -249,7 +249,6 @@ Supported sites
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * Vzaar: `vzaar.com`
- * Weibo: `weibo.com`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`
