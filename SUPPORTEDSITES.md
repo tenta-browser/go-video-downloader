@@ -12,13 +12,13 @@ Supported sites
  * ArteTVEmbed: `www.arte.tv`
  * AudioBoom: `audioboom.com`
  * Audiomack: `www.audiomack.com`
+ * AZMedien: `www.telezueri.ch`
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
  * Beatport: `beatport.com`
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
- * BIQLE: `biqle.org`
  * BleacherReportCMS: `bleacherreport.com`
  * BokeCC: `union.bokecc.com`
  * Box: `mlssoccer.app.box.com`
@@ -119,6 +119,7 @@ Supported sites
  * Lenta: `lenta.ru`
  * LibraryOfCongress: `loc.gov`
  * Libsyn: `html5-player.libsyn.com`
+ * LimelightMedia: `link.videoplatform.limelight.com`
  * Livestream: `new.livestream.com`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * Lynda: `www.lynda.com`
@@ -249,6 +250,7 @@ Supported sites
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * Vzaar: `vzaar.com`
+ * Weibo: `weibo.com`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`

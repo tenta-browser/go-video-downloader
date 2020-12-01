@@ -35,12 +35,12 @@ import (
 	Ωarte "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/arte"
 	Ωaudioboom "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/audioboom"
 	Ωaudiomack "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/audiomack"
+	Ωazmedien "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/azmedien"
 	Ωbandcamp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bandcamp"
 	Ωbeatport "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/beatport"
 	Ωbigflix "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bigflix"
 	Ωbild "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bild"
 	Ωbilibili "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bilibili"
-	Ωbiqle "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/biqle"
 	Ωbleacherreport "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bleacherreport"
 	Ωbokecc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bokecc"
 	Ωbox "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/box"
@@ -274,6 +274,7 @@ var (
 	ABCOTVSIE                  λ.Object
 	ACastIE                    λ.Object
 	ARDMediathekIE             λ.Object
+	AZMedienIE                 λ.Object
 	AbcNewsVideoIE             λ.Object
 	AdobeTVVideoIE             λ.Object
 	AllocineIE                 λ.Object
@@ -282,7 +283,6 @@ var (
 	ArteTVIE                   λ.Object
 	AudioBoomIE                λ.Object
 	AudiomackIE                λ.Object
-	BIQLEIE                    λ.Object
 	BRIE                       λ.Object
 	BandcampIE                 λ.Object
 	BandcampWeeklyIE           λ.Object
@@ -523,6 +523,7 @@ var (
 	VzaarIE                    λ.Object
 	WSJArticleIE               λ.Object
 	WSJIE                      λ.Object
+	WeiboIE                    λ.Object
 	WeiboMobileIE              λ.Object
 	WorldStarHipHopIE          λ.Object
 	XHamsterEmbedIE            λ.Object
@@ -555,13 +556,13 @@ func init() {
 		ArteTVEmbedIE = Ωarte.ArteTVEmbedIE
 		AudioBoomIE = Ωaudioboom.AudioBoomIE
 		AudiomackIE = Ωaudiomack.AudiomackIE
+		AZMedienIE = Ωazmedien.AZMedienIE
 		BandcampIE = Ωbandcamp.BandcampIE
 		BandcampWeeklyIE = Ωbandcamp.BandcampWeeklyIE
 		BeatportIE = Ωbeatport.BeatportIE
 		BigflixIE = Ωbigflix.BigflixIE
 		BildIE = Ωbild.BildIE
 		BilibiliAudioIE = Ωbilibili.BilibiliAudioIE
-		BIQLEIE = Ωbiqle.BIQLEIE
 		BleacherReportCMSIE = Ωbleacherreport.BleacherReportCMSIE
 		BokeCCIE = Ωbokecc.BokeCCIE
 		BoxIE = Ωbox.BoxIE
@@ -794,6 +795,7 @@ func init() {
 		VKIE = Ωvk.VKIE
 		VLiveIE = Ωvlive.VLiveIE
 		VzaarIE = Ωvzaar.VzaarIE
+		WeiboIE = Ωweibo.WeiboIE
 		WeiboMobileIE = Ωweibo.WeiboMobileIE
 		WorldStarHipHopIE = Ωworldstarhiphop.WorldStarHipHopIE
 		WSJIE = Ωwsj.WSJIE
@@ -824,13 +826,13 @@ func init() {
 			ArteTVEmbedIE,
 			AudioBoomIE,
 			AudiomackIE,
+			AZMedienIE,
 			BandcampIE,
 			BandcampWeeklyIE,
 			BeatportIE,
 			BigflixIE,
 			BildIE,
 			BilibiliAudioIE,
-			BIQLEIE,
 			BleacherReportCMSIE,
 			BokeCCIE,
 			BoxIE,
@@ -1063,6 +1065,7 @@ func init() {
 			VKIE,
 			VLiveIE,
 			VzaarIE,
+			WeiboIE,
 			WeiboMobileIE,
 			WorldStarHipHopIE,
 			WSJIE,

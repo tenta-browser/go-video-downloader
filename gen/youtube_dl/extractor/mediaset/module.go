@@ -58,7 +58,7 @@ func init() {
 				MediasetIE__real_extract       λ.Object
 			)
 			MediasetIE__TP_TLD = λ.StrLiteral("eu")
-			MediasetIE__VALID_URL = λ.StrLiteral("(?x)\n                    (?:\n                        mediaset:|\n                        https?://\n                            (?:(?:www|static3)\\.)?mediasetplay\\.mediaset\\.it/\n                            (?:\n                                (?:video|on-demand)/(?:[^/]+/)+[^/]+_|\n                                player/index\\.html\\?.*?\\bprogramGuid=\n                            )\n                    )(?P<id>[0-9A-Z]{16,})\n                    ")
+			MediasetIE__VALID_URL = λ.StrLiteral("(?x)\n                    (?:\n                        mediaset:|\n                        https?://\n                            (?:(?:www|static3)\\.)?mediasetplay\\.mediaset\\.it/\n                            (?:\n                                (?:video|on-demand|movie)/(?:[^/]+/)+[^/]+_|\n                                player/index\\.html\\?.*?\\bprogramGuid=\n                            )\n                    )(?P<id>[0-9A-Z]{16,})\n                    ")
 			MediasetIE__parse_smil_formats = λ.NewFunction("_parse_smil_formats",
 				[]λ.Param{
 					{Name: "self"},
