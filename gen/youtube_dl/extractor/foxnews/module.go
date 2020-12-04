@@ -83,11 +83,45 @@ func init() {
 		}())
 		FoxNewsArticleIE = λ.Cal(λ.TypeType, λ.StrLiteral("FoxNewsArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				FoxNewsArticleIE__VALID_URL λ.Object
+				FoxNewsArticleIE_IE_NAME       λ.Object
+				FoxNewsArticleIE__VALID_URL    λ.Object
+				FoxNewsArticleIE__real_extract λ.Object
 			)
 			FoxNewsArticleIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?:insider\\.)?foxnews\\.com/(?!v)([^/]+/)+(?P<id>[a-z-]+)")
+			FoxNewsArticleIE_IE_NAME = λ.StrLiteral("foxnews:article")
+			FoxNewsArticleIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒdisplay_id λ.Object
+						ϒself       = λargs[0]
+						ϒurl        = λargs[1]
+						ϒvideo_id   λ.Object
+						ϒwebpage    λ.Object
+					)
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
+					ϒvideo_id = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
+						λ.StrLiteral("data-video-id=([\\'\"])(?P<id>[^\\'\"]+)\\1"),
+						ϒwebpage,
+						λ.StrLiteral("video ID"),
+					), λ.KWArgs{
+						{Name: "group", Value: λ.StrLiteral("id")},
+						{Name: "default", Value: λ.None},
+					})
+					if λ.IsTrue(ϒvideo_id) {
+						return λ.Calm(ϒself, "url_result", λ.Add(λ.StrLiteral("http://video.foxnews.com/v/"), ϒvideo_id), λ.Calm(FoxNewsIE, "ie_key"))
+					}
+					return λ.Calm(ϒself, "url_result", λ.GetItem(λ.Calm(FoxNewsIE, "_extract_urls", ϒwebpage), λ.IntLiteral(0)), λ.Calm(FoxNewsIE, "ie_key"))
+				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": FoxNewsArticleIE__VALID_URL,
+				"IE_NAME":       FoxNewsArticleIE_IE_NAME,
+				"_VALID_URL":    FoxNewsArticleIE__VALID_URL,
+				"_real_extract": FoxNewsArticleIE__real_extract,
 			})
 		}())
 	})

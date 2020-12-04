@@ -154,6 +154,7 @@ func init() {
 				λ.StrLiteral("med"),
 				λ.StrLiteral("high"),
 				λ.StrLiteral("veryhigh"),
+				λ.StrLiteral("hd"),
 			)
 			ZDFIE__GEO_COUNTRIES = λ.NewList(λ.StrLiteral("DE"))
 			ZDFIE__extract_subtitles = λ.NewFunction("_extract_subtitles",
@@ -362,7 +363,7 @@ func init() {
 					ϒt = λ.GetItem(λ.GetItem(ϒcontent, λ.StrLiteral("mainVideoContent")), λ.StrLiteral("http://zdf.de/rels/target"))
 					ϒptmd_path = λ.Calm(ϒt, "get", λ.StrLiteral("http://zdf.de/rels/streams/ptmd"))
 					if !λ.IsTrue(ϒptmd_path) {
-						ϒptmd_path = λ.Calm(λ.GetItem(ϒt, λ.StrLiteral("http://zdf.de/rels/streams/ptmd-template")), "replace", λ.StrLiteral("{playerId}"), λ.StrLiteral("portal"))
+						ϒptmd_path = λ.Calm(λ.GetItem(ϒt, λ.StrLiteral("http://zdf.de/rels/streams/ptmd-template")), "replace", λ.StrLiteral("{playerId}"), λ.StrLiteral("ngplayer_2_4"))
 					}
 					ϒptmd = λ.Calm(ϒself, "_call_api", λ.Cal(ϒurljoin, ϒurl, ϒptmd_path), ϒplayer, ϒurl, ϒvideo_id, λ.StrLiteral("metadata"))
 					ϒformats = λ.NewList()

@@ -5754,10 +5754,10 @@ func init() {
 						ϒhls_host         λ.Object
 						ϒhosts            = λargs[3]
 						ϒhttp_f           λ.Object
-						ϒhttp_formats     λ.Object
 						ϒhttp_host        λ.Object
 						ϒhttp_url         λ.Object
 						ϒi                λ.Object
+						ϒm3u8_formats     λ.Object
 						ϒm3u8_url         λ.Object
 						ϒmanifest_url     = λargs[1]
 						ϒprotocol         λ.Object
@@ -5810,7 +5810,7 @@ func init() {
 					if λ.IsTrue(ϒhls_host) {
 						ϒm3u8_url = λ.Cal(Ωre.ϒsub, λ.StrLiteral("(https?://)[^/]+"), λ.Add(λ.StrLiteral("\\1"), ϒhls_host), ϒm3u8_url)
 					}
-					λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+					ϒm3u8_formats = λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
 						ϒm3u8_url,
 						ϒvideo_id,
 						λ.StrLiteral("mp4"),
@@ -5818,37 +5818,33 @@ func init() {
 					), λ.KWArgs{
 						{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
 						{Name: "fatal", Value: λ.False},
-					}))
+					})
+					λ.Calm(ϒformats, "extend", ϒm3u8_formats)
 					ϒhttp_host = λ.Calm(ϒhosts, "get", λ.StrLiteral("http"))
 					if λ.IsTrue(func() λ.Object {
 						if λv := ϒhttp_host; !λ.IsTrue(λv) {
 							return λv
+						} else if λv := ϒm3u8_formats; !λ.IsTrue(λv) {
+							return λv
 						} else {
-							return λ.NewBool(!λ.Contains(ϒmanifest_url, λ.StrLiteral("hdnea=")))
+							return λ.NewBool(!λ.Contains(ϒm3u8_url, λ.StrLiteral("hdnea=")))
 						}
 					}()) {
-						REPL_REGEX = λ.StrLiteral("https://[^/]+/i/([^,]+),([^/]+),([^/]+).csmil/.+")
+						REPL_REGEX = λ.StrLiteral("https?://[^/]+/i/([^,]+),([^/]+),([^/]+)\\.csmil/.+")
 						ϒqualities = λ.Calm(λ.Calm(λ.Cal(Ωre.ϒmatch, REPL_REGEX, ϒm3u8_url), "group", λ.IntLiteral(2)), "split", λ.StrLiteral(","))
 						ϒqualities_length = λ.Cal(λ.BuiltinLen, ϒqualities)
 						if λ.Contains(λ.NewTuple(
+							ϒqualities_length,
 							λ.Add(ϒqualities_length, λ.IntLiteral(1)),
-							λ.Add(λ.Mul(ϒqualities_length, λ.IntLiteral(2)), λ.IntLiteral(1)),
-						), λ.Cal(λ.BuiltinLen, ϒformats)) {
+						), λ.Cal(λ.BuiltinLen, ϒm3u8_formats)) {
 							ϒi = λ.IntLiteral(0)
-							ϒhttp_formats = λ.NewList()
-							τmp0 = λ.Cal(λ.BuiltinIter, ϒformats)
+							τmp0 = λ.Cal(λ.BuiltinIter, ϒm3u8_formats)
 							for {
 								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 									break
 								}
 								ϒf = τmp1
-								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Eq(λ.GetItem(ϒf, λ.StrLiteral("protocol")), λ.StrLiteral("m3u8_native")); !λ.IsTrue(λv) {
-										return λv
-									} else {
-										return λ.Ne(λ.GetItem(ϒf, λ.StrLiteral("vcodec")), λ.StrLiteral("none"))
-									}
-								}()) {
+								if λ.IsTrue(λ.Ne(λ.GetItem(ϒf, λ.StrLiteral("vcodec")), λ.StrLiteral("none"))) {
 									τmp2 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
 										λ.StrLiteral("http"),
 										λ.StrLiteral("https"),
@@ -5860,7 +5856,7 @@ func init() {
 										ϒprotocol = τmp3
 										ϒhttp_f = λ.Calm(ϒf, "copy")
 										λ.DelItem(ϒhttp_f, λ.StrLiteral("manifest_url"))
-										ϒhttp_url = λ.Cal(Ωre.ϒsub, REPL_REGEX, λ.Add(ϒprotocol, λ.Mod(λ.StrLiteral("://%s/\\1%s\\3"), λ.NewTuple(
+										ϒhttp_url = λ.Cal(Ωre.ϒsub, REPL_REGEX, λ.Add(ϒprotocol, λ.Mod(λ.StrLiteral("://%s/\\g<1>%s\\3"), λ.NewTuple(
 											ϒhttp_host,
 											λ.GetItem(ϒqualities, ϒi),
 										))), λ.GetItem(ϒf, λ.StrLiteral("url")))
@@ -5869,13 +5865,12 @@ func init() {
 											"url":       ϒhttp_url,
 											"protocol":  ϒprotocol,
 										}))
-										λ.Calm(ϒhttp_formats, "append", ϒhttp_f)
+										λ.Calm(ϒformats, "append", ϒhttp_f)
 									}
 									τmp2 = λ.IAdd(ϒi, λ.IntLiteral(1))
 									ϒi = τmp2
 								}
 							}
-							λ.Calm(ϒformats, "extend", ϒhttp_formats)
 						}
 					}
 					return ϒformats

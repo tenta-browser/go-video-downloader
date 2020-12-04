@@ -104,6 +104,7 @@ import (
 	Ωfreespeech "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/freespeech"
 	Ωfunk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/funk"
 	Ωgameinformer "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/gameinformer"
+	Ωgamespot "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/gamespot"
 	Ωgaskrank "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/gaskrank"
 	Ωgazeta "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/gazeta"
 	Ωgfycat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/gfycat"
@@ -223,6 +224,7 @@ import (
 	Ωtoongoggles "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/toongoggles"
 	Ωtoypics "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/toypics"
 	Ωtube8 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tube8"
+	Ωtva "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tva"
 	Ωtvanouvelles "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvanouvelles"
 	Ωtvc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvc"
 	Ωtvn24 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvn24"
@@ -352,6 +354,7 @@ var (
 	FiveThirtyEightIE          λ.Object
 	FlickrIE                   λ.Object
 	Formula1IE                 λ.Object
+	FoxNewsArticleIE           λ.Object
 	FoxNewsIE                  λ.Object
 	FranceCultureIE            λ.Object
 	FranceInterIE              λ.Object
@@ -360,6 +363,7 @@ var (
 	FunkIE                     λ.Object
 	GPUTechConfIE              λ.Object
 	GameInformerIE             λ.Object
+	GameSpotIE                 λ.Object
 	GaskrankIE                 λ.Object
 	GazetaIE                   λ.Object
 	GenerationWhatIE           λ.Object
@@ -438,6 +442,7 @@ var (
 	PornHdIE                   λ.Object
 	PornHubIE                  λ.Object
 	PornotubeIE                λ.Object
+	QubIE                      λ.Object
 	RTSIE                      λ.Object
 	RUTVIE                     λ.Object
 	RadioJavanIE               λ.Object
@@ -624,6 +629,7 @@ func init() {
 		FlickrIE = Ωflickr.FlickrIE
 		Formula1IE = Ωformula1.Formula1IE
 		FoxNewsIE = Ωfoxnews.FoxNewsIE
+		FoxNewsArticleIE = Ωfoxnews.FoxNewsArticleIE
 		FranceCultureIE = Ωfranceculture.FranceCultureIE
 		FranceInterIE = Ωfranceinter.FranceInterIE
 		GenerationWhatIE = Ωfrancetv.GenerationWhatIE
@@ -631,6 +637,7 @@ func init() {
 		FreespeechIE = Ωfreespeech.FreespeechIE
 		FunkIE = Ωfunk.FunkIE
 		GameInformerIE = Ωgameinformer.GameInformerIE
+		GameSpotIE = Ωgamespot.GameSpotIE
 		GaskrankIE = Ωgaskrank.GaskrankIE
 		GazetaIE = Ωgazeta.GazetaIE
 		GfycatIE = Ωgfycat.GfycatIE
@@ -762,6 +769,7 @@ func init() {
 		ToonGogglesIE = Ωtoongoggles.ToonGogglesIE
 		ToypicsIE = Ωtoypics.ToypicsIE
 		Tube8IE = Ωtube8.Tube8IE
+		QubIE = Ωtva.QubIE
 		TVANouvellesIE = Ωtvanouvelles.TVANouvellesIE
 		TVCIE = Ωtvc.TVCIE
 		TVCArticleIE = Ωtvc.TVCArticleIE
@@ -894,6 +902,7 @@ func init() {
 			FlickrIE,
 			Formula1IE,
 			FoxNewsIE,
+			FoxNewsArticleIE,
 			FranceCultureIE,
 			FranceInterIE,
 			GenerationWhatIE,
@@ -901,6 +910,7 @@ func init() {
 			FreespeechIE,
 			FunkIE,
 			GameInformerIE,
+			GameSpotIE,
 			GaskrankIE,
 			GazetaIE,
 			GfycatIE,
@@ -1032,6 +1042,7 @@ func init() {
 			ToonGogglesIE,
 			ToypicsIE,
 			Tube8IE,
+			QubIE,
 			TVANouvellesIE,
 			TVCIE,
 			TVCArticleIE,

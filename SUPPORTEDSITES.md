@@ -80,6 +80,7 @@ Supported sites
  * Flickr: `www.flickr.com`
  * Formula1: `www.formula1.com`
  * FoxNews: `video.foxnews.com`
+ * FoxNewsArticle: `www.foxnews.com`
  * FranceCulture: `www.franceculture.fr`
  * FranceInter: `www.franceinter.fr`
  * GenerationWhat: `generation-what.francetv.fr`
@@ -87,6 +88,7 @@ Supported sites
  * Freespeech: `www.freespeech.org`
  * Funk: `www.funk.net`
  * GameInformer: `www.gameinformer.com`
+ * GameSpot: `www.gamespot.com`
  * Gaskrank: `www.gaskrank.tv`
  * Gazeta: `www.gazeta.ru`
  * Gfycat: `gfycat.com`
@@ -218,6 +220,7 @@ Supported sites
  * ToonGoggles: `www.toongoggles.com`
  * Toypics _(adult)_: `videos.toypics.net`
  * Tube8 _(adult)_: `www.tube8.com`
+ * Qub: `www.qub.ca`
  * TVANouvelles: `www.tvanouvelles.ca`
  * TVC: `www.tvc.ru`
  * TVCArticle: `www.tvc.ru`
