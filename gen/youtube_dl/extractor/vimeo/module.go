@@ -693,29 +693,10 @@ func init() {
 				VimeoIE__extract_urls                 λ.Object
 				VimeoIE__real_extract                 λ.Object
 				VimeoIE__real_initialize              λ.Object
-				VimeoIE__smuggle_referrer             λ.Object
 				VimeoIE__verify_player_video_password λ.Object
 			)
 			VimeoIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\n                            (?:\n                                www|\n                                player\n                            )\n                            \\.\n                        )?\n                        vimeo(?:pro)?\\.com/\n                        (?!(?:channels|album|showcase)/[^/?#]+/?(?:$|[?#])|[^/]+/review/|ondemand/)\n                        (?:.*?/)?\n                        (?:\n                            (?:\n                                play_redirect_hls|\n                                moogaloop\\.swf)\\?clip_id=\n                            )?\n                        (?:videos?/)?\n                        (?P<id>[0-9]+)\n                        (?:/[\\da-f]+)?\n                        /?(?:[?&].*)?(?:[#].*)?$\n                    ")
 			VimeoIE_IE_NAME = λ.StrLiteral("vimeo")
-			VimeoIE__smuggle_referrer = λ.NewFunction("_smuggle_referrer",
-				[]λ.Param{
-					{Name: "url"},
-					{Name: "referrer_url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒreferrer_url = λargs[1]
-						ϒurl          = λargs[0]
-					)
-					return λ.Cal(ϒsmuggle_url, ϒurl, λ.DictLiteral(map[string]λ.Object{
-						"http_headers": λ.DictLiteral(map[string]λ.Object{
-							"Referer": ϒreferrer_url,
-						}),
-					}))
-				})
-			VimeoIE__smuggle_referrer = λ.Cal(λ.StaticMethodType, VimeoIE__smuggle_referrer)
 			VimeoIE__extract_urls = λ.NewFunction("_extract_urls",
 				[]λ.Param{
 					{Name: "url"},
@@ -1288,7 +1269,6 @@ func init() {
 				"_extract_urls":                 VimeoIE__extract_urls,
 				"_real_extract":                 VimeoIE__real_extract,
 				"_real_initialize":              VimeoIE__real_initialize,
-				"_smuggle_referrer":             VimeoIE__smuggle_referrer,
 				"_verify_player_video_password": VimeoIE__verify_player_video_password,
 			})
 		}())

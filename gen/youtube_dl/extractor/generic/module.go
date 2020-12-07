@@ -202,16 +202,20 @@ var (
 	ϒcompat_xml_parse_error      λ.Object
 	ϒdetermine_ext               λ.Object
 	ϒfloat_or_none               λ.Object
+	ϒint_or_none                 λ.Object
 	ϒjs_to_json                  λ.Object
 	ϒmerge_dicts                 λ.Object
 	ϒmimetype2ext                λ.Object
 	ϒorderedSet                  λ.Object
+	ϒparse_duration              λ.Object
 	ϒsanitized_Request           λ.Object
 	ϒsmuggle_url                 λ.Object
 	ϒunescapeHTML                λ.Object
-	ϒunified_strdate             λ.Object
+	ϒunified_timestamp           λ.Object
 	ϒunsmuggle_url               λ.Object
+	ϒurl_or_none                 λ.Object
 	ϒxpath_text                  λ.Object
+	ϒxpath_with_ns               λ.Object
 )
 
 func init() {
@@ -226,17 +230,21 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		HEADRequest = Ωutils.HEADRequest
+		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		KNOWN_EXTENSIONS = Ωutils.KNOWN_EXTENSIONS
 		ϒmerge_dicts = Ωutils.ϒmerge_dicts
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
 		ϒorderedSet = Ωutils.ϒorderedSet
+		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
-		ϒunified_strdate = Ωutils.ϒunified_strdate
+		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒunsmuggle_url = Ωutils.ϒunsmuggle_url
+		ϒurl_or_none = Ωutils.ϒurl_or_none
 		ϒxpath_text = Ωutils.ϒxpath_text
+		ϒxpath_with_ns = Ωutils.ϒxpath_with_ns
 		RtmpIE = Ωcommonprotocols.RtmpIE
 		BrightcoveLegacyIE = Ωbrightcove.BrightcoveLegacyIE
 		BrightcoveNewIE = Ωbrightcove.BrightcoveNewIE

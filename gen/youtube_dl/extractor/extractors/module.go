@@ -166,11 +166,9 @@ import (
 	Ωonionstudios "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/onionstudios"
 	Ωoutsidetv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/outsidetv"
 	Ωpacktpub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/packtpub"
-	Ωparliamentliveuk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/parliamentliveuk"
 	Ωpatreon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/patreon"
 	Ωpbs "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pbs"
 	Ωpeertube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/peertube"
-	Ωpeople "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/people"
 	Ωpiksel "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/piksel"
 	Ωpinterest "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pinterest"
 	Ωplayfm "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/playfm"
@@ -180,7 +178,6 @@ import (
 	Ωpornhub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornhub"
 	Ωpornotube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pornotube"
 	Ωradiojavan "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/radiojavan"
-	Ωraywenderlich "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/raywenderlich"
 	Ωredtube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/redtube"
 	Ωreverbnation "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/reverbnation"
 	Ωrozhlas "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rozhlas"
@@ -202,7 +199,6 @@ import (
 	Ωsoundgasm "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/soundgasm"
 	Ωspankbang "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/spankbang"
 	Ωspankwire "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/spankwire"
-	Ωspiegel "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/spiegel"
 	Ωspreaker "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/spreaker"
 	Ωsrgssr "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/srgssr"
 	Ωstanfordoc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/stanfordoc"
@@ -430,10 +426,8 @@ var (
 	OutsideTVIE                λ.Object
 	PBSIE                      λ.Object
 	PacktPubIE                 λ.Object
-	ParliamentLiveUKIE         λ.Object
 	PatreonIE                  λ.Object
 	PeerTubeIE                 λ.Object
-	PeopleIE                   λ.Object
 	PikselIE                   λ.Object
 	PinterestIE                λ.Object
 	PlayFMIE                   λ.Object
@@ -446,7 +440,6 @@ var (
 	RTSIE                      λ.Object
 	RUTVIE                     λ.Object
 	RadioJavanIE               λ.Object
-	RayWenderlichIE            λ.Object
 	RedTubeIE                  λ.Object
 	ReverbNationIE             λ.Object
 	RozhlasIE                  λ.Object
@@ -470,7 +463,6 @@ var (
 	SoundgasmIE                λ.Object
 	SpankBangIE                λ.Object
 	SpankwireIE                λ.Object
-	SpiegelIE                  λ.Object
 	SpreakerIE                 λ.Object
 	StanfordOpenClassroomIE    λ.Object
 	StreamableIE               λ.Object
@@ -544,6 +536,7 @@ var (
 	YourPornIE                 λ.Object
 	YourUploadIE               λ.Object
 	YoutubeIE                  λ.Object
+	YoutubeYtBeIE              λ.Object
 	ZDFIE                      λ.Object
 	ϒ__ALL__                   λ.Object
 )
@@ -703,11 +696,9 @@ func init() {
 		OnionStudiosIE = Ωonionstudios.OnionStudiosIE
 		OutsideTVIE = Ωoutsidetv.OutsideTVIE
 		PacktPubIE = Ωpacktpub.PacktPubIE
-		ParliamentLiveUKIE = Ωparliamentliveuk.ParliamentLiveUKIE
 		PatreonIE = Ωpatreon.PatreonIE
 		PBSIE = Ωpbs.PBSIE
 		PeerTubeIE = Ωpeertube.PeerTubeIE
-		PeopleIE = Ωpeople.PeopleIE
 		PikselIE = Ωpiksel.PikselIE
 		PinterestIE = Ωpinterest.PinterestIE
 		PlayFMIE = Ωplayfm.PlayFMIE
@@ -717,7 +708,6 @@ func init() {
 		PornHubIE = Ωpornhub.PornHubIE
 		PornotubeIE = Ωpornotube.PornotubeIE
 		RadioJavanIE = Ωradiojavan.RadioJavanIE
-		RayWenderlichIE = Ωraywenderlich.RayWenderlichIE
 		RedTubeIE = Ωredtube.RedTubeIE
 		ReverbNationIE = Ωreverbnation.ReverbNationIE
 		RozhlasIE = Ωrozhlas.RozhlasIE
@@ -744,7 +734,6 @@ func init() {
 		SoundgasmIE = Ωsoundgasm.SoundgasmIE
 		SpankBangIE = Ωspankbang.SpankBangIE
 		SpankwireIE = Ωspankwire.SpankwireIE
-		SpiegelIE = Ωspiegel.SpiegelIE
 		SpreakerIE = Ωspreaker.SpreakerIE
 		SRGSSRPlayIE = Ωsrgssr.SRGSSRPlayIE
 		StanfordOpenClassroomIE = Ωstanfordoc.StanfordOpenClassroomIE
@@ -821,6 +810,7 @@ func init() {
 		YourPornIE = Ωyourporn.YourPornIE
 		YourUploadIE = Ωyourupload.YourUploadIE
 		YoutubeIE = Ωyoutube.YoutubeIE
+		YoutubeYtBeIE = Ωyoutube.YoutubeYtBeIE
 		ZDFIE = Ωzdf.ZDFIE
 		ϒ__ALL__ = λ.NewList(
 			AbcNewsVideoIE,
@@ -976,11 +966,9 @@ func init() {
 			OnionStudiosIE,
 			OutsideTVIE,
 			PacktPubIE,
-			ParliamentLiveUKIE,
 			PatreonIE,
 			PBSIE,
 			PeerTubeIE,
-			PeopleIE,
 			PikselIE,
 			PinterestIE,
 			PlayFMIE,
@@ -990,7 +978,6 @@ func init() {
 			PornHubIE,
 			PornotubeIE,
 			RadioJavanIE,
-			RayWenderlichIE,
 			RedTubeIE,
 			ReverbNationIE,
 			RozhlasIE,
@@ -1017,7 +1004,6 @@ func init() {
 			SoundgasmIE,
 			SpankBangIE,
 			SpankwireIE,
-			SpiegelIE,
 			SpreakerIE,
 			SRGSSRPlayIE,
 			StanfordOpenClassroomIE,
@@ -1094,6 +1080,7 @@ func init() {
 			YourPornIE,
 			YourUploadIE,
 			YoutubeIE,
+			YoutubeYtBeIE,
 			ZDFIE,
 		)
 	})

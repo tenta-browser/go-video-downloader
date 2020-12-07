@@ -38,6 +38,7 @@ var (
 	YoutubeIE                λ.Object
 	YoutubePlaylistIE        λ.Object
 	YoutubeTabIE             λ.Object
+	YoutubeYtBeIE            λ.Object
 	YoutubeYtUserIE          λ.Object
 )
 
@@ -99,33 +100,24 @@ func init() {
 		}())
 		YoutubePlaylistIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubePlaylistIE"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {
 			var (
-				YoutubePlaylistIE__VALID_URL    λ.Object
-				YoutubePlaylistIE__real_extract λ.Object
+				YoutubePlaylistIE__VALID_URL λ.Object
 			)
-			YoutubePlaylistIE__VALID_URL = λ.Mod(λ.StrLiteral("(?x)(?:\n                        (?:https?://)?\n                        (?:\\w+\\.)?\n                        (?:\n                            (?:\n                                youtube(?:kids)?\\.com|\n                                invidio\\.us|\n                                youtu\\.be\n                            )\n                            /.*?\\?.*?\\blist=\n                        )?\n                        (?P<id>%(playlist_id)s)\n                     )"), λ.DictLiteral(map[string]λ.Object{
+			YoutubePlaylistIE__VALID_URL = λ.Mod(λ.StrLiteral("(?x)(?:\n                        (?:https?://)?\n                        (?:\\w+\\.)?\n                        (?:\n                            (?:\n                                youtube(?:kids)?\\.com|\n                                invidio\\.us\n                            )\n                            /.*?\\?.*?\\blist=\n                        )?\n                        (?P<id>%(playlist_id)s)\n                     )"), λ.DictLiteral(map[string]λ.Object{
 				"playlist_id": λ.GetAttr(YoutubeBaseInfoExtractor, "_PLAYLIST_ID_RE", nil),
 			}))
-			YoutubePlaylistIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "_"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒ_    = λargs[1]
-						ϒself = λargs[0]
-					)
-					_ = ϒ_
-					_ = ϒself
-					panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("YOUTUBE_PLACEHOLDER")), λ.KWArgs{
-						{Name: "expected", Value: λ.True},
-					})))
-					return λ.None
-				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL":    YoutubePlaylistIE__VALID_URL,
-				"_real_extract": YoutubePlaylistIE__real_extract,
+				"_VALID_URL": YoutubePlaylistIE__VALID_URL,
+			})
+		}())
+		YoutubeYtBeIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeYtBeIE"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {
+			var (
+				YoutubeYtBeIE__VALID_URL λ.Object
+			)
+			YoutubeYtBeIE__VALID_URL = λ.Mod(λ.StrLiteral("https?://youtu\\.be/(?P<id>[0-9A-Za-z_-]{11})/*?.*?\\blist=(?P<playlist_id>%(playlist_id)s)"), λ.DictLiteral(map[string]λ.Object{
+				"playlist_id": λ.GetAttr(YoutubeBaseInfoExtractor, "_PLAYLIST_ID_RE", nil),
+			}))
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_VALID_URL": YoutubeYtBeIE__VALID_URL,
 			})
 		}())
 		YoutubeYtUserIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeYtUserIE"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {

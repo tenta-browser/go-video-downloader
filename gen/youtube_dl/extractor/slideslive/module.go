@@ -33,13 +33,19 @@ import (
 var (
 	InfoExtractor λ.Object
 	SlidesLiveIE  λ.Object
+	ϒbool_or_none λ.Object
 	ϒsmuggle_url  λ.Object
+	ϒtry_get      λ.Object
+	ϒurl_or_none  λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒbool_or_none = Ωutils.ϒbool_or_none
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
+		ϒtry_get = Ωutils.ϒtry_get
+		ϒurl_or_none = Ωutils.ϒurl_or_none
 		SlidesLiveIE = λ.Cal(λ.TypeType, λ.StrLiteral("SlidesLiveIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SlidesLiveIE__VALID_URL    λ.Object
@@ -54,35 +60,123 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒinfo         λ.Object
-						ϒself         = λargs[0]
-						ϒservice_id   λ.Object
-						ϒservice_name λ.Object
-						ϒurl          = λargs[1]
-						ϒvideo_data   λ.Object
-						ϒvideo_id     λ.Object
+						ϒ_MANIFEST_PATTERN λ.Object
+						ϒformats           λ.Object
+						ϒinfo              λ.Object
+						ϒlang              λ.Object
+						ϒself              = λargs[0]
+						ϒservice_id        λ.Object
+						ϒservice_name      λ.Object
+						ϒsub               λ.Object
+						ϒsubtitles         λ.Object
+						ϒurl               = λargs[1]
+						ϒvideo_data        λ.Object
+						ϒvideo_id          λ.Object
+						ϒwebvtt_url        λ.Object
+						τmp0               λ.Object
+						τmp1               λ.Object
 					)
 					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒvideo_data = λ.Calm(ϒself, "_download_json", λ.Add(λ.StrLiteral("https://ben.slideslive.com/player/"), ϒvideo_id), ϒvideo_id)
 					ϒservice_name = λ.Calm(λ.GetItem(ϒvideo_data, λ.StrLiteral("video_service_name")), "lower")
 					if !λ.Contains(λ.NewTuple(
 						λ.StrLiteral("url"),
+						λ.StrLiteral("yoda"),
 						λ.StrLiteral("vimeo"),
 						λ.StrLiteral("youtube"),
 					), ϒservice_name) {
 						panic(λ.Raise(λ.Cal(λ.AssertionErrorType)))
 					}
 					ϒservice_id = λ.GetItem(ϒvideo_data, λ.StrLiteral("video_service_id"))
+					ϒsubtitles = λ.DictLiteral(map[λ.Object]λ.Object{})
+					τmp0 = λ.Cal(λ.BuiltinIter, func() λ.Object {
+						if λv := λ.Cal(ϒtry_get, ϒvideo_data, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(ϒx, λ.StrLiteral("subtitles"))
+							}), λ.ListType); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewList()
+						}
+					}())
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒsub = τmp1
+						if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒsub, λ.DictType)) {
+							continue
+						}
+						ϒwebvtt_url = λ.Cal(ϒurl_or_none, λ.Calm(ϒsub, "get", λ.StrLiteral("webvtt_url")))
+						if !λ.IsTrue(ϒwebvtt_url) {
+							continue
+						}
+						ϒlang = func() λ.Object {
+							if λv := λ.Calm(ϒsub, "get", λ.StrLiteral("language")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.StrLiteral("en")
+							}
+						}()
+						λ.Calm(λ.Calm(ϒsubtitles, "setdefault", ϒlang, λ.NewList()), "append", λ.DictLiteral(map[string]λ.Object{
+							"url": ϒwebvtt_url,
+						}))
+					}
 					ϒinfo = λ.DictLiteral(map[string]λ.Object{
 						"id":        ϒvideo_id,
 						"thumbnail": λ.Calm(ϒvideo_data, "get", λ.StrLiteral("thumbnail")),
-						"url":       ϒservice_id,
+						"is_live":   λ.Cal(ϒbool_or_none, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("is_live"))),
+						"subtitles": ϒsubtitles,
 					})
-					if λ.IsTrue(λ.Eq(ϒservice_name, λ.StrLiteral("url"))) {
+					if λ.Contains(λ.NewTuple(
+						λ.StrLiteral("url"),
+						λ.StrLiteral("yoda"),
+					), ϒservice_name) {
 						λ.SetItem(ϒinfo, λ.StrLiteral("title"), λ.GetItem(ϒvideo_data, λ.StrLiteral("title")))
+						if λ.IsTrue(λ.Eq(ϒservice_name, λ.StrLiteral("url"))) {
+							λ.SetItem(ϒinfo, λ.StrLiteral("url"), ϒservice_id)
+						} else {
+							ϒformats = λ.NewList()
+							ϒ_MANIFEST_PATTERN = λ.StrLiteral("https://01.cdn.yoda.slideslive.com/%s/master.%s")
+							λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+								λ.Mod(ϒ_MANIFEST_PATTERN, λ.NewTuple(
+									ϒservice_id,
+									λ.StrLiteral("m3u8"),
+								)),
+								ϒservice_id,
+								λ.StrLiteral("mp4"),
+							), λ.KWArgs{
+								{Name: "entry_protocol", Value: λ.StrLiteral("m3u8_native")},
+								{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
+								{Name: "fatal", Value: λ.False},
+							}))
+							λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_mpd_formats", nil), λ.NewArgs(
+								λ.Mod(ϒ_MANIFEST_PATTERN, λ.NewTuple(
+									ϒservice_id,
+									λ.StrLiteral("mpd"),
+								)),
+								ϒservice_id,
+							), λ.KWArgs{
+								{Name: "mpd_id", Value: λ.StrLiteral("dash")},
+								{Name: "fatal", Value: λ.False},
+							}))
+							λ.Calm(ϒself, "_sort_formats", ϒformats)
+							λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
+								"id":      ϒservice_id,
+								"formats": ϒformats,
+							}))
+						}
 					} else {
 						λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
 							"_type":  λ.StrLiteral("url_transparent"),
+							"url":    ϒservice_id,
 							"ie_key": λ.Calm(ϒservice_name, "capitalize"),
 							"title":  λ.Calm(ϒvideo_data, "get", λ.StrLiteral("title")),
 						}))

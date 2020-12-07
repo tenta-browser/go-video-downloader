@@ -5357,6 +5357,7 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
+						ϒ_MEDIA_TAG_NAME_RE  λ.Object
 						ϒ_media_formats      λ.Object
 						ϒabsolute_url        λ.Object
 						ϒbase_url            = λargs[1]
@@ -5504,6 +5505,7 @@ func init() {
 							)
 						})
 					ϒentries = λ.NewList()
+					ϒ_MEDIA_TAG_NAME_RE = λ.StrLiteral("(?:(?:amp|dl8(?:-live)?)-)?(video|audio)")
 					ϒmedia_tags = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 						nil,
 						0, false, false,
@@ -5516,7 +5518,7 @@ func init() {
 									τmp1        λ.Object
 									τmp2        λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("(?s)(<(?:amp-)?(video|audio)[^>]*/>)"), ϒwebpage))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.Mod(λ.StrLiteral("(?s)(<%s[^>]*/>)"), ϒ_MEDIA_TAG_NAME_RE), ϒwebpage))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
@@ -5533,7 +5535,7 @@ func init() {
 								return λ.None
 							})
 						})))
-					λ.Calm(ϒmedia_tags, "extend", λ.Cal(Ωre.ϒfindall, λ.StrLiteral("(?s)(<(?P<tag>(?:amp-)?(?:video|audio))(?:\\s+[^>]*)?>)(.*?)</(?P=tag)>"), ϒwebpage))
+					λ.Calm(ϒmedia_tags, "extend", λ.Cal(Ωre.ϒfindall, λ.Mod(λ.StrLiteral("(?s)(<(?P<tag>%s)(?:\\s+[^>]*)?>)(.*?)</(?P=tag)>"), ϒ_MEDIA_TAG_NAME_RE), ϒwebpage))
 					τmp0 = λ.Cal(λ.BuiltinIter, ϒmedia_tags)
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
@@ -5541,8 +5543,9 @@ func init() {
 						}
 						τmp2 = τmp1
 						ϒmedia_tag = λ.GetItem(τmp2, λ.IntLiteral(0))
-						ϒmedia_type = λ.GetItem(τmp2, λ.IntLiteral(1))
-						ϒmedia_content = λ.GetItem(τmp2, λ.IntLiteral(2))
+						_ = λ.GetItem(τmp2, λ.IntLiteral(1))
+						ϒmedia_type = λ.GetItem(τmp2, λ.IntLiteral(2))
+						ϒmedia_content = λ.GetItem(τmp2, λ.IntLiteral(3))
 						ϒmedia_info = λ.DictLiteral(map[string]λ.Object{
 							"formats":   λ.NewList(),
 							"subtitles": λ.DictLiteral(map[λ.Object]λ.Object{}),

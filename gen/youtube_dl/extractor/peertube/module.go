@@ -189,6 +189,11 @@ func init() {
 							"format_id": ϒformat_id,
 							"filesize":  ϒfile_size,
 						}))
+						if λ.IsTrue(λ.Eq(ϒformat_id, λ.StrLiteral("0p"))) {
+							λ.SetItem(ϒf, λ.StrLiteral("vcodec"), λ.StrLiteral("none"))
+						} else {
+							λ.SetItem(ϒf, λ.StrLiteral("fps"), λ.Cal(ϒint_or_none, λ.Calm(ϒfile_, "get", λ.StrLiteral("fps"))))
+						}
 						λ.Calm(ϒformats, "append", ϒf)
 					}
 					λ.Calm(ϒself, "_sort_formats", ϒformats)
