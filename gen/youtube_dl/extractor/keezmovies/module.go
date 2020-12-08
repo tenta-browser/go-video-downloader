@@ -58,7 +58,6 @@ func init() {
 			var (
 				KeezMoviesIE__VALID_URL    λ.Object
 				KeezMoviesIE__extract_info λ.Object
-				KeezMoviesIE__real_extract λ.Object
 			)
 			KeezMoviesIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?keezmovies\\.com/video/(?:(?P<display_id>[^/]+)-)?(?P<id>\\d+)")
 			KeezMoviesIE__extract_info = λ.NewFunction("_extract_info",
@@ -272,41 +271,9 @@ func init() {
 						}),
 					)
 				})
-			KeezMoviesIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒinfo    λ.Object
-						ϒself    = λargs[0]
-						ϒurl     = λargs[1]
-						ϒwebpage λ.Object
-						τmp0     λ.Object
-					)
-					τmp0 = λ.Call(λ.GetAttr(ϒself, "_extract_info", nil), λ.NewArgs(ϒurl), λ.KWArgs{
-						{Name: "fatal", Value: λ.False},
-					})
-					ϒwebpage = λ.GetItem(τmp0, λ.IntLiteral(0))
-					ϒinfo = λ.GetItem(τmp0, λ.IntLiteral(1))
-					if !λ.IsTrue(λ.GetItem(ϒinfo, λ.StrLiteral("formats"))) {
-						return λ.Calm(ϒself, "url_result", ϒurl, λ.StrLiteral("Generic"))
-					}
-					λ.SetItem(ϒinfo, λ.StrLiteral("view_count"), λ.Cal(ϒstr_to_int, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.StrLiteral("<b>([\\d,.]+)</b> Views?"),
-						ϒwebpage,
-						λ.StrLiteral("view count"),
-					), λ.KWArgs{
-						{Name: "fatal", Value: λ.False},
-					})))
-					return ϒinfo
-				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    KeezMoviesIE__VALID_URL,
 				"_extract_info": KeezMoviesIE__extract_info,
-				"_real_extract": KeezMoviesIE__real_extract,
 			})
 		}())
 	})

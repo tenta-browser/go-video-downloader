@@ -70,7 +70,6 @@ Supported sites
  * ElPais: `blogs.elpais.com`
  * Escapist: `www.escapistmagazine.com`
  * FiveThirtyEight: `fivethirtyeight.com`
- * ExtremeTube _(adult)_: `www.extremetube.com`
  * Facebook: `www.facebook.com`
  * FacebookPluginsVideo: `www.facebook.com`
  * Faz: `www.faz.net`
@@ -115,9 +114,7 @@ Supported sites
  * Joj: `media.joj.sk`
  * JWPlatform: `content.jwplatform.com`
  * Kakao: `tv.kakao.com`
- * KeezMovies _(adult)_: `www.keezmovies.com`
  * KickStarter: `www.kickstarter.com`
- * LBRY: `lbry.tv`
  * Lenta: `lenta.ru`
  * LibraryOfCongress: `loc.gov`
  * Libsyn: `html5-player.libsyn.com`
@@ -153,9 +150,11 @@ Supported sites
  * OnionStudios: `www.onionstudios.com`
  * OutsideTV: `www.outsidetv.com`
  * PacktPub: `www.packtpub.com`
+ * ParliamentLiveUK: `parliamentlive.tv`
  * Patreon: `www.patreon.com`
  * PBS: `www.pbs.org`
  * PeerTube: `framatube.org`
+ * People: `www.people.com`
  * Piksel: `player.piksel.com`
  * Pinterest: `www.pinterest.com`
  * PlayFM: `www.play.fm`
@@ -165,6 +164,7 @@ Supported sites
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
  * RadioJavan: `www.radiojavan.com`
+ * RayWenderlich: `www.raywenderlich.com`
  * RedTube _(adult)_: `www.redtube.com`
  * ReverbNation: `www.reverbnation.com`
  * Rozhlas: `prehravac.rozhlas.cz`
@@ -190,7 +190,7 @@ Supported sites
  * SlidesLive: `slideslive.com`
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
- * Spankwire _(adult)_: `www.spankwire.com`
+ * Spiegel: `www.spiegel.de`
  * Spreaker: `api.spreaker.com`
  * SRGSSRPlay: `www.rts.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`

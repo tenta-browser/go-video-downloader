@@ -5512,22 +5512,25 @@ func init() {
 						func(λargs []λ.Object) λ.Object {
 							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
 								var (
-									ϒmedia_tag  λ.Object
-									ϒmedia_type λ.Object
-									τmp0        λ.Object
-									τmp1        λ.Object
-									τmp2        λ.Object
+									ϒmedia_tag      λ.Object
+									ϒmedia_tag_name λ.Object
+									ϒmedia_type     λ.Object
+									τmp0            λ.Object
+									τmp1            λ.Object
+									τmp2            λ.Object
 								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.Mod(λ.StrLiteral("(?s)(<%s[^>]*/>)"), ϒ_MEDIA_TAG_NAME_RE), ϒwebpage))
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.Mod(λ.StrLiteral("(?s)(<(%s)[^>]*/>)"), ϒ_MEDIA_TAG_NAME_RE), ϒwebpage))
 								for {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
 									τmp2 = τmp1
 									ϒmedia_tag = λ.GetItem(τmp2, λ.IntLiteral(0))
-									ϒmedia_type = λ.GetItem(τmp2, λ.IntLiteral(1))
+									ϒmedia_tag_name = λ.GetItem(τmp2, λ.IntLiteral(1))
+									ϒmedia_type = λ.GetItem(τmp2, λ.IntLiteral(2))
 									λgy.Yield(λ.NewTuple(
 										ϒmedia_tag,
+										ϒmedia_tag_name,
 										ϒmedia_type,
 										λ.StrLiteral(""),
 									))

@@ -4250,6 +4250,7 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
+						ϒalert          λ.Object
 						ϒdata           λ.Object
 						ϒidentity_token λ.Object
 						ϒitem_id        λ.Object
@@ -4289,13 +4290,7 @@ func init() {
 						)))
 					}
 					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒitem_id)
-					ϒidentity_token = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.StrLiteral("\\bID_TOKEN[\"\\']\\s*:\\s*[\"\\'](.+?)[\"\\']"),
-						ϒwebpage,
-						λ.StrLiteral("identity token"),
-					), λ.KWArgs{
-						{Name: "default", Value: λ.None},
-					})
+					ϒidentity_token = λ.Calm(ϒself, "_extract_identity_token", ϒwebpage, ϒitem_id)
 					ϒdata = λ.Calm(ϒself, "_extract_yt_initial_data", ϒitem_id, ϒwebpage)
 					ϒtabs = λ.Cal(ϒtry_get, ϒdata, λ.NewFunction("<lambda>",
 						[]λ.Param{
@@ -4323,7 +4318,7 @@ func init() {
 							return λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("contents")), λ.StrLiteral("twoColumnWatchNextResults")), λ.StrLiteral("playlist")), λ.StrLiteral("playlist"))
 						}), λ.DictType)
 					if λ.IsTrue(ϒplaylist) {
-						return λ.Calm(ϒself, "_extract_from_playlist", ϒitem_id, ϒdata, ϒplaylist)
+						return λ.Calm(ϒself, "_extract_from_playlist", ϒitem_id, ϒurl, ϒdata, ϒplaylist)
 					}
 					ϒvideo_id = func() λ.Object {
 						if λv := λ.Cal(ϒtry_get, ϒdata, λ.NewFunction("<lambda>",
@@ -4347,6 +4342,12 @@ func init() {
 							{Name: "ie", Value: λ.Calm(YoutubeIE, "ie_key")},
 							{Name: "video_id", Value: ϒvideo_id},
 						})
+					}
+					ϒalert = λ.Calm(ϒself, "_extract_alert", ϒdata)
+					if λ.IsTrue(ϒalert) {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(ϒalert), λ.KWArgs{
+							{Name: "expected", Value: λ.True},
+						})))
 					}
 					panic(λ.Raise(λ.Cal(ExtractorError, λ.StrLiteral("Unable to recognize tab page"))))
 					return λ.None
