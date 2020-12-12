@@ -141,7 +141,6 @@ var (
 	ϒunsmuggle_url                    λ.Object
 	ϒupdate_Request                   λ.Object
 	ϒupdate_url_query                 λ.Object
-	ϒuppercase_escape                 λ.Object
 	ϒurl_basename                     λ.Object
 	ϒurl_or_none                      λ.Object
 	ϒurlencode_postdata               λ.Object
@@ -3816,29 +3815,6 @@ func init() {
 
 			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
-		ϒuppercase_escape = λ.NewFunction("uppercase_escape",
-			[]λ.Param{
-				{Name: "s"},
-			},
-			0, false, false,
-			func(λargs []λ.Object) λ.Object {
-				var (
-					ϒs              = λargs[0]
-					ϒunicode_escape λ.Object
-				)
-				ϒunicode_escape = λ.Cal(Ωcodecs.ϒgetdecoder, λ.StrLiteral("unicode_escape"))
-				return λ.Cal(Ωre.ϒsub, λ.StrLiteral("\\\\U[0-9a-fA-F]{8}"), λ.NewFunction("<lambda>",
-					[]λ.Param{
-						{Name: "m"},
-					},
-					0, false, false,
-					func(λargs []λ.Object) λ.Object {
-						var (
-							ϒm = λargs[0]
-						)
-						return λ.GetItem(λ.Cal(ϒunicode_escape, λ.Calm(ϒm, "group", λ.IntLiteral(0))), λ.IntLiteral(0))
-					}), ϒs)
-			})
 		ϒlowercase_escape = λ.NewFunction("lowercase_escape",
 			[]λ.Param{
 				{Name: "s"},

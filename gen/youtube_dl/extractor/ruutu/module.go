@@ -37,7 +37,10 @@ var (
 	RuutuIE                       λ.Object
 	ϒcompat_urllib_parse_urlparse λ.Object
 	ϒdetermine_ext                λ.Object
+	ϒfind_xpath_attr              λ.Object
 	ϒint_or_none                  λ.Object
+	ϒunified_strdate              λ.Object
+	ϒurl_or_none                  λ.Object
 	ϒxpath_attr                   λ.Object
 	ϒxpath_text                   λ.Object
 )
@@ -48,15 +51,20 @@ func init() {
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
+		ϒfind_xpath_attr = Ωutils.ϒfind_xpath_attr
 		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒunified_strdate = Ωutils.ϒunified_strdate
+		ϒurl_or_none = Ωutils.ϒurl_or_none
 		ϒxpath_attr = Ωutils.ϒxpath_attr
 		ϒxpath_text = Ωutils.ϒxpath_text
 		RuutuIE = λ.Cal(λ.TypeType, λ.StrLiteral("RuutuIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
+				RuutuIE__API_BASE     λ.Object
 				RuutuIE__VALID_URL    λ.Object
 				RuutuIE__real_extract λ.Object
 			)
-			RuutuIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?:ruutu|supla)\\.fi/(?:video|supla)/(?P<id>\\d+)")
+			RuutuIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\n                            (?:www\\.)?(?:ruutu|supla)\\.fi/(?:video|supla|audio)/|\n                            static\\.nelonenmedia\\.fi/player/misc/embed_player\\.html\\?.*?\\bnid=\n                        )\n                        (?P<id>\\d+)\n                    ")
+			RuutuIE__API_BASE = λ.StrLiteral("https://gatling.nelonenmedia.fi")
 			RuutuIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -68,15 +76,18 @@ func init() {
 						ϒdrm             λ.Object
 						ϒextract_formats λ.Object
 						ϒformats         λ.Object
+						ϒns_st_cds       λ.Object
 						ϒprocessed_urls  λ.Object
+						ϒpv              λ.Object
 						ϒself            = λargs[0]
+						ϒthemes          λ.Object
 						ϒurl             = λargs[1]
 						ϒvideo_id        λ.Object
 						ϒvideo_xml       λ.Object
 					)
 					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒvideo_xml = λ.Call(λ.GetAttr(ϒself, "_download_xml", nil), λ.NewArgs(
-						λ.StrLiteral("https://gatling.nelonenmedia.fi/media-xml-cache"),
+						λ.Mod(λ.StrLiteral("%s/media-xml-cache"), λ.GetAttr(ϒself, "_API_BASE", nil)),
 						ϒvideo_id,
 					), λ.KWArgs{
 						{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
@@ -92,20 +103,21 @@ func init() {
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
 							var (
-								ϒchild      λ.Object
-								ϒext        λ.Object
-								ϒformat_id  λ.Object
-								ϒheight     λ.Object
-								ϒlabel      λ.Object
-								ϒnode       = λargs[0]
-								ϒpreference λ.Object
-								ϒproto      λ.Object
-								ϒtbr        λ.Object
-								ϒvideo_url  λ.Object
-								ϒwidth      λ.Object
-								τmp0        λ.Object
-								τmp1        λ.Object
-								τmp2        λ.Object
+								ϒauth_video_url λ.Object
+								ϒchild          λ.Object
+								ϒext            λ.Object
+								ϒformat_id      λ.Object
+								ϒheight         λ.Object
+								ϒlabel          λ.Object
+								ϒnode           = λargs[0]
+								ϒpreference     λ.Object
+								ϒproto          λ.Object
+								ϒtbr            λ.Object
+								ϒvideo_url      λ.Object
+								ϒwidth          λ.Object
+								τmp0            λ.Object
+								τmp1            λ.Object
+								τmp2            λ.Object
 							)
 							τmp0 = λ.Cal(λ.BuiltinIter, ϒnode)
 							for {
@@ -154,12 +166,27 @@ func init() {
 										}
 										λ.Calm(ϒprocessed_urls, "append", ϒvideo_url)
 										ϒext = λ.Cal(ϒdetermine_ext, ϒvideo_url)
+										ϒauth_video_url = λ.Cal(ϒurl_or_none, λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
+											λ.Mod(λ.StrLiteral("%s/auth/access/v2"), λ.GetAttr(ϒself, "_API_BASE", nil)),
+											ϒvideo_id,
+										), λ.KWArgs{
+											{Name: "note", Value: λ.Mod(λ.StrLiteral("Downloading authenticated %s stream URL"), ϒext)},
+											{Name: "fatal", Value: λ.False},
+											{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
+												"stream": ϒvideo_url,
+											})},
+										}))
+										if λ.IsTrue(ϒauth_video_url) {
+											λ.Calm(ϒprocessed_urls, "append", ϒauth_video_url)
+											ϒvideo_url = ϒauth_video_url
+										}
 										if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("m3u8"))) {
 											λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
 												ϒvideo_url,
 												ϒvideo_id,
 												λ.StrLiteral("mp4"),
 											), λ.KWArgs{
+												{Name: "entry_protocol", Value: λ.StrLiteral("m3u8_native")},
 												{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
 												{Name: "fatal", Value: λ.False},
 											}))
@@ -281,24 +308,43 @@ func init() {
 							return λ.None
 						})
 					λ.Cal(ϒextract_formats, λ.Calm(ϒvideo_xml, "find", λ.StrLiteral("./Clip")))
-					ϒdrm = λ.Call(ϒxpath_text, λ.NewArgs(
-						ϒvideo_xml,
-						λ.StrLiteral("./Clip/DRM"),
-					), λ.KWArgs{
-						{Name: "default", Value: λ.None},
-					})
-					if λ.IsTrue(func() λ.Object {
-						if λv := λ.NewBool(!λ.IsTrue(ϒformats)); !λ.IsTrue(λv) {
-							return λv
-						} else {
-							return ϒdrm
+					ϒpv = λ.NewFunction("pv",
+						[]λ.Param{
+							{Name: "name"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒname = λargs[0]
+								ϒnode λ.Object
+							)
+							ϒnode = λ.Cal(ϒfind_xpath_attr, ϒvideo_xml, λ.StrLiteral("./Clip/PassthroughVariables/variable"), λ.StrLiteral("name"), ϒname)
+							if ϒnode != λ.None {
+								return λ.Calm(ϒnode, "get", λ.StrLiteral("value"))
+							}
+							return λ.None
+						})
+					if !λ.IsTrue(ϒformats) {
+						ϒdrm = λ.Call(ϒxpath_text, λ.NewArgs(
+							ϒvideo_xml,
+							λ.StrLiteral("./Clip/DRM"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						})
+						if λ.IsTrue(ϒdrm) {
+							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("This video is DRM protected.")), λ.KWArgs{
+								{Name: "expected", Value: λ.True},
+							})))
 						}
-					}()) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("This video is DRM protected.")), λ.KWArgs{
-							{Name: "expected", Value: λ.True},
-						})))
+						ϒns_st_cds = λ.Cal(ϒpv, λ.StrLiteral("ns_st_cds"))
+						if λ.IsTrue(λ.Ne(ϒns_st_cds, λ.StrLiteral("free"))) {
+							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("This video is %s."), ϒns_st_cds)), λ.KWArgs{
+								{Name: "expected", Value: λ.True},
+							})))
+						}
 					}
 					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒthemes = λ.Cal(ϒpv, λ.StrLiteral("themes"))
 					return λ.DictLiteral(map[string]λ.Object{
 						"id": ϒvideo_id,
 						"title": λ.Call(ϒxpath_attr, λ.NewArgs(
@@ -311,12 +357,30 @@ func init() {
 						}),
 						"description": λ.Cal(ϒxpath_attr, ϒvideo_xml, λ.StrLiteral(".//Behavior/Program"), λ.StrLiteral("description"), λ.StrLiteral("description")),
 						"thumbnail":   λ.Cal(ϒxpath_attr, ϒvideo_xml, λ.StrLiteral(".//Behavior/Startpicture"), λ.StrLiteral("href"), λ.StrLiteral("thumbnail")),
-						"duration":    λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒvideo_xml, λ.StrLiteral(".//Runtime"), λ.StrLiteral("duration"))),
-						"age_limit":   λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒvideo_xml, λ.StrLiteral(".//AgeLimit"), λ.StrLiteral("age limit"))),
-						"formats":     ϒformats,
+						"duration": func() λ.Object {
+							if λv := λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒvideo_xml, λ.StrLiteral(".//Runtime"), λ.StrLiteral("duration"))); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Cal(ϒint_or_none, λ.Cal(ϒpv, λ.StrLiteral("runtime")))
+							}
+						}(),
+						"age_limit":      λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒvideo_xml, λ.StrLiteral(".//AgeLimit"), λ.StrLiteral("age limit"))),
+						"upload_date":    λ.Cal(ϒunified_strdate, λ.Cal(ϒpv, λ.StrLiteral("date_start"))),
+						"series":         λ.Cal(ϒpv, λ.StrLiteral("series_name")),
+						"season_number":  λ.Cal(ϒint_or_none, λ.Cal(ϒpv, λ.StrLiteral("season_number"))),
+						"episode_number": λ.Cal(ϒint_or_none, λ.Cal(ϒpv, λ.StrLiteral("episode_number"))),
+						"categories": func() λ.Object {
+							if λ.IsTrue(ϒthemes) {
+								return λ.Calm(ϒthemes, "split", λ.StrLiteral(","))
+							} else {
+								return λ.NewList()
+							}
+						}(),
+						"formats": ϒformats,
 					})
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_API_BASE":     RuutuIE__API_BASE,
 				"_VALID_URL":    RuutuIE__VALID_URL,
 				"_real_extract": RuutuIE__real_extract,
 			})

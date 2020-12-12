@@ -236,11 +236,9 @@ func init() {
 		}())
 		SkyItVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("SkyItVideoIE"), λ.NewTuple(SkyItPlayerIE), func() λ.Dict {
 			var (
-				SkyItVideoIE_IE_NAME       λ.Object
 				SkyItVideoIE__VALID_URL    λ.Object
 				SkyItVideoIE__real_extract λ.Object
 			)
-			SkyItVideoIE_IE_NAME = λ.StrLiteral("video.sky.it")
 			SkyItVideoIE__VALID_URL = λ.StrLiteral("https?://(?:masterchef|video|xfactor)\\.sky\\.it(?:/[^/]+)*/video/[0-9a-z-]+-(?P<id>\\d+)")
 			SkyItVideoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -258,7 +256,6 @@ func init() {
 					return λ.Calm(ϒself, "_player_url_result", ϒvideo_id)
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"IE_NAME":       SkyItVideoIE_IE_NAME,
 				"_VALID_URL":    SkyItVideoIE__VALID_URL,
 				"_real_extract": SkyItVideoIE__real_extract,
 			})

@@ -83,7 +83,6 @@ var (
 	ϒunified_strdate                  λ.Object
 	ϒunsmuggle_url                    λ.Object
 	ϒupdate_url_query                 λ.Object
-	ϒuppercase_escape                 λ.Object
 	ϒurl_or_none                      λ.Object
 	ϒurlencode_postdata               λ.Object
 	ϒurljoin                          λ.Object
@@ -120,7 +119,6 @@ func init() {
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		ϒunsmuggle_url = Ωutils.ϒunsmuggle_url
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
-		ϒuppercase_escape = Ωutils.ϒuppercase_escape
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		ϒurljoin = Ωutils.ϒurljoin
@@ -1632,7 +1630,7 @@ func init() {
 					})
 					if λ.IsTrue(ϒconfig) {
 						return λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
-							λ.Cal(ϒuppercase_escape, ϒconfig),
+							λ.Cal(λ.None, ϒconfig),
 							ϒvideo_id,
 						), λ.KWArgs{
 							{Name: "fatal", Value: λ.False},
