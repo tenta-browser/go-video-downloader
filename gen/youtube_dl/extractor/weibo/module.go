@@ -25,6 +25,8 @@
 package weibo
 
 import (
+	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
+	Ωrandom "github.com/tenta-browser/go-video-downloader/gen/random"
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
@@ -53,11 +55,135 @@ func init() {
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		WeiboIE = λ.Cal(λ.TypeType, λ.StrLiteral("WeiboIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				WeiboIE__VALID_URL λ.Object
+				WeiboIE__VALID_URL    λ.Object
+				WeiboIE__real_extract λ.Object
 			)
 			WeiboIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?weibo\\.com/[0-9]+/(?P<id>[a-zA-Z0-9]+)")
+			WeiboIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcnfd                  λ.Object
+						ϒformats               λ.Object
+						ϒres                   λ.Object
+						ϒself                  = λargs[0]
+						ϒsupported_resolutions λ.Object
+						ϒtid                   λ.Object
+						ϒtitle                 λ.Object
+						ϒuploader              λ.Object
+						ϒurl                   = λargs[1]
+						ϒurlh                  λ.Object
+						ϒvid_url               λ.Object
+						ϒvid_urls              λ.Object
+						ϒvideo_formats         λ.Object
+						ϒvideo_id              λ.Object
+						ϒvisitor_data          λ.Object
+						ϒvisitor_url           λ.Object
+						ϒwebpage               λ.Object
+						τmp0                   λ.Object
+						τmp1                   λ.Object
+					)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					τmp0 = λ.Calm(ϒself, "_download_webpage_handle", ϒurl, ϒvideo_id)
+					ϒwebpage = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
+					ϒvisitor_url = λ.Calm(ϒurlh, "geturl")
+					if λ.Contains(ϒvisitor_url, λ.StrLiteral("passport.weibo.com")) {
+						ϒvisitor_data = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+							λ.StrLiteral("https://passport.weibo.com/visitor/genvisitor"),
+							ϒvideo_id,
+						), λ.KWArgs{
+							{Name: "note", Value: λ.StrLiteral("Generating first-visit data")},
+							{Name: "transform_source", Value: ϒstrip_jsonp},
+							{Name: "headers", Value: λ.DictLiteral(map[string]λ.Object{
+								"Referer": ϒvisitor_url,
+							})},
+							{Name: "data", Value: λ.Cal(ϒurlencode_postdata, λ.DictLiteral(map[string]λ.Object{
+								"cb": λ.StrLiteral("gen_callback"),
+								"fp": λ.Cal(Ωjson.ϒdumps, λ.DictLiteral(map[string]string{
+									"os":         "2",
+									"browser":    "Gecko57,0,0,0",
+									"fonts":      "undefined",
+									"screenInfo": "1440*900*24",
+									"plugins":    "",
+								})),
+							}))},
+						})
+						ϒtid = λ.GetItem(λ.GetItem(ϒvisitor_data, λ.StrLiteral("data")), λ.StrLiteral("tid"))
+						ϒcnfd = λ.Mod(λ.StrLiteral("%03d"), λ.GetItem(λ.GetItem(ϒvisitor_data, λ.StrLiteral("data")), λ.StrLiteral("confidence")))
+						λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
+							λ.StrLiteral("https://passport.weibo.com/visitor/visitor"),
+							ϒvideo_id,
+						), λ.KWArgs{
+							{Name: "note", Value: λ.StrLiteral("Running first-visit callback")},
+							{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
+								"a":     λ.StrLiteral("incarnate"),
+								"t":     ϒtid,
+								"w":     λ.IntLiteral(2),
+								"c":     ϒcnfd,
+								"cb":    λ.StrLiteral("cross_domain"),
+								"from":  λ.StrLiteral("weibo"),
+								"_rand": λ.Cal(Ωrandom.ϒrandom),
+							})},
+						})
+						ϒwebpage = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
+							ϒurl,
+							ϒvideo_id,
+						), λ.KWArgs{
+							{Name: "note", Value: λ.StrLiteral("Revisiting webpage")},
+						})
+					}
+					ϒtitle = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("<title>(.+?)</title>"), ϒwebpage, λ.StrLiteral("title"))
+					ϒvideo_formats = λ.Cal(ϒcompat_parse_qs, λ.Calm(ϒself, "_search_regex", λ.StrLiteral("video-sources=\\\\\\\"(.+?)\\\""), ϒwebpage, λ.StrLiteral("video_sources")))
+					ϒformats = λ.NewList()
+					ϒsupported_resolutions = λ.NewTuple(
+						λ.IntLiteral(480),
+						λ.IntLiteral(720),
+					)
+					τmp0 = λ.Cal(λ.BuiltinIter, ϒsupported_resolutions)
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒres = τmp1
+						ϒvid_urls = λ.Calm(ϒvideo_formats, "get", λ.Cal(ϒcompat_str, ϒres))
+						if λ.IsTrue(func() λ.Object {
+							if λv := λ.NewBool(!λ.IsTrue(ϒvid_urls)); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.NewBool(!λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒvid_urls, λ.ListType)))
+							}
+						}()) {
+							continue
+						}
+						ϒvid_url = λ.GetItem(ϒvid_urls, λ.IntLiteral(0))
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":    ϒvid_url,
+							"height": ϒres,
+						}))
+					}
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒuploader = λ.Call(λ.GetAttr(ϒself, "_og_search_property", nil), λ.NewArgs(
+						λ.StrLiteral("nick-name"),
+						ϒwebpage,
+						λ.StrLiteral("uploader"),
+					), λ.KWArgs{
+						{Name: "default", Value: λ.None},
+					})
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":       ϒvideo_id,
+						"title":    ϒtitle,
+						"uploader": ϒuploader,
+						"formats":  ϒformats,
+					})
+				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": WeiboIE__VALID_URL,
+				"_VALID_URL":    WeiboIE__VALID_URL,
+				"_real_extract": WeiboIE__real_extract,
 			})
 		}())
 		WeiboMobileIE = λ.Cal(λ.TypeType, λ.StrLiteral("WeiboMobileIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

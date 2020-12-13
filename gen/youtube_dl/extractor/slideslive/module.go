@@ -153,7 +153,6 @@ func init() {
 								ϒservice_id,
 								λ.StrLiteral("mp4"),
 							), λ.KWArgs{
-								{Name: "entry_protocol", Value: λ.StrLiteral("m3u8_native")},
 								{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
 								{Name: "fatal", Value: λ.False},
 							}))

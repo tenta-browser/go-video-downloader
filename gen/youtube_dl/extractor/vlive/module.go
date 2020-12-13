@@ -301,6 +301,7 @@ func init() {
 							if λ.IsTrue(λ.Eq(ϒstatus, λ.StrLiteral("ON_AIR"))) {
 								ϒstream_url = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_call_api", λ.StrLiteral("old/v3/live/%s/playInfo"), ϒvideo_id), λ.StrLiteral("result")), λ.StrLiteral("adaptiveStreamUrl"))
 								ϒformats = λ.Calm(ϒself, "_extract_m3u8_formats", ϒstream_url, ϒvideo_id, λ.StrLiteral("mp4"))
+								λ.Calm(ϒself, "_sort_formats", ϒformats)
 								ϒinfo = λ.Cal(ϒget_common_fields)
 								λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
 									"title":   λ.Calm(ϒself, "_live_title", λ.GetItem(ϒvideo, λ.StrLiteral("title"))),

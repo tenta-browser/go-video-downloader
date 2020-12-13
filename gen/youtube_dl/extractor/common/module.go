@@ -2231,6 +2231,7 @@ func init() {
 						ϒepisode_name                  λ.Object
 						ϒexpected_type                 = λargs[4]
 						ϒextract_interaction_statistic λ.Object
+						ϒextract_interaction_type      λ.Object
 						ϒextract_video_object          λ.Object
 						ϒfatal                         = λargs[3]
 						ϒinfo                          λ.Object
@@ -2276,6 +2277,22 @@ func init() {
 						"WatchAction":    "view",
 						"ViewAction":     "view",
 					})
+					ϒextract_interaction_type = λ.NewFunction("extract_interaction_type",
+						[]λ.Param{
+							{Name: "e"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒe                = λargs[0]
+								ϒinteraction_type λ.Object
+							)
+							ϒinteraction_type = λ.Calm(ϒe, "get", λ.StrLiteral("interactionType"))
+							if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒinteraction_type, λ.DictType)) {
+								ϒinteraction_type = λ.Calm(ϒinteraction_type, "get", λ.StrLiteral("@type"))
+							}
+							return λ.Cal(ϒstr_or_none, ϒinteraction_type)
+						})
 					ϒextract_interaction_statistic = λ.NewFunction("extract_interaction_statistic",
 						[]λ.Param{
 							{Name: "e"},
@@ -2294,6 +2311,9 @@ func init() {
 								τmp1                   λ.Object
 							)
 							ϒinteraction_statistic = λ.Calm(ϒe, "get", λ.StrLiteral("interactionStatistic"))
+							if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒinteraction_statistic, λ.DictType)) {
+								ϒinteraction_statistic = λ.NewList(ϒinteraction_statistic)
+							}
 							if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒinteraction_statistic, λ.ListType)) {
 								return λ.None
 							}
@@ -2309,8 +2329,8 @@ func init() {
 								if λ.IsTrue(λ.Ne(λ.Calm(ϒis_e, "get", λ.StrLiteral("@type")), λ.StrLiteral("InteractionCounter"))) {
 									continue
 								}
-								ϒinteraction_type = λ.Calm(ϒis_e, "get", λ.StrLiteral("interactionType"))
-								if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒinteraction_type, ϒcompat_str)) {
+								ϒinteraction_type = λ.Cal(ϒextract_interaction_type, ϒis_e)
+								if !λ.IsTrue(ϒinteraction_type) {
 									continue
 								}
 								ϒinteraction_count = λ.Cal(ϒstr_to_int, λ.Calm(ϒis_e, "get", λ.StrLiteral("userInteractionCount")))
