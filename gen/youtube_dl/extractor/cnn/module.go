@@ -110,6 +110,9 @@ func init() {
 						"default": λ.DictLiteral(map[string]λ.Object{
 							"media_src": λ.GetItem(ϒconfig, λ.StrLiteral("media_src")),
 						}),
+						"f4m": λ.DictLiteral(map[string]string{
+							"host": "cnn-vh.akamaihd.net",
+						}),
 					}))
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
@@ -149,30 +152,11 @@ func init() {
 		}())
 		CNNArticleIE = λ.Cal(λ.TypeType, λ.StrLiteral("CNNArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				CNNArticleIE__VALID_URL    λ.Object
-				CNNArticleIE__real_extract λ.Object
+				CNNArticleIE__VALID_URL λ.Object
 			)
 			CNNArticleIE__VALID_URL = λ.StrLiteral("https?://(?:(?:edition|www)\\.)?cnn\\.com/(?!videos?/)")
-			CNNArticleIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒcnn_url λ.Object
-						ϒself    = λargs[0]
-						ϒurl     = λargs[1]
-						ϒwebpage λ.Object
-					)
-					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, λ.Cal(ϒurl_basename, ϒurl))
-					ϒcnn_url = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("video:\\s*'([^']+)'"), ϒwebpage, λ.StrLiteral("cnn url"))
-					return λ.Calm(ϒself, "url_result", λ.Add(λ.StrLiteral("http://cnn.com/video/?/video/"), ϒcnn_url), λ.Calm(CNNIE, "ie_key"))
-				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL":    CNNArticleIE__VALID_URL,
-				"_real_extract": CNNArticleIE__real_extract,
+				"_VALID_URL": CNNArticleIE__VALID_URL,
 			})
 		}())
 	})

@@ -212,6 +212,7 @@ var (
 	ϒunified_timestamp           λ.Object
 	ϒunsmuggle_url               λ.Object
 	ϒurl_or_none                 λ.Object
+	ϒxpath_attr                  λ.Object
 	ϒxpath_text                  λ.Object
 	ϒxpath_with_ns               λ.Object
 )
@@ -241,6 +242,7 @@ func init() {
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒunsmuggle_url = Ωutils.ϒunsmuggle_url
 		ϒurl_or_none = Ωutils.ϒurl_or_none
+		ϒxpath_attr = Ωutils.ϒxpath_attr
 		ϒxpath_text = Ωutils.ϒxpath_text
 		ϒxpath_with_ns = Ωutils.ϒxpath_with_ns
 		RtmpIE = Ωcommonprotocols.RtmpIE

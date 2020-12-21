@@ -25,6 +25,8 @@
 package arkena
 
 import (
+	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
+	Ωparse "github.com/tenta-browser/go-video-downloader/gen/urllib/parse"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
@@ -34,31 +36,286 @@ var (
 	ArkenaIE       λ.Object
 	ExtractorError λ.Object
 	InfoExtractor  λ.Object
-	ϒdetermine_ext λ.Object
 	ϒfloat_or_none λ.Object
 	ϒint_or_none   λ.Object
-	ϒmimetype2ext  λ.Object
 	ϒparse_iso8601 λ.Object
-	ϒstrip_jsonp   λ.Object
+	ϒtry_get       λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ϒmimetype2ext = Ωutils.ϒmimetype2ext
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
-		ϒstrip_jsonp = Ωutils.ϒstrip_jsonp
+		ϒtry_get = Ωutils.ϒtry_get
 		ArkenaIE = λ.Cal(λ.TypeType, λ.StrLiteral("ArkenaIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ArkenaIE__VALID_URL λ.Object
+				ArkenaIE__VALID_URL    λ.Object
+				ArkenaIE__real_extract λ.Object
 			)
-			ArkenaIE__VALID_URL = λ.StrLiteral("(?x)\n                        https?://\n                            (?:\n                                video\\.arkena\\.com/play2/embed/player\\?|\n                                play\\.arkena\\.com/(?:config|embed)/avp/v\\d/player/media/(?P<id>[^/]+)/[^/]+/(?P<account_id>\\d+)\n                            )\n                        ")
+			ArkenaIE__VALID_URL = λ.StrLiteral("(?x)\n                        https?://\n                            (?:\n                                video\\.(?:arkena|qbrick)\\.com/play2/embed/player\\?|\n                                play\\.arkena\\.com/(?:config|embed)/avp/v\\d/player/media/(?P<id>[^/]+)/[^/]+/(?P<account_id>\\d+)\n                            )\n                        ")
+			ArkenaIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒaccount_id     λ.Object
+						ϒaudio          λ.Object
+						ϒduration       λ.Object
+						ϒf              λ.Object
+						ϒformats        λ.Object
+						ϒhref           λ.Object
+						ϒi              λ.Object
+						ϒlink           λ.Object
+						ϒmedia          λ.Object
+						ϒmetadata       λ.Object
+						ϒmime_type      λ.Object
+						ϒmobj           λ.Object
+						ϒqs             λ.Object
+						ϒrendition      λ.Object
+						ϒrendition_type λ.Object
+						ϒresource       λ.Object
+						ϒself           = λargs[0]
+						ϒsubtitles      λ.Object
+						ϒthumbnails     λ.Object
+						ϒtitle          λ.Object
+						ϒurl            = λargs[1]
+						ϒvideo          λ.Object
+						ϒvideo_id       λ.Object
+						τmp0            λ.Object
+						τmp1            λ.Object
+						τmp2            λ.Object
+						τmp3            λ.Object
+						τmp4            λ.Object
+						τmp5            λ.Object
+						τmp6            λ.Object
+					)
+					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
+					ϒaccount_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("account_id"))
+					if !λ.IsTrue(ϒvideo_id) {
+						ϒqs = λ.Cal(Ωparse.ϒparse_qs, λ.GetAttr(λ.Cal(Ωparse.ϒurlparse, ϒurl), "query", nil))
+						ϒvideo_id = λ.GetItem(λ.Calm(ϒqs, "get", λ.StrLiteral("mediaId"), λ.NewList(λ.None)), λ.IntLiteral(0))
+						ϒaccount_id = λ.GetItem(λ.Calm(ϒqs, "get", λ.StrLiteral("accountId"), λ.NewList(λ.None)), λ.IntLiteral(0))
+						if λ.IsTrue(func() λ.Object {
+							if λv := λ.NewBool(!λ.IsTrue(ϒvideo_id)); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.NewBool(!λ.IsTrue(ϒaccount_id))
+							}
+						}()) {
+							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("Invalid URL")), λ.KWArgs{
+								{Name: "expected", Value: λ.True},
+							})))
+						}
+					}
+					ϒmedia = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.Mod(λ.StrLiteral("https://video.qbrick.com/api/v1/public/accounts/%s/medias/%s"), λ.NewTuple(
+							ϒaccount_id,
+							ϒvideo_id,
+						)),
+						ϒvideo_id,
+					), λ.KWArgs{
+						{Name: "query", Value: λ.DictLiteral(map[string]string{
+							"fields": "asset/resources/*/renditions/*(height,id,language,links/*(href,mimeType),type,size,videos/*(audios/*(codec,sampleRate),bitrate,codec,duration,height,width),width),created,metadata/*(title,description),tags",
+						})},
+					})
+					ϒmetadata = func() λ.Object {
+						if λv := λ.Calm(ϒmedia, "get", λ.StrLiteral("metadata")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
+						}
+					}()
+					ϒtitle = λ.GetItem(ϒmetadata, λ.StrLiteral("title"))
+					ϒduration = λ.None
+					ϒformats = λ.NewList()
+					ϒthumbnails = λ.NewList()
+					ϒsubtitles = λ.DictLiteral(map[λ.Object]λ.Object{})
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(λ.GetItem(ϒmedia, λ.StrLiteral("asset")), λ.StrLiteral("resources")))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒresource = τmp1
+						τmp2 = λ.Cal(λ.BuiltinIter, func() λ.Object {
+							if λv := λ.Calm(ϒresource, "get", λ.StrLiteral("renditions")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.NewList()
+							}
+						}())
+						for {
+							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+								break
+							}
+							ϒrendition = τmp3
+							ϒrendition_type = λ.Calm(ϒrendition, "get", λ.StrLiteral("type"))
+							τmp4 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.EnumerateIteratorType, func() λ.Object {
+								if λv := λ.Calm(ϒrendition, "get", λ.StrLiteral("links")); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.NewList()
+								}
+							}()))
+							for {
+								if τmp5 = λ.NextDefault(τmp4, λ.AfterLast); τmp5 == λ.AfterLast {
+									break
+								}
+								τmp6 = τmp5
+								ϒi = λ.GetItem(τmp6, λ.IntLiteral(0))
+								ϒlink = λ.GetItem(τmp6, λ.IntLiteral(1))
+								ϒhref = λ.Calm(ϒlink, "get", λ.StrLiteral("href"))
+								if !λ.IsTrue(ϒhref) {
+									continue
+								}
+								if λ.IsTrue(λ.Eq(ϒrendition_type, λ.StrLiteral("image"))) {
+									λ.Calm(ϒthumbnails, "append", λ.DictLiteral(map[string]λ.Object{
+										"filesize": λ.Cal(ϒint_or_none, λ.Calm(ϒrendition, "get", λ.StrLiteral("size"))),
+										"height":   λ.Cal(ϒint_or_none, λ.Calm(ϒrendition, "get", λ.StrLiteral("height"))),
+										"id":       λ.Calm(ϒrendition, "get", λ.StrLiteral("id")),
+										"url":      ϒhref,
+										"width":    λ.Cal(ϒint_or_none, λ.Calm(ϒrendition, "get", λ.StrLiteral("width"))),
+									}))
+								} else {
+									if λ.IsTrue(λ.Eq(ϒrendition_type, λ.StrLiteral("subtitle"))) {
+										λ.Calm(λ.Calm(ϒsubtitles, "setdefault", func() λ.Object {
+											if λv := λ.Calm(ϒrendition, "get", λ.StrLiteral("language")); λ.IsTrue(λv) {
+												return λv
+											} else {
+												return λ.StrLiteral("en")
+											}
+										}(), λ.NewList()), "append", λ.DictLiteral(map[string]λ.Object{
+											"url": ϒhref,
+										}))
+									} else {
+										if λ.IsTrue(λ.Eq(ϒrendition_type, λ.StrLiteral("video"))) {
+											ϒf = λ.DictLiteral(map[string]λ.Object{
+												"filesize":  λ.Cal(ϒint_or_none, λ.Calm(ϒrendition, "get", λ.StrLiteral("size"))),
+												"format_id": λ.Calm(ϒrendition, "get", λ.StrLiteral("id")),
+												"url":       ϒhref,
+											})
+											ϒvideo = λ.Cal(ϒtry_get, ϒrendition, λ.NewFunction("<lambda>",
+												[]λ.Param{
+													{Name: "x"},
+												},
+												0, false, false,
+												func(λargs []λ.Object) λ.Object {
+													var (
+														ϒx = λargs[0]
+													)
+													return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("videos")), ϒi)
+												}), λ.DictType)
+											if λ.IsTrue(ϒvideo) {
+												if !λ.IsTrue(ϒduration) {
+													ϒduration = λ.Cal(ϒfloat_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("duration")))
+												}
+												λ.Calm(ϒf, "update", λ.DictLiteral(map[string]λ.Object{
+													"height": λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("height"))),
+													"tbr":    λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("bitrate")), λ.IntLiteral(1000)),
+													"vcodec": λ.Calm(ϒvideo, "get", λ.StrLiteral("codec")),
+													"width":  λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("width"))),
+												}))
+												ϒaudio = λ.Cal(ϒtry_get, ϒvideo, λ.NewFunction("<lambda>",
+													[]λ.Param{
+														{Name: "x"},
+													},
+													0, false, false,
+													func(λargs []λ.Object) λ.Object {
+														var (
+															ϒx = λargs[0]
+														)
+														return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("audios")), λ.IntLiteral(0))
+													}), λ.DictType)
+												if λ.IsTrue(ϒaudio) {
+													λ.Calm(ϒf, "update", λ.DictLiteral(map[string]λ.Object{
+														"acodec": λ.Calm(ϒaudio, "get", λ.StrLiteral("codec")),
+														"asr":    λ.Cal(ϒint_or_none, λ.Calm(ϒaudio, "get", λ.StrLiteral("sampleRate"))),
+													}))
+												}
+											}
+											λ.Calm(ϒformats, "append", ϒf)
+										} else {
+											if λ.IsTrue(λ.Eq(ϒrendition_type, λ.StrLiteral("index"))) {
+												ϒmime_type = λ.Calm(ϒlink, "get", λ.StrLiteral("mimeType"))
+												if λ.IsTrue(λ.Eq(ϒmime_type, λ.StrLiteral("application/smil+xml"))) {
+													λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_smil_formats", nil), λ.NewArgs(
+														ϒhref,
+														ϒvideo_id,
+													), λ.KWArgs{
+														{Name: "fatal", Value: λ.False},
+													}))
+												} else {
+													if λ.IsTrue(λ.Eq(ϒmime_type, λ.StrLiteral("application/x-mpegURL"))) {
+														λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+															ϒhref,
+															ϒvideo_id,
+															λ.StrLiteral("mp4"),
+															λ.StrLiteral("m3u8_native"),
+														), λ.KWArgs{
+															{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
+															{Name: "fatal", Value: λ.False},
+														}))
+													} else {
+														if λ.IsTrue(λ.Eq(ϒmime_type, λ.StrLiteral("application/hds+xml"))) {
+															λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_f4m_formats", nil), λ.NewArgs(
+																ϒhref,
+																ϒvideo_id,
+															), λ.KWArgs{
+																{Name: "f4m_id", Value: λ.StrLiteral("hds")},
+																{Name: "fatal", Value: λ.False},
+															}))
+														} else {
+															if λ.IsTrue(λ.Eq(ϒmime_type, λ.StrLiteral("application/dash+xml"))) {
+																λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_f4m_formats", nil), λ.NewArgs(
+																	ϒhref,
+																	ϒvideo_id,
+																), λ.KWArgs{
+																	{Name: "f4m_id", Value: λ.StrLiteral("hds")},
+																	{Name: "fatal", Value: λ.False},
+																}))
+															} else {
+																if λ.IsTrue(λ.Eq(ϒmime_type, λ.StrLiteral("application/vnd.ms-sstr+xml"))) {
+																	λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_ism_formats", nil), λ.NewArgs(
+																		ϒhref,
+																		ϒvideo_id,
+																	), λ.KWArgs{
+																		{Name: "ism_id", Value: λ.StrLiteral("mss")},
+																		{Name: "fatal", Value: λ.False},
+																	}))
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       ϒtitle,
+						"description": λ.Calm(ϒmetadata, "get", λ.StrLiteral("description")),
+						"timestamp":   λ.Cal(ϒparse_iso8601, λ.Calm(ϒmedia, "get", λ.StrLiteral("created"))),
+						"thumbnails":  ϒthumbnails,
+						"subtitles":   ϒsubtitles,
+						"duration":    ϒduration,
+						"tags":        λ.Calm(ϒmedia, "get", λ.StrLiteral("tags")),
+						"formats":     ϒformats,
+					})
+				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": ArkenaIE__VALID_URL,
+				"_VALID_URL":    ArkenaIE__VALID_URL,
+				"_real_extract": ArkenaIE__real_extract,
 			})
 		}())
 	})

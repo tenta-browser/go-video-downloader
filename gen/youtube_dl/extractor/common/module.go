@@ -5790,12 +5790,17 @@ func init() {
 						ϒqualities        λ.Object
 						ϒqualities_length λ.Object
 						ϒself             = λargs[0]
+						ϒsigned           λ.Object
 						ϒvideo_id         = λargs[2]
 						τmp0              λ.Object
 						τmp1              λ.Object
 						τmp2              λ.Object
 						τmp3              λ.Object
 					)
+					ϒsigned = λ.NewBool(λ.Contains(ϒmanifest_url, λ.StrLiteral("hdnea=")))
+					if !λ.IsTrue(ϒsigned) {
+						ϒmanifest_url = λ.Calm(λ.Cal(Ωre.ϒsub, λ.StrLiteral("(?:b=[\\d,-]+|(?:__a__|attributes)=off|__b__=\\d+)&?"), λ.StrLiteral(""), ϒmanifest_url), "strip", λ.StrLiteral("?"))
+					}
 					ϒformats = λ.NewList()
 					ϒhdcore_sign = λ.StrLiteral("hdcore=3.7.0")
 					ϒf4m_url = λ.Calm(λ.Cal(Ωre.ϒsub, λ.StrLiteral("(https?://[^/]+)/i/"), λ.StrLiteral("\\1/z/"), ϒmanifest_url), "replace", λ.StrLiteral("/master.m3u8"), λ.StrLiteral("/manifest.f4m"))
@@ -5853,7 +5858,7 @@ func init() {
 						} else if λv := ϒm3u8_formats; !λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.NewBool(!λ.Contains(ϒm3u8_url, λ.StrLiteral("hdnea=")))
+							return λ.NewBool(!λ.IsTrue(ϒsigned))
 						}
 					}()) {
 						REPL_REGEX = λ.StrLiteral("https?://[^/]+/i/([^,]+),([^/]+),([^/]+)\\.csmil/.+")

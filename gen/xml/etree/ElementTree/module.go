@@ -71,6 +71,7 @@ func init() {
 			var (
 				Element___getitem__ λ.Object
 				Element___init__    λ.Object
+				Element___len__     λ.Object
 				Element_find        λ.Object
 				Element_findall     λ.Object
 				Element_findtext    λ.Object
@@ -103,6 +104,17 @@ func init() {
 						}
 					}())
 					return λ.None
+				})
+			Element___len__ = λ.NewFunction("__len__",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself = λargs[0]
+					)
+					return λ.GetAttr(ϒself, "childno", nil)
 				})
 			Element___getitem__ = λ.NewFunction("__getitem__",
 				[]λ.Param{
@@ -214,6 +226,7 @@ func init() {
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"__getitem__": Element___getitem__,
 				"__init__":    Element___init__,
+				"__len__":     Element___len__,
 				"find":        Element_find,
 				"findall":     Element_findall,
 				"findtext":    Element_findtext,

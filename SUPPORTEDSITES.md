@@ -7,14 +7,15 @@ Supported sites
  * AdobeTVVideo: `video.tv.adobe.com`
  * Amara: `amara.org`
  * Allocine: `www.allocine.fr`
+ * Arkena: `video.qbrick.com`
  * ARDMediathek: `www.ardmediathek.de`
  * ArteTVEmbed: `www.arte.tv`
+ * AsianCrush: `www.asiancrush.com`
  * AudioBoom: `audioboom.com`
  * Audiomack: `www.audiomack.com`
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
  * Beatport: `beatport.com`
- * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
  * BIQLE: `biqle.org`
@@ -24,27 +25,23 @@ Supported sites
  * BR: `www.br.de`
  * BravoTV: `www.bravotv.com`
  * BusinessInsider: `uk.businessinsider.com`
- * Camdemy: `www.camdemy.com`
  * Canalplus: `www.piwiplus.fr`
  * Canalc2: `www.canalc2.tv`
  * CBCPlayer: `www.cbc.ca`
- * CCMA: `www.ccma.cat`
  * CCTV: `sports.cntv.cn`
  * CDA: `www.cda.pl`
  * CharlieRose: `charlierose.com`
  * Chirbit: `chirb.it`
  * Cinemax: `www.cinemax.com`
  * Clippit: `www.clippituser.tv`
- * ClipRs: `www.clip.rs`
  * Clipsyndicate: `www.clipsyndicate.com`
  * CloserToTruth: `closertotruth.com`
  * Clyp: `clyp.it`
  * CNN: `edition.cnn.com`
  * CNNBlogs: `reliablesources.blogs.cnn.com`
- * CNNArticle: `www.cnn.com`
- * CondeNast: `video.gq.com`
+ * Coub: `coub.com`
+ * CondeNast: `video.wired.com`
  * CONtv: `www.contv.com`
- * Cracked: `www.cracked.com`
  * CtsNews: `news.cts.com.tw`
  * CuriosityStream: `app.curiositystream.com`
  * DailyMail: `www.dailymail.co.uk`
@@ -58,7 +55,7 @@ Supported sites
  * DrTuber _(adult)_: `www.drtuber.com`
  * DVTV: `video.aktualne.cz`
  * Dumpert: `www.dumpert.nl`
- * Disney: `video.disney.com`
+ * Disney: `www.starwars.com`
  * DigitallySpeaking: `evt.dispeak.com`
  * DW: `www.dw.com`
  * EaglePlatform: `lentaru.media.eagleplatform.com`
@@ -69,13 +66,14 @@ Supported sites
  * FiveThirtyEight: `fivethirtyeight.com`
  * Facebook: `www.facebook.com`
  * FacebookPluginsVideo: `www.facebook.com`
+ * Faz: `www.faz.net`
  * Fczenit: `fc-zenit.ru`
  * FiveTV: `5-tv.ru`
+ * Flickr: `www.flickr.com`
  * FoxNews: `video.foxnews.com`
  * FoxNewsArticle: `www.foxnews.com`
  * FranceInter: `www.franceinter.fr`
  * GenerationWhat: `generation-what.francetv.fr`
- * Freesound: `www.freesound.org`
  * Freespeech: `www.freespeech.org`
  * Funk: `www.funk.net`
  * GameInformer: `www.gameinformer.com`
@@ -101,12 +99,12 @@ Supported sites
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
  * Ivideon: `www.ivideon.com`
- * Jamendo: `www.jamendo.com`
  * JeuxVideo: `www.jeuxvideo.com`
  * Joj: `media.joj.sk`
  * JWPlatform: `content.jwplatform.com`
  * Kakao: `tv.kakao.com`
  * KickStarter: `www.kickstarter.com`
+ * LcpPlay: `play.lcp.fr`
  * Lenta: `lenta.ru`
  * LibraryOfCongress: `loc.gov`
  * Libsyn: `html5-player.libsyn.com`
@@ -114,17 +112,19 @@ Supported sites
  * Livestream: `new.livestream.com`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * Lynda: `www.lynda.com`
+ * MailRuMusic: `my.mail.ru`
  * ManyVids: `www.manyvids.com`
- * MDR: `www.kika.de`
  * Mediaset: `www.mediasetplay.mediaset.it`
  * Megaphone: `player.megaphone.fm`
  * Metacritic: `www.metacritic.com`
  * MicrosoftVirtualAcademy: `mva.microsoft.com`
  * MLB: `www.mlb.com`
+ * Mojvideo: `www.mojvideo.com`
  * MySpace: `myspace.com`
  * MySpass: `www.myspass.de`
  * NationalGeographicVideo: `video.nationalgeographic.com`
  * Naver: `tv.naver.com`
+ * NBA: `www.nba.com`
  * NBCNews: `www.nbcnews.com`
  * NBCSportsVPlayer: `vplayer.nbcsports.com`
  * NDR: `www.ndr.de`
@@ -132,15 +132,17 @@ Supported sites
  * NJoyEmbed: `www.n-joy.de`
  * NDTV: `movies.ndtv.com`
  * Netzkino: `www.netzkino.de`
- * Newgrounds: `www.newgrounds.com`
  * Nexx: `api.nexx.cloud`
+ * NFL: `www.chiefs.com`
  * NonkTube _(adult)_: `www.nonktube.com`
  * Nova: `tn.nova.cz`
  * Nowness: `www.nowness.com`
  * NTVRu: `www.ntv.ru`
  * Odnoklassniki: `ok.ru`
  * OnionStudios: `www.onionstudios.com`
+ * OutsideTV: `www.outsidetv.com`
  * PacktPub: `www.packtpub.com`
+ * ParliamentLiveUK: `parliamentlive.tv`
  * Patreon: `www.patreon.com`
  * PBS: `www.pbs.org`
  * PeerTube: `framatube.org`
@@ -153,12 +155,11 @@ Supported sites
  * PornHd _(adult)_: `www.pornhd.com`
  * PornHub _(adult)_: `www.pornhub.com`
  * Pornotube _(adult)_: `www.pornotube.com`
+ * RadioJavan: `www.radiojavan.com`
  * RayWenderlich: `www.raywenderlich.com`
- * RedTube _(adult)_: `www.redtube.com`
  * ReverbNation: `www.reverbnation.com`
  * Rozhlas: `prehravac.rozhlas.cz`
  * RTS: `www.rts.ch`
- * RumbleEmbed: `rumble.com`
  * RUTV: `player.rutv.ru`
  * Ruutu: `www.supla.fi`
  * Safari: `www.safaribooksonline.com`
@@ -169,6 +170,7 @@ Supported sites
  * SenateISVP: `www.senate.gov`
  * SeznamZpravy: `www.seznamzpravy.cz`
  * Sina: `video.sina.com.cn`
+ * SkyItVideo: `video.sky.it`
  * SkyIt: `tg24.sky.it`
  * SkyItAcademy: `www.skyacademy.it`
  * SkyItArte: `arte.sky.it`
@@ -177,13 +179,13 @@ Supported sites
  * Slideshare: `www.slideshare.net`
  * SlidesLive: `slideslive.com`
  * Soundgasm: `soundgasm.net`
- * SpankBang _(adult)_: `spankbang.com`
+ * Spiegel: `www.spiegel.de`
  * Spreaker: `api.spreaker.com`
  * SRGSSRPlay: `www.rts.ch`
- * StanfordOpenClassroom: `openclassroom.stanford.edu`
  * Streamable: `streamable.com`
  * StretchInternet: `portal.stretchinternet.com`
  * SunPorno _(adult)_: `www.sunporno.com`
+ * SverigesRadioPublication: `sverigesradio.se`
  * Tagesschau: `www.tagesschau.de`
  * TDSLifeway: `tds.lifeway.com`
  * Teamcoco: `teamcoco.com`
@@ -193,13 +195,13 @@ Supported sites
  * Tenta: `tenta.com`
  * TFO: `www.tfo.org`
  * TikTok: `www.tiktok.com`
- * TMZ: `www.tmz.com`
  * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
  * TNAFlix _(adult)_: `www.tnaflix.com`
  * EMPFlix _(adult)_: `www.empflix.com`
  * ToonGoggles: `www.toongoggles.com`
  * Toypics _(adult)_: `videos.toypics.net`
- * Tube8 _(adult)_: `www.tube8.com`
+ * TV5UnisVideo: `www.tv5unis.ca`
+ * TV5Unis: `www.tv5unis.ca`
  * Qub: `www.qub.ca`
  * TVANouvelles: `www.tvanouvelles.ca`
  * TVC: `www.tvc.ru`

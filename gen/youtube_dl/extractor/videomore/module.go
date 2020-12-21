@@ -32,48 +32,50 @@ import (
 )
 
 var (
-	InfoExtractor     λ.Object
-	VideomoreIE       λ.Object
-	VideomoreSeasonIE λ.Object
-	VideomoreVideoIE  λ.Object
-	ϒcompat_str       λ.Object
-	ϒint_or_none      λ.Object
-	ϒorderedSet       λ.Object
-	ϒparse_duration   λ.Object
-	ϒstr_or_none      λ.Object
-	ϒunified_strdate  λ.Object
-	ϒurl_or_none      λ.Object
-	ϒxpath_element    λ.Object
-	ϒxpath_text       λ.Object
+	ExtractorError                λ.Object
+	InfoExtractor                 λ.Object
+	VideomoreBaseIE               λ.Object
+	VideomoreIE                   λ.Object
+	VideomoreSeasonIE             λ.Object
+	VideomoreVideoIE              λ.Object
+	ϒcompat_parse_qs              λ.Object
+	ϒcompat_str                   λ.Object
+	ϒcompat_urllib_parse_urlparse λ.Object
+	ϒint_or_none                  λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒcompat_str = Ωcompat.ϒcompat_str
+		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
+		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ϒorderedSet = Ωutils.ϒorderedSet
-		ϒparse_duration = Ωutils.ϒparse_duration
-		ϒstr_or_none = Ωutils.ϒstr_or_none
-		ϒunified_strdate = Ωutils.ϒunified_strdate
-		ϒurl_or_none = Ωutils.ϒurl_or_none
-		ϒxpath_element = Ωutils.ϒxpath_element
-		ϒxpath_text = Ωutils.ϒxpath_text
+		VideomoreBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("VideomoreBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+			var (
+				VideomoreBaseIE__VALID_URL_BASE λ.Object
+			)
+			VideomoreBaseIE__VALID_URL_BASE = λ.StrLiteral("https?://(?:videomore\\.ru|more\\.tv)/")
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_VALID_URL_BASE": VideomoreBaseIE__VALID_URL_BASE,
+			})
+		}())
 		VideomoreIE = λ.Cal(λ.TypeType, λ.StrLiteral("VideomoreIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				VideomoreIE__VALID_URL λ.Object
 			)
-			VideomoreIE__VALID_URL = λ.StrLiteral("(?x)\n                    videomore:(?P<sid>\\d+)$|\n                    https?://(?:player\\.)?videomore\\.ru/\n                        (?:\n                            (?:\n                                embed|\n                                [^/]+/[^/]+\n                            )/|\n                            [^/]*\\?.*?\\btrack_id=\n                        )\n                        (?P<id>\\d+)\n                        (?:[/?#&]|\\.(?:xml|json)|$)\n                    ")
+			VideomoreIE__VALID_URL = λ.StrLiteral("(?x)\n                    videomore:(?P<sid>\\d+)$|\n                    https?://\n                        (?:\n                            videomore\\.ru/\n                            (?:\n                                embed|\n                                [^/]+/[^/]+\n                            )/|\n                            (?:\n                                (?:player\\.)?videomore\\.ru|\n                                siren\\.more\\.tv/player\n                            )/[^/]*\\?.*?\\btrack_id=|\n                            odysseus\\.more.tv/player/(?P<partner_id>\\d+)/\n                        )\n                        (?P<id>\\d+)\n                        (?:[/?#&]|\\.(?:xml|json)|$)\n                    ")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": VideomoreIE__VALID_URL,
 			})
 		}())
-		VideomoreVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("VideomoreVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		VideomoreVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("VideomoreVideoIE"), λ.NewTuple(VideomoreBaseIE), func() λ.Dict {
 			var (
 				VideomoreVideoIE__VALID_URL λ.Object
 				VideomoreVideoIE_suitable   λ.Object
 			)
-			VideomoreVideoIE__VALID_URL = λ.StrLiteral("https?://videomore\\.ru/(?:(?:[^/]+/){2})?(?P<id>[^/?#&]+)(?:/*|[?#&].*?)$")
+			VideomoreVideoIE__VALID_URL = λ.Add(λ.GetAttr(VideomoreBaseIE, "_VALID_URL_BASE", nil), λ.StrLiteral("(?P<id>(?:(?:[^/]+/){2})?[^/?#&]+)(?:/*|[?#&].*?)$"))
 			VideomoreVideoIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -99,12 +101,12 @@ func init() {
 				"suitable":   VideomoreVideoIE_suitable,
 			})
 		}())
-		VideomoreSeasonIE = λ.Cal(λ.TypeType, λ.StrLiteral("VideomoreSeasonIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		VideomoreSeasonIE = λ.Cal(λ.TypeType, λ.StrLiteral("VideomoreSeasonIE"), λ.NewTuple(VideomoreBaseIE), func() λ.Dict {
 			var (
 				VideomoreSeasonIE__VALID_URL λ.Object
 				VideomoreSeasonIE_suitable   λ.Object
 			)
-			VideomoreSeasonIE__VALID_URL = λ.StrLiteral("https?://videomore\\.ru/(?!embed)(?P<id>[^/]+/[^/?#&]+)(?:/*|[?#&].*?)$")
+			VideomoreSeasonIE__VALID_URL = λ.Add(λ.GetAttr(VideomoreBaseIE, "_VALID_URL_BASE", nil), λ.StrLiteral("(?!embed)(?P<id>[^/]+/[^/?#&]+)(?:/*|[?#&].*?)$"))
 			VideomoreSeasonIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},

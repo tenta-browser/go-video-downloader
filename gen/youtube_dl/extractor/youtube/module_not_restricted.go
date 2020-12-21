@@ -2129,6 +2129,7 @@ func init() {
 						ϒxsrf_field_name             λ.Object
 						ϒxsrf_token                  λ.Object
 						ϒyt_initial_data             λ.Object
+						ϒytcfg                       λ.Object
 						ϒytplayer_config             λ.Object
 						τmp0                         λ.Object
 						τmp1                         λ.Object
@@ -3935,14 +3936,31 @@ func init() {
 					}
 					ϒvideo_annotations = λ.None
 					if λ.IsTrue(λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("writeannotations"), λ.False)) {
-						ϒxsrf_token = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.StrLiteral("([\\'\"])XSRF_TOKEN\\1\\s*:\\s*([\\'\"])(?P<xsrf_token>[A-Za-z0-9+/=]+)\\2"),
-							ϒvideo_webpage,
-							λ.StrLiteral("xsrf token"),
-						), λ.KWArgs{
-							{Name: "group", Value: λ.StrLiteral("xsrf_token")},
-							{Name: "fatal", Value: λ.False},
-						})
+						ϒxsrf_token = λ.None
+						ϒytcfg = λ.Calm(ϒself, "_extract_ytcfg", ϒvideo_id, ϒvideo_webpage)
+						if λ.IsTrue(ϒytcfg) {
+							ϒxsrf_token = λ.Cal(ϒtry_get, ϒytcfg, λ.NewFunction("<lambda>",
+								[]λ.Param{
+									{Name: "x"},
+								},
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									var (
+										ϒx = λargs[0]
+									)
+									return λ.GetItem(ϒx, λ.StrLiteral("XSRF_TOKEN"))
+								}), ϒcompat_str)
+						}
+						if !λ.IsTrue(ϒxsrf_token) {
+							ϒxsrf_token = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+								λ.StrLiteral("([\\'\"])XSRF_TOKEN\\1\\s*:\\s*([\\'\"])(?P<xsrf_token>(?:(?!\\2).)+)\\2"),
+								ϒvideo_webpage,
+								λ.StrLiteral("xsrf token"),
+							), λ.KWArgs{
+								{Name: "group", Value: λ.StrLiteral("xsrf_token")},
+								{Name: "fatal", Value: λ.False},
+							})
+						}
 						ϒinvideo_url = λ.Cal(ϒtry_get, ϒplayer_response, λ.NewFunction("<lambda>",
 							[]λ.Param{
 								{Name: "x"},
@@ -3961,14 +3979,30 @@ func init() {
 								return ϒinvideo_url
 							}
 						}()) {
-							ϒxsrf_field_name = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.StrLiteral("([\\'\"])XSRF_FIELD_NAME\\1\\s*:\\s*([\\'\"])(?P<xsrf_field_name>\\w+)\\2"),
-								ϒvideo_webpage,
-								λ.StrLiteral("xsrf field name"),
-							), λ.KWArgs{
-								{Name: "group", Value: λ.StrLiteral("xsrf_field_name")},
-								{Name: "default", Value: λ.StrLiteral("session_token")},
-							})
+							ϒxsrf_field_name = λ.None
+							if λ.IsTrue(ϒytcfg) {
+								ϒxsrf_field_name = λ.Cal(ϒtry_get, ϒytcfg, λ.NewFunction("<lambda>",
+									[]λ.Param{
+										{Name: "x"},
+									},
+									0, false, false,
+									func(λargs []λ.Object) λ.Object {
+										var (
+											ϒx = λargs[0]
+										)
+										return λ.GetItem(ϒx, λ.StrLiteral("XSRF_FIELD_NAME"))
+									}), ϒcompat_str)
+							}
+							if !λ.IsTrue(ϒxsrf_field_name) {
+								ϒxsrf_field_name = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+									λ.StrLiteral("([\\'\"])XSRF_FIELD_NAME\\1\\s*:\\s*([\\'\"])(?P<xsrf_field_name>\\w+)\\2"),
+									ϒvideo_webpage,
+									λ.StrLiteral("xsrf field name"),
+								), λ.KWArgs{
+									{Name: "group", Value: λ.StrLiteral("xsrf_field_name")},
+									{Name: "default", Value: λ.StrLiteral("session_token")},
+								})
+							}
 							ϒvideo_annotations = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
 								λ.Calm(ϒself, "_proto_relative_url", ϒinvideo_url),
 								ϒvideo_id,

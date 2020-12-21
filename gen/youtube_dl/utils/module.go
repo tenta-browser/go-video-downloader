@@ -61,6 +61,7 @@ var (
 	PagedList                         λ.Object
 	PostProcessingError               λ.Object
 	RegexNotFoundError                λ.Object
+	TV_PARENTAL_GUIDELINES            λ.Object
 	US_RATINGS                        λ.Object
 	UnavailableVideoError             λ.Object
 	YoutubeDLError                    λ.Object
@@ -150,7 +151,6 @@ var (
 	ϒxpath_element                    λ.Object
 	ϒxpath_text                       λ.Object
 	ϒxpath_with_ns                    λ.Object
-	ϒytdl_is_updateable               λ.Object
 	τmp0                              λ.Object
 	τmp1                              λ.Object
 )
@@ -2821,22 +2821,7 @@ func init() {
 			nil,
 			0, false, false,
 			func(λargs []λ.Object) λ.Object {
-				var (
-					ϒmsg        λ.Object
-					ϒupdate_cmd λ.Object
-					τmp0        λ.Object
-				)
-				if λ.IsTrue(λ.Cal(ϒytdl_is_updateable)) {
-					ϒupdate_cmd = λ.StrLiteral("type  youtube-dl -U  to update")
-				} else {
-					ϒupdate_cmd = λ.StrLiteral("see  https://yt-dl.org/update  on how to update")
-				}
-				ϒmsg = λ.StrLiteral("; please report this issue on https://yt-dl.org/bug .")
-				τmp0 = λ.IAdd(ϒmsg, λ.Mod(λ.StrLiteral(" Make sure you are using the latest version; %s."), ϒupdate_cmd))
-				ϒmsg = τmp0
-				τmp0 = λ.IAdd(ϒmsg, λ.StrLiteral(" Be sure to call youtube-dl with the --verbose flag and include its complete output."))
-				ϒmsg = τmp0
-				return ϒmsg
+				return λ.StrLiteral("")
 			})
 		YoutubeDLError = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeDLError"), λ.NewTuple(λ.ExceptionType), func() λ.Dict {
 			// pass
@@ -4112,6 +4097,14 @@ func init() {
 			"R":     16,
 			"NC":    18,
 		})
+		TV_PARENTAL_GUIDELINES = λ.DictLiteral(map[string]int{
+			"TV-Y":  0,
+			"TV-Y7": 7,
+			"TV-G":  0,
+			"TV-PG": 0,
+			"TV-14": 14,
+			"TV-MA": 17,
+		})
 		ϒparse_age_limit = λ.NewFunction("parse_age_limit",
 			[]λ.Param{
 				{Name: "s"},
@@ -4163,7 +4156,7 @@ func init() {
 								τmp0 λ.Object
 								τmp1 λ.Object
 							)
-							τmp0 = λ.Cal(λ.BuiltinIter, λ.None)
+							τmp0 = λ.Cal(λ.BuiltinIter, TV_PARENTAL_GUIDELINES)
 							for {
 								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 									break
@@ -4175,7 +4168,7 @@ func init() {
 						})
 					})))), ϒs)
 				if λ.IsTrue(ϒm) {
-					return λ.GetItem(λ.None, λ.Add(λ.StrLiteral("TV-"), λ.Calm(ϒm, "group", λ.IntLiteral(1))))
+					return λ.GetItem(TV_PARENTAL_GUIDELINES, λ.Add(λ.StrLiteral("TV-"), λ.Calm(ϒm, "group", λ.IntLiteral(1))))
 				}
 				return λ.None
 			})
@@ -4370,12 +4363,6 @@ func init() {
 					return λ.Add(λ.GetItem(ϒs, λ.NewSlice(λ.None, λ.Sub(ϒlength, λ.Cal(λ.BuiltinLen, ELLIPSES)), λ.None)), ELLIPSES)
 				}
 				return ϒs
-			})
-		ϒytdl_is_updateable = λ.NewFunction("ytdl_is_updateable",
-			nil,
-			0, false, false,
-			func(λargs []λ.Object) λ.Object {
-				return λ.False
 			})
 		ϒerror_to_compat_str = λ.NewFunction("error_to_compat_str",
 			[]λ.Param{
