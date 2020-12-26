@@ -9,31 +9,38 @@ Supported sites
  * Allocine: `www.allocine.fr`
  * Arkena: `video.qbrick.com`
  * ARDMediathek: `www.ardmediathek.de`
+ * ArteTV: `www.arte.tv`
  * ArteTVEmbed: `www.arte.tv`
  * AsianCrush: `www.asiancrush.com`
  * AudioBoom: `audioboom.com`
  * Audiomack: `www.audiomack.com`
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
+ * BBC: `www.bbc.com`
  * Beatport: `beatport.com`
+ * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
  * BIQLE: `biqle.org`
  * BleacherReportCMS: `bleacherreport.com`
  * BokeCC: `union.bokecc.com`
+ * Box: `mlssoccer.app.box.com`
  * Bpb: `www.bpb.de`
  * BR: `www.br.de`
  * BravoTV: `www.bravotv.com`
  * BusinessInsider: `uk.businessinsider.com`
+ * Camdemy: `www.camdemy.com`
  * Canalplus: `www.piwiplus.fr`
  * Canalc2: `www.canalc2.tv`
  * CBCPlayer: `www.cbc.ca`
+ * CCMA: `www.ccma.cat`
  * CCTV: `sports.cntv.cn`
  * CDA: `www.cda.pl`
  * CharlieRose: `charlierose.com`
  * Chirbit: `chirb.it`
  * Cinemax: `www.cinemax.com`
  * Clippit: `www.clippituser.tv`
+ * ClipRs: `www.clip.rs`
  * Clipsyndicate: `www.clipsyndicate.com`
  * CloserToTruth: `closertotruth.com`
  * Clyp: `clyp.it`
@@ -55,7 +62,7 @@ Supported sites
  * DrTuber _(adult)_: `www.drtuber.com`
  * DVTV: `video.aktualne.cz`
  * Dumpert: `www.dumpert.nl`
- * Disney: `www.starwars.com`
+ * Disney: `video.disney.com`
  * DigitallySpeaking: `evt.dispeak.com`
  * DW: `www.dw.com`
  * EaglePlatform: `lentaru.media.eagleplatform.com`
@@ -64,16 +71,18 @@ Supported sites
  * Eporner _(adult)_: `www.eporner.com`
  * Escapist: `www.escapistmagazine.com`
  * FiveThirtyEight: `fivethirtyeight.com`
- * Facebook: `www.facebook.com`
- * FacebookPluginsVideo: `www.facebook.com`
  * Faz: `www.faz.net`
  * Fczenit: `fc-zenit.ru`
+ * Filmweb: `www.filmweb.no`
  * FiveTV: `5-tv.ru`
  * Flickr: `www.flickr.com`
+ * Formula1: `www.formula1.com`
  * FoxNews: `video.foxnews.com`
  * FoxNewsArticle: `www.foxnews.com`
+ * FranceCulture: `www.franceculture.fr`
  * FranceInter: `www.franceinter.fr`
  * GenerationWhat: `generation-what.francetv.fr`
+ * Freesound: `www.freesound.org`
  * Freespeech: `www.freespeech.org`
  * Funk: `www.funk.net`
  * GameInformer: `www.gameinformer.com`
@@ -84,7 +93,6 @@ Supported sites
  * GiantBomb: `www.giantbomb.com`
  * GodTube: `www.godtube.com`
  * Golem: `video.golem.de`
- * GoogleDrive: `drive.google.com`
  * GPUTechConf: `on-demand.gputechconf.com`
  * HBO: `www.hbo.com`
  * Heise: `www.heise.de`
@@ -99,6 +107,7 @@ Supported sites
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
  * Ivideon: `www.ivideon.com`
+ * Jamendo: `www.jamendo.com`
  * JeuxVideo: `www.jeuxvideo.com`
  * Joj: `media.joj.sk`
  * JWPlatform: `content.jwplatform.com`
@@ -112,7 +121,6 @@ Supported sites
  * Livestream: `new.livestream.com`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * Lynda: `www.lynda.com`
- * MailRuMusic: `my.mail.ru`
  * ManyVids: `www.manyvids.com`
  * Mediaset: `www.mediasetplay.mediaset.it`
  * Megaphone: `player.megaphone.fm`
@@ -132,6 +140,7 @@ Supported sites
  * NJoyEmbed: `www.n-joy.de`
  * NDTV: `movies.ndtv.com`
  * Netzkino: `www.netzkino.de`
+ * Newgrounds: `www.newgrounds.com`
  * Nexx: `api.nexx.cloud`
  * NFL: `www.chiefs.com`
  * NonkTube _(adult)_: `www.nonktube.com`
@@ -160,8 +169,9 @@ Supported sites
  * ReverbNation: `www.reverbnation.com`
  * Rozhlas: `prehravac.rozhlas.cz`
  * RTS: `www.rts.ch`
+ * RumbleEmbed: `rumble.com`
  * RUTV: `player.rutv.ru`
- * Ruutu: `www.supla.fi`
+ * Ruutu: `www.ruutu.fi`
  * Safari: `www.safaribooksonline.com`
  * Sapo: `videos.sapo.pt`
  * SBS: `www.sbs.com.au`
@@ -194,6 +204,7 @@ Supported sites
  * Telegraaf: `www.telegraaf.nl`
  * Tenta: `tenta.com`
  * TFO: `www.tfo.org`
+ * TheWeatherChannel: `weather.com`
  * TikTok: `www.tiktok.com`
  * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
  * TNAFlix _(adult)_: `www.tnaflix.com`
@@ -208,8 +219,10 @@ Supported sites
  * TVCArticle: `www.tvc.ru`
  * TVN24: `tvnmeteo.tvn24.pl`
  * TVP: `vod.tvp.pl`
+ * TwentyThreeVideo: `video.twentythree.net`
  * TwitchClips: `clips.twitch.tv`
  * TwitterAmplify: `amp.twimg.com`
+ * UDNEmbed: `video.udn.com`
  * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
  * UOL: `player.mais.uol.com.br`
@@ -233,7 +246,6 @@ Supported sites
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * Vzaar: `vzaar.com`
- * Weibo: `weibo.com`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`

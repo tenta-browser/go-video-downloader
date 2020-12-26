@@ -210,46 +210,48 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						FORMAT_PREFIXES    λ.Object
-						ϒadd_video_url     λ.Object
-						ϒcomment_count     λ.Object
-						ϒdefinition        λ.Object
-						ϒdislike_count     λ.Object
-						ϒdl_webpage        λ.Object
-						ϒduration          λ.Object
-						ϒerror_msg         λ.Object
-						ϒext               λ.Object
-						ϒextract_js_vars   λ.Object
-						ϒextract_list      λ.Object
-						ϒflashvars         λ.Object
-						ϒformat_url        λ.Object
-						ϒformats           λ.Object
-						ϒheight            λ.Object
-						ϒhost              λ.Object
-						ϒinfo              λ.Object
-						ϒjs_vars           λ.Object
-						ϒkey               λ.Object
-						ϒlike_count        λ.Object
-						ϒmedia_definitions λ.Object
-						ϒmobj              λ.Object
-						ϒself              = λargs[0]
-						ϒsubtitle_url      λ.Object
-						ϒsubtitles         λ.Object
-						ϒtbr               λ.Object
-						ϒthumbnail         λ.Object
-						ϒtitle             λ.Object
-						ϒupload_date       λ.Object
-						ϒurl               = λargs[1]
-						ϒvideo_id          λ.Object
-						ϒvideo_uploader    λ.Object
-						ϒvideo_url         λ.Object
-						ϒvideo_urls        λ.Object
-						ϒvideo_urls_set    λ.Object
-						ϒview_count        λ.Object
-						ϒwebpage           λ.Object
-						τmp0               λ.Object
-						τmp1               λ.Object
-						τmp2               λ.Object
+						FORMAT_PREFIXES      λ.Object
+						ϒadd_video_url       λ.Object
+						ϒcomment_count       λ.Object
+						ϒdefinition          λ.Object
+						ϒdislike_count       λ.Object
+						ϒdl_webpage          λ.Object
+						ϒduration            λ.Object
+						ϒerror_msg           λ.Object
+						ϒext                 λ.Object
+						ϒextract_js_vars     λ.Object
+						ϒextract_list        λ.Object
+						ϒextract_vote_count  λ.Object
+						ϒflashvars           λ.Object
+						ϒformat_url          λ.Object
+						ϒformats             λ.Object
+						ϒheight              λ.Object
+						ϒhost                λ.Object
+						ϒinfo                λ.Object
+						ϒjs_vars             λ.Object
+						ϒkey                 λ.Object
+						ϒlike_count          λ.Object
+						ϒmedia_definitions   λ.Object
+						ϒmobj                λ.Object
+						ϒparse_quality_items λ.Object
+						ϒself                = λargs[0]
+						ϒsubtitle_url        λ.Object
+						ϒsubtitles           λ.Object
+						ϒtbr                 λ.Object
+						ϒthumbnail           λ.Object
+						ϒtitle               λ.Object
+						ϒupload_date         λ.Object
+						ϒurl                 = λargs[1]
+						ϒvideo_id            λ.Object
+						ϒvideo_uploader      λ.Object
+						ϒvideo_url           λ.Object
+						ϒvideo_urls          λ.Object
+						ϒvideo_urls_set      λ.Object
+						ϒview_count          λ.Object
+						ϒwebpage             λ.Object
+						τmp0                 λ.Object
+						τmp1                 λ.Object
+						τmp2                 λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
 					ϒhost = func() λ.Object {
@@ -474,10 +476,45 @@ func init() {
 							λ.Calm(ϒvideo_urls_set, "add", ϒv_url)
 							return λ.None
 						})
+					ϒparse_quality_items = λ.NewFunction("parse_quality_items",
+						[]λ.Param{
+							{Name: "quality_items"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒitem          λ.Object
+								ϒq_items       λ.Object
+								ϒquality_items = λargs[0]
+								τmp0           λ.Object
+								τmp1           λ.Object
+							)
+							ϒq_items = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
+								ϒquality_items,
+								ϒvideo_id,
+							), λ.KWArgs{
+								{Name: "fatal", Value: λ.False},
+							})
+							if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒq_items, λ.ListType)) {
+								return λ.None
+							}
+							τmp0 = λ.Cal(λ.BuiltinIter, ϒq_items)
+							for {
+								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+									break
+								}
+								ϒitem = τmp1
+								if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒitem, λ.DictType)) {
+									λ.Cal(ϒadd_video_url, λ.Calm(ϒitem, "get", λ.StrLiteral("url")))
+								}
+							}
+							return λ.None
+						})
 					if !λ.IsTrue(ϒvideo_urls) {
 						FORMAT_PREFIXES = λ.NewTuple(
 							λ.StrLiteral("media"),
 							λ.StrLiteral("quality"),
+							λ.StrLiteral("qualityItems"),
 						)
 						ϒjs_vars = λ.Call(ϒextract_js_vars, λ.NewArgs(
 							ϒwebpage,
@@ -494,28 +531,32 @@ func init() {
 								τmp2 = τmp1
 								ϒkey = λ.GetItem(τmp2, λ.IntLiteral(0))
 								ϒformat_url = λ.GetItem(τmp2, λ.IntLiteral(1))
-								if λ.IsTrue(λ.Cal(λ.BuiltinAny, λ.Cal(λ.NewFunction("<generator>",
-									nil,
-									0, false, false,
-									func(λargs []λ.Object) λ.Object {
-										return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
-											var (
-												ϒp   λ.Object
-												τmp0 λ.Object
-												τmp1 λ.Object
-											)
-											τmp0 = λ.Cal(λ.BuiltinIter, FORMAT_PREFIXES)
-											for {
-												if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-													break
+								if λ.IsTrue(λ.Calm(ϒkey, "startswith", λ.GetItem(FORMAT_PREFIXES, λ.Neg(λ.IntLiteral(1))))) {
+									λ.Cal(ϒparse_quality_items, ϒformat_url)
+								} else {
+									if λ.IsTrue(λ.Cal(λ.BuiltinAny, λ.Cal(λ.NewFunction("<generator>",
+										nil,
+										0, false, false,
+										func(λargs []λ.Object) λ.Object {
+											return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
+												var (
+													ϒp   λ.Object
+													τmp0 λ.Object
+													τmp1 λ.Object
+												)
+												τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(FORMAT_PREFIXES, λ.NewSlice(λ.None, λ.IntLiteral(2), λ.None)))
+												for {
+													if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+														break
+													}
+													ϒp = τmp1
+													λgy.Yield(λ.Calm(ϒkey, "startswith", ϒp))
 												}
-												ϒp = τmp1
-												λgy.Yield(λ.Calm(ϒkey, "startswith", ϒp))
-											}
-											return λ.None
-										})
-									})))) {
-									λ.Cal(ϒadd_video_url, ϒformat_url)
+												return λ.None
+											})
+										})))) {
+										λ.Cal(ϒadd_video_url, ϒformat_url)
+									}
 								}
 							}
 						}
@@ -625,9 +666,25 @@ func init() {
 					), λ.KWArgs{
 						{Name: "default", Value: λ.None},
 					})
+					ϒextract_vote_count = λ.NewFunction("extract_vote_count",
+						[]λ.Param{
+							{Name: "kind"},
+							{Name: "name"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒkind = λargs[0]
+								ϒname = λargs[1]
+							)
+							return λ.Calm(ϒself, "_extract_count", λ.NewTuple(
+								λ.Mod(λ.StrLiteral("<span[^>]+\\bclass=\"votes%s\"[^>]*>([\\d,\\.]+)</span>"), ϒkind),
+								λ.Mod(λ.StrLiteral("<span[^>]+\\bclass=[\"\\']votes%s[\"\\'][^>]*\\bdata-rating=[\"\\'](\\d+)"), ϒkind),
+							), ϒwebpage, ϒname)
+						})
 					ϒview_count = λ.Calm(ϒself, "_extract_count", λ.StrLiteral("<span class=\"count\">([\\d,\\.]+)</span> [Vv]iews"), ϒwebpage, λ.StrLiteral("view"))
-					ϒlike_count = λ.Calm(ϒself, "_extract_count", λ.StrLiteral("<span[^>]+class=\"votesUp\"[^>]*>([\\d,\\.]+)</span>"), ϒwebpage, λ.StrLiteral("like"))
-					ϒdislike_count = λ.Calm(ϒself, "_extract_count", λ.StrLiteral("<span[^>]+class=\"votesDown\"[^>]*>([\\d,\\.]+)</span>"), ϒwebpage, λ.StrLiteral("dislike"))
+					ϒlike_count = λ.Cal(ϒextract_vote_count, λ.StrLiteral("Up"), λ.StrLiteral("like"))
+					ϒdislike_count = λ.Cal(ϒextract_vote_count, λ.StrLiteral("Down"), λ.StrLiteral("dislike"))
 					ϒcomment_count = λ.Calm(ϒself, "_extract_count", λ.StrLiteral("All Comments\\s*<span>\\(([\\d,.]+)\\)"), ϒwebpage, λ.StrLiteral("comment"))
 					ϒextract_list = λ.NewFunction("extract_list",
 						[]λ.Param{

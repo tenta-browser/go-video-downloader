@@ -407,6 +407,9 @@ func init() {
 					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{}))
 					ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒsmuggled_data = λ.GetItem(τmp0, λ.IntLiteral(1))
+					λ.Calm(ϒself, "_initialize_geo_bypass", λ.DictLiteral(map[string]λ.Object{
+						"countries": λ.Calm(ϒsmuggled_data, "get", λ.StrLiteral("geo_countries")),
+					}))
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
 					ϒprovider_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("provider_id"))
 					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))

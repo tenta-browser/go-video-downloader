@@ -2323,6 +2323,7 @@ func init() {
 					ϒplayer_response = λ.DictLiteral(map[λ.Object]λ.Object{})
 					ϒvideo_info = λ.DictLiteral(map[λ.Object]λ.Object{})
 					ϒembed_webpage = λ.None
+					ϒytplayer_config = λ.None
 					if λ.Cal(Ωre.ϒsearch, λ.StrLiteral("[\"\\']status[\"\\']\\s*:\\s*[\"\\']LOGIN_REQUIRED"), ϒvideo_webpage) != λ.None {
 						ϒage_gate = λ.True
 						ϒurl = λ.Add(ϒproto, λ.Mod(λ.StrLiteral("://www.youtube.com/embed/%s"), ϒvideo_id))
@@ -3916,7 +3917,7 @@ func init() {
 						}
 					}()
 					ϒvideo_subtitles = λ.Calm(ϒself, "extract_subtitles", ϒvideo_id, ϒvideo_webpage)
-					ϒautomatic_captions = λ.Calm(ϒself, "extract_automatic_captions", ϒvideo_id, ϒvideo_webpage)
+					ϒautomatic_captions = λ.Calm(ϒself, "extract_automatic_captions", ϒvideo_id, ϒplayer_response, ϒytplayer_config)
 					ϒvideo_duration = λ.Cal(ϒtry_get, ϒvideo_info, λ.NewFunction("<lambda>",
 						[]λ.Param{
 							{Name: "x"},
@@ -4272,7 +4273,7 @@ func init() {
 				YoutubeTabIE__VALID_URL    λ.Object
 				YoutubeTabIE__real_extract λ.Object
 			)
-			YoutubeTabIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\\w+\\.)?\n                        (?:\n                            youtube(?:kids)?\\.com|\n                            invidio\\.us\n                        )/\n                        (?:\n                            (?:channel|c|user|feed)/|\n                            (?:playlist|watch)\\?.*?\\blist=\n                        )\n                        (?P<id>[^/?\\#&]+)\n                    ")
+			YoutubeTabIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\\w+\\.)?\n                        (?:\n                            youtube(?:kids)?\\.com|\n                            invidio\\.us\n                        )/\n                        (?:\n                            (?:channel|c|user|feed)/|\n                            (?:playlist|watch)\\?.*?\\blist=|\n                            (?!(?:watch|embed|v|e)\\b)\n                        )\n                        (?P<id>[^/?\\#&]+)\n                    ")
 			YoutubeTabIE_IE_NAME = λ.StrLiteral("youtube:tab")
 			YoutubeTabIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{

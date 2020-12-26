@@ -55,6 +55,7 @@ var (
 	ϒparse_iso8601                λ.Object
 	ϒsmuggle_url                  λ.Object
 	ϒstr_or_none                  λ.Object
+	ϒtry_get                      λ.Object
 	ϒunescapeHTML                 λ.Object
 	ϒunsmuggle_url                λ.Object
 	ϒupdate_url_query             λ.Object
@@ -82,6 +83,7 @@ func init() {
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
 		ϒstr_or_none = Ωutils.ϒstr_or_none
+		ϒtry_get = Ωutils.ϒtry_get
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒunsmuggle_url = Ωutils.ϒunsmuggle_url
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
@@ -750,42 +752,69 @@ func init() {
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
 							var (
+								ϒbase_url   λ.Object
 								ϒcatalog    λ.Object
+								ϒconfig     λ.Object
 								ϒpolicy_key λ.Object
 								ϒwebpage    λ.Object
 							)
-							ϒwebpage = λ.Calm(ϒself, "_download_webpage", λ.Mod(λ.StrLiteral("http://players.brightcove.net/%s/%s_%s/index.min.js"), λ.NewTuple(
+							ϒbase_url = λ.Mod(λ.StrLiteral("http://players.brightcove.net/%s/%s_%s/"), λ.NewTuple(
 								ϒaccount_id,
 								ϒplayer_id,
 								ϒembed,
-							)), ϒvideo_id)
-							ϒpolicy_key = λ.None
-							ϒcatalog = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.StrLiteral("catalog\\(({.+?})\\);"),
-								ϒwebpage,
-								λ.StrLiteral("catalog"),
-							), λ.KWArgs{
-								{Name: "default", Value: λ.None},
-							})
-							if λ.IsTrue(ϒcatalog) {
-								ϒcatalog = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
-									λ.Cal(ϒjs_to_json, ϒcatalog),
+							))
+							ϒconfig = func() λ.Object {
+								if λv := λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+									λ.Add(ϒbase_url, λ.StrLiteral("config.json")),
 									ϒvideo_id,
 								), λ.KWArgs{
 									{Name: "fatal", Value: λ.False},
+								}); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.DictLiteral(map[λ.Object]λ.Object{})
+								}
+							}()
+							ϒpolicy_key = λ.Cal(ϒtry_get, ϒconfig, λ.NewFunction("<lambda>",
+								[]λ.Param{
+									{Name: "x"},
+								},
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									var (
+										ϒx = λargs[0]
+									)
+									return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("video_cloud")), λ.StrLiteral("policy_key"))
+								}))
+							if !λ.IsTrue(ϒpolicy_key) {
+								ϒwebpage = λ.Calm(ϒself, "_download_webpage", λ.Add(ϒbase_url, λ.StrLiteral("index.min.js")), ϒvideo_id)
+								ϒcatalog = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+									λ.StrLiteral("catalog\\(({.+?})\\);"),
+									ϒwebpage,
+									λ.StrLiteral("catalog"),
+								), λ.KWArgs{
+									{Name: "default", Value: λ.None},
 								})
 								if λ.IsTrue(ϒcatalog) {
-									ϒpolicy_key = λ.Calm(ϒcatalog, "get", λ.StrLiteral("policyKey"))
+									ϒcatalog = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
+										λ.Cal(ϒjs_to_json, ϒcatalog),
+										ϒvideo_id,
+									), λ.KWArgs{
+										{Name: "fatal", Value: λ.False},
+									})
+									if λ.IsTrue(ϒcatalog) {
+										ϒpolicy_key = λ.Calm(ϒcatalog, "get", λ.StrLiteral("policyKey"))
+									}
 								}
-							}
-							if !λ.IsTrue(ϒpolicy_key) {
-								ϒpolicy_key = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-									λ.StrLiteral("policyKey\\s*:\\s*([\"\\'])(?P<pk>.+?)\\1"),
-									ϒwebpage,
-									λ.StrLiteral("policy key"),
-								), λ.KWArgs{
-									{Name: "group", Value: λ.StrLiteral("pk")},
-								})
+								if !λ.IsTrue(ϒpolicy_key) {
+									ϒpolicy_key = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+										λ.StrLiteral("policyKey\\s*:\\s*([\"\\'])(?P<pk>.+?)\\1"),
+										ϒwebpage,
+										λ.StrLiteral("policy key"),
+									), λ.KWArgs{
+										{Name: "group", Value: λ.StrLiteral("pk")},
+									})
+								}
 							}
 							λ.Cal(ϒstore_pk, ϒpolicy_key)
 							return ϒpolicy_key
