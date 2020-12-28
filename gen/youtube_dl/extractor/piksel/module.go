@@ -25,6 +25,7 @@
 package piksel
 
 import (
+	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
@@ -39,6 +40,7 @@ var (
 	ϒdict_get      λ.Object
 	ϒint_or_none   λ.Object
 	ϒparse_iso8601 λ.Object
+	ϒtry_get       λ.Object
 	ϒunescapeHTML  λ.Object
 )
 
@@ -46,17 +48,77 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_str = Ωcompat.ϒcompat_str
-		ExtractorError = Ωutils.ExtractorError
 		ϒdict_get = Ωutils.ϒdict_get
+		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
+		ϒtry_get = Ωutils.ϒtry_get
+		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		PikselIE = λ.Cal(λ.TypeType, λ.StrLiteral("PikselIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				PikselIE__VALID_URL    λ.Object
+				PikselIE__call_api     λ.Object
 				PikselIE__real_extract λ.Object
 			)
-			PikselIE__VALID_URL = λ.StrLiteral("https?://player\\.piksel\\.com/v/(?:refid/[^/]+/prefid/)?(?P<id>[a-z0-9_]+)")
+			PikselIE__VALID_URL = λ.StrLiteral("(?x)https?://\n        (?:\n            (?:\n                player\\.\n                    (?:\n                        olympusattelecom|\n                        vibebyvista\n                    )|\n                (?:api|player)\\.multicastmedia|\n                (?:api-ovp|player)\\.piksel\n            )\\.com|\n            (?:\n                mz-edge\\.stream\\.co|\n                movie-s\\.nhk\\.or\n            )\\.jp|\n            vidego\\.baltimorecity\\.gov\n        )/v/(?:refid/(?P<refid>[^/]+)/prefid/)?(?P<id>[\\w-]+)")
+			PikselIE__call_api = λ.NewFunction("_call_api",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "app_token"},
+					{Name: "resource"},
+					{Name: "display_id"},
+					{Name: "query"},
+					{Name: "fatal", Def: λ.True},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒapp_token  = λargs[1]
+						ϒdisplay_id = λargs[3]
+						ϒfailure    λ.Object
+						ϒfatal      = λargs[5]
+						ϒquery      = λargs[4]
+						ϒresource   = λargs[2]
+						ϒresponse   λ.Object
+						ϒself       = λargs[0]
+					)
+					ϒresponse = λ.Calm(func() λ.Object {
+						if λv := λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+							λ.Mod(λ.StrLiteral("http://player.piksel.com/ws/ws_%s/api/%s/mode/json/apiv/5"), λ.NewTuple(
+								ϒresource,
+								ϒapp_token,
+							)),
+							ϒdisplay_id,
+						), λ.KWArgs{
+							{Name: "query", Value: ϒquery},
+							{Name: "fatal", Value: ϒfatal},
+						}); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
+						}
+					}(), "get", λ.StrLiteral("response"))
+					ϒfailure = λ.Cal(ϒtry_get, ϒresponse, λ.NewFunction("<lambda>",
+						[]λ.Param{
+							{Name: "x"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒx = λargs[0]
+							)
+							return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("failure")), λ.StrLiteral("reason"))
+						}))
+					if λ.IsTrue(ϒfailure) {
+						if λ.IsTrue(ϒfatal) {
+							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(ϒfailure), λ.KWArgs{
+								{Name: "expected", Value: λ.True},
+							})))
+						}
+						λ.Calm(ϒself, "report_warning", ϒfailure)
+					}
+					return ϒresponse
+				})
 			PikselIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -65,61 +127,161 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒabr         λ.Object
-						ϒapp_token   λ.Object
-						ϒasset_file  λ.Object
-						ϒasset_type  λ.Object
-						ϒcaption     λ.Object
-						ϒcaption_url λ.Object
-						ϒdisplay_id  λ.Object
-						ϒfailure     λ.Object
-						ϒformat_id   λ.Object
-						ϒformats     λ.Object
-						ϒhttp_url    λ.Object
-						ϒm3u8_url    λ.Object
-						ϒresponse    λ.Object
-						ϒself        = λargs[0]
-						ϒsubtitles   λ.Object
-						ϒtbr         λ.Object
-						ϒtitle       λ.Object
-						ϒurl         = λargs[1]
-						ϒvbr         λ.Object
-						ϒvideo_data  λ.Object
-						ϒvideo_id    λ.Object
-						ϒwebpage     λ.Object
-						τmp0         λ.Object
-						τmp1         λ.Object
+						ϒapp_token           λ.Object
+						ϒasset_id            λ.Object
+						ϒasset_type          λ.Object
+						ϒcaption             λ.Object
+						ϒcaption_url         λ.Object
+						ϒdisplay_id          λ.Object
+						ϒformats             λ.Object
+						ϒm3u8_url            λ.Object
+						ϒprocess_asset_file  λ.Object
+						ϒprocess_asset_files λ.Object
+						ϒprogram             λ.Object
+						ϒquery               λ.Object
+						ϒref_id              λ.Object
+						ϒself                = λargs[0]
+						ϒsmil_url            λ.Object
+						ϒsubtitles           λ.Object
+						ϒtitle               λ.Object
+						ϒtransform_source    λ.Object
+						ϒurl                 = λargs[1]
+						ϒvideo_data          λ.Object
+						ϒvideo_id            λ.Object
+						ϒwebpage             λ.Object
+						τmp0                 λ.Object
+						τmp1                 λ.Object
 					)
-					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒref_id = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
-					ϒvideo_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.StrLiteral("data-de-program-uuid=[\\'\"]([a-z0-9]+)"),
-						ϒwebpage,
-						λ.StrLiteral("program uuid"),
-					), λ.KWArgs{
-						{Name: "default", Value: ϒdisplay_id},
-					})
 					ϒapp_token = λ.Calm(ϒself, "_search_regex", λ.NewList(
 						λ.StrLiteral("clientAPI\\s*:\\s*\"([^\"]+)\""),
 						λ.StrLiteral("data-de-api-key\\s*=\\s*\"([^\"]+)\""),
 					), ϒwebpage, λ.StrLiteral("app token"))
-					ϒresponse = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Mod(λ.StrLiteral("http://player.piksel.com/ws/ws_program/api/%s/mode/json/apiv/5"), ϒapp_token),
-						ϒvideo_id,
-					), λ.KWArgs{
-						{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
-							"v": ϒvideo_id,
-						})},
-					}), λ.StrLiteral("response"))
-					ϒfailure = λ.Calm(ϒresponse, "get", λ.StrLiteral("failure"))
-					if λ.IsTrue(ϒfailure) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.GetItem(λ.GetItem(ϒresponse, λ.StrLiteral("failure")), λ.StrLiteral("reason"))), λ.KWArgs{
-							{Name: "expected", Value: λ.True},
-						})))
-					}
-					ϒvideo_data = λ.GetItem(λ.GetItem(λ.GetItem(ϒresponse, λ.StrLiteral("WsProgramResponse")), λ.StrLiteral("program")), λ.StrLiteral("asset"))
+					ϒquery = func() λ.Object {
+						if λ.IsTrue(ϒref_id) {
+							return λ.DictLiteral(map[string]λ.Object{
+								"refid":  ϒref_id,
+								"prefid": ϒdisplay_id,
+							})
+						} else {
+							return λ.DictLiteral(map[string]λ.Object{
+								"v": ϒdisplay_id,
+							})
+						}
+					}()
+					ϒprogram = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_call_api", ϒapp_token, λ.StrLiteral("program"), ϒdisplay_id, ϒquery), λ.StrLiteral("WsProgramResponse")), λ.StrLiteral("program"))
+					ϒvideo_id = λ.GetItem(ϒprogram, λ.StrLiteral("uuid"))
+					ϒvideo_data = λ.GetItem(ϒprogram, λ.StrLiteral("asset"))
 					ϒtitle = λ.GetItem(ϒvideo_data, λ.StrLiteral("title"))
+					ϒasset_type = λ.Cal(ϒdict_get, ϒvideo_data, λ.NewList(
+						λ.StrLiteral("assetType"),
+						λ.StrLiteral("asset_type"),
+					))
 					ϒformats = λ.NewList()
+					ϒprocess_asset_file = λ.NewFunction("process_asset_file",
+						[]λ.Param{
+							{Name: "asset_file"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒabr        λ.Object
+								ϒasset_file = λargs[0]
+								ϒformat_id  λ.Object
+								ϒhttp_url   λ.Object
+								ϒtbr        λ.Object
+								ϒvbr        λ.Object
+							)
+							if !λ.IsTrue(ϒasset_file) {
+								return λ.None
+							}
+							ϒhttp_url = λ.Calm(ϒasset_file, "get", λ.StrLiteral("http_url"))
+							if !λ.IsTrue(ϒhttp_url) {
+								return λ.None
+							}
+							ϒtbr = λ.None
+							ϒvbr = λ.Cal(ϒint_or_none, λ.Calm(ϒasset_file, "get", λ.StrLiteral("videoBitrate")), λ.IntLiteral(1024))
+							ϒabr = λ.Cal(ϒint_or_none, λ.Calm(ϒasset_file, "get", λ.StrLiteral("audioBitrate")), λ.IntLiteral(1024))
+							if λ.IsTrue(λ.Eq(ϒasset_type, λ.StrLiteral("video"))) {
+								ϒtbr = λ.Add(ϒvbr, ϒabr)
+							} else {
+								if λ.IsTrue(λ.Eq(ϒasset_type, λ.StrLiteral("audio"))) {
+									ϒtbr = ϒabr
+								}
+							}
+							ϒformat_id = λ.NewList(λ.StrLiteral("http"))
+							if λ.IsTrue(ϒtbr) {
+								λ.Calm(ϒformat_id, "append", λ.Cal(ϒcompat_str, ϒtbr))
+							}
+							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+								"format_id": λ.Calm(λ.StrLiteral("-"), "join", ϒformat_id),
+								"url":       λ.Cal(ϒunescapeHTML, ϒhttp_url),
+								"vbr":       ϒvbr,
+								"abr":       ϒabr,
+								"width":     λ.Cal(ϒint_or_none, λ.Calm(ϒasset_file, "get", λ.StrLiteral("videoWidth"))),
+								"height":    λ.Cal(ϒint_or_none, λ.Calm(ϒasset_file, "get", λ.StrLiteral("videoHeight"))),
+								"filesize":  λ.Cal(ϒint_or_none, λ.Calm(ϒasset_file, "get", λ.StrLiteral("filesize"))),
+								"tbr":       ϒtbr,
+							}))
+							return λ.None
+						})
+					ϒprocess_asset_files = λ.NewFunction("process_asset_files",
+						[]λ.Param{
+							{Name: "asset_files"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒasset_file  λ.Object
+								ϒasset_files = λargs[0]
+								τmp0         λ.Object
+								τmp1         λ.Object
+							)
+							τmp0 = λ.Cal(λ.BuiltinIter, func() λ.Object {
+								if λv := ϒasset_files; λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.NewList()
+								}
+							}())
+							for {
+								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+									break
+								}
+								ϒasset_file = τmp1
+								λ.Cal(ϒprocess_asset_file, ϒasset_file)
+							}
+							return λ.None
+						})
+					λ.Cal(ϒprocess_asset_files, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("assetFiles")))
+					λ.Cal(ϒprocess_asset_file, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("referenceFile")))
+					if !λ.IsTrue(ϒformats) {
+						ϒasset_id = func() λ.Object {
+							if λv := λ.Calm(ϒvideo_data, "get", λ.StrLiteral("assetid")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Calm(ϒprogram, "get", λ.StrLiteral("assetid"))
+							}
+						}()
+						if λ.IsTrue(ϒasset_id) {
+							λ.Cal(ϒprocess_asset_files, λ.Cal(ϒtry_get, λ.Calm(ϒself, "_call_api", ϒapp_token, λ.StrLiteral("asset_file"), ϒdisplay_id, λ.DictLiteral(map[string]λ.Object{
+								"assetid": ϒasset_id,
+							}), λ.False), λ.NewFunction("<lambda>",
+								[]λ.Param{
+									{Name: "x"},
+								},
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									var (
+										ϒx = λargs[0]
+									)
+									return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("WsAssetFileResponse")), λ.StrLiteral("AssetFiles"))
+								})))
+						}
+					}
 					ϒm3u8_url = λ.Cal(ϒdict_get, ϒvideo_data, λ.NewList(
 						λ.StrLiteral("m3u8iPadURL"),
 						λ.StrLiteral("ipadM3u8Url"),
@@ -138,43 +300,32 @@ func init() {
 							{Name: "fatal", Value: λ.False},
 						}))
 					}
-					ϒasset_type = λ.Cal(ϒdict_get, ϒvideo_data, λ.NewList(
-						λ.StrLiteral("assetType"),
-						λ.StrLiteral("asset_type"),
+					ϒsmil_url = λ.Cal(ϒdict_get, ϒvideo_data, λ.NewList(
+						λ.StrLiteral("httpSmil"),
+						λ.StrLiteral("hdSmil"),
+						λ.StrLiteral("rtmpSmil"),
 					))
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("assetFiles"), λ.NewList()))
-					for {
-						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-							break
+					if λ.IsTrue(ϒsmil_url) {
+						ϒtransform_source = λ.None
+						if λ.IsTrue(λ.Eq(ϒref_id, λ.StrLiteral("nhkworld"))) {
+							ϒtransform_source = λ.NewFunction("<lambda>",
+								[]λ.Param{
+									{Name: "x"},
+								},
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									var (
+										ϒx = λargs[0]
+									)
+									return λ.Calm(λ.Calm(ϒx, "replace", λ.StrLiteral("src=\"/"), λ.StrLiteral("src=\"")), "replace", λ.StrLiteral("/media\""), λ.StrLiteral("/media/\""))
+								})
 						}
-						ϒasset_file = τmp1
-						ϒhttp_url = λ.Calm(ϒasset_file, "get", λ.StrLiteral("http_url"))
-						if !λ.IsTrue(ϒhttp_url) {
-							continue
-						}
-						ϒtbr = λ.None
-						ϒvbr = λ.Cal(ϒint_or_none, λ.Calm(ϒasset_file, "get", λ.StrLiteral("videoBitrate")), λ.IntLiteral(1024))
-						ϒabr = λ.Cal(ϒint_or_none, λ.Calm(ϒasset_file, "get", λ.StrLiteral("audioBitrate")), λ.IntLiteral(1024))
-						if λ.IsTrue(λ.Eq(ϒasset_type, λ.StrLiteral("video"))) {
-							ϒtbr = λ.Add(ϒvbr, ϒabr)
-						} else {
-							if λ.IsTrue(λ.Eq(ϒasset_type, λ.StrLiteral("audio"))) {
-								ϒtbr = ϒabr
-							}
-						}
-						ϒformat_id = λ.NewList(λ.StrLiteral("http"))
-						if λ.IsTrue(ϒtbr) {
-							λ.Calm(ϒformat_id, "append", λ.Cal(ϒcompat_str, ϒtbr))
-						}
-						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
-							"format_id": λ.Calm(λ.StrLiteral("-"), "join", ϒformat_id),
-							"url":       λ.Cal(ϒunescapeHTML, ϒhttp_url),
-							"vbr":       ϒvbr,
-							"abr":       ϒabr,
-							"width":     λ.Cal(ϒint_or_none, λ.Calm(ϒasset_file, "get", λ.StrLiteral("videoWidth"))),
-							"height":    λ.Cal(ϒint_or_none, λ.Calm(ϒasset_file, "get", λ.StrLiteral("videoHeight"))),
-							"filesize":  λ.Cal(ϒint_or_none, λ.Calm(ϒasset_file, "get", λ.StrLiteral("filesize"))),
-							"tbr":       ϒtbr,
+						λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_smil_formats", nil), λ.NewArgs(
+							λ.Cal(Ωre.ϒsub, λ.StrLiteral("/od/[^/]+/"), λ.StrLiteral("/od/http/"), ϒsmil_url),
+							ϒvideo_id,
+						), λ.KWArgs{
+							{Name: "transform_source", Value: ϒtransform_source},
+							{Name: "fatal", Value: λ.False},
 						}))
 					}
 					λ.Calm(ϒself, "_sort_formats", ϒformats)
@@ -204,6 +355,7 @@ func init() {
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    PikselIE__VALID_URL,
+				"_call_api":     PikselIE__call_api,
 				"_real_extract": PikselIE__real_extract,
 			})
 		}())

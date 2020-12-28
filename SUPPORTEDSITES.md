@@ -6,7 +6,9 @@ Supported sites
  * ACast: `www.acast.com`
  * AdobeTVVideo: `video.tv.adobe.com`
  * Amara: `amara.org`
+ * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
+ * Aparat: `www.aparat.com`
  * Arkena: `video.qbrick.com`
  * ARDMediathek: `www.ardmediathek.de`
  * ArteTV: `www.arte.tv`
@@ -24,7 +26,6 @@ Supported sites
  * BIQLE: `biqle.org`
  * BleacherReportCMS: `bleacherreport.com`
  * BokeCC: `union.bokecc.com`
- * Box: `mlssoccer.app.box.com`
  * Bpb: `www.bpb.de`
  * BR: `www.br.de`
  * BravoTV: `www.bravotv.com`
@@ -33,6 +34,7 @@ Supported sites
  * Canalplus: `www.piwiplus.fr`
  * Canalc2: `www.canalc2.tv`
  * CBCPlayer: `www.cbc.ca`
+ * CCC: `media.ccc.de`
  * CCMA: `www.ccma.cat`
  * CCTV: `sports.cntv.cn`
  * CDA: `www.cda.pl`
@@ -45,7 +47,6 @@ Supported sites
  * CloserToTruth: `closertotruth.com`
  * Clyp: `clyp.it`
  * CNN: `edition.cnn.com`
- * CNNBlogs: `reliablesources.blogs.cnn.com`
  * Coub: `coub.com`
  * CondeNast: `video.wired.com`
  * CONtv: `www.contv.com`
@@ -68,24 +69,23 @@ Supported sites
  * EaglePlatform: `lentaru.media.eagleplatform.com`
  * EbaumsWorld: `www.ebaumsworld.com`
  * ElPais: `blogs.elpais.com`
+ * Engadget: `www.engadget.com`
  * Eporner _(adult)_: `www.eporner.com`
  * Escapist: `www.escapistmagazine.com`
  * FiveThirtyEight: `fivethirtyeight.com`
  * Faz: `www.faz.net`
  * Fczenit: `fc-zenit.ru`
  * Filmweb: `www.filmweb.no`
+ * FiveMin: `pshared.5min.com`
  * FiveTV: `5-tv.ru`
  * Flickr: `www.flickr.com`
  * Formula1: `www.formula1.com`
  * FoxNews: `video.foxnews.com`
  * FoxNewsArticle: `www.foxnews.com`
- * FranceCulture: `www.franceculture.fr`
  * FranceInter: `www.franceinter.fr`
  * GenerationWhat: `generation-what.francetv.fr`
- * Freesound: `www.freesound.org`
  * Freespeech: `www.freespeech.org`
  * Funk: `www.funk.net`
- * GameInformer: `www.gameinformer.com`
  * GameSpot: `www.gamespot.com`
  * Gaskrank: `www.gaskrank.tv`
  * Gazeta: `www.gazeta.ru`
@@ -93,6 +93,7 @@ Supported sites
  * GiantBomb: `www.giantbomb.com`
  * GodTube: `www.godtube.com`
  * Golem: `video.golem.de`
+ * GoogleDrive: `drive.google.com`
  * GPUTechConf: `on-demand.gputechconf.com`
  * HBO: `www.hbo.com`
  * Heise: `www.heise.de`
@@ -121,6 +122,7 @@ Supported sites
  * Livestream: `new.livestream.com`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * Lynda: `www.lynda.com`
+ * MailRuMusic: `my.mail.ru`
  * ManyVids: `www.manyvids.com`
  * Mediaset: `www.mediasetplay.mediaset.it`
  * Megaphone: `player.megaphone.fm`
@@ -143,6 +145,7 @@ Supported sites
  * Newgrounds: `www.newgrounds.com`
  * Nexx: `api.nexx.cloud`
  * NFL: `www.chiefs.com`
+ * NhkVod: `www3.nhk.or.jp`
  * NonkTube _(adult)_: `www.nonktube.com`
  * Nova: `tn.nova.cz`
  * Nowness: `www.nowness.com`
@@ -154,7 +157,6 @@ Supported sites
  * ParliamentLiveUK: `parliamentlive.tv`
  * Patreon: `www.patreon.com`
  * PBS: `www.pbs.org`
- * PeerTube: `framatube.org`
  * People: `www.people.com`
  * Piksel: `player.piksel.com`
  * Pinterest: `www.pinterest.com`
@@ -221,8 +223,6 @@ Supported sites
  * TVP: `vod.tvp.pl`
  * TwentyThreeVideo: `video.twentythree.net`
  * TwitchClips: `clips.twitch.tv`
- * TwitterAmplify: `amp.twimg.com`
- * UDNEmbed: `video.udn.com`
  * Digiteka: `www.ultimedia.com`
  * Unistra: `utv.unistra.fr`
  * UOL: `player.mais.uol.com.br`
@@ -237,7 +237,7 @@ Supported sites
  * VideoPress: `videopress.com`
  * VideosZ _(adult)_: `www.videosz.com`
  * VidLii: `www.vidlii.com`
- * Vimeo: `vimeo.com`
+ * Vimeo: `vimeopro.com`
  * VimeoOndemand: `vimeo.com`
  * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
@@ -261,5 +261,4 @@ Supported sites
  * YourPorn _(adult)_: `sxyprn.com`
  * YourUpload: `yourupload.com`
  * Youtube _(adult)_: `www.youtube.com`
- * YoutubeYtBe: `youtu.be`
  * ZDF: `www.zdf.de`

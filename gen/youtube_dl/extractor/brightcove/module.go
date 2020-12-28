@@ -388,7 +388,6 @@ func init() {
 						ϒis_live         λ.Object
 						ϒjson_data       = λargs[1]
 						ϒlang            λ.Object
-						ϒs3_source_url   λ.Object
 						ϒself            = λargs[0]
 						ϒsource          λ.Object
 						ϒsrc             λ.Object
@@ -577,15 +576,6 @@ func init() {
 									λ.Calm(ϒformats, "append", ϒf)
 								}
 							}
-						}
-					}
-					if !λ.IsTrue(ϒformats) {
-						ϒs3_source_url = λ.Calm(λ.Calm(ϒjson_data, "get", λ.StrLiteral("custom_fields"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("s3sourceurl"))
-						if λ.IsTrue(ϒs3_source_url) {
-							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
-								"url":       ϒs3_source_url,
-								"format_id": λ.StrLiteral("source"),
-							}))
 						}
 					}
 					ϒerrors = λ.Calm(ϒjson_data, "get", λ.StrLiteral("errors"))

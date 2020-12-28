@@ -175,6 +175,7 @@ var (
 	TwentyMinutenIE              λ.Object
 	UDNEmbedIE                   λ.Object
 	UstreamIE                    λ.Object
+	VHXEmbedIE                   λ.Object
 	VShareIE                     λ.Object
 	Vbox7IE                      λ.Object
 	ViceIE                       λ.Object
@@ -270,6 +271,7 @@ func init() {
 		SpankwireIE = Ωspankwire.SpankwireIE
 		YouPornIE = Ωyouporn.YouPornIE
 		VimeoIE = Ωvimeo.VimeoIE
+		VHXEmbedIE = Ωvimeo.VHXEmbedIE
 		DailymotionIE = Ωdailymotion.DailymotionIE
 		DailyMailIE = Ωdailymail.DailyMailIE
 		OnionStudiosIE = Ωonionstudios.OnionStudiosIE
