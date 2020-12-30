@@ -25,6 +25,7 @@
 package nbc
 
 import (
+	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωadobepass "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/adobepass"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
@@ -35,7 +36,6 @@ import (
 
 var (
 	AdobePassIE                  λ.Object
-	CSNNEIE                      λ.Object
 	InfoExtractor                λ.Object
 	NBCIE                        λ.Object
 	NBCNewsIE                    λ.Object
@@ -77,10 +77,30 @@ func init() {
 		}())
 		NBCSportsVPlayerIE = λ.Cal(λ.TypeType, λ.StrLiteral("NBCSportsVPlayerIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				NBCSportsVPlayerIE__VALID_URL    λ.Object
-				NBCSportsVPlayerIE__real_extract λ.Object
+				NBCSportsVPlayerIE__VALID_URL      λ.Object
+				NBCSportsVPlayerIE__VALID_URL_BASE λ.Object
+				NBCSportsVPlayerIE__extract_url    λ.Object
+				NBCSportsVPlayerIE__real_extract   λ.Object
 			)
-			NBCSportsVPlayerIE__VALID_URL = λ.StrLiteral("https?://vplayer\\.nbcsports\\.com/(?:[^/]+/)+(?P<id>[0-9a-zA-Z_]+)")
+			NBCSportsVPlayerIE__VALID_URL_BASE = λ.StrLiteral("https?://(?:vplayer\\.nbcsports\\.com|(?:www\\.)?nbcsports\\.com/vplayer)/")
+			NBCSportsVPlayerIE__VALID_URL = λ.Add(NBCSportsVPlayerIE__VALID_URL_BASE, λ.StrLiteral("(?:[^/]+/)+(?P<id>[0-9a-zA-Z_]+)"))
+			NBCSportsVPlayerIE__extract_url = λ.NewFunction("_extract_url",
+				[]λ.Param{
+					{Name: "webpage"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒiframe_m λ.Object
+						ϒwebpage  = λargs[0]
+					)
+					ϒiframe_m = λ.Cal(Ωre.ϒsearch, λ.Mod(λ.StrLiteral("<(?:iframe[^>]+|div[^>]+data-(?:mpx-)?)src=\"(?P<url>%s[^\"]+)\""), λ.GetAttr(NBCSportsVPlayerIE, "_VALID_URL_BASE", nil)), ϒwebpage)
+					if λ.IsTrue(ϒiframe_m) {
+						return λ.Calm(ϒiframe_m, "group", λ.StrLiteral("url"))
+					}
+					return λ.None
+				})
+			NBCSportsVPlayerIE__extract_url = λ.Cal(λ.StaticMethodType, NBCSportsVPlayerIE__extract_url)
 			NBCSportsVPlayerIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -101,17 +121,38 @@ func init() {
 					return λ.Calm(ϒself, "url_result", ϒtheplatform_url, λ.StrLiteral("ThePlatform"))
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL":    NBCSportsVPlayerIE__VALID_URL,
-				"_real_extract": NBCSportsVPlayerIE__real_extract,
+				"_VALID_URL":      NBCSportsVPlayerIE__VALID_URL,
+				"_VALID_URL_BASE": NBCSportsVPlayerIE__VALID_URL_BASE,
+				"_extract_url":    NBCSportsVPlayerIE__extract_url,
+				"_real_extract":   NBCSportsVPlayerIE__real_extract,
 			})
 		}())
 		NBCSportsIE = λ.Cal(λ.TypeType, λ.StrLiteral("NBCSportsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				NBCSportsIE__VALID_URL λ.Object
+				NBCSportsIE__VALID_URL    λ.Object
+				NBCSportsIE__real_extract λ.Object
 			)
-			NBCSportsIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?nbcsports\\.com//?(?:[^/]+/)+(?P<id>[0-9a-z-]+)")
+			NBCSportsIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?nbcsports\\.com//?(?!vplayer/)(?:[^/]+/)+(?P<id>[0-9a-z-]+)")
+			NBCSportsIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself     = λargs[0]
+						ϒurl      = λargs[1]
+						ϒvideo_id λ.Object
+						ϒwebpage  λ.Object
+					)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
+					return λ.Calm(ϒself, "url_result", λ.Calm(NBCSportsVPlayerIE, "_extract_url", ϒwebpage), λ.StrLiteral("NBCSportsVPlayer"))
+				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": NBCSportsIE__VALID_URL,
+				"_VALID_URL":    NBCSportsIE__VALID_URL,
+				"_real_extract": NBCSportsIE__real_extract,
 			})
 		}())
 		NBCSportsStreamIE = λ.Cal(λ.TypeType, λ.StrLiteral("NBCSportsStreamIE"), λ.NewTuple(AdobePassIE), func() λ.Dict {
@@ -121,15 +162,6 @@ func init() {
 			NBCSportsStreamIE__VALID_URL = λ.StrLiteral("https?://stream\\.nbcsports\\.com/.+?\\bpid=(?P<id>\\d+)")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": NBCSportsStreamIE__VALID_URL,
-			})
-		}())
-		CSNNEIE = λ.Cal(λ.TypeType, λ.StrLiteral("CSNNEIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
-			var (
-				CSNNEIE__VALID_URL λ.Object
-			)
-			CSNNEIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?csnne\\.com/video/(?P<id>[0-9a-z-]+)")
-			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": CSNNEIE__VALID_URL,
 			})
 		}())
 		NBCNewsIE = λ.Cal(λ.TypeType, λ.StrLiteral("NBCNewsIE"), λ.NewTuple(ThePlatformIE), func() λ.Dict {

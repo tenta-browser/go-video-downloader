@@ -124,11 +124,30 @@ func init() {
 		}())
 		CNNBlogsIE = λ.Cal(λ.TypeType, λ.StrLiteral("CNNBlogsIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				CNNBlogsIE__VALID_URL λ.Object
+				CNNBlogsIE__VALID_URL    λ.Object
+				CNNBlogsIE__real_extract λ.Object
 			)
 			CNNBlogsIE__VALID_URL = λ.StrLiteral("https?://[^\\.]+\\.blogs\\.cnn\\.com/.+")
+			CNNBlogsIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcnn_url λ.Object
+						ϒself    = λargs[0]
+						ϒurl     = λargs[1]
+						ϒwebpage λ.Object
+					)
+					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, λ.Cal(ϒurl_basename, ϒurl))
+					ϒcnn_url = λ.Calm(ϒself, "_html_search_regex", λ.StrLiteral("data-url=\"(.+?)\""), ϒwebpage, λ.StrLiteral("cnn url"))
+					return λ.Calm(ϒself, "url_result", ϒcnn_url, λ.Calm(CNNIE, "ie_key"))
+				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": CNNBlogsIE__VALID_URL,
+				"_VALID_URL":    CNNBlogsIE__VALID_URL,
+				"_real_extract": CNNBlogsIE__real_extract,
 			})
 		}())
 		CNNArticleIE = λ.Cal(λ.TypeType, λ.StrLiteral("CNNArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

@@ -104,6 +104,7 @@ var (
 	ϒget_elements_by_class            λ.Object
 	ϒint_or_none                      λ.Object
 	ϒjs_to_json                       λ.Object
+	ϒlimit_length                     λ.Object
 	ϒlookup_unit_table                λ.Object
 	ϒlowercase_escape                 λ.Object
 	ϒmerge_dicts                      λ.Object
@@ -113,6 +114,7 @@ var (
 	ϒparse_age_limit                  λ.Object
 	ϒparse_bitrate                    λ.Object
 	ϒparse_codecs                     λ.Object
+	ϒparse_count                      λ.Object
 	ϒparse_duration                   λ.Object
 	ϒparse_filesize                   λ.Object
 	ϒparse_iso8601                    λ.Object
@@ -3250,6 +3252,33 @@ func init() {
 				})
 				return λ.Cal(ϒlookup_unit_table, ϒ_UNIT_TABLE, ϒs)
 			})
+		ϒparse_count = λ.NewFunction("parse_count",
+			[]λ.Param{
+				{Name: "s"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒ_UNIT_TABLE λ.Object
+					ϒs           = λargs[0]
+				)
+				if ϒs == λ.None {
+					return λ.None
+				}
+				ϒs = λ.Calm(ϒs, "strip")
+				if λ.IsTrue(λ.Cal(Ωre.ϒmatch, λ.StrLiteral("^[\\d,.]+$"), ϒs)) {
+					return λ.Cal(ϒstr_to_int, ϒs)
+				}
+				ϒ_UNIT_TABLE = λ.DictLiteral(map[string]λ.Object{
+					"k":  λ.IntLiteral(1000),
+					"K":  λ.IntLiteral(1000),
+					"m":  λ.Pow(λ.IntLiteral(1000), λ.IntLiteral(2)),
+					"M":  λ.Pow(λ.IntLiteral(1000), λ.IntLiteral(2)),
+					"kk": λ.Pow(λ.IntLiteral(1000), λ.IntLiteral(2)),
+					"KK": λ.Pow(λ.IntLiteral(1000), λ.IntLiteral(2)),
+				})
+				return λ.Cal(ϒlookup_unit_table, ϒ_UNIT_TABLE, ϒs)
+			})
 		ϒparse_resolution = λ.NewFunction("parse_resolution",
 			[]λ.Param{
 				{Name: "s"},
@@ -3683,7 +3712,7 @@ func init() {
 				}
 				ϒurl = λ.Calm(ϒurl, "strip")
 				return func() λ.Object {
-					if λ.IsTrue(λ.Cal(Ωre.ϒmatch, λ.StrLiteral("^(?:[a-zA-Z][\\da-zA-Z.+-]*:)?//"), ϒurl)) {
+					if λ.IsTrue(λ.Cal(Ωre.ϒmatch, λ.StrLiteral("^(?:(?:https?|rt(?:m(?:pt?[es]?|fp)|sp[su]?)|mms|ftps?):)?//"), ϒurl)) {
 						return ϒurl
 					} else {
 						return λ.None
@@ -4314,6 +4343,27 @@ func init() {
 				return ϒq
 			})
 		DEFAULT_OUTTMPL = λ.StrLiteral("%(title)s-%(id)s.%(ext)s")
+		ϒlimit_length = λ.NewFunction("limit_length",
+			[]λ.Param{
+				{Name: "s"},
+				{Name: "length"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ELLIPSES λ.Object
+					ϒlength  = λargs[1]
+					ϒs       = λargs[0]
+				)
+				if ϒs == λ.None {
+					return λ.None
+				}
+				ELLIPSES = λ.StrLiteral("...")
+				if λ.IsTrue(λ.Gt(λ.Cal(λ.BuiltinLen, ϒs), ϒlength)) {
+					return λ.Add(λ.GetItem(ϒs, λ.NewSlice(λ.None, λ.Sub(ϒlength, λ.Cal(λ.BuiltinLen, ELLIPSES)), λ.None)), ELLIPSES)
+				}
+				return ϒs
+			})
 		ϒerror_to_compat_str = λ.NewFunction("error_to_compat_str",
 			[]λ.Param{
 				{Name: "err"},

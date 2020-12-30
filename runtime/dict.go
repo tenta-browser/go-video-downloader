@@ -334,18 +334,31 @@ func initDictType(slots *typeSlots, dict map[string]Object) {
 type hashtable struct {
 	len   int
 	table []*hashtableEntry
+	root  *hashtableEntry
 }
 
 type hashtableEntry struct {
-	Key   Object
-	Value Object
-	next  *hashtableEntry
+	Key     Object
+	Value   Object
+	sibling *hashtableEntry
+	prev    *hashtableEntry
+	next    *hashtableEntry
 }
 
 type hashtableIterator func() *hashtableEntry
 
 func newHashTable(capacity int) *hashtable {
-	return &hashtable{len: 0, table: make([]*hashtableEntry, capacity)}
+	ht := &hashtable{
+		table: make([]*hashtableEntry, capacity),
+		root:  new(hashtableEntry),
+	}
+	ht.root.prev = ht.root
+	ht.root.next = ht.root
+	return ht
+}
+
+func (e *hashtableEntry) matches(key Object) bool {
+	return IsTrue(Eq(e.Key, key))
 }
 
 func (ht *hashtable) slot(key Object) uint {
@@ -355,8 +368,8 @@ func (ht *hashtable) slot(key Object) uint {
 
 func (ht *hashtable) get(key Object) Object {
 	s := ht.slot(key)
-	for e := ht.table[s]; e != nil; e = e.next {
-		if IsTrue(Eq(key, e.Key)) {
+	for e := ht.table[s]; e != nil; e = e.sibling {
+		if e.matches(key) {
 			return e.Value
 		}
 	}
@@ -370,10 +383,18 @@ func (ht *hashtable) put(key, value Object, overwrite bool) Object {
 		e := *pe
 		if e == nil {
 			// reached end, add new entry
-			*pe = &hashtableEntry{
+			e = &hashtableEntry{
 				Key:   key,
 				Value: value,
 			}
+			*pe = e
+			// add it to the end of the order list
+			at := ht.root.prev
+			e.prev = at
+			e.next = at.next
+			e.prev.next = e
+			e.next.prev = e
+			// increase size, check capacity
 			ht.len++
 			if ht.len*2 > len(ht.table) {
 				// 50% load reached, grow table
@@ -381,7 +402,7 @@ func (ht *hashtable) put(key, value Object, overwrite bool) Object {
 			}
 			return nil
 		}
-		if IsTrue(Eq(key, e.Key)) {
+		if e.matches(key) {
 			// found, replace entry
 			oldValue := e.Value
 			if overwrite {
@@ -389,18 +410,18 @@ func (ht *hashtable) put(key, value Object, overwrite bool) Object {
 			}
 			return oldValue
 		}
-		pe = &e.next
+		pe = &e.sibling
 	}
 }
 
 func (ht *hashtable) grow() {
-	oldTable := ht.table
+	ht.table = make([]*hashtableEntry, 2*len(ht.table))
 	ht.len = 0
-	ht.table = make([]*hashtableEntry, 2*len(oldTable))
-	for _, e := range oldTable {
-		for ; e != nil; e = e.next {
-			ht.put(e.Key, e.Value, false)
-		}
+	e := ht.root.next
+	ht.root.prev = ht.root
+	ht.root.next = ht.root
+	for ; e != ht.root; e = e.next {
+		ht.put(e.Key, e.Value, false)
 	}
 }
 
@@ -413,29 +434,29 @@ func (ht *hashtable) remove(key Object) Object {
 			// reached end, nothing to remove
 			return nil
 		}
-		if IsTrue(Eq(key, e.Key)) {
+		if e.matches(key) {
 			// found, unlink entry
-			*pe = e.next
+			*pe = e.sibling
+			e.sibling = nil
+			// unlink from order list
+			e.prev.next = e.next
+			e.next.prev = e.prev
+			e.next = nil
+			e.prev = nil
 			return e.Value
 		}
-		pe = &e.next
+		pe = &e.sibling
 	}
 }
 
 func (ht *hashtable) iterator() hashtableIterator {
-	s := -1
-	var e *hashtableEntry
+	e := ht.root.next
 	return func() *hashtableEntry {
-		for e == nil {
-			// advance to next slot
-			s++
-			if s >= len(ht.table) {
-				return nil
-			}
-			e = ht.table[s]
+		if e == ht.root {
+			return nil
 		}
-		r := e
+		p := e
 		e = e.next
-		return r
+		return p
 	}
 }

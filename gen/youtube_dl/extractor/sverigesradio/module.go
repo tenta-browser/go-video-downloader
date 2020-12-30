@@ -48,10 +48,11 @@ func init() {
 		ϒstr_or_none = Ωutils.ϒstr_or_none
 		SverigesRadioBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("SverigesRadioBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				SverigesRadioBaseIE__BASE_URL         λ.Object
-				SverigesRadioBaseIE__EXT_TO_CODEC_MAP λ.Object
-				SverigesRadioBaseIE__QUALITIES        λ.Object
-				SverigesRadioBaseIE__real_extract     λ.Object
+				SverigesRadioBaseIE__BASE_URL                 λ.Object
+				SverigesRadioBaseIE__CODING_FORMAT_TO_ABR_MAP λ.Object
+				SverigesRadioBaseIE__EXT_TO_CODEC_MAP         λ.Object
+				SverigesRadioBaseIE__QUALITIES                λ.Object
+				SverigesRadioBaseIE__real_extract             λ.Object
 			)
 			SverigesRadioBaseIE__BASE_URL = λ.StrLiteral("https://sverigesradio.se/sida/playerajax/")
 			SverigesRadioBaseIE__QUALITIES = λ.NewList(
@@ -62,6 +63,12 @@ func init() {
 			SverigesRadioBaseIE__EXT_TO_CODEC_MAP = λ.DictLiteral(map[string]string{
 				"mp3": "mp3",
 				"m4a": "aac",
+			})
+			SverigesRadioBaseIE__CODING_FORMAT_TO_ABR_MAP = λ.DictLiteral(map[int]int{
+				5:  128,
+				11: 192,
+				12: 32,
+				13: 96,
 			})
 			SverigesRadioBaseIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
@@ -172,10 +179,11 @@ func init() {
 					})
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_BASE_URL":         SverigesRadioBaseIE__BASE_URL,
-				"_EXT_TO_CODEC_MAP": SverigesRadioBaseIE__EXT_TO_CODEC_MAP,
-				"_QUALITIES":        SverigesRadioBaseIE__QUALITIES,
-				"_real_extract":     SverigesRadioBaseIE__real_extract,
+				"_BASE_URL":                 SverigesRadioBaseIE__BASE_URL,
+				"_CODING_FORMAT_TO_ABR_MAP": SverigesRadioBaseIE__CODING_FORMAT_TO_ABR_MAP,
+				"_EXT_TO_CODEC_MAP":         SverigesRadioBaseIE__EXT_TO_CODEC_MAP,
+				"_QUALITIES":                SverigesRadioBaseIE__QUALITIES,
+				"_real_extract":             SverigesRadioBaseIE__real_extract,
 			})
 		}())
 		SverigesRadioPublicationIE = λ.Cal(λ.TypeType, λ.StrLiteral("SverigesRadioPublicationIE"), λ.NewTuple(SverigesRadioBaseIE), func() λ.Dict {
@@ -195,11 +203,17 @@ func init() {
 		}())
 		SverigesRadioEpisodeIE = λ.Cal(λ.TypeType, λ.StrLiteral("SverigesRadioEpisodeIE"), λ.NewTuple(SverigesRadioBaseIE), func() λ.Dict {
 			var (
-				SverigesRadioEpisodeIE__VALID_URL λ.Object
+				SverigesRadioEpisodeIE_IE_NAME     λ.Object
+				SverigesRadioEpisodeIE__AUDIO_TYPE λ.Object
+				SverigesRadioEpisodeIE__VALID_URL  λ.Object
 			)
+			SverigesRadioEpisodeIE_IE_NAME = λ.StrLiteral("sverigesradio:episode")
 			SverigesRadioEpisodeIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?sverigesradio\\.se/(?:sida/)?avsnitt/(?P<id>[0-9]+)")
+			SverigesRadioEpisodeIE__AUDIO_TYPE = λ.StrLiteral("episode")
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": SverigesRadioEpisodeIE__VALID_URL,
+				"IE_NAME":     SverigesRadioEpisodeIE_IE_NAME,
+				"_AUDIO_TYPE": SverigesRadioEpisodeIE__AUDIO_TYPE,
+				"_VALID_URL":  SverigesRadioEpisodeIE__VALID_URL,
 			})
 		}())
 	})

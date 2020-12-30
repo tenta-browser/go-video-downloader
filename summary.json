@@ -9,7 +9,7 @@
     "ABCIViewIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://iview.abc.net.au/api/programs/LE1927H001S00\": dial tcp: lookup iview.abc.net.au on 74.206.188.87:53: read udp 74.206.165.158:37963->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "AttributeError: 'placeholder hashlib' object has no attribute 'sha256'"
         ],
         "success_urls": []
     },
@@ -79,7 +79,7 @@
     "APAIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://uvp.apa.at/embed/293f6d17-692a-44e3-9fd5-7b178f3a1029\": dial tcp: lookup uvp.apa.at on 74.206.188.87:53: read udp 74.206.165.158:52804->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://uvp.apa.at/embed/293f6d17-692a-44e3-9fd5-7b178f3a1029\": dial tcp: lookup uvp.apa.at on 74.206.188.87:53: read udp 74.206.165.158:41344->74.206.188.87:53: i/o timeout> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -148,10 +148,10 @@
     },
     "AZMedienIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://www.telezueri.ch/api/pub/gql/telezueri/NewsArticleTeaser/cb9f2f81ed22e9b47f4ca64ea3cc5a5d13e88d1d?variables=%7B%22contextId%22%3A%22NewsArticle%3A133214569%22%7D\": dial tcp: lookup www.telezueri.ch on 74.206.188.87:53: read udp 74.206.165.158:46519->74.206.188.87:53: i/o timeout> (caused by URLError)"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "https://www.telezueri.ch/sonntalk/bundesrats-vakanzen-eu-rahmenabkommen-133214569"
+        ]
     },
     "AbcNewsIE": {
         "adult": false,
@@ -228,7 +228,7 @@
     "AfreecaTVIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Failed to download m3u8 information: <urlopen error Get \"http://vod-archive-global-cdn-z01.afreecatv.com/v1/video/_definst_/mp4:vod/20160502/386/c4c62b9d_174361386_1.mp4/playlist.m3u8\": dial tcp: lookup vod-archive-global-cdn-z01.afreecatv.com on 74.206.188.87:53: no such host> (caused by URLError)",
+            "DownloadError: ERROR: Failed to download m3u8 information: <urlopen error Get \"http://vod-archive-global-cdn-z01.afreecatv.com/v1/video/_definst_/mp4:highlight/20170411/999/BE689A0E_190960999_1_2_A.mp4/playlist.m3u8\": dial tcp: lookup vod-archive-global-cdn-z01.afreecatv.com on 74.206.188.87:53: no such host> (caused by URLError)",
             "DownloadError: ERROR: Unable to extract station",
             "Exception: Playlists and multi video results are not supported!"
         ],
@@ -255,10 +255,9 @@
     },
     "AllocineIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.allocine.fr/article/fichearticle_gen_carticle=18635087.html\": dial tcp: lookup www.allocine.fr on 74.206.188.87:53: read udp 74.206.165.158:53224->74.206.188.87:53: i/o timeout> (caused by URLError)"
-        ],
+        "error_msgs": [],
         "success_urls": [
+            "http://www.allocine.fr/article/fichearticle_gen_carticle=18635087.html",
             "http://www.allocine.fr/video/player_gen_cmedia=19540403&cfilm=222257.html",
             "http://www.allocine.fr/video/player_gen_cmedia=19544709&cfilm=181290.html",
             "http://www.allocine.fr/video/video-19550147/"
@@ -290,7 +289,7 @@
     "AndereTijdenIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://anderetijden.nl/programma/1/Andere-Tijden/aflevering/676/Duitse-soldaten-over-de-Slag-bij-Arnhem\": dial tcp: lookup anderetijden.nl on 74.206.188.87:53: read udp 74.206.165.158:54341->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
@@ -469,7 +468,6 @@
     "BBCIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.bbc.com/news/world-europe-32668511\": dial tcp: lookup www.bbc.com on 74.206.188.87:53: read udp 74.206.165.158:41989->74.206.188.87:53: i/o timeout> (caused by URLError)",
             "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)",
             "DownloadError: ERROR: Unable to extract playlist data",
             "DownloadError: ERROR: requested format not available",
@@ -494,7 +492,7 @@
     "BIQLEIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://biqle.ru/watch/-115995369_456239081\": dial tcp: lookup biqle.ru on 74.206.188.87:53: read udp 74.206.165.158:56083->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Video unavailable"
         ],
         "success_urls": [
             "http://biqle.org/watch/-44781847_168547604"
@@ -518,14 +516,14 @@
     "BTArticleIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.bt.no/nyheter/lokalt/Kjemper-for-internatet-1788214.html\": dial tcp: lookup www.bt.no on 74.206.188.87:53: read udp 74.206.165.158:40467->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
         ],
         "success_urls": []
     },
     "BTVestlendingenIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://svp.vg.no/svp/api/v1/bt/assets/86255?appName=bttv-website\": dial tcp: lookup svp.vg.no on 74.206.188.88:53: read udp 74.206.165.158:49392->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download XML: <urlopen error Get \"http://frontend.xstream.dk/btno/feed/video/?platform=web&id=86255\": dial tcp 91.238.152.198:80: i/o timeout> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -673,6 +671,13 @@
         ],
         "success_urls": []
     },
+    "BiographyIE": {
+        "adult": false,
+        "error_msgs": [
+            "binascii.Error: Invalid hex input"
+        ],
+        "success_urls": []
+    },
     "BitChuteChannelIE": {
         "adult": false,
         "error_msgs": [
@@ -738,10 +743,10 @@
     },
     "BoxIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://mlssoccer.app.box.com/s/0evd2o3e08l60lr4ygukepvnkord1o1x/file/510727257538\": dial tcp: lookup mlssoccer.app.box.com on 74.206.188.88:53: read udp 74.206.165.158:35063->74.206.188.88:53: i/o timeout> (caused by URLError)"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "https://mlssoccer.app.box.com/s/0evd2o3e08l60lr4ygukepvnkord1o1x/file/510727257538"
+        ]
     },
     "BpbIE": {
         "adult": false,
@@ -915,13 +920,13 @@
     "CCTVIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://english.cntv.cn/special/four_comprehensives/index.shtml\": dial tcp: lookup english.cntv.cn on 74.206.188.87:53: no such host> (caused by URLError)",
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.ncpa-classic.com/2013/05/22/VIDE1369219508996867.shtml\": dial tcp [2600:1403:7c00:186::3fab]:80: connect: network is unreachable> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://english.cntv.cn/special/four_comprehensives/index.shtml\": dial tcp: lookup english.cntv.cn on 74.206.188.88:53: no such host> (caused by URLError)"
         ],
         "success_urls": [
             "http://cctv.cntv.cn/lm/tvseries_russian/yilugesanghua/index.shtml",
             "http://sports.cntv.cn/2016/02/12/ARTIaBRxv4rTT1yWf1frW2wi160212.shtml",
             "http://tv.cctv.com/2016/02/05/VIDEUS7apq3lKrHG9Dncm03B160205.shtml",
+            "http://www.ncpa-classic.com/2013/05/22/VIDE1369219508996867.shtml",
             "http://www.ncpa-classic.com/clt/more/416/index.shtml"
         ]
     },
@@ -972,10 +977,10 @@
     },
     "CNNBlogsIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://reliablesources.blogs.cnn.com/2014/02/09/criminalizing-journalism/\": dial tcp: lookup reliablesources.blogs.cnn.com on 74.206.188.87:53: read udp 74.206.165.158:46549->74.206.188.87:53: i/o timeout> (caused by URLError)"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "http://reliablesources.blogs.cnn.com/2014/02/09/criminalizing-journalism/"
+        ]
     },
     "CNNIE": {
         "adult": false,
@@ -996,13 +1001,6 @@
             "https://www.contv.com/details-movie/CEG10022949/days-of-thrills-&-laughter"
         ]
     },
-    "CSNNEIE": {
-        "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
-        ],
-        "success_urls": []
-    },
     "CSpanIE": {
         "adult": false,
         "error_msgs": [
@@ -1015,7 +1013,7 @@
     "CTVIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: No video formats found"
+            "TypeError: 'NoneType' object is not subscriptable"
         ],
         "success_urls": []
     },
@@ -1096,7 +1094,7 @@
     "CanvasIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 405: Method Not Allowed (caused by <HTTPError 405: 'Method Not Allowed'>)"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -1206,7 +1204,7 @@
     "CiscoLiveSessionIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Post \"https://events.rainfocus.com/api/session\": dial tcp: lookup events.rainfocus.com on 74.206.188.88:53: read udp 74.206.165.158:60718->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'items\\''))"
         ],
         "success_urls": []
     },
@@ -1241,17 +1239,17 @@
     "CloserToTruthIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://www.closertotruth.com/series/solutions-the-mind-body-problem\": dial tcp [2620:12a:8001::1]:443: connect: network is unreachable> (caused by URLError)",
             "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": [
-            "http://closertotruth.com/episodes/how-do-brains-work"
+            "http://closertotruth.com/episodes/how-do-brains-work",
+            "http://closertotruth.com/series/solutions-the-mind-body-problem#video-3688"
         ]
     },
     "CloudflareStreamIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: No video formats found"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -1265,7 +1263,7 @@
     "ClubicIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://player.m6web.fr/v1/player/clubic/448474.html\": dial tcp: lookup player.m6web.fr on 74.206.188.87:53: read udp 74.206.165.158:47447->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://player.m6web.fr/v1/player/clubic/448474.html\": dial tcp: lookup player.m6web.fr on 74.206.188.87:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -1432,7 +1430,7 @@
     "DLiveVODIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Post \"https://graphigo.prd.dlive.tv/\": dial tcp: lookup graphigo.prd.dlive.tv on 74.206.188.87:53: read udp 74.206.165.158:39431->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -1715,7 +1713,7 @@
     "EHowIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.ehow.com/video_12245069_hardwood-flooring-basics.html\": read tcp 74.206.165.158:43500->23.14.188.174:80: read: connection timed out> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.ehow.com/video_12245069_hardwood-flooring-basics.html\": read tcp 74.206.165.158:57178->23.10.124.174:80: read: connection timed out> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -1866,10 +1864,9 @@
     },
     "EscapistIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.escapistmagazine.com/videos/view/the-escapist-presents/6618-Breaking-Down-Baldurs-Gate\": dial tcp: lookup www.escapistmagazine.com on 74.206.188.87:53: read udp 74.206.165.158:58883->74.206.188.87:53: i/o timeout> (caused by URLError)"
-        ],
+        "error_msgs": [],
         "success_urls": [
+            "http://www.escapistmagazine.com/videos/view/the-escapist-presents/6618-Breaking-Down-Baldurs-Gate",
             "http://www.escapistmagazine.com/videos/view/zero-punctuation/10044-Evolve-One-vs-Multiplayer"
         ]
     },
@@ -1897,7 +1894,7 @@
     "ExpressenIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Failed to download m3u8 information: <urlopen error Get \"https://fdb369d79d5b13811bf39c9a3752daac-httpcache0-03837-cacheod0.dna.ip-only.net/03837-cacheod0/_definst_/smil:ncode/2018-05-18/000133374_000_526638224/2101805180013455821-logo_576p/playlist.m3u8\": dial tcp: lookup fdb369d79d5b13811bf39c9a3752daac-httpcache0-03837-cacheod0.dna.ip-only.net on 74.206.188.87:53: read udp 74.206.165.158:49724->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -1939,7 +1936,7 @@
     "FOX9NewsIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://www.fox9.com/news/black-bear-in-tree-draws-crowd-in-downtown-duluth-minnesota\": dial tcp: lookup www.fox9.com on 74.206.188.88:53: read udp 74.206.165.158:44853->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "AttributeError: 'placeholder hashlib' object has no attribute 'md5'"
         ],
         "success_urls": []
     },
@@ -1953,16 +1950,21 @@
     "FacebookIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder _extract_from_url (reason: big_int:None)' object is not callable"
+            "DownloadError: ERROR: Cannot parse data",
+            "Exception: Playlists and multi video results are not supported!"
         ],
-        "success_urls": []
+        "success_urls": [
+            "https://www.facebook.com/WatchESLOne/videos/359649331226507/",
+            "https://www.facebook.com/cnn/videos/10155529876156509/",
+            "https://www.facebook.com/video.php?v=274175099429670"
+        ]
     },
     "FacebookPluginsVideoIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder _extract_from_url (reason: big_int:None)' object is not callable"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fgov.sg%2Fvideos%2F10154383743583686%2F&show_text=0&width=560"
+        ]
     },
     "FazIE": {
         "adult": false,
@@ -2097,10 +2099,10 @@
     },
     "FranceCultureIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.franceculture.fr/emissions/carnet-nomade/rendez-vous-au-pays-des-geeks\": dial tcp: lookup www.franceculture.fr on 74.206.188.87:53: read udp 74.206.165.158:50511->74.206.188.87:53: i/o timeout> (caused by URLError)"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "http://www.franceculture.fr/emissions/carnet-nomade/rendez-vous-au-pays-des-geeks"
+        ]
     },
     "FranceInterIE": {
         "adult": false,
@@ -2155,10 +2157,10 @@
     },
     "FreesoundIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.freesound.org/people/miklovan/sounds/194503/\": dial tcp: lookup www.freesound.org on 74.206.188.87:53: read udp 74.206.165.158:42640->74.206.188.87:53: i/o timeout> (caused by URLError)"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "http://www.freesound.org/people/miklovan/sounds/194503/"
+        ]
     },
     "FreespeechIE": {
         "adult": false,
@@ -2247,11 +2249,11 @@
     },
     "GameInformerIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.gameinformer.com/b/features/archive/2015/09/26/replay-animal-crossing.aspx\": dial tcp: lookup www.gameinformer.com on 74.206.188.87:53: read udp 74.206.165.158:49239->74.206.188.87:53: i/o timeout> (caused by URLError)",
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://www.gameinformer.com/video-feature/new-gameplay-today/2019/07/09/new-gameplay-today-streets-of-rogue\": dial tcp: lookup www.gameinformer.com on 74.206.188.88:53: read udp 74.206.165.158:49112->74.206.188.88:53: i/o timeout> (caused by URLError)"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "http://www.gameinformer.com/b/features/archive/2015/09/26/replay-animal-crossing.aspx",
+            "https://www.gameinformer.com/video-feature/new-gameplay-today/2019/07/09/new-gameplay-today-streets-of-rogue"
+        ]
     },
     "GameSpotIE": {
         "adult": false,
@@ -2343,7 +2345,8 @@
         "adult": false,
         "error_msgs": [
             "DownloadError: ERROR: 1002:You appear to be outside the United States or its territories. Due to international rights agreements, we only offer this video to viewers located within the United States and its territories.\nThis video is available in United States.\nYou might want to use a VPN or a proxy server (with --proxy) to workaround.",
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://disneynow.go.com/all-shows/disney-xd\": dial tcp: lookup disneynow.go.com on 74.206.188.88:53: read udp 74.206.165.158:36019->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to extract show id",
+            "TypeError: 'str' object is not native"
         ],
         "success_urls": []
     },
@@ -2483,6 +2486,13 @@
             "http://www.historicfilms.com/tapes/4728"
         ]
     },
+    "HistoryPlayerIE": {
+        "adult": false,
+        "error_msgs": [
+            "_TESTS is empty"
+        ],
+        "success_urls": []
+    },
     "HistoryTopicIE": {
         "adult": false,
         "error_msgs": [
@@ -2514,7 +2524,7 @@
     "HornBunnyIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://hornbunny.com/videos/panty-slut-jerk-off-instruction-5227.html\": dial tcp: lookup hornbunny.com on 74.206.188.87:53: read udp 74.206.165.158:37650->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
         ],
         "success_urls": []
     },
@@ -2739,7 +2749,7 @@
     "Ir90TvIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://90tv.ir/video/95719/%D8%B4%D8%A7%DB%8C%D8%B9%D8%A7%D8%AA-%D9%86%D9%82%D9%84-%D9%88-%D8%A7%D9%86%D8%AA%D9%82%D8%A7%D9%84%D8%A7%D8%AA-%D9%85%D9%87%D9%85-%D9%81%D9%88%D8%AA%D8%A8%D8%A7%D9%84-%D8%A7%D8%B1%D9%88%D9%BE%D8%A7-940218\": dial tcp: lookup 90tv.ir on 74.206.188.88:53: read udp 74.206.165.158:42024->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://90tv.ir/video/95719/%D8%B4%D8%A7%DB%8C%D8%B9%D8%A7%D8%AA-%D9%86%D9%82%D9%84-%D9%88-%D8%A7%D9%86%D8%AA%D9%82%D8%A7%D9%84%D8%A7%D8%AA-%D9%85%D9%87%D9%85-%D9%81%D9%88%D8%AA%D8%A8%D8%A7%D9%84-%D8%A7%D8%B1%D9%88%D9%BE%D8%A7-940218\": dial tcp: lookup 90tv.ir on 74.206.188.87:53: read udp 74.206.165.158:54431->74.206.188.87:53: i/o timeout> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -2877,7 +2887,6 @@
     "KetnetIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)",
             "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
@@ -2956,7 +2965,7 @@
     "KuwoIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to get song detail info: <urlopen error Get \"http://www.kuwo.cn/yinyue/6446136/\": dial tcp: lookup www.kuwo.cn on 74.206.188.87:53: read udp 74.206.165.158:34729->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to extract song name"
         ],
         "success_urls": []
     },
@@ -2992,14 +3001,14 @@
     "LBRYIE": {
         "adult": false,
         "error_msgs": [
-            "RegexpError: Function not allowed: <built-in method format of str object at 0x7fe4f80b15d0>"
+            "RegexpError: Function not allowed: <built-in method format of str object at 0x7fce7396a5d0>"
         ],
         "success_urls": []
     },
     "LCIIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.lci.fr/international/etats-unis-a-j-62-hillary-clinton-reste-sans-voix-2001679.html\": dial tcp: lookup www.lci.fr on 74.206.188.87:53: read udp 74.206.165.158:51261->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: No video formats found!"
         ],
         "success_urls": []
     },
@@ -3013,8 +3022,8 @@
     "LRTIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://www.lrt.lt/mediateka/irasas/2000127261/greita-ir-gardu-sicilijos-ikvepta-klasikiniu-makaronu-su-baklazanais-vakariene\": dial tcp: lookup www.lrt.lt on 74.206.188.88:53: read udp 74.206.165.158:48451->74.206.188.88:53: i/o timeout> (caused by URLError)",
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)",
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -3028,7 +3037,6 @@
     "Laola1TvIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://video.laola1.at/de-at/page/sports-channels\": dial tcp: lookup video.laola1.at on 74.206.188.88:53: read udp 74.206.165.158:43941->74.206.188.88:53: i/o timeout> (caused by URLError)",
             "DownloadError: ERROR: Unable to extract conf"
         ],
         "success_urls": []
@@ -3050,8 +3058,6 @@
     "LeIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.le.com/ptv/vplay/1118082.html\": dial tcp 59.36.202.3:80: i/o timeout> (caused by URLError)",
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.le.com/ptv/vplay/22005890.html\": dial tcp 59.36.202.3:80: i/o timeout> (caused by URLError)",
             "TypeError: 'placeholder urshift (reason: big_int:None)' object is not callable"
         ],
         "success_urls": []
@@ -3066,7 +3072,7 @@
     "Lecture2GoIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://lecture2go.uni-hamburg.de/veranstaltungen/-/v/17473\": dial tcp: lookup lecture2go.uni-hamburg.de on 74.206.188.87:53: read udp 74.206.165.158:40540->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to extract title"
         ],
         "success_urls": []
     },
@@ -3111,7 +3117,7 @@
     "LiTVIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://www.litv.tv/vod/drama/content.do?brc_id=root&id=VOD00041610&isUHEnabled=true&autoPlay=1\": dial tcp: lookup www.litv.tv on 74.206.188.87:53: read udp 74.206.165.158:42787->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 405: Method Not Allowed (caused by <HTTPError 405: 'Method Not Allowed'>)"
         ],
         "success_urls": []
     },
@@ -3243,8 +3249,7 @@
     "LnkGoIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Failed to download m3u8 information: <urlopen error Get \"https://vod.lnk.lt/lnk_vod/lnk/lnk/mp4:https://vod.lnk.lt/lnk_vod/lnk/lnk/mp4:aktualai-pratesimas/20150113-Nerdas-Taiso-Kompiuteri-LNK-MPEG2.mp4/playlist.m3u8?tokenstarttime=0&tokenendtime=1609232447&tokenhash=g2XIDSSWbwGhDeaWmw4rPCqTwb-CAAyuM0CSIHL-_Oc9BFWsGrzNFDik-Lvu1yXeJ06NGhvGEynrbKLGMJzEKw==/playlist.m3u8\": dial tcp: lookup vod.lnk.lt on 74.206.188.88:53: read udp 74.206.165.158:47094->74.206.188.88:53: i/o timeout> (caused by URLError)",
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://lnk.lt/api/main/video-page/ziurek-putka-trys-klausimai/0/false\": dial tcp: lookup lnk.lt on 74.206.188.88:53: read udp 74.206.165.158:40761->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Failed to download m3u8 information: HTTP Error 403: Forbidden (caused by <HTTPError 403: 'Forbidden'>)"
         ],
         "success_urls": []
     },
@@ -3324,8 +3329,8 @@
     "MSNIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to extract error",
-            "Exception: Playlists and multi video results are not supported!"
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 503: Service Unavailable (caused by <HTTPError 503: 'Service Unavailable'>)",
+            "DownloadError: ERROR: Unable to extract error"
         ],
         "success_urls": []
     },
@@ -3472,7 +3477,7 @@
     "MediasiteCatalogIE": {
         "adult": false,
         "error_msgs": [
-            "RegexpError: Function not allowed: <built-in method format of str object at 0x7fe4f7beb030>"
+            "RegexpError: Function not allowed: <built-in method format of str object at 0x7fce734e8030>"
         ],
         "success_urls": []
     },
@@ -3617,7 +3622,7 @@
     "MnetIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://content.api.mnet.com/player/vodConfig?ctype=CLIP&id=171008&stype=H\": dial tcp: lookup content.api.mnet.com on 74.206.188.87:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://content.api.mnet.com/player/vodConfig?ctype=CLIP&id=171008&stype=H\": dial tcp: lookup content.api.mnet.com on 74.206.188.88:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -3648,7 +3653,7 @@
     "MorningstarIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.morningstar.com/cover/videocenter.aspx?id=615869\": dial tcp: lookup www.morningstar.com on 74.206.188.87:53: read udp 74.206.165.158:47860->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to extract title"
         ],
         "success_urls": []
     },
@@ -3685,7 +3690,7 @@
         "adult": false,
         "error_msgs": [
             "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'vkey\\''))",
-            "DownloadError: ERROR: Unable to download XML: <urlopen error Get \"https://cdn-fck.moviefap.com/moviefap/be9867c9416c19f54a4a.flv?key=68f98ad23ba54742e9961a95f10295ac&VID=322032&rollover=1&timeline=1&startThumb=20%26catID=2,19,20,42\": x509: certificate signed by unknown authority> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download XML: <urlopen error Get \"https://cdn-fck.moviefap.com/moviefap/be9867c9416c19f54a4a.flv?key=630c837747546da834218e617be349df&VID=322032&rollover=1&timeline=1&startThumb=20%26catID=2,19,20,42\": x509: certificate signed by unknown authority> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -3706,7 +3711,7 @@
     "MuenchenTVIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.muenchen.tv/livestream/\": dial tcp: lookup www.muenchen.tv on 74.206.188.88:53: read udp 74.206.165.158:33845->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to extract playlist configuration"
         ],
         "success_urls": []
     },
@@ -3720,7 +3725,7 @@
     "MwaveMeetGreetIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://mwave.interest.me/meetgreet/view/256\": dial tcp: lookup mwave.interest.me on 74.206.188.88:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://mwave.interest.me/meetgreet/view/256\": dial tcp: lookup mwave.interest.me on 74.206.188.87:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -3831,13 +3836,12 @@
     },
     "NBCNewsIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
-        ],
+        "error_msgs": [],
         "success_urls": [
             "http://www.msnbc.com/all-in-with-chris-hayes/watch/the-chaotic-gop-immigration-vote-314487875924",
             "http://www.nbcnews.com/business/autos/volkswagen-11-million-vehicles-could-have-suspect-software-emissions-scandal-n431456",
             "http://www.nbcnews.com/nightly-news/video/nightly-news-with-brian-williams-full-broadcast-february-4-394064451844",
+            "http://www.nbcnews.com/watch/nbcnews-com/how-twitter-reacted-to-the-snowden-interview-269389891880",
             "http://www.today.com/video/see-the-aurora-borealis-from-space-in-stunning-new-nasa-video-669831235788"
         ]
     },
@@ -3857,10 +3861,10 @@
     },
     "NBCSportsIE": {
         "adult": false,
-        "error_msgs": [
-            "AttributeError: 'NoneType' object has no attribute 'startswith'"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "http://www.nbcsports.com//college-basketball/ncaab/tom-izzo-michigan-st-has-so-much-respect-duke"
+        ]
     },
     "NBCSportsStreamIE": {
         "adult": false,
@@ -3894,10 +3898,10 @@
     "NDRIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.ndr.de/fernsehen/Party-Poette-und-Parade,hafengeburtstag988.html\": dial tcp: lookup www.ndr.de on 74.206.188.88:53: read udp 74.206.165.158:60341->74.206.188.88:53: i/o timeout> (caused by URLError)",
             "DownloadError: ERROR: Unable to extract embed URL"
         ],
         "success_urls": [
+            "http://www.ndr.de/fernsehen/Party-Poette-und-Parade,hafengeburtstag988.html",
             "https://www.ndr.de/fernsehen/sendungen/extra_3/extra-3-Satiremagazin-mit-Christian-Ehring,sendung1091858.html"
         ]
     },
@@ -3920,7 +3924,7 @@
     "NFLIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://www.nfl.com/videos/baker-mayfield-s-game-changing-plays-from-3-td-game-week-14\": dial tcp: lookup www.nfl.com on 74.206.188.87:53: read udp 74.206.165.158:60794->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://tkx2-stage.anvato.net/rest/v2/server_time?anvack=GXvEgwyJeWem8KCYXfeoHWknwP48Mboj\": x509: certificate is valid for tkx-prod-tlmd.anvato.net, not tkx2-stage.anvato.net> (caused by URLError)"
         ],
         "success_urls": [
             "https://www.chiefs.com/listen/patrick-mahomes-travis-kelce-react-to-win-over-dolphins-the-breakdown"
@@ -3929,9 +3933,9 @@
     "NHLIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://nhl.bamcontent.com/nhl/id/v1/278258934/details/web-v1.json\": x509: certificate has expired or is not yet valid: current time 2020-12-28T16:05:49-05:00 is after 2020-10-10T23:59:59Z> (caused by URLError)",
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://nhl.bamcontent.com/nhl/id/v1/43663503/details/web-v1.json\": x509: certificate has expired or is not yet valid: current time 2020-12-28T16:05:48-05:00 is after 2020-10-10T23:59:59Z> (caused by URLError)",
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://nhl.bamcontent.com/nhl/id/v1/44315003/details/web-v1.json\": x509: certificate has expired or is not yet valid: current time 2020-12-28T16:05:49-05:00 is after 2020-10-10T23:59:59Z> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://nhl.bamcontent.com/nhl/id/v1/278258934/details/web-v1.json\": x509: certificate has expired or is not yet valid: current time 2020-12-30T18:04:04-05:00 is after 2020-10-10T23:59:59Z> (caused by URLError)",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://nhl.bamcontent.com/nhl/id/v1/43663503/details/web-v1.json\": x509: certificate has expired or is not yet valid: current time 2020-12-30T18:04:04-05:00 is after 2020-10-10T23:59:59Z> (caused by URLError)",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://nhl.bamcontent.com/nhl/id/v1/44315003/details/web-v1.json\": x509: certificate has expired or is not yet valid: current time 2020-12-30T18:04:04-05:00 is after 2020-10-10T23:59:59Z> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -3969,7 +3973,7 @@
     "NPOLiveIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 410: Gone (caused by <HTTPError 410: 'Gone'>)"
+            "DownloadError: ERROR: This video is DRM protected."
         ],
         "success_urls": []
     },
@@ -4543,7 +4547,7 @@
     "OneUPIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://gamevideos.1up.com/video/id/34976.html\": dial tcp: lookup gamevideos.1up.com on 74.206.188.87:53: read udp 74.206.165.158:53458->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 400: Bad Request (caused by <HTTPError 400: 'Bad Request'>)"
         ],
         "success_urls": []
     },
@@ -4696,10 +4700,10 @@
     },
     "PeerTubeIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://framatube.org/api/v1/videos/9c9de5e8-0a1e-484a-b099-e80766180a6d/\": dial tcp [2a01:4f8:120:1497::148]:443: connect: network is unreachable> (caused by URLError)"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "https://framatube.org/videos/watch/9c9de5e8-0a1e-484a-b099-e80766180a6d"
+        ]
     },
     "PeopleIE": {
         "adult": false,
@@ -5010,7 +5014,6 @@
     "ProSiebenSat1IE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.prosieben.de/tv/circus-halligalli/videos/218-staffel-2-episode-18-jahresrueckblick-ganze-folge\": dial tcp: lookup www.prosieben.de on 74.206.188.87:53: read udp 74.206.165.158:46381->74.206.188.87:53: i/o timeout> (caused by URLError)",
             "TypeError: 'placeholder hashlib/sha1' object is not callable"
         ],
         "success_urls": []
@@ -5067,7 +5070,7 @@
     "QQMusicSingerIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://y.qq.com/n/yqq/singer/001BLpXF2DyJe2.html\": dial tcp: lookup y.qq.com on 74.206.188.87:53: read udp 74.206.165.158:60472->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
@@ -5121,7 +5124,7 @@
     "RBMARadioIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://www.rbmaradio.com/shows/main-stage/episodes/ford-lopatin-live-at-primavera-sound-2011\": dial tcp: lookup www.rbmaradio.com on 74.206.188.88:53: read udp 74.206.165.158:39146->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://www.rbmaradio.com/shows/main-stage/episodes/ford-lopatin-live-at-primavera-sound-2011\": dial tcp: lookup www.rbmaradio.com on 74.206.188.88:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -5161,7 +5164,7 @@
     "RTBFIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://www.rtbf.be/auvio/embed/media?id=1921274\": dial tcp [2a04:4e42:1::319]:443: connect: network is unreachable> (caused by URLError)"
+            "DownloadError: ERROR: Unable to extract media data"
         ],
         "success_urls": []
     },
@@ -5299,7 +5302,7 @@
     "RadioFranceIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://maison.radiofrance.fr/radiovisions/one-one\": dial tcp: lookup maison.radiofrance.fr on 74.206.188.88:53: read udp 74.206.165.158:52437->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
         ],
         "success_urls": []
     },
@@ -5313,6 +5316,7 @@
     "RaiIE": {
         "adult": false,
         "error_msgs": [
+            "DownloadError: ERROR: No video formats found",
             "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
@@ -5378,11 +5382,11 @@
         "success_urls": []
     },
     "RedTubeIE": {
-        "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Video 66418 is private"
-        ],
-        "success_urls": []
+        "adult": true,
+        "error_msgs": [],
+        "success_urls": [
+            "https://www.redtube.com/36345091"
+        ]
     },
     "RedditIE": {
         "adult": false,
@@ -5436,7 +5440,7 @@
     "RockstarGamesIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://www.rockstargames.com/videoplayer/videos/get-video.json?id=11544&locale=en_us\": dial tcp: lookup www.rockstargames.com on 74.206.188.88:53: read udp 74.206.165.158:36654->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
         ],
         "success_urls": []
     },
@@ -5485,7 +5489,6 @@
     "RtlNlIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: No video formats found",
             "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
@@ -6051,11 +6054,11 @@
         "success_urls": []
     },
     "SpankBangIE": {
-        "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Video 3vvn is not available"
-        ],
-        "success_urls": []
+        "adult": true,
+        "error_msgs": [],
+        "success_urls": [
+            "https://spankbang.com/4ni6p/video/your+xmas+wish"
+        ]
     },
     "SpankBangPlaylistIE": {
         "adult": false,
@@ -6137,10 +6140,10 @@
     },
     "StanfordOpenClassroomIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download XML: <urlopen error Get \"http://openclassroom.stanford.edu/MainFolder/courses/PracticalUnix/videos/intro-environment.xml\": dial tcp: lookup openclassroom.stanford.edu on 74.206.188.87:53: read udp 74.206.165.158:40610->74.206.188.87:53: i/o timeout> (caused by URLError)"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "http://openclassroom.stanford.edu/MainFolder/VideoPage.php?course=PracticalUnix&video=intro-environment&speed=100"
+        ]
     },
     "SteamIE": {
         "adult": false,
@@ -6201,10 +6204,10 @@
     },
     "SverigesRadioEpisodeIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://sverigesradio.se/sida/playerajax/audiometadata?id=1140922&type=episode\": dial tcp [2001:67c:d8:e400::8c]:443: connect: network is unreachable> (caused by URLError)"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "https://sverigesradio.se/avsnitt/1140922?programid=1300"
+        ]
     },
     "SverigesRadioPublicationIE": {
         "adult": false,
@@ -6336,7 +6339,7 @@
     "TV2IE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://sumo.tv2.no/api/web/asset/916509/play.json?protocol=HDS&videoFormat=SMIL+ISMUSP\": dial tcp: lookup sumo.tv2.no on 74.206.188.87:53: read udp 74.206.165.158:41426->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -6433,10 +6436,8 @@
     "TVNetIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://de.tvnet.gov.vn/video/109788/vtv1---bac-tuyet-tai-lao-cai-va-ha-giang/tin-nong-24h\": dial tcp: lookup de.tvnet.gov.vn on 74.206.188.87:53: read udp 74.206.165.158:52568->74.206.188.87:53: i/o timeout> (caused by URLError)",
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://us.tvnet.gov.vn/kenh-truyen-hinh/1011/vtv1\": dial tcp: lookup us.tvnet.gov.vn on 74.206.188.87:53: read udp 74.206.165.158:40728->74.206.188.87:53: i/o timeout> (caused by URLError)",
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://us.tvnet.gov.vn/video/118023/129999/ngay-0705\": dial tcp: lookup us.tvnet.gov.vn on 74.206.188.87:53: read udp 74.206.165.158:56972->74.206.188.87:53: i/o timeout> (caused by URLError)",
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://vn.tvnet.gov.vn/radio/27017/vov1---ban-tin-chieu-10062018/doi-song-va-xa-hoi\": dial tcp: lookup vn.tvnet.gov.vn on 74.206.188.88:53: read udp 74.206.165.158:52139->74.206.188.88:53: i/o timeout> (caused by URLError)",
+            "DownloadError: ERROR: No video formats found",
+            "DownloadError: ERROR: Unable to extract data file",
             "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
@@ -6507,7 +6508,7 @@
     "TVPlayHomeIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://tvplay.tv3.lt/sb/public/asset/10047125\": dial tcp: lookup tvplay.tv3.lt on 74.206.188.88:53: read udp 74.206.165.158:58314->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Failed to download m3u8 information: HTTP Error 403: Forbidden (caused by <HTTPError 403: 'Forbidden'>)"
         ],
         "success_urls": []
     },
@@ -6518,7 +6519,9 @@
             "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 500: Internal Server Error (caused by <HTTPError 500: 'Internal Server Error'>)",
             "DownloadError: ERROR: requested format not available"
         ],
-        "success_urls": []
+        "success_urls": [
+            "http://play.novatv.bg/programi/zdravei-bulgariya/624952?autostart=true"
+        ]
     },
     "TVPlayerIE": {
         "adult": false,
@@ -6722,7 +6725,7 @@
     "TenPlayIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: requested format not available"
+            "DownloadError: ERROR: This video is not available from your location due to geo restriction\nThis video is available in Australia.\nYou might want to use a VPN or a proxy server (with --proxy) to workaround."
         ],
         "success_urls": []
     },
@@ -6764,7 +6767,7 @@
     "TheSceneIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://thescene.com/watch/vogue/narciso-rodriguez-spring-2013-ready-to-wear\": dial tcp: lookup thescene.com on 74.206.188.87:53: read udp 74.206.165.158:37576->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to extract player url"
         ],
         "success_urls": []
     },
@@ -6813,8 +6816,7 @@
     "ThreeQSDNIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: No video formats found",
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://playout.3qsdn.com/0280d6b9-1215-11e6-b427-0cc47a188158?js=true\": dial tcp: lookup playout.3qsdn.com on 74.206.188.88:53: read udp 74.206.165.158:52410->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: No video formats found"
         ],
         "success_urls": []
     },
@@ -6973,14 +6975,14 @@
     "TunePkIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to extract tune player"
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 400: Bad Request (caused by <HTTPError 400: 'Bad Request'>)"
         ],
         "success_urls": []
     },
     "TurboIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.turbo.fr/videos-voiture/454443-turbo-du-07-09-2014-renault-twingo-3-bentley-continental-gt-speed-ces-guide-achat-dacia.html\": dial tcp: lookup www.turbo.fr on 74.206.188.88:53: read udp 74.206.165.158:57225->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.turbo.fr/videos-voiture/454443-turbo-du-07-09-2014-renault-twingo-3-bentley-continental-gt-speed-ces-guide-achat-dacia.html\": dial tcp: lookup www.turbo.fr on 74.206.188.87:53: read udp 74.206.165.158:52402->74.206.188.87:53: i/o timeout> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -6992,7 +6994,7 @@
     "TweakersIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://tweakers.net/video/s1playlist/9926/1920/1080/playlist.json\": dial tcp [2001:9a8:0:e:1337:0:80:2]:443: connect: network is unreachable> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
         ],
         "success_urls": []
     },
@@ -7070,16 +7072,16 @@
     "TwitchVodIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: requested format not available"
+            "DownloadError: ERROR: Failed to download m3u8 information: <urlopen error Get \"https://usher.ttvnw.net/vod/6528877.m3u8?allow_audio_only=true&allow_source=true&allow_spectre=true&nauth=%7B%22authorization%22%3A%7B%22forbidden%22%3Afalse%2C%22reason%22%3A%22%22%7D%2C%22chansub%22%3A%7B%22restricted_bitrates%22%3A%5B%5D%7D%2C%22device_id%22%3Anull%2C%22expires%22%3A1609442912%2C%22https_required%22%3Afalse%2C%22privileged%22%3Afalse%2C%22user_id%22%3Anull%2C%22version%22%3A2%2C%22vod_id%22%3A6528877%7D&nauthsig=b03efd0b4dbeab4a8966776a57170035e648d216&player=twitchweb&playlist_include_framerate=true\": dial tcp 23.160.0.254:443: i/o timeout> (caused by URLError)"
         ],
         "success_urls": []
     },
     "TwitterAmplifyIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download XML: <urlopen error Get \"https://video.twimg.com/amplify_video/vmap/733058330206298113.vmap\": dial tcp: lookup video.twimg.com on 74.206.188.87:53: read udp 74.206.165.158:54408->74.206.188.87:53: i/o timeout> (caused by URLError)"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "https://amp.twimg.com/v/0ba0c3c7-0af3-4c0a-bed5-7efd1ffa2951"
+        ]
     },
     "TwitterBroadcastIE": {
         "adult": false,
@@ -7105,10 +7107,10 @@
     },
     "UDNEmbedIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://video.udn.com/embed/news/300040\": dial tcp: lookup video.udn.com on 74.206.188.88:53: read udp 74.206.165.158:39067->74.206.188.88:53: i/o timeout> (caused by URLError)"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "http://video.udn.com/embed/news/300040"
+        ]
     },
     "UFCArabiaIE": {
         "adult": false,
@@ -7134,7 +7136,7 @@
     "UMGDeIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://api.universal-music.de/graphql?query=%7B%0A++universalMusic%28channel%3A16%29+%7B%0A++++video%28id%3A457803%29+%7B%0A++++++headline%0A++++++formats+%7B%0A++++++++formatId%0A++++++++url%0A++++++++type%0A++++++++width%0A++++++++height%0A++++++++mimeType%0A++++++++fileSize%0A++++++%7D%0A++++++duration%0A++++++createdDate%0A++++%7D%0A++%7D%0A%7D\": dial tcp: lookup api.universal-music.de on 74.206.188.88:53: read udp 74.206.165.158:33763->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://api.universal-music.de/graphql?query=%7B%0A++universalMusic%28channel%3A16%29+%7B%0A++++video%28id%3A457803%29+%7B%0A++++++headline%0A++++++formats+%7B%0A++++++++formatId%0A++++++++url%0A++++++++type%0A++++++++width%0A++++++++height%0A++++++++mimeType%0A++++++++fileSize%0A++++++%7D%0A++++++duration%0A++++++createdDate%0A++++%7D%0A++%7D%0A%7D\": dial tcp: lookup api.universal-music.de on 74.206.188.88:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -7179,11 +7181,10 @@
     },
     "UnistraIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://utv.unistra.fr/video.php?id_video=154\": dial tcp: lookup utv.unistra.fr on 74.206.188.87:53: read udp 74.206.165.158:38992->74.206.188.87:53: i/o timeout> (caused by URLError)"
-        ],
+        "error_msgs": [],
         "success_urls": [
-            "http://utv.unistra.fr/index.php?id_video=437"
+            "http://utv.unistra.fr/index.php?id_video=437",
+            "http://utv.unistra.fr/video.php?id_video=154"
         ]
     },
     "UnityIE": {
@@ -7333,7 +7334,6 @@
     "VPROIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.vpro.nl/programmas/2doc/2015/sergio-herman.html\": dial tcp: lookup www.vpro.nl on 74.206.188.87:53: read udp 74.206.165.158:45407->74.206.188.87:53: i/o timeout> (caused by URLError)",
             "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)",
             "Exception: Playlists and multi video results are not supported!"
         ],
@@ -7364,7 +7364,7 @@
     "VShareIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://vshare.io/v/0f64ce6/width-650/height-430/1\": dial tcp: lookup vshare.io on 74.206.188.88:53: read udp 74.206.165.158:47105->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://vshare.io/v/0f64ce6/width-650/height-430/1\": dial tcp: lookup vshare.io on 74.206.188.88:53: server misbehaving> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -7376,6 +7376,13 @@
         "success_urls": []
     },
     "VVVVIDIE": {
+        "adult": false,
+        "error_msgs": [
+            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 403: Forbidden (caused by <HTTPError 403: 'Forbidden'>)"
+        ],
+        "success_urls": []
+    },
+    "VVVVIDShowIE": {
         "adult": false,
         "error_msgs": [
             "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 403: Forbidden (caused by <HTTPError 403: 'Forbidden'>)"
@@ -7541,7 +7548,7 @@
     "VideomoreVideoIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: requested format not available"
+            "DownloadError: ERROR: This video is not available from your location due to geo restriction\nThis video is available in Russian Federation.\nYou might want to use a VPN or a proxy server (with --proxy) to workaround."
         ],
         "success_urls": []
     },
@@ -7587,7 +7594,7 @@
     "VidziIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://1686.wcitianka.com/match-1686/48611/177934093/1609191229/mf_b13ec5b6-bb2b-42d7-9725-184b4a46f4d0/YXBpeDM0LXZpZHppLnR2/feed\": dial tcp: lookup 1686.wcitianka.com on 74.206.188.88:53: read udp 74.206.165.158:56571->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to extract title"
         ],
         "success_urls": []
     },
@@ -7669,11 +7676,11 @@
         "adult": false,
         "error_msgs": [
             "DownloadError: ERROR: This video is protected by a password, use the --video-password option",
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)",
-            "DownloadError: ERROR: Unable to extract info section (caused by ExtractorError('Unable to download JSON metadata: HTTP Error 503: Service Unavailable (caused by <HTTPError 503: \\'Service Unavailable\\'>)'))"
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
         ],
         "success_urls": [
             "http://player.vimeo.com/video/54469442",
+            "http://vimeo.com/56015672#at=0",
             "http://vimeo.com/76979871",
             "http://vimeo.com/channels/keypeele/75629013",
             "http://vimeopro.com/openstreetmapus/state-of-the-map-us-2013/video/68093876",
@@ -7770,7 +7777,7 @@
     "VodlockerIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.vodlocker.com/e8wvyzz4sl42?from=@\": dial tcp: lookup www.vodlocker.com on 74.206.188.88:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.vodlocker.com/e8wvyzz4sl42?from=@\": dial tcp: lookup www.vodlocker.com on 74.206.188.87:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -7895,7 +7902,7 @@
     "WWEIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Failed to download m3u8 information: HTTP Error 500: Internal Server Error (caused by <HTTPError 500: 'Internal Server Error'>)"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -7983,10 +7990,10 @@
     },
     "WeiboIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://passport.weibo.com/visitor/visitor?entry=miniblog&a=enter&url=https%3A%2F%2Fweibo.com%2F6275294458%2FFp6RGfbff%3Ftype%3Dcomment&domain=.weibo.com&ua=php-sso_sdk_client-0.6.36&_rand=1609191455.5143\": dial tcp 58.63.236.212:443: i/o timeout> (caused by URLError)"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "https://weibo.com/6275294458/Fp6RGfbff?type=comment"
+        ]
     },
     "WeiboMobileIE": {
         "adult": false,
@@ -8026,7 +8033,7 @@
     "XBefIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download XML: <urlopen error parse \"\\r\\n\\r\\n<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Transitional//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\\">\\r\\n\\r\\n<html xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\r\\n<head><title>\\r\\n\\r\\n</title>\\r\\n    </head>\\r\\n<body>\\r\\n    <form method=\\\"post\\\" action=\\\"../../pages/WhoisSuspended.aspx\\\" id=\\\"form1\\\">\\r\\n<div class=\\\"aspNetHidden\\\">\\r\\n<input type=\\\"hidden\\\" name=\\\"__VIEWSTATE\\\" id=\\\"__VIEWSTATE\\\" value=\\\"Ko+dg0UFkz8jt4yJgzad0f9ou4ob249ZfezEDl7gJVCzOcc2xWiQ/AZKKtFAmm9V3pYJLTbrMdsOCi3dDRjDYfshJykV1D3NuNOgtZKJPGH0QFUmDYStU4Cq+AaIYvOeXmHyrKwUrvJtt9jdhaAIVA==\\\" />\\r\\n</div>\\r\\n\\r\\n<div class=\\\"aspNetHidden\\\">\\r\\n\\r\\n\\t<input type=\\\"hidden\\\" name=\\\"__VIEWSTATEGENERATOR\\\" id=\\\"__VIEWSTATEGENERATOR\\\" value=\\\"E99D4DB9\\\" />\\r\\n</div>\\r\\n    <div>\\r\\n        \\r\\n\\r\\n    \\r\\n<style type=\\\"text/css\\\">\\r\\n    body {background-color:\": net/url: invalid control character in URL> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download XML: <urlopen error parse \"\\r\\n\\r\\n<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Transitional//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\\">\\r\\n\\r\\n<html xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\r\\n<head><title>\\r\\n\\r\\n</title>\\r\\n    </head>\\r\\n<body>\\r\\n    <form method=\\\"post\\\" action=\\\"../../pages/WhoisSuspended.aspx\\\" id=\\\"form1\\\">\\r\\n<div class=\\\"aspNetHidden\\\">\\r\\n<input type=\\\"hidden\\\" name=\\\"__VIEWSTATE\\\" id=\\\"__VIEWSTATE\\\" value=\\\"JKSiUs+4T58qe4NCM01dOEG9FutxxWE4iMP6hFds/OR88JZRnxTHpwBldQyWFzXIValQ0v15gpCbXNFhEU5aNYPC7MZBkCJXbzFTLyaF4TwM7TFRq8RHKYWk+TU05KcmKDMOhzkuYtRfH4kath4soQ==\\\" />\\r\\n</div>\\r\\n\\r\\n<div class=\\\"aspNetHidden\\\">\\r\\n\\r\\n\\t<input type=\\\"hidden\\\" name=\\\"__VIEWSTATEGENERATOR\\\" id=\\\"__VIEWSTATEGENERATOR\\\" value=\\\"E99D4DB9\\\" />\\r\\n</div>\\r\\n    <div>\\r\\n        \\r\\n\\r\\n    \\r\\n<style type=\\\"text/css\\\">\\r\\n    body {background-color:\": net/url: invalid control character in URL> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -8155,11 +8162,10 @@
     },
     "XuiteIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://vlog.xuite.net/play/RGkzc1ZULTM4NjA5MTQuZmx2\": dial tcp [2001:b000:1c9:7600:0:a:d23d:381f]:80: connect: network is unreachable> (caused by URLError)"
-        ],
+        "error_msgs": [],
         "success_urls": [
             "http://vlog.xuite.net/embed/cE1xbENoLTI3NDQ3MzM2LmZsdg==?ar=0&as=0",
+            "http://vlog.xuite.net/play/RGkzc1ZULTM4NjA5MTQuZmx2",
             "http://vlog.xuite.net/play/WUxxR2xCLTI1OTI1MDk5LmZsdg=="
         ]
     },
@@ -8201,7 +8207,7 @@
     "YandexDiskIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -8244,7 +8250,7 @@
     "YandexVideoIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 404: Not found (caused by <HTTPError 404: 'Not found'>)"
+            "TypeError: unsupported operand type(s) for %: 'bytes' and 'bytes'"
         ],
         "success_urls": []
     },
@@ -8258,14 +8264,14 @@
     "YesJapanIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to extract OpenGraph title"
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
         ],
         "success_urls": []
     },
     "YinYueTaiIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://ext.yinyuetai.com/main/get-h-mv-info?json=true&videoId=2322376\": dial tcp 124.238.251.16:80: connect: no route to host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://ext.yinyuetai.com/main/get-h-mv-info?json=true&videoId=2322376\": dial tcp: lookup ext.yinyuetai.com on 74.206.188.87:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -8298,7 +8304,7 @@
     "YouNowMomentIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://cdn.younow.com/php/api/moment/fetch/id=20712117\": dial tcp: lookup cdn.younow.com on 74.206.188.87:53: read udp 74.206.165.158:37425->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'item\\''))"
         ],
         "success_urls": []
     },
@@ -8458,7 +8464,7 @@
     "ZapiksIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.zapiks.fr/ep2s3-bon-appetit-eh-be-viva.html\": dial tcp: lookup www.zapiks.fr on 74.206.188.88:53: read udp 74.206.165.158:41379->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.zapiks.fr/ep2s3-bon-appetit-eh-be-viva.html\": dial tcp: lookup www.zapiks.fr on 74.206.188.88:53: read udp 74.206.165.158:59322->74.206.188.88:53: i/o timeout> (caused by URLError)"
         ],
         "success_urls": []
     },

@@ -388,8 +388,10 @@ func init() {
 						ϒis_live         λ.Object
 						ϒjson_data       = λargs[1]
 						ϒlang            λ.Object
+						ϒnum_drm_sources λ.Object
 						ϒself            = λargs[0]
 						ϒsource          λ.Object
+						ϒsources         λ.Object
 						ϒsrc             λ.Object
 						ϒstream_name     λ.Object
 						ϒstreaming_src   λ.Object
@@ -405,8 +407,16 @@ func init() {
 						τmp2             λ.Object
 					)
 					ϒtitle = λ.Calm(λ.GetItem(ϒjson_data, λ.StrLiteral("name")), "strip")
+					ϒnum_drm_sources = λ.IntLiteral(0)
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒjson_data, "get", λ.StrLiteral("sources"), λ.NewList()))
+					ϒsources = func() λ.Object {
+						if λv := λ.Calm(ϒjson_data, "get", λ.StrLiteral("sources")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewList()
+						}
+					}()
+					τmp0 = λ.Cal(λ.BuiltinIter, ϒsources)
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
@@ -416,188 +426,199 @@ func init() {
 						ϒext = λ.Cal(ϒmimetype2ext, λ.Calm(ϒsource, "get", λ.StrLiteral("type")))
 						ϒsrc = λ.Calm(ϒsource, "get", λ.StrLiteral("src"))
 						if λ.IsTrue(func() λ.Object {
-							if λv := λ.Eq(ϒext, λ.StrLiteral("ism")); λ.IsTrue(λv) {
-								return λv
-							} else if λv := λ.Eq(ϒcontainer, λ.StrLiteral("WVM")); λ.IsTrue(λv) {
+							if λv := λ.Eq(ϒcontainer, λ.StrLiteral("WVM")); λ.IsTrue(λv) {
 								return λv
 							} else {
 								return λ.Calm(ϒsource, "get", λ.StrLiteral("key_systems"))
 							}
 						}()) {
+							τmp2 = λ.IAdd(ϒnum_drm_sources, λ.IntLiteral(1))
+							ϒnum_drm_sources = τmp2
 							continue
 						} else {
-							if λ.IsTrue(func() λ.Object {
-								if λv := λ.Eq(ϒext, λ.StrLiteral("m3u8")); λ.IsTrue(λv) {
-									return λv
-								} else {
-									return λ.Eq(ϒcontainer, λ.StrLiteral("M2TS"))
-								}
-							}()) {
-								if !λ.IsTrue(ϒsrc) {
-									continue
-								}
-								λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
-									ϒsrc,
-									ϒvideo_id,
-									λ.StrLiteral("mp4"),
-									λ.StrLiteral("m3u8_native"),
-								), λ.KWArgs{
-									{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
-									{Name: "fatal", Value: λ.False},
-								}))
+							if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("ism"))) {
+								continue
 							} else {
-								if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("mpd"))) {
+								if λ.IsTrue(func() λ.Object {
+									if λv := λ.Eq(ϒext, λ.StrLiteral("m3u8")); λ.IsTrue(λv) {
+										return λv
+									} else {
+										return λ.Eq(ϒcontainer, λ.StrLiteral("M2TS"))
+									}
+								}()) {
 									if !λ.IsTrue(ϒsrc) {
 										continue
 									}
-									λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_mpd_formats", nil), λ.NewArgs(
+									λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
 										ϒsrc,
 										ϒvideo_id,
-										λ.StrLiteral("dash"),
+										λ.StrLiteral("mp4"),
+										λ.StrLiteral("m3u8_native"),
 									), λ.KWArgs{
+										{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
 										{Name: "fatal", Value: λ.False},
 									}))
 								} else {
-									ϒstreaming_src = λ.Calm(ϒsource, "get", λ.StrLiteral("streaming_src"))
-									τmp2 = λ.NewTuple(
-										λ.Calm(ϒsource, "get", λ.StrLiteral("stream_name")),
-										λ.Calm(ϒsource, "get", λ.StrLiteral("app_name")),
-									)
-									ϒstream_name = λ.GetItem(τmp2, λ.IntLiteral(0))
-									ϒapp_name = λ.GetItem(τmp2, λ.IntLiteral(1))
-									if λ.IsTrue(func() λ.Object {
-										if λv := λ.NewBool(!λ.IsTrue(ϒsrc)); !λ.IsTrue(λv) {
-											return λv
-										} else if λv := λ.NewBool(!λ.IsTrue(ϒstreaming_src)); !λ.IsTrue(λv) {
-											return λv
-										} else {
-											return func() λ.Object {
-												if λv := λ.NewBool(!λ.IsTrue(ϒstream_name)); λ.IsTrue(λv) {
-													return λv
-												} else {
-													return λ.NewBool(!λ.IsTrue(ϒapp_name))
-												}
-											}()
+									if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("mpd"))) {
+										if !λ.IsTrue(ϒsrc) {
+											continue
 										}
-									}()) {
-										continue
-									}
-									ϒtbr = λ.Cal(ϒfloat_or_none, λ.Calm(ϒsource, "get", λ.StrLiteral("avg_bitrate")), λ.IntLiteral(1000))
-									ϒheight = λ.Cal(ϒint_or_none, λ.Calm(ϒsource, "get", λ.StrLiteral("height")))
-									ϒwidth = λ.Cal(ϒint_or_none, λ.Calm(ϒsource, "get", λ.StrLiteral("width")))
-									ϒf = λ.DictLiteral(map[string]λ.Object{
-										"tbr":       ϒtbr,
-										"filesize":  λ.Cal(ϒint_or_none, λ.Calm(ϒsource, "get", λ.StrLiteral("size"))),
-										"container": ϒcontainer,
-										"ext": func() λ.Object {
-											if λv := ϒext; λ.IsTrue(λv) {
+										λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_mpd_formats", nil), λ.NewArgs(
+											ϒsrc,
+											ϒvideo_id,
+											λ.StrLiteral("dash"),
+										), λ.KWArgs{
+											{Name: "fatal", Value: λ.False},
+										}))
+									} else {
+										ϒstreaming_src = λ.Calm(ϒsource, "get", λ.StrLiteral("streaming_src"))
+										τmp2 = λ.NewTuple(
+											λ.Calm(ϒsource, "get", λ.StrLiteral("stream_name")),
+											λ.Calm(ϒsource, "get", λ.StrLiteral("app_name")),
+										)
+										ϒstream_name = λ.GetItem(τmp2, λ.IntLiteral(0))
+										ϒapp_name = λ.GetItem(τmp2, λ.IntLiteral(1))
+										if λ.IsTrue(func() λ.Object {
+											if λv := λ.NewBool(!λ.IsTrue(ϒsrc)); !λ.IsTrue(λv) {
+												return λv
+											} else if λv := λ.NewBool(!λ.IsTrue(ϒstreaming_src)); !λ.IsTrue(λv) {
 												return λv
 											} else {
-												return λ.Calm(ϒcontainer, "lower")
+												return func() λ.Object {
+													if λv := λ.NewBool(!λ.IsTrue(ϒstream_name)); λ.IsTrue(λv) {
+														return λv
+													} else {
+														return λ.NewBool(!λ.IsTrue(ϒapp_name))
+													}
+												}()
 											}
-										}(),
-									})
-									if λ.IsTrue(func() λ.Object {
-										if λv := λ.Eq(ϒwidth, λ.IntLiteral(0)); !λ.IsTrue(λv) {
-											return λv
-										} else {
-											return λ.Eq(ϒheight, λ.IntLiteral(0))
+										}()) {
+											continue
 										}
-									}()) {
-										λ.Calm(ϒf, "update", λ.DictLiteral(map[string]string{
-											"vcodec": "none",
-										}))
-									} else {
-										λ.Calm(ϒf, "update", λ.DictLiteral(map[string]λ.Object{
-											"width":  ϒwidth,
-											"height": ϒheight,
-											"vcodec": λ.Calm(ϒsource, "get", λ.StrLiteral("codec")),
-										}))
-									}
-									ϒbuild_format_id = λ.NewFunction("build_format_id",
-										[]λ.Param{
-											{Name: "kind"},
-										},
-										0, false, false,
-										func(λargs []λ.Object) λ.Object {
-											var (
-												ϒformat_id λ.Object
-												ϒkind      = λargs[0]
-												τmp0       λ.Object
-											)
-											ϒformat_id = ϒkind
-											if λ.IsTrue(ϒtbr) {
-												τmp0 = λ.IAdd(ϒformat_id, λ.Mod(λ.StrLiteral("-%dk"), λ.Cal(λ.IntType, ϒtbr)))
-												ϒformat_id = τmp0
-											}
-											if λ.IsTrue(ϒheight) {
-												τmp0 = λ.IAdd(ϒformat_id, λ.Mod(λ.StrLiteral("-%dp"), ϒheight))
-												ϒformat_id = τmp0
-											}
-											return ϒformat_id
-										})
-									if λ.IsTrue(func() λ.Object {
-										if λv := ϒsrc; λ.IsTrue(λv) {
-											return λv
-										} else {
-											return ϒstreaming_src
-										}
-									}()) {
-										λ.Calm(ϒf, "update", λ.DictLiteral(map[string]λ.Object{
-											"url": func() λ.Object {
-												if λv := ϒsrc; λ.IsTrue(λv) {
+										ϒtbr = λ.Cal(ϒfloat_or_none, λ.Calm(ϒsource, "get", λ.StrLiteral("avg_bitrate")), λ.IntLiteral(1000))
+										ϒheight = λ.Cal(ϒint_or_none, λ.Calm(ϒsource, "get", λ.StrLiteral("height")))
+										ϒwidth = λ.Cal(ϒint_or_none, λ.Calm(ϒsource, "get", λ.StrLiteral("width")))
+										ϒf = λ.DictLiteral(map[string]λ.Object{
+											"tbr":       ϒtbr,
+											"filesize":  λ.Cal(ϒint_or_none, λ.Calm(ϒsource, "get", λ.StrLiteral("size"))),
+											"container": ϒcontainer,
+											"ext": func() λ.Object {
+												if λv := ϒext; λ.IsTrue(λv) {
 													return λv
 												} else {
-													return ϒstreaming_src
+													return λ.Calm(ϒcontainer, "lower")
 												}
 											}(),
-											"format_id": λ.Cal(ϒbuild_format_id, func() λ.Object {
-												if λ.IsTrue(ϒsrc) {
-													return λ.StrLiteral("http")
-												} else {
-													return λ.StrLiteral("http-streaming")
+										})
+										if λ.IsTrue(func() λ.Object {
+											if λv := λ.Eq(ϒwidth, λ.IntLiteral(0)); !λ.IsTrue(λv) {
+												return λv
+											} else {
+												return λ.Eq(ϒheight, λ.IntLiteral(0))
+											}
+										}()) {
+											λ.Calm(ϒf, "update", λ.DictLiteral(map[string]string{
+												"vcodec": "none",
+											}))
+										} else {
+											λ.Calm(ϒf, "update", λ.DictLiteral(map[string]λ.Object{
+												"width":  ϒwidth,
+												"height": ϒheight,
+												"vcodec": λ.Calm(ϒsource, "get", λ.StrLiteral("codec")),
+											}))
+										}
+										ϒbuild_format_id = λ.NewFunction("build_format_id",
+											[]λ.Param{
+												{Name: "kind"},
+											},
+											0, false, false,
+											func(λargs []λ.Object) λ.Object {
+												var (
+													ϒformat_id λ.Object
+													ϒkind      = λargs[0]
+													τmp0       λ.Object
+												)
+												ϒformat_id = ϒkind
+												if λ.IsTrue(ϒtbr) {
+													τmp0 = λ.IAdd(ϒformat_id, λ.Mod(λ.StrLiteral("-%dk"), λ.Cal(λ.IntType, ϒtbr)))
+													ϒformat_id = τmp0
 												}
-											}()),
-											"source_preference": func() λ.Object {
-												if λ.IsTrue(ϒsrc) {
-													return λ.IntLiteral(0)
-												} else {
-													return λ.Neg(λ.IntLiteral(1))
+												if λ.IsTrue(ϒheight) {
+													τmp0 = λ.IAdd(ϒformat_id, λ.Mod(λ.StrLiteral("-%dp"), ϒheight))
+													ϒformat_id = τmp0
 												}
-											}(),
-										}))
-									} else {
-										λ.Calm(ϒf, "update", λ.DictLiteral(map[string]λ.Object{
-											"url":       ϒapp_name,
-											"play_path": ϒstream_name,
-											"format_id": λ.Cal(ϒbuild_format_id, λ.StrLiteral("rtmp")),
-										}))
+												return ϒformat_id
+											})
+										if λ.IsTrue(func() λ.Object {
+											if λv := ϒsrc; λ.IsTrue(λv) {
+												return λv
+											} else {
+												return ϒstreaming_src
+											}
+										}()) {
+											λ.Calm(ϒf, "update", λ.DictLiteral(map[string]λ.Object{
+												"url": func() λ.Object {
+													if λv := ϒsrc; λ.IsTrue(λv) {
+														return λv
+													} else {
+														return ϒstreaming_src
+													}
+												}(),
+												"format_id": λ.Cal(ϒbuild_format_id, func() λ.Object {
+													if λ.IsTrue(ϒsrc) {
+														return λ.StrLiteral("http")
+													} else {
+														return λ.StrLiteral("http-streaming")
+													}
+												}()),
+												"source_preference": func() λ.Object {
+													if λ.IsTrue(ϒsrc) {
+														return λ.IntLiteral(0)
+													} else {
+														return λ.Neg(λ.IntLiteral(1))
+													}
+												}(),
+											}))
+										} else {
+											λ.Calm(ϒf, "update", λ.DictLiteral(map[string]λ.Object{
+												"url":       ϒapp_name,
+												"play_path": ϒstream_name,
+												"format_id": λ.Cal(ϒbuild_format_id, λ.StrLiteral("rtmp")),
+											}))
+										}
+										λ.Calm(ϒformats, "append", ϒf)
 									}
-									λ.Calm(ϒformats, "append", ϒf)
 								}
 							}
 						}
 					}
-					ϒerrors = λ.Calm(ϒjson_data, "get", λ.StrLiteral("errors"))
-					if λ.IsTrue(func() λ.Object {
-						if λv := λ.NewBool(!λ.IsTrue(ϒformats)); !λ.IsTrue(λv) {
-							return λv
-						} else {
-							return ϒerrors
+					if !λ.IsTrue(ϒformats) {
+						ϒerrors = λ.Calm(ϒjson_data, "get", λ.StrLiteral("errors"))
+						if λ.IsTrue(ϒerrors) {
+							ϒerror = λ.GetItem(ϒerrors, λ.IntLiteral(0))
+							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(func() λ.Object {
+								if λv := λ.Calm(ϒerror, "get", λ.StrLiteral("message")); λ.IsTrue(λv) {
+									return λv
+								} else if λv := λ.Calm(ϒerror, "get", λ.StrLiteral("error_subcode")); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.GetItem(ϒerror, λ.StrLiteral("error_code"))
+								}
+							}()), λ.KWArgs{
+								{Name: "expected", Value: λ.True},
+							})))
 						}
-					}()) {
-						ϒerror = λ.GetItem(ϒerrors, λ.IntLiteral(0))
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(func() λ.Object {
-							if λv := λ.Calm(ϒerror, "get", λ.StrLiteral("message")); λ.IsTrue(λv) {
-								return λv
-							} else if λv := λ.Calm(ϒerror, "get", λ.StrLiteral("error_subcode")); λ.IsTrue(λv) {
+						if λ.IsTrue(func() λ.Object {
+							if λv := ϒsources; !λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.GetItem(ϒerror, λ.StrLiteral("error_code"))
+								return λ.Eq(ϒnum_drm_sources, λ.Cal(λ.BuiltinLen, ϒsources))
 							}
-						}()), λ.KWArgs{
-							{Name: "expected", Value: λ.True},
-						})))
+						}()) {
+							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("This video is DRM protected.")), λ.KWArgs{
+								{Name: "expected", Value: λ.True},
+							})))
+						}
 					}
 					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					τmp0 = λ.Cal(λ.BuiltinIter, ϒformats)
