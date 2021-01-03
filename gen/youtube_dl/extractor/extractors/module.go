@@ -118,7 +118,6 @@ import (
 	Ωgiantbomb "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/giantbomb"
 	Ωgodtube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/godtube"
 	Ωgolem "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/golem"
-	Ωgoogledrive "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/googledrive"
 	Ωgputechconf "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/gputechconf"
 	Ωhbo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/hbo"
 	Ωheise "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/heise"
@@ -170,6 +169,7 @@ import (
 	Ωnonktube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nonktube"
 	Ωnova "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nova"
 	Ωnowness "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nowness"
+	Ωnrk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nrk"
 	Ωntvru "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ntvru"
 	Ωodnoklassniki "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/odnoklassniki"
 	Ωonionstudios "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/onionstudios"
@@ -205,6 +205,7 @@ import (
 	Ωsenateisvp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/senateisvp"
 	Ωseznamzpravy "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/seznamzpravy"
 	Ωsina "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sina"
+	Ωsky "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sky"
 	Ωskyit "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/skyit"
 	Ωslideshare "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/slideshare"
 	Ωslideslive "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/slideslive"
@@ -214,6 +215,7 @@ import (
 	Ωspreaker "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/spreaker"
 	Ωsrgssr "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/srgssr"
 	Ωstanfordoc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/stanfordoc"
+	Ωstitcher "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/stitcher"
 	Ωstreamable "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/streamable"
 	Ωstretchinternet "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/stretchinternet"
 	Ωsunporno "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sunporno"
@@ -262,6 +264,7 @@ import (
 	Ωvk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vk"
 	Ωvlive "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vlive"
 	Ωvzaar "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vzaar"
+	Ωwashingtonpost "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/washingtonpost"
 	Ωweibo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/weibo"
 	Ωwistia "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/wistia"
 	Ωworldstarhiphop "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/worldstarhiphop"
@@ -385,7 +388,6 @@ var (
 	GiantBombIE                λ.Object
 	GodTubeIE                  λ.Object
 	GolemIE                    λ.Object
-	GoogleDriveIE              λ.Object
 	HBOIE                      λ.Object
 	HeiseIE                    λ.Object
 	HellPornoIE                λ.Object
@@ -432,6 +434,7 @@ var (
 	NDTVIE                     λ.Object
 	NFLIE                      λ.Object
 	NJoyEmbedIE                λ.Object
+	NRKRadioPodkastIE          λ.Object
 	NTVRuIE                    λ.Object
 	NationalGeographicVideoIE  λ.Object
 	NaverIE                    λ.Object
@@ -482,6 +485,8 @@ var (
 	SkyItArteIE                λ.Object
 	SkyItIE                    λ.Object
 	SkyItVideoIE               λ.Object
+	SkyNewsIE                  λ.Object
+	SkySportsIE                λ.Object
 	SlidesLiveIE               λ.Object
 	SlideshareIE               λ.Object
 	SoundgasmIE                λ.Object
@@ -489,6 +494,7 @@ var (
 	SpiegelIE                  λ.Object
 	SpreakerIE                 λ.Object
 	StanfordOpenClassroomIE    λ.Object
+	StitcherIE                 λ.Object
 	StreamableIE               λ.Object
 	StretchInternetIE          λ.Object
 	SunPornoIE                 λ.Object
@@ -546,7 +552,7 @@ var (
 	VzaarIE                    λ.Object
 	WSJArticleIE               λ.Object
 	WSJIE                      λ.Object
-	WeiboIE                    λ.Object
+	WashingtonPostIE           λ.Object
 	WeiboMobileIE              λ.Object
 	WistiaIE                   λ.Object
 	WorldStarHipHopIE          λ.Object
@@ -667,7 +673,6 @@ func init() {
 		GiantBombIE = Ωgiantbomb.GiantBombIE
 		GodTubeIE = Ωgodtube.GodTubeIE
 		GolemIE = Ωgolem.GolemIE
-		GoogleDriveIE = Ωgoogledrive.GoogleDriveIE
 		GPUTechConfIE = Ωgputechconf.GPUTechConfIE
 		HBOIE = Ωhbo.HBOIE
 		HeiseIE = Ωheise.HeiseIE
@@ -724,6 +729,7 @@ func init() {
 		NonkTubeIE = Ωnonktube.NonkTubeIE
 		NovaIE = Ωnova.NovaIE
 		NownessIE = Ωnowness.NownessIE
+		NRKRadioPodkastIE = Ωnrk.NRKRadioPodkastIE
 		NTVRuIE = Ωntvru.NTVRuIE
 		OdnoklassnikiIE = Ωodnoklassniki.OdnoklassnikiIE
 		OnionStudiosIE = Ωonionstudios.OnionStudiosIE
@@ -765,11 +771,14 @@ func init() {
 		SkyItArteIE = Ωskyit.SkyItArteIE
 		CieloTVItIE = Ωskyit.CieloTVItIE
 		TV8ItIE = Ωskyit.TV8ItIE
+		SkyNewsIE = Ωsky.SkyNewsIE
+		SkySportsIE = Ωsky.SkySportsIE
 		SlideshareIE = Ωslideshare.SlideshareIE
 		SlidesLiveIE = Ωslideslive.SlidesLiveIE
 		SoundgasmIE = Ωsoundgasm.SoundgasmIE
 		SpankBangIE = Ωspankbang.SpankBangIE
 		SpiegelIE = Ωspiegel.SpiegelIE
+		StitcherIE = Ωstitcher.StitcherIE
 		SpreakerIE = Ωspreaker.SpreakerIE
 		SRGSSRPlayIE = Ωsrgssr.SRGSSRPlayIE
 		StanfordOpenClassroomIE = Ωstanfordoc.StanfordOpenClassroomIE
@@ -830,7 +839,7 @@ func init() {
 		VKIE = Ωvk.VKIE
 		VLiveIE = Ωvlive.VLiveIE
 		VzaarIE = Ωvzaar.VzaarIE
-		WeiboIE = Ωweibo.WeiboIE
+		WashingtonPostIE = Ωwashingtonpost.WashingtonPostIE
 		WeiboMobileIE = Ωweibo.WeiboMobileIE
 		WistiaIE = Ωwistia.WistiaIE
 		WorldStarHipHopIE = Ωworldstarhiphop.WorldStarHipHopIE
@@ -949,7 +958,6 @@ func init() {
 			GiantBombIE,
 			GodTubeIE,
 			GolemIE,
-			GoogleDriveIE,
 			GPUTechConfIE,
 			HBOIE,
 			HeiseIE,
@@ -1006,6 +1014,7 @@ func init() {
 			NonkTubeIE,
 			NovaIE,
 			NownessIE,
+			NRKRadioPodkastIE,
 			NTVRuIE,
 			OdnoklassnikiIE,
 			OnionStudiosIE,
@@ -1047,11 +1056,14 @@ func init() {
 			SkyItArteIE,
 			CieloTVItIE,
 			TV8ItIE,
+			SkyNewsIE,
+			SkySportsIE,
 			SlideshareIE,
 			SlidesLiveIE,
 			SoundgasmIE,
 			SpankBangIE,
 			SpiegelIE,
+			StitcherIE,
 			SpreakerIE,
 			SRGSSRPlayIE,
 			StanfordOpenClassroomIE,
@@ -1112,7 +1124,7 @@ func init() {
 			VKIE,
 			VLiveIE,
 			VzaarIE,
-			WeiboIE,
+			WashingtonPostIE,
 			WeiboMobileIE,
 			WistiaIE,
 			WorldStarHipHopIE,

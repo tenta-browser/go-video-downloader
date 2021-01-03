@@ -26,7 +26,6 @@ package washingtonpost
 
 import (
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
-	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
@@ -34,22 +33,38 @@ var (
 	InfoExtractor           λ.Object
 	WashingtonPostArticleIE λ.Object
 	WashingtonPostIE        λ.Object
-	ϒint_or_none            λ.Object
-	ϒstrip_jsonp            λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒint_or_none = Ωutils.ϒint_or_none
-		ϒstrip_jsonp = Ωutils.ϒstrip_jsonp
 		WashingtonPostIE = λ.Cal(λ.TypeType, λ.StrLiteral("WashingtonPostIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				WashingtonPostIE__VALID_URL λ.Object
+				WashingtonPostIE_IE_NAME       λ.Object
+				WashingtonPostIE__VALID_URL    λ.Object
+				WashingtonPostIE__real_extract λ.Object
 			)
-			WashingtonPostIE__VALID_URL = λ.StrLiteral("(?:washingtonpost:|https?://(?:www\\.)?washingtonpost\\.com/video/(?:[^/]+/)*)(?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
+			WashingtonPostIE_IE_NAME = λ.StrLiteral("washingtonpost")
+			WashingtonPostIE__VALID_URL = λ.StrLiteral("(?:washingtonpost:|https?://(?:www\\.)?washingtonpost\\.com/(?:video|posttv)/(?:[^/]+/)*)(?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
+			WashingtonPostIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself     = λargs[0]
+						ϒurl      = λargs[1]
+						ϒvideo_id λ.Object
+					)
+					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					return λ.Calm(ϒself, "url_result", λ.Add(λ.StrLiteral("arcpublishing:wapo:"), ϒvideo_id), λ.StrLiteral("ArcPublishing"), ϒvideo_id)
+				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": WashingtonPostIE__VALID_URL,
+				"IE_NAME":       WashingtonPostIE_IE_NAME,
+				"_VALID_URL":    WashingtonPostIE__VALID_URL,
+				"_real_extract": WashingtonPostIE__real_extract,
 			})
 		}())
 		WashingtonPostArticleIE = λ.Cal(λ.TypeType, λ.StrLiteral("WashingtonPostArticleIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

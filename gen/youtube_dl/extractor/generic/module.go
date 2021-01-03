@@ -28,6 +28,7 @@ import (
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωanvato "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/anvato"
 	Ωapa "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/apa"
+	Ωarcpublishing "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/arcpublishing"
 	Ωarkena "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/arkena"
 	Ωarte "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/arte"
 	Ωbrightcove "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/brightcove"
@@ -112,6 +113,7 @@ import (
 var (
 	APAIE                        λ.Object
 	AnvatoIE                     λ.Object
+	ArcPublishingIE              λ.Object
 	ArkenaIE                     λ.Object
 	ArteTVEmbedIE                λ.Object
 	BrightcoveLegacyIE           λ.Object
@@ -326,5 +328,6 @@ func init() {
 		ZypeIE = Ωzype.ZypeIE
 		OdnoklassnikiIE = Ωodnoklassniki.OdnoklassnikiIE
 		KinjaEmbedIE = Ωkinja.KinjaEmbedIE
+		ArcPublishingIE = Ωarcpublishing.ArcPublishingIE
 	})
 }

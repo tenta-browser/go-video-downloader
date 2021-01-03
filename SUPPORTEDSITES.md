@@ -101,7 +101,6 @@ Supported sites
  * GiantBomb: `www.giantbomb.com`
  * GodTube: `www.godtube.com`
  * Golem: `video.golem.de`
- * GoogleDrive: `drive.google.com`
  * GPUTechConf: `on-demand.gputechconf.com`
  * HBO: `www.hbo.com`
  * Heise: `www.heise.de`
@@ -158,6 +157,7 @@ Supported sites
  * NonkTube _(adult)_: `www.nonktube.com`
  * Nova: `tn.nova.cz`
  * Nowness: `www.nowness.com`
+ * NRKRadioPodkast: `radio.nrk.no`
  * NTVRu: `www.ntv.ru`
  * Odnoklassniki: `ok.ru`
  * OnionStudios: `www.onionstudios.com`
@@ -199,11 +199,14 @@ Supported sites
  * SkyItArte: `arte.sky.it`
  * CieloTVIt: `www.cielotv.it`
  * TV8It: `tv8.it`
+ * SkyNews: `news.sky.com`
+ * SkySports: `www.skysports.com`
  * Slideshare: `www.slideshare.net`
  * SlidesLive: `slideslive.com`
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
  * Spiegel: `www.spiegel.de`
+ * Stitcher: `www.stitcher.com`
  * Spreaker: `api.spreaker.com`
  * SRGSSRPlay: `www.rts.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
@@ -263,7 +266,7 @@ Supported sites
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * Vzaar: `vzaar.com`
- * Weibo: `weibo.com`
+ * WashingtonPost: `www.washingtonpost.com`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`
