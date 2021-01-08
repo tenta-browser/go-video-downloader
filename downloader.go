@@ -78,6 +78,7 @@ type VideoData struct {
 	Filename  string
 	AgeLimit  int
 	Thumbnail string
+	Cookie    string
 }
 
 // Init initializes the downloader:
@@ -168,6 +169,10 @@ func Extract(url string, connector *Connector) (resData *VideoData, err error) {
 		Filename:  resStringField(resDict, "_filename", false, "unknown.video"),
 		AgeLimit:  resIntField(resDict, "age_limit", false, 0),
 		Thumbnail: resStringField(resDict, "thumbnail", false, ""),
+	}
+	// TODO it would be great to return all the cookies of the jar
+	if cookie, err := netlib.GetCookieString(jar, resData.URL); err == nil {
+		resData.Cookie = cookie
 	}
 	return resData, nil
 }

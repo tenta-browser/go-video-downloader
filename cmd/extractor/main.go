@@ -75,4 +75,5 @@ func main() {
 	println("Video title:", videoData.Title)
 	println("Raw video URL:", videoData.URL)
 	println("Suggested filename:", videoData.Filename)
+	println("Cookies:", videoData.Cookie)
 }
