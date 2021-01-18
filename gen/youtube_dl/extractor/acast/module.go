@@ -32,19 +32,21 @@ import (
 )
 
 var (
-	ACastBaseIE    λ.Object
-	ACastChannelIE λ.Object
-	ACastIE        λ.Object
-	InfoExtractor  λ.Object
-	ϒclean_html    λ.Object
-	ϒint_or_none   λ.Object
-	ϒparse_iso8601 λ.Object
+	ACastBaseIE        λ.Object
+	ACastChannelIE     λ.Object
+	ACastIE            λ.Object
+	InfoExtractor      λ.Object
+	ϒclean_html        λ.Object
+	ϒclean_podcast_url λ.Object
+	ϒint_or_none       λ.Object
+	ϒparse_iso8601     λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒclean_html = Ωutils.ϒclean_html
+		ϒclean_podcast_url = Ωutils.ϒclean_podcast_url
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ACastBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("ACastBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
@@ -73,7 +75,7 @@ func init() {
 					ϒinfo = λ.DictLiteral(map[string]λ.Object{
 						"id":         λ.GetItem(ϒepisode, λ.StrLiteral("id")),
 						"display_id": λ.Calm(ϒepisode, "get", λ.StrLiteral("episodeUrl")),
-						"url":        λ.GetItem(ϒepisode, λ.StrLiteral("url")),
+						"url":        λ.Cal(ϒclean_podcast_url, λ.GetItem(ϒepisode, λ.StrLiteral("url"))),
 						"title":      ϒtitle,
 						"description": λ.Cal(ϒclean_html, func() λ.Object {
 							if λv := λ.Calm(ϒepisode, "get", λ.StrLiteral("description")); λ.IsTrue(λv) {

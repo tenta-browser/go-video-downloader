@@ -40,7 +40,6 @@ var (
 	TwitchBaseIE                   λ.Object
 	TwitchClipsIE                  λ.Object
 	TwitchCollectionIE             λ.Object
-	TwitchGraphQLBaseIE            λ.Object
 	TwitchPlaylistBaseIE           λ.Object
 	TwitchStreamIE                 λ.Object
 	TwitchVideosClipsIE            λ.Object
@@ -48,11 +47,11 @@ var (
 	TwitchVideosIE                 λ.Object
 	TwitchVodIE                    λ.Object
 	ϒclean_html                    λ.Object
-	ϒcompat_kwargs                 λ.Object
 	ϒcompat_parse_qs               λ.Object
 	ϒcompat_str                    λ.Object
 	ϒcompat_urllib_parse_urlencode λ.Object
 	ϒcompat_urllib_parse_urlparse  λ.Object
+	ϒdict_get                      λ.Object
 	ϒfloat_or_none                 λ.Object
 	ϒint_or_none                   λ.Object
 	ϒparse_duration                λ.Object
@@ -68,12 +67,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒcompat_kwargs = Ωcompat.ϒcompat_kwargs
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒcompat_urllib_parse_urlencode = Ωcompat.ϒcompat_urllib_parse_urlencode
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ϒclean_html = Ωutils.ϒclean_html
+		ϒdict_get = Ωutils.ϒdict_get
 		ExtractorError = Ωutils.ExtractorError
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
@@ -87,10 +86,11 @@ func init() {
 		ϒurljoin = Ωutils.ϒurljoin
 		TwitchBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				TwitchBaseIE__CLIENT_ID       λ.Object
-				TwitchBaseIE__NETRC_MACHINE   λ.Object
-				TwitchBaseIE__login           λ.Object
-				TwitchBaseIE__real_initialize λ.Object
+				TwitchBaseIE__CLIENT_ID         λ.Object
+				TwitchBaseIE__NETRC_MACHINE     λ.Object
+				TwitchBaseIE__download_base_gql λ.Object
+				TwitchBaseIE__login             λ.Object
+				TwitchBaseIE__real_initialize   λ.Object
 			)
 			TwitchBaseIE__CLIENT_ID = λ.StrLiteral("kimne78kx3ncx6brgo4mv6wki5h1ko")
 			TwitchBaseIE__NETRC_MACHINE = λ.StrLiteral("twitch")
@@ -180,7 +180,7 @@ func init() {
 							ϒpost_url = λ.Cal(ϒurljoin, ϒpage_url, ϒpost_url)
 							ϒheaders = λ.DictLiteral(map[string]λ.Object{
 								"Referer":      ϒpage_url,
-								"Origin":       ϒpage_url,
+								"Origin":       λ.StrLiteral("https://www.twitch.tv"),
 								"Content-Type": λ.StrLiteral("text/plain;charset=UTF-8"),
 							})
 							ϒresponse = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
@@ -192,13 +192,11 @@ func init() {
 								{Name: "headers", Value: ϒheaders},
 								{Name: "expected_status", Value: λ.IntLiteral(400)},
 							})
-							ϒerror = func() λ.Object {
-								if λv := λ.Calm(ϒresponse, "get", λ.StrLiteral("error_description")); λ.IsTrue(λv) {
-									return λv
-								} else {
-									return λ.Calm(ϒresponse, "get", λ.StrLiteral("error_code"))
-								}
-							}()
+							ϒerror = λ.Cal(ϒdict_get, ϒresponse, λ.NewTuple(
+								λ.StrLiteral("error"),
+								λ.StrLiteral("error_description"),
+								λ.StrLiteral("error_code"),
+							))
 							if λ.IsTrue(ϒerror) {
 								λ.Cal(ϒfail, ϒerror)
 							}
@@ -248,11 +246,49 @@ func init() {
 					}
 					return λ.None
 				})
+			TwitchBaseIE__download_base_gql = λ.NewFunction("_download_base_gql",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "video_id"},
+					{Name: "ops"},
+					{Name: "note"},
+					{Name: "fatal", Def: λ.True},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒfatal    = λargs[4]
+						ϒgql_auth λ.Object
+						ϒheaders  λ.Object
+						ϒnote     = λargs[3]
+						ϒops      = λargs[2]
+						ϒself     = λargs[0]
+						ϒvideo_id = λargs[1]
+					)
+					ϒheaders = λ.DictLiteral(map[string]λ.Object{
+						"Content-Type": λ.StrLiteral("text/plain;charset=UTF-8"),
+						"Client-ID":    λ.GetAttr(ϒself, "_CLIENT_ID", nil),
+					})
+					ϒgql_auth = λ.Calm(λ.Calm(ϒself, "_get_cookies", λ.StrLiteral("https://gql.twitch.tv")), "get", λ.StrLiteral("auth-token"))
+					if λ.IsTrue(ϒgql_auth) {
+						λ.SetItem(ϒheaders, λ.StrLiteral("Authorization"), λ.Add(λ.StrLiteral("OAuth "), λ.GetAttr(ϒgql_auth, "value", nil)))
+					}
+					return λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.StrLiteral("https://gql.twitch.tv/gql"),
+						ϒvideo_id,
+						ϒnote,
+					), λ.KWArgs{
+						{Name: "data", Value: λ.Calm(λ.Cal(Ωjson.ϒdumps, ϒops), "encode")},
+						{Name: "headers", Value: ϒheaders},
+						{Name: "fatal", Value: ϒfatal},
+					})
+				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_CLIENT_ID":       TwitchBaseIE__CLIENT_ID,
-				"_NETRC_MACHINE":   TwitchBaseIE__NETRC_MACHINE,
-				"_login":           TwitchBaseIE__login,
-				"_real_initialize": TwitchBaseIE__real_initialize,
+				"_CLIENT_ID":         TwitchBaseIE__CLIENT_ID,
+				"_NETRC_MACHINE":     TwitchBaseIE__NETRC_MACHINE,
+				"_download_base_gql": TwitchBaseIE__download_base_gql,
+				"_login":             TwitchBaseIE__login,
+				"_real_initialize":   TwitchBaseIE__real_initialize,
 			})
 		}())
 		TwitchVodIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchVodIE"), λ.NewTuple(TwitchBaseIE), func() λ.Dict {
@@ -264,11 +300,7 @@ func init() {
 				"_VALID_URL": TwitchVodIE__VALID_URL,
 			})
 		}())
-		TwitchGraphQLBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchGraphQLBaseIE"), λ.NewTuple(TwitchBaseIE), func() λ.Dict {
-
-			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
-		}())
-		TwitchCollectionIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchCollectionIE"), λ.NewTuple(TwitchGraphQLBaseIE), func() λ.Dict {
+		TwitchCollectionIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchCollectionIE"), λ.NewTuple(TwitchBaseIE), func() λ.Dict {
 			var (
 				TwitchCollectionIE__VALID_URL λ.Object
 			)
@@ -277,7 +309,7 @@ func init() {
 				"_VALID_URL": TwitchCollectionIE__VALID_URL,
 			})
 		}())
-		TwitchPlaylistBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchPlaylistBaseIE"), λ.NewTuple(TwitchGraphQLBaseIE), func() λ.Dict {
+		TwitchPlaylistBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchPlaylistBaseIE"), λ.NewTuple(TwitchBaseIE), func() λ.Dict {
 
 			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
@@ -374,7 +406,7 @@ func init() {
 				"_VALID_URL": TwitchVideosCollectionsIE__VALID_URL,
 			})
 		}())
-		TwitchStreamIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchStreamIE"), λ.NewTuple(TwitchGraphQLBaseIE), func() λ.Dict {
+		TwitchStreamIE = λ.Cal(λ.TypeType, λ.StrLiteral("TwitchStreamIE"), λ.NewTuple(TwitchBaseIE), func() λ.Dict {
 			var (
 				TwitchStreamIE__VALID_URL λ.Object
 				TwitchStreamIE_suitable   λ.Object
@@ -464,17 +496,9 @@ func init() {
 						τmp1           λ.Object
 					)
 					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
-					ϒclip = λ.GetItem(λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.StrLiteral("https://gql.twitch.tv/gql"),
-						ϒvideo_id,
-					), λ.KWArgs{
-						{Name: "data", Value: λ.Calm(λ.Cal(Ωjson.ϒdumps, λ.DictLiteral(map[string]λ.Object{
-							"query": λ.Mod(λ.StrLiteral("{\n  clip(slug: \"%s\") {\n    broadcaster {\n      displayName\n    }\n    createdAt\n    curator {\n      displayName\n      id\n    }\n    durationSeconds\n    id\n    tiny: thumbnailURL(width: 86, height: 45)\n    small: thumbnailURL(width: 260, height: 147)\n    medium: thumbnailURL(width: 480, height: 272)\n    title\n    videoQualities {\n      frameRate\n      quality\n      sourceURL\n    }\n    viewCount\n  }\n}"), ϒvideo_id),
-						})), "encode")},
-						{Name: "headers", Value: λ.DictLiteral(map[string]λ.Object{
-							"Client-ID": λ.GetAttr(ϒself, "_CLIENT_ID", nil),
-						})},
-					}), λ.StrLiteral("data")), λ.StrLiteral("clip"))
+					ϒclip = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_download_base_gql", ϒvideo_id, λ.DictLiteral(map[string]λ.Object{
+						"query": λ.Mod(λ.StrLiteral("{\n  clip(slug: \"%s\") {\n    broadcaster {\n      displayName\n    }\n    createdAt\n    curator {\n      displayName\n      id\n    }\n    durationSeconds\n    id\n    tiny: thumbnailURL(width: 86, height: 45)\n    small: thumbnailURL(width: 260, height: 147)\n    medium: thumbnailURL(width: 480, height: 272)\n    title\n    videoQualities {\n      frameRate\n      quality\n      sourceURL\n    }\n    viewCount\n  }\n}"), ϒvideo_id),
+					}), λ.StrLiteral("Downloading clip GraphQL")), λ.StrLiteral("data")), λ.StrLiteral("clip"))
 					if !λ.IsTrue(ϒclip) {
 						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("This clip is no longer available")), λ.KWArgs{
 							{Name: "expected", Value: λ.True},

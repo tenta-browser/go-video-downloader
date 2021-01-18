@@ -25,67 +25,72 @@
 package stitcher
 
 import (
-	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
+	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	ExtractorError λ.Object
-	InfoExtractor  λ.Object
-	StitcherIE     λ.Object
-	ϒclean_html    λ.Object
-	ϒint_or_none   λ.Object
-	ϒstr_or_none   λ.Object
-	ϒtry_get       λ.Object
+	ExtractorError     λ.Object
+	InfoExtractor      λ.Object
+	StitcherBaseIE     λ.Object
+	StitcherIE         λ.Object
+	StitcherShowIE     λ.Object
+	ϒclean_html        λ.Object
+	ϒclean_podcast_url λ.Object
+	ϒcompat_str        λ.Object
+	ϒint_or_none       λ.Object
+	ϒstr_or_none       λ.Object
+	ϒtry_get           λ.Object
+	ϒurl_or_none       λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒclean_html = Ωutils.ϒclean_html
+		ϒclean_podcast_url = Ωutils.ϒclean_podcast_url
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒstr_or_none = Ωutils.ϒstr_or_none
 		ϒtry_get = Ωutils.ϒtry_get
-		StitcherIE = λ.Cal(λ.TypeType, λ.StrLiteral("StitcherIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ϒurl_or_none = Ωutils.ϒurl_or_none
+		StitcherBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("StitcherBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				StitcherIE__VALID_URL    λ.Object
-				StitcherIE__real_extract λ.Object
+				StitcherBaseIE__VALID_URL_BASE      λ.Object
+				StitcherBaseIE__call_api            λ.Object
+				StitcherBaseIE__extract_audio_url   λ.Object
+				StitcherBaseIE__extract_description λ.Object
+				StitcherBaseIE__extract_episode     λ.Object
+				StitcherBaseIE__extract_show_info   λ.Object
 			)
-			StitcherIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?stitcher\\.com/(?:podcast|show)/(?:[^/]+/)+e(?:pisode)?/(?:(?P<display_id>[^/#?&]+?)-)?(?P<id>\\d+)(?:[/#?&]|$)")
-			StitcherIE__real_extract = λ.NewFunction("_real_extract",
+			StitcherBaseIE__VALID_URL_BASE = λ.StrLiteral("https?://(?:www\\.)?stitcher\\.com/(?:podcast|show)/")
+			StitcherBaseIE__call_api = λ.NewFunction("_call_api",
 				[]λ.Param{
 					{Name: "self"},
-					{Name: "url"},
+					{Name: "path"},
+					{Name: "video_id"},
+					{Name: "query"},
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒaudio_id   λ.Object
-						ϒaudio_url  λ.Object
-						ϒdisplay_id λ.Object
-						ϒepisode    λ.Object
-						ϒresp       λ.Object
-						ϒself       = λargs[0]
-						ϒshow_id    λ.Object
-						ϒthumbnail  λ.Object
-						ϒtitle      λ.Object
-						ϒurl        = λargs[1]
-						τmp0        λ.Object
+						ϒerror_massage λ.Object
+						ϒpath          = λargs[1]
+						ϒquery         = λargs[3]
+						ϒresp          λ.Object
+						ϒself          = λargs[0]
+						ϒvideo_id      = λargs[2]
 					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
-					ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(0))
-					ϒaudio_id = λ.GetItem(τmp0, λ.IntLiteral(1))
-					ϒresp = λ.Calm(ϒself, "_download_json", λ.Add(λ.StrLiteral("https://api.prod.stitcher.com/episode/"), ϒaudio_id), func() λ.Object {
-						if λv := ϒdisplay_id; λ.IsTrue(λv) {
-							return λv
-						} else {
-							return ϒaudio_id
-						}
-					}())
-					ϒepisode = λ.Cal(ϒtry_get, ϒresp, λ.NewFunction("<lambda>",
+					ϒresp = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.Add(λ.StrLiteral("https://api.prod.stitcher.com/"), ϒpath),
+						ϒvideo_id,
+					), λ.KWArgs{
+						{Name: "query", Value: ϒquery},
+					})
+					ϒerror_massage = λ.Cal(ϒtry_get, ϒresp, λ.NewFunction("<lambda>",
 						[]λ.Param{
 							{Name: "x"},
 						},
@@ -94,49 +99,174 @@ func init() {
 							var (
 								ϒx = λargs[0]
 							)
-							return λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("data")), λ.StrLiteral("episodes")), λ.IntLiteral(0))
-						}), λ.DictType)
-					if !λ.IsTrue(ϒepisode) {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.GetItem(λ.GetItem(λ.GetItem(ϒresp, λ.StrLiteral("errors")), λ.IntLiteral(0)), λ.StrLiteral("message"))), λ.KWArgs{
+							return λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("errors")), λ.IntLiteral(0)), λ.StrLiteral("message"))
+						}))
+					if λ.IsTrue(ϒerror_massage) {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(ϒerror_massage), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
 					}
-					ϒtitle = λ.Calm(λ.GetItem(ϒepisode, λ.StrLiteral("title")), "strip")
-					ϒaudio_url = λ.GetItem(ϒepisode, λ.StrLiteral("audio_url"))
-					ϒthumbnail = λ.None
-					ϒshow_id = λ.Calm(ϒepisode, "get", λ.StrLiteral("show_id"))
-					if λ.IsTrue(func() λ.Object {
-						if λv := ϒshow_id; !λ.IsTrue(λv) {
+					return λ.GetItem(ϒresp, λ.StrLiteral("data"))
+				})
+			StitcherBaseIE__extract_description = λ.NewFunction("_extract_description",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "data"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒdata = λargs[1]
+						ϒself = λargs[0]
+					)
+					_ = ϒself
+					return λ.Cal(ϒclean_html, func() λ.Object {
+						if λv := λ.Calm(ϒdata, "get", λ.StrLiteral("html_description")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Ne(λ.Calm(ϒepisode, "get", λ.StrLiteral("classic_id")), λ.Neg(λ.IntLiteral(1)))
+							return λ.Calm(ϒdata, "get", λ.StrLiteral("description"))
 						}
-					}()) {
-						ϒthumbnail = λ.Mod(λ.StrLiteral("https://stitcher-classic.imgix.net/feedimages/%s.jpg"), ϒshow_id)
-					}
+					}())
+				})
+			StitcherBaseIE__extract_audio_url = λ.NewFunction("_extract_audio_url",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "episode"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒepisode = λargs[1]
+						ϒself    = λargs[0]
+					)
+					_ = ϒself
+					return λ.Cal(ϒurl_or_none, func() λ.Object {
+						if λv := λ.Calm(ϒepisode, "get", λ.StrLiteral("audio_url")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Calm(ϒepisode, "get", λ.StrLiteral("guid"))
+						}
+					}())
+				})
+			StitcherBaseIE__extract_show_info = λ.NewFunction("_extract_show_info",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "show"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself = λargs[0]
+						ϒshow = λargs[1]
+					)
+					_ = ϒself
 					return λ.DictLiteral(map[string]λ.Object{
-						"id":         ϒaudio_id,
-						"display_id": ϒdisplay_id,
-						"title":      ϒtitle,
-						"description": λ.Cal(ϒclean_html, func() λ.Object {
-							if λv := λ.Calm(ϒepisode, "get", λ.StrLiteral("html_description")); λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.Calm(ϒepisode, "get", λ.StrLiteral("description"))
-							}
-						}()),
+						"thumbnail": λ.Calm(ϒshow, "get", λ.StrLiteral("image_base_url")),
+						"series":    λ.Calm(ϒshow, "get", λ.StrLiteral("title")),
+					})
+				})
+			StitcherBaseIE__extract_episode = λ.NewFunction("_extract_episode",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "episode"},
+					{Name: "audio_url"},
+					{Name: "show_info"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒaudio_url = λargs[2]
+						ϒepisode   = λargs[1]
+						ϒinfo      λ.Object
+						ϒself      = λargs[0]
+						ϒshow_info = λargs[3]
+					)
+					ϒinfo = λ.DictLiteral(map[string]λ.Object{
+						"id":            λ.Cal(ϒcompat_str, λ.GetItem(ϒepisode, λ.StrLiteral("id"))),
+						"display_id":    λ.Calm(ϒepisode, "get", λ.StrLiteral("slug")),
+						"title":         λ.Calm(λ.GetItem(ϒepisode, λ.StrLiteral("title")), "strip"),
+						"description":   λ.Calm(ϒself, "_extract_description", ϒepisode),
 						"duration":      λ.Cal(ϒint_or_none, λ.Calm(ϒepisode, "get", λ.StrLiteral("duration"))),
-						"thumbnail":     ϒthumbnail,
-						"url":           ϒaudio_url,
+						"url":           λ.Cal(ϒclean_podcast_url, ϒaudio_url),
 						"vcodec":        λ.StrLiteral("none"),
-						"timestamp":     λ.Cal(ϒint_or_none, λ.Calm(ϒepisode, "get", λ.StrLiteral("date_created"))),
+						"timestamp":     λ.Cal(ϒint_or_none, λ.Calm(ϒepisode, "get", λ.StrLiteral("date_published"))),
 						"season_number": λ.Cal(ϒint_or_none, λ.Calm(ϒepisode, "get", λ.StrLiteral("season"))),
 						"season_id":     λ.Cal(ϒstr_or_none, λ.Calm(ϒepisode, "get", λ.StrLiteral("season_id"))),
 					})
+					λ.Calm(ϒinfo, "update", ϒshow_info)
+					return ϒinfo
+				})
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_VALID_URL_BASE":      StitcherBaseIE__VALID_URL_BASE,
+				"_call_api":            StitcherBaseIE__call_api,
+				"_extract_audio_url":   StitcherBaseIE__extract_audio_url,
+				"_extract_description": StitcherBaseIE__extract_description,
+				"_extract_episode":     StitcherBaseIE__extract_episode,
+				"_extract_show_info":   StitcherBaseIE__extract_show_info,
+			})
+		}())
+		StitcherIE = λ.Cal(λ.TypeType, λ.StrLiteral("StitcherIE"), λ.NewTuple(StitcherBaseIE), func() λ.Dict {
+			var (
+				StitcherIE__VALID_URL    λ.Object
+				StitcherIE__real_extract λ.Object
+			)
+			StitcherIE__VALID_URL = λ.Add(λ.GetAttr(StitcherBaseIE, "_VALID_URL_BASE", nil), λ.StrLiteral("(?:[^/]+/)+e(?:pisode)?/(?:[^/#?&]+-)?(?P<id>\\d+)"))
+			StitcherIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒaudio_id  λ.Object
+						ϒaudio_url λ.Object
+						ϒdata      λ.Object
+						ϒepisode   λ.Object
+						ϒself      = λargs[0]
+						ϒshow      λ.Object
+						ϒurl       = λargs[1]
+					)
+					ϒaudio_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒdata = λ.Calm(ϒself, "_call_api", λ.StrLiteral("shows/episodes"), ϒaudio_id, λ.DictLiteral(map[string]λ.Object{
+						"episode_ids": ϒaudio_id,
+					}))
+					ϒepisode = λ.GetItem(λ.GetItem(ϒdata, λ.StrLiteral("episodes")), λ.IntLiteral(0))
+					ϒaudio_url = λ.Calm(ϒself, "_extract_audio_url", ϒepisode)
+					if !λ.IsTrue(ϒaudio_url) {
+						λ.Calm(ϒself, "raise_login_required")
+					}
+					ϒshow = func() λ.Object {
+						if λv := λ.Cal(ϒtry_get, ϒdata, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("shows")), λ.IntLiteral(0))
+							}), λ.DictType); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
+						}
+					}()
+					return λ.Calm(ϒself, "_extract_episode", ϒepisode, ϒaudio_url, λ.Calm(ϒself, "_extract_show_info", ϒshow))
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    StitcherIE__VALID_URL,
 				"_real_extract": StitcherIE__real_extract,
+			})
+		}())
+		StitcherShowIE = λ.Cal(λ.TypeType, λ.StrLiteral("StitcherShowIE"), λ.NewTuple(StitcherBaseIE), func() λ.Dict {
+			var (
+				StitcherShowIE__VALID_URL λ.Object
+			)
+			StitcherShowIE__VALID_URL = λ.Add(λ.GetAttr(StitcherBaseIE, "_VALID_URL_BASE", nil), λ.StrLiteral("(?P<id>[^/#?&]+)/?(?:[?#&]|$)"))
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_VALID_URL": StitcherShowIE__VALID_URL,
 			})
 		}())
 	})

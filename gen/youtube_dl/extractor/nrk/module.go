@@ -367,13 +367,14 @@ func init() {
 							)
 							return λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("legalAge")), λ.StrLiteral("body")), λ.StrLiteral("rating")), λ.StrLiteral("code"))
 						}), ϒcompat_str)
-					if λ.IsTrue(λ.Eq(ϒlegal_age, λ.StrLiteral("A"))) {
-						ϒage_limit = λ.IntLiteral(0)
-					} else {
-						if λ.IsTrue(λ.Calm(ϒlegal_age, "isdigit")) {
-							ϒage_limit = λ.Cal(ϒint_or_none, ϒlegal_age)
+					ϒage_limit = λ.None
+					if λ.IsTrue(ϒlegal_age) {
+						if λ.IsTrue(λ.Eq(ϒlegal_age, λ.StrLiteral("A"))) {
+							ϒage_limit = λ.IntLiteral(0)
 						} else {
-							ϒage_limit = λ.None
+							if λ.IsTrue(λ.Calm(ϒlegal_age, "isdigit")) {
+								ϒage_limit = λ.Cal(ϒint_or_none, ϒlegal_age)
+							}
 						}
 					}
 					ϒis_series = λ.Eq(λ.Cal(ϒtry_get, ϒdata, λ.NewFunction("<lambda>",

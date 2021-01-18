@@ -125,12 +125,15 @@ func init() {
 						ϒfile_            λ.Object
 						ϒfile_size        λ.Object
 						ϒfile_url         λ.Object
+						ϒfiles            λ.Object
 						ϒformat_id        λ.Object
 						ϒformats          λ.Object
 						ϒfull_description λ.Object
 						ϒhost             λ.Object
 						ϒmobj             λ.Object
 						ϒnsfw             λ.Object
+						ϒplaylist         λ.Object
+						ϒplaylist_files   λ.Object
 						ϒself             = λargs[0]
 						ϒsubtitles        λ.Object
 						ϒtitle            λ.Object
@@ -158,7 +161,41 @@ func init() {
 					})
 					ϒtitle = λ.GetItem(ϒvideo, λ.StrLiteral("name"))
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒvideo, λ.StrLiteral("files")))
+					ϒfiles = func() λ.Object {
+						if λv := λ.Calm(ϒvideo, "get", λ.StrLiteral("files")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewList()
+						}
+					}()
+					τmp0 = λ.Cal(λ.BuiltinIter, func() λ.Object {
+						if λv := λ.Calm(ϒvideo, "get", λ.StrLiteral("streamingPlaylists")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewList()
+						}
+					}())
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒplaylist = τmp1
+						if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒplaylist, λ.DictType)) {
+							continue
+						}
+						ϒplaylist_files = λ.Calm(ϒplaylist, "get", λ.StrLiteral("files"))
+						if !λ.IsTrue(func() λ.Object {
+							if λv := ϒplaylist_files; !λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Cal(λ.BuiltinIsInstance, ϒplaylist_files, λ.ListType)
+							}
+						}()) {
+							continue
+						}
+						λ.Calm(ϒfiles, "extend", ϒplaylist_files)
+					}
+					τmp0 = λ.Cal(λ.BuiltinIter, ϒfiles)
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break

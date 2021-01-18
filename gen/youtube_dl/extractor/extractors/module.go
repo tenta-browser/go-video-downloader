@@ -33,24 +33,24 @@ import (
 	Ωamara "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/amara"
 	Ωaol "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/aol"
 	Ωaparat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/aparat"
+	Ωapplepodcasts "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/applepodcasts"
 	Ωard "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ard"
 	Ωarkena "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/arkena"
 	Ωarte "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/arte"
 	Ωasiancrush "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/asiancrush"
 	Ωaudioboom "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/audioboom"
 	Ωaudiomack "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/audiomack"
-	Ωazmedien "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/azmedien"
 	Ωbandcamp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bandcamp"
 	Ωbbc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bbc"
 	Ωbeatport "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/beatport"
+	Ωbfmtv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bfmtv"
+	Ωbibeltv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bibeltv"
 	Ωbigflix "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bigflix"
 	Ωbild "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bild"
 	Ωbilibili "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bilibili"
 	Ωbiqle "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/biqle"
 	Ωbleacherreport "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bleacherreport"
-	Ωbokecc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bokecc"
 	Ωbox "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/box"
-	Ωbpb "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bpb"
 	Ωbr "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/br"
 	Ωbravotv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bravotv"
 	Ωbusinessinsider "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/businessinsider"
@@ -74,6 +74,7 @@ import (
 	Ωcondenast "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/condenast"
 	Ωcontv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/contv"
 	Ωcoub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/coub"
+	Ωcracked "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/cracked"
 	Ωctsnews "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ctsnews"
 	Ωcuriositystream "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/curiositystream"
 	Ωdailymail "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dailymail"
@@ -118,6 +119,8 @@ import (
 	Ωgiantbomb "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/giantbomb"
 	Ωgodtube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/godtube"
 	Ωgolem "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/golem"
+	Ωgoogledrive "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/googledrive"
+	Ωgooglepodcasts "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/googlepodcasts"
 	Ωgputechconf "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/gputechconf"
 	Ωhbo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/hbo"
 	Ωheise "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/heise"
@@ -126,6 +129,7 @@ import (
 	Ωhitrecord "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/hitrecord"
 	Ωhypem "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/hypem"
 	Ωign "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ign"
+	Ωiheart "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/iheart"
 	Ωimdb "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/imdb"
 	Ωimgur "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/imgur"
 	Ωina "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ina"
@@ -136,6 +140,7 @@ import (
 	Ωjoj "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/joj"
 	Ωjwplatform "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/jwplatform"
 	Ωkakao "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/kakao"
+	Ωkhanacademy "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/khanacademy"
 	Ωkickstarter "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/kickstarter"
 	Ωlcp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/lcp"
 	Ωlenta "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/lenta"
@@ -151,13 +156,13 @@ import (
 	Ωmegaphone "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/megaphone"
 	Ωmetacritic "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/metacritic"
 	Ωmicrosoftvirtualacademy "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/microsoftvirtualacademy"
+	Ωminds "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/minds"
 	Ωmlb "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mlb"
 	Ωmojvideo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mojvideo"
 	Ωmyspace "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/myspace"
 	Ωmyspass "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/myspass"
 	Ωnationalgeographic "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nationalgeographic"
 	Ωnaver "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/naver"
-	Ωnba "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nba"
 	Ωnbc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nbc"
 	Ωndr "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ndr"
 	Ωndtv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/ndtv"
@@ -201,7 +206,6 @@ import (
 	Ωsapo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sapo"
 	Ωsbs "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sbs"
 	Ωscreencast "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/screencast"
-	Ωscreencastomatic "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/screencastomatic"
 	Ωsenateisvp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/senateisvp"
 	Ωseznamzpravy "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/seznamzpravy"
 	Ωsina "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sina"
@@ -212,6 +216,7 @@ import (
 	Ωsoundgasm "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/soundgasm"
 	Ωspankbang "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/spankbang"
 	Ωspiegel "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/spiegel"
+	Ωspotify "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/spotify"
 	Ωspreaker "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/spreaker"
 	Ωsrgssr "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/srgssr"
 	Ωstanfordoc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/stanfordoc"
@@ -229,6 +234,7 @@ import (
 	Ωtenta "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tenta"
 	Ωtfo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tfo"
 	Ωtheweatherchannel "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/theweatherchannel"
+	Ωthreeqsdn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/threeqsdn"
 	Ωtiktok "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tiktok"
 	Ωtnaflix "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tnaflix"
 	Ωtoongoggles "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/toongoggles"
@@ -286,33 +292,34 @@ import (
 var (
 	ABCOTVSIE                  λ.Object
 	ACastIE                    λ.Object
+	ARDBetaMediathekIE         λ.Object
+	ARDIE                      λ.Object
 	ARDMediathekIE             λ.Object
-	AZMedienIE                 λ.Object
 	AbcNewsVideoIE             λ.Object
 	AdobeTVVideoIE             λ.Object
 	AllocineIE                 λ.Object
 	AmaraIE                    λ.Object
 	AolIE                      λ.Object
 	AparatIE                   λ.Object
+	ApplePodcastsIE            λ.Object
 	ArkenaIE                   λ.Object
-	ArteTVEmbedIE              λ.Object
 	ArteTVIE                   λ.Object
 	AsianCrushIE               λ.Object
 	AudioBoomIE                λ.Object
 	AudiomackIE                λ.Object
 	BBCIE                      λ.Object
+	BFMTVIE                    λ.Object
 	BIQLEIE                    λ.Object
 	BRIE                       λ.Object
 	BandcampIE                 λ.Object
 	BandcampWeeklyIE           λ.Object
 	BeatportIE                 λ.Object
+	BibelTVIE                  λ.Object
 	BigflixIE                  λ.Object
 	BildIE                     λ.Object
 	BilibiliAudioIE            λ.Object
 	BleacherReportCMSIE        λ.Object
-	BokeCCIE                   λ.Object
 	BoxIE                      λ.Object
-	BpbIE                      λ.Object
 	BravoTVIE                  λ.Object
 	BusinessInsiderIE          λ.Object
 	CBCPlayerIE                λ.Object
@@ -337,6 +344,7 @@ var (
 	ClypIE                     λ.Object
 	CondeNastIE                λ.Object
 	CoubIE                     λ.Object
+	CrackedIE                  λ.Object
 	CtsNewsIE                  λ.Object
 	CuriosityStreamIE          λ.Object
 	DVTVIE                     λ.Object
@@ -388,6 +396,8 @@ var (
 	GiantBombIE                λ.Object
 	GodTubeIE                  λ.Object
 	GolemIE                    λ.Object
+	GoogleDriveIE              λ.Object
+	GooglePodcastsIE           λ.Object
 	HBOIE                      λ.Object
 	HeiseIE                    λ.Object
 	HellPornoIE                λ.Object
@@ -395,6 +405,7 @@ var (
 	HitRecordIE                λ.Object
 	HypemIE                    λ.Object
 	IGNIE                      λ.Object
+	IHeartRadioIE              λ.Object
 	ImdbIE                     λ.Object
 	ImgurGalleryIE             λ.Object
 	ImgurIE                    λ.Object
@@ -406,6 +417,7 @@ var (
 	JeuxVideoIE                λ.Object
 	JojIE                      λ.Object
 	KakaoIE                    λ.Object
+	KhanAcademyIE              λ.Object
 	KickStarterIE              λ.Object
 	LcpPlayIE                  λ.Object
 	LentaIE                    λ.Object
@@ -422,10 +434,10 @@ var (
 	MegaphoneIE                λ.Object
 	MetacriticIE               λ.Object
 	MicrosoftVirtualAcademyIE  λ.Object
+	MindsIE                    λ.Object
 	MojvideoIE                 λ.Object
 	MySpaceIE                  λ.Object
 	MySpassIE                  λ.Object
-	NBAIE                      λ.Object
 	NBCNewsIE                  λ.Object
 	NBCSportsIE                λ.Object
 	NBCSportsVPlayerIE         λ.Object
@@ -477,7 +489,6 @@ var (
 	SafariIE                   λ.Object
 	SapoIE                     λ.Object
 	ScreencastIE               λ.Object
-	ScreencastOMaticIE         λ.Object
 	SenateISVPIE               λ.Object
 	SeznamZpravyIE             λ.Object
 	SinaIE                     λ.Object
@@ -492,6 +503,7 @@ var (
 	SoundgasmIE                λ.Object
 	SpankBangIE                λ.Object
 	SpiegelIE                  λ.Object
+	SpotifyIE                  λ.Object
 	SpreakerIE                 λ.Object
 	StanfordOpenClassroomIE    λ.Object
 	StitcherIE                 λ.Object
@@ -521,6 +533,7 @@ var (
 	TelegraafIE                λ.Object
 	TentaIE                    λ.Object
 	TheWeatherChannelIE        λ.Object
+	ThreeQSDNIE                λ.Object
 	TikTokIE                   λ.Object
 	ToonGogglesIE              λ.Object
 	ToypicsIE                  λ.Object
@@ -581,26 +594,27 @@ func init() {
 		AolIE = Ωaol.AolIE
 		AllocineIE = Ωallocine.AllocineIE
 		AparatIE = Ωaparat.AparatIE
+		ApplePodcastsIE = Ωapplepodcasts.ApplePodcastsIE
 		ArkenaIE = Ωarkena.ArkenaIE
+		ARDBetaMediathekIE = Ωard.ARDBetaMediathekIE
+		ARDIE = Ωard.ARDIE
 		ARDMediathekIE = Ωard.ARDMediathekIE
 		ArteTVIE = Ωarte.ArteTVIE
-		ArteTVEmbedIE = Ωarte.ArteTVEmbedIE
 		AsianCrushIE = Ωasiancrush.AsianCrushIE
 		AudioBoomIE = Ωaudioboom.AudioBoomIE
 		AudiomackIE = Ωaudiomack.AudiomackIE
-		AZMedienIE = Ωazmedien.AZMedienIE
 		BandcampIE = Ωbandcamp.BandcampIE
 		BandcampWeeklyIE = Ωbandcamp.BandcampWeeklyIE
 		BBCIE = Ωbbc.BBCIE
 		BeatportIE = Ωbeatport.BeatportIE
+		BFMTVIE = Ωbfmtv.BFMTVIE
+		BibelTVIE = Ωbibeltv.BibelTVIE
 		BigflixIE = Ωbigflix.BigflixIE
 		BildIE = Ωbild.BildIE
 		BilibiliAudioIE = Ωbilibili.BilibiliAudioIE
 		BIQLEIE = Ωbiqle.BIQLEIE
 		BleacherReportCMSIE = Ωbleacherreport.BleacherReportCMSIE
-		BokeCCIE = Ωbokecc.BokeCCIE
 		BoxIE = Ωbox.BoxIE
-		BpbIE = Ωbpb.BpbIE
 		BRIE = Ωbr.BRIE
 		BravoTVIE = Ωbravotv.BravoTVIE
 		BusinessInsiderIE = Ωbusinessinsider.BusinessInsiderIE
@@ -625,6 +639,7 @@ func init() {
 		CoubIE = Ωcoub.CoubIE
 		CondeNastIE = Ωcondenast.CondeNastIE
 		CONtvIE = Ωcontv.CONtvIE
+		CrackedIE = Ωcracked.CrackedIE
 		CtsNewsIE = Ωctsnews.CtsNewsIE
 		CuriosityStreamIE = Ωcuriositystream.CuriosityStreamIE
 		DailyMailIE = Ωdailymail.DailyMailIE
@@ -673,6 +688,8 @@ func init() {
 		GiantBombIE = Ωgiantbomb.GiantBombIE
 		GodTubeIE = Ωgodtube.GodTubeIE
 		GolemIE = Ωgolem.GolemIE
+		GoogleDriveIE = Ωgoogledrive.GoogleDriveIE
+		GooglePodcastsIE = Ωgooglepodcasts.GooglePodcastsIE
 		GPUTechConfIE = Ωgputechconf.GPUTechConfIE
 		HBOIE = Ωhbo.HBOIE
 		HeiseIE = Ωheise.HeiseIE
@@ -681,6 +698,7 @@ func init() {
 		HitRecordIE = Ωhitrecord.HitRecordIE
 		HypemIE = Ωhypem.HypemIE
 		IGNIE = Ωign.IGNIE
+		IHeartRadioIE = Ωiheart.IHeartRadioIE
 		ImdbIE = Ωimdb.ImdbIE
 		ImgurIE = Ωimgur.ImgurIE
 		ImgurGalleryIE = Ωimgur.ImgurGalleryIE
@@ -692,6 +710,7 @@ func init() {
 		JojIE = Ωjoj.JojIE
 		JWPlatformIE = Ωjwplatform.JWPlatformIE
 		KakaoIE = Ωkakao.KakaoIE
+		KhanAcademyIE = Ωkhanacademy.KhanAcademyIE
 		KickStarterIE = Ωkickstarter.KickStarterIE
 		LcpPlayIE = Ωlcp.LcpPlayIE
 		LentaIE = Ωlenta.LentaIE
@@ -707,13 +726,13 @@ func init() {
 		MegaphoneIE = Ωmegaphone.MegaphoneIE
 		MetacriticIE = Ωmetacritic.MetacriticIE
 		MicrosoftVirtualAcademyIE = Ωmicrosoftvirtualacademy.MicrosoftVirtualAcademyIE
+		MindsIE = Ωminds.MindsIE
 		MLBIE = Ωmlb.MLBIE
 		MojvideoIE = Ωmojvideo.MojvideoIE
 		MySpaceIE = Ωmyspace.MySpaceIE
 		MySpassIE = Ωmyspass.MySpassIE
 		NationalGeographicVideoIE = Ωnationalgeographic.NationalGeographicVideoIE
 		NaverIE = Ωnaver.NaverIE
-		NBAIE = Ωnba.NBAIE
 		NBCNewsIE = Ωnbc.NBCNewsIE
 		NBCSportsIE = Ωnbc.NBCSportsIE
 		NBCSportsVPlayerIE = Ωnbc.NBCSportsVPlayerIE
@@ -761,7 +780,6 @@ func init() {
 		SapoIE = Ωsapo.SapoIE
 		SBSIE = Ωsbs.SBSIE
 		ScreencastIE = Ωscreencast.ScreencastIE
-		ScreencastOMaticIE = Ωscreencastomatic.ScreencastOMaticIE
 		SenateISVPIE = Ωsenateisvp.SenateISVPIE
 		SeznamZpravyIE = Ωseznamzpravy.SeznamZpravyIE
 		SinaIE = Ωsina.SinaIE
@@ -779,6 +797,7 @@ func init() {
 		SpankBangIE = Ωspankbang.SpankBangIE
 		SpiegelIE = Ωspiegel.SpiegelIE
 		StitcherIE = Ωstitcher.StitcherIE
+		SpotifyIE = Ωspotify.SpotifyIE
 		SpreakerIE = Ωspreaker.SpreakerIE
 		SRGSSRPlayIE = Ωsrgssr.SRGSSRPlayIE
 		StanfordOpenClassroomIE = Ωstanfordoc.StanfordOpenClassroomIE
@@ -796,6 +815,7 @@ func init() {
 		TentaIE = Ωtenta.TentaIE
 		TFOIE = Ωtfo.TFOIE
 		TheWeatherChannelIE = Ωtheweatherchannel.TheWeatherChannelIE
+		ThreeQSDNIE = Ωthreeqsdn.ThreeQSDNIE
 		TikTokIE = Ωtiktok.TikTokIE
 		TNAFlixNetworkEmbedIE = Ωtnaflix.TNAFlixNetworkEmbedIE
 		TNAFlixIE = Ωtnaflix.TNAFlixIE
@@ -866,26 +886,27 @@ func init() {
 			AolIE,
 			AllocineIE,
 			AparatIE,
+			ApplePodcastsIE,
 			ArkenaIE,
+			ARDBetaMediathekIE,
+			ARDIE,
 			ARDMediathekIE,
 			ArteTVIE,
-			ArteTVEmbedIE,
 			AsianCrushIE,
 			AudioBoomIE,
 			AudiomackIE,
-			AZMedienIE,
 			BandcampIE,
 			BandcampWeeklyIE,
 			BBCIE,
 			BeatportIE,
+			BFMTVIE,
+			BibelTVIE,
 			BigflixIE,
 			BildIE,
 			BilibiliAudioIE,
 			BIQLEIE,
 			BleacherReportCMSIE,
-			BokeCCIE,
 			BoxIE,
-			BpbIE,
 			BRIE,
 			BravoTVIE,
 			BusinessInsiderIE,
@@ -910,6 +931,7 @@ func init() {
 			CoubIE,
 			CondeNastIE,
 			CONtvIE,
+			CrackedIE,
 			CtsNewsIE,
 			CuriosityStreamIE,
 			DailyMailIE,
@@ -958,6 +980,8 @@ func init() {
 			GiantBombIE,
 			GodTubeIE,
 			GolemIE,
+			GoogleDriveIE,
+			GooglePodcastsIE,
 			GPUTechConfIE,
 			HBOIE,
 			HeiseIE,
@@ -966,6 +990,7 @@ func init() {
 			HitRecordIE,
 			HypemIE,
 			IGNIE,
+			IHeartRadioIE,
 			ImdbIE,
 			ImgurIE,
 			ImgurGalleryIE,
@@ -977,6 +1002,7 @@ func init() {
 			JojIE,
 			JWPlatformIE,
 			KakaoIE,
+			KhanAcademyIE,
 			KickStarterIE,
 			LcpPlayIE,
 			LentaIE,
@@ -992,13 +1018,13 @@ func init() {
 			MegaphoneIE,
 			MetacriticIE,
 			MicrosoftVirtualAcademyIE,
+			MindsIE,
 			MLBIE,
 			MojvideoIE,
 			MySpaceIE,
 			MySpassIE,
 			NationalGeographicVideoIE,
 			NaverIE,
-			NBAIE,
 			NBCNewsIE,
 			NBCSportsIE,
 			NBCSportsVPlayerIE,
@@ -1046,7 +1072,6 @@ func init() {
 			SapoIE,
 			SBSIE,
 			ScreencastIE,
-			ScreencastOMaticIE,
 			SenateISVPIE,
 			SeznamZpravyIE,
 			SinaIE,
@@ -1064,6 +1089,7 @@ func init() {
 			SpankBangIE,
 			SpiegelIE,
 			StitcherIE,
+			SpotifyIE,
 			SpreakerIE,
 			SRGSSRPlayIE,
 			StanfordOpenClassroomIE,
@@ -1081,6 +1107,7 @@ func init() {
 			TentaIE,
 			TFOIE,
 			TheWeatherChannelIE,
+			ThreeQSDNIE,
 			TikTokIE,
 			TNAFlixNetworkEmbedIE,
 			TNAFlixIE,

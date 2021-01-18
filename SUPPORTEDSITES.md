@@ -9,26 +9,27 @@ Supported sites
  * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
  * Aparat: `www.aparat.com`
+ * ApplePodcasts: `podcasts.apple.com`
  * Arkena: `video.qbrick.com`
+ * ARDBetaMediathek: `www.ardmediathek.de`
+ * ARD: `www.daserste.de`
  * ARDMediathek: `www.ardmediathek.de`
  * ArteTV: `www.arte.tv`
- * ArteTVEmbed: `www.arte.tv`
  * AsianCrush: `www.asiancrush.com`
  * AudioBoom: `audioboom.com`
  * Audiomack: `www.audiomack.com`
- * AZMedien: `www.telezueri.ch`
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
  * BBC: `www.bbc.com`
  * Beatport: `beatport.com`
+ * BFMTV: `www.bfmtv.com`
+ * BibelTV: `www.bibeltv.de`
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
  * BIQLE: `biqle.org`
  * BleacherReportCMS: `bleacherreport.com`
- * BokeCC: `union.bokecc.com`
  * Box: `mlssoccer.app.box.com`
- * Bpb: `www.bpb.de`
  * BR: `www.br.de`
  * BravoTV: `www.bravotv.com`
  * BusinessInsider: `uk.businessinsider.com`
@@ -53,6 +54,7 @@ Supported sites
  * Coub: `coub.com`
  * CondeNast: `video.wired.com`
  * CONtv: `www.contv.com`
+ * Cracked: `www.cracked.com`
  * CtsNews: `news.cts.com.tw`
  * CuriosityStream: `app.curiositystream.com`
  * DailyMail: `www.dailymail.co.uk`
@@ -101,6 +103,8 @@ Supported sites
  * GiantBomb: `www.giantbomb.com`
  * GodTube: `www.godtube.com`
  * Golem: `video.golem.de`
+ * GoogleDrive: `drive.google.com`
+ * GooglePodcasts: `podcasts.google.com`
  * GPUTechConf: `on-demand.gputechconf.com`
  * HBO: `www.hbo.com`
  * Heise: `www.heise.de`
@@ -109,6 +113,7 @@ Supported sites
  * HitRecord: `hitrecord.org`
  * Hypem: `hypem.com`
  * IGN: `www.ign.com`
+ * IHeartRadio: `www.iheart.com`
  * Imdb: `www.imdb.com`
  * Imgur: `i.imgur.com`
  * ImgurGallery: `imgur.com`
@@ -120,6 +125,7 @@ Supported sites
  * Joj: `media.joj.sk`
  * JWPlatform: `content.jwplatform.com`
  * Kakao: `tv.kakao.com`
+ * KhanAcademy: `www.khanacademy.org`
  * KickStarter: `www.kickstarter.com`
  * LcpPlay: `play.lcp.fr`
  * Lenta: `lenta.ru`
@@ -135,13 +141,13 @@ Supported sites
  * Megaphone: `player.megaphone.fm`
  * Metacritic: `www.metacritic.com`
  * MicrosoftVirtualAcademy: `mva.microsoft.com`
+ * Minds: `www.minds.com`
  * MLB: `www.mlb.com`
  * Mojvideo: `www.mojvideo.com`
  * MySpace: `myspace.com`
  * MySpass: `www.myspass.de`
  * NationalGeographicVideo: `video.nationalgeographic.com`
  * Naver: `tv.naver.com`
- * NBA: `www.nba.com`
  * NBCNews: `www.nbcnews.com`
  * NBCSports: `www.nbcsports.com`
  * NBCSportsVPlayer: `vplayer.nbcsports.com`
@@ -189,7 +195,6 @@ Supported sites
  * Sapo: `videos.sapo.pt`
  * SBS: `www.sbs.com.au`
  * Screencast: `www.screencast.com`
- * ScreencastOMatic: `screencast-o-matic.com`
  * SenateISVP: `www.senate.gov`
  * SeznamZpravy: `www.seznamzpravy.cz`
  * Sina: `video.sina.com.cn`
@@ -207,6 +212,7 @@ Supported sites
  * SpankBang _(adult)_: `spankbang.com`
  * Spiegel: `www.spiegel.de`
  * Stitcher: `www.stitcher.com`
+ * Spotify: `open.spotify.com`
  * Spreaker: `api.spreaker.com`
  * SRGSSRPlay: `www.rts.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
@@ -224,6 +230,7 @@ Supported sites
  * Tenta: `tenta.com`
  * TFO: `www.tfo.org`
  * TheWeatherChannel: `weather.com`
+ * ThreeQSDN: `playout.3qsdn.com`
  * TikTok: `www.tiktok.com`
  * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
  * TNAFlix _(adult)_: `www.tnaflix.com`

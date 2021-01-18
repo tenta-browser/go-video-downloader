@@ -953,40 +953,21 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒ_fixup                     λ.Object
-						ϒdownload                   = λargs[2]
-						ϒentries                    λ.Object
-						ϒentry                      λ.Object
-						ϒentry_result               λ.Object
-						ϒextra                      λ.Object
-						ϒextra_info                 = λargs[3]
-						ϒextract_flat               λ.Object
-						ϒf                          λ.Object
-						ϒforce_properties           λ.Object
-						ϒi                          λ.Object
-						ϒie_entries                 λ.Object
-						ϒie_result                  = λargs[1]
-						ϒinfo                       λ.Object
-						ϒitem                       λ.Object
-						ϒiter_playlistitems         λ.Object
-						ϒmake_playlistitems_entries λ.Object
-						ϒn_all_entries              λ.Object
-						ϒn_entries                  λ.Object
-						ϒnew_result                 λ.Object
-						ϒplaylist                   λ.Object
-						ϒplaylist_results           λ.Object
-						ϒplaylistend                λ.Object
-						ϒplaylistitems              λ.Object
-						ϒplaylistitems_str          λ.Object
-						ϒplayliststart              λ.Object
-						ϒreason                     λ.Object
-						ϒreport_download            λ.Object
-						ϒresult_type                λ.Object
-						ϒself                       = λargs[0]
-						ϒx_forwarded_for            λ.Object
-						τmp0                        λ.Object
-						τmp1                        λ.Object
-						τmp2                        λ.Object
+						ϒ_fixup           λ.Object
+						ϒdownload         = λargs[2]
+						ϒextra_info       = λargs[3]
+						ϒextract_flat     λ.Object
+						ϒf                λ.Object
+						ϒforce_properties λ.Object
+						ϒie_result        = λargs[1]
+						ϒinfo             λ.Object
+						ϒnew_result       λ.Object
+						ϒresult_type      λ.Object
+						ϒself             = λargs[0]
+						ϒwebpage_url      λ.Object
+						τmp0              λ.Object
+						τmp1              λ.Object
+						τmp2              λ.Object
 					)
 					ϒresult_type = λ.Calm(ϒie_result, "get", λ.StrLiteral("_type"), λ.StrLiteral("video"))
 					if λ.Contains(λ.NewTuple(
@@ -1104,227 +1085,35 @@ func init() {
 									λ.StrLiteral("multi_video"),
 								), ϒresult_type) {
 									panic(λ.Raise(λ.Cal(λ.ExceptionType, λ.StrLiteral("Playlists and multi video results are not supported!"))))
-									ϒplaylist = func() λ.Object {
-										if λv := λ.Calm(ϒie_result, "get", λ.StrLiteral("title")); λ.IsTrue(λv) {
-											return λv
-										} else {
-											return λ.Calm(ϒie_result, "get", λ.StrLiteral("id"))
-										}
+									ϒwebpage_url = λ.GetItem(ϒie_result, λ.StrLiteral("webpage_url"))
+									if λ.Contains(λ.GetAttr(ϒself, "_playlist_urls", nil), ϒwebpage_url) {
+										λ.Calm(ϒself, "to_screen", func() λ.Object {
+											if λv := λ.Mod(λ.StrLiteral("[download] Skipping already downloaded playlist: %s"), λ.Calm(ϒie_result, "get", λ.StrLiteral("title"))); λ.IsTrue(λv) {
+												return λv
+											} else {
+												return λ.Calm(ϒie_result, "get", λ.StrLiteral("id"))
+											}
+										}())
+										return λ.None
+									}
+									τmp0 = λ.IAdd(λ.GetAttr(ϒself, "_playlist_level", nil), λ.IntLiteral(1))
+									λ.SetAttr(ϒself, "_playlist_level", τmp0)
+									λ.Calm(λ.GetAttr(ϒself, "_playlist_urls", nil), "add", ϒwebpage_url)
+									τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
+										defer func() {
+											τmp2 = λ.ISub(λ.GetAttr(ϒself, "_playlist_level", nil), λ.IntLiteral(1))
+											λ.SetAttr(ϒself, "_playlist_level", τmp2)
+											if !λ.IsTrue(λ.GetAttr(ϒself, "_playlist_level", nil)) {
+												λ.Calm(λ.GetAttr(ϒself, "_playlist_urls", nil), "clear")
+											}
+										}()
+										λexit, λret = λ.BlockExitReturn, λ.Calm(ϒself, "__process_playlist", ϒie_result, ϒdownload)
+										return
+										return λ.BlockExitNormally, nil
 									}()
-									λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("[download] Downloading playlist: %s"), ϒplaylist))
-									ϒplaylist_results = λ.NewList()
-									ϒplayliststart = λ.Sub(λ.Calm(λ.GetAttr(ϒself, "params", nil), "get", λ.StrLiteral("playliststart"), λ.IntLiteral(1)), λ.IntLiteral(1))
-									ϒplaylistend = λ.Calm(λ.GetAttr(ϒself, "params", nil), "get", λ.StrLiteral("playlistend"))
-									if λ.IsTrue(λ.Eq(ϒplaylistend, λ.Neg(λ.IntLiteral(1)))) {
-										ϒplaylistend = λ.None
+									if τmp0 == λ.BlockExitReturn {
+										return τmp1
 									}
-									ϒplaylistitems_str = λ.Calm(λ.GetAttr(ϒself, "params", nil), "get", λ.StrLiteral("playlist_items"))
-									ϒplaylistitems = λ.None
-									if ϒplaylistitems_str != λ.None {
-										ϒiter_playlistitems = λ.NewFunction("iter_playlistitems",
-											[]λ.Param{
-												{Name: "format"},
-											},
-											0, false, false,
-											func(λargs []λ.Object) λ.Object {
-												return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
-													var (
-														ϒend            λ.Object
-														ϒformat         = λargs[0]
-														ϒitem           λ.Object
-														ϒstart          λ.Object
-														ϒstring_segment λ.Object
-														τmp0            λ.Object
-														τmp1            λ.Object
-														τmp2            λ.Object
-														τmp3            λ.Object
-													)
-													τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒformat, "split", λ.StrLiteral(",")))
-													for {
-														if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-															break
-														}
-														ϒstring_segment = τmp1
-														if λ.Contains(ϒstring_segment, λ.StrLiteral("-")) {
-															τmp2 = λ.Calm(ϒstring_segment, "split", λ.StrLiteral("-"))
-															ϒstart = λ.GetItem(τmp2, λ.IntLiteral(0))
-															ϒend = λ.GetItem(τmp2, λ.IntLiteral(1))
-															τmp2 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.RangeType, λ.Cal(λ.IntType, ϒstart), λ.Add(λ.Cal(λ.IntType, ϒend), λ.IntLiteral(1))))
-															for {
-																if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
-																	break
-																}
-																ϒitem = τmp3
-																λgy.Yield(λ.Cal(λ.IntType, ϒitem))
-															}
-														} else {
-															λgy.Yield(λ.Cal(λ.IntType, ϒstring_segment))
-														}
-													}
-													return λ.None
-												})
-											})
-										ϒplaylistitems = λ.Cal(ϒorderedSet, λ.Cal(ϒiter_playlistitems, ϒplaylistitems_str))
-									}
-									ϒie_entries = λ.GetItem(ϒie_result, λ.StrLiteral("entries"))
-									ϒmake_playlistitems_entries = λ.NewFunction("make_playlistitems_entries",
-										[]λ.Param{
-											{Name: "list_ie_entries"},
-										},
-										0, false, false,
-										func(λargs []λ.Object) λ.Object {
-											var (
-												ϒlist_ie_entries = λargs[0]
-												ϒnum_entries     λ.Object
-											)
-											ϒnum_entries = λ.Cal(λ.BuiltinLen, ϒlist_ie_entries)
-											return λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
-												nil,
-												0, false, false,
-												func(λargs []λ.Object) λ.Object {
-													return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
-														var (
-															ϒi   λ.Object
-															τmp0 λ.Object
-															τmp1 λ.Object
-														)
-														τmp0 = λ.Cal(λ.BuiltinIter, ϒplaylistitems)
-														for {
-															if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-																break
-															}
-															ϒi = τmp1
-															if λ.IsTrue(func() λ.Object {
-																var λl λ.Object = λ.Neg(ϒnum_entries)
-																var λr λ.Object = λ.Sub(ϒi, λ.IntLiteral(1))
-																if !λ.IsTrue(λ.Le(λl, λr)) {
-																	return λ.False
-																}
-																λl = λr
-																λr = ϒnum_entries
-																if !λ.IsTrue(λ.Lt(λl, λr)) {
-																	return λ.False
-																}
-																return λ.True
-															}()) {
-																λgy.Yield(λ.GetItem(ϒlist_ie_entries, λ.Sub(ϒi, λ.IntLiteral(1))))
-															}
-														}
-														return λ.None
-													})
-												})))
-										})
-									ϒreport_download = λ.NewFunction("report_download",
-										[]λ.Param{
-											{Name: "num_entries"},
-										},
-										0, false, false,
-										func(λargs []λ.Object) λ.Object {
-											var (
-												ϒnum_entries = λargs[0]
-											)
-											λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("[%s] playlist %s: Downloading %d videos"), λ.NewTuple(
-												λ.GetItem(ϒie_result, λ.StrLiteral("extractor")),
-												ϒplaylist,
-												ϒnum_entries,
-											)))
-											return λ.None
-										})
-									if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒie_entries, λ.ListType)) {
-										ϒn_all_entries = λ.Cal(λ.BuiltinLen, ϒie_entries)
-										if λ.IsTrue(ϒplaylistitems) {
-											ϒentries = λ.Cal(ϒmake_playlistitems_entries, ϒie_entries)
-										} else {
-											ϒentries = λ.GetItem(ϒie_entries, λ.NewSlice(ϒplayliststart, ϒplaylistend, λ.None))
-										}
-										ϒn_entries = λ.Cal(λ.BuiltinLen, ϒentries)
-										λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("[%s] playlist %s: Collected %d video ids (downloading %d of them)"), λ.NewTuple(
-											λ.GetItem(ϒie_result, λ.StrLiteral("extractor")),
-											ϒplaylist,
-											ϒn_all_entries,
-											ϒn_entries,
-										)))
-									} else {
-										if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒie_entries, PagedList)) {
-											if λ.IsTrue(ϒplaylistitems) {
-												ϒentries = λ.NewList()
-												τmp0 = λ.Cal(λ.BuiltinIter, ϒplaylistitems)
-												for {
-													if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-														break
-													}
-													ϒitem = τmp1
-													λ.Calm(ϒentries, "extend", λ.Calm(ϒie_entries, "getslice", λ.Sub(ϒitem, λ.IntLiteral(1)), ϒitem))
-												}
-											} else {
-												ϒentries = λ.Calm(ϒie_entries, "getslice", ϒplayliststart, ϒplaylistend)
-											}
-											ϒn_entries = λ.Cal(λ.BuiltinLen, ϒentries)
-											λ.Cal(ϒreport_download, ϒn_entries)
-										} else {
-											if λ.IsTrue(ϒplaylistitems) {
-												ϒentries = λ.Cal(ϒmake_playlistitems_entries, λ.Cal(λ.ListType, λ.Cal(λ.None, ϒie_entries, λ.IntLiteral(0), λ.Cal(λ.BuiltinMax, ϒplaylistitems))))
-											} else {
-												ϒentries = λ.Cal(λ.ListType, λ.Cal(λ.None, ϒie_entries, ϒplayliststart, ϒplaylistend))
-											}
-											ϒn_entries = λ.Cal(λ.BuiltinLen, ϒentries)
-											λ.Cal(ϒreport_download, ϒn_entries)
-										}
-									}
-									if λ.IsTrue(λ.Calm(λ.GetAttr(ϒself, "params", nil), "get", λ.StrLiteral("playlistreverse"), λ.False)) {
-										ϒentries = λ.GetItem(ϒentries, λ.NewSlice(λ.None, λ.None, λ.Neg(λ.IntLiteral(1))))
-									}
-									if λ.IsTrue(λ.Calm(λ.GetAttr(ϒself, "params", nil), "get", λ.StrLiteral("playlistrandom"), λ.False)) {
-										λ.Cal(λ.None, ϒentries)
-									}
-									ϒx_forwarded_for = λ.Calm(ϒie_result, "get", λ.StrLiteral("__x_forwarded_for_ip"))
-									τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.EnumerateIteratorType, ϒentries, λ.IntLiteral(1)))
-									for {
-										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-											break
-										}
-										τmp2 = τmp1
-										ϒi = λ.GetItem(τmp2, λ.IntLiteral(0))
-										ϒentry = λ.GetItem(τmp2, λ.IntLiteral(1))
-										λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("[download] Downloading video %s of %s"), λ.NewTuple(
-											ϒi,
-											ϒn_entries,
-										)))
-										if λ.IsTrue(ϒx_forwarded_for) {
-											λ.SetItem(ϒentry, λ.StrLiteral("__x_forwarded_for_ip"), ϒx_forwarded_for)
-										}
-										ϒextra = λ.DictLiteral(map[string]λ.Object{
-											"n_entries":            ϒn_entries,
-											"playlist":             ϒplaylist,
-											"playlist_id":          λ.Calm(ϒie_result, "get", λ.StrLiteral("id")),
-											"playlist_title":       λ.Calm(ϒie_result, "get", λ.StrLiteral("title")),
-											"playlist_uploader":    λ.Calm(ϒie_result, "get", λ.StrLiteral("uploader")),
-											"playlist_uploader_id": λ.Calm(ϒie_result, "get", λ.StrLiteral("uploader_id")),
-											"playlist_index": func() λ.Object {
-												if λ.IsTrue(ϒplaylistitems) {
-													return λ.GetItem(ϒplaylistitems, λ.Sub(ϒi, λ.IntLiteral(1)))
-												} else {
-													return λ.Add(ϒi, ϒplayliststart)
-												}
-											}(),
-											"extractor":            λ.GetItem(ϒie_result, λ.StrLiteral("extractor")),
-											"webpage_url":          λ.GetItem(ϒie_result, λ.StrLiteral("webpage_url")),
-											"webpage_url_basename": λ.Cal(ϒurl_basename, λ.GetItem(ϒie_result, λ.StrLiteral("webpage_url"))),
-											"extractor_key":        λ.GetItem(ϒie_result, λ.StrLiteral("extractor_key")),
-										})
-										ϒreason = λ.Call(λ.GetAttr(ϒself, "_match_entry", nil), λ.NewArgs(ϒentry), λ.KWArgs{
-											{Name: "incomplete", Value: λ.True},
-										})
-										if ϒreason != λ.None {
-											λ.Calm(ϒself, "to_screen", λ.Add(λ.StrLiteral("[download] "), ϒreason))
-											continue
-										}
-										ϒentry_result = λ.Calm(ϒself, "__process_iterable_entry", ϒentry, ϒdownload, ϒextra)
-										λ.Calm(ϒplaylist_results, "append", ϒentry_result)
-									}
-									λ.SetItem(ϒie_result, λ.StrLiteral("entries"), ϒplaylist_results)
-									λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("[download] Finished downloading playlist: %s"), ϒplaylist))
-									return ϒie_result
 								} else {
 									if λ.IsTrue(λ.Eq(ϒresult_type, λ.StrLiteral("compat_list"))) {
 										λ.Calm(ϒself, "report_warning", λ.Mod(λ.StrLiteral("Extractor %s returned a compat_list result. It needs to be updated."), λ.Calm(ϒie_result, "get", λ.StrLiteral("extractor"))))
@@ -2391,6 +2180,16 @@ func init() {
 										λ.OSErrorType,
 									), func(λex λ.BaseException) {
 										var ϒerr λ.Object = λex
+										if λ.IsTrue(func() λ.Object {
+											if λv := λ.Cal(λ.BuiltinIsInstance, ϒerr, λ.OSErrorType); !λ.IsTrue(λv) {
+												return λv
+											} else {
+												return λ.Eq(λ.GetAttr(ϒerr, "errno", nil), λ.GetAttr(λ.None, "EEXIST", nil))
+											}
+										}()) {
+											λexit, λret = λ.BlockExitReturn, λ.True
+											return
+										}
 										λ.Calm(ϒself, "report_error", λ.Add(λ.StrLiteral("unable to create directory "), λ.Cal(ϒerror_to_compat_str, ϒerr)))
 										λexit, λret = λ.BlockExitReturn, λ.False
 										return

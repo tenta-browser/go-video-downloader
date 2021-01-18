@@ -66,23 +66,8 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		TurnerBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("TurnerBaseIE"), λ.NewTuple(AdobePassIE), func() λ.Dict {
 			var (
-				TurnerBaseIE__extract_cvp_info  λ.Object
-				TurnerBaseIE__extract_timestamp λ.Object
+				TurnerBaseIE__extract_cvp_info λ.Object
 			)
-			TurnerBaseIE__extract_timestamp = λ.NewFunction("_extract_timestamp",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "video_data"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒself       = λargs[0]
-						ϒvideo_data = λargs[1]
-					)
-					_ = ϒself
-					return λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_attr, ϒvideo_data, λ.StrLiteral("dateCreated"), λ.StrLiteral("uts")))
-				})
 			TurnerBaseIE__extract_cvp_info = λ.NewFunction("_extract_cvp_info",
 				[]λ.Param{
 					{Name: "self"},
@@ -428,8 +413,7 @@ func init() {
 					})
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_extract_cvp_info":  TurnerBaseIE__extract_cvp_info,
-				"_extract_timestamp": TurnerBaseIE__extract_timestamp,
+				"_extract_cvp_info": TurnerBaseIE__extract_cvp_info,
 			})
 		}())
 	})

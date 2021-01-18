@@ -25,6 +25,7 @@
 package utils
 
 import (
+	Ωcodecs "github.com/tenta-browser/go-video-downloader/gen/codecs"
 	Ωentities "github.com/tenta-browser/go-video-downloader/gen/html/entities"
 	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
 	Ωrandom "github.com/tenta-browser/go-video-downloader/gen/random"
@@ -70,6 +71,7 @@ var (
 	ϒbool_or_none                     λ.Object
 	ϒbug_reports_message              λ.Object
 	ϒclean_html                       λ.Object
+	ϒclean_podcast_url                λ.Object
 	ϒcompat_HTMLParseError            λ.Object
 	ϒcompat_HTMLParser                λ.Object
 	ϒcompat_basestring                λ.Object
@@ -105,6 +107,7 @@ var (
 	ϒjs_to_json                       λ.Object
 	ϒlimit_length                     λ.Object
 	ϒlookup_unit_table                λ.Object
+	ϒlowercase_escape                 λ.Object
 	ϒmerge_dicts                      λ.Object
 	ϒmimetype2ext                     λ.Object
 	ϒmonth_by_name                    λ.Object
@@ -3799,6 +3802,29 @@ func init() {
 
 			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
+		ϒlowercase_escape = λ.NewFunction("lowercase_escape",
+			[]λ.Param{
+				{Name: "s"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒs              = λargs[0]
+					ϒunicode_escape λ.Object
+				)
+				ϒunicode_escape = λ.Cal(Ωcodecs.ϒgetdecoder, λ.StrLiteral("unicode_escape"))
+				return λ.Cal(Ωre.ϒsub, λ.StrLiteral("\\\\u[0-9a-fA-F]{4}"), λ.NewFunction("<lambda>",
+					[]λ.Param{
+						{Name: "m"},
+					},
+					0, false, false,
+					func(λargs []λ.Object) λ.Object {
+						var (
+							ϒm = λargs[0]
+						)
+						return λ.GetItem(λ.Cal(ϒunicode_escape, λ.Calm(ϒm, "group", λ.IntLiteral(0))), λ.IntLiteral(0))
+					}), ϒs)
+			})
 		ϒurlencode_postdata = λ.NewFunction("urlencode_postdata",
 			nil,
 			0, true, true,
@@ -5444,6 +5470,17 @@ func init() {
 					ϒmonth_field: "12",
 					ϒday_field:   "12",
 				})
+			})
+		ϒclean_podcast_url = λ.NewFunction("clean_podcast_url",
+			[]λ.Param{
+				{Name: "url"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒurl = λargs[0]
+				)
+				return λ.Cal(Ωre.ϒsub, λ.StrLiteral("(?x)\n        (?:\n            (?:\n                chtbl\\.com/track|\n                media\\.blubrry\\.com| # https://create.blubrry.com/resources/podcast-media-download-statistics/getting-started/\n                play\\.podtrac\\.com\n            )/[^/]+|\n            (?:dts|www)\\.podtrac\\.com/(?:pts/)?redirect\\.[0-9a-z]{3,4}| # http://analytics.podtrac.com/how-to-measure\n            flex\\.acast\\.com|\n            pd(?:\n                cn\\.co| # https://podcorn.com/analytics-prefix/\n                st\\.fm # https://podsights.com/docs/\n            )/e\n        )/"), λ.StrLiteral(""), ϒurl)
 			})
 	})
 }

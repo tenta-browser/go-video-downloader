@@ -26,7 +26,6 @@ package arte
 
 import (
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
-	Ωparse "github.com/tenta-browser/go-video-downloader/gen/urllib/parse"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
@@ -359,35 +358,11 @@ func init() {
 		}())
 		ArteTVEmbedIE = λ.Cal(λ.TypeType, λ.StrLiteral("ArteTVEmbedIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ArteTVEmbedIE__VALID_URL    λ.Object
-				ArteTVEmbedIE__real_extract λ.Object
+				ArteTVEmbedIE__VALID_URL λ.Object
 			)
 			ArteTVEmbedIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?arte\\.tv/player/v\\d+/index\\.php\\?.*?\\bjson_url=.+")
-			ArteTVEmbedIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒjson_url λ.Object
-						ϒqs       λ.Object
-						ϒself     = λargs[0]
-						ϒurl      = λargs[1]
-						ϒvideo_id λ.Object
-					)
-					ϒqs = λ.Cal(Ωparse.ϒparse_qs, λ.GetAttr(λ.Cal(Ωparse.ϒurlparse, ϒurl), "query", nil))
-					ϒjson_url = λ.GetItem(λ.GetItem(ϒqs, λ.StrLiteral("json_url")), λ.IntLiteral(0))
-					ϒvideo_id = λ.Calm(ArteTVIE, "_match_id", ϒjson_url)
-					return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(ϒjson_url), λ.KWArgs{
-						{Name: "ie", Value: λ.Calm(ArteTVIE, "ie_key")},
-						{Name: "video_id", Value: ϒvideo_id},
-					})
-				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL":    ArteTVEmbedIE__VALID_URL,
-				"_real_extract": ArteTVEmbedIE__real_extract,
+				"_VALID_URL": ArteTVEmbedIE__VALID_URL,
 			})
 		}())
 		ArteTVPlaylistIE = λ.Cal(λ.TypeType, λ.StrLiteral("ArteTVPlaylistIE"), λ.NewTuple(ArteTVBaseIE), func() λ.Dict {

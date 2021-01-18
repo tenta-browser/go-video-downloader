@@ -58,6 +58,10 @@ func init() {
 			)
 			XFileShareIE__SITES = λ.NewTuple(
 				λ.NewTuple(
+					λ.StrLiteral("aparat\\.cam"),
+					λ.StrLiteral("Aparat"),
+				),
+				λ.NewTuple(
 					λ.StrLiteral("clipwatching\\.com"),
 					λ.StrLiteral("ClipWatching"),
 				),

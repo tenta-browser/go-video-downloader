@@ -138,7 +138,7 @@ func init() {
 					ϒlinks = λ.NewList()
 					ϒdefinitions = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 						λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.StrLiteral("mediaDefinition\\s*=\\s*(\\[.+?\\]);"),
+							λ.StrLiteral("mediaDefinition\\s*[=:]\\s*(\\[.+?\\])\\s*[;,]"),
 							ϒwebpage,
 							λ.StrLiteral("media definitions"),
 						), λ.KWArgs{
@@ -164,7 +164,7 @@ func init() {
 							}
 						}
 					}
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("<a[^>]+href=([\"\\'])(http.+?)\\1[^>]+title=[\"\\']Download [Vv]ideo"), ϒwebpage))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("<a[^>]+href=([\"\\'])(http(?:(?!\\1).)+\\.mp4(?:(?!\\1).)*)\\1[^>]+title=[\"\\']Download [Vv]ideo"), ϒwebpage))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
@@ -243,7 +243,7 @@ func init() {
 						ϒf = λ.DictLiteral(map[string]λ.Object{
 							"url": ϒvideo_url,
 						})
-						ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("(?P<height>\\d{3,4})[pP]_(?P<bitrate>\\d+)[kK]_\\d+/"), ϒvideo_url)
+						ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("(?P<height>\\d{3,4})[pP]_(?P<bitrate>\\d+)[kK]_\\d+"), ϒvideo_url)
 						if λ.IsTrue(ϒmobj) {
 							ϒheight = λ.Cal(λ.IntType, λ.Calm(ϒmobj, "group", λ.StrLiteral("height")))
 							ϒbitrate = λ.Cal(λ.IntType, λ.Calm(ϒmobj, "group", λ.StrLiteral("bitrate")))
