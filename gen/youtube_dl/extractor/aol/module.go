@@ -27,7 +27,7 @@ package aol
 import (
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
-	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
+	Ωyahoo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yahoo"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
@@ -35,7 +35,7 @@ import (
 var (
 	AolIE                         λ.Object
 	ExtractorError                λ.Object
-	InfoExtractor                 λ.Object
+	YahooIE                       λ.Object
 	ϒcompat_parse_qs              λ.Object
 	ϒcompat_urllib_parse_urlparse λ.Object
 	ϒint_or_none                  λ.Object
@@ -44,20 +44,20 @@ var (
 
 func init() {
 	λ.InitModule(func() {
-		InfoExtractor = Ωcommon.InfoExtractor
+		YahooIE = Ωyahoo.YahooIE
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒurl_or_none = Ωutils.ϒurl_or_none
-		AolIE = λ.Cal(λ.TypeType, λ.StrLiteral("AolIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		AolIE = λ.Cal(λ.TypeType, λ.StrLiteral("AolIE"), λ.NewTuple(YahooIE), func() λ.Dict {
 			var (
 				AolIE_IE_NAME       λ.Object
 				AolIE__VALID_URL    λ.Object
 				AolIE__real_extract λ.Object
 			)
 			AolIE_IE_NAME = λ.StrLiteral("aol.com")
-			AolIE__VALID_URL = λ.StrLiteral("(?:aol-video:|https?://(?:www\\.)?aol\\.(?:com|ca|co\\.uk|de|jp)/video/(?:[^/]+/)*)(?P<id>[0-9a-f]+)")
+			AolIE__VALID_URL = λ.StrLiteral("(?:aol-video:|https?://(?:www\\.)?aol\\.(?:com|ca|co\\.uk|de|jp)/video/(?:[^/]+/)*)(?P<id>\\d{9}|[0-9a-f]{24}|[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12})")
 			AolIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -83,6 +83,9 @@ func init() {
 						τmp1        λ.Object
 					)
 					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					if λ.Contains(ϒvideo_id, λ.StrLiteral("-")) {
+						return λ.Calm(ϒself, "_extract_yahoo_video", ϒvideo_id, λ.StrLiteral("us"))
+					}
 					ϒresponse = λ.GetItem(λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("https://feedapi.b2c.on.aol.com/v1.0/app/videos/aolon/%s/details"), ϒvideo_id), ϒvideo_id), λ.StrLiteral("response"))
 					if λ.IsTrue(λ.Ne(λ.GetItem(ϒresponse, λ.StrLiteral("statusText")), λ.StrLiteral("Ok"))) {
 						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("%s said: %s"), λ.NewTuple(

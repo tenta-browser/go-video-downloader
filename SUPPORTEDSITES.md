@@ -29,7 +29,9 @@ Supported sites
  * BilibiliAudio: `www.bilibili.com`
  * BIQLE: `biqle.org`
  * BleacherReportCMS: `bleacherreport.com`
+ * BokeCC: `union.bokecc.com`
  * Box: `mlssoccer.app.box.com`
+ * Bpb: `www.bpb.de`
  * BR: `www.br.de`
  * BravoTV: `www.bravotv.com`
  * BusinessInsider: `uk.businessinsider.com`
@@ -103,7 +105,6 @@ Supported sites
  * GiantBomb: `www.giantbomb.com`
  * GodTube: `www.godtube.com`
  * Golem: `video.golem.de`
- * GoogleDrive: `drive.google.com`
  * GooglePodcasts: `podcasts.google.com`
  * GPUTechConf: `on-demand.gputechconf.com`
  * HBO: `www.hbo.com`
@@ -284,6 +285,7 @@ Supported sites
  * Xuite: `vlog.xuite.net`
  * XVideos _(adult)_: `www.xvideos.com`
  * XXXYMovies _(adult)_: `xxxymovies.com`
+ * Yahoo: `screen.yahoo.com`
  * YouJizz _(adult)_: `www.youjizz.com`
  * YouPorn _(adult)_: `www.youporn.com`
  * YourPorn _(adult)_: `sxyprn.com`

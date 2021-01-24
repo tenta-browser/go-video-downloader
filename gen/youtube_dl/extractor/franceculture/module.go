@@ -72,10 +72,18 @@ func init() {
 					)
 					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
-					ϒvideo_data = λ.Cal(ϒextract_attributes, λ.Calm(ϒself, "_search_regex", λ.StrLiteral("(?sx)\n                (?:\n                    </h1>|\n                    <div[^>]+class=\"[^\"]*?(?:title-zone-diffusion|heading-zone-(?:wrapper|player-button))[^\"]*?\"[^>]*>\n                ).*?\n                (<button[^>]+data-asset-source=\"[^\"]+\"[^>]+>)\n            "), ϒwebpage, λ.StrLiteral("video data")))
-					ϒvideo_url = λ.GetItem(ϒvideo_data, λ.StrLiteral("data-asset-source"))
+					ϒvideo_data = λ.Cal(ϒextract_attributes, λ.Calm(ϒself, "_search_regex", λ.StrLiteral("(?sx)\n                (?:\n                    </h1>|\n                    <div[^>]+class=\"[^\"]*?(?:title-zone-diffusion|heading-zone-(?:wrapper|player-button))[^\"]*?\"[^>]*>\n                ).*?\n                (<button[^>]+data-(?:url|asset-source)=\"[^\"]+\"[^>]+>)\n            "), ϒwebpage, λ.StrLiteral("video data")))
+					ϒvideo_url = func() λ.Object {
+						if λv := λ.Calm(ϒvideo_data, "get", λ.StrLiteral("data-url")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.GetItem(ϒvideo_data, λ.StrLiteral("data-asset-source"))
+						}
+					}()
 					ϒtitle = func() λ.Object {
 						if λv := λ.Calm(ϒvideo_data, "get", λ.StrLiteral("data-asset-title")); λ.IsTrue(λv) {
+							return λv
+						} else if λv := λ.Calm(ϒvideo_data, "get", λ.StrLiteral("data-diffusion-title")); λ.IsTrue(λv) {
 							return λv
 						} else {
 							return λ.Calm(ϒself, "_og_search_title", ϒwebpage)
@@ -93,7 +101,7 @@ func init() {
 						ϒwebpage,
 						λ.StrLiteral("thumbnail"),
 					), λ.KWArgs{
-						{Name: "fatal", Value: λ.False},
+						{Name: "default", Value: λ.None},
 					})
 					ϒuploader = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 						λ.StrLiteral("(?s)<span class=\"author\">(.*?)</span>"),
@@ -118,9 +126,15 @@ func init() {
 								return λ.None
 							}
 						}(),
-						"uploader":  ϒuploader,
-						"timestamp": λ.Cal(ϒint_or_none, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("data-asset-created-date"))),
-						"duration":  λ.Cal(ϒint_or_none, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("data-duration"))),
+						"uploader": ϒuploader,
+						"timestamp": func() λ.Object {
+							if λv := λ.Cal(ϒint_or_none, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("data-start-time"))); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Cal(ϒint_or_none, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("data-asset-created-date")))
+							}
+						}(),
+						"duration": λ.Cal(ϒint_or_none, λ.Calm(ϒvideo_data, "get", λ.StrLiteral("data-duration"))),
 					})
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{

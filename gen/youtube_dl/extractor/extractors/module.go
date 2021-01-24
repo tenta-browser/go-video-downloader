@@ -50,7 +50,9 @@ import (
 	Ωbilibili "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bilibili"
 	Ωbiqle "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/biqle"
 	Ωbleacherreport "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bleacherreport"
+	Ωbokecc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bokecc"
 	Ωbox "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/box"
+	Ωbpb "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bpb"
 	Ωbr "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/br"
 	Ωbravotv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bravotv"
 	Ωbusinessinsider "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/businessinsider"
@@ -119,7 +121,6 @@ import (
 	Ωgiantbomb "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/giantbomb"
 	Ωgodtube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/godtube"
 	Ωgolem "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/golem"
-	Ωgoogledrive "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/googledrive"
 	Ωgooglepodcasts "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/googlepodcasts"
 	Ωgputechconf "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/gputechconf"
 	Ωhbo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/hbo"
@@ -280,6 +281,7 @@ import (
 	Ωxuite "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xuite"
 	Ωxvideos "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xvideos"
 	Ωxxxymovies "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xxxymovies"
+	Ωyahoo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yahoo"
 	Ωyoujizz "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youjizz"
 	Ωyouporn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youporn"
 	Ωyourporn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yourporn"
@@ -319,7 +321,9 @@ var (
 	BildIE                     λ.Object
 	BilibiliAudioIE            λ.Object
 	BleacherReportCMSIE        λ.Object
+	BokeCCIE                   λ.Object
 	BoxIE                      λ.Object
+	BpbIE                      λ.Object
 	BravoTVIE                  λ.Object
 	BusinessInsiderIE          λ.Object
 	CBCPlayerIE                λ.Object
@@ -396,7 +400,6 @@ var (
 	GiantBombIE                λ.Object
 	GodTubeIE                  λ.Object
 	GolemIE                    λ.Object
-	GoogleDriveIE              λ.Object
 	GooglePodcastsIE           λ.Object
 	HBOIE                      λ.Object
 	HeiseIE                    λ.Object
@@ -575,6 +578,7 @@ var (
 	XVideosIE                  λ.Object
 	XXXYMoviesIE               λ.Object
 	XuiteIE                    λ.Object
+	YahooIE                    λ.Object
 	YouJizzIE                  λ.Object
 	YouPornIE                  λ.Object
 	YourPornIE                 λ.Object
@@ -614,7 +618,9 @@ func init() {
 		BilibiliAudioIE = Ωbilibili.BilibiliAudioIE
 		BIQLEIE = Ωbiqle.BIQLEIE
 		BleacherReportCMSIE = Ωbleacherreport.BleacherReportCMSIE
+		BokeCCIE = Ωbokecc.BokeCCIE
 		BoxIE = Ωbox.BoxIE
+		BpbIE = Ωbpb.BpbIE
 		BRIE = Ωbr.BRIE
 		BravoTVIE = Ωbravotv.BravoTVIE
 		BusinessInsiderIE = Ωbusinessinsider.BusinessInsiderIE
@@ -688,7 +694,6 @@ func init() {
 		GiantBombIE = Ωgiantbomb.GiantBombIE
 		GodTubeIE = Ωgodtube.GodTubeIE
 		GolemIE = Ωgolem.GolemIE
-		GoogleDriveIE = Ωgoogledrive.GoogleDriveIE
 		GooglePodcastsIE = Ωgooglepodcasts.GooglePodcastsIE
 		GPUTechConfIE = Ωgputechconf.GPUTechConfIE
 		HBOIE = Ωhbo.HBOIE
@@ -871,6 +876,7 @@ func init() {
 		XuiteIE = Ωxuite.XuiteIE
 		XVideosIE = Ωxvideos.XVideosIE
 		XXXYMoviesIE = Ωxxxymovies.XXXYMoviesIE
+		YahooIE = Ωyahoo.YahooIE
 		YouJizzIE = Ωyoujizz.YouJizzIE
 		YouPornIE = Ωyouporn.YouPornIE
 		YourPornIE = Ωyourporn.YourPornIE
@@ -906,7 +912,9 @@ func init() {
 			BilibiliAudioIE,
 			BIQLEIE,
 			BleacherReportCMSIE,
+			BokeCCIE,
 			BoxIE,
+			BpbIE,
 			BRIE,
 			BravoTVIE,
 			BusinessInsiderIE,
@@ -980,7 +988,6 @@ func init() {
 			GiantBombIE,
 			GodTubeIE,
 			GolemIE,
-			GoogleDriveIE,
 			GooglePodcastsIE,
 			GPUTechConfIE,
 			HBOIE,
@@ -1163,6 +1170,7 @@ func init() {
 			XuiteIE,
 			XVideosIE,
 			XXXYMoviesIE,
+			YahooIE,
 			YouJizzIE,
 			YouPornIE,
 			YourPornIE,

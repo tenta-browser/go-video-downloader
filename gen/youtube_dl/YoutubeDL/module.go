@@ -654,7 +654,7 @@ func init() {
 							nil,
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
-								return λ.StrLiteral("NA")
+								return λ.Calm(λ.GetAttr(ϒself, "params", nil), "get", λ.StrLiteral("outtmpl_na_placeholder"), λ.StrLiteral("NA"))
 							}), ϒtemplate_dict)
 						ϒouttmpl = λ.Calm(λ.GetAttr(ϒself, "params", nil), "get", λ.StrLiteral("outtmpl"), DEFAULT_OUTTMPL)
 						ϒfield_size_compat_map = λ.DictLiteral(map[string]λ.Object{
