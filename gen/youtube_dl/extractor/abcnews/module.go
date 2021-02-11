@@ -28,23 +28,27 @@ import (
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωamp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/amp"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
-	Ωyoutube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youtube"
+	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	AMPIE          λ.Object
-	AbcNewsIE      λ.Object
-	AbcNewsVideoIE λ.Object
-	InfoExtractor  λ.Object
-	YoutubeIE      λ.Object
+	AMPIE           λ.Object
+	AbcNewsIE       λ.Object
+	AbcNewsVideoIE  λ.Object
+	InfoExtractor   λ.Object
+	ϒparse_duration λ.Object
+	ϒparse_iso8601  λ.Object
+	ϒtry_get        λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		AMPIE = Ωamp.AMPIE
 		InfoExtractor = Ωcommon.InfoExtractor
-		YoutubeIE = Ωyoutube.YoutubeIE
+		ϒparse_duration = Ωutils.ϒparse_duration
+		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
+		ϒtry_get = Ωutils.ϒtry_get
 		AbcNewsVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("AbcNewsVideoIE"), λ.NewTuple(AMPIE), func() λ.Dict {
 			var (
 				AbcNewsVideoIE_IE_NAME       λ.Object
@@ -52,7 +56,7 @@ func init() {
 				AbcNewsVideoIE__real_extract λ.Object
 			)
 			AbcNewsVideoIE_IE_NAME = λ.StrLiteral("abcnews:video")
-			AbcNewsVideoIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\n                            abcnews\\.go\\.com/\n                            (?:\n                                [^/]+/video/(?P<display_id>[0-9a-z-]+)-|\n                                video/embed\\?.*?\\bid=\n                            )|\n                            fivethirtyeight\\.abcnews\\.go\\.com/video/embed/\\d+/\n                        )\n                        (?P<id>\\d+)\n                    ")
+			AbcNewsVideoIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\n                            abcnews\\.go\\.com/\n                            (?:\n                                (?:[^/]+/)*video/(?P<display_id>[0-9a-z-]+)-|\n                                video/(?:embed|itemfeed)\\?.*?\\bid=\n                            )|\n                            fivethirtyeight\\.abcnews\\.go\\.com/video/embed/\\d+/\n                        )\n                        (?P<id>\\d+)\n                    ")
 			AbcNewsVideoIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},

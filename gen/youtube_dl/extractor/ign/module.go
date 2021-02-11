@@ -25,67 +25,70 @@
 package ign
 
 import (
-	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
+	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	IGNIE          λ.Object
-	InfoExtractor  λ.Object
-	OneUPIE        λ.Object
-	PCMagIE        λ.Object
-	ϒint_or_none   λ.Object
-	ϒparse_iso8601 λ.Object
+	HEADRequest                   λ.Object
+	IGNArticleIE                  λ.Object
+	IGNBaseIE                     λ.Object
+	IGNIE                         λ.Object
+	IGNVideoIE                    λ.Object
+	InfoExtractor                 λ.Object
+	ϒcompat_parse_qs              λ.Object
+	ϒcompat_urllib_parse_urlparse λ.Object
+	ϒdetermine_ext                λ.Object
+	ϒint_or_none                  λ.Object
+	ϒparse_iso8601                λ.Object
+	ϒstrip_or_none                λ.Object
+	ϒtry_get                      λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
+		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
+		HEADRequest = Ωutils.HEADRequest
+		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
-		IGNIE = λ.Cal(λ.TypeType, λ.StrLiteral("IGNIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		ϒstrip_or_none = Ωutils.ϒstrip_or_none
+		ϒtry_get = Ωutils.ϒtry_get
+		IGNBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("IGNBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				IGNIE_IE_NAME           λ.Object
-				IGNIE__API_URL_TEMPLATE λ.Object
-				IGNIE__VALID_URL        λ.Object
-				IGNIE__find_video_id    λ.Object
-				IGNIE__get_video_info   λ.Object
-				IGNIE__real_extract     λ.Object
+				IGNBaseIE__call_api λ.Object
 			)
-			IGNIE__VALID_URL = λ.StrLiteral("https?://.+?\\.ign\\.com/(?:[^/]+/)?(?P<type>videos|show_videos|articles|feature|(?:[^/]+/\\d+/video))(/.+)?/(?P<name_or_id>.+)")
-			IGNIE_IE_NAME = λ.StrLiteral("ign.com")
-			IGNIE__API_URL_TEMPLATE = λ.StrLiteral("http://apis.ign.com/video/v3/videos/%s")
-			IGNIE__find_video_id = λ.NewFunction("_find_video_id",
+			IGNBaseIE__call_api = λ.NewFunction("_call_api",
 				[]λ.Param{
 					{Name: "self"},
-					{Name: "webpage"},
+					{Name: "slug"},
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒres_id  λ.Object
-						ϒself    = λargs[0]
-						ϒwebpage = λargs[1]
+						ϒself = λargs[0]
+						ϒslug = λargs[1]
 					)
-					ϒres_id = λ.NewList(
-						λ.StrLiteral("\"video_id\"\\s*:\\s*\"(.*?)\""),
-						λ.StrLiteral("class=\"hero-poster[^\"]*?\"[^>]*id=\"(.+?)\""),
-						λ.StrLiteral("data-video-id=\"(.+?)\""),
-						λ.StrLiteral("<object id=\"vid_(.+?)\""),
-						λ.StrLiteral("<meta name=\"og:image\" content=\".*/(.+?)-(.+?)/.+.jpg\""),
-						λ.StrLiteral("videoId&quot;\\s*:\\s*&quot;(.+?)&quot;"),
-						λ.StrLiteral("videoId[\"\\']\\s*:\\s*[\"\\']([^\"\\']+?)[\"\\']"),
-					)
-					return λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						ϒres_id,
-						ϒwebpage,
-						λ.StrLiteral("video id"),
-					), λ.KWArgs{
-						{Name: "default", Value: λ.None},
-					})
+					return λ.Calm(ϒself, "_download_json", λ.Calm(λ.StrLiteral("http://apis.ign.com/{0}/v3/{0}s/slug/{1}"), "format", λ.GetAttr(ϒself, "_PAGE_TYPE", nil), ϒslug), ϒslug)
 				})
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_call_api": IGNBaseIE__call_api,
+			})
+		}())
+		IGNIE = λ.Cal(λ.TypeType, λ.StrLiteral("IGNIE"), λ.NewTuple(IGNBaseIE), func() λ.Dict {
+			var (
+				IGNIE_IE_NAME       λ.Object
+				IGNIE__PAGE_TYPE    λ.Object
+				IGNIE__VALID_URL    λ.Object
+				IGNIE__real_extract λ.Object
+			)
+			IGNIE__VALID_URL = λ.StrLiteral("https?://(?:.+?\\.ign|www\\.pcmag)\\.com/videos/(?:\\d{4}/\\d{2}/\\d{2}/)?(?P<id>[^/?&#]+)")
+			IGNIE_IE_NAME = λ.StrLiteral("ign.com")
+			IGNIE__PAGE_TYPE = λ.StrLiteral("video")
 			IGNIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -94,82 +97,51 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒentries       λ.Object
-						ϒmobj          λ.Object
-						ϒmultiple_urls λ.Object
-						ϒname_or_id    λ.Object
-						ϒpage_type     λ.Object
+						ϒasset         λ.Object
+						ϒasset_url     λ.Object
+						ϒdisplay_id    λ.Object
+						ϒdisplay_name  λ.Object
+						ϒf4m_url       λ.Object
+						ϒformats       λ.Object
+						ϒm3u8_url      λ.Object
+						ϒmetadata      λ.Object
+						ϒmezzanine_url λ.Object
+						ϒrefs          λ.Object
 						ϒself          = λargs[0]
+						ϒtag           λ.Object
+						ϒtags          λ.Object
+						ϒthumbnail     λ.Object
+						ϒthumbnail_url λ.Object
+						ϒthumbnails    λ.Object
+						ϒtitle         λ.Object
 						ϒurl           = λargs[1]
+						ϒvideo         λ.Object
 						ϒvideo_id      λ.Object
-						ϒwebpage       λ.Object
+						τmp0           λ.Object
+						τmp1           λ.Object
 					)
-					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒname_or_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("name_or_id"))
-					ϒpage_type = λ.Calm(ϒmobj, "group", λ.StrLiteral("type"))
-					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒname_or_id)
-					if λ.IsTrue(λ.Ne(ϒpage_type, λ.StrLiteral("video"))) {
-						ϒmultiple_urls = λ.Cal(Ωre.ϒfindall, λ.StrLiteral("<param name=\"flashvars\"[^>]*value=\"[^\"]*?url=(https?://www\\.ign\\.com/videos/.*?)[\"&]"), ϒwebpage)
-						if λ.IsTrue(ϒmultiple_urls) {
-							ϒentries = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
-								nil,
-								0, false, false,
-								func(λargs []λ.Object) λ.Object {
-									return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
-										var (
-											ϒu   λ.Object
-											τmp0 λ.Object
-											τmp1 λ.Object
-										)
-										τmp0 = λ.Cal(λ.BuiltinIter, ϒmultiple_urls)
-										for {
-											if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-												break
-											}
-											ϒu = τmp1
-											λgy.Yield(λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(ϒu), λ.KWArgs{
-												{Name: "ie", Value: λ.StrLiteral("IGN")},
-											}))
-										}
-										return λ.None
-									})
-								})))
-							return λ.DictLiteral(map[string]λ.Object{
-								"_type":   λ.StrLiteral("playlist"),
-								"id":      ϒname_or_id,
-								"entries": ϒentries,
-							})
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒvideo = λ.Calm(ϒself, "_call_api", ϒdisplay_id)
+					ϒvideo_id = λ.GetItem(ϒvideo, λ.StrLiteral("videoId"))
+					ϒmetadata = λ.GetItem(ϒvideo, λ.StrLiteral("metadata"))
+					ϒtitle = func() λ.Object {
+						if λv := λ.Calm(ϒmetadata, "get", λ.StrLiteral("longTitle")); λ.IsTrue(λv) {
+							return λv
+						} else if λv := λ.Calm(ϒmetadata, "get", λ.StrLiteral("title")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.GetItem(ϒmetadata, λ.StrLiteral("name"))
 						}
-					}
-					ϒvideo_id = λ.Calm(ϒself, "_find_video_id", ϒwebpage)
-					if !λ.IsTrue(ϒvideo_id) {
-						return λ.Calm(ϒself, "url_result", λ.Calm(ϒself, "_search_regex", λ.GetAttr(ϒself, "_EMBED_RE", nil), ϒwebpage, λ.StrLiteral("embed url")))
-					}
-					return λ.Calm(ϒself, "_get_video_info", ϒvideo_id)
-				})
-			IGNIE__get_video_info = λ.NewFunction("_get_video_info",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "video_id"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒapi_data   λ.Object
-						ϒasset      λ.Object
-						ϒf4m_url    λ.Object
-						ϒformats    λ.Object
-						ϒm3u8_url   λ.Object
-						ϒmetadata   λ.Object
-						ϒself       = λargs[0]
-						ϒthumbnails λ.Object
-						ϒvideo_id   = λargs[1]
-						τmp0        λ.Object
-						τmp1        λ.Object
-					)
-					ϒapi_data = λ.Calm(ϒself, "_download_json", λ.Mod(λ.GetAttr(ϒself, "_API_URL_TEMPLATE", nil), ϒvideo_id), ϒvideo_id)
+					}()
 					ϒformats = λ.NewList()
-					ϒm3u8_url = λ.Calm(λ.GetItem(ϒapi_data, λ.StrLiteral("refs")), "get", λ.StrLiteral("m3uUrl"))
+					ϒrefs = func() λ.Object {
+						if λv := λ.Calm(ϒvideo, "get", λ.StrLiteral("refs")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
+						}
+					}()
+					ϒm3u8_url = λ.Calm(ϒrefs, "get", λ.StrLiteral("m3uUrl"))
 					if λ.IsTrue(ϒm3u8_url) {
 						λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
 							ϒm3u8_url,
@@ -181,7 +153,7 @@ func init() {
 							{Name: "fatal", Value: λ.False},
 						}))
 					}
-					ϒf4m_url = λ.Calm(λ.GetItem(ϒapi_data, λ.StrLiteral("refs")), "get", λ.StrLiteral("f4mUrl"))
+					ϒf4m_url = λ.Calm(ϒrefs, "get", λ.StrLiteral("f4mUrl"))
 					if λ.IsTrue(ϒf4m_url) {
 						λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_f4m_formats", nil), λ.NewArgs(
 							ϒf4m_url,
@@ -191,102 +163,125 @@ func init() {
 							{Name: "fatal", Value: λ.False},
 						}))
 					}
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒapi_data, λ.StrLiteral("assets")))
+					τmp0 = λ.Cal(λ.BuiltinIter, func() λ.Object {
+						if λv := λ.Calm(ϒvideo, "get", λ.StrLiteral("assets")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewList()
+						}
+					}())
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒasset = τmp1
+						ϒasset_url = λ.Calm(ϒasset, "get", λ.StrLiteral("url"))
+						if !λ.IsTrue(ϒasset_url) {
+							continue
+						}
 						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
-							"url":    λ.GetItem(ϒasset, λ.StrLiteral("url")),
-							"tbr":    λ.Calm(ϒasset, "get", λ.StrLiteral("actual_bitrate_kbps")),
-							"fps":    λ.Calm(ϒasset, "get", λ.StrLiteral("frame_rate")),
+							"url":    ϒasset_url,
+							"tbr":    λ.Cal(ϒint_or_none, λ.Calm(ϒasset, "get", λ.StrLiteral("bitrate")), λ.IntLiteral(1000)),
+							"fps":    λ.Cal(ϒint_or_none, λ.Calm(ϒasset, "get", λ.StrLiteral("frame_rate"))),
 							"height": λ.Cal(ϒint_or_none, λ.Calm(ϒasset, "get", λ.StrLiteral("height"))),
 							"width":  λ.Cal(ϒint_or_none, λ.Calm(ϒasset, "get", λ.StrLiteral("width"))),
 						}))
 					}
-					λ.Calm(ϒself, "_sort_formats", ϒformats)
-					ϒthumbnails = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
-						nil,
+					ϒmezzanine_url = λ.Cal(ϒtry_get, ϒvideo, λ.NewFunction("<lambda>",
+						[]λ.Param{
+							{Name: "x"},
+						},
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
-								var (
-									ϒthumbnail λ.Object
-									τmp0       λ.Object
-									τmp1       λ.Object
-								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒapi_data, "get", λ.StrLiteral("thumbnails"), λ.NewList()))
-								for {
-									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-										break
-									}
-									ϒthumbnail = τmp1
-									λgy.Yield(λ.DictLiteral(map[string]λ.Object{
-										"url": λ.GetItem(ϒthumbnail, λ.StrLiteral("url")),
-									}))
-								}
-								return λ.None
-							})
-						})))
-					ϒmetadata = λ.GetItem(ϒapi_data, λ.StrLiteral("metadata"))
+							var (
+								ϒx = λargs[0]
+							)
+							return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("system")), λ.StrLiteral("mezzanineUrl"))
+						}))
+					if λ.IsTrue(ϒmezzanine_url) {
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"ext":        λ.Cal(ϒdetermine_ext, ϒmezzanine_url, λ.StrLiteral("mp4")),
+							"format_id":  λ.StrLiteral("mezzanine"),
+							"preference": λ.IntLiteral(1),
+							"url":        ϒmezzanine_url,
+						}))
+					}
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒthumbnails = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, func() λ.Object {
+						if λv := λ.Calm(ϒvideo, "get", λ.StrLiteral("thumbnails")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewList()
+						}
+					}())
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒthumbnail = τmp1
+						ϒthumbnail_url = λ.Calm(ϒthumbnail, "get", λ.StrLiteral("url"))
+						if !λ.IsTrue(ϒthumbnail_url) {
+							continue
+						}
+						λ.Calm(ϒthumbnails, "append", λ.DictLiteral(map[string]λ.Object{
+							"url": ϒthumbnail_url,
+						}))
+					}
+					ϒtags = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, func() λ.Object {
+						if λv := λ.Calm(ϒvideo, "get", λ.StrLiteral("tags")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewList()
+						}
+					}())
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒtag = τmp1
+						ϒdisplay_name = λ.Calm(ϒtag, "get", λ.StrLiteral("displayName"))
+						if !λ.IsTrue(ϒdisplay_name) {
+							continue
+						}
+						λ.Calm(ϒtags, "append", ϒdisplay_name)
+					}
 					return λ.DictLiteral(map[string]λ.Object{
-						"id": func() λ.Object {
-							if λv := λ.Calm(ϒapi_data, "get", λ.StrLiteral("videoId")); λ.IsTrue(λv) {
-								return λv
-							} else {
-								return ϒvideo_id
-							}
-						}(),
-						"title": func() λ.Object {
-							if λv := λ.Calm(ϒmetadata, "get", λ.StrLiteral("longTitle")); λ.IsTrue(λv) {
-								return λv
-							} else if λv := λ.Calm(ϒmetadata, "get", λ.StrLiteral("name")); λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.GetItem(λ.GetAttr(ϒmetadata, "get", nil), λ.StrLiteral("title"))
-							}
-						}(),
-						"description": λ.Calm(ϒmetadata, "get", λ.StrLiteral("description")),
+						"id":          ϒvideo_id,
+						"title":       ϒtitle,
+						"description": λ.Cal(ϒstrip_or_none, λ.Calm(ϒmetadata, "get", λ.StrLiteral("description"))),
 						"timestamp":   λ.Cal(ϒparse_iso8601, λ.Calm(ϒmetadata, "get", λ.StrLiteral("publishDate"))),
 						"duration":    λ.Cal(ϒint_or_none, λ.Calm(ϒmetadata, "get", λ.StrLiteral("duration"))),
-						"display_id": func() λ.Object {
-							if λv := λ.Calm(ϒmetadata, "get", λ.StrLiteral("slug")); λ.IsTrue(λv) {
-								return λv
-							} else {
-								return ϒvideo_id
-							}
-						}(),
-						"uploader_id": λ.Calm(ϒmetadata, "get", λ.StrLiteral("creator")),
+						"display_id":  ϒdisplay_id,
 						"thumbnails":  ϒthumbnails,
 						"formats":     ϒformats,
+						"tags":        ϒtags,
 					})
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"IE_NAME":           IGNIE_IE_NAME,
-				"_API_URL_TEMPLATE": IGNIE__API_URL_TEMPLATE,
-				"_VALID_URL":        IGNIE__VALID_URL,
-				"_find_video_id":    IGNIE__find_video_id,
-				"_get_video_info":   IGNIE__get_video_info,
-				"_real_extract":     IGNIE__real_extract,
+				"IE_NAME":       IGNIE_IE_NAME,
+				"_PAGE_TYPE":    IGNIE__PAGE_TYPE,
+				"_VALID_URL":    IGNIE__VALID_URL,
+				"_real_extract": IGNIE__real_extract,
 			})
 		}())
-		OneUPIE = λ.Cal(λ.TypeType, λ.StrLiteral("OneUPIE"), λ.NewTuple(IGNIE), func() λ.Dict {
+		IGNVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("IGNVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				OneUPIE__VALID_URL λ.Object
+				IGNVideoIE__VALID_URL λ.Object
 			)
-			OneUPIE__VALID_URL = λ.StrLiteral("https?://gamevideos\\.1up\\.com/(?P<type>video)/id/(?P<name_or_id>.+)\\.html")
+			IGNVideoIE__VALID_URL = λ.StrLiteral("https?://.+?\\.ign\\.com/(?:[a-z]{2}/)?[^/]+/(?P<id>\\d+)/(?:video|trailer)/")
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": OneUPIE__VALID_URL,
+				"_VALID_URL": IGNVideoIE__VALID_URL,
 			})
 		}())
-		PCMagIE = λ.Cal(λ.TypeType, λ.StrLiteral("PCMagIE"), λ.NewTuple(IGNIE), func() λ.Dict {
+		IGNArticleIE = λ.Cal(λ.TypeType, λ.StrLiteral("IGNArticleIE"), λ.NewTuple(IGNBaseIE), func() λ.Dict {
 			var (
-				PCMagIE__VALID_URL λ.Object
+				IGNArticleIE__VALID_URL λ.Object
 			)
-			PCMagIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?pcmag\\.com/(?P<type>videos|article2)(/.+)?/(?P<name_or_id>.+)")
+			IGNArticleIE__VALID_URL = λ.StrLiteral("https?://.+?\\.ign\\.com/(?:articles(?:/\\d{4}/\\d{2}/\\d{2})?|(?:[a-z]{2}/)?feature/\\d+)/(?P<id>[^/?&#]+)")
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": PCMagIE__VALID_URL,
+				"_VALID_URL": IGNArticleIE__VALID_URL,
 			})
 		}())
 	})

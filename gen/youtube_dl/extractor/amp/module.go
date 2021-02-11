@@ -31,14 +31,15 @@ import (
 )
 
 var (
-	AMPIE          λ.Object
-	ExtractorError λ.Object
-	InfoExtractor  λ.Object
-	ϒdetermine_ext λ.Object
-	ϒint_or_none   λ.Object
-	ϒmimetype2ext  λ.Object
-	ϒparse_iso8601 λ.Object
-	ϒurl_or_none   λ.Object
+	AMPIE              λ.Object
+	ExtractorError     λ.Object
+	InfoExtractor      λ.Object
+	ϒdetermine_ext     λ.Object
+	ϒint_or_none       λ.Object
+	ϒmimetype2ext      λ.Object
+	ϒparse_iso8601     λ.Object
+	ϒunified_timestamp λ.Object
+	ϒurl_or_none       λ.Object
 )
 
 func init() {
@@ -49,6 +50,7 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
+		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		AMPIE = λ.Cal(λ.TypeType, λ.StrLiteral("AMPIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
@@ -241,7 +243,7 @@ func init() {
 					}
 					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒtimestamp = func() λ.Object {
-						if λv := λ.Cal(ϒparse_iso8601, λ.Calm(ϒitem, "get", λ.StrLiteral("pubDate")), λ.StrLiteral(" ")); λ.IsTrue(λv) {
+						if λv := λ.Cal(ϒunified_timestamp, λ.Calm(ϒitem, "get", λ.StrLiteral("pubDate")), λ.StrLiteral(" ")); λ.IsTrue(λv) {
 							return λv
 						} else {
 							return λ.Cal(ϒparse_iso8601, λ.Calm(ϒitem, "get", λ.StrLiteral("dc-date")))

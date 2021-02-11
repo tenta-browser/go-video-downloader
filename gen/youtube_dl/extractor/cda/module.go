@@ -104,9 +104,12 @@ func init() {
 							{Name: "expected", Value: λ.True},
 						})))
 					}
+					if λ.IsTrue(λ.Cal(Ωre.ϒsearch, λ.StrLiteral("niedostępn[ey] w(?:&nbsp;|\\s+)Twoim kraju\\s*<"), ϒwebpage)) {
+						λ.Calm(ϒself, "raise_geo_restricted")
+					}
 					ϒneed_confirm_age = λ.False
 					if λ.IsTrue(λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.StrLiteral("(<form[^>]+action=\"/a/validatebirth\")"),
+						λ.StrLiteral("(<form[^>]+action=\"[^\"]*/a/validatebirth[^\"]*\")"),
 						ϒwebpage,
 						λ.StrLiteral("birthday validate form"),
 					), λ.KWArgs{

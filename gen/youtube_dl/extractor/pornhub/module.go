@@ -56,7 +56,9 @@ var (
 	ϒorderedSet                λ.Object
 	ϒremove_quotes             λ.Object
 	ϒstr_to_int                λ.Object
+	ϒupdate_url_query          λ.Object
 	ϒurl_or_none               λ.Object
+	ϒurlencode_postdata        λ.Object
 )
 
 func init() {
@@ -73,10 +75,14 @@ func init() {
 		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒremove_quotes = Ωutils.ϒremove_quotes
 		ϒstr_to_int = Ωutils.ϒstr_to_int
+		ϒupdate_url_query = Ωutils.ϒupdate_url_query
+		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		PornHubBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("PornHubBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				PornHubBaseIE__download_webpage_handle λ.Object
+				PornHubBaseIE__login                   λ.Object
+				PornHubBaseIE__real_initialize         λ.Object
 			)
 			PornHubBaseIE__download_webpage_handle = λ.NewFunction("_download_webpage_handle",
 				[]λ.Param{
@@ -168,8 +174,134 @@ func init() {
 						ϒurlh,
 					)
 				})
+			PornHubBaseIE__real_initialize = λ.NewFunction("_real_initialize",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself = λargs[0]
+					)
+					λ.SetAttr(ϒself, "_logged_in", λ.False)
+					return λ.None
+				})
+			PornHubBaseIE__login = λ.NewFunction("_login",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "host"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒhost       = λargs[1]
+						ϒis_logged  λ.Object
+						ϒlogin_form λ.Object
+						ϒlogin_page λ.Object
+						ϒlogin_url  λ.Object
+						ϒmessage    λ.Object
+						ϒpassword   λ.Object
+						ϒresponse   λ.Object
+						ϒself       = λargs[0]
+						ϒsite       λ.Object
+						ϒusername   λ.Object
+						τmp0        λ.Object
+					)
+					if λ.IsTrue(λ.GetAttr(ϒself, "_logged_in", nil)) {
+						return λ.None
+					}
+					ϒsite = λ.GetItem(λ.Calm(ϒhost, "split", λ.StrLiteral(".")), λ.IntLiteral(0))
+					τmp0 = λ.Call(λ.GetAttr(ϒself, "_get_login_info", nil), nil, λ.KWArgs{
+						{Name: "netrc_machine", Value: ϒsite},
+					})
+					ϒusername = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
+					if ϒusername == λ.None {
+						return λ.None
+					}
+					ϒlogin_url = λ.Mod(λ.StrLiteral("https://www.%s/%slogin"), λ.NewTuple(
+						ϒhost,
+						func() λ.Object {
+							if λ.Contains(ϒhost, λ.StrLiteral("premium")) {
+								return λ.StrLiteral("premium/")
+							} else {
+								return λ.StrLiteral("")
+							}
+						}(),
+					))
+					ϒlogin_page = λ.Calm(ϒself, "_download_webpage", ϒlogin_url, λ.None, λ.Mod(λ.StrLiteral("Downloading %s login page"), ϒsite))
+					ϒis_logged = λ.NewFunction("is_logged",
+						[]λ.Param{
+							{Name: "webpage"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒwebpage = λargs[0]
+							)
+							return λ.Cal(λ.BuiltinAny, λ.Cal(λ.NewFunction("<generator>",
+								nil,
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
+										var (
+											ϒp   λ.Object
+											τmp0 λ.Object
+											τmp1 λ.Object
+										)
+										τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+											λ.StrLiteral("class=[\"\\']signOut"),
+											λ.StrLiteral(">Sign\\s+[Oo]ut\\s*<"),
+										))
+										for {
+											if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+												break
+											}
+											ϒp = τmp1
+											λgy.Yield(λ.Cal(Ωre.ϒsearch, ϒp, ϒwebpage))
+										}
+										return λ.None
+									})
+								})))
+						})
+					if λ.IsTrue(λ.Cal(ϒis_logged, ϒlogin_page)) {
+						λ.SetAttr(ϒself, "_logged_in", λ.True)
+						return λ.None
+					}
+					ϒlogin_form = λ.Calm(ϒself, "_hidden_inputs", ϒlogin_page)
+					λ.Calm(ϒlogin_form, "update", λ.DictLiteral(map[string]λ.Object{
+						"username": ϒusername,
+						"password": ϒpassword,
+					}))
+					ϒresponse = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.Mod(λ.StrLiteral("https://www.%s/front/authenticate"), ϒhost),
+						λ.None,
+						λ.Mod(λ.StrLiteral("Logging in to %s"), ϒsite),
+					), λ.KWArgs{
+						{Name: "data", Value: λ.Cal(ϒurlencode_postdata, ϒlogin_form)},
+						{Name: "headers", Value: λ.DictLiteral(map[string]λ.Object{
+							"Content-Type":     λ.StrLiteral("application/x-www-form-urlencoded; charset=UTF-8"),
+							"Referer":          ϒlogin_url,
+							"X-Requested-With": λ.StrLiteral("XMLHttpRequest"),
+						})},
+					})
+					if λ.IsTrue(λ.Eq(λ.Calm(ϒresponse, "get", λ.StrLiteral("success")), λ.StrLiteral("1"))) {
+						λ.SetAttr(ϒself, "_logged_in", λ.True)
+						return λ.None
+					}
+					ϒmessage = λ.Calm(ϒresponse, "get", λ.StrLiteral("message"))
+					if ϒmessage != λ.None {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("Unable to login: %s"), ϒmessage)), λ.KWArgs{
+							{Name: "expected", Value: λ.True},
+						})))
+					}
+					panic(λ.Raise(λ.Cal(ExtractorError, λ.StrLiteral("Unable to log in"))))
+					return λ.None
+				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_download_webpage_handle": PornHubBaseIE__download_webpage_handle,
+				"_login":                   PornHubBaseIE__login,
+				"_real_initialize":         PornHubBaseIE__real_initialize,
 			})
 		}())
 		PornHubIE = λ.Cal(λ.TypeType, λ.StrLiteral("PornHubIE"), λ.NewTuple(PornHubBaseIE), func() λ.Dict {
@@ -262,13 +394,7 @@ func init() {
 						}
 					}()
 					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
-					if λ.Contains(ϒhost, λ.StrLiteral("premium")) {
-						if !λ.IsTrue(λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("cookiefile"))) {
-							panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("PornHub Premium requires authentication. You may want to use --cookies.")), λ.KWArgs{
-								{Name: "expected", Value: λ.True},
-							})))
-						}
-					}
+					λ.Calm(ϒself, "_login", ϒhost)
 					λ.Calm(ϒself, "_set_cookie", ϒhost, λ.StrLiteral("age_verified"), λ.StrLiteral("1"))
 					ϒdl_webpage = λ.NewFunction("dl_webpage",
 						[]λ.Param{

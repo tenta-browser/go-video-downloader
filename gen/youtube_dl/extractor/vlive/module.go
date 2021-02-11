@@ -217,7 +217,7 @@ func init() {
 										return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.IntLiteral(403))
 									}
 								}()) {
-									λ.Calm(ϒself, "raise_login_required", λ.GetItem(λ.Cal(Ωjson.ϒloads, λ.Calm(λ.Calm(λ.GetAttr(ϒe, "cause", nil), "read"), "decode")), λ.StrLiteral("message")))
+									λ.Calm(ϒself, "raise_login_required", λ.GetItem(λ.Cal(Ωjson.ϒloads, λ.Calm(λ.Calm(λ.GetAttr(ϒe, "cause", nil), "read"), "decode", λ.StrLiteral("utf-8"))), λ.StrLiteral("message")))
 								}
 								panic(λ.Raise(λex))
 							}},

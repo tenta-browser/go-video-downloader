@@ -55,6 +55,7 @@ import (
 	Ωkinja "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/kinja"
 	Ωlimelight "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/limelight"
 	Ωliveleak "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/liveleak"
+	Ωmedialaan "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/medialaan"
 	Ωmediaset "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mediaset"
 	Ωmegaphone "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/megaphone"
 	Ωmofosex "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mofosex"
@@ -144,6 +145,7 @@ var (
 	LimelightBaseIE              λ.Object
 	LiveLeakIE                   λ.Object
 	MTVServicesEmbeddedIE        λ.Object
+	MedialaanIE                  λ.Object
 	MediasetIE                   λ.Object
 	MegaphoneIE                  λ.Object
 	MofosexEmbedIE               λ.Object
@@ -329,5 +331,6 @@ func init() {
 		OdnoklassnikiIE = Ωodnoklassniki.OdnoklassnikiIE
 		KinjaEmbedIE = Ωkinja.KinjaEmbedIE
 		ArcPublishingIE = Ωarcpublishing.ArcPublishingIE
+		MedialaanIE = Ωmedialaan.MedialaanIE
 	})
 }

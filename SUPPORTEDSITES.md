@@ -10,20 +10,20 @@ Supported sites
  * Allocine: `www.allocine.fr`
  * Aparat: `www.aparat.com`
  * ApplePodcasts: `podcasts.apple.com`
+ * ArchiveOrg: `archive.org`
  * Arkena: `video.qbrick.com`
- * ARDBetaMediathek: `www.ardmediathek.de`
  * ARD: `www.daserste.de`
  * ARDMediathek: `www.ardmediathek.de`
  * ArteTV: `www.arte.tv`
  * AsianCrush: `www.asiancrush.com`
  * AudioBoom: `audioboom.com`
  * Audiomack: `www.audiomack.com`
+ * AZMedien: `www.telezueri.ch`
  * Bandcamp: `youtube-dl.bandcamp.com`
  * BandcampWeekly: `bandcamp.com`
  * BBC: `www.bbc.com`
  * Beatport: `beatport.com`
  * BFMTV: `www.bfmtv.com`
- * BibelTV: `www.bibeltv.de`
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
@@ -40,7 +40,6 @@ Supported sites
  * Canalc2: `www.canalc2.tv`
  * CBCPlayer: `www.cbc.ca`
  * CCC: `media.ccc.de`
- * CCMA: `www.ccma.cat`
  * CCTV: `sports.cntv.cn`
  * CDA: `www.cda.pl`
  * CharlieRose: `charlierose.com`
@@ -61,7 +60,7 @@ Supported sites
  * CuriosityStream: `app.curiositystream.com`
  * DailyMail: `www.dailymail.co.uk`
  * Dailymotion: `www.dailymotion.com`
- * Daum: `tvpot.daum.net`
+ * Daum: `m.tvpot.daum.net`
  * DaumClip: `tvpot.daum.net`
  * DaumPlaylist: `tvpot.daum.net`
  * DaumUser: `tvpot.daum.net`
@@ -96,7 +95,6 @@ Supported sites
  * GenerationWhat: `generation-what.francetv.fr`
  * Freesound: `www.freesound.org`
  * Freespeech: `www.freespeech.org`
- * Funk: `www.funk.net`
  * GameInformer: `www.gameinformer.com`
  * GameSpot: `www.gamespot.com`
  * Gaskrank: `www.gaskrank.tv`
@@ -147,7 +145,6 @@ Supported sites
  * Mojvideo: `www.mojvideo.com`
  * MySpace: `myspace.com`
  * MySpass: `www.myspass.de`
- * NationalGeographicVideo: `video.nationalgeographic.com`
  * Naver: `tv.naver.com`
  * NBCNews: `www.nbcnews.com`
  * NBCSports: `www.nbcsports.com`
@@ -155,7 +152,6 @@ Supported sites
  * NDR: `www.ndr.de`
  * NDREmbed: `www.ndr.de`
  * NJoyEmbed: `www.n-joy.de`
- * NDTV: `movies.ndtv.com`
  * Netzkino: `www.netzkino.de`
  * Newgrounds: `www.newgrounds.com`
  * Nexx: `api.nexx.cloud`
@@ -164,6 +160,7 @@ Supported sites
  * NonkTube _(adult)_: `www.nonktube.com`
  * Nova: `tn.nova.cz`
  * Nowness: `www.nowness.com`
+ * NPO: `www.npo.nl`
  * NRKRadioPodkast: `radio.nrk.no`
  * NTVRu: `www.ntv.ru`
  * Odnoklassniki: `ok.ru`
@@ -222,7 +219,6 @@ Supported sites
  * SunPorno _(adult)_: `www.sunporno.com`
  * SverigesRadioEpisode: `sverigesradio.se`
  * SverigesRadioPublication: `sverigesradio.se`
- * Tagesschau: `www.tagesschau.de`
  * TDSLifeway: `tds.lifeway.com`
  * Teamcoco: `teamcoco.com`
  * TeamTreeHouse: `teamtreehouse.com`
@@ -246,7 +242,6 @@ Supported sites
  * TVCArticle: `www.tvc.ru`
  * TVN24: `tvnmeteo.tvn24.pl`
  * TVP: `vod.tvp.pl`
- * TVPlay: `play.novatv.bg`
  * TwentyThreeVideo: `video.twentythree.net`
  * TwitchClips: `clips.twitch.tv`
  * TwitterAmplify: `amp.twimg.com`
@@ -273,6 +268,7 @@ Supported sites
  * Viqeo: `cdn.viqeo.tv`
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
+ * Medialaan: `www.bndestem.nl`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
  * WeiboMobile: `m.weibo.cn`

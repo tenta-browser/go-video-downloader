@@ -43,11 +43,14 @@ var (
 	ϒdetermine_ext      λ.Object
 	ϒdict_get           λ.Object
 	ϒextract_attributes λ.Object
+	ϒfloat_or_none      λ.Object
 	ϒint_or_none        λ.Object
 	ϒparse_duration     λ.Object
+	ϒstr_or_none        λ.Object
 	ϒtry_get            λ.Object
 	ϒunified_strdate    λ.Object
 	ϒurl_or_none        λ.Object
+	ϒurljoin            λ.Object
 )
 
 func init() {
@@ -59,11 +62,14 @@ func init() {
 		ϒdict_get = Ωutils.ϒdict_get
 		ϒextract_attributes = Ωutils.ϒextract_attributes
 		ExtractorError = Ωutils.ExtractorError
+		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_duration = Ωutils.ϒparse_duration
+		ϒstr_or_none = Ωutils.ϒstr_or_none
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		ϒurl_or_none = Ωutils.ϒurl_or_none
+		ϒurljoin = Ωutils.ϒurljoin
 		XHamsterIE = λ.Cal(λ.TypeType, λ.StrLiteral("XHamsterIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				XHamsterIE__DOMAINS      λ.Object
@@ -80,49 +86,62 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒage_limit       λ.Object
-						ϒc               λ.Object
-						ϒc_name          λ.Object
-						ϒcategories      λ.Object
-						ϒcategories_html λ.Object
-						ϒcategories_list λ.Object
-						ϒcomment_count   λ.Object
-						ϒdescription     λ.Object
-						ϒdesktop_url     λ.Object
-						ϒdislike_count   λ.Object
-						ϒdisplay_id      λ.Object
-						ϒduration        λ.Object
-						ϒerror           λ.Object
-						ϒfilesize        λ.Object
-						ϒformat_id       λ.Object
-						ϒformat_item     λ.Object
-						ϒformat_url      λ.Object
-						ϒformat_urls     λ.Object
-						ϒformats         λ.Object
-						ϒformats_dict    λ.Object
-						ϒget_height      λ.Object
-						ϒinitials        λ.Object
-						ϒlike_count      λ.Object
-						ϒmobj            λ.Object
-						ϒquality         λ.Object
-						ϒself            = λargs[0]
-						ϒsources         λ.Object
-						ϒthumbnail       λ.Object
-						ϒtitle           λ.Object
-						ϒupload_date     λ.Object
-						ϒuploader        λ.Object
-						ϒurl             = λargs[1]
-						ϒurlh            λ.Object
-						ϒvideo           λ.Object
-						ϒvideo_id        λ.Object
-						ϒvideo_url       λ.Object
-						ϒview_count      λ.Object
-						ϒwebpage         λ.Object
-						τmp0             λ.Object
-						τmp1             λ.Object
-						τmp2             λ.Object
-						τmp3             λ.Object
-						τmp4             λ.Object
+						ϒage_limit           λ.Object
+						ϒc                   λ.Object
+						ϒc_name              λ.Object
+						ϒcategories          λ.Object
+						ϒcategories_html     λ.Object
+						ϒcategories_list     λ.Object
+						ϒcomment_count       λ.Object
+						ϒdescription         λ.Object
+						ϒdesktop_url         λ.Object
+						ϒdislike_count       λ.Object
+						ϒdisplay_id          λ.Object
+						ϒdownload_sources    λ.Object
+						ϒduration            λ.Object
+						ϒerror               λ.Object
+						ϒext                 λ.Object
+						ϒformat_dict         λ.Object
+						ϒformat_id           λ.Object
+						ϒformat_item         λ.Object
+						ϒformat_sizes        λ.Object
+						ϒformat_url          λ.Object
+						ϒformat_urls         λ.Object
+						ϒformats             λ.Object
+						ϒformats_dict        λ.Object
+						ϒformats_list        λ.Object
+						ϒget_height          λ.Object
+						ϒhls_format_key      λ.Object
+						ϒhls_sources         λ.Object
+						ϒhls_url             λ.Object
+						ϒinitials            λ.Object
+						ϒlike_count          λ.Object
+						ϒmobj                λ.Object
+						ϒquality             λ.Object
+						ϒself                = λargs[0]
+						ϒsources             λ.Object
+						ϒstandard_format     λ.Object
+						ϒstandard_format_key λ.Object
+						ϒstandard_sources    λ.Object
+						ϒstandard_url        λ.Object
+						ϒthumbnail           λ.Object
+						ϒtitle               λ.Object
+						ϒupload_date         λ.Object
+						ϒuploader            λ.Object
+						ϒurl                 = λargs[1]
+						ϒurlh                λ.Object
+						ϒvideo               λ.Object
+						ϒvideo_id            λ.Object
+						ϒvideo_url           λ.Object
+						ϒview_count          λ.Object
+						ϒwebpage             λ.Object
+						ϒxplayer_sources     λ.Object
+						τmp0                 λ.Object
+						τmp1                 λ.Object
+						τmp2                 λ.Object
+						τmp3                 λ.Object
+						τmp4                 λ.Object
+						τmp5                 λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
 					ϒvideo_id = func() λ.Object {
@@ -192,7 +211,26 @@ func init() {
 						ϒvideo = λ.GetItem(ϒinitials, λ.StrLiteral("videoModel"))
 						ϒtitle = λ.GetItem(ϒvideo, λ.StrLiteral("title"))
 						ϒformats = λ.NewList()
-						τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.GetItem(ϒvideo, λ.StrLiteral("sources")), "items"))
+						ϒformat_urls = λ.Cal(λ.SetType)
+						ϒformat_sizes = λ.DictLiteral(map[λ.Object]λ.Object{})
+						ϒsources = func() λ.Object {
+							if λv := λ.Cal(ϒtry_get, ϒvideo, λ.NewFunction("<lambda>",
+								[]λ.Param{
+									{Name: "x"},
+								},
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									var (
+										ϒx = λargs[0]
+									)
+									return λ.GetItem(ϒx, λ.StrLiteral("sources"))
+								}), λ.DictType); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.DictLiteral(map[λ.Object]λ.Object{})
+							}
+						}()
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒsources, "items"))
 						for {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
@@ -202,6 +240,36 @@ func init() {
 							ϒformats_dict = λ.GetItem(τmp2, λ.IntLiteral(1))
 							if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒformats_dict, λ.DictType)) {
 								continue
+							}
+							ϒdownload_sources = func() λ.Object {
+								if λv := λ.Cal(ϒtry_get, ϒsources, λ.NewFunction("<lambda>",
+									[]λ.Param{
+										{Name: "x"},
+									},
+									0, false, false,
+									func(λargs []λ.Object) λ.Object {
+										var (
+											ϒx = λargs[0]
+										)
+										return λ.GetItem(ϒx, λ.StrLiteral("download"))
+									}), λ.DictType); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.DictLiteral(map[λ.Object]λ.Object{})
+								}
+							}()
+							τmp2 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒdownload_sources, "items"))
+							for {
+								if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+									break
+								}
+								τmp4 = τmp3
+								ϒquality = λ.GetItem(τmp4, λ.IntLiteral(0))
+								ϒformat_dict = λ.GetItem(τmp4, λ.IntLiteral(1))
+								if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒformat_dict, λ.DictType)) {
+									continue
+								}
+								λ.SetItem(ϒformat_sizes, ϒquality, λ.Cal(ϒfloat_or_none, λ.Calm(ϒformat_dict, "get", λ.StrLiteral("size"))))
 							}
 							τmp2 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒformats_dict, "items"))
 							for {
@@ -213,21 +281,19 @@ func init() {
 								ϒformat_item = λ.GetItem(τmp4, λ.IntLiteral(1))
 								if λ.IsTrue(λ.Eq(ϒformat_id, λ.StrLiteral("download"))) {
 									continue
-									if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒformat_item, λ.DictType)) {
-										continue
-									}
-									ϒformat_url = λ.Calm(ϒformat_item, "get", λ.StrLiteral("link"))
-									ϒfilesize = λ.Call(ϒint_or_none, λ.NewArgs(λ.Calm(ϒformat_item, "get", λ.StrLiteral("size"))), λ.KWArgs{
-										{Name: "invscale", Value: λ.IntLiteral(1000000)},
-									})
-								} else {
-									ϒformat_url = ϒformat_item
-									ϒfilesize = λ.None
 								}
+								ϒformat_url = ϒformat_item
 								ϒformat_url = λ.Cal(ϒurl_or_none, ϒformat_url)
-								if !λ.IsTrue(ϒformat_url) {
+								if λ.IsTrue(func() λ.Object {
+									if λv := λ.NewBool(!λ.IsTrue(ϒformat_url)); λ.IsTrue(λv) {
+										return λv
+									} else {
+										return λ.NewBool(λ.Contains(ϒformat_urls, ϒformat_url))
+									}
+								}()) {
 									continue
 								}
+								λ.Calm(ϒformat_urls, "add", ϒformat_url)
 								λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
 									"format_id": λ.Mod(λ.StrLiteral("%s-%s"), λ.NewTuple(
 										ϒformat_id,
@@ -236,14 +302,156 @@ func init() {
 									"url":      ϒformat_url,
 									"ext":      λ.Cal(ϒdetermine_ext, ϒformat_url, λ.StrLiteral("mp4")),
 									"height":   λ.Cal(ϒget_height, ϒquality),
-									"filesize": ϒfilesize,
+									"filesize": λ.Calm(ϒformat_sizes, "get", ϒquality),
 									"http_headers": λ.DictLiteral(map[string]λ.Object{
 										"Referer": λ.Calm(ϒurlh, "geturl"),
 									}),
 								}))
 							}
 						}
-						λ.Calm(ϒself, "_sort_formats", ϒformats)
+						ϒxplayer_sources = λ.Cal(ϒtry_get, ϒinitials, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("xplayerSettings")), λ.StrLiteral("sources"))
+							}), λ.DictType)
+						if λ.IsTrue(ϒxplayer_sources) {
+							ϒhls_sources = λ.Calm(ϒxplayer_sources, "get", λ.StrLiteral("hls"))
+							if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒhls_sources, λ.DictType)) {
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+									λ.StrLiteral("url"),
+									λ.StrLiteral("fallback"),
+								))
+								for {
+									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+										break
+									}
+									ϒhls_format_key = τmp1
+									ϒhls_url = λ.Calm(ϒhls_sources, "get", ϒhls_format_key)
+									if !λ.IsTrue(ϒhls_url) {
+										continue
+									}
+									ϒhls_url = λ.Cal(ϒurljoin, ϒurl, ϒhls_url)
+									if λ.IsTrue(func() λ.Object {
+										if λv := λ.NewBool(!λ.IsTrue(ϒhls_url)); λ.IsTrue(λv) {
+											return λv
+										} else {
+											return λ.NewBool(λ.Contains(ϒformat_urls, ϒhls_url))
+										}
+									}()) {
+										continue
+									}
+									λ.Calm(ϒformat_urls, "add", ϒhls_url)
+									λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+										ϒhls_url,
+										ϒvideo_id,
+										λ.StrLiteral("mp4"),
+									), λ.KWArgs{
+										{Name: "entry_protocol", Value: λ.StrLiteral("m3u8_native")},
+										{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
+										{Name: "fatal", Value: λ.False},
+									}))
+								}
+							}
+							ϒstandard_sources = λ.Calm(ϒxplayer_sources, "get", λ.StrLiteral("standard"))
+							if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒstandard_sources, λ.DictType)) {
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒstandard_sources, "items"))
+								for {
+									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+										break
+									}
+									τmp2 = τmp1
+									ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
+									ϒformats_list = λ.GetItem(τmp2, λ.IntLiteral(1))
+									if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒformats_list, λ.ListType)) {
+										continue
+									}
+									τmp2 = λ.Cal(λ.BuiltinIter, ϒformats_list)
+									for {
+										if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+											break
+										}
+										ϒstandard_format = τmp3
+										if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒstandard_format, λ.DictType)) {
+											continue
+										}
+										τmp4 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+											λ.StrLiteral("url"),
+											λ.StrLiteral("fallback"),
+										))
+										for {
+											if τmp5 = λ.NextDefault(τmp4, λ.AfterLast); τmp5 == λ.AfterLast {
+												break
+											}
+											ϒstandard_format_key = τmp5
+											ϒstandard_url = λ.Calm(ϒstandard_format, "get", ϒstandard_format_key)
+											if !λ.IsTrue(ϒstandard_url) {
+												continue
+											}
+											ϒstandard_url = λ.Cal(ϒurljoin, ϒurl, ϒstandard_url)
+											if λ.IsTrue(func() λ.Object {
+												if λv := λ.NewBool(!λ.IsTrue(ϒstandard_url)); λ.IsTrue(λv) {
+													return λv
+												} else {
+													return λ.NewBool(λ.Contains(ϒformat_urls, ϒstandard_url))
+												}
+											}()) {
+												continue
+											}
+											λ.Calm(ϒformat_urls, "add", ϒstandard_url)
+											ϒext = λ.Cal(ϒdetermine_ext, ϒstandard_url, λ.StrLiteral("mp4"))
+											if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("m3u8"))) {
+												λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+													ϒstandard_url,
+													ϒvideo_id,
+													λ.StrLiteral("mp4"),
+												), λ.KWArgs{
+													{Name: "entry_protocol", Value: λ.StrLiteral("m3u8_native")},
+													{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
+													{Name: "fatal", Value: λ.False},
+												}))
+												continue
+											}
+											ϒquality = func() λ.Object {
+												if λv := λ.Cal(ϒstr_or_none, λ.Calm(ϒstandard_format, "get", λ.StrLiteral("quality"))); λ.IsTrue(λv) {
+													return λv
+												} else if λv := λ.Cal(ϒstr_or_none, λ.Calm(ϒstandard_format, "get", λ.StrLiteral("label"))); λ.IsTrue(λv) {
+													return λv
+												} else {
+													return λ.StrLiteral("")
+												}
+											}()
+											λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+												"format_id": λ.Mod(λ.StrLiteral("%s-%s"), λ.NewTuple(
+													ϒformat_id,
+													ϒquality,
+												)),
+												"url":      ϒstandard_url,
+												"ext":      ϒext,
+												"height":   λ.Cal(ϒget_height, ϒquality),
+												"filesize": λ.Calm(ϒformat_sizes, "get", ϒquality),
+												"http_headers": λ.DictLiteral(map[string]λ.Object{
+													"Referer": ϒstandard_url,
+												}),
+											}))
+										}
+									}
+								}
+							}
+						}
+						λ.Call(λ.GetAttr(ϒself, "_sort_formats", nil), λ.NewArgs(ϒformats), λ.KWArgs{
+							{Name: "field_preference", Value: λ.NewTuple(
+								λ.StrLiteral("height"),
+								λ.StrLiteral("width"),
+								λ.StrLiteral("tbr"),
+								λ.StrLiteral("format_id"),
+							)},
+						})
 						ϒcategories_list = λ.Calm(ϒvideo, "get", λ.StrLiteral("categories"))
 						if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒcategories_list, λ.ListType)) {
 							ϒcategories = λ.NewList()

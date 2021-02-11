@@ -237,7 +237,6 @@ func init() {
 				InfoExtractor__x_forwarded_for_ip          λ.Object
 				InfoExtractor__xpath_ns                    λ.Object
 				InfoExtractor_extract                      λ.Object
-				InfoExtractor_extract_automatic_captions   λ.Object
 				InfoExtractor_extract_subtitles            λ.Object
 				InfoExtractor_geo_verification_headers     λ.Object
 				InfoExtractor_http_scheme                  λ.Object
@@ -246,6 +245,7 @@ func init() {
 				InfoExtractor_mark_watched                 λ.Object
 				InfoExtractor_playlist_result              λ.Object
 				InfoExtractor_raise_geo_restricted         λ.Object
+				InfoExtractor_raise_login_required         λ.Object
 				InfoExtractor_report_download_webpage      λ.Object
 				InfoExtractor_report_extraction            λ.Object
 				InfoExtractor_report_warning               λ.Object
@@ -1524,6 +1524,21 @@ func init() {
 					λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("%s: Downloading webpage"), ϒvideo_id))
 					return λ.None
 				})
+			InfoExtractor_raise_login_required = λ.NewFunction("raise_login_required",
+				[]λ.Param{
+					{Name: "msg", Def: λ.StrLiteral("This video is only available for registered users")},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒmsg = λargs[0]
+					)
+					panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("%s. Use --username and --password or --netrc to provide account credentials."), ϒmsg)), λ.KWArgs{
+						{Name: "expected", Value: λ.True},
+					})))
+					return λ.None
+				})
+			InfoExtractor_raise_login_required = λ.Cal(λ.StaticMethodType, InfoExtractor_raise_login_required)
 			InfoExtractor_raise_geo_restricted = λ.NewFunction("raise_geo_restricted",
 				[]λ.Param{
 					{Name: "msg", Def: λ.StrLiteral("This video is not available from your location due to geo restriction")},
@@ -4311,7 +4326,6 @@ func init() {
 					{Name: "note", Def: λ.None},
 					{Name: "errnote", Def: λ.None},
 					{Name: "fatal", Def: λ.True},
-					{Name: "formats_dict", Def: λ.DictLiteral(map[λ.Object]λ.Object{})},
 					{Name: "data", Def: λ.None},
 					{Name: "headers", Def: λ.DictLiteral(map[λ.Object]λ.Object{})},
 					{Name: "query", Def: λ.DictLiteral(map[λ.Object]λ.Object{})},
@@ -4319,17 +4333,16 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒdata         = λargs[8]
+						ϒdata         = λargs[7]
 						ϒerrnote      = λargs[5]
 						ϒfatal        = λargs[6]
-						ϒformats_dict = λargs[7]
-						ϒheaders      = λargs[9]
+						ϒheaders      = λargs[8]
 						ϒmpd_base_url λ.Object
 						ϒmpd_doc      λ.Object
 						ϒmpd_id       = λargs[3]
 						ϒmpd_url      = λargs[1]
 						ϒnote         = λargs[4]
-						ϒquery        = λargs[10]
+						ϒquery        = λargs[9]
 						ϒres          λ.Object
 						ϒself         = λargs[0]
 						ϒurlh         λ.Object
@@ -4369,12 +4382,7 @@ func init() {
 						return λ.NewList()
 					}
 					ϒmpd_base_url = λ.Cal(ϒbase_url, λ.Calm(ϒurlh, "geturl"))
-					return λ.Call(λ.GetAttr(ϒself, "_parse_mpd_formats", nil), λ.NewArgs(ϒmpd_doc), λ.KWArgs{
-						{Name: "mpd_id", Value: ϒmpd_id},
-						{Name: "mpd_base_url", Value: ϒmpd_base_url},
-						{Name: "formats_dict", Value: ϒformats_dict},
-						{Name: "mpd_url", Value: ϒmpd_url},
-					})
+					return λ.Calm(ϒself, "_parse_mpd_formats", ϒmpd_doc, ϒmpd_id, ϒmpd_base_url, ϒmpd_url)
 				})
 			InfoExtractor__parse_mpd_formats = λ.NewFunction("_parse_mpd_formats",
 				[]λ.Param{
@@ -4382,7 +4390,6 @@ func init() {
 					{Name: "mpd_doc"},
 					{Name: "mpd_id", Def: λ.None},
 					{Name: "mpd_base_url", Def: λ.StrLiteral("")},
-					{Name: "formats_dict", Def: λ.DictLiteral(map[λ.Object]λ.Object{})},
 					{Name: "mpd_url", Def: λ.None},
 				},
 				0, false, false,
@@ -4402,10 +4409,8 @@ func init() {
 						ϒf                         λ.Object
 						ϒfilesize                  λ.Object
 						ϒformats                   λ.Object
-						ϒformats_dict              = λargs[4]
 						ϒfragment                  λ.Object
 						ϒfragments                 λ.Object
-						ϒfull_info                 λ.Object
 						ϒinitialization_template   λ.Object
 						ϒinitialization_url        λ.Object
 						ϒis_drm_protected          λ.Object
@@ -4418,7 +4423,7 @@ func init() {
 						ϒmpd_doc                   = λargs[1]
 						ϒmpd_duration              λ.Object
 						ϒmpd_id                    = λargs[2]
-						ϒmpd_url                   = λargs[5]
+						ϒmpd_url                   = λargs[4]
 						ϒnamespace                 λ.Object
 						ϒnum                       λ.Object
 						ϒperiod                    λ.Object
@@ -5037,9 +5042,7 @@ func init() {
 										} else {
 											λ.SetItem(ϒf, λ.StrLiteral("url"), ϒbase_url)
 										}
-										ϒfull_info = λ.Calm(λ.Calm(ϒformats_dict, "get", ϒrepresentation_id, λ.DictLiteral(map[λ.Object]λ.Object{})), "copy")
-										λ.Calm(ϒfull_info, "update", ϒf)
-										λ.Calm(ϒformats, "append", ϒfull_info)
+										λ.Calm(ϒformats, "append", ϒf)
 									} else {
 										λ.Calm(ϒself, "report_warning", λ.Mod(λ.StrLiteral("Unknown MIME type %s in DASH manifest"), ϒmime_type))
 									}
@@ -6497,30 +6500,6 @@ func init() {
 					return ϒret
 				})
 			InfoExtractor__merge_subtitles = λ.Cal(λ.ClassMethodType, InfoExtractor__merge_subtitles)
-			InfoExtractor_extract_automatic_captions = λ.NewFunction("extract_automatic_captions",
-				[]λ.Param{
-					{Name: "self"},
-				},
-				0, true, true,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒargs   = λargs[1]
-						ϒkwargs = λargs[2]
-						ϒself   = λargs[0]
-					)
-					if λ.IsTrue(func() λ.Object {
-						if λv := λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("writeautomaticsub"), λ.False); λ.IsTrue(λv) {
-							return λv
-						} else {
-							return λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("listsubtitles"))
-						}
-					}()) {
-						return λ.Call(λ.GetAttr(ϒself, "_get_automatic_captions", nil), λ.NewArgs(λ.Unpack(λ.AsStarred(ϒargs))...), λ.KWArgs{
-							{Name: "", Value: ϒkwargs},
-						})
-					}
-					return λ.DictLiteral(map[λ.Object]λ.Object{})
-				})
 			InfoExtractor_mark_watched = λ.NewFunction("mark_watched",
 				[]λ.Param{
 					{Name: "self"},
@@ -6646,7 +6625,6 @@ func init() {
 				"_x_forwarded_for_ip":          InfoExtractor__x_forwarded_for_ip,
 				"_xpath_ns":                    InfoExtractor__xpath_ns,
 				"extract":                      InfoExtractor_extract,
-				"extract_automatic_captions":   InfoExtractor_extract_automatic_captions,
 				"extract_subtitles":            InfoExtractor_extract_subtitles,
 				"geo_verification_headers":     InfoExtractor_geo_verification_headers,
 				"http_scheme":                  InfoExtractor_http_scheme,
@@ -6655,6 +6633,7 @@ func init() {
 				"mark_watched":                 InfoExtractor_mark_watched,
 				"playlist_result":              InfoExtractor_playlist_result,
 				"raise_geo_restricted":         InfoExtractor_raise_geo_restricted,
+				"raise_login_required":         InfoExtractor_raise_login_required,
 				"report_download_webpage":      InfoExtractor_report_download_webpage,
 				"report_extraction":            InfoExtractor_report_extraction,
 				"report_warning":               InfoExtractor_report_warning,

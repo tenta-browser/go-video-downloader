@@ -25,7 +25,6 @@
 package ard
 
 import (
-	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
@@ -594,145 +593,11 @@ func init() {
 		}())
 		ARDBetaMediathekIE = λ.Cal(λ.TypeType, λ.StrLiteral("ARDBetaMediathekIE"), λ.NewTuple(ARDMediathekBaseIE), func() λ.Dict {
 			var (
-				ARDBetaMediathekIE__VALID_URL    λ.Object
-				ARDBetaMediathekIE__real_extract λ.Object
+				ARDBetaMediathekIE__VALID_URL λ.Object
 			)
 			ARDBetaMediathekIE__VALID_URL = λ.StrLiteral("https://(?:(?:beta|www)\\.)?ardmediathek\\.de/(?P<client>[^/]+)/(?:player|live|video)/(?P<display_id>(?:[^/]+/)*)(?P<video_id>[a-zA-Z0-9]+)")
-			ARDBetaMediathekIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒage_limit               λ.Object
-						ϒcontent_id              λ.Object
-						ϒdescription             λ.Object
-						ϒdisplay_id              λ.Object
-						ϒinfo                    λ.Object
-						ϒmaturity_content_rating λ.Object
-						ϒmedia_collection        λ.Object
-						ϒmobj                    λ.Object
-						ϒplayer_page             λ.Object
-						ϒself                    = λargs[0]
-						ϒtitle                   λ.Object
-						ϒurl                     = λargs[1]
-						ϒvideo_id                λ.Object
-					)
-					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("video_id"))
-					ϒdisplay_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("display_id"))
-					if λ.IsTrue(ϒdisplay_id) {
-						ϒdisplay_id = λ.Calm(ϒdisplay_id, "rstrip", λ.StrLiteral("/"))
-					}
-					if !λ.IsTrue(ϒdisplay_id) {
-						ϒdisplay_id = ϒvideo_id
-					}
-					ϒplayer_page = λ.GetItem(λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.StrLiteral("https://api.ardmediathek.de/public-gateway"),
-						ϒdisplay_id,
-					), λ.KWArgs{
-						{Name: "data", Value: λ.Calm(λ.Cal(Ωjson.ϒdumps, λ.DictLiteral(map[string]λ.Object{
-							"query": λ.Mod(λ.StrLiteral("{\n  playerPage(client:\"%s\", clipId: \"%s\") {\n    blockedByFsk\n    broadcastedOn\n    maturityContentRating\n    mediaCollection {\n      _duration\n      _geoblocked\n      _isLive\n      _mediaArray {\n        _mediaStreamArray {\n          _quality\n          _server\n          _stream\n        }\n      }\n      _previewImage\n      _subtitleUrl\n      _type\n    }\n    show {\n      title\n    }\n    synopsis\n    title\n    tracking {\n      atiCustomVars {\n        contentId\n      }\n    }\n  }\n}"), λ.NewTuple(
-								λ.Calm(ϒmobj, "group", λ.StrLiteral("client")),
-								ϒvideo_id,
-							)),
-						})), "encode")},
-						{Name: "headers", Value: λ.DictLiteral(map[string]string{
-							"Content-Type": "application/json",
-						})},
-					}), λ.StrLiteral("data")), λ.StrLiteral("playerPage"))
-					ϒtitle = λ.GetItem(ϒplayer_page, λ.StrLiteral("title"))
-					ϒcontent_id = λ.Cal(ϒstr_or_none, λ.Cal(ϒtry_get, ϒplayer_page, λ.NewFunction("<lambda>",
-						[]λ.Param{
-							{Name: "x"},
-						},
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							var (
-								ϒx = λargs[0]
-							)
-							return λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("tracking")), λ.StrLiteral("atiCustomVars")), λ.StrLiteral("contentId"))
-						})))
-					ϒmedia_collection = func() λ.Object {
-						if λv := λ.Calm(ϒplayer_page, "get", λ.StrLiteral("mediaCollection")); λ.IsTrue(λv) {
-							return λv
-						} else {
-							return λ.DictLiteral(map[λ.Object]λ.Object{})
-						}
-					}()
-					if λ.IsTrue(func() λ.Object {
-						if λv := λ.NewBool(!λ.IsTrue(ϒmedia_collection)); !λ.IsTrue(λv) {
-							return λv
-						} else {
-							return ϒcontent_id
-						}
-					}()) {
-						ϒmedia_collection = func() λ.Object {
-							if λv := λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-								λ.Add(λ.StrLiteral("https://www.ardmediathek.de/play/media/"), ϒcontent_id),
-								ϒcontent_id,
-							), λ.KWArgs{
-								{Name: "fatal", Value: λ.False},
-							}); λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.DictLiteral(map[λ.Object]λ.Object{})
-							}
-						}()
-					}
-					ϒinfo = λ.Calm(ϒself, "_parse_media_info", ϒmedia_collection, func() λ.Object {
-						if λv := ϒcontent_id; λ.IsTrue(λv) {
-							return λv
-						} else {
-							return ϒvideo_id
-						}
-					}(), λ.Calm(ϒplayer_page, "get", λ.StrLiteral("blockedByFsk")))
-					ϒage_limit = λ.None
-					ϒdescription = λ.Calm(ϒplayer_page, "get", λ.StrLiteral("synopsis"))
-					ϒmaturity_content_rating = λ.Calm(ϒplayer_page, "get", λ.StrLiteral("maturityContentRating"))
-					if λ.IsTrue(ϒmaturity_content_rating) {
-						ϒage_limit = λ.Cal(ϒint_or_none, λ.Calm(ϒmaturity_content_rating, "lstrip", λ.StrLiteral("FSK")))
-					}
-					if λ.IsTrue(func() λ.Object {
-						if λv := λ.NewBool(!λ.IsTrue(ϒage_limit)); !λ.IsTrue(λv) {
-							return λv
-						} else {
-							return ϒdescription
-						}
-					}()) {
-						ϒage_limit = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.StrLiteral("\\(FSK\\s*(\\d+)\\)\\s*$"),
-							ϒdescription,
-							λ.StrLiteral("age limit"),
-						), λ.KWArgs{
-							{Name: "default", Value: λ.None},
-						}))
-					}
-					λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
-						"age_limit":   ϒage_limit,
-						"display_id":  ϒdisplay_id,
-						"title":       ϒtitle,
-						"description": ϒdescription,
-						"timestamp":   λ.Cal(ϒunified_timestamp, λ.Calm(ϒplayer_page, "get", λ.StrLiteral("broadcastedOn"))),
-						"series": λ.Cal(ϒtry_get, ϒplayer_page, λ.NewFunction("<lambda>",
-							[]λ.Param{
-								{Name: "x"},
-							},
-							0, false, false,
-							func(λargs []λ.Object) λ.Object {
-								var (
-									ϒx = λargs[0]
-								)
-								return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("show")), λ.StrLiteral("title"))
-							})),
-					}))
-					return ϒinfo
-				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL":    ARDBetaMediathekIE__VALID_URL,
-				"_real_extract": ARDBetaMediathekIE__real_extract,
+				"_VALID_URL": ARDBetaMediathekIE__VALID_URL,
 			})
 		}())
 	})

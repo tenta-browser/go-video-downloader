@@ -50,7 +50,7 @@ func init() {
 				BravoTVIE__VALID_URL    λ.Object
 				BravoTVIE__real_extract λ.Object
 			)
-			BravoTVIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?bravotv\\.com/(?:[^/]+/)+(?P<id>[^/?#]+)")
+			BravoTVIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?(?P<req_id>bravotv|oxygen)\\.com/(?:[^/]+/)+(?P<id>[^/?#]+)")
 			BravoTVIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -71,13 +71,16 @@ func init() {
 						ϒself            = λargs[0]
 						ϒsettings        λ.Object
 						ϒshared_playlist λ.Object
+						ϒsite            λ.Object
 						ϒtp_path         λ.Object
 						ϒtve             λ.Object
 						ϒurl             = λargs[1]
 						ϒwebpage         λ.Object
 						τmp0             λ.Object
 					)
-					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒsite = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
 					ϒsettings = λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<script[^>]+data-drupal-selector=\"drupal-settings-json\"[^>]*>({.+?})</script>"), ϒwebpage, λ.StrLiteral("drupal settings")), ϒdisplay_id)
 					ϒinfo = λ.DictLiteral(map[λ.Object]λ.Object{})
@@ -104,8 +107,23 @@ func init() {
 						}
 						if λ.IsTrue(λ.Eq(λ.Calm(ϒtve, "get", λ.StrLiteral("entitlement")), λ.StrLiteral("auth"))) {
 							ϒadobe_pass = λ.Calm(ϒsettings, "get", λ.StrLiteral("tve_adobe_auth"), λ.DictLiteral(map[λ.Object]λ.Object{}))
-							ϒresource = λ.Calm(ϒself, "_get_mvpd_resource", λ.Calm(ϒadobe_pass, "get", λ.StrLiteral("adobePassResourceId"), λ.StrLiteral("bravo")), λ.GetItem(ϒtve, λ.StrLiteral("title")), ϒrelease_pid, λ.Calm(ϒtve, "get", λ.StrLiteral("rating")))
-							λ.SetItem(ϒquery, λ.StrLiteral("auth"), λ.Calm(ϒself, "_extract_mvpd_auth", ϒurl, ϒrelease_pid, λ.Calm(ϒadobe_pass, "get", λ.StrLiteral("adobePassRequestorId"), λ.StrLiteral("bravo")), ϒresource))
+							if λ.IsTrue(λ.Eq(ϒsite, λ.StrLiteral("bravotv"))) {
+								ϒsite = λ.StrLiteral("bravo")
+							}
+							ϒresource = λ.Calm(ϒself, "_get_mvpd_resource", func() λ.Object {
+								if λv := λ.Calm(ϒadobe_pass, "get", λ.StrLiteral("adobePassResourceId")); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return ϒsite
+								}
+							}(), λ.GetItem(ϒtve, λ.StrLiteral("title")), ϒrelease_pid, λ.Calm(ϒtve, "get", λ.StrLiteral("rating")))
+							λ.SetItem(ϒquery, λ.StrLiteral("auth"), λ.Calm(ϒself, "_extract_mvpd_auth", ϒurl, ϒrelease_pid, func() λ.Object {
+								if λv := λ.Calm(ϒadobe_pass, "get", λ.StrLiteral("adobePassRequestorId")); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return ϒsite
+								}
+							}(), ϒresource))
 						}
 					} else {
 						ϒshared_playlist = λ.GetItem(ϒsettings, λ.StrLiteral("ls_playlist"))

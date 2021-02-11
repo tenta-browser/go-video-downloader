@@ -32,14 +32,15 @@ import (
 )
 
 var (
-	ExtractorError    λ.Object
-	GoogleDriveIE     λ.Object
-	InfoExtractor     λ.Object
-	ϒcompat_parse_qs  λ.Object
-	ϒdetermine_ext    λ.Object
-	ϒint_or_none      λ.Object
-	ϒtry_get          λ.Object
-	ϒupdate_url_query λ.Object
+	ExtractorError        λ.Object
+	GoogleDriveIE         λ.Object
+	InfoExtractor         λ.Object
+	ϒcompat_parse_qs      λ.Object
+	ϒdetermine_ext        λ.Object
+	ϒget_element_by_class λ.Object
+	ϒint_or_none          λ.Object
+	ϒtry_get              λ.Object
+	ϒupdate_url_query     λ.Object
 )
 
 func init() {
@@ -48,6 +49,7 @@ func init() {
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ExtractorError = Ωutils.ExtractorError
+		ϒget_element_by_class = Ωutils.ϒget_element_by_class
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
