@@ -8,6 +8,7 @@ Supported sites
  * Amara: `amara.org`
  * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
+ * APA: `uvp.apa.at`
  * Aparat: `www.aparat.com`
  * ApplePodcasts: `podcasts.apple.com`
  * ArchiveOrg: `archive.org`
@@ -60,7 +61,7 @@ Supported sites
  * CuriosityStream: `app.curiositystream.com`
  * DailyMail: `www.dailymail.co.uk`
  * Dailymotion: `www.dailymotion.com`
- * Daum: `m.tvpot.daum.net`
+ * Daum: `tvpot.daum.net`
  * DaumClip: `tvpot.daum.net`
  * DaumPlaylist: `tvpot.daum.net`
  * DaumUser: `tvpot.daum.net`
@@ -119,7 +120,6 @@ Supported sites
  * Ina: `www.ina.fr`
  * InfoQ: `www.infoq.com`
  * Ivideon: `www.ivideon.com`
- * Jamendo: `www.jamendo.com`
  * JeuxVideo: `www.jeuxvideo.com`
  * Joj: `media.joj.sk`
  * JWPlatform: `content.jwplatform.com`
@@ -160,7 +160,6 @@ Supported sites
  * NonkTube _(adult)_: `www.nonktube.com`
  * Nova: `tn.nova.cz`
  * Nowness: `www.nowness.com`
- * NPO: `www.npo.nl`
  * NRKRadioPodkast: `radio.nrk.no`
  * NTVRu: `www.ntv.ru`
  * Odnoklassniki: `ok.ru`
@@ -169,7 +168,6 @@ Supported sites
  * PacktPub: `www.packtpub.com`
  * ParliamentLiveUK: `parliamentlive.tv`
  * Patreon: `www.patreon.com`
- * PBS: `www.pbs.org`
  * PeerTube: `framatube.org`
  * People: `www.people.com`
  * Piksel: `player.piksel.com`
@@ -190,11 +188,14 @@ Supported sites
  * RUTV: `player.rutv.ru`
  * Ruutu: `www.ruutu.fi`
  * Safari: `www.safaribooksonline.com`
+ * SampleFocus: `samplefocus.com`
  * Sapo: `videos.sapo.pt`
  * SBS: `www.sbs.com.au`
  * Screencast: `www.screencast.com`
  * SenateISVP: `www.senate.gov`
  * SeznamZpravy: `www.seznamzpravy.cz`
+ * Simplecast: `api.simplecast.com`
+ * SimplecastEpisode: `the-re-bind-io-podcast.simplecast.com`
  * Sina: `video.sina.com.cn`
  * SkyItVideo: `video.sky.it`
  * SkyIt: `tg24.sky.it`
@@ -214,6 +215,7 @@ Supported sites
  * Spreaker: `api.spreaker.com`
  * SRGSSRPlay: `www.rts.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
+ * StoryFire: `storyfire.com`
  * Streamable: `streamable.com`
  * StretchInternet: `portal.stretchinternet.com`
  * SunPorno _(adult)_: `www.sunporno.com`
@@ -264,14 +266,12 @@ Supported sites
  * VimeoOndemand: `vimeo.com`
  * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
- * Vine: `vine.co`
  * Viqeo: `cdn.viqeo.tv`
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * Medialaan: `www.bndestem.nl`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
- * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`
  * WSJArticle: `www.wsj.com`
@@ -288,3 +288,4 @@ Supported sites
  * YourUpload: `yourupload.com`
  * Youtube _(adult)_: `www.youtube.com`
  * ZDF: `www.zdf.de`
+ * Zhihu: `www.zhihu.com`

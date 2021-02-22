@@ -51,7 +51,6 @@ var (
 	ϒclean_html           λ.Object
 	ϒget_element_by_class λ.Object
 	ϒint_or_none          λ.Object
-	ϒorderedSet           λ.Object
 	ϒstr_or_none          λ.Object
 	ϒstr_to_int           λ.Object
 	ϒunescapeHTML         λ.Object
@@ -67,7 +66,6 @@ func init() {
 		ExtractorError = Ωutils.ExtractorError
 		ϒget_element_by_class = Ωutils.ϒget_element_by_class
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒstr_or_none = Ωutils.ϒstr_or_none
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML

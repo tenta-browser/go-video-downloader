@@ -76,7 +76,6 @@ var (
 	ϒint_or_none                   λ.Object
 	ϒjs_to_json                    λ.Object
 	ϒmimetype2ext                  λ.Object
-	ϒorderedSet                    λ.Object
 	ϒparse_bitrate                 λ.Object
 	ϒparse_codecs                  λ.Object
 	ϒparse_duration                λ.Object
@@ -135,7 +134,6 @@ func init() {
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		JSON_LD_RE = Ωutils.JSON_LD_RE
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_bitrate = Ωutils.ϒparse_bitrate
 		ϒparse_codecs = Ωutils.ϒparse_codecs
 		ϒparse_duration = Ωutils.ϒparse_duration

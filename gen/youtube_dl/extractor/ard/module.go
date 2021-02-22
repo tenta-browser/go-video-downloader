@@ -529,20 +529,25 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒa           λ.Object
-						ϒdisplay_id  λ.Object
-						ϒdoc         λ.Object
-						ϒf           λ.Object
-						ϒformats     λ.Object
-						ϒmobj        λ.Object
-						ϒplayer_url  λ.Object
-						ϒself        = λargs[0]
-						ϒthumbnail   λ.Object
-						ϒupload_date λ.Object
-						ϒurl         = λargs[1]
-						ϒvideo_node  λ.Object
-						τmp0         λ.Object
-						τmp1         λ.Object
+						ϒa             λ.Object
+						ϒdisplay_id    λ.Object
+						ϒdoc           λ.Object
+						ϒext           λ.Object
+						ϒf             λ.Object
+						ϒfile_name     λ.Object
+						ϒformat_type   λ.Object
+						ϒformat_url    λ.Object
+						ϒformats       λ.Object
+						ϒmobj          λ.Object
+						ϒplayer_url    λ.Object
+						ϒself          = λargs[0]
+						ϒserver_prefix λ.Object
+						ϒthumbnail     λ.Object
+						ϒupload_date   λ.Object
+						ϒurl           = λargs[1]
+						ϒvideo_node    λ.Object
+						τmp0           λ.Object
+						τmp1           λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
 					ϒdisplay_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("display_id"))
@@ -558,20 +563,82 @@ func init() {
 							break
 						}
 						ϒa = τmp1
-						ϒf = λ.DictLiteral(map[string]λ.Object{
-							"format_id": λ.GetItem(λ.GetAttr(ϒa, "attrib", nil), λ.StrLiteral("type")),
-							"width":     λ.Cal(ϒint_or_none, λ.GetAttr(λ.Calm(ϒa, "find", λ.StrLiteral("./frameWidth")), "text", nil)),
-							"height":    λ.Cal(ϒint_or_none, λ.GetAttr(λ.Calm(ϒa, "find", λ.StrLiteral("./frameHeight")), "text", nil)),
-							"vbr":       λ.Cal(ϒint_or_none, λ.GetAttr(λ.Calm(ϒa, "find", λ.StrLiteral("./bitrateVideo")), "text", nil)),
-							"abr":       λ.Cal(ϒint_or_none, λ.GetAttr(λ.Calm(ϒa, "find", λ.StrLiteral("./bitrateAudio")), "text", nil)),
-							"vcodec":    λ.GetAttr(λ.Calm(ϒa, "find", λ.StrLiteral("./codecVideo")), "text", nil),
-							"tbr":       λ.Cal(ϒint_or_none, λ.GetAttr(λ.Calm(ϒa, "find", λ.StrLiteral("./totalBitrate")), "text", nil)),
+						ϒfile_name = λ.Call(ϒxpath_text, λ.NewArgs(
+							ϒa,
+							λ.StrLiteral("./fileName"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
 						})
-						if λ.IsTrue(λ.GetAttr(λ.Calm(ϒa, "find", λ.StrLiteral("./serverPrefix")), "text", nil)) {
-							λ.SetItem(ϒf, λ.StrLiteral("url"), λ.GetAttr(λ.Calm(ϒa, "find", λ.StrLiteral("./serverPrefix")), "text", nil))
-							λ.SetItem(ϒf, λ.StrLiteral("playpath"), λ.GetAttr(λ.Calm(ϒa, "find", λ.StrLiteral("./fileName")), "text", nil))
+						if !λ.IsTrue(ϒfile_name) {
+							continue
+						}
+						ϒformat_type = λ.Calm(λ.GetAttr(ϒa, "attrib", nil), "get", λ.StrLiteral("type"))
+						ϒformat_url = λ.Cal(ϒurl_or_none, ϒfile_name)
+						if λ.IsTrue(ϒformat_url) {
+							ϒext = λ.Cal(ϒdetermine_ext, ϒfile_name)
+							if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("m3u8"))) {
+								λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+									ϒformat_url,
+									ϒdisplay_id,
+									λ.StrLiteral("mp4"),
+								), λ.KWArgs{
+									{Name: "entry_protocol", Value: λ.StrLiteral("m3u8_native")},
+									{Name: "m3u8_id", Value: func() λ.Object {
+										if λv := ϒformat_type; λ.IsTrue(λv) {
+											return λv
+										} else {
+											return λ.StrLiteral("hls")
+										}
+									}()},
+									{Name: "fatal", Value: λ.False},
+								}))
+								continue
+							} else {
+								if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("f4m"))) {
+									λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_f4m_formats", nil), λ.NewArgs(
+										λ.Cal(ϒupdate_url_query, ϒformat_url, λ.DictLiteral(map[string]string{
+											"hdcore": "3.7.0",
+										})),
+										ϒdisplay_id,
+									), λ.KWArgs{
+										{Name: "f4m_id", Value: func() λ.Object {
+											if λv := ϒformat_type; λ.IsTrue(λv) {
+												return λv
+											} else {
+												return λ.StrLiteral("hds")
+											}
+										}()},
+										{Name: "fatal", Value: λ.False},
+									}))
+									continue
+								}
+							}
+						}
+						ϒf = λ.DictLiteral(map[string]λ.Object{
+							"format_id": ϒformat_type,
+							"width":     λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒa, λ.StrLiteral("./frameWidth"))),
+							"height":    λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒa, λ.StrLiteral("./frameHeight"))),
+							"vbr":       λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒa, λ.StrLiteral("./bitrateVideo"))),
+							"abr":       λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒa, λ.StrLiteral("./bitrateAudio"))),
+							"vcodec":    λ.Cal(ϒxpath_text, ϒa, λ.StrLiteral("./codecVideo")),
+							"tbr":       λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒa, λ.StrLiteral("./totalBitrate"))),
+						})
+						ϒserver_prefix = λ.Call(ϒxpath_text, λ.NewArgs(
+							ϒa,
+							λ.StrLiteral("./serverPrefix"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						})
+						if λ.IsTrue(ϒserver_prefix) {
+							λ.Calm(ϒf, "update", λ.DictLiteral(map[string]λ.Object{
+								"url":      ϒserver_prefix,
+								"playpath": ϒfile_name,
+							}))
 						} else {
-							λ.SetItem(ϒf, λ.StrLiteral("url"), λ.GetAttr(λ.Calm(ϒa, "find", λ.StrLiteral("./fileName")), "text", nil))
+							if !λ.IsTrue(ϒformat_url) {
+								continue
+							}
+							λ.SetItem(ϒf, λ.StrLiteral("url"), ϒformat_url)
 						}
 						λ.Calm(ϒformats, "append", ϒf)
 					}

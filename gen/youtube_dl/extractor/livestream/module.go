@@ -43,7 +43,6 @@ var (
 	ϒfind_xpath_attr      λ.Object
 	ϒfloat_or_none        λ.Object
 	ϒint_or_none          λ.Object
-	ϒorderedSet           λ.Object
 	ϒparse_iso8601        λ.Object
 	ϒupdate_url_query     λ.Object
 	ϒxpath_attr           λ.Object
@@ -59,7 +58,6 @@ func init() {
 		ϒxpath_attr = Ωutils.ϒxpath_attr
 		ϒxpath_with_ns = Ωutils.ϒxpath_with_ns
 		ϒxpath_text = Ωutils.ϒxpath_text
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none

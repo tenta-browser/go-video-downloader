@@ -35,7 +35,6 @@ var (
 	ExtractorError          λ.Object
 	InfoExtractor           λ.Object
 	StanfordOpenClassroomIE λ.Object
-	ϒorderedSet             λ.Object
 	ϒunescapeHTML           λ.Object
 )
 
@@ -43,7 +42,6 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ExtractorError = Ωutils.ExtractorError
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		StanfordOpenClassroomIE = λ.Cal(λ.TypeType, λ.StrLiteral("StanfordOpenClassroomIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
@@ -139,7 +137,7 @@ func init() {
 							), λ.KWArgs{
 								{Name: "fatal", Value: λ.False},
 							}))
-							ϒlinks = λ.Cal(ϒorderedSet, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("<a href=\"(VideoPage\\.php\\?[^\"]+)\">"), ϒcoursepage))
+							ϒlinks = λ.Cal(λ.None, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("<a href=\"(VideoPage\\.php\\?[^\"]+)\">"), ϒcoursepage))
 							λ.SetItem(ϒinfo, λ.StrLiteral("entries"), λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 								nil,
 								0, false, false,
@@ -177,7 +175,7 @@ func init() {
 							), λ.KWArgs{
 								{Name: "errnote", Value: λ.StrLiteral("Unable to download course info page")},
 							})
-							ϒlinks = λ.Cal(ϒorderedSet, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("<a href=\"(CoursePage\\.php\\?[^\"]+)\">"), ϒrootpage))
+							ϒlinks = λ.Cal(λ.None, λ.Cal(Ωre.ϒfindall, λ.StrLiteral("<a href=\"(CoursePage\\.php\\?[^\"]+)\">"), ϒrootpage))
 							λ.SetItem(ϒinfo, λ.StrLiteral("entries"), λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 								nil,
 								0, false, false,

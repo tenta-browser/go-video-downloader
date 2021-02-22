@@ -71,7 +71,6 @@ var (
 	ϒgen_extractor_classes λ.Object
 	ϒget_info_extractor    λ.Object
 	ϒint_or_none           λ.Object
-	ϒorderedSet            λ.Object
 	ϒparse_filesize        λ.Object
 	ϒpreferredencoding     λ.Object
 	ϒsanitize_filename     λ.Object
@@ -103,7 +102,6 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ISO3166Utils = Ωutils.ISO3166Utils
 		MaxDownloadsReached = Ωutils.MaxDownloadsReached
-		ϒorderedSet = Ωutils.ϒorderedSet
 		PagedList = Ωutils.PagedList
 		ϒparse_filesize = Ωutils.ϒparse_filesize
 		PostProcessingError = Ωutils.PostProcessingError

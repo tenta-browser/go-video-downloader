@@ -32,11 +32,14 @@ import (
 )
 
 var (
+	ExtractorError     λ.Object
 	InfoExtractor      λ.Object
 	KakaoIE            λ.Object
-	ϒcompat_str        λ.Object
+	ϒcompat_HTTPError  λ.Object
 	ϒint_or_none       λ.Object
+	ϒstr_or_none       λ.Object
 	ϒstrip_or_none     λ.Object
+	ϒtry_get           λ.Object
 	ϒunified_timestamp λ.Object
 	ϒupdate_url_query  λ.Object
 )
@@ -44,9 +47,12 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒcompat_str = Ωcompat.ϒcompat_str
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
+		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒstr_or_none = Ωutils.ϒstr_or_none
 		ϒstrip_or_none = Ωutils.ϒstrip_or_none
+		ϒtry_get = Ωutils.ϒtry_get
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
 		KakaoIE = λ.Cal(λ.TypeType, λ.StrLiteral("KakaoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
@@ -77,19 +83,20 @@ func init() {
 						ϒplayer_header λ.Object
 						ϒprofile_name  λ.Object
 						ϒquery         λ.Object
+						ϒresp          λ.Object
 						ϒself          = λargs[0]
-						ϒthumb         λ.Object
-						ϒthumbs        λ.Object
 						ϒtitle         λ.Object
-						ϒtop_thumbnail λ.Object
 						ϒurl           = λargs[1]
 						ϒvideo_id      λ.Object
 						τmp0           λ.Object
 						τmp1           λ.Object
 						τmp2           λ.Object
 						τmp3           λ.Object
+						τmp4           λ.Object
+						τmp5           λ.Object
 					)
 					_ = τmp3
+					_ = τmp5
 					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒdisplay_id = λ.Calm(ϒvideo_id, "rstrip", λ.StrLiteral("@my"))
 					ϒapi_base = λ.Mod(λ.GetAttr(ϒself, "_API_BASE_TMPL", nil), ϒvideo_id)
@@ -125,10 +132,7 @@ func init() {
 							λ.StrLiteral("tagList"),
 							λ.StrLiteral("channel"),
 							λ.StrLiteral("name"),
-							λ.StrLiteral("clipChapterThumbnailList"),
 							λ.StrLiteral("thumbnailUrl"),
-							λ.StrLiteral("timeInSec"),
-							λ.StrLiteral("isDefault"),
 							λ.StrLiteral("videoOutputList"),
 							λ.StrLiteral("width"),
 							λ.StrLiteral("height"),
@@ -154,9 +158,24 @@ func init() {
 							return λ.Calm(ϒclip_link, "get", λ.StrLiteral("displayTitle"))
 						}
 					}()
-					λ.SetItem(ϒquery, λ.StrLiteral("tid"), λ.Calm(ϒimpress, "get", λ.StrLiteral("tid"), λ.StrLiteral("")))
+					λ.Calm(ϒquery, "update", λ.DictLiteral(map[string]λ.Object{
+						"fields": λ.StrLiteral("-*,code,message,url"),
+						"tid": func() λ.Object {
+							if λv := λ.Calm(ϒimpress, "get", λ.StrLiteral("tid")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.StrLiteral("")
+							}
+						}(),
+					}))
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒclip, "get", λ.StrLiteral("videoOutputList"), λ.NewList()))
+					τmp0 = λ.Cal(λ.BuiltinIter, func() λ.Object {
+						if λv := λ.Calm(ϒclip, "get", λ.StrLiteral("videoOutputList")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewList()
+						}
+					}())
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
@@ -174,20 +193,39 @@ func init() {
 								λexit = λ.BlockExitContinue
 								return
 							}
-							λ.Calm(ϒquery, "update", λ.DictLiteral(map[string]λ.Object{
-								"profile": ϒprofile_name,
-								"fields":  λ.StrLiteral("-*,url"),
-							}))
-							ϒfmt_url_json = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-								λ.Add(ϒapi_base, λ.StrLiteral("raw/videolocation")),
-								ϒdisplay_id,
-								λ.Mod(λ.StrLiteral("Downloading video URL for profile %s"), ϒprofile_name),
-							), λ.KWArgs{
-								{Name: "query", Value: ϒquery},
-								{Name: "headers", Value: ϒplayer_header},
-								{Name: "fatal", Value: λ.False},
-							})
-							if ϒfmt_url_json == λ.None {
+							λ.SetItem(ϒquery, λ.StrLiteral("profile"), ϒprofile_name)
+							τmp4, τmp5 = func() (λexit λ.Object, λret λ.Object) {
+								defer λ.CatchMulti(
+									nil,
+									&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
+										var ϒe λ.Object = λex
+										if λ.IsTrue(func() λ.Object {
+											if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
+												return λv
+											} else {
+												return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.IntLiteral(403))
+											}
+										}()) {
+											ϒresp = λ.Calm(ϒself, "_parse_json", λ.Calm(λ.Calm(λ.GetAttr(ϒe, "cause", nil), "read"), "decode"), ϒvideo_id)
+											if λ.IsTrue(λ.Eq(λ.Calm(ϒresp, "get", λ.StrLiteral("code")), λ.StrLiteral("GeoBlocked"))) {
+												λ.Calm(ϒself, "raise_geo_restricted")
+											}
+										}
+										λexit = λ.BlockExitContinue
+										return
+									}},
+								)
+								ϒfmt_url_json = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+									λ.Add(ϒapi_base, λ.StrLiteral("raw/videolocation")),
+									ϒdisplay_id,
+									λ.Mod(λ.StrLiteral("Downloading video URL for profile %s"), ϒprofile_name),
+								), λ.KWArgs{
+									{Name: "query", Value: ϒquery},
+									{Name: "headers", Value: ϒplayer_header},
+								})
+								return λ.BlockExitNormally, nil
+							}()
+							if τmp4 == λ.BlockExitContinue {
 								λexit = λ.BlockExitContinue
 								return
 							}
@@ -208,39 +246,23 @@ func init() {
 						}
 					}
 					λ.Calm(ϒself, "_sort_formats", ϒformats)
-					ϒthumbs = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒclip, "get", λ.StrLiteral("clipChapterThumbnailList"), λ.NewList()))
-					for {
-						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-							break
-						}
-						ϒthumb = τmp1
-						λ.Calm(ϒthumbs, "append", λ.DictLiteral(map[string]λ.Object{
-							"url": λ.Calm(ϒthumb, "get", λ.StrLiteral("thumbnailUrl")),
-							"id":  λ.Cal(ϒcompat_str, λ.Calm(ϒthumb, "get", λ.StrLiteral("timeInSec"))),
-							"preference": func() λ.Object {
-								if λ.IsTrue(λ.Calm(ϒthumb, "get", λ.StrLiteral("isDefault"))) {
-									return λ.Neg(λ.IntLiteral(1))
-								} else {
-									return λ.IntLiteral(0)
-								}
-							}(),
-						}))
-					}
-					ϒtop_thumbnail = λ.Calm(ϒclip, "get", λ.StrLiteral("thumbnailUrl"))
-					if λ.IsTrue(ϒtop_thumbnail) {
-						λ.Calm(ϒthumbs, "append", λ.DictLiteral(map[string]λ.Object{
-							"url":        ϒtop_thumbnail,
-							"preference": λ.IntLiteral(10),
-						}))
-					}
 					return λ.DictLiteral(map[string]λ.Object{
-						"id":            ϒdisplay_id,
-						"title":         ϒtitle,
-						"description":   λ.Cal(ϒstrip_or_none, λ.Calm(ϒclip, "get", λ.StrLiteral("description"))),
-						"uploader":      λ.Calm(λ.Calm(ϒclip_link, "get", λ.StrLiteral("channel"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("name")),
-						"uploader_id":   λ.Calm(ϒclip_link, "get", λ.StrLiteral("channelId")),
-						"thumbnails":    ϒthumbs,
+						"id":          ϒdisplay_id,
+						"title":       ϒtitle,
+						"description": λ.Cal(ϒstrip_or_none, λ.Calm(ϒclip, "get", λ.StrLiteral("description"))),
+						"uploader": λ.Cal(ϒtry_get, ϒclip_link, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("channel")), λ.StrLiteral("name"))
+							})),
+						"uploader_id":   λ.Cal(ϒstr_or_none, λ.Calm(ϒclip_link, "get", λ.StrLiteral("channelId"))),
+						"thumbnail":     λ.Calm(ϒclip, "get", λ.StrLiteral("thumbnailUrl")),
 						"timestamp":     λ.Cal(ϒunified_timestamp, λ.Calm(ϒclip_link, "get", λ.StrLiteral("createTime"))),
 						"duration":      λ.Cal(ϒint_or_none, λ.Calm(ϒclip, "get", λ.StrLiteral("duration"))),
 						"view_count":    λ.Cal(ϒint_or_none, λ.Calm(ϒclip, "get", λ.StrLiteral("playCount"))),

@@ -41,7 +41,6 @@ var (
 	ϒcompat_str        λ.Object
 	ϒdetermine_ext     λ.Object
 	ϒint_or_none       λ.Object
-	ϒorderedSet        λ.Object
 	ϒparse_codecs      λ.Object
 	ϒqualities         λ.Object
 	ϒtry_get           λ.Object
@@ -58,7 +57,6 @@ func init() {
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒint_or_none = Ωutils.ϒint_or_none
 		NO_DEFAULT = Ωutils.NO_DEFAULT
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_codecs = Ωutils.ϒparse_codecs
 		ϒqualities = Ωutils.ϒqualities
 		ϒtry_get = Ωutils.ϒtry_get
@@ -547,8 +545,35 @@ func init() {
 			})
 		}())
 		ZDFChannelIE = λ.Cal(λ.TypeType, λ.StrLiteral("ZDFChannelIE"), λ.NewTuple(ZDFBaseIE), func() λ.Dict {
-
-			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
+			var (
+				ZDFChannelIE__VALID_URL λ.Object
+				ZDFChannelIE_suitable   λ.Object
+			)
+			ZDFChannelIE__VALID_URL = λ.StrLiteral("https?://www\\.zdf\\.de/(?:[^/]+/)*(?P<id>[^/?#&]+)")
+			ZDFChannelIE_suitable = λ.NewFunction("suitable",
+				[]λ.Param{
+					{Name: "cls"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcls = λargs[0]
+						ϒurl = λargs[1]
+					)
+					return func() λ.Object {
+						if λ.IsTrue(λ.Calm(ZDFIE, "suitable", ϒurl)) {
+							return λ.False
+						} else {
+							return λ.Calm(λ.Cal(λ.SuperType, ZDFChannelIE, ϒcls), "suitable", ϒurl)
+						}
+					}()
+				})
+			ZDFChannelIE_suitable = λ.Cal(λ.ClassMethodType, ZDFChannelIE_suitable)
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_VALID_URL": ZDFChannelIE__VALID_URL,
+				"suitable":   ZDFChannelIE_suitable,
+			})
 		}())
 	})
 }

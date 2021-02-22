@@ -74,6 +74,7 @@ import (
 	Ωrutube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rutube"
 	Ωrutv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/rutv"
 	Ωsenateisvp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/senateisvp"
+	Ωsimplecast "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/simplecast"
 	Ωsoundcloud "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/soundcloud"
 	Ωspankwire "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/spankwire"
 	Ωsportbox "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/sportbox"
@@ -101,7 +102,6 @@ import (
 	Ωwashingtonpost "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/washingtonpost"
 	Ωwebcaster "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/webcaster"
 	Ωwistia "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/wistia"
-	Ωxfileshare "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xfileshare"
 	Ωxhamster "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/xhamster"
 	Ωyapfiles "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/yapfiles"
 	Ωyouporn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youporn"
@@ -166,6 +166,7 @@ var (
 	RutubeIE                     λ.Object
 	SVTIE                        λ.Object
 	SenateISVPIE                 λ.Object
+	SimplecastIE                 λ.Object
 	SoundcloudEmbedIE            λ.Object
 	SpankwireIE                  λ.Object
 	SportBoxIE                   λ.Object
@@ -193,7 +194,6 @@ var (
 	WashingtonPostIE             λ.Object
 	WebcasterFeedIE              λ.Object
 	WistiaIE                     λ.Object
-	XFileShareIE                 λ.Object
 	XHamsterEmbedIE              λ.Object
 	YapFilesIE                   λ.Object
 	YouPornIE                    λ.Object
@@ -209,7 +209,6 @@ var (
 	ϒjs_to_json                  λ.Object
 	ϒmerge_dicts                 λ.Object
 	ϒmimetype2ext                λ.Object
-	ϒorderedSet                  λ.Object
 	ϒparse_duration              λ.Object
 	ϒsanitized_Request           λ.Object
 	ϒsmuggle_url                 λ.Object
@@ -239,7 +238,6 @@ func init() {
 		KNOWN_EXTENSIONS = Ωutils.KNOWN_EXTENSIONS
 		ϒmerge_dicts = Ωutils.ϒmerge_dicts
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
@@ -319,7 +317,6 @@ func init() {
 		SpringboardPlatformIE = Ωspringboardplatform.SpringboardPlatformIE
 		YapFilesIE = Ωyapfiles.YapFilesIE
 		ViceIE = Ωvice.ViceIE
-		XFileShareIE = Ωxfileshare.XFileShareIE
 		CloudflareStreamIE = Ωcloudflarestream.CloudflareStreamIE
 		PeerTubeIE = Ωpeertube.PeerTubeIE
 		IndavideoEmbedIE = Ωindavideo.IndavideoEmbedIE
@@ -332,5 +329,6 @@ func init() {
 		KinjaEmbedIE = Ωkinja.KinjaEmbedIE
 		ArcPublishingIE = Ωarcpublishing.ArcPublishingIE
 		MedialaanIE = Ωmedialaan.MedialaanIE
+		SimplecastIE = Ωsimplecast.SimplecastIE
 	})
 }

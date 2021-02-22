@@ -34,7 +34,6 @@ import (
 var (
 	ExtractorError      λ.Object
 	InfoExtractor       λ.Object
-	XFileShareIE        λ.Object
 	ϒcompat_chr         λ.Object
 	ϒdetermine_ext      λ.Object
 	ϒint_or_none        λ.Object
@@ -51,94 +50,5 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
-		XFileShareIE = λ.Cal(λ.TypeType, λ.StrLiteral("XFileShareIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
-			var (
-				XFileShareIE__SITES     λ.Object
-				XFileShareIE__VALID_URL λ.Object
-			)
-			XFileShareIE__SITES = λ.NewTuple(
-				λ.NewTuple(
-					λ.StrLiteral("aparat\\.cam"),
-					λ.StrLiteral("Aparat"),
-				),
-				λ.NewTuple(
-					λ.StrLiteral("clipwatching\\.com"),
-					λ.StrLiteral("ClipWatching"),
-				),
-				λ.NewTuple(
-					λ.StrLiteral("gounlimited\\.to"),
-					λ.StrLiteral("GoUnlimited"),
-				),
-				λ.NewTuple(
-					λ.StrLiteral("govid\\.me"),
-					λ.StrLiteral("GoVid"),
-				),
-				λ.NewTuple(
-					λ.StrLiteral("holavid\\.com"),
-					λ.StrLiteral("HolaVid"),
-				),
-				λ.NewTuple(
-					λ.StrLiteral("streamty\\.com"),
-					λ.StrLiteral("Streamty"),
-				),
-				λ.NewTuple(
-					λ.StrLiteral("thevideobee\\.to"),
-					λ.StrLiteral("TheVideoBee"),
-				),
-				λ.NewTuple(
-					λ.StrLiteral("uqload\\.com"),
-					λ.StrLiteral("Uqload"),
-				),
-				λ.NewTuple(
-					λ.StrLiteral("vidbom\\.com"),
-					λ.StrLiteral("VidBom"),
-				),
-				λ.NewTuple(
-					λ.StrLiteral("vidlo\\.us"),
-					λ.StrLiteral("vidlo"),
-				),
-				λ.NewTuple(
-					λ.StrLiteral("vidlocker\\.xyz"),
-					λ.StrLiteral("VidLocker"),
-				),
-				λ.NewTuple(
-					λ.StrLiteral("vidshare\\.tv"),
-					λ.StrLiteral("VidShare"),
-				),
-				λ.NewTuple(
-					λ.StrLiteral("vup\\.to"),
-					λ.StrLiteral("VUp"),
-				),
-				λ.NewTuple(
-					λ.StrLiteral("xvideosharing\\.com"),
-					λ.StrLiteral("XVideoSharing"),
-				),
-			)
-			XFileShareIE__VALID_URL = λ.Mod(λ.StrLiteral("https?://(?:www\\.)?(?P<host>%s)/(?:embed-)?(?P<id>[0-9a-zA-Z]+)"), λ.Calm(λ.StrLiteral("|"), "join", λ.Cal(λ.NewFunction("<generator>",
-				nil,
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
-						var (
-							ϒsite λ.Object
-							τmp0  λ.Object
-							τmp1  λ.Object
-						)
-						τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(λ.Cal(λ.ListType, λ.Cal(λ.ZipIteratorType, λ.Unpack(λ.AsStarred(XFileShareIE__SITES))...)), λ.IntLiteral(0)))
-						for {
-							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-								break
-							}
-							ϒsite = τmp1
-							λgy.Yield(ϒsite)
-						}
-						return λ.None
-					})
-				}))))
-			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_SITES":     XFileShareIE__SITES,
-				"_VALID_URL": XFileShareIE__VALID_URL,
-			})
-		}())
 	})
 }

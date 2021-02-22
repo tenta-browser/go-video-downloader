@@ -600,6 +600,7 @@ func init() {
 					{Name: "self"},
 					{Name: "url"},
 					{Name: "video_id"},
+					{Name: "unlisted_hash", Def: λ.None},
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
@@ -607,20 +608,26 @@ func init() {
 						ϒdownload_data λ.Object
 						ϒdownload_url  λ.Object
 						ϒext           λ.Object
+						ϒquery         λ.Object
 						ϒself          = λargs[0]
 						ϒsource_file   λ.Object
 						ϒsource_name   λ.Object
+						ϒunlisted_hash = λargs[3]
 						ϒurl           = λargs[1]
 						ϒvideo_id      = λargs[2]
 					)
+					ϒquery = λ.DictLiteral(map[string]string{
+						"action": "load_download_config",
+					})
+					if λ.IsTrue(ϒunlisted_hash) {
+						λ.SetItem(ϒquery, λ.StrLiteral("unlisted_hash"), ϒunlisted_hash)
+					}
 					ϒdownload_data = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
 						ϒurl,
 						ϒvideo_id,
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},
-						{Name: "query", Value: λ.DictLiteral(map[string]string{
-							"action": "load_download_config",
-						})},
+						{Name: "query", Value: ϒquery},
 						{Name: "headers", Value: λ.DictLiteral(map[string]string{
 							"X-Requested-With": "XMLHttpRequest",
 						})},
@@ -883,6 +890,7 @@ func init() {
 						ϒtimestamp         λ.Object
 						ϒurl               = λargs[1]
 						ϒurlh              λ.Object
+						ϒvideo             λ.Object
 						ϒvideo_description λ.Object
 						ϒvideo_id          λ.Object
 						ϒview_count        λ.Object
@@ -1098,7 +1106,20 @@ func init() {
 					if τmp1 == λ.BlockExitReturn {
 						return τmp0
 					}
-					ϒvod = λ.Calm(λ.Calm(ϒconfig, "get", λ.StrLiteral("video"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("vod"), λ.DictLiteral(map[λ.Object]λ.Object{}))
+					ϒvideo = func() λ.Object {
+						if λv := λ.Calm(ϒconfig, "get", λ.StrLiteral("video")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
+						}
+					}()
+					ϒvod = func() λ.Object {
+						if λv := λ.Calm(ϒvideo, "get", λ.StrLiteral("vod")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
+						}
+					}()
 					ϒis_rented = λ.NewFunction("is_rented",
 						nil,
 						0, false, false,
@@ -1236,7 +1257,7 @@ func init() {
 						return λ.BlockExitNormally, nil
 					}()
 					ϒformats = λ.NewList()
-					ϒsource_format = λ.Calm(ϒself, "_extract_original_format", λ.Add(λ.StrLiteral("https://vimeo.com/"), ϒvideo_id), ϒvideo_id)
+					ϒsource_format = λ.Calm(ϒself, "_extract_original_format", λ.Add(λ.StrLiteral("https://vimeo.com/"), ϒvideo_id), ϒvideo_id, λ.Calm(ϒvideo, "get", λ.StrLiteral("unlisted_hash")))
 					if λ.IsTrue(ϒsource_format) {
 						λ.Calm(ϒformats, "append", ϒsource_format)
 					}

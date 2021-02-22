@@ -53,7 +53,6 @@ var (
 	ϒdetermine_ext             λ.Object
 	ϒint_or_none               λ.Object
 	ϒmerge_dicts               λ.Object
-	ϒorderedSet                λ.Object
 	ϒremove_quotes             λ.Object
 	ϒstr_to_int                λ.Object
 	ϒupdate_url_query          λ.Object
@@ -72,7 +71,6 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒmerge_dicts = Ωutils.ϒmerge_dicts
 		NO_DEFAULT = Ωutils.NO_DEFAULT
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒremove_quotes = Ωutils.ϒremove_quotes
 		ϒstr_to_int = Ωutils.ϒstr_to_int
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query

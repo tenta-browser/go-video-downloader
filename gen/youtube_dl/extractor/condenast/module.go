@@ -41,7 +41,6 @@ var (
 	ϒint_or_none                  λ.Object
 	ϒjs_to_json                   λ.Object
 	ϒmimetype2ext                 λ.Object
-	ϒorderedSet                   λ.Object
 	ϒparse_iso8601                λ.Object
 	ϒstrip_or_none                λ.Object
 	ϒtry_get                      λ.Object
@@ -56,7 +55,6 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
-		ϒorderedSet = Ωutils.ϒorderedSet
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒtry_get = Ωutils.ϒtry_get

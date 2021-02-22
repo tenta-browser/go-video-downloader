@@ -25,7 +25,6 @@
 package videopress
 
 import (
-	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
@@ -34,13 +33,12 @@ import (
 var (
 	InfoExtractor      λ.Object
 	VideoPressIE       λ.Object
-	ϒcompat_str        λ.Object
 	ϒdetermine_ext     λ.Object
 	ϒfloat_or_none     λ.Object
+	ϒint_or_none       λ.Object
 	ϒparse_age_limit   λ.Object
 	ϒqualities         λ.Object
 	ϒrandom_birthday   λ.Object
-	ϒtry_get           λ.Object
 	ϒunified_timestamp λ.Object
 	ϒurljoin           λ.Object
 )
@@ -48,21 +46,27 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
+		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_age_limit = Ωutils.ϒparse_age_limit
 		ϒqualities = Ωutils.ϒqualities
 		ϒrandom_birthday = Ωutils.ϒrandom_birthday
-		ϒtry_get = Ωutils.ϒtry_get
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒurljoin = Ωutils.ϒurljoin
 		VideoPressIE = λ.Cal(λ.TypeType, λ.StrLiteral("VideoPressIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
+				VideoPressIE__ID_REGEX     λ.Object
+				VideoPressIE__PATH_REGEX   λ.Object
 				VideoPressIE__VALID_URL    λ.Object
 				VideoPressIE__real_extract λ.Object
 			)
-			VideoPressIE__VALID_URL = λ.StrLiteral("https?://videopress\\.com/embed/(?P<id>[\\da-zA-Z]+)")
+			VideoPressIE__ID_REGEX = λ.StrLiteral("[\\da-zA-Z]{8}")
+			VideoPressIE__PATH_REGEX = λ.StrLiteral("video(?:\\.word)?press\\.com/embed/")
+			VideoPressIE__VALID_URL = λ.Mod(λ.StrLiteral("https?://%s(?P<id>%s)"), λ.NewTuple(
+				VideoPressIE__PATH_REGEX,
+				VideoPressIE__ID_REGEX,
+			))
 			VideoPressIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -71,29 +75,31 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						QUALITIES     λ.Object
-						ϒbase_url     λ.Object
-						ϒext          λ.Object
-						ϒf            λ.Object
-						ϒformat_id    λ.Object
-						ϒformats      λ.Object
-						ϒoriginal_url λ.Object
-						ϒpath         λ.Object
-						ϒquality      λ.Object
-						ϒquery        λ.Object
-						ϒself         = λargs[0]
-						ϒtitle        λ.Object
-						ϒurl          = λargs[1]
-						ϒvideo        λ.Object
-						ϒvideo_id     λ.Object
-						τmp0          λ.Object
-						τmp1          λ.Object
-						τmp2          λ.Object
-						τmp3          λ.Object
-						τmp4          λ.Object
+						QUALITIES      λ.Object
+						ϒbase_url      λ.Object
+						ϒext           λ.Object
+						ϒf             λ.Object
+						ϒfile_url_base λ.Object
+						ϒformat_id     λ.Object
+						ϒformats       λ.Object
+						ϒoriginal_url  λ.Object
+						ϒpath          λ.Object
+						ϒquality       λ.Object
+						ϒquery         λ.Object
+						ϒself          = λargs[0]
+						ϒtitle         λ.Object
+						ϒurl           = λargs[1]
+						ϒvideo         λ.Object
+						ϒvideo_id      λ.Object
+						τmp0           λ.Object
+						τmp1           λ.Object
+						τmp2           λ.Object
+						τmp3           λ.Object
+						τmp4           λ.Object
 					)
 					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒquery = λ.Cal(ϒrandom_birthday, λ.StrLiteral("birth_year"), λ.StrLiteral("birth_month"), λ.StrLiteral("birth_day"))
+					λ.SetItem(ϒquery, λ.StrLiteral("fields"), λ.StrLiteral("description,duration,file_url_base,files,height,original,poster,rating,title,upload_date,width"))
 					ϒvideo = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
 						λ.Mod(λ.StrLiteral("https://public-api.wordpress.com/rest/v1.1/videos/%s"), ϒvideo_id),
 						ϒvideo_id,
@@ -101,32 +107,18 @@ func init() {
 						{Name: "query", Value: ϒquery},
 					})
 					ϒtitle = λ.GetItem(ϒvideo, λ.StrLiteral("title"))
-					ϒbase_url = λ.NewFunction("base_url",
-						[]λ.Param{
-							{Name: "scheme"},
-						},
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							var (
-								ϒscheme = λargs[0]
-							)
-							return λ.Cal(ϒtry_get, ϒvideo, λ.NewFunction("<lambda>",
-								[]λ.Param{
-									{Name: "x"},
-								},
-								0, false, false,
-								func(λargs []λ.Object) λ.Object {
-									var (
-										ϒx = λargs[0]
-									)
-									return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("file_url_base")), ϒscheme)
-								}), ϒcompat_str)
-						})
-					ϒbase_url = func() λ.Object {
-						if λv := λ.Cal(ϒbase_url, λ.StrLiteral("https")); λ.IsTrue(λv) {
+					ϒfile_url_base = func() λ.Object {
+						if λv := λ.Calm(ϒvideo, "get", λ.StrLiteral("file_url_base")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Cal(ϒbase_url, λ.StrLiteral("http"))
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
+						}
+					}()
+					ϒbase_url = func() λ.Object {
+						if λv := λ.Calm(ϒfile_url_base, "get", λ.StrLiteral("https")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Calm(ϒfile_url_base, "get", λ.StrLiteral("http"))
 						}
 					}()
 					QUALITIES = λ.NewTuple(
@@ -136,7 +128,13 @@ func init() {
 					)
 					ϒquality = λ.Cal(ϒqualities, QUALITIES)
 					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.GetItem(ϒvideo, λ.StrLiteral("files")), "items"))
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(func() λ.Object {
+						if λv := λ.Calm(ϒvideo, "get", λ.StrLiteral("files")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
+						}
+					}(), "items"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
@@ -171,22 +169,14 @@ func init() {
 							}
 						}
 					}
-					ϒoriginal_url = λ.Cal(ϒtry_get, ϒvideo, λ.NewFunction("<lambda>",
-						[]λ.Param{
-							{Name: "x"},
-						},
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							var (
-								ϒx = λargs[0]
-							)
-							return λ.GetItem(ϒx, λ.StrLiteral("original"))
-						}), ϒcompat_str)
+					ϒoriginal_url = λ.Calm(ϒvideo, "get", λ.StrLiteral("original"))
 					if λ.IsTrue(ϒoriginal_url) {
 						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
 							"url":       ϒoriginal_url,
 							"format_id": λ.StrLiteral("original"),
 							"quality":   λ.Cal(λ.BuiltinLen, QUALITIES),
+							"width":     λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("width"))),
+							"height":    λ.Cal(ϒint_or_none, λ.Calm(ϒvideo, "get", λ.StrLiteral("height"))),
 						}))
 					}
 					λ.Calm(ϒself, "_sort_formats", ϒformats)
@@ -202,6 +192,8 @@ func init() {
 					})
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_ID_REGEX":     VideoPressIE__ID_REGEX,
+				"_PATH_REGEX":   VideoPressIE__PATH_REGEX,
 				"_VALID_URL":    VideoPressIE__VALID_URL,
 				"_real_extract": VideoPressIE__real_extract,
 			})

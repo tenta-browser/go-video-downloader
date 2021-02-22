@@ -109,7 +109,6 @@ var (
 	ϒmerge_dicts                      λ.Object
 	ϒmimetype2ext                     λ.Object
 	ϒmonth_by_name                    λ.Object
-	ϒorderedSet                       λ.Object
 	ϒparse_age_limit                  λ.Object
 	ϒparse_bitrate                    λ.Object
 	ϒparse_codecs                     λ.Object
@@ -2714,32 +2713,6 @@ func init() {
 					ϒs = λargs[0]
 				)
 				return ϒs
-			})
-		ϒorderedSet = λ.NewFunction("orderedSet",
-			[]λ.Param{
-				{Name: "iterable"},
-			},
-			0, false, false,
-			func(λargs []λ.Object) λ.Object {
-				var (
-					ϒel       λ.Object
-					ϒiterable = λargs[0]
-					ϒres      λ.Object
-					τmp0      λ.Object
-					τmp1      λ.Object
-				)
-				ϒres = λ.NewList()
-				τmp0 = λ.Cal(λ.BuiltinIter, ϒiterable)
-				for {
-					if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-						break
-					}
-					ϒel = τmp1
-					if !λ.Contains(ϒres, ϒel) {
-						λ.Calm(ϒres, "append", ϒel)
-					}
-				}
-				return ϒres
 			})
 		ϒ_htmlentity_transform = λ.NewFunction("_htmlentity_transform",
 			[]λ.Param{

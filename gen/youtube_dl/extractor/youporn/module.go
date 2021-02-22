@@ -72,6 +72,7 @@ func init() {
 						ϒdefinitions     λ.Object
 						ϒdescription     λ.Object
 						ϒdisplay_id      λ.Object
+						ϒduration        λ.Object
 						ϒencrypted_link  λ.Object
 						ϒextract_tag_box λ.Object
 						ϒf               λ.Object
@@ -282,6 +283,13 @@ func init() {
 						{Name: "fatal", Value: λ.False},
 						{Name: "group", Value: λ.StrLiteral("thumbnail")},
 					})
+					ϒduration = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
+						λ.StrLiteral("video:duration"),
+						ϒwebpage,
+						λ.StrLiteral("duration"),
+					), λ.KWArgs{
+						{Name: "fatal", Value: λ.False},
+					}))
 					ϒuploader = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 						λ.StrLiteral("(?s)<div[^>]+class=[\"\\']submitByLink[\"\\'][^>]*>(.+?)</div>"),
 						ϒwebpage,
@@ -355,6 +363,7 @@ func init() {
 						"title":          ϒtitle,
 						"description":    ϒdescription,
 						"thumbnail":      ϒthumbnail,
+						"duration":       ϒduration,
 						"uploader":       ϒuploader,
 						"upload_date":    ϒupload_date,
 						"average_rating": ϒaverage_rating,
