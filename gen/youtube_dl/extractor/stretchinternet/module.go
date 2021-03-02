@@ -26,20 +26,17 @@ package stretchinternet
 
 import (
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
-	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
 	InfoExtractor     λ.Object
 	StretchInternetIE λ.Object
-	ϒint_or_none      λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒint_or_none = Ωutils.ϒint_or_none
 		StretchInternetIE = λ.Cal(λ.TypeType, λ.StrLiteral("StretchInternetIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				StretchInternetIE__VALID_URL    λ.Object
@@ -54,18 +51,28 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒevent    λ.Object
-						ϒself     = λargs[0]
-						ϒurl      = λargs[1]
-						ϒvideo_id λ.Object
+						ϒevent     λ.Object
+						ϒmedia_url λ.Object
+						ϒself      = λargs[0]
+						ϒurl       = λargs[1]
+						ϒvideo_id  λ.Object
 					)
 					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
-					ϒevent = λ.GetItem(λ.Calm(ϒself, "_download_json", λ.Add(λ.StrLiteral("https://api.stretchinternet.com/trinity/event/tcg/"), ϒvideo_id), ϒvideo_id), λ.IntLiteral(0))
+					ϒmedia_url = λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_download_json", λ.Add(λ.StrLiteral("https://core.stretchlive.com/trinity/event/tcg/"), ϒvideo_id), ϒvideo_id), λ.IntLiteral(0)), λ.StrLiteral("media")), λ.IntLiteral(0)), λ.StrLiteral("url"))
+					ϒevent = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.StrLiteral("https://neo-client.stretchinternet.com/portal-ws/getEvent.json"),
+						ϒvideo_id,
+					), λ.KWArgs{
+						{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
+							"eventID": ϒvideo_id,
+							"token":   λ.StrLiteral("asdf"),
+						})},
+					}), λ.StrLiteral("event"))
 					return λ.DictLiteral(map[string]λ.Object{
-						"id":        ϒvideo_id,
-						"title":     λ.GetItem(ϒevent, λ.StrLiteral("title")),
-						"timestamp": λ.Cal(ϒint_or_none, λ.Calm(ϒevent, "get", λ.StrLiteral("dateCreated")), λ.IntLiteral(1000)),
-						"url":       λ.Add(λ.StrLiteral("https://"), λ.GetItem(λ.GetItem(λ.GetItem(ϒevent, λ.StrLiteral("media")), λ.IntLiteral(0)), λ.StrLiteral("url"))),
+						"id":          ϒvideo_id,
+						"title":       λ.GetItem(ϒevent, λ.StrLiteral("title")),
+						"url":         λ.Add(λ.StrLiteral("https://"), ϒmedia_url),
+						"uploader_id": λ.Calm(ϒevent, "get", λ.StrLiteral("ownerID")),
 					})
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{

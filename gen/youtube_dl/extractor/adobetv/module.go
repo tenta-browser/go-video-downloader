@@ -40,7 +40,6 @@ var (
 	AdobeTVPlaylistBaseIE λ.Object
 	AdobeTVShowIE         λ.Object
 	AdobeTVVideoIE        λ.Object
-	ISO639Utils           λ.Object
 	InfoExtractor         λ.Object
 	ϒcompat_str           λ.Object
 	ϒfloat_or_none        λ.Object
@@ -57,7 +56,6 @@ func init() {
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
-		ISO639Utils = Ωutils.ISO639Utils
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒstr_or_none = Ωutils.ϒstr_or_none
 		ϒstr_to_int = Ωutils.ϒstr_to_int
@@ -102,7 +100,7 @@ func init() {
 							if λv := λ.Calm(ϒtranslation, "get", λ.StrLiteral("language_w3c")); λ.IsTrue(λv) {
 								return λv
 							} else {
-								return λ.Calm(ISO639Utils, "long2short", λ.GetItem(ϒtranslation, λ.StrLiteral("language_medium")))
+								return λ.Calm(λ.None, "long2short", λ.GetItem(ϒtranslation, λ.StrLiteral("language_medium")))
 							}
 						}()
 						λ.Calm(λ.Calm(ϒsubtitles, "setdefault", ϒlang, λ.NewList()), "append", λ.DictLiteral(map[string]λ.Object{

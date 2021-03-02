@@ -352,6 +352,7 @@ func init() {
 						ϒextract_js_vars     λ.Object
 						ϒextract_list        λ.Object
 						ϒextract_vote_count  λ.Object
+						ϒf                   λ.Object
 						ϒflashvars           λ.Object
 						ϒformat_url          λ.Object
 						ϒformats             λ.Object
@@ -362,8 +363,10 @@ func init() {
 						ϒkey                 λ.Object
 						ϒlike_count          λ.Object
 						ϒmedia_definitions   λ.Object
+						ϒmedia_json          λ.Object
 						ϒmobj                λ.Object
 						ϒparse_quality_items λ.Object
+						ϒquality             λ.Object
 						ϒself                = λargs[0]
 						ϒsubtitle_url        λ.Object
 						ϒsubtitles           λ.Object
@@ -382,6 +385,7 @@ func init() {
 						τmp0                 λ.Object
 						τmp1                 λ.Object
 						τmp2                 λ.Object
+						τmp3                 λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
 					ϒhost = func() λ.Object {
@@ -759,6 +763,30 @@ func init() {
 									{Name: "fatal", Value: λ.False},
 								}))
 								continue
+							} else {
+								if λ.IsTrue(func() λ.Object {
+									if λv := λ.Eq(ϒext, λ.StrLiteral("unknown_video")); !λ.IsTrue(λv) {
+										return λv
+									} else {
+										return λ.NewBool(λ.Contains(ϒvideo_url, λ.StrLiteral("/get_media?")))
+									}
+								}()) {
+									ϒmedia_json = λ.Calm(ϒself, "_download_json", ϒvideo_url, ϒvideo_id, λ.StrLiteral("Downloading media JSON"))
+									τmp2 = λ.Cal(λ.BuiltinIter, ϒmedia_json)
+									for {
+										if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+											break
+										}
+										ϒf = τmp3
+										ϒquality = λ.Cal(ϒstr_to_int, λ.GetItem(ϒf, λ.StrLiteral("quality")))
+										λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+											"url":       λ.GetItem(ϒf, λ.StrLiteral("videoUrl")),
+											"format_id": λ.Mod(λ.StrLiteral("%dp"), ϒquality),
+											"height":    ϒquality,
+										}))
+									}
+									continue
+								}
 							}
 						}
 						ϒtbr = λ.None

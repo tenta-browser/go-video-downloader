@@ -41,17 +41,19 @@ var (
 	ϒparse_duration λ.Object
 	ϒparse_iso8601  λ.Object
 	ϒunescapeHTML   λ.Object
+	ϒurljoin        λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		SRGSSRIE = Ωsrgssr.SRGSSRIE
 		ϒcompat_str = Ωcompat.ϒcompat_str
+		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
-		ϒdetermine_ext = Ωutils.ϒdetermine_ext
+		ϒurljoin = Ωutils.ϒurljoin
 		RTSIE = λ.Cal(λ.TypeType, λ.StrLiteral("RTSIE"), λ.NewTuple(SRGSSRIE), func() λ.Dict {
 			var (
 				RTSIE__VALID_URL    λ.Object
@@ -68,6 +70,7 @@ func init() {
 					var (
 						ϒall_info        λ.Object
 						ϒdisplay_id      λ.Object
+						ϒdownload_base   λ.Object
 						ϒdownload_json   λ.Object
 						ϒduration        λ.Object
 						ϒentries         λ.Object
@@ -192,7 +195,7 @@ func init() {
 							return λ.StrLiteral("audio")
 						}
 					}()
-					λ.Calm(ϒself, "get_media_data", λ.StrLiteral("rts"), ϒmedia_type, ϒmedia_id)
+					λ.Calm(ϒself, "_get_media_data", λ.StrLiteral("rts"), ϒmedia_type, ϒmedia_id)
 					ϒinfo = func() λ.Object {
 						if λ.Contains(ϒall_info, λ.StrLiteral("video")) {
 							return λ.GetItem(λ.GetItem(ϒall_info, λ.StrLiteral("video")), λ.StrLiteral("JSONinfo"))
@@ -285,6 +288,13 @@ func init() {
 							}))
 						}
 					}
+					ϒdownload_base = λ.Mod(λ.StrLiteral("http://rtsww%s-d.rts.ch/"), func() λ.Object {
+						if λ.IsTrue(λ.Eq(ϒmedia_type, λ.StrLiteral("audio"))) {
+							return λ.StrLiteral("-a")
+						} else {
+							return λ.StrLiteral("")
+						}
+					}())
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒinfo, "get", λ.StrLiteral("media"), λ.NewList()))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
@@ -316,7 +326,7 @@ func init() {
 						}
 						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
 							"format_id": ϒformat_id,
-							"url":       λ.Add(λ.StrLiteral("http://download-video.rts.ch/"), ϒmedia_url),
+							"url":       λ.Cal(ϒurljoin, ϒdownload_base, ϒmedia_url),
 							"tbr": func() λ.Object {
 								if λv := ϒrate; λ.IsTrue(λv) {
 									return λv

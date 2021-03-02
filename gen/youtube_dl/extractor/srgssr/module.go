@@ -26,39 +26,42 @@ package srgssr
 
 import (
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
-	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	ExtractorError                λ.Object
-	InfoExtractor                 λ.Object
-	SRGSSRIE                      λ.Object
-	SRGSSRPlayIE                  λ.Object
-	ϒcompat_urllib_parse_urlparse λ.Object
-	ϒparse_iso8601                λ.Object
-	ϒqualities                    λ.Object
+	ExtractorError λ.Object
+	InfoExtractor  λ.Object
+	SRGSSRIE       λ.Object
+	SRGSSRPlayIE   λ.Object
+	ϒfloat_or_none λ.Object
+	ϒint_or_none   λ.Object
+	ϒparse_iso8601 λ.Object
+	ϒqualities     λ.Object
+	ϒtry_get       λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ExtractorError = Ωutils.ExtractorError
+		ϒfloat_or_none = Ωutils.ϒfloat_or_none
+		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		ϒqualities = Ωutils.ϒqualities
+		ϒtry_get = Ωutils.ϒtry_get
 		SRGSSRIE = λ.Cal(λ.TypeType, λ.StrLiteral("SRGSSRIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				SRGSSRIE__GEO_BYPASS        λ.Object
 				SRGSSRIE__GEO_COUNTRIES     λ.Object
 				SRGSSRIE__VALID_URL         λ.Object
+				SRGSSRIE__get_media_data    λ.Object
 				SRGSSRIE__get_tokenized_src λ.Object
 				SRGSSRIE__real_extract      λ.Object
-				SRGSSRIE_get_media_data     λ.Object
 			)
-			SRGSSRIE__VALID_URL = λ.StrLiteral("(?:https?://tp\\.srgssr\\.ch/p(?:/[^/]+)+\\?urn=urn|srgssr):(?P<bu>srf|rts|rsi|rtr|swi):(?:[^:]+:)?(?P<type>video|audio):(?P<id>[0-9a-f\\-]{36}|\\d+)")
+			SRGSSRIE__VALID_URL = λ.StrLiteral("(?x)\n                    (?:\n                        https?://tp\\.srgssr\\.ch/p(?:/[^/]+)+\\?urn=urn|\n                        srgssr\n                    ):\n                    (?P<bu>\n                        srf|rts|rsi|rtr|swi\n                    ):(?:[^:]+:)?\n                    (?P<type>\n                        video|audio\n                    ):\n                    (?P<id>\n                        [0-9a-f\\-]{36}|\\d+\n                    )\n                    ")
 			SRGSSRIE__GEO_BYPASS = λ.False
 			SRGSSRIE__GEO_COUNTRIES = λ.NewList(λ.StrLiteral("CH"))
 			SRGSSRIE__get_tokenized_src = λ.NewFunction("_get_tokenized_src",
@@ -74,19 +77,14 @@ func init() {
 						ϒauth_params λ.Object
 						ϒformat_id   = λargs[3]
 						ϒself        = λargs[0]
-						ϒsp          λ.Object
 						ϒtoken       λ.Object
 						ϒurl         = λargs[1]
 						ϒvideo_id    = λargs[2]
 						τmp0         λ.Object
 					)
-					ϒsp = λ.Calm(λ.GetAttr(λ.Cal(ϒcompat_urllib_parse_urlparse, ϒurl), "path", nil), "split", λ.StrLiteral("/"))
 					ϒtoken = func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-							λ.Mod(λ.StrLiteral("http://tp.srgssr.ch/akahd/token?acl=/%s/%s/*"), λ.NewTuple(
-								λ.GetItem(ϒsp, λ.IntLiteral(1)),
-								λ.GetItem(ϒsp, λ.IntLiteral(2)),
-							)),
+							λ.StrLiteral("http://tp.srgssr.ch/akahd/token?acl=*"),
 							ϒvideo_id,
 							λ.Mod(λ.StrLiteral("Downloading %s token"), ϒformat_id),
 						), λ.KWArgs{
@@ -97,14 +95,30 @@ func init() {
 							return λ.DictLiteral(map[λ.Object]λ.Object{})
 						}
 					}()
-					ϒauth_params = λ.Calm(λ.Calm(ϒtoken, "get", λ.StrLiteral("token"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("authparams"))
+					ϒauth_params = λ.Cal(ϒtry_get, ϒtoken, λ.NewFunction("<lambda>",
+						[]λ.Param{
+							{Name: "x"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒx = λargs[0]
+							)
+							return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("token")), λ.StrLiteral("authparams"))
+						}))
 					if λ.IsTrue(ϒauth_params) {
-						τmp0 = λ.IAdd(ϒurl, λ.Add(λ.StrLiteral("?"), ϒauth_params))
+						τmp0 = λ.IAdd(ϒurl, λ.Add(func() λ.Object {
+							if !λ.Contains(ϒurl, λ.StrLiteral("?")) {
+								return λ.StrLiteral("?")
+							} else {
+								return λ.StrLiteral("&")
+							}
+						}(), ϒauth_params))
 						ϒurl = τmp0
 					}
 					return ϒurl
 				})
-			SRGSSRIE_get_media_data = λ.NewFunction("get_media_data",
+			SRGSSRIE__get_media_data = λ.NewFunction("_get_media_data",
 				[]λ.Param{
 					{Name: "self"},
 					{Name: "bu"},
@@ -114,27 +128,81 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒbu         = λargs[1]
-						ϒmedia_data λ.Object
-						ϒmedia_id   = λargs[3]
-						ϒmedia_type = λargs[2]
-						ϒmessage    λ.Object
-						ϒself       = λargs[0]
+						ϒblock_reason    λ.Object
+						ϒbu              = λargs[1]
+						ϒfull_media_data λ.Object
+						ϒmedia_data      λ.Object
+						ϒmedia_id        = λargs[3]
+						ϒmedia_type      = λargs[2]
+						ϒmessage         λ.Object
+						ϒquery           λ.Object
+						ϒself            = λargs[0]
+						τmp0             λ.Object
+						τmp1             λ.Object
 					)
-					ϒmedia_data = λ.GetItem(λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("http://il.srgssr.ch/integrationlayer/1.0/ue/%s/%s/play/%s.json"), λ.NewTuple(
-						ϒbu,
-						ϒmedia_type,
+					_ = τmp0
+					_ = τmp1
+					ϒquery = func() λ.Object {
+						if λ.IsTrue(λ.Eq(ϒmedia_type, λ.StrLiteral("video"))) {
+							return λ.DictLiteral(map[string]λ.Object{
+								"onlyChapters": λ.True,
+							})
+						} else {
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
+						}
+					}()
+					ϒfull_media_data = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.Mod(λ.StrLiteral("https://il.srgssr.ch/integrationlayer/2.0/%s/mediaComposition/%s/%s.json"), λ.NewTuple(
+							ϒbu,
+							ϒmedia_type,
+							ϒmedia_id,
+						)),
 						ϒmedia_id,
-					)), ϒmedia_id), λ.Calm(ϒmedia_type, "capitalize"))
+					), λ.KWArgs{
+						{Name: "query", Value: ϒquery},
+					}), λ.StrLiteral("chapterList"))
+					τmp0, τmp1 = func() (λexit λ.Object, λret λ.Object) {
+						defer λ.CatchMulti(
+							nil,
+							&λ.Catcher{λ.StopIterationType, func(λex λ.BaseException) {
+								panic(λ.Raise(λ.Cal(ExtractorError, λ.StrLiteral("No media information found"))))
+							}},
+						)
+						ϒmedia_data = λ.Cal(λ.BuiltinNext, λ.Cal(λ.NewFunction("<generator>",
+							nil,
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
+									var (
+										ϒx   λ.Object
+										τmp0 λ.Object
+										τmp1 λ.Object
+									)
+									τmp0 = λ.Cal(λ.BuiltinIter, ϒfull_media_data)
+									for {
+										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+											break
+										}
+										ϒx = τmp1
+										if λ.IsTrue(λ.Eq(λ.Calm(ϒx, "get", λ.StrLiteral("id")), ϒmedia_id)) {
+											λgy.Yield(ϒx)
+										}
+									}
+									return λ.None
+								})
+							})))
+						return λ.BlockExitNormally, nil
+					}()
+					ϒblock_reason = λ.Calm(ϒmedia_data, "get", λ.StrLiteral("blockReason"))
 					if λ.IsTrue(func() λ.Object {
-						if λv := λ.Calm(ϒmedia_data, "get", λ.StrLiteral("block")); !λ.IsTrue(λv) {
+						if λv := ϒblock_reason; !λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.NewBool(λ.Contains(λ.GetAttr(ϒself, "_ERRORS", nil), λ.GetItem(ϒmedia_data, λ.StrLiteral("block"))))
+							return λ.NewBool(λ.Contains(λ.GetAttr(ϒself, "_ERRORS", nil), ϒblock_reason))
 						}
 					}()) {
-						ϒmessage = λ.GetItem(λ.GetAttr(ϒself, "_ERRORS", nil), λ.GetItem(ϒmedia_data, λ.StrLiteral("block")))
-						if λ.IsTrue(λ.Eq(λ.GetItem(ϒmedia_data, λ.StrLiteral("block")), λ.StrLiteral("GEOBLOCK"))) {
+						ϒmessage = λ.GetItem(λ.GetAttr(ϒself, "_ERRORS", nil), ϒblock_reason)
+						if λ.IsTrue(λ.Eq(ϒblock_reason, λ.StrLiteral("GEOBLOCK"))) {
 							λ.Call(λ.GetAttr(ϒself, "raise_geo_restricted", nil), nil, λ.KWArgs{
 								{Name: "msg", Value: ϒmessage},
 								{Name: "countries", Value: λ.GetAttr(ϒself, "_GEO_COUNTRIES", nil)},
@@ -157,156 +225,171 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒasset        λ.Object
-						ϒasset_url    λ.Object
-						ϒbu           λ.Object
-						ϒcreated_date λ.Object
-						ϒdescription  λ.Object
-						ϒformat_id    λ.Object
-						ϒformats      λ.Object
-						ϒmedia_data   λ.Object
-						ϒmedia_id     λ.Object
-						ϒmedia_type   λ.Object
-						ϒmetadata     λ.Object
-						ϒpreference   λ.Object
-						ϒprotocol     λ.Object
-						ϒquality      λ.Object
-						ϒself         = λargs[0]
-						ϒsource       λ.Object
-						ϒthumbnails   λ.Object
-						ϒtimestamp    λ.Object
-						ϒtitle        λ.Object
-						ϒurl          = λargs[1]
-						τmp0          λ.Object
-						τmp1          λ.Object
-						τmp2          λ.Object
-						τmp3          λ.Object
+						ϒbu          λ.Object
+						ϒe           λ.Object
+						ϒformat_id   λ.Object
+						ϒformat_url  λ.Object
+						ϒformats     λ.Object
+						ϒlang        λ.Object
+						ϒmedia_data  λ.Object
+						ϒmedia_id    λ.Object
+						ϒmedia_type  λ.Object
+						ϒp           λ.Object
+						ϒpodcast_url λ.Object
+						ϒprotocol    λ.Object
+						ϒq           λ.Object
+						ϒquality     λ.Object
+						ϒself        = λargs[0]
+						ϒsource      λ.Object
+						ϒsub         λ.Object
+						ϒsub_url     λ.Object
+						ϒsubtitles   λ.Object
+						ϒtitle       λ.Object
+						ϒurl         = λargs[1]
+						τmp0         λ.Object
+						τmp1         λ.Object
+						τmp2         λ.Object
+						τmp3         λ.Object
 					)
 					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
 					ϒbu = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒmedia_type = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒmedia_id = λ.GetItem(τmp0, λ.IntLiteral(2))
-					ϒmedia_data = λ.Calm(ϒself, "get_media_data", ϒbu, ϒmedia_type, ϒmedia_id)
-					ϒmetadata = λ.GetItem(λ.GetItem(λ.GetItem(ϒmedia_data, λ.StrLiteral("AssetMetadatas")), λ.StrLiteral("AssetMetadata")), λ.IntLiteral(0))
-					ϒtitle = λ.GetItem(ϒmetadata, λ.StrLiteral("title"))
-					ϒdescription = λ.Calm(ϒmetadata, "get", λ.StrLiteral("description"))
-					ϒcreated_date = func() λ.Object {
-						if λv := λ.Calm(ϒmedia_data, "get", λ.StrLiteral("createdDate")); λ.IsTrue(λv) {
-							return λv
-						} else {
-							return λ.Calm(ϒmetadata, "get", λ.StrLiteral("createdDate"))
-						}
-					}()
-					ϒtimestamp = λ.Cal(ϒparse_iso8601, ϒcreated_date)
-					ϒthumbnails = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
-						nil,
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
-								var (
-									ϒimage λ.Object
-									τmp0   λ.Object
-									τmp1   λ.Object
-								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(λ.Calm(λ.Calm(ϒmedia_data, "get", λ.StrLiteral("Image"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("ImageRepresentations"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("ImageRepresentation"), λ.NewList()))
-								for {
-									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-										break
-									}
-									ϒimage = τmp1
-									λgy.Yield(λ.DictLiteral(map[string]λ.Object{
-										"id":  λ.Calm(ϒimage, "get", λ.StrLiteral("id")),
-										"url": λ.GetItem(ϒimage, λ.StrLiteral("url")),
-									}))
-								}
-								return λ.None
-							})
-						})))
-					ϒpreference = λ.Cal(ϒqualities, λ.NewList(
-						λ.StrLiteral("LQ"),
-						λ.StrLiteral("MQ"),
+					ϒmedia_data = λ.Calm(ϒself, "_get_media_data", ϒbu, ϒmedia_type, ϒmedia_id)
+					ϒtitle = λ.GetItem(ϒmedia_data, λ.StrLiteral("title"))
+					ϒformats = λ.NewList()
+					ϒq = λ.Cal(ϒqualities, λ.NewList(
 						λ.StrLiteral("SD"),
-						λ.StrLiteral("HQ"),
 						λ.StrLiteral("HD"),
 					))
-					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Add(λ.Calm(λ.Calm(ϒmedia_data, "get", λ.StrLiteral("Playlists"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("Playlist"), λ.NewList()), λ.Calm(λ.Calm(ϒmedia_data, "get", λ.StrLiteral("Downloads"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("Download"), λ.NewList())))
+					τmp0 = λ.Cal(λ.BuiltinIter, func() λ.Object {
+						if λv := λ.Calm(ϒmedia_data, "get", λ.StrLiteral("resourceList")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewList()
+						}
+					}())
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
 						ϒsource = τmp1
-						ϒprotocol = λ.Calm(ϒsource, "get", λ.StrLiteral("@protocol"))
-						τmp2 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒsource, λ.StrLiteral("url")))
+						ϒformat_url = λ.Calm(ϒsource, "get", λ.StrLiteral("url"))
+						if !λ.IsTrue(ϒformat_url) {
+							continue
+						}
+						ϒprotocol = λ.Calm(ϒsource, "get", λ.StrLiteral("protocol"))
+						ϒquality = λ.Calm(ϒsource, "get", λ.StrLiteral("quality"))
+						ϒformat_id = λ.NewList()
+						τmp2 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+							ϒprotocol,
+							λ.Calm(ϒsource, "get", λ.StrLiteral("encoding")),
+							ϒquality,
+						))
 						for {
 							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 								break
 							}
-							ϒasset = τmp3
-							ϒasset_url = λ.GetItem(ϒasset, λ.StrLiteral("text"))
-							ϒquality = λ.GetItem(ϒasset, λ.StrLiteral("@quality"))
-							ϒformat_id = λ.Mod(λ.StrLiteral("%s-%s"), λ.NewTuple(
-								ϒprotocol,
-								ϒquality,
-							))
-							if λ.IsTrue(func() λ.Object {
-								if λv := λ.Calm(ϒprotocol, "startswith", λ.StrLiteral("HTTP-HDS")); λ.IsTrue(λv) {
-									return λv
-								} else {
-									return λ.Calm(ϒprotocol, "startswith", λ.StrLiteral("HTTP-HLS"))
-								}
-							}()) {
-								ϒasset_url = λ.Calm(ϒself, "_get_tokenized_src", ϒasset_url, ϒmedia_id, ϒformat_id)
-								if λ.IsTrue(λ.Calm(ϒprotocol, "startswith", λ.StrLiteral("HTTP-HDS"))) {
-									λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_f4m_formats", nil), λ.NewArgs(
-										λ.Add(λ.Add(ϒasset_url, func() λ.Object {
-											if !λ.Contains(ϒasset_url, λ.StrLiteral("?")) {
-												return λ.StrLiteral("?")
-											} else {
-												return λ.StrLiteral("&")
-											}
-										}()), λ.StrLiteral("hdcore=3.4.0")),
+							ϒe = τmp3
+							if λ.IsTrue(ϒe) {
+								λ.Calm(ϒformat_id, "append", ϒe)
+							}
+						}
+						ϒformat_id = λ.Calm(λ.StrLiteral("-"), "join", ϒformat_id)
+						if λ.Contains(λ.NewTuple(
+							λ.StrLiteral("HDS"),
+							λ.StrLiteral("HLS"),
+						), ϒprotocol) {
+							if λ.IsTrue(λ.Eq(λ.Calm(ϒsource, "get", λ.StrLiteral("tokenType")), λ.StrLiteral("AKAMAI"))) {
+								ϒformat_url = λ.Calm(ϒself, "_get_tokenized_src", ϒformat_url, ϒmedia_id, ϒformat_id)
+								λ.Calm(ϒformats, "extend", λ.Calm(ϒself, "_extract_akamai_formats", ϒformat_url, ϒmedia_id))
+							} else {
+								if λ.IsTrue(λ.Eq(ϒprotocol, λ.StrLiteral("HLS"))) {
+									λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+										ϒformat_url,
 										ϒmedia_id,
+										λ.StrLiteral("mp4"),
+										λ.StrLiteral("m3u8_native"),
 									), λ.KWArgs{
-										{Name: "f4m_id", Value: ϒformat_id},
+										{Name: "m3u8_id", Value: ϒformat_id},
 										{Name: "fatal", Value: λ.False},
 									}))
-								} else {
-									if λ.IsTrue(λ.Calm(ϒprotocol, "startswith", λ.StrLiteral("HTTP-HLS"))) {
-										λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
-											ϒasset_url,
-											ϒmedia_id,
-											λ.StrLiteral("mp4"),
-											λ.StrLiteral("m3u8_native"),
-										), λ.KWArgs{
-											{Name: "m3u8_id", Value: ϒformat_id},
-											{Name: "fatal", Value: λ.False},
-										}))
-									}
 								}
-							} else {
+							}
+						} else {
+							if λ.Contains(λ.NewTuple(
+								λ.StrLiteral("HTTP"),
+								λ.StrLiteral("HTTPS"),
+							), ϒprotocol) {
 								λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
-									"format_id":  ϒformat_id,
-									"url":        ϒasset_url,
-									"preference": λ.Cal(ϒpreference, ϒquality),
-									"ext": func() λ.Object {
-										if λ.IsTrue(λ.Eq(ϒprotocol, λ.StrLiteral("RTMP"))) {
-											return λ.StrLiteral("flv")
-										} else {
-											return λ.None
-										}
-									}(),
+									"format_id": ϒformat_id,
+									"url":       ϒformat_url,
+									"quality":   λ.Cal(ϒq, ϒquality),
 								}))
 							}
 						}
 					}
+					if λ.IsTrue(λ.Eq(λ.Cal(ϒint_or_none, λ.Calm(ϒmedia_data, "get", λ.StrLiteral("position"))), λ.IntLiteral(0))) {
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+							λ.StrLiteral("S"),
+							λ.StrLiteral("H"),
+						))
+						for {
+							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+								break
+							}
+							ϒp = τmp1
+							ϒpodcast_url = λ.Calm(ϒmedia_data, "get", λ.Mod(λ.StrLiteral("podcast%sdUrl"), ϒp))
+							if !λ.IsTrue(ϒpodcast_url) {
+								continue
+							}
+							ϒquality = λ.Add(ϒp, λ.StrLiteral("D"))
+							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+								"format_id": λ.Add(λ.StrLiteral("PODCAST-"), ϒquality),
+								"url":       ϒpodcast_url,
+								"quality":   λ.Cal(ϒq, ϒquality),
+							}))
+						}
+					}
 					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒsubtitles = λ.DictLiteral(map[λ.Object]λ.Object{})
+					if λ.IsTrue(λ.Eq(ϒmedia_type, λ.StrLiteral("video"))) {
+						τmp0 = λ.Cal(λ.BuiltinIter, func() λ.Object {
+							if λv := λ.Calm(ϒmedia_data, "get", λ.StrLiteral("subtitleList")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.NewList()
+							}
+						}())
+						for {
+							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+								break
+							}
+							ϒsub = τmp1
+							ϒsub_url = λ.Calm(ϒsub, "get", λ.StrLiteral("url"))
+							if !λ.IsTrue(ϒsub_url) {
+								continue
+							}
+							ϒlang = func() λ.Object {
+								if λv := λ.Calm(ϒsub, "get", λ.StrLiteral("locale")); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.GetItem(λ.GetAttr(ϒself, "_DEFAULT_LANGUAGE_CODES", nil), ϒbu)
+								}
+							}()
+							λ.Calm(λ.Calm(ϒsubtitles, "setdefault", ϒlang, λ.NewList()), "append", λ.DictLiteral(map[string]λ.Object{
+								"url": ϒsub_url,
+							}))
+						}
+					}
 					return λ.DictLiteral(map[string]λ.Object{
 						"id":          ϒmedia_id,
 						"title":       ϒtitle,
-						"description": ϒdescription,
-						"timestamp":   ϒtimestamp,
-						"thumbnails":  ϒthumbnails,
+						"description": λ.Calm(ϒmedia_data, "get", λ.StrLiteral("description")),
+						"timestamp":   λ.Cal(ϒparse_iso8601, λ.Calm(ϒmedia_data, "get", λ.StrLiteral("date"))),
+						"thumbnail":   λ.Calm(ϒmedia_data, "get", λ.StrLiteral("imageUrl")),
+						"duration":    λ.Cal(ϒfloat_or_none, λ.Calm(ϒmedia_data, "get", λ.StrLiteral("duration")), λ.IntLiteral(1000)),
+						"subtitles":   ϒsubtitles,
 						"formats":     ϒformats,
 					})
 				})
@@ -314,9 +397,9 @@ func init() {
 				"_GEO_BYPASS":        SRGSSRIE__GEO_BYPASS,
 				"_GEO_COUNTRIES":     SRGSSRIE__GEO_COUNTRIES,
 				"_VALID_URL":         SRGSSRIE__VALID_URL,
+				"_get_media_data":    SRGSSRIE__get_media_data,
 				"_get_tokenized_src": SRGSSRIE__get_tokenized_src,
 				"_real_extract":      SRGSSRIE__real_extract,
-				"get_media_data":     SRGSSRIE_get_media_data,
 			})
 		}())
 		SRGSSRPlayIE = λ.Cal(λ.TypeType, λ.StrLiteral("SRGSSRPlayIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

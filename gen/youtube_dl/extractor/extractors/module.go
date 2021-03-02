@@ -88,6 +88,7 @@ import (
 	Ωdisney "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/disney"
 	Ωdispeak "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dispeak"
 	Ωdotsub "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dotsub"
+	Ωdreisat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dreisat"
 	Ωdrtuber "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/drtuber"
 	Ωdumpert "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dumpert"
 	Ωdvtv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/dvtv"
@@ -117,6 +118,7 @@ import (
 	Ωgamespot "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/gamespot"
 	Ωgaskrank "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/gaskrank"
 	Ωgazeta "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/gazeta"
+	Ωgedidigital "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/gedidigital"
 	Ωgfycat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/gfycat"
 	Ωgiantbomb "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/giantbomb"
 	Ωgodtube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/godtube"
@@ -183,6 +185,7 @@ import (
 	Ωpatreon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/patreon"
 	Ωpeertube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/peertube"
 	Ωpeople "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/people"
+	Ωphoenix "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/phoenix"
 	Ωpiksel "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/piksel"
 	Ωpinterest "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/pinterest"
 	Ωplayfm "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/playfm"
@@ -236,6 +239,7 @@ import (
 	Ωtheweatherchannel "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/theweatherchannel"
 	Ωthreeqsdn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/threeqsdn"
 	Ωtiktok "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tiktok"
+	Ωtmz "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tmz"
 	Ωtnaflix "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tnaflix"
 	Ωtoongoggles "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/toongoggles"
 	Ωtoypics "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/toypics"
@@ -269,6 +273,7 @@ import (
 	Ωvlive "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vlive"
 	Ωvzaar "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vzaar"
 	Ωwashingtonpost "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/washingtonpost"
+	Ωweibo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/weibo"
 	Ωwistia "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/wistia"
 	Ωworldstarhiphop "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/worldstarhiphop"
 	Ωwsj "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/wsj"
@@ -362,6 +367,7 @@ var (
 	DisneyIE                   λ.Object
 	DotsubIE                   λ.Object
 	DrTuberIE                  λ.Object
+	DreiSatIE                  λ.Object
 	DumpertIE                  λ.Object
 	EMPFlixIE                  λ.Object
 	EaglePlatformIE            λ.Object
@@ -391,6 +397,7 @@ var (
 	GameSpotIE                 λ.Object
 	GaskrankIE                 λ.Object
 	GazetaIE                   λ.Object
+	GediDigitalIE              λ.Object
 	GenerationWhatIE           λ.Object
 	GfycatIE                   λ.Object
 	GiantBombIE                λ.Object
@@ -462,6 +469,7 @@ var (
 	PatreonIE                  λ.Object
 	PeerTubeIE                 λ.Object
 	PeopleIE                   λ.Object
+	PhoenixIE                  λ.Object
 	PikselIE                   λ.Object
 	PinterestIE                λ.Object
 	PlayFMIE                   λ.Object
@@ -515,6 +523,8 @@ var (
 	TDSLifewayIE               λ.Object
 	TEDIE                      λ.Object
 	TFOIE                      λ.Object
+	TMZArticleIE               λ.Object
+	TMZIE                      λ.Object
 	TNAFlixIE                  λ.Object
 	TNAFlixNetworkEmbedIE      λ.Object
 	TV5UnisIE                  λ.Object
@@ -563,6 +573,8 @@ var (
 	WSJArticleIE               λ.Object
 	WSJIE                      λ.Object
 	WashingtonPostIE           λ.Object
+	WeiboIE                    λ.Object
+	WeiboMobileIE              λ.Object
 	WistiaIE                   λ.Object
 	WorldStarHipHopIE          λ.Object
 	XHamsterEmbedIE            λ.Object
@@ -650,6 +662,7 @@ func init() {
 		DaumUserIE = Ωdaum.DaumUserIE
 		DctpTvIE = Ωdctp.DctpTvIE
 		DotsubIE = Ωdotsub.DotsubIE
+		DreiSatIE = Ωdreisat.DreiSatIE
 		DrTuberIE = Ωdrtuber.DrTuberIE
 		DVTVIE = Ωdvtv.DVTVIE
 		DumpertIE = Ωdumpert.DumpertIE
@@ -683,6 +696,7 @@ func init() {
 		GameSpotIE = Ωgamespot.GameSpotIE
 		GaskrankIE = Ωgaskrank.GaskrankIE
 		GazetaIE = Ωgazeta.GazetaIE
+		GediDigitalIE = Ωgedidigital.GediDigitalIE
 		GfycatIE = Ωgfycat.GfycatIE
 		GiantBombIE = Ωgiantbomb.GiantBombIE
 		GodTubeIE = Ωgodtube.GodTubeIE
@@ -753,6 +767,7 @@ func init() {
 		PatreonIE = Ωpatreon.PatreonIE
 		PeerTubeIE = Ωpeertube.PeerTubeIE
 		PeopleIE = Ωpeople.PeopleIE
+		PhoenixIE = Ωphoenix.PhoenixIE
 		PikselIE = Ωpiksel.PikselIE
 		PinterestIE = Ωpinterest.PinterestIE
 		PlayFMIE = Ωplayfm.PlayFMIE
@@ -814,6 +829,8 @@ func init() {
 		TheWeatherChannelIE = Ωtheweatherchannel.TheWeatherChannelIE
 		ThreeQSDNIE = Ωthreeqsdn.ThreeQSDNIE
 		TikTokIE = Ωtiktok.TikTokIE
+		TMZIE = Ωtmz.TMZIE
+		TMZArticleIE = Ωtmz.TMZArticleIE
 		TNAFlixNetworkEmbedIE = Ωtnaflix.TNAFlixNetworkEmbedIE
 		TNAFlixIE = Ωtnaflix.TNAFlixIE
 		EMPFlixIE = Ωtnaflix.EMPFlixIE
@@ -856,6 +873,8 @@ func init() {
 		MedialaanIE = Ωmedialaan.MedialaanIE
 		VzaarIE = Ωvzaar.VzaarIE
 		WashingtonPostIE = Ωwashingtonpost.WashingtonPostIE
+		WeiboIE = Ωweibo.WeiboIE
+		WeiboMobileIE = Ωweibo.WeiboMobileIE
 		WistiaIE = Ωwistia.WistiaIE
 		WorldStarHipHopIE = Ωworldstarhiphop.WorldStarHipHopIE
 		WSJIE = Ωwsj.WSJIE
@@ -941,6 +960,7 @@ func init() {
 			DaumUserIE,
 			DctpTvIE,
 			DotsubIE,
+			DreiSatIE,
 			DrTuberIE,
 			DVTVIE,
 			DumpertIE,
@@ -974,6 +994,7 @@ func init() {
 			GameSpotIE,
 			GaskrankIE,
 			GazetaIE,
+			GediDigitalIE,
 			GfycatIE,
 			GiantBombIE,
 			GodTubeIE,
@@ -1044,6 +1065,7 @@ func init() {
 			PatreonIE,
 			PeerTubeIE,
 			PeopleIE,
+			PhoenixIE,
 			PikselIE,
 			PinterestIE,
 			PlayFMIE,
@@ -1105,6 +1127,8 @@ func init() {
 			TheWeatherChannelIE,
 			ThreeQSDNIE,
 			TikTokIE,
+			TMZIE,
+			TMZArticleIE,
 			TNAFlixNetworkEmbedIE,
 			TNAFlixIE,
 			EMPFlixIE,
@@ -1147,6 +1171,8 @@ func init() {
 			MedialaanIE,
 			VzaarIE,
 			WashingtonPostIE,
+			WeiboIE,
+			WeiboMobileIE,
 			WistiaIE,
 			WorldStarHipHopIE,
 			WSJIE,

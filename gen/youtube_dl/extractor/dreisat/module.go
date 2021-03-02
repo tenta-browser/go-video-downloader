@@ -19,30 +19,35 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * ffmpeg/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/postprocessor/ffmpeg.py
+ * dreisat/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/dreisat.py
  */
 
-package ffmpeg
+package dreisat
 
 import (
-	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/postprocessor/common"
-	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
+	Ωzdf "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/zdf"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	FFmpegPostProcessor λ.Object
-	PostProcessingError λ.Object
-	PostProcessor       λ.Object
+	DreiSatIE λ.Object
+	ZDFIE     λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
-		PostProcessor = Ωcommon.PostProcessor
-		PostProcessingError = Ωutils.PostProcessingError
-		FFmpegPostProcessor = λ.Cal(λ.TypeType, λ.StrLiteral("FFmpegPostProcessor"), λ.NewTuple(PostProcessor), func() λ.Dict {
-
-			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
+		ZDFIE = Ωzdf.ZDFIE
+		DreiSatIE = λ.Cal(λ.TypeType, λ.StrLiteral("DreiSatIE"), λ.NewTuple(ZDFIE), func() λ.Dict {
+			var (
+				DreiSatIE_IE_NAME    λ.Object
+				DreiSatIE__VALID_URL λ.Object
+			)
+			DreiSatIE_IE_NAME = λ.StrLiteral("3sat")
+			DreiSatIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?3sat\\.de/(?:[^/]+/)*(?P<id>[^/?#&]+)\\.html")
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"IE_NAME":    DreiSatIE_IE_NAME,
+				"_VALID_URL": DreiSatIE__VALID_URL,
+			})
 		}())
 	})
 }

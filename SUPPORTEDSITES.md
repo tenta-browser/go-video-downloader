@@ -67,6 +67,7 @@ Supported sites
  * DaumUser: `tvpot.daum.net`
  * DctpTv: `www.dctp.tv`
  * Dotsub: `dotsub.com`
+ * DreiSat: `www.3sat.de`
  * DrTuber _(adult)_: `www.drtuber.com`
  * DVTV: `video.aktualne.cz`
  * Dumpert: `www.dumpert.nl`
@@ -100,6 +101,7 @@ Supported sites
  * GameSpot: `www.gamespot.com`
  * Gaskrank: `www.gaskrank.tv`
  * Gazeta: `www.gazeta.ru`
+ * GediDigital: `video.lastampa.it`
  * Gfycat: `gfycat.com`
  * GiantBomb: `www.giantbomb.com`
  * GodTube: `www.godtube.com`
@@ -170,6 +172,7 @@ Supported sites
  * Patreon: `www.patreon.com`
  * PeerTube: `framatube.org`
  * People: `www.people.com`
+ * Phoenix: `www.phoenix.de`
  * Piksel: `player.piksel.com`
  * Pinterest: `www.pinterest.com`
  * PlayFM: `www.play.fm`
@@ -213,7 +216,7 @@ Supported sites
  * Stitcher: `www.stitcher.com`
  * Spotify: `open.spotify.com`
  * Spreaker: `api.spreaker.com`
- * SRGSSRPlay: `www.rts.ch`
+ * SRGSSRPlay: `www.rtr.ch`
  * StanfordOpenClassroom: `openclassroom.stanford.edu`
  * StoryFire: `storyfire.com`
  * Streamable: `streamable.com`
@@ -231,6 +234,8 @@ Supported sites
  * TheWeatherChannel: `weather.com`
  * ThreeQSDN: `playout.3qsdn.com`
  * TikTok: `www.tiktok.com`
+ * TMZ: `www.tmz.com`
+ * TMZArticle: `www.tmz.com`
  * TNAFlixNetworkEmbed _(adult)_: `player.tnaflix.com`
  * TNAFlix _(adult)_: `www.tnaflix.com`
  * EMPFlix _(adult)_: `www.empflix.com`
@@ -272,6 +277,8 @@ Supported sites
  * Medialaan: `www.bndestem.nl`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
+ * Weibo: `weibo.com`
+ * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`
  * WSJArticle: `www.wsj.com`

@@ -40,7 +40,9 @@ var (
 	ZDFIE              λ.Object
 	ϒcompat_str        λ.Object
 	ϒdetermine_ext     λ.Object
+	ϒfloat_or_none     λ.Object
 	ϒint_or_none       λ.Object
+	ϒmerge_dicts       λ.Object
 	ϒparse_codecs      λ.Object
 	ϒqualities         λ.Object
 	ϒtry_get           λ.Object
@@ -55,7 +57,9 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
+		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒmerge_dicts = Ωutils.ϒmerge_dicts
 		NO_DEFAULT = Ωutils.NO_DEFAULT
 		ϒparse_codecs = Ωutils.ϒparse_codecs
 		ϒqualities = Ωutils.ϒqualities
@@ -66,87 +70,16 @@ func init() {
 		ϒurljoin = Ωutils.ϒurljoin
 		ZDFBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("ZDFBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ZDFBaseIE__call_api       λ.Object
-				ZDFBaseIE__extract_player λ.Object
+				ZDFBaseIE__GEO_COUNTRIES     λ.Object
+				ZDFBaseIE__QUALITIES         λ.Object
+				ZDFBaseIE__call_api          λ.Object
+				ZDFBaseIE__extract_format    λ.Object
+				ZDFBaseIE__extract_player    λ.Object
+				ZDFBaseIE__extract_ptmd      λ.Object
+				ZDFBaseIE__extract_subtitles λ.Object
 			)
-			ZDFBaseIE__call_api = λ.NewFunction("_call_api",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-					{Name: "player"},
-					{Name: "referrer"},
-					{Name: "video_id"},
-					{Name: "item"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒitem     = λargs[5]
-						ϒplayer   = λargs[2]
-						ϒreferrer = λargs[3]
-						ϒself     = λargs[0]
-						ϒurl      = λargs[1]
-						ϒvideo_id = λargs[4]
-					)
-					return λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						ϒurl,
-						ϒvideo_id,
-						λ.Mod(λ.StrLiteral("Downloading JSON %s"), ϒitem),
-					), λ.KWArgs{
-						{Name: "headers", Value: λ.DictLiteral(map[string]λ.Object{
-							"Referer":  ϒreferrer,
-							"Api-Auth": λ.Mod(λ.StrLiteral("Bearer %s"), λ.GetItem(ϒplayer, λ.StrLiteral("apiToken"))),
-						})},
-					})
-				})
-			ZDFBaseIE__extract_player = λ.NewFunction("_extract_player",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "webpage"},
-					{Name: "video_id"},
-					{Name: "fatal", Def: λ.True},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒfatal    = λargs[3]
-						ϒself     = λargs[0]
-						ϒvideo_id = λargs[2]
-						ϒwebpage  = λargs[1]
-					)
-					return λ.Calm(ϒself, "_parse_json", λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.StrLiteral("(?s)data-zdfplayer-jsb=([\"\\'])(?P<json>{.+?})\\1"),
-						ϒwebpage,
-						λ.StrLiteral("player JSON"),
-					), λ.KWArgs{
-						{Name: "default", Value: func() λ.Object {
-							if !λ.IsTrue(ϒfatal) {
-								return λ.StrLiteral("{}")
-							} else {
-								return NO_DEFAULT
-							}
-						}()},
-						{Name: "group", Value: λ.StrLiteral("json")},
-					}), ϒvideo_id)
-				})
-			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_call_api":       ZDFBaseIE__call_api,
-				"_extract_player": ZDFBaseIE__extract_player,
-			})
-		}())
-		ZDFIE = λ.Cal(λ.TypeType, λ.StrLiteral("ZDFIE"), λ.NewTuple(ZDFBaseIE), func() λ.Dict {
-			var (
-				ZDFIE__GEO_COUNTRIES     λ.Object
-				ZDFIE__QUALITIES         λ.Object
-				ZDFIE__VALID_URL         λ.Object
-				ZDFIE__extract_entry     λ.Object
-				ZDFIE__extract_format    λ.Object
-				ZDFIE__extract_regular   λ.Object
-				ZDFIE__extract_subtitles λ.Object
-				ZDFIE__real_extract      λ.Object
-			)
-			ZDFIE__VALID_URL = λ.StrLiteral("https?://www\\.zdf\\.de/(?:[^/]+/)*(?P<id>[^/?]+)\\.html")
-			ZDFIE__QUALITIES = λ.NewTuple(
+			ZDFBaseIE__GEO_COUNTRIES = λ.NewList(λ.StrLiteral("DE"))
+			ZDFBaseIE__QUALITIES = λ.NewTuple(
 				λ.StrLiteral("auto"),
 				λ.StrLiteral("low"),
 				λ.StrLiteral("med"),
@@ -154,8 +87,42 @@ func init() {
 				λ.StrLiteral("veryhigh"),
 				λ.StrLiteral("hd"),
 			)
-			ZDFIE__GEO_COUNTRIES = λ.NewList(λ.StrLiteral("DE"))
-			ZDFIE__extract_subtitles = λ.NewFunction("_extract_subtitles",
+			ZDFBaseIE__call_api = λ.NewFunction("_call_api",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+					{Name: "video_id"},
+					{Name: "item"},
+					{Name: "api_token", Def: λ.None},
+					{Name: "referrer", Def: λ.None},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒapi_token = λargs[4]
+						ϒheaders   λ.Object
+						ϒitem      = λargs[3]
+						ϒreferrer  = λargs[5]
+						ϒself      = λargs[0]
+						ϒurl       = λargs[1]
+						ϒvideo_id  = λargs[2]
+					)
+					ϒheaders = λ.DictLiteral(map[λ.Object]λ.Object{})
+					if λ.IsTrue(ϒapi_token) {
+						λ.SetItem(ϒheaders, λ.StrLiteral("Api-Auth"), λ.Mod(λ.StrLiteral("Bearer %s"), ϒapi_token))
+					}
+					if λ.IsTrue(ϒreferrer) {
+						λ.SetItem(ϒheaders, λ.StrLiteral("Referer"), ϒreferrer)
+					}
+					return λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						ϒurl,
+						ϒvideo_id,
+						λ.Mod(λ.StrLiteral("Downloading JSON %s"), ϒitem),
+					), λ.KWArgs{
+						{Name: "headers", Value: ϒheaders},
+					})
+				})
+			ZDFBaseIE__extract_subtitles = λ.NewFunction("_extract_subtitles",
 				[]λ.Param{
 					{Name: "src"},
 				},
@@ -203,8 +170,8 @@ func init() {
 					}
 					return ϒsubtitles
 				})
-			ZDFIE__extract_subtitles = λ.Cal(λ.StaticMethodType, ZDFIE__extract_subtitles)
-			ZDFIE__extract_format = λ.NewFunction("_extract_format",
+			ZDFBaseIE__extract_subtitles = λ.Cal(λ.StaticMethodType, ZDFBaseIE__extract_subtitles)
+			ZDFBaseIE__extract_format = λ.NewFunction("_extract_format",
 				[]λ.Param{
 					{Name: "self"},
 					{Name: "video_id"},
@@ -307,41 +274,34 @@ func init() {
 					}
 					return λ.None
 				})
-			ZDFIE__extract_entry = λ.NewFunction("_extract_entry",
+			ZDFBaseIE__extract_ptmd = λ.NewFunction("_extract_ptmd",
 				[]λ.Param{
 					{Name: "self"},
-					{Name: "url"},
-					{Name: "player"},
-					{Name: "content"},
+					{Name: "ptmd_url"},
 					{Name: "video_id"},
+					{Name: "api_token"},
+					{Name: "referrer"},
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒcontent     = λargs[3]
+						ϒapi_token   = λargs[3]
+						ϒcontent_id  λ.Object
+						ϒduration    λ.Object
 						ϒf           λ.Object
 						ϒf_qualities λ.Object
 						ϒformats     λ.Object
 						ϒformitaeten λ.Object
-						ϒlayout_key  λ.Object
-						ϒlayout_url  λ.Object
-						ϒlayouts     λ.Object
-						ϒmobj        λ.Object
 						ϒp           λ.Object
-						ϒplayer      = λargs[2]
 						ϒptmd        λ.Object
-						ϒptmd_path   λ.Object
+						ϒptmd_url    = λargs[1]
 						ϒquality     λ.Object
+						ϒreferrer    = λargs[4]
 						ϒself        = λargs[0]
-						ϒt           λ.Object
-						ϒthumbnail   λ.Object
-						ϒthumbnails  λ.Object
-						ϒtitle       λ.Object
 						ϒtrack       λ.Object
 						ϒtrack_uris  λ.Object
 						ϒtracks      λ.Object
-						ϒurl         = λargs[1]
-						ϒvideo_id    = λargs[4]
+						ϒvideo_id    = λargs[2]
 						τmp0         λ.Object
 						τmp1         λ.Object
 						τmp2         λ.Object
@@ -351,19 +311,14 @@ func init() {
 						τmp6         λ.Object
 						τmp7         λ.Object
 					)
-					ϒtitle = func() λ.Object {
-						if λv := λ.Calm(ϒcontent, "get", λ.StrLiteral("title")); λ.IsTrue(λv) {
+					ϒptmd = λ.Calm(ϒself, "_call_api", ϒptmd_url, ϒvideo_id, λ.StrLiteral("metadata"), ϒapi_token, ϒreferrer)
+					ϒcontent_id = func() λ.Object {
+						if λv := λ.Calm(ϒptmd, "get", λ.StrLiteral("basename")); λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.GetItem(ϒcontent, λ.StrLiteral("teaserHeadline"))
+							return λ.GetItem(λ.Calm(ϒptmd_url, "split", λ.StrLiteral("/")), λ.Neg(λ.IntLiteral(1)))
 						}
 					}()
-					ϒt = λ.GetItem(λ.GetItem(ϒcontent, λ.StrLiteral("mainVideoContent")), λ.StrLiteral("http://zdf.de/rels/target"))
-					ϒptmd_path = λ.Calm(ϒt, "get", λ.StrLiteral("http://zdf.de/rels/streams/ptmd"))
-					if !λ.IsTrue(ϒptmd_path) {
-						ϒptmd_path = λ.Calm(λ.GetItem(ϒt, λ.StrLiteral("http://zdf.de/rels/streams/ptmd-template")), "replace", λ.StrLiteral("{playerId}"), λ.StrLiteral("ngplayer_2_4"))
-					}
-					ϒptmd = λ.Calm(ϒself, "_call_api", λ.Cal(ϒurljoin, ϒurl, ϒptmd_path), ϒplayer, ϒurl, ϒvideo_id, λ.StrLiteral("metadata"))
 					ϒformats = λ.NewList()
 					ϒtrack_uris = λ.Cal(λ.SetType)
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒptmd, λ.StrLiteral("priorityList")))
@@ -412,7 +367,7 @@ func init() {
 										break
 									}
 									ϒtrack = τmp7
-									λ.Calm(ϒself, "_extract_format", ϒvideo_id, ϒformats, ϒtrack_uris, λ.DictLiteral(map[string]λ.Object{
+									λ.Calm(ϒself, "_extract_format", ϒcontent_id, ϒformats, ϒtrack_uris, λ.DictLiteral(map[string]λ.Object{
 										"url":      λ.Calm(ϒtrack, "get", λ.StrLiteral("uri")),
 										"type":     λ.Calm(ϒf, "get", λ.StrLiteral("type")),
 										"mimeType": λ.Calm(ϒf, "get", λ.StrLiteral("mimeType")),
@@ -424,6 +379,118 @@ func init() {
 						}
 					}
 					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒduration = λ.Call(ϒfloat_or_none, λ.NewArgs(λ.Cal(ϒtry_get, ϒptmd, λ.NewFunction("<lambda>",
+						[]λ.Param{
+							{Name: "x"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒx = λargs[0]
+							)
+							return λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("attributes")), λ.StrLiteral("duration")), λ.StrLiteral("value"))
+						}))), λ.KWArgs{
+						{Name: "scale", Value: λ.IntLiteral(1000)},
+					})
+					return λ.DictLiteral(map[string]λ.Object{
+						"extractor_key": λ.Calm(ZDFIE, "ie_key"),
+						"id":            ϒcontent_id,
+						"duration":      ϒduration,
+						"formats":       ϒformats,
+						"subtitles":     λ.Calm(ϒself, "_extract_subtitles", ϒptmd),
+					})
+				})
+			ZDFBaseIE__extract_player = λ.NewFunction("_extract_player",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "webpage"},
+					{Name: "video_id"},
+					{Name: "fatal", Def: λ.True},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒfatal    = λargs[3]
+						ϒself     = λargs[0]
+						ϒvideo_id = λargs[2]
+						ϒwebpage  = λargs[1]
+					)
+					return λ.Calm(ϒself, "_parse_json", λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+						λ.StrLiteral("(?s)data-zdfplayer-jsb=([\"\\'])(?P<json>{.+?})\\1"),
+						ϒwebpage,
+						λ.StrLiteral("player JSON"),
+					), λ.KWArgs{
+						{Name: "default", Value: func() λ.Object {
+							if !λ.IsTrue(ϒfatal) {
+								return λ.StrLiteral("{}")
+							} else {
+								return NO_DEFAULT
+							}
+						}()},
+						{Name: "group", Value: λ.StrLiteral("json")},
+					}), ϒvideo_id)
+				})
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_GEO_COUNTRIES":     ZDFBaseIE__GEO_COUNTRIES,
+				"_QUALITIES":         ZDFBaseIE__QUALITIES,
+				"_call_api":          ZDFBaseIE__call_api,
+				"_extract_format":    ZDFBaseIE__extract_format,
+				"_extract_player":    ZDFBaseIE__extract_player,
+				"_extract_ptmd":      ZDFBaseIE__extract_ptmd,
+				"_extract_subtitles": ZDFBaseIE__extract_subtitles,
+			})
+		}())
+		ZDFIE = λ.Cal(λ.TypeType, λ.StrLiteral("ZDFIE"), λ.NewTuple(ZDFBaseIE), func() λ.Dict {
+			var (
+				ZDFIE__VALID_URL       λ.Object
+				ZDFIE__extract_entry   λ.Object
+				ZDFIE__extract_regular λ.Object
+				ZDFIE__real_extract    λ.Object
+			)
+			ZDFIE__VALID_URL = λ.StrLiteral("https?://www\\.zdf\\.de/(?:[^/]+/)*(?P<id>[^/?#&]+)\\.html")
+			ZDFIE__extract_entry = λ.NewFunction("_extract_entry",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+					{Name: "player"},
+					{Name: "content"},
+					{Name: "video_id"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcontent    = λargs[3]
+						ϒinfo       λ.Object
+						ϒlayout_key λ.Object
+						ϒlayout_url λ.Object
+						ϒlayouts    λ.Object
+						ϒmobj       λ.Object
+						ϒplayer     = λargs[2]
+						ϒptmd_path  λ.Object
+						ϒself       = λargs[0]
+						ϒt          λ.Object
+						ϒthumbnail  λ.Object
+						ϒthumbnails λ.Object
+						ϒtitle      λ.Object
+						ϒurl        = λargs[1]
+						ϒvideo_id   = λargs[4]
+						τmp0        λ.Object
+						τmp1        λ.Object
+						τmp2        λ.Object
+					)
+					ϒtitle = func() λ.Object {
+						if λv := λ.Calm(ϒcontent, "get", λ.StrLiteral("title")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.GetItem(ϒcontent, λ.StrLiteral("teaserHeadline"))
+						}
+					}()
+					ϒt = λ.GetItem(λ.GetItem(ϒcontent, λ.StrLiteral("mainVideoContent")), λ.StrLiteral("http://zdf.de/rels/target"))
+					ϒptmd_path = λ.Calm(ϒt, "get", λ.StrLiteral("http://zdf.de/rels/streams/ptmd"))
+					if !λ.IsTrue(ϒptmd_path) {
+						ϒptmd_path = λ.Calm(λ.GetItem(ϒt, λ.StrLiteral("http://zdf.de/rels/streams/ptmd-template")), "replace", λ.StrLiteral("{playerId}"), λ.StrLiteral("ngplayer_2_4"))
+					}
+					ϒinfo = λ.Calm(ϒself, "_extract_ptmd", λ.Cal(ϒurljoin, ϒurl, ϒptmd_path), ϒvideo_id, λ.GetItem(ϒplayer, λ.StrLiteral("apiToken")), ϒurl)
 					ϒthumbnails = λ.NewList()
 					ϒlayouts = λ.Cal(ϒtry_get, ϒcontent, λ.NewFunction("<lambda>",
 						[]λ.Param{
@@ -463,8 +530,7 @@ func init() {
 							λ.Calm(ϒthumbnails, "append", ϒthumbnail)
 						}
 					}
-					return λ.DictLiteral(map[string]λ.Object{
-						"id":    ϒvideo_id,
+					return λ.Cal(ϒmerge_dicts, ϒinfo, λ.DictLiteral(map[string]λ.Object{
 						"title": ϒtitle,
 						"description": func() λ.Object {
 							if λv := λ.Calm(ϒcontent, "get", λ.StrLiteral("leadParagraph")); λ.IsTrue(λv) {
@@ -476,9 +542,7 @@ func init() {
 						"duration":   λ.Cal(ϒint_or_none, λ.Calm(ϒt, "get", λ.StrLiteral("duration"))),
 						"timestamp":  λ.Cal(ϒunified_timestamp, λ.Calm(ϒcontent, "get", λ.StrLiteral("editorialDate"))),
 						"thumbnails": ϒthumbnails,
-						"subtitles":  λ.Calm(ϒself, "_extract_subtitles", ϒptmd),
-						"formats":    ϒformats,
-					})
+					}))
 				})
 			ZDFIE__extract_regular = λ.NewFunction("_extract_regular",
 				[]λ.Param{
@@ -496,7 +560,7 @@ func init() {
 						ϒurl      = λargs[1]
 						ϒvideo_id = λargs[3]
 					)
-					ϒcontent = λ.Calm(ϒself, "_call_api", λ.GetItem(ϒplayer, λ.StrLiteral("content")), ϒplayer, ϒurl, ϒvideo_id, λ.StrLiteral("content"))
+					ϒcontent = λ.Calm(ϒself, "_call_api", λ.GetItem(ϒplayer, λ.StrLiteral("content")), ϒvideo_id, λ.StrLiteral("content"), λ.GetItem(ϒplayer, λ.StrLiteral("apiToken")), ϒurl)
 					return λ.Calm(ϒself, "_extract_entry", λ.GetItem(ϒplayer, λ.StrLiteral("content")), ϒplayer, ϒcontent, ϒvideo_id)
 				})
 			ZDFIE__real_extract = λ.NewFunction("_real_extract",
@@ -534,14 +598,10 @@ func init() {
 					return λ.Calm(ϒself, "_extract_mobile", ϒvideo_id)
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_GEO_COUNTRIES":     ZDFIE__GEO_COUNTRIES,
-				"_QUALITIES":         ZDFIE__QUALITIES,
-				"_VALID_URL":         ZDFIE__VALID_URL,
-				"_extract_entry":     ZDFIE__extract_entry,
-				"_extract_format":    ZDFIE__extract_format,
-				"_extract_regular":   ZDFIE__extract_regular,
-				"_extract_subtitles": ZDFIE__extract_subtitles,
-				"_real_extract":      ZDFIE__real_extract,
+				"_VALID_URL":       ZDFIE__VALID_URL,
+				"_extract_entry":   ZDFIE__extract_entry,
+				"_extract_regular": ZDFIE__extract_regular,
+				"_real_extract":    ZDFIE__real_extract,
 			})
 		}())
 		ZDFChannelIE = λ.Cal(λ.TypeType, λ.StrLiteral("ZDFChannelIE"), λ.NewTuple(ZDFBaseIE), func() λ.Dict {

@@ -61,9 +61,11 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒcompat_etree_Element = Ωcompat.ϒcompat_etree_Element
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
+		ExtractorError = Ωutils.ExtractorError
 		ϒclean_html = Ωutils.ϒclean_html
 		ϒdict_get = Ωutils.ϒdict_get
-		ExtractorError = Ωutils.ExtractorError
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒget_element_by_class = Ωutils.ϒget_element_by_class
 		ϒint_or_none = Ωutils.ϒint_or_none
@@ -75,8 +77,6 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		ϒurljoin = Ωutils.ϒurljoin
-		ϒcompat_etree_Element = Ωcompat.ϒcompat_etree_Element
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		BBCCoUkIE = λ.Cal(λ.TypeType, λ.StrLiteral("BBCCoUkIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				BBCCoUkIE_IE_NAME                      λ.Object
@@ -730,6 +730,7 @@ func init() {
 						ϒbbc3_playlist        λ.Object
 						ϒblock                λ.Object
 						ϒclip                 λ.Object
+						ϒclip_data            λ.Object
 						ϒclip_title           λ.Object
 						ϒclip_vpid            λ.Object
 						ϒcomponent            λ.Object
@@ -740,6 +741,7 @@ func init() {
 						ϒdata_playables       λ.Object
 						ϒdescription          λ.Object
 						ϒdigital_data         λ.Object
+						ϒdisplay_date         λ.Object
 						ϒduration             λ.Object
 						ϒduration_d           λ.Object
 						ϒembed_url            λ.Object
@@ -753,6 +755,7 @@ func init() {
 						ϒimage_url            λ.Object
 						ϒimages               λ.Object
 						ϒinfo                 λ.Object
+						ϒinit_data            λ.Object
 						ϒinitial_data         λ.Object
 						ϒitem                 λ.Object
 						ϒitems                λ.Object
@@ -785,15 +788,18 @@ func init() {
 						ϒresp                 λ.Object
 						ϒself                 = λargs[0]
 						ϒsettings             λ.Object
+						ϒsmp_data             λ.Object
 						ϒsubtitles            λ.Object
 						ϒsynopses             λ.Object
 						ϒthumbnail            λ.Object
 						ϒthumbnails           λ.Object
 						ϒtimestamp            λ.Object
 						ϒtitle                λ.Object
+						ϒtopic_title          λ.Object
 						ϒuploader             λ.Object
 						ϒuploader_id          λ.Object
 						ϒurl                  = λargs[1]
+						ϒversion_id           λ.Object
 						ϒvideo                λ.Object
 						ϒvideo_id             λ.Object
 						ϒvxp_playlist         λ.Object
@@ -953,7 +959,7 @@ func init() {
 											τmp4, τmp5 = func() (λexit λ.Object, λret λ.Object) {
 												defer λ.CatchMulti(
 													nil,
-													&λ.Catcher{λ.ExceptionType, func(λex λ.BaseException) {
+													&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 														var ϒe λ.Object = λex
 														if λ.IsTrue(func() λ.Object {
 															if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
@@ -1063,6 +1069,109 @@ func init() {
 							"formats":     ϒformats,
 							"subtitles":   ϒsubtitles,
 						})
+					}
+					ϒinitial_data = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
+						λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
+							λ.StrLiteral("<script[^>]+id=([\"\\'])initial-data\\1[^>]+data-json=([\"\\'])(?P<json>(?:(?!\\2).)+)"),
+							ϒwebpage,
+							λ.StrLiteral("initial data"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.StrLiteral("{}")},
+							{Name: "group", Value: λ.StrLiteral("json")},
+						}),
+						ϒplaylist_id,
+					), λ.KWArgs{
+						{Name: "fatal", Value: λ.False},
+					})
+					if λ.IsTrue(ϒinitial_data) {
+						ϒinit_data = func() λ.Object {
+							if λv := λ.Cal(ϒtry_get, ϒinitial_data, λ.NewFunction("<lambda>",
+								[]λ.Param{
+									{Name: "x"},
+								},
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									var (
+										ϒx = λargs[0]
+									)
+									return λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("initData")), λ.StrLiteral("items")), λ.IntLiteral(0))
+								}), λ.DictType); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.DictLiteral(map[λ.Object]λ.Object{})
+							}
+						}()
+						ϒsmp_data = func() λ.Object {
+							if λv := λ.Calm(ϒinit_data, "get", λ.StrLiteral("smpData")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.DictLiteral(map[λ.Object]λ.Object{})
+							}
+						}()
+						ϒclip_data = func() λ.Object {
+							if λv := λ.Cal(ϒtry_get, ϒsmp_data, λ.NewFunction("<lambda>",
+								[]λ.Param{
+									{Name: "x"},
+								},
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									var (
+										ϒx = λargs[0]
+									)
+									return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("items")), λ.IntLiteral(0))
+								}), λ.DictType); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.DictLiteral(map[λ.Object]λ.Object{})
+							}
+						}()
+						ϒversion_id = λ.Calm(ϒclip_data, "get", λ.StrLiteral("versionID"))
+						if λ.IsTrue(ϒversion_id) {
+							ϒtitle = λ.GetItem(ϒsmp_data, λ.StrLiteral("title"))
+							τmp0 = λ.Calm(ϒself, "_download_media_selector", ϒversion_id)
+							ϒformats = λ.GetItem(τmp0, λ.IntLiteral(0))
+							ϒsubtitles = λ.GetItem(τmp0, λ.IntLiteral(1))
+							λ.Calm(ϒself, "_sort_formats", ϒformats)
+							ϒimage_url = λ.Calm(ϒsmp_data, "get", λ.StrLiteral("holdingImageURL"))
+							ϒdisplay_date = λ.Calm(ϒinit_data, "get", λ.StrLiteral("displayDate"))
+							ϒtopic_title = λ.Calm(ϒinit_data, "get", λ.StrLiteral("topicTitle"))
+							return λ.DictLiteral(map[string]λ.Object{
+								"id":        ϒversion_id,
+								"title":     ϒtitle,
+								"formats":   ϒformats,
+								"alt_title": λ.Calm(ϒinit_data, "get", λ.StrLiteral("shortTitle")),
+								"thumbnail": func() λ.Object {
+									if λ.IsTrue(ϒimage_url) {
+										return λ.Calm(ϒimage_url, "replace", λ.StrLiteral("$recipe"), λ.StrLiteral("raw"))
+									} else {
+										return λ.None
+									}
+								}(),
+								"description": func() λ.Object {
+									if λv := λ.Calm(ϒsmp_data, "get", λ.StrLiteral("summary")); λ.IsTrue(λv) {
+										return λv
+									} else {
+										return λ.Calm(ϒinit_data, "get", λ.StrLiteral("shortSummary"))
+									}
+								}(),
+								"upload_date": func() λ.Object {
+									if λ.IsTrue(ϒdisplay_date) {
+										return λ.Calm(ϒdisplay_date, "replace", λ.StrLiteral("-"), λ.StrLiteral(""))
+									} else {
+										return λ.None
+									}
+								}(),
+								"subtitles": ϒsubtitles,
+								"duration":  λ.Cal(ϒint_or_none, λ.Calm(ϒclip_data, "get", λ.StrLiteral("duration"))),
+								"categories": func() λ.Object {
+									if λ.IsTrue(ϒtopic_title) {
+										return λ.NewList(ϒtopic_title)
+									} else {
+										return λ.None
+									}
+								}(),
+							})
+						}
 					}
 					ϒmorph_payload = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
 						λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
@@ -1231,7 +1340,7 @@ func init() {
 							ϒthumbnail = λ.None
 							ϒimage_url = λ.Calm(ϒcurrent_programme, "get", λ.StrLiteral("image_url"))
 							if λ.IsTrue(ϒimage_url) {
-								ϒthumbnail = λ.Calm(ϒimage_url, "replace", λ.StrLiteral("{recipe}"), λ.StrLiteral("1920x1920"))
+								ϒthumbnail = λ.Calm(ϒimage_url, "replace", λ.StrLiteral("{recipe}"), λ.StrLiteral("raw"))
 							}
 							return λ.DictLiteral(map[string]λ.Object{
 								"id":    ϒprogramme_id,
