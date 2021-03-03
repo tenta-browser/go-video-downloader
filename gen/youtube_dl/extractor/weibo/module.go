@@ -27,7 +27,6 @@ package weibo
 import (
 	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
 	Ωrandom "github.com/tenta-browser/go-video-downloader/gen/random"
-	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
@@ -188,61 +187,11 @@ func init() {
 		}())
 		WeiboMobileIE = λ.Cal(λ.TypeType, λ.StrLiteral("WeiboMobileIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				WeiboMobileIE__VALID_URL    λ.Object
-				WeiboMobileIE__real_extract λ.Object
+				WeiboMobileIE__VALID_URL λ.Object
 			)
 			WeiboMobileIE__VALID_URL = λ.StrLiteral("https?://m\\.weibo\\.cn/status/(?P<id>[0-9]+)(\\?.+)?")
-			WeiboMobileIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒpage_info   λ.Object
-						ϒself        = λargs[0]
-						ϒstatus_data λ.Object
-						ϒtitle       λ.Object
-						ϒuploader    λ.Object
-						ϒurl         = λargs[1]
-						ϒvideo_id    λ.Object
-						ϒwebpage     λ.Object
-						ϒweibo_info  λ.Object
-					)
-					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
-					ϒwebpage = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
-						ϒurl,
-						ϒvideo_id,
-					), λ.KWArgs{
-						{Name: "note", Value: λ.StrLiteral("visit the page")},
-					})
-					ϒweibo_info = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
-						λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.StrLiteral("var\\s+\\$render_data\\s*=\\s*\\[({.*})\\]\\[0\\]\\s*\\|\\|\\s*{};"),
-							ϒwebpage,
-							λ.StrLiteral("js_code"),
-						), λ.KWArgs{
-							{Name: "flags", Value: Ωre.DOTALL},
-						}),
-						ϒvideo_id,
-					), λ.KWArgs{
-						{Name: "transform_source", Value: ϒjs_to_json},
-					})
-					ϒstatus_data = λ.Calm(ϒweibo_info, "get", λ.StrLiteral("status"), λ.DictLiteral(map[λ.Object]λ.Object{}))
-					ϒpage_info = λ.Calm(ϒstatus_data, "get", λ.StrLiteral("page_info"))
-					ϒtitle = λ.GetItem(ϒstatus_data, λ.StrLiteral("status_title"))
-					ϒuploader = λ.Calm(λ.Calm(ϒstatus_data, "get", λ.StrLiteral("user"), λ.DictLiteral(map[λ.Object]λ.Object{})), "get", λ.StrLiteral("screen_name"))
-					return λ.DictLiteral(map[string]λ.Object{
-						"id":       ϒvideo_id,
-						"title":    ϒtitle,
-						"uploader": ϒuploader,
-						"url":      λ.GetItem(λ.GetItem(ϒpage_info, λ.StrLiteral("media_info")), λ.StrLiteral("stream_url")),
-					})
-				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL":    WeiboMobileIE__VALID_URL,
-				"_real_extract": WeiboMobileIE__real_extract,
+				"_VALID_URL": WeiboMobileIE__VALID_URL,
 			})
 		}())
 	})

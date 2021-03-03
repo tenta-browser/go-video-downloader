@@ -235,6 +235,7 @@ func init() {
 				InfoExtractor__x_forwarded_for_ip          λ.Object
 				InfoExtractor__xpath_ns                    λ.Object
 				InfoExtractor_extract                      λ.Object
+				InfoExtractor_extract_automatic_captions   λ.Object
 				InfoExtractor_extract_subtitles            λ.Object
 				InfoExtractor_geo_verification_headers     λ.Object
 				InfoExtractor_http_scheme                  λ.Object
@@ -6498,6 +6499,30 @@ func init() {
 					return ϒret
 				})
 			InfoExtractor__merge_subtitles = λ.Cal(λ.ClassMethodType, InfoExtractor__merge_subtitles)
+			InfoExtractor_extract_automatic_captions = λ.NewFunction("extract_automatic_captions",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, true, true,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒargs   = λargs[1]
+						ϒkwargs = λargs[2]
+						ϒself   = λargs[0]
+					)
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("writeautomaticsub"), λ.False); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("listsubtitles"))
+						}
+					}()) {
+						return λ.Call(λ.GetAttr(ϒself, "_get_automatic_captions", nil), λ.NewArgs(λ.Unpack(λ.AsStarred(ϒargs))...), λ.KWArgs{
+							{Name: "", Value: ϒkwargs},
+						})
+					}
+					return λ.DictLiteral(map[λ.Object]λ.Object{})
+				})
 			InfoExtractor_mark_watched = λ.NewFunction("mark_watched",
 				[]λ.Param{
 					{Name: "self"},
@@ -6623,6 +6648,7 @@ func init() {
 				"_x_forwarded_for_ip":          InfoExtractor__x_forwarded_for_ip,
 				"_xpath_ns":                    InfoExtractor__xpath_ns,
 				"extract":                      InfoExtractor_extract,
+				"extract_automatic_captions":   InfoExtractor_extract_automatic_captions,
 				"extract_subtitles":            InfoExtractor_extract_subtitles,
 				"geo_verification_headers":     InfoExtractor_geo_verification_headers,
 				"http_scheme":                  InfoExtractor_http_scheme,

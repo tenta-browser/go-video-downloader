@@ -123,6 +123,7 @@ import (
 	Ωgiantbomb "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/giantbomb"
 	Ωgodtube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/godtube"
 	Ωgolem "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/golem"
+	Ωgoogledrive "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/googledrive"
 	Ωgooglepodcasts "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/googlepodcasts"
 	Ωgputechconf "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/gputechconf"
 	Ωhbo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/hbo"
@@ -403,6 +404,7 @@ var (
 	GiantBombIE                λ.Object
 	GodTubeIE                  λ.Object
 	GolemIE                    λ.Object
+	GoogleDriveIE              λ.Object
 	GooglePodcastsIE           λ.Object
 	HBOIE                      λ.Object
 	HeiseIE                    λ.Object
@@ -574,7 +576,6 @@ var (
 	WSJIE                      λ.Object
 	WashingtonPostIE           λ.Object
 	WeiboIE                    λ.Object
-	WeiboMobileIE              λ.Object
 	WistiaIE                   λ.Object
 	WorldStarHipHopIE          λ.Object
 	XHamsterEmbedIE            λ.Object
@@ -701,6 +702,7 @@ func init() {
 		GiantBombIE = Ωgiantbomb.GiantBombIE
 		GodTubeIE = Ωgodtube.GodTubeIE
 		GolemIE = Ωgolem.GolemIE
+		GoogleDriveIE = Ωgoogledrive.GoogleDriveIE
 		GooglePodcastsIE = Ωgooglepodcasts.GooglePodcastsIE
 		GPUTechConfIE = Ωgputechconf.GPUTechConfIE
 		HBOIE = Ωhbo.HBOIE
@@ -874,7 +876,6 @@ func init() {
 		VzaarIE = Ωvzaar.VzaarIE
 		WashingtonPostIE = Ωwashingtonpost.WashingtonPostIE
 		WeiboIE = Ωweibo.WeiboIE
-		WeiboMobileIE = Ωweibo.WeiboMobileIE
 		WistiaIE = Ωwistia.WistiaIE
 		WorldStarHipHopIE = Ωworldstarhiphop.WorldStarHipHopIE
 		WSJIE = Ωwsj.WSJIE
@@ -999,6 +1000,7 @@ func init() {
 			GiantBombIE,
 			GodTubeIE,
 			GolemIE,
+			GoogleDriveIE,
 			GooglePodcastsIE,
 			GPUTechConfIE,
 			HBOIE,
@@ -1172,7 +1174,6 @@ func init() {
 			VzaarIE,
 			WashingtonPostIE,
 			WeiboIE,
-			WeiboMobileIE,
 			WistiaIE,
 			WorldStarHipHopIE,
 			WSJIE,

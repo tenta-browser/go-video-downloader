@@ -106,6 +106,7 @@ Supported sites
  * GiantBomb: `www.giantbomb.com`
  * GodTube: `www.godtube.com`
  * Golem: `video.golem.de`
+ * GoogleDrive: `drive.google.com`
  * GooglePodcasts: `podcasts.google.com`
  * GPUTechConf: `on-demand.gputechconf.com`
  * HBO: `www.hbo.com`
@@ -278,7 +279,6 @@ Supported sites
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
  * Weibo: `weibo.com`
- * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`
  * WSJArticle: `www.wsj.com`
