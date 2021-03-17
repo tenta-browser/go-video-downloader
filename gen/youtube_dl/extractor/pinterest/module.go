@@ -123,6 +123,7 @@ func init() {
 						ϒtitle           λ.Object
 						ϒuploader        λ.Object
 						ϒuploader_id     λ.Object
+						ϒurls            λ.Object
 						ϒvideo_id        λ.Object
 						τmp0             λ.Object
 						τmp1             λ.Object
@@ -139,6 +140,7 @@ func init() {
 							return ϒvideo_id
 						}
 					}(), "strip")
+					ϒurls = λ.NewList()
 					ϒformats = λ.NewList()
 					ϒduration = λ.None
 					if λ.IsTrue(ϒextract_formats) {
@@ -154,9 +156,16 @@ func init() {
 								continue
 							}
 							ϒformat_url = λ.Cal(ϒurl_or_none, λ.Calm(ϒformat_dict, "get", λ.StrLiteral("url")))
-							if !λ.IsTrue(ϒformat_url) {
+							if λ.IsTrue(func() λ.Object {
+								if λv := λ.NewBool(!λ.IsTrue(ϒformat_url)); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.NewBool(λ.Contains(ϒurls, ϒformat_url))
+								}
+							}()) {
 								continue
 							}
+							λ.Calm(ϒurls, "append", ϒformat_url)
 							ϒduration = λ.Call(ϒfloat_or_none, λ.NewArgs(λ.Calm(ϒformat_dict, "get", λ.StrLiteral("duration"))), λ.KWArgs{
 								{Name: "scale", Value: λ.IntLiteral(1000)},
 							})

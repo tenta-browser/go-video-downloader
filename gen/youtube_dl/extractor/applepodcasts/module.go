@@ -75,6 +75,13 @@ func init() {
 					ϒepisode_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒepisode_id)
 					ϒember_data = λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("id=\"shoebox-ember-data-store\"[^>]*>\\s*({.+?})\\s*<"), ϒwebpage, λ.StrLiteral("ember data")), ϒepisode_id)
+					ϒember_data = func() λ.Object {
+						if λv := λ.Calm(ϒember_data, "get", ϒepisode_id); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return ϒember_data
+						}
+					}()
 					ϒepisode = λ.GetItem(λ.GetItem(ϒember_data, λ.StrLiteral("data")), λ.StrLiteral("attributes"))
 					ϒdescription = func() λ.Object {
 						if λv := λ.Calm(ϒepisode, "get", λ.StrLiteral("description")); λ.IsTrue(λv) {

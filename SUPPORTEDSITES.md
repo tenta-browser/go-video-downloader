@@ -28,7 +28,6 @@ Supported sites
  * Bigflix: `www.bigflix.com`
  * Bild: `www.bild.de`
  * BilibiliAudio: `www.bilibili.com`
- * BIQLE: `biqle.org`
  * BleacherReportCMS: `bleacherreport.com`
  * BokeCC: `union.bokecc.com`
  * Box: `mlssoccer.app.box.com`
@@ -133,7 +132,6 @@ Supported sites
  * Lenta: `lenta.ru`
  * LibraryOfCongress: `loc.gov`
  * Libsyn: `html5-player.libsyn.com`
- * LimelightMedia: `link.videoplatform.limelight.com`
  * Livestream: `new.livestream.com`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * Lynda: `www.lynda.com`
@@ -145,6 +143,7 @@ Supported sites
  * MicrosoftVirtualAcademy: `mva.microsoft.com`
  * Minds: `www.minds.com`
  * MLB: `www.mlb.com`
+ * MLBVideo: `www.mlb.com`
  * Mojvideo: `www.mojvideo.com`
  * MySpace: `myspace.com`
  * MySpass: `www.myspass.de`
@@ -203,7 +202,6 @@ Supported sites
  * Sina: `video.sina.com.cn`
  * SkyItVideo: `video.sky.it`
  * SkyIt: `tg24.sky.it`
- * SkyItAcademy: `www.skyacademy.it`
  * SkyItArte: `arte.sky.it`
  * CieloTVIt: `www.cielotv.it`
  * TV8It: `tv8.it`
@@ -248,7 +246,6 @@ Supported sites
  * TVANouvelles: `www.tvanouvelles.ca`
  * TVC: `www.tvc.ru`
  * TVCArticle: `www.tvc.ru`
- * TVN24: `tvnmeteo.tvn24.pl`
  * TVP: `vod.tvp.pl`
  * TwentyThreeVideo: `video.twentythree.net`
  * TwitchClips: `clips.twitch.tv`
@@ -272,13 +269,15 @@ Supported sites
  * VimeoOndemand: `vimeo.com`
  * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
+ * Vine: `vine.co`
  * Viqeo: `cdn.viqeo.tv`
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
+ * VoxMedia: `www.recode.net`
  * Medialaan: `www.bndestem.nl`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
- * Weibo: `weibo.com`
+ * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`
  * WSJArticle: `www.wsj.com`

@@ -50,7 +50,6 @@ import (
 	Ωbigflix "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bigflix"
 	Ωbild "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bild"
 	Ωbilibili "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bilibili"
-	Ωbiqle "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/biqle"
 	Ωbleacherreport "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bleacherreport"
 	Ωbokecc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/bokecc"
 	Ωbox "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/box"
@@ -248,7 +247,6 @@ import (
 	Ωtva "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tva"
 	Ωtvanouvelles "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvanouvelles"
 	Ωtvc "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvc"
-	Ωtvn24 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvn24"
 	Ωtvp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/tvp"
 	Ωtwentythreevideo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twentythreevideo"
 	Ωtwitch "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/twitch"
@@ -269,9 +267,11 @@ import (
 	Ωvidlii "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vidlii"
 	Ωvimeo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vimeo"
 	Ωvimple "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vimple"
+	Ωvine "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vine"
 	Ωviqeo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/viqeo"
 	Ωvk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vk"
 	Ωvlive "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vlive"
+	Ωvoxmedia "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/voxmedia"
 	Ωvzaar "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vzaar"
 	Ωwashingtonpost "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/washingtonpost"
 	Ωweibo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/weibo"
@@ -316,7 +316,6 @@ var (
 	AudiomackIE                λ.Object
 	BBCIE                      λ.Object
 	BFMTVIE                    λ.Object
-	BIQLEIE                    λ.Object
 	BRIE                       λ.Object
 	BandcampIE                 λ.Object
 	BandcampWeeklyIE           λ.Object
@@ -435,6 +434,7 @@ var (
 	LoveHomePornIE             λ.Object
 	LyndaIE                    λ.Object
 	MLBIE                      λ.Object
+	MLBVideoIE                 λ.Object
 	MailRuMusicIE              λ.Object
 	ManyVidsIE                 λ.Object
 	MedialaanIE                λ.Object
@@ -501,7 +501,6 @@ var (
 	SimplecastEpisodeIE        λ.Object
 	SimplecastIE               λ.Object
 	SinaIE                     λ.Object
-	SkyItAcademyIE             λ.Object
 	SkyItArteIE                λ.Object
 	SkyItIE                    λ.Object
 	SkyItVideoIE               λ.Object
@@ -535,7 +534,6 @@ var (
 	TVANouvellesIE             λ.Object
 	TVCArticleIE               λ.Object
 	TVCIE                      λ.Object
-	TVN24IE                    λ.Object
 	TVPEmbedIE                 λ.Object
 	TVPIE                      λ.Object
 	TeamTreeHouseIE            λ.Object
@@ -570,12 +568,14 @@ var (
 	VimeoOndemandIE            λ.Object
 	VimeoReviewIE              λ.Object
 	VimpleIE                   λ.Object
+	VineIE                     λ.Object
 	ViqeoIE                    λ.Object
+	VoxMediaIE                 λ.Object
 	VzaarIE                    λ.Object
 	WSJArticleIE               λ.Object
 	WSJIE                      λ.Object
 	WashingtonPostIE           λ.Object
-	WeiboIE                    λ.Object
+	WeiboMobileIE              λ.Object
 	WistiaIE                   λ.Object
 	WorldStarHipHopIE          λ.Object
 	XHamsterEmbedIE            λ.Object
@@ -624,7 +624,6 @@ func init() {
 		BigflixIE = Ωbigflix.BigflixIE
 		BildIE = Ωbild.BildIE
 		BilibiliAudioIE = Ωbilibili.BilibiliAudioIE
-		BIQLEIE = Ωbiqle.BIQLEIE
 		BleacherReportCMSIE = Ωbleacherreport.BleacherReportCMSIE
 		BokeCCIE = Ωbokecc.BokeCCIE
 		BoxIE = Ωbox.BoxIE
@@ -741,6 +740,7 @@ func init() {
 		MicrosoftVirtualAcademyIE = Ωmicrosoftvirtualacademy.MicrosoftVirtualAcademyIE
 		MindsIE = Ωminds.MindsIE
 		MLBIE = Ωmlb.MLBIE
+		MLBVideoIE = Ωmlb.MLBVideoIE
 		MojvideoIE = Ωmojvideo.MojvideoIE
 		MySpaceIE = Ωmyspace.MySpaceIE
 		MySpassIE = Ωmyspass.MySpassIE
@@ -799,7 +799,6 @@ func init() {
 		SinaIE = Ωsina.SinaIE
 		SkyItVideoIE = Ωskyit.SkyItVideoIE
 		SkyItIE = Ωskyit.SkyItIE
-		SkyItAcademyIE = Ωskyit.SkyItAcademyIE
 		SkyItArteIE = Ωskyit.SkyItArteIE
 		CieloTVItIE = Ωskyit.CieloTVItIE
 		TV8ItIE = Ωskyit.TV8ItIE
@@ -844,7 +843,6 @@ func init() {
 		TVANouvellesIE = Ωtvanouvelles.TVANouvellesIE
 		TVCIE = Ωtvc.TVCIE
 		TVCArticleIE = Ωtvc.TVCArticleIE
-		TVN24IE = Ωtvn24.TVN24IE
 		TVPEmbedIE = Ωtvp.TVPEmbedIE
 		TVPIE = Ωtvp.TVPIE
 		TwentyThreeVideoIE = Ωtwentythreevideo.TwentyThreeVideoIE
@@ -869,13 +867,15 @@ func init() {
 		VimeoOndemandIE = Ωvimeo.VimeoOndemandIE
 		VimeoReviewIE = Ωvimeo.VimeoReviewIE
 		VimpleIE = Ωvimple.VimpleIE
+		VineIE = Ωvine.VineIE
 		ViqeoIE = Ωviqeo.ViqeoIE
 		VKIE = Ωvk.VKIE
 		VLiveIE = Ωvlive.VLiveIE
+		VoxMediaIE = Ωvoxmedia.VoxMediaIE
 		MedialaanIE = Ωmedialaan.MedialaanIE
 		VzaarIE = Ωvzaar.VzaarIE
 		WashingtonPostIE = Ωwashingtonpost.WashingtonPostIE
-		WeiboIE = Ωweibo.WeiboIE
+		WeiboMobileIE = Ωweibo.WeiboMobileIE
 		WistiaIE = Ωwistia.WistiaIE
 		WorldStarHipHopIE = Ωworldstarhiphop.WorldStarHipHopIE
 		WSJIE = Ωwsj.WSJIE
@@ -922,7 +922,6 @@ func init() {
 			BigflixIE,
 			BildIE,
 			BilibiliAudioIE,
-			BIQLEIE,
 			BleacherReportCMSIE,
 			BokeCCIE,
 			BoxIE,
@@ -1039,6 +1038,7 @@ func init() {
 			MicrosoftVirtualAcademyIE,
 			MindsIE,
 			MLBIE,
+			MLBVideoIE,
 			MojvideoIE,
 			MySpaceIE,
 			MySpassIE,
@@ -1097,7 +1097,6 @@ func init() {
 			SinaIE,
 			SkyItVideoIE,
 			SkyItIE,
-			SkyItAcademyIE,
 			SkyItArteIE,
 			CieloTVItIE,
 			TV8ItIE,
@@ -1142,7 +1141,6 @@ func init() {
 			TVANouvellesIE,
 			TVCIE,
 			TVCArticleIE,
-			TVN24IE,
 			TVPEmbedIE,
 			TVPIE,
 			TwentyThreeVideoIE,
@@ -1167,13 +1165,15 @@ func init() {
 			VimeoOndemandIE,
 			VimeoReviewIE,
 			VimpleIE,
+			VineIE,
 			ViqeoIE,
 			VKIE,
 			VLiveIE,
+			VoxMediaIE,
 			MedialaanIE,
 			VzaarIE,
 			WashingtonPostIE,
-			WeiboIE,
+			WeiboMobileIE,
 			WistiaIE,
 			WorldStarHipHopIE,
 			WSJIE,

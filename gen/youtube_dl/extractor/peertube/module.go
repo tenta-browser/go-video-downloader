@@ -140,6 +140,7 @@ func init() {
 						ϒurl              = λargs[1]
 						ϒvideo            λ.Object
 						ϒvideo_id         λ.Object
+						ϒwebpage_url      λ.Object
 						τmp0              λ.Object
 						τmp1              λ.Object
 					)
@@ -321,11 +322,15 @@ func init() {
 					} else {
 						ϒage_limit = λ.None
 					}
+					ϒwebpage_url = λ.Mod(λ.StrLiteral("https://%s/videos/watch/%s"), λ.NewTuple(
+						ϒhost,
+						ϒvideo_id,
+					))
 					return λ.DictLiteral(map[string]λ.Object{
 						"id":            ϒvideo_id,
 						"title":         ϒtitle,
 						"description":   ϒdescription,
-						"thumbnail":     λ.Cal(ϒurljoin, ϒurl, λ.Calm(ϒvideo, "get", λ.StrLiteral("thumbnailPath"))),
+						"thumbnail":     λ.Cal(ϒurljoin, ϒwebpage_url, λ.Calm(ϒvideo, "get", λ.StrLiteral("thumbnailPath"))),
 						"timestamp":     λ.Cal(ϒunified_timestamp, λ.Calm(ϒvideo, "get", λ.StrLiteral("publishedAt"))),
 						"uploader":      λ.Cal(ϒaccount_data, λ.StrLiteral("displayName"), ϒcompat_str),
 						"uploader_id":   λ.Cal(ϒstr_or_none, λ.Cal(ϒaccount_data, λ.StrLiteral("id"), λ.IntType)),
@@ -351,9 +356,10 @@ func init() {
 								)
 								return λ.GetItem(ϒx, λ.StrLiteral("tags"))
 							}), λ.ListType),
-						"categories": ϒcategories,
-						"formats":    ϒformats,
-						"subtitles":  ϒsubtitles,
+						"categories":  ϒcategories,
+						"formats":     ϒformats,
+						"subtitles":   ϒsubtitles,
+						"webpage_url": ϒwebpage_url,
 					})
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{

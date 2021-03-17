@@ -341,6 +341,7 @@ func init() {
 				func(λargs []λ.Object) λ.Object {
 					var (
 						FORMAT_PREFIXES      λ.Object
+						ϒadd_format          λ.Object
 						ϒadd_video_url       λ.Object
 						ϒcomment_count       λ.Object
 						ϒdefinition          λ.Object
@@ -352,7 +353,6 @@ func init() {
 						ϒextract_js_vars     λ.Object
 						ϒextract_list        λ.Object
 						ϒextract_vote_count  λ.Object
-						ϒf                   λ.Object
 						ϒflashvars           λ.Object
 						ϒformat_url          λ.Object
 						ϒformats             λ.Object
@@ -362,15 +362,14 @@ func init() {
 						ϒjs_vars             λ.Object
 						ϒkey                 λ.Object
 						ϒlike_count          λ.Object
+						ϒmedia               λ.Object
 						ϒmedia_definitions   λ.Object
-						ϒmedia_json          λ.Object
+						ϒmedias              λ.Object
 						ϒmobj                λ.Object
 						ϒparse_quality_items λ.Object
-						ϒquality             λ.Object
 						ϒself                = λargs[0]
 						ϒsubtitle_url        λ.Object
 						ϒsubtitles           λ.Object
-						ϒtbr                 λ.Object
 						ϒthumbnail           λ.Object
 						ϒtitle               λ.Object
 						ϒupload_date         λ.Object
@@ -415,7 +414,10 @@ func init() {
 						})
 					ϒwebpage = λ.Cal(ϒdl_webpage, λ.StrLiteral("pc"))
 					ϒerror_msg = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
-						λ.StrLiteral("(?s)<div[^>]+class=([\"\\'])(?:(?!\\1).)*\\b(?:removed|userMessageSection)\\b(?:(?!\\1).)*\\1[^>]*>(?P<error>.+?)</div>"),
+						λ.NewTuple(
+							λ.StrLiteral("(?s)<div[^>]+class=([\"\\'])(?:(?!\\1).)*\\b(?:removed|userMessageSection)\\b(?:(?!\\1).)*\\1[^>]*>(?P<error>.+?)</div>"),
+							λ.StrLiteral("(?s)<section[^>]+class=[\"\\']noVideo[\"\\'][^>]*>(?P<error>.+?)</section>"),
+						),
 						ϒwebpage,
 						λ.StrLiteral("error message"),
 					), λ.KWArgs{
@@ -721,6 +723,41 @@ func init() {
 					}
 					ϒupload_date = λ.None
 					ϒformats = λ.NewList()
+					ϒadd_format = λ.NewFunction("add_format",
+						[]λ.Param{
+							{Name: "format_url"},
+							{Name: "height", Def: λ.None},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒformat_url = λargs[0]
+								ϒheight     = λargs[1]
+								ϒmobj       λ.Object
+								ϒtbr        λ.Object
+							)
+							ϒtbr = λ.None
+							ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("(?P<height>\\d+)[pP]?_(?P<tbr>\\d+)[kK]"), ϒformat_url)
+							if λ.IsTrue(ϒmobj) {
+								if !λ.IsTrue(ϒheight) {
+									ϒheight = λ.Cal(λ.IntType, λ.Calm(ϒmobj, "group", λ.StrLiteral("height")))
+								}
+								ϒtbr = λ.Cal(λ.IntType, λ.Calm(ϒmobj, "group", λ.StrLiteral("tbr")))
+							}
+							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+								"url": ϒformat_url,
+								"format_id": func() λ.Object {
+									if λ.IsTrue(ϒheight) {
+										return λ.Mod(λ.StrLiteral("%dp"), ϒheight)
+									} else {
+										return λ.None
+									}
+								}(),
+								"height": ϒheight,
+								"tbr":    ϒtbr,
+							}))
+							return λ.None
+						})
 					τmp0 = λ.Cal(λ.BuiltinIter, ϒvideo_urls)
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
@@ -763,52 +800,36 @@ func init() {
 									{Name: "fatal", Value: λ.False},
 								}))
 								continue
-							} else {
-								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Eq(ϒext, λ.StrLiteral("unknown_video")); !λ.IsTrue(λv) {
-										return λv
-									} else {
-										return λ.NewBool(λ.Contains(ϒvideo_url, λ.StrLiteral("/get_media?")))
-									}
-								}()) {
-									ϒmedia_json = λ.Calm(ϒself, "_download_json", ϒvideo_url, ϒvideo_id, λ.StrLiteral("Downloading media JSON"))
-									τmp2 = λ.Cal(λ.BuiltinIter, ϒmedia_json)
-									for {
-										if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
-											break
-										}
-										ϒf = τmp3
-										ϒquality = λ.Cal(ϒstr_to_int, λ.GetItem(ϒf, λ.StrLiteral("quality")))
-										λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
-											"url":       λ.GetItem(ϒf, λ.StrLiteral("videoUrl")),
-											"format_id": λ.Mod(λ.StrLiteral("%dp"), ϒquality),
-											"height":    ϒquality,
-										}))
-									}
-									continue
-								}
 							}
 						}
-						ϒtbr = λ.None
-						ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("(?P<height>\\d+)[pP]?_(?P<tbr>\\d+)[kK]"), ϒvideo_url)
-						if λ.IsTrue(ϒmobj) {
-							if !λ.IsTrue(ϒheight) {
-								ϒheight = λ.Cal(λ.IntType, λ.Calm(ϒmobj, "group", λ.StrLiteral("height")))
-							}
-							ϒtbr = λ.Cal(λ.IntType, λ.Calm(ϒmobj, "group", λ.StrLiteral("tbr")))
-						}
-						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
-							"url": ϒvideo_url,
-							"format_id": func() λ.Object {
-								if λ.IsTrue(ϒheight) {
-									return λ.Mod(λ.StrLiteral("%dp"), ϒheight)
-								} else {
-									return λ.None
+						if λ.Contains(ϒvideo_url, λ.StrLiteral("/video/get_media")) {
+							ϒmedias = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+								ϒvideo_url,
+								ϒvideo_id,
+							), λ.KWArgs{
+								{Name: "fatal", Value: λ.False},
+							})
+							if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒmedias, λ.ListType)) {
+								τmp2 = λ.Cal(λ.BuiltinIter, ϒmedias)
+								for {
+									if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+										break
+									}
+									ϒmedia = τmp3
+									if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒmedia, λ.DictType)) {
+										continue
+									}
+									ϒvideo_url = λ.Cal(ϒurl_or_none, λ.Calm(ϒmedia, "get", λ.StrLiteral("videoUrl")))
+									if !λ.IsTrue(ϒvideo_url) {
+										continue
+									}
+									ϒheight = λ.Cal(ϒint_or_none, λ.Calm(ϒmedia, "get", λ.StrLiteral("quality")))
+									λ.Cal(ϒadd_format, ϒvideo_url, ϒheight)
 								}
-							}(),
-							"height": ϒheight,
-							"tbr":    ϒtbr,
-						}))
+							}
+							continue
+						}
+						λ.Cal(ϒadd_format, ϒvideo_url)
 					}
 					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					ϒvideo_uploader = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(

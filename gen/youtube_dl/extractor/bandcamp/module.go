@@ -396,19 +396,19 @@ func init() {
 						}))
 					}
 					return λ.DictLiteral(map[string]λ.Object{
-						"id":           ϒtrack_id,
-						"title":        ϒtitle,
-						"thumbnail":    ϒthumbnail,
-						"uploader":     ϒartist,
-						"timestamp":    ϒtimestamp,
-						"release_date": λ.Cal(ϒunified_strdate, λ.Calm(ϒtralbum, "get", λ.StrLiteral("album_release_date"))),
-						"duration":     ϒduration,
-						"track":        ϒtrack,
-						"track_number": ϒtrack_number,
-						"track_id":     ϒtrack_id,
-						"artist":       ϒartist,
-						"album":        λ.Calm(ϒembed, "get", λ.StrLiteral("album_title")),
-						"formats":      ϒformats,
+						"id":                ϒtrack_id,
+						"title":             ϒtitle,
+						"thumbnail":         ϒthumbnail,
+						"uploader":          ϒartist,
+						"timestamp":         ϒtimestamp,
+						"release_timestamp": λ.Cal(ϒunified_timestamp, λ.Calm(ϒtralbum, "get", λ.StrLiteral("album_release_date"))),
+						"duration":          ϒduration,
+						"track":             ϒtrack,
+						"track_number":      ϒtrack_number,
+						"track_id":          ϒtrack_id,
+						"artist":            ϒartist,
+						"album":             λ.Calm(ϒembed, "get", λ.StrLiteral("album_title")),
+						"formats":           ϒformats,
 					})
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{

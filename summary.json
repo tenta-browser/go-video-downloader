@@ -533,11 +533,10 @@
     "BIQLEIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Video unavailable"
+            "DownloadError: ERROR: Video unavailable",
+            "IndexError: list index out of range"
         ],
-        "success_urls": [
-            "http://biqle.org/watch/-44781847_168547604"
-        ]
+        "success_urls": []
     },
     "BRIE": {
         "adult": false,
@@ -696,7 +695,7 @@
         "adult": false,
         "error_msgs": [
             "AttributeError: 'placeholder hashlib' object has no attribute 'md5'",
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.bilibili.tv/video/av1074402/\": dial tcp 222.186.35.81:80: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.bilibili.tv/video/av1074402/\": dial tcp: lookup www.bilibili.tv on 74.206.188.87:53: read udp 74.206.165.158:37123->74.206.188.87:53: i/o timeout> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -974,7 +973,7 @@
     "CCTVIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://english.cntv.cn/special/four_comprehensives/index.shtml\": dial tcp: lookup english.cntv.cn on 74.206.188.88:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://english.cntv.cn/special/four_comprehensives/index.shtml\": dial tcp: lookup english.cntv.cn on 74.206.188.87:53: no such host> (caused by URLError)"
         ],
         "success_urls": [
             "http://cctv.cntv.cn/lm/tvseries_russian/yilugesanghua/index.shtml",
@@ -1154,7 +1153,7 @@
     "CarambaTVIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
+            "DownloadError: ERROR: 191910501: Failed to parse JSON  (caused by ValueError('invalid character \\'<\\' looking for beginning of value'))"
         ],
         "success_urls": []
     },
@@ -1765,7 +1764,7 @@
     "EHowIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.ehow.com/video_12245069_hardwood-flooring-basics.html\": read tcp 74.206.165.158:37600->23.10.124.174:80: read: connection timed out> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.ehow.com/video_12245069_hardwood-flooring-basics.html\": read tcp 74.206.165.158:58952->23.10.124.174:80: read: connection timed out> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -1960,7 +1959,7 @@
     "EyedoTVIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: requested format not available"
+            "DownloadError: ERROR: Unable to download XML: <urlopen error Get \"http://eyedo.tv/api/live/GetLive/16301\": dial tcp 37.59.18.112:80: i/o timeout> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -2583,14 +2582,14 @@
     "HitboxIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://www.smashcast.tv/api/player/config/video/203213\": dial tcp: lookup www.smashcast.tv on 74.206.188.87:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://www.smashcast.tv/api/player/config/video/203213\": dial tcp: lookup www.smashcast.tv on 74.206.188.88:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
     "HitboxLiveIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://www.smashcast.tv/api/player/config/live/dimak\": dial tcp: lookup www.smashcast.tv on 74.206.188.88:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://www.smashcast.tv/api/player/config/live/dimak\": dial tcp: lookup www.smashcast.tv on 74.206.188.87:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -2646,7 +2645,7 @@
     "HuffPostIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://embed.live.huffingtonpost.com/api/segments/52dd3e4b02a7602131000677.json\": dial tcp: lookup embed.live.huffingtonpost.com on 74.206.188.88:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://embed.live.huffingtonpost.com/api/segments/52dd3e4b02a7602131000677.json\": dial tcp: lookup embed.live.huffingtonpost.com on 74.206.188.87:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -2848,7 +2847,7 @@
     "Ir90TvIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://90tv.ir/video/95719/%D8%B4%D8%A7%DB%8C%D8%B9%D8%A7%D8%AA-%D9%86%D9%82%D9%84-%D9%88-%D8%A7%D9%86%D8%AA%D9%82%D8%A7%D9%84%D8%A7%D8%AA-%D9%85%D9%87%D9%85-%D9%81%D9%88%D8%AA%D8%A8%D8%A7%D9%84-%D8%A7%D8%B1%D9%88%D9%BE%D8%A7-940218\": dial tcp: lookup 90tv.ir on 74.206.188.88:53: read udp 74.206.165.158:36625->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://90tv.ir/video/95719/%D8%B4%D8%A7%DB%8C%D8%B9%D8%A7%D8%AA-%D9%86%D9%82%D9%84-%D9%88-%D8%A7%D9%86%D8%AA%D9%82%D8%A7%D9%84%D8%A7%D8%AA-%D9%85%D9%87%D9%85-%D9%81%D9%88%D8%AA%D8%A8%D8%A7%D9%84-%D8%A7%D8%B1%D9%88%D9%BE%D8%A7-940218\": dial tcp: lookup 90tv.ir on 74.206.188.87:53: read udp 74.206.165.158:47468->74.206.188.87:53: i/o timeout> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -3071,7 +3070,7 @@
     "KuwoIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to get song detail info: <urlopen error Get \"http://www.kuwo.cn/yinyue/6446136/\": dial tcp: lookup www.kuwo.cn on 74.206.188.87:53: read udp 74.206.165.158:52100->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to get song detail info: HTTP Error 500: Internal Server Error (caused by <HTTPError 500: 'Internal Server Error'>)"
         ],
         "success_urls": []
     },
@@ -3107,7 +3106,7 @@
     "LBRYIE": {
         "adult": false,
         "error_msgs": [
-            "RegexpError: Function not allowed: <built-in method format of str object at 0x7fd6f2193270>"
+            "RegexpError: Function not allowed: <built-in method format of str object at 0x7f1faba77270>"
         ],
         "success_urls": []
     },
@@ -3276,9 +3275,10 @@
     },
     "LimelightMediaIE": {
         "adult": false,
-        "error_msgs": [],
+        "error_msgs": [
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://production-ps.lvp.llnw.net/r/PlaylistService/media/3ffd040b522b4485b6d84effc750cd86/getPlaylistByMediaId\": dial tcp: lookup production-ps.lvp.llnw.net on 74.206.188.88:53: read udp 74.206.165.158:56970->74.206.188.88:53: i/o timeout> (caused by URLError)"
+        ],
         "success_urls": [
-            "http://link.videoplatform.limelight.com/media/?mediaId=3ffd040b522b4485b6d84effc750cd86",
             "limelight:media:a3e00274d4564ec4a9b29b9466432335"
         ]
     },
@@ -3340,7 +3340,7 @@
     "LivestreamOriginalIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download XML: <urlopen error Get \"http://xdealbookx.api.channel.livestream.com/2.0/clipdetails?extendedInfo=true&id=pla_8aa4a3f1-ba15-46a4-893b-902210e138fb\": dial tcp: lookup xdealbookx.api.channel.livestream.com on 74.206.188.87:53: no such host> (caused by URLError)",
+            "DownloadError: ERROR: Unable to download XML: <urlopen error Get \"http://xdealbookx.api.channel.livestream.com/2.0/clipdetails?extendedInfo=true&id=pla_8aa4a3f1-ba15-46a4-893b-902210e138fb\": dial tcp: lookup xdealbookx.api.channel.livestream.com on 74.206.188.88:53: no such host> (caused by URLError)",
             "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
@@ -3419,10 +3419,16 @@
         "error_msgs": [],
         "success_urls": [
             "https://www.mlb.com/mariners/video/ackleys-spectacular-catch/c-34698933",
-            "https://www.mlb.com/news/blue-jays-kevin-pillar-goes-spidey-up-the-wall-to-rob-tim-beckham-of-a-homer/c-118550098",
             "https://www.mlb.com/video/bautista-on-home-run-derby/c-34577915",
             "https://www.mlb.com/video/cespedes-repeats-as-derby-champ/c-34578115",
             "https://www.mlb.com/video/stanton-prepares-for-derby/c-34496663"
+        ]
+    },
+    "MLBVideoIE": {
+        "adult": false,
+        "error_msgs": [],
+        "success_urls": [
+            "https://www.mlb.com/mariners/video/ackley-s-spectacular-catch-c34698933"
         ]
     },
     "MNetTVIE": {
@@ -3560,7 +3566,7 @@
     "MeWatchIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: requested format not available"
+            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'MediaName\\''))"
         ],
         "success_urls": []
     },
@@ -3590,7 +3596,7 @@
     "MediasiteCatalogIE": {
         "adult": false,
         "error_msgs": [
-            "RegexpError: Function not allowed: <built-in method format of str object at 0x7fd6f204b350>"
+            "RegexpError: Function not allowed: <built-in method format of str object at 0x7f1fab92b350>"
         ],
         "success_urls": []
     },
@@ -3757,7 +3763,7 @@
     "MnetIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://content.api.mnet.com/player/vodConfig?ctype=CLIP&id=171008&stype=H\": dial tcp: lookup content.api.mnet.com on 74.206.188.87:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://content.api.mnet.com/player/vodConfig?ctype=CLIP&id=171008&stype=H\": dial tcp: lookup content.api.mnet.com on 74.206.188.88:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -3817,7 +3823,7 @@
     "MovieClipsIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 403: Forbidden (caused by <HTTPError 403: 'Forbidden'>)"
         ],
         "success_urls": []
     },
@@ -3825,7 +3831,7 @@
         "adult": false,
         "error_msgs": [
             "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'vkey\\''))",
-            "DownloadError: ERROR: Unable to download XML: <urlopen error Get \"https://cdn-fck.moviefap.com/moviefap/be9867c9416c19f54a4a.flv?key=f7efa35d61f24a6f53831e36701549c9&VID=322032&rollover=1&timeline=1&startThumb=20%26catID=2,19,20,42\": x509: certificate signed by unknown authority> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download XML: <urlopen error Get \"https://cdn-fck.moviefap.com/moviefap/be9867c9416c19f54a4a.flv?key=b7e773932daa798f08f73e4827a1b442&VID=322032&rollover=1&timeline=1&startThumb=20%26catID=\": x509: certificate signed by unknown authority> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -3853,7 +3859,7 @@
     "MwaveIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://mwave.interest.me/onair/vod_info.m?vodtype=CL&sectorid=&endinfo=Y&id=168859\": dial tcp: lookup mwave.interest.me on 74.206.188.87:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://mwave.interest.me/onair/vod_info.m?vodtype=CL&sectorid=&endinfo=Y&id=168859\": dial tcp: lookup mwave.interest.me on 74.206.188.88:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -4066,9 +4072,9 @@
     "NHLIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://nhl.bamcontent.com/nhl/id/v1/278258934/details/web-v1.json\": x509: certificate has expired or is not yet valid: current time 2021-03-03T00:59:34-05:00 is after 2020-10-10T23:59:59Z> (caused by URLError)",
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://nhl.bamcontent.com/nhl/id/v1/43663503/details/web-v1.json\": x509: certificate has expired or is not yet valid: current time 2021-03-03T00:59:34-05:00 is after 2020-10-10T23:59:59Z> (caused by URLError)",
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://nhl.bamcontent.com/nhl/id/v1/44315003/details/web-v1.json\": x509: certificate has expired or is not yet valid: current time 2021-03-03T00:59:35-05:00 is after 2020-10-10T23:59:59Z> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://nhl.bamcontent.com/nhl/id/v1/278258934/details/web-v1.json\": x509: certificate has expired or is not yet valid: current time 2021-03-17T06:37:24-04:00 is after 2020-10-10T23:59:59Z> (caused by URLError)",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://nhl.bamcontent.com/nhl/id/v1/43663503/details/web-v1.json\": x509: certificate has expired or is not yet valid: current time 2021-03-17T06:37:24-04:00 is after 2020-10-10T23:59:59Z> (caused by URLError)",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://nhl.bamcontent.com/nhl/id/v1/44315003/details/web-v1.json\": x509: certificate has expired or is not yet valid: current time 2021-03-17T06:37:25-04:00 is after 2020-10-10T23:59:59Z> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -4108,7 +4114,7 @@
     "NPOLiveIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 410: Gone (caused by <HTTPError 410: 'Gone'>)"
+            "DownloadError: ERROR: This video is DRM protected."
         ],
         "success_urls": []
     },
@@ -4912,7 +4918,7 @@
     "PladformIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download XML: HTTP Error 502: Bad Gateway (caused by <HTTPError 502: 'Bad Gateway'>)"
+            "DownloadError: ERROR: Unable to download XML: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
         ],
         "success_urls": []
     },
@@ -5056,9 +5062,7 @@
     },
     "PornHubIE": {
         "adult": true,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to extract encoded url"
-        ],
+        "error_msgs": [],
         "success_urls": [
             "http://www.pornhub.com/view_video.php?viewkey=648719015"
         ]
@@ -5185,7 +5189,7 @@
     "QQMusicSingerIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://y.qq.com/n/yqq/singer/001BLpXF2DyJe2.html\": dial tcp: lookup y.qq.com on 74.206.188.87:53: read udp 74.206.165.158:51919->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
@@ -5239,7 +5243,7 @@
     "RBMARadioIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://www.rbmaradio.com/shows/main-stage/episodes/ford-lopatin-live-at-primavera-sound-2011\": dial tcp: lookup www.rbmaradio.com on 74.206.188.87:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://www.rbmaradio.com/shows/main-stage/episodes/ford-lopatin-live-at-primavera-sound-2011\": dial tcp: lookup www.rbmaradio.com on 74.206.188.88:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -5315,34 +5319,33 @@
     "RTSIE": {
         "adult": false,
         "error_msgs": [
+            "DownloadError: ERROR: No video formats found",
             "DownloadError: ERROR: Unable to extract internal video id",
             "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": [
-            "http://www.rts.ch/archives/tv/divers/3449373-les-enfants-terribles.html",
-            "http://www.rts.ch/audio/couleur3/programmes/la-belle-video-de-stephane-laurenceau/5706148-urban-hippie-de-damien-krisl-03-04-2014.html",
-            "http://www.rts.ch/video/info/journal-continu/5745356-londres-cachee-par-un-epais-smog.html"
+            "http://www.rts.ch/audio/couleur3/programmes/la-belle-video-de-stephane-laurenceau/5706148-urban-hippie-de-damien-krisl-03-04-2014.html"
         ]
     },
     "RTVEALaCartaIE": {
         "adult": false,
         "error_msgs": [
-            "AttributeError: 'bytes' object has no attribute 'find'",
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 402: Payment Required (caused by <HTTPError 402: 'Payment Required'>)"
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 402: Payment Required (caused by <HTTPError 402: 'Payment Required'>)",
+            "NotImplementedError: io.BytesIO"
         ],
         "success_urls": []
     },
     "RTVEInfantilIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to extract internal video ID"
+            "NotImplementedError: io.BytesIO"
         ],
         "success_urls": []
     },
     "RTVELiveIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder time/gmtime' object is not callable"
+            "NotImplementedError: io.BytesIO"
         ],
         "success_urls": []
     },
@@ -5479,7 +5482,7 @@
     "RedBullIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: requested format not available"
+            "DownloadError: ERROR: rrn:content:episode-videos:d6d7f63c-c870-57c3-969f-b84725bcdddb:en-INT: Failed to parse JSON  (caused by ValueError('invalid character \\'<\\' looking for beginning of value'))"
         ],
         "success_urls": []
     },
@@ -5751,7 +5754,7 @@
     "SVTPlayIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -5980,10 +5983,10 @@
     },
     "SkyItAcademyIE": {
         "adult": false,
-        "error_msgs": [],
-        "success_urls": [
-            "https://www.skyacademy.it/eventi-speciali/2019/07/05/a-lezione-di-cinema-con-sky-academy-/"
-        ]
+        "error_msgs": [
+            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 502: Bad Gateway (caused by <HTTPError 502: 'Bad Gateway'>)"
+        ],
+        "success_urls": []
     },
     "SkyItArteIE": {
         "adult": false,
@@ -5995,7 +5998,7 @@
     "SkyItIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: This video is not available from your location due to geo restriction\nThis video is available in Italy.\nYou might want to use a VPN or a proxy server (with --proxy) to workaround."
+            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 502: Bad Gateway (caused by <HTTPError 502: 'Bad Gateway'>)"
         ],
         "success_urls": [
             "https://tg24.sky.it/mondo/2020/11/22/australia-squalo-uccide-uomo"
@@ -6192,7 +6195,7 @@
     "SouthParkIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download XML: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
+            "AttributeError: 'placeholder email' object has no attribute 'utils'"
         ],
         "success_urls": []
     },
@@ -6246,7 +6249,7 @@
     "SportDeutschlandIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 422: Unprocessable Entity (caused by <HTTPError 422: 'Unprocessable Entity'>)"
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
@@ -6617,11 +6620,10 @@
     "TVN24IE": {
         "adult": false,
         "error_msgs": [
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)",
             "DownloadError: ERROR: Unable to extract formats"
         ],
-        "success_urls": [
-            "https://tvnmeteo.tvn24.pl/magazyny/maja-w-ogrodzie,13/odcinki-online,1,4,1,0/pnacza-ptaki-i-iglaki-odc-691-hgtv-odc-29,1771763.html"
-        ]
+        "success_urls": []
     },
     "TVNetIE": {
         "adult": false,
@@ -7090,7 +7092,7 @@
     "TrovoVodIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: requested format not available"
+            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'ltv-100095501_100095501_1609596043\\''))"
         ],
         "success_urls": []
     },
@@ -7178,7 +7180,7 @@
     "TurboIE": {
         "adult": false,
         "error_msgs": [
-            "ValueError: invalid format string"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.turbo.fr/videos-voiture/454443-turbo-du-07-09-2014-renault-twingo-3-bentley-continental-gt-speed-ces-guide-achat-dacia.html\": dial tcp: lookup www.turbo.fr on 74.206.188.87:53: read udp 74.206.165.158:46458->74.206.188.87:53: i/o timeout> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -7609,7 +7611,7 @@
     "VeeHDIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 523:  (caused by <HTTPError 523: ''>)"
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 522:  (caused by <HTTPError 522: ''>)"
         ],
         "success_urls": []
     },
@@ -7926,16 +7928,16 @@
     },
     "VineIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://archive.vine.co/posts/b9KOOWX7HUx.json\": x509: certificate has expired or is not yet valid: current time 2021-03-03T01:25:00-05:00 is after 2021-02-17T12:00:00Z> (caused by URLError)",
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://archive.vine.co/posts/e192BnZnZ9V.json\": x509: certificate has expired or is not yet valid: current time 2021-03-03T01:25:00-05:00 is after 2021-02-17T12:00:00Z> (caused by URLError)"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "https://vine.co/v/b9KOOWX7HUx",
+            "https://vine.co/v/e192BnZnZ9V"
+        ]
     },
     "VineUserIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://archive.vine.co/profiles/942914934646415360.json\": x509: certificate has expired or is not yet valid: current time 2021-03-03T01:25:01-05:00 is after 2021-02-17T12:00:00Z> (caused by URLError)"
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
@@ -7992,10 +7994,11 @@
     "VoxMediaIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to find provider video id",
             "ExtractorError: invalid URL escape \"%= \""
         ],
-        "success_urls": []
+        "success_urls": [
+            "https://www.recode.net/2014/6/17/11628066/post-post-pc-ceo-the-full-code-conference-video-of-microsofts-satya"
+        ]
     },
     "VoxMediaVolumeIE": {
         "adult": false,
@@ -8182,17 +8185,17 @@
     },
     "WeiboIE": {
         "adult": false,
-        "error_msgs": [],
-        "success_urls": [
-            "https://weibo.com/6275294458/Fp6RGfbff?type=comment"
-        ]
+        "error_msgs": [
+            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'confidence\\''))"
+        ],
+        "success_urls": []
     },
     "WeiboMobileIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://m.weibo.cn/status/4189191225395228?wm=3333_2001&sourcetype=weixin&featurecode=newtitle&from=singlemessage&isappinstalled=0\": dial tcp: lookup m.weibo.cn on 74.206.188.87:53: read udp 74.206.165.158:45965->74.206.188.87:53: i/o timeout> (caused by URLError)"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "https://m.weibo.cn/status/4189191225395228?wm=3333_2001&sourcetype=weixin&featurecode=newtitle&from=singlemessage&isappinstalled=0"
+        ]
     },
     "WeiqiTVIE": {
         "adult": false,
@@ -8326,7 +8329,7 @@
     "XiamiSongIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://emumo.xiami.com/song/playlist/cat/json/id/1775953850\": dial tcp: lookup emumo.xiami.com on 74.206.188.88:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://emumo.xiami.com/song/playlist/cat/json/id/1775953850\": dial tcp: lookup emumo.xiami.com on 74.206.188.87:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -8525,7 +8528,8 @@
     "YoukuShowIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: No episodes found"
+            "DownloadError: ERROR: No episodes found",
+            "DownloadError: ERROR: Unable to extract page config"
         ],
         "success_urls": []
     },
@@ -8662,7 +8666,7 @@
     "ZapiksIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.zapiks.fr/ep2s3-bon-appetit-eh-be-viva.html\": dial tcp: lookup www.zapiks.fr on 74.206.188.88:53: read udp 74.206.165.158:42456->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.zapiks.fr/ep2s3-bon-appetit-eh-be-viva.html\": dial tcp: lookup www.zapiks.fr on 74.206.188.87:53: read udp 74.206.165.158:37464->74.206.188.87:53: i/o timeout> (caused by URLError)"
         ],
         "success_urls": []
     },

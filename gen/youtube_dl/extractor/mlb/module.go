@@ -25,28 +25,377 @@
 package mlb
 
 import (
-	Ωnhl "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/nhl"
+	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
+	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
+	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	MLBIE     λ.Object
-	NHLBaseIE λ.Object
+	InfoExtractor   λ.Object
+	MLBBaseIE       λ.Object
+	MLBIE           λ.Object
+	MLBVideoIE      λ.Object
+	ϒdetermine_ext  λ.Object
+	ϒint_or_none    λ.Object
+	ϒparse_duration λ.Object
+	ϒparse_iso8601  λ.Object
+	ϒtry_get        λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
-		NHLBaseIE = Ωnhl.NHLBaseIE
-		MLBIE = λ.Cal(λ.TypeType, λ.StrLiteral("MLBIE"), λ.NewTuple(NHLBaseIE), func() λ.Dict {
+		InfoExtractor = Ωcommon.InfoExtractor
+		ϒdetermine_ext = Ωutils.ϒdetermine_ext
+		ϒint_or_none = Ωutils.ϒint_or_none
+		ϒparse_duration = Ωutils.ϒparse_duration
+		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
+		ϒtry_get = Ωutils.ϒtry_get
+		MLBBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("MLBBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				MLBIE__CONTENT_DOMAIN λ.Object
-				MLBIE__VALID_URL      λ.Object
+				MLBBaseIE__real_extract λ.Object
 			)
-			MLBIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:[\\da-z_-]+\\.)*(?P<site>mlb)\\.com/\n                        (?:\n                            (?:\n                                (?:[^/]+/)*c-|\n                                (?:\n                                    shared/video/embed/(?:embed|m-internal-embed)\\.html|\n                                    (?:[^/]+/)+(?:play|index)\\.jsp|\n                                )\\?.*?\\bcontent_id=\n                            )\n                            (?P<id>\\d+)\n                        )\n                    ")
-			MLBIE__CONTENT_DOMAIN = λ.StrLiteral("content.mlb.com")
+			MLBBaseIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcut          λ.Object
+						ϒdisplay_id   λ.Object
+						ϒext          λ.Object
+						ϒf            λ.Object
+						ϒfeed         λ.Object
+						ϒformats      λ.Object
+						ϒlanguage     λ.Object
+						ϒmobj         λ.Object
+						ϒname         λ.Object
+						ϒplayback     λ.Object
+						ϒplayback_url λ.Object
+						ϒself         = λargs[0]
+						ϒsrc          λ.Object
+						ϒthumbnails   λ.Object
+						ϒtitle        λ.Object
+						ϒurl          = λargs[1]
+						ϒvideo        λ.Object
+						ϒvideo_id     λ.Object
+						τmp0          λ.Object
+						τmp1          λ.Object
+					)
+					ϒdisplay_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					ϒvideo = λ.Calm(ϒself, "_download_video_data", ϒdisplay_id)
+					ϒvideo_id = λ.GetItem(ϒvideo, λ.StrLiteral("id"))
+					ϒtitle = λ.GetItem(ϒvideo, λ.StrLiteral("title"))
+					ϒfeed = λ.Calm(ϒself, "_get_feed", ϒvideo)
+					ϒformats = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, func() λ.Object {
+						if λv := λ.Calm(ϒfeed, "get", λ.StrLiteral("playbacks")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewList()
+						}
+					}())
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒplayback = τmp1
+						ϒplayback_url = λ.Calm(ϒplayback, "get", λ.StrLiteral("url"))
+						if !λ.IsTrue(ϒplayback_url) {
+							continue
+						}
+						ϒname = λ.Calm(ϒplayback, "get", λ.StrLiteral("name"))
+						ϒext = λ.Cal(ϒdetermine_ext, ϒplayback_url)
+						if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("m3u8"))) {
+							λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+								ϒplayback_url,
+								ϒvideo_id,
+								λ.StrLiteral("mp4"),
+								λ.StrLiteral("m3u8_native"),
+							), λ.KWArgs{
+								{Name: "m3u8_id", Value: ϒname},
+								{Name: "fatal", Value: λ.False},
+							}))
+						} else {
+							ϒf = λ.DictLiteral(map[string]λ.Object{
+								"format_id": ϒname,
+								"url":       ϒplayback_url,
+							})
+							ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("_(\\d+)K_(\\d+)X(\\d+)"), ϒname)
+							if λ.IsTrue(ϒmobj) {
+								λ.Calm(ϒf, "update", λ.DictLiteral(map[string]λ.Object{
+									"height": λ.Cal(λ.IntType, λ.Calm(ϒmobj, "group", λ.IntLiteral(3))),
+									"tbr":    λ.Cal(λ.IntType, λ.Calm(ϒmobj, "group", λ.IntLiteral(1))),
+									"width":  λ.Cal(λ.IntType, λ.Calm(ϒmobj, "group", λ.IntLiteral(2))),
+								}))
+							}
+							ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("_(\\d+)x(\\d+)_(\\d+)_(\\d+)K\\.mp4"), ϒplayback_url)
+							if λ.IsTrue(ϒmobj) {
+								λ.Calm(ϒf, "update", λ.DictLiteral(map[string]λ.Object{
+									"fps":    λ.Cal(λ.IntType, λ.Calm(ϒmobj, "group", λ.IntLiteral(3))),
+									"height": λ.Cal(λ.IntType, λ.Calm(ϒmobj, "group", λ.IntLiteral(2))),
+									"tbr":    λ.Cal(λ.IntType, λ.Calm(ϒmobj, "group", λ.IntLiteral(4))),
+									"width":  λ.Cal(λ.IntType, λ.Calm(ϒmobj, "group", λ.IntLiteral(1))),
+								}))
+							}
+							λ.Calm(ϒformats, "append", ϒf)
+						}
+					}
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒthumbnails = λ.NewList()
+					τmp0 = λ.Cal(λ.BuiltinIter, func() λ.Object {
+						if λv := λ.Cal(ϒtry_get, ϒfeed, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("image")), λ.StrLiteral("cuts"))
+							}), λ.ListType); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewList()
+						}
+					}())
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒcut = τmp1
+						ϒsrc = λ.Calm(ϒcut, "get", λ.StrLiteral("src"))
+						if !λ.IsTrue(ϒsrc) {
+							continue
+						}
+						λ.Calm(ϒthumbnails, "append", λ.DictLiteral(map[string]λ.Object{
+							"height": λ.Cal(ϒint_or_none, λ.Calm(ϒcut, "get", λ.StrLiteral("height"))),
+							"url":    ϒsrc,
+							"width":  λ.Cal(ϒint_or_none, λ.Calm(ϒcut, "get", λ.StrLiteral("width"))),
+						}))
+					}
+					ϒlanguage = λ.Calm(func() λ.Object {
+						if λv := λ.Calm(ϒvideo, "get", λ.StrLiteral("language")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.StrLiteral("EN")
+						}
+					}(), "lower")
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒvideo_id,
+						"title":       ϒtitle,
+						"formats":     ϒformats,
+						"description": λ.Calm(ϒvideo, "get", λ.StrLiteral("description")),
+						"duration":    λ.Cal(ϒparse_duration, λ.Calm(ϒfeed, "get", λ.StrLiteral("duration"))),
+						"thumbnails":  ϒthumbnails,
+						"timestamp":   λ.Cal(ϒparse_iso8601, λ.Calm(ϒvideo, "get", λ.GetAttr(ϒself, "_TIMESTAMP_KEY", nil))),
+						"subtitles":   λ.Calm(ϒself, "_extract_mlb_subtitles", ϒfeed, ϒlanguage),
+					})
+				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_CONTENT_DOMAIN": MLBIE__CONTENT_DOMAIN,
-				"_VALID_URL":      MLBIE__VALID_URL,
+				"_real_extract": MLBBaseIE__real_extract,
+			})
+		}())
+		MLBIE = λ.Cal(λ.TypeType, λ.StrLiteral("MLBIE"), λ.NewTuple(MLBBaseIE), func() λ.Dict {
+			var (
+				MLBIE__TIMESTAMP_KEY         λ.Object
+				MLBIE__VALID_URL             λ.Object
+				MLBIE__download_video_data   λ.Object
+				MLBIE__extract_mlb_subtitles λ.Object
+				MLBIE__get_feed              λ.Object
+			)
+			MLBIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:[\\da-z_-]+\\.)*mlb\\.com/\n                        (?:\n                            (?:\n                                (?:[^/]+/)*video/[^/]+/c-|\n                                (?:\n                                    shared/video/embed/(?:embed|m-internal-embed)\\.html|\n                                    (?:[^/]+/)+(?:play|index)\\.jsp|\n                                )\\?.*?\\bcontent_id=\n                            )\n                            (?P<id>\\d+)\n                        )\n                    ")
+			MLBIE__TIMESTAMP_KEY = λ.StrLiteral("date")
+			MLBIE__get_feed = λ.NewFunction("_get_feed",
+				[]λ.Param{
+					{Name: "video"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒvideo = λargs[0]
+					)
+					return ϒvideo
+				})
+			MLBIE__get_feed = λ.Cal(λ.StaticMethodType, MLBIE__get_feed)
+			MLBIE__extract_mlb_subtitles = λ.NewFunction("_extract_mlb_subtitles",
+				[]λ.Param{
+					{Name: "feed"},
+					{Name: "language"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcc_location  λ.Object
+						ϒfeed         = λargs[0]
+						ϒkeyword      λ.Object
+						ϒkeyword_type λ.Object
+						ϒlanguage     = λargs[1]
+						ϒsubtitles    λ.Object
+						τmp0          λ.Object
+						τmp1          λ.Object
+					)
+					ϒsubtitles = λ.DictLiteral(map[λ.Object]λ.Object{})
+					τmp0 = λ.Cal(λ.BuiltinIter, func() λ.Object {
+						if λv := λ.Calm(ϒfeed, "get", λ.StrLiteral("keywordsAll")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewList()
+						}
+					}())
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒkeyword = τmp1
+						ϒkeyword_type = λ.Calm(ϒkeyword, "get", λ.StrLiteral("type"))
+						if λ.IsTrue(func() λ.Object {
+							if λv := ϒkeyword_type; !λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Calm(ϒkeyword_type, "startswith", λ.StrLiteral("closed_captions_location_"))
+							}
+						}()) {
+							ϒcc_location = λ.Calm(ϒkeyword, "get", λ.StrLiteral("value"))
+							if λ.IsTrue(ϒcc_location) {
+								λ.Calm(λ.Calm(ϒsubtitles, "setdefault", ϒlanguage, λ.NewList()), "append", λ.DictLiteral(map[string]λ.Object{
+									"url": ϒcc_location,
+								}))
+							}
+						}
+					}
+					return ϒsubtitles
+				})
+			MLBIE__extract_mlb_subtitles = λ.Cal(λ.StaticMethodType, MLBIE__extract_mlb_subtitles)
+			MLBIE__download_video_data = λ.NewFunction("_download_video_data",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "display_id"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒdisplay_id = λargs[1]
+						ϒself       = λargs[0]
+					)
+					return λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("http://content.mlb.com/mlb/item/id/v1/%s/details/web-v1.json"), ϒdisplay_id), ϒdisplay_id)
+				})
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_TIMESTAMP_KEY":         MLBIE__TIMESTAMP_KEY,
+				"_VALID_URL":             MLBIE__VALID_URL,
+				"_download_video_data":   MLBIE__download_video_data,
+				"_extract_mlb_subtitles": MLBIE__extract_mlb_subtitles,
+				"_get_feed":              MLBIE__get_feed,
+			})
+		}())
+		MLBVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("MLBVideoIE"), λ.NewTuple(MLBBaseIE), func() λ.Dict {
+			var (
+				MLBVideoIE__TIMESTAMP_KEY         λ.Object
+				MLBVideoIE__VALID_URL             λ.Object
+				MLBVideoIE__download_video_data   λ.Object
+				MLBVideoIE__extract_mlb_subtitles λ.Object
+				MLBVideoIE__get_feed              λ.Object
+				MLBVideoIE_suitable               λ.Object
+			)
+			MLBVideoIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?mlb\\.com/(?:[^/]+/)*video/(?P<id>[^/?&#]+)")
+			MLBVideoIE__TIMESTAMP_KEY = λ.StrLiteral("timestamp")
+			MLBVideoIE_suitable = λ.NewFunction("suitable",
+				[]λ.Param{
+					{Name: "cls"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcls = λargs[0]
+						ϒurl = λargs[1]
+					)
+					return func() λ.Object {
+						if λ.IsTrue(λ.Calm(MLBIE, "suitable", ϒurl)) {
+							return λ.False
+						} else {
+							return λ.Calm(λ.Cal(λ.SuperType, MLBVideoIE, ϒcls), "suitable", ϒurl)
+						}
+					}()
+				})
+			MLBVideoIE_suitable = λ.Cal(λ.ClassMethodType, MLBVideoIE_suitable)
+			MLBVideoIE__get_feed = λ.NewFunction("_get_feed",
+				[]λ.Param{
+					{Name: "video"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒvideo = λargs[0]
+					)
+					return λ.GetItem(λ.GetItem(ϒvideo, λ.StrLiteral("feeds")), λ.IntLiteral(0))
+				})
+			MLBVideoIE__get_feed = λ.Cal(λ.StaticMethodType, MLBVideoIE__get_feed)
+			MLBVideoIE__extract_mlb_subtitles = λ.NewFunction("_extract_mlb_subtitles",
+				[]λ.Param{
+					{Name: "feed"},
+					{Name: "language"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcc_location λ.Object
+						ϒfeed        = λargs[0]
+						ϒlanguage    = λargs[1]
+						ϒsubtitles   λ.Object
+						τmp0         λ.Object
+						τmp1         λ.Object
+					)
+					ϒsubtitles = λ.DictLiteral(map[λ.Object]λ.Object{})
+					τmp0 = λ.Cal(λ.BuiltinIter, func() λ.Object {
+						if λv := λ.Calm(ϒfeed, "get", λ.StrLiteral("closedCaptions")); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.NewList()
+						}
+					}())
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒcc_location = τmp1
+						λ.Calm(λ.Calm(ϒsubtitles, "setdefault", ϒlanguage, λ.NewList()), "append", λ.DictLiteral(map[string]λ.Object{
+							"url": ϒcc_location,
+						}))
+					}
+					return λ.None
+				})
+			MLBVideoIE__extract_mlb_subtitles = λ.Cal(λ.StaticMethodType, MLBVideoIE__extract_mlb_subtitles)
+			MLBVideoIE__download_video_data = λ.NewFunction("_download_video_data",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "display_id"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒdisplay_id = λargs[1]
+						ϒself       = λargs[0]
+					)
+					return λ.GetItem(λ.GetItem(λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+						λ.StrLiteral("https://fastball-gateway.mlb.com/graphql"),
+						ϒdisplay_id,
+					), λ.KWArgs{
+						{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
+							"query": λ.Mod(λ.StrLiteral("{\n  mediaPlayback(ids: \"%s\") {\n    description\n    feeds(types: CMS) {\n      closedCaptions\n      duration\n      image {\n        cuts {\n          width\n          height\n          src\n        }\n      }\n      playbacks {\n        name\n        url\n      }\n    }\n    id\n    timestamp\n    title\n  }\n}"), ϒdisplay_id),
+						})},
+					}), λ.StrLiteral("data")), λ.StrLiteral("mediaPlayback")), λ.IntLiteral(0))
+				})
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_TIMESTAMP_KEY":         MLBVideoIE__TIMESTAMP_KEY,
+				"_VALID_URL":             MLBVideoIE__VALID_URL,
+				"_download_video_data":   MLBVideoIE__download_video_data,
+				"_extract_mlb_subtitles": MLBVideoIE__extract_mlb_subtitles,
+				"_get_feed":              MLBVideoIE__get_feed,
+				"suitable":               MLBVideoIE_suitable,
 			})
 		}())
 	})
