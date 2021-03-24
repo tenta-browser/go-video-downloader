@@ -33,29 +33,33 @@ import (
 )
 
 var (
-	BBCCoUkArticleIE         λ.Object
-	BBCCoUkIE                λ.Object
-	BBCCoUkIPlayerPlaylistIE λ.Object
-	BBCCoUkPlaylistBaseIE    λ.Object
-	BBCCoUkPlaylistIE        λ.Object
-	BBCIE                    λ.Object
-	ExtractorError           λ.Object
-	InfoExtractor            λ.Object
-	ϒclean_html              λ.Object
-	ϒcompat_HTTPError        λ.Object
-	ϒcompat_etree_Element    λ.Object
-	ϒdict_get                λ.Object
-	ϒfloat_or_none           λ.Object
-	ϒget_element_by_class    λ.Object
-	ϒint_or_none             λ.Object
-	ϒjs_to_json              λ.Object
-	ϒparse_duration          λ.Object
-	ϒparse_iso8601           λ.Object
-	ϒtry_get                 λ.Object
-	ϒunescapeHTML            λ.Object
-	ϒurl_or_none             λ.Object
-	ϒurlencode_postdata      λ.Object
-	ϒurljoin                 λ.Object
+	BBCCoUkArticleIE              λ.Object
+	BBCCoUkIE                     λ.Object
+	BBCCoUkIPlayerEpisodesIE      λ.Object
+	BBCCoUkIPlayerGroupIE         λ.Object
+	BBCCoUkIPlayerPlaylistBaseIE  λ.Object
+	BBCCoUkPlaylistBaseIE         λ.Object
+	BBCCoUkPlaylistIE             λ.Object
+	BBCIE                         λ.Object
+	ExtractorError                λ.Object
+	InfoExtractor                 λ.Object
+	ϒclean_html                   λ.Object
+	ϒcompat_HTTPError             λ.Object
+	ϒcompat_etree_Element         λ.Object
+	ϒcompat_parse_qs              λ.Object
+	ϒcompat_urllib_parse_urlparse λ.Object
+	ϒdict_get                     λ.Object
+	ϒfloat_or_none                λ.Object
+	ϒget_element_by_class         λ.Object
+	ϒint_or_none                  λ.Object
+	ϒjs_to_json                   λ.Object
+	ϒparse_duration               λ.Object
+	ϒparse_iso8601                λ.Object
+	ϒtry_get                      λ.Object
+	ϒunescapeHTML                 λ.Object
+	ϒurl_or_none                  λ.Object
+	ϒurlencode_postdata           λ.Object
+	ϒurljoin                      λ.Object
 )
 
 func init() {
@@ -63,6 +67,8 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_etree_Element = Ωcompat.ϒcompat_etree_Element
 		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
+		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
+		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ExtractorError = Ωutils.ExtractorError
 		ϒclean_html = Ωutils.ϒclean_html
 		ϒdict_get = Ωutils.ϒdict_get
@@ -684,7 +690,8 @@ func init() {
 					EXCLUDE_IE = λ.NewTuple(
 						BBCCoUkIE,
 						BBCCoUkArticleIE,
-						BBCCoUkIPlayerPlaylistIE,
+						BBCCoUkIPlayerEpisodesIE,
+						BBCCoUkIPlayerGroupIE,
 						BBCCoUkPlaylistIE,
 					)
 					return func() λ.Object {
@@ -1845,13 +1852,31 @@ func init() {
 
 			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
-		BBCCoUkIPlayerPlaylistIE = λ.Cal(λ.TypeType, λ.StrLiteral("BBCCoUkIPlayerPlaylistIE"), λ.NewTuple(BBCCoUkPlaylistBaseIE), func() λ.Dict {
+		BBCCoUkIPlayerPlaylistBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("BBCCoUkIPlayerPlaylistBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				BBCCoUkIPlayerPlaylistIE__VALID_URL λ.Object
+				BBCCoUkIPlayerPlaylistBaseIE__VALID_URL_TMPL λ.Object
 			)
-			BBCCoUkIPlayerPlaylistIE__VALID_URL = λ.Mod(λ.StrLiteral("https?://(?:www\\.)?bbc\\.co\\.uk/iplayer/(?:episodes|group)/(?P<id>%s)"), λ.GetAttr(BBCCoUkIE, "_ID_REGEX", nil))
+			BBCCoUkIPlayerPlaylistBaseIE__VALID_URL_TMPL = λ.Mod(λ.StrLiteral("https?://(?:www\\.)?bbc\\.co\\.uk/iplayer/%%s/(?P<id>%s)"), λ.GetAttr(BBCCoUkIE, "_ID_REGEX", nil))
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": BBCCoUkIPlayerPlaylistIE__VALID_URL,
+				"_VALID_URL_TMPL": BBCCoUkIPlayerPlaylistBaseIE__VALID_URL_TMPL,
+			})
+		}())
+		BBCCoUkIPlayerEpisodesIE = λ.Cal(λ.TypeType, λ.StrLiteral("BBCCoUkIPlayerEpisodesIE"), λ.NewTuple(BBCCoUkIPlayerPlaylistBaseIE), func() λ.Dict {
+			var (
+				BBCCoUkIPlayerEpisodesIE__VALID_URL λ.Object
+			)
+			BBCCoUkIPlayerEpisodesIE__VALID_URL = λ.Mod(λ.GetAttr(BBCCoUkIPlayerPlaylistBaseIE, "_VALID_URL_TMPL", nil), λ.StrLiteral("episodes"))
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_VALID_URL": BBCCoUkIPlayerEpisodesIE__VALID_URL,
+			})
+		}())
+		BBCCoUkIPlayerGroupIE = λ.Cal(λ.TypeType, λ.StrLiteral("BBCCoUkIPlayerGroupIE"), λ.NewTuple(BBCCoUkIPlayerPlaylistBaseIE), func() λ.Dict {
+			var (
+				BBCCoUkIPlayerGroupIE__VALID_URL λ.Object
+			)
+			BBCCoUkIPlayerGroupIE__VALID_URL = λ.Mod(λ.GetAttr(BBCCoUkIPlayerPlaylistBaseIE, "_VALID_URL_TMPL", nil), λ.StrLiteral("group"))
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_VALID_URL": BBCCoUkIPlayerGroupIE__VALID_URL,
 			})
 		}())
 		BBCCoUkPlaylistIE = λ.Cal(λ.TypeType, λ.StrLiteral("BBCCoUkPlaylistIE"), λ.NewTuple(BBCCoUkPlaylistBaseIE), func() λ.Dict {

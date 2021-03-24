@@ -66,6 +66,7 @@ func init() {
 				"fvn.no/fvntv":           "fvntv",
 				"aftenposten.no/webtv":   "aptv",
 				"ap.vgtv.no/webtv":       "aptv",
+				"tv.aftonbladet.se":      "abtv",
 				"tv.aftonbladet.se/abtv": "abtv",
 				"www.aftonbladet.se/tv":  "abtv",
 			})

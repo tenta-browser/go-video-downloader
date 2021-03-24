@@ -273,15 +273,38 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒdata     λ.Object
-						ϒself     = λargs[0]
-						ϒurl      = λargs[1]
-						ϒvideo_id λ.Object
-						ϒwebpage  λ.Object
+						ϒdata       λ.Object
+						ϒpage_props λ.Object
+						ϒself       = λargs[0]
+						ϒurl        = λargs[1]
+						ϒvideo_id   λ.Object
+						ϒwebpage    λ.Object
 					)
 					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
-					ϒdata = λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<script[^>]+\\bid=[\"\\']__NEXT_DATA__[^>]+>\\s*({.+?})\\s*</script"), ϒwebpage, λ.StrLiteral("data")), ϒvideo_id), λ.StrLiteral("props")), λ.StrLiteral("pageProps")), λ.StrLiteral("itemInfo")), λ.StrLiteral("itemStruct"))
+					ϒpage_props = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("<script[^>]+\\bid=[\"\\']__NEXT_DATA__[^>]+>\\s*({.+?})\\s*</script"), ϒwebpage, λ.StrLiteral("data")), ϒvideo_id), λ.StrLiteral("props")), λ.StrLiteral("pageProps"))
+					ϒdata = λ.Cal(ϒtry_get, ϒpage_props, λ.NewFunction("<lambda>",
+						[]λ.Param{
+							{Name: "x"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒx = λargs[0]
+							)
+							return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("itemInfo")), λ.StrLiteral("itemStruct"))
+						}), λ.DictType)
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.NewBool(!λ.IsTrue(ϒdata)); !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Eq(λ.Calm(ϒpage_props, "get", λ.StrLiteral("statusCode")), λ.IntLiteral(10216))
+						}
+					}()) {
+						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("This video is private")), λ.KWArgs{
+							{Name: "expected", Value: λ.True},
+						})))
+					}
 					return λ.Calm(ϒself, "_extract_video", ϒdata, ϒvideo_id)
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{

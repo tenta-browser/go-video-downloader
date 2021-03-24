@@ -310,11 +310,20 @@ func init() {
 		}())
 		SkyItAcademyIE = λ.Cal(λ.TypeType, λ.StrLiteral("SkyItAcademyIE"), λ.NewTuple(SkyItIE), func() λ.Dict {
 			var (
-				SkyItAcademyIE__VALID_URL λ.Object
+				SkyItAcademyIE_IE_NAME         λ.Object
+				SkyItAcademyIE__DOMAIN         λ.Object
+				SkyItAcademyIE__VALID_URL      λ.Object
+				SkyItAcademyIE__VIDEO_ID_REGEX λ.Object
 			)
+			SkyItAcademyIE_IE_NAME = λ.StrLiteral("skyacademy.it")
 			SkyItAcademyIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?skyacademy\\.it(?:/[^/]+)*/\\d{4}/\\d{2}/\\d{2}/(?P<id>[^/?&#]+)")
+			SkyItAcademyIE__DOMAIN = λ.StrLiteral("skyacademy")
+			SkyItAcademyIE__VIDEO_ID_REGEX = λ.StrLiteral("id=\"news-videoId_(\\d+)\"")
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": SkyItAcademyIE__VALID_URL,
+				"IE_NAME":         SkyItAcademyIE_IE_NAME,
+				"_DOMAIN":         SkyItAcademyIE__DOMAIN,
+				"_VALID_URL":      SkyItAcademyIE__VALID_URL,
+				"_VIDEO_ID_REGEX": SkyItAcademyIE__VIDEO_ID_REGEX,
 			})
 		}())
 		SkyItArteIE = λ.Cal(λ.TypeType, λ.StrLiteral("SkyItArteIE"), λ.NewTuple(SkyItIE), func() λ.Dict {
@@ -337,20 +346,11 @@ func init() {
 		}())
 		CieloTVItIE = λ.Cal(λ.TypeType, λ.StrLiteral("CieloTVItIE"), λ.NewTuple(SkyItIE), func() λ.Dict {
 			var (
-				CieloTVItIE_IE_NAME         λ.Object
-				CieloTVItIE__DOMAIN         λ.Object
-				CieloTVItIE__VALID_URL      λ.Object
-				CieloTVItIE__VIDEO_ID_REGEX λ.Object
+				CieloTVItIE__VALID_URL λ.Object
 			)
-			CieloTVItIE_IE_NAME = λ.StrLiteral("cielotv.it")
 			CieloTVItIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?cielotv\\.it/video/(?P<id>[^.]+)\\.html")
-			CieloTVItIE__DOMAIN = λ.StrLiteral("cielo")
-			CieloTVItIE__VIDEO_ID_REGEX = λ.StrLiteral("videoId\\s*=\\s*\"(\\d+)\"")
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"IE_NAME":         CieloTVItIE_IE_NAME,
-				"_DOMAIN":         CieloTVItIE__DOMAIN,
-				"_VALID_URL":      CieloTVItIE__VALID_URL,
-				"_VIDEO_ID_REGEX": CieloTVItIE__VIDEO_ID_REGEX,
+				"_VALID_URL": CieloTVItIE__VALID_URL,
 			})
 		}())
 		TV8ItIE = λ.Cal(λ.TypeType, λ.StrLiteral("TV8ItIE"), λ.NewTuple(SkyItVideoIE), func() λ.Dict {

@@ -14,7 +14,6 @@ Supported sites
  * ArchiveOrg: `archive.org`
  * Arkena: `video.qbrick.com`
  * ARD: `www.daserste.de`
- * ARDMediathek: `www.ardmediathek.de`
  * ArteTV: `www.arte.tv`
  * AsianCrush: `www.asiancrush.com`
  * AudioBoom: `audioboom.com`
@@ -105,7 +104,6 @@ Supported sites
  * GiantBomb: `www.giantbomb.com`
  * GodTube: `www.godtube.com`
  * Golem: `video.golem.de`
- * GoogleDrive: `drive.google.com`
  * GooglePodcasts: `podcasts.google.com`
  * GPUTechConf: `on-demand.gputechconf.com`
  * HBO: `www.hbo.com`
@@ -132,6 +130,7 @@ Supported sites
  * Lenta: `lenta.ru`
  * LibraryOfCongress: `loc.gov`
  * Libsyn: `html5-player.libsyn.com`
+ * LimelightMedia: `link.videoplatform.limelight.com`
  * Livestream: `new.livestream.com`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * Lynda: `www.lynda.com`
@@ -202,8 +201,8 @@ Supported sites
  * Sina: `video.sina.com.cn`
  * SkyItVideo: `video.sky.it`
  * SkyIt: `tg24.sky.it`
+ * SkyItAcademy: `www.skyacademy.it`
  * SkyItArte: `arte.sky.it`
- * CieloTVIt: `www.cielotv.it`
  * TV8It: `tv8.it`
  * SkyNews: `news.sky.com`
  * SkySports: `www.skysports.com`
@@ -295,3 +294,5 @@ Supported sites
  * Youtube _(adult)_: `www.youtube.com`
  * ZDF: `www.zdf.de`
  * Zhihu: `www.zhihu.com`
+ * ZingMp3: `mp3.zing.vn`
+ * Zoom: `economist.zoom.us`

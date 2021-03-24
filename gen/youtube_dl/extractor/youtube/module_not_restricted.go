@@ -1827,7 +1827,7 @@ func init() {
 							λ.Calm(ϒformats, "append", ϒf)
 						}
 					}
-					if λ.IsTrue(λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("youtube_include_dash_manifest"))) {
+					if λ.IsTrue(λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("youtube_include_dash_manifest"), λ.True)) {
 						ϒdash_manifest_url = λ.Calm(ϒstreaming_data, "get", λ.StrLiteral("dashManifestUrl"))
 						if λ.IsTrue(ϒdash_manifest_url) {
 							τmp0 = λ.Cal(λ.BuiltinIter, λ.Call(λ.GetAttr(ϒself, "_extract_mpd_formats", nil), λ.NewArgs(

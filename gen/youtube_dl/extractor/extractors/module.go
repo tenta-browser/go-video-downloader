@@ -122,7 +122,6 @@ import (
 	Ωgiantbomb "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/giantbomb"
 	Ωgodtube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/godtube"
 	Ωgolem "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/golem"
-	Ωgoogledrive "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/googledrive"
 	Ωgooglepodcasts "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/googlepodcasts"
 	Ωgputechconf "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/gputechconf"
 	Ωhbo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/hbo"
@@ -291,6 +290,8 @@ import (
 	Ωyoutube "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/youtube"
 	Ωzdf "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/zdf"
 	Ωzhihu "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/zhihu"
+	Ωzingmp3 "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/zingmp3"
+	Ωzoom "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/zoom"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
@@ -299,7 +300,6 @@ var (
 	ACastIE                    λ.Object
 	APAIE                      λ.Object
 	ARDIE                      λ.Object
-	ARDMediathekIE             λ.Object
 	AZMedienIE                 λ.Object
 	AbcNewsVideoIE             λ.Object
 	AdobeTVVideoIE             λ.Object
@@ -341,7 +341,6 @@ var (
 	CanalplusIE                λ.Object
 	CharlieRoseIE              λ.Object
 	ChirbitIE                  λ.Object
-	CieloTVItIE                λ.Object
 	CinemaxIE                  λ.Object
 	ClipRsIE                   λ.Object
 	ClippitIE                  λ.Object
@@ -403,7 +402,6 @@ var (
 	GiantBombIE                λ.Object
 	GodTubeIE                  λ.Object
 	GolemIE                    λ.Object
-	GoogleDriveIE              λ.Object
 	GooglePodcastsIE           λ.Object
 	HBOIE                      λ.Object
 	HeiseIE                    λ.Object
@@ -501,6 +499,7 @@ var (
 	SimplecastEpisodeIE        λ.Object
 	SimplecastIE               λ.Object
 	SinaIE                     λ.Object
+	SkyItAcademyIE             λ.Object
 	SkyItArteIE                λ.Object
 	SkyItIE                    λ.Object
 	SkyItVideoIE               λ.Object
@@ -592,6 +591,8 @@ var (
 	YoutubeIE                  λ.Object
 	ZDFIE                      λ.Object
 	ZhihuIE                    λ.Object
+	ZingMp3IE                  λ.Object
+	ZoomIE                     λ.Object
 	ϒ__ALL__                   λ.Object
 )
 
@@ -610,7 +611,6 @@ func init() {
 		ArchiveOrgIE = Ωarchiveorg.ArchiveOrgIE
 		ArkenaIE = Ωarkena.ArkenaIE
 		ARDIE = Ωard.ARDIE
-		ARDMediathekIE = Ωard.ARDMediathekIE
 		ArteTVIE = Ωarte.ArteTVIE
 		AsianCrushIE = Ωasiancrush.AsianCrushIE
 		AudioBoomIE = Ωaudioboom.AudioBoomIE
@@ -701,7 +701,6 @@ func init() {
 		GiantBombIE = Ωgiantbomb.GiantBombIE
 		GodTubeIE = Ωgodtube.GodTubeIE
 		GolemIE = Ωgolem.GolemIE
-		GoogleDriveIE = Ωgoogledrive.GoogleDriveIE
 		GooglePodcastsIE = Ωgooglepodcasts.GooglePodcastsIE
 		GPUTechConfIE = Ωgputechconf.GPUTechConfIE
 		HBOIE = Ωhbo.HBOIE
@@ -799,8 +798,8 @@ func init() {
 		SinaIE = Ωsina.SinaIE
 		SkyItVideoIE = Ωskyit.SkyItVideoIE
 		SkyItIE = Ωskyit.SkyItIE
+		SkyItAcademyIE = Ωskyit.SkyItAcademyIE
 		SkyItArteIE = Ωskyit.SkyItArteIE
-		CieloTVItIE = Ωskyit.CieloTVItIE
 		TV8ItIE = Ωskyit.TV8ItIE
 		SkyNewsIE = Ωsky.SkyNewsIE
 		SkySportsIE = Ωsky.SkySportsIE
@@ -894,6 +893,8 @@ func init() {
 		YoutubeIE = Ωyoutube.YoutubeIE
 		ZDFIE = Ωzdf.ZDFIE
 		ZhihuIE = Ωzhihu.ZhihuIE
+		ZingMp3IE = Ωzingmp3.ZingMp3IE
+		ZoomIE = Ωzoom.ZoomIE
 		ϒ__ALL__ = λ.NewList(
 			AbcNewsVideoIE,
 			ABCOTVSIE,
@@ -908,7 +909,6 @@ func init() {
 			ArchiveOrgIE,
 			ArkenaIE,
 			ARDIE,
-			ARDMediathekIE,
 			ArteTVIE,
 			AsianCrushIE,
 			AudioBoomIE,
@@ -999,7 +999,6 @@ func init() {
 			GiantBombIE,
 			GodTubeIE,
 			GolemIE,
-			GoogleDriveIE,
 			GooglePodcastsIE,
 			GPUTechConfIE,
 			HBOIE,
@@ -1097,8 +1096,8 @@ func init() {
 			SinaIE,
 			SkyItVideoIE,
 			SkyItIE,
+			SkyItAcademyIE,
 			SkyItArteIE,
-			CieloTVItIE,
 			TV8ItIE,
 			SkyNewsIE,
 			SkySportsIE,
@@ -1192,6 +1191,8 @@ func init() {
 			YoutubeIE,
 			ZDFIE,
 			ZhihuIE,
+			ZingMp3IE,
+			ZoomIE,
 		)
 	})
 }

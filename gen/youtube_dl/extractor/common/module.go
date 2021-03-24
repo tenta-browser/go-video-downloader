@@ -167,6 +167,7 @@ func init() {
 				InfoExtractor___can_accept_status_code     λ.Object
 				InfoExtractor___check_blocked              λ.Object
 				InfoExtractor___init__                     λ.Object
+				InfoExtractor___maybe_fake_ip_and_retry    λ.Object
 				InfoExtractor__check_formats               λ.Object
 				InfoExtractor__download_json               λ.Object
 				InfoExtractor__download_json_handle        λ.Object
@@ -234,7 +235,6 @@ func init() {
 				InfoExtractor__x_forwarded_for_ip          λ.Object
 				InfoExtractor__xpath_ns                    λ.Object
 				InfoExtractor_extract                      λ.Object
-				InfoExtractor_extract_automatic_captions   λ.Object
 				InfoExtractor_extract_subtitles            λ.Object
 				InfoExtractor_geo_verification_headers     λ.Object
 				InfoExtractor_http_scheme                  λ.Object
@@ -242,6 +242,7 @@ func init() {
 				InfoExtractor_initialize                   λ.Object
 				InfoExtractor_mark_watched                 λ.Object
 				InfoExtractor_playlist_result              λ.Object
+				InfoExtractor_raise_geo_restricted         λ.Object
 				InfoExtractor_raise_login_required         λ.Object
 				InfoExtractor_report_download_webpage      λ.Object
 				InfoExtractor_report_extraction            λ.Object
@@ -502,6 +503,43 @@ func init() {
 						return τmp1
 					}
 					return λ.None
+				})
+			InfoExtractor___maybe_fake_ip_and_retry = λ.NewFunction("__maybe_fake_ip_and_retry",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "countries"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcountries    = λargs[1]
+						ϒcountry_code λ.Object
+						ϒself         = λargs[0]
+					)
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.NewBool(!λ.IsTrue(λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("geo_bypass_country"), λ.None))); !λ.IsTrue(λv) {
+							return λv
+						} else if λv := λ.GetAttr(ϒself, "_GEO_BYPASS", nil); !λ.IsTrue(λv) {
+							return λv
+						} else if λv := λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("geo_bypass"), λ.True); !λ.IsTrue(λv) {
+							return λv
+						} else if λv := λ.NewBool(!λ.IsTrue(λ.GetAttr(ϒself, "_x_forwarded_for_ip", nil))); !λ.IsTrue(λv) {
+							return λv
+						} else {
+							return ϒcountries
+						}
+					}()) {
+						ϒcountry_code = λ.Cal(Ωrandom.ϒchoice, ϒcountries)
+						λ.SetAttr(ϒself, "_x_forwarded_for_ip", λ.Calm(GeoUtils, "random_ipv4", ϒcountry_code))
+						if λ.IsTrue(λ.GetAttr(ϒself, "_x_forwarded_for_ip", nil)) {
+							λ.Calm(ϒself, "report_warning", λ.Mod(λ.StrLiteral("Video is geo restricted. Retrying extraction with fake IP %s (%s) as X-Forwarded-For."), λ.NewTuple(
+								λ.GetAttr(ϒself, "_x_forwarded_for_ip", nil),
+								λ.Calm(ϒcountry_code, "upper"),
+							)))
+							return λ.True
+						}
+					}
+					return λ.False
 				})
 			InfoExtractor_set_downloader = λ.NewFunction("set_downloader",
 				[]λ.Param{
@@ -1499,6 +1537,23 @@ func init() {
 					return λ.None
 				})
 			InfoExtractor_raise_login_required = λ.Cal(λ.StaticMethodType, InfoExtractor_raise_login_required)
+			InfoExtractor_raise_geo_restricted = λ.NewFunction("raise_geo_restricted",
+				[]λ.Param{
+					{Name: "msg", Def: λ.StrLiteral("This video is not available from your location due to geo restriction")},
+					{Name: "countries", Def: λ.None},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcountries = λargs[1]
+						ϒmsg       = λargs[0]
+					)
+					panic(λ.Raise(λ.Call(GeoRestrictedError, λ.NewArgs(ϒmsg), λ.KWArgs{
+						{Name: "countries", Value: ϒcountries},
+					})))
+					return λ.None
+				})
+			InfoExtractor_raise_geo_restricted = λ.Cal(λ.StaticMethodType, InfoExtractor_raise_geo_restricted)
 			InfoExtractor_url_result = λ.NewFunction("url_result",
 				[]λ.Param{
 					{Name: "url"},
@@ -6443,30 +6498,6 @@ func init() {
 					return ϒret
 				})
 			InfoExtractor__merge_subtitles = λ.Cal(λ.ClassMethodType, InfoExtractor__merge_subtitles)
-			InfoExtractor_extract_automatic_captions = λ.NewFunction("extract_automatic_captions",
-				[]λ.Param{
-					{Name: "self"},
-				},
-				0, true, true,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒargs   = λargs[1]
-						ϒkwargs = λargs[2]
-						ϒself   = λargs[0]
-					)
-					if λ.IsTrue(func() λ.Object {
-						if λv := λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("writeautomaticsub"), λ.False); λ.IsTrue(λv) {
-							return λv
-						} else {
-							return λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("listsubtitles"))
-						}
-					}()) {
-						return λ.Call(λ.GetAttr(ϒself, "_get_automatic_captions", nil), λ.NewArgs(λ.Unpack(λ.AsStarred(ϒargs))...), λ.KWArgs{
-							{Name: "", Value: ϒkwargs},
-						})
-					}
-					return λ.DictLiteral(map[λ.Object]λ.Object{})
-				})
 			InfoExtractor_mark_watched = λ.NewFunction("mark_watched",
 				[]λ.Param{
 					{Name: "self"},
@@ -6524,6 +6555,7 @@ func init() {
 				"__can_accept_status_code":     InfoExtractor___can_accept_status_code,
 				"__check_blocked":              InfoExtractor___check_blocked,
 				"__init__":                     InfoExtractor___init__,
+				"__maybe_fake_ip_and_retry":    InfoExtractor___maybe_fake_ip_and_retry,
 				"_check_formats":               InfoExtractor__check_formats,
 				"_download_json":               InfoExtractor__download_json,
 				"_download_json_handle":        InfoExtractor__download_json_handle,
@@ -6591,7 +6623,6 @@ func init() {
 				"_x_forwarded_for_ip":          InfoExtractor__x_forwarded_for_ip,
 				"_xpath_ns":                    InfoExtractor__xpath_ns,
 				"extract":                      InfoExtractor_extract,
-				"extract_automatic_captions":   InfoExtractor_extract_automatic_captions,
 				"extract_subtitles":            InfoExtractor_extract_subtitles,
 				"geo_verification_headers":     InfoExtractor_geo_verification_headers,
 				"http_scheme":                  InfoExtractor_http_scheme,
@@ -6599,6 +6630,7 @@ func init() {
 				"initialize":                   InfoExtractor_initialize,
 				"mark_watched":                 InfoExtractor_mark_watched,
 				"playlist_result":              InfoExtractor_playlist_result,
+				"raise_geo_restricted":         InfoExtractor_raise_geo_restricted,
 				"raise_login_required":         InfoExtractor_raise_login_required,
 				"report_download_webpage":      InfoExtractor_report_download_webpage,
 				"report_extraction":            InfoExtractor_report_extraction,
