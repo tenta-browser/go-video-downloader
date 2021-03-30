@@ -84,18 +84,20 @@ func init() {
 		ϒurljoin = Ωutils.ϒurljoin
 		FacebookIE = λ.Cal(λ.TypeType, λ.StrLiteral("FacebookIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				FacebookIE_IE_NAME                  λ.Object
-				FacebookIE__NETRC_MACHINE           λ.Object
-				FacebookIE__SUPPORTED_PAGLETS_REGEX λ.Object
-				FacebookIE__VALID_URL               λ.Object
-				FacebookIE__extract_from_url        λ.Object
-				FacebookIE__login                   λ.Object
-				FacebookIE__real_extract            λ.Object
-				FacebookIE__real_initialize         λ.Object
+				FacebookIE_IE_NAME                    λ.Object
+				FacebookIE__NETRC_MACHINE             λ.Object
+				FacebookIE__SUPPORTED_PAGLETS_REGEX   λ.Object
+				FacebookIE__VALID_URL                 λ.Object
+				FacebookIE__VIDEO_PAGE_TAHOE_TEMPLATE λ.Object
+				FacebookIE__extract_from_url          λ.Object
+				FacebookIE__login                     λ.Object
+				FacebookIE__real_extract              λ.Object
+				FacebookIE__real_initialize           λ.Object
 			)
 			FacebookIE__VALID_URL = λ.StrLiteral("(?x)\n                (?:\n                    https?://\n                        (?:[\\w-]+\\.)?(?:facebook\\.com|facebookcorewwwi\\.onion)/\n                        (?:[^#]*?\\#!/)?\n                        (?:\n                            (?:\n                                video/video\\.php|\n                                photo\\.php|\n                                video\\.php|\n                                video/embed|\n                                story\\.php|\n                                watch(?:/live)?/?\n                            )\\?(?:.*?)(?:v|video_id|story_fbid)=|\n                            [^/]+/videos/(?:[^/]+/)?|\n                            [^/]+/posts/|\n                            groups/[^/]+/permalink/|\n                            watchparty/\n                        )|\n                    facebook:\n                )\n                (?P<id>[0-9]+)\n                ")
 			FacebookIE__NETRC_MACHINE = λ.StrLiteral("facebook")
 			FacebookIE_IE_NAME = λ.StrLiteral("facebook")
+			FacebookIE__VIDEO_PAGE_TAHOE_TEMPLATE = λ.StrLiteral("https://www.facebook.com/video/tahoe/async/%s/?chain=true&isvideo=true&payloadtype=primary")
 			FacebookIE__SUPPORTED_PAGLETS_REGEX = λ.StrLiteral("(?:pagelet_group_mall|permalink_video_pagelet|hyperfeed_story_id_[0-9a-f]+)")
 			FacebookIE__login = λ.NewFunction("_login",
 				[]λ.Param{
@@ -1257,14 +1259,15 @@ func init() {
 					return λ.Calm(ϒself, "_extract_from_url", ϒreal_url, ϒvideo_id)
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"IE_NAME":                  FacebookIE_IE_NAME,
-				"_NETRC_MACHINE":           FacebookIE__NETRC_MACHINE,
-				"_SUPPORTED_PAGLETS_REGEX": FacebookIE__SUPPORTED_PAGLETS_REGEX,
-				"_VALID_URL":               FacebookIE__VALID_URL,
-				"_extract_from_url":        FacebookIE__extract_from_url,
-				"_login":                   FacebookIE__login,
-				"_real_extract":            FacebookIE__real_extract,
-				"_real_initialize":         FacebookIE__real_initialize,
+				"IE_NAME":                    FacebookIE_IE_NAME,
+				"_NETRC_MACHINE":             FacebookIE__NETRC_MACHINE,
+				"_SUPPORTED_PAGLETS_REGEX":   FacebookIE__SUPPORTED_PAGLETS_REGEX,
+				"_VALID_URL":                 FacebookIE__VALID_URL,
+				"_VIDEO_PAGE_TAHOE_TEMPLATE": FacebookIE__VIDEO_PAGE_TAHOE_TEMPLATE,
+				"_extract_from_url":          FacebookIE__extract_from_url,
+				"_login":                     FacebookIE__login,
+				"_real_extract":              FacebookIE__real_extract,
+				"_real_initialize":           FacebookIE__real_initialize,
 			})
 		}())
 		FacebookPluginsVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("FacebookPluginsVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

@@ -65,6 +65,7 @@ var (
 	ϒcompat_urllib_parse_unquote_plus λ.Object
 	ϒcompat_urllib_parse_urlencode    λ.Object
 	ϒcompat_urllib_parse_urlparse     λ.Object
+	ϒdict_get                         λ.Object
 	ϒfloat_or_none                    λ.Object
 	ϒint_or_none                      λ.Object
 	ϒmimetype2ext                     λ.Object
@@ -98,6 +99,7 @@ func init() {
 		JSInterpreter = Ωjsinterp.JSInterpreter
 		ExtractorError = Ωutils.ExtractorError
 		ϒclean_html = Ωutils.ϒclean_html
+		ϒdict_get = Ωutils.ϒdict_get
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext
@@ -2650,7 +2652,7 @@ func init() {
 											ϒx = λargs[0]
 										)
 										return λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("owner")), λ.StrLiteral("videoOwnerRenderer")), λ.StrLiteral("title"))
-									}), ϒcompat_str)))
+									}), λ.DictType)))
 								ϒrows = func() λ.Object {
 									if λv := λ.Cal(ϒtry_get, ϒvsir, λ.NewFunction("<lambda>",
 										[]λ.Param{

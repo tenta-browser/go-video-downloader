@@ -59,6 +59,7 @@ var (
 	ϒjs_to_json            λ.Object
 	ϒmerge_dicts           λ.Object
 	ϒparse_filesize        λ.Object
+	ϒparse_iso8601         λ.Object
 	ϒsanitized_Request     λ.Object
 	ϒsmuggle_url           λ.Object
 	ϒstd_headers           λ.Object
@@ -85,6 +86,7 @@ func init() {
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒmerge_dicts = Ωutils.ϒmerge_dicts
 		ϒparse_filesize = Ωutils.ϒparse_filesize
+		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
 		RegexNotFoundError = Ωutils.RegexNotFoundError
 		ϒsanitized_Request = Ωutils.ϒsanitized_Request
 		ϒsmuggle_url = Ωutils.ϒsmuggle_url
@@ -703,7 +705,7 @@ func init() {
 				VimeoIE__smuggle_referrer             λ.Object
 				VimeoIE__verify_player_video_password λ.Object
 			)
-			VimeoIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\n                            (?:\n                                www|\n                                player\n                            )\n                            \\.\n                        )?\n                        vimeo(?:pro)?\\.com/\n                        (?!(?:channels|album|showcase)/[^/?#]+/?(?:$|[?#])|[^/]+/review/|ondemand/)\n                        (?:.*?/)?\n                        (?:\n                            (?:\n                                play_redirect_hls|\n                                moogaloop\\.swf)\\?clip_id=\n                            )?\n                        (?:videos?/)?\n                        (?P<id>[0-9]+)\n                        (?:/[\\da-f]+)?\n                        /?(?:[?&].*)?(?:[#].*)?$\n                    ")
+			VimeoIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\n                            (?:\n                                www|\n                                player\n                            )\n                            \\.\n                        )?\n                        vimeo(?:pro)?\\.com/\n                        (?!(?:channels|album|showcase)/[^/?#]+/?(?:$|[?#])|[^/]+/review/|ondemand/)\n                        (?:.*?/)?\n                        (?:\n                            (?:\n                                play_redirect_hls|\n                                moogaloop\\.swf)\\?clip_id=\n                            )?\n                        (?:videos?/)?\n                        (?P<id>[0-9]+)\n                        (?:/(?P<unlisted_hash>[\\da-f]{10}))?\n                        /?(?:[?&].*)?(?:[#].*)?$\n                    ")
 			VimeoIE_IE_NAME = λ.StrLiteral("vimeo")
 			VimeoIE__smuggle_referrer = λ.NewFunction("_smuggle_referrer",
 				[]λ.Param{
@@ -867,17 +869,21 @@ func init() {
 						ϒconfig            λ.Object
 						ϒconfig_re         λ.Object
 						ϒconfig_url        λ.Object
+						ϒconnections       λ.Object
 						ϒdata              λ.Object
 						ϒerrmsg            λ.Object
 						ϒfeature_id        λ.Object
 						ϒformats           λ.Object
+						ϒget_timestamp     λ.Object
 						ϒheaders           λ.Object
+						ϒinfo              λ.Object
 						ϒinfo_dict         λ.Object
 						ϒinfo_dict_config  λ.Object
 						ϒis_player         λ.Object
 						ϒis_pro            λ.Object
 						ϒis_rented         λ.Object
 						ϒjson_ld           λ.Object
+						ϒk                 λ.Object
 						ϒlike_count        λ.Object
 						ϒm_variable_name   λ.Object
 						ϒorig_url          λ.Object
@@ -888,6 +894,8 @@ func init() {
 						ϒself              = λargs[0]
 						ϒsource_format     λ.Object
 						ϒtimestamp         λ.Object
+						ϒtoken             λ.Object
+						ϒunlisted_hash     λ.Object
 						ϒurl               = λargs[1]
 						ϒurlh              λ.Object
 						ϒvideo             λ.Object
@@ -916,14 +924,102 @@ func init() {
 					if !λ.Contains(ϒheaders, λ.StrLiteral("Referer")) {
 						λ.SetItem(ϒheaders, λ.StrLiteral("Referer"), ϒurl)
 					}
-					ϒchannel_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.StrLiteral("vimeo\\.com/channels/([^/]+)"),
-						ϒurl,
-						λ.StrLiteral("channel id"),
-					), λ.KWArgs{
-						{Name: "default", Value: λ.None},
-					})
-					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(0))
+					ϒunlisted_hash = λ.GetItem(τmp0, λ.IntLiteral(1))
+					if λ.IsTrue(ϒunlisted_hash) {
+						ϒtoken = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+							λ.StrLiteral("https://vimeo.com/_rv/jwt"),
+							ϒvideo_id,
+						), λ.KWArgs{
+							{Name: "headers", Value: λ.DictLiteral(map[string]string{
+								"X-Requested-With": "XMLHttpRequest",
+							})},
+						}), λ.StrLiteral("token"))
+						ϒvideo = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+							λ.Mod(λ.StrLiteral("https://api.vimeo.com/videos/%s:%s"), λ.NewTuple(
+								ϒvideo_id,
+								ϒunlisted_hash,
+							)),
+							ϒvideo_id,
+						), λ.KWArgs{
+							{Name: "headers", Value: λ.DictLiteral(map[string]λ.Object{
+								"Authorization": λ.Add(λ.StrLiteral("jwt "), ϒtoken),
+							})},
+							{Name: "query", Value: λ.DictLiteral(map[string]string{
+								"fields": "config_url,created_time,description,license,metadata.connections.comments.total,metadata.connections.likes.total,release_time,stats.plays",
+							})},
+						})
+						ϒinfo = λ.Calm(ϒself, "_parse_config", λ.Calm(ϒself, "_download_json", λ.GetItem(ϒvideo, λ.StrLiteral("config_url")), ϒvideo_id), ϒvideo_id)
+						λ.Calm(ϒself, "_vimeo_sort_formats", λ.GetItem(ϒinfo, λ.StrLiteral("formats")))
+						ϒget_timestamp = λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.Cal(ϒparse_iso8601, λ.Calm(ϒvideo, "get", λ.Add(ϒx, λ.StrLiteral("_time"))))
+							})
+						λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
+							"description":       λ.Calm(ϒvideo, "get", λ.StrLiteral("description")),
+							"license":           λ.Calm(ϒvideo, "get", λ.StrLiteral("license")),
+							"release_timestamp": λ.Cal(ϒget_timestamp, λ.StrLiteral("release")),
+							"timestamp":         λ.Cal(ϒget_timestamp, λ.StrLiteral("created")),
+							"view_count": λ.Cal(ϒint_or_none, λ.Cal(ϒtry_get, ϒvideo, λ.NewFunction("<lambda>",
+								[]λ.Param{
+									{Name: "x"},
+								},
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									var (
+										ϒx = λargs[0]
+									)
+									return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("stats")), λ.StrLiteral("plays"))
+								}))),
+						}))
+						ϒconnections = func() λ.Object {
+							if λv := λ.Cal(ϒtry_get, ϒvideo, λ.NewFunction("<lambda>",
+								[]λ.Param{
+									{Name: "x"},
+								},
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									var (
+										ϒx = λargs[0]
+									)
+									return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("metadata")), λ.StrLiteral("connections"))
+								}), λ.DictType); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.DictLiteral(map[λ.Object]λ.Object{})
+							}
+						}()
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+							λ.StrLiteral("comment"),
+							λ.StrLiteral("like"),
+						))
+						for {
+							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+								break
+							}
+							ϒk = τmp1
+							λ.SetItem(ϒinfo, λ.Add(ϒk, λ.StrLiteral("_count")), λ.Cal(ϒint_or_none, λ.Cal(ϒtry_get, ϒconnections, λ.NewFunction("<lambda>",
+								[]λ.Param{
+									{Name: "x"},
+								},
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									var (
+										ϒx = λargs[0]
+									)
+									return λ.GetItem(λ.GetItem(ϒx, λ.Add(ϒk, λ.StrLiteral("s"))), λ.StrLiteral("total"))
+								}))))
+						}
+						return ϒinfo
+					}
 					ϒorig_url = ϒurl
 					ϒis_pro = λ.NewBool(λ.Contains(ϒurl, λ.StrLiteral("vimeopro.com/")))
 					ϒis_player = λ.NewBool(λ.Contains(ϒurl, λ.StrLiteral("://player.vimeo.com/video/")))
@@ -1280,6 +1376,13 @@ func init() {
 							{Name: "group", Value: λ.StrLiteral("license")},
 						})
 					}
+					ϒchannel_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+						λ.StrLiteral("vimeo\\.com/channels/([^/]+)"),
+						ϒurl,
+						λ.StrLiteral("channel id"),
+					), λ.KWArgs{
+						{Name: "default", Value: λ.None},
+					})
 					ϒchannel_url = func() λ.Object {
 						if λ.IsTrue(ϒchannel_id) {
 							return λ.Mod(λ.StrLiteral("https://vimeo.com/channels/%s"), ϒchannel_id)
@@ -1315,13 +1418,10 @@ func init() {
 		}())
 		VimeoOndemandIE = λ.Cal(λ.TypeType, λ.StrLiteral("VimeoOndemandIE"), λ.NewTuple(VimeoIE), func() λ.Dict {
 			var (
-				VimeoOndemandIE_IE_NAME    λ.Object
 				VimeoOndemandIE__VALID_URL λ.Object
 			)
-			VimeoOndemandIE_IE_NAME = λ.StrLiteral("vimeo:ondemand")
 			VimeoOndemandIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?vimeo\\.com/ondemand/([^/]+/)?(?P<id>[^/?#&]+)")
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"IE_NAME":    VimeoOndemandIE_IE_NAME,
 				"_VALID_URL": VimeoOndemandIE__VALID_URL,
 			})
 		}())

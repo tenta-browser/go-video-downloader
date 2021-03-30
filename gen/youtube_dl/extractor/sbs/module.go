@@ -47,7 +47,7 @@ func init() {
 				SBSIE__VALID_URL    λ.Object
 				SBSIE__real_extract λ.Object
 			)
-			SBSIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?sbs\\.com\\.au/(?:ondemand(?:/video/(?:single/)?|.*?\\bplay=)|news/(?:embeds/)?video/)(?P<id>[0-9]+)")
+			SBSIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?sbs\\.com\\.au/(?:ondemand(?:/video/(?:single/)?|.*?\\bplay=|/watch/)|news/(?:embeds/)?video/)(?P<id>[0-9]+)")
 			SBSIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},

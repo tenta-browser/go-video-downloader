@@ -265,7 +265,6 @@ Supported sites
  * VideosZ _(adult)_: `www.videosz.com`
  * VidLii: `www.vidlii.com`
  * Vimeo: `vimeo.com`
- * VimeoOndemand: `vimeo.com`
  * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
  * Vine: `vine.co`

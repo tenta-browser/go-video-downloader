@@ -199,8 +199,9 @@ func init() {
 						τmp1           λ.Object
 					)
 					ϒquery = λ.DictLiteral(map[string]λ.Object{
-						"appId": λ.GetAttr(ϒself, "_APP_ID", nil),
-						"gcc":   λ.StrLiteral("KR"),
+						"appId":        λ.GetAttr(ϒself, "_APP_ID", nil),
+						"gcc":          λ.StrLiteral("KR"),
+						"platformType": λ.StrLiteral("PC"),
 					})
 					if λ.IsTrue(ϒfields) {
 						λ.SetItem(ϒquery, λ.StrLiteral("fields"), ϒfields)

@@ -564,7 +564,6 @@ var (
 	VideoPressIE               λ.Object
 	VideosZIE                  λ.Object
 	VimeoIE                    λ.Object
-	VimeoOndemandIE            λ.Object
 	VimeoReviewIE              λ.Object
 	VimpleIE                   λ.Object
 	VineIE                     λ.Object
@@ -863,7 +862,6 @@ func init() {
 		VideosZIE = Ωvideosz.VideosZIE
 		VidLiiIE = Ωvidlii.VidLiiIE
 		VimeoIE = Ωvimeo.VimeoIE
-		VimeoOndemandIE = Ωvimeo.VimeoOndemandIE
 		VimeoReviewIE = Ωvimeo.VimeoReviewIE
 		VimpleIE = Ωvimple.VimpleIE
 		VineIE = Ωvine.VineIE
@@ -1161,7 +1159,6 @@ func init() {
 			VideosZIE,
 			VidLiiIE,
 			VimeoIE,
-			VimeoOndemandIE,
 			VimeoReviewIE,
 			VimpleIE,
 			VineIE,

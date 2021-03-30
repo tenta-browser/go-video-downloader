@@ -251,7 +251,7 @@ func init() {
 			var (
 				ARDBetaMediathekIE__VALID_URL λ.Object
 			)
-			ARDBetaMediathekIE__VALID_URL = λ.StrLiteral("https://(?:(?:beta|www)\\.)?ardmediathek\\.de/(?P<client>[^/]+)/(?:player|live|video)/(?P<display_id>(?:[^/]+/)*)(?P<video_id>[a-zA-Z0-9]+)")
+			ARDBetaMediathekIE__VALID_URL = λ.StrLiteral("https://(?:(?:beta|www)\\.)?ardmediathek\\.de/(?:[^/]+/)?(?:player|live|video)/(?:[^/]+/)*(?P<id>Y3JpZDovL[a-zA-Z0-9]+)")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": ARDBetaMediathekIE__VALID_URL,
 			})
