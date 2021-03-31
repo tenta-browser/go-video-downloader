@@ -28,6 +28,7 @@ package youtube
 import (
 	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
 	Ωpath "github.com/tenta-browser/go-video-downloader/gen/os/path"
+	Ωrandom "github.com/tenta-browser/go-video-downloader/gen/random"
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωparse "github.com/tenta-browser/go-video-downloader/gen/urllib/parse"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
@@ -58,7 +59,6 @@ var (
 	YoutubeYtBeIE                     λ.Object
 	YoutubeYtUserIE                   λ.Object
 	ϒclean_html                       λ.Object
-	ϒcompat_HTTPError                 λ.Object
 	ϒcompat_chr                       λ.Object
 	ϒcompat_parse_qs                  λ.Object
 	ϒcompat_str                       λ.Object
@@ -90,7 +90,6 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		SearchInfoExtractor = Ωcommon.SearchInfoExtractor
 		ϒcompat_chr = Ωcompat.ϒcompat_chr
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒcompat_urllib_parse_unquote_plus = Ωcompat.ϒcompat_urllib_parse_unquote_plus
@@ -125,6 +124,7 @@ func init() {
 				YoutubeBaseInfoExtractor__YT_INITIAL_BOUNDARY_RE        λ.Object
 				YoutubeBaseInfoExtractor__YT_INITIAL_DATA_RE            λ.Object
 				YoutubeBaseInfoExtractor__YT_INITIAL_PLAYER_RESPONSE_RE λ.Object
+				YoutubeBaseInfoExtractor__initialize_consent            λ.Object
 				YoutubeBaseInfoExtractor__login                         λ.Object
 				YoutubeBaseInfoExtractor__real_initialize               λ.Object
 			)
@@ -585,6 +585,42 @@ func init() {
 					}
 					return λ.True
 				})
+			YoutubeBaseInfoExtractor__initialize_consent = λ.NewFunction("_initialize_consent",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒconsent    λ.Object
+						ϒconsent_id λ.Object
+						ϒcookies    λ.Object
+						ϒself       = λargs[0]
+					)
+					ϒcookies = λ.Calm(ϒself, "_get_cookies", λ.StrLiteral("https://www.youtube.com/"))
+					if λ.IsTrue(λ.Calm(ϒcookies, "get", λ.StrLiteral("__Secure-3PSID"))) {
+						return λ.None
+					}
+					ϒconsent_id = λ.None
+					ϒconsent = λ.Calm(ϒcookies, "get", λ.StrLiteral("CONSENT"))
+					if λ.IsTrue(ϒconsent) {
+						if λ.Contains(λ.GetAttr(ϒconsent, "value", nil), λ.StrLiteral("YES")) {
+							return λ.None
+						}
+						ϒconsent_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+							λ.StrLiteral("PENDING\\+(\\d+)"),
+							λ.GetAttr(ϒconsent, "value", nil),
+							λ.StrLiteral("consent"),
+						), λ.KWArgs{
+							{Name: "default", Value: λ.None},
+						})
+					}
+					if !λ.IsTrue(ϒconsent_id) {
+						ϒconsent_id = λ.Cal(Ωrandom.ϒrandint, λ.IntLiteral(100), λ.IntLiteral(999))
+					}
+					λ.Calm(ϒself, "_set_cookie", λ.StrLiteral(".youtube.com"), λ.StrLiteral("CONSENT"), λ.Mod(λ.StrLiteral("YES+cb.20210328-17-p0.en+FX+%s"), ϒconsent_id))
+					return λ.None
+				})
 			YoutubeBaseInfoExtractor__real_initialize = λ.NewFunction("_real_initialize",
 				[]λ.Param{
 					{Name: "self"},
@@ -594,6 +630,7 @@ func init() {
 					var (
 						ϒself = λargs[0]
 					)
+					λ.Calm(ϒself, "_initialize_consent")
 					if λ.GetAttr(ϒself, "_downloader", nil) == λ.None {
 						return λ.None
 					}
@@ -612,6 +649,7 @@ func init() {
 				"_YT_INITIAL_BOUNDARY_RE":        YoutubeBaseInfoExtractor__YT_INITIAL_BOUNDARY_RE,
 				"_YT_INITIAL_DATA_RE":            YoutubeBaseInfoExtractor__YT_INITIAL_DATA_RE,
 				"_YT_INITIAL_PLAYER_RESPONSE_RE": YoutubeBaseInfoExtractor__YT_INITIAL_PLAYER_RESPONSE_RE,
+				"_initialize_consent":            YoutubeBaseInfoExtractor__initialize_consent,
 				"_login":                         YoutubeBaseInfoExtractor__login,
 				"_real_initialize":               YoutubeBaseInfoExtractor__real_initialize,
 			})
@@ -1351,7 +1389,7 @@ func init() {
 					ϒbase_url = λ.Add(λ.Calm(ϒself, "http_scheme"), λ.StrLiteral("//www.youtube.com/"))
 					ϒwebpage_url = λ.Add(λ.Add(ϒbase_url, λ.StrLiteral("watch?v=")), ϒvideo_id)
 					ϒwebpage = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
-						λ.Add(ϒwebpage_url, λ.StrLiteral("&bpctr=9999999999")),
+						λ.Add(ϒwebpage_url, λ.StrLiteral("&bpctr=9999999999&has_verified=1")),
 						ϒvideo_id,
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.False},

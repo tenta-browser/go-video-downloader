@@ -2,7 +2,6 @@ Supported sites
 ===============
 
  * AbcNewsVideo: `abcnews.go.com`
- * ABCOTVS: `abc7news.com`
  * ACast: `www.acast.com`
  * AdobeTVVideo: `video.tv.adobe.com`
  * Amara: `amara.org`
@@ -48,7 +47,6 @@ Supported sites
  * ClipRs: `www.clip.rs`
  * Clipsyndicate: `www.clipsyndicate.com`
  * CloserToTruth: `closertotruth.com`
- * Clyp: `clyp.it`
  * CNN: `edition.cnn.com`
  * CNNBlogs: `reliablesources.blogs.cnn.com`
  * Coub: `coub.com`
@@ -92,7 +90,6 @@ Supported sites
  * FoxNewsArticle: `www.foxnews.com`
  * FranceCulture: `www.franceculture.fr`
  * FranceInter: `www.franceinter.fr`
- * GenerationWhat: `generation-what.francetv.fr`
  * Freesound: `www.freesound.org`
  * Freespeech: `www.freespeech.org`
  * GameInformer: `www.gameinformer.com`
@@ -261,6 +258,7 @@ Supported sites
  * VGTV: `www.vgtv.no`
  * ViceArticle: `www.vice.com`
  * Viddler: `www.viddler.com`
+ * Videa: `videa.hu`
  * VideoPress: `videopress.com`
  * VideosZ _(adult)_: `www.videosz.com`
  * VidLii: `www.vidlii.com`
@@ -275,6 +273,7 @@ Supported sites
  * Medialaan: `www.bndestem.nl`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
+ * Weibo: `weibo.com`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`

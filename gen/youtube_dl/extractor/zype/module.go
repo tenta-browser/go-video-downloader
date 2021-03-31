@@ -25,27 +25,24 @@
 package zype
 
 import (
-	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	ExtractorError    λ.Object
-	InfoExtractor     λ.Object
-	ZypeIE            λ.Object
-	ϒcompat_HTTPError λ.Object
-	ϒdict_get         λ.Object
-	ϒint_or_none      λ.Object
-	ϒjs_to_json       λ.Object
-	ϒparse_iso8601    λ.Object
+	ExtractorError λ.Object
+	InfoExtractor  λ.Object
+	ZypeIE         λ.Object
+	ϒdict_get      λ.Object
+	ϒint_or_none   λ.Object
+	ϒjs_to_json    λ.Object
+	ϒparse_iso8601 λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒdict_get = Ωutils.ϒdict_get
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none

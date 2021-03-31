@@ -34,22 +34,20 @@ import (
 )
 
 var (
-	ExtractorError    λ.Object
-	InfoExtractor     λ.Object
-	VevoBaseIE        λ.Object
-	VevoIE            λ.Object
-	VevoPlaylistIE    λ.Object
-	ϒcompat_HTTPError λ.Object
-	ϒcompat_str       λ.Object
-	ϒint_or_none      λ.Object
-	ϒparse_iso8601    λ.Object
+	ExtractorError λ.Object
+	InfoExtractor  λ.Object
+	VevoBaseIE     λ.Object
+	VevoIE         λ.Object
+	VevoPlaylistIE λ.Object
+	ϒcompat_str    λ.Object
+	ϒint_or_none   λ.Object
+	ϒparse_iso8601 λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_str = Ωcompat.ϒcompat_str
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
@@ -151,7 +149,7 @@ func init() {
 							nil,
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 								var ϒe λ.Object = λex
-								if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError)) {
+								if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None)) {
 									ϒerrors = λ.GetItem(λ.Calm(ϒself, "_parse_json", λ.Calm(λ.Calm(λ.GetAttr(ϒe, "cause", nil), "read"), "decode"), λ.None), λ.StrLiteral("errors"))
 									ϒerror_message = λ.Calm(λ.StrLiteral(", "), "join", λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 										nil,

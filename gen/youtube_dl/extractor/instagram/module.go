@@ -38,7 +38,6 @@ var (
 	InstagramPlaylistIE       λ.Object
 	InstagramTagIE            λ.Object
 	InstagramUserIE           λ.Object
-	ϒcompat_HTTPError         λ.Object
 	ϒcompat_str               λ.Object
 	ϒfloat_or_none            λ.Object
 	ϒget_element_by_attribute λ.Object
@@ -52,7 +51,6 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_str = Ωcompat.ϒcompat_str
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ExtractorError = Ωutils.ExtractorError
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒget_element_by_attribute = Ωutils.ϒget_element_by_attribute

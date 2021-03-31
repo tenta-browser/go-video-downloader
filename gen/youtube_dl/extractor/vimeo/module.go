@@ -50,7 +50,6 @@ var (
 	VimeoUserIE            λ.Object
 	VimeoWatchLaterIE      λ.Object
 	ϒclean_html            λ.Object
-	ϒcompat_HTTPError      λ.Object
 	ϒcompat_kwargs         λ.Object
 	ϒcompat_str            λ.Object
 	ϒdetermine_ext         λ.Object
@@ -76,7 +75,6 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_kwargs = Ωcompat.ϒcompat_kwargs
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒclean_html = Ωutils.ϒclean_html
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
@@ -104,9 +102,9 @@ func init() {
 				VimeoBaseInfoExtractor__NETRC_MACHINE           λ.Object
 				VimeoBaseInfoExtractor__extract_original_format λ.Object
 				VimeoBaseInfoExtractor__extract_vimeo_config    λ.Object
+				VimeoBaseInfoExtractor__get_video_password      λ.Object
 				VimeoBaseInfoExtractor__login                   λ.Object
 				VimeoBaseInfoExtractor__parse_config            λ.Object
-				VimeoBaseInfoExtractor__verify_video_password   λ.Object
 				VimeoBaseInfoExtractor__vimeo_sort_formats      λ.Object
 			)
 			VimeoBaseInfoExtractor__NETRC_MACHINE = λ.StrLiteral("vimeo")
@@ -159,7 +157,7 @@ func init() {
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 								var ϒe λ.Object = λex
 								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
+									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
 										return λv
 									} else {
 										return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.IntLiteral(418))
@@ -187,26 +185,15 @@ func init() {
 					}()
 					return λ.None
 				})
-			VimeoBaseInfoExtractor__verify_video_password = λ.NewFunction("_verify_video_password",
+			VimeoBaseInfoExtractor__get_video_password = λ.NewFunction("_get_video_password",
 				[]λ.Param{
 					{Name: "self"},
-					{Name: "url"},
-					{Name: "video_id"},
-					{Name: "webpage"},
 				},
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒdata             λ.Object
-						ϒpassword         λ.Object
-						ϒpassword_request λ.Object
-						ϒself             = λargs[0]
-						ϒtoken            λ.Object
-						ϒurl              = λargs[1]
-						ϒvideo_id         = λargs[2]
-						ϒvuid             λ.Object
-						ϒwebpage          = λargs[3]
-						τmp0              λ.Object
+						ϒpassword λ.Object
+						ϒself     = λargs[0]
 					)
 					ϒpassword = λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("videopassword"))
 					if ϒpassword == λ.None {
@@ -214,21 +201,7 @@ func init() {
 							{Name: "expected", Value: λ.True},
 						})))
 					}
-					τmp0 = λ.Calm(ϒself, "_extract_xsrft_and_vuid", ϒwebpage)
-					ϒtoken = λ.GetItem(τmp0, λ.IntLiteral(0))
-					ϒvuid = λ.GetItem(τmp0, λ.IntLiteral(1))
-					ϒdata = λ.Cal(ϒurlencode_postdata, λ.DictLiteral(map[string]λ.Object{
-						"password": ϒpassword,
-						"token":    ϒtoken,
-					}))
-					if λ.IsTrue(λ.Calm(ϒurl, "startswith", λ.StrLiteral("http://"))) {
-						ϒurl = λ.Calm(ϒurl, "replace", λ.StrLiteral("http://"), λ.StrLiteral("https://"))
-					}
-					ϒpassword_request = λ.Cal(ϒsanitized_Request, λ.Add(ϒurl, λ.StrLiteral("/password")), ϒdata)
-					λ.Calm(ϒpassword_request, "add_header", λ.StrLiteral("Content-Type"), λ.StrLiteral("application/x-www-form-urlencoded"))
-					λ.Calm(ϒpassword_request, "add_header", λ.StrLiteral("Referer"), ϒurl)
-					λ.Calm(ϒself, "_set_vimeo_cookie", λ.StrLiteral("vuid"), ϒvuid)
-					return λ.Calm(ϒself, "_download_webpage", ϒpassword_request, ϒvideo_id, λ.StrLiteral("Verifying the password"), λ.StrLiteral("Wrong password"))
+					return ϒpassword
 				})
 			VimeoBaseInfoExtractor__extract_vimeo_config = λ.NewFunction("_extract_vimeo_config",
 				[]λ.Param{
@@ -688,9 +661,9 @@ func init() {
 				"_NETRC_MACHINE":           VimeoBaseInfoExtractor__NETRC_MACHINE,
 				"_extract_original_format": VimeoBaseInfoExtractor__extract_original_format,
 				"_extract_vimeo_config":    VimeoBaseInfoExtractor__extract_vimeo_config,
+				"_get_video_password":      VimeoBaseInfoExtractor__get_video_password,
 				"_login":                   VimeoBaseInfoExtractor__login,
 				"_parse_config":            VimeoBaseInfoExtractor__parse_config,
-				"_verify_video_password":   VimeoBaseInfoExtractor__verify_video_password,
 				"_vimeo_sort_formats":      VimeoBaseInfoExtractor__vimeo_sort_formats,
 			})
 		}())
@@ -815,12 +788,7 @@ func init() {
 						ϒurl      = λargs[1]
 						ϒvideo_id = λargs[2]
 					)
-					ϒpassword = λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("videopassword"))
-					if ϒpassword == λ.None {
-						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("This video is protected by a password, use the --video-password option")), λ.KWArgs{
-							{Name: "expected", Value: λ.True},
-						})))
-					}
+					ϒpassword = λ.Calm(ϒself, "_get_video_password")
 					ϒdata = λ.Cal(ϒurlencode_postdata, λ.DictLiteral(map[string]λ.Object{
 						"password": λ.Cal(Ωbase64.ϒb64encode, λ.Calm(ϒpassword, "encode")),
 					}))
@@ -901,9 +869,11 @@ func init() {
 						ϒvideo             λ.Object
 						ϒvideo_description λ.Object
 						ϒvideo_id          λ.Object
+						ϒvideo_password    λ.Object
 						ϒview_count        λ.Object
 						ϒvimeo_config      λ.Object
 						ϒvod               λ.Object
+						ϒvuid              λ.Object
 						ϒwebpage           λ.Object
 						τmp0               λ.Object
 						τmp1               λ.Object
@@ -913,7 +883,6 @@ func init() {
 					_ = τmp0
 					_ = τmp1
 					_ = τmp2
-					_ = τmp3
 					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{}))
 					ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒdata = λ.GetItem(τmp0, λ.IntLiteral(1))
@@ -1066,7 +1035,7 @@ func init() {
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 								var ϒee λ.Object = λex
 								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒee, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
+									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒee, "cause", nil), λ.None); !λ.IsTrue(λv) {
 										return λv
 									} else {
 										return λ.Eq(λ.GetAttr(λ.GetAttr(ϒee, "cause", nil), "code", nil), λ.IntLiteral(403))
@@ -1130,7 +1099,11 @@ func init() {
 									if λ.Contains(ϒdata, λ.StrLiteral("_video_password_verified")) {
 										panic(λ.Raise(λ.Cal(ExtractorError, λ.StrLiteral("video password verification failed!"))))
 									}
-									λ.Calm(ϒself, "_verify_video_password", ϒredirect_url, ϒvideo_id, ϒwebpage)
+									ϒvideo_password = λ.Calm(ϒself, "_get_video_password")
+									τmp3 = λ.Calm(ϒself, "_extract_xsrft_and_vuid", ϒwebpage)
+									ϒtoken = λ.GetItem(τmp3, λ.IntLiteral(0))
+									ϒvuid = λ.GetItem(τmp3, λ.IntLiteral(1))
+									λ.Calm(ϒself, "_verify_video_password", ϒredirect_url, ϒvideo_id, ϒvideo_password, ϒtoken, ϒvuid)
 									λexit, λret = λ.BlockExitReturn, λ.Calm(ϒself, "_real_extract", λ.Cal(ϒsmuggle_url, ϒredirect_url, λ.DictLiteral(map[string]string{
 										"_video_password_verified": "verified",
 									})))
@@ -1490,22 +1463,43 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒclip_data     λ.Object
-						ϒconfig        λ.Object
-						ϒconfig_url    λ.Object
-						ϒinfo_dict     λ.Object
-						ϒpage_url      λ.Object
-						ϒself          = λargs[0]
-						ϒsource_format λ.Object
-						ϒurl           = λargs[1]
-						ϒvideo_id      λ.Object
-						τmp0           λ.Object
+						ϒclip_data        λ.Object
+						ϒclip_page_config λ.Object
+						ϒconfig           λ.Object
+						ϒconfig_url       λ.Object
+						ϒdata             λ.Object
+						ϒinfo_dict        λ.Object
+						ϒpage_url         λ.Object
+						ϒself             = λargs[0]
+						ϒsource_format    λ.Object
+						ϒurl              = λargs[1]
+						ϒvideo_id         λ.Object
+						ϒvideo_password   λ.Object
+						ϒviewer           λ.Object
+						ϒwebpage          λ.Object
+						τmp0              λ.Object
 					)
 					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
 					ϒpage_url = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(1))
-					ϒclip_data = λ.GetItem(λ.Calm(ϒself, "_download_json", λ.Calm(ϒpage_url, "replace", λ.StrLiteral("/review/"), λ.StrLiteral("/review/data/")), ϒvideo_id), λ.StrLiteral("clipData"))
-					ϒconfig_url = λ.GetItem(ϒclip_data, λ.StrLiteral("configUrl"))
+					ϒdata = λ.Calm(ϒself, "_download_json", λ.Calm(ϒpage_url, "replace", λ.StrLiteral("/review/"), λ.StrLiteral("/review/data/")), ϒvideo_id)
+					if λ.Calm(ϒdata, "get", λ.StrLiteral("isLocked")) == λ.True {
+						ϒvideo_password = λ.Calm(ϒself, "_get_video_password")
+						ϒviewer = λ.Calm(ϒself, "_download_json", λ.StrLiteral("https://vimeo.com/_rv/viewer"), ϒvideo_id)
+						ϒwebpage = λ.Calm(ϒself, "_verify_video_password", λ.Add(λ.StrLiteral("https://vimeo.com/"), ϒvideo_id), ϒvideo_id, ϒvideo_password, λ.GetItem(ϒviewer, λ.StrLiteral("xsrft")), λ.GetItem(ϒviewer, λ.StrLiteral("vuid")))
+						ϒclip_page_config = λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("window\\.vimeo\\.clip_page_config\\s*=\\s*({.+?});"), ϒwebpage, λ.StrLiteral("clip page config")), ϒvideo_id)
+						ϒconfig_url = λ.GetItem(λ.GetItem(ϒclip_page_config, λ.StrLiteral("player")), λ.StrLiteral("config_url"))
+						ϒclip_data = func() λ.Object {
+							if λv := λ.Calm(ϒclip_page_config, "get", λ.StrLiteral("clip")); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.DictLiteral(map[λ.Object]λ.Object{})
+							}
+						}()
+					} else {
+						ϒclip_data = λ.GetItem(ϒdata, λ.StrLiteral("clipData"))
+						ϒconfig_url = λ.GetItem(ϒclip_data, λ.StrLiteral("configUrl"))
+					}
 					ϒconfig = λ.Calm(ϒself, "_download_json", ϒconfig_url, ϒvideo_id)
 					ϒinfo_dict = λ.Calm(ϒself, "_parse_config", ϒconfig, ϒvideo_id)
 					ϒsource_format = λ.Calm(ϒself, "_extract_original_format", λ.Add(ϒpage_url, λ.StrLiteral("/action")), ϒvideo_id)

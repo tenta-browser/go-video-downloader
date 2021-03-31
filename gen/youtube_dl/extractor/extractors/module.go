@@ -26,7 +26,6 @@ package extractors
 
 import (
 	Ωabcnews "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/abcnews"
-	Ωabcotvs "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/abcotvs"
 	Ωacast "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/acast"
 	Ωadobetv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/adobetv"
 	Ωallocine "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/allocine"
@@ -71,7 +70,6 @@ import (
 	Ωcliprs "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/cliprs"
 	Ωclipsyndicate "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/clipsyndicate"
 	Ωclosertotruth "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/closertotruth"
-	Ωclyp "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/clyp"
 	Ωcnn "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/cnn"
 	Ωcondenast "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/condenast"
 	Ωcontv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/contv"
@@ -110,7 +108,6 @@ import (
 	Ωfoxnews "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/foxnews"
 	Ωfranceculture "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/franceculture"
 	Ωfranceinter "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/franceinter"
-	Ωfrancetv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/francetv"
 	Ωfreesound "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/freesound"
 	Ωfreespeech "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/freespeech"
 	Ωgameinformer "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/gameinformer"
@@ -261,6 +258,7 @@ import (
 	Ωvgtv "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vgtv"
 	Ωvice "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vice"
 	Ωviddler "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/viddler"
+	Ωvidea "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/videa"
 	Ωvideopress "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/videopress"
 	Ωvideosz "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/videosz"
 	Ωvidlii "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vidlii"
@@ -296,7 +294,6 @@ import (
 )
 
 var (
-	ABCOTVSIE                  λ.Object
 	ACastIE                    λ.Object
 	APAIE                      λ.Object
 	ARDIE                      λ.Object
@@ -346,7 +343,6 @@ var (
 	ClippitIE                  λ.Object
 	ClipsyndicateIE            λ.Object
 	CloserToTruthIE            λ.Object
-	ClypIE                     λ.Object
 	CondeNastIE                λ.Object
 	CoubIE                     λ.Object
 	CrackedIE                  λ.Object
@@ -397,7 +393,6 @@ var (
 	GaskrankIE                 λ.Object
 	GazetaIE                   λ.Object
 	GediDigitalIE              λ.Object
-	GenerationWhatIE           λ.Object
 	GfycatIE                   λ.Object
 	GiantBombIE                λ.Object
 	GodTubeIE                  λ.Object
@@ -561,6 +556,7 @@ var (
 	ViceArticleIE              λ.Object
 	VidLiiIE                   λ.Object
 	ViddlerIE                  λ.Object
+	VideaIE                    λ.Object
 	VideoPressIE               λ.Object
 	VideosZIE                  λ.Object
 	VimeoIE                    λ.Object
@@ -573,6 +569,7 @@ var (
 	WSJArticleIE               λ.Object
 	WSJIE                      λ.Object
 	WashingtonPostIE           λ.Object
+	WeiboIE                    λ.Object
 	WeiboMobileIE              λ.Object
 	WistiaIE                   λ.Object
 	WorldStarHipHopIE          λ.Object
@@ -598,7 +595,6 @@ var (
 func init() {
 	λ.InitModule(func() {
 		AbcNewsVideoIE = Ωabcnews.AbcNewsVideoIE
-		ABCOTVSIE = Ωabcotvs.ABCOTVSIE
 		ACastIE = Ωacast.ACastIE
 		AdobeTVVideoIE = Ωadobetv.AdobeTVVideoIE
 		AmaraIE = Ωamara.AmaraIE
@@ -644,7 +640,6 @@ func init() {
 		ClipRsIE = Ωcliprs.ClipRsIE
 		ClipsyndicateIE = Ωclipsyndicate.ClipsyndicateIE
 		CloserToTruthIE = Ωclosertotruth.CloserToTruthIE
-		ClypIE = Ωclyp.ClypIE
 		CNNIE = Ωcnn.CNNIE
 		CNNBlogsIE = Ωcnn.CNNBlogsIE
 		CoubIE = Ωcoub.CoubIE
@@ -688,7 +683,6 @@ func init() {
 		FoxNewsArticleIE = Ωfoxnews.FoxNewsArticleIE
 		FranceCultureIE = Ωfranceculture.FranceCultureIE
 		FranceInterIE = Ωfranceinter.FranceInterIE
-		GenerationWhatIE = Ωfrancetv.GenerationWhatIE
 		FreesoundIE = Ωfreesound.FreesoundIE
 		FreespeechIE = Ωfreespeech.FreespeechIE
 		GameInformerIE = Ωgameinformer.GameInformerIE
@@ -858,6 +852,7 @@ func init() {
 		VGTVIE = Ωvgtv.VGTVIE
 		ViceArticleIE = Ωvice.ViceArticleIE
 		ViddlerIE = Ωviddler.ViddlerIE
+		VideaIE = Ωvidea.VideaIE
 		VideoPressIE = Ωvideopress.VideoPressIE
 		VideosZIE = Ωvideosz.VideosZIE
 		VidLiiIE = Ωvidlii.VidLiiIE
@@ -872,6 +867,7 @@ func init() {
 		MedialaanIE = Ωmedialaan.MedialaanIE
 		VzaarIE = Ωvzaar.VzaarIE
 		WashingtonPostIE = Ωwashingtonpost.WashingtonPostIE
+		WeiboIE = Ωweibo.WeiboIE
 		WeiboMobileIE = Ωweibo.WeiboMobileIE
 		WistiaIE = Ωwistia.WistiaIE
 		WorldStarHipHopIE = Ωworldstarhiphop.WorldStarHipHopIE
@@ -895,7 +891,6 @@ func init() {
 		ZoomIE = Ωzoom.ZoomIE
 		ϒ__ALL__ = λ.NewList(
 			AbcNewsVideoIE,
-			ABCOTVSIE,
 			ACastIE,
 			AdobeTVVideoIE,
 			AmaraIE,
@@ -941,7 +936,6 @@ func init() {
 			ClipRsIE,
 			ClipsyndicateIE,
 			CloserToTruthIE,
-			ClypIE,
 			CNNIE,
 			CNNBlogsIE,
 			CoubIE,
@@ -985,7 +979,6 @@ func init() {
 			FoxNewsArticleIE,
 			FranceCultureIE,
 			FranceInterIE,
-			GenerationWhatIE,
 			FreesoundIE,
 			FreespeechIE,
 			GameInformerIE,
@@ -1155,6 +1148,7 @@ func init() {
 			VGTVIE,
 			ViceArticleIE,
 			ViddlerIE,
+			VideaIE,
 			VideoPressIE,
 			VideosZIE,
 			VidLiiIE,
@@ -1169,6 +1163,7 @@ func init() {
 			MedialaanIE,
 			VzaarIE,
 			WashingtonPostIE,
+			WeiboIE,
 			WeiboMobileIE,
 			WistiaIE,
 			WorldStarHipHopIE,
