@@ -33,7 +33,6 @@ import (
 
 var (
 	ExtractorError                λ.Object
-	HEADRequest                   λ.Object
 	InfoExtractor                 λ.Object
 	KNOWN_EXTENSIONS              λ.Object
 	SearchInfoExtractor           λ.Object
@@ -68,7 +67,6 @@ func init() {
 		ϒerror_to_compat_str = Ωutils.ϒerror_to_compat_str
 		ExtractorError = Ωutils.ExtractorError
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
-		HEADRequest = Ωutils.HEADRequest
 		ϒint_or_none = Ωutils.ϒint_or_none
 		KNOWN_EXTENSIONS = Ωutils.KNOWN_EXTENSIONS
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext

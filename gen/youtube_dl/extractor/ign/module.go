@@ -32,7 +32,6 @@ import (
 )
 
 var (
-	HEADRequest                   λ.Object
 	IGNArticleIE                  λ.Object
 	IGNBaseIE                     λ.Object
 	IGNIE                         λ.Object
@@ -52,7 +51,6 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
-		HEADRequest = Ωutils.HEADRequest
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601

@@ -2,18 +2,19 @@ Supported sites
 ===============
 
  * AbcNewsVideo: `abcnews.go.com`
+ * ABCOTVS: `abc7news.com`
  * ACast: `www.acast.com`
  * AdobeTVVideo: `video.tv.adobe.com`
  * Amara: `amara.org`
  * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
  * APA: `uvp.apa.at`
- * Aparat: `www.aparat.com`
  * ApplePodcasts: `podcasts.apple.com`
  * ArchiveOrg: `archive.org`
  * Arkena: `video.qbrick.com`
  * ARD: `www.daserste.de`
  * ArteTV: `www.arte.tv`
+ * Arnes: `video.arnes.si`
  * AsianCrush: `www.asiancrush.com`
  * AudioBoom: `audioboom.com`
  * Audiomack: `www.audiomack.com`
@@ -47,6 +48,7 @@ Supported sites
  * ClipRs: `www.clip.rs`
  * Clipsyndicate: `www.clipsyndicate.com`
  * CloserToTruth: `closertotruth.com`
+ * Clyp: `clyp.it`
  * CNN: `edition.cnn.com`
  * CNNBlogs: `reliablesources.blogs.cnn.com`
  * Coub: `coub.com`
@@ -56,7 +58,6 @@ Supported sites
  * CtsNews: `news.cts.com.tw`
  * CuriosityStream: `app.curiositystream.com`
  * DailyMail: `www.dailymail.co.uk`
- * Dailymotion: `www.dailymotion.com`
  * Daum: `tvpot.daum.net`
  * DaumClip: `tvpot.daum.net`
  * DaumPlaylist: `tvpot.daum.net`
@@ -91,7 +92,6 @@ Supported sites
  * FranceCulture: `www.franceculture.fr`
  * FranceInter: `www.franceinter.fr`
  * Freesound: `www.freesound.org`
- * Freespeech: `www.freespeech.org`
  * GameInformer: `www.gameinformer.com`
  * GameSpot: `www.gamespot.com`
  * Gaskrank: `www.gaskrank.tv`
@@ -101,6 +101,7 @@ Supported sites
  * GiantBomb: `www.giantbomb.com`
  * GodTube: `www.godtube.com`
  * Golem: `video.golem.de`
+ * GoogleDrive: `drive.google.com`
  * GooglePodcasts: `podcasts.google.com`
  * GPUTechConf: `on-demand.gputechconf.com`
  * HBO: `www.hbo.com`
@@ -121,7 +122,6 @@ Supported sites
  * Joj: `media.joj.sk`
  * JWPlatform: `content.jwplatform.com`
  * Kakao: `tv.kakao.com`
- * KhanAcademy: `www.khanacademy.org`
  * KickStarter: `www.kickstarter.com`
  * LcpPlay: `play.lcp.fr`
  * Lenta: `lenta.ru`
@@ -133,11 +133,9 @@ Supported sites
  * Lynda: `www.lynda.com`
  * MailRuMusic: `my.mail.ru`
  * ManyVids: `www.manyvids.com`
- * Mediaset: `www.mediasetplay.mediaset.it`
  * Megaphone: `player.megaphone.fm`
  * Metacritic: `www.metacritic.com`
  * MicrosoftVirtualAcademy: `mva.microsoft.com`
- * Minds: `www.minds.com`
  * MLB: `www.mlb.com`
  * MLBVideo: `www.mlb.com`
  * Mojvideo: `www.mojvideo.com`
@@ -164,6 +162,7 @@ Supported sites
  * OnionStudios: `www.onionstudios.com`
  * OutsideTV: `www.outsidetv.com`
  * PacktPub: `www.packtpub.com`
+ * PalcoMP3: `www.palcomp3.com`
  * ParliamentLiveUK: `parliamentlive.tv`
  * Patreon: `www.patreon.com`
  * PeerTube: `framatube.org`
@@ -191,6 +190,7 @@ Supported sites
  * Sapo: `videos.sapo.pt`
  * SBS: `www.sbs.com.au`
  * Screencast: `www.screencast.com`
+ * ScreencastOMatic: `screencast-o-matic.com`
  * SenateISVP: `www.senate.gov`
  * SeznamZpravy: `www.seznamzpravy.cz`
  * Simplecast: `api.simplecast.com`
@@ -204,7 +204,6 @@ Supported sites
  * SkyNews: `news.sky.com`
  * SkySports: `www.skysports.com`
  * Slideshare: `www.slideshare.net`
- * SlidesLive: `slideslive.com`
  * Soundgasm: `soundgasm.net`
  * SpankBang _(adult)_: `spankbang.com`
  * Spiegel: `www.spiegel.de`
@@ -222,10 +221,8 @@ Supported sites
  * TDSLifeway: `tds.lifeway.com`
  * Teamcoco: `teamcoco.com`
  * TeamTreeHouse: `teamtreehouse.com`
- * TED: `www.ted.com`
  * Telegraaf: `www.telegraaf.nl`
  * Tenta: `tenta.com`
- * TFO: `www.tfo.org`
  * TheWeatherChannel: `weather.com`
  * ThreeQSDN: `playout.3qsdn.com`
  * TikTok: `www.tiktok.com`
@@ -244,7 +241,6 @@ Supported sites
  * TVCArticle: `www.tvc.ru`
  * TVP: `vod.tvp.pl`
  * TwentyThreeVideo: `video.twentythree.net`
- * TwitchClips: `clips.twitch.tv`
  * TwitterAmplify: `amp.twimg.com`
  * UDNEmbed: `video.udn.com`
  * Digiteka: `www.ultimedia.com`
@@ -256,20 +252,19 @@ Supported sites
  * Vesti: `www.vesti.ru`
  * Vevo _(adult)_: `www.vevo.com`
  * VGTV: `www.vgtv.no`
- * ViceArticle: `www.vice.com`
  * Viddler: `www.viddler.com`
  * Videa: `videa.hu`
  * VideoPress: `videopress.com`
  * VideosZ _(adult)_: `www.videosz.com`
  * VidLii: `www.vidlii.com`
  * Vimeo: `vimeo.com`
+ * VimeoOndemand: `vimeo.com`
  * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
  * Vine: `vine.co`
  * Viqeo: `cdn.viqeo.tv`
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
- * VoxMedia: `www.recode.net`
  * Medialaan: `www.bndestem.nl`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
@@ -289,8 +284,6 @@ Supported sites
  * YouPorn _(adult)_: `www.youporn.com`
  * YourPorn _(adult)_: `sxyprn.com`
  * YourUpload: `yourupload.com`
- * Youtube _(adult)_: `www.youtube.com`
  * ZDF: `www.zdf.de`
  * Zhihu: `www.zhihu.com`
- * ZingMp3: `mp3.zing.vn`
  * Zoom: `economist.zoom.us`

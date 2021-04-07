@@ -30,10 +30,9 @@ import (
 )
 
 var (
-	RandInt  λ.Object
-	ϒchoice  λ.Object
-	ϒrandint λ.Object
-	ϒrandom  λ.Object
+	RandInt λ.Object
+	ϒchoice λ.Object
+	ϒrandom λ.Object
 )
 
 func init() {
@@ -50,19 +49,6 @@ func init() {
 					ϒseq = λargs[0]
 				)
 				return λ.GetItem(ϒseq, λ.Cal(RandInt, λ.Cal(λ.BuiltinLen, ϒseq)))
-			})
-		ϒrandint = λ.NewFunction("randint",
-			[]λ.Param{
-				{Name: "a"},
-				{Name: "b"},
-			},
-			0, false, false,
-			func(λargs []λ.Object) λ.Object {
-				var (
-					ϒa = λargs[0]
-					ϒb = λargs[1]
-				)
-				return λ.Add(ϒa, λ.Cal(RandInt, λ.Add(λ.Sub(ϒb, ϒa), λ.IntLiteral(1))))
 			})
 	})
 }

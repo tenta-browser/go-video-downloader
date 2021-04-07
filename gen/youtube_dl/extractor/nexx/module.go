@@ -25,7 +25,6 @@
 package nexx
 
 import (
-	Ωrandom "github.com/tenta-browser/go-video-downloader/gen/random"
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωtime "github.com/tenta-browser/go-video-downloader/gen/time"
 	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
@@ -535,10 +534,10 @@ func init() {
 					}
 					if !λ.IsTrue(ϒvideo) {
 						ϒdevice_id = λ.Mod(λ.StrLiteral("%d:%d:%d%d"), λ.NewTuple(
-							λ.Cal(Ωrandom.ϒrandint, λ.IntLiteral(1), λ.IntLiteral(4)),
+							λ.Cal(λ.None, λ.IntLiteral(1), λ.IntLiteral(4)),
 							λ.Cal(λ.IntType, λ.Cal(Ωtime.ϒtime)),
-							λ.Cal(Ωrandom.ϒrandint, λ.FloatLiteral(10000.0), λ.IntLiteral(99999)),
-							λ.Cal(Ωrandom.ϒrandint, λ.IntLiteral(1), λ.IntLiteral(9)),
+							λ.Cal(λ.None, λ.FloatLiteral(10000.0), λ.IntLiteral(99999)),
+							λ.Cal(λ.None, λ.IntLiteral(1), λ.IntLiteral(9)),
 						))
 						ϒresult = λ.Call(λ.GetAttr(ϒself, "_call_api", nil), λ.NewArgs(
 							ϒdomain_id,
