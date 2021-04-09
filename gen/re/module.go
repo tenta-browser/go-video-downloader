@@ -34,6 +34,7 @@ var (
 	Match         λ.Object
 	MatchIterator λ.Object
 	Pattern       λ.Object
+	VERBOSE       λ.Object
 	ϒcompile      λ.Object
 	ϒescape       λ.Object
 	ϒfindall      λ.Object
@@ -56,6 +57,7 @@ func init() {
 		τmp0 = Ωre.FlagUnicode
 
 		τmp0 = Ωre.FlagVerbose
+		VERBOSE = τmp0
 
 		Match = λ.Cal(λ.TypeType, λ.StrLiteral("Match"), λ.NewTuple(), func() λ.Dict {
 			var (

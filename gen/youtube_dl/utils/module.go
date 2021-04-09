@@ -25,7 +25,6 @@
 package utils
 
 import (
-	Ωcodecs "github.com/tenta-browser/go-video-downloader/gen/codecs"
 	Ωentities "github.com/tenta-browser/go-video-downloader/gen/html/entities"
 	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
 	Ωrandom "github.com/tenta-browser/go-video-downloader/gen/random"
@@ -49,6 +48,7 @@ var (
 	ExtractorError                    λ.Object
 	GeoRestrictedError                λ.Object
 	GeoUtils                          λ.Object
+	HEADRequest                       λ.Object
 	HTMLAttributeParser               λ.Object
 	ISO3166Utils                      λ.Object
 	JSON_LD_RE                        λ.Object
@@ -64,7 +64,9 @@ var (
 	UnavailableVideoError             λ.Object
 	YoutubeDLError                    λ.Object
 	ϒ_htmlentity_transform            λ.Object
+	ϒage_restricted                   λ.Object
 	ϒbase_url                         λ.Object
+	ϒbool_or_none                     λ.Object
 	ϒbug_reports_message              λ.Object
 	ϒclean_html                       λ.Object
 	ϒclean_podcast_url                λ.Object
@@ -103,7 +105,6 @@ var (
 	ϒjs_to_json                       λ.Object
 	ϒlimit_length                     λ.Object
 	ϒlookup_unit_table                λ.Object
-	ϒlowercase_escape                 λ.Object
 	ϒmerge_dicts                      λ.Object
 	ϒmimetype2ext                     λ.Object
 	ϒmonth_by_name                    λ.Object
@@ -3502,6 +3503,26 @@ func init() {
 				}
 				return λ.Cal(Ωparse.ϒurljoin, ϒbase, ϒpath)
 			})
+		HEADRequest = λ.Cal(λ.TypeType, λ.StrLiteral("HEADRequest"), λ.NewTuple(Ωrequest.Request), func() λ.Dict {
+			var (
+				HEADRequest_get_method λ.Object
+			)
+			HEADRequest_get_method = λ.NewFunction("get_method",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself = λargs[0]
+					)
+					_ = ϒself
+					return λ.StrLiteral("HEAD")
+				})
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"get_method": HEADRequest_get_method,
+			})
+		}())
 		ϒint_or_none = λ.NewFunction("int_or_none",
 			[]λ.Param{
 				{Name: "v"},
@@ -3629,6 +3650,25 @@ func init() {
 					return τmp1
 				}
 				return λ.None
+			})
+		ϒbool_or_none = λ.NewFunction("bool_or_none",
+			[]λ.Param{
+				{Name: "v"},
+				{Name: "default", Def: λ.None},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒdefault = λargs[1]
+					ϒv       = λargs[0]
+				)
+				return func() λ.Object {
+					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒv, λ.BoolType)) {
+						return ϒv
+					} else {
+						return ϒdefault
+					}
+				}()
 			})
 		ϒstrip_or_none = λ.NewFunction("strip_or_none",
 			[]λ.Param{
@@ -3758,29 +3798,6 @@ func init() {
 
 			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
-		ϒlowercase_escape = λ.NewFunction("lowercase_escape",
-			[]λ.Param{
-				{Name: "s"},
-			},
-			0, false, false,
-			func(λargs []λ.Object) λ.Object {
-				var (
-					ϒs              = λargs[0]
-					ϒunicode_escape λ.Object
-				)
-				ϒunicode_escape = λ.Cal(Ωcodecs.ϒgetdecoder, λ.StrLiteral("unicode_escape"))
-				return λ.Cal(Ωre.ϒsub, λ.StrLiteral("\\\\u[0-9a-fA-F]{4}"), λ.NewFunction("<lambda>",
-					[]λ.Param{
-						{Name: "m"},
-					},
-					0, false, false,
-					func(λargs []λ.Object) λ.Object {
-						var (
-							ϒm = λargs[0]
-						)
-						return λ.GetItem(λ.Cal(ϒunicode_escape, λ.Calm(ϒm, "group", λ.IntLiteral(0))), λ.IntLiteral(0))
-					}), ϒs)
-			})
 		ϒurlencode_postdata = λ.NewFunction("urlencode_postdata",
 			nil,
 			0, true, true,
@@ -3857,7 +3874,7 @@ func init() {
 				}(), ϒquery)
 				ϒreq_get_method = λ.Calm(ϒreq, "get_method")
 				if λ.IsTrue(λ.Eq(ϒreq_get_method, λ.StrLiteral("HEAD"))) {
-					ϒreq_type = λ.None
+					ϒreq_type = HEADRequest
 				} else {
 					if λ.IsTrue(λ.Eq(ϒreq_get_method, λ.StrLiteral("PUT"))) {
 						ϒreq_type = λ.None
@@ -4502,6 +4519,25 @@ func init() {
 					})
 				}
 				return λ.DictLiteral(map[λ.Object]λ.Object{})
+			})
+		ϒage_restricted = λ.NewFunction("age_restricted",
+			[]λ.Param{
+				{Name: "content_limit"},
+				{Name: "age_limit"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒage_limit     = λargs[1]
+					ϒcontent_limit = λargs[0]
+				)
+				if ϒage_limit == λ.None {
+					return λ.False
+				}
+				if ϒcontent_limit == λ.None {
+					return λ.False
+				}
+				return λ.Lt(ϒage_limit, ϒcontent_limit)
 			})
 		ϒdetermine_protocol = λ.NewFunction("determine_protocol",
 			[]λ.Param{

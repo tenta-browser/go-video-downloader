@@ -72,7 +72,7 @@
     "AMCNetworksIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -271,10 +271,9 @@
     },
     "AmaraIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
-        ],
+        "error_msgs": [],
         "success_urls": [
+            "https://amara.org/en/videos/jVx79ZKGK1ky/info/why-jury-trials-are-becoming-less-common/?tab=video",
             "https://amara.org/en/videos/kYkK1VUTWW5I/info/vimeo-at-ces-2011",
             "https://amara.org/en/videos/s8KL7I3jLmh6/info/the-danger-of-a-single-story/"
         ]
@@ -324,10 +323,10 @@
     },
     "AparatIE": {
         "adult": false,
-        "error_msgs": [
-            "DownloadError: ERROR: No video formats found"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "http://www.aparat.com/v/wP8On"
+        ]
     },
     "AppleConnectIE": {
         "adult": false,
@@ -548,7 +547,8 @@
     "BIQLEIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: Video unavailable",
+            "IndexError: list index out of range"
         ],
         "success_urls": []
     },
@@ -956,10 +956,15 @@
         "error_msgs": [],
         "success_urls": []
     },
+    "CBSSportsEmbedIE": {
+        "adult": false,
+        "error_msgs": [],
+        "success_urls": []
+    },
     "CBSSportsIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -987,7 +992,7 @@
     "CCTVIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://english.cntv.cn/special/four_comprehensives/index.shtml\": dial tcp: lookup english.cntv.cn on 74.206.188.88:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://english.cntv.cn/special/four_comprehensives/index.shtml\": dial tcp: lookup english.cntv.cn on 74.206.188.87:53: no such host> (caused by URLError)"
         ],
         "success_urls": [
             "http://cctv.cntv.cn/lm/tvseries_russian/yilugesanghua/index.shtml",
@@ -1024,14 +1029,14 @@
     "CNBCIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
     "CNBCVideoIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -1094,7 +1099,7 @@
     "CWTVIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -1106,7 +1111,7 @@
     "CamTubeIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://api.camtube.co/rpc/session/new\": dial tcp: lookup api.camtube.co on 74.206.188.87:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://api.camtube.co/rpc/session/new\": dial tcp: lookup api.camtube.co on 74.206.188.88:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -1126,11 +1131,10 @@
     },
     "CamdemyIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
-        ],
+        "error_msgs": [],
         "success_urls": [
             "http://www.camdemy.com/media/13885",
+            "http://www.camdemy.com/media/14842",
             "http://www.camdemy.com/media/5181/"
         ]
     },
@@ -1168,7 +1172,7 @@
     "CarambaTVIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
+            "DownloadError: ERROR: 191910501: Failed to parse JSON  (caused by ValueError('invalid character \\'<\\' looking for beginning of value'))"
         ],
         "success_urls": []
     },
@@ -1243,7 +1247,7 @@
     "CieloTVItIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://www.cielotv.it/video/Il-lunedi-e-sempre-un-dramma.html\": x509: certificate has expired or is not yet valid: current time 2021-04-06T18:18:05-04:00 is after 2021-03-19T23:59:59Z> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://www.cielotv.it/video/Il-lunedi-e-sempre-un-dramma.html\": x509: certificate has expired or is not yet valid: current time 2021-04-09T05:13:04-04:00 is after 2021-03-19T23:59:59Z> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -1382,10 +1386,9 @@
     },
     "CrackedIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
-        ],
+        "error_msgs": [],
         "success_urls": [
+            "http://www.cracked.com/video_19006_4-plot-holes-you-didnt-notice-in-your-favorite-movies.html",
             "http://www.cracked.com/video_19070_if-animal-actors-got-e21-true-hollywood-stories.html"
         ]
     },
@@ -1419,12 +1422,11 @@
     },
     "CtsNewsIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
-        ],
+        "error_msgs": [],
         "success_urls": [
             "http://news.cts.com.tw/cts/international/201309/201309031304098.html",
-            "http://news.cts.com.tw/cts/international/201501/201501291578109.html"
+            "http://news.cts.com.tw/cts/international/201501/201501291578109.html",
+            "http://news.cts.com.tw/cts/money/201501/201501291578003.html"
         ]
     },
     "CultureUnpluggedIE": {
@@ -1450,15 +1452,15 @@
     },
     "CuriosityStreamIE": {
         "adult": false,
-        "error_msgs": [],
-        "success_urls": [
-            "https://app.curiositystream.com/video/2"
-        ]
+        "error_msgs": [
+            "DownloadError: ERROR: requested format not available"
+        ],
+        "success_urls": []
     },
     "DBTVIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: Video unavailable"
         ],
         "success_urls": []
     },
@@ -1569,22 +1571,22 @@
     },
     "DailymotionIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "http://www.dailymotion.com/video/x5kesuj_office-christmas-party-review-jason-bateman-olivia-munn-t-j-miller_news"
+        ]
     },
     "DailymotionPlaylistIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
     "DailymotionUserIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
@@ -1688,7 +1690,7 @@
     "DiscoveryIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -1781,7 +1783,7 @@
     "EHowIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.ehow.com/video_12245069_hardwood-flooring-basics.html\": read tcp 74.206.165.158:39840->104.122.148.251:80: read: connection timed out> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.ehow.com/video_12245069_hardwood-flooring-basics.html\": read tcp 74.206.165.158:54202->23.10.124.174:80: read: connection timed out> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -2011,7 +2013,7 @@
     "FOXIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "AttributeError: 'placeholder uuid' object has no attribute 'uuid4'"
         ],
         "success_urls": []
     },
@@ -2154,7 +2156,7 @@
     "FoxSportsIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -2232,15 +2234,15 @@
     },
     "FreespeechIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "http://www.freespeech.org/stories/fcc-announces-net-neutrality-rollback-whats-stake/"
+        ]
     },
     "FreshLiveIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://freshlive.tv/satotv/74712\": dial tcp: lookup freshlive.tv on 74.206.188.87:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://freshlive.tv/satotv/74712\": dial tcp: lookup freshlive.tv on 74.206.188.88:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -2311,7 +2313,7 @@
     "GaiaIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -2440,10 +2442,10 @@
     },
     "GoogleDriveIE": {
         "adult": false,
-        "error_msgs": [],
-        "success_urls": [
-            "https://drive.google.com/file/d/0ByeS4oOUV-49Zzh4R1J6R09zazQ/edit?pli=1"
-        ]
+        "error_msgs": [
+            "DownloadError: ERROR: Unable to play this video at this time. The number of allowed playbacks has been exceeded. Please try again later."
+        ],
+        "success_urls": []
     },
     "GooglePodcastsFeedIE": {
         "adult": false,
@@ -2598,14 +2600,14 @@
     "HitboxIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://www.smashcast.tv/api/player/config/video/203213\": dial tcp: lookup www.smashcast.tv on 74.206.188.88:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://www.smashcast.tv/api/player/config/video/203213\": dial tcp: lookup www.smashcast.tv on 74.206.188.87:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
     "HitboxLiveIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://www.smashcast.tv/api/player/config/live/dimak\": dial tcp: lookup www.smashcast.tv on 74.206.188.87:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://www.smashcast.tv/api/player/config/live/dimak\": dial tcp: lookup www.smashcast.tv on 74.206.188.88:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -2864,7 +2866,7 @@
     "Ir90TvIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://90tv.ir/video/95719/%D8%B4%D8%A7%DB%8C%D8%B9%D8%A7%D8%AA-%D9%86%D9%82%D9%84-%D9%88-%D8%A7%D9%86%D8%AA%D9%82%D8%A7%D9%84%D8%A7%D8%AA-%D9%85%D9%87%D9%85-%D9%81%D9%88%D8%AA%D8%A8%D8%A7%D9%84-%D8%A7%D8%B1%D9%88%D9%BE%D8%A7-940218\": dial tcp: lookup 90tv.ir on 74.206.188.87:53: read udp 74.206.165.158:60676->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://90tv.ir/video/95719/%D8%B4%D8%A7%DB%8C%D8%B9%D8%A7%D8%AA-%D9%86%D9%82%D9%84-%D9%88-%D8%A7%D9%86%D8%AA%D9%82%D8%A7%D9%84%D8%A7%D8%AA-%D9%85%D9%87%D9%85-%D9%81%D9%88%D8%AA%D8%A8%D8%A7%D9%84-%D8%A7%D8%B1%D9%88%D9%BE%D8%A7-940218\": dial tcp: lookup 90tv.ir on 74.206.188.87:53: read udp 74.206.165.158:45806->74.206.188.87:53: i/o timeout> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -2919,7 +2921,7 @@
     "JamendoIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'track\\''))"
+            "AttributeError: 'placeholder hashlib' object has no attribute 'sha1'"
         ],
         "success_urls": []
     },
@@ -3008,10 +3010,10 @@
     },
     "KhanAcademyIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "https://www.khanacademy.org/computing/computer-science/cryptography/crypt/v/one-time-pad"
+        ]
     },
     "KhanAcademyUnitIE": {
         "adult": false,
@@ -3073,14 +3075,14 @@
     "KuwoCategoryIE": {
         "adult": false,
         "error_msgs": [
-            "Exception: Playlists and multi video results are not supported!"
+            "DownloadError: ERROR: Unable to get category info: HTTP Error 502: Bad Gateway (caused by <HTTPError 502: 'Bad Gateway'>)"
         ],
         "success_urls": []
     },
     "KuwoChartIE": {
         "adult": false,
         "error_msgs": [
-            "Exception: Playlists and multi video results are not supported!"
+            "DownloadError: ERROR: Unable to get chart info: <urlopen error Get \"http://yinyue.kuwo.cn/billboard_%E9%A6%99%E6%B8%AF%E4%B8%AD%E6%96%87%E9%BE%99%E8%99%8E%E6%A6%9C.htm\": dial tcp: lookup yinyue.kuwo.cn on 74.206.188.87:53: read udp 74.206.165.158:33327->74.206.188.87:53: i/o timeout> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -3123,7 +3125,7 @@
     "LBRYIE": {
         "adult": false,
         "error_msgs": [
-            "RegexpError: Function not allowed: <built-in method format of str object at 0x7f865ada6750>"
+            "RegexpError: Function not allowed: <built-in method format of str object at 0x7f1bb5f23870>"
         ],
         "success_urls": []
     },
@@ -3292,9 +3294,10 @@
     },
     "LimelightMediaIE": {
         "adult": false,
-        "error_msgs": [],
+        "error_msgs": [
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://production-ps.lvp.llnw.net/r/PlaylistService/media/3ffd040b522b4485b6d84effc750cd86/getPlaylistByMediaId\": dial tcp: lookup production-ps.lvp.llnw.net on 74.206.188.88:53: read udp 74.206.165.158:58987->74.206.188.88:53: i/o timeout> (caused by URLError)"
+        ],
         "success_urls": [
-            "http://link.videoplatform.limelight.com/media/?mediaId=3ffd040b522b4485b6d84effc750cd86",
             "limelight:media:a3e00274d4564ec4a9b29b9466432335"
         ]
     },
@@ -3322,14 +3325,14 @@
     "LinkedInLearningCourseIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'JSESSIONID\\''))"
         ],
         "success_urls": []
     },
     "LinkedInLearningIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'JSESSIONID\\''))"
         ],
         "success_urls": []
     },
@@ -3354,7 +3357,7 @@
         "adult": false,
         "error_msgs": [
             "DownloadError: ERROR: Unable to extract embed URL",
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: Video unavailable\nThis video is no longer available because the YouTube account associated with this video has been terminated."
         ],
         "success_urls": []
     },
@@ -3370,7 +3373,7 @@
     "LivestreamOriginalIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download XML: <urlopen error Get \"http://xdealbookx.api.channel.livestream.com/2.0/clipdetails?extendedInfo=true&id=pla_8aa4a3f1-ba15-46a4-893b-902210e138fb\": dial tcp: lookup xdealbookx.api.channel.livestream.com on 74.206.188.88:53: no such host> (caused by URLError)",
+            "DownloadError: ERROR: Unable to download XML: <urlopen error Get \"http://xdealbookx.api.channel.livestream.com/2.0/clipdetails?extendedInfo=true&id=pla_8aa4a3f1-ba15-46a4-893b-902210e138fb\": dial tcp: lookup xdealbookx.api.channel.livestream.com on 74.206.188.87:53: no such host> (caused by URLError)",
             "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
@@ -3564,6 +3567,13 @@
             "https://www.manyvids.com/Video/935718/MY-FACE-REVEAL/"
         ]
     },
+    "MaoriTVIE": {
+        "adult": false,
+        "error_msgs": [
+            "DownloadError: ERROR: Access to this resource is forbidden by access policy.\nYou might want to use a VPN or a proxy server (with --proxy) to workaround."
+        ],
+        "success_urls": []
+    },
     "MarkizaIE": {
         "adult": false,
         "error_msgs": [
@@ -3617,15 +3627,16 @@
     "MediasetIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)",
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
         ],
-        "success_urls": []
+        "success_urls": [
+            "https://www.mediasetplay.mediaset.it/video/matrix/puntata-del-25-maggio_F309013801000501"
+        ]
     },
     "MediasiteCatalogIE": {
         "adult": false,
         "error_msgs": [
-            "RegexpError: Function not allowed: <built-in method format of str object at 0x7f865ac2d350>"
+            "RegexpError: Function not allowed: <built-in method format of str object at 0x7f1bb5da5350>"
         ],
         "success_urls": []
     },
@@ -3644,7 +3655,7 @@
     "MediciIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'csrftoken\\''))"
         ],
         "success_urls": []
     },
@@ -3673,8 +3684,8 @@
         "adult": false,
         "error_msgs": [
             "AttributeError: 'placeholder youtube_dl/compat/compat_urllib_parse' object has no attribute 'quote'",
-            "DownloadError: ERROR: requested format not available",
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: Private video\nSign in if you've been granted access to this video",
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -3723,23 +3734,24 @@
     "MindsChannelIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
     "MindsGroupIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
     "MindsIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "https://www.minds.com/media/100000000000086822",
+            "https://www.minds.com/newsfeed/798025111988506624"
+        ]
     },
     "MinistryGridIE": {
         "adult": false,
@@ -3791,7 +3803,7 @@
     "MnetIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://content.api.mnet.com/player/vodConfig?ctype=CLIP&id=171008&stype=H\": dial tcp: lookup content.api.mnet.com on 74.206.188.87:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://content.api.mnet.com/player/vodConfig?ctype=CLIP&id=171008&stype=H\": dial tcp: lookup content.api.mnet.com on 74.206.188.88:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -3859,7 +3871,7 @@
         "adult": false,
         "error_msgs": [
             "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'vkey\\''))",
-            "DownloadError: ERROR: Unable to download XML: <urlopen error Get \"https://cdn-fck.moviefap.com/moviefap/be9867c9416c19f54a4a.flv?key=e4b3f79c2d5cb0d8e85111fe3d0b9237&VID=322032&rollover=1&timeline=1&startThumb=20%26catID=2,19,20,42\": x509: certificate signed by unknown authority> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download XML: <urlopen error Get \"https://cdn-fck.moviefap.com/moviefap/be9867c9416c19f54a4a.flv?key=22cc3e76c4352dfb6387c416528c719d&VID=322032&rollover=1&timeline=1&startThumb=20%26catID=2,19,20,42\": x509: certificate signed by unknown authority> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -3887,14 +3899,14 @@
     "MwaveIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://mwave.interest.me/onair/vod_info.m?vodtype=CL&sectorid=&endinfo=Y&id=168859\": dial tcp: lookup mwave.interest.me on 74.206.188.88:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://mwave.interest.me/onair/vod_info.m?vodtype=CL&sectorid=&endinfo=Y&id=168859\": dial tcp: lookup mwave.interest.me on 74.206.188.87:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
     "MwaveMeetGreetIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://mwave.interest.me/meetgreet/view/256\": dial tcp: lookup mwave.interest.me on 74.206.188.87:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://mwave.interest.me/meetgreet/view/256\": dial tcp: lookup mwave.interest.me on 74.206.188.88:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -3914,12 +3926,11 @@
     },
     "MySpaceIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
-        ],
+        "error_msgs": [],
         "success_urls": [
             "https://myspace.com/fiveminutestothestage/video/little-big-town/109594919",
-            "https://myspace.com/killsorrow/music/song/of-weakened-soul...-93388656-103880681"
+            "https://myspace.com/killsorrow/music/song/of-weakened-soul...-93388656-103880681",
+            "https://myspace.com/threedaysgrace/music/song/animal-i-have-become-28400208-28218041"
         ]
     },
     "MySpassIE": {
@@ -4101,9 +4112,9 @@
     "NHLIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://nhl.bamcontent.com/nhl/id/v1/278258934/details/web-v1.json\": x509: certificate has expired or is not yet valid: current time 2021-04-06T18:01:25-04:00 is after 2020-10-10T23:59:59Z> (caused by URLError)",
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://nhl.bamcontent.com/nhl/id/v1/43663503/details/web-v1.json\": x509: certificate has expired or is not yet valid: current time 2021-04-06T18:01:25-04:00 is after 2020-10-10T23:59:59Z> (caused by URLError)",
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://nhl.bamcontent.com/nhl/id/v1/44315003/details/web-v1.json\": x509: certificate has expired or is not yet valid: current time 2021-04-06T18:01:25-04:00 is after 2020-10-10T23:59:59Z> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://nhl.bamcontent.com/nhl/id/v1/278258934/details/web-v1.json\": x509: certificate has expired or is not yet valid: current time 2021-04-09T04:58:32-04:00 is after 2020-10-10T23:59:59Z> (caused by URLError)",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://nhl.bamcontent.com/nhl/id/v1/43663503/details/web-v1.json\": x509: certificate has expired or is not yet valid: current time 2021-04-09T04:58:32-04:00 is after 2020-10-10T23:59:59Z> (caused by URLError)",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://nhl.bamcontent.com/nhl/id/v1/44315003/details/web-v1.json\": x509: certificate has expired or is not yet valid: current time 2021-04-09T04:58:32-04:00 is after 2020-10-10T23:59:59Z> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -4135,11 +4146,11 @@
     "NPOIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://e.omroep.nl/metadata/RBX_FUNX_7601437\": dial tcp: lookup e.omroep.nl on 74.206.188.87:53: no such host> (caused by URLError)",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://e.omroep.nl/metadata/RBX_FUNX_7601437\": dial tcp: lookup e.omroep.nl on 74.206.188.88:53: no such host> (caused by URLError)",
             "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://e.omroep.nl/metadata/VARA_101191800\": dial tcp: lookup e.omroep.nl on 74.206.188.87:53: no such host> (caused by URLError)",
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://e.omroep.nl/metadata/VPWON_1220719\": dial tcp: lookup e.omroep.nl on 74.206.188.88:53: no such host> (caused by URLError)",
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://e.omroep.nl/metadata/VPWON_1233944\": dial tcp: lookup e.omroep.nl on 74.206.188.88:53: no such host> (caused by URLError)",
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://e.omroep.nl/metadata/WO_NOS_762771\": dial tcp: lookup e.omroep.nl on 74.206.188.88:53: no such host> (caused by URLError)",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://e.omroep.nl/metadata/VPWON_1220719\": dial tcp: lookup e.omroep.nl on 74.206.188.87:53: no such host> (caused by URLError)",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://e.omroep.nl/metadata/VPWON_1233944\": dial tcp: lookup e.omroep.nl on 74.206.188.87:53: no such host> (caused by URLError)",
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://e.omroep.nl/metadata/WO_NOS_762771\": dial tcp: lookup e.omroep.nl on 74.206.188.87:53: no such host> (caused by URLError)",
             "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
@@ -4298,7 +4309,7 @@
     "NationalGeographicTVIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "AttributeError: 'placeholder uuid' object has no attribute 'uuid4'"
         ],
         "success_urls": []
     },
@@ -4392,7 +4403,7 @@
     "NewstubeIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.newstube.ru/media/telekanal-cnn-peremestil-gorod-slavyansk-v-krym\": dial tcp: lookup www.newstube.ru on 74.206.188.87:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.newstube.ru/media/telekanal-cnn-peremestil-gorod-slavyansk-v-krym\": dial tcp: lookup www.newstube.ru on 74.206.188.88:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -4704,12 +4715,11 @@
     },
     "OdnoklassnikiIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
-        ],
+        "error_msgs": [],
         "success_urls": [
             "http://ok.ru/video/20079905452",
-            "http://ok.ru/video/63567059965189-0?fromTime=5"
+            "http://ok.ru/video/63567059965189-0?fromTime=5",
+            "http://ok.ru/video/64211978996595-1"
         ]
     },
     "OktoberfestTVIE": {
@@ -4831,10 +4841,10 @@
     },
     "PalcoMP3VideoIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "https://www.palcomp3.com/maiaraemaraisaoficial/maiara-e-maraisa-voce-faz-falta-aqui-ao-vivo-em-vicosa-mg/#clipe"
+        ]
     },
     "PandoraTVIE": {
         "adult": false,
@@ -4846,7 +4856,7 @@
     "ParamountNetworkIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: An extractor error has occurred. (caused by StopIteration(None))"
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
@@ -4859,11 +4869,10 @@
     },
     "PatreonIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
-        ],
+        "error_msgs": [],
         "success_urls": [
-            "http://www.patreon.com/creation?hid=743933"
+            "http://www.patreon.com/creation?hid=743933",
+            "https://www.patreon.com/creation?hid=1682498"
         ]
     },
     "PearVideoIE": {
@@ -4917,11 +4926,10 @@
     },
     "PhoenixIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
-        ],
+        "error_msgs": [],
         "success_urls": [
-            "https://www.phoenix.de/sendungen/ereignisse/corona-nachgehakt/wohin-fuehrt-der-protest-in-der-pandemie-a-2050630.html"
+            "https://www.phoenix.de/sendungen/ereignisse/corona-nachgehakt/wohin-fuehrt-der-protest-in-der-pandemie-a-2050630.html",
+            "https://www.phoenix.de/sendungen/gespraeche/phoenix-streitgut-brennglas-corona-a-1965505.html"
         ]
     },
     "PhotobucketIE": {
@@ -5246,7 +5254,7 @@
     "QQMusicSingerIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://y.qq.com/n/yqq/singer/001BLpXF2DyJe2.html\": dial tcp: lookup y.qq.com on 74.206.188.88:53: read udp 74.206.165.158:36495->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://y.qq.com/n/yqq/singer/001BLpXF2DyJe2.html\": dial tcp: lookup y.qq.com on 74.206.188.87:53: read udp 74.206.165.158:48893->74.206.188.87:53: i/o timeout> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -5293,7 +5301,7 @@
     "R7IE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://player-api.r7.com/video/i/54e7050b0cf2ff57e0279389\": dial tcp: lookup player-api.r7.com on 74.206.188.87:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"http://player-api.r7.com/video/i/54e7050b0cf2ff57e0279389\": dial tcp: lookup player-api.r7.com on 74.206.188.88:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -5622,7 +5630,7 @@
     "RoosterTeethIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -6127,10 +6135,11 @@
     "SlidesLiveIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: requested format not available",
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: requested format not available"
         ],
-        "success_urls": []
+        "success_urls": [
+            "https://slideslive.com/38902413/gcc-ia16-backend"
+        ]
     },
     "SlideshareIE": {
         "adult": false,
@@ -6231,8 +6240,8 @@
     "SouthParkDeIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: An extractor error has occurred. (caused by StopIteration(None))",
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
+            "DownloadError: ERROR: Unable to download webpage: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)",
+            "TypeError: 'NoneType' object is not subscriptable"
         ],
         "success_urls": []
     },
@@ -6357,7 +6366,7 @@
     "SproutIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -6497,10 +6506,15 @@
     "TEDIE": {
         "adult": false,
         "error_msgs": [
-            "Exception: Playlists and multi video results are not supported!",
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: Unable to extract info json",
+            "Exception: Playlists and multi video results are not supported!"
         ],
-        "success_urls": []
+        "success_urls": [
+            "http://www.ted.com/talks/dan_dennett_on_our_consciousness.html",
+            "http://www.ted.com/talks/gabby_giffords_and_mark_kelly_be_passionate_be_courageous_be_your_best",
+            "https://www.ted.com/talks/douglas_adams_parrots_the_universe_and_everything",
+            "https://www.ted.com/talks/vishal_sikka_the_beauty_and_power_of_algorithms"
+        ]
     },
     "TF1IE": {
         "adult": false,
@@ -6511,10 +6525,10 @@
     },
     "TFOIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "http://www.tfo.org/en/universe/tfo-247/100463871/video-game-hackathon"
+        ]
     },
     "TMZArticleIE": {
         "adult": false,
@@ -6680,8 +6694,8 @@
         "adult": false,
         "error_msgs": [
             "DownloadError: ERROR: No video formats found",
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://vn.tvnet.gov.vn/radio/27017/vov1---ban-tin-chieu-10062018/doi-song-va-xa-hoi\": dial tcp: lookup vn.tvnet.gov.vn on 74.206.188.87:53: read udp 74.206.165.158:44318->74.206.188.87:53: i/o timeout> (caused by URLError)",
-            "DownloadError: ERROR: Unable to extract data file"
+            "DownloadError: ERROR: Unable to extract data file",
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -6864,7 +6878,7 @@
     "TechTalksIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://techtalks.tv/talks/learning-topic-models-going-beyond-svd/57758/\": dial tcp: lookup techtalks.tv on 74.206.188.87:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://techtalks.tv/talks/learning-topic-models-going-beyond-svd/57758/\": dial tcp: lookup techtalks.tv on 74.206.188.88:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -7034,7 +7048,7 @@
     "ThisAVIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: HTTP Error 522:  (caused by <HTTPError 522: ''>)"
+            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'sourceURL\\''))"
         ],
         "success_urls": []
     },
@@ -7231,7 +7245,7 @@
     "TurboIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.turbo.fr/videos-voiture/454443-turbo-du-07-09-2014-renault-twingo-3-bentley-continental-gt-speed-ces-guide-achat-dacia.html\": dial tcp: lookup www.turbo.fr on 74.206.188.87:53: read udp 74.206.165.158:46345->74.206.188.87:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.turbo.fr/videos-voiture/454443-turbo-du-07-09-2014-renault-twingo-3-bentley-continental-gt-speed-ces-guide-achat-dacia.html\": dial tcp: lookup www.turbo.fr on 74.206.188.87:53: read udp 74.206.165.158:51611->74.206.188.87:53: i/o timeout> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -7244,6 +7258,13 @@
         "adult": false,
         "error_msgs": [
             "DownloadError: ERROR: Unable to download JSON metadata: HTTP Error 404: Not Found (caused by <HTTPError 404: 'Not Found'>)"
+        ],
+        "success_urls": []
+    },
+    "TwentyFourSevenSportsIE": {
+        "adult": false,
+        "error_msgs": [
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -7278,22 +7299,22 @@
     },
     "TwitchClipsIE": {
         "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
-        ],
-        "success_urls": []
+        "error_msgs": [],
+        "success_urls": [
+            "https://clips.twitch.tv/FaintLightGullWholeWheat"
+        ]
     },
     "TwitchCollectionIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
     "TwitchStreamIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: shroomztv does not exist"
         ],
         "success_urls": []
     },
@@ -7321,7 +7342,7 @@
     "TwitchVodIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: requested format not available"
         ],
         "success_urls": []
     },
@@ -7385,7 +7406,7 @@
     "UMGDeIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://api.universal-music.de/graphql?query=%7B%0A++universalMusic%28channel%3A16%29+%7B%0A++++video%28id%3A457803%29+%7B%0A++++++headline%0A++++++formats+%7B%0A++++++++formatId%0A++++++++url%0A++++++++type%0A++++++++width%0A++++++++height%0A++++++++mimeType%0A++++++++fileSize%0A++++++%7D%0A++++++duration%0A++++++createdDate%0A++++%7D%0A++%7D%0A%7D\": dial tcp: lookup api.universal-music.de on 74.206.188.87:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download JSON metadata: <urlopen error Get \"https://api.universal-music.de/graphql?query=%7B%0A++universalMusic%28channel%3A16%29+%7B%0A++++video%28id%3A457803%29+%7B%0A++++++headline%0A++++++formats+%7B%0A++++++++formatId%0A++++++++url%0A++++++++type%0A++++++++width%0A++++++++height%0A++++++++mimeType%0A++++++++fileSize%0A++++++%7D%0A++++++duration%0A++++++createdDate%0A++++%7D%0A++%7D%0A%7D\": dial tcp: lookup api.universal-music.de on 74.206.188.88:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -7521,13 +7542,13 @@
     "VKIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: The video DSWD Awards 'Children's Joy Foundation, Inc.' Certificate of Registration and License to Operate was removed from public access by request of the copyright holder.",
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: The video DSWD Awards 'Children's Joy Foundation, Inc.' Certificate of Registration and License to Operate was removed from public access by request of the copyright holder."
         ],
         "success_urls": [
             "http://vk.com/video-110305615_171782105",
             "http://vk.com/video205387401_165548505",
             "http://vk.com/videos-77521?z=video-77521_162222515%2Fclub77521",
+            "https://vk.com/video-37468416_456239855",
             "https://vk.com/video_ext.php?oid=-77521&id=162222515&hash=87b046504ccd8bfa",
             "https://vk.com/videos-387766?z=video-387766_456242764%2Fpl_-387766_-2"
         ]
@@ -7613,7 +7634,7 @@
     "VShareIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://vshare.io/v/0f64ce6/width-650/height-430/1\": dial tcp: lookup vshare.io on 74.206.188.87:53: server misbehaving> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"https://vshare.io/v/0f64ce6/width-650/height-430/1\": dial tcp: lookup vshare.io on 74.206.188.87:53: read udp 74.206.165.158:43689->74.206.188.87:53: i/o timeout> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -7714,10 +7735,11 @@
     "ViceArticleIE": {
         "adult": false,
         "error_msgs": [
-            "AttributeError: 'placeholder hashlib' object has no attribute 'sha512'",
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "AttributeError: 'placeholder hashlib' object has no attribute 'sha512'"
         ],
-        "success_urls": []
+        "success_urls": [
+            "https://www.vice.com/en_us/article/how-to-hack-a-car"
+        ]
     },
     "ViceIE": {
         "adult": false,
@@ -8161,7 +8183,7 @@
     "WallaIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download XML: <urlopen error Get \"http://video2.walla.co.il/?w=null/null/2642630/@@/video/flv_pl\": dial tcp: lookup video2.walla.co.il on 74.206.188.87:53: no such host> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download XML: <urlopen error Get \"http://video2.walla.co.il/?w=null/null/2642630/@@/video/flv_pl\": dial tcp: lookup video2.walla.co.il on 74.206.188.88:53: no such host> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -8276,7 +8298,7 @@
     "XBefIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://xbef.com/video/5119-glamourous-lesbians-smoking-drinking-and-fucking\": dial tcp 3.210.218.157:80: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://xbef.com/video/5119-glamourous-lesbians-smoking-drinking-and-fucking\": dial tcp: lookup xbef.com on 74.206.188.88:53: read udp 74.206.165.158:34934->74.206.188.88:53: i/o timeout> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -8391,6 +8413,7 @@
     "XimalayaIE": {
         "adult": false,
         "error_msgs": [
+            "DownloadError: ERROR: Unable to get sound page: <urlopen error Get \"http://www.ximalaya.com/61425525/sound/47740352/\": dial tcp: lookup www.ximalaya.com on 74.206.188.87:53: read udp 74.206.165.158:43990->74.206.188.87:53: i/o timeout> (caused by URLError)",
             "DownloadError: ERROR: Unable to get sound page: HTTP Error 403: Forbidden (caused by <HTTPError 403: 'Forbidden'>)",
             "NotImplementedError: conversion type not yet supported: i"
         ],
@@ -8606,16 +8629,34 @@
         "success_urls": []
     },
     "YoutubeIE": {
-        "adult": false,
-        "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
-        ],
-        "success_urls": []
+        "adult": true,
+        "error_msgs": [],
+        "success_urls": [
+            "OtqTfy26tG0",
+            "__2ABJjxzNo",
+            "cBvYw8_A0vQ",
+            "https://music.youtube.com/watch?v=MgNrAu2pzNs",
+            "https://www.youtube.com/watch?v=BaW_jenozKc&t=1s&end=9",
+            "https://www.youtube.com/watch?v=BaW_jenozKc&v=yZIXLfi8CZQ",
+            "https://www.youtube.com/watch?v=CHqg6qOn4no",
+            "https://www.youtube.com/watch?v=IB3lcPjvWLA",
+            "https://www.youtube.com/watch?v=M4gD1WSo5mA",
+            "https://www.youtube.com/watch?v=T4XJQO3qol8",
+            "https://www.youtube.com/watch?v=_b-2C3KPAM0",
+            "https://www.youtube.com/watch?v=eQcmzGIKrzg",
+            "https://www.youtube.com/watch?v=iqKdEhx-dD4",
+            "https://www.youtube.com/watch?v=jvGDaLqkpTg",
+            "https://www.youtube.com/watch?v=lsguqyKfVQg",
+            "https://www.youtube.com/watch?v=x41yOUIvK2k",
+            "https://youtube.com/watch?v=HtVdAasjOgU",
+            "lqQg6PlCWgI"
+        ]
     },
     "YoutubePlaylistIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: Video unavailable",
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
@@ -8646,7 +8687,8 @@
     "YoutubeTabIE": {
         "adult": false,
         "error_msgs": [
-            "TypeError: 'placeholder youtube_dl/compat/compat_cookies_SimpleCookie' object is not callable"
+            "DownloadError: ERROR: requested format not available",
+            "Exception: Playlists and multi video results are not supported!"
         ],
         "success_urls": []
     },
@@ -8696,7 +8738,7 @@
     "ZapiksIE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.zapiks.fr/ep2s3-bon-appetit-eh-be-viva.html\": dial tcp: lookup www.zapiks.fr on 74.206.188.88:53: read udp 74.206.165.158:51307->74.206.188.88:53: i/o timeout> (caused by URLError)"
+            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://www.zapiks.fr/ep2s3-bon-appetit-eh-be-viva.html\": dial tcp: lookup www.zapiks.fr on 74.206.188.88:53: read udp 74.206.165.158:57812->74.206.188.88:53: i/o timeout> (caused by URLError)"
         ],
         "success_urls": []
     },
@@ -8729,7 +8771,7 @@
     "ZingMp3IE": {
         "adult": false,
         "error_msgs": [
-            "DownloadError: ERROR: Unable to download webpage: <urlopen error Get \"http://mp3.zing.vn/bai-hat/Xa-Mai-Xa-Bao-Thy/ZWZB9WAB.html?play_song=1\": dial tcp: lookup mp3.zing.vn on 74.206.188.88:53: read udp 74.206.165.158:36436->74.206.188.88:53: i/o timeout> (caused by URLError)",
+            "DownloadError: ERROR: An extractor error has occurred. (caused by KeyError('\\'msg\\''))",
             "DownloadError: ERROR: ZO8ZF7C7: Failed to parse JSON  (caused by ValueError('unexpected end of JSON input'))"
         ],
         "success_urls": []

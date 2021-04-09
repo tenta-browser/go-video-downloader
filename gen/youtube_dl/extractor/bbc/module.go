@@ -44,6 +44,7 @@ var (
 	ExtractorError                λ.Object
 	InfoExtractor                 λ.Object
 	ϒclean_html                   λ.Object
+	ϒcompat_HTTPError             λ.Object
 	ϒcompat_etree_Element         λ.Object
 	ϒcompat_parse_qs              λ.Object
 	ϒcompat_urllib_parse_urlparse λ.Object
@@ -65,6 +66,7 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_etree_Element = Ωcompat.ϒcompat_etree_Element
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ExtractorError = Ωutils.ExtractorError
@@ -967,7 +969,7 @@ func init() {
 													&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 														var ϒe λ.Object = λex
 														if λ.IsTrue(func() λ.Object {
-															if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
+															if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
 																return λv
 															} else {
 																return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.IntLiteral(500))

@@ -50,10 +50,12 @@ var (
 	NO_DEFAULT                     λ.Object
 	RegexNotFoundError             λ.Object
 	SearchInfoExtractor            λ.Object
+	ϒage_restricted                λ.Object
 	ϒbase_url                      λ.Object
 	ϒbug_reports_message           λ.Object
 	ϒclean_html                    λ.Object
 	ϒcompat_cookiejar_Cookie       λ.Object
+	ϒcompat_cookies_SimpleCookie   λ.Object
 	ϒcompat_etree_Element          λ.Object
 	ϒcompat_etree_fromstring       λ.Object
 	ϒcompat_http_client            λ.Object
@@ -102,6 +104,7 @@ var (
 func init() {
 	λ.InitModule(func() {
 		ϒcompat_cookiejar_Cookie = Ωcompat.ϒcompat_cookiejar_Cookie
+		ϒcompat_cookies_SimpleCookie = Ωcompat.ϒcompat_cookies_SimpleCookie
 		ϒcompat_etree_Element = Ωcompat.ϒcompat_etree_Element
 		ϒcompat_etree_fromstring = Ωcompat.ϒcompat_etree_fromstring
 		ϒcompat_integer_types = Ωcompat.ϒcompat_integer_types
@@ -113,6 +116,7 @@ func init() {
 		ϒget_base_url = Ωf4m.ϒget_base_url
 		ϒremove_encrypted_media = Ωf4m.ϒremove_encrypted_media
 		NO_DEFAULT = Ωutils.NO_DEFAULT
+		ϒage_restricted = Ωutils.ϒage_restricted
 		ϒbase_url = Ωutils.ϒbase_url
 		ϒbug_reports_message = Ωutils.ϒbug_reports_message
 		ϒclean_html = Ωutils.ϒclean_html
@@ -204,6 +208,7 @@ func init() {
 				InfoExtractor__og_search_property          λ.Object
 				InfoExtractor__og_search_thumbnail         λ.Object
 				InfoExtractor__og_search_title             λ.Object
+				InfoExtractor__og_search_url               λ.Object
 				InfoExtractor__og_search_video_url         λ.Object
 				InfoExtractor__parse_f4m_formats           λ.Object
 				InfoExtractor__parse_html5_media_entries   λ.Object
@@ -231,12 +236,12 @@ func init() {
 				InfoExtractor__x_forwarded_for_ip          λ.Object
 				InfoExtractor__xpath_ns                    λ.Object
 				InfoExtractor_extract                      λ.Object
-				InfoExtractor_extract_automatic_captions   λ.Object
 				InfoExtractor_extract_subtitles            λ.Object
 				InfoExtractor_geo_verification_headers     λ.Object
 				InfoExtractor_http_scheme                  λ.Object
 				InfoExtractor_ie_key                       λ.Object
 				InfoExtractor_initialize                   λ.Object
+				InfoExtractor_mark_watched                 λ.Object
 				InfoExtractor_playlist_result              λ.Object
 				InfoExtractor_raise_geo_restricted         λ.Object
 				InfoExtractor_raise_login_required         λ.Object
@@ -2002,6 +2007,25 @@ func init() {
 						ϒregexes,
 						ϒhtml,
 						ϒname,
+					), λ.KWArgs{
+						{Name: "", Value: ϒkargs},
+					})
+				})
+			InfoExtractor__og_search_url = λ.NewFunction("_og_search_url",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "html"},
+				},
+				0, false, true,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒhtml  = λargs[1]
+						ϒkargs = λargs[2]
+						ϒself  = λargs[0]
+					)
+					return λ.Call(λ.GetAttr(ϒself, "_og_search_property", nil), λ.NewArgs(
+						λ.StrLiteral("url"),
+						ϒhtml,
 					), λ.KWArgs{
 						{Name: "", Value: ϒkargs},
 					})
@@ -6358,7 +6382,7 @@ func init() {
 					)
 					ϒreq = λ.Cal(ϒsanitized_Request, ϒurl)
 					λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "cookiejar", nil), "add_cookie_header", ϒreq)
-					return λ.Cal(λ.None, λ.Calm(ϒreq, "get_header", λ.StrLiteral("Cookie")))
+					return λ.Cal(ϒcompat_cookies_SimpleCookie, λ.Calm(ϒreq, "get_header", λ.StrLiteral("Cookie")))
 				})
 			InfoExtractor_extract_subtitles = λ.NewFunction("extract_subtitles",
 				[]λ.Param{
@@ -6474,7 +6498,7 @@ func init() {
 					return ϒret
 				})
 			InfoExtractor__merge_subtitles = λ.Cal(λ.ClassMethodType, InfoExtractor__merge_subtitles)
-			InfoExtractor_extract_automatic_captions = λ.NewFunction("extract_automatic_captions",
+			InfoExtractor_mark_watched = λ.NewFunction("mark_watched",
 				[]λ.Param{
 					{Name: "self"},
 				},
@@ -6486,17 +6510,23 @@ func init() {
 						ϒself   = λargs[0]
 					)
 					if λ.IsTrue(func() λ.Object {
-						if λv := λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("writeautomaticsub"), λ.False); λ.IsTrue(λv) {
+						if λv := λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("mark_watched"), λ.False); !λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("listsubtitles"))
+							return func() λ.Object {
+								if λv := λ.NewBool(λ.GetItem(λ.Calm(ϒself, "_get_login_info"), λ.IntLiteral(0)) != λ.None); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.NewBool(λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("cookiefile")) != λ.None)
+								}
+							}()
 						}
 					}()) {
-						return λ.Call(λ.GetAttr(ϒself, "_get_automatic_captions", nil), λ.NewArgs(λ.Unpack(λ.AsStarred(ϒargs))...), λ.KWArgs{
+						λ.Call(λ.GetAttr(ϒself, "_mark_watched", nil), λ.NewArgs(λ.Unpack(λ.AsStarred(ϒargs))...), λ.KWArgs{
 							{Name: "", Value: ϒkwargs},
 						})
 					}
-					return λ.DictLiteral(map[λ.Object]λ.Object{})
+					return λ.None
 				})
 			InfoExtractor_geo_verification_headers = λ.NewFunction("geo_verification_headers",
 				[]λ.Param{
@@ -6565,6 +6595,7 @@ func init() {
 				"_og_search_property":          InfoExtractor__og_search_property,
 				"_og_search_thumbnail":         InfoExtractor__og_search_thumbnail,
 				"_og_search_title":             InfoExtractor__og_search_title,
+				"_og_search_url":               InfoExtractor__og_search_url,
 				"_og_search_video_url":         InfoExtractor__og_search_video_url,
 				"_parse_f4m_formats":           InfoExtractor__parse_f4m_formats,
 				"_parse_html5_media_entries":   InfoExtractor__parse_html5_media_entries,
@@ -6592,12 +6623,12 @@ func init() {
 				"_x_forwarded_for_ip":          InfoExtractor__x_forwarded_for_ip,
 				"_xpath_ns":                    InfoExtractor__xpath_ns,
 				"extract":                      InfoExtractor_extract,
-				"extract_automatic_captions":   InfoExtractor_extract_automatic_captions,
 				"extract_subtitles":            InfoExtractor_extract_subtitles,
 				"geo_verification_headers":     InfoExtractor_geo_verification_headers,
 				"http_scheme":                  InfoExtractor_http_scheme,
 				"ie_key":                       InfoExtractor_ie_key,
 				"initialize":                   InfoExtractor_initialize,
+				"mark_watched":                 InfoExtractor_mark_watched,
 				"playlist_result":              InfoExtractor_playlist_result,
 				"raise_geo_restricted":         InfoExtractor_raise_geo_restricted,
 				"raise_login_required":         InfoExtractor_raise_login_required,

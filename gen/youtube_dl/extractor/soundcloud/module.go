@@ -33,6 +33,7 @@ import (
 
 var (
 	ExtractorError                λ.Object
+	HEADRequest                   λ.Object
 	InfoExtractor                 λ.Object
 	KNOWN_EXTENSIONS              λ.Object
 	SearchInfoExtractor           λ.Object
@@ -45,6 +46,7 @@ var (
 	SoundcloudSetIE               λ.Object
 	SoundcloudTrackStationIE      λ.Object
 	SoundcloudUserIE              λ.Object
+	ϒcompat_HTTPError             λ.Object
 	ϒcompat_kwargs                λ.Object
 	ϒcompat_str                   λ.Object
 	ϒerror_to_compat_str          λ.Object
@@ -62,11 +64,13 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		SearchInfoExtractor = Ωcommon.SearchInfoExtractor
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_kwargs = Ωcompat.ϒcompat_kwargs
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒerror_to_compat_str = Ωutils.ϒerror_to_compat_str
 		ExtractorError = Ωutils.ExtractorError
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
+		HEADRequest = Ωutils.HEADRequest
 		ϒint_or_none = Ωutils.ϒint_or_none
 		KNOWN_EXTENSIONS = Ωutils.KNOWN_EXTENSIONS
 		ϒmimetype2ext = Ωutils.ϒmimetype2ext

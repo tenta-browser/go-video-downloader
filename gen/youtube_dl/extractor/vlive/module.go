@@ -39,6 +39,7 @@ var (
 	VLiveChannelIE      λ.Object
 	VLiveIE             λ.Object
 	VLivePostIE         λ.Object
+	ϒcompat_HTTPError   λ.Object
 	ϒcompat_str         λ.Object
 	ϒint_or_none        λ.Object
 	ϒmerge_dicts        λ.Object
@@ -51,6 +52,7 @@ var (
 func init() {
 	λ.InitModule(func() {
 		NaverBaseIE = Ωnaver.NaverBaseIE
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
@@ -210,7 +212,7 @@ func init() {
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 								var ϒe λ.Object = λex
 								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
+									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
 										return λv
 									} else {
 										return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.IntLiteral(403))

@@ -48,6 +48,7 @@ var (
 	PornHubPlaylistBaseIE      λ.Object
 	PornHubUserIE              λ.Object
 	PornHubUserVideosUploadIE  λ.Object
+	ϒcompat_HTTPError          λ.Object
 	ϒcompat_str                λ.Object
 	ϒdetermine_ext             λ.Object
 	ϒint_or_none               λ.Object
@@ -62,6 +63,7 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		PhantomJSwrapper = Ωopenload.PhantomJSwrapper
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
@@ -347,7 +349,6 @@ func init() {
 						ϒdl_webpage          λ.Object
 						ϒduration            λ.Object
 						ϒerror_msg           λ.Object
-						ϒext                 λ.Object
 						ϒextract_js_vars     λ.Object
 						ϒextract_list        λ.Object
 						ϒextract_vote_count  λ.Object
@@ -729,11 +730,35 @@ func init() {
 						0, false, false,
 						func(λargs []λ.Object) λ.Object {
 							var (
+								ϒext        λ.Object
 								ϒformat_url = λargs[0]
 								ϒheight     = λargs[1]
 								ϒmobj       λ.Object
 								ϒtbr        λ.Object
 							)
+							ϒext = λ.Cal(ϒdetermine_ext, ϒformat_url)
+							if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("mpd"))) {
+								λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_mpd_formats", nil), λ.NewArgs(
+									ϒformat_url,
+									ϒvideo_id,
+								), λ.KWArgs{
+									{Name: "mpd_id", Value: λ.StrLiteral("dash")},
+									{Name: "fatal", Value: λ.False},
+								}))
+								return λ.None
+							}
+							if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("m3u8"))) {
+								λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
+									ϒformat_url,
+									ϒvideo_id,
+									λ.StrLiteral("mp4"),
+								), λ.KWArgs{
+									{Name: "entry_protocol", Value: λ.StrLiteral("m3u8_native")},
+									{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
+									{Name: "fatal", Value: λ.False},
+								}))
+								return λ.None
+							}
 							ϒtbr = λ.None
 							ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("(?P<height>\\d+)[pP]?_(?P<tbr>\\d+)[kK]"), ϒformat_url)
 							if λ.IsTrue(ϒmobj) {
@@ -774,30 +799,6 @@ func init() {
 							})
 							if λ.IsTrue(ϒupload_date) {
 								ϒupload_date = λ.Calm(ϒupload_date, "replace", λ.StrLiteral("/"), λ.StrLiteral(""))
-							}
-						}
-						ϒext = λ.Cal(ϒdetermine_ext, ϒvideo_url)
-						if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("mpd"))) {
-							λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_mpd_formats", nil), λ.NewArgs(
-								ϒvideo_url,
-								ϒvideo_id,
-							), λ.KWArgs{
-								{Name: "mpd_id", Value: λ.StrLiteral("dash")},
-								{Name: "fatal", Value: λ.False},
-							}))
-							continue
-						} else {
-							if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("m3u8"))) {
-								λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
-									ϒvideo_url,
-									ϒvideo_id,
-									λ.StrLiteral("mp4"),
-								), λ.KWArgs{
-									{Name: "entry_protocol", Value: λ.StrLiteral("m3u8_native")},
-									{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
-									{Name: "fatal", Value: λ.False},
-								}))
-								continue
 							}
 						}
 						if λ.Contains(ϒvideo_url, λ.StrLiteral("/video/get_media")) {

@@ -27,6 +27,7 @@ package packtpub
 import (
 	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
+	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
@@ -39,6 +40,7 @@ var (
 	PacktPubCourseIE   λ.Object
 	PacktPubIE         λ.Object
 	ϒclean_html        λ.Object
+	ϒcompat_HTTPError  λ.Object
 	ϒstr_or_none       λ.Object
 	ϒstrip_or_none     λ.Object
 	ϒunified_timestamp λ.Object
@@ -47,6 +49,7 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒclean_html = Ωutils.ϒclean_html
 		ExtractorError = Ωutils.ExtractorError
 		ϒstr_or_none = Ωutils.ϒstr_or_none
@@ -95,7 +98,7 @@ func init() {
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 								var ϒe λ.Object = λex
 								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
+									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
 										return λv
 									} else {
 										return λ.NewBool(λ.Contains(λ.NewTuple(
@@ -163,7 +166,7 @@ func init() {
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 								var ϒe λ.Object = λex
 								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
+									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
 										return λv
 									} else {
 										return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.IntLiteral(400))

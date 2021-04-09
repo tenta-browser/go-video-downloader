@@ -243,11 +243,34 @@ func init() {
 		}())
 		PalcoMP3VideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("PalcoMP3VideoIE"), λ.NewTuple(PalcoMP3BaseIE), func() λ.Dict {
 			var (
-				PalcoMP3VideoIE__VALID_URL λ.Object
+				PalcoMP3VideoIE_IE_NAME       λ.Object
+				PalcoMP3VideoIE__MUSIC_FIELDS λ.Object
+				PalcoMP3VideoIE__VALID_URL    λ.Object
+				PalcoMP3VideoIE__parse_music  λ.Object
 			)
+			PalcoMP3VideoIE_IE_NAME = λ.StrLiteral("PalcoMP3:video")
 			PalcoMP3VideoIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?palcomp3\\.com(?:\\.br)?/(?P<artist>[^/]+)/(?P<id>[^/?&#]+)/?#clipe")
+			PalcoMP3VideoIE__MUSIC_FIELDS = λ.StrLiteral("youtubeID")
+			PalcoMP3VideoIE__parse_music = λ.NewFunction("_parse_music",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "music"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒmusic      = λargs[1]
+						ϒself       = λargs[0]
+						ϒyoutube_id λ.Object
+					)
+					ϒyoutube_id = λ.GetItem(ϒmusic, λ.StrLiteral("youtubeID"))
+					return λ.Calm(ϒself, "url_result", ϒyoutube_id, λ.StrLiteral("Youtube"), ϒyoutube_id)
+				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": PalcoMP3VideoIE__VALID_URL,
+				"IE_NAME":       PalcoMP3VideoIE_IE_NAME,
+				"_MUSIC_FIELDS": PalcoMP3VideoIE__MUSIC_FIELDS,
+				"_VALID_URL":    PalcoMP3VideoIE__VALID_URL,
+				"_parse_music":  PalcoMP3VideoIE__parse_music,
 			})
 		}())
 	})

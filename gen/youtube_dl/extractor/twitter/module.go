@@ -43,6 +43,7 @@ var (
 	TwitterBroadcastIE            λ.Object
 	TwitterCardIE                 λ.Object
 	TwitterIE                     λ.Object
+	ϒcompat_HTTPError             λ.Object
 	ϒcompat_parse_qs              λ.Object
 	ϒcompat_urllib_parse_unquote  λ.Object
 	ϒcompat_urllib_parse_urlparse λ.Object
@@ -59,6 +60,7 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒcompat_urllib_parse_unquote = Ωcompat.ϒcompat_urllib_parse_unquote
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
