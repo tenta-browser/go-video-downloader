@@ -148,7 +148,7 @@ func init() {
 							λ.Calm(ϒentries, "append", λ.Calm(ϒself, "url_result", ϒitem_url, λ.StrLiteral("RTS")))
 						}
 						if !λ.IsTrue(ϒentries) {
-							τmp0 = λ.Calm(ϒself, "_download_webpage_handle", ϒurl, ϒdisplay_id)
+							τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_download_webpage_handle", ϒurl, ϒdisplay_id), 2)
 							ϒpage = λ.GetItem(τmp0, λ.IntLiteral(0))
 							ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
 							if λ.IsTrue(λ.Ne(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), λ.Calm(ϒurlh, "geturl")), "group", λ.StrLiteral("id")), ϒmedia_id)) {
@@ -228,7 +228,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒformat_url = λ.GetItem(τmp2, λ.IntLiteral(1))
 						if λ.IsTrue(func() λ.Object {

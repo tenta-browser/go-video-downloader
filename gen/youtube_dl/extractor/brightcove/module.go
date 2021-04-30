@@ -40,7 +40,6 @@ var (
 	ExtractorError                λ.Object
 	InfoExtractor                 λ.Object
 	ϒclean_html                   λ.Object
-	ϒcompat_HTTPError             λ.Object
 	ϒcompat_etree_fromstring      λ.Object
 	ϒcompat_parse_qs              λ.Object
 	ϒcompat_urllib_parse_urlparse λ.Object
@@ -67,7 +66,6 @@ func init() {
 		AdobePassIE = Ωadobepass.AdobePassIE
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_etree_fromstring = Ωcompat.ϒcompat_etree_fromstring
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ϒcompat_xml_parse_error = Ωcompat.ϒcompat_xml_parse_error
@@ -210,7 +208,7 @@ func init() {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
-									τmp2 = τmp1
+									τmp2 = λ.UnpackIterable(τmp1, 2)
 									_ = λ.GetItem(τmp2, λ.IntLiteral(0))
 									ϒsrc = λ.GetItem(τmp2, λ.IntLiteral(1))
 									λgy.Yield(ϒsrc)
@@ -289,7 +287,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						_ = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒurl = λ.GetItem(τmp2, λ.IntLiteral(1))
 						λ.Calm(ϒentries, "append", func() λ.Object {
@@ -305,7 +303,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 5)
 						ϒvideo = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒscript_tag = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒaccount_id = λ.GetItem(τmp2, λ.IntLiteral(2))
@@ -472,10 +470,10 @@ func init() {
 										}))
 									} else {
 										ϒstreaming_src = λ.Calm(ϒsource, "get", λ.StrLiteral("streaming_src"))
-										τmp2 = λ.NewTuple(
+										τmp2 = λ.UnpackIterable(λ.NewTuple(
 											λ.Calm(ϒsource, "get", λ.StrLiteral("stream_name")),
 											λ.Calm(ϒsource, "get", λ.StrLiteral("app_name")),
-										)
+										), 2)
 										ϒstream_name = λ.GetItem(τmp2, λ.IntLiteral(0))
 										ϒapp_name = λ.GetItem(τmp2, λ.IntLiteral(1))
 										if λ.IsTrue(func() λ.Object {
@@ -728,14 +726,14 @@ func init() {
 						τmp3                  λ.Object
 					)
 					_ = τmp3
-					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{}))
+					τmp0 = λ.UnpackIterable(λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{})), 2)
 					ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒsmuggled_data = λ.GetItem(τmp0, λ.IntLiteral(1))
 					λ.Calm(ϒself, "_initialize_geo_bypass", λ.DictLiteral(map[string]λ.Object{
 						"countries": λ.Calm(ϒsmuggled_data, "get", λ.StrLiteral("geo_countries")),
 						"ip_blocks": λ.Calm(ϒsmuggled_data, "get", λ.StrLiteral("geo_ip_blocks")),
 					}))
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups"), 5)
 					ϒaccount_id = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒplayer_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒembed = λ.GetItem(τmp0, λ.IntLiteral(2))
@@ -860,7 +858,7 @@ func init() {
 								&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 									var ϒe λ.Object = λex
 									if λ.IsTrue(func() λ.Object {
-										if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
+										if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
 											return λv
 										} else {
 											return λ.NewBool(λ.Contains(λ.NewTuple(

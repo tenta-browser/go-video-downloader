@@ -121,7 +121,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒquality = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒformat_url = λ.Cal(ϒvideo_url, λ.Calm(ϒformat_id, "capitalize"))

@@ -94,13 +94,13 @@ func init() {
 						τmp0          λ.Object
 						τmp1          λ.Object
 					)
-					τmp0 = λ.Calm(ϒself, "_get_login_info")
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_get_login_info"), 2)
 					ϒusername = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if ϒusername == λ.None {
 						return λ.None
 					}
-					τmp0 = λ.Calm(ϒself, "_download_webpage_handle", λ.StrLiteral("https://learning.oreilly.com/accounts/login-check/"), λ.None, λ.StrLiteral("Downloading login page"))
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_download_webpage_handle", λ.StrLiteral("https://learning.oreilly.com/accounts/login-check/"), λ.None, λ.StrLiteral("Downloading login page")), 2)
 					_ = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒis_logged = λ.NewFunction("is_logged",
@@ -122,7 +122,7 @@ func init() {
 					ϒparsed_url = λ.Cal(Ωparse.ϒurlparse, ϒredirect_url)
 					ϒqs = λ.Cal(ϒcompat_parse_qs, λ.GetAttr(ϒparsed_url, "query", nil))
 					ϒnext_uri = λ.Cal(Ωparse.ϒurljoin, λ.StrLiteral("https://api.oreilly.com"), λ.GetItem(λ.GetItem(ϒqs, λ.StrLiteral("next")), λ.IntLiteral(0)))
-					τmp0 = λ.Call(λ.GetAttr(ϒself, "_download_json_handle", nil), λ.NewArgs(
+					τmp0 = λ.UnpackIterable(λ.Call(λ.GetAttr(ϒself, "_download_json_handle", nil), λ.NewArgs(
 						λ.StrLiteral("https://www.oreilly.com/member/auth/login/"),
 						λ.None,
 						λ.StrLiteral("Logging in"),
@@ -137,7 +137,7 @@ func init() {
 							"Referer":      ϒredirect_url,
 						})},
 						{Name: "expected_status", Value: λ.IntLiteral(400)},
-					})
+					}), 2)
 					ϒauth = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒcredentials = λ.Calm(ϒauth, "get", λ.StrLiteral("credentials"))
@@ -166,13 +166,13 @@ func init() {
 						ϒcookie = τmp1
 						λ.Calm(ϒself, "_apply_first_set_cookie_header", ϒurlh, ϒcookie)
 					}
-					τmp0 = λ.Calm(ϒself, "_download_webpage_handle", func() λ.Object {
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_download_webpage_handle", func() λ.Object {
 						if λv := λ.Calm(ϒauth, "get", λ.StrLiteral("redirect_uri")); λ.IsTrue(λv) {
 							return λv
 						} else {
 							return ϒnext_uri
 						}
-					}(), λ.None, λ.StrLiteral("Completing login"))
+					}(), λ.None, λ.StrLiteral("Completing login")), 2)
 					_ = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if λ.IsTrue(λ.Cal(ϒis_logged, ϒurlh)) {
@@ -234,7 +234,7 @@ func init() {
 							λ.Calm(ϒmobj, "group", λ.StrLiteral("course_id")),
 							λ.Calm(ϒmobj, "group", λ.StrLiteral("part")),
 						))
-						τmp0 = λ.Calm(ϒself, "_download_webpage_handle", ϒurl, ϒvideo_id)
+						τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_download_webpage_handle", ϒurl, ϒvideo_id), 2)
 						ϒwebpage = λ.GetItem(τmp0, λ.IntLiteral(0))
 						ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
 						ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), λ.Calm(ϒurlh, "geturl"))

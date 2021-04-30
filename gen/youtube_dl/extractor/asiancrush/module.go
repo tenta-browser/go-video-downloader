@@ -171,7 +171,7 @@ func init() {
 						τmp2             λ.Object
 					)
 					ϒtitle = λ.GetItem(ϒvideo, λ.StrLiteral("name"))
-					τmp0 = λ.Mul(λ.NewList(λ.None), λ.IntLiteral(2))
+					τmp0 = λ.UnpackIterable(λ.Mul(λ.NewList(λ.None), λ.IntLiteral(2)), 2)
 					ϒentry_id = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒpartner_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetAttr(ϒself, "_KALTURA_KEYS", nil))
@@ -184,7 +184,7 @@ func init() {
 						if λ.IsTrue(ϒk_url) {
 							ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("/p/(\\d+)/.+?/entryId/([^/]+)/"), ϒk_url)
 							if λ.IsTrue(ϒmobj) {
-								τmp2 = λ.Calm(ϒmobj, "groups")
+								τmp2 = λ.UnpackIterable(λ.Calm(ϒmobj, "groups"), 2)
 								ϒpartner_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 								ϒentry_id = λ.GetItem(τmp2, λ.IntLiteral(1))
 								break
@@ -293,7 +293,7 @@ func init() {
 						ϒwebpage    λ.Object
 						τmp0        λ.Object
 					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups"), 2)
 					ϒhost = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if λ.IsTrue(λ.Eq(ϒhost, λ.StrLiteral("cocoro.tv"))) {

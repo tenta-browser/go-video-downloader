@@ -509,7 +509,7 @@ func init() {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
-							τmp2 = τmp1
+							τmp2 = λ.UnpackIterable(τmp1, 2)
 							ϒlayout_key = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒlayout_url = λ.GetItem(τmp2, λ.IntLiteral(1))
 							ϒlayout_url = λ.Cal(ϒurl_or_none, ϒlayout_url)

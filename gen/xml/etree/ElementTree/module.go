@@ -91,7 +91,7 @@ func init() {
 						τmp0  λ.Object
 					)
 					λ.SetAttr(ϒself, "e", ϒe)
-					τmp0 = λ.Cal(XMLElementInfos, ϒe)
+					τmp0 = λ.UnpackIterable(λ.Cal(XMLElementInfos, ϒe), 4)
 					λ.SetAttr(ϒself, "tag", λ.GetItem(τmp0, λ.IntLiteral(0)))
 					ϒtext = λ.GetItem(τmp0, λ.IntLiteral(1))
 					λ.SetAttr(ϒself, "attrib", λ.GetItem(τmp0, λ.IntLiteral(2)))

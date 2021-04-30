@@ -124,7 +124,7 @@ func init() {
 						ϒusername      λ.Object
 						τmp0           λ.Object
 					)
-					τmp0 = λ.Calm(ϒself, "_get_login_info")
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_get_login_info"), 2)
 					ϒusername = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if ϒusername == λ.None {
@@ -221,17 +221,17 @@ func init() {
 								{Name: "headers", Value: ϒheaders},
 							})
 						})
-					τmp0 = λ.Calm(ϒself, "_download_webpage_handle", λ.GetAttr(ϒself, "_LOGIN_FORM_URL", nil), λ.None, λ.StrLiteral("Downloading login page"))
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_download_webpage_handle", λ.GetAttr(ϒself, "_LOGIN_FORM_URL", nil), λ.None, λ.StrLiteral("Downloading login page")), 2)
 					ϒlogin_page = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒhandle = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if λ.Contains(ϒlogin_page, λ.StrLiteral("blacklist_message")) {
 						λ.Cal(ϒfail, λ.Cal(ϒclean_html, ϒlogin_page))
 					}
-					τmp0 = λ.Cal(ϒlogin_step, ϒlogin_page, ϒhandle, λ.StrLiteral("Logging in"), λ.DictLiteral(map[string]λ.Object{
+					τmp0 = λ.UnpackIterable(λ.Cal(ϒlogin_step, ϒlogin_page, ϒhandle, λ.StrLiteral("Logging in"), λ.DictLiteral(map[string]λ.Object{
 						"username":  ϒusername,
 						"password":  ϒpassword,
 						"client_id": λ.GetAttr(ϒself, "_CLIENT_ID", nil),
-					}))
+					})), 2)
 					ϒredirect_page = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒhandle = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if !λ.IsTrue(ϒredirect_page) {

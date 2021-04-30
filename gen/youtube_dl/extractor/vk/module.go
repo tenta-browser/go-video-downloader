@@ -100,13 +100,13 @@ func init() {
 						ϒusername   λ.Object
 						τmp0        λ.Object
 					)
-					τmp0 = λ.Calm(ϒself, "_get_login_info")
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_get_login_info"), 2)
 					ϒusername = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if ϒusername == λ.None {
 						return λ.None
 					}
-					τmp0 = λ.Calm(ϒself, "_download_webpage_handle", λ.StrLiteral("https://vk.com"), λ.None, λ.StrLiteral("Downloading login page"))
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_download_webpage_handle", λ.StrLiteral("https://vk.com"), λ.None, λ.StrLiteral("Downloading login page")), 2)
 					ϒlogin_page = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒurl_handle = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒlogin_form = λ.Calm(ϒself, "_hidden_inputs", ϒlogin_page)
@@ -162,7 +162,7 @@ func init() {
 						τmp0      λ.Object
 					)
 					λ.SetItem(ϒdata, λ.StrLiteral("al"), λ.IntLiteral(1))
-					τmp0 = λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
+					τmp0 = λ.UnpackIterable(λ.GetItem(λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
 						λ.Mod(λ.StrLiteral("https://vk.com/%s.php"), ϒpath),
 						ϒvideo_id,
 					), λ.KWArgs{
@@ -171,7 +171,7 @@ func init() {
 						{Name: "headers", Value: λ.DictLiteral(map[string]string{
 							"X-Requested-With": "XMLHttpRequest",
 						})},
-					}), λ.StrLiteral("payload"))
+					}), λ.StrLiteral("payload")), 2)
 					ϒcode = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒpayload = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if λ.IsTrue(λ.Eq(ϒcode, λ.StrLiteral("3"))) {
@@ -319,7 +319,7 @@ func init() {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
-							τmp2 = τmp1
+							τmp2 = λ.UnpackIterable(τmp1, 2)
 							ϒerror_re = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒerror_msg = λ.GetItem(τmp2, λ.IntLiteral(1))
 							if λ.IsTrue(λ.Cal(Ωre.ϒsearch, ϒerror_re, ϒinfo_page)) {
@@ -398,7 +398,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒformat_url = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒformat_url = λ.Cal(ϒurl_or_none, ϒformat_url)

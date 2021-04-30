@@ -137,7 +137,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒi = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒname = λ.GetItem(τmp2, λ.IntLiteral(1))
 						if λ.Contains(ϒkwargs, ϒname) {
@@ -172,7 +172,7 @@ func init() {
 					ϒurlstring = λargs[0]
 					τmp0       λ.Object
 				)
-				τmp0 = λ.Cal(URLParse, ϒurlstring)
+				τmp0 = λ.UnpackIterable(λ.Cal(URLParse, ϒurlstring), 6)
 				ϒ_scheme = λ.GetItem(τmp0, λ.IntLiteral(0))
 				ϒnetloc = λ.GetItem(τmp0, λ.IntLiteral(1))
 				ϒpath = λ.GetItem(τmp0, λ.IntLiteral(2))

@@ -79,7 +79,7 @@ func init() {
 						τmp1           λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					τmp0 = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"), λ.StrLiteral("base_url"))
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒmobj, "group", λ.StrLiteral("id"), λ.StrLiteral("base_url")), 2)
 					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒbase_url = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒwebpage = λ.Calm(ϒself, "_download_webpage", λ.Mod(λ.StrLiteral("%s/player/%s"), λ.NewTuple(

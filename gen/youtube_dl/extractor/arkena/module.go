@@ -167,7 +167,7 @@ func init() {
 								if τmp5 = λ.NextDefault(τmp4, λ.AfterLast); τmp5 == λ.AfterLast {
 									break
 								}
-								τmp6 = τmp5
+								τmp6 = λ.UnpackIterable(τmp5, 2)
 								ϒi = λ.GetItem(τmp6, λ.IntLiteral(0))
 								ϒlink = λ.GetItem(τmp6, λ.IntLiteral(1))
 								ϒhref = λ.Calm(ϒlink, "get", λ.StrLiteral("href"))

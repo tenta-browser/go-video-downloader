@@ -91,7 +91,7 @@ func init() {
 						ϒvideo_id   λ.Object
 						τmp0        λ.Object
 					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups"), 3)
 					ϒsite = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(2))

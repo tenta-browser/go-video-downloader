@@ -91,7 +91,7 @@ func init() {
 						τmp2         λ.Object
 						τmp3         λ.Object
 					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups"), 2)
 					ϒuploader_id = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒvideo_data = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("http://app.ustudio.com/embed/%s/%s/config.json"), λ.NewTuple(
@@ -105,7 +105,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒext = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒqualities = λ.GetItem(τmp2, λ.IntLiteral(1))
 						τmp2 = λ.Cal(λ.BuiltinIter, ϒqualities)

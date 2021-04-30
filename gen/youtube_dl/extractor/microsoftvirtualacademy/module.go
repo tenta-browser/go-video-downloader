@@ -157,7 +157,7 @@ func init() {
 						τmp3           λ.Object
 						τmp4           λ.Object
 					)
-					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{}))
+					τmp0 = λ.UnpackIterable(λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{})), 2)
 					ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒsmuggled_data = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
@@ -174,13 +174,13 @@ func init() {
 						ϒbase_url,
 						ϒvideo_id,
 					)), ϒvideo_id, λ.StrLiteral("Downloading video settings XML"))
-					τmp0 = λ.Calm(ϒself, "_extract_chapter_and_title", λ.Call(ϒxpath_text, λ.NewArgs(
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_extract_chapter_and_title", λ.Call(ϒxpath_text, λ.NewArgs(
 						ϒsettings,
 						λ.StrLiteral(".//Title"),
 						λ.StrLiteral("title"),
 					), λ.KWArgs{
 						{Name: "fatal", Value: λ.True},
-					}))
+					})), 2)
 					_ = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒtitle = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒformats = λ.NewList()
@@ -232,13 +232,13 @@ func init() {
 								{Name: "default", Value: λ.None},
 							}))
 							ϒcodec = λ.Calm(ϒsource, "get", λ.StrLiteral("codec"))
-							τmp4 = λ.Mul(λ.NewList(λ.None), λ.IntLiteral(2))
+							τmp4 = λ.UnpackIterable(λ.Mul(λ.NewList(λ.None), λ.IntLiteral(2)), 2)
 							ϒacodec = λ.GetItem(τmp4, λ.IntLiteral(0))
 							ϒvcodec = λ.GetItem(τmp4, λ.IntLiteral(1))
 							if λ.IsTrue(ϒcodec) {
 								ϒcodecs = λ.Calm(ϒcodec, "split", λ.StrLiteral(","))
 								if λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒcodecs), λ.IntLiteral(2))) {
-									τmp4 = ϒcodecs
+									τmp4 = λ.UnpackIterable(ϒcodecs, 2)
 									ϒacodec = λ.GetItem(τmp4, λ.IntLiteral(0))
 									ϒvcodec = λ.GetItem(τmp4, λ.IntLiteral(1))
 								} else {

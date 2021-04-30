@@ -185,7 +185,7 @@ func init() {
 						τmp0        λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					τmp0 = λ.Calm(ϒmobj, "group", λ.StrLiteral("course_id"), λ.StrLiteral("id"))
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒmobj, "group", λ.StrLiteral("course_id"), λ.StrLiteral("id")), 2)
 					ϒcourse_id = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒlesson_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒdisplay_id = λ.Mod(λ.StrLiteral("%s/%s"), λ.NewTuple(

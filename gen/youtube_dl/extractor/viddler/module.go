@@ -71,7 +71,7 @@ func init() {
 						τmp0        λ.Object
 						τmp1        λ.Object
 					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups"), 2)
 					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒsecret = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒquery = λ.DictLiteral(map[string]λ.Object{

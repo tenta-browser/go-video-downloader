@@ -125,7 +125,7 @@ func init() {
 						τmp0            λ.Object
 						τmp1            λ.Object
 					)
-					τmp0 = λ.Calm(ϒself, "_get_login_info")
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_get_login_info"), 2)
 					ϒuseremail = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if ϒuseremail == λ.None {
@@ -587,7 +587,7 @@ func init() {
 										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 											break
 										}
-										τmp2 = τmp1
+										τmp2 = λ.UnpackIterable(τmp1, 2)
 										ϒsuffix = λ.GetItem(τmp2, λ.IntLiteral(0))
 										ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(1))
 										ϒplayable_url = λ.Calm(ϒvideo, "get", λ.Add(λ.StrLiteral("playable_url"), ϒsuffix))

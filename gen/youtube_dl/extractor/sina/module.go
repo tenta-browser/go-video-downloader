@@ -95,7 +95,7 @@ func init() {
 						if λ.Calm(ϒmobj, "group", λ.StrLiteral("token")) != λ.None {
 							λ.Calm(ϒself, "to_screen", λ.StrLiteral("Getting video id"))
 							ϒrequest = λ.Cal(HEADRequest, ϒurl)
-							τmp0 = λ.Calm(ϒself, "_download_webpage_handle", ϒrequest, λ.StrLiteral("NA"), λ.False)
+							τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_download_webpage_handle", ϒrequest, λ.StrLiteral("NA"), λ.False), 2)
 							_ = λ.GetItem(τmp0, λ.IntLiteral(0))
 							ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
 							return λ.Calm(ϒself, "_real_extract", λ.Calm(ϒurlh, "geturl"))
@@ -149,7 +149,7 @@ func init() {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
-							τmp2 = τmp1
+							τmp2 = λ.UnpackIterable(τmp1, 2)
 							ϒquality_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒquality = λ.GetItem(τmp2, λ.IntLiteral(1))
 							ϒfile_api = λ.Calm(ϒquality, "get", λ.StrLiteral("file_api"))

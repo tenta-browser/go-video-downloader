@@ -282,7 +282,7 @@ func init() {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
-									τmp2 = τmp1
+									τmp2 = λ.UnpackIterable(τmp1, 2)
 									ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 									ϒformat_url = λ.GetItem(τmp2, λ.IntLiteral(1))
 									if ϒformat_url != λ.None {
@@ -307,7 +307,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒlang = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒsubtitled_download = λ.GetItem(τmp2, λ.IntLiteral(1))
 						τmp2 = λ.Cal(λ.BuiltinIter, λ.GetAttr(ϒself, "_NATIVE_FORMATS", nil))
@@ -374,7 +374,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒresources = λ.GetItem(τmp2, λ.IntLiteral(1))
 						if λ.IsTrue(λ.Eq(ϒformat_id, λ.StrLiteral("hls"))) {

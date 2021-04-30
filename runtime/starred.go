@@ -22,6 +22,8 @@
 
 package runtime
 
+import "fmt"
+
 // Starred ..
 type Starred interface {
 	Object
@@ -57,4 +59,23 @@ func Unpack(elems ...Object) []Object {
 		}
 	}
 	return unpacked
+}
+
+// UnpackIterable ..
+func UnpackIterable(o Object, cnt int) Object {
+	it := Iter(o)
+	unpacked := make([]Object, cnt)
+	for i := 0; i < cnt; i++ {
+		elem := NextDefault(it, AfterLast)
+		if elem == AfterLast {
+			panic(RaiseType(ValueErrorType,
+				fmt.Sprintf("not enough values to unpack (expected %d, got %d)", cnt, i)))
+		}
+		unpacked[i] = elem
+	}
+	if NextDefault(it, AfterLast) != AfterLast {
+		panic(RaiseType(ValueErrorType,
+			fmt.Sprintf("ValueError: too many values to unpack (expected %d)", cnt)))
+	}
+	return NewList(unpacked...)
 }

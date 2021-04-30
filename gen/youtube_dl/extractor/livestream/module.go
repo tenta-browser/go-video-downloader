@@ -188,7 +188,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒkey = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒvideo_url = λ.Calm(ϒvideo_data, "get", ϒkey)

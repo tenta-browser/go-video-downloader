@@ -179,7 +179,7 @@ func init() {
 						ϒurl  = λargs[1]
 						τmp0  λ.Object
 					)
-					τmp0 = λ.Calm(ϒself, "_api_request", ϒurl, λ.StrLiteral("post/getBySlug/%s"))
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_api_request", ϒurl, λ.StrLiteral("post/getBySlug/%s")), 2)
 					_ = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒpost = λ.GetItem(τmp0, λ.IntLiteral(1))
 					return λ.Calm(ϒself, "_extract_url_result", ϒpost)

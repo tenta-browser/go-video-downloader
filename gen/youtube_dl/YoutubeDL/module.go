@@ -619,7 +619,7 @@ func init() {
 										if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 											break
 										}
-										τmp2 = τmp1
+										τmp2 = λ.UnpackIterable(τmp1, 2)
 										ϒk = λ.GetItem(τmp2, λ.IntLiteral(0))
 										ϒv = λ.GetItem(τmp2, λ.IntLiteral(1))
 										if λ.IsTrue(func() λ.Object {
@@ -739,7 +739,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒkey = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒvalue = λ.GetItem(τmp2, λ.IntLiteral(1))
 						λ.Calm(ϒinfo_dict, "setdefault", ϒkey, ϒvalue)
@@ -1038,7 +1038,7 @@ func init() {
 												if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 													break
 												}
-												τmp2 = τmp1
+												τmp2 = λ.UnpackIterable(τmp1, 2)
 												ϒk = λ.GetItem(τmp2, λ.IntLiteral(0))
 												ϒv = λ.GetItem(τmp2, λ.IntLiteral(1))
 												if ϒv != λ.None {
@@ -1474,7 +1474,7 @@ func init() {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
-							τmp2 = τmp1
+							τmp2 = λ.UnpackIterable(τmp1, 2)
 							ϒi = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒt = λ.GetItem(τmp2, λ.IntLiteral(1))
 							λ.SetItem(ϒt, λ.StrLiteral("url"), λ.Cal(ϒsanitize_url, λ.GetItem(ϒt, λ.StrLiteral("url"))))
@@ -1555,7 +1555,7 @@ func init() {
 								if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 									break
 								}
-								τmp4 = τmp3
+								τmp4 = λ.UnpackIterable(τmp3, 2)
 								_ = λ.GetItem(τmp4, λ.IntLiteral(0))
 								ϒsubtitle = λ.GetItem(τmp4, λ.IntLiteral(1))
 								τmp4 = λ.Cal(λ.BuiltinIter, ϒsubtitle)
@@ -1619,7 +1619,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒi = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒformat = λ.GetItem(τmp2, λ.IntLiteral(1))
 						λ.Cal(ϒsanitize_string_field, ϒformat, λ.StrLiteral("format_id"))
@@ -1641,7 +1641,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒambiguous_formats = λ.GetItem(τmp2, λ.IntLiteral(1))
 						if λ.IsTrue(λ.Gt(λ.Cal(λ.BuiltinLen, ϒambiguous_formats), λ.IntLiteral(1))) {
@@ -1650,7 +1650,7 @@ func init() {
 								if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 									break
 								}
-								τmp4 = τmp3
+								τmp4 = λ.UnpackIterable(τmp3, 2)
 								ϒi = λ.GetItem(τmp4, λ.IntLiteral(0))
 								ϒformat = λ.GetItem(τmp4, λ.IntLiteral(1))
 								λ.SetItem(ϒformat, λ.StrLiteral("format_id"), λ.Mod(λ.StrLiteral("%s-%d"), λ.NewTuple(
@@ -1665,7 +1665,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒi = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒformat = λ.GetItem(τmp2, λ.IntLiteral(1))
 						if λ.Calm(ϒformat, "get", λ.StrLiteral("format")) == λ.None {
@@ -1853,7 +1853,7 @@ func init() {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
-							τmp2 = τmp1
+							τmp2 = λ.UnpackIterable(τmp1, 2)
 							ϒlang = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒcap_info = λ.GetItem(τmp2, λ.IntLiteral(1))
 							if !λ.Contains(ϒavailable_subs, ϒlang) {
@@ -2347,7 +2347,7 @@ func init() {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
-							τmp2 = τmp1
+							τmp2 = λ.UnpackIterable(τmp1, 2)
 							ϒsub_lang = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒsub_info = λ.GetItem(τmp2, λ.IntLiteral(1))
 							ϒsub_format = λ.GetItem(ϒsub_info, λ.StrLiteral("ext"))
@@ -2571,13 +2571,13 @@ func init() {
 											τmp0            λ.Object
 											τmp1            λ.Object
 										)
-										τmp0 = ϒformats
+										τmp0 = λ.UnpackIterable(ϒformats, 2)
 										ϒvideo = λ.GetItem(τmp0, λ.IntLiteral(0))
 										ϒaudio = λ.GetItem(τmp0, λ.IntLiteral(1))
-										τmp0 = λ.NewTuple(
+										τmp0 = λ.UnpackIterable(λ.NewTuple(
 											λ.Calm(ϒvideo, "get", λ.StrLiteral("ext")),
 											λ.Calm(ϒaudio, "get", λ.StrLiteral("ext")),
-										)
+										), 2)
 										ϒvideo_ext = λ.GetItem(τmp0, λ.IntLiteral(0))
 										ϒaudio_ext = λ.GetItem(τmp0, λ.IntLiteral(1))
 										if λ.IsTrue(func() λ.Object {

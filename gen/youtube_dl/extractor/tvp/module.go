@@ -266,7 +266,7 @@ func init() {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
-							τmp2 = τmp1
+							τmp2 = λ.UnpackIterable(τmp1, 2)
 							ϒi = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒm3u8_format = λ.GetItem(τmp2, λ.IntLiteral(1))
 							ϒhttp_url = λ.Mod(λ.StrLiteral("%s-%d.mp4"), λ.NewTuple(

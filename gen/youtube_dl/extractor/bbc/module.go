@@ -44,9 +44,9 @@ var (
 	ExtractorError                λ.Object
 	InfoExtractor                 λ.Object
 	ϒclean_html                   λ.Object
-	ϒcompat_HTTPError             λ.Object
 	ϒcompat_etree_Element         λ.Object
 	ϒcompat_parse_qs              λ.Object
+	ϒcompat_str                   λ.Object
 	ϒcompat_urllib_parse_urlparse λ.Object
 	ϒdict_get                     λ.Object
 	ϒfloat_or_none                λ.Object
@@ -55,8 +55,10 @@ var (
 	ϒjs_to_json                   λ.Object
 	ϒparse_duration               λ.Object
 	ϒparse_iso8601                λ.Object
+	ϒstrip_or_none                λ.Object
 	ϒtry_get                      λ.Object
 	ϒunescapeHTML                 λ.Object
+	ϒunified_timestamp            λ.Object
 	ϒurl_or_none                  λ.Object
 	ϒurlencode_postdata           λ.Object
 	ϒurljoin                      λ.Object
@@ -66,8 +68,8 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_etree_Element = Ωcompat.ϒcompat_etree_Element
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
+		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ExtractorError = Ωutils.ExtractorError
 		ϒclean_html = Ωutils.ϒclean_html
@@ -78,8 +80,10 @@ func init() {
 		ϒjs_to_json = Ωutils.ϒjs_to_json
 		ϒparse_duration = Ωutils.ϒparse_duration
 		ϒparse_iso8601 = Ωutils.ϒparse_iso8601
+		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒunescapeHTML = Ωutils.ϒunescapeHTML
+		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		ϒurljoin = Ωutils.ϒurljoin
@@ -128,7 +132,7 @@ func init() {
 						ϒusername   λ.Object
 						τmp0        λ.Object
 					)
-					τmp0 = λ.Calm(ϒself, "_get_login_info")
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_get_login_info"), 2)
 					ϒusername = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if ϒusername == λ.None {
@@ -148,7 +152,7 @@ func init() {
 						{Name: "default", Value: λ.GetAttr(ϒself, "_LOGIN_URL", nil)},
 						{Name: "group", Value: λ.StrLiteral("url")},
 					}))
-					τmp0 = λ.Call(λ.GetAttr(ϒself, "_download_webpage_handle", nil), λ.NewArgs(
+					τmp0 = λ.UnpackIterable(λ.Call(λ.GetAttr(ϒself, "_download_webpage_handle", nil), λ.NewArgs(
 						ϒpost_url,
 						λ.None,
 						λ.StrLiteral("Logging in"),
@@ -157,7 +161,7 @@ func init() {
 						{Name: "headers", Value: λ.DictLiteral(map[string]λ.Object{
 							"Referer": λ.GetAttr(ϒself, "_LOGIN_URL", nil),
 						})},
-					})
+					}), 2)
 					ϒresponse = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if λ.Contains(λ.Calm(ϒurlh, "geturl"), λ.GetAttr(ϒself, "_LOGIN_URL", nil)) {
@@ -411,7 +415,7 @@ func init() {
 										if τmp5 = λ.NextDefault(τmp4, λ.AfterLast); τmp5 == λ.AfterLast {
 											break
 										}
-										τmp6 = τmp5
+										τmp6 = λ.UnpackIterable(τmp5, 2)
 										ϒi = λ.GetItem(τmp6, λ.IntLiteral(0))
 										ϒref = λ.GetItem(τmp6, λ.IntLiteral(1))
 										λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
@@ -593,7 +597,7 @@ func init() {
 						})
 					}
 					if λ.IsTrue(ϒprogramme_id) {
-						τmp0 = λ.Calm(ϒself, "_download_media_selector", ϒprogramme_id)
+						τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_download_media_selector", ϒprogramme_id), 2)
 						ϒformats = λ.GetItem(τmp0, λ.IntLiteral(0))
 						ϒsubtitles = λ.GetItem(τmp0, λ.IntLiteral(1))
 						ϒtitle = func() λ.Object {
@@ -622,7 +626,7 @@ func init() {
 							ϒdescription = λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("description"), ϒwebpage)
 						}
 					} else {
-						τmp0 = λ.Calm(ϒself, "_download_playlist", ϒgroup_id)
+						τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_download_playlist", ϒgroup_id), 6)
 						ϒprogramme_id = λ.GetItem(τmp0, λ.IntLiteral(0))
 						ϒtitle = λ.GetItem(τmp0, λ.IntLiteral(1))
 						ϒdescription = λ.GetItem(τmp0, λ.IntLiteral(2))
@@ -904,7 +908,7 @@ func init() {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
-							τmp2 = τmp1
+							τmp2 = λ.UnpackIterable(τmp1, 2)
 							_ = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒdata_playable_json = λ.GetItem(τmp2, λ.IntLiteral(1))
 							ϒdata_playable = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
@@ -932,7 +936,7 @@ func init() {
 										ϒdescription = λ.Calm(ϒplaylist_object, "get", λ.StrLiteral("summary"))
 										ϒduration = λ.Cal(ϒint_or_none, λ.Calm(λ.GetItem(ϒitems, λ.IntLiteral(0)), "get", λ.StrLiteral("duration")))
 										ϒprogramme_id = λ.Calm(λ.GetItem(ϒitems, λ.IntLiteral(0)), "get", λ.StrLiteral("vpid"))
-										τmp2 = λ.Calm(ϒself, "_download_media_selector", ϒprogramme_id)
+										τmp2 = λ.UnpackIterable(λ.Calm(ϒself, "_download_media_selector", ϒprogramme_id), 2)
 										ϒformats = λ.GetItem(τmp2, λ.IntLiteral(0))
 										ϒsubtitles = λ.GetItem(τmp2, λ.IntLiteral(1))
 										λ.Calm(ϒself, "_sort_formats", ϒformats)
@@ -969,7 +973,7 @@ func init() {
 													&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 														var ϒe λ.Object = λex
 														if λ.IsTrue(func() λ.Object {
-															if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
+															if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
 																return λv
 															} else {
 																return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.IntLiteral(500))
@@ -1030,7 +1034,7 @@ func init() {
 						{Name: "default", Value: λ.None},
 					})
 					if λ.IsTrue(ϒprogramme_id) {
-						τmp0 = λ.Calm(ϒself, "_download_media_selector", ϒprogramme_id)
+						τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_download_media_selector", ϒprogramme_id), 2)
 						ϒformats = λ.GetItem(τmp0, λ.IntLiteral(0))
 						ϒsubtitles = λ.GetItem(τmp0, λ.IntLiteral(1))
 						λ.Calm(ϒself, "_sort_formats", ϒformats)
@@ -1135,7 +1139,7 @@ func init() {
 						ϒversion_id = λ.Calm(ϒclip_data, "get", λ.StrLiteral("versionID"))
 						if λ.IsTrue(ϒversion_id) {
 							ϒtitle = λ.GetItem(ϒsmp_data, λ.StrLiteral("title"))
-							τmp0 = λ.Calm(ϒself, "_download_media_selector", ϒversion_id)
+							τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_download_media_selector", ϒversion_id), 2)
 							ϒformats = λ.GetItem(τmp0, λ.IntLiteral(0))
 							ϒsubtitles = λ.GetItem(τmp0, λ.IntLiteral(1))
 							λ.Calm(ϒself, "_sort_formats", ϒformats)
@@ -1260,7 +1264,7 @@ func init() {
 									return λ.Calm(ϒself, "_og_search_title", ϒwebpage)
 								}
 							}()
-							τmp2 = λ.Calm(ϒself, "_download_media_selector", ϒprogramme_id)
+							τmp2 = λ.UnpackIterable(λ.Calm(ϒself, "_download_media_selector", ϒprogramme_id), 2)
 							ϒformats = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒsubtitles = λ.GetItem(τmp2, λ.IntLiteral(1))
 							λ.Calm(ϒself, "_sort_formats", ϒformats)
@@ -1325,7 +1329,7 @@ func init() {
 									return ϒplaylist_title
 								}
 							}()
-							τmp0 = λ.Calm(ϒself, "_download_media_selector", ϒprogramme_id)
+							τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_download_media_selector", ϒprogramme_id), 2)
 							ϒformats = λ.GetItem(τmp0, λ.IntLiteral(0))
 							ϒsubtitles = λ.GetItem(τmp0, λ.IntLiteral(1))
 							λ.Calm(ϒself, "_sort_formats", ϒformats)
@@ -1409,7 +1413,7 @@ func init() {
 								return ϒclip_title
 							}
 						}()) {
-							τmp0 = λ.Calm(ϒself, "_download_media_selector", ϒclip_vpid)
+							τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_download_media_selector", ϒclip_vpid), 2)
 							ϒformats = λ.GetItem(τmp0, λ.IntLiteral(0))
 							ϒsubtitles = λ.GetItem(τmp0, λ.IntLiteral(1))
 							λ.Calm(ϒself, "_sort_formats", ϒformats)
@@ -1457,7 +1461,7 @@ func init() {
 								if !λ.IsTrue(ϒprogramme_id) {
 									continue
 								}
-								τmp2 = λ.Calm(ϒself, "_download_media_selector", ϒprogramme_id)
+								τmp2 = λ.UnpackIterable(λ.Calm(ϒself, "_download_media_selector", ϒprogramme_id), 2)
 								ϒformats = λ.GetItem(τmp2, λ.IntLiteral(0))
 								ϒsubtitles = λ.GetItem(τmp2, λ.IntLiteral(1))
 								λ.Calm(ϒself, "_sort_formats", ϒformats)
@@ -1493,15 +1497,23 @@ func init() {
 							0, false, false,
 							func(λargs []λ.Object) λ.Object {
 								var (
+									ϒblock      λ.Object
+									ϒblocks     λ.Object
 									ϒformats    λ.Object
 									ϒitem       λ.Object
+									ϒitem_desc  λ.Object
 									ϒitem_id    λ.Object
+									ϒitem_time  λ.Object
 									ϒitem_title λ.Object
 									ϒmedia      = λargs[0]
+									ϒmeta       λ.Object
 									ϒsubtitles  λ.Object
+									ϒsummary    λ.Object
+									ϒtext       λ.Object
 									τmp0        λ.Object
 									τmp1        λ.Object
 									τmp2        λ.Object
+									τmp3        λ.Object
 								)
 								if !λ.IsTrue(ϒmedia) {
 									return λ.None
@@ -1539,16 +1551,95 @@ func init() {
 									}()) {
 										continue
 									}
-									τmp2 = λ.Calm(ϒself, "_download_media_selector", ϒitem_id)
+									τmp2 = λ.UnpackIterable(λ.Calm(ϒself, "_download_media_selector", ϒitem_id), 2)
 									ϒformats = λ.GetItem(τmp2, λ.IntLiteral(0))
 									ϒsubtitles = λ.GetItem(τmp2, λ.IntLiteral(1))
 									λ.Calm(ϒself, "_sort_formats", ϒformats)
+									ϒitem_desc = λ.None
+									ϒblocks = λ.Cal(ϒtry_get, ϒmedia, λ.NewFunction("<lambda>",
+										[]λ.Param{
+											{Name: "x"},
+										},
+										0, false, false,
+										func(λargs []λ.Object) λ.Object {
+											var (
+												ϒx = λargs[0]
+											)
+											return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("summary")), λ.StrLiteral("blocks"))
+										}), λ.ListType)
+									if λ.IsTrue(ϒblocks) {
+										ϒsummary = λ.NewList()
+										τmp2 = λ.Cal(λ.BuiltinIter, ϒblocks)
+										for {
+											if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+												break
+											}
+											ϒblock = τmp3
+											ϒtext = λ.Cal(ϒtry_get, ϒblock, λ.NewFunction("<lambda>",
+												[]λ.Param{
+													{Name: "x"},
+												},
+												0, false, false,
+												func(λargs []λ.Object) λ.Object {
+													var (
+														ϒx = λargs[0]
+													)
+													return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("model")), λ.StrLiteral("text"))
+												}), ϒcompat_str)
+											if λ.IsTrue(ϒtext) {
+												λ.Calm(ϒsummary, "append", ϒtext)
+											}
+										}
+										if λ.IsTrue(ϒsummary) {
+											ϒitem_desc = λ.Calm(λ.StrLiteral("\n\n"), "join", ϒsummary)
+										}
+									}
+									ϒitem_time = λ.None
+									τmp2 = λ.Cal(λ.BuiltinIter, func() λ.Object {
+										if λv := λ.Cal(ϒtry_get, ϒmedia, λ.NewFunction("<lambda>",
+											[]λ.Param{
+												{Name: "x"},
+											},
+											0, false, false,
+											func(λargs []λ.Object) λ.Object {
+												var (
+													ϒx = λargs[0]
+												)
+												return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("metadata")), λ.StrLiteral("items"))
+											}), λ.ListType); λ.IsTrue(λv) {
+											return λv
+										} else {
+											return λ.NewList()
+										}
+									}())
+									for {
+										if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+											break
+										}
+										ϒmeta = τmp3
+										if λ.IsTrue(λ.Eq(λ.Cal(ϒtry_get, ϒmeta, λ.NewFunction("<lambda>",
+											[]λ.Param{
+												{Name: "x"},
+											},
+											0, false, false,
+											func(λargs []λ.Object) λ.Object {
+												var (
+													ϒx = λargs[0]
+												)
+												return λ.GetItem(ϒx, λ.StrLiteral("label"))
+											})), λ.StrLiteral("Published"))) {
+											ϒitem_time = λ.Cal(ϒunified_timestamp, λ.Calm(ϒmeta, "get", λ.StrLiteral("timestamp")))
+											break
+										}
+									}
 									λ.Calm(ϒentries, "append", λ.DictLiteral(map[string]λ.Object{
-										"id":        ϒitem_id,
-										"title":     ϒitem_title,
-										"thumbnail": λ.Calm(ϒitem, "get", λ.StrLiteral("holdingImageUrl")),
-										"formats":   ϒformats,
-										"subtitles": ϒsubtitles,
+										"id":          ϒitem_id,
+										"title":       ϒitem_title,
+										"thumbnail":   λ.Calm(ϒitem, "get", λ.StrLiteral("holdingImageUrl")),
+										"formats":     ϒformats,
+										"subtitles":   ϒsubtitles,
+										"timestamp":   ϒitem_time,
+										"description": λ.Cal(ϒstrip_or_none, ϒitem_desc),
 									}))
 								}
 								return λ.None
@@ -1739,10 +1830,10 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒnum = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒmedia_meta = λ.GetItem(τmp2, λ.IntLiteral(1))
-						τmp2 = λ.Calm(ϒself, "_extract_from_media_meta", ϒmedia_meta, ϒplaylist_id)
+						τmp2 = λ.UnpackIterable(λ.Calm(ϒself, "_extract_from_media_meta", ϒmedia_meta, ϒplaylist_id), 2)
 						ϒformats = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒsubtitles = λ.GetItem(τmp2, λ.IntLiteral(1))
 						if !λ.IsTrue(ϒformats) {

@@ -144,7 +144,7 @@ func init() {
 									return ϒplayer_url
 								}
 							}()) {
-								τmp0 = λ.Calm(ϒstream_url, "split", λ.StrLiteral(";"), λ.IntLiteral(1))
+								τmp0 = λ.UnpackIterable(λ.Calm(ϒstream_url, "split", λ.StrLiteral(";"), λ.IntLiteral(1)), 2)
 								ϒrtmp_url = λ.GetItem(τmp0, λ.IntLiteral(0))
 								ϒplay_path = λ.GetItem(τmp0, λ.IntLiteral(1))
 								λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{

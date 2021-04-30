@@ -48,7 +48,6 @@ var (
 	PornHubPlaylistBaseIE      λ.Object
 	PornHubUserIE              λ.Object
 	PornHubUserVideosUploadIE  λ.Object
-	ϒcompat_HTTPError          λ.Object
 	ϒcompat_str                λ.Object
 	ϒdetermine_ext             λ.Object
 	ϒint_or_none               λ.Object
@@ -63,7 +62,6 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		PhantomJSwrapper = Ωopenload.PhantomJSwrapper
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
@@ -119,7 +117,7 @@ func init() {
 					if !λ.IsTrue(ϒret) {
 						return ϒret
 					}
-					τmp0 = ϒret
+					τmp0 = λ.UnpackIterable(ϒret, 2)
 					ϒwebpage = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if λ.IsTrue(λ.Cal(λ.BuiltinAny, λ.Cal(λ.NewFunction("<generator>",
@@ -161,9 +159,9 @@ func init() {
 						λ.Call(λ.GetAttr(ϒphantom, "get", nil), λ.NewArgs(ϒurl), λ.KWArgs{
 							{Name: "html", Value: ϒwebpage},
 						})
-						τmp0 = λ.Call(ϒdl, λ.NewArgs(λ.Unpack(λ.AsStarred(ϒargs))...), λ.KWArgs{
+						τmp0 = λ.UnpackIterable(λ.Call(ϒdl, λ.NewArgs(λ.Unpack(λ.AsStarred(ϒargs))...), λ.KWArgs{
 							{Name: "", Value: ϒkwargs},
-						})
+						}), 2)
 						ϒwebpage = λ.GetItem(τmp0, λ.IntLiteral(0))
 						ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
 					}
@@ -209,9 +207,9 @@ func init() {
 						return λ.None
 					}
 					ϒsite = λ.GetItem(λ.Calm(ϒhost, "split", λ.StrLiteral(".")), λ.IntLiteral(0))
-					τmp0 = λ.Call(λ.GetAttr(ϒself, "_get_login_info", nil), nil, λ.KWArgs{
+					τmp0 = λ.UnpackIterable(λ.Call(λ.GetAttr(ϒself, "_get_login_info", nil), nil, λ.KWArgs{
 						{Name: "netrc_machine", Value: ϒsite},
-					})
+					}), 2)
 					ϒusername = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if ϒusername == λ.None {
@@ -504,7 +502,7 @@ func init() {
 							}
 						}
 					} else {
-						τmp0 = λ.Mul(λ.NewList(λ.None), λ.IntLiteral(2))
+						τmp0 = λ.UnpackIterable(λ.Mul(λ.NewList(λ.None), λ.IntLiteral(2)), 2)
 						ϒthumbnail = λ.GetItem(τmp0, λ.IntLiteral(0))
 						ϒduration = λ.GetItem(τmp0, λ.IntLiteral(1))
 					}
@@ -574,7 +572,7 @@ func init() {
 									continue
 								}
 								ϒassn = λ.Cal(Ωre.ϒsub, λ.StrLiteral("var\\s+"), λ.StrLiteral(""), ϒassn)
-								τmp2 = λ.Calm(ϒassn, "split", λ.StrLiteral("="), λ.IntLiteral(1))
+								τmp2 = λ.UnpackIterable(λ.Calm(ϒassn, "split", λ.StrLiteral("="), λ.IntLiteral(1)), 2)
 								ϒvname = λ.GetItem(τmp2, λ.IntLiteral(0))
 								ϒvalue = λ.GetItem(τmp2, λ.IntLiteral(1))
 								λ.SetItem(ϒjs_vars, ϒvname, λ.Cal(ϒparse_js_value, ϒvalue))
@@ -657,7 +655,7 @@ func init() {
 								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 									break
 								}
-								τmp2 = τmp1
+								τmp2 = λ.UnpackIterable(τmp1, 2)
 								ϒkey = λ.GetItem(τmp2, λ.IntLiteral(0))
 								ϒformat_url = λ.GetItem(τmp2, λ.IntLiteral(1))
 								if λ.IsTrue(λ.Calm(ϒkey, "startswith", λ.GetItem(FORMAT_PREFIXES, λ.Neg(λ.IntLiteral(1))))) {
@@ -786,7 +784,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒvideo_url = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒheight = λ.GetItem(τmp2, λ.IntLiteral(1))
 						if !λ.IsTrue(ϒupload_date) {

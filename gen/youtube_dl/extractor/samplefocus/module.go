@@ -140,7 +140,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 3)
 						ϒauthor_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒauthor = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒbody = λ.GetItem(τmp2, λ.IntLiteral(2))
@@ -155,7 +155,7 @@ func init() {
 					ϒuploader = τmp0
 					ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral(">By <a[^>]+href=\"/users/([^\"]+)\"[^>]*>([^<]+)"), ϒwebpage)
 					if λ.IsTrue(ϒmobj) {
-						τmp0 = λ.Calm(ϒmobj, "groups")
+						τmp0 = λ.UnpackIterable(λ.Calm(ϒmobj, "groups"), 2)
 						ϒuploader_id = λ.GetItem(τmp0, λ.IntLiteral(0))
 						ϒuploader = λ.GetItem(τmp0, λ.IntLiteral(1))
 					}
@@ -167,7 +167,7 @@ func init() {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
-							τmp2 = τmp1
+							τmp2 = λ.UnpackIterable(τmp1, 2)
 							_ = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒname = λ.GetItem(τmp2, λ.IntLiteral(1))
 							λ.Calm(ϒcategories, "append", ϒname)

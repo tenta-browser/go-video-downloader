@@ -164,7 +164,7 @@ func init() {
 										return
 									}},
 								)
-								τmp6 = λ.Calm(ϒself, "_extract_theplatform_smil", λ.Cal(ϒupdate_url_query, λ.Mod(λ.StrLiteral("http://link.theplatform.%s/s/%s"), λ.NewTuple(
+								τmp6 = λ.UnpackIterable(λ.Calm(ϒself, "_extract_theplatform_smil", λ.Cal(ϒupdate_url_query, λ.Mod(λ.StrLiteral("http://link.theplatform.%s/s/%s"), λ.NewTuple(
 									λ.GetAttr(ϒself, "_TP_TLD", nil),
 									ϒtp_path,
 								)), λ.DictLiteral(map[string]λ.Object{
@@ -174,7 +174,7 @@ func init() {
 								})), ϒguid, λ.Mod(λ.StrLiteral("Downloading %s %s SMIL data"), λ.NewTuple(
 									λ.GetItem(λ.Calm(ϒf, "split", λ.StrLiteral("+")), λ.IntLiteral(0)),
 									ϒasset_type,
-								)))
+								))), 2)
 								ϒtp_formats = λ.GetItem(τmp6, λ.IntLiteral(0))
 								ϒtp_subtitles = λ.GetItem(τmp6, λ.IntLiteral(1))
 								return λ.BlockExitNormally, nil
@@ -232,7 +232,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒtempl = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒrepls = λ.GetItem(τmp2, λ.IntLiteral(1))
 						λ.Calm(ϒfields, "extend", λ.Cal(λ.NewFunction("<generator>",

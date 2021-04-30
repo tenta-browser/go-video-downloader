@@ -81,7 +81,7 @@ func init() {
 						τmp1           λ.Object
 						τmp2           λ.Object
 					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups"), 2)
 					ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒvideo_id)
@@ -142,7 +142,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒk = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒf_url = λ.Calm(ϒdata, "get", ϒk)

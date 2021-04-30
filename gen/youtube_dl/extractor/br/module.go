@@ -85,7 +85,7 @@ func init() {
 						τmp0            λ.Object
 						τmp1            λ.Object
 					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒsearch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒsearch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups"), 2)
 					ϒbase_url = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)

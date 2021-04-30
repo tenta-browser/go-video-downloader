@@ -139,7 +139,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 3)
 						ϒq = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒw = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒh = λ.GetItem(τmp2, λ.IntLiteral(2))

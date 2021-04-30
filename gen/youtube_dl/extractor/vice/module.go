@@ -38,21 +38,20 @@ import (
 )
 
 var (
-	AdobePassIE       λ.Object
-	ExtractorError    λ.Object
-	InfoExtractor     λ.Object
-	ViceArticleIE     λ.Object
-	ViceBaseIE        λ.Object
-	ViceIE            λ.Object
-	ViceShowIE        λ.Object
-	YoutubeIE         λ.Object
-	ϒclean_html       λ.Object
-	ϒcompat_HTTPError λ.Object
-	ϒcompat_str       λ.Object
-	ϒint_or_none      λ.Object
-	ϒparse_age_limit  λ.Object
-	ϒstr_or_none      λ.Object
-	ϒtry_get          λ.Object
+	AdobePassIE      λ.Object
+	ExtractorError   λ.Object
+	InfoExtractor    λ.Object
+	ViceArticleIE    λ.Object
+	ViceBaseIE       λ.Object
+	ViceIE           λ.Object
+	ViceShowIE       λ.Object
+	YoutubeIE        λ.Object
+	ϒclean_html      λ.Object
+	ϒcompat_str      λ.Object
+	ϒint_or_none     λ.Object
+	ϒparse_age_limit λ.Object
+	ϒstr_or_none     λ.Object
+	ϒtry_get         λ.Object
 )
 
 func init() {
@@ -60,7 +59,6 @@ func init() {
 		AdobePassIE = Ωadobepass.AdobePassIE
 		InfoExtractor = Ωcommon.InfoExtractor
 		YoutubeIE = Ωyoutube.YoutubeIE
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒclean_html = Ωutils.ϒclean_html
 		ExtractorError = Ωutils.ExtractorError
@@ -191,7 +189,7 @@ func init() {
 						τmp0           λ.Object
 						τmp1           λ.Object
 					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups"), 2)
 					ϒlocale = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒvideo = λ.GetItem(λ.Calm(ϒself, "_call_api", λ.StrLiteral("videos"), λ.StrLiteral("id"), ϒvideo_id, ϒlocale, λ.StrLiteral("body\n    locked\n    rating\n    thumbnail_url\n    title")), λ.IntLiteral(0))
@@ -219,7 +217,7 @@ func init() {
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 								var ϒe λ.Object = λex
 								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
+									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
 										return λv
 									} else {
 										return λ.NewBool(λ.Contains(λ.NewTuple(
@@ -406,7 +404,7 @@ func init() {
 						ϒyoutube_url λ.Object
 						τmp0         λ.Object
 					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups"), 2)
 					ϒlocale = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒarticle = λ.GetItem(λ.Calm(ϒself, "_call_api", λ.StrLiteral("articles"), λ.StrLiteral("slug"), ϒdisplay_id, ϒlocale, λ.StrLiteral("body\n    embed_code")), λ.IntLiteral(0))

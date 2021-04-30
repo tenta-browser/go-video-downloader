@@ -153,7 +153,7 @@ func init() {
 						τmp2             λ.Object
 					)
 					ϒfetch_episode = λ.NewBool(ϒepisode == λ.None)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(NhkVodIE, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(NhkVodIE, "_VALID_URL", nil), ϒurl), "groups"), 3)
 					ϒlang = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒm_type = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒepisode_id = λ.GetItem(τmp0, λ.IntLiteral(2))
@@ -206,7 +206,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 3)
 						ϒs = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒw = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒh = λ.GetItem(τmp2, λ.IntLiteral(2))

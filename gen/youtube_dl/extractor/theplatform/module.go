@@ -255,11 +255,11 @@ func init() {
 								break
 							}
 							ϒcaption = τmp1
-							τmp2 = λ.NewTuple(
+							τmp2 = λ.UnpackIterable(λ.NewTuple(
 								λ.Calm(ϒcaption, "get", λ.StrLiteral("lang"), λ.StrLiteral("en")),
 								λ.Calm(ϒcaption, "get", λ.StrLiteral("src")),
 								λ.Calm(ϒcaption, "get", λ.StrLiteral("type")),
-							)
+							), 3)
 							ϒlang = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒsrc = λ.GetItem(τmp2, λ.IntLiteral(1))
 							ϒmime = λ.GetItem(τmp2, λ.IntLiteral(2))
@@ -404,7 +404,7 @@ func init() {
 						τmp0                λ.Object
 						τmp1                λ.Object
 					)
-					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{}))
+					τmp0 = λ.UnpackIterable(λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{})), 2)
 					ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒsmuggled_data = λ.GetItem(τmp0, λ.IntLiteral(1))
 					λ.Calm(ϒself, "_initialize_geo_bypass", λ.DictLiteral(map[string]λ.Object{
@@ -505,7 +505,7 @@ func init() {
 					if λ.IsTrue(ϒsig) {
 						ϒsmil_url = λ.Calm(ϒself, "_sign_url", ϒsmil_url, λ.GetItem(ϒsig, λ.StrLiteral("key")), λ.GetItem(ϒsig, λ.StrLiteral("secret")))
 					}
-					τmp0 = λ.Calm(ϒself, "_extract_theplatform_smil", ϒsmil_url, ϒvideo_id)
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_extract_theplatform_smil", ϒsmil_url, ϒvideo_id), 2)
 					ϒformats = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒsubtitles = λ.GetItem(τmp0, λ.IntLiteral(1))
 					λ.Calm(ϒself, "_sort_formats", ϒformats)

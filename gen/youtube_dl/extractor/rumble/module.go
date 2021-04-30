@@ -105,7 +105,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒheight = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒua = λ.GetItem(τmp2, λ.IntLiteral(1))
 						τmp2 = λ.Cal(λ.BuiltinIter, λ.Cal(λ.RangeType, λ.IntLiteral(2)))

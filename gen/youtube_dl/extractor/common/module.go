@@ -236,6 +236,7 @@ func init() {
 				InfoExtractor__x_forwarded_for_ip          λ.Object
 				InfoExtractor__xpath_ns                    λ.Object
 				InfoExtractor_extract                      λ.Object
+				InfoExtractor_extract_automatic_captions   λ.Object
 				InfoExtractor_extract_subtitles            λ.Object
 				InfoExtractor_geo_verification_headers     λ.Object
 				InfoExtractor_http_scheme                  λ.Object
@@ -1110,7 +1111,7 @@ func init() {
 					if ϒres == λ.False {
 						return ϒres
 					} else {
-						τmp1 = ϒres
+						τmp1 = λ.UnpackIterable(ϒres, 2)
 						ϒcontent = λ.GetItem(τmp1, λ.IntLiteral(0))
 						_ = λ.GetItem(τmp1, λ.IntLiteral(1))
 						return ϒcontent
@@ -1168,7 +1169,7 @@ func init() {
 					if ϒres == λ.False {
 						return ϒres
 					}
-					τmp0 = ϒres
+					τmp0 = λ.UnpackIterable(ϒres, 2)
 					ϒxml_string = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
 					return λ.NewTuple(
@@ -1334,7 +1335,7 @@ func init() {
 					if ϒres == λ.False {
 						return ϒres
 					}
-					τmp0 = ϒres
+					τmp0 = λ.UnpackIterable(ϒres, 2)
 					ϒjson_string = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
 					return λ.NewTuple(
@@ -1820,7 +1821,7 @@ func init() {
 						ϒusername = λ.GetItem(ϒdownloader_params, ϒusername_option)
 						ϒpassword = λ.GetItem(ϒdownloader_params, ϒpassword_option)
 					} else {
-						τmp0 = λ.Calm(ϒself, "_get_netrc_login_info", ϒnetrc_machine)
+						τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_get_netrc_login_info", ϒnetrc_machine), 2)
 						ϒusername = λ.GetItem(τmp0, λ.IntLiteral(0))
 						ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
 					}
@@ -2534,7 +2535,7 @@ func init() {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
-									τmp2 = τmp1
+									τmp2 = λ.UnpackIterable(τmp1, 2)
 									ϒk = λ.GetItem(τmp2, λ.IntLiteral(0))
 									ϒv = λ.GetItem(τmp2, λ.IntLiteral(1))
 									if ϒv != λ.None {
@@ -3292,7 +3293,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒi = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒmedia_el = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒtbr = λ.Cal(ϒint_or_none, λ.Calm(λ.GetAttr(ϒmedia_el, "attrib", nil), "get", λ.StrLiteral("bitrate")))
@@ -3486,7 +3487,7 @@ func init() {
 					if ϒres == λ.False {
 						return λ.NewList()
 					}
-					τmp0 = ϒres
+					τmp0 = λ.UnpackIterable(ϒres, 2)
 					ϒm3u8_doc = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒm3u8_url = λ.Calm(ϒurlh, "geturl")
@@ -3604,11 +3605,11 @@ func init() {
 								τmp1          λ.Object
 							)
 							ϒmedia = λ.Cal(ϒparse_m3u8_attributes, ϒx_media_line)
-							τmp0 = λ.NewTuple(
+							τmp0 = λ.UnpackIterable(λ.NewTuple(
 								λ.Calm(ϒmedia, "get", λ.StrLiteral("TYPE")),
 								λ.Calm(ϒmedia, "get", λ.StrLiteral("GROUP-ID")),
 								λ.Calm(ϒmedia, "get", λ.StrLiteral("NAME")),
-							)
+							), 3)
 							ϒmedia_type = λ.GetItem(τmp0, λ.IntLiteral(0))
 							ϒgroup_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 							ϒname = λ.GetItem(τmp0, λ.IntLiteral(2))
@@ -3772,13 +3773,13 @@ func init() {
 								}
 								ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("audio.*?(?:%3D|=)(\\d+)(?:-video.*?(?:%3D|=)(\\d+))?"), λ.GetItem(ϒf, λ.StrLiteral("url")))
 								if λ.IsTrue(ϒmobj) {
-									τmp2 = λ.Calm(ϒmobj, "groups")
+									τmp2 = λ.UnpackIterable(λ.Calm(ϒmobj, "groups"), 2)
 									ϒabr = λ.GetItem(τmp2, λ.IntLiteral(0))
 									ϒvbr = λ.GetItem(τmp2, λ.IntLiteral(1))
-									τmp2 = λ.NewTuple(
+									τmp2 = λ.UnpackIterable(λ.NewTuple(
 										λ.Cal(ϒfloat_or_none, ϒabr, λ.IntLiteral(1000)),
 										λ.Cal(ϒfloat_or_none, ϒvbr, λ.IntLiteral(1000)),
-									)
+									), 2)
 									ϒabr = λ.GetItem(τmp2, λ.IntLiteral(0))
 									ϒvbr = λ.GetItem(τmp2, λ.IntLiteral(1))
 									λ.Calm(ϒf, "update", λ.DictLiteral(map[string]λ.Object{
@@ -4100,7 +4101,7 @@ func init() {
 								"height":   ϒheight,
 							}))
 							if λ.IsTrue(ϒtransform_rtmp_url) {
-								τmp2 = λ.Cal(ϒtransform_rtmp_url, ϒstreamer, ϒsrc)
+								τmp2 = λ.UnpackIterable(λ.Cal(ϒtransform_rtmp_url, ϒstreamer, ϒsrc), 2)
 								ϒstreamer = λ.GetItem(τmp2, λ.IntLiteral(0))
 								ϒsrc = λ.GetItem(τmp2, λ.IntLiteral(1))
 								λ.Calm(λ.GetItem(ϒformats, λ.Neg(λ.IntLiteral(1))), "update", λ.DictLiteral(map[string]λ.Object{
@@ -4274,7 +4275,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒnum = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒtextstream = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒsrc = λ.Calm(ϒtextstream, "get", λ.StrLiteral("src"))
@@ -4373,7 +4374,7 @@ func init() {
 					if ϒres == λ.False {
 						return λ.NewList()
 					}
-					τmp0 = ϒres
+					τmp0 = λ.UnpackIterable(ϒres, 2)
 					ϒmpd_doc = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if ϒmpd_doc == λ.None {
@@ -4922,7 +4923,7 @@ func init() {
 													if τmp7 = λ.NextDefault(τmp6, λ.AfterLast); τmp7 == λ.AfterLast {
 														break
 													}
-													τmp8 = τmp7
+													τmp8 = λ.UnpackIterable(τmp7, 2)
 													ϒnum = λ.GetItem(τmp8, λ.IntLiteral(0))
 													ϒs = λ.GetItem(τmp8, λ.IntLiteral(1))
 													ϒsegment_time = func() λ.Object {
@@ -5107,7 +5108,7 @@ func init() {
 					if ϒres == λ.False {
 						return λ.NewList()
 					}
-					τmp0 = ϒres
+					τmp0 = λ.UnpackIterable(ϒres, 2)
 					ϒism_doc = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if ϒism_doc == λ.None {
@@ -5251,7 +5252,7 @@ func init() {
 								if τmp5 = λ.NextDefault(τmp4, λ.AfterLast); τmp5 == λ.AfterLast {
 									break
 								}
-								τmp6 = τmp5
+								τmp6 = λ.UnpackIterable(τmp5, 2)
 								ϒstream_fragment_index = λ.GetItem(τmp6, λ.IntLiteral(0))
 								ϒstream_fragment = λ.GetItem(τmp6, λ.IntLiteral(1))
 								λ.SetItem(ϒfragment_ctx, λ.StrLiteral("time"), func() λ.Object {
@@ -5450,7 +5451,7 @@ func init() {
 							}
 							ϒctr = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("(?P<mimetype>[^/]+/[^;]+)(?:;\\s*codecs=\"?(?P<codecs>[^\"]+))?"), ϒcontent_type)
 							if λ.IsTrue(ϒctr) {
-								τmp0 = λ.Calm(ϒctr, "groups")
+								τmp0 = λ.UnpackIterable(λ.Calm(ϒctr, "groups"), 2)
 								ϒmimetype = λ.GetItem(τmp0, λ.IntLiteral(0))
 								ϒcodecs = λ.GetItem(τmp0, λ.IntLiteral(1))
 								ϒf = λ.Cal(ϒparse_codecs, ϒcodecs)
@@ -5545,7 +5546,7 @@ func init() {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
-									τmp2 = τmp1
+									τmp2 = λ.UnpackIterable(τmp1, 3)
 									ϒmedia_tag = λ.GetItem(τmp2, λ.IntLiteral(0))
 									ϒmedia_tag_name = λ.GetItem(τmp2, λ.IntLiteral(1))
 									ϒmedia_type = λ.GetItem(τmp2, λ.IntLiteral(2))
@@ -5565,7 +5566,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 4)
 						ϒmedia_tag = λ.GetItem(τmp2, λ.IntLiteral(0))
 						_ = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒmedia_type = λ.GetItem(τmp2, λ.IntLiteral(2))
@@ -5577,7 +5578,7 @@ func init() {
 						ϒmedia_attributes = λ.Cal(ϒextract_attributes, ϒmedia_tag)
 						ϒsrc = λ.Cal(ϒstrip_or_none, λ.Calm(ϒmedia_attributes, "get", λ.StrLiteral("src")))
 						if λ.IsTrue(ϒsrc) {
-							τmp2 = λ.Cal(ϒ_media_formats, ϒsrc, ϒmedia_type)
+							τmp2 = λ.UnpackIterable(λ.Cal(ϒ_media_formats, ϒsrc, ϒmedia_type), 2)
 							_ = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒformats = λ.GetItem(τmp2, λ.IntLiteral(1))
 							λ.Calm(λ.GetItem(ϒmedia_info, λ.StrLiteral("formats")), "extend", ϒformats)
@@ -5600,7 +5601,7 @@ func init() {
 									continue
 								}
 								ϒf = λ.Cal(ϒparse_content_type, λ.Calm(ϒs_attr, "get", λ.StrLiteral("type")))
-								τmp4 = λ.Cal(ϒ_media_formats, ϒsrc, ϒmedia_type, ϒf)
+								τmp4 = λ.UnpackIterable(λ.Cal(ϒ_media_formats, ϒsrc, ϒmedia_type, ϒf), 2)
 								ϒis_plain_url = λ.GetItem(τmp4, λ.IntLiteral(0))
 								ϒformats = λ.GetItem(τmp4, λ.IntLiteral(1))
 								if λ.IsTrue(ϒis_plain_url) {
@@ -6228,7 +6229,7 @@ func init() {
 											λ.SetItem(ϒa_format, λ.StrLiteral("ext"), λ.StrLiteral("flv"))
 											ϒrtmp_url_parts = λ.Cal(λ.None, λ.StrLiteral("((?:mp4|mp3|flv):)"), ϒsource_url, λ.IntLiteral(1))
 											if λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒrtmp_url_parts), λ.IntLiteral(3))) {
-												τmp2 = ϒrtmp_url_parts
+												τmp2 = λ.UnpackIterable(ϒrtmp_url_parts, 3)
 												ϒrtmp_url = λ.GetItem(τmp2, λ.IntLiteral(0))
 												ϒprefix = λ.GetItem(τmp2, λ.IntLiteral(1))
 												ϒplay_path = λ.GetItem(τmp2, λ.IntLiteral(2))
@@ -6498,6 +6499,30 @@ func init() {
 					return ϒret
 				})
 			InfoExtractor__merge_subtitles = λ.Cal(λ.ClassMethodType, InfoExtractor__merge_subtitles)
+			InfoExtractor_extract_automatic_captions = λ.NewFunction("extract_automatic_captions",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, true, true,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒargs   = λargs[1]
+						ϒkwargs = λargs[2]
+						ϒself   = λargs[0]
+					)
+					if λ.IsTrue(func() λ.Object {
+						if λv := λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("writeautomaticsub"), λ.False); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("listsubtitles"))
+						}
+					}()) {
+						return λ.Call(λ.GetAttr(ϒself, "_get_automatic_captions", nil), λ.NewArgs(λ.Unpack(λ.AsStarred(ϒargs))...), λ.KWArgs{
+							{Name: "", Value: ϒkwargs},
+						})
+					}
+					return λ.DictLiteral(map[λ.Object]λ.Object{})
+				})
 			InfoExtractor_mark_watched = λ.NewFunction("mark_watched",
 				[]λ.Param{
 					{Name: "self"},
@@ -6623,6 +6648,7 @@ func init() {
 				"_x_forwarded_for_ip":          InfoExtractor__x_forwarded_for_ip,
 				"_xpath_ns":                    InfoExtractor__xpath_ns,
 				"extract":                      InfoExtractor_extract,
+				"extract_automatic_captions":   InfoExtractor_extract_automatic_captions,
 				"extract_subtitles":            InfoExtractor_extract_subtitles,
 				"geo_verification_headers":     InfoExtractor_geo_verification_headers,
 				"http_scheme":                  InfoExtractor_http_scheme,

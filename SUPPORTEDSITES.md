@@ -103,6 +103,7 @@ Supported sites
  * GiantBomb: `www.giantbomb.com`
  * GodTube: `www.godtube.com`
  * Golem: `video.golem.de`
+ * GoogleDrive: `drive.google.com`
  * GooglePodcasts: `podcasts.google.com`
  * GPUTechConf: `on-demand.gputechconf.com`
  * HBO: `www.hbo.com`
@@ -129,6 +130,7 @@ Supported sites
  * Lenta: `lenta.ru`
  * LibraryOfCongress: `loc.gov`
  * Libsyn: `html5-player.libsyn.com`
+ * LimelightMedia: `link.videoplatform.limelight.com`
  * Livestream: `new.livestream.com`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
  * Lynda: `www.lynda.com`
@@ -164,7 +166,6 @@ Supported sites
  * Odnoklassniki: `ok.ru`
  * OnionStudios: `www.onionstudios.com`
  * OutsideTV: `www.outsidetv.com`
- * PacktPub: `www.packtpub.com`
  * PalcoMP3: `www.palcomp3.com`
  * PalcoMP3Video: `www.palcomp3.com`
  * ParliamentLiveUK: `parliamentlive.tv`
@@ -204,6 +205,7 @@ Supported sites
  * SkyIt: `tg24.sky.it`
  * SkyItAcademy: `www.skyacademy.it`
  * SkyItArte: `arte.sky.it`
+ * CieloTVIt: `www.cielotv.it`
  * TV8It: `tv8.it`
  * SkyNews: `news.sky.com`
  * SkySports: `www.skysports.com`
@@ -277,7 +279,6 @@ Supported sites
  * Medialaan: `www.bndestem.nl`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
- * Weibo: `weibo.com`
  * WeiboMobile: `m.weibo.cn`
  * WorldStarHipHop: `www.worldstarhiphop.com`
  * WSJ: `video-api.wsj.com`
@@ -290,10 +291,10 @@ Supported sites
  * XXXYMovies _(adult)_: `xxxymovies.com`
  * Yahoo: `screen.yahoo.com`
  * YouJizz _(adult)_: `www.youjizz.com`
- * YouPorn _(adult)_: `www.youporn.com`
  * YourPorn _(adult)_: `sxyprn.com`
- * YourUpload: `yourupload.com`
  * Youtube _(adult)_: `www.youtube.com`
+ * YoutubeYtBe: `youtu.be`
  * ZDF: `www.zdf.de`
  * Zhihu: `www.zhihu.com`
+ * ZingMp3: `mp3.zing.vn`
  * Zoom: `economist.zoom.us`

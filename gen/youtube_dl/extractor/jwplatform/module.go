@@ -61,7 +61,7 @@ func init() {
 						ϒvideo_id      λ.Object
 						τmp0           λ.Object
 					)
-					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{}))
+					τmp0 = λ.UnpackIterable(λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{})), 2)
 					ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒsmuggled_data = λ.GetItem(τmp0, λ.IntLiteral(1))
 					λ.Calm(ϒself, "_initialize_geo_bypass", λ.DictLiteral(map[string]λ.Object{

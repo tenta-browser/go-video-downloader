@@ -48,7 +48,6 @@ var (
 	VimeoUserIE            λ.Object
 	VimeoWatchLaterIE      λ.Object
 	ϒclean_html            λ.Object
-	ϒcompat_HTTPError      λ.Object
 	ϒcompat_kwargs         λ.Object
 	ϒcompat_str            λ.Object
 	ϒdetermine_ext         λ.Object
@@ -74,7 +73,6 @@ func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		ϒcompat_kwargs = Ωcompat.ϒcompat_kwargs
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒclean_html = Ωutils.ϒclean_html
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
@@ -127,7 +125,7 @@ func init() {
 					)
 					_ = τmp0
 					_ = τmp1
-					τmp0 = λ.Calm(ϒself, "_get_login_info")
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_get_login_info"), 2)
 					ϒusername = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if ϒusername == λ.None {
@@ -139,7 +137,7 @@ func init() {
 						return λ.None
 					}
 					ϒwebpage = λ.Calm(ϒself, "_download_webpage", λ.GetAttr(ϒself, "_LOGIN_URL", nil), λ.None, λ.StrLiteral("Downloading login page"))
-					τmp0 = λ.Calm(ϒself, "_extract_xsrft_and_vuid", ϒwebpage)
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_extract_xsrft_and_vuid", ϒwebpage), 2)
 					ϒtoken = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒvuid = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒdata = λ.DictLiteral(map[string]λ.Object{
@@ -156,7 +154,7 @@ func init() {
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 								var ϒe λ.Object = λex
 								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
+									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
 										return λv
 									} else {
 										return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.IntLiteral(418))
@@ -389,7 +387,7 @@ func init() {
 							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 								break
 							}
-							τmp4 = τmp3
+							τmp4 = λ.UnpackIterable(τmp3, 2)
 							ϒcdn_name = λ.GetItem(τmp4, λ.IntLiteral(0))
 							ϒcdn_data = λ.GetItem(τmp4, λ.IntLiteral(1))
 							ϒmanifest_url = λ.Calm(ϒcdn_data, "get", λ.StrLiteral("url"))
@@ -416,7 +414,7 @@ func init() {
 									if τmp5 = λ.NextDefault(τmp4, λ.AfterLast); τmp5 == λ.AfterLast {
 										break
 									}
-									τmp6 = τmp5
+									τmp6 = λ.UnpackIterable(τmp5, 2)
 									ϒsuffix = λ.GetItem(τmp6, λ.IntLiteral(0))
 									ϒrepl = λ.GetItem(τmp6, λ.IntLiteral(1))
 									λ.Calm(ϒsep_manifest_urls, "append", λ.NewTuple(
@@ -435,7 +433,7 @@ func init() {
 								if τmp5 = λ.NextDefault(τmp4, λ.AfterLast); τmp5 == λ.AfterLast {
 									break
 								}
-								τmp6 = τmp5
+								τmp6 = λ.UnpackIterable(τmp5, 2)
 								ϒf_id = λ.GetItem(τmp6, λ.IntLiteral(0))
 								ϒm_url = λ.GetItem(τmp6, λ.IntLiteral(1))
 								if λ.IsTrue(λ.Eq(ϒfiles_type, λ.StrLiteral("hls"))) {
@@ -554,7 +552,7 @@ func init() {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
-							τmp2 = τmp1
+							τmp2 = λ.UnpackIterable(τmp1, 2)
 							ϒkey = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒthumb = λ.GetItem(τmp2, λ.IntLiteral(1))
 							λ.Calm(ϒthumbnails, "append", λ.DictLiteral(map[string]λ.Object{
@@ -911,7 +909,7 @@ func init() {
 						τmp2               λ.Object
 					)
 					_ = τmp0
-					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{}))
+					τmp0 = λ.UnpackIterable(λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{})), 2)
 					ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒdata = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒheaders = λ.Calm(ϒstd_headers, "copy")
@@ -922,10 +920,10 @@ func init() {
 						λ.SetItem(ϒheaders, λ.StrLiteral("Referer"), ϒurl)
 					}
 					ϒmobj = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groupdict")
-					τmp0 = λ.NewTuple(
+					τmp0 = λ.UnpackIterable(λ.NewTuple(
 						λ.GetItem(ϒmobj, λ.StrLiteral("id")),
 						λ.Calm(ϒmobj, "get", λ.StrLiteral("unlisted_hash")),
-					)
+					), 2)
 					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒunlisted_hash = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if λ.IsTrue(ϒunlisted_hash) {
@@ -972,7 +970,7 @@ func init() {
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 								var ϒee λ.Object = λex
 								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒee, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
+									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒee, "cause", nil), λ.None); !λ.IsTrue(λv) {
 										return λv
 									} else {
 										return λ.Eq(λ.GetAttr(λ.GetAttr(ϒee, "cause", nil), "code", nil), λ.IntLiteral(403))
@@ -988,12 +986,12 @@ func init() {
 								panic(λ.Raise(λex))
 							}},
 						)
-						τmp2 = λ.Call(λ.GetAttr(ϒself, "_download_webpage_handle", nil), λ.NewArgs(
+						τmp2 = λ.UnpackIterable(λ.Call(λ.GetAttr(ϒself, "_download_webpage_handle", nil), λ.NewArgs(
 							ϒurl,
 							ϒvideo_id,
 						), λ.KWArgs{
 							{Name: "headers", Value: ϒheaders},
-						})
+						}), 2)
 						ϒwebpage = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒurlh = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒredirect_url = λ.Calm(ϒurlh, "geturl")
@@ -1010,7 +1008,7 @@ func init() {
 					}
 					if λ.IsTrue(λ.Cal(Ωre.ϒsearch, λ.StrLiteral("<form[^>]+?id=\"pw_form\""), ϒwebpage)) {
 						ϒvideo_password = λ.Calm(ϒself, "_get_video_password")
-						τmp1 = λ.Calm(ϒself, "_extract_xsrft_and_vuid", ϒwebpage)
+						τmp1 = λ.UnpackIterable(λ.Calm(ϒself, "_extract_xsrft_and_vuid", ϒwebpage), 2)
 						ϒtoken = λ.GetItem(τmp1, λ.IntLiteral(0))
 						ϒvuid = λ.GetItem(τmp1, λ.IntLiteral(1))
 						ϒwebpage = λ.Calm(ϒself, "_verify_video_password", ϒredirect_url, ϒvideo_id, ϒvideo_password, ϒtoken, ϒvuid)
@@ -1369,7 +1367,7 @@ func init() {
 						ϒwebpage          λ.Object
 						τmp0              λ.Object
 					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups"), 2)
 					ϒpage_url = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒdata = λ.Calm(ϒself, "_download_json", λ.Calm(ϒpage_url, "replace", λ.StrLiteral("/review/"), λ.StrLiteral("/review/data/")), ϒvideo_id)

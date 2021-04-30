@@ -125,7 +125,7 @@ func init() {
 						τmp2           λ.Object
 						τmp3           λ.Object
 					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups"), 2)
 					ϒorg = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒuuid = λ.GetItem(τmp0, λ.IntLiteral(1))
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetAttr(ϒself, "_POWA_DEFAULTS", nil))
@@ -133,7 +133,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒorgs = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒtmpl = λ.GetItem(τmp2, λ.IntLiteral(1))
 						if λ.Contains(ϒorgs, ϒorg) {

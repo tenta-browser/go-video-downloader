@@ -159,7 +159,7 @@ func init() {
 						ϒurl           = λargs[1]
 						τmp0           λ.Object
 					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups"), 2)
 					ϒartist_slug = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒmusic_slug = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒartist_fields = λ.Mod(λ.GetAttr(ϒself, "_ARTIST_FIELDS_TMPL", nil), ϒmusic_slug)

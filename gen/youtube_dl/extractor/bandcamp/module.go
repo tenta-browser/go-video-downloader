@@ -179,13 +179,13 @@ func init() {
 								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 									break
 								}
-								τmp2 = τmp1
+								τmp2 = λ.UnpackIterable(τmp1, 2)
 								ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 								ϒformat_url = λ.GetItem(τmp2, λ.IntLiteral(1))
 								if !λ.IsTrue(λ.Cal(ϒurl_or_none, ϒformat_url)) {
 									continue
 								}
-								τmp2 = λ.Calm(ϒformat_id, "split", λ.StrLiteral("-"), λ.IntLiteral(1))
+								τmp2 = λ.UnpackIterable(λ.Calm(ϒformat_id, "split", λ.StrLiteral("-"), λ.IntLiteral(1)), 2)
 								ϒext = λ.GetItem(τmp2, λ.IntLiteral(0))
 								ϒabr_str = λ.GetItem(τmp2, λ.IntLiteral(1))
 								λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
@@ -283,10 +283,10 @@ func init() {
 											break
 										}
 										ϒf = τmp1
-										τmp2 = λ.NewTuple(
+										τmp2 = λ.UnpackIterable(λ.NewTuple(
 											λ.Calm(ϒf, "get", λ.StrLiteral("name")),
 											λ.Calm(ϒf, "get", λ.StrLiteral("file_extension")),
-										)
+										), 2)
 										ϒname = λ.GetItem(τmp2, λ.IntLiteral(0))
 										ϒext = λ.GetItem(τmp2, λ.IntLiteral(1))
 										if λ.IsTrue(λ.Cal(λ.BuiltinAll, λ.Cal(λ.NewFunction("<generator>",
@@ -322,7 +322,7 @@ func init() {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
-									τmp2 = τmp1
+									τmp2 = λ.UnpackIterable(τmp1, 2)
 									ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 									ϒf = λ.GetItem(τmp2, λ.IntLiteral(1))
 									ϒformat_url = λ.Calm(ϒf, "get", λ.StrLiteral("url"))
@@ -498,7 +498,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒformat_url = λ.GetItem(τmp2, λ.IntLiteral(1))
 						if !λ.IsTrue(λ.Cal(ϒurl_or_none, ϒformat_url)) {

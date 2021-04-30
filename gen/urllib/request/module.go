@@ -82,7 +82,7 @@ func init() {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
-							τmp2 = τmp1
+							τmp2 = λ.UnpackIterable(τmp1, 2)
 							ϒkey = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒvalue = λ.GetItem(τmp2, λ.IntLiteral(1))
 							λ.Calm(ϒself, "add_header", ϒkey, ϒvalue)
@@ -169,8 +169,29 @@ func init() {
 			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		HTTPRedirectHandler = λ.Cal(λ.TypeType, λ.StrLiteral("HTTPRedirectHandler"), λ.NewTuple(), func() λ.Dict {
-
-			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
+			var (
+				HTTPRedirectHandler_http_error_302 λ.Object
+			)
+			HTTPRedirectHandler_http_error_302 = λ.NewFunction("http_error_302",
+				[]λ.Param{
+					{Name: "self"},
+				},
+				0, true, true,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒargs   = λargs[1]
+						ϒkwargs = λargs[2]
+						ϒself   = λargs[0]
+					)
+					_ = ϒargs
+					_ = ϒkwargs
+					_ = ϒself
+					panic(λ.Raise(λ.Cal(λ.NotImplementedErrorType, λ.StrLiteral("urllib.request.HTTPRedirectHandler.http_error_302"))))
+					return λ.None
+				})
+			return λ.ClassDictLiteral(map[string]λ.Object{
+				"http_error_302": HTTPRedirectHandler_http_error_302,
+			})
 		}())
 		HTTPCookieProcessor = λ.Cal(λ.TypeType, λ.StrLiteral("HTTPCookieProcessor"), λ.NewTuple(), func() λ.Dict {
 			var (

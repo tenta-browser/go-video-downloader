@@ -26,26 +26,23 @@ package eagleplatform
 
 import (
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
-	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
 )
 
 var (
-	EaglePlatformIE   λ.Object
-	ExtractorError    λ.Object
-	InfoExtractor     λ.Object
-	ϒcompat_HTTPError λ.Object
-	ϒint_or_none      λ.Object
-	ϒunsmuggle_url    λ.Object
-	ϒurl_or_none      λ.Object
+	EaglePlatformIE λ.Object
+	ExtractorError  λ.Object
+	InfoExtractor   λ.Object
+	ϒint_or_none    λ.Object
+	ϒunsmuggle_url  λ.Object
+	ϒurl_or_none    λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ExtractorError = Ωutils.ExtractorError
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒunsmuggle_url = Ωutils.ϒunsmuggle_url
@@ -83,7 +80,7 @@ func init() {
 							nil,
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 								var ϒee λ.Object = λex
-								if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒee, "cause", nil), ϒcompat_HTTPError)) {
+								if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒee, "cause", nil), λ.None)) {
 									ϒresponse = λ.Calm(ϒself, "_parse_json", λ.Calm(λ.Calm(λ.GetAttr(ϒee, "cause", nil), "read"), "decode", λ.StrLiteral("utf-8")), ϒvideo_id)
 									λ.Calm(ϒself, "_handle_error", ϒresponse)
 								}
@@ -158,11 +155,11 @@ func init() {
 						τmp1               λ.Object
 						τmp2               λ.Object
 					)
-					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{}))
+					τmp0 = λ.UnpackIterable(λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{})), 2)
 					ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒsmuggled_data = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					τmp0 = λ.NewTuple(
+					τmp0 = λ.UnpackIterable(λ.NewTuple(
 						func() λ.Object {
 							if λv := λ.Calm(ϒmobj, "group", λ.StrLiteral("custom_host")); λ.IsTrue(λv) {
 								return λv
@@ -171,7 +168,7 @@ func init() {
 							}
 						}(),
 						λ.Calm(ϒmobj, "group", λ.StrLiteral("id")),
-					)
+					), 2)
 					ϒhost = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒheaders = λ.DictLiteral(map[λ.Object]λ.Object{})
@@ -244,7 +241,7 @@ func init() {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
-							τmp2 = τmp1
+							τmp2 = λ.UnpackIterable(τmp1, 2)
 							ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒformat_url = λ.GetItem(τmp2, λ.IntLiteral(1))
 							if !λ.IsTrue(λ.Cal(ϒurl_or_none, ϒformat_url)) {

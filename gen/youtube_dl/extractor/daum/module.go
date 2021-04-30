@@ -312,7 +312,7 @@ func init() {
 					if λ.IsTrue(ϒclip_result) {
 						return ϒclip_result
 					}
-					τmp0 = λ.Calm(ϒself, "_get_entries", ϒlist_id, λ.StrLiteral("playlistid"))
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_get_entries", ϒlist_id, λ.StrLiteral("playlistid")), 2)
 					ϒname = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒentries = λ.GetItem(τmp0, λ.IntLiteral(1))
 					return λ.Calm(ϒself, "playlist_result", ϒentries, ϒlist_id, ϒname)
@@ -361,7 +361,7 @@ func init() {
 						ϒplaylist_id = λ.GetItem(λ.GetItem(ϒquery_dict, λ.StrLiteral("playlistid")), λ.IntLiteral(0))
 						return λ.Calm(ϒself, "url_result", λ.Mod(λ.GetAttr(DaumPlaylistIE, "_URL_TEMPLATE", nil), ϒplaylist_id), λ.StrLiteral("DaumPlaylist"))
 					}
-					τmp0 = λ.Calm(ϒself, "_get_entries", ϒlist_id, λ.StrLiteral("ownerid"))
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_get_entries", ϒlist_id, λ.StrLiteral("ownerid")), 2)
 					ϒname = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒentries = λ.GetItem(τmp0, λ.IntLiteral(1))
 					return λ.Calm(ϒself, "playlist_result", ϒentries, ϒlist_id, ϒname)

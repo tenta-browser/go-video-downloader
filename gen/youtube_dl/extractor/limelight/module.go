@@ -26,7 +26,6 @@ package limelight
 
 import (
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
-	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
@@ -39,7 +38,6 @@ var (
 	LimelightChannelIE     λ.Object
 	LimelightChannelListIE λ.Object
 	LimelightMediaIE       λ.Object
-	ϒcompat_HTTPError      λ.Object
 	ϒdetermine_ext         λ.Object
 	ϒfloat_or_none         λ.Object
 	ϒint_or_none           λ.Object
@@ -51,7 +49,6 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
 		ϒfloat_or_none = Ωutils.ϒfloat_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
@@ -98,7 +95,7 @@ func init() {
 							&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 								var ϒe λ.Object = λex
 								if λ.IsTrue(func() λ.Object {
-									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
+									if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
 										return λv
 									} else {
 										return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.IntLiteral(403))
@@ -350,7 +347,7 @@ func init() {
 									if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 										break
 									}
-									τmp4 = τmp3
+									τmp4 = λ.UnpackIterable(τmp3, 2)
 									ϒcdn_host = λ.GetItem(τmp4, λ.IntLiteral(0))
 									ϒhttp_host = λ.GetItem(τmp4, λ.IntLiteral(1))
 									if !λ.Contains(λ.Calm(λ.Calm(ϒrtmp, "group", λ.StrLiteral("host")), "lower"), ϒcdn_host) {
@@ -548,7 +545,7 @@ func init() {
 						ϒvideo_id      λ.Object
 						τmp0           λ.Object
 					)
-					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{}))
+					τmp0 = λ.UnpackIterable(λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{})), 2)
 					ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒsmuggled_data = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
@@ -556,7 +553,7 @@ func init() {
 					λ.Calm(ϒself, "_initialize_geo_bypass", λ.DictLiteral(map[string]λ.Object{
 						"countries": λ.Calm(ϒsmuggled_data, "get", λ.StrLiteral("geo_countries")),
 					}))
-					τmp0 = λ.Calm(ϒself, "_extract", ϒvideo_id, λ.StrLiteral("getPlaylistByMediaId"), λ.StrLiteral("getMobilePlaylistByMediaId"), ϒsource_url)
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_extract", ϒvideo_id, λ.StrLiteral("getPlaylistByMediaId"), λ.StrLiteral("getMobilePlaylistByMediaId"), ϒsource_url), 2)
 					ϒpc = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒmobile = λ.GetItem(τmp0, λ.IntLiteral(1))
 					return λ.Calm(ϒself, "_extract_info", ϒpc, ϒmobile, λ.IntLiteral(0), ϒsource_url)

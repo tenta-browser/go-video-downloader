@@ -267,7 +267,7 @@ func init() {
 														if !λ.IsTrue(λ.Calm(ϒself, "_is_valid_url", ϒvideo_url, ϒvideo_id, ϒformat_id)) {
 															continue
 														}
-														τmp2 = λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+														τmp2 = λ.UnpackIterable(λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
 															nil,
 															0, false, false,
 															func(λargs []λ.Object) λ.Object {
@@ -287,7 +287,7 @@ func init() {
 																	}
 																	return λ.None
 																})
-															})))
+															}))), 2)
 														ϒwidth = λ.GetItem(τmp2, λ.IntLiteral(0))
 														ϒheight = λ.GetItem(τmp2, λ.IntLiteral(1))
 														λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{

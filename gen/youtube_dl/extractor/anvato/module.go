@@ -528,14 +528,14 @@ func init() {
 						ϒvideo_id      λ.Object
 						τmp0           λ.Object
 					)
-					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{}))
+					τmp0 = λ.UnpackIterable(λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{})), 2)
 					ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒsmuggled_data = λ.GetItem(τmp0, λ.IntLiteral(1))
 					λ.Calm(ϒself, "_initialize_geo_bypass", λ.DictLiteral(map[string]λ.Object{
 						"countries": λ.Calm(ϒsmuggled_data, "get", λ.StrLiteral("geo_countries")),
 					}))
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					τmp0 = λ.Calm(ϒmobj, "group", λ.StrLiteral("access_key_or_mcp"), λ.StrLiteral("id"))
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒmobj, "group", λ.StrLiteral("access_key_or_mcp"), λ.StrLiteral("id")), 2)
 					ϒaccess_key = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if !λ.Contains(λ.GetAttr(ϒself, "_ANVACK_TABLE", nil), ϒaccess_key) {

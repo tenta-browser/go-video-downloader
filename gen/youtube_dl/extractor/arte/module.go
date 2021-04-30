@@ -231,7 +231,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒformat_dict = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒf = λ.Cal(λ.DictType, ϒformat_dict)
@@ -268,7 +268,7 @@ func init() {
 							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 								break
 							}
-							τmp4 = τmp3
+							τmp4 = λ.UnpackIterable(τmp3, 2)
 							ϒpref = λ.GetItem(τmp4, λ.IntLiteral(0))
 							ϒp = λ.GetItem(τmp4, λ.IntLiteral(1))
 							if λ.IsTrue(λ.Cal(Ωre.ϒmatch, ϒp, ϒversionCode)) {

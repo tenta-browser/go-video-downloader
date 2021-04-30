@@ -78,7 +78,7 @@ func init() {
 						ϒwebpage         λ.Object
 						τmp0             λ.Object
 					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups"), 2)
 					ϒsite = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
@@ -87,7 +87,7 @@ func init() {
 					ϒquery = λ.DictLiteral(map[string]string{
 						"mbr": "true",
 					})
-					τmp0 = λ.Mul(λ.NewList(λ.None), λ.IntLiteral(2))
+					τmp0 = λ.UnpackIterable(λ.Mul(λ.NewList(λ.None), λ.IntLiteral(2)), 2)
 					ϒaccount_pid = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒrelease_pid = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒtve = λ.Calm(ϒsettings, "get", λ.StrLiteral("ls_tve"))
@@ -95,7 +95,7 @@ func init() {
 						λ.SetItem(ϒquery, λ.StrLiteral("manifest"), λ.StrLiteral("m3u"))
 						ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("<[^>]+id=\"pdk-player\"[^>]+data-url=[\"\\']?(?:https?:)?//player\\.theplatform\\.com/p/([^/]+)/(?:[^/]+/)*select/([^?#&\"\\']+)"), ϒwebpage)
 						if λ.IsTrue(ϒmobj) {
-							τmp0 = λ.Calm(ϒmobj, "groups")
+							τmp0 = λ.UnpackIterable(λ.Calm(ϒmobj, "groups"), 2)
 							ϒaccount_pid = λ.GetItem(τmp0, λ.IntLiteral(0))
 							ϒtp_path = λ.GetItem(τmp0, λ.IntLiteral(1))
 							ϒrelease_pid = λ.GetItem(λ.Calm(λ.Calm(ϒtp_path, "strip", λ.StrLiteral("/")), "split", λ.StrLiteral("/")), λ.Neg(λ.IntLiteral(1)))

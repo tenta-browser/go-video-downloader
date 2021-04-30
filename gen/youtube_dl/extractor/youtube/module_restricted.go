@@ -91,21 +91,28 @@ func init() {
 				λ.StrLiteral("(?:www\\.)?invidious\\.mastodon\\.host"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.zapashcanon\\.fr"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.kavin\\.rocks"),
+				λ.StrLiteral("(?:www\\.)?invidious\\.tinfoil-hat\\.net"),
+				λ.StrLiteral("(?:www\\.)?invidious\\.himiko\\.cloud"),
+				λ.StrLiteral("(?:www\\.)?invidious\\.reallyancient\\.tech"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.tube"),
 				λ.StrLiteral("(?:www\\.)?invidiou\\.site"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.site"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.xyz"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.nixnet\\.xyz"),
+				λ.StrLiteral("(?:www\\.)?invidious\\.048596\\.xyz"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.drycat\\.fr"),
+				λ.StrLiteral("(?:www\\.)?inv\\.skyn3t\\.in"),
 				λ.StrLiteral("(?:www\\.)?tube\\.poal\\.co"),
 				λ.StrLiteral("(?:www\\.)?tube\\.connect\\.cafe"),
 				λ.StrLiteral("(?:www\\.)?vid\\.wxzm\\.sx"),
 				λ.StrLiteral("(?:www\\.)?vid\\.mint\\.lgbt"),
+				λ.StrLiteral("(?:www\\.)?vid\\.puffyan\\.us"),
 				λ.StrLiteral("(?:www\\.)?yewtu\\.be"),
 				λ.StrLiteral("(?:www\\.)?yt\\.elukerio\\.org"),
 				λ.StrLiteral("(?:www\\.)?yt\\.lelux\\.fi"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.ggc-project\\.de"),
 				λ.StrLiteral("(?:www\\.)?yt\\.maisputain\\.ovh"),
+				λ.StrLiteral("(?:www\\.)?ytprivate\\.com"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.13ad\\.de"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.toot\\.koeln"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.fdn\\.fr"),
@@ -119,9 +126,8 @@ func init() {
 				λ.StrLiteral("(?:www\\.)?owxfohz4kjyv25fvlqilyxast7inivgiktls3th44jhk3ej3i7ya\\.b32\\.i2p"),
 				λ.StrLiteral("(?:www\\.)?4l2dgddgsrkf2ous66i6seeyi6etzfgrue332grh2n7madpwopotugyd\\.onion"),
 			)
-			YoutubeIE__VALID_URL = λ.Mod(λ.StrLiteral("(?x)^\n                     (\n                         (?:https?://|//)                                    # http(s):// or protocol-independent URL\n                         (?:(?:(?:(?:\\w+\\.)?[yY][oO][uU][tT][uU][bB][eE](?:-nocookie|kids)?\\.com|\n                            (?:www\\.)?deturl\\.com/www\\.youtube\\.com|\n                            (?:www\\.)?pwnyoutube\\.com|\n                            (?:www\\.)?hooktube\\.com|\n                            (?:www\\.)?yourepeat\\.com|\n                            tube\\.majestyc\\.net|\n                            %(invidious)s|\n                            youtube\\.googleapis\\.com)/                        # the various hostnames, with wildcard subdomains\n                         (?:.*?\\#/)?                                          # handle anchor (#/) redirect urls\n                         (?:                                                  # the various things that can precede the ID:\n                             (?:(?:v|embed|e)/(?!videoseries))                # v/ or embed/ or e/\n                             |(?:                                             # or the v= param in all its forms\n                                 (?:(?:watch|movie)(?:_popup)?(?:\\.php)?/?)?  # preceding watch(_popup|.php) or nothing (like /?v=xxxx)\n                                 (?:\\?|\\#!?)                                  # the params delimiter ? or # or #!\n                                 (?:.*?[&;])??                                # any other preceding param (like /?s=tuff&v=xxxx or ?s=tuff&amp;v=V36LpHqtcDY)\n                                 v=\n                             )\n                         ))\n                         |(?:\n                            youtu\\.be|                                        # just youtu.be/xxxx\n                            vid\\.plus|                                        # or vid.plus/xxxx\n                            zwearz\\.com/watch|                                # or zwearz.com/watch/xxxx\n                            %(invidious)s\n                         )/\n                         |(?:www\\.)?cleanvideosearch\\.com/media/action/yt/watch\\?videoId=\n                         )\n                     )?                                                       # all until now is optional -> you can pass the naked ID\n                     ([0-9A-Za-z_-]{11})                                      # here is it! the YouTube video ID\n                     (?!.*?\\blist=\n                        (?:\n                            %(playlist_id)s|                                  # combined list/video URLs are handled by the playlist IE\n                            WL                                                # WL are handled by the watch later IE\n                        )\n                     )\n                     #(?(1).+)?                                                # if we found the ID, everything can follow\n                     "), λ.DictLiteral(map[string]λ.Object{
-				"playlist_id": λ.GetAttr(YoutubeBaseInfoExtractor, "_PLAYLIST_ID_RE", nil),
-				"invidious":   λ.Calm(λ.StrLiteral("|"), "join", YoutubeIE__INVIDIOUS_SITES),
+			YoutubeIE__VALID_URL = λ.Mod(λ.StrLiteral("(?x)^\n                     (\n                         (?:https?://|//)                                    # http(s):// or protocol-independent URL\n                         (?:(?:(?:(?:\\w+\\.)?[yY][oO][uU][tT][uU][bB][eE](?:-nocookie|kids)?\\.com|\n                            (?:www\\.)?deturl\\.com/www\\.youtube\\.com|\n                            (?:www\\.)?pwnyoutube\\.com|\n                            (?:www\\.)?hooktube\\.com|\n                            (?:www\\.)?yourepeat\\.com|\n                            tube\\.majestyc\\.net|\n                            %(invidious)s|\n                            youtube\\.googleapis\\.com)/                        # the various hostnames, with wildcard subdomains\n                         (?:.*?\\#/)?                                          # handle anchor (#/) redirect urls\n                         (?:                                                  # the various things that can precede the ID:\n                             (?:(?:v|embed|e)/(?!videoseries))                # v/ or embed/ or e/\n                             |(?:                                             # or the v= param in all its forms\n                                 (?:(?:watch|movie)(?:_popup)?(?:\\.php)?/?)?  # preceding watch(_popup|.php) or nothing (like /?v=xxxx)\n                                 (?:\\?|\\#!?)                                  # the params delimiter ? or # or #!\n                                 (?:.*?[&;])??                                # any other preceding param (like /?s=tuff&v=xxxx or ?s=tuff&amp;v=V36LpHqtcDY)\n                                 v=\n                             )\n                         ))\n                         |(?:\n                            youtu\\.be|                                        # just youtu.be/xxxx\n                            vid\\.plus|                                        # or vid.plus/xxxx\n                            zwearz\\.com/watch|                                # or zwearz.com/watch/xxxx\n                            %(invidious)s\n                         )/\n                         |(?:www\\.)?cleanvideosearch\\.com/media/action/yt/watch\\?videoId=\n                         )\n                     )?                                                       # all until now is optional -> you can pass the naked ID\n                     ([0-9A-Za-z_-]{11})                                      # here is it! the YouTube video ID\n                     #(?(1).+)?                                                # if we found the ID, everything can follow\n                     "), λ.DictLiteral(map[string]λ.Object{
+				"invidious": λ.Calm(λ.StrLiteral("|"), "join", YoutubeIE__INVIDIOUS_SITES),
 			}))
 			YoutubeIE__GEO_BYPASS = λ.False
 			return λ.ClassDictLiteral(map[string]λ.Object{
@@ -134,7 +140,7 @@ func init() {
 			var (
 				YoutubeTabIE__VALID_URL λ.Object
 			)
-			YoutubeTabIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\\w+\\.)?\n                        (?:\n                            youtube(?:kids)?\\.com|\n                            invidio\\.us\n                        )/\n                        (?:\n                            (?:channel|c|user|feed)/|\n                            (?:playlist|watch)\\?.*?\\blist=|\n                            (?!(?:watch|embed|v|e)\\b)\n                        )\n                        (?P<id>[^/?\\#&]+)\n                    ")
+			YoutubeTabIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\\w+\\.)?\n                        (?:\n                            youtube(?:kids)?\\.com|\n                            invidio\\.us\n                        )/\n                        (?:\n                            (?:channel|c|user|feed|hashtag)/|\n                            (?:playlist|watch)\\?.*?\\blist=|\n                            (?!(?:watch|embed|v|e)\\b)\n                        )\n                        (?P<id>[^/?\\#&]+)\n                    ")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": YoutubeTabIE__VALID_URL,
 			})

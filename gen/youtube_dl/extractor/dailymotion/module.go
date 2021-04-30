@@ -27,7 +27,6 @@ package dailymotion
 import (
 	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
 	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
-	Ωcompat "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/compat"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
@@ -43,7 +42,6 @@ var (
 	InfoExtractor                λ.Object
 	ϒage_restricted              λ.Object
 	ϒclean_html                  λ.Object
-	ϒcompat_HTTPError            λ.Object
 	ϒint_or_none                 λ.Object
 	ϒtry_get                     λ.Object
 	ϒunescapeHTML                λ.Object
@@ -53,7 +51,6 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒage_restricted = Ωutils.ϒage_restricted
 		ϒclean_html = Ωutils.ϒclean_html
 		ExtractorError = Ωutils.ExtractorError
@@ -197,7 +194,7 @@ func init() {
 								"client_id":     "f1a362d288c1b98099c7",
 								"client_secret": "eea605b96e01c796ff369935357eca920c5da4c5",
 							})
-							τmp0 = λ.Calm(ϒself, "_get_login_info")
+							τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_get_login_info"), 2)
 							ϒusername = λ.GetItem(τmp0, λ.IntLiteral(0))
 							ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
 							if λ.IsTrue(ϒusername) {
@@ -215,7 +212,7 @@ func init() {
 									&λ.Catcher{ExtractorError, func(λex λ.BaseException) {
 										var ϒe λ.Object = λex
 										if λ.IsTrue(func() λ.Object {
-											if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), ϒcompat_HTTPError); !λ.IsTrue(λv) {
+											if λv := λ.Cal(λ.BuiltinIsInstance, λ.GetAttr(ϒe, "cause", nil), λ.None); !λ.IsTrue(λv) {
 												return λv
 											} else {
 												return λ.Eq(λ.GetAttr(λ.GetAttr(ϒe, "cause", nil), "code", nil), λ.IntLiteral(400))
@@ -378,7 +375,7 @@ func init() {
 						τmp3               λ.Object
 						τmp4               λ.Object
 					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups"), 2)
 					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒplaylist_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if λ.IsTrue(ϒplaylist_id) {
@@ -450,7 +447,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒquality = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒmedia_list = λ.GetItem(τmp2, λ.IntLiteral(1))
 						τmp2 = λ.Cal(λ.BuiltinIter, ϒmedia_list)
@@ -493,7 +490,7 @@ func init() {
 								})
 								ϒm = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("/H264-(\\d+)x(\\d+)(?:-(60)/)?"), ϒmedia_url)
 								if λ.IsTrue(ϒm) {
-									τmp4 = λ.Cal(λ.MapIteratorType, ϒint_or_none, λ.Calm(ϒm, "groups"))
+									τmp4 = λ.UnpackIterable(λ.Cal(λ.MapIteratorType, ϒint_or_none, λ.Calm(ϒm, "groups")), 3)
 									ϒwidth = λ.GetItem(τmp4, λ.IntLiteral(0))
 									ϒheight = λ.GetItem(τmp4, λ.IntLiteral(1))
 									ϒfps = λ.GetItem(τmp4, λ.IntLiteral(2))
@@ -548,7 +545,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒsubtitle_lang = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒsubtitle = λ.GetItem(τmp2, λ.IntLiteral(1))
 						λ.SetItem(ϒsubtitles, ϒsubtitle_lang, λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
@@ -581,7 +578,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒheight = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒposter_url = λ.GetItem(τmp2, λ.IntLiteral(1))
 						λ.Calm(ϒthumbnails, "append", λ.DictLiteral(map[string]λ.Object{

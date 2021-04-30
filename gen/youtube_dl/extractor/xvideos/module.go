@@ -123,7 +123,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒpreference = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒthumbnail = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒthumbnail_url = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
@@ -178,7 +178,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 3)
 						ϒkind = λ.GetItem(τmp2, λ.IntLiteral(0))
 						_ = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒformat_url = λ.GetItem(τmp2, λ.IntLiteral(2))

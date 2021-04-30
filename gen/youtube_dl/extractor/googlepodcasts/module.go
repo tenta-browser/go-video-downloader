@@ -160,7 +160,7 @@ func init() {
 						ϒurl          = λargs[1]
 						τmp0          λ.Object
 					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups"), 2)
 					ϒb64_feed_url = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒb64_guid = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒepisode = λ.GetItem(λ.Calm(ϒself, "_batch_execute", λ.StrLiteral("oNjqVe"), ϒb64_guid, λ.NewList(

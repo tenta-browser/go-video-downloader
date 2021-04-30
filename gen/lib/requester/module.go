@@ -63,7 +63,7 @@ func init() {
 				ϒheaders = λ.DictLiteral(map[λ.Object]λ.Object{})
 				λ.Calm(ϒheaders, "update", ϒstd_headers)
 				λ.Calm(ϒheaders, "update", λ.GetAttr(ϒreq, "headers", nil))
-				τmp0 = λ.Cal(Ωnet.Execute, ϒclient, λ.Calm(ϒreq, "get_method"), λ.GetAttr(ϒreq, "url", nil), λ.GetAttr(ϒreq, "data", nil), ϒheaders)
+				τmp0 = λ.UnpackIterable(λ.Cal(Ωnet.Execute, ϒclient, λ.Calm(ϒreq, "get_method"), λ.GetAttr(ϒreq, "url", nil), λ.GetAttr(ϒreq, "data", nil), ϒheaders), 2)
 				ϒres_info = λ.GetItem(τmp0, λ.IntLiteral(0))
 				ϒerr = λ.GetItem(τmp0, λ.IntLiteral(1))
 				if λ.IsTrue(ϒerr) {
@@ -119,7 +119,7 @@ func init() {
 						ϒself = λargs[0]
 						τmp0  λ.Object
 					)
-					τmp0 = λ.Cal(Ωnet.ReadResponseBody, λ.GetAttr(ϒself, "native_res", nil))
+					τmp0 = λ.UnpackIterable(λ.Cal(Ωnet.ReadResponseBody, λ.GetAttr(ϒself, "native_res", nil)), 2)
 					ϒdata = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒerr = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if λ.IsTrue(ϒerr) {

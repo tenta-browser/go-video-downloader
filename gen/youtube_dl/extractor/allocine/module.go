@@ -115,7 +115,7 @@ func init() {
 								break
 							}
 							ϒvideo_url = τmp1
-							τmp2 = λ.GetItem(λ.Calm(λ.Cal(ϒurl_basename, ϒvideo_url), "split", λ.StrLiteral("_")), λ.NewSlice(λ.None, λ.IntLiteral(2), λ.None))
+							τmp2 = λ.UnpackIterable(λ.GetItem(λ.Calm(λ.Cal(ϒurl_basename, ϒvideo_url), "split", λ.StrLiteral("_")), λ.NewSlice(λ.None, λ.IntLiteral(2), λ.None)), 2)
 							ϒvideo_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(1))
 							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
@@ -146,7 +146,7 @@ func init() {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
-							τmp2 = τmp1
+							τmp2 = λ.UnpackIterable(τmp1, 2)
 							ϒkey = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒvalue = λ.GetItem(τmp2, λ.IntLiteral(1))
 							if !λ.IsTrue(λ.Calm(ϒkey, "endswith", λ.StrLiteral("Path"))) {
@@ -159,7 +159,7 @@ func init() {
 								"url":       ϒvalue,
 							}))
 						}
-						τmp0 = λ.Mul(λ.NewList(λ.None), λ.IntLiteral(3))
+						τmp0 = λ.UnpackIterable(λ.Mul(λ.NewList(λ.None), λ.IntLiteral(3)), 3)
 						ϒduration = λ.GetItem(τmp0, λ.IntLiteral(0))
 						ϒview_count = λ.GetItem(τmp0, λ.IntLiteral(1))
 						ϒtimestamp = λ.GetItem(τmp0, λ.IntLiteral(2))

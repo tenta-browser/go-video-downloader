@@ -83,7 +83,7 @@ func init() {
 						ϒsignin_page   λ.Object
 						τmp0           λ.Object
 					)
-					τmp0 = λ.Calm(ϒself, "_get_login_info")
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_get_login_info"), 2)
 					ϒemail = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if ϒemail == λ.None {
@@ -242,9 +242,9 @@ func init() {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
-									τmp2 = τmp1
+									τmp2 = λ.UnpackIterable(τmp1, 2)
 									ϒchapter_number = λ.GetItem(τmp2, λ.IntLiteral(0))
-									τmp3 = λ.GetItem(τmp2, λ.IntLiteral(1))
+									τmp3 = λ.UnpackIterable(λ.GetItem(τmp2, λ.IntLiteral(1)), 2)
 									ϒchapter = λ.GetItem(τmp3, λ.IntLiteral(0))
 									ϒsteps_list = λ.GetItem(τmp3, λ.IntLiteral(1))
 									λ.Cal(ϒextract_urls, ϒsteps_list, λ.DictLiteral(map[string]λ.Object{

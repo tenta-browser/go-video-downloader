@@ -98,7 +98,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 3)
 						ϒt = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒn = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒv = λ.GetItem(τmp2, λ.IntLiteral(2))

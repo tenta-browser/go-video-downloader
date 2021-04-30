@@ -88,7 +88,7 @@ func init() {
 						τmp1        λ.Object
 						τmp2        λ.Object
 					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups"), 3)
 					ϒsite = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(2))
@@ -137,7 +137,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒformat_url = λ.GetItem(τmp2, λ.IntLiteral(1))
 						if !λ.IsTrue(ϒformat_url) {
@@ -189,7 +189,7 @@ func init() {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
-									τmp2 = τmp1
+									τmp2 = λ.UnpackIterable(τmp1, 2)
 									ϒimage_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 									ϒimage_url = λ.GetItem(τmp2, λ.IntLiteral(1))
 									λgy.Yield(λ.DictLiteral(map[string]λ.Object{

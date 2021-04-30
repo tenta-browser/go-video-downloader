@@ -301,7 +301,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒlang = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒsub = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒsub_url = λ.Calm(ϒsub, "get", λ.StrLiteral("url"))
@@ -359,7 +359,7 @@ func init() {
 						ϒurl              = λargs[1]
 						τmp0              λ.Object
 					)
-					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{}))
+					τmp0 = λ.UnpackIterable(λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{})), 2)
 					ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒsmuggled_data = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒembed_code = λ.Calm(ϒself, "_match_id", ϒurl)

@@ -153,12 +153,12 @@ func init() {
 						})))
 					λ.SetItem(ϒquery, λ.StrLiteral("_s"), ϒrandom_seed)
 					λ.SetItem(ϒquery, λ.StrLiteral("_t"), λ.GetItem(ϒresult, λ.NewSlice(λ.None, λ.IntLiteral(16), λ.None)))
-					τmp0 = λ.Call(λ.GetAttr(ϒself, "_download_webpage_handle", nil), λ.NewArgs(
+					τmp0 = λ.UnpackIterable(λ.Call(λ.GetAttr(ϒself, "_download_webpage_handle", nil), λ.NewArgs(
 						λ.StrLiteral("http://videa.hu/videaplayer_get_xml.php"),
 						ϒvideo_id,
 					), λ.KWArgs{
 						{Name: "query", Value: ϒquery},
-					})
+					}), 2)
 					ϒb64_info = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒhandle = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if λ.IsTrue(λ.Calm(ϒb64_info, "startswith", λ.StrLiteral("<?xml"))) {

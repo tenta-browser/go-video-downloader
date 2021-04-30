@@ -172,14 +172,14 @@ func init() {
 						τmp0                    λ.Object
 						τmp1                    λ.Object
 					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups"), 2)
 					ϒvideo_type = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒprovider = λ.Calm(λ.GetAttr(ϒself, "_PROVIDER_MAP", nil), "get", ϒvideo_type)
 					if λ.IsTrue(ϒprovider) {
 						ϒvideo_id = λ.Cal(ϒcompat_urllib_parse_unquote, ϒvideo_id)
 						if λ.IsTrue(λ.Eq(ϒvideo_type, λ.StrLiteral("tumblr-post"))) {
-							τmp0 = λ.Calm(ϒvideo_id, "split", λ.StrLiteral("-"), λ.IntLiteral(1))
+							τmp0 = λ.UnpackIterable(λ.Calm(ϒvideo_id, "split", λ.StrLiteral("-"), λ.IntLiteral(1)), 2)
 							ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(0))
 							ϒblog = λ.GetItem(τmp0, λ.IntLiteral(1))
 							ϒresult_url = λ.Mod(λ.GetItem(ϒprovider, λ.IntLiteral(0)), λ.NewTuple(
@@ -188,7 +188,7 @@ func init() {
 							))
 						} else {
 							if λ.IsTrue(λ.Eq(ϒvideo_type, λ.StrLiteral("youtube-list"))) {
-								τmp0 = λ.Calm(ϒvideo_id, "split", λ.StrLiteral("/"))
+								τmp0 = λ.UnpackIterable(λ.Calm(ϒvideo_id, "split", λ.StrLiteral("/")), 2)
 								ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(0))
 								ϒplaylist_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 								ϒresult_url = λ.Mod(λ.GetItem(ϒprovider, λ.IntLiteral(0)), λ.NewTuple(

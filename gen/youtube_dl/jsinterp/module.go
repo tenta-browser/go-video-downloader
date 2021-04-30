@@ -104,7 +104,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒop = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒopfunc = λ.GetItem(τmp2, λ.IntLiteral(1))
 						λgy.Yield(λ.NewTuple(
@@ -291,7 +291,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒop = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒopfunc = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒm = λ.Cal(Ωre.ϒmatch, λ.Mod(λ.StrLiteral("(?x)\n                (?P<out>%s)(?:\\[(?P<index>[^\\]]+?)\\])?\n                \\s*%s\n                (?P<expr>.*)$"), λ.NewTuple(
@@ -428,7 +428,7 @@ func init() {
 							if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒobj, λ.ListType)) {
 								panic(λ.Raise(λ.Cal(λ.AssertionErrorType)))
 							}
-							τmp1 = ϒargvals
+							τmp1 = λ.UnpackIterable(ϒargvals, 2)
 							ϒindex = λ.GetItem(τmp1, λ.IntLiteral(0))
 							ϒhowMany = λ.GetItem(τmp1, λ.IntLiteral(1))
 							ϒres = λ.NewList()
@@ -449,14 +449,14 @@ func init() {
 						if τmp0 = λ.NextDefault(τmp1, λ.AfterLast); τmp0 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp0
+						τmp2 = λ.UnpackIterable(τmp0, 2)
 						ϒop = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒopfunc = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒm = λ.Cal(Ωre.ϒmatch, λ.Mod(λ.StrLiteral("(?P<x>.+?)%s(?P<y>.+)"), λ.Cal(Ωre.ϒescape, ϒop)), ϒexpr)
 						if !λ.IsTrue(ϒm) {
 							continue
 						}
-						τmp2 = λ.Calm(ϒself, "interpret_statement", λ.Calm(ϒm, "group", λ.StrLiteral("x")), ϒlocal_vars, λ.Sub(ϒallow_recursion, λ.IntLiteral(1)))
+						τmp2 = λ.UnpackIterable(λ.Calm(ϒself, "interpret_statement", λ.Calm(ϒm, "group", λ.StrLiteral("x")), ϒlocal_vars, λ.Sub(ϒallow_recursion, λ.IntLiteral(1))), 2)
 						ϒx = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒabort = λ.GetItem(τmp2, λ.IntLiteral(1))
 						if λ.IsTrue(ϒabort) {
@@ -465,7 +465,7 @@ func init() {
 								ϒexpr,
 							)))))
 						}
-						τmp2 = λ.Calm(ϒself, "interpret_statement", λ.Calm(ϒm, "group", λ.StrLiteral("y")), ϒlocal_vars, λ.Sub(ϒallow_recursion, λ.IntLiteral(1)))
+						τmp2 = λ.UnpackIterable(λ.Calm(ϒself, "interpret_statement", λ.Calm(ϒm, "group", λ.StrLiteral("y")), ϒlocal_vars, λ.Sub(ϒallow_recursion, λ.IntLiteral(1))), 2)
 						ϒy = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒabort = λ.GetItem(τmp2, λ.IntLiteral(1))
 						if λ.IsTrue(ϒabort) {
@@ -620,7 +620,7 @@ func init() {
 									break
 								}
 								ϒstmt = τmp1
-								τmp2 = λ.Calm(ϒself, "interpret_statement", ϒstmt, ϒlocal_vars)
+								τmp2 = λ.UnpackIterable(λ.Calm(ϒself, "interpret_statement", ϒstmt, ϒlocal_vars), 2)
 								ϒres = λ.GetItem(τmp2, λ.IntLiteral(0))
 								ϒabort = λ.GetItem(τmp2, λ.IntLiteral(1))
 								if λ.IsTrue(ϒabort) {

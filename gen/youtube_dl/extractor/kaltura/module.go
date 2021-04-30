@@ -133,7 +133,7 @@ func init() {
 							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 								break
 							}
-							τmp4 = τmp3
+							τmp4 = λ.UnpackIterable(τmp3, 2)
 							ϒk = λ.GetItem(τmp4, λ.IntLiteral(0))
 							ϒv = λ.GetItem(τmp4, λ.IntLiteral(1))
 							if λ.IsTrue(ϒv) {
@@ -194,7 +194,7 @@ func init() {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
-							τmp2 = τmp1
+							τmp2 = λ.UnpackIterable(τmp1, 2)
 							ϒi = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒa = λ.GetItem(τmp2, λ.IntLiteral(1))
 							τmp2 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒa, "items"))
@@ -202,7 +202,7 @@ func init() {
 								if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 									break
 								}
-								τmp4 = τmp3
+								τmp4 = λ.UnpackIterable(τmp3, 2)
 								ϒk = λ.GetItem(τmp4, λ.IntLiteral(0))
 								ϒv = λ.GetItem(τmp4, λ.IntLiteral(1))
 								λ.SetItem(ϒparams, λ.Mod(λ.StrLiteral("%d:%s"), λ.NewTuple(
@@ -342,11 +342,11 @@ func init() {
 						τmp1            λ.Object
 						τmp2            λ.Object
 					)
-					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{}))
+					τmp0 = λ.UnpackIterable(λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{})), 2)
 					ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒsmuggled_data = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					τmp0 = λ.Calm(ϒmobj, "group", λ.StrLiteral("partner_id"), λ.StrLiteral("id"))
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒmobj, "group", λ.StrLiteral("partner_id"), λ.StrLiteral("id")), 2)
 					ϒpartner_id = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒentry_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒks = λ.None
@@ -358,13 +358,13 @@ func init() {
 							return ϒentry_id
 						}
 					}()) {
-						τmp0 = λ.Calm(ϒself, "_get_video_info", ϒentry_id, ϒpartner_id, λ.Calm(ϒsmuggled_data, "get", λ.StrLiteral("service_url")))
+						τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_get_video_info", ϒentry_id, ϒpartner_id, λ.Calm(ϒsmuggled_data, "get", λ.StrLiteral("service_url"))), 4)
 						_ = λ.GetItem(τmp0, λ.IntLiteral(0))
 						ϒinfo = λ.GetItem(τmp0, λ.IntLiteral(1))
 						ϒflavor_assets = λ.GetItem(τmp0, λ.IntLiteral(2))
 						ϒcaptions = λ.GetItem(τmp0, λ.IntLiteral(3))
 					} else {
-						τmp0 = λ.Calm(ϒmobj, "group", λ.StrLiteral("path"), λ.StrLiteral("query"))
+						τmp0 = λ.UnpackIterable(λ.Calm(ϒmobj, "group", λ.StrLiteral("path"), λ.StrLiteral("query")), 2)
 						ϒpath = λ.GetItem(τmp0, λ.IntLiteral(0))
 						ϒquery = λ.GetItem(τmp0, λ.IntLiteral(1))
 						if λ.IsTrue(func() λ.Object {
@@ -423,7 +423,7 @@ func init() {
 						}
 						if λ.Contains(ϒparams, λ.StrLiteral("entry_id")) {
 							ϒentry_id = λ.GetItem(λ.GetItem(ϒparams, λ.StrLiteral("entry_id")), λ.IntLiteral(0))
-							τmp0 = λ.Calm(ϒself, "_get_video_info", ϒentry_id, ϒpartner_id)
+							τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_get_video_info", ϒentry_id, ϒpartner_id), 4)
 							_ = λ.GetItem(τmp0, λ.IntLiteral(0))
 							ϒinfo = λ.GetItem(τmp0, λ.IntLiteral(1))
 							ϒflavor_assets = λ.GetItem(τmp0, λ.IntLiteral(2))
@@ -439,10 +439,10 @@ func init() {
 								ϒreference_id = λ.GetItem(λ.GetItem(ϒparams, λ.StrLiteral("flashvars[referenceId]")), λ.IntLiteral(0))
 								ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒreference_id)
 								ϒentry_data = λ.GetItem(λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("window\\.kalturaIframePackageData\\s*=\\s*({.*});"), ϒwebpage, λ.StrLiteral("kalturaIframePackageData")), ϒreference_id), λ.StrLiteral("entryResult"))
-								τmp0 = λ.NewTuple(
+								τmp0 = λ.UnpackIterable(λ.NewTuple(
 									λ.GetItem(ϒentry_data, λ.StrLiteral("meta")),
 									λ.GetItem(λ.GetItem(ϒentry_data, λ.StrLiteral("contextData")), λ.StrLiteral("flavorAssets")),
-								)
+								), 2)
 								ϒinfo = λ.GetItem(τmp0, λ.IntLiteral(0))
 								ϒflavor_assets = λ.GetItem(τmp0, λ.IntLiteral(1))
 								ϒentry_id = λ.GetItem(ϒinfo, λ.StrLiteral("id"))
@@ -453,7 +453,7 @@ func init() {
 											// pass
 										}},
 									)
-									τmp2 = λ.Calm(ϒself, "_get_video_info", ϒentry_id, ϒpartner_id)
+									τmp2 = λ.UnpackIterable(λ.Calm(ϒself, "_get_video_info", ϒentry_id, ϒpartner_id), 4)
 									_ = λ.GetItem(τmp2, λ.IntLiteral(0))
 									ϒinfo = λ.GetItem(τmp2, λ.IntLiteral(1))
 									ϒflavor_assets = λ.GetItem(τmp2, λ.IntLiteral(2))

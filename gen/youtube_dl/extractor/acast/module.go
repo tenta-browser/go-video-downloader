@@ -163,7 +163,7 @@ func init() {
 						ϒurl        = λargs[1]
 						τmp0        λ.Object
 					)
-					τmp0 = λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "groups"), 2)
 					ϒchannel = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒdisplay_id = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒepisode = λ.Calm(ϒself, "_call_api", λ.Mod(λ.StrLiteral("%s/episodes/%s"), λ.NewTuple(

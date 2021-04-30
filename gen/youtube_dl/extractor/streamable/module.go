@@ -92,7 +92,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒkey = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒinfo = λ.GetItem(τmp2, λ.IntLiteral(1))
 						if !λ.IsTrue(λ.Calm(ϒinfo, "get", λ.StrLiteral("url"))) {

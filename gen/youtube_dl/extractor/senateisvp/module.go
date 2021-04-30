@@ -271,7 +271,7 @@ func init() {
 						τmp1           λ.Object
 						τmp2           λ.Object
 					)
-					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{}))
+					τmp0 = λ.UnpackIterable(λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{})), 2)
 					ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒsmuggled_data = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒqs = λ.Cal(ϒcompat_parse_qs, λ.Calm(λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl), "group", λ.StrLiteral("qs")))
@@ -311,7 +311,7 @@ func init() {
 							return λ.GetItem(λ.GetItem(ϒqs, λ.StrLiteral("comm")), λ.IntLiteral(0))
 						}
 					}()
-					τmp0 = λ.Calm(ϒself, "_get_info_for_comm", ϒcommittee)
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_get_info_for_comm", ϒcommittee), 2)
 					ϒstream_num = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒdomain = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒformats = λ.NewList()

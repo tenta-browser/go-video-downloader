@@ -85,7 +85,7 @@ func init() {
 						ϒusername      λ.Object
 						τmp0           λ.Object
 					)
-					τmp0 = λ.Calm(ϒself, "_get_login_info")
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_get_login_info"), 2)
 					ϒusername = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if ϒusername == λ.None {
@@ -120,9 +120,9 @@ func init() {
 						return λ.None
 					}
 					ϒsignin_form = λ.Calm(ϒself, "_search_regex", λ.StrLiteral("(?s)(<form[^>]+data-form-name=[\"\\']signin[\"\\'][^>]*>.+?</form>)"), ϒsignin_page, λ.StrLiteral("signin form"))
-					τmp0 = λ.Calm(ϒself, "_login_step", ϒsignin_form, λ.GetAttr(ϒself, "_PASSWORD_URL", nil), λ.DictLiteral(map[string]λ.Object{
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_login_step", ϒsignin_form, λ.GetAttr(ϒself, "_PASSWORD_URL", nil), λ.DictLiteral(map[string]λ.Object{
 						"email": ϒusername,
-					}), λ.StrLiteral("Submitting email"), λ.GetAttr(ϒself, "_SIGNIN_URL", nil))
+					}), λ.StrLiteral("Submitting email"), λ.GetAttr(ϒself, "_SIGNIN_URL", nil)), 2)
 					ϒsignin_page = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒsignin_url = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒpassword_form = λ.GetItem(ϒsignin_page, λ.StrLiteral("body"))
@@ -223,7 +223,7 @@ func init() {
 								if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 									break
 								}
-								τmp4 = τmp3
+								τmp4 = λ.UnpackIterable(τmp3, 2)
 								ϒformat_id = λ.GetItem(τmp4, λ.IntLiteral(0))
 								ϒformat_url = λ.GetItem(τmp4, λ.IntLiteral(1))
 								if !λ.IsTrue(ϒformat_url) {
@@ -327,7 +327,7 @@ func init() {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
-							τmp2 = τmp1
+							τmp2 = λ.UnpackIterable(τmp1, 2)
 							ϒprioritized_stream_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒprioritized_stream = λ.GetItem(τmp2, λ.IntLiteral(1))
 							λ.Calm(ϒformats, "extend", λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
@@ -347,7 +347,7 @@ func init() {
 											if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 												break
 											}
-											τmp2 = τmp1
+											τmp2 = λ.UnpackIterable(τmp1, 2)
 											ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 											ϒvideo_url = λ.GetItem(τmp2, λ.IntLiteral(1))
 											λgy.Yield(λ.DictLiteral(map[string]λ.Object{

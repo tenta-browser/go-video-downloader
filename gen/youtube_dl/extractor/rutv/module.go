@@ -174,7 +174,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒtransport = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒlinks = λ.GetItem(τmp2, λ.IntLiteral(1))
 						τmp2 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒlinks, "items"))
@@ -182,7 +182,7 @@ func init() {
 							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 								break
 							}
-							τmp4 = τmp3
+							τmp4 = λ.UnpackIterable(τmp3, 2)
 							ϒquality = λ.GetItem(τmp4, λ.IntLiteral(0))
 							ϒurl = λ.GetItem(τmp4, λ.IntLiteral(1))
 							ϒpreference = func() λ.Object {

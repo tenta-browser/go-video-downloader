@@ -59,7 +59,6 @@ var (
 	YoutubeYtBeIE                     λ.Object
 	YoutubeYtUserIE                   λ.Object
 	ϒclean_html                       λ.Object
-	ϒcompat_HTTPError                 λ.Object
 	ϒcompat_chr                       λ.Object
 	ϒcompat_parse_qs                  λ.Object
 	ϒcompat_str                       λ.Object
@@ -72,6 +71,7 @@ var (
 	ϒmimetype2ext                     λ.Object
 	ϒparse_codecs                     λ.Object
 	ϒparse_duration                   λ.Object
+	ϒparse_qs                         λ.Object
 	ϒqualities                        λ.Object
 	ϒremove_start                     λ.Object
 	ϒsmuggle_url                      λ.Object
@@ -92,7 +92,6 @@ func init() {
 		InfoExtractor = Ωcommon.InfoExtractor
 		SearchInfoExtractor = Ωcommon.SearchInfoExtractor
 		ϒcompat_chr = Ωcompat.ϒcompat_chr
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒcompat_urllib_parse_unquote_plus = Ωcompat.ϒcompat_urllib_parse_unquote_plus
@@ -120,6 +119,17 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		ϒurlencode_postdata = Ωutils.ϒurlencode_postdata
 		ϒurljoin = Ωutils.ϒurljoin
+		ϒparse_qs = λ.NewFunction("parse_qs",
+			[]λ.Param{
+				{Name: "url"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒurl = λargs[0]
+				)
+				return λ.Cal(Ωparse.ϒparse_qs, λ.GetAttr(λ.Cal(Ωparse.ϒurlparse, ϒurl), "query", nil))
+			})
 		YoutubeBaseInfoExtractor = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeBaseInfoExtractor"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				YoutubeBaseInfoExtractor__LOGIN_REQUIRED                λ.Object
@@ -172,7 +182,7 @@ func init() {
 						ϒwarn                 λ.Object
 						τmp0                  λ.Object
 					)
-					τmp0 = λ.Calm(ϒself, "_get_login_info")
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_get_login_info"), 2)
 					ϒusername = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒpassword = λ.GetItem(τmp0, λ.IntLiteral(1))
 					if ϒusername == λ.None {
@@ -677,6 +687,7 @@ func init() {
 				YoutubeIE__parse_sig_js                λ.Object
 				YoutubeIE__real_extract                λ.Object
 				YoutubeIE__signature_cache_id          λ.Object
+				YoutubeIE_suitable                     λ.Object
 			)
 			YoutubeIE__INVIDIOUS_SITES = λ.NewTuple(
 				λ.StrLiteral("(?:www\\.)?redirect\\.invidious\\.io"),
@@ -688,21 +699,28 @@ func init() {
 				λ.StrLiteral("(?:www\\.)?invidious\\.mastodon\\.host"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.zapashcanon\\.fr"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.kavin\\.rocks"),
+				λ.StrLiteral("(?:www\\.)?invidious\\.tinfoil-hat\\.net"),
+				λ.StrLiteral("(?:www\\.)?invidious\\.himiko\\.cloud"),
+				λ.StrLiteral("(?:www\\.)?invidious\\.reallyancient\\.tech"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.tube"),
 				λ.StrLiteral("(?:www\\.)?invidiou\\.site"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.site"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.xyz"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.nixnet\\.xyz"),
+				λ.StrLiteral("(?:www\\.)?invidious\\.048596\\.xyz"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.drycat\\.fr"),
+				λ.StrLiteral("(?:www\\.)?inv\\.skyn3t\\.in"),
 				λ.StrLiteral("(?:www\\.)?tube\\.poal\\.co"),
 				λ.StrLiteral("(?:www\\.)?tube\\.connect\\.cafe"),
 				λ.StrLiteral("(?:www\\.)?vid\\.wxzm\\.sx"),
 				λ.StrLiteral("(?:www\\.)?vid\\.mint\\.lgbt"),
+				λ.StrLiteral("(?:www\\.)?vid\\.puffyan\\.us"),
 				λ.StrLiteral("(?:www\\.)?yewtu\\.be"),
 				λ.StrLiteral("(?:www\\.)?yt\\.elukerio\\.org"),
 				λ.StrLiteral("(?:www\\.)?yt\\.lelux\\.fi"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.ggc-project\\.de"),
 				λ.StrLiteral("(?:www\\.)?yt\\.maisputain\\.ovh"),
+				λ.StrLiteral("(?:www\\.)?ytprivate\\.com"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.13ad\\.de"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.toot\\.koeln"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.fdn\\.fr"),
@@ -716,9 +734,8 @@ func init() {
 				λ.StrLiteral("(?:www\\.)?owxfohz4kjyv25fvlqilyxast7inivgiktls3th44jhk3ej3i7ya\\.b32\\.i2p"),
 				λ.StrLiteral("(?:www\\.)?4l2dgddgsrkf2ous66i6seeyi6etzfgrue332grh2n7madpwopotugyd\\.onion"),
 			)
-			YoutubeIE__VALID_URL = λ.Mod(λ.StrLiteral("(?x)^\n                     (\n                         (?:https?://|//)                                    # http(s):// or protocol-independent URL\n                         (?:(?:(?:(?:\\w+\\.)?[yY][oO][uU][tT][uU][bB][eE](?:-nocookie|kids)?\\.com|\n                            (?:www\\.)?deturl\\.com/www\\.youtube\\.com|\n                            (?:www\\.)?pwnyoutube\\.com|\n                            (?:www\\.)?hooktube\\.com|\n                            (?:www\\.)?yourepeat\\.com|\n                            tube\\.majestyc\\.net|\n                            %(invidious)s|\n                            youtube\\.googleapis\\.com)/                        # the various hostnames, with wildcard subdomains\n                         (?:.*?\\#/)?                                          # handle anchor (#/) redirect urls\n                         (?:                                                  # the various things that can precede the ID:\n                             (?:(?:v|embed|e)/(?!videoseries))                # v/ or embed/ or e/\n                             |(?:                                             # or the v= param in all its forms\n                                 (?:(?:watch|movie)(?:_popup)?(?:\\.php)?/?)?  # preceding watch(_popup|.php) or nothing (like /?v=xxxx)\n                                 (?:\\?|\\#!?)                                  # the params delimiter ? or # or #!\n                                 (?:.*?[&;])??                                # any other preceding param (like /?s=tuff&v=xxxx or ?s=tuff&amp;v=V36LpHqtcDY)\n                                 v=\n                             )\n                         ))\n                         |(?:\n                            youtu\\.be|                                        # just youtu.be/xxxx\n                            vid\\.plus|                                        # or vid.plus/xxxx\n                            zwearz\\.com/watch|                                # or zwearz.com/watch/xxxx\n                            %(invidious)s\n                         )/\n                         |(?:www\\.)?cleanvideosearch\\.com/media/action/yt/watch\\?videoId=\n                         )\n                     )?                                                       # all until now is optional -> you can pass the naked ID\n                     (?P<id>[0-9A-Za-z_-]{11})                                      # here is it! the YouTube video ID\n                     (?!.*?\\blist=\n                        (?:\n                            %(playlist_id)s|                                  # combined list/video URLs are handled by the playlist IE\n                            WL                                                # WL are handled by the watch later IE\n                        )\n                     )\n                     #(?(1).+)?                                                # if we found the ID, everything can follow\n                     "), λ.DictLiteral(map[string]λ.Object{
-				"playlist_id": λ.GetAttr(YoutubeBaseInfoExtractor, "_PLAYLIST_ID_RE", nil),
-				"invidious":   λ.Calm(λ.StrLiteral("|"), "join", YoutubeIE__INVIDIOUS_SITES),
+			YoutubeIE__VALID_URL = λ.Mod(λ.StrLiteral("(?x)^\n                     (\n                         (?:https?://|//)                                    # http(s):// or protocol-independent URL\n                         (?:(?:(?:(?:\\w+\\.)?[yY][oO][uU][tT][uU][bB][eE](?:-nocookie|kids)?\\.com|\n                            (?:www\\.)?deturl\\.com/www\\.youtube\\.com|\n                            (?:www\\.)?pwnyoutube\\.com|\n                            (?:www\\.)?hooktube\\.com|\n                            (?:www\\.)?yourepeat\\.com|\n                            tube\\.majestyc\\.net|\n                            %(invidious)s|\n                            youtube\\.googleapis\\.com)/                        # the various hostnames, with wildcard subdomains\n                         (?:.*?\\#/)?                                          # handle anchor (#/) redirect urls\n                         (?:                                                  # the various things that can precede the ID:\n                             (?:(?:v|embed|e)/(?!videoseries))                # v/ or embed/ or e/\n                             |(?:                                             # or the v= param in all its forms\n                                 (?:(?:watch|movie)(?:_popup)?(?:\\.php)?/?)?  # preceding watch(_popup|.php) or nothing (like /?v=xxxx)\n                                 (?:\\?|\\#!?)                                  # the params delimiter ? or # or #!\n                                 (?:.*?[&;])??                                # any other preceding param (like /?s=tuff&v=xxxx or ?s=tuff&amp;v=V36LpHqtcDY)\n                                 v=\n                             )\n                         ))\n                         |(?:\n                            youtu\\.be|                                        # just youtu.be/xxxx\n                            vid\\.plus|                                        # or vid.plus/xxxx\n                            zwearz\\.com/watch|                                # or zwearz.com/watch/xxxx\n                            %(invidious)s\n                         )/\n                         |(?:www\\.)?cleanvideosearch\\.com/media/action/yt/watch\\?videoId=\n                         )\n                     )?                                                       # all until now is optional -> you can pass the naked ID\n                     (?P<id>[0-9A-Za-z_-]{11})                                # here is it! the YouTube video ID\n                     #(?(1).+)?                                                # if we found the ID, everything can follow\n                     "), λ.DictLiteral(map[string]λ.Object{
+				"invidious": λ.Calm(λ.StrLiteral("|"), "join", YoutubeIE__INVIDIOUS_SITES),
 			}))
 			YoutubeIE__PLAYER_INFO_RE = λ.NewTuple(
 				λ.StrLiteral("/s/player/(?P<id>[a-zA-Z0-9_-]{8,})/player"),
@@ -734,6 +751,25 @@ func init() {
 			)
 			YoutubeIE__GEO_BYPASS = λ.False
 			YoutubeIE_IE_NAME = λ.StrLiteral("youtube")
+			YoutubeIE_suitable = λ.NewFunction("suitable",
+				[]λ.Param{
+					{Name: "cls"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcls = λargs[0]
+						ϒqs  λ.Object
+						ϒurl = λargs[1]
+					)
+					ϒqs = λ.Cal(ϒparse_qs, ϒurl)
+					if λ.IsTrue(λ.GetItem(λ.Calm(ϒqs, "get", λ.StrLiteral("list"), λ.NewList(λ.None)), λ.IntLiteral(0))) {
+						return λ.False
+					}
+					return λ.Calm(λ.Cal(λ.SuperType, YoutubeIE, ϒcls), "suitable", ϒurl)
+				})
+			YoutubeIE_suitable = λ.Cal(λ.ClassMethodType, YoutubeIE_suitable)
 			YoutubeIE___init__ = λ.NewFunction("__init__",
 				[]λ.Param{
 					{Name: "self"},
@@ -1183,7 +1219,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒnext_num = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒchapter = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒstart_time = λ.Cal(ϒchapter_time, ϒchapter)
@@ -1386,7 +1422,7 @@ func init() {
 						τmp5                       λ.Object
 						τmp6                       λ.Object
 					)
-					τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{}))
+					τmp0 = λ.UnpackIterable(λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{})), 2)
 					ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒsmuggled_data = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
@@ -2024,32 +2060,50 @@ func init() {
 						}
 						ϒkeyword = τmp1
 						if λ.IsTrue(λ.Calm(ϒkeyword, "startswith", λ.StrLiteral("yt:stretch="))) {
-							τmp2 = λ.Calm(λ.GetItem(λ.Calm(ϒkeyword, "split", λ.StrLiteral("=")), λ.IntLiteral(1)), "split", λ.StrLiteral(":"))
-							ϒw = λ.GetItem(τmp2, λ.IntLiteral(0))
-							ϒh = λ.GetItem(τmp2, λ.IntLiteral(1))
-							τmp2 = λ.NewTuple(
-								λ.Cal(λ.IntType, ϒw),
-								λ.Cal(λ.IntType, ϒh),
-							)
-							ϒw = λ.GetItem(τmp2, λ.IntLiteral(0))
-							ϒh = λ.GetItem(τmp2, λ.IntLiteral(1))
-							if λ.IsTrue(func() λ.Object {
-								if λv := λ.Gt(ϒw, λ.IntLiteral(0)); !λ.IsTrue(λv) {
-									return λv
-								} else {
-									return λ.Gt(ϒh, λ.IntLiteral(0))
-								}
-							}()) {
-								ϒratio = λ.TrueDiv(ϒw, ϒh)
-								τmp2 = λ.Cal(λ.BuiltinIter, ϒformats)
-								for {
-									if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
-										break
+							ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("(\\d+)\\s*:\\s*(\\d+)"), ϒkeyword)
+							if λ.IsTrue(ϒmobj) {
+								τmp2 = λ.UnpackIterable(λ.Cal(λ.NewFunction("<generator>",
+									nil,
+									0, false, false,
+									func(λargs []λ.Object) λ.Object {
+										return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
+											var (
+												ϒv   λ.Object
+												τmp0 λ.Object
+												τmp1 λ.Object
+											)
+											τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒmobj, "groups"))
+											for {
+												if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+													break
+												}
+												ϒv = τmp1
+												λgy.Yield(λ.Cal(λ.FloatType, ϒv))
+											}
+											return λ.None
+										})
+									})), 2)
+								ϒw = λ.GetItem(τmp2, λ.IntLiteral(0))
+								ϒh = λ.GetItem(τmp2, λ.IntLiteral(1))
+								if λ.IsTrue(func() λ.Object {
+									if λv := λ.Gt(ϒw, λ.IntLiteral(0)); !λ.IsTrue(λv) {
+										return λv
+									} else {
+										return λ.Gt(ϒh, λ.IntLiteral(0))
 									}
-									ϒf = τmp3
-									if λ.IsTrue(λ.Ne(λ.Calm(ϒf, "get", λ.StrLiteral("vcodec")), λ.StrLiteral("none"))) {
-										λ.SetItem(ϒf, λ.StrLiteral("stretched_ratio"), ϒratio)
+								}()) {
+									ϒratio = λ.TrueDiv(ϒw, ϒh)
+									τmp2 = λ.Cal(λ.BuiltinIter, ϒformats)
+									for {
+										if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
+											break
+										}
+										ϒf = τmp3
+										if λ.IsTrue(λ.Ne(λ.Calm(ϒf, "get", λ.StrLiteral("vcodec")), λ.StrLiteral("none"))) {
+											λ.SetItem(ϒf, λ.StrLiteral("stretched_ratio"), ϒratio)
+										}
 									}
+									break
 								}
 							}
 						}
@@ -2330,7 +2384,7 @@ func init() {
 							if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 								break
 							}
-							τmp4 = τmp3
+							τmp4 = λ.UnpackIterable(τmp3, 2)
 							ϒk = λ.GetItem(τmp4, λ.IntLiteral(0))
 							ϒv = λ.GetItem(τmp4, λ.IntLiteral(1))
 							τmp4 = λ.Cal(λ.BuiltinIter, λ.NewList(
@@ -2350,7 +2404,7 @@ func init() {
 								if τmp5 = λ.NextDefault(τmp4, λ.AfterLast); τmp5 == λ.AfterLast {
 									break
 								}
-								τmp6 = τmp5
+								τmp6 = λ.UnpackIterable(τmp5, 2)
 								ϒd_k = λ.GetItem(τmp6, λ.IntLiteral(0))
 								ϒs_ks = λ.GetItem(τmp6, λ.IntLiteral(1))
 								τmp6 = λ.IAdd(ϒd_k, λ.StrLiteral("_time"))
@@ -2476,7 +2530,7 @@ func init() {
 									if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 										break
 									}
-									τmp4 = τmp3
+									τmp4 = λ.UnpackIterable(τmp3, 2)
 									ϒnext_num = λ.GetItem(τmp4, λ.IntLiteral(0))
 									ϒcontent = λ.GetItem(τmp4, λ.IntLiteral(1))
 									ϒmmlir = func() λ.Object {
@@ -2654,7 +2708,7 @@ func init() {
 										if τmp5 = λ.NextDefault(τmp4, λ.AfterLast); τmp5 == λ.AfterLast {
 											break
 										}
-										τmp6 = τmp5
+										τmp6 = λ.UnpackIterable(τmp5, 2)
 										ϒgetter = λ.GetItem(τmp6, λ.IntLiteral(0))
 										ϒregex = λ.GetItem(τmp6, λ.IntLiteral(1))
 										ϒlabel = λ.Calm(func() λ.Object {
@@ -2685,7 +2739,7 @@ func init() {
 										return λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("sentimentBar")), λ.StrLiteral("sentimentBarRenderer")), λ.StrLiteral("tooltip"))
 									}))
 								if λ.IsTrue(ϒsbr_tooltip) {
-									τmp2 = λ.Calm(ϒsbr_tooltip, "split", λ.StrLiteral(" / "))
+									τmp2 = λ.UnpackIterable(λ.Calm(ϒsbr_tooltip, "split", λ.StrLiteral(" / ")), 2)
 									ϒlike_count = λ.GetItem(τmp2, λ.IntLiteral(0))
 									ϒdislike_count = λ.GetItem(τmp2, λ.IntLiteral(1))
 									λ.Calm(ϒinfo, "update", λ.DictLiteral(map[string]λ.Object{
@@ -2800,7 +2854,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒs_k = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒd_k = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒv = λ.Calm(ϒinfo, "get", ϒs_k)
@@ -2829,6 +2883,7 @@ func init() {
 				"_parse_sig_js":                YoutubeIE__parse_sig_js,
 				"_real_extract":                YoutubeIE__real_extract,
 				"_signature_cache_id":          YoutubeIE__signature_cache_id,
+				"suitable":                     YoutubeIE_suitable,
 			})
 		}())
 		YoutubeTabIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeTabIE"), λ.NewTuple(YoutubeBaseInfoExtractor), func() λ.Dict {
@@ -2884,7 +2939,7 @@ func init() {
 					ϒurl = λ.Cal(Ωparse.ϒurlunparse, λ.Call(λ.GetAttr(λ.Cal(Ωparse.ϒurlparse, ϒurl), "_replace", nil), nil, λ.KWArgs{
 						{Name: "netloc", Value: λ.StrLiteral("www.youtube.com")},
 					}))
-					ϒqs = λ.Cal(Ωparse.ϒparse_qs, λ.GetAttr(λ.Cal(Ωparse.ϒurlparse, ϒurl), "query", nil))
+					ϒqs = λ.Cal(ϒparse_qs, ϒurl)
 					ϒvideo_id = λ.GetItem(λ.Calm(ϒqs, "get", λ.StrLiteral("v"), λ.NewList(λ.None)), λ.IntLiteral(0))
 					ϒplaylist_id = λ.GetItem(λ.Calm(ϒqs, "get", λ.StrLiteral("list"), λ.NewList(λ.None)), λ.IntLiteral(0))
 					if λ.IsTrue(func() λ.Object {
@@ -2992,15 +3047,17 @@ func init() {
 				func(λargs []λ.Object) λ.Object {
 					var (
 						ϒcls = λargs[0]
+						ϒqs  λ.Object
 						ϒurl = λargs[1]
 					)
-					return func() λ.Object {
-						if λ.IsTrue(λ.Calm(YoutubeTabIE, "suitable", ϒurl)) {
-							return λ.False
-						} else {
-							return λ.Calm(λ.Cal(λ.SuperType, YoutubePlaylistIE, ϒcls), "suitable", ϒurl)
-						}
-					}()
+					if λ.IsTrue(λ.Calm(YoutubeTabIE, "suitable", ϒurl)) {
+						return λ.False
+					}
+					ϒqs = λ.Cal(ϒparse_qs, ϒurl)
+					if λ.IsTrue(λ.GetItem(λ.Calm(ϒqs, "get", λ.StrLiteral("v"), λ.NewList(λ.None)), λ.IntLiteral(0))) {
+						return λ.False
+					}
+					return λ.Calm(λ.Cal(λ.SuperType, YoutubePlaylistIE, ϒcls), "suitable", ϒurl)
 				})
 			YoutubePlaylistIE_suitable = λ.Cal(λ.ClassMethodType, YoutubePlaylistIE_suitable)
 			return λ.ClassDictLiteral(map[string]λ.Object{
@@ -3010,13 +3067,41 @@ func init() {
 		}())
 		YoutubeYtBeIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeYtBeIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				YoutubeYtBeIE__VALID_URL λ.Object
+				YoutubeYtBeIE__VALID_URL    λ.Object
+				YoutubeYtBeIE__real_extract λ.Object
 			)
 			YoutubeYtBeIE__VALID_URL = λ.Mod(λ.StrLiteral("https?://youtu\\.be/(?P<id>[0-9A-Za-z_-]{11})/*?.*?\\blist=(?P<playlist_id>%(playlist_id)s)"), λ.DictLiteral(map[string]λ.Object{
 				"playlist_id": λ.GetAttr(YoutubeBaseInfoExtractor, "_PLAYLIST_ID_RE", nil),
 			}))
+			YoutubeYtBeIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒmobj        λ.Object
+						ϒplaylist_id λ.Object
+						ϒself        = λargs[0]
+						ϒurl         = λargs[1]
+						ϒvideo_id    λ.Object
+					)
+					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
+					ϒvideo_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
+					ϒplaylist_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("playlist_id"))
+					return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(λ.Cal(ϒupdate_url_query, λ.StrLiteral("https://www.youtube.com/watch"), λ.DictLiteral(map[string]λ.Object{
+						"v":       ϒvideo_id,
+						"list":    ϒplaylist_id,
+						"feature": λ.StrLiteral("youtu.be"),
+					}))), λ.KWArgs{
+						{Name: "ie", Value: λ.Calm(YoutubeTabIE, "ie_key")},
+						{Name: "video_id", Value: ϒplaylist_id},
+					})
+				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": YoutubeYtBeIE__VALID_URL,
+				"_VALID_URL":    YoutubeYtBeIE__VALID_URL,
+				"_real_extract": YoutubeYtBeIE__real_extract,
 			})
 		}())
 		YoutubeYtUserIE = λ.Cal(λ.TypeType, λ.StrLiteral("YoutubeYtUserIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

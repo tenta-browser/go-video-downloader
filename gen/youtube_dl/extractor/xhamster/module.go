@@ -159,7 +159,7 @@ func init() {
 						}
 					}()
 					ϒdesktop_url = λ.Cal(Ωre.ϒsub, λ.StrLiteral("^(https?://(?:.+?\\.)?)m\\."), λ.StrLiteral("\\1"), ϒurl)
-					τmp0 = λ.Calm(ϒself, "_download_webpage_handle", ϒdesktop_url, ϒvideo_id)
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒself, "_download_webpage_handle", ϒdesktop_url, ϒvideo_id), 2)
 					ϒwebpage = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒurlh = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒerror = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
@@ -235,7 +235,7 @@ func init() {
 							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 								break
 							}
-							τmp2 = τmp1
+							τmp2 = λ.UnpackIterable(τmp1, 2)
 							ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 							ϒformats_dict = λ.GetItem(τmp2, λ.IntLiteral(1))
 							if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒformats_dict, λ.DictType)) {
@@ -263,7 +263,7 @@ func init() {
 								if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 									break
 								}
-								τmp4 = τmp3
+								τmp4 = λ.UnpackIterable(τmp3, 2)
 								ϒquality = λ.GetItem(τmp4, λ.IntLiteral(0))
 								ϒformat_dict = λ.GetItem(τmp4, λ.IntLiteral(1))
 								if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒformat_dict, λ.DictType)) {
@@ -276,7 +276,7 @@ func init() {
 								if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 									break
 								}
-								τmp4 = τmp3
+								τmp4 = λ.UnpackIterable(τmp3, 2)
 								ϒquality = λ.GetItem(τmp4, λ.IntLiteral(0))
 								ϒformat_item = λ.GetItem(τmp4, λ.IntLiteral(1))
 								if λ.IsTrue(λ.Eq(ϒformat_id, λ.StrLiteral("download"))) {
@@ -365,7 +365,7 @@ func init() {
 									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 										break
 									}
-									τmp2 = τmp1
+									τmp2 = λ.UnpackIterable(τmp1, 2)
 									ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 									ϒformats_list = λ.GetItem(τmp2, λ.IntLiteral(1))
 									if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒformats_list, λ.ListType)) {
@@ -544,7 +544,7 @@ func init() {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						τmp2 = τmp1
+						τmp2 = λ.UnpackIterable(τmp1, 2)
 						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒformat_url = λ.GetItem(τmp2, λ.IntLiteral(1))
 						ϒformat_url = λ.Cal(ϒurl_or_none, ϒformat_url)
@@ -636,7 +636,7 @@ func init() {
 						{Name: "fatal", Value: λ.False},
 					}))
 					ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("hint=[\\'\"](?P<likecount>\\d+) Likes / (?P<dislikecount>\\d+) Dislikes"), ϒwebpage)
-					τmp0 = func() λ.Object {
+					τmp0 = λ.UnpackIterable(func() λ.Object {
 						if λ.IsTrue(ϒmobj) {
 							return λ.NewTuple(
 								λ.Calm(ϒmobj, "group", λ.StrLiteral("likecount")),
@@ -648,7 +648,7 @@ func init() {
 								λ.None,
 							)
 						}
-					}()
+					}(), 2)
 					ϒlike_count = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒdislike_count = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("</label>Comments \\((?P<commentcount>\\d+)\\)</div>"), ϒwebpage)

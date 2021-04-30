@@ -229,7 +229,7 @@ func init() {
 					if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 						break
 					}
-					τmp2 = τmp1
+					τmp2 = λ.UnpackIterable(τmp1, 2)
 					ϒindex = λ.GetItem(τmp2, λ.IntLiteral(0))
 					ϒname = λ.GetItem(τmp2, λ.IntLiteral(1))
 					λ.SetItem(ϒclass_namespace, ϒname, λ.Cal(λ.PropertyType, λ.Cal(ϒ_itemgetter, ϒindex)))

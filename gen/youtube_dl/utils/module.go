@@ -25,6 +25,7 @@
 package utils
 
 import (
+	Ωcodecs "github.com/tenta-browser/go-video-downloader/gen/codecs"
 	Ωentities "github.com/tenta-browser/go-video-downloader/gen/html/entities"
 	Ωjson "github.com/tenta-browser/go-video-downloader/gen/json"
 	Ωrandom "github.com/tenta-browser/go-video-downloader/gen/random"
@@ -105,6 +106,7 @@ var (
 	ϒjs_to_json                       λ.Object
 	ϒlimit_length                     λ.Object
 	ϒlookup_unit_table                λ.Object
+	ϒlowercase_escape                 λ.Object
 	ϒmerge_dicts                      λ.Object
 	ϒmimetype2ext                     λ.Object
 	ϒmonth_by_name                    λ.Object
@@ -2044,7 +2046,7 @@ func init() {
 					if λ.IsTrue(λ.Eq(λ.Cal(λ.BuiltinLen, ϒc), λ.IntLiteral(1))) {
 						λ.Calm(ϒreplaced, "append", λ.GetItem(ϒc, λ.IntLiteral(0)))
 					} else {
-						τmp2 = ϒc
+						τmp2 = λ.UnpackIterable(ϒc, 2)
 						ϒns = λ.GetItem(τmp2, λ.IntLiteral(0))
 						ϒtag = λ.GetItem(τmp2, λ.IntLiteral(1))
 						λ.Calm(ϒreplaced, "append", λ.Mod(λ.StrLiteral("{%s}%s"), λ.NewTuple(
@@ -2587,7 +2589,7 @@ func init() {
 				if λ.IsTrue(λ.Ne(Ωsys.ϒplatform, λ.StrLiteral("win32"))) {
 					return ϒs
 				}
-				τmp0 = λ.Cal(λ.None, ϒs)
+				τmp0 = λ.UnpackIterable(λ.Cal(λ.None, ϒs), 2)
 				ϒdrive_or_unc = λ.GetItem(τmp0, λ.IntLiteral(0))
 				_ = λ.GetItem(τmp0, λ.IntLiteral(1))
 				if λ.IsTrue(func() λ.Object {
@@ -2600,7 +2602,7 @@ func init() {
 						return λ.NewBool(!λ.IsTrue(ϒdrive_or_unc))
 					}
 				}()) {
-					τmp0 = λ.Cal(λ.None, ϒs)
+					τmp0 = λ.UnpackIterable(λ.Cal(λ.None, ϒs), 2)
 					ϒdrive_or_unc = λ.GetItem(τmp0, λ.IntLiteral(0))
 					_ = λ.GetItem(τmp0, λ.IntLiteral(1))
 				}
@@ -2676,7 +2678,7 @@ func init() {
 					if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 						break
 					}
-					τmp2 = τmp1
+					τmp2 = λ.UnpackIterable(τmp1, 2)
 					ϒmistake = λ.GetItem(τmp2, λ.IntLiteral(0))
 					ϒfixup = λ.GetItem(τmp2, λ.IntLiteral(1))
 					if λ.IsTrue(λ.Cal(Ωre.ϒmatch, ϒmistake, ϒurl)) {
@@ -3062,7 +3064,7 @@ func init() {
 					ϒurl   = λargs[0]
 					τmp0   λ.Object
 				)
-				τmp0 = λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{}))
+				τmp0 = λ.UnpackIterable(λ.Cal(ϒunsmuggle_url, ϒurl, λ.DictLiteral(map[λ.Object]λ.Object{})), 2)
 				ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
 				ϒidata = λ.GetItem(τmp0, λ.IntLiteral(1))
 				λ.Calm(ϒdata, "update", ϒidata)
@@ -3093,7 +3095,7 @@ func init() {
 						ϒdefault,
 					)
 				}
-				τmp0 = λ.Calm(ϒsmug_url, "rpartition", λ.StrLiteral("#"))
+				τmp0 = λ.UnpackIterable(λ.Calm(ϒsmug_url, "rpartition", λ.StrLiteral("#")), 3)
 				ϒurl = λ.GetItem(τmp0, λ.IntLiteral(0))
 				_ = λ.GetItem(τmp0, λ.IntLiteral(1))
 				ϒsdata = λ.GetItem(τmp0, λ.IntLiteral(2))
@@ -3737,7 +3739,7 @@ func init() {
 					return λ.None
 				}
 				ϒs = λ.Calm(ϒs, "strip")
-				τmp0 = λ.Mul(λ.NewList(λ.None), λ.IntLiteral(5))
+				τmp0 = λ.UnpackIterable(λ.Mul(λ.NewList(λ.None), λ.IntLiteral(5)), 5)
 				ϒdays = λ.GetItem(τmp0, λ.IntLiteral(0))
 				ϒhours = λ.GetItem(τmp0, λ.IntLiteral(1))
 				ϒmins = λ.GetItem(τmp0, λ.IntLiteral(2))
@@ -3745,7 +3747,7 @@ func init() {
 				ϒms = λ.GetItem(τmp0, λ.IntLiteral(4))
 				ϒm = λ.Cal(Ωre.ϒmatch, λ.StrLiteral("(?:(?:(?:(?P<days>[0-9]+):)?(?P<hours>[0-9]+):)?(?P<mins>[0-9]+):)?(?P<secs>[0-9]+)(?P<ms>\\.[0-9]+)?Z?$"), ϒs)
 				if λ.IsTrue(ϒm) {
-					τmp0 = λ.Calm(ϒm, "groups")
+					τmp0 = λ.UnpackIterable(λ.Calm(ϒm, "groups"), 5)
 					ϒdays = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒhours = λ.GetItem(τmp0, λ.IntLiteral(1))
 					ϒmins = λ.GetItem(τmp0, λ.IntLiteral(2))
@@ -3754,7 +3756,7 @@ func init() {
 				} else {
 					ϒm = λ.Cal(Ωre.ϒmatch, λ.StrLiteral("(?ix)(?:P?\n                (?:\n                    [0-9]+\\s*y(?:ears?)?\\s*\n                )?\n                (?:\n                    [0-9]+\\s*m(?:onths?)?\\s*\n                )?\n                (?:\n                    [0-9]+\\s*w(?:eeks?)?\\s*\n                )?\n                (?:\n                    (?P<days>[0-9]+)\\s*d(?:ays?)?\\s*\n                )?\n                T)?\n                (?:\n                    (?P<hours>[0-9]+)\\s*h(?:ours?)?\\s*\n                )?\n                (?:\n                    (?P<mins>[0-9]+)\\s*m(?:in(?:ute)?s?)?\\s*\n                )?\n                (?:\n                    (?P<secs>[0-9]+)(?P<ms>\\.[0-9]+)?\\s*s(?:ec(?:ond)?s?)?\\s*\n                )?Z?$"), ϒs)
 					if λ.IsTrue(ϒm) {
-						τmp0 = λ.Calm(ϒm, "groups")
+						τmp0 = λ.UnpackIterable(λ.Calm(ϒm, "groups"), 5)
 						ϒdays = λ.GetItem(τmp0, λ.IntLiteral(0))
 						ϒhours = λ.GetItem(τmp0, λ.IntLiteral(1))
 						ϒmins = λ.GetItem(τmp0, λ.IntLiteral(2))
@@ -3763,7 +3765,7 @@ func init() {
 					} else {
 						ϒm = λ.Cal(Ωre.ϒmatch, λ.StrLiteral("(?i)(?:(?P<hours>[0-9.]+)\\s*(?:hours?)|(?P<mins>[0-9.]+)\\s*(?:mins?\\.?|minutes?)\\s*)Z?$"), ϒs)
 						if λ.IsTrue(ϒm) {
-							τmp0 = λ.Calm(ϒm, "groups")
+							τmp0 = λ.UnpackIterable(λ.Calm(ϒm, "groups"), 2)
 							ϒhours = λ.GetItem(τmp0, λ.IntLiteral(0))
 							ϒmins = λ.GetItem(τmp0, λ.IntLiteral(1))
 						} else {
@@ -3798,6 +3800,29 @@ func init() {
 
 			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
+		ϒlowercase_escape = λ.NewFunction("lowercase_escape",
+			[]λ.Param{
+				{Name: "s"},
+			},
+			0, false, false,
+			func(λargs []λ.Object) λ.Object {
+				var (
+					ϒs              = λargs[0]
+					ϒunicode_escape λ.Object
+				)
+				ϒunicode_escape = λ.Cal(Ωcodecs.ϒgetdecoder, λ.StrLiteral("unicode_escape"))
+				return λ.Cal(Ωre.ϒsub, λ.StrLiteral("\\\\u[0-9a-fA-F]{4}"), λ.NewFunction("<lambda>",
+					[]λ.Param{
+						{Name: "m"},
+					},
+					0, false, false,
+					func(λargs []λ.Object) λ.Object {
+						var (
+							ϒm = λargs[0]
+						)
+						return λ.GetItem(λ.Cal(ϒunicode_escape, λ.Calm(ϒm, "group", λ.IntLiteral(0))), λ.IntLiteral(0))
+					}), ϒs)
+			})
 		ϒurlencode_postdata = λ.NewFunction("urlencode_postdata",
 			nil,
 			0, true, true,
@@ -4035,7 +4060,7 @@ func init() {
 						if τmp3 = λ.NextDefault(τmp2, λ.AfterLast); τmp3 == λ.AfterLast {
 							break
 						}
-						τmp4 = τmp3
+						τmp4 = λ.UnpackIterable(τmp3, 2)
 						ϒk = λ.GetItem(τmp4, λ.IntLiteral(0))
 						ϒv = λ.GetItem(τmp4, λ.IntLiteral(1))
 						if ϒv == λ.None {
@@ -4253,7 +4278,7 @@ func init() {
 								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 									break
 								}
-								τmp2 = τmp1
+								τmp2 = λ.UnpackIterable(τmp1, 2)
 								ϒregex = λ.GetItem(τmp2, λ.IntLiteral(0))
 								ϒbase = λ.GetItem(τmp2, λ.IntLiteral(1))
 								ϒim = λ.Cal(Ωre.ϒmatch, ϒregex, ϒv)
@@ -4376,7 +4401,7 @@ func init() {
 				if ϒext != λ.None {
 					return ϒext
 				}
-				τmp0 = λ.Calm(ϒmt, "rpartition", λ.StrLiteral("/"))
+				τmp0 = λ.UnpackIterable(λ.Calm(ϒmt, "rpartition", λ.StrLiteral("/")), 3)
 				_ = λ.GetItem(τmp0, λ.IntLiteral(0))
 				_ = λ.GetItem(τmp0, λ.IntLiteral(1))
 				ϒres = λ.GetItem(τmp0, λ.IntLiteral(2))
@@ -4432,10 +4457,10 @@ func init() {
 						)
 						return λ.Calm(ϒstr, "strip")
 					}), λ.Calm(λ.Calm(λ.Calm(ϒcodecs_str, "strip"), "strip", λ.StrLiteral(",")), "split", λ.StrLiteral(",")))))
-				τmp0 = λ.NewTuple(
+				τmp0 = λ.UnpackIterable(λ.NewTuple(
 					λ.None,
 					λ.None,
-				)
+				), 2)
 				ϒvcodec = λ.GetItem(τmp0, λ.IntLiteral(0))
 				ϒacodec = λ.GetItem(τmp0, λ.IntLiteral(1))
 				τmp0 = λ.Cal(λ.BuiltinIter, ϒsplit_codecs)
@@ -5185,7 +5210,7 @@ func init() {
 					if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 						break
 					}
-					τmp2 = τmp1
+					τmp2 = λ.UnpackIterable(τmp1, 2)
 					ϒkey = λ.GetItem(τmp2, λ.IntLiteral(0))
 					ϒval = λ.GetItem(τmp2, λ.IntLiteral(1))
 					if λ.IsTrue(λ.Calm(ϒval, "startswith", λ.StrLiteral("\""))) {

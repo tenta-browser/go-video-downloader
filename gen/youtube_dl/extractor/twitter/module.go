@@ -43,7 +43,6 @@ var (
 	TwitterBroadcastIE            λ.Object
 	TwitterCardIE                 λ.Object
 	TwitterIE                     λ.Object
-	ϒcompat_HTTPError             λ.Object
 	ϒcompat_parse_qs              λ.Object
 	ϒcompat_urllib_parse_unquote  λ.Object
 	ϒcompat_urllib_parse_urlparse λ.Object
@@ -60,7 +59,6 @@ var (
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		ϒcompat_HTTPError = Ωcompat.ϒcompat_HTTPError
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒcompat_urllib_parse_unquote = Ωcompat.ϒcompat_urllib_parse_unquote
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
@@ -301,7 +299,7 @@ func init() {
 							)
 						})
 					if λ.IsTrue(ϒthumbnail) {
-						τmp0 = λ.Cal(ϒ_find_dimension, λ.StrLiteral("image"))
+						τmp0 = λ.UnpackIterable(λ.Cal(ϒ_find_dimension, λ.StrLiteral("image")), 2)
 						ϒthumbnail_w = λ.GetItem(τmp0, λ.IntLiteral(0))
 						ϒthumbnail_h = λ.GetItem(τmp0, λ.IntLiteral(1))
 						λ.Calm(ϒthumbnails, "append", λ.DictLiteral(map[string]λ.Object{
@@ -310,7 +308,7 @@ func init() {
 							"height": ϒthumbnail_h,
 						}))
 					}
-					τmp0 = λ.Cal(ϒ_find_dimension, λ.StrLiteral("player"))
+					τmp0 = λ.UnpackIterable(λ.Cal(ϒ_find_dimension, λ.StrLiteral("player")), 2)
 					ϒvideo_w = λ.GetItem(τmp0, λ.IntLiteral(0))
 					ϒvideo_h = λ.GetItem(τmp0, λ.IntLiteral(1))
 					λ.Calm(λ.GetItem(ϒformats, λ.IntLiteral(0)), "update", λ.DictLiteral(map[string]λ.Object{

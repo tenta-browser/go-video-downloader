@@ -30,7 +30,6 @@ import (
 	Ωparser "github.com/tenta-browser/go-video-downloader/gen/html/parser"
 	Ωcookiejar "github.com/tenta-browser/go-video-downloader/gen/http/cookiejar"
 	Ωcookies "github.com/tenta-browser/go-video-downloader/gen/http/cookies"
-	Ωerror "github.com/tenta-browser/go-video-downloader/gen/urllib/error"
 	Ωparse "github.com/tenta-browser/go-video-downloader/gen/urllib/parse"
 	ΩElementTree "github.com/tenta-browser/go-video-downloader/gen/xml/etree/ElementTree"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
@@ -39,7 +38,6 @@ import (
 var (
 	ϒcompat_HTMLParseError            λ.Object
 	ϒcompat_HTMLParser                λ.Object
-	ϒcompat_HTTPError                 λ.Object
 	ϒcompat_b64decode                 λ.Object
 	ϒcompat_basestring                λ.Object
 	ϒcompat_chr                       λ.Object
@@ -82,7 +80,6 @@ func init() {
 		ϒcompat_urllib_parse_urlencode = Ωparse.ϒurlencode
 		ϒcompat_cookiejar_Cookie = Ωcookiejar.Cookie
 		ϒcompat_cookies_SimpleCookie = Ωcookies.SimpleCookie
-		ϒcompat_HTTPError = Ωerror.HTTPError
 		ϒcompat_parse_qs = Ωparse.ϒparse_qs
 		ϒcompat_html_entities_html5 = Ωentities.ϒhtml5
 		ϒcompat_b64decode = Ωbase64.ϒb64decode
