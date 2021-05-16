@@ -47,7 +47,6 @@ Supported sites
  * Cinemax: `www.cinemax.com`
  * Clippit: `www.clippituser.tv`
  * ClipRs: `www.clip.rs`
- * Clipsyndicate: `www.clipsyndicate.com`
  * CloserToTruth: `closertotruth.com`
  * Clyp: `clyp.it`
  * CNN: `edition.cnn.com`
@@ -80,14 +79,12 @@ Supported sites
  * Escapist: `www.escapistmagazine.com`
  * FiveThirtyEight: `fivethirtyeight.com`
  * Facebook: `www.facebook.com`
- * FacebookPluginsVideo: `www.facebook.com`
  * Faz: `www.faz.net`
  * Fczenit: `fc-zenit.ru`
  * Filmweb: `www.filmweb.no`
  * FiveMin: `pshared.5min.com`
  * FiveTV: `5-tv.ru`
  * Flickr: `www.flickr.com`
- * Formula1: `www.formula1.com`
  * FoxNews: `video.foxnews.com`
  * FoxNewsArticle: `www.foxnews.com`
  * FranceCulture: `www.franceculture.fr`
@@ -98,6 +95,7 @@ Supported sites
  * GameSpot: `www.gamespot.com`
  * Gaskrank: `www.gaskrank.tv`
  * Gazeta: `www.gazeta.ru`
+ * GDCVault: `www.gdcvault.com`
  * GediDigital: `video.lastampa.it`
  * Gfycat: `gfycat.com`
  * GiantBomb: `www.giantbomb.com`
@@ -110,7 +108,6 @@ Supported sites
  * Heise: `www.heise.de`
  * HellPorno _(adult)_: `hellporno.com`
  * HistoricFilms: `www.historicfilms.com`
- * HitRecord: `hitrecord.org`
  * Hypem: `hypem.com`
  * IGN: `www.ign.com`
  * IHeartRadio: `www.iheart.com`
@@ -158,7 +155,6 @@ Supported sites
  * Nexx: `api.nexx.cloud`
  * NFL: `www.chiefs.com`
  * NhkVod: `www3.nhk.or.jp`
- * NonkTube _(adult)_: `www.nonktube.com`
  * Nova: `tn.nova.cz`
  * Nowness: `www.nowness.com`
  * NRKRadioPodkast: `radio.nrk.no`
@@ -276,6 +272,7 @@ Supported sites
  * Viqeo: `cdn.viqeo.tv`
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
+ * VoxMedia: `www.recode.net`
  * Medialaan: `www.bndestem.nl`
  * Vzaar: `vzaar.com`
  * WashingtonPost: `www.washingtonpost.com`
@@ -297,4 +294,3 @@ Supported sites
  * ZDF: `www.zdf.de`
  * Zhihu: `www.zhihu.com`
  * ZingMp3: `mp3.zing.vn`
- * Zoom: `economist.zoom.us`

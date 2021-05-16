@@ -194,12 +194,45 @@ func init() {
 		}())
 		VKIE = λ.Cal(λ.TypeType, λ.StrLiteral("VKIE"), λ.NewTuple(VKBaseIE), func() λ.Dict {
 			var (
-				VKIE_IE_NAME       λ.Object
-				VKIE__VALID_URL    λ.Object
-				VKIE__real_extract λ.Object
+				VKIE_IE_NAME              λ.Object
+				VKIE__VALID_URL           λ.Object
+				VKIE__extract_sibnet_urls λ.Object
+				VKIE__real_extract        λ.Object
 			)
 			VKIE_IE_NAME = λ.StrLiteral("vk")
 			VKIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\n                            (?:\n                                (?:(?:m|new)\\.)?vk\\.com/video_|\n                                (?:www\\.)?daxab.com/\n                            )\n                            ext\\.php\\?(?P<embed_query>.*?\\boid=(?P<oid>-?\\d+).*?\\bid=(?P<id>\\d+).*)|\n                            (?:\n                                (?:(?:m|new)\\.)?vk\\.com/(?:.+?\\?.*?z=)?video|\n                                (?:www\\.)?daxab.com/embed/\n                            )\n                            (?P<videoid>-?\\d+_\\d+)(?:.*\\blist=(?P<list_id>[\\da-f]+))?\n                        )\n                    ")
+			VKIE__extract_sibnet_urls = λ.NewFunction("_extract_sibnet_urls",
+				[]λ.Param{
+					{Name: "webpage"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒwebpage = λargs[0]
+					)
+					return λ.Cal(λ.ListType, λ.Cal(λ.NewFunction("<generator>",
+						nil,
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
+								var (
+									ϒmobj λ.Object
+									τmp0  λ.Object
+									τmp1  λ.Object
+								)
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.Cal(Ωre.ϒfinditer, λ.StrLiteral("<iframe\\b[^>]+\\bsrc=([\"\\'])(?P<url>(?:https?:)?//video\\.sibnet\\.ru/shell\\.php\\?.*?\\bvideoid=\\d+.*?)\\1"), ϒwebpage))
+								for {
+									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+										break
+									}
+									ϒmobj = τmp1
+									λgy.Yield(λ.Cal(ϒunescapeHTML, λ.Calm(ϒmobj, "group", λ.StrLiteral("url"))))
+								}
+								return λ.None
+							})
+						})))
+				})
+			VKIE__extract_sibnet_urls = λ.Cal(λ.StaticMethodType, VKIE__extract_sibnet_urls)
 			VKIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -235,6 +268,7 @@ func init() {
 						ϒplayer            λ.Object
 						ϒrutube_url        λ.Object
 						ϒself              = λargs[0]
+						ϒsibnet_urls       λ.Object
 						ϒtimestamp         λ.Object
 						ϒtitle             λ.Object
 						ϒurl               = λargs[1]
@@ -354,6 +388,10 @@ func init() {
 					ϒodnoklassniki_url = λ.Calm(OdnoklassnikiIE, "_extract_url", ϒinfo_page)
 					if λ.IsTrue(ϒodnoklassniki_url) {
 						return λ.Calm(ϒself, "url_result", ϒodnoklassniki_url, λ.Calm(OdnoklassnikiIE, "ie_key"))
+					}
+					ϒsibnet_urls = λ.Calm(ϒself, "_extract_sibnet_urls", ϒinfo_page)
+					if λ.IsTrue(ϒsibnet_urls) {
+						return λ.Calm(ϒself, "url_result", λ.GetItem(ϒsibnet_urls, λ.IntLiteral(0)))
 					}
 					ϒm_opts = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("(?s)var\\s+opts\\s*=\\s*({.+?});"), ϒinfo_page)
 					if λ.IsTrue(ϒm_opts) {
@@ -493,9 +531,10 @@ func init() {
 					})
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"IE_NAME":       VKIE_IE_NAME,
-				"_VALID_URL":    VKIE__VALID_URL,
-				"_real_extract": VKIE__real_extract,
+				"IE_NAME":              VKIE_IE_NAME,
+				"_VALID_URL":           VKIE__VALID_URL,
+				"_extract_sibnet_urls": VKIE__extract_sibnet_urls,
+				"_real_extract":        VKIE__real_extract,
 			})
 		}())
 		VKUserVideosIE = λ.Cal(λ.TypeType, λ.StrLiteral("VKUserVideosIE"), λ.NewTuple(VKBaseIE), func() λ.Dict {

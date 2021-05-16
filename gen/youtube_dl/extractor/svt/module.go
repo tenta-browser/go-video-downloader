@@ -81,7 +81,7 @@ func init() {
 			var (
 				SVTPlayIE__VALID_URL λ.Object
 			)
-			SVTPlayIE__VALID_URL = λ.StrLiteral("(?x)\n                    (?:\n                        (?:\n                            svt:|\n                            https?://(?:www\\.)?svt\\.se/barnkanalen/barnplay/[^/]+/\n                        )\n                        (?P<svt_id>[^/?#&]+)|\n                        https?://(?:www\\.)?(?:svtplay|oppetarkiv)\\.se/(?:video|klipp|kanaler)/(?P<id>[^/?#&]+)\n                        (?:.*?modalId=(?P<modal_id>[\\da-zA-Z-]+))?\n                    )\n                    ")
+			SVTPlayIE__VALID_URL = λ.StrLiteral("(?x)\n                    (?:\n                        (?:\n                            svt:|\n                            https?://(?:www\\.)?svt\\.se/barnkanalen/barnplay/[^/]+/\n                        )\n                        (?P<svt_id>[^/?#&]+)|\n                        https?://(?:www\\.)?(?:svtplay|oppetarkiv)\\.se/(?:video|klipp|kanaler)/(?P<id>[^/?#&]+)\n                        (?:.*?(?:modalId|id)=(?P<modal_id>[\\da-zA-Z-]+))?\n                    )\n                    ")
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": SVTPlayIE__VALID_URL,
 			})

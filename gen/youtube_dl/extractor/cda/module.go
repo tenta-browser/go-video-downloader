@@ -168,6 +168,12 @@ func init() {
 							}
 						}(),
 					})
+					ϒinfo = λ.Call(λ.GetAttr(ϒself, "_search_json_ld", nil), λ.NewArgs(
+						ϒwebpage,
+						ϒvideo_id,
+					), λ.KWArgs{
+						{Name: "default", Value: λ.DictLiteral(map[λ.Object]λ.Object{})},
+					})
 					ϒdecrypt_file = λ.NewFunction("decrypt_file",
 						[]λ.Param{
 							{Name: "a"},
@@ -329,7 +335,7 @@ func init() {
 							ϒhandler = λ.GetAttr(ϒself, "_download_webpage", nil)
 						}
 						ϒwebpage = λ.Call(ϒhandler, λ.NewArgs(
-							λ.Add(λ.GetAttr(ϒself, "_BASE_URL", nil), ϒhref),
+							λ.Cal(ϒurljoin, λ.GetAttr(ϒself, "_BASE_URL", nil), ϒhref),
 							ϒvideo_id,
 							λ.Mod(λ.StrLiteral("Downloading %s version information"), ϒresolution),
 						), λ.KWArgs{
@@ -342,12 +348,6 @@ func init() {
 						λ.Cal(ϒextract_format, ϒwebpage, ϒresolution)
 					}
 					λ.Calm(ϒself, "_sort_formats", ϒformats)
-					ϒinfo = λ.Call(λ.GetAttr(ϒself, "_search_json_ld", nil), λ.NewArgs(
-						ϒwebpage,
-						ϒvideo_id,
-					), λ.KWArgs{
-						{Name: "default", Value: λ.DictLiteral(map[λ.Object]λ.Object{})},
-					})
 					return λ.Cal(ϒmerge_dicts, ϒinfo_dict, ϒinfo)
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{

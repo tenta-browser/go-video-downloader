@@ -1272,26 +1272,11 @@ func init() {
 		}())
 		FacebookPluginsVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("FacebookPluginsVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				FacebookPluginsVideoIE__VALID_URL    λ.Object
-				FacebookPluginsVideoIE__real_extract λ.Object
+				FacebookPluginsVideoIE__VALID_URL λ.Object
 			)
 			FacebookPluginsVideoIE__VALID_URL = λ.StrLiteral("https?://(?:[\\w-]+\\.)?facebook\\.com/plugins/video\\.php\\?.*?\\bhref=(?P<id>https.+)")
-			FacebookPluginsVideoIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒself = λargs[0]
-						ϒurl  = λargs[1]
-					)
-					return λ.Calm(ϒself, "url_result", λ.Cal(ϒcompat_urllib_parse_unquote, λ.Calm(ϒself, "_match_id", ϒurl)), λ.Calm(FacebookIE, "ie_key"))
-				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL":    FacebookPluginsVideoIE__VALID_URL,
-				"_real_extract": FacebookPluginsVideoIE__real_extract,
+				"_VALID_URL": FacebookPluginsVideoIE__VALID_URL,
 			})
 		}())
 	})

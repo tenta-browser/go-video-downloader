@@ -270,13 +270,8 @@ func init() {
 			})
 		}())
 		ZingMp3AlbumIE = λ.Cal(λ.TypeType, λ.StrLiteral("ZingMp3AlbumIE"), λ.NewTuple(ZingMp3BaseIE), func() λ.Dict {
-			var (
-				ZingMp3AlbumIE__VALID_URL λ.Object
-			)
-			ZingMp3AlbumIE__VALID_URL = λ.Mod(λ.GetAttr(ZingMp3BaseIE, "_VALID_URL_TMPL", nil), λ.StrLiteral("album|playlist"))
-			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": ZingMp3AlbumIE__VALID_URL,
-			})
+
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 	})
 }

@@ -97,6 +97,7 @@ import (
 	Ωviewlift "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/viewlift"
 	Ωvimeo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vimeo"
 	Ωviqeo "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/viqeo"
+	Ωvk "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vk"
 	Ωvshare "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vshare"
 	Ωvzaar "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/vzaar"
 	Ωwashingtonpost "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/washingtonpost"
@@ -181,6 +182,7 @@ var (
 	UDNEmbedIE                   λ.Object
 	UstreamIE                    λ.Object
 	VHXEmbedIE                   λ.Object
+	VKIE                         λ.Object
 	VShareIE                     λ.Object
 	Vbox7IE                      λ.Object
 	ViceIE                       λ.Object
@@ -326,6 +328,7 @@ func init() {
 		ExpressenIE = Ωexpressen.ExpressenIE
 		ZypeIE = Ωzype.ZypeIE
 		OdnoklassnikiIE = Ωodnoklassniki.OdnoklassnikiIE
+		VKIE = Ωvk.VKIE
 		KinjaEmbedIE = Ωkinja.KinjaEmbedIE
 		ArcPublishingIE = Ωarcpublishing.ArcPublishingIE
 		MedialaanIE = Ωmedialaan.MedialaanIE

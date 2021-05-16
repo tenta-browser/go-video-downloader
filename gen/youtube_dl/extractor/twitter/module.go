@@ -53,6 +53,7 @@ var (
 	ϒtry_get                      λ.Object
 	ϒunified_timestamp            λ.Object
 	ϒupdate_url_query             λ.Object
+	ϒurl_or_none                  λ.Object
 	ϒxpath_text                   λ.Object
 )
 
@@ -70,6 +71,7 @@ func init() {
 		ϒstrip_or_none = Ωutils.ϒstrip_or_none
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
 		ϒupdate_url_query = Ωutils.ϒupdate_url_query
+		ϒurl_or_none = Ωutils.ϒurl_or_none
 		ϒxpath_text = Ωutils.ϒxpath_text
 		PeriscopeBaseIE = Ωperiscope.PeriscopeBaseIE
 		PeriscopeIE = Ωperiscope.PeriscopeIE
@@ -159,6 +161,10 @@ func init() {
 						τmp0           λ.Object
 						τmp1           λ.Object
 					)
+					ϒvmap_url = λ.Cal(ϒurl_or_none, ϒvmap_url)
+					if !λ.IsTrue(ϒvmap_url) {
+						return λ.NewList()
+					}
 					ϒvmap_data = λ.Calm(ϒself, "_download_xml", ϒvmap_url, ϒvideo_id)
 					ϒformats = λ.NewList()
 					ϒurls = λ.NewList()

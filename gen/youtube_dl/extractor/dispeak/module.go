@@ -52,6 +52,7 @@ func init() {
 		DigitallySpeakingIE = λ.Cal(λ.TypeType, λ.StrLiteral("DigitallySpeakingIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
 				DigitallySpeakingIE__VALID_URL    λ.Object
+				DigitallySpeakingIE__parse_flv    λ.Object
 				DigitallySpeakingIE__parse_mp4    λ.Object
 				DigitallySpeakingIE__real_extract λ.Object
 			)
@@ -159,6 +160,87 @@ func init() {
 					}
 					return ϒvideo_formats
 				})
+			DigitallySpeakingIE__parse_flv = λ.NewFunction("_parse_flv",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "metadata"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒakamai_url λ.Object
+						ϒaudio      λ.Object
+						ϒaudios     λ.Object
+						ϒformat_id  λ.Object
+						ϒformats    λ.Object
+						ϒmetadata   = λargs[1]
+						ϒpreference λ.Object
+						ϒself       = λargs[0]
+						ϒvideo_key  λ.Object
+						ϒvideo_path λ.Object
+						τmp0        λ.Object
+						τmp1        λ.Object
+						τmp2        λ.Object
+					)
+					_ = ϒself
+					ϒformats = λ.NewList()
+					ϒakamai_url = λ.Call(ϒxpath_text, λ.NewArgs(
+						ϒmetadata,
+						λ.StrLiteral("./akamaiHost"),
+					), λ.KWArgs{
+						{Name: "fatal", Value: λ.True},
+					})
+					ϒaudios = λ.Calm(ϒmetadata, "findall", λ.StrLiteral("./audios/audio"))
+					τmp0 = λ.Cal(λ.BuiltinIter, ϒaudios)
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒaudio = τmp1
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":       λ.Mod(λ.StrLiteral("rtmp://%s/ondemand?ovpfv=1.1"), ϒakamai_url),
+							"play_path": λ.Cal(ϒremove_end, λ.Calm(ϒaudio, "get", λ.StrLiteral("url")), λ.StrLiteral(".flv")),
+							"ext":       λ.StrLiteral("flv"),
+							"vcodec":    λ.StrLiteral("none"),
+							"format_id": λ.Calm(ϒaudio, "get", λ.StrLiteral("code")),
+						}))
+					}
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+						λ.NewTuple(
+							λ.StrLiteral("slide"),
+							λ.StrLiteral("slides"),
+							λ.Neg(λ.IntLiteral(2)),
+						),
+						λ.NewTuple(
+							λ.StrLiteral("speaker"),
+							λ.StrLiteral("speaker"),
+							λ.Neg(λ.IntLiteral(1)),
+						),
+					))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						τmp2 = λ.UnpackIterable(τmp1, 3)
+						ϒvideo_key = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒformat_id = λ.GetItem(τmp2, λ.IntLiteral(1))
+						ϒpreference = λ.GetItem(τmp2, λ.IntLiteral(2))
+						ϒvideo_path = λ.Cal(ϒxpath_text, ϒmetadata, λ.Mod(λ.StrLiteral("./%sVideo"), ϒvideo_key))
+						if !λ.IsTrue(ϒvideo_path) {
+							continue
+						}
+						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
+							"url":         λ.Mod(λ.StrLiteral("rtmp://%s/ondemand?ovpfv=1.1"), ϒakamai_url),
+							"play_path":   λ.Cal(ϒremove_end, ϒvideo_path, λ.StrLiteral(".flv")),
+							"ext":         λ.StrLiteral("flv"),
+							"format_note": λ.Mod(λ.StrLiteral("%s video"), ϒvideo_key),
+							"quality":     ϒpreference,
+							"preference":  ϒpreference,
+							"format_id":   ϒformat_id,
+						}))
+					}
+					return ϒformats
+				})
 			DigitallySpeakingIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -196,6 +278,7 @@ func init() {
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":    DigitallySpeakingIE__VALID_URL,
+				"_parse_flv":    DigitallySpeakingIE__parse_flv,
 				"_parse_mp4":    DigitallySpeakingIE__parse_mp4,
 				"_real_extract": DigitallySpeakingIE__real_extract,
 			})

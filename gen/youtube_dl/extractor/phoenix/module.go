@@ -40,8 +40,9 @@ var (
 	ϒcompat_str        λ.Object
 	ϒint_or_none       λ.Object
 	ϒmerge_dicts       λ.Object
+	ϒtry_get           λ.Object
 	ϒunified_timestamp λ.Object
-	ϒxpath_text        λ.Object
+	ϒurljoin           λ.Object
 )
 
 func init() {
@@ -51,8 +52,9 @@ func init() {
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒmerge_dicts = Ωutils.ϒmerge_dicts
+		ϒtry_get = Ωutils.ϒtry_get
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp
-		ϒxpath_text = Ωutils.ϒxpath_text
+		ϒurljoin = Ωutils.ϒurljoin
 		PhoenixIE = λ.Cal(λ.TypeType, λ.StrLiteral("PhoenixIE"), λ.NewTuple(ZDFBaseIE), func() λ.Dict {
 			var (
 				PhoenixIE_IE_NAME       λ.Object
@@ -73,10 +75,13 @@ func init() {
 						ϒarticle_id    λ.Object
 						ϒcontent_id    λ.Object
 						ϒdetails       λ.Object
+						ϒduration      λ.Object
+						ϒepisode       λ.Object
 						ϒinfo          λ.Object
 						ϒm             λ.Object
-						ϒnode          λ.Object
 						ϒself          = λargs[0]
+						ϒseries        λ.Object
+						ϒteaser_images λ.Object
 						ϒthumbnail     λ.Object
 						ϒthumbnail_key λ.Object
 						ϒthumbnail_url λ.Object
@@ -88,6 +93,7 @@ func init() {
 						ϒvideo_id      λ.Object
 						τmp0           λ.Object
 						τmp1           λ.Object
+						τmp2           λ.Object
 					)
 					ϒarticle_id = λ.Calm(ϒself, "_match_id", ϒurl)
 					ϒarticle = λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("https://www.phoenix.de/response/id/%s"), ϒarticle_id), ϒarticle_id, λ.StrLiteral("Downloading article JSON"))
@@ -114,10 +120,10 @@ func init() {
 							return λ.Calm(ϒvideo, "get", λ.StrLiteral("content"))
 						}
 					}())
-					ϒdetails = λ.Call(λ.GetAttr(ϒself, "_download_xml", nil), λ.NewArgs(
+					ϒdetails = λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
 						λ.StrLiteral("https://www.phoenix.de/php/mediaplayer/data/beitrags_details.php"),
 						ϒvideo_id,
-						λ.StrLiteral("Downloading details XML"),
+						λ.StrLiteral("Downloading details JSON"),
 					), λ.KWArgs{
 						{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
 							"ak":      λ.StrLiteral("web"),
@@ -130,58 +136,91 @@ func init() {
 						if λv := ϒtitle; λ.IsTrue(λv) {
 							return λv
 						} else {
-							return λ.Call(ϒxpath_text, λ.NewArgs(
-								ϒdetails,
-								λ.StrLiteral(".//information/title"),
-								λ.StrLiteral("title"),
-							), λ.KWArgs{
-								{Name: "fatal", Value: λ.True},
-							})
+							return λ.GetItem(ϒdetails, λ.StrLiteral("title"))
 						}
 					}()
-					ϒcontent_id = λ.Call(ϒxpath_text, λ.NewArgs(
-						ϒdetails,
-						λ.StrLiteral(".//video/details/basename"),
-						λ.StrLiteral("content id"),
-					), λ.KWArgs{
-						{Name: "fatal", Value: λ.True},
-					})
+					ϒcontent_id = λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒdetails, λ.StrLiteral("tracking")), λ.StrLiteral("nielsen")), λ.StrLiteral("content")), λ.StrLiteral("assetid"))
 					ϒinfo = λ.Calm(ϒself, "_extract_ptmd", λ.Mod(λ.StrLiteral("https://tmd.phoenix.de/tmd/2/ngplayer_2_3/vod/ptmd/phoenix/%s"), ϒcontent_id), ϒcontent_id, λ.None, ϒurl)
-					ϒtimestamp = λ.Cal(ϒunified_timestamp, λ.Cal(ϒxpath_text, ϒdetails, λ.StrLiteral(".//details/airtime")))
+					ϒduration = λ.Cal(ϒint_or_none, λ.Cal(ϒtry_get, ϒdetails, λ.NewFunction("<lambda>",
+						[]λ.Param{
+							{Name: "x"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒx = λargs[0]
+							)
+							return λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("tracking")), λ.StrLiteral("nielsen")), λ.StrLiteral("content")), λ.StrLiteral("length"))
+						})))
+					ϒtimestamp = λ.Cal(ϒunified_timestamp, λ.Calm(ϒdetails, "get", λ.StrLiteral("editorialDate")))
+					ϒseries = λ.Cal(ϒtry_get, ϒdetails, λ.NewFunction("<lambda>",
+						[]λ.Param{
+							{Name: "x"},
+						},
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							var (
+								ϒx = λargs[0]
+							)
+							return λ.GetItem(λ.GetItem(λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("tracking")), λ.StrLiteral("nielsen")), λ.StrLiteral("content")), λ.StrLiteral("program"))
+						}), ϒcompat_str)
+					ϒepisode = func() λ.Object {
+						if λ.IsTrue(λ.Eq(λ.Calm(ϒdetails, "get", λ.StrLiteral("contentType")), λ.StrLiteral("episode"))) {
+							return ϒtitle
+						} else {
+							return λ.None
+						}
+					}()
 					ϒthumbnails = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒdetails, "findall", λ.StrLiteral(".//teaserimages/teaserimage")))
+					ϒteaser_images = func() λ.Object {
+						if λv := λ.Cal(ϒtry_get, ϒdetails, λ.NewFunction("<lambda>",
+							[]λ.Param{
+								{Name: "x"},
+							},
+							0, false, false,
+							func(λargs []λ.Object) λ.Object {
+								var (
+									ϒx = λargs[0]
+								)
+								return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("teaserImageRef")), λ.StrLiteral("layouts"))
+							}), λ.DictType); λ.IsTrue(λv) {
+							return λv
+						} else {
+							return λ.DictLiteral(map[λ.Object]λ.Object{})
+						}
+					}()
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒteaser_images, "items"))
 					for {
 						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 							break
 						}
-						ϒnode = τmp1
-						ϒthumbnail_url = λ.GetAttr(ϒnode, "text", nil)
+						τmp2 = λ.UnpackIterable(τmp1, 2)
+						ϒthumbnail_key = λ.GetItem(τmp2, λ.IntLiteral(0))
+						ϒthumbnail_url = λ.GetItem(τmp2, λ.IntLiteral(1))
+						ϒthumbnail_url = λ.Cal(ϒurljoin, ϒurl, ϒthumbnail_url)
 						if !λ.IsTrue(ϒthumbnail_url) {
 							continue
 						}
 						ϒthumbnail = λ.DictLiteral(map[string]λ.Object{
 							"url": ϒthumbnail_url,
 						})
-						ϒthumbnail_key = λ.Calm(ϒnode, "get", λ.StrLiteral("key"))
-						if λ.IsTrue(ϒthumbnail_key) {
-							ϒm = λ.Cal(Ωre.ϒmatch, λ.StrLiteral("^([0-9]+)x([0-9]+)$"), ϒthumbnail_key)
-							if λ.IsTrue(ϒm) {
-								λ.SetItem(ϒthumbnail, λ.StrLiteral("width"), λ.Cal(λ.IntType, λ.Calm(ϒm, "group", λ.IntLiteral(1))))
-								λ.SetItem(ϒthumbnail, λ.StrLiteral("height"), λ.Cal(λ.IntType, λ.Calm(ϒm, "group", λ.IntLiteral(2))))
-							}
+						ϒm = λ.Cal(Ωre.ϒmatch, λ.StrLiteral("^([0-9]+)x([0-9]+)$"), ϒthumbnail_key)
+						if λ.IsTrue(ϒm) {
+							λ.SetItem(ϒthumbnail, λ.StrLiteral("width"), λ.Cal(λ.IntType, λ.Calm(ϒm, "group", λ.IntLiteral(1))))
+							λ.SetItem(ϒthumbnail, λ.StrLiteral("height"), λ.Cal(λ.IntType, λ.Calm(ϒm, "group", λ.IntLiteral(2))))
 						}
 						λ.Calm(ϒthumbnails, "append", ϒthumbnail)
 					}
 					return λ.Cal(ϒmerge_dicts, ϒinfo, λ.DictLiteral(map[string]λ.Object{
 						"id":          ϒcontent_id,
 						"title":       ϒtitle,
-						"description": λ.Cal(ϒxpath_text, ϒdetails, λ.StrLiteral(".//information/detail")),
-						"duration":    λ.Cal(ϒint_or_none, λ.Cal(ϒxpath_text, ϒdetails, λ.StrLiteral(".//details/lengthSec"))),
+						"description": λ.Calm(ϒdetails, "get", λ.StrLiteral("leadParagraph")),
+						"duration":    ϒduration,
 						"thumbnails":  ϒthumbnails,
 						"timestamp":   ϒtimestamp,
-						"uploader":    λ.Cal(ϒxpath_text, ϒdetails, λ.StrLiteral(".//details/channel")),
-						"uploader_id": λ.Cal(ϒxpath_text, ϒdetails, λ.StrLiteral(".//details/originChannelId")),
-						"channel":     λ.Cal(ϒxpath_text, ϒdetails, λ.StrLiteral(".//details/originChannelTitle")),
+						"uploader":    λ.Calm(ϒdetails, "get", λ.StrLiteral("tvService")),
+						"series":      ϒseries,
+						"episode":     ϒepisode,
 					}))
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
