@@ -46,117 +46,11 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		ViqeoIE = λ.Cal(λ.TypeType, λ.StrLiteral("ViqeoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				ViqeoIE__VALID_URL    λ.Object
-				ViqeoIE__real_extract λ.Object
+				ViqeoIE__VALID_URL λ.Object
 			)
 			ViqeoIE__VALID_URL = λ.StrLiteral("(?x)\n                        (?:\n                            viqeo:|\n                            https?://cdn\\.viqeo\\.tv/embed/*\\?.*?\\bvid=|\n                            https?://api\\.viqeo\\.tv/v\\d+/data/startup?.*?\\bvideo(?:%5B%5D|\\[\\])=\n                        )\n                        (?P<id>[\\da-f]+)\n                    ")
-			ViqeoIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒdata       λ.Object
-						ϒduration   λ.Object
-						ϒf          λ.Object
-						ϒformat_id  λ.Object
-						ϒformats    λ.Object
-						ϒis_audio   λ.Object
-						ϒmedia_file λ.Object
-						ϒmedia_kind λ.Object
-						ϒmedia_type λ.Object
-						ϒmedia_url  λ.Object
-						ϒself       = λargs[0]
-						ϒthumbnails λ.Object
-						ϒurl        = λargs[1]
-						ϒvideo_id   λ.Object
-						ϒwebpage    λ.Object
-						τmp0        λ.Object
-						τmp1        λ.Object
-					)
-					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
-					ϒwebpage = λ.Calm(ϒself, "_download_webpage", λ.Mod(λ.StrLiteral("https://cdn.viqeo.tv/embed/?vid=%s"), ϒvideo_id), ϒvideo_id)
-					ϒdata = λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("SLOT_DATA\\s*=\\s*({.+?})\\s*;"), ϒwebpage, λ.StrLiteral("slot data")), ϒvideo_id)
-					ϒformats = λ.NewList()
-					ϒthumbnails = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒdata, λ.StrLiteral("mediaFiles")))
-					for {
-						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-							break
-						}
-						ϒmedia_file = τmp1
-						if !λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒmedia_file, λ.DictType)) {
-							continue
-						}
-						ϒmedia_url = λ.Cal(ϒurl_or_none, λ.Calm(ϒmedia_file, "get", λ.StrLiteral("url")))
-						if λ.IsTrue(func() λ.Object {
-							if λv := λ.NewBool(!λ.IsTrue(ϒmedia_url)); λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.NewBool(!λ.IsTrue(λ.Calm(ϒmedia_url, "startswith", λ.NewTuple(
-									λ.StrLiteral("http"),
-									λ.StrLiteral("//"),
-								))))
-							}
-						}()) {
-							continue
-						}
-						ϒmedia_type = λ.Cal(ϒstr_or_none, λ.Calm(ϒmedia_file, "get", λ.StrLiteral("type")))
-						if !λ.IsTrue(ϒmedia_type) {
-							continue
-						}
-						ϒmedia_kind = λ.Calm(λ.GetItem(λ.Calm(ϒmedia_type, "split", λ.StrLiteral("/")), λ.IntLiteral(0)), "lower")
-						ϒf = λ.DictLiteral(map[string]λ.Object{
-							"url":    ϒmedia_url,
-							"width":  λ.Cal(ϒint_or_none, λ.Calm(ϒmedia_file, "get", λ.StrLiteral("width"))),
-							"height": λ.Cal(ϒint_or_none, λ.Calm(ϒmedia_file, "get", λ.StrLiteral("height"))),
-						})
-						ϒformat_id = λ.Cal(ϒstr_or_none, λ.Calm(ϒmedia_file, "get", λ.StrLiteral("quality")))
-						if λ.IsTrue(λ.Eq(ϒmedia_kind, λ.StrLiteral("image"))) {
-							λ.SetItem(ϒf, λ.StrLiteral("id"), ϒformat_id)
-							λ.Calm(ϒthumbnails, "append", ϒf)
-						} else {
-							if λ.Contains(λ.NewTuple(
-								λ.StrLiteral("video"),
-								λ.StrLiteral("audio"),
-							), ϒmedia_kind) {
-								ϒis_audio = λ.Eq(ϒmedia_kind, λ.StrLiteral("audio"))
-								λ.Calm(ϒf, "update", λ.DictLiteral(map[string]λ.Object{
-									"format_id": func() λ.Object {
-										if λ.IsTrue(ϒis_audio) {
-											return λ.StrLiteral("audio")
-										} else {
-											return ϒformat_id
-										}
-									}(),
-									"fps": λ.Cal(ϒint_or_none, λ.Calm(ϒmedia_file, "get", λ.StrLiteral("fps"))),
-									"vcodec": func() λ.Object {
-										if λ.IsTrue(ϒis_audio) {
-											return λ.StrLiteral("none")
-										} else {
-											return λ.None
-										}
-									}(),
-								}))
-								λ.Calm(ϒformats, "append", ϒf)
-							}
-						}
-					}
-					λ.Calm(ϒself, "_sort_formats", ϒformats)
-					ϒduration = λ.Cal(ϒint_or_none, λ.Calm(ϒdata, "get", λ.StrLiteral("duration")))
-					return λ.DictLiteral(map[string]λ.Object{
-						"id":         ϒvideo_id,
-						"title":      ϒvideo_id,
-						"duration":   ϒduration,
-						"thumbnails": ϒthumbnails,
-						"formats":    ϒformats,
-					})
-				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL":    ViqeoIE__VALID_URL,
-				"_real_extract": ViqeoIE__real_extract,
+				"_VALID_URL": ViqeoIE__VALID_URL,
 			})
 		}())
 	})

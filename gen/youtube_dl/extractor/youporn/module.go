@@ -31,21 +31,21 @@ import (
 )
 
 var (
-	InfoExtractor    λ.Object
-	YouPornIE        λ.Object
-	ϒint_or_none     λ.Object
-	ϒstr_to_int      λ.Object
-	ϒunescapeHTML    λ.Object
-	ϒunified_strdate λ.Object
-	ϒurl_or_none     λ.Object
+	InfoExtractor       λ.Object
+	YouPornIE           λ.Object
+	ϒextract_attributes λ.Object
+	ϒint_or_none        λ.Object
+	ϒstr_to_int         λ.Object
+	ϒunified_strdate    λ.Object
+	ϒurl_or_none        λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
+		ϒextract_attributes = Ωutils.ϒextract_attributes
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒstr_to_int = Ωutils.ϒstr_to_int
-		ϒunescapeHTML = Ωutils.ϒunescapeHTML
 		ϒunified_strdate = Ωutils.ϒunified_strdate
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		YouPornIE = λ.Cal(λ.TypeType, λ.StrLiteral("YouPornIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

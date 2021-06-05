@@ -6,9 +6,7 @@ Supported sites
  * ACast: `www.acast.com`
  * AdobeTVVideo: `video.tv.adobe.com`
  * Amara: `amara.org`
- * Aol: `www.aol.com`
  * Allocine: `www.allocine.fr`
- * APA: `uvp.apa.at`
  * Aparat: `www.aparat.com`
  * ApplePodcasts: `podcasts.apple.com`
  * ArchiveOrg: `archive.org`
@@ -44,7 +42,6 @@ Supported sites
  * CDA: `www.cda.pl`
  * CharlieRose: `charlierose.com`
  * Chirbit: `chirb.it`
- * Cinemax: `www.cinemax.com`
  * Clippit: `www.clippituser.tv`
  * ClipRs: `www.clip.rs`
  * CloserToTruth: `closertotruth.com`
@@ -74,17 +71,17 @@ Supported sites
  * EaglePlatform: `lentaru.media.eagleplatform.com`
  * EbaumsWorld: `www.ebaumsworld.com`
  * ElPais: `blogs.elpais.com`
- * Engadget: `www.engadget.com`
  * Eporner _(adult)_: `www.eporner.com`
  * Escapist: `www.escapistmagazine.com`
  * FiveThirtyEight: `fivethirtyeight.com`
  * Facebook: `www.facebook.com`
+ * FacebookPluginsVideo: `www.facebook.com`
  * Faz: `www.faz.net`
  * Fczenit: `fc-zenit.ru`
  * Filmweb: `www.filmweb.no`
- * FiveMin: `pshared.5min.com`
  * FiveTV: `5-tv.ru`
  * Flickr: `www.flickr.com`
+ * Formula1: `www.formula1.com`
  * FoxNews: `video.foxnews.com`
  * FoxNewsArticle: `www.foxnews.com`
  * FranceCulture: `www.franceculture.fr`
@@ -102,7 +99,6 @@ Supported sites
  * GodTube: `www.godtube.com`
  * Golem: `video.golem.de`
  * GoogleDrive: `drive.google.com`
- * GooglePodcasts: `podcasts.google.com`
  * GPUTechConf: `on-demand.gputechconf.com`
  * HBO: `www.hbo.com`
  * Heise: `www.heise.de`
@@ -130,7 +126,6 @@ Supported sites
  * LimelightMedia: `link.videoplatform.limelight.com`
  * Livestream: `new.livestream.com`
  * LoveHomePorn _(adult)_: `lovehomeporn.com`
- * Lynda: `www.lynda.com`
  * MailRuMusic: `my.mail.ru`
  * ManyVids: `www.manyvids.com`
  * Mediaset: `www.mediasetplay.mediaset.it`
@@ -155,6 +150,7 @@ Supported sites
  * Nexx: `api.nexx.cloud`
  * NFL: `www.chiefs.com`
  * NhkVod: `www3.nhk.or.jp`
+ * NonkTube _(adult)_: `www.nonktube.com`
  * Nova: `tn.nova.cz`
  * Nowness: `www.nowness.com`
  * NRKRadioPodkast: `radio.nrk.no`
@@ -269,7 +265,6 @@ Supported sites
  * VimeoReview: `vimeo.com`
  * Vimple: `vimple.ru`
  * Vine: `vine.co`
- * Viqeo: `cdn.viqeo.tv`
  * VK: `vk.com`
  * VLive: `www.vlive.tv`
  * VoxMedia: `www.recode.net`

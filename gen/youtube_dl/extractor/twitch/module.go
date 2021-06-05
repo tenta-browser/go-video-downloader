@@ -88,12 +88,25 @@ func init() {
 			var (
 				TwitchBaseIE__CLIENT_ID         λ.Object
 				TwitchBaseIE__NETRC_MACHINE     λ.Object
+				TwitchBaseIE__OPERATION_HASHES  λ.Object
 				TwitchBaseIE__download_base_gql λ.Object
+				TwitchBaseIE__download_gql      λ.Object
 				TwitchBaseIE__login             λ.Object
 				TwitchBaseIE__real_initialize   λ.Object
 			)
 			TwitchBaseIE__CLIENT_ID = λ.StrLiteral("kimne78kx3ncx6brgo4mv6wki5h1ko")
 			TwitchBaseIE__NETRC_MACHINE = λ.StrLiteral("twitch")
+			TwitchBaseIE__OPERATION_HASHES = λ.DictLiteral(map[string]string{
+				"CollectionSideBar":           "27111f1b382effad0b6def325caef1909c733fe6a4fbabf54f8d491ef2cf2f14",
+				"FilterableVideoTower_Videos": "a937f1d22e269e39a03b509f65a7490f9fc247d7f83d6ac1421523e3b68042cb",
+				"ClipsCards__User":            "b73ad2bfaecfd30a9e6c28fada15bd97032c83ec77a0440766a56fe0bd632777",
+				"ChannelCollectionsContent":   "07e3691a1bad77a36aba590c351180439a40baefc1c275356f40fc7082419a84",
+				"StreamMetadata":              "1c719a40e481453e5c48d9bb585d971b8b372f8ebb105b17076722264dfa5b3e",
+				"ComscoreStreamingQuery":      "e1edae8122517d013405f237ffcc124515dc6ded82480a88daef69c83b53ac01",
+				"VideoAccessToken_Clip":       "36b89d2507fce29e5ca551df756d27c1cfe079e2609642b4390aa4c35796eb11",
+				"VideoPreviewOverlay":         "3006e77e51b128d838fa4e835723ca4dc9a05c5efd4466c1085215c6e437e65c",
+				"VideoMetadata":               "226edb3e692509f727fd56821f5653c05740242c82b0388883e0c0e75dcbf687",
+			})
 			TwitchBaseIE__real_initialize = λ.NewFunction("_real_initialize",
 				[]λ.Param{
 					{Name: "self"},
@@ -283,10 +296,48 @@ func init() {
 						{Name: "fatal", Value: ϒfatal},
 					})
 				})
+			TwitchBaseIE__download_gql = λ.NewFunction("_download_gql",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "video_id"},
+					{Name: "ops"},
+					{Name: "note"},
+					{Name: "fatal", Def: λ.True},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒfatal    = λargs[4]
+						ϒnote     = λargs[3]
+						ϒop       λ.Object
+						ϒops      = λargs[2]
+						ϒself     = λargs[0]
+						ϒvideo_id = λargs[1]
+						τmp0      λ.Object
+						τmp1      λ.Object
+					)
+					_ = ϒfatal
+					τmp0 = λ.Cal(λ.BuiltinIter, ϒops)
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒop = τmp1
+						λ.SetItem(ϒop, λ.StrLiteral("extensions"), λ.DictLiteral(map[string]λ.Object{
+							"persistedQuery": λ.DictLiteral(map[string]λ.Object{
+								"version":    λ.IntLiteral(1),
+								"sha256Hash": λ.GetItem(λ.GetAttr(ϒself, "_OPERATION_HASHES", nil), λ.GetItem(ϒop, λ.StrLiteral("operationName"))),
+							}),
+						}))
+					}
+					return λ.Calm(ϒself, "_download_base_gql", ϒvideo_id, ϒops, ϒnote)
+				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_CLIENT_ID":         TwitchBaseIE__CLIENT_ID,
 				"_NETRC_MACHINE":     TwitchBaseIE__NETRC_MACHINE,
+				"_OPERATION_HASHES":  TwitchBaseIE__OPERATION_HASHES,
 				"_download_base_gql": TwitchBaseIE__download_base_gql,
+				"_download_gql":      TwitchBaseIE__download_gql,
 				"_login":             TwitchBaseIE__login,
 				"_real_initialize":   TwitchBaseIE__real_initialize,
 			})
@@ -480,7 +531,9 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
+						ϒaccess_query  λ.Object
 						ϒclip          λ.Object
+						ϒdata          λ.Object
 						ϒformats       λ.Object
 						ϒmobj          λ.Object
 						ϒoption        λ.Object
@@ -496,13 +549,48 @@ func init() {
 						τmp1           λ.Object
 					)
 					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
-					ϒclip = λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_download_base_gql", ϒvideo_id, λ.DictLiteral(map[string]λ.Object{
-						"query": λ.Mod(λ.StrLiteral("{\n  clip(slug: \"%s\") {\n    broadcaster {\n      displayName\n    }\n    createdAt\n    curator {\n      displayName\n      id\n    }\n    durationSeconds\n    id\n    tiny: thumbnailURL(width: 86, height: 45)\n    small: thumbnailURL(width: 260, height: 147)\n    medium: thumbnailURL(width: 480, height: 272)\n    title\n    videoQualities {\n      frameRate\n      quality\n      sourceURL\n    }\n    viewCount\n  }\n}"), ϒvideo_id),
-					}), λ.StrLiteral("Downloading clip GraphQL")), λ.StrLiteral("data")), λ.StrLiteral("clip"))
+					ϒclip = λ.GetItem(λ.GetItem(λ.GetItem(λ.Calm(ϒself, "_download_gql", ϒvideo_id, λ.NewList(λ.DictLiteral(map[string]λ.Object{
+						"operationName": λ.StrLiteral("VideoAccessToken_Clip"),
+						"variables": λ.DictLiteral(map[string]λ.Object{
+							"slug": ϒvideo_id,
+						}),
+					})), λ.StrLiteral("Downloading clip access token GraphQL")), λ.IntLiteral(0)), λ.StrLiteral("data")), λ.StrLiteral("clip"))
 					if !λ.IsTrue(ϒclip) {
 						panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.StrLiteral("This clip is no longer available")), λ.KWArgs{
 							{Name: "expected", Value: λ.True},
 						})))
+					}
+					ϒaccess_query = λ.DictLiteral(map[string]λ.Object{
+						"sig":   λ.GetItem(λ.GetItem(ϒclip, λ.StrLiteral("playbackAccessToken")), λ.StrLiteral("signature")),
+						"token": λ.GetItem(λ.GetItem(ϒclip, λ.StrLiteral("playbackAccessToken")), λ.StrLiteral("value")),
+					})
+					ϒdata = λ.Call(λ.GetAttr(ϒself, "_download_base_gql", nil), λ.NewArgs(
+						ϒvideo_id,
+						λ.DictLiteral(map[string]λ.Object{
+							"query": λ.Mod(λ.StrLiteral("{\n  clip(slug: \"%s\") {\n    broadcaster {\n      displayName\n    }\n    createdAt\n    curator {\n      displayName\n      id\n    }\n    durationSeconds\n    id\n    tiny: thumbnailURL(width: 86, height: 45)\n    small: thumbnailURL(width: 260, height: 147)\n    medium: thumbnailURL(width: 480, height: 272)\n    title\n    videoQualities {\n      frameRate\n      quality\n      sourceURL\n    }\n    viewCount\n  }\n}"), ϒvideo_id),
+						}),
+						λ.StrLiteral("Downloading clip GraphQL"),
+					), λ.KWArgs{
+						{Name: "fatal", Value: λ.False},
+					})
+					if λ.IsTrue(ϒdata) {
+						ϒclip = func() λ.Object {
+							if λv := λ.Cal(ϒtry_get, ϒdata, λ.NewFunction("<lambda>",
+								[]λ.Param{
+									{Name: "x"},
+								},
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									var (
+										ϒx = λargs[0]
+									)
+									return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("data")), λ.StrLiteral("clip"))
+								}), λ.DictType); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return ϒclip
+							}
+						}()
 					}
 					ϒformats = λ.NewList()
 					τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒclip, "get", λ.StrLiteral("videoQualities"), λ.NewList()))
@@ -519,7 +607,7 @@ func init() {
 							continue
 						}
 						λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
-							"url":       ϒsource,
+							"url":       λ.Cal(ϒupdate_url_query, ϒsource, ϒaccess_query),
 							"format_id": λ.Calm(ϒoption, "get", λ.StrLiteral("quality")),
 							"height":    λ.Cal(ϒint_or_none, λ.Calm(ϒoption, "get", λ.StrLiteral("quality"))),
 							"fps":       λ.Cal(ϒint_or_none, λ.Calm(ϒoption, "get", λ.StrLiteral("frameRate"))),

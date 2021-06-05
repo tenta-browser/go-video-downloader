@@ -19,10 +19,10 @@
  *
  * For any questions, please contact developer@tenta.io
  *
- * engadget/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/engadget.py
+ * formula1/module.go: transpiled from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/extractor/formula1.py
  */
 
-package engadget
+package formula1
 
 import (
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
@@ -30,20 +30,22 @@ import (
 )
 
 var (
-	EngadgetIE    λ.Object
+	Formula1IE    λ.Object
 	InfoExtractor λ.Object
 )
 
 func init() {
 	λ.InitModule(func() {
 		InfoExtractor = Ωcommon.InfoExtractor
-		EngadgetIE = λ.Cal(λ.TypeType, λ.StrLiteral("EngadgetIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
+		Formula1IE = λ.Cal(λ.TypeType, λ.StrLiteral("Formula1IE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				EngadgetIE__VALID_URL    λ.Object
-				EngadgetIE__real_extract λ.Object
+				Formula1IE_BRIGHTCOVE_URL_TEMPLATE λ.Object
+				Formula1IE__VALID_URL              λ.Object
+				Formula1IE__real_extract           λ.Object
 			)
-			EngadgetIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?engadget\\.com/video/(?P<id>[^/?#]+)")
-			EngadgetIE__real_extract = λ.NewFunction("_real_extract",
+			Formula1IE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?formula1\\.com/en/latest/video\\.[^.]+\\.(?P<id>\\d+)\\.html")
+			Formula1IE_BRIGHTCOVE_URL_TEMPLATE = λ.StrLiteral("http://players.brightcove.net/6057949432001/S1WMrhjlh_default/index.html?videoId=%s")
+			Formula1IE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
 					{Name: "url"},
@@ -51,16 +53,17 @@ func init() {
 				0, false, false,
 				func(λargs []λ.Object) λ.Object {
 					var (
-						ϒself     = λargs[0]
-						ϒurl      = λargs[1]
-						ϒvideo_id λ.Object
+						ϒbc_id λ.Object
+						ϒself  = λargs[0]
+						ϒurl   = λargs[1]
 					)
-					ϒvideo_id = λ.Calm(ϒself, "_match_id", ϒurl)
-					return λ.Calm(ϒself, "url_result", λ.Mod(λ.StrLiteral("aol-video:%s"), ϒvideo_id))
+					ϒbc_id = λ.Calm(ϒself, "_match_id", ϒurl)
+					return λ.Calm(ϒself, "url_result", λ.Mod(λ.GetAttr(ϒself, "BRIGHTCOVE_URL_TEMPLATE", nil), ϒbc_id), λ.StrLiteral("BrightcoveNew"), ϒbc_id)
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL":    EngadgetIE__VALID_URL,
-				"_real_extract": EngadgetIE__real_extract,
+				"BRIGHTCOVE_URL_TEMPLATE": Formula1IE_BRIGHTCOVE_URL_TEMPLATE,
+				"_VALID_URL":              Formula1IE__VALID_URL,
+				"_real_extract":           Formula1IE__real_extract,
 			})
 		}())
 	})

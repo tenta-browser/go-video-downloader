@@ -1461,6 +1461,7 @@ func init() {
 								{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
 									"video_id": ϒvideo_id,
 									"eurl":     λ.Add(λ.StrLiteral("https://youtube.googleapis.com/v/"), ϒvideo_id),
+									"html5":    λ.IntLiteral(1),
 								})},
 								{Name: "fatal", Value: λ.False},
 							})), λ.NewFunction("<lambda>",

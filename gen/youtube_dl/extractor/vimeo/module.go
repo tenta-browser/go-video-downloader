@@ -997,7 +997,7 @@ func init() {
 						ϒredirect_url = λ.Calm(ϒurlh, "geturl")
 						return λ.BlockExitNormally, nil
 					}()
-					if λ.Contains(ϒurl, λ.StrLiteral("://player.vimeo.com/video/")) {
+					if λ.Contains(ϒurl, λ.StrLiteral("//player.vimeo.com/video/")) {
 						ϒconfig = λ.Calm(ϒself, "_parse_json", λ.Calm(ϒself, "_search_regex", λ.StrLiteral("\\bconfig\\s*=\\s*({.+?})\\s*;"), ϒwebpage, λ.StrLiteral("info section")), ϒvideo_id)
 						if λ.IsTrue(λ.Eq(λ.Calm(ϒconfig, "get", λ.StrLiteral("view")), λ.IntLiteral(4))) {
 							ϒconfig = λ.Calm(ϒself, "_verify_player_video_password", ϒredirect_url, ϒvideo_id, ϒheaders)

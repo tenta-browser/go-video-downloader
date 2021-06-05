@@ -25,7 +25,6 @@
 package apa
 
 import (
-	Ωre "github.com/tenta-browser/go-video-downloader/gen/re"
 	Ωcommon "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/common"
 	Ωutils "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/utils"
 	λ "github.com/tenta-browser/go-video-downloader/runtime"
@@ -47,145 +46,11 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		APAIE = λ.Cal(λ.TypeType, λ.StrLiteral("APAIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				APAIE__VALID_URL    λ.Object
-				APAIE__real_extract λ.Object
+				APAIE__VALID_URL λ.Object
 			)
 			APAIE__VALID_URL = λ.StrLiteral("(?P<base_url>https?://[^/]+\\.apa\\.at)/embed/(?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})")
-			APAIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒbase_url      λ.Object
-						ϒdescription   λ.Object
-						ϒext           λ.Object
-						ϒextract       λ.Object
-						ϒformat_id     λ.Object
-						ϒformats       λ.Object
-						ϒheight        λ.Object
-						ϒjwplatform_id λ.Object
-						ϒmobj          λ.Object
-						ϒself          = λargs[0]
-						ϒsource_url    λ.Object
-						ϒthumbnail     λ.Object
-						ϒtitle         λ.Object
-						ϒurl           = λargs[1]
-						ϒvideo_id      λ.Object
-						ϒwebpage       λ.Object
-						τmp0           λ.Object
-						τmp1           λ.Object
-					)
-					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					τmp0 = λ.UnpackIterable(λ.Calm(ϒmobj, "group", λ.StrLiteral("id"), λ.StrLiteral("base_url")), 2)
-					ϒvideo_id = λ.GetItem(τmp0, λ.IntLiteral(0))
-					ϒbase_url = λ.GetItem(τmp0, λ.IntLiteral(1))
-					ϒwebpage = λ.Calm(ϒself, "_download_webpage", λ.Mod(λ.StrLiteral("%s/player/%s"), λ.NewTuple(
-						ϒbase_url,
-						ϒvideo_id,
-					)), ϒvideo_id)
-					ϒjwplatform_id = λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.StrLiteral("media[iI]d\\s*:\\s*[\"\\'](?P<id>[a-zA-Z0-9]{8})"),
-						ϒwebpage,
-						λ.StrLiteral("jwplatform id"),
-					), λ.KWArgs{
-						{Name: "default", Value: λ.None},
-					})
-					if λ.IsTrue(ϒjwplatform_id) {
-						return λ.Call(λ.GetAttr(ϒself, "url_result", nil), λ.NewArgs(λ.Add(λ.StrLiteral("jwplatform:"), ϒjwplatform_id)), λ.KWArgs{
-							{Name: "ie", Value: λ.StrLiteral("JWPlatform")},
-							{Name: "video_id", Value: ϒvideo_id},
-						})
-					}
-					ϒextract = λ.NewFunction("extract",
-						[]λ.Param{
-							{Name: "field"},
-							{Name: "name", Def: λ.None},
-						},
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							var (
-								ϒfield = λargs[0]
-								ϒname  = λargs[1]
-							)
-							return λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.Mod(λ.StrLiteral("\\b%s[\"\\']\\s*:\\s*([\"\\'])(?P<value>(?:(?!\\1).)+)\\1"), ϒfield),
-								ϒwebpage,
-								func() λ.Object {
-									if λv := ϒname; λ.IsTrue(λv) {
-										return λv
-									} else {
-										return ϒfield
-									}
-								}(),
-							), λ.KWArgs{
-								{Name: "default", Value: λ.None},
-								{Name: "group", Value: λ.StrLiteral("value")},
-							})
-						})
-					ϒtitle = func() λ.Object {
-						if λv := λ.Cal(ϒextract, λ.StrLiteral("title")); λ.IsTrue(λv) {
-							return λv
-						} else {
-							return ϒvideo_id
-						}
-					}()
-					ϒdescription = λ.Cal(ϒextract, λ.StrLiteral("description"))
-					ϒthumbnail = λ.Cal(ϒextract, λ.StrLiteral("poster"), λ.StrLiteral("thumbnail"))
-					ϒformats = λ.NewList()
-					τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
-						λ.StrLiteral("hls"),
-						λ.StrLiteral("progressive"),
-					))
-					for {
-						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-							break
-						}
-						ϒformat_id = τmp1
-						ϒsource_url = λ.Cal(ϒurl_or_none, λ.Cal(ϒextract, ϒformat_id))
-						if !λ.IsTrue(ϒsource_url) {
-							continue
-						}
-						ϒext = λ.Cal(ϒdetermine_ext, ϒsource_url)
-						if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("m3u8"))) {
-							λ.Calm(ϒformats, "extend", λ.Call(λ.GetAttr(ϒself, "_extract_m3u8_formats", nil), λ.NewArgs(
-								ϒsource_url,
-								ϒvideo_id,
-								λ.StrLiteral("mp4"),
-							), λ.KWArgs{
-								{Name: "entry_protocol", Value: λ.StrLiteral("m3u8_native")},
-								{Name: "m3u8_id", Value: λ.StrLiteral("hls")},
-								{Name: "fatal", Value: λ.False},
-							}))
-						} else {
-							ϒheight = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.StrLiteral("(\\d+)\\.mp4"),
-								ϒsource_url,
-								λ.StrLiteral("height"),
-							), λ.KWArgs{
-								{Name: "default", Value: λ.None},
-							}))
-							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
-								"url":       ϒsource_url,
-								"format_id": ϒformat_id,
-								"height":    ϒheight,
-							}))
-						}
-					}
-					λ.Calm(ϒself, "_sort_formats", ϒformats)
-					return λ.DictLiteral(map[string]λ.Object{
-						"id":          ϒvideo_id,
-						"title":       ϒtitle,
-						"description": ϒdescription,
-						"thumbnail":   ϒthumbnail,
-						"formats":     ϒformats,
-					})
-				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL":    APAIE__VALID_URL,
-				"_real_extract": APAIE__real_extract,
+				"_VALID_URL": APAIE__VALID_URL,
 			})
 		}())
 	})

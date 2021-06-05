@@ -900,7 +900,31 @@ func init() {
 								{Name: "expected", Value: λ.True},
 							})))
 						} else {
-							if λ.Contains(ϒwebpage, λ.StrLiteral(">You must log in to continue")) {
+							if λ.IsTrue(λ.Cal(λ.BuiltinAny, λ.Cal(λ.NewFunction("<generator>",
+								nil,
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
+										var (
+											ϒp   λ.Object
+											τmp0 λ.Object
+											τmp1 λ.Object
+										)
+										τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+											λ.StrLiteral(">You must log in to continue"),
+											λ.StrLiteral("id=\"login_form\""),
+											λ.StrLiteral("id=\"loginbutton\""),
+										))
+										for {
+											if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+												break
+											}
+											ϒp = τmp1
+											λgy.Yield(λ.NewBool(λ.Contains(ϒwebpage, ϒp)))
+										}
+										return λ.None
+									})
+								})))) {
 								λ.Calm(ϒself, "raise_login_required")
 							}
 						}
@@ -1272,11 +1296,26 @@ func init() {
 		}())
 		FacebookPluginsVideoIE = λ.Cal(λ.TypeType, λ.StrLiteral("FacebookPluginsVideoIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				FacebookPluginsVideoIE__VALID_URL λ.Object
+				FacebookPluginsVideoIE__VALID_URL    λ.Object
+				FacebookPluginsVideoIE__real_extract λ.Object
 			)
 			FacebookPluginsVideoIE__VALID_URL = λ.StrLiteral("https?://(?:[\\w-]+\\.)?facebook\\.com/plugins/video\\.php\\?.*?\\bhref=(?P<id>https.+)")
+			FacebookPluginsVideoIE__real_extract = λ.NewFunction("_real_extract",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "url"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒself = λargs[0]
+						ϒurl  = λargs[1]
+					)
+					return λ.Calm(ϒself, "url_result", λ.Cal(ϒcompat_urllib_parse_unquote, λ.Calm(ϒself, "_match_id", ϒurl)), λ.Calm(FacebookIE, "ie_key"))
+				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_VALID_URL": FacebookPluginsVideoIE__VALID_URL,
+				"_VALID_URL":    FacebookPluginsVideoIE__VALID_URL,
+				"_real_extract": FacebookPluginsVideoIE__real_extract,
 			})
 		}())
 	})

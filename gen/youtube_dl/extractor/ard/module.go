@@ -109,7 +109,7 @@ func init() {
 				ARDIE__VALID_URL    λ.Object
 				ARDIE__real_extract λ.Object
 			)
-			ARDIE__VALID_URL = λ.StrLiteral("(?P<mainurl>https?://(?:www\\.)?daserste\\.de/[^?#]+/videos(?:extern)?/(?P<display_id>[^/?#]+)-(?:video-?)?(?P<id>[0-9]+))\\.html")
+			ARDIE__VALID_URL = λ.StrLiteral("(?P<mainurl>https?://(?:www\\.)?daserste\\.de/(?:[^/?#&]+/)+(?P<id>[^/?#&]+))\\.html")
 			ARDIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -139,7 +139,7 @@ func init() {
 						τmp1           λ.Object
 					)
 					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒdisplay_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("display_id"))
+					ϒdisplay_id = λ.Calm(ϒmobj, "group", λ.StrLiteral("id"))
 					ϒplayer_url = λ.Add(λ.Calm(ϒmobj, "group", λ.StrLiteral("mainurl")), λ.StrLiteral("~playerXml.xml"))
 					ϒdoc = λ.Calm(ϒself, "_download_xml", ϒplayer_url, ϒdisplay_id)
 					ϒvideo_node = λ.Calm(ϒdoc, "find", λ.StrLiteral("./video"))
@@ -233,7 +233,12 @@ func init() {
 					}
 					λ.Calm(ϒself, "_sort_formats", ϒformats)
 					return λ.DictLiteral(map[string]λ.Object{
-						"id":          λ.Calm(ϒmobj, "group", λ.StrLiteral("id")),
+						"id": λ.Call(ϒxpath_text, λ.NewArgs(
+							ϒvideo_node,
+							λ.StrLiteral("./videoId"),
+						), λ.KWArgs{
+							{Name: "default", Value: ϒdisplay_id},
+						}),
 						"formats":     ϒformats,
 						"display_id":  ϒdisplay_id,
 						"title":       λ.GetAttr(λ.Calm(ϒvideo_node, "find", λ.StrLiteral("./title")), "text", nil),
