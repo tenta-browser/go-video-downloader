@@ -168,7 +168,6 @@ func init() {
 				InfoExtractor___can_accept_status_code     λ.Object
 				InfoExtractor___check_blocked              λ.Object
 				InfoExtractor___init__                     λ.Object
-				InfoExtractor___maybe_fake_ip_and_retry    λ.Object
 				InfoExtractor__check_formats               λ.Object
 				InfoExtractor__download_json               λ.Object
 				InfoExtractor__download_json_handle        λ.Object
@@ -199,7 +198,6 @@ func init() {
 				InfoExtractor__json_ld                     λ.Object
 				InfoExtractor__live_title                  λ.Object
 				InfoExtractor__match_id                    λ.Object
-				InfoExtractor__media_rating_search         λ.Object
 				InfoExtractor__merge_subtitle_items        λ.Object
 				InfoExtractor__merge_subtitles             λ.Object
 				InfoExtractor__meta_regex                  λ.Object
@@ -244,8 +242,6 @@ func init() {
 				InfoExtractor_initialize                   λ.Object
 				InfoExtractor_mark_watched                 λ.Object
 				InfoExtractor_playlist_result              λ.Object
-				InfoExtractor_raise_geo_restricted         λ.Object
-				InfoExtractor_raise_login_required         λ.Object
 				InfoExtractor_report_download_webpage      λ.Object
 				InfoExtractor_report_warning               λ.Object
 				InfoExtractor_set_downloader               λ.Object
@@ -504,43 +500,6 @@ func init() {
 						return τmp1
 					}
 					return λ.None
-				})
-			InfoExtractor___maybe_fake_ip_and_retry = λ.NewFunction("__maybe_fake_ip_and_retry",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "countries"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒcountries    = λargs[1]
-						ϒcountry_code λ.Object
-						ϒself         = λargs[0]
-					)
-					if λ.IsTrue(func() λ.Object {
-						if λv := λ.NewBool(!λ.IsTrue(λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("geo_bypass_country"), λ.None))); !λ.IsTrue(λv) {
-							return λv
-						} else if λv := λ.GetAttr(ϒself, "_GEO_BYPASS", nil); !λ.IsTrue(λv) {
-							return λv
-						} else if λv := λ.Calm(λ.GetAttr(λ.GetAttr(ϒself, "_downloader", nil), "params", nil), "get", λ.StrLiteral("geo_bypass"), λ.True); !λ.IsTrue(λv) {
-							return λv
-						} else if λv := λ.NewBool(!λ.IsTrue(λ.GetAttr(ϒself, "_x_forwarded_for_ip", nil))); !λ.IsTrue(λv) {
-							return λv
-						} else {
-							return ϒcountries
-						}
-					}()) {
-						ϒcountry_code = λ.Cal(Ωrandom.ϒchoice, ϒcountries)
-						λ.SetAttr(ϒself, "_x_forwarded_for_ip", λ.Calm(GeoUtils, "random_ipv4", ϒcountry_code))
-						if λ.IsTrue(λ.GetAttr(ϒself, "_x_forwarded_for_ip", nil)) {
-							λ.Calm(ϒself, "report_warning", λ.Mod(λ.StrLiteral("Video is geo restricted. Retrying extraction with fake IP %s (%s) as X-Forwarded-For."), λ.NewTuple(
-								λ.GetAttr(ϒself, "_x_forwarded_for_ip", nil),
-								λ.Calm(ϒcountry_code, "upper"),
-							)))
-							return λ.True
-						}
-					}
-					return λ.False
 				})
 			InfoExtractor_set_downloader = λ.NewFunction("set_downloader",
 				[]λ.Param{
@@ -1509,38 +1468,6 @@ func init() {
 					λ.Calm(ϒself, "to_screen", λ.Mod(λ.StrLiteral("%s: Downloading webpage"), ϒvideo_id))
 					return λ.None
 				})
-			InfoExtractor_raise_login_required = λ.NewFunction("raise_login_required",
-				[]λ.Param{
-					{Name: "msg", Def: λ.StrLiteral("This video is only available for registered users")},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒmsg = λargs[0]
-					)
-					panic(λ.Raise(λ.Call(ExtractorError, λ.NewArgs(λ.Mod(λ.StrLiteral("%s. Use --username and --password or --netrc to provide account credentials."), ϒmsg)), λ.KWArgs{
-						{Name: "expected", Value: λ.True},
-					})))
-					return λ.None
-				})
-			InfoExtractor_raise_login_required = λ.Cal(λ.StaticMethodType, InfoExtractor_raise_login_required)
-			InfoExtractor_raise_geo_restricted = λ.NewFunction("raise_geo_restricted",
-				[]λ.Param{
-					{Name: "msg", Def: λ.StrLiteral("This video is not available from your location due to geo restriction")},
-					{Name: "countries", Def: λ.None},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒcountries = λargs[1]
-						ϒmsg       = λargs[0]
-					)
-					panic(λ.Raise(λ.Call(GeoRestrictedError, λ.NewArgs(ϒmsg), λ.KWArgs{
-						{Name: "countries", Value: ϒcountries},
-					})))
-					return λ.None
-				})
-			InfoExtractor_raise_geo_restricted = λ.Cal(λ.StaticMethodType, InfoExtractor_raise_geo_restricted)
 			InfoExtractor_url_result = λ.NewFunction("url_result",
 				[]λ.Param{
 					{Name: "url"},
@@ -2104,32 +2031,6 @@ func init() {
 						return λ.IntLiteral(18)
 					}
 					return λ.IntLiteral(0)
-				})
-			InfoExtractor__media_rating_search = λ.NewFunction("_media_rating_search",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "html"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						RATING_TABLE λ.Object
-						ϒhtml        = λargs[1]
-						ϒrating      λ.Object
-						ϒself        = λargs[0]
-					)
-					ϒrating = λ.Calm(ϒself, "_html_search_meta", λ.StrLiteral("rating"), ϒhtml)
-					if !λ.IsTrue(ϒrating) {
-						return λ.None
-					}
-					RATING_TABLE = λ.DictLiteral(map[string]int{
-						"safe for kids": 0,
-						"general":       8,
-						"14 years":      14,
-						"mature":        17,
-						"restricted":    19,
-					})
-					return λ.Calm(RATING_TABLE, "get", λ.Calm(ϒrating, "lower"))
 				})
 			InfoExtractor__search_json_ld = λ.NewFunction("_search_json_ld",
 				[]λ.Param{
@@ -6580,7 +6481,6 @@ func init() {
 				"__can_accept_status_code":     InfoExtractor___can_accept_status_code,
 				"__check_blocked":              InfoExtractor___check_blocked,
 				"__init__":                     InfoExtractor___init__,
-				"__maybe_fake_ip_and_retry":    InfoExtractor___maybe_fake_ip_and_retry,
 				"_check_formats":               InfoExtractor__check_formats,
 				"_download_json":               InfoExtractor__download_json,
 				"_download_json_handle":        InfoExtractor__download_json_handle,
@@ -6611,7 +6511,6 @@ func init() {
 				"_json_ld":                     InfoExtractor__json_ld,
 				"_live_title":                  InfoExtractor__live_title,
 				"_match_id":                    InfoExtractor__match_id,
-				"_media_rating_search":         InfoExtractor__media_rating_search,
 				"_merge_subtitle_items":        InfoExtractor__merge_subtitle_items,
 				"_merge_subtitles":             InfoExtractor__merge_subtitles,
 				"_meta_regex":                  InfoExtractor__meta_regex,
@@ -6656,8 +6555,6 @@ func init() {
 				"initialize":                   InfoExtractor_initialize,
 				"mark_watched":                 InfoExtractor_mark_watched,
 				"playlist_result":              InfoExtractor_playlist_result,
-				"raise_geo_restricted":         InfoExtractor_raise_geo_restricted,
-				"raise_login_required":         InfoExtractor_raise_login_required,
 				"report_download_webpage":      InfoExtractor_report_download_webpage,
 				"report_warning":               InfoExtractor_report_warning,
 				"set_downloader":               InfoExtractor_set_downloader,

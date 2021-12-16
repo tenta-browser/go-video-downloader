@@ -40,119 +40,113 @@ import (
 )
 
 var (
-	DATE_FORMATS                      λ.Object
-	DATE_FORMATS_DAY_FIRST            λ.Object
-	DATE_FORMATS_MONTH_FIRST          λ.Object
-	DEFAULT_OUTTMPL                   λ.Object
-	DownloadError                     λ.Object
-	ENGLISH_MONTH_NAMES               λ.Object
-	ExtractorError                    λ.Object
-	GeoRestrictedError                λ.Object
-	GeoUtils                          λ.Object
-	HEADRequest                       λ.Object
-	HTMLAttributeParser               λ.Object
-	ISO3166Utils                      λ.Object
-	JSON_LD_RE                        λ.Object
-	KNOWN_EXTENSIONS                  λ.Object
-	MONTH_NAMES                       λ.Object
-	MaxDownloadsReached               λ.Object
-	NO_DEFAULT                        λ.Object
-	PagedList                         λ.Object
-	PostProcessingError               λ.Object
-	RegexNotFoundError                λ.Object
-	TV_PARENTAL_GUIDELINES            λ.Object
-	US_RATINGS                        λ.Object
-	UnavailableVideoError             λ.Object
-	YoutubeDLError                    λ.Object
-	ϒ_htmlentity_transform            λ.Object
-	ϒage_restricted                   λ.Object
-	ϒbase_url                         λ.Object
-	ϒbool_or_none                     λ.Object
-	ϒbug_reports_message              λ.Object
-	ϒclean_html                       λ.Object
-	ϒclean_podcast_url                λ.Object
-	ϒcompat_HTMLParseError            λ.Object
-	ϒcompat_HTMLParser                λ.Object
-	ϒcompat_basestring                λ.Object
-	ϒcompat_chr                       λ.Object
-	ϒcompat_etree_fromstring          λ.Object
-	ϒcompat_html_entities_html5       λ.Object
-	ϒcompat_http_client               λ.Object
-	ϒcompat_integer_types             λ.Object
-	ϒcompat_kwargs                    λ.Object
-	ϒcompat_parse_qs                  λ.Object
-	ϒcompat_str                       λ.Object
-	ϒcompat_urllib_parse_unquote_plus λ.Object
-	ϒcompat_urllib_parse_urlencode    λ.Object
-	ϒcompat_urllib_parse_urlparse     λ.Object
-	ϒcompat_xpath                     λ.Object
-	ϒcompiled_regex_type              λ.Object
-	ϒdetermine_ext                    λ.Object
-	ϒdetermine_protocol               λ.Object
-	ϒdict_get                         λ.Object
-	ϒencode_base_n                    λ.Object
-	ϒerror_to_compat_str              λ.Object
-	ϒexpand_path                      λ.Object
-	ϒextract_attributes               λ.Object
-	ϒfind_xpath_attr                  λ.Object
-	ϒfix_xml_ampersands               λ.Object
-	ϒfloat_or_none                    λ.Object
-	ϒget_element_by_attribute         λ.Object
-	ϒget_element_by_class             λ.Object
-	ϒget_element_by_id                λ.Object
-	ϒget_elements_by_attribute        λ.Object
-	ϒget_elements_by_class            λ.Object
-	ϒint_or_none                      λ.Object
-	ϒjs_to_json                       λ.Object
-	ϒlimit_length                     λ.Object
-	ϒlookup_unit_table                λ.Object
-	ϒlowercase_escape                 λ.Object
-	ϒmerge_dicts                      λ.Object
-	ϒmimetype2ext                     λ.Object
-	ϒmonth_by_name                    λ.Object
-	ϒparse_age_limit                  λ.Object
-	ϒparse_bitrate                    λ.Object
-	ϒparse_codecs                     λ.Object
-	ϒparse_count                      λ.Object
-	ϒparse_duration                   λ.Object
-	ϒparse_filesize                   λ.Object
-	ϒparse_iso8601                    λ.Object
-	ϒparse_m3u8_attributes            λ.Object
-	ϒparse_resolution                 λ.Object
-	ϒpreferredencoding                λ.Object
-	ϒqualities                        λ.Object
-	ϒrandom_birthday                  λ.Object
-	ϒrandom_user_agent                λ.Object
-	ϒremove_end                       λ.Object
-	ϒremove_quotes                    λ.Object
-	ϒremove_start                     λ.Object
-	ϒsanitize_filename                λ.Object
-	ϒsanitize_path                    λ.Object
-	ϒsanitize_url                     λ.Object
-	ϒsanitized_Request                λ.Object
-	ϒsmuggle_url                      λ.Object
-	ϒstd_headers                      λ.Object
-	ϒstr_or_none                      λ.Object
-	ϒstr_to_int                       λ.Object
-	ϒstrip_jsonp                      λ.Object
-	ϒstrip_or_none                    λ.Object
-	ϒtry_get                          λ.Object
-	ϒunescapeHTML                     λ.Object
-	ϒunified_strdate                  λ.Object
-	ϒunified_timestamp                λ.Object
-	ϒunsmuggle_url                    λ.Object
-	ϒupdate_Request                   λ.Object
-	ϒupdate_url_query                 λ.Object
-	ϒurl_basename                     λ.Object
-	ϒurl_or_none                      λ.Object
-	ϒurlencode_postdata               λ.Object
-	ϒurljoin                          λ.Object
-	ϒxpath_attr                       λ.Object
-	ϒxpath_element                    λ.Object
-	ϒxpath_text                       λ.Object
-	ϒxpath_with_ns                    λ.Object
-	τmp0                              λ.Object
-	τmp1                              λ.Object
+	DATE_FORMATS                   λ.Object
+	DATE_FORMATS_DAY_FIRST         λ.Object
+	DATE_FORMATS_MONTH_FIRST       λ.Object
+	DEFAULT_OUTTMPL                λ.Object
+	DownloadError                  λ.Object
+	ENGLISH_MONTH_NAMES            λ.Object
+	ExtractorError                 λ.Object
+	GeoRestrictedError             λ.Object
+	GeoUtils                       λ.Object
+	HEADRequest                    λ.Object
+	HTMLAttributeParser            λ.Object
+	JSON_LD_RE                     λ.Object
+	KNOWN_EXTENSIONS               λ.Object
+	MONTH_NAMES                    λ.Object
+	MaxDownloadsReached            λ.Object
+	NO_DEFAULT                     λ.Object
+	PagedList                      λ.Object
+	PostProcessingError            λ.Object
+	RegexNotFoundError             λ.Object
+	US_RATINGS                     λ.Object
+	UnavailableVideoError          λ.Object
+	YoutubeDLError                 λ.Object
+	ϒ_htmlentity_transform         λ.Object
+	ϒage_restricted                λ.Object
+	ϒbase_url                      λ.Object
+	ϒbug_reports_message           λ.Object
+	ϒclean_html                    λ.Object
+	ϒclean_podcast_url             λ.Object
+	ϒcompat_HTMLParseError         λ.Object
+	ϒcompat_HTMLParser             λ.Object
+	ϒcompat_basestring             λ.Object
+	ϒcompat_chr                    λ.Object
+	ϒcompat_etree_fromstring       λ.Object
+	ϒcompat_html_entities_html5    λ.Object
+	ϒcompat_http_client            λ.Object
+	ϒcompat_integer_types          λ.Object
+	ϒcompat_kwargs                 λ.Object
+	ϒcompat_parse_qs               λ.Object
+	ϒcompat_str                    λ.Object
+	ϒcompat_urllib_parse_urlencode λ.Object
+	ϒcompat_urllib_parse_urlparse  λ.Object
+	ϒcompat_xpath                  λ.Object
+	ϒcompiled_regex_type           λ.Object
+	ϒdetermine_ext                 λ.Object
+	ϒdetermine_protocol            λ.Object
+	ϒdict_get                      λ.Object
+	ϒencode_base_n                 λ.Object
+	ϒerror_to_compat_str           λ.Object
+	ϒexpand_path                   λ.Object
+	ϒextract_attributes            λ.Object
+	ϒfind_xpath_attr               λ.Object
+	ϒfix_xml_ampersands            λ.Object
+	ϒfloat_or_none                 λ.Object
+	ϒget_element_by_attribute      λ.Object
+	ϒget_element_by_class          λ.Object
+	ϒget_element_by_id             λ.Object
+	ϒget_elements_by_attribute     λ.Object
+	ϒget_elements_by_class         λ.Object
+	ϒint_or_none                   λ.Object
+	ϒjs_to_json                    λ.Object
+	ϒlookup_unit_table             λ.Object
+	ϒlowercase_escape              λ.Object
+	ϒmerge_dicts                   λ.Object
+	ϒmimetype2ext                  λ.Object
+	ϒmonth_by_name                 λ.Object
+	ϒparse_age_limit               λ.Object
+	ϒparse_bitrate                 λ.Object
+	ϒparse_codecs                  λ.Object
+	ϒparse_duration                λ.Object
+	ϒparse_filesize                λ.Object
+	ϒparse_iso8601                 λ.Object
+	ϒparse_m3u8_attributes         λ.Object
+	ϒparse_resolution              λ.Object
+	ϒpreferredencoding             λ.Object
+	ϒqualities                     λ.Object
+	ϒrandom_birthday               λ.Object
+	ϒrandom_user_agent             λ.Object
+	ϒremove_end                    λ.Object
+	ϒremove_quotes                 λ.Object
+	ϒremove_start                  λ.Object
+	ϒsanitize_filename             λ.Object
+	ϒsanitize_path                 λ.Object
+	ϒsanitize_url                  λ.Object
+	ϒsanitized_Request             λ.Object
+	ϒsmuggle_url                   λ.Object
+	ϒstd_headers                   λ.Object
+	ϒstr_or_none                   λ.Object
+	ϒstr_to_int                    λ.Object
+	ϒstrip_jsonp                   λ.Object
+	ϒstrip_or_none                 λ.Object
+	ϒtry_get                       λ.Object
+	ϒunescapeHTML                  λ.Object
+	ϒunified_strdate               λ.Object
+	ϒunified_timestamp             λ.Object
+	ϒunsmuggle_url                 λ.Object
+	ϒupdate_Request                λ.Object
+	ϒupdate_url_query              λ.Object
+	ϒurl_basename                  λ.Object
+	ϒurl_or_none                   λ.Object
+	ϒurlencode_postdata            λ.Object
+	ϒurljoin                       λ.Object
+	ϒxpath_attr                    λ.Object
+	ϒxpath_element                 λ.Object
+	ϒxpath_text                    λ.Object
+	ϒxpath_with_ns                 λ.Object
+	τmp0                           λ.Object
+	τmp1                           λ.Object
 )
 
 func init() {
@@ -170,7 +164,6 @@ func init() {
 		ϒcompat_str = Ωcompat.ϒcompat_str
 		ϒcompat_urllib_parse_urlencode = Ωcompat.ϒcompat_urllib_parse_urlencode
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
-		ϒcompat_urllib_parse_unquote_plus = Ωcompat.ϒcompat_urllib_parse_unquote_plus
 		ϒcompat_xpath = Ωcompat.ϒcompat_xpath
 		ϒcompiled_regex_type = λ.Cal(λ.TypeType, λ.Cal(Ωre.ϒcompile, λ.StrLiteral("")))
 		ϒrandom_user_agent = λ.NewFunction("random_user_agent",
@@ -2875,32 +2868,8 @@ func init() {
 			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		GeoRestrictedError = λ.Cal(λ.TypeType, λ.StrLiteral("GeoRestrictedError"), λ.NewTuple(ExtractorError), func() λ.Dict {
-			var (
-				GeoRestrictedError___init__ λ.Object
-			)
-			GeoRestrictedError___init__ = λ.NewFunction("__init__",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "msg"},
-					{Name: "countries", Def: λ.None},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒcountries = λargs[2]
-						ϒmsg       = λargs[1]
-						ϒself      = λargs[0]
-					)
-					λ.Call(λ.GetAttr(λ.Cal(λ.SuperType, GeoRestrictedError, ϒself), "__init__", nil), λ.NewArgs(ϒmsg), λ.KWArgs{
-						{Name: "expected", Value: λ.True},
-					})
-					λ.SetAttr(ϒself, "msg", ϒmsg)
-					λ.SetAttr(ϒself, "countries", ϒcountries)
-					return λ.None
-				})
-			return λ.ClassDictLiteral(map[string]λ.Object{
-				"__init__": GeoRestrictedError___init__,
-			})
+
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		DownloadError = λ.Cal(λ.TypeType, λ.StrLiteral("DownloadError"), λ.NewTuple(YoutubeDLError), func() λ.Dict {
 			var (
@@ -3223,33 +3192,6 @@ func init() {
 					"yb":         λ.Pow(λ.IntLiteral(1000), λ.IntLiteral(8)),
 					"yottabytes": λ.Pow(λ.IntLiteral(1000), λ.IntLiteral(8)),
 					"yobibytes":  λ.Pow(λ.IntLiteral(1024), λ.IntLiteral(8)),
-				})
-				return λ.Cal(ϒlookup_unit_table, ϒ_UNIT_TABLE, ϒs)
-			})
-		ϒparse_count = λ.NewFunction("parse_count",
-			[]λ.Param{
-				{Name: "s"},
-			},
-			0, false, false,
-			func(λargs []λ.Object) λ.Object {
-				var (
-					ϒ_UNIT_TABLE λ.Object
-					ϒs           = λargs[0]
-				)
-				if ϒs == λ.None {
-					return λ.None
-				}
-				ϒs = λ.Calm(ϒs, "strip")
-				if λ.IsTrue(λ.Cal(Ωre.ϒmatch, λ.StrLiteral("^[\\d,.]+$"), ϒs)) {
-					return λ.Cal(ϒstr_to_int, ϒs)
-				}
-				ϒ_UNIT_TABLE = λ.DictLiteral(map[string]λ.Object{
-					"k":  λ.IntLiteral(1000),
-					"K":  λ.IntLiteral(1000),
-					"m":  λ.Pow(λ.IntLiteral(1000), λ.IntLiteral(2)),
-					"M":  λ.Pow(λ.IntLiteral(1000), λ.IntLiteral(2)),
-					"kk": λ.Pow(λ.IntLiteral(1000), λ.IntLiteral(2)),
-					"KK": λ.Pow(λ.IntLiteral(1000), λ.IntLiteral(2)),
 				})
 				return λ.Cal(ϒlookup_unit_table, ϒ_UNIT_TABLE, ϒs)
 			})
@@ -3652,25 +3594,6 @@ func init() {
 					return τmp1
 				}
 				return λ.None
-			})
-		ϒbool_or_none = λ.NewFunction("bool_or_none",
-			[]λ.Param{
-				{Name: "v"},
-				{Name: "default", Def: λ.None},
-			},
-			0, false, false,
-			func(λargs []λ.Object) λ.Object {
-				var (
-					ϒdefault = λargs[1]
-					ϒv       = λargs[0]
-				)
-				return func() λ.Object {
-					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒv, λ.BoolType)) {
-						return ϒv
-					} else {
-						return ϒdefault
-					}
-				}()
 			})
 		ϒstrip_or_none = λ.NewFunction("strip_or_none",
 			[]λ.Param{
@@ -4096,14 +4019,6 @@ func init() {
 			"R":     16,
 			"NC":    18,
 		})
-		TV_PARENTAL_GUIDELINES = λ.DictLiteral(map[string]int{
-			"TV-Y":  0,
-			"TV-Y7": 7,
-			"TV-G":  0,
-			"TV-PG": 0,
-			"TV-14": 14,
-			"TV-MA": 17,
-		})
 		ϒparse_age_limit = λ.NewFunction("parse_age_limit",
 			[]λ.Param{
 				{Name: "s"},
@@ -4155,7 +4070,7 @@ func init() {
 								τmp0 λ.Object
 								τmp1 λ.Object
 							)
-							τmp0 = λ.Cal(λ.BuiltinIter, TV_PARENTAL_GUIDELINES)
+							τmp0 = λ.Cal(λ.BuiltinIter, λ.None)
 							for {
 								if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
 									break
@@ -4167,7 +4082,7 @@ func init() {
 						})
 					})))), ϒs)
 				if λ.IsTrue(ϒm) {
-					return λ.GetItem(TV_PARENTAL_GUIDELINES, λ.Add(λ.StrLiteral("TV-"), λ.Calm(ϒm, "group", λ.IntLiteral(1))))
+					return λ.GetItem(λ.None, λ.Add(λ.StrLiteral("TV-"), λ.Calm(ϒm, "group", λ.IntLiteral(1))))
 				}
 				return λ.None
 			})
@@ -4342,27 +4257,6 @@ func init() {
 				return ϒq
 			})
 		DEFAULT_OUTTMPL = λ.StrLiteral("%(title)s-%(id)s.%(ext)s")
-		ϒlimit_length = λ.NewFunction("limit_length",
-			[]λ.Param{
-				{Name: "s"},
-				{Name: "length"},
-			},
-			0, false, false,
-			func(λargs []λ.Object) λ.Object {
-				var (
-					ELLIPSES λ.Object
-					ϒlength  = λargs[1]
-					ϒs       = λargs[0]
-				)
-				if ϒs == λ.None {
-					return λ.None
-				}
-				ELLIPSES = λ.StrLiteral("...")
-				if λ.IsTrue(λ.Gt(λ.Cal(λ.BuiltinLen, ϒs), ϒlength)) {
-					return λ.Add(λ.GetItem(ϒs, λ.NewSlice(λ.None, λ.Sub(ϒlength, λ.Cal(λ.BuiltinLen, ELLIPSES)), λ.None)), ELLIPSES)
-				}
-				return ϒs
-			})
 		ϒerror_to_compat_str = λ.NewFunction("error_to_compat_str",
 			[]λ.Param{
 				{Name: "err"},
@@ -4602,281 +4496,6 @@ func init() {
 				}
 				return λ.GetAttr(λ.Cal(ϒcompat_urllib_parse_urlparse, ϒurl), "scheme", nil)
 			})
-		ISO3166Utils = λ.Cal(λ.TypeType, λ.StrLiteral("ISO3166Utils"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
-			var (
-				ISO3166Utils__country_map λ.Object
-				ISO3166Utils_short2full   λ.Object
-			)
-			ISO3166Utils__country_map = λ.DictLiteral(map[string]string{
-				"AF": "Afghanistan",
-				"AX": "Åland Islands",
-				"AL": "Albania",
-				"DZ": "Algeria",
-				"AS": "American Samoa",
-				"AD": "Andorra",
-				"AO": "Angola",
-				"AI": "Anguilla",
-				"AQ": "Antarctica",
-				"AG": "Antigua and Barbuda",
-				"AR": "Argentina",
-				"AM": "Armenia",
-				"AW": "Aruba",
-				"AU": "Australia",
-				"AT": "Austria",
-				"AZ": "Azerbaijan",
-				"BS": "Bahamas",
-				"BH": "Bahrain",
-				"BD": "Bangladesh",
-				"BB": "Barbados",
-				"BY": "Belarus",
-				"BE": "Belgium",
-				"BZ": "Belize",
-				"BJ": "Benin",
-				"BM": "Bermuda",
-				"BT": "Bhutan",
-				"BO": "Bolivia, Plurinational State of",
-				"BQ": "Bonaire, Sint Eustatius and Saba",
-				"BA": "Bosnia and Herzegovina",
-				"BW": "Botswana",
-				"BV": "Bouvet Island",
-				"BR": "Brazil",
-				"IO": "British Indian Ocean Territory",
-				"BN": "Brunei Darussalam",
-				"BG": "Bulgaria",
-				"BF": "Burkina Faso",
-				"BI": "Burundi",
-				"KH": "Cambodia",
-				"CM": "Cameroon",
-				"CA": "Canada",
-				"CV": "Cape Verde",
-				"KY": "Cayman Islands",
-				"CF": "Central African Republic",
-				"TD": "Chad",
-				"CL": "Chile",
-				"CN": "China",
-				"CX": "Christmas Island",
-				"CC": "Cocos (Keeling) Islands",
-				"CO": "Colombia",
-				"KM": "Comoros",
-				"CG": "Congo",
-				"CD": "Congo, the Democratic Republic of the",
-				"CK": "Cook Islands",
-				"CR": "Costa Rica",
-				"CI": "Côte d'Ivoire",
-				"HR": "Croatia",
-				"CU": "Cuba",
-				"CW": "Curaçao",
-				"CY": "Cyprus",
-				"CZ": "Czech Republic",
-				"DK": "Denmark",
-				"DJ": "Djibouti",
-				"DM": "Dominica",
-				"DO": "Dominican Republic",
-				"EC": "Ecuador",
-				"EG": "Egypt",
-				"SV": "El Salvador",
-				"GQ": "Equatorial Guinea",
-				"ER": "Eritrea",
-				"EE": "Estonia",
-				"ET": "Ethiopia",
-				"FK": "Falkland Islands (Malvinas)",
-				"FO": "Faroe Islands",
-				"FJ": "Fiji",
-				"FI": "Finland",
-				"FR": "France",
-				"GF": "French Guiana",
-				"PF": "French Polynesia",
-				"TF": "French Southern Territories",
-				"GA": "Gabon",
-				"GM": "Gambia",
-				"GE": "Georgia",
-				"DE": "Germany",
-				"GH": "Ghana",
-				"GI": "Gibraltar",
-				"GR": "Greece",
-				"GL": "Greenland",
-				"GD": "Grenada",
-				"GP": "Guadeloupe",
-				"GU": "Guam",
-				"GT": "Guatemala",
-				"GG": "Guernsey",
-				"GN": "Guinea",
-				"GW": "Guinea-Bissau",
-				"GY": "Guyana",
-				"HT": "Haiti",
-				"HM": "Heard Island and McDonald Islands",
-				"VA": "Holy See (Vatican City State)",
-				"HN": "Honduras",
-				"HK": "Hong Kong",
-				"HU": "Hungary",
-				"IS": "Iceland",
-				"IN": "India",
-				"ID": "Indonesia",
-				"IR": "Iran, Islamic Republic of",
-				"IQ": "Iraq",
-				"IE": "Ireland",
-				"IM": "Isle of Man",
-				"IL": "Israel",
-				"IT": "Italy",
-				"JM": "Jamaica",
-				"JP": "Japan",
-				"JE": "Jersey",
-				"JO": "Jordan",
-				"KZ": "Kazakhstan",
-				"KE": "Kenya",
-				"KI": "Kiribati",
-				"KP": "Korea, Democratic People's Republic of",
-				"KR": "Korea, Republic of",
-				"KW": "Kuwait",
-				"KG": "Kyrgyzstan",
-				"LA": "Lao People's Democratic Republic",
-				"LV": "Latvia",
-				"LB": "Lebanon",
-				"LS": "Lesotho",
-				"LR": "Liberia",
-				"LY": "Libya",
-				"LI": "Liechtenstein",
-				"LT": "Lithuania",
-				"LU": "Luxembourg",
-				"MO": "Macao",
-				"MK": "Macedonia, the Former Yugoslav Republic of",
-				"MG": "Madagascar",
-				"MW": "Malawi",
-				"MY": "Malaysia",
-				"MV": "Maldives",
-				"ML": "Mali",
-				"MT": "Malta",
-				"MH": "Marshall Islands",
-				"MQ": "Martinique",
-				"MR": "Mauritania",
-				"MU": "Mauritius",
-				"YT": "Mayotte",
-				"MX": "Mexico",
-				"FM": "Micronesia, Federated States of",
-				"MD": "Moldova, Republic of",
-				"MC": "Monaco",
-				"MN": "Mongolia",
-				"ME": "Montenegro",
-				"MS": "Montserrat",
-				"MA": "Morocco",
-				"MZ": "Mozambique",
-				"MM": "Myanmar",
-				"NA": "Namibia",
-				"NR": "Nauru",
-				"NP": "Nepal",
-				"NL": "Netherlands",
-				"NC": "New Caledonia",
-				"NZ": "New Zealand",
-				"NI": "Nicaragua",
-				"NE": "Niger",
-				"NG": "Nigeria",
-				"NU": "Niue",
-				"NF": "Norfolk Island",
-				"MP": "Northern Mariana Islands",
-				"NO": "Norway",
-				"OM": "Oman",
-				"PK": "Pakistan",
-				"PW": "Palau",
-				"PS": "Palestine, State of",
-				"PA": "Panama",
-				"PG": "Papua New Guinea",
-				"PY": "Paraguay",
-				"PE": "Peru",
-				"PH": "Philippines",
-				"PN": "Pitcairn",
-				"PL": "Poland",
-				"PT": "Portugal",
-				"PR": "Puerto Rico",
-				"QA": "Qatar",
-				"RE": "Réunion",
-				"RO": "Romania",
-				"RU": "Russian Federation",
-				"RW": "Rwanda",
-				"BL": "Saint Barthélemy",
-				"SH": "Saint Helena, Ascension and Tristan da Cunha",
-				"KN": "Saint Kitts and Nevis",
-				"LC": "Saint Lucia",
-				"MF": "Saint Martin (French part)",
-				"PM": "Saint Pierre and Miquelon",
-				"VC": "Saint Vincent and the Grenadines",
-				"WS": "Samoa",
-				"SM": "San Marino",
-				"ST": "Sao Tome and Principe",
-				"SA": "Saudi Arabia",
-				"SN": "Senegal",
-				"RS": "Serbia",
-				"SC": "Seychelles",
-				"SL": "Sierra Leone",
-				"SG": "Singapore",
-				"SX": "Sint Maarten (Dutch part)",
-				"SK": "Slovakia",
-				"SI": "Slovenia",
-				"SB": "Solomon Islands",
-				"SO": "Somalia",
-				"ZA": "South Africa",
-				"GS": "South Georgia and the South Sandwich Islands",
-				"SS": "South Sudan",
-				"ES": "Spain",
-				"LK": "Sri Lanka",
-				"SD": "Sudan",
-				"SR": "Suriname",
-				"SJ": "Svalbard and Jan Mayen",
-				"SZ": "Swaziland",
-				"SE": "Sweden",
-				"CH": "Switzerland",
-				"SY": "Syrian Arab Republic",
-				"TW": "Taiwan, Province of China",
-				"TJ": "Tajikistan",
-				"TZ": "Tanzania, United Republic of",
-				"TH": "Thailand",
-				"TL": "Timor-Leste",
-				"TG": "Togo",
-				"TK": "Tokelau",
-				"TO": "Tonga",
-				"TT": "Trinidad and Tobago",
-				"TN": "Tunisia",
-				"TR": "Turkey",
-				"TM": "Turkmenistan",
-				"TC": "Turks and Caicos Islands",
-				"TV": "Tuvalu",
-				"UG": "Uganda",
-				"UA": "Ukraine",
-				"AE": "United Arab Emirates",
-				"GB": "United Kingdom",
-				"US": "United States",
-				"UM": "United States Minor Outlying Islands",
-				"UY": "Uruguay",
-				"UZ": "Uzbekistan",
-				"VU": "Vanuatu",
-				"VE": "Venezuela, Bolivarian Republic of",
-				"VN": "Viet Nam",
-				"VG": "Virgin Islands, British",
-				"VI": "Virgin Islands, U.S.",
-				"WF": "Wallis and Futuna",
-				"EH": "Western Sahara",
-				"YE": "Yemen",
-				"ZM": "Zambia",
-				"ZW": "Zimbabwe",
-			})
-			ISO3166Utils_short2full = λ.NewFunction("short2full",
-				[]λ.Param{
-					{Name: "cls"},
-					{Name: "code"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒcls  = λargs[0]
-						ϒcode = λargs[1]
-					)
-					return λ.Calm(λ.GetAttr(ϒcls, "_country_map", nil), "get", λ.Calm(ϒcode, "upper"))
-				})
-			ISO3166Utils_short2full = λ.Cal(λ.ClassMethodType, ISO3166Utils_short2full)
-			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_country_map": ISO3166Utils__country_map,
-				"short2full":   ISO3166Utils_short2full,
-			})
-		}())
 		GeoUtils = λ.Cal(λ.TypeType, λ.StrLiteral("GeoUtils"), λ.NewTuple(λ.ObjectType), func() λ.Dict {
 			var (
 				GeoUtils__country_ip_map λ.Object

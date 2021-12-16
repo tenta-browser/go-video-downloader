@@ -41,7 +41,6 @@ var (
 	RutubePersonIE                λ.Object
 	RutubePlaylistBaseIE          λ.Object
 	RutubePlaylistIE              λ.Object
-	ϒbool_or_none                 λ.Object
 	ϒcompat_parse_qs              λ.Object
 	ϒcompat_str                   λ.Object
 	ϒcompat_urllib_parse_urlparse λ.Object
@@ -59,7 +58,6 @@ func init() {
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		ϒdetermine_ext = Ωutils.ϒdetermine_ext
-		ϒbool_or_none = Ωutils.ϒbool_or_none
 		ϒint_or_none = Ωutils.ϒint_or_none
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒunified_timestamp = Ωutils.ϒunified_timestamp

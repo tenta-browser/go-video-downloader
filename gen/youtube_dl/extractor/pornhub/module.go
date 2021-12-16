@@ -76,10 +76,12 @@ func init() {
 		ϒurl_or_none = Ωutils.ϒurl_or_none
 		PornHubBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("PornHubBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
+				PornHubBaseIE__PORNHUB_HOST_RE         λ.Object
 				PornHubBaseIE__download_webpage_handle λ.Object
 				PornHubBaseIE__login                   λ.Object
 				PornHubBaseIE__real_initialize         λ.Object
 			)
+			PornHubBaseIE__PORNHUB_HOST_RE = λ.StrLiteral("(?:(?P<host>pornhub(?:premium)?\\.(?:com|net|org))|pornhubthbh7ap3u\\.onion)")
 			PornHubBaseIE__download_webpage_handle = λ.NewFunction("_download_webpage_handle",
 				[]λ.Param{
 					{Name: "self"},
@@ -295,6 +297,7 @@ func init() {
 					return λ.None
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
+				"_PORNHUB_HOST_RE":         PornHubBaseIE__PORNHUB_HOST_RE,
 				"_download_webpage_handle": PornHubBaseIE__download_webpage_handle,
 				"_login":                   PornHubBaseIE__login,
 				"_real_initialize":         PornHubBaseIE__real_initialize,
@@ -306,7 +309,7 @@ func init() {
 				PornHubIE__extract_count λ.Object
 				PornHubIE__real_extract  λ.Object
 			)
-			PornHubIE__VALID_URL = λ.StrLiteral("(?x)\n                    https?://\n                        (?:\n                            (?:[^/]+\\.)?(?P<host>pornhub(?:premium)?\\.(?:com|net|org))/(?:(?:view_video\\.php|video/show)\\?viewkey=|embed/)|\n                            (?:www\\.)?thumbzilla\\.com/video/\n                        )\n                        (?P<id>[\\da-z]+)\n                    ")
+			PornHubIE__VALID_URL = λ.Mod(λ.StrLiteral("(?x)\n                    https?://\n                        (?:\n                            (?:[^/]+\\.)?\n                            %s\n                            /(?:(?:view_video\\.php|video/show)\\?viewkey=|embed/)|\n                            (?:www\\.)?thumbzilla\\.com/video/\n                        )\n                        (?P<id>[\\da-z]+)\n                    "), λ.GetAttr(PornHubBaseIE, "_PORNHUB_HOST_RE", nil))
 			PornHubIE__extract_count = λ.NewFunction("_extract_count",
 				[]λ.Param{
 					{Name: "self"},
@@ -427,6 +430,32 @@ func init() {
 							{Name: "expected", Value: λ.True},
 							{Name: "video_id", Value: ϒvideo_id},
 						})))
+					}
+					if λ.IsTrue(λ.Cal(λ.BuiltinAny, λ.Cal(λ.NewFunction("<generator>",
+						nil,
+						0, false, false,
+						func(λargs []λ.Object) λ.Object {
+							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
+								var (
+									ϒp   λ.Object
+									τmp0 λ.Object
+									τmp1 λ.Object
+								)
+								τmp0 = λ.Cal(λ.BuiltinIter, λ.NewTuple(
+									λ.StrLiteral("class=[\"\\']geoBlocked[\"\\']"),
+									λ.StrLiteral(">\\s*This content is unavailable in your country"),
+								))
+								for {
+									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+										break
+									}
+									ϒp = τmp1
+									λgy.Yield(λ.Cal(Ωre.ϒsearch, ϒp, ϒwebpage))
+								}
+								return λ.None
+							})
+						})))) {
+						λ.Calm(ϒself, "raise_geo_restricted")
 					}
 					ϒtitle = func() λ.Object {
 						if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
@@ -731,8 +760,6 @@ func init() {
 								ϒext        λ.Object
 								ϒformat_url = λargs[0]
 								ϒheight     = λargs[1]
-								ϒmobj       λ.Object
-								ϒtbr        λ.Object
 							)
 							ϒext = λ.Cal(ϒdetermine_ext, ϒformat_url)
 							if λ.IsTrue(λ.Eq(ϒext, λ.StrLiteral("mpd"))) {
@@ -757,13 +784,14 @@ func init() {
 								}))
 								return λ.None
 							}
-							ϒtbr = λ.None
-							ϒmobj = λ.Cal(Ωre.ϒsearch, λ.StrLiteral("(?P<height>\\d+)[pP]?_(?P<tbr>\\d+)[kK]"), ϒformat_url)
-							if λ.IsTrue(ϒmobj) {
-								if !λ.IsTrue(ϒheight) {
-									ϒheight = λ.Cal(λ.IntType, λ.Calm(ϒmobj, "group", λ.StrLiteral("height")))
-								}
-								ϒtbr = λ.Cal(λ.IntType, λ.Calm(ϒmobj, "group", λ.StrLiteral("tbr")))
+							if !λ.IsTrue(ϒheight) {
+								ϒheight = λ.Cal(ϒint_or_none, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
+									λ.StrLiteral("(?P<height>\\d+)[pP]?_\\d+[kK]"),
+									ϒformat_url,
+									λ.StrLiteral("height"),
+								), λ.KWArgs{
+									{Name: "default", Value: λ.None},
+								}))
 							}
 							λ.Calm(ϒformats, "append", λ.DictLiteral(map[string]λ.Object{
 								"url": ϒformat_url,
@@ -775,7 +803,6 @@ func init() {
 									}
 								}(),
 								"height": ϒheight,
-								"tbr":    ϒtbr,
 							}))
 							return λ.None
 						})
@@ -828,7 +855,14 @@ func init() {
 						}
 						λ.Cal(ϒadd_format, ϒvideo_url)
 					}
-					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					λ.Call(λ.GetAttr(ϒself, "_sort_formats", nil), λ.NewArgs(ϒformats), λ.KWArgs{
+						{Name: "field_preference", Value: λ.NewTuple(
+							λ.StrLiteral("height"),
+							λ.StrLiteral("width"),
+							λ.StrLiteral("fps"),
+							λ.StrLiteral("format_id"),
+						)},
+					})
 					ϒvideo_uploader = λ.Call(λ.GetAttr(ϒself, "_html_search_regex", nil), λ.NewArgs(
 						λ.StrLiteral("(?s)From:&nbsp;.+?<(?:a\\b[^>]+\\bhref=[\"\\']/(?:(?:user|channel)s|model|pornstar)/|span\\b[^>]+\\bclass=[\"\\']username)[^>]+>(.+?)<"),
 						ϒwebpage,
@@ -917,7 +951,7 @@ func init() {
 			var (
 				PornHubUserIE__VALID_URL λ.Object
 			)
-			PornHubUserIE__VALID_URL = λ.StrLiteral("(?P<url>https?://(?:[^/]+\\.)?(?P<host>pornhub(?:premium)?\\.(?:com|net|org))/(?:(?:user|channel)s|model|pornstar)/(?P<id>[^/?#&]+))(?:[?#&]|/(?!videos)|$)")
+			PornHubUserIE__VALID_URL = λ.Mod(λ.StrLiteral("(?P<url>https?://(?:[^/]+\\.)?%s/(?:(?:user|channel)s|model|pornstar)/(?P<id>[^/?#&]+))(?:[?#&]|/(?!videos)|$)"), λ.GetAttr(PornHubBaseIE, "_PORNHUB_HOST_RE", nil))
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": PornHubUserIE__VALID_URL,
 			})
@@ -931,7 +965,7 @@ func init() {
 				PornHubPagedVideoListIE__VALID_URL λ.Object
 				PornHubPagedVideoListIE_suitable   λ.Object
 			)
-			PornHubPagedVideoListIE__VALID_URL = λ.StrLiteral("https?://(?:[^/]+\\.)?(?P<host>pornhub(?:premium)?\\.(?:com|net|org))/(?P<id>(?:[^/]+/)*[^/?#&]+)")
+			PornHubPagedVideoListIE__VALID_URL = λ.Mod(λ.StrLiteral("https?://(?:[^/]+\\.)?%s/(?P<id>(?:[^/]+/)*[^/?#&]+)"), λ.GetAttr(PornHubBaseIE, "_PORNHUB_HOST_RE", nil))
 			PornHubPagedVideoListIE_suitable = λ.NewFunction("suitable",
 				[]λ.Param{
 					{Name: "cls"},
@@ -969,7 +1003,7 @@ func init() {
 			var (
 				PornHubUserVideosUploadIE__VALID_URL λ.Object
 			)
-			PornHubUserVideosUploadIE__VALID_URL = λ.StrLiteral("(?P<url>https?://(?:[^/]+\\.)?(?P<host>pornhub(?:premium)?\\.(?:com|net|org))/(?:(?:user|channel)s|model|pornstar)/(?P<id>[^/]+)/videos/upload)")
+			PornHubUserVideosUploadIE__VALID_URL = λ.Mod(λ.StrLiteral("(?P<url>https?://(?:[^/]+\\.)?%s/(?:(?:user|channel)s|model|pornstar)/(?P<id>[^/]+)/videos/upload)"), λ.GetAttr(PornHubBaseIE, "_PORNHUB_HOST_RE", nil))
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL": PornHubUserVideosUploadIE__VALID_URL,
 			})

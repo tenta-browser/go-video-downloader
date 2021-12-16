@@ -54,70 +54,15 @@ func init() {
 		ϒtry_get = Ωutils.ϒtry_get
 		SRGSSRIE = λ.Cal(λ.TypeType, λ.StrLiteral("SRGSSRIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
 			var (
-				SRGSSRIE__GEO_BYPASS        λ.Object
-				SRGSSRIE__GEO_COUNTRIES     λ.Object
-				SRGSSRIE__VALID_URL         λ.Object
-				SRGSSRIE__get_media_data    λ.Object
-				SRGSSRIE__get_tokenized_src λ.Object
-				SRGSSRIE__real_extract      λ.Object
+				SRGSSRIE__GEO_BYPASS     λ.Object
+				SRGSSRIE__GEO_COUNTRIES  λ.Object
+				SRGSSRIE__VALID_URL      λ.Object
+				SRGSSRIE__get_media_data λ.Object
+				SRGSSRIE__real_extract   λ.Object
 			)
 			SRGSSRIE__VALID_URL = λ.StrLiteral("(?x)\n                    (?:\n                        https?://tp\\.srgssr\\.ch/p(?:/[^/]+)+\\?urn=urn|\n                        srgssr\n                    ):\n                    (?P<bu>\n                        srf|rts|rsi|rtr|swi\n                    ):(?:[^:]+:)?\n                    (?P<type>\n                        video|audio\n                    ):\n                    (?P<id>\n                        [0-9a-f\\-]{36}|\\d+\n                    )\n                    ")
 			SRGSSRIE__GEO_BYPASS = λ.False
 			SRGSSRIE__GEO_COUNTRIES = λ.NewList(λ.StrLiteral("CH"))
-			SRGSSRIE__get_tokenized_src = λ.NewFunction("_get_tokenized_src",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-					{Name: "video_id"},
-					{Name: "format_id"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒauth_params λ.Object
-						ϒformat_id   = λargs[3]
-						ϒself        = λargs[0]
-						ϒtoken       λ.Object
-						ϒurl         = λargs[1]
-						ϒvideo_id    = λargs[2]
-						τmp0         λ.Object
-					)
-					ϒtoken = func() λ.Object {
-						if λv := λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-							λ.StrLiteral("http://tp.srgssr.ch/akahd/token?acl=*"),
-							ϒvideo_id,
-							λ.Mod(λ.StrLiteral("Downloading %s token"), ϒformat_id),
-						), λ.KWArgs{
-							{Name: "fatal", Value: λ.False},
-						}); λ.IsTrue(λv) {
-							return λv
-						} else {
-							return λ.DictLiteral(map[λ.Object]λ.Object{})
-						}
-					}()
-					ϒauth_params = λ.Cal(ϒtry_get, ϒtoken, λ.NewFunction("<lambda>",
-						[]λ.Param{
-							{Name: "x"},
-						},
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							var (
-								ϒx = λargs[0]
-							)
-							return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("token")), λ.StrLiteral("authparams"))
-						}))
-					if λ.IsTrue(ϒauth_params) {
-						τmp0 = λ.IAdd(ϒurl, λ.Add(func() λ.Object {
-							if !λ.Contains(ϒurl, λ.StrLiteral("?")) {
-								return λ.StrLiteral("?")
-							} else {
-								return λ.StrLiteral("&")
-							}
-						}(), ϒauth_params))
-						ϒurl = τmp0
-					}
-					return ϒurl
-				})
 			SRGSSRIE__get_media_data = λ.NewFunction("_get_media_data",
 				[]λ.Param{
 					{Name: "self"},
@@ -394,12 +339,11 @@ func init() {
 					})
 				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_GEO_BYPASS":        SRGSSRIE__GEO_BYPASS,
-				"_GEO_COUNTRIES":     SRGSSRIE__GEO_COUNTRIES,
-				"_VALID_URL":         SRGSSRIE__VALID_URL,
-				"_get_media_data":    SRGSSRIE__get_media_data,
-				"_get_tokenized_src": SRGSSRIE__get_tokenized_src,
-				"_real_extract":      SRGSSRIE__real_extract,
+				"_GEO_BYPASS":     SRGSSRIE__GEO_BYPASS,
+				"_GEO_COUNTRIES":  SRGSSRIE__GEO_COUNTRIES,
+				"_VALID_URL":      SRGSSRIE__VALID_URL,
+				"_get_media_data": SRGSSRIE__get_media_data,
+				"_real_extract":   SRGSSRIE__real_extract,
 			})
 		}())
 		SRGSSRPlayIE = λ.Cal(λ.TypeType, λ.StrLiteral("SRGSSRPlayIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {

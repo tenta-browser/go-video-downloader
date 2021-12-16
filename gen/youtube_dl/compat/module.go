@@ -36,29 +36,28 @@ import (
 )
 
 var (
-	ϒcompat_HTMLParseError            λ.Object
-	ϒcompat_HTMLParser                λ.Object
-	ϒcompat_b64decode                 λ.Object
-	ϒcompat_basestring                λ.Object
-	ϒcompat_chr                       λ.Object
-	ϒcompat_cookiejar_Cookie          λ.Object
-	ϒcompat_cookies_SimpleCookie      λ.Object
-	ϒcompat_etree_Element             λ.Object
-	ϒcompat_etree_fromstring          λ.Object
-	ϒcompat_html_entities_html5       λ.Object
-	ϒcompat_http_client               λ.Object
-	ϒcompat_integer_types             λ.Object
-	ϒcompat_kwargs                    λ.Object
-	ϒcompat_numeric_types             λ.Object
-	ϒcompat_ord                       λ.Object
-	ϒcompat_parse_qs                  λ.Object
-	ϒcompat_str                       λ.Object
-	ϒcompat_urllib_parse_unquote      λ.Object
-	ϒcompat_urllib_parse_unquote_plus λ.Object
-	ϒcompat_urllib_parse_urlencode    λ.Object
-	ϒcompat_urllib_parse_urlparse     λ.Object
-	ϒcompat_xml_parse_error           λ.Object
-	ϒcompat_xpath                     λ.Object
+	ϒcompat_HTMLParseError         λ.Object
+	ϒcompat_HTMLParser             λ.Object
+	ϒcompat_b64decode              λ.Object
+	ϒcompat_basestring             λ.Object
+	ϒcompat_chr                    λ.Object
+	ϒcompat_cookiejar_Cookie       λ.Object
+	ϒcompat_cookies_SimpleCookie   λ.Object
+	ϒcompat_etree_Element          λ.Object
+	ϒcompat_etree_fromstring       λ.Object
+	ϒcompat_html_entities_html5    λ.Object
+	ϒcompat_http_client            λ.Object
+	ϒcompat_integer_types          λ.Object
+	ϒcompat_kwargs                 λ.Object
+	ϒcompat_numeric_types          λ.Object
+	ϒcompat_ord                    λ.Object
+	ϒcompat_parse_qs               λ.Object
+	ϒcompat_str                    λ.Object
+	ϒcompat_urllib_parse_unquote   λ.Object
+	ϒcompat_urllib_parse_urlencode λ.Object
+	ϒcompat_urllib_parse_urlparse  λ.Object
+	ϒcompat_xml_parse_error        λ.Object
+	ϒcompat_xpath                  λ.Object
 )
 
 func init() {
@@ -76,7 +75,6 @@ func init() {
 		ϒcompat_chr = λ.BuiltinChr
 		ϒcompat_urllib_parse_urlparse = Ωparse.ϒurlparse
 		ϒcompat_urllib_parse_unquote = Ωparse.ϒunquote
-		ϒcompat_urllib_parse_unquote_plus = Ωparse.ϒunquote_plus
 		ϒcompat_urllib_parse_urlencode = Ωparse.ϒurlencode
 		ϒcompat_cookiejar_Cookie = Ωcookiejar.Cookie
 		ϒcompat_cookies_SimpleCookie = Ωcookies.SimpleCookie

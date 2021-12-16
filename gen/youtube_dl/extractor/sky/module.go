@@ -197,13 +197,10 @@ func init() {
 		}())
 		SkySportsIE = λ.Cal(λ.TypeType, λ.StrLiteral("SkySportsIE"), λ.NewTuple(SkyBaseIE), func() λ.Dict {
 			var (
-				SkySportsIE_IE_NAME    λ.Object
 				SkySportsIE__VALID_URL λ.Object
 			)
-			SkySportsIE_IE_NAME = λ.StrLiteral("sky:sports")
 			SkySportsIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?skysports\\.com/watch/video/([^/]+/)*(?P<id>[0-9]+)")
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"IE_NAME":    SkySportsIE_IE_NAME,
 				"_VALID_URL": SkySportsIE__VALID_URL,
 			})
 		}())

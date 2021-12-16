@@ -310,38 +310,20 @@ func init() {
 		}())
 		SkyItAcademyIE = λ.Cal(λ.TypeType, λ.StrLiteral("SkyItAcademyIE"), λ.NewTuple(SkyItIE), func() λ.Dict {
 			var (
-				SkyItAcademyIE_IE_NAME         λ.Object
-				SkyItAcademyIE__DOMAIN         λ.Object
-				SkyItAcademyIE__VALID_URL      λ.Object
-				SkyItAcademyIE__VIDEO_ID_REGEX λ.Object
+				SkyItAcademyIE__VALID_URL λ.Object
 			)
-			SkyItAcademyIE_IE_NAME = λ.StrLiteral("skyacademy.it")
 			SkyItAcademyIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?skyacademy\\.it(?:/[^/]+)*/\\d{4}/\\d{2}/\\d{2}/(?P<id>[^/?&#]+)")
-			SkyItAcademyIE__DOMAIN = λ.StrLiteral("skyacademy")
-			SkyItAcademyIE__VIDEO_ID_REGEX = λ.StrLiteral("id=\"news-videoId_(\\d+)\"")
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"IE_NAME":         SkyItAcademyIE_IE_NAME,
-				"_DOMAIN":         SkyItAcademyIE__DOMAIN,
-				"_VALID_URL":      SkyItAcademyIE__VALID_URL,
-				"_VIDEO_ID_REGEX": SkyItAcademyIE__VIDEO_ID_REGEX,
+				"_VALID_URL": SkyItAcademyIE__VALID_URL,
 			})
 		}())
 		SkyItArteIE = λ.Cal(λ.TypeType, λ.StrLiteral("SkyItArteIE"), λ.NewTuple(SkyItIE), func() λ.Dict {
 			var (
-				SkyItArteIE_IE_NAME         λ.Object
-				SkyItArteIE__DOMAIN         λ.Object
-				SkyItArteIE__VALID_URL      λ.Object
-				SkyItArteIE__VIDEO_ID_REGEX λ.Object
+				SkyItArteIE__VALID_URL λ.Object
 			)
-			SkyItArteIE_IE_NAME = λ.StrLiteral("arte.sky.it")
 			SkyItArteIE__VALID_URL = λ.StrLiteral("https?://arte\\.sky\\.it/video/(?P<id>[^/?&#]+)")
-			SkyItArteIE__DOMAIN = λ.StrLiteral("skyarte")
-			SkyItArteIE__VIDEO_ID_REGEX = λ.StrLiteral("(?s)<iframe[^>]+src=\"(?:https:)?//player\\.sky\\.it/player/external\\.html\\?[^\"]*\\bid=(\\d+)")
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"IE_NAME":         SkyItArteIE_IE_NAME,
-				"_DOMAIN":         SkyItArteIE__DOMAIN,
-				"_VALID_URL":      SkyItArteIE__VALID_URL,
-				"_VIDEO_ID_REGEX": SkyItArteIE__VIDEO_ID_REGEX,
+				"_VALID_URL": SkyItArteIE__VALID_URL,
 			})
 		}())
 		CieloTVItIE = λ.Cal(λ.TypeType, λ.StrLiteral("CieloTVItIE"), λ.NewTuple(SkyItIE), func() λ.Dict {

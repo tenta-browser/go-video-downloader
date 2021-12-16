@@ -59,136 +59,16 @@ func init() {
 		ϒtry_get = Ωutils.ϒtry_get
 		ϒurljoin = Ωutils.ϒurljoin
 		NDRBaseIE = λ.Cal(λ.TypeType, λ.StrLiteral("NDRBaseIE"), λ.NewTuple(InfoExtractor), func() λ.Dict {
-			var (
-				NDRBaseIE__real_extract λ.Object
-			)
-			NDRBaseIE__real_extract = λ.NewFunction("_real_extract",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "url"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒdisplay_id λ.Object
-						ϒmobj       λ.Object
-						ϒself       = λargs[0]
-						ϒurl        = λargs[1]
-						ϒwebpage    λ.Object
-					)
-					ϒmobj = λ.Cal(Ωre.ϒmatch, λ.GetAttr(ϒself, "_VALID_URL", nil), ϒurl)
-					ϒdisplay_id = λ.Cal(λ.BuiltinNext, λ.Cal(λ.NewFunction("<generator>",
-						nil,
-						0, false, false,
-						func(λargs []λ.Object) λ.Object {
-							return λ.NewGenerator(func(λgy λ.Yielder) λ.Object {
-								var (
-									ϒgroup λ.Object
-									τmp0   λ.Object
-									τmp1   λ.Object
-								)
-								τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒmobj, "groups"))
-								for {
-									if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
-										break
-									}
-									ϒgroup = τmp1
-									if λ.IsTrue(ϒgroup) {
-										λgy.Yield(ϒgroup)
-									}
-								}
-								return λ.None
-							})
-						})))
-					ϒwebpage = λ.Calm(ϒself, "_download_webpage", ϒurl, ϒdisplay_id)
-					return λ.Calm(ϒself, "_extract_embed", ϒwebpage, ϒdisplay_id)
-				})
-			return λ.ClassDictLiteral(map[string]λ.Object{
-				"_real_extract": NDRBaseIE__real_extract,
-			})
+
+			return λ.ClassDictLiteral(map[λ.Object]λ.Object{})
 		}())
 		NDRIE = λ.Cal(λ.TypeType, λ.StrLiteral("NDRIE"), λ.NewTuple(NDRBaseIE), func() λ.Dict {
 			var (
-				NDRIE_IE_NAME        λ.Object
-				NDRIE__VALID_URL     λ.Object
-				NDRIE__extract_embed λ.Object
+				NDRIE__VALID_URL λ.Object
 			)
-			NDRIE_IE_NAME = λ.StrLiteral("ndr")
 			NDRIE__VALID_URL = λ.StrLiteral("https?://(?:www\\.)?ndr\\.de/(?:[^/]+/)*(?P<id>[^/?#]+),[\\da-z]+\\.html")
-			NDRIE__extract_embed = λ.NewFunction("_extract_embed",
-				[]λ.Param{
-					{Name: "self"},
-					{Name: "webpage"},
-					{Name: "display_id"},
-				},
-				0, false, false,
-				func(λargs []λ.Object) λ.Object {
-					var (
-						ϒdescription λ.Object
-						ϒdisplay_id  = λargs[2]
-						ϒembed_url   λ.Object
-						ϒinfo        λ.Object
-						ϒself        = λargs[0]
-						ϒtimestamp   λ.Object
-						ϒwebpage     = λargs[1]
-					)
-					ϒembed_url = func() λ.Object {
-						if λv := λ.Call(λ.GetAttr(ϒself, "_html_search_meta", nil), λ.NewArgs(
-							λ.StrLiteral("embedURL"),
-							ϒwebpage,
-							λ.StrLiteral("embed URL"),
-						), λ.KWArgs{
-							{Name: "default", Value: λ.None},
-						}); λ.IsTrue(λv) {
-							return λv
-						} else {
-							return λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-								λ.StrLiteral("\\bembedUrl[\"\\']\\s*:\\s*([\"\\'])(?P<url>(?:(?!\\1).)+)\\1"),
-								ϒwebpage,
-								λ.StrLiteral("embed URL"),
-							), λ.KWArgs{
-								{Name: "group", Value: λ.StrLiteral("url")},
-							})
-						}
-					}()
-					ϒdescription = func() λ.Object {
-						if λv := λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-							λ.StrLiteral("<p[^>]+itemprop=\"description\">([^<]+)</p>"),
-							ϒwebpage,
-							λ.StrLiteral("description"),
-						), λ.KWArgs{
-							{Name: "default", Value: λ.None},
-						}); λ.IsTrue(λv) {
-							return λv
-						} else {
-							return λ.Calm(ϒself, "_og_search_description", ϒwebpage)
-						}
-					}()
-					ϒtimestamp = λ.Cal(ϒparse_iso8601, λ.Call(λ.GetAttr(ϒself, "_search_regex", nil), λ.NewArgs(
-						λ.StrLiteral("<span[^>]+itemprop=\"(?:datePublished|uploadDate)\"[^>]+content=\"([^\"]+)\""),
-						ϒwebpage,
-						λ.StrLiteral("upload date"),
-					), λ.KWArgs{
-						{Name: "default", Value: λ.None},
-					}))
-					ϒinfo = λ.Call(λ.GetAttr(ϒself, "_search_json_ld", nil), λ.NewArgs(
-						ϒwebpage,
-						ϒdisplay_id,
-					), λ.KWArgs{
-						{Name: "default", Value: λ.DictLiteral(map[λ.Object]λ.Object{})},
-					})
-					return λ.Cal(ϒmerge_dicts, λ.DictLiteral(map[string]λ.Object{
-						"_type":       λ.StrLiteral("url_transparent"),
-						"url":         ϒembed_url,
-						"display_id":  ϒdisplay_id,
-						"description": ϒdescription,
-						"timestamp":   ϒtimestamp,
-					}), ϒinfo)
-				})
 			return λ.ClassDictLiteral(map[string]λ.Object{
-				"IE_NAME":        NDRIE_IE_NAME,
-				"_VALID_URL":     NDRIE__VALID_URL,
-				"_extract_embed": NDRIE__extract_embed,
+				"_VALID_URL": NDRIE__VALID_URL,
 			})
 		}())
 		NJoyIE = λ.Cal(λ.TypeType, λ.StrLiteral("NJoyIE"), λ.NewTuple(NDRBaseIE), func() λ.Dict {

@@ -39,52 +39,51 @@ import (
 )
 
 var (
-	ExtractorError                    λ.Object
-	InfoExtractor                     λ.Object
-	JSInterpreter                     λ.Object
-	SearchInfoExtractor               λ.Object
-	YoutubeBaseInfoExtractor          λ.Object
-	YoutubeFavouritesIE               λ.Object
-	YoutubeFeedsInfoExtractor         λ.Object
-	YoutubeHistoryIE                  λ.Object
-	YoutubeIE                         λ.Object
-	YoutubePlaylistIE                 λ.Object
-	YoutubeRecommendedIE              λ.Object
-	YoutubeSearchIE                   λ.Object
-	YoutubeSubscriptionsIE            λ.Object
-	YoutubeTabIE                      λ.Object
-	YoutubeTruncatedIDIE              λ.Object
-	YoutubeTruncatedURLIE             λ.Object
-	YoutubeWatchLaterIE               λ.Object
-	YoutubeYtBeIE                     λ.Object
-	YoutubeYtUserIE                   λ.Object
-	ϒclean_html                       λ.Object
-	ϒcompat_chr                       λ.Object
-	ϒcompat_parse_qs                  λ.Object
-	ϒcompat_str                       λ.Object
-	ϒcompat_urllib_parse_unquote_plus λ.Object
-	ϒcompat_urllib_parse_urlencode    λ.Object
-	ϒcompat_urllib_parse_urlparse     λ.Object
-	ϒdict_get                         λ.Object
-	ϒfloat_or_none                    λ.Object
-	ϒint_or_none                      λ.Object
-	ϒmimetype2ext                     λ.Object
-	ϒparse_codecs                     λ.Object
-	ϒparse_duration                   λ.Object
-	ϒparse_qs                         λ.Object
-	ϒqualities                        λ.Object
-	ϒremove_start                     λ.Object
-	ϒsmuggle_url                      λ.Object
-	ϒstr_or_none                      λ.Object
-	ϒstr_to_int                       λ.Object
-	ϒtry_get                          λ.Object
-	ϒunescapeHTML                     λ.Object
-	ϒunified_strdate                  λ.Object
-	ϒunsmuggle_url                    λ.Object
-	ϒupdate_url_query                 λ.Object
-	ϒurl_or_none                      λ.Object
-	ϒurlencode_postdata               λ.Object
-	ϒurljoin                          λ.Object
+	ExtractorError                 λ.Object
+	InfoExtractor                  λ.Object
+	JSInterpreter                  λ.Object
+	SearchInfoExtractor            λ.Object
+	YoutubeBaseInfoExtractor       λ.Object
+	YoutubeFavouritesIE            λ.Object
+	YoutubeFeedsInfoExtractor      λ.Object
+	YoutubeHistoryIE               λ.Object
+	YoutubeIE                      λ.Object
+	YoutubePlaylistIE              λ.Object
+	YoutubeRecommendedIE           λ.Object
+	YoutubeSearchIE                λ.Object
+	YoutubeSubscriptionsIE         λ.Object
+	YoutubeTabIE                   λ.Object
+	YoutubeTruncatedIDIE           λ.Object
+	YoutubeTruncatedURLIE          λ.Object
+	YoutubeWatchLaterIE            λ.Object
+	YoutubeYtBeIE                  λ.Object
+	YoutubeYtUserIE                λ.Object
+	ϒclean_html                    λ.Object
+	ϒcompat_chr                    λ.Object
+	ϒcompat_parse_qs               λ.Object
+	ϒcompat_str                    λ.Object
+	ϒcompat_urllib_parse_urlencode λ.Object
+	ϒcompat_urllib_parse_urlparse  λ.Object
+	ϒdict_get                      λ.Object
+	ϒfloat_or_none                 λ.Object
+	ϒint_or_none                   λ.Object
+	ϒmimetype2ext                  λ.Object
+	ϒparse_codecs                  λ.Object
+	ϒparse_duration                λ.Object
+	ϒparse_qs                      λ.Object
+	ϒqualities                     λ.Object
+	ϒremove_start                  λ.Object
+	ϒsmuggle_url                   λ.Object
+	ϒstr_or_none                   λ.Object
+	ϒstr_to_int                    λ.Object
+	ϒtry_get                       λ.Object
+	ϒunescapeHTML                  λ.Object
+	ϒunified_strdate               λ.Object
+	ϒunsmuggle_url                 λ.Object
+	ϒupdate_url_query              λ.Object
+	ϒurl_or_none                   λ.Object
+	ϒurlencode_postdata            λ.Object
+	ϒurljoin                       λ.Object
 )
 
 func init() {
@@ -94,7 +93,6 @@ func init() {
 		ϒcompat_chr = Ωcompat.ϒcompat_chr
 		ϒcompat_parse_qs = Ωcompat.ϒcompat_parse_qs
 		ϒcompat_str = Ωcompat.ϒcompat_str
-		ϒcompat_urllib_parse_unquote_plus = Ωcompat.ϒcompat_urllib_parse_unquote_plus
 		ϒcompat_urllib_parse_urlencode = Ωcompat.ϒcompat_urllib_parse_urlencode
 		ϒcompat_urllib_parse_urlparse = Ωcompat.ϒcompat_urllib_parse_urlparse
 		JSInterpreter = Ωjsinterp.JSInterpreter
@@ -698,7 +696,7 @@ func init() {
 				λ.StrLiteral("(?:www\\.)?invidious\\.13ad\\.de"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.mastodon\\.host"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.zapashcanon\\.fr"),
-				λ.StrLiteral("(?:www\\.)?invidious\\.kavin\\.rocks"),
+				λ.StrLiteral("(?:www\\.)?(?:invidious(?:-us)?|piped)\\.kavin\\.rocks"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.tinfoil-hat\\.net"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.himiko\\.cloud"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.reallyancient\\.tech"),
@@ -725,6 +723,14 @@ func init() {
 				λ.StrLiteral("(?:www\\.)?invidious\\.toot\\.koeln"),
 				λ.StrLiteral("(?:www\\.)?invidious\\.fdn\\.fr"),
 				λ.StrLiteral("(?:www\\.)?watch\\.nettohikari\\.com"),
+				λ.StrLiteral("(?:www\\.)?invidious\\.namazso\\.eu"),
+				λ.StrLiteral("(?:www\\.)?invidious\\.silkky\\.cloud"),
+				λ.StrLiteral("(?:www\\.)?invidious\\.exonip\\.de"),
+				λ.StrLiteral("(?:www\\.)?invidious\\.riverside\\.rocks"),
+				λ.StrLiteral("(?:www\\.)?invidious\\.blamefran\\.net"),
+				λ.StrLiteral("(?:www\\.)?invidious\\.moomoo\\.de"),
+				λ.StrLiteral("(?:www\\.)?ytb\\.trom\\.tf"),
+				λ.StrLiteral("(?:www\\.)?yt\\.cyberhost\\.uk"),
 				λ.StrLiteral("(?:www\\.)?kgg2m7yk5aybusll\\.onion"),
 				λ.StrLiteral("(?:www\\.)?qklhadlycap4cnod\\.onion"),
 				λ.StrLiteral("(?:www\\.)?axqzx4s6s54s32yentfqojs3x5i7faxza6xo3ehd4bzzsg2ii4fv2iid\\.onion"),
@@ -733,6 +739,10 @@ func init() {
 				λ.StrLiteral("(?:www\\.)?invidious\\.l4qlywnpwqsluw65ts7md3khrivpirse744un3x7mlskqauz5pyuzgqd\\.onion"),
 				λ.StrLiteral("(?:www\\.)?owxfohz4kjyv25fvlqilyxast7inivgiktls3th44jhk3ej3i7ya\\.b32\\.i2p"),
 				λ.StrLiteral("(?:www\\.)?4l2dgddgsrkf2ous66i6seeyi6etzfgrue332grh2n7madpwopotugyd\\.onion"),
+				λ.StrLiteral("(?:www\\.)?w6ijuptxiku4xpnnaetxvnkc5vqcdu7mgns2u77qefoixi63vbvnpnqd\\.onion"),
+				λ.StrLiteral("(?:www\\.)?kbjggqkzv65ivcqj6bumvp337z6264huv5kpkwuv6gu5yjiskvan7fad\\.onion"),
+				λ.StrLiteral("(?:www\\.)?grwp24hodrefzvjjuccrkw3mjq4tzhaaq32amf33dzpmuxe7ilepcmad\\.onion"),
+				λ.StrLiteral("(?:www\\.)?hpniueoejy4opn7bc4ftgazyqjoeqwlvh2uiku2xqku6zpoa4bf5ruid\\.onion"),
 			)
 			YoutubeIE__VALID_URL = λ.Mod(λ.StrLiteral("(?x)^\n                     (\n                         (?:https?://|//)                                    # http(s):// or protocol-independent URL\n                         (?:(?:(?:(?:\\w+\\.)?[yY][oO][uU][tT][uU][bB][eE](?:-nocookie|kids)?\\.com|\n                            (?:www\\.)?deturl\\.com/www\\.youtube\\.com|\n                            (?:www\\.)?pwnyoutube\\.com|\n                            (?:www\\.)?hooktube\\.com|\n                            (?:www\\.)?yourepeat\\.com|\n                            tube\\.majestyc\\.net|\n                            %(invidious)s|\n                            youtube\\.googleapis\\.com)/                        # the various hostnames, with wildcard subdomains\n                         (?:.*?\\#/)?                                          # handle anchor (#/) redirect urls\n                         (?:                                                  # the various things that can precede the ID:\n                             (?:(?:v|embed|e)/(?!videoseries))                # v/ or embed/ or e/\n                             |(?:                                             # or the v= param in all its forms\n                                 (?:(?:watch|movie)(?:_popup)?(?:\\.php)?/?)?  # preceding watch(_popup|.php) or nothing (like /?v=xxxx)\n                                 (?:\\?|\\#!?)                                  # the params delimiter ? or # or #!\n                                 (?:.*?[&;])??                                # any other preceding param (like /?s=tuff&v=xxxx or ?s=tuff&amp;v=V36LpHqtcDY)\n                                 v=\n                             )\n                         ))\n                         |(?:\n                            youtu\\.be|                                        # just youtu.be/xxxx\n                            vid\\.plus|                                        # or vid.plus/xxxx\n                            zwearz\\.com/watch|                                # or zwearz.com/watch/xxxx\n                            %(invidious)s\n                         )/\n                         |(?:www\\.)?cleanvideosearch\\.com/media/action/yt/watch\\?videoId=\n                         )\n                     )?                                                       # all until now is optional -> you can pass the naked ID\n                     (?P<id>[0-9A-Za-z_-]{11})                                # here is it! the YouTube video ID\n                     #(?(1).+)?                                                # if we found the ID, everything can follow\n                     "), λ.DictLiteral(map[string]λ.Object{
 				"invidious": λ.Calm(λ.StrLiteral("|"), "join", YoutubeIE__INVIDIOUS_SITES),
@@ -973,10 +983,10 @@ func init() {
 						λ.NewTuple(
 							λ.StrLiteral("\\b[cs]\\s*&&\\s*[adf]\\.set\\([^,]+\\s*,\\s*encodeURIComponent\\s*\\(\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
 							λ.StrLiteral("\\b[a-zA-Z0-9]+\\s*&&\\s*[a-zA-Z0-9]+\\.set\\([^,]+\\s*,\\s*encodeURIComponent\\s*\\(\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
-							λ.StrLiteral("\\bm=(?P<sig>[a-zA-Z0-9$]{2})\\(decodeURIComponent\\(h\\.s\\)\\)"),
-							λ.StrLiteral("\\bc&&\\(c=(?P<sig>[a-zA-Z0-9$]{2})\\(decodeURIComponent\\(c\\)\\)"),
-							λ.StrLiteral("(?:\\b|[^a-zA-Z0-9$])(?P<sig>[a-zA-Z0-9$]{2})\\s*=\\s*function\\(\\s*a\\s*\\)\\s*{\\s*a\\s*=\\s*a\\.split\\(\\s*\"\"\\s*\\);[a-zA-Z0-9$]{2}\\.[a-zA-Z0-9$]{2}\\(a,\\d+\\)"),
-							λ.StrLiteral("(?:\\b|[^a-zA-Z0-9$])(?P<sig>[a-zA-Z0-9$]{2})\\s*=\\s*function\\(\\s*a\\s*\\)\\s*{\\s*a\\s*=\\s*a\\.split\\(\\s*\"\"\\s*\\)"),
+							λ.StrLiteral("\\bm=(?P<sig>[a-zA-Z0-9$]{2,})\\(decodeURIComponent\\(h\\.s\\)\\)"),
+							λ.StrLiteral("\\bc&&\\(c=(?P<sig>[a-zA-Z0-9$]{2,})\\(decodeURIComponent\\(c\\)\\)"),
+							λ.StrLiteral("(?:\\b|[^a-zA-Z0-9$])(?P<sig>[a-zA-Z0-9$]{2,})\\s*=\\s*function\\(\\s*a\\s*\\)\\s*{\\s*a\\s*=\\s*a\\.split\\(\\s*\"\"\\s*\\);[a-zA-Z0-9$]{2}\\.[a-zA-Z0-9$]{2}\\(a,\\d+\\)"),
+							λ.StrLiteral("(?:\\b|[^a-zA-Z0-9$])(?P<sig>[a-zA-Z0-9$]{2,})\\s*=\\s*function\\(\\s*a\\s*\\)\\s*{\\s*a\\s*=\\s*a\\.split\\(\\s*\"\"\\s*\\)"),
 							λ.StrLiteral("(?P<sig>[a-zA-Z0-9$]+)\\s*=\\s*function\\(\\s*a\\s*\\)\\s*{\\s*a\\s*=\\s*a\\.split\\(\\s*\"\"\\s*\\)"),
 							λ.StrLiteral("([\"\\'])signature\\1\\s*,\\s*(?P<sig>[a-zA-Z0-9$]+)\\("),
 							λ.StrLiteral("\\.sig\\|\\|(?P<sig>[a-zA-Z0-9$]+)\\("),
@@ -1408,6 +1418,7 @@ func init() {
 						ϒvideo_description         λ.Object
 						ϒvideo_details             λ.Object
 						ϒvideo_id                  λ.Object
+						ϒvideo_info                λ.Object
 						ϒvideo_title               λ.Object
 						ϒvpir                      λ.Object
 						ϒvsir                      λ.Object
@@ -1451,37 +1462,53 @@ func init() {
 						}
 					}()
 					if λ.IsTrue(λ.Eq(λ.Calm(ϒplayability_status, "get", λ.StrLiteral("reason")), λ.StrLiteral("Sign in to confirm your age"))) {
-						ϒpr = λ.Calm(ϒself, "_parse_json", func() λ.Object {
-							if λv := λ.Cal(ϒtry_get, λ.Cal(ϒcompat_parse_qs, λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
-								λ.Add(ϒbase_url, λ.StrLiteral("get_video_info")),
+						ϒvideo_info = λ.Call(λ.GetAttr(ϒself, "_download_webpage", nil), λ.NewArgs(
+							λ.Add(ϒbase_url, λ.StrLiteral("get_video_info")),
+							ϒvideo_id,
+							λ.StrLiteral("Refetching age-gated info webpage"),
+							λ.StrLiteral("unable to download video info webpage"),
+						), λ.KWArgs{
+							{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
+								"video_id": ϒvideo_id,
+								"eurl":     λ.Add(λ.StrLiteral("https://youtube.googleapis.com/v/"), ϒvideo_id),
+								"html5":    λ.IntLiteral(1),
+								"c":        λ.StrLiteral("TVHTML5"),
+								"cver":     λ.StrLiteral("6.20180913"),
+							})},
+							{Name: "fatal", Value: λ.False},
+						})
+						if λ.IsTrue(ϒvideo_info) {
+							ϒpr = λ.Call(λ.GetAttr(ϒself, "_parse_json", nil), λ.NewArgs(
+								func() λ.Object {
+									if λv := λ.Cal(ϒtry_get, λ.Cal(ϒcompat_parse_qs, ϒvideo_info), λ.NewFunction("<lambda>",
+										[]λ.Param{
+											{Name: "x"},
+										},
+										0, false, false,
+										func(λargs []λ.Object) λ.Object {
+											var (
+												ϒx = λargs[0]
+											)
+											return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("player_response")), λ.IntLiteral(0))
+										}), ϒcompat_str); λ.IsTrue(λv) {
+										return λv
+									} else {
+										return λ.StrLiteral("{}")
+									}
+								}(),
 								ϒvideo_id,
-								λ.StrLiteral("Refetching age-gated info webpage"),
-								λ.StrLiteral("unable to download video info webpage"),
 							), λ.KWArgs{
-								{Name: "query", Value: λ.DictLiteral(map[string]λ.Object{
-									"video_id": ϒvideo_id,
-									"eurl":     λ.Add(λ.StrLiteral("https://youtube.googleapis.com/v/"), ϒvideo_id),
-									"html5":    λ.IntLiteral(1),
-								})},
 								{Name: "fatal", Value: λ.False},
-							})), λ.NewFunction("<lambda>",
-								[]λ.Param{
-									{Name: "x"},
-								},
-								0, false, false,
-								func(λargs []λ.Object) λ.Object {
-									var (
-										ϒx = λargs[0]
-									)
-									return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("player_response")), λ.IntLiteral(0))
-								}), ϒcompat_str); λ.IsTrue(λv) {
-								return λv
-							} else {
-								return λ.StrLiteral("{}")
+							})
+							if λ.IsTrue(func() λ.Object {
+								if λv := ϒpr; !λ.IsTrue(λv) {
+									return λv
+								} else {
+									return λ.Cal(λ.BuiltinIsInstance, ϒpr, λ.DictType)
+								}
+							}()) {
+								ϒplayer_response = ϒpr
 							}
-						}(), ϒvideo_id)
-						if λ.IsTrue(ϒpr) {
-							ϒplayer_response = ϒpr
 						}
 					}
 					ϒtrailer_video_id = λ.Cal(ϒtry_get, ϒplayability_status, λ.NewFunction("<lambda>",
@@ -1643,7 +1670,7 @@ func init() {
 										break
 									}
 									ϒfeed = τmp1
-									ϒfeed_data = λ.Cal(ϒcompat_parse_qs, λ.Cal(ϒcompat_urllib_parse_unquote_plus, ϒfeed))
+									ϒfeed_data = λ.Cal(ϒcompat_parse_qs, λ.Cal(λ.None, ϒfeed))
 									ϒfeed_entry = λ.NewFunction("feed_entry",
 										[]λ.Param{
 											{Name: "name"},

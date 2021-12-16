@@ -54,7 +54,6 @@ import (
 	Ωkaltura "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/kaltura"
 	Ωkinja "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/kinja"
 	Ωlimelight "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/limelight"
-	Ωliveleak "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/liveleak"
 	Ωmedialaan "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/medialaan"
 	Ωmediaset "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/mediaset"
 	Ωmegaphone "github.com/tenta-browser/go-video-downloader/gen/youtube_dl/extractor/megaphone"
@@ -144,7 +143,6 @@ var (
 	KalturaIE                    λ.Object
 	KinjaEmbedIE                 λ.Object
 	LimelightBaseIE              λ.Object
-	LiveLeakIE                   λ.Object
 	MTVServicesEmbeddedIE        λ.Object
 	MedialaanIE                  λ.Object
 	MediasetIE                   λ.Object
@@ -289,7 +287,6 @@ func init() {
 		DigitekaIE = Ωdigiteka.DigitekaIE
 		ArkenaIE = Ωarkena.ArkenaIE
 		InstagramIE = Ωinstagram.InstagramIE
-		LiveLeakIE = Ωliveleak.LiveLeakIE
 		ThreeQSDNIE = Ωthreeqsdn.ThreeQSDNIE
 		ThePlatformIE = Ωtheplatform.ThePlatformIE
 		KalturaIE = Ωkaltura.KalturaIE

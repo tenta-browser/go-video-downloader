@@ -235,20 +235,25 @@ func init() {
 						λ.Calm(ϒformats, "append", ϒf)
 					}
 					λ.Calm(ϒself, "_sort_formats", ϒformats)
-					ϒfull_description = λ.Call(λ.GetAttr(ϒself, "_call_api", nil), λ.NewArgs(
-						ϒhost,
-						ϒvideo_id,
-						λ.StrLiteral("description"),
-					), λ.KWArgs{
-						{Name: "note", Value: λ.StrLiteral("Downloading description JSON")},
-						{Name: "fatal", Value: λ.False},
-					})
-					ϒdescription = λ.None
-					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒfull_description, λ.DictType)) {
-						ϒdescription = λ.Cal(ϒstr_or_none, λ.Calm(ϒfull_description, "get", λ.StrLiteral("description")))
-					}
-					if !λ.IsTrue(ϒdescription) {
-						ϒdescription = λ.Calm(ϒvideo, "get", λ.StrLiteral("description"))
+					ϒdescription = λ.Calm(ϒvideo, "get", λ.StrLiteral("description"))
+					if λ.IsTrue(λ.Ge(λ.Cal(λ.BuiltinLen, ϒdescription), λ.IntLiteral(250))) {
+						ϒfull_description = λ.Call(λ.GetAttr(ϒself, "_call_api", nil), λ.NewArgs(
+							ϒhost,
+							ϒvideo_id,
+							λ.StrLiteral("description"),
+						), λ.KWArgs{
+							{Name: "note", Value: λ.StrLiteral("Downloading description JSON")},
+							{Name: "fatal", Value: λ.False},
+						})
+						if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒfull_description, λ.DictType)) {
+							ϒdescription = func() λ.Object {
+								if λv := λ.Cal(ϒstr_or_none, λ.Calm(ϒfull_description, "get", λ.StrLiteral("description"))); λ.IsTrue(λv) {
+									return λv
+								} else {
+									return ϒdescription
+								}
+							}()
+						}
 					}
 					ϒsubtitles = λ.Calm(ϒself, "extract_subtitles", ϒhost, ϒvideo_id)
 					ϒdata = λ.NewFunction("data",

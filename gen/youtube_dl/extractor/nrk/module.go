@@ -97,7 +97,7 @@ func init() {
 						ϒvideo_id = λargs[2]
 					)
 					return λ.Call(λ.GetAttr(ϒself, "_download_json", nil), λ.NewArgs(
-						λ.Cal(ϒurljoin, λ.StrLiteral("http://psapi.nrk.no/"), ϒpath),
+						λ.Cal(ϒurljoin, λ.StrLiteral("https://psapi.nrk.no/"), ϒpath),
 						ϒvideo_id,
 						func() λ.Object {
 							if λv := ϒnote; λ.IsTrue(λv) {

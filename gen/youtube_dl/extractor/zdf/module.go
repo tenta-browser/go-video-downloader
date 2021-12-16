@@ -444,6 +444,7 @@ func init() {
 			var (
 				ZDFIE__VALID_URL       λ.Object
 				ZDFIE__extract_entry   λ.Object
+				ZDFIE__extract_mobile  λ.Object
 				ZDFIE__extract_regular λ.Object
 				ZDFIE__real_extract    λ.Object
 			)
@@ -563,6 +564,106 @@ func init() {
 					ϒcontent = λ.Calm(ϒself, "_call_api", λ.GetItem(ϒplayer, λ.StrLiteral("content")), ϒvideo_id, λ.StrLiteral("content"), λ.GetItem(ϒplayer, λ.StrLiteral("apiToken")), ϒurl)
 					return λ.Calm(ϒself, "_extract_entry", λ.GetItem(ϒplayer, λ.StrLiteral("content")), ϒplayer, ϒcontent, ϒvideo_id)
 				})
+			ZDFIE__extract_mobile = λ.NewFunction("_extract_mobile",
+				[]λ.Param{
+					{Name: "self"},
+					{Name: "video_id"},
+				},
+				0, false, false,
+				func(λargs []λ.Object) λ.Object {
+					var (
+						ϒcontent_id    λ.Object
+						ϒdocument      λ.Object
+						ϒf             λ.Object
+						ϒformat_urls   λ.Object
+						ϒformats       λ.Object
+						ϒself          = λargs[0]
+						ϒteaser_bild   λ.Object
+						ϒthumbnail     λ.Object
+						ϒthumbnail_key λ.Object
+						ϒthumbnail_url λ.Object
+						ϒthumbnails    λ.Object
+						ϒtitle         λ.Object
+						ϒvideo         λ.Object
+						ϒvideo_id      = λargs[1]
+						τmp0           λ.Object
+						τmp1           λ.Object
+						τmp2           λ.Object
+					)
+					ϒvideo = λ.Calm(ϒself, "_download_json", λ.Mod(λ.StrLiteral("https://zdf-cdn.live.cellular.de/mediathekV2/document/%s"), ϒvideo_id), ϒvideo_id)
+					ϒdocument = λ.GetItem(ϒvideo, λ.StrLiteral("document"))
+					ϒtitle = λ.GetItem(ϒdocument, λ.StrLiteral("titel"))
+					ϒcontent_id = λ.GetItem(ϒdocument, λ.StrLiteral("basename"))
+					ϒformats = λ.NewList()
+					ϒformat_urls = λ.Cal(λ.SetType)
+					τmp0 = λ.Cal(λ.BuiltinIter, λ.GetItem(ϒdocument, λ.StrLiteral("formitaeten")))
+					for {
+						if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+							break
+						}
+						ϒf = τmp1
+						λ.Calm(ϒself, "_extract_format", ϒcontent_id, ϒformats, ϒformat_urls, ϒf)
+					}
+					λ.Calm(ϒself, "_sort_formats", ϒformats)
+					ϒthumbnails = λ.NewList()
+					ϒteaser_bild = λ.Calm(ϒdocument, "get", λ.StrLiteral("teaserBild"))
+					if λ.IsTrue(λ.Cal(λ.BuiltinIsInstance, ϒteaser_bild, λ.DictType)) {
+						τmp0 = λ.Cal(λ.BuiltinIter, λ.Calm(ϒteaser_bild, "items"))
+						for {
+							if τmp1 = λ.NextDefault(τmp0, λ.AfterLast); τmp1 == λ.AfterLast {
+								break
+							}
+							τmp2 = λ.UnpackIterable(τmp1, 2)
+							ϒthumbnail_key = λ.GetItem(τmp2, λ.IntLiteral(0))
+							ϒthumbnail = λ.GetItem(τmp2, λ.IntLiteral(1))
+							ϒthumbnail_url = λ.Cal(ϒtry_get, ϒthumbnail, λ.NewFunction("<lambda>",
+								[]λ.Param{
+									{Name: "x"},
+								},
+								0, false, false,
+								func(λargs []λ.Object) λ.Object {
+									var (
+										ϒx = λargs[0]
+									)
+									return λ.GetItem(ϒx, λ.StrLiteral("url"))
+								}), ϒcompat_str)
+							if λ.IsTrue(ϒthumbnail_url) {
+								λ.Calm(ϒthumbnails, "append", λ.DictLiteral(map[string]λ.Object{
+									"url":    ϒthumbnail_url,
+									"id":     ϒthumbnail_key,
+									"width":  λ.Cal(ϒint_or_none, λ.Calm(ϒthumbnail, "get", λ.StrLiteral("width"))),
+									"height": λ.Cal(ϒint_or_none, λ.Calm(ϒthumbnail, "get", λ.StrLiteral("height"))),
+								}))
+							}
+						}
+					}
+					return λ.DictLiteral(map[string]λ.Object{
+						"id":          ϒcontent_id,
+						"title":       ϒtitle,
+						"description": λ.Calm(ϒdocument, "get", λ.StrLiteral("beschreibung")),
+						"duration":    λ.Cal(ϒint_or_none, λ.Calm(ϒdocument, "get", λ.StrLiteral("length"))),
+						"timestamp": func() λ.Object {
+							if λv := λ.Cal(ϒunified_timestamp, λ.Calm(ϒdocument, "get", λ.StrLiteral("date"))); λ.IsTrue(λv) {
+								return λv
+							} else {
+								return λ.Cal(ϒunified_timestamp, λ.Cal(ϒtry_get, ϒvideo, λ.NewFunction("<lambda>",
+									[]λ.Param{
+										{Name: "x"},
+									},
+									0, false, false,
+									func(λargs []λ.Object) λ.Object {
+										var (
+											ϒx = λargs[0]
+										)
+										return λ.GetItem(λ.GetItem(ϒx, λ.StrLiteral("meta")), λ.StrLiteral("editorialDate"))
+									}), ϒcompat_str))
+							}
+						}(),
+						"thumbnails": ϒthumbnails,
+						"subtitles":  λ.Calm(ϒself, "_extract_subtitles", ϒdocument),
+						"formats":    ϒformats,
+					})
+				})
 			ZDFIE__real_extract = λ.NewFunction("_real_extract",
 				[]λ.Param{
 					{Name: "self"},
@@ -600,6 +701,7 @@ func init() {
 			return λ.ClassDictLiteral(map[string]λ.Object{
 				"_VALID_URL":       ZDFIE__VALID_URL,
 				"_extract_entry":   ZDFIE__extract_entry,
+				"_extract_mobile":  ZDFIE__extract_mobile,
 				"_extract_regular": ZDFIE__extract_regular,
 				"_real_extract":    ZDFIE__real_extract,
 			})
